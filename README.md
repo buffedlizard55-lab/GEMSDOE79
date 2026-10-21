@@ -19,9 +19,10 @@ range hazard; **local format validity is not organizer acceptance**. The earlier
 portal rejection cannot be diagnosed without the rejected file and server
 receipt.
 
-### Session re-verification, 2026-10-21 (this branch)
+### Concurrent session re-verification and post-stop diagnostic, 2026-10-21
 
-Re-checked line by line from official pages and bytes; see
+Re-checked line by line from official pages, restored bytes, and the post-stop
+diagnostic on `arena/70519113-gemsdoe79`; see
 [`evidence/session_verification_2026-10-21.json`](evidence/session_verification_2026-10-21.json),
 [`evidence/post_stop_diagnostic.json`](evidence/post_stop_diagnostic.json),
 and irregularities IR-79-22 to IR-79-29 in [`reports/irregularities.md`](reports/irregularities.md).
@@ -74,6 +75,28 @@ no final dots, no E2/E3, no canary clearance, no HOLDOUT-DTI or CI, no slot used
 Null scores in the run card mean **not measured**, never zero or a projection.
 Only the already-computed rejected surface was serialized as negative-result
 evidence. No human inspector is needed to reach the **DO NOT SUBMIT** decision.
+
+## Latest repository review — no new scientific experiment
+
+The follow-up review on `arena/79f9140a-gemsdoe79` independently restored **one**
+frozen registry witness and re-measured it with the unchanged shared tool.
+Its Git blob, SHA-256, grid and every certificate measurement match the original:
+zero allowed cells escape its positive-support halo. This confirms the stop;
+it does **not** create a new, protocol-unique submission or repeat the historical
+992-file restoration. The existing TIFF and scientific run card remain unchanged.
+
+- [Three-pass review and limitations](reports/session_review_79f9140a.md)
+- [Actual witness re-measurement](evidence/session_witness_review.json)
+- `scripts/submission_status.py` now emits a JSON **negative** verdict (exit 2)
+  even for missing/corrupt files or malformed run cards; no stale PASS is reused.
+- For an offline witness re-check, run
+  `.venv/bin/python scripts/verify_overlap_witness.py`. On a fresh checkout add
+  `--restore` to fetch just the immutable rejection witness from GitHub. This
+  command never performs placement, scoring, slot selection or upload.
+
+The full original prompt remains below. Its instruction to stop on duplicates
+prevents delivering its conflicting request for a promotable unique TIFF under
+the current literal registry rule. No unauthorized dense-raster exemption is used.
 
 ## Concurrent upstream work integrated
 
