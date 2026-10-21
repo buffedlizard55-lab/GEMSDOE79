@@ -1,0 +1,31 @@
+# Irregularities and disposition
+
+All entries are dated 2026-10-21. No entry authorizes a threshold exemption.
+
+| ID | Finding and evidence | Resolution / remaining limitation |
+|---|---|---|
+| IR-79-01 | Initial repository contained only an 11-byte README. The prompt's claims of an existing GPU train→infer pipeline and “only data placement” blocker do not describe this checkout. | Built auditable infrastructure; did not pretend to continue nonexistent local training. Restored real pinned mirror data autonomously. |
+| IR-79-02 | The referenced single method paragraph is absent. | Declared one narrow fabric-offset lane, documented before implementation. No claim it was assigned; no second lane tested. |
+| IR-79-03 | Initial local orchestration checked only surface rank correlation, deferring overlap to final dots. Shared template requires literal positive-support overlap before placement too. | Stopped the rank-only process before any canary, holdout or placement. Discarded the incomplete scan. Replaced local gate implementation with a thin adapter to unmodified shared `gems57.uniqueness`. Original preregistration preserved; correction recorded in `registry/protocol_clarification.json`. No shared code changed, so no upstream patch was needed. |
+| IR-79-04 | The hash-verified prior `17GEMSDOE_E-proba-multiscale…tif` is positive on all 5,167,373 footprint cells and its 3 px halo leaves zero allowed cells uncovered. | Shared certificate and actual pre-/post-export comparisons establish overlap 1.0 > 0.70. Logged duplicate and stopped the scientific run. No dense, lattice, low-score or withdrawn-file exemption; no jitter to evade the gate. Every nonempty candidate fails this witness under the literal definition. |
+| IR-79-05 | The provided H33 0.2778 score lacks a submission-page receipt linked to a filename/hash. The official leaderboard observation does not prove artifact identity. | Keep score as unverified historical report. No `ORGANIZER-CONFIRMED` artifact score exists here. The old 0.3195 “highest” statement is inconsistent with the official public leader observation of 0.4413. |
+| IR-79-06 | Public GitHub mirror hashes verify consistency, not independent organizer origin or redistribution permission for every derivative. | Label mirrored input provenance precisely. No new external observations or source measurements were synthesized; no private test labels were fetched. Official licensing is recorded where read. |
+| IR-79-07 | Template receipts refer to a 54-channel `.npy` stack whose byte source is not portable. | Reused the existing cached 19-band numerical feature GeoTIFF directly; did not rebuild or claim restoration of the 54-channel stack. This compatibility choice is disclosed. |
+| IR-79-08 | Literal duplicate stop precedes scientific validation. | Canaries, HOLDOUT-DTI/CI and final dots are explicitly NOT RUN/NOT GENERATED, not zeros or guessed values. The untrusted surface is retained only as negative-result evidence. No “current holdout best beaten” claim. |
+| IR-79-09 | Legacy site says nodata/sentinel caused the portal range error without providing the rejected file/server receipt. | Do not repeat an unproven diagnosis. Shared writer rejects all NaN/Inf, negative sentinels and values outside [0,1], then independently reopens TIFF and ZIP. Format validity is not upload approval. |
+| IR-79-10 | Historical registry excluded some large unscored rasters; new predictions can appear in parallel. | Union historical index with fresh accessible owner default-branch trees, with no size/density exclusion. Restored 992 immutable blobs from 92 repository scopes. One decisive witness was compared after correction; no full-comparison clearance or universal external inventory is claimed. |
+| IR-79-11 | Official submission/data pages redirect to login. Account remaining weekly capacity, participant eligibility and selected final submission are not observable. | No login bypass, credential request, slot selection or upload. Rules PDF specifies up to three weekly submissions, not this account's remaining capacity. |
+| IR-79-12 | The problem asks for geological faults, not proof of vents or a producing geothermal reservoir. | Source ledger and site explicitly distinguish structural favorability from temperature, permeability and economic viability. |
+| IR-79-13 | Cached band descriptions and sibling labels conflict for some unused bands (for example band 6 `tc` is described as tilt/curvature in the mirrored metadata while sibling cache labels call it total count). | Use only explicitly identified RTP (2) and isostatic gravity anomaly (13) in E1; do not resolve unused-band semantics by guessing. Preserve source limitations. |
+
+| IR-79-14 | Direct anonymous source-health requests to the six monitored non-GitHub URLs failed with SSL/network errors in this sandbox. | Preserve failed states and dated browser observations; never convert a failed fetch into current claim verification. Scheduled GitHub-hosted requests will record their own actual outcomes. |
+| IR-79-15 | Pages settings update to workflow mode returned HTTP 403, resource not accessible by integration. | Preserve existing legacy main/root configuration and support it with a root redirect/.nojekyll. A separate Actions deployment attempt and actual outcome are recorded in release verification; no settings success is fabricated. |
+| IR-79-16 | Re-running the original discovery/index or restoration scripts could overwrite the frozen registry/restoration receipts. | Guard fresh indexing after E1 exists; add exact frozen-registry restoration and preserve-receipt input mode. Tested 992/992 cached byte pins and all five input pins without rewriting scientific receipts. |
+| IR-79-17 | Available external radiometrics are labelled uint8 derivatives, not independently authenticated calibrated USGS values. | Record exact file/bands and rank-only scope for the untested third hypothesis; no units, concentrations or original binary acquisition claim. E1 does not use them. |
+
+## Outcome
+
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A newly computed, byte-distinct
+GeoTIFF is available. It is **not protocol-unique** and is not a validated
+competition candidate. This verdict is automated, not deferred to a human
+inspector. Negative results and the impossible-gate certificate are deliverables.
