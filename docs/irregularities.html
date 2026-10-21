@@ -92,6 +92,38 @@
 <p>| IR-79-19 | Later concurrent PRs #5–#6 (<code>c26efec</code>) advertised H79-MCT as promotable despite its own audit recording 1.0 literal overlap / 43 firings. Its shared module was locally amended to exempt dense-halo priors and its card records post-duplicate placement amendment A1. | Do not adopt either unauthorized bypass or switch lanes. Preserve incoming code as non-executable historical text and evidence/artifact bytes in <code>archive/h79_mct_c26efec</code>; keep the modified shared module in Git history only, restore the original pinned canonical bytes, retire its active download URLs, and make all active status aliases negative. No H79-MCT science was rerun and E1 pins remain unchanged. |
 | IR-79-20 | Incoming H79-MCT audit reports 808 checked / 812 expected with four errors but <code>complete_accessible_scan=true</code>; inherited fields label historical scores organizer-confirmed without file-linked receipts. | Preserve raw historical JSON with an explicit non-authoritative archive warning. Do not import its completeness/receipt/approval claims into the active 992-byte-pin inventory or E1 results. Current source/status APIs retain their own conservative evidence classes. |</p>
 <p>| IR-79-21 | The first Pages deployment action succeeded, but its immediate public consistency check failed. A subsequent cache-busted research fetch confirmed the correct negative manifest/status and fresh 22:56:07 UTC feed. The original error detail is unavailable through the sandbox's allowed log-download hosts, so the exact initial failure cause is not asserted. | Keep all hash/status/exact-feed assertions; add cache-bypassed GETs, bounded publication-readiness retries, failure annotations, and a success annotation containing the actual public hashes/feed counts. Pin Ubuntu 24.04 to avoid the observed migrating <code>ubuntu-latest</code> alias. Re-run real GitHub checks and public verification; report observed outcomes in the release comments, not a guessed cause. |</p>
+<p>Session 2026-10-21 re-verification (branch <code>arena/c39eea47-gemsdoe79</code>):</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-22</td>
+<td>The official data page says the sample submission “predicts total fault absence”. Its bytes contain 60,988 cells equal to 1 inside the footprint, and those cells equal the positive cells of <code>existing_faults.tif</code> exactly (RM-3 in <code>evidence/session_verification_2026-10-21.json</code>).</td>
+<td>Treat the sample as a format template only; do not read its values as an absence prediction. Flag for organizer clarification via the forum.</td>
+</tr>
+<tr>
+<td>IR-79-23</td>
+<td>The prompt's “0.3195 highest” figure does not appear on the public leaderboard read on 2026-10-21. Rank 21 = 0.3261 and rank 22 = 0.3183; the leader is 0.4413 (PO-1).</td>
+<td>Keep 0.3195 as an unverified user-reported figure. Public leaderboard values are PUBLIC-OBSERVATION, not ORGANIZER-CONFIRMED artifact scores.</td>
+</tr>
+<tr>
+<td>IR-79-24</td>
+<td>The duplicate gate is ill-defined for continuous rasters. The literal rule (“every finite positive cell is a dot”) makes the 17GEMSDOE E-proba raster cover 100% of the footprint, which forces overlap = 1.0 for any candidate. The arithmetic was re-verified from the GitHub commit <code>6fc71d19…</code> (sha256 <code>ab0a0a62…</code>).</td>
+<td>Decision D-1 in the evidence file. The agent did not redefine the gate. Options: keep literal, top-K = 37,654 dots, or p ≥ 0.5. Needs the protocol owner to choose, then a full registry rerun under that definition.</td>
+</tr>
+<tr>
+<td>IR-79-25</td>
+<td>The current downloadable GeoTIFF has finite zeros on all 7,111,787 cells that the official sample leaves NaN (outside the 5,167,373-cell footprint). The official text permits NaN outside the bounds, and zeros inside the bounds are not prohibited, but the format is not identical to the sample. The E1 surface also places probability mass on 1,882,872 cells (sum p = 76,273.67), so its FP term is structurally large.</td>
+<td>Not measured as a score. Matching the sample's NaN pattern is a possible format change for a future candidate only. Mass structure is recorded as RM-2.</td>
+</tr>
+</tbody>
+</table>
 <h3>Outcome</h3>
 <p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A newly computed, byte-distinct
 GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated

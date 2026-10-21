@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "session_branch": "arena/c39eea47-gemsdoe79",
+  "verified_utc": "2026-10-21",
+  "purpose": "Independent line-by-line re-verification of the submission format, the duplicate gate's arithmetic, the public leaderboard and the prompt's reported scores. Every number below is a measurement or a quoted official statement with its source; nothing here is a DTI score.",
+  "evidence_classes": {
+    "OFFICIAL-SOURCE": "Quoted from a DrivenData competition page read in this session.",
+    "PUBLIC-OBSERVATION": "Read from the public leaderboard page; not an artifact-linked receipt.",
+    "RASTER-MEASUREMENT": "Computed from bytes with rasterio/numpy in this session.",
+    "HOLDOUT-DTI": "Not measured in this session. No DTI value is reported.",
+    "ORGANIZER-CONFIRMED": "Not claimed. No submission-page receipt exists for any artifact here."
+  },
+  "official_claims": [
+    {
+      "id": "OFF-1",
+      "class": "OFFICIAL-SOURCE",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "quote": "a single-layer with datatype of 32-bit float (float32) with values between 0 and 1",
+      "meaning": "Format rule for the submitted GeoTIFF."
+    },
+    {
+      "id": "OFF-2",
+      "class": "OFFICIAL-SOURCE",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "quote": "Your submission has the same bounds as the training data, and data outside the bounds is null or nan.",
+      "meaning": "NaN outside the grid bounds is allowed. Zeros inside the bounds are not prohibited by this sentence."
+    },
+    {
+      "id": "OFF-3",
+      "class": "OFFICIAL-SOURCE",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "quote_type": "paraphrase of the formula on the page (rendered with symbols); not a verbatim quote",
+      "quote": "DTI = TPw / (TPw + alpha*FPw + beta*FNw + epsilon), alpha = 0.2, beta = 0.8, kernel radius R = 300 m (3 px at 100 m)",
+      "meaning": "Metric. FPw sums p(x) over every cell with p(x) > 0 that is not within the kernel of truth, so probability mass far from truth is penalised directly."
+    },
+    {
+      "id": "OFF-4",
+      "class": "OFFICIAL-SOURCE",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "quote": "A sample submission that predicts total fault absence is provided for your reference on the data download page.",
+      "meaning": "The page says the sample predicts total absence. The sample's bytes do not match this text (see RM-3)."
+    },
+    {
+      "id": "OFF-5",
+      "class": "OFFICIAL-SOURCE",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+      "quote_type": "condensed summary of the page's prize table, not verbatim",
+      "quote": "Initial Prize Round $50,000 (private set); Final Prize Round $250,000 (expanded set); competition end Dec. 3, 2026, 11:59 p.m. UTC (url above, homepage)",
+      "meaning": "Two-round scoring. The same submission is scored against a private set and later against an expanded label set."
+    }
+  ],
+  "public_observations": [
+    {
+      "id": "PO-1",
+      "class": "PUBLIC-OBSERVATION",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "observed_utc": "2026-10-21",
+      "rows": [
+        {"rank": 1, "participant": "xiaofanhu", "best_public_dw_tversky": 0.4413},
+        {"rank": 2, "participant": "cfld__", "best_public_dw_tversky": 0.3904},
+        {"rank": 21, "participant": "kinghorton42", "best_public_dw_tversky": 0.3261},
+        {"rank": 22, "participant": "li002666", "best_public_dw_tversky": 0.3183}
+      ],
+      "note": "The value 0.3195 quoted in the prompt does not appear between rank 21 (0.3261) and rank 22 (0.3183). It is treated as an unverified user-reported figure. The leaderboard shows the public DW-Tversky column; it is not the private round."
+    }
+  ],
+  "raster_measurements": [
+    {
+      "id": "RM-1",
+      "class": "RASTER-MEASUREMENT",
+      "file": "data/reference/sample_submission.tif",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "source_of_bytes": "Restored from owner GitHub mirror per data/restore_receipt.json; not independently authenticated against DrivenData.",
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "shape": [3730, 3292],
+      "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+      "footprint_finite_cells": 5167373,
+      "values_inside_footprint": {"0.0": 5106385, "1.0": 60988},
+      "nan_cells": 7111787
+    },
+    {
+      "id": "RM-2",
+      "class": "RASTER-MEASUREMENT",
+      "file": "docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
+      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "shape": [3730, 3292],
+      "transform_equal_to_sample": true,
+      "nodata": null,
+      "nan_cells": 0,
+      "min": 0.0,
+      "max": 0.7477255463600159,
+      "positive_cells_in_footprint": 1882872,
+      "positive_cells_outside_footprint": 0,
+      "cells_p_ge_0.5_in_footprint": 443,
+      "sum_p_over_footprint": 76273.67,
+      "mean_p_over_footprint": 0.01476,
+      "interpretation": "Diffuse continuous field. Under OFF-3 every unit of p(x) far from truth is an FP at full weight. Structure is measured; score is NOT measured."
+    },
+    {
+      "id": "RM-3",
+      "class": "RASTER-MEASUREMENT",
+      "file": "data/reference/existing_faults.tif",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "dtype": "int8",
+      "values": [-1, 0, 1],
+      "positive_cells": 60988,
+      "finding": "The sample's 60,988 ones are exactly the catalogue's positive cells (boolean equality checked). The sample therefore encodes the known USGS/INGENIOUS catalogue, not total absence as OFF-4 states."
+    },
+    {
+      "id": "RM-4",
+      "class": "RASTER-MEASUREMENT",
+      "file": "docs/downloads/17GEMSDOE_E-proba-multiscale_20260930T044527Z.tif",
+      "source_repo": "https://github.com/buffedlizard55-lab/17GEMSDOE",
+      "source_commit": "6fc71d19d49dca4960d5434bd81b6dd06fcc030a",
+      "git_blob": "374c88b1da2b803e2ed160de467fd71ae114010d",
+      "sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+      "matches_prior_receipt": true,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "transform_equal_to_sample": true,
+      "positive_cells": 5167373,
+      "positive_equals_sample_footprint": true,
+      "min_positive": 0.0004625781439244747,
+      "max": 0.984115719795227,
+      "sum_p_over_footprint": 1359202.75,
+      "mean_p_over_footprint": 0.26304,
+      "cells_p_ge_0.5": 728138,
+      "interpretation": "Its positive support is the whole footprint. Under the literal protocol rule every candidate dot inside the footprint is within 0 px of one of its positive cells, so forward overlap = 1.0 for any candidate. The arithmetic is confirmed; the protocol's definition of 'dots' for a continuous raster is the open question (see decision D-1)."
+    }
+  ],
+  "decision_required": {
+    "id": "D-1",
+    "question": "How should 'dots' be defined for a continuous probability raster in the duplicate gate?",
+    "current_rule": "Literal: every finite positive cell is a dot. Result: 100% overlap with any dense registry raster, so no candidate can clear.",
+    "options": [
+      "A. Keep literal rule. Outcome: no candidate can ever be cleared; the project stays negative.",
+      "B. Dots = top-K cells of each raster, with K = 37,654 (the fixed budget from the stopped E1 protocol). Requires re-running the registry comparison for all 992 pinned blobs.",
+      "C. Dots = cells with p >= 0.5. Requires re-running the registry comparison and states a specific threshold."
+    ],
+    "agent_recommendation": "Ask the protocol owner to choose. Do not change the gate silently. Whichever option is chosen, the registry comparison must be rerun and recorded with the new definition, and the result must be labelled as a new protocol clarification."
+  },
+  "not_measured": [
+    "HOLDOUT-DTI and CI for any candidate (requires the 418 MB training_features.tif, not present in this checkout)",
+    "Leakage canaries (AUC per feature)",
+    "Private-round or organizer-confirmed score for any artifact"
+  ],
+  "irregularities_logged": ["IR-79-22", "IR-79-23", "IR-79-24", "IR-79-25"]
+}

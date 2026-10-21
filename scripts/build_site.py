@@ -153,7 +153,8 @@ def main():
             'registry/score_ledger.csv':'score_ledger.csv',
             'registry/preregistration.json':'preregistration.json',
             'registry/template_pin.json':'template_pin.json',
-            'registry/protocol_clarification.json':'protocol_clarification.json'}
+            'registry/protocol_clarification.json':'protocol_clarification.json',
+            'evidence/session_verification_2026-10-21.json':'session_verification_2026-10-21.json'}
     for source,dest in copies.items(): shutil.copyfile(ROOT/source,SITE/'evidence'/dest)
     pages={'index.html':('Download & automatic decision',home(card,index)),
            'executive-summary.html':('Executive summary & submission guide',executive(card)),

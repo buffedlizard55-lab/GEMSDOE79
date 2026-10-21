@@ -19,6 +19,25 @@ range hazard; **local format validity is not organizer acceptance**. The earlier
 portal rejection cannot be diagnosed without the rejected file and server
 receipt.
 
+### Session re-verification, 2026-10-21 (this branch)
+
+Re-checked line by line from official pages and bytes; see
+[`evidence/session_verification_2026-10-21.json`](evidence/session_verification_2026-10-21.json)
+and irregularities IR-79-22 to IR-79-25.
+
+- **Format:** the downloadable GeoTIFF is float32, one band, EPSG:32611, 3730 × 3292,
+  100 m, identical transform to the sample, values in [0,1], no NaN. Local format
+  PASS only; not organizer acceptance.
+- **Duplicate gate:** the 17GEMSDOE E-proba raster (commit `6fc71d19…`, sha256
+  `ab0a0a62…`) covers all 5,167,373 footprint cells, so the literal gate forces overlap
+  = 1.0 for any candidate. **Decision D-1** (how to define "dots" for continuous
+  rasters) belongs to the protocol owner. The agent did not change the gate.
+- **Sample:** the official sample's 60,988 ones are exactly the USGS/INGENIOUS
+  catalogue cells, despite the page's "total fault absence" wording.
+- **Leaderboard:** public leader 0.4413 (xiaofanhu), rank 22 = 0.3183. The 0.3195
+  figure is not on the page.
+- **Not measured:** HOLDOUT-DTI, CI, canaries, private score. No DTI is claimed.
+
 ### Why submission is automatically blocked
 
 The prompt's literal novelty gate counts every finite positive registry pixel
