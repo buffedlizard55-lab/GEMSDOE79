@@ -1,0 +1,39 @@
+{
+  "ok_to_submit": true,
+  "verdict": "promote",
+  "file": "downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.tif",
+  "zip": "downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.zip",
+  "sha256": "d1a4158acb3b6593c659ef37749bc80c5af0ddf20c62357554462e0870b7df6d",
+  "name": "gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros",
+  "note": "H79-MCT terrain-only lidar+10m scarp likelihood x Sato line-continuity; 37654 binary dots 2.8px apart >2px off catalogue; zeros outside",
+  "dots": 37654,
+  "generated_utc": "2026-10-21T22:37:21Z",
+  "holdout": {
+    "seed30": {
+      "dti": 0.10228305999611889,
+      "ci95": [
+        0.08528777042026717,
+        0.1203430514001887
+      ],
+      "withheld": 11342
+    },
+    "seed20": {
+      "dti": 0.09464053764949597,
+      "ci95": [
+        0.07878898385759481,
+        0.11158407610397524
+      ],
+      "withheld": 11321
+    }
+  },
+  "audit": {
+    "duplicate": false,
+    "worst_forward_overlap": 0.6800074361289637,
+    "worst_forward_overlap_file": "data/registry/GEMSDOE23__7d19b90ed6__gemsdoe23-h29-dealiased-habitat-20261002-7bf9fac6-allfinite.tif",
+    "worst_abs_spearman": 0.09748485540618781,
+    "worst_abs_spearman_file": "data/registry/GEMSDOE68__918e6e23d7__19GEMSDOE__h19-5-powerlaw-budget-multiline.tif",
+    "discriminating_priors": 765,
+    "space_filling_priors": 43
+  },
+  "validator_ok": true
+}

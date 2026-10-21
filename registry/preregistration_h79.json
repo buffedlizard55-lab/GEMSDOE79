@@ -1,0 +1,36 @@
+{
+  "lane": "H79-MCT",
+  "title": "Mapper-continuity scarp traces (hypothesis H79-A with H79-E folded in)",
+  "registered_utc": "2026-10-21T22:05:00Z",
+  "registered_before": "reading any HOLDOUT-DTI of this lane (experiment 1 launched 22:05:10Z; file written while it ran)",
+  "single_method_lane": "terrain-only scarp likelihood (1 m lidar cache + 10 m 3DEP + 100 m det_elev) x line-continuity (Sato tubularity) -> 3-px dots; no geophysics, no catalogue feature, no prior-submission raster as feature",
+  "hidden_truth_model": "lidar-visible scarps traced by experts; new geometry of known systems counts (organizer-confirmed)",
+  "named_non_fault_mimics": ["pluvial Lake Lahontan shorelines", "fluvial terrace risers", "roads, canals, railway grades", "lithologic benches", "mine benches", "landslide head-scarps"],
+  "holdout": {
+    "evaluator": "vendor/gems57/evaluate_holdout.py gems57-pooled-hide-v2 (unmodified)",
+    "split": "buffered_component_draw(hide_frac=0.20, buffer_px=3) seeds 30 (primary) and 20 (confirmation)",
+    "masking": "visible catalogue masked pixel-exactly; withheld whole components are the truth; features catalogue-free",
+    "alpha": 0.2, "beta": 0.8, "kernel": "300 m triangular, R = 3 px",
+    "ci": "paired percentile bootstrap over 20 km blocks, 1000 draws, seed 520810 (pooled_summary)"
+  },
+  "arms": {
+    "C0_random": "control",
+    "C1_pixel": "HGB scarp likelihood p, dots by rank (lane baseline)",
+    "C2_continuity": "S = sqrt(p * Sato01(p)), dots by rank (PRIMARY)",
+    "C3_continuity_q": "C2 with the uniqueness quota (<= 66 % of dots inside the 3-px halo of the H19-5 line set); the shipped construction",
+    "REF_h19_5_redot": "static H19-5 line set re-dotted fold-fair (label-aware; reference only)",
+    "REF_champion_static": "archived 0.2778 dots (label-aware; reference only)"
+  },
+  "budgets_scanned": [25000, 37654, 50000],
+  "shipped_budget_rule": "anchored to the live-validated operating point of the champion (37,654 dots, 2.8 px spacing, > 2 px from catalogue); the holdout budget optimum is reported but does NOT override the anchor unless it is lower (holdout truth is catalogue-like and over-rewards dense emission, cf. H85 0.19 holdout vs no live confirmation)",
+  "gates_to_promote": [
+    "no single feature with symmetric canary AUC > 0.90 on withheld positives",
+    "C3 pooled HOLDOUT-DTI > C0_random with paired 95 % CI excluding 0",
+    "C3 pooled HOLDOUT-DTI >= C1_pixel - 0.005 (continuity must not hurt) on seed 30 AND seed 20",
+    "registry audit: Spearman <= 0.90 vs every raster; <= 70 % of dots within 3 px of any discriminating prior (like-for-like, IR-H85-01), literal reading reported too",
+    "validator: finite, in [0,1] everywhere inside the footprint, zero catalogue mass, CRS/shape/transform identical to sample_submission"
+  ],
+  "what_would_falsify": "C2 <= C1 on both seeds (continuity adds nothing) or C3 within CI of random (off-halo evidence is noise)",
+  "experiment_budget": "max 3 experiments / 2 h wall clock; this file counts experiment 1 = seed-30 run, experiment 2 = seed-20 confirmation, experiment 3 = reserved for one fix if a gate fails",
+  "no_selection": "this project does not choose which submission occupies a leaderboard slot"
+}

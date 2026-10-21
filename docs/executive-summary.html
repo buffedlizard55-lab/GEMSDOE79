@@ -1,0 +1,48 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEMSDOE79 — executive summary and how to submit</title><style>
+:root{--ok:#0a7a33;--bad:#b00020;--ink:#1b1b1b;--muted:#5f6368;--line:#e3e3e3;--bg:#fff;--chip:#f3f4f6}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg)}
+main{max-width:980px;margin:0 auto;padding:24px 20px 60px}h1{font-size:1.9rem;margin:.2em 0}h2{margin-top:2em;border-bottom:1px solid var(--line);padding-bottom:.2em}
+.banner{border-radius:12px;padding:22px 24px;color:#fff;margin:18px 0}.banner.ok{background:var(--ok)}.banner.bad{background:var(--bad)}
+.banner h2{border:0;margin:0 0 .3em;color:#fff;font-size:1.5rem}.banner a.btn{display:inline-block;background:#fff;color:var(--ink);font-weight:700;padding:12px 18px;border-radius:8px;text-decoration:none;margin:10px 10px 0 0}
+.banner code{background:rgba(255,255,255,.18);padding:2px 6px;border-radius:4px;color:#fff;word-break:break-all}
+table{border-collapse:collapse;width:100%;font-size:.94rem}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:var(--chip)}
+.chip{display:inline-block;background:var(--chip);border-radius:999px;padding:2px 10px;font-size:.85rem;margin:2px}
+.muted{color:var(--muted)}nav a{margin-right:14px}code{font-size:.92em}pre{background:var(--chip);padding:12px;border-radius:8px;overflow:auto;font-size:.85rem}
+.small{font-size:.88rem}
+</style></head><body><main>
+<nav><a href="index.html">Status</a><a href="executive-summary.html">Executive summary</a><a href="irregularities.html">Irregularities</a><a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Repository</a></nav>
+<h1>Executive summary</h1>
+<section class="banner ok"><h2>OK TO DOWNLOAD · OK TO SUBMIT</h2>
+<p><code>gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros</code><br>sha256 <code>d1a4158acb3b6593c659ef37749bc80c5af0ddf20c62357554462e0870b7df6d</code></p>
+<a class="btn" href="downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.tif" download>⬇ Download TIF</a><a class="btn" href="downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.zip" download>⬇ Download ZIP</a></section>
+
+<h2>Why the family's best file scored 0.2778 (in five sentences)</h2>
+<ol>
+<li>The 0.2778 file is 37,654 single-pixel dots, all on the support of one lidar/DEM scarp-detector line set (H19-5), 3 px apart, with every dot within 2 px of the mapped catalogue removed (reproduced from the bytes).</li>
+<li>The organizer's metric (Tversky α = 0.2, β = 0.8, 300 m triangular kernel) makes binary dots optimal, makes 3-px thinning free recall, masks catalogue pixels and weights recall 4× precision — the champion exploits all four.</li>
+<li>Hidden truth is new fault geometry traced by experts on lidar-derived hillshades (organizer: continuations, splays, parallel strands count); a live-score inversion puts ≈ 38× truth enrichment on H19-5 ridges far from the catalogue and ≈ 0 for geophysics-only lanes.</li>
+<li>Every ≥ 0.26 family entry is a re-dotting of the same line set; the uniqueness rule forbids another one, so the only route up is a <em>different</em> lidar-scarp detector with ≥ 30 % of its dots on evidence H19-5 does not carry.</li>
+<li>This lane builds exactly that: a terrain-only scarp likelihood gated by the line-continuity of its own evidence, emitted with the champion's emitter; 49 % of its dots are outside the H19-5 halo.</li></ol>
+<p>Full argument with evidence classes: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/why_02778.md">reports/why_02778.md</a>.</p>
+
+<h2>What was measured</h2>
+<table><tr><th>seed</th><th>HOLDOUT-DTI</th><th>95 % CI</th><th>withheld px</th></tr><tr><td>seed30</td><td>0.1023</td><td>[0.0853, 0.1203]</td><td>11,342</td></tr><tr><td>seed20</td><td>0.0946</td><td>[0.0788, 0.1116]</td><td>11,321</td></tr></table>
+<p class="small muted">Gates passed: leakage canary (worst single-feature AUC 0.599 ≤ 0.90), beats random on both seeds, continuity does not hurt, validator 100 %, like-for-like uniqueness. The unconstrained detector beat the fold-fair champion construction (+0.018 / +0.013); enforcing the family's 70 % duplicate rule by construction (amendment A1, 59 capped priors) cost −0.013 / −0.015, leaving the shipped file on par with that label-aware reference (0.1023 vs 0.0974; 0.0946 vs 0.0968). The holdout truth is catalogue-like; the live hidden set is not — treat these as a gate, not a forecast.</p>
+
+<h2>Exactly how to submit a promoted file</h2>
+<ol>
+<li>Confirm the banner on this page says <strong>OK TO SUBMIT</strong> (it is computed from <code>docs/status.json</code>; if it says NOT OK, do not submit — inspect only).</li>
+<li>Click <em>Download TIF</em> (or the ZIP, which contains exactly that one TIF). Optionally verify <code>sha256sum</code> equals <code>d1a4158acb3b6593…</code>.</li>
+<li>Go to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the competition's submission page</a> (log in), upload the file, and paste:<br>name <code>gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros</code><br>note <code>H79-MCT terrain-only lidar+10m scarp likelihood x Sato line-continuity; 37654 binary dots 2.8px apart &gt;2px off catalogue; zeros outside</code></li>
+<li>Record the portal score as ORGANIZER-CONFIRMED in <code>docs/status.json</code> → <code>organizer_confirmed_score</code> and in <code>evidence/run_card_h79.json</code>; never before the portal shows it.</li>
+<li>Selection of which file occupies a weekly slot is a separate selector decision — this project does not make it.</li></ol>
+
+<h2>Format guarantees (the earlier "Predicted values must be in range [0, 1]" failure)</h2>
+<p>The file is written only by the shared fail-closed writer: single float32 band, nodata <code>None</code>, every cell finite, zeros outside the footprint, min 0.0 / max 1.0, CRS EPSG:32611, shape 3730×3292, geotransform identical to <code>sample_submission.tif</code>, zero positive pixels on the mapped catalogue. These are local checks; portal acceptance is confirmed only by a portal receipt.</p>
+
+<h2>Remaining work for the next session</h2>
+<ul><li>Score this file once (one slot) — its live score is the first direct calibration of off-H19-5 lidar-scarp credit for the family.</li>
+<li>Fetch the 10 m 3DEP elevation (official USGS source, free) to add absolute height → Lahontan-shoreline de-confounder (H79-C) and real hillshade continuity.</li>
+<li>Trace-level acceptance (minimum trace length, along-strike coherence) can only be tuned against live scores; the holdout rewards dense emission.</li></ul>
+</main></body></html>
