@@ -10,6 +10,9 @@ import argparse
 from datetime import datetime, timezone
 import hashlib
 import json
+import sys
+import time
+from collections import Counter
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.parse import urljoin
@@ -19,6 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def get(url):
+    url += ('&' if '?' in url else '?') + 'g79_verify=' + str(time.time_ns())
     with urlopen(Request(url, headers={'User-Agent': 'GEMSDOE79-public-file-verifier/1.0', 'Cache-Control': 'no-cache'}), timeout=30) as response:
         if response.status != 200:
             raise ValueError('Unexpected HTTP status')
@@ -60,15 +64,37 @@ def verify(url, expected_feed_attempt=None):
         raise ValueError('Published source feed does not match this deployment attempt')
     return {'verified_utc': datetime.now(timezone.utc).isoformat(), 'served_base': base,
             'pages': pages, 'published_hashes': hashes, 'source_feed_attempted_utc': feed['attempted_utc'],
+            'source_health_counts': dict(Counter(row['state'] for row in feed['sources'])),
             'public_status_fail_closed': True, 'expected_source_feed_attempt_utc': expected_feed_attempt, 'passed': True, 'ok_to_submit': False,
             'scope': 'Public/local website GET and exact-byte checks; not a competition upload, scientific score or organizer-acceptance receipt.'}
+
+
+def verify_with_retries(url, expected_feed_attempt=None, attempts=1, delay=10):
+    """Wait for a consistent Pages publication; never relax the assertions."""
+    if not 1 <= attempts <= 12 or not 0 <= delay <= 30:
+        raise ValueError('Require 1..12 attempts and 0..30 seconds delay')
+    for attempt in range(1, attempts + 1):
+        try:
+            return verify(url, expected_feed_attempt)
+        except (OSError, ValueError, KeyError) as exc:
+            detail = str(exc).replace('\n', ' ').replace('\r', ' ')
+            if attempt == attempts:
+                print('::error title=Public site verification failed::' + type(exc).__name__ + ': ' + detail, file=sys.stderr)
+                raise
+            print(f'Publication not yet consistent ({attempt}/{attempts}): {type(exc).__name__}: {detail}', flush=True)
+            time.sleep(delay)
 
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--url', required=True)
     ap.add_argument('--expected-feed-attempt')
+    ap.add_argument('--attempts', type=int, default=1)
+    ap.add_argument('--delay', type=float, default=10)
     args = ap.parse_args()
-    result = verify(args.url, args.expected_feed_attempt)
+    result = verify_with_retries(args.url, args.expected_feed_attempt, args.attempts, args.delay)
+    result['pages_build_type'] = __import__('os').environ.get('PAGES_BUILD_TYPE', 'not_probed')
     (ROOT / 'evidence/public_site_verification.json').write_text(json.dumps(result, indent=2) + '\n')
     print(json.dumps(result, indent=2))
+    if 'GITHUB_ACTIONS' in __import__('os').environ:
+        print('::notice title=Public site verified::' + json.dumps(result, separators=(',', ':')))
