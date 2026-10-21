@@ -2,7 +2,7 @@
 
 1. Read **all of README.md**, including the original prompt, then `run_card.json`,
    `reports/irregularities.md` and `registry/preregistration.json` before work.
-2. Work only on the Arena-assigned session branch; for this checkout it is `arena/6c1a34ca-gemsdoe79`. Never rename or switch branches. If this file and Arena's current session metadata disagree, the current Arena metadata takes precedence.
+2. Work only on the Arena-assigned session branch; for this checkout it is `arena/70519113-gemsdoe79`. Never rename or switch branches. If this file and Arena's current session metadata disagree, the current Arena metadata takes precedence.
 3. Current run is **stopped negative** by a shared, literal pre-placement duplicate
    gate. Do not restart, retune, add jitter, exempt dense priors or silently open
    a new scientific lane. Maximum three experiments/two hours; this run used one

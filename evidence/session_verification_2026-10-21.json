@@ -1,13 +1,14 @@
 {
-  "schema_version": 1,
-  "session_branch": "arena/c39eea47-gemsdoe79",
+  "schema_version": 2,
+  "session_branch": "arena/70519113-gemsdoe79",
+  "prior_session_branch": "arena/c39eea47-gemsdoe79",
   "verified_utc": "2026-10-21",
-  "purpose": "Independent line-by-line re-verification of the submission format, the duplicate gate's arithmetic, the public leaderboard and the prompt's reported scores. Every number below is a measurement or a quoted official statement with its source; nothing here is a DTI score.",
+  "purpose": "Independent line-by-line re-verification of the submission format, the duplicate gate's arithmetic, the public leaderboard, the prompt's reported scores, and the post-stop offline holdout/canary diagnostic on the restored 418 MB training_features.tif.",
   "evidence_classes": {
     "OFFICIAL-SOURCE": "Quoted from a DrivenData competition page read in this session.",
     "PUBLIC-OBSERVATION": "Read from the public leaderboard page; not an artifact-linked receipt.",
     "RASTER-MEASUREMENT": "Computed from bytes with rasterio/numpy in this session.",
-    "HOLDOUT-DTI": "Not measured in this session. No DTI value is reported.",
+    "HOLDOUT-DTI": "Official E1 run_card.json keeps holdout_dti.dti = null because E1 stopped pre-placement. Post-stop offline diagnostic HOLDOUT-DTI on the restored 418 MB training_features.tif is recorded in evidence/post_stop_diagnostic.json with evaluator_version = gems57-pooled-hide-v2, withheld_positive_pixels, and 95% CIs.",
     "ORGANIZER-CONFIRMED": "Not claimed. No submission-page receipt exists for any artifact here."
   },
   "official_claims": [
@@ -97,7 +98,7 @@
       "cells_p_ge_0.5_in_footprint": 443,
       "sum_p_over_footprint": 76273.67,
       "mean_p_over_footprint": 0.01476,
-      "interpretation": "Diffuse continuous field. Under OFF-3 every unit of p(x) far from truth is an FP at full weight. Structure is measured; score is NOT measured."
+      "interpretation": "Diffuse continuous field. Under OFF-3 every unit of p(x) far from truth is an FP at full weight. Structure is measured; official run_card.json score is null because E1 stopped pre-placement; post-stop offline diagnostic score on the 37,654-dot placement is recorded in post_stop_diagnostic_summary below."
     },
     {
       "id": "RM-3",
@@ -140,12 +141,55 @@
       "B. Dots = top-K cells of each raster, with K = 37,654 (the fixed budget from the stopped E1 protocol). Requires re-running the registry comparison for all 992 pinned blobs.",
       "C. Dots = cells with p >= 0.5. Requires re-running the registry comparison and states a specific threshold."
     ],
-    "agent_recommendation": "Ask the protocol owner to choose. Do not change the gate silently. Whichever option is chosen, the registry comparison must be rerun and recorded with the new definition, and the result must be labelled as a new protocol clarification."
+    "agent_recommendation": "Ask the protocol owner to choose. Do not change the gate silently. Whichever option is chosen, the registry comparison must be rerun and recorded with the new definition, and the result must be labelled as a new protocol clarification.",
+    "e1_outcome_sensitivity": "Under Option B (top-37,654 of E-proba), E1's 37,654-dot forward 3-px overlap is 0.011898 (<= 0.70); under Option C (p >= 0.5 of E-proba), forward 3-px overlap is 0.304616 (<= 0.70); vs sparse H33-2-B2 and D2.8 it is 0.197801 and 0.219950. However, post_stop_diagnostic_summary below proves that even if Decision D-1 resolved to Option B or C, E1 still fails the preregistered holdout gate on both seeds (verdict remains negative / DO NOT SUBMIT)."
+  },
+  "post_stop_diagnostic_summary": {
+    "evidence_file": "evidence/post_stop_diagnostic.json",
+    "reproduction_script": "scripts/post_stop_diagnostic.py",
+    "training_features_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "leakage_canary_seed_20_max_symmetric_auc": 0.5871979693187728,
+    "leakage_canary_seed_30_max_symmetric_auc": 0.6161576549235992,
+    "leakage_canary_all_72_tests_below_0_90": true,
+    "holdout_dti_seed_20": {
+      "evidence_class": "HOLDOUT-DTI (POST-STOP OFFLINE DIAGNOSTIC; NOT AN AUTHORIZED PROMOTION RUN)",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "withheld_positive_pixels": 11321,
+      "candidate_dti": 0.04738431159822856,
+      "candidate_ci95": [0.039018847294565354, 0.05519560876641026],
+      "zero_lag_edge_control_dti": 0.04196217629060192,
+      "zero_lag_edge_control_ci95": [0.032662554919958085, 0.051682757053237875],
+      "paired_delta_vs_zero_lag": 0.005422135307626641,
+      "paired_delta_vs_zero_lag_ci95": [-0.0018234763297992438, 0.012767822006894525],
+      "uniform_control_dti": 0.050397004261556765,
+      "uniform_control_ci95": [0.04500854324090619, 0.05568829863740222],
+      "h33_foldfair_control_dti": 0.09608619416803546,
+      "h33_foldfair_control_ci95": [0.08265140223327312, 0.10911908861465573],
+      "paired_delta_vs_h33_foldfair": -0.0487018825698069,
+      "paired_delta_vs_h33_foldfair_ci95": [-0.06226075049958385, -0.03515600129230596]
+    },
+    "holdout_dti_seed_30": {
+      "evidence_class": "HOLDOUT-DTI (POST-STOP OFFLINE DIAGNOSTIC; NOT AN AUTHORIZED PROMOTION RUN)",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "withheld_positive_pixels": 11342,
+      "candidate_dti": 0.046615513959030096,
+      "candidate_ci95": [0.03879409229479433, 0.05425948329387448],
+      "zero_lag_edge_control_dti": 0.0455017173222683,
+      "zero_lag_edge_control_ci95": [0.03590562393279807, 0.05451122495362213],
+      "paired_delta_vs_zero_lag": 0.0011137966367617963,
+      "paired_delta_vs_zero_lag_ci95": [-0.006459932926961849, 0.008329375081395548],
+      "uniform_control_dti": 0.049569675118494666,
+      "uniform_control_ci95": [0.044697143224381224, 0.05475191748687211],
+      "h33_foldfair_control_dti": 0.09889767286222764,
+      "h33_foldfair_control_ci95": [0.0834793579952539, 0.11221067341443812],
+      "paired_delta_vs_h33_foldfair": -0.05228215890319755,
+      "paired_delta_vs_h33_foldfair_ci95": [-0.06707192206297857, -0.036954304773703206]
+    }
   },
   "not_measured": [
-    "HOLDOUT-DTI and CI for any candidate (requires the 418 MB training_features.tif, not present in this checkout)",
-    "Leakage canaries (AUC per feature)",
-    "Private-round or organizer-confirmed score for any artifact"
+    "Official pre-stop E1 holdout_dti.dti and leakage_canary.auc in run_card.json (remain null because E1 was halted pre-placement by the literal duplicate gate; post-stop offline diagnostic measurements are in post_stop_diagnostic_summary above)",
+    "Full 992-raster registry scan under Decision D-1 Options B or C (requires protocol-owner authorization before modifying the duplicate gate)",
+    "Private-round or organizer-confirmed score for any artifact (no DrivenData submission receipt exists)"
   ],
-  "irregularities_logged": ["IR-79-22", "IR-79-23", "IR-79-24", "IR-79-25"]
+  "irregularities_logged": ["IR-79-22", "IR-79-23", "IR-79-24", "IR-79-25", "IR-79-26", "IR-79-27", "IR-79-28", "IR-79-29"]
 }

@@ -204,3 +204,65 @@ def test_public_get_bypasses_cdn_cache_without_disabling_tls(monkeypatch):
     monkeypatch.setattr(public, 'urlopen', open_url)
     assert public.get('https://example.invalid/file.json') == b'fixture bytes'
     assert urls[0].startswith('https://example.invalid/file.json?g79_verify=')
+
+
+def test_verify_project_is_idempotent_without_refresh_flag():
+    from verify_project import verify
+    before = (ROOT / 'evidence/verification.json').read_bytes()
+    report = verify()
+    after = (ROOT / 'evidence/verification.json').read_bytes()
+    assert report['all_checks_passed']
+    assert before == after
+    assert after == (ROOT / 'docs/evidence/verification.json').read_bytes()
+
+
+def test_restore_preserve_receipt_accepts_manifest_entries_not_in_subset_receipt(tmp_path, monkeypatch):
+    import sys
+    b1, b2 = b'first pinned file', b'second pinned file'
+    h1, h2 = hashlib.sha256(b1).hexdigest(), hashlib.sha256(b2).hexdigest()
+    raw = tmp_path / 'data/raw'
+    raw.mkdir(parents=True)
+    (raw / 'f1.tif').write_bytes(b1)
+    (raw / 'f2.tif').write_bytes(b2)
+    manifest = tmp_path / 'manifest.json'
+    manifest.write_text(json.dumps({
+        'files': [
+            {'id': 'f1', 'dest': 'f1.tif', 'sha256': h1},
+            {'id': 'f2', 'dest': 'f2.tif', 'sha256': h2},
+        ]
+    }))
+    receipt_dir = tmp_path / 'data'
+    receipt_path = receipt_dir / 'restore_receipt.json'
+    frozen_bytes = json.dumps({'schema_version': 1, 'files': [{'id': 'f1', 'sha256': h1}]}).encode()
+    receipt_path.write_bytes(frozen_bytes)
+    monkeypatch.setattr(restore_data, 'ROOT', tmp_path)
+    monkeypatch.setattr(sys, 'argv', [
+        'restore_data.py', '--ids', 'all', '--manifest', str(manifest),
+        '--target-dir', str(raw), '--preserve-receipt',
+    ])
+    restore_data.main()
+    assert receipt_path.read_bytes() == frozen_bytes
+    runtime = json.loads((tmp_path / '.cache/input_restore.json').read_text())
+    assert runtime['verified_files_count'] == 2
+
+
+def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
+    diag_path = ROOT / 'evidence/post_stop_diagnostic.json'
+    site_diag_path = ROOT / 'docs/evidence/post_stop_diagnostic.json'
+    assert diag_path.exists() and site_diag_path.exists()
+    assert diag_path.read_bytes() == site_diag_path.read_bytes()
+    diag = json.loads(diag_path.read_text())
+    assert diag['input_restoration_verified']['matches_preregistered_cache_receipt'] is True
+    for seed_key in ('seed_20', 'seed_30'):
+        canary = diag['post_stop_leakage_canary_diagnostic'][seed_key]
+        assert canary['evidence_class'] == 'LEAKAGE-CANARY'
+        assert canary['all_below_threshold'] is True and canary['max_symmetric_auc'] <= 0.90
+        holdout = diag['post_stop_holdout_dti_diagnostic'][seed_key]
+        assert holdout['evaluator_version'] == 'gems57-pooled-hide-v2'
+        cand = holdout['scores']['candidate']
+        assert cand['evidence_class'] == 'HOLDOUT-DTI'
+        assert 0.0 < cand['dti'] < 0.06 and len(cand['ci95']) == 2
+        assert holdout['paired_differences']['zero_lag_edge_control']['ci95'][0] < 0.0
+        assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
+    card = json.loads((ROOT / 'run_card.json').read_text())
+    assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False
