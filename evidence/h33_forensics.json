@@ -1,0 +1,32 @@
+{
+  "evidence_class": "RASTER-MEASUREMENT, NOT A SCORE",
+  "h33_source": {
+    "repo": "GEMSDOE68",
+    "path": "registry/rasters/rasters/GEMSDOE32__h33-2-b2-zeros.tif",
+    "blob": "17a76895f68174cc93f3cb1597d25686f6d6bc67",
+    "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9"
+  },
+  "d28_source": {
+    "repo": "GEMSDOE68",
+    "path": "registry/rasters/rasters/GEMSDOE25__dotted-h19-5-d2-8.tif",
+    "blob": "bfb7e86d046dd178c3d6ab60522861b5464dd420",
+    "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30"
+  },
+  "h33_dots": 37654,
+  "d28_dots": 44090,
+  "h33_outside_d28": 0,
+  "d28_deleted": 6436,
+  "h33_equals_d28_pruned_distance_le_2px": true,
+  "rule_disagreement_pixels": 0,
+  "h33_median_catalogue_distance_px": 19.6468827043885,
+  "h33_within_2px_catalogue": 0,
+  "h33_fraction_over_1km_from_catalogue": 0.698305624900409,
+  "h33_positive_8neighbor_adjacencies": 0,
+  "h33_unique_in_footprint": [
+    0.0,
+    1.0
+  ],
+  "legacy_score_status": "0.2778 is USER-REPORTED, not linked to this file by an organizer submission-page receipt.",
+  "causal_limit": "Subset geometry and metric arithmetic support an emission-efficiency explanation. They do not identify the private truth or causally prove the reported score improvement.",
+  "portal_limit": "An all-finite raster avoids NaN and negative-sentinel range hazards. The cause of the user's previous portal rejection cannot be diagnosed without the rejected bytes and server receipt."
+}

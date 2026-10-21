@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: a newly generated, validated research GeoTIFF with an explicit automated DO NOT SUBMIT verdict and auditable evidence.">
+<title>What H33 changed, and what remains unknown · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="research.html">Research</a><a href="sources.html">Sources &amp; feed</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">FORENSIC ANALYSIS / EXACT METRIC</p><h1>What H33 actually changed.</h1></section><section class="section"><div class="prose table-scroll"><h2>What actually explains H33, and what would justify claiming an improvement?</h2>
+<h3>Answer in one paragraph</h3>
+<p>The named H33 raster is not evidence of a newly trained geological model. The
+actual downloaded bytes show it is <strong>exactly a subset</strong> of the earlier D2.8
+prediction: <strong>44,090 → 37,654</strong> isolated binary pixels after deleting <strong>6,436</strong>
+points within 200 m of the known catalogue. Sparse emission can remove
+redundant false-positive mass under the organizer's maximum-cover metric.
+Catalogue-flank pruning can also remove unhelpful known-fault echoes, although
+its effect against hidden truth cannot be established from public labels. These
+are defensible mechanisms, not a causal proof of the prompt's reported score.
+A better result is possible in principle, but this run establishes <strong>no
+leaderboard improvement</strong> and recommends <strong>no submission</strong>.</p>
+<h3>Evidence, not website branding</h3>
+<p>All counts in this section are <strong>RASTER-MEASUREMENTS, not performance scores</strong>.
+Reproduce with <code>scripts/analyze_h33.py</code>; exact sources, Git blobs and SHA-256
+values are in <code>evidence/h33_forensics.json</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Measured object</th>
+<th style="text-align: right;">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D2.8 positive pixels</td>
+<td style="text-align: right;">44,090</td>
+</tr>
+<tr>
+<td>H33 positive pixels</td>
+<td style="text-align: right;">37,654</td>
+</tr>
+<tr>
+<td>H33 points outside D2.8</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>D2.8 points deleted</td>
+<td style="text-align: right;">6,436</td>
+</tr>
+<tr>
+<td>Disagreements with <code>D2.8 &amp; (distance_to_catalogue &gt; 2 px)</code></td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>H33 positives with an 8-neighbour positive</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>H33 median catalogue distance</td>
+<td style="text-align: right;">19.6469 px, approximately 1.965 km</td>
+</tr>
+<tr>
+<td>H33 positives farther than 1 km from the catalogue</td>
+<td style="text-align: right;">approximately 69.83%</td>
+</tr>
+</tbody>
+</table>
+<p>The source website calls the file a high-ranked primary, but explicitly says it
+has no organizer score receipt and also includes projected/live-mirror numbers.
+We do not convert those projections into scores. The prompt's <strong>0.2778 is an
+UNVERIFIED historical filename-to-score report</strong>. An official public leaderboard
+observation also shows 0.2778 for a participant, but neither that number nor the
+participant's identity proves which file or hash was uploaded.</p>
+<h3>The precise metric argument</h3>
+<p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">Official formula</a>:</p>
+<ul>
+<li><code>k(d) = max(1 - d / 300 m, 0)</code>.</li>
+<li><code>TP = sum_truth max_prediction[p(x) k(d)]</code>.</li>
+<li><code>FP = sum_prediction p(x) (1 - max_truth k(d))</code>.</li>
+<li><code>FN = number_of_truth_pixels - TP</code>.</li>
+<li><code>DTI = TP / (TP + 0.2 FP + 0.8 FN)</code>.</li>
+</ul>
+<p>The <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff clarification</a>
+excludes <strong>exact known-fault pixels</strong>, not a 200 m buffer around them.
+The <a href="https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550/2">aggregation clarification</a>
+requires pooling terms first rather than averaging fold DTI.</p>
+<p>A dot can cover several truth pixels. Therefore its marginal true-positive
+credit <code>A</code> is <strong>not generally bounded by</strong> its own nearest-truth credit <code>q</code>.
+For a new unit dot, its false-positive increment is <code>B = 1 - q</code>. If the current
+score is <code>s</code>, adding it improves DTI precisely when</p>
+<p><code>A &gt; 0.2 * s * (A + B)</code>.</p>
+<p>Only in the special case <code>A = q</code> does this simplify to <code>q &gt; 0.2*s</code>.
+We do not use that special-case threshold as a universal claim. Removing a
+redundant dot with negligible lost coverage but positive false-positive mass
+can improve DTI; this is why thinning is plausible. But removing a useful dot
+can hurt recall. Geometry alone cannot determine the hidden-truth trade-off.</p>
+<p>The <code>-zeros</code> encoding is a <strong>format policy</strong>, not a scientific discovery.
+Replacing outside-footprint NaN with finite zero does not add in-footprint
+geological evidence. Without the rejected bytes and server receipt, neither
+NaN nor a sentinel can be proven to have caused the user's earlier range error.
+Our writer simply rejects nonfinite/out-of-range outputs, never clips them,
+and checks the serialized result and single-TIFF ZIP.</p>
+<h3>Why a larger score cannot be inferred from this family table</h3>
+<ol>
+<li><strong>Confounding:</strong> many submissions inherit the same ranking or dot set.
+   They are not independent scientific replications.</li>
+<li><strong>Distribution shift:</strong> withheld existing faults are not the organizer's new
+   expert-labelled faults. High catalogue recovery may select familiar exposed
+   faults and miss weak, covered structures.</li>
+<li><strong>Multiplicity:</strong> dozens of ideas and emission settings compared on one proxy
+   can overfit that proxy even when each model is superficially cross-validated.</li>
+<li><strong>Measurement limits:</strong> a 100 m grid does not imply independent 100 m airborne
+   observations. USGS reports Area 2 flight lines spaced 400 m apart. Fine-scale
+   registration lags can reflect interpolation, levelling or flight geometry.</li>
+<li><strong>Novelty gate degeneracy:</strong> under the supplied literal support convention,
+   one whole-footprint prior rejects every nonempty candidate. A filename or
+   byte hash cannot resolve this.</li>
+</ol>
+<h3>What this new lane did, and did not, establish</h3>
+<p>Four hypotheses were preregistered before implementation. E1 computes
+opposite-side magnetic-gradient profile registration across an independent
+gravity-gradient normal. It requires a nonzero lag to beat zero lag and retain
+its sign at two offsets. This targets <strong>marker displacement</strong>, unlike the
+inspected same-pixel cross-gradient and orientation-consensus methods. It is
+only a hypothesis: an oblique intrusive contact or survey seam can mimic it.</p>
+<p>The new numerical surface exists and was exported through the unmodified shared
+writer. It is byte-distinct from the 992 restored registry files. The literal
+pre-placement shared gate nevertheless reports 100% support overlap with a
+verified dense prior. <strong>Scientific work stopped before canaries, hide-and-recover
+or dot placement</strong>. The downloadable TIFF is negative-result evidence, not a
+validated detector. We explicitly do not invent a HOLDOUT-DTI or CI, and do not
+claim this lane is better or worse scientifically than the incumbent.</p>
+<h3>Next decision, not another submission gamble</h3>
+<p>Resolve the protocol/registry ambiguity through an explicit authorization
+before any new scientific experiment. Then require whole-component buffered
+hide-and-recover, feature-alone leakage canaries, a matched reproduction of the
+incumbent, paired spatial confidence intervals and literal novelty checks. The
+separate selector—not this pipeline—may consider a weekly slot only after those
+gates pass. A public leaderboard value alone never authorizes promotion.</p></div><div class="prose table-scroll"><h3>Additional primary-literature review — implications, not new experiments</h3>
+<p>Reviewed on <strong>2026-10-21</strong>, after the mandatory E1 stop. This review did not
+change features, consume another experiment, label new faults or authorize a
+second lane. It provides context for interpreting failures and planning an
+explicitly authorized future study.</p>
+<h4>Hermant, Kiersnowski &amp; Bellanger (Stanford Geothermal Workshop, 2025)</h4>
+<p><a href="https://pangea.stanford.edu/ERE/db/GeoConf/papers/SGW/2025/Hermant.pdf">Using Deep Learning to Map Quaternary Faults in Western USA — full paper</a>.
+All eight parsed chunks, including methods, discussion and references, were read.
+This is a primary author publication hosted by Stanford, <strong>not an organizer
+receipt, USGS endorsement, or evidence that its model was reproduced here</strong>.</p>
+<p>What is useful for this problem:</p>
+<ul>
+<li>The paper distinguishes incomplete, regionally heterogeneous public mapping
+  from true fault absence. Its Figure 2 illustrates mapping discrepancies; this
+  supports treating catalogue zeros as <strong>unlabelled</strong>, not certified negatives.</li>
+<li>The authors use approximately 10 m elevation/slope and Sentinel-2 B8A imagery,
+  not this lane's 100 m magnetic/gravity stack. They restrict their elevation
+  selection to lidar-derived areas after observing slope artifacts elsewhere
+  (§3.1). Resampling a coarse grid cannot manufacture that independent evidence.</li>
+<li>Their §5.1 procedure randomly splits fault-containing image tiles before data
+  augmentation. Their paper metrics are PR-AUC and weighted focal IoU, not the
+  competition's pooled distance-weighted Tversky. Neither these metrics nor
+  qualitative figures establish our blocked hide-and-recover performance. A
+  random tile split is not a substitute for our required buffered whole-segment
+  split; this is a protocol distinction, not proof that their results leaked.</li>
+<li>The authors report overfitting and explicitly identify <strong>paleo-shorelines,
+  canyon margins, streams and other scarps</strong> as fault mimics (§6–7, Figures 8–9).
+  A long, clear lineament is therefore not sufficient geological evidence.
+  Automatically excluding every shoreline or drainage feature is unsafe too,
+  because faults can be co-located with them.</li>
+<li>Faults can conduct <strong>or impede</strong> fluid flow (§2). Better fault detection is not
+  proof of a permeable, hot or commercially productive reservoir. Their expert
+  manual correction is not an automated submission-validation method; it was
+  not substituted for our automatic gates.</li>
+</ul>
+<p><strong>Practical consequence:</strong> a future, separately authorized morphological lane
+would need independent data provenance/resolution checks, a non-fault-mimic
+control, and buffered spatial tests. Proprietary FaultSEG weights and its tracing
+algorithm are not claimed to be available. This project neither implemented nor
+scored a CNN from that publication.</p>
+<h4>Official INGENIOUS project and USGS regional geophysics</h4>
+<ul>
+<li><a href="https://gbcge.org/current-projects/ingenious/">Great Basin Center for Geothermal Energy — INGENIOUS project</a>
+  describes integrated structural, geophysical, thermal and exploration work;
+  its primary project/publication listing was reviewed. It does not establish
+  independent hidden-test labels or commercial discovery from a raster alone.</li>
+<li><a href="https://doi.org/10.5066/P9Z6SA1Z">USGS, Glen et al. (2022), Regional geophysical maps of the Great Basin</a>
+  lists a multi-source provisional gravity grid, a magnetic compilation and a
+  depth-to-basement grid. The release lists a public <strong>6.5 MB</strong> grid ZIP and
+  metadata/readme. This checks that a real official release exists; <strong>no new
+  binary download or verified correspondence to a particular mirrored band is
+  claimed</strong>. Regional compilations and resampled grids should not be read as
+  uniformly sampled, independent 100 m observations.</li>
+</ul>
+<p>These sources strengthen the uncertainty and confounder analysis. They do not
+make the literal novelty conflict disappear, validate E1, or justify an expected
+leaderboard gain. The four earlier hypotheses remain qualitative priorities,
+not numerical score projections.</p></div></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

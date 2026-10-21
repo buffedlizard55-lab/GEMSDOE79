@@ -1,3 +1,5 @@
+> **HISTORICAL H79-MCT MATERIAL, NOT CURRENT APPROVAL.** Preserved from concurrent main c26efec. The literal protocol was not cleared; dense-prior exemptions and post-duplicate placement amendments are not authorized by this run. All incoming scores/claims retain their unreviewed original provenance. DO NOT SUBMIT these artifacts. Read the active root README/run_card.json.
+
 # Data and sources — auditable table
 
 Every input used by this lane, where it came from, how it was verified, and the official origin

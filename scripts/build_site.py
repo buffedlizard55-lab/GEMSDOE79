@@ -1,201 +1,188 @@
 #!/usr/bin/env python3
-"""Render the GitHub Pages site (docs/) and the README status block from the machine-generated
-status feed (docs/status.json) and RUN CARD (evidence/run_card_h79.json).  No hand-typed numbers.
-"""
+"""Build a static, evidence-driven Pages site. No invented scores or ready flags."""
 from __future__ import annotations
-
+import csv
 import html
+import hashlib
 import json
+from pathlib import Path
 import re
 import shutil
-import time
-from pathlib import Path
+import sys
+import markdown
+import numpy as np
+from PIL import Image
+import rasterio
 
 ROOT = Path(__file__).resolve().parents[1]
-DOCS = ROOT / "docs"
-REPO_URL = "https://github.com/buffedlizard55-lab/GEMSDOE79"
-PAGES_URL = "https://buffedlizard55-lab.github.io/GEMSDOE79/"
+sys.path.insert(0, str(ROOT / 'src'))
+from verify_project import verify
 
-CSS = """
-:root{--ok:#0a7a33;--bad:#b00020;--ink:#1b1b1b;--muted:#5f6368;--line:#e3e3e3;--bg:#fff;--chip:#f3f4f6}
-*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg)}
-main{max-width:980px;margin:0 auto;padding:24px 20px 60px}h1{font-size:1.9rem;margin:.2em 0}h2{margin-top:2em;border-bottom:1px solid var(--line);padding-bottom:.2em}
-.banner{border-radius:12px;padding:22px 24px;color:#fff;margin:18px 0}.banner.ok{background:var(--ok)}.banner.bad{background:var(--bad)}
-.banner h2{border:0;margin:0 0 .3em;color:#fff;font-size:1.5rem}.banner a.btn{display:inline-block;background:#fff;color:var(--ink);font-weight:700;padding:12px 18px;border-radius:8px;text-decoration:none;margin:10px 10px 0 0}
-.banner code{background:rgba(255,255,255,.18);padding:2px 6px;border-radius:4px;color:#fff;word-break:break-all}
-table{border-collapse:collapse;width:100%;font-size:.94rem}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:var(--chip)}
-.chip{display:inline-block;background:var(--chip);border-radius:999px;padding:2px 10px;font-size:.85rem;margin:2px}
-.muted{color:var(--muted)}nav a{margin-right:14px}code{font-size:.92em}pre{background:var(--chip);padding:12px;border-radius:8px;overflow:auto;font-size:.85rem}
-.small{font-size:.88rem}
-"""
+SITE = ROOT / 'docs'
+REPO = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
+E = html.escape
 
 
-def esc(x) -> str:
-    return html.escape(str(x))
+def md(path):
+    path = ROOT / path
+    text = markdown.markdown(path.read_text(), extensions=['tables', 'fenced_code', 'sane_lists'])
+    text = re.sub(r'(<\/?h)([1-5])(?=[ >])', lambda m: m[1] + str(int(m[2]) + 1), text)
+    def link(match):
+        href = match.group(1)
+        if href.startswith(('https:', 'http:', '#', 'mailto:')):
+            return match.group(0)
+        target = (path.parent / href).resolve()
+        if target.is_relative_to(ROOT):
+            return 'href="' + REPO + '/blob/main/' + str(target.relative_to(ROOT)) + '"'
+        return match.group(0)
+    text = re.sub(r'href="([^"]+)"', link, text)
+    return '<div class="prose table-scroll">' + text + '</div>'
 
 
-def f4(x) -> str:
-    return "—" if x is None else f"{float(x):.4f}"
+def map_preview(card):
+    with rasterio.open(ROOT / card['submission_file']) as ds:
+        a = ds.read(1, out_shape=(850, 750), resampling=rasterio.enums.Resampling.average)
+    with rasterio.open(ROOT / 'data/reference/sample_submission.tif') as ds:
+        fp = np.isfinite(ds.read(1, out_shape=(850,750), resampling=rasterio.enums.Resampling.nearest))
+    # Display-only compression; the GeoTIFF and scientific surface are untouched.
+    level = np.log1p(a * 35) / np.log1p(max(float(a.max()),1e-8) * 35)
+    palette = np.array([[29,64,56],[51,96,76],[105,143,82],[181,196,105],[239,231,175]],float)
+    scaled = np.clip(level,0,1) * (len(palette)-1)
+    lower = np.floor(scaled).astype(int); upper=np.minimum(lower+1,len(palette)-1)
+    rgb=palette[lower]*(1-(scaled-lower))[...,None] + palette[upper]*(scaled-lower)[...,None]
+    rgb[~fp] = [16,47,44]
+    Image.fromarray(rgb.astype(np.uint8)).save(SITE / 'assets/fabric-offset-preview.png', optimize=True)
+
+
+def shell(title, content, *, executive=False):
+    return f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: a newly generated, validated research GeoTIFF with an explicit automated DO NOT SUBMIT verdict and auditable evidence.">
+<title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="research.html">Research</a><a href="sources.html">Sources &amp; feed</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
+<main id="main" class="wrap">{content}</main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
+
+
+def download_panel(card):
+    file = Path(card['submission_file']).name
+    zipfile = Path(card['zip_file']).name
+    size_mib = (ROOT / card['submission_file']).stat().st_size / (1024 * 1024)
+    return f'''<div class="actions"><a class="button" href="downloads/{E(file)}" download>↓ Download new GeoTIFF <span>{size_mib:.1f} MiB</span></a><a class="button secondary" href="downloads/{E(zipfile)}" download>Single-TIFF ZIP ↗</a></div>
+<p class="micro">Single band · float32 · EPSG:32611 · 100 m · 3730 × 3292 · all values in [0,1]</p>
+<div class="download-warning"><strong>OK TO DOWNLOAD: YES. &nbsp; OK TO SUBMIT: NO.</strong><br>Newly computed research surface. Byte-distinct, but not protocol-unique. No human inspection is needed to reach this automated rejection.</div>'''
+
+
+def identity_panel(card):
+    return f'''<div class="panel"><h3>Artifact identity</h3><p>A new field, not a renamed prior submission. The negative verdict stays attached to every download.</p>
+<div class="copy-line"><div class="code-label">Unique artifact name</div><button class="copy" data-copy="submission-name">Copy name</button></div><div class="code-box" id="submission-name">{E(card['submission_name'])}</div>
+<div class="copy-line"><div class="code-label">Short comment · {len(card['submission_note'])}/140 characters</div><button class="copy" data-copy="submission-note">Copy comment</button></div><div class="code-box" id="submission-note">{E(card['submission_note'])}</div>
+<div class="code-label">Raster SHA-256</div><div class="code-box">{E(card['raster_sha256'])}</div><p class="micro" style="margin-top:12px;margin-bottom:0">These are identifiers for reproducibility, not an instruction to upload this file.</p></div>'''
+
+
+def checks_panel(card):
+    return '''<div class="panel"><h3>Verified from the written file</h3><p>Automatic re-read, exact reference-grid comparison and ZIP round trip. No manual inspector is required.</p>
+<div class="check-row"><div class="check-icon">✓</div><div><strong>Finite, normalized values</strong><span>No NaN or infinity anywhere; no negative sentinel; every value within [0,1].</span></div></div>
+<div class="check-row"><div class="check-icon">✓</div><div><strong>Exact grid match</strong><span>One float32 band; EPSG:32611; shape, geotransform and bounds match the reference.</span></div></div>
+<div class="check-row"><div class="check-icon">✓</div><div><strong>Clean prediction domain</strong><span>Zero positive mass outside the footprint or on the mapped catalogue.</span></div></div>
+<div class="check-row"><div class="check-icon">✓</div><div><strong>One-TIFF ZIP, identical bytes</strong><span>SHA-256, file contents and ZIP CRC are checked automatically.</span></div></div>
+<div class="check-row"><div class="check-icon" style="color:var(--red)">×</div><div><strong>Scientific submission gate: NOT CLEARED</strong><span>Literal novelty stop. Canary and holdout results are not measured.</span></div></div>
+<a class="text-link" href="evidence/verification.json">Read the complete verification receipt ↗</a></div>'''
+
+
+def home(card, index):
+    overlap=card['correlation_overlap_vs_registry']['surface_before_placement']
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / E1 · MAGNETIC FABRIC OFFSET</p><span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>
+<h1>A new GeoTIFF.<br><em>A clear decision.</em></h1><p class="lead">A fresh geophysical response, exported and checked end to end. The file passes format validation. It does <strong>not</strong> pass the competition-readiness gate.</p>{download_panel(card)}
+<p class="micro"><a href="executive-summary.html">Why it is blocked &amp; how future submissions work ↗</a></p></div>
+<figure class="map-card" style="margin:0"><div class="map-top"><span>GeoDAWN · UTM ZONE 11N</span><span>RESEARCH ONLY</span></div><img class="map-image" src="assets/fabric-offset-preview.png" alt="Actual unvalidated magnetic-marker offset response within the GeoDAWN footprint, brighter where the computed response is larger."><figcaption class="map-caption"><strong>The computed field, not a fault truth map.</strong><br>Display-only log contrast. No synthetic geology, copied prediction values or claimed vent discoveries.</figcaption></figure></section>
+<div class="metric-grid"><div class="metric"><div class="label">File validation</div><div class="value">PASS ↗</div><div class="description">On-disk format &amp; range checks</div></div><div class="metric"><div class="label">Literal novelty</div><div class="value stop">STOP · 100%</div><div class="description">Overlap with a universal prior</div></div><div class="metric"><div class="label">HOLDOUT-DTI</div><div class="value">Not run</div><div class="description">Stopped before scientific scoring</div></div><div class="metric"><div class="label">Weekly slots spent</div><div class="value">0</div><div class="description">No upload or selector action</div></div></div>
+<section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Validation is not just a green badge.</h2></div><p>Format, uniqueness and performance are separate gates. One passes. One proves the run must stop. The others are explicitly unmeasured.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
+<section class="section"><div class="proof"><div><p class="eyebrow">A MATHEMATICAL BLOCKER</p><h2>Every nonempty map<br>fails this witness.</h2><div class="proof-stat">0 <small>uncovered allowed pixels</small></div><p>Measured by the unchanged shared template on a real, hash-verified registry raster.</p></div><div><p>The protocol counts every finite positive pixel as a dot. One prior is positive across the whole footprint. Its 3-pixel halo therefore covers <strong>every possible candidate point</strong>.</p><div class="formula">candidate overlap = 100% &gt; 70% limit<br>⇒ duplicate / STOP, before placement</div><p style="margin-top:18px">No dense-raster exemption, new threshold, random jitter or copied submission was introduced. The new field is retained as a negative-result deliverable, not a cleared candidate.</p><a class="text-link" href="evidence/universal_overlap_certificate.json">Open the reproducible certificate ↗</a></div></div></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">02 / RESEARCH, NOT A PROJECTION</p><h2>Learn from H33. Do not copy it.</h2></div><p>Actual raster bytes show H33 is D2.8 with 6,436 catalogue-near points removed. A plausible metric mechanism is not a proven private-score explanation.</p></div><div class="steps"><article class="step"><div class="step-no">01 — FORENSIC EVIDENCE</div><h3>44,090 → 37,654</h3><p>H33 is an exact subset after a 200 m catalogue-flank prune. Its reported score has no artifact-linked submission receipt here.</p><a class="text-link" href="analysis.html">Read the scientific explanation ↗</a></article><article class="step"><div class="step-no">02 — A DISTINCT HYPOTHESIS</div><h3>Displacement, not edge overlap</h3><p>Compare opposite-side magnetic profiles across a gravity edge. A repeatable nonzero lag may mark an offset; an intrusive contact or survey seam can mimic it.</p><a class="text-link" href="research.html">See all four ranked hypotheses ↗</a></article><article class="step"><div class="step-no">03 — AN HONEST STOP</div><h3>No invented scores</h3><p>The pre-placement duplicate gate blocked canaries, HOLDOUT-DTI and final dots. Null scores mean not measured. No leaderboard gain is established.</p><a class="text-link" href="evidence/run_card.json">Read the machine run card ↗</a></article></div></section>
+<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} immutable raster blobs · {len(index['repositories'])} accessible sibling repositories</div><a href="sources.html">Official sources, limitations &amp; daily source health ↗</a></div>'''
+
+
+def executive(card):
+    return f'''<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / SUBMISSION GUIDE</p><h1>Know exactly what you can submit.</h1><p class="lead">Download is easy. Permission to spend a competition slot must be supported by evidence—not inferred from a valid TIFF.</p></section>
+<div class="notice"><strong>THIS FILE: DO NOT SUBMIT.</strong> The shared literal novelty gate rejected it before placement. This is a final automated negative decision, not a request for a human to inspect and approve it.</div>
+<section class="section">{download_panel(card)}<div class="two-col" style="margin-top:25px">{identity_panel(card)}{checks_panel(card)}</div></section>
+<section class="section prose"><h2>How a future approved submission works</h2><ol><li><strong>First clear every local gate.</strong> Real source provenance, feature-alone leakage canaries, buffered whole-component hide-and-recover, a matched current-best comparison, literal novelty on the surface and final predictions, and the on-disk format checks must pass.</li><li><strong>Obtain separate selector approval.</strong> The official rules specify up to three submissions per week. Verify the signed-in account’s actual remaining capacity on the submission page. This project cannot see it and never spends a slot automatically.</li><li><strong>Download the approved artifact.</strong> Use one <code>.tif</code>, or a ZIP containing exactly that single TIFF. Use the candidate’s own unique name and short comment. Do not substitute this rejected research file.</li><li><strong>Open the official submission form.</strong> Sign in to DrivenData, choose the approved file in “File to submit”, paste its identifying note, and submit only within the verified cap.</li><li><strong>Save the actual receipt.</strong> Record the uploaded name, file SHA-256, server outcome and score. Only a real submission-page receipt establishes <code>ORGANIZER-CONFIRMED</code> for a file. An offline score or projection never does.</li></ol><p><a class="button secondary" href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">Official submission page ↗</a> <a class="text-link" href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official rules ↗</a></p>
+<h2>Why the range error is prevented locally</h2><p>The writer rejects NaN, infinity, negative sentinels and out-of-range values before writing. It does not silently clip or fill model output. It then reopens the TIFF, compares the reference grid and reopens the ZIP. Our conservative export is finite everywhere, with zero outside the irregular footprint and no nodata sentinel. This is a local policy, not a claim that the organizer forbids all outside-footprint NaN.</p><p>The cause of an earlier portal rejection is unknown without the rejected bytes and server receipt. This file’s format PASS does not override its scientific rejection.</p>
+<h2>Re-check everything without a human inspector</h2><pre><code>python3 -m venv .venv\n.venv/bin/pip install -r requirements.lock\n.venv/bin/python scripts/verify_project.py\n.venv/bin/python scripts/submission_status.py</code></pre><p>The final command returns exit <code>2</code> for this research-only file. That is the correct fail-closed outcome. The verification command returns success when the evidence is internally consistent, even though the scientific verdict is negative.</p><h2>What remains blocked</h2><p>A verified whole-footprint prior makes the supplied literal overlap gate impossible for every nonempty candidate. Clarify the rule or registry explicitly before a new scientific run. This run does not invent an exemption. The organizer-origin identity of mirrored inputs, account capacity and artifact-linked score receipts are also not authenticated.</p></section>'''
+
+
+def sources_page(sources):
+    items=[]
+    for row in sources['sources']:
+        source_type = row.get('source_type', 'OFFICIAL SOURCE')
+        claims=''.join('<li>'+E(c)+'</li>' for c in row.get('verified_claims',[]))
+        limits=' '.join(row.get('limits',[]))
+        items.append(f'''<article class="source-item"><div><div class="source-id">{E(row['id'])}</div><span class="badge neutral">{E(source_type)}</span></div><div><h3>{E(row['authority'])}</h3><a href="{E(row['url'])}">{E(row['url'])} ↗</a><p>Review: {E(row['access'])} · 2026-10-21</p><ul>{claims}</ul><p><strong>Limits:</strong> {E(limits)}</p></div></article>''')
+    return '''<section class="page-head"><p class="eyebrow">PROVENANCE / FRESHNESS / LIMITS</p><h1>Sources you can audit.</h1><p class="lead">Official scientific claims, mirrored byte integrity, live URL reachability and submission receipts are different kinds of evidence. We never interchange them.</p></section>
+<section class="section"><div class="panel"><h3>Public-source health feed</h3><p id="feed-status">Loading the last recorded fetch attempt…</p><div id="feed-observation" class="micro"></div><div class="table-scroll"><table><thead><tr><th>Source</th><th>Last fetch state</th><th>HTTP</th></tr></thead><tbody id="health-rows"></tbody></table></div><p class="micro">A successful request checks reachability only. A failed refresh does not update an old leaderboard observation. Daily checks never access private receipts, allocate slots or run experiments. <a href="evidence/source_health.json">Raw feed JSON ↗</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/actions/workflows/site.yml">Latest scheduled workflow and deployment state ↗</a></p></div></section>
+<section class="section"><div class="notice">No candidate here has an ORGANIZER-CONFIRMED submission-page receipt. The public leaderboard observation is not this file’s score. Direct requests to non-allowlisted domains can fail in the sandbox even when the research browser can read them.</div>'''+''.join(items)+'''</section><section class="section prose"><h2>Accessible datasets, not invented new measurements</h2><p>The numerical feature stack, sample and mapped faults were restored from immutable owner GitHub mirrors and hash-checked. This verifies consistency, not independent organizer authentication. E1 uses only cached RTP and gravity. No new paid, private or fabricated observations were introduced.</p><p><a href="evidence/data_manifest.json">Data sources and SHA-256 pins ↗</a> · <a href="evidence/restore_receipt.json">Actual restoration receipt ↗</a> · <a href="evidence/official_sources.json">Claim-by-claim official source ledger ↗</a></p></section>'''
+
+
+def history_page():
+    rows=list(csv.DictReader((ROOT/'registry/score_ledger.csv').open()))
+    rows.sort(key=lambda r:float(r['reported_public_dti']),reverse=True)
+    table=''.join(f'<tr data-search-row><td>{E(r["site_repo"])}</td><td style="overflow-wrap:anywhere;max-width:460px">{E(r["submission_name"])}</td><td>{float(r["reported_public_dti"]):.4f}</td><td>Unverified historical report</td></tr>' for r in rows)
+    return f'''<section class="page-head"><p class="eyebrow">HISTORICAL REPORTS / NOT RECEIPTS</p><h1>The family results, with caveats.</h1><p class="lead">{len(rows)} inherited filename-to-score reports. They are a research starting point, not organizer-confirmed artifact scores or independent experiments.</p></section><div class="notice">No submission-page receipt authenticates these file/score pairings. Similar scores can reflect shared surfaces and copied dot sets. This table does not rank new hypotheses or select a slot.</div><input class="search" id="history-search" type="search" placeholder="Filter by repository or submission name" aria-label="Filter historical reports"><div class="table-scroll"><table><thead><tr><th>Repository</th><th>Reported submission</th><th>Reported public DTI</th><th>Evidence class</th></tr></thead><tbody>{table}</tbody></table></div><p class="footnote"><a href="evidence/score_ledger.csv">Download the complete labelled CSV ↗</a> · <a href="analysis.html">What the actual H33 raster bytes show ↗</a></p>'''
 
 
 def main():
-    st = json.loads((DOCS / "status.json").read_text())
-    card = json.loads((ROOT / "evidence" / "run_card_h79.json").read_text())
-    audit = card["registry_audit"]
-    ok = bool(st["ok_to_submit"])
-    now = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
-    verdict_line = ("OK TO DOWNLOAD · OK TO SUBMIT" if ok else "OK TO DOWNLOAD FOR INSPECTION · NOT OK TO SUBMIT")
-    hold_rows = "".join(
-        f"<tr><td>{esc(k)}</td><td>{f4(v['dti'])}</td><td>[{f4(v['ci95'][0])}, {f4(v['ci95'][1])}]</td><td>{v['withheld']:,}</td></tr>"
-        for k, v in st["holdout"].items())
-    paired = card["holdout"]
-    paired_rows = ""
-    for seed, h in paired.items():
-        for arm, d in h["paired_vs"].items():
-            paired_rows += (f"<tr><td>{esc(seed)}</td><td>{esc(arm)}</td><td>{'+' if d['delta']>=0 else ''}{f4(d['delta'])}</td>"
-                            f"<td>[{f4(d['ci95'][0])}, {f4(d['ci95'][1])}]</td></tr>")
-    val = card["validator"]
-    val_rows = "".join(f"<tr><td>{esc(k)}</td><td>{esc(v)}</td></tr>" for k, v in (
-        ("all values finite (whole raster)", val["all_finite_everywhere"]),
-        ("values in [0, 1]", val["values_in_unit_interval"]),
-        ("min / max inside footprint", f"{val['min_inside']} / {val['max_inside']}"),
-        ("no positive mass outside footprint", val["no_positive_outside_footprint"]),
-        ("no positive mass on the catalogue", val["no_positive_on_catalogue"]),
-        ("CRS", val["crs_epsg"]), ("shape", val["shape"]), ("geotransform", val["transform"]),
-        ("dtype / nodata", f"{val['dtype']} / {val['nodata']}"),
-        ("matches sample_submission grid (template gate)", val["matches_sample_grid"]),
-        ("positive pixels (dots)", f"{val['positive_pixels']:,}"),
-        ("template assert_submittable", val["assert_submittable"]),
-    ))
-    lit = audit["literal"]
-    bind = audit["binding_like_for_like"]
-    champ = audit.get("vs_champion") or {}
-    index = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GEMSDOE79 — lane H79-MCT — submission status</title><style>{CSS}</style></head><body><main>
-<nav><a href="index.html">Status</a><a href="executive-summary.html">Executive summary (how to submit)</a><a href="irregularities.html">Irregularities</a><a href="{REPO_URL}">Repository</a><a href="status.json">status.json feed</a></nav>
-<h1>GEMSDOE79 · lane H79-MCT — Mapper-continuity scarp traces</h1>
-<p class="muted">DOE GEMS Prize Challenge (DrivenData 306). Every statement on this page is generated by <code>scripts/audit_h79.py</code> → <code>docs/status.json</code>; no human inspector. Last render {now}.</p>
-<section class="banner {'ok' if ok else 'bad'}">
-<h2>{verdict_line}</h2>
-<p>Candidate: <code>{esc(st['name'])}</code><br>sha256 <code>{esc(st['sha256'])}</code> · {st['dots']:,} binary dots · float32 · EPSG:32611 · 3730×3292 · values {{0,1}}, all finite</p>
-<a class="btn" href="{esc(st['file'])}" download>⬇ Download the submission TIF</a>
-<a class="btn" href="{esc(st['zip'])}" download>⬇ Download as ZIP (one TIF)</a>
-<p class="small">Submission name (paste in the portal): <code>{esc(st['name'])}</code><br>Note (≤ 140 chars, {len(st['note'])} used): <code>{esc(st['note'])}</code></p>
-<p class="small">Verdict rule: {esc(card['verdict_rule'])}.</p>
-</section>
-
-<h2>Scores — all labelled</h2>
-<p><span class="chip">HOLDOUT-DTI</span> evaluator <code>gems57-pooled-hide-v2</code>, whole-component hide-and-recover, visible catalogue masked pixel-exactly, α = 0.2, β = 0.8, 300 m triangular kernel, paired 95 % CI over 20 km blocks (1000 draws).
-<span class="chip">ORGANIZER-CONFIRMED</span> for this file: <strong>{esc(card['organizer_confirmed_score']) if card['organizer_confirmed_score'] is not None else 'none yet — the file has not been scored by the organizer'}</strong>. No projection of a live score is written anywhere on this site.</p>
-<table><tr><th>holdout seed</th><th>HOLDOUT-DTI (shipped construction, 37,654 dots)</th><th>95 % CI</th><th>withheld positive pixels</th></tr>{hold_rows}</table>
-<h3>Paired differences (candidate − control, same holdout)</h3>
-<table><tr><th>seed</th><th>control arm</th><th>Δ HOLDOUT-DTI</th><th>95 % CI</th></tr>{paired_rows}</table>
-<p class="small muted">unconstrained_C3 = the same surface emitted without the per-prior caps (withdrawn as a duplicate under the 70 % rule — see irregularities IR-79-16); C0_random = uniformly random dots (conservative interval difference). Context for the unconstrained construction (paired CIs, in the run card): vs C1_pixel (no continuity gate) +0.0009 / +0.0008; vs REF_h19_5_redot (the champion's line set re-dotted fold-fair; label-aware) +0.0179 / +0.0126; vs the archived 0.2778 dots +0.111 (those were pruned with the full catalogue and avoid the withheld segments by construction).</p>
-
-<h2>Uniqueness vs the 812 prior family rasters <span class="chip">REGISTRY-MEASUREMENT</span></h2>
-<table>
-<tr><th>reading</th><th>worst forward overlap (my dots within 3 px of theirs)</th><th>worst |Spearman| (full footprint)</th><th>verdict</th></tr>
-<tr><td><strong>like-for-like (binding; template rule IR-H85-01)</strong> — overlap test only against priors whose 3-px halo covers &lt; 70 % of the allowed domain ({bind['discriminating_priors']} discriminating, {bind['space_filling_priors']} space-filling); ρ test against every prior</td><td>{f4(bind['worst_forward_overlap'])} <span class="small muted">({esc(Path(bind['worst_forward_overlap_file'] or '').name)})</span></td><td>{f4(bind['worst_abs_spearman'])} <span class="small muted">({esc(Path(bind['worst_abs_spearman_file'] or '').name)})</span></td><td><strong>{'DUPLICATE' if bind['duplicate'] else 'unique'}</strong></td></tr>
-<tr><td>literal (every positive pixel of every prior counts)</td><td>{f4(lit['worst_forward_overlap'])} <span class="small muted">({esc(Path(lit['worst_forward_overlap_file']).name)}; {lit['n_overlap_firings']} priors ≥ 0.70 — all space-filling witnesses that any dot set overlaps)</span></td><td>{f4(lit['worst_abs_spearman'])}</td><td>{lit['n_rho_firings']} ρ firings; identical to a prior: {esc(lit['identical_decoded_any'])}</td></tr>
-<tr><td>pre-placement continuity surface (rule 1: check the surface too)</td><td>—</td><td>{f4(lit['worst_surface_abs_spearman'])}</td><td>≤ 0.90</td></tr>
-<tr><td>vs the 0.2778 champion file specifically</td><td>{f4(champ.get('forward_overlap'))}</td><td>{f4(champ.get('spearman_full_footprint'))}</td><td>Jaccard {f4(champ.get('jaccard_dot_sets'))}; {100*audit['share_of_dots_in_h19_5_halo']:.1f} % of dots inside the H19-5 3-px halo</td></tr>
-</table>
-
-<h2>Validator output</h2>
-<table><tr><th>check</th><th>result</th></tr>{val_rows}</table>
-
-<h2>What the lane is (one paragraph)</h2>
-<p>{esc(card['hypothesis'])}</p><p><strong>Mechanism.</strong> {esc(card['mechanism'])}</p>
-<p><strong>Named non-fault mimics</strong> the lane is judged against: {esc(', '.join(card['named_non_fault_mimics']))}.</p>
-<p>Full reasoning: <a href="{REPO_URL}/blob/main/reports/why_02778.md">why the 0.2778 file scored what it did and how this lane follows from it</a> · <a href="{REPO_URL}/blob/main/research/h79_hypotheses.md">hypothesis register</a> · <a href="{REPO_URL}/blob/main/registry/preregistration_h79.json">pre-registration</a> · <a href="{REPO_URL}/blob/main/evidence/run_card_h79.json">RUN CARD (JSON)</a> · <a href="{REPO_URL}/blob/main/evidence/registry_audit_h79.json">full 812-row audit</a>.</p>
-
-<h2>Data and sources (auditable)</h2>
-<p>Every input is SHA-256 pinned and restored fail-closed. The full table with official links is in <a href="{REPO_URL}/blob/main/knowledge/data_sources.md">knowledge/data_sources.md</a>; competition facts with organizer links in <a href="{REPO_URL}/blob/main/knowledge/competition_facts.md">knowledge/competition_facts.md</a>.</p>
-<table><tr><th>input</th><th>origin</th><th>official source</th></tr>
-<tr><td>training_features.tif (bands 12, 19 used), existing_faults.tif, sample_submission.tif</td><td>owner SHA-pinned GitHub mirrors of the login-walled competition files</td><td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/">DrivenData data page</a></td></tr>
-<tr><td>1 m lidar scarp descriptors (12-band cache)</td><td>owner CI from USGS 3DEP 1 m tiles (706/716)</td><td><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a></td></tr>
-<tr><td>10 m 3DEP channels (13 float32 vectors)</td><td>owner CI run 36343078537 (GEMSDOE10 tag ext/dem10-36343078537)</td><td><a href="https://www.sciencebase.gov/catalog/item/4f70aa9fe4b058caae3f8de5">USGS 3DEP 1/3 arc-second seamless DEM</a></td></tr>
-<tr><td>812 prior family rasters</td><td>GitHub git-blob API, blob-SHA1 verified, SHA-256 pinned</td><td><a href="{REPO_URL}/blob/main/registry/registry_inventory.json">registry_inventory.json</a></td></tr></table>
-
-<h2>Limitations and access needed</h2>
-<ul><li>No organizer score exists for this file; the holdout is a gate (catalogue-like truth), not a predictor of the live score.</li>
-<li>The sandbox reaches only GitHub/PyPI; the 10 m 3DEP <em>elevation</em> needed for Lahontan-shoreline de-confounding (H79-C) was not obtainable.</li>
-<li>GitHub Pages must be switched on by the repository owner (Settings → Pages → branch <code>main</code>, folder <code>/docs</code>).</li>
-<li>Registry scope: the 812 hash-verified family rasters indexed 2026-10-21, not the organizer's registry.</li></ul>
-<p class="muted small">Feed: <a href="status.json">status.json</a> (machine-readable; fields ok_to_submit, verdict, sha256, holdout, audit).</p>
-</main></body></html>"""
-    (DOCS / "index.html").write_text(index)
-
-    exec_html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GEMSDOE79 — executive summary and how to submit</title><style>{CSS}</style></head><body><main>
-<nav><a href="index.html">Status</a><a href="executive-summary.html">Executive summary</a><a href="irregularities.html">Irregularities</a><a href="{REPO_URL}">Repository</a></nav>
-<h1>Executive summary</h1>
-<section class="banner {'ok' if ok else 'bad'}"><h2>{verdict_line}</h2>
-<p><code>{esc(st['name'])}</code><br>sha256 <code>{esc(st['sha256'])}</code></p>
-<a class="btn" href="{esc(st['file'])}" download>⬇ Download TIF</a><a class="btn" href="{esc(st['zip'])}" download>⬇ Download ZIP</a></section>
-
-<h2>Why the family's best file scored 0.2778 (in five sentences)</h2>
-<ol>
-<li>The 0.2778 file is 37,654 single-pixel dots, all on the support of one lidar/DEM scarp-detector line set (H19-5), 3 px apart, with every dot within 2 px of the mapped catalogue removed (reproduced from the bytes).</li>
-<li>The organizer's metric (Tversky α = 0.2, β = 0.8, 300 m triangular kernel) makes binary dots optimal, makes 3-px thinning free recall, masks catalogue pixels and weights recall 4× precision — the champion exploits all four.</li>
-<li>Hidden truth is new fault geometry traced by experts on lidar-derived hillshades (organizer: continuations, splays, parallel strands count); a live-score inversion puts ≈ 38× truth enrichment on H19-5 ridges far from the catalogue and ≈ 0 for geophysics-only lanes.</li>
-<li>Every ≥ 0.26 family entry is a re-dotting of the same line set; the uniqueness rule forbids another one, so the only route up is a <em>different</em> lidar-scarp detector with ≥ 30 % of its dots on evidence H19-5 does not carry.</li>
-<li>This lane builds exactly that: a terrain-only scarp likelihood gated by the line-continuity of its own evidence, emitted with the champion's emitter; {100*(1-audit['share_of_dots_in_h19_5_halo']):.0f} % of its dots are outside the H19-5 halo.</li></ol>
-<p>Full argument with evidence classes: <a href="{REPO_URL}/blob/main/reports/why_02778.md">reports/why_02778.md</a>.</p>
-
-<h2>What was measured</h2>
-<table><tr><th>seed</th><th>HOLDOUT-DTI</th><th>95 % CI</th><th>withheld px</th></tr>{hold_rows}</table>
-<p class="small muted">Gates passed: leakage canary (worst single-feature AUC {max(h['canary_worst']['sym_auc'] for h in paired.values()):.3f} ≤ 0.90), beats random on both seeds, continuity does not hurt, validator 100 %, like-for-like uniqueness. The unconstrained detector beat the fold-fair champion construction (+0.018 / +0.013); enforcing the family's 70 % duplicate rule by construction (amendment A1, 59 capped priors) cost −0.013 / −0.015, leaving the shipped file on par with that label-aware reference (0.1023 vs 0.0974; 0.0946 vs 0.0968). The holdout truth is catalogue-like; the live hidden set is not — treat these as a gate, not a forecast.</p>
-
-<h2>Exactly how to submit a promoted file</h2>
-<ol>
-<li>Confirm the banner on this page says <strong>OK TO SUBMIT</strong> (it is computed from <code>docs/status.json</code>; if it says NOT OK, do not submit — inspect only).</li>
-<li>Click <em>Download TIF</em> (or the ZIP, which contains exactly that one TIF). Optionally verify <code>sha256sum</code> equals <code>{esc(st['sha256'][:16])}…</code>.</li>
-<li>Go to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the competition's submission page</a> (log in), upload the file, and paste:<br>name <code>{esc(st['name'])}</code><br>note <code>{esc(st['note'])}</code></li>
-<li>Record the portal score as ORGANIZER-CONFIRMED in <code>docs/status.json</code> → <code>organizer_confirmed_score</code> and in <code>evidence/run_card_h79.json</code>; never before the portal shows it.</li>
-<li>Selection of which file occupies a weekly slot is a separate selector decision — this project does not make it.</li></ol>
-
-<h2>Format guarantees (the earlier "Predicted values must be in range [0, 1]" failure)</h2>
-<p>The file is written only by the shared fail-closed writer: single float32 band, nodata <code>None</code>, every cell finite, zeros outside the footprint, min {val['min_inside']} / max {val['max_inside']}, CRS EPSG:32611, shape 3730×3292, geotransform identical to <code>sample_submission.tif</code>, zero positive pixels on the mapped catalogue. These are local checks; portal acceptance is confirmed only by a portal receipt.</p>
-
-<h2>Remaining work for the next session</h2>
-<ul><li>Score this file once (one slot) — its live score is the first direct calibration of off-H19-5 lidar-scarp credit for the family.</li>
-<li>Fetch the 10 m 3DEP elevation (official USGS source, free) to add absolute height → Lahontan-shoreline de-confounder (H79-C) and real hillshade continuity.</li>
-<li>Trace-level acceptance (minimum trace length, along-strike coherence) can only be tuned against live scores; the holdout rewards dense emission.</li></ul>
-</main></body></html>"""
-    (DOCS / "executive-summary.html").write_text(exec_html)
-
-    # irregularities page = markdown wrapped in <pre> (no dependency on a markdown renderer)
-    irr = (DOCS / "irregularities.md").read_text() if (DOCS / "irregularities.md").exists() else "(none recorded)"
-    (DOCS / "irregularities.html").write_text(f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><title>GEMSDOE79 — irregularities</title><style>{CSS}</style></head><body><main>
-<nav><a href="index.html">Status</a><a href="executive-summary.html">Executive summary</a><a href="irregularities.html">Irregularities</a><a href="{REPO_URL}">Repository</a></nav>
-<h1>Irregularities log</h1><pre>{esc(irr)}</pre></main></body></html>""")
-    (DOCS / ".nojekyll").write_text("")
-    shutil.copyfile(ROOT / "evidence" / "run_card_h79.json", DOCS / "run-card.json")  # live card on the site
-
-    # README status block
-    block = f"""<!-- STATUS:BEGIN -->
-## Status — {'✅ OK TO DOWNLOAD · OK TO SUBMIT' if ok else '⛔ OK TO DOWNLOAD FOR INSPECTION · NOT OK TO SUBMIT'}
-
-| | |
-|---|---|
-| candidate | [`{st['name']}.tif`]({st['file']}) · [zip]({st['zip']}) |
-| sha256 | `{st['sha256']}` |
-| dots | {st['dots']:,} binary dots (float32 {{0,1}}, all finite, EPSG:32611, 3730×3292) |
-| note (≤ 140 chars) | `{st['note']}` |
-| HOLDOUT-DTI (gems57-pooled-hide-v2) | {' · '.join(f"{k}: {v['dti']:.4f} [{v['ci95'][0]:.4f}, {v['ci95'][1]:.4f}] ({v['withheld']:,} withheld px)" for k, v in st['holdout'].items())} |
-| ORGANIZER-CONFIRMED | {card['organizer_confirmed_score'] if card['organizer_confirmed_score'] is not None else 'none yet (not scored by the organizer)'} |
-| uniqueness (like-for-like, binding) | worst forward overlap {f4(bind['worst_forward_overlap'])} ≤ 0.70 · worst abs Spearman {f4(bind['worst_abs_spearman'])} ≤ 0.90 · {bind['discriminating_priors']} discriminating / {bind['space_filling_priors']} space-filling priors |
-| uniqueness (literal) | worst forward overlap {f4(lit['worst_forward_overlap'])} against space-filling witnesses ({lit['n_overlap_firings']} priors); identical to a prior: {lit['identical_decoded_any']} |
-| verdict | **{card['verdict']}** — generated {card['generated_utc']} |
-
-Site: {PAGES_URL} · feed: `docs/status.json` · run card: `evidence/run_card_h79.json`
-<!-- STATUS:END -->"""
-    readme = (ROOT / "README.md").read_text()
-    readme = re.sub(r"<!-- STATUS:BEGIN -->.*?<!-- STATUS:END -->", lambda m: block, readme, flags=re.S)
-    (ROOT / "README.md").write_text(readme)
-    print("site rendered:", "OK" if ok else "NOT OK", st["name"])
+    report=verify()
+    if not report['all_checks_passed']:
+        raise ValueError('Refusing to build a site around inconsistent evidence or changed raster bytes')
+    card=json.loads((ROOT/'run_card.json').read_text())
+    index=json.loads((ROOT/'registry/registry_index.json').read_text())
+    sources=json.loads((ROOT/'knowledge/official_sources.json').read_text())
+    SITE.mkdir(exist_ok=True); (SITE/'assets').mkdir(exist_ok=True); (SITE/'evidence').mkdir(exist_ok=True)
+    map_preview(card)
+    copies={'run_card.json':'run_card.json','evidence/verification.json':'verification.json',
+            'evidence/universal_overlap_certificate.json':'universal_overlap_certificate.json',
+            'evidence/uniqueness_surface.json':'uniqueness_surface.json',
+            'evidence/uniqueness_final_artifact.json':'uniqueness_final_artifact.json',
+            'evidence/h33_forensics.json':'h33_forensics.json',
+            'knowledge/official_sources.json':'official_sources.json',
+            'registry/data_manifest.json':'data_manifest.json','data/restore_receipt.json':'restore_receipt.json',
+            'registry/score_ledger.csv':'score_ledger.csv',
+            'registry/preregistration.json':'preregistration.json',
+            'registry/template_pin.json':'template_pin.json',
+            'registry/protocol_clarification.json':'protocol_clarification.json'}
+    for source,dest in copies.items(): shutil.copyfile(ROOT/source,SITE/'evidence'/dest)
+    pages={'index.html':('Download & automatic decision',home(card,index)),
+           'executive-summary.html':('Executive summary & submission guide',executive(card)),
+           'research.html':('Four preregistered hypotheses','<section class="page-head"><p class="eyebrow">ONE LANE / FOUR HYPOTHESES / ONE FIXED SURFACE</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative scientific ranking, not projected DTI. A literal pre-placement duplicate stop ended E1 before canaries or holdout.</p></section><section class="section">'+md('research/hypotheses.md')+'</section>'),
+           'analysis.html':('What H33 changed, and what remains unknown','<section class="page-head"><p class="eyebrow">FORENSIC ANALYSIS / EXACT METRIC</p><h1>What H33 actually changed.</h1></section><section class="section">'+md('knowledge/why_h33.md')+md('knowledge/literature.md')+'</section>'),
+           'sources.html':('Official sources & current health feed',sources_page(sources)),
+           'history.html':('Historical reports, not receipts',history_page()),
+           'irregularities.html':('Irregularities & stop reasons','<section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section">'+md('reports/irregularities.md')+'</section>')}
+    for filename,(title,content) in pages.items(): (SITE/filename).write_text(shell(title,content))
+    aliases = {'EXECUTIVE_SUMMARY.html': 'executive-summary.html', 'PROJECT_BRIEF.html': 'research.html'}
+    for alias, target in aliases.items():
+        (SITE/alias).write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=' + target + '"><title>GEMSDOE79 — current negative result</title></head><body><p>DO NOT SUBMIT. <a href="' + target + '">Open the current GEMSDOE79 evidence and submission decision</a>.</p></body></html>\n')
+    shutil.copyfile(ROOT/'run_card.json', SITE/'run-card.json')
+    (SITE/'status.json').write_text(json.dumps({'ok_to_download': True, 'ok_to_submit': False,
+        'verdict': 'negative', 'file': 'downloads/' + Path(card['submission_file']).name,
+        'zip': 'downloads/' + Path(card['zip_file']).name, 'sha256': card['raster_sha256'],
+        'name': card['submission_name'], 'note': card['submission_note'],
+        'artifact_kind': card['artifact_kind'], 'stop_reason': card['stop_reason'],
+        'scope': 'Current E1 only. Archived concurrent approval is not adopted.'}, indent=2) + '\n')
 
 
-if __name__ == "__main__":
-    main()
+    (SITE/'.nojekyll').write_text('')
+    (ROOT/'.nojekyll').write_text('')
+    (ROOT/'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/index.html"><title>GEMSDOE79</title></head><body><p><a href="docs/index.html">Open GEMSDOE79 — download and automatic submission decision</a></p></body></html>\n')
+    (SITE/'evidence/site_manifest.json').write_text(json.dumps({'raster_sha256':card['raster_sha256'],
+        'run_card_sha256':hashlib.sha256((ROOT/'run_card.json').read_bytes()).hexdigest(),
+        'ok_to_download':True,'ok_to_submit':False,'verdict':card['verdict'],'scientific_snapshot_utc':card['generated_utc'],
+        'pages':list(pages),'compatibility_redirects':aliases,'no_human_inspection_required':True},indent=2)+'\n')
+    print(f'Built {len(pages)} evidence-driven pages; download YES / submit NO')
+
+
+if __name__=='__main__': main()

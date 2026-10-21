@@ -1,7 +1,4 @@
-import sys
 from pathlib import Path
-
+import sys
 ROOT = Path(__file__).resolve().parents[1]
-for p in (ROOT / "src", ROOT / "vendor"):
-    if str(p) not in sys.path:
-        sys.path.insert(0, str(p))
+sys.path[:0] = [str(ROOT/'src'), str(ROOT/'vendor'), str(ROOT/'scripts')]

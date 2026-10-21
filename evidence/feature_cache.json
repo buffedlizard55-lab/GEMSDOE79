@@ -1,0 +1,76 @@
+{
+  "supported_pixels": 4742399,
+  "footprint_pixels": 5167373,
+  "positive_surface_pixels": 1904335,
+  "surface_max": 0.7477255463600159,
+  "feature_names": [
+    "gravity_edge_rank",
+    "magnetic_contrast_rank",
+    "lag_gain_r3",
+    "lag_gain_r5",
+    "best_correlation_r3",
+    "best_correlation_r5",
+    "signed_lag_agreement",
+    "fabric_offset_surface",
+    "zero_lag_edge_control"
+  ],
+  "normal_bins": 8,
+  "full_stencil_support_erosion_px": 23,
+  "imputed_output_pixels": 0,
+  "note": "Interpolation/filters use filled work arrays but every emitted surface cell has a complete valid-input stencil; unsupported cells abstain.",
+  "generated_utc": "2026-10-21T21:50:15.276862+00:00",
+  "source_feature_stack_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "preregistration_sha256": "ae72e30e6016b3bc8ec258a0b049ddfefbb55d44f8f257a622af65fd40bd3295",
+  "files": [
+    {
+      "name": "best_correlation_r3",
+      "sha256": "73980c80d5720d79633560f424bb4f05f89abc1c7fe349ca609a000f02545076",
+      "bytes": 49116768
+    },
+    {
+      "name": "best_correlation_r5",
+      "sha256": "482c8fa7c897b334e3d6e3e3168f819cf8a604f2b70233f0e55d967291313ed2",
+      "bytes": 49116768
+    },
+    {
+      "name": "fabric_offset_surface",
+      "sha256": "89cab569509ffd6780c553c9f79429031a06830d0bbb29696fd98b3213534e5d",
+      "bytes": 49116768
+    },
+    {
+      "name": "gravity_edge_rank",
+      "sha256": "d36d902f6d3f77c890706bdb508b51950fc9cbd5b709956bad9f354d22a367b1",
+      "bytes": 49116768
+    },
+    {
+      "name": "lag_gain_r3",
+      "sha256": "191500c588f18fb5553eacb5934a7a78b730aa8bfa7e855ab000eb84ed7f68a7",
+      "bytes": 49116768
+    },
+    {
+      "name": "lag_gain_r5",
+      "sha256": "974eb049ca1696add1bf218e283d9c7f459e8035aa5758902aed5884272f552d",
+      "bytes": 49116768
+    },
+    {
+      "name": "magnetic_contrast_rank",
+      "sha256": "12cb7136e14502fd9f7ce6a34460d9e3908f5ae6b03072d03bdaed1851d1b088",
+      "bytes": 49116768
+    },
+    {
+      "name": "signed_lag_agreement",
+      "sha256": "a5c8424268595bfabb0558c43e494bde087e807e11255fc000fbb77d79d31162",
+      "bytes": 49116768
+    },
+    {
+      "name": "support",
+      "sha256": "a7db6ce93ed63836332a5e827c635fce450fd88fe1c53ef7c6eca4c949fd7531",
+      "bytes": 12279288
+    },
+    {
+      "name": "zero_lag_edge_control",
+      "sha256": "f7e4431e4550df0a7954cadc24b13804e02cb4e244baf70a65473b77d2e982f0",
+      "bytes": 49116768
+    }
+  ]
+}

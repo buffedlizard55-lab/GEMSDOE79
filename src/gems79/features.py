@@ -1,166 +1,145 @@
-"""Catalogue-free topographic feature stack for lane H79-MCT.
+"""One preregistered, catalogue-independent magnetic-marker offset hypothesis.
 
-Design (pre-registered in registry/preregistration_h79.json)
------------------------------------------------------------
-The hidden "new fault" labels are, on the live evidence, dominated by topographic
-scarps that the mapping experts traced on hillshades (see research/why_02778.md).
-The lane therefore uses **only terrain descriptors** at three scales:
-
-* 1 m USGS 3DEP lidar (2 m work grid aggregated to 100 m; cached u8 product, de-quantised),
-* 10 m USGS 3DEP seamless DEM channels (cached float32 vectors),
-* the competition's 100 m detrended elevation and its slope (training_features.tif bands 12 and 19).
-
-plus **line-continuity transforms** of the strongest scarp descriptors (Sato tubular
-ridge filter, sigma 1 and 2 px), which encode what a human mapper does: connect
-collinear scarp fragments into a trace.  No geophysics, no catalogue-derived channel,
-no prior-submission raster enters the stack.
-
-Everything is written as one float32 memmap ``data/cache/features/stack.f32.npy`` of
-shape (3730, 3292, C) so that training samples rows and prediction streams row blocks.
+The 19-band cached numerical feature stack is used directly; no replacement for
+the unavailable historical 54-channel .npy stack is built. All arrays written by
+this module are *new lane transforms*, not newly acquired observations.
 """
 from __future__ import annotations
-
-import gc
-import hashlib
-import json
-import time
-
+from pathlib import Path
 import numpy as np
+import rasterio
 from scipy import ndimage as ndi
-from skimage.filters import sato
-
-from . import ROOT
-from . import data as D
-
-STACK = D.FEAT / "stack.f32.npy"
-RECEIPT = ROOT / "evidence" / "features_receipt.json"
-
-CHANNELS = [
-    # 1 m lidar descriptors (NaN where no lidar)
-    "lid_ex_max", "lid_ex_mean", "lid_step_max", "lid_lapneg_max", "lid_lappos_max",
-    "lid_downface_max", "lid_upface_max", "lid_cross_max", "lid_relief", "lid_coh100",
-    "lid_strike_cos2", "lid_strike_sin2", "lid_valid",
-    # 10 m 3DEP channels (full footprint)
-    "d10_slope_max", "d10_slope_std", "d10_hgm20_max", "d10_hgm50_max", "d10_steep_ratio_max",
-    "d10_resid_std", "d10_curv_absmax", "d10_onesided3",
-    # 100 m competition terrain bands
-    "det_elev", "det_elev_slope",
-    # line-continuity transforms ("mapper's eye")
-    "line_lid_ex", "line_lid_step", "line_d10_hgm20", "line_d10_steep", "line_det_slope",
-    # local support of the two strongest step descriptors
-    "lid_step_sm", "d10_hgm20_sm",
-]
-IDX = {n: i for i, n in enumerate(CHANNELS)}
+from scipy.stats import rankdata
 
 
-def log(*a):
-    print(f"[{time.strftime('%H:%M:%S')}]", *a, flush=True)
+FEATURE_NAMES = ('gravity_edge_rank', 'magnetic_contrast_rank', 'lag_gain_r3',
+                 'lag_gain_r5', 'best_correlation_r3', 'best_correlation_r5',
+                 'signed_lag_agreement', 'fabric_offset_surface', 'zero_lag_edge_control')
 
 
-def tiled_sato(img: np.ndarray, sigmas=(1.0, 2.0), strip=600, halo=24) -> np.ndarray:
-    """Sato bright-ridge filter applied in overlapping horizontal strips (memory bound)."""
-    H, W = img.shape
-    out = np.zeros((H, W), np.float32)
-    for r0 in range(0, H, strip):
-        a, b = max(0, r0 - halo), min(H, r0 + strip + halo)
-        blk = np.nan_to_num(img[a:b].astype(np.float64), nan=0.0)
-        res = sato(blk, sigmas=sigmas, black_ridges=False, mode="reflect")
-        out[r0:min(H, r0 + strip)] = res[r0 - a: r0 - a + min(strip, H - r0)].astype(np.float32)
-        del blk, res
-        gc.collect()
+def unit_ranks(values, valid):
+    """Footprint empirical mid-ranks; a constant field supplies no evidence."""
+    out = np.zeros(values.shape, np.float32)
+    v = np.asarray(values)[valid]
+    if len(v) and np.ptp(v) > 0:
+        out[valid] = ((rankdata(v, method='average') - 1) / max(len(v) - 1, 1)).astype(np.float32)
     return out
 
 
-def robust01(x: np.ndarray, mask: np.ndarray, lo=1.0, hi=99.5) -> np.ndarray:
-    """Clip to footprint percentiles and scale to [0,1] (keeps NaN)."""
-    v = x[mask & np.isfinite(x)]
-    p_lo, p_hi = np.percentile(v, [lo, hi])
-    y = (x - p_lo) / max(p_hi - p_lo, 1e-9)
-    return np.clip(y, 0.0, 1.0).astype(np.float32)
+def registration(a, b, half_width=4, max_lag=3):
+    """NCC tangent profiles: a has 9 samples; b has 15 samples.
+
+    Returns positive nonzero-lag improvement, the selected signed lag, and its
+    correlation. Ties prefer the smallest displacement, then negative before
+    positive; no stochastic fitting or hidden-label parameters are involved.
+    """
+    a = np.asarray(a, np.float32)
+    b = np.asarray(b, np.float32)
+    width = 2 * half_width + 1
+    if a.ndim != 2 or a.shape[1] != width or b.shape != (len(a), width + 2 * max_lag):
+        raise ValueError('registration profile shape mismatch')
+    ac = a - a.mean(axis=1, keepdims=True)
+    an = np.sqrt((ac * ac).sum(axis=1))
+    correlations = []
+    for lag in range(-max_lag, max_lag + 1):
+        bp = b[:, max_lag + lag:max_lag + lag + width]
+        bc = bp - bp.mean(axis=1, keepdims=True)
+        bn = np.sqrt((bc * bc).sum(axis=1))
+        den = an * bn
+        corr = np.divide((ac * bc).sum(axis=1), den,
+                         out=np.zeros(len(a), np.float32), where=den > 1e-10)
+        correlations.append(np.clip(corr, -1, 1))
+    correlations = np.stack(correlations, axis=1)
+    lags = np.array(sorted((l for l in range(-max_lag, max_lag + 1) if l),
+                          key=lambda l: (abs(l), l)), dtype=np.int8)
+    best_id = np.argmax(correlations[:, lags + max_lag], axis=1)
+    best_lag = lags[best_id]
+    best_corr = correlations[np.arange(len(a)), best_lag + max_lag]
+    gain = np.maximum(best_corr - correlations[:, max_lag], 0) / 2
+    # A displaced but anticorrelated marker is not a match.
+    gain *= np.clip((best_corr - .35) / .65, 0, 1)
+    return gain.astype(np.float32), best_lag, best_corr.astype(np.float32)
 
 
-def build(force: bool = False) -> dict:
-    if STACK.exists() and RECEIPT.exists() and not force:
-        return json.loads(RECEIPT.read_text())
-    D.FEAT.mkdir(parents=True, exist_ok=True)
-    grid = D.load_grid()
-    fp = grid.footprint
-    H, W = fp.shape
-    C = len(CHANNELS)
-    stack = np.lib.format.open_memmap(STACK, mode="w+", dtype=np.float32, shape=(H, W, C))
-    stats = {}
-
-    def put(name: str, arr: np.ndarray):
-        arr = arr.astype(np.float32, copy=False)
-        arr = np.where(fp, arr, np.nan).astype(np.float32)
-        stack[:, :, IDX[name]] = arr
-        v = arr[fp & np.isfinite(arr)]
-        stats[name] = {"finite_in_footprint": int(np.isfinite(arr[fp]).sum()),
-                       "p01": float(np.percentile(v, 1)) if v.size else None,
-                       "p50": float(np.percentile(v, 50)) if v.size else None,
-                       "p99": float(np.percentile(v, 99)) if v.size else None}
-        log(f"  {name:18s} finite={stats[name]['finite_in_footprint']:9d} p50={stats[name]['p50']}")
-
-    log("lidar descriptors")
-    lid_valid = D.lidar_valid()
-    for b in ["ex_max", "ex_mean", "step_max", "lapneg_max", "lappos_max", "downface_max",
-              "upface_max", "cross_max", "relief", "coh100"]:
-        put(f"lid_{b}", D.read_lidar(b))
-    strike = D.read_lidar("strike")
-    th = np.deg2rad(2.0 * strike)
-    put("lid_strike_cos2", np.cos(th)); put("lid_strike_sin2", np.sin(th)); del strike, th
-    put("lid_valid", lid_valid.astype(np.float32))
-
-    log("10 m 3DEP channels")
-    for src, name in [("dem10_slope_max", "d10_slope_max"), ("dem10_slope_std", "d10_slope_std"),
-                      ("dem10_hgm20_max", "d10_hgm20_max"), ("dem10_hgm50_max", "d10_hgm50_max"),
-                      ("dem10_steep_ratio_max", "d10_steep_ratio_max"), ("dem10_resid_std", "d10_resid_std"),
-                      ("dem10_curv_absmax", "d10_curv_absmax"), ("dem10_onesided3", "d10_onesided3")]:
-        put(name, D.read_dem10(src, fp))
-
-    log("100 m terrain bands")
-    put("det_elev", D.read_tf_band("det_elev", fp))
-    put("det_elev_slope", D.read_tf_band("det_elev_slope", fp))
-
-    log("line-continuity transforms (Sato sigma 1,2 px)")
-    for src, name in [("lid_ex_max", "line_lid_ex"), ("lid_step_max", "line_lid_step"),
-                      ("d10_hgm20_max", "line_d10_hgm20"), ("d10_steep_ratio_max", "line_d10_steep"),
-                      ("det_elev_slope", "line_det_slope")]:
-        base = np.array(stack[:, :, IDX[src]])
-        base01 = robust01(base, fp)
-        put(name, tiled_sato(base01))
-        del base, base01
-        gc.collect()
-
-    log("local support (gaussian sigma 1.5 px of 0/1-scaled step descriptors)")
-    for src, name in [("lid_step_max", "lid_step_sm"), ("d10_hgm20_max", "d10_hgm20_sm")]:
-        base = robust01(np.array(stack[:, :, IDX[src]]), fp)
-        filled = np.nan_to_num(base, nan=0.0)
-        put(name, ndi.gaussian_filter(filled, 1.5))
-        del base, filled
-        gc.collect()
-
-    stack.flush()
-    del stack
-    gc.collect()
-    receipt = {
-        "evidence_class": "FEATURE-RECEIPT", "lane": "H79-MCT", "path": str(STACK.relative_to(ROOT)),
-        "shape": [H, W, C], "dtype": "float32", "channels": CHANNELS,
-        "catalogue_free": True, "geophysics_used": False, "prior_submission_rasters_used": False,
-        "sources": {
-            "lidar": "data/raw/external/lidar_scarp_features_u8.tif (USGS 3DEP 1 m tiles; GEMSDOE24 mirror, sha256 d580bb8b…)",
-            "dem10": "data/cache/dem10/*.f32.npy (USGS 3DEP 1/3 arc-second; GEMSDOE10 tag ext/dem10-36343078537)",
-            "det_elev": "data/raw/training_features.tif bands 12 and 19 (owner mirror sha256 4371c82e…)",
-        },
-        "channel_stats": stats,
-        "stack_sha256_first_64MB": hashlib.sha256(open(STACK, "rb").read(64 << 20)).hexdigest(),
-        "built_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-    }
-    RECEIPT.parent.mkdir(exist_ok=True)
-    RECEIPT.write_text(json.dumps(receipt, indent=2) + "\n")
-    return receipt
+def _read(path, band, footprint):
+    with rasterio.open(path) as src:
+        a = src.read(band).astype(np.float32)
+        nodata = src.nodata
+    valid = footprint & np.isfinite(a) & (a > -1e38)
+    if nodata is not None and np.isfinite(nodata):
+        valid &= a != nodata
+    if not valid.any():
+        raise ValueError(f'cached band {band} has no valid observations')
+    filled = np.where(valid, a, np.median(a[valid])).astype(np.float32)
+    return filled, valid
 
 
-if __name__ == "__main__":
-    import sys
-    build(force="--force" in sys.argv)
+def _profiles(field, y, x, nx, ny, radius):
+    tx, ty = -ny, nx
+    def sample(side, ks):
+        # Coordinates never wrap. The support erosion in build() makes every
+        # interpolation stencil and Gaussian neighbourhood valid observations.
+        return np.stack([
+            ndi.map_coordinates(field, [y + side * radius * ny + k * ty,
+                                        x + side * radius * nx + k * tx],
+                                order=1, mode='constant', cval=0, prefilter=False)
+            for k in ks], axis=1)
+    return sample(1, range(-4, 5)), sample(-1, range(-7, 8))
+
+
+def build(stack_path, footprint, output_dir):
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    magnetic, mv = _read(stack_path, 2, footprint)
+    gravity, gv = _read(stack_path, 13, footprint)
+    # 12 px gravity Gaussian support + <=10 px sample stencil, rounded up.
+    support = ndi.minimum_filter((mv & gv).astype(np.uint8), size=47, mode='constant', cval=0) > 0
+    mgx = ndi.gaussian_filter(magnetic, 1.5, order=(0, 1), mode='nearest')
+    mgy = ndi.gaussian_filter(magnetic, 1.5, order=(1, 0), mode='nearest')
+    mag_grad = np.hypot(mgx, mgy).astype(np.float32)
+    del mgx, mgy, magnetic
+    gx = ndi.gaussian_filter(gravity, 3., order=(0, 1), mode='nearest')
+    gy = ndi.gaussian_filter(gravity, 3., order=(1, 0), mode='nearest')
+    g_edge = np.hypot(gx, gy).astype(np.float32)
+    angle = np.mod(np.arctan2(gy, gx), np.pi)
+    direction = np.mod(np.rint(angle * 8 / np.pi).astype(np.int16), 8)
+    del gravity, gx, gy, angle
+    arrays = {name: np.zeros(footprint.shape, np.float32) for name in FEATURE_NAMES[:7]}
+    contrast = np.zeros(footprint.shape, np.float32)
+    for orient in range(8):
+        y, x = np.nonzero(support & (direction == orient))
+        if not len(y):
+            continue
+        print(f'Fabric-offset normal {orient + 1}/8: {len(y)} supported cells', flush=True)
+        theta = orient * np.pi / 8
+        nx, ny = np.cos(theta), np.sin(theta)
+        gains, lags, corrs, stds = [], [], [], []
+        for radius in (3, 5):
+            a, b = _profiles(mag_grad, y, x, nx, ny, radius)
+            gain, lag, corr = registration(a, b)
+            gains.append(gain); lags.append(lag); corrs.append(corr)
+            stds.append(np.minimum(a.std(axis=1), b.std(axis=1)))
+        arrays['lag_gain_r3'][y, x], arrays['lag_gain_r5'][y, x] = gains
+        arrays['best_correlation_r3'][y, x], arrays['best_correlation_r5'][y, x] = corrs
+        arrays['signed_lag_agreement'][y, x] = ((lags[0] * lags[1]) > 0).astype(np.float32)
+        contrast[y, x] = np.minimum(stds[0], stds[1])
+        del a, b, gains, lags, corrs, stds
+    arrays['gravity_edge_rank'] = unit_ranks(g_edge, support)
+    arrays['magnetic_contrast_rank'] = unit_ranks(contrast, support)
+    surface = (arrays['gravity_edge_rank'] * arrays['magnetic_contrast_rank']
+               * np.sqrt(arrays['lag_gain_r3'] * arrays['lag_gain_r5'])
+               * arrays['signed_lag_agreement'])
+    arrays['fabric_offset_surface'] = surface.astype(np.float32)
+    arrays['zero_lag_edge_control'] = (arrays['gravity_edge_rank']
+                                       * arrays['magnetic_contrast_rank']).astype(np.float32)
+    for name, arr in arrays.items():
+        if not np.isfinite(arr).all():
+            raise ValueError(f'nonfinite transform {name}')
+        np.save(output_dir / (name + '.npy'), arr)
+    np.save(output_dir / 'support.npy', support)
+    return {'supported_pixels': int(support.sum()), 'footprint_pixels': int(footprint.sum()),
+            'positive_surface_pixels': int((surface > 0).sum()),
+            'surface_max': float(surface.max()), 'feature_names': list(arrays),
+            'normal_bins': 8, 'full_stencil_support_erosion_px': 23,
+            'imputed_output_pixels': 0,
+            'note': 'Interpolation/filters use filled work arrays but every emitted surface cell has a complete valid-input stencil; unsupported cells abstain.'}

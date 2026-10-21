@@ -117,7 +117,8 @@ class SubmissionValidationTests(unittest.TestCase):
         result = compare_registry(self.candidate, self.template, [registry])
         self.assertEqual(result["status"], "duplicate")
         self.assertTrue(result["comparisons"][0]["duplicate_threshold_exceeded"])
-        self.assertEqual(result["comparisons"][0]["rank_correlation"], 1.0)
+        self.assertIsNone(result["comparisons"][0]["rank_correlation"])
+        self.assertTrue(result["comparisons"][0]["identical_decoded_predictions"])
 
     def test_missing_registry_is_unverified(self):
         result = compare_registry(self.candidate, self.template, [])
@@ -136,6 +137,21 @@ class SubmissionValidationTests(unittest.TestCase):
         self.assertFalse(result["ok"])
         self.assertIsNone(result["footprint_pixels"])
         self.assertIn("width_match failed", result["errors"])
+
+
+    def test_zero_exterior_is_valid_abstention(self):
+        self._write(self.candidate, np.where(self.footprint, 0.4, 0.0))
+        result = validate(self.candidate, self.template)
+        self.assertTrue(result["ok"], result["errors"])
+
+    def test_flipped_reference_is_not_north_up(self):
+        wrong = Affine(-100, 0, 500000, 0, 100, 4300000)
+        values = np.where(self.footprint, 0.4, np.nan)
+        self._write(self.template, values, transform=wrong)
+        self._write(self.candidate, values, transform=wrong)
+        result = validate(self.candidate, self.template)
+        self.assertFalse(result["ok"])
+        self.assertIn("template_north_up_100m failed", result["errors"])
 
 
 if __name__ == "__main__":

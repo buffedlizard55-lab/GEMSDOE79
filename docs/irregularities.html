@@ -1,36 +1,99 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>GEMSDOE79 — irregularities</title><style>
-:root{--ok:#0a7a33;--bad:#b00020;--ink:#1b1b1b;--muted:#5f6368;--line:#e3e3e3;--bg:#fff;--chip:#f3f4f6}
-*{box-sizing:border-box}body{margin:0;font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg)}
-main{max-width:980px;margin:0 auto;padding:24px 20px 60px}h1{font-size:1.9rem;margin:.2em 0}h2{margin-top:2em;border-bottom:1px solid var(--line);padding-bottom:.2em}
-.banner{border-radius:12px;padding:22px 24px;color:#fff;margin:18px 0}.banner.ok{background:var(--ok)}.banner.bad{background:var(--bad)}
-.banner h2{border:0;margin:0 0 .3em;color:#fff;font-size:1.5rem}.banner a.btn{display:inline-block;background:#fff;color:var(--ink);font-weight:700;padding:12px 18px;border-radius:8px;text-decoration:none;margin:10px 10px 0 0}
-.banner code{background:rgba(255,255,255,.18);padding:2px 6px;border-radius:4px;color:#fff;word-break:break-all}
-table{border-collapse:collapse;width:100%;font-size:.94rem}th,td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}th{background:var(--chip)}
-.chip{display:inline-block;background:var(--chip);border-radius:999px;padding:2px 10px;font-size:.85rem;margin:2px}
-.muted{color:var(--muted)}nav a{margin-right:14px}code{font-size:.92em}pre{background:var(--chip);padding:12px;border-radius:8px;overflow:auto;font-size:.85rem}
-.small{font-size:.88rem}
-</style></head><body><main>
-<nav><a href="index.html">Status</a><a href="executive-summary.html">Executive summary</a><a href="irregularities.html">Irregularities</a><a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Repository</a></nav>
-<h1>Irregularities log</h1><pre># Irregularities log — GEMSDOE79 (lane H79-MCT), 2026-10-21
-
-Everything that looked wrong, was verified, and what was done.  IDs are stable; later sessions append.
-
-| ID | Verified irregularity | Consequence / action |
-|---|---|---|
-| IR-79-01 | The brief quotes two different &quot;current high scores&quot; (0.4413 and 0.3195). The organizer leaderboard read on 2026-10-21 shows #1 = 0.4413 (xiaofanhu); 0.3195 does not appear in the top 50 and is a brief-era reference. | Both are recorded as ORGANIZER-CONFIRMED (0.4413) vs brief-era (0.3195) in `knowledge/competition_facts.md`; the lane targets a distinct strategy, not a number. |
-| IR-79-02 | The mirrored `sample_submission.tif` contains the 60,988 catalogue cells as value 1 (the organizer&#x27;s sample is presumably all-zero/NaN). | Only its finite mask (footprint) and grid are used; values are ignored. |
-| IR-79-03 | `labels.tif` and `existing_faults.tif` are byte-identical (same sha256 `7ba308cc…`). | Treated as one catalogue; &quot;labels&quot; never used as a second source of truth. |
-| IR-79-04 | `gh auth status` reports the token invalid while `gh api`/`git push` work. | Ignored; all GitHub calls succeeded with the environment token. |
-| IR-79-05 | First registry fetch produced 811 files for 812 entries: two blobs in one repository shared a basename in different folders and the second overwrote the first. | `scripts/fetch_registry.py` now names files `{repo}__{blob[:10]}__{basename}`; inventory rebuilt, 812/812 verified by git blob SHA-1 and SHA-256 (`registry/registry_inventory.json`). |
-| IR-79-06 | The family `registry_index.json` schema (repo/path/blob) differs from the schema the vendored `gems57.uniqueness.compare_array_to_registry` expects (repo_first/sources/cache_file/sha256). | Added `scripts/build_registry_inventory.py` (schema adapter + re-hash); the vendored module is unmodified. |
-| IR-79-07 | Literal 3-px forward-overlap reading fires at 1.000 against space-filling registry witnesses (stride-5 lattices, all-positive surfaces); by the pigeonhole certificate documented in the family (IR-77PD-02) *every* non-empty 37,654-dot set exceeds 0.70 against them, including random dots. | Binding verdict uses the template&#x27;s like-for-like rule (IR-H85-01, 2026-10-21: priors classified by 3-px halo coverage of the allowed domain ≥ 0.70 are space-filling and cannot evidence duplication); thresholds unchanged; both readings reported on the site and in the run card. Flagged for the protocol owner: the prompt&#x27;s literal wording is unsatisfiable by construction. |
-| IR-79-08 | The template holdout driver (GEMSDOE77 `run_holdout.py`) samples negatives with the *full* catalogue distance (`dist_cat &gt; 3`), which uses withheld-segment locations. | This lane samples negatives from the *visible* catalogue distance only (`src/gems79/model.py`); withheld segments may appear as unlabeled negatives, exactly as hidden faults do in the real training set. Reported, not silently fixed in the template (the template&#x27;s driver is lane code, not a shared tool). |
-| IR-79-09 | The archived 0.2778 dots score 0.004 on the holdout (seeds 20/30) because they were pruned with the full catalogue, so they avoid every withheld segment. | Shown as a reference row only; the fold-fair comparison uses the H19-5 line set re-dotted inside the holdout&#x27;s allowed domain (label-aware upper reference, 0.097). |
-| IR-79-10 | Holdout DTI rises monotonically with dot budget (25 k → 50 k) while the live lineage says thinning/pruning raised the score; H85 scored 0.19 HOLDOUT-DTI with 201 k px and has no live confirmation. | Budget anchored to the live-validated 37,654 as pre-registered; holdout used as a gate only. |
-| IR-79-11 | The line-continuity gate is neutral on the holdout at 37,654 dots (Δ +0.0009 / +0.0008, CIs include 0) and only significant at 25 k (+0.0056 [0.0016, 0.0098]). | Reported honestly; the lane&#x27;s measurable gain over the fold-fair champion construction comes from the terrain-only detector, not the gate. Kept as pre-registered (gate does not hurt; it is the lane&#x27;s identity and the mimic filter). |
-| IR-79-12 | `evidence/registry_fetch_receipt.json` was overwritten by a diagnostic re-run with `n_index = 0` during the earlier session. | Receipt regenerated by the full re-run (812/812). |
-| IR-79-13 | The 10 m 3DEP channel vectors (`dem10_*.f32.npy`) are footprint-ordered vectors, not rasters; `dem10_valid_frac` is identically 1. | Expanded onto the grid via the sample footprint in `gems79.data.read_dem10`; `valid_frac` not used as a feature. |
-| IR-79-14 | Sandbox egress is limited to GitHub/PyPI; drivendata.org, the forum and USGS servers were read through the agent&#x27;s page fetcher only; Dropbox links in the brief are unreachable. | All external facts carry links for manual review; H79-C (needs 3DEP elevation) marked blocked rather than approximated. |
-| IR-79-15 | GitHub Pages cannot be enabled from the sandbox (repository settings permission). | The site is complete under `docs/` with `.nojekyll`; the owner must enable Pages (main · /docs). |
-| IR-79-16 | **Amendment A1 (post-registration, logged).** The first (unconstrained) build passed the validator and every holdout gate but the binding like-for-like duplicate test fired: 89.3 % of its dots lay within 3 px of `gems22-h23-b-dti-optimal-emission-10pct` (516,738 px, live 0.0748, halo covering 51.7 % of the allowed domain) and &gt; 70 % against 38 other wide terrain rasters (18 distinct supports) — any terrain detector&#x27;s top 0.7 % lies inside a broad terrain detector&#x27;s top 10 %. Spearman vs all of them ≤ 0.12, Jaccard &lt; 0.05. | Not relaxed: the rule was enforced *by construction* instead — a per-prior cap of 68 % of the budget inside the 3-px halo of each of the 59 priors (all discriminating priors the unconstrained build overlapped &gt; 0.60, plus H19-5). Experiment 3 measured the cost on the same holdout: HOLDOUT-DTI 0.1023 vs 0.1152 (seed 30) and 0.0946 vs 0.1095 (seed 20), i.e. −0.013/−0.015 (`evidence/holdout_h79_constrained.json`). The unconstrained file was withdrawn (receipts kept as `evidence/*_unconstrained.*`). Flag for the protocol owner: the 70 % rule compares a 37 k-dot set against 100 k–1.1 M-px rasters; a budget-matched or enrichment-ratio reading would not have fired. |
-</pre></main></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: a newly generated, validated research GeoTIFF with an explicit automated DO NOT SUBMIT verdict and auditable evidence.">
+<title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="research.html">Research</a><a href="sources.html">Sources &amp; feed</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
+<p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-01</td>
+<td>Initial repository contained only an 11-byte README. The prompt's claims of an existing GPU train→infer pipeline and “only data placement” blocker do not describe this checkout.</td>
+<td>Built auditable infrastructure; did not pretend to continue nonexistent local training. Restored real pinned mirror data autonomously.</td>
+</tr>
+<tr>
+<td>IR-79-02</td>
+<td>The referenced single method paragraph is absent.</td>
+<td>Declared one narrow fabric-offset lane, documented before implementation. No claim it was assigned; no second lane tested.</td>
+</tr>
+<tr>
+<td>IR-79-03</td>
+<td>Initial local orchestration checked only surface rank correlation, deferring overlap to final dots. Shared template requires literal positive-support overlap before placement too.</td>
+<td>Stopped the rank-only process before any canary, holdout or placement. Discarded the incomplete scan. Replaced local gate implementation with a thin adapter to unmodified shared <code>gems57.uniqueness</code>. Original preregistration preserved; correction recorded in <code>registry/protocol_clarification.json</code>. No shared code changed, so no upstream patch was needed.</td>
+</tr>
+<tr>
+<td>IR-79-04</td>
+<td>The hash-verified prior <code>17GEMSDOE_E-proba-multiscale…tif</code> is positive on all 5,167,373 footprint cells and its 3 px halo leaves zero allowed cells uncovered.</td>
+<td>Shared certificate and actual pre-/post-export comparisons establish overlap 1.0 &gt; 0.70. Logged duplicate and stopped the scientific run. No dense, lattice, low-score or withdrawn-file exemption; no jitter to evade the gate. Every nonempty candidate fails this witness under the literal definition.</td>
+</tr>
+<tr>
+<td>IR-79-05</td>
+<td>The provided H33 0.2778 score lacks a submission-page receipt linked to a filename/hash. The official leaderboard observation does not prove artifact identity.</td>
+<td>Keep score as unverified historical report. No <code>ORGANIZER-CONFIRMED</code> artifact score exists here. The old 0.3195 “highest” statement is inconsistent with the official public leader observation of 0.4413.</td>
+</tr>
+<tr>
+<td>IR-79-06</td>
+<td>Public GitHub mirror hashes verify consistency, not independent organizer origin or redistribution permission for every derivative.</td>
+<td>Label mirrored input provenance precisely. No new external observations or source measurements were synthesized; no private test labels were fetched. Official licensing is recorded where read.</td>
+</tr>
+<tr>
+<td>IR-79-07</td>
+<td>Template receipts refer to a 54-channel <code>.npy</code> stack whose byte source is not portable.</td>
+<td>Reused the existing cached 19-band numerical feature GeoTIFF directly; did not rebuild or claim restoration of the 54-channel stack. This compatibility choice is disclosed.</td>
+</tr>
+<tr>
+<td>IR-79-08</td>
+<td>Literal duplicate stop precedes scientific validation.</td>
+<td>Canaries, HOLDOUT-DTI/CI and final dots are explicitly NOT RUN/NOT GENERATED, not zeros or guessed values. The untrusted surface is retained only as negative-result evidence. No “current holdout best beaten” claim.</td>
+</tr>
+<tr>
+<td>IR-79-09</td>
+<td>Legacy site says nodata/sentinel caused the portal range error without providing the rejected file/server receipt.</td>
+<td>Do not repeat an unproven diagnosis. Shared writer rejects all NaN/Inf, negative sentinels and values outside [0,1], then independently reopens TIFF and ZIP. Format validity is not upload approval.</td>
+</tr>
+<tr>
+<td>IR-79-10</td>
+<td>Historical registry excluded some large unscored rasters; new predictions can appear in parallel.</td>
+<td>Union historical index with fresh accessible owner default-branch trees, with no size/density exclusion. Restored 992 immutable blobs from 92 repository scopes. One decisive witness was compared after correction; no full-comparison clearance or universal external inventory is claimed.</td>
+</tr>
+<tr>
+<td>IR-79-11</td>
+<td>Official submission/data pages redirect to login. Account remaining weekly capacity, participant eligibility and selected final submission are not observable.</td>
+<td>No login bypass, credential request, slot selection or upload. Rules PDF specifies up to three weekly submissions, not this account's remaining capacity.</td>
+</tr>
+<tr>
+<td>IR-79-12</td>
+<td>The problem asks for geological faults, not proof of vents or a producing geothermal reservoir.</td>
+<td>Source ledger and site explicitly distinguish structural favorability from temperature, permeability and economic viability.</td>
+</tr>
+<tr>
+<td>IR-79-13</td>
+<td>Cached band descriptions and sibling labels conflict for some unused bands (for example band 6 <code>tc</code> is described as tilt/curvature in the mirrored metadata while sibling cache labels call it total count).</td>
+<td>Use only explicitly identified RTP (2) and isostatic gravity anomaly (13) in E1; do not resolve unused-band semantics by guessing. Preserve source limitations.</td>
+</tr>
+</tbody>
+</table>
+<p>| IR-79-14 | Direct anonymous source-health requests to the six monitored non-GitHub URLs failed with SSL/network errors in this sandbox. | Preserve failed states and dated browser observations; never convert a failed fetch into current claim verification. Scheduled GitHub-hosted requests will record their own actual outcomes. |
+| IR-79-15 | Pages settings update to workflow mode returned HTTP 403, resource not accessible by integration. | Preserve existing legacy main/root configuration and support it with a root redirect/.nojekyll. A separate Actions deployment attempt and actual outcome are recorded in release verification; no settings success is fabricated. |
+| IR-79-16 | Re-running the original discovery/index or restoration scripts could overwrite the frozen registry/restoration receipts. | Guard fresh indexing after E1 exists; add exact frozen-registry restoration and preserve-receipt input mode. Tested 992/992 cached byte pins and all five input pins without rewriting scientific receipts. |
+| IR-79-17 | Available external radiometrics are labelled uint8 derivatives, not independently authenticated calibrated USGS values. | Record exact file/bands and rank-only scope for the untested third hypothesis; no units, concentrations or original binary acquisition claim. E1 does not use them. |</p>
+<p>| IR-79-18 | Main advanced concurrently to <code>a88c9ab</code> through preflight PRs #1–#3, causing PR #4 conflicts. Incoming prose still claimed no data/file, and its independent similarity API treated identical constant rasters as rho=1 and an arbitrary supplied registry list as complete. | Merge main into the fixed session branch; retain useful generic-format checks/tests, use the unmodified shared similarity mathematics, report undefined constant rho as null with explicit identity/overlap rejection, and keep arbitrary lists diagnostic-only. Archive stale briefs; redirect old bookmarks; alias the actual negative card. Scientific preregistration/state/artifact bytes remain unchanged. |</p>
+<p>| IR-79-19 | Later concurrent PRs #5–#6 (<code>c26efec</code>) advertised H79-MCT as promotable despite its own audit recording 1.0 literal overlap / 43 firings. Its shared module was locally amended to exempt dense-halo priors and its card records post-duplicate placement amendment A1. | Do not adopt either unauthorized bypass or switch lanes. Preserve incoming code as non-executable historical text and evidence/artifact bytes in <code>archive/h79_mct_c26efec</code>; keep the modified shared module in Git history only, restore the original pinned canonical bytes, retire its active download URLs, and make all active status aliases negative. No H79-MCT science was rerun and E1 pins remain unchanged. |
+| IR-79-20 | Incoming H79-MCT audit reports 808 checked / 812 expected with four errors but <code>complete_accessible_scan=true</code>; inherited fields label historical scores organizer-confirmed without file-linked receipts. | Preserve raw historical JSON with an explicit non-authoritative archive warning. Do not import its completeness/receipt/approval claims into the active 992-byte-pin inventory or E1 results. Current source/status APIs retain their own conservative evidence classes. |</p>
+<h3>Outcome</h3>
+<p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A newly computed, byte-distinct
+GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated
+competition candidate. This verdict is automated, not deferred to a human
+inspector. Negative results and the impossible-gate certificate are deliverables.</p></div></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

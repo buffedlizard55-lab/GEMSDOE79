@@ -1,0 +1,154 @@
+{
+  "verified_utc": "2026-10-21T22:52:57.483657+00:00",
+  "all_checks_passed": true,
+  "checks": {
+    "all_shared_template_bytes_unmodified": true,
+    "preregistration_preserved": true,
+    "reference_input_hashes_match_pins": true,
+    "card_copies_equal": true,
+    "raster_hash_card_receipt_agree": true,
+    "name_and_note_valid": true,
+    "filename_warns_do_not_submit": true,
+    "reopened_tiff_format_all_passed": true,
+    "format_receipt_positive_count_agrees": true,
+    "zip_exactly_one_identical_tiff": true,
+    "zip_crc_valid": true,
+    "zip_hash_matches_receipt": true,
+    "new_bytes_not_copied_from_registry": true,
+    "decisive_overlap_certificate_consistent": true,
+    "no_fabricated_holdout_or_ci": true,
+    "no_fabricated_canary": true,
+    "scientific_stop_honored": true,
+    "automatic_negative_not_format_only_approval": true
+  },
+  "raster_sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+  "format_report": {
+    "format_passed": true,
+    "does_not_approve_submission": true,
+    "validator": {
+      "file": "/home/user/GEMSDOE79/docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
+      "bytes": 10257729,
+      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 0.7477255463600159,
+      "mean": 0.006211636122316122,
+      "emitted_positive_pixels": 1882872,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 1882872,
+      "footprint_fraction": 0.36437702484415196
+    },
+    "reference_grid": {
+      "path": "/home/user/GEMSDOE79/docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
+      "bytes": 10257729,
+      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 0.7477255463600159,
+      "mean": 0.006211636122316122,
+      "n_nonzero": 1882872,
+      "mass": 76273.66979131446,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    }
+  },
+  "submission_decision": {
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "human_inspection_required_for_this_decision": false,
+    "verdict": "negative",
+    "blockers": [
+      "literal_novelty_not_cleared",
+      "feature_alone_canaries_not_cleared",
+      "matched_current_best_holdout_not_beaten",
+      "holdout_dti_and_ci_not_measured",
+      "source_provenance_not_independently_cleared",
+      "negative_scientific_verdict",
+      "separate_selector_has_not_approved_a_slot",
+      "current_account_weekly_capacity_not_verified",
+      "separate_selector_receipt_missing_or_unbound",
+      "explicit_submission_approval_absent"
+    ],
+    "organizer_acceptance_established": false
+  },
+  "scope": "Offline byte/format/status verification. Does not recreate holdout results or authenticate organizer acceptance."
+}

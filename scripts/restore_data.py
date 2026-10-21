@@ -1,29 +1,15 @@
 #!/usr/bin/env python3
 """Restore SHA-256-pinned competition mirrors listed in registry/data_manifest.json.
 
-The DrivenData files are login-walled (https://www.drivendata.org/competitions/306/competition-doe-gems/data/)
-and the Dropbox mirrors in the brief are unreachable from this sandbox, so the only working route
-is the project owner's public GitHub mirrors.  Every file is integrity-pinned (sha256 computed from
-restored bytes, inherited from the GEMSDOE77 template manifest) but NOT organizer-authenticated.
-Fails closed on any hash mismatch.
-
-Usage:  python scripts/restore_data.py [--ids core|all|id1,id2] [--target-dir data/raw]
+Mirrors are owner-supplied public GitHub blobs (DrivenData files are login-walled).
+Integrity-pinned, NOT organizer-authenticated. Fails closed on any hash mismatch.
+Adapted from GEMSDOE32 scripts/restore_data.py (same manifest schema).
 """
 from __future__ import annotations
-
-import argparse
-import hashlib
-import json
-import os
-import shutil
-import subprocess
-import sys
-import time
+import argparse, hashlib, json, shutil, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CORE_IDS = {"training_features", "labels", "existing_faults", "sample_submission"}
-
 
 def sha256_file(p: Path) -> str:
     h = hashlib.sha256()
@@ -32,35 +18,17 @@ def sha256_file(p: Path) -> str:
             h.update(chunk)
     return h.hexdigest()
 
-
-def _token() -> str | None:
-    return os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
-
-
-def fetch(repo: str, ref: str, path: str, dest: Path, retries: int = 4) -> None:
-    """Download one blob through the GitHub contents API (raw media type)."""
+def fetch(repo: str, ref: str, path: str, dest: Path) -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
     tmp = dest.with_suffix(dest.suffix + ".partial")
-    url = f"https://api.github.com/repos/{repo}/contents/{path}?ref={ref}"
-    hdr = ["-H", "Accept: application/vnd.github.raw"]
-    tok = _token()
-    if tok:
-        hdr += ["-H", f"Authorization: Bearer {tok}"]
-    last = None
-    for attempt in range(retries):
-        try:
-            with tmp.open("wb") as out:
-                subprocess.run(["curl", "-sSL", "--fail", "--retry", "2", *hdr, url],
-                               stdout=out, check=True)
-            tmp.replace(dest)
-            return
-        except subprocess.CalledProcessError as exc:  # pragma: no cover - network
-            last = exc
-            time.sleep(2 * (attempt + 1))
-        finally:
-            tmp.unlink(missing_ok=True)
-    raise SystemExit(f"download failed for {repo}:{path}: {last}")
-
+    try:
+        with tmp.open("wb") as out:
+            subprocess.run(["gh", "api", f"repos/{repo}/contents/{path}?ref={ref}",
+                            "-H", "Accept: application/vnd.github.raw"],
+                           stdout=out, check=True)
+        tmp.replace(dest)
+    finally:
+        tmp.unlink(missing_ok=True)
 
 def restore_entry(entry: dict, root: Path) -> dict:
     dest = root / entry["dest"]
@@ -91,37 +59,40 @@ def restore_entry(entry: dict, root: Path) -> dict:
     return {"id": entry["id"], "dest": entry["dest"], "status": "restored",
             "bytes": dest.stat().st_size, "sha256": entry["sha256"]}
 
-
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--ids", default="all", help="'core', 'all' or comma-separated manifest ids")
+    ap.add_argument("--ids", default="all", help="comma-separated manifest ids or 'all'")
     ap.add_argument("--manifest", default=str(ROOT / "registry" / "data_manifest.json"))
     ap.add_argument("--target-dir", default=str(ROOT / "data" / "raw"))
+    ap.add_argument("--preserve-receipt", action="store_true", help="Restore exact pinned inputs without rewriting the scientific restoration receipt")
     args = ap.parse_args()
     man = json.loads(Path(args.manifest).read_text())
-    root = Path(args.target_dir)
-    root.mkdir(parents=True, exist_ok=True)
-    if args.ids == "all":
-        want = None
-    elif args.ids == "core":
-        want = CORE_IDS
-    else:
-        want = set(args.ids.split(","))
+    root = Path(args.target_dir); root.mkdir(parents=True, exist_ok=True)
+    want = None if args.ids == "all" else set(args.ids.split(","))
+    valid_ids = {e["id"] for e in man["files"]}
+    if want is not None and not want <= valid_ids:
+        raise ValueError("Unknown manifest ids: " + ", ".join(sorted(want - valid_ids)))
+    receipt_path = ROOT / "data/restore_receipt.json"
+    old = json.loads(receipt_path.read_text()) if args.preserve_receipt else None
     results = []
     for e in man["files"]:
         if want is None or e["id"] in want:
-            r = restore_entry(e, root)
-            results.append(r)
-            print(f"{r['status']:>8}  {e['dest']:70s} {r['bytes']:>11,d} B  sha256={r['sha256'][:12]}…", flush=True)
-    receipt = {"schema_version": 1, "evidence_class": "INPUT-INTEGRITY",
-               "organizer_authenticated": False,
-               "caveat": "SHA-256-pinned public owner mirrors of login-walled DrivenData files; "
-                         "pins prove mirror consistency, not organizer authentication.",
-               "verified_files_count": len(results), "storage_root": str(root), "files": results}
+            r = restore_entry(e, root); results.append(r)
+            print(f"{r['status']:>8}  {e['dest']:60s} sha256={r['sha256'][:12]}…", flush=True)
+    receipt = {"schema_version": 1, "verified_files_count": len(results),
+               "storage_root": str(root), "files": results}
     (ROOT / "data").mkdir(parents=True, exist_ok=True)
-    (ROOT / "data" / "restore_receipt.json").write_text(json.dumps(receipt, indent=2) + "\n")
-    print(f"Verified {len(results)} files -> data/restore_receipt.json")
-
+    if old is not None:
+        expected = {r["id"]: r["sha256"] for r in old["files"]}
+        if any(expected.get(r["id"]) != r["sha256"] for r in results):
+            raise ValueError("Restoration conflicts with the frozen original receipt")
+        runtime = ROOT / ".cache/input_restore.json"
+        runtime.parent.mkdir(exist_ok=True)
+        runtime.write_text(json.dumps(receipt, indent=2) + "\n")
+        print(f"Verified {len(results)} exact inputs; original scientific receipt preserved")
+    else:
+        receipt_path.write_text(json.dumps(receipt, indent=2) + "\n")
+        print(f"Verified {len(results)} files -> data/restore_receipt.json")
 
 if __name__ == "__main__":
     main()

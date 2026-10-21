@@ -1,3 +1,5 @@
+> **HISTORICAL H79-MCT MATERIAL, NOT CURRENT APPROVAL.** Preserved from concurrent main c26efec. The literal protocol was not cleared; dense-prior exemptions and post-duplicate placement amendments are not authorized by this run. All incoming scores/claims retain their unreviewed original provenance. DO NOT SUBMIT these artifacts. Read the active root README/run_card.json.
+
 # H79 hypothesis register (written BEFORE any experiment; 2026-10-21)
 
 Context that constrains every hypothesis (all reproduced from bytes or organizer-confirmed,

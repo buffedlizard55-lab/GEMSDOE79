@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: a newly generated, validated research GeoTIFF with an explicit automated DO NOT SUBMIT verdict and auditable evidence.">
+<title>Four preregistered hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="research.html">Research</a><a href="sources.html">Sources &amp; feed</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FOUR HYPOTHESES / ONE FIXED SURFACE</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative scientific ranking, not projected DTI. A literal pre-placement duplicate stop ended E1 before canaries or holdout.</p></section><section class="section"><div class="prose table-scroll"><h2>Preregistered hypotheses — G79-FABRIC-OFFSET</h2>
+<p>Recorded before implementing or scoring the new method. Read alongside
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration.json"><code>registry/preregistration.json</code></a>. No predicted
+leaderboard scores are assigned to these ideas.</p>
+<h3>Scope and evidence</h3>
+<p>The initial checkout contained only an 11-byte README. Therefore “not tried in
+this repo” is verifiable but weak. We also inspected the sibling registry and
+GEMSDOE32/76/77 method records: same-pixel multi-physics edges, magnetic/gravity
+cross-gradients, radiometric lagged halos, scarp dipoles, relay tips, and
+pseudogravity discordance already exist there. We do <strong>not</strong> rebrand those as
+new. A global claim that nobody has tried these ideas is not supportable.</p>
+<p>The assigned-method paragraph referred to in the request is absent. We declare
+one narrow autonomous lane: <strong>opposite-side magnetic-marker displacement across
+an independent gravity edge</strong>. Only the top hypothesis is computed and novelty-tested; the other
+entries are future hypotheses within that lane, not permission to switch lanes.</p>
+<table>
+<thead>
+<tr>
+<th>Rank / expected improvement (qualitative, not a score)</th>
+<th>Geological hypothesis and exact layers</th>
+<th>Physical statistic</th>
+<th>Why an uncatalogued fault might appear</th>
+<th>Difference from inspected implementations</th>
+<th>Cost / viability</th>
+<th>Named non-fault mimic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 · strongest specificity, uncertain recall</td>
+<td>A cross-cutting, covered fault offsets a magnetic lithologic marker across a density boundary; cached <code>rtp</code> band 2 and <code>iso_grav_anom</code> band 13</td>
+<td>Opposite-side tangent-profile normalized correlation; best nonzero registration lag must improve on zero lag and retain its sign at 300 m and 500 m cross-contact distances</td>
+<td>A buried displacement may preserve no surface scarp, yet displace a subsurface marker</td>
+<td>Existing cross-gradient and oriented-consensus methods compare local directions/strengths. This compares <strong>spatially displaced profiles on opposite sides</strong>, not a same-pixel product</td>
+<td>Medium, CPU only; both cached inputs restored and hash-checked; E1</td>
+<td>Unfaulted oblique intrusive/volcanic contact; survey levelling seam</td>
+</tr>
+<tr>
+<td>2 · lower expected specificity</td>
+<td>A displaced magnetic fabric has the same signed registration in reduced-to-pole and total-field observations; cached <code>rtp</code> 2, <code>tmi</code> 14, gravity 13</td>
+<td>Agreement of estimated offset sign, not independent evidence from two sensors</td>
+<td>Could reject transformations of one field that merely move the apparent edge</td>
+<td>No independent-sensor claim: RTP and TMI are dependent products; this is a robustness check absent from the inspected offset lane</td>
+<td>Low incremental cost; viable with cached bands; <strong>not tested</strong></td>
+<td>A shared flight-line or processing artifact survives both magnetic products</td>
+</tr>
+<tr>
+<td>3 · high specificity, likely low recall</td>
+<td>A magnetic marker and a surficial compositional marker share a displacement at the same gravity edge; cached <code>external/geodawn_rad_u8.tif</code> bands 1 (K) and 2 (Th), plus RTP/gravity</td>
+<td>Cross-contact registration-lag agreement between magnetic gradient and K–Th common-mode profiles, never K/Th values as a direct fault label</td>
+<td>Small youthful displacement could cut both bedrock fabric and surface material, without a clear 100 m scarp</td>
+<td>Distinct from sibling H79 radiometric <em>alteration-halo lag</em>: this estimates displacement <strong>of markers across</strong> a boundary, not halo position normal to one</td>
+<td>Medium; pinned 8-bit radiometric derivatives restored; only rank/shape testing is viable without source units; <strong>not tested</strong></td>
+<td>Fan sediment drapes offset compositional boundaries without tectonic slip</td>
+</tr>
+<tr>
+<td>4 · moderate specificity, scale-limited</td>
+<td>A displaced marker terminates coherently on a transverse fault rather than curving continuously around a contact; cached RTP 2, gravity 13, detrended elevation 12</td>
+<td>Profile-registration improvement combined with two-sided marker termination and failure of a smooth-curvature alternative</td>
+<td>Covered transverse structures can truncate magnetic fabric without a mapped scarp</td>
+<td>Adds explicit fault-versus-smooth-bend discrimination, rather than local curvature or Hessian ridge strength alone</td>
+<td>Higher implementation cost; existing inputs only; <strong>not tested</strong></td>
+<td>Erosional truncation, depositional pinch-out, or a volcanic caldera margin</td>
+</tr>
+</tbody>
+</table>
+<p>No new external dataset is required for these four hypotheses. Availability is
+not inferred from a web link: the actual cached input bytes are recorded in
+<code>data/restore_receipt.json</code>. Their GitHub mirror hashes establish consistency,
+<strong>not organizer authentication</strong>.</p>
+<h3>Trusted-source boundary</h3>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description</a>
+  was read in full: this is <strong>fault mapping</strong>, not direct detection of vents,
+  reservoir temperature, productive permeability, or commercially viable wells.
+  Existing labels are incomplete; new expert-labelled faults form test data.</li>
+<li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN data release</a>
+  explicitly identifies aeromagnetics with subsurface geology/structure and
+  aeroradiometrics with surface geology/soil composition. It also documents
+  differing survey specifications, tie-line levelling and terrain-clearance
+  variation. Those are confounders, not proofs of a new fault.</li>
+<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Official organizer reference implementation</a>
+  confirms a train/predict baseline is available. It does not validate this new
+  physical hypothesis or any expected improvement.</li>
+</ul>
+<p>The displacement interpretation is a <strong>testable hypothesis</strong>, not an assertion
+that every detected lag is a fault. Rejection by hide-and-recover, leakage, or
+literal novelty gates is an equally valid deliverable. No weekly slot is used.</p>
+<h3>Post-stop availability clarification (software/source review, 2026-10-21)</h3>
+<p>The restored external radiometric file is a four-band <strong>uint8 derivative</strong>,
+labelled K, Th, U and TC on the reference grid, not a newly authenticated
+calibrated USGS measurement product. Rank-based profile analysis could use its
+spatial pattern, but quantitative concentrations, ratios or physical error bars
+are not justified by those bytes. Original USGS GeoDAWN grids/reports are the
+free official source needed to establish units and processing; the release was
+reviewed, but no new direct binary download was verified in this sandbox. This
+clarification does not change the immutable E1 preregistration or revive E1.</p></div></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
