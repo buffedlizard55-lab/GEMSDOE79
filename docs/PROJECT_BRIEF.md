@@ -1,5 +1,8 @@
 # GEMSDOE79 project brief — read before each work session
 
+> **SUPERSEDED 2026-10-21 (lane H79-MCT).** This page was written while the checkout had no data. The repository now restores all inputs automatically and ships a validated candidate; the current, machine-generated status (OK / NOT OK to submit) is on [index.html](index.html) and [executive-summary.html](executive-summary.html) (feed: [status.json](status.json)). Kept for the record only.
+
+
 **Scope:** discover geothermal-indicative faults not represented by the existing public fault catalogue for DrivenData's DOE GEMS Prize; produce a unique, legal, auditable GeoTIFF only after evidence gates pass. This is the durable, concise form of the user's project prompt. Keep it current as evidence changes; do not append unverified score claims.
 
 ## Non-negotiable operating rules

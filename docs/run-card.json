@@ -1,32 +1,360 @@
 {
-  "hypothesis": "Cross-sensor structural edge co-location using authorized magnetic, conductivity, and available radiometric channels.",
-  "mechanism": "A fault-related juxtaposition or fluid alteration may generate scale-consistent, orientation-coherent boundaries across independent geophysical sensors; this is a testable hypothesis, not an established result.",
-  "named_non_fault_mimic": "Lithologic contacts or survey acquisition seams can produce coincident geophysical boundaries.",
-  "holdout_dti": {
-    "status": "not_run",
-    "evaluator_version": null,
-    "withheld_positive_count": null,
-    "ci95": null
+  "RUN_CARD": "GEMSDOE79 / lane H79-MCT",
+  "generated_utc": "2026-10-21T22:37:21Z",
+  "hypothesis": "Experts trace continuous lidar-visible scarps; scoring pixel scarp likelihood by its line-continuity (Sato tubularity) and emitting 3-px dots along reconstructed traces recovers unmapped scarps that pixel-rank detectors fragment, including in the 25 % lidar gap via 10 m 3DEP channels.",
+  "mechanism": "HGB on 30 catalogue-free terrain channels (1 m lidar cache, 10 m 3DEP, 100 m det_elev) -> p; S = sqrt(p * Sato01(p)); greedy rank-ordered dots, 2.8 px spacing, > 2 px from catalogue, with amendment A1: at most 68 % of the dots inside the 3-px halo of any one prior raster that the unconstrained emission overlapped > 0.60 (59 priors incl. H19-5), so the parallel-run duplicate rule holds by construction",
+  "amendment_A1": {
+    "status": "applied after the first audit (post-registration; logged as IR-79-16)",
+    "priors_capped": 59,
+    "cap_share": 0.68,
+    "holdout_cost": {
+      "seed30": {
+        "delta": -0.012957682745906043,
+        "ci95": [
+          -0.016304085957263466,
+          -0.009785026847321632
+        ]
+      },
+      "seed20": {
+        "delta": -0.014816207270139117,
+        "ci95": [
+          -0.018951408549194863,
+          -0.010907408425712207
+        ]
+      }
+    },
+    "unconstrained_candidate": {
+      "sha256": "78be4cfae1e336add1997ecbb44eaf34675866ce0801263b1b0dd89f1e10abe9",
+      "worst_like_for_like_overlap": 0.8926276092845382,
+      "verdict": "negative (duplicate by overlap 0.893 vs a 10 %-budget terrain raster)"
+    }
   },
-  "correlation_overlap_vs_registry": {
-    "status": "not_run_registry_rasters_absent",
-    "rank_correlation": null,
-    "fraction_dots_within_3px": null
+  "named_non_fault_mimics": [
+    "pluvial Lake Lahontan shorelines",
+    "fluvial terrace risers",
+    "roads/canals/railway grades",
+    "lithologic benches",
+    "mine benches",
+    "landslide head-scarps"
+  ],
+  "holdout": {
+    "seed30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "withheld_positive_pixels": 11342,
+      "candidate": "capped_0.68 (shipped construction, amendment A1)",
+      "dti": 0.10228305999611889,
+      "ci95": [
+        0.08528777042026717,
+        0.1203430514001887
+      ],
+      "paired_vs": {
+        "unconstrained_C3": {
+          "delta": -0.012957682745906043,
+          "ci95": [
+            -0.016304085957263466,
+            -0.009785026847321632
+          ]
+        },
+        "C0_random_B37654": {
+          "delta": 0.051364565868808,
+          "ci95": [
+            0.028381572644663032,
+            0.07525236369254715
+          ],
+          "note": "conservative interval difference (not paired); random arm from the same holdout draw"
+        }
+      },
+      "unconstrained_construction_context": {
+        "dti": 0.11524074274202493,
+        "ci95": [
+          0.09728912524435686,
+          0.13504611512965609
+        ],
+        "paired_vs": {
+          "C1_pixel_B37654": {
+            "delta": 0.0009374867738384252,
+            "ci95": [
+              -0.005350030512665621,
+              0.00727807679704185
+            ]
+          },
+          "C0_random_B37654": {
+            "delta": 0.06432224861471404,
+            "ci95": [
+              0.0451202802100988,
+              0.08490249985220302
+            ]
+          },
+          "REF_h19_5_redot_B37654": {
+            "delta": 0.017861073391513438,
+            "ci95": [
+              0.008352225468434853,
+              0.027563765329121782
+            ]
+          },
+          "REF_champion_static": {
+            "delta": 0.11092746323921938,
+            "ci95": [
+              0.0930295216807813,
+              0.1306979970673146
+            ]
+          }
+        }
+      },
+      "canary_worst": {
+        "channel": "line_d10_hgm20",
+        "sym_auc": 0.5712830838917299
+      },
+      "leakage_channels": []
+    },
+    "seed20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "withheld_positive_pixels": 11321,
+      "candidate": "capped_0.68 (shipped construction, amendment A1)",
+      "dti": 0.09464053764949597,
+      "ci95": [
+        0.07878898385759481,
+        0.11158407610397524
+      ],
+      "paired_vs": {
+        "unconstrained_C3": {
+          "delta": -0.014816207270139117,
+          "ci95": [
+            -0.018951408549194863,
+            -0.010907408425712207
+          ]
+        },
+        "C0_random_B37654": {
+          "delta": 0.04558879518602608,
+          "ci95": [
+            0.0233713242798948,
+            0.06878947174140493
+          ],
+          "note": "conservative interval difference (not paired); random arm from the same holdout draw"
+        }
+      },
+      "unconstrained_construction_context": {
+        "dti": 0.10945674491963509,
+        "ci95": [
+          0.09195043830140016,
+          0.12844413676783753
+        ],
+        "paired_vs": {
+          "C1_pixel_B37654": {
+            "delta": 0.0007554591725918991,
+            "ci95": [
+              -0.006832083068787508,
+              0.009084682228313946
+            ]
+          },
+          "C0_random_B37654": {
+            "delta": 0.060405002456165195,
+            "ci95": [
+              0.041652149392719516,
+              0.08023818916898111
+            ]
+          },
+          "REF_h19_5_redot_B37654": {
+            "delta": 0.012643060684206966,
+            "ci95": [
+              0.002091463293529497,
+              0.024338910377319035
+            ]
+          },
+          "REF_champion_static": {
+            "delta": 0.10575806432092637,
+            "ci95": [
+              0.08854193848953114,
+              0.12459565475140356
+            ]
+          }
+        }
+      },
+      "canary_worst": {
+        "channel": "lid_lappos_max",
+        "sym_auc": 0.5991571953980691
+      },
+      "leakage_channels": []
+    }
   },
-  "raster_sha256": null,
-  "validator_output": {
-    "status": "not_run_no_candidate_raster",
-    "no_nan_inside_footprint": null,
-    "values_in_0_1": null,
-    "crs_shape_transform_match": null
+  "organizer_confirmed_score": null,
+  "registry_audit": {
+    "rasters_checked": 808,
+    "binding_like_for_like": {
+      "duplicate": false,
+      "worst_forward_overlap": 0.6800074361289637,
+      "worst_forward_overlap_file": "data/registry/GEMSDOE23__7d19b90ed6__gemsdoe23-h29-dealiased-habitat-20261002-7bf9fac6-allfinite.tif",
+      "worst_abs_spearman": 0.09748485540618781,
+      "worst_abs_spearman_file": "data/registry/GEMSDOE68__918e6e23d7__19GEMSDOE__h19-5-powerlaw-budget-multiline.tif",
+      "discriminating_priors": 765,
+      "space_filling_priors": 43
+    },
+    "literal": {
+      "worst_forward_overlap": 1.0,
+      "worst_forward_overlap_file": "data/registry/GEMSDOE48__916cdeecd6__GEMSDOE48-unassigned-mass-20261006.tif",
+      "worst_abs_spearman": 0.09748485540618781,
+      "worst_abs_spearman_file": "data/registry/GEMSDOE68__918e6e23d7__19GEMSDOE__h19-5-powerlaw-budget-multiline.tif",
+      "worst_surface_abs_spearman": 0.40413401472126476,
+      "worst_surface_abs_spearman_file": "data/registry/GEMSDOE48__f77b8df0c5__gemsdoe48-h56-mtheta-9ec0d605c45b.tif",
+      "n_overlap_firings": 43,
+      "n_rho_firings": 0,
+      "identical_decoded_any": false
+    },
+    "vs_champion": {
+      "spearman_full_footprint": 0.062403524057228106,
+      "forward_overlap": 0.4491421894088278,
+      "jaccard_dot_sets": 0.03585920413749467
+    },
+    "share_of_dots_in_h19_5_halo": 0.5061348063950709
   },
-  "submission": {
-    "name": null,
-    "note": null,
-    "filename": null,
-    "status": "not_created"
+  "raster": {
+    "file": "docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.tif",
+    "sha256": "d1a4158acb3b6593c659ef37749bc80c5af0ddf20c62357554462e0870b7df6d",
+    "name": "gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros",
+    "note": "H79-MCT terrain-only lidar+10m scarp likelihood x Sato line-continuity; 37654 binary dots 2.8px apart >2px off catalogue; zeros outside",
+    "note_chars": 135,
+    "dots": 37654
   },
-  "verdict": "negative",
-  "verdict_reason": "Operationally blocked: the authorized competition feature/label/sample rasters, cached features, shared holdout evaluator/writer, and registry rasters are absent. This is not evidence that the geological hypothesis failed.",
-  "slot_spent": false
+  "validator": {
+    "all_finite_inside_footprint": true,
+    "all_finite_everywhere": true,
+    "min_inside": 0.0,
+    "max_inside": 1.0,
+    "values_in_unit_interval": true,
+    "no_positive_outside_footprint": true,
+    "no_positive_on_catalogue": true,
+    "crs_epsg": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "dtype": "float32",
+    "nodata": null,
+    "matches_sample_grid": true,
+    "template_gate_report": {
+      "path": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.tif",
+      "bytes": 150540,
+      "sha256": "d1a4158acb3b6593c659ef37749bc80c5af0ddf20c62357554462e0870b7df6d",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    },
+    "template_validate": {
+      "file": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.tif",
+      "bytes": 150540,
+      "sha256": "d1a4158acb3b6593c659ef37749bc80c5af0ddf20c62357554462e0870b7df6d",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    },
+    "assert_submittable": true,
+    "assert_error": null,
+    "positive_pixels": 37654,
+    "unique_values": [
+      0.0,
+      1.0
+    ]
+  },
+  "verdict": "promote",
+  "verdict_rule": "promote iff validator passes, like-for-like duplicate test passes, no identical prior, canary <= 0.90, and candidate beats random with paired 95 % CI > 0 on both seeds",
+  "labels": "every holdout number is HOLDOUT-DTI (gems57-pooled-hide-v2); no ORGANIZER-CONFIRMED score exists for this file; nothing here is a projection of a live score"
 }

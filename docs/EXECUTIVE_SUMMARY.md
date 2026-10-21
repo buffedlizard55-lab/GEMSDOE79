@@ -1,5 +1,8 @@
 # Executive summary: making a GEMS competition submission
 
+> **SUPERSEDED 2026-10-21 (lane H79-MCT).** This page was written while the checkout had no data. The repository now restores all inputs automatically and ships a validated candidate; the current, machine-generated status (OK / NOT OK to submit) is on [index.html](index.html) and [executive-summary.html](executive-summary.html) (feed: [status.json](status.json)). Kept for the record only.
+
+
 ## Current status — STOP: no file is ready
 
 **There is no TIF download here. Do not submit any artifact from this repository.** No competition data, sample grid, trained model, holdout evaluator, shared writer, registry rasters, or scored candidate was present in the checkout at review time. Creating a plausible-looking file without those inputs would risk an invalid upload and would not be a scientific prediction.
