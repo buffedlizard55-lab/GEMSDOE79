@@ -36,7 +36,7 @@ Site: https://buffedlizard55-lab.github.io/GEMSDOE79/ · feed: `docs/status.json
 |---|---|---|
 | restore the 23 SHA-256-pinned inputs | `scripts/restore_data.py --ids all` | `data/raw/`, `evidence/restore_data.log` |
 | fetch all 812 prior family rasters (git-blob verified) and pin them | `scripts/fetch_registry.py`, `scripts/build_registry_inventory.py` | `data/registry/`, `registry/registry_inventory.json` |
-| build the catalogue-free terrain feature stack (30 channels) | `python -m gems79.features` | `data/cache/features/stack.f32.npy`, `evidence/features_receipt.json` |
+| build the catalogue-free terrain feature stack (30 channels) | `PYTHONPATH=src:vendor python -m gems79.features` (also run automatically by the scripts below) | `data/cache/features/stack.f32.npy`, `evidence/features_receipt.json` |
 | hide-and-recover holdout with leakage canaries (pre-registered arms) | `scripts/run_holdout_h79.py --seed 30/20` | `evidence/holdout_h79_seed{30,20}.json` |
 | build the candidate TIF through the shared fail-closed writer | `scripts/build_submission_h79.py` | `docs/downloads/*.tif/.zip/.json`, `evidence/build_h79.json` |
 | validator + 812-raster uniqueness audit + RUN CARD + status feed | `scripts/audit_h79.py` | `evidence/registry_audit_h79.json`, `evidence/run_card_h79.json`, `docs/status.json` |
