@@ -18,7 +18,7 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def verify():
+def verify(refresh_timestamp: bool = False):
     checks = {}
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
     checks['all_shared_template_bytes_unmodified'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
@@ -71,16 +71,25 @@ def verify():
     checks['automatic_negative_not_format_only_approval'] = (decision['ok_to_download'] and
         not decision['ok_to_submit'] and not card['ok_to_submit'] and card['verdict'] == 'negative' and
         not card['protocol_unique'] and card['submission_slots_used'] == 0 and card['organizer_submission_receipt'] is None)
-    report = {'verified_utc': datetime.now(timezone.utc).isoformat(),
-              'all_checks_passed': all(checks.values()), 'checks': checks,
-              'raster_sha256': actual_sha, 'format_report': result,
-              'submission_decision': decision,
-              'scope': 'Offline byte/format/status verification. Does not recreate holdout results or authenticate organizer acceptance.'}
-    (ROOT / 'evidence/verification.json').write_text(json.dumps(report, indent=2, allow_nan=False) + '\n')
+    out_path = ROOT / 'evidence/verification.json'
+    verified_utc = datetime.now(timezone.utc).isoformat()
+    payload = {'all_checks_passed': all(checks.values()), 'checks': checks,
+               'raster_sha256': actual_sha, 'format_report': result,
+               'submission_decision': decision,
+               'scope': 'Offline byte/format/status verification. Does not recreate holdout results or authenticate organizer acceptance.'}
+    if not refresh_timestamp and out_path.exists():
+        try:
+            existing = json.loads(out_path.read_text())
+            if {k: v for k, v in existing.items() if k != 'verified_utc'} == payload and isinstance(existing.get('verified_utc'), str):
+                verified_utc = existing['verified_utc']
+        except Exception:
+            pass
+    report = {'verified_utc': verified_utc, **payload}
+    out_path.write_text(json.dumps(report, indent=2, allow_nan=False) + '\n')
     return report
 
 
 if __name__ == '__main__':
-    result = verify()
+    result = verify(refresh_timestamp='--refresh-timestamp' in sys.argv[1:])
     print(json.dumps({k:result[k] for k in ('all_checks_passed','checks','raster_sha256','submission_decision')}, indent=2))
     raise SystemExit(0 if result['all_checks_passed'] else 1)

@@ -233,3 +233,35 @@ expected negative verdict and exit code 2 (`ok_to_download=true`,
 artifact hashes and preregistration remain unchanged. No new experiment, holdout,
 submission, source-fetch claim, or slot selection was made. Browser QA and live
 Pages/API verification were not rerun in this checkpoint. Public verification itself remains mandatory.
+
+### Session 2026-10-21 three-pass post-stop diagnostic and code-integrity audit (`arena/70519113-gemsdoe79`)
+
+- **Pass 1 (Restore pinned data, merge upstream PR #9, and measure post-stop diagnostics):**
+  Merged `origin/main` (`7433391`, PR #9) into `arena/70519113-gemsdoe79`. Restored all 13 SHA-256-pinned
+  competition and external files (`training_features.tif` `sha256: 4371c82e3b83…`, 418,912,844 bytes)
+  and reproduced all 10 `.cache/g79/*.npy` feature arrays bit-for-bit (`scripts/prepare_data.py --reproduce`).
+  Implemented [`scripts/post_stop_diagnostic.py`](../scripts/post_stop_diagnostic.py) to write
+  [`evidence/post_stop_diagnostic.json`](../evidence/post_stop_diagnostic.json) without altering `run_card.json`
+  or reviving the stopped E1 experiment. Verified that even if `Decision D-1` resolved to Option B
+  (`top-37,654` of E-proba, 3-px overlap `0.0119`) or Option C (`p >= 0.5`, 3-px overlap `0.3046`), E1
+  (`G79-FABRIC-OFFSET`) still fails the preregistered holdout gate (`gems57-pooled-hide-v2`, `0.0474 [0.0390, 0.0552]`
+  on `seed=20` with `n=11,321`; `0.0466 [0.0388, 0.0543]` on `seed=30` with `n=11,342`), failing to beat
+  the matched `zero_lag_edge_control` with a positive 95% CI, scoring below `uniform_control` (`0.0504` / `0.0496`),
+  and trailing `h33_foldfair_control` (`0.0961` / `0.0989`) by `-0.0487` and `-0.0523` DTI, while clearing
+  all 72 single-feature leakage canary tests (`max_symmetric_auc = 0.5872` on `seed=20`, `0.6162` on `seed=30`).
+- **Pass 2 (Fix code bugs, edge cases, and documentation assumptions — IR-79-26..IR-79-29):**
+  1. Updated `AGENTS.md` to reference `arena/70519113-gemsdoe79` (`IR-79-26`).
+  2. Made `scripts/verify_project.py` idempotent on `evidence/verification.json` when verification payload fields
+     are unchanged on disk (`IR-79-27`), preventing `pytest` from dirtying `git status` or desynchronizing
+     `evidence/verification.json` from `docs/evidence/verification.json` after `scripts/build_site.py`.
+  3. Fixed `scripts/restore_data.py --preserve-receipt` (`IR-79-28`) so restoring valid `registry/data_manifest.json`
+     entries outside the 5-entry `data/restore_receipt.json` verifies against `data_manifest.json` without
+     raising a false `ValueError`.
+  4. Updated `evidence/session_verification_2026-10-21.json` and `README.md` (`IR-79-29`) to include the
+     measured post-stop diagnostic results while keeping `run_card.json` untouched in its frozen pre-placement
+     negative state (`holdout_dti.dti = null`, `verdict = "negative"`).
+- **Pass 3 (Full verification against the original prompt and automated release gates):**
+  Re-verified every requirement in `reports/requirements_review.md` against the verbatim prompt in `README.md`.
+  Rebuilt `docs/` via `scripts/build_site.py`, verified all unit/integration tests (`pytest -q`),
+  `scripts/verify_project.py`, `scripts/check_site.py`, `scripts/submission_status.py` (exit 2), and headless
+  Chromium QA (`node scripts/browser_review.cjs`) across all pages at 1440, 390, and 320 px viewports.

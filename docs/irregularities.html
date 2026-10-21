@@ -137,6 +137,38 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 </tr>
 </tbody>
 </table>
+<p>Session 2026-10-21 post-stop diagnostic and code-integrity audit (branch <code>arena/70519113-gemsdoe79</code>):</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-26</td>
+<td><code>AGENTS.md</code> hardcoded prior branch name <code>arena/6c1a34ca-gemsdoe79</code> on line 5 after PR #8 merged.</td>
+<td>Updated <code>AGENTS.md</code> to reference <code>arena/70519113-gemsdoe79</code> while retaining the rule that Arena's active session metadata takes precedence.</td>
+</tr>
+<tr>
+<td>IR-79-27</td>
+<td><code>scripts/verify_project.py</code> unconditionally overwrote <code>verified_utc</code> in <code>evidence/verification.json</code> on every invocation (including when called inside <code>pytest</code> after <code>scripts/build_site.py</code>), dirtying <code>git status</code> and desynchronizing <code>evidence/verification.json</code> from <code>docs/evidence/verification.json</code>.</td>
+<td>Made <code>verify()</code> idempotent by preserving the existing <code>verified_utc</code> whenever all non-timestamp verification fields are unchanged on disk (unless <code>--refresh-timestamp</code> is passed). Added regression test in <code>tests/test_site_feed_and_recovery.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-28</td>
+<td><code>scripts/restore_data.py --preserve-receipt</code> raised <code>ValueError("Restoration conflicts with the frozen original receipt")</code> whenever restoring valid <code>registry/data_manifest.json</code> entries (such as <code>labels</code> or <code>ext_lidar_scarp_features_u8</code>) that were not among the 5 entries in <code>data/restore_receipt.json</code>, because <code>expected.get(r["id"])</code> returned <code>None != r["sha256"]</code>.</td>
+<td>Fixed <code>restore_data.py</code> so <code>--preserve-receipt</code> verifies each restored entry against <code>registry/data_manifest.json</code> and checks <code>r["id"] in expected</code> before comparing against the 5-entry <code>data/restore_receipt.json</code>. Verified 13/13 manifest inputs (<code>scripts/restore_data.py --preserve-receipt</code>) and added unit coverage.</td>
+</tr>
+<tr>
+<td>IR-79-29</td>
+<td>Prior <code>evidence/session_verification_2026-10-21.json</code> listed <code>HOLDOUT-DTI</code> and leakage canaries as unmeasured because the 418 MB <code>training_features.tif</code> was absent from the working tree, leaving open whether resolving Decision D-1 (Options B or C) would allow E1 (<code>G79-FABRIC-OFFSET</code>) to pass holdout gates.</td>
+<td>Restored all 13 SHA-256-pinned inputs (<code>training_features.tif</code> <code>sha256: 4371c82e3b83…</code>), reproduced all 10 <code>.cache/g79/*.npy</code> feature arrays bit-for-bit (<code>scripts/prepare_data.py --reproduce</code>), and executed <code>scripts/post_stop_diagnostic.py</code> (<code>evidence/post_stop_diagnostic.json</code>). Although E1 clears all 72 feature-fold leakage canaries (<code>max_symmetric_auc = 0.5872</code> on seed 20, <code>0.6162</code> on seed 30, both <code>&lt;= 0.90</code>) and its 37,654-dot placement has low 3-px overlap under Decision D-1 Option B (<code>0.0119</code> vs top-37,654 of E-proba, <code>0.1978</code> vs H33-2-B2, <code>0.2200</code> vs D2.8) and Option C (<code>0.3046</code> vs E-proba <code>p &gt;= 0.5</code>), its pooled <code>HOLDOUT-DTI</code> (<code>gems57-pooled-hide-v2</code>) is <code>0.0474 [0.0390, 0.0552]</code> on seed 20 (<code>n=11,321</code>) and <code>0.0466 [0.0388, 0.0543]</code> on seed 30 (<code>n=11,342</code>). It fails the matched zero-lag edge control gate (<code>paired delta = +0.0054 [-0.0018, +0.0128]</code> on seed 20; <code>+0.0011 [-0.0065, +0.0083]</code> on seed 30), underperforms uniform random placement (<code>0.0504</code> / <code>0.0496</code>), and trails the fold-fair H33 control (<code>0.0961</code> / <code>0.0989</code>) by <code>-0.0487</code> and <code>-0.0523</code> DTI. Official <code>run_card.json</code> remains untouched (<code>holdout_dti.dti = null</code>, <code>verdict = "negative"</code>).</td>
+</tr>
+</tbody>
+</table>
 <h3>Outcome</h3>
 <p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A newly computed, byte-distinct
 GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated

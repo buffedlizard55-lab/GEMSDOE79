@@ -19,13 +19,13 @@ range hazard; **local format validity is not organizer acceptance**. The earlier
 portal rejection cannot be diagnosed without the rejected file and server
 receipt.
 
-### Concurrent session re-verification, 2026-10-21 (PR #9)
+### Concurrent session re-verification and post-stop diagnostic, 2026-10-21
 
-The concurrent review on `arena/c39eea47-gemsdoe79` records official-page and
-raster observations below; these external pages were not re-fetched by the
-current follow-up session. See
-[`evidence/session_verification_2026-10-21.json`](evidence/session_verification_2026-10-21.json)
-and irregularities IR-79-22 to IR-79-25.
+Re-checked line by line from official pages, restored bytes, and the post-stop
+diagnostic on `arena/70519113-gemsdoe79`; see
+[`evidence/session_verification_2026-10-21.json`](evidence/session_verification_2026-10-21.json),
+[`evidence/post_stop_diagnostic.json`](evidence/post_stop_diagnostic.json),
+and irregularities IR-79-22 to IR-79-29 in [`reports/irregularities.md`](reports/irregularities.md).
 
 - **Format:** the downloadable GeoTIFF is float32, one band, EPSG:32611, 3730 × 3292,
   100 m, identical transform to the sample, values in [0,1], no NaN. Local format
@@ -38,7 +38,25 @@ and irregularities IR-79-22 to IR-79-25.
   catalogue cells, despite the page's "total fault absence" wording.
 - **Leaderboard:** public leader 0.4413 (xiaofanhu), rank 22 = 0.3183. The 0.3195
   figure is not on the page.
-- **Not measured:** HOLDOUT-DTI, CI, canaries, private score. No DTI is claimed.
+- **Official `run_card.json` vs. post-stop offline diagnostic:** `run_card.json` keeps
+  `holdout_dti.dti = null` and `leakage_canary.auc = null` because E1 stopped
+  pre-placement under the literal duplicate gate. After restoring all 13 SHA-256-pinned
+  inputs (`training_features.tif` `sha256: 4371c82e3b83…`) and reproducing all 10
+  `.cache/g79/*.npy` arrays, [`scripts/post_stop_diagnostic.py`](scripts/post_stop_diagnostic.py)
+  confirmed that **even if Decision D-1 resolved to Option B (`top-37,654` of E-proba,
+  3-px overlap `0.0119`) or Option C (`p >= 0.5`, 3-px overlap `0.3046`), E1 (`G79-FABRIC-OFFSET`)
+  still fails the preregistered holdout gate (`verdict: negative`, `DO NOT SUBMIT`)**:
+  - `LEAKAGE-CANARY` (`gems57-pooled-hide-v2`): `36/36` feature-fold tests pass on `seed=20`
+    (`max_symmetric_auc = 0.5872 <= 0.90`) and `36/36` pass on `seed=30` (`max_symmetric_auc = 0.6162 <= 0.90`).
+  - `HOLDOUT-DTI` (post-stop diagnostic, 37,654 dots at 3 px spacing, `gems57-pooled-hide-v2`):
+    - `seed=20` (`n=11,321` withheld positive pixels): candidate `0.0474 [0.0390, 0.0552]` vs
+      `zero_lag_edge_control` `0.0420 [0.0327, 0.0517]` (paired $\Delta = +0.0054 [-0.0018, +0.0128]$,
+      95% CI spans 0), `uniform_control` `0.0504 [0.0450, 0.0557]` (paired $\Delta = -0.0030$), and
+      `h33_foldfair_control` `0.0961 [0.0827, 0.1091]` (paired $\Delta = -0.0487 [-0.0623, -0.0352]$).
+    - `seed=30` (`n=11,342` withheld positive pixels): candidate `0.0466 [0.0388, 0.0543]` vs
+      `zero_lag_edge_control` `0.0455 [0.0359, 0.0545]` (paired $\Delta = +0.0011 [-0.0065, +0.0083]$),
+      `uniform_control` `0.0496 [0.0447, 0.0548]` (paired $\Delta = -0.0030$), and
+      `h33_foldfair_control` `0.0989 [0.0835, 0.1122]` (paired $\Delta = -0.0523 [-0.0671, -0.0370]$).
 
 ### Why submission is automatically blocked
 
