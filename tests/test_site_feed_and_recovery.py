@@ -144,3 +144,63 @@ def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
     assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
     assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
     assert not hasattr(__import__('gems57.uniqueness', fromlist=['uniqueness']), 'binding_duplicate_decision')
+
+
+def test_workflow_feed_output_is_line_terminated(tmp_path):
+    import os
+    import shlex
+    import subprocess
+    import sys
+    command = next(line.strip() for line in (ROOT / '.github/workflows/site.yml').read_text().splitlines() if 'GITHUB_OUTPUT' in line)
+    args = shlex.split(command)
+    output = tmp_path / 'github-output'
+    subprocess.run([sys.executable, *args[1:]], cwd=ROOT,
+                   env={**os.environ, 'GITHUB_OUTPUT': str(output)}, check=True)
+    date = json.loads((ROOT / 'docs/evidence/source_health.json').read_text())['attempted_utc']
+    assert output.read_bytes() == ('attempted_utc=' + date + '\n').encode()
+
+
+def test_publication_retry_retains_expected_feed(monkeypatch):
+    import verify_public_site as public
+    calls = []
+    def verify(url, expected):
+        calls.append((url, expected))
+        if len(calls) == 1:
+            raise ValueError('old CDN snapshot')
+        return {'passed': True}
+    monkeypatch.setattr(public, 'verify', verify)
+    monkeypatch.setattr(public.time, 'sleep', lambda _: None)
+    assert public.verify_with_retries('https://example.invalid/', 'exact-time', 2, 0)['passed']
+    assert calls == [('https://example.invalid/', 'exact-time')] * 2
+
+
+def test_publication_retry_fails_closed_after_bound(monkeypatch):
+    import verify_public_site as public
+    calls = []
+    def mismatch(*_):
+        calls.append(1)
+        raise ValueError('wrong published SHA')
+    monkeypatch.setattr(public, 'verify', mismatch)
+    monkeypatch.setattr(public.time, 'sleep', lambda _: None)
+    with pytest.raises(ValueError, match='wrong published SHA'):
+        public.verify_with_retries('https://example.invalid/', attempts=3, delay=0)
+    assert len(calls) == 3
+    with pytest.raises(ValueError, match='attempts'):
+        public.verify_with_retries('https://example.invalid/', attempts=0)
+
+
+def test_public_get_bypasses_cdn_cache_without_disabling_tls(monkeypatch):
+    import verify_public_site as public
+    urls = []
+    class Response:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return b'fixture bytes'
+    def open_url(request, **kwargs):
+        urls.append(request.full_url)
+        assert set(kwargs) == {'timeout'}  # no unverified SSL context
+        return Response()
+    monkeypatch.setattr(public, 'urlopen', open_url)
+    assert public.get('https://example.invalid/file.json') == b'fixture bytes'
+    assert urls[0].startswith('https://example.invalid/file.json?g79_verify=')

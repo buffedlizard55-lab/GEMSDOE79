@@ -189,3 +189,31 @@ No trained neural network or top-leaderboard performance is claimed. The lane is
 still stopped, not merely waiting for a human inspector. No slot was selected or
 used. Every nonempty candidate fails the supplied literal witness; explicit
 protocol/registry clarification is required before another authorized experiment.
+
+
+### Release follow-up: publication consistency
+
+PR #4 merged as `d1a14fb188a2b8373a1f840b7f9b0551b9ac60a1`; both PR checks and
+main verification passed. Pages build/deploy actions succeeded, but the first
+immediate public consistency step failed. Later public metadata was independently
+fetched at the canonical root: correct frozen hashes, negative status and the
+22:56:07 UTC feed (five reachable endpoints, one authentication-required; public
+leaderboard parsing remained ambiguous and did not invent a fresh result).
+
+Do not assert a root cause without the original error: log download is blocked
+by the sandbox host allowlist. Tested the GITHUB_OUTPUT command separately; it
+correctly emits a real newline, so it is not blamed. Add cache-bypassed requests,
+bounded readiness retries without weakening any assertion, and API-readable
+failure/success annotations. Pin the CI runner to Ubuntu 24.04 rather than its
+migrating latest alias. The follow-up PR and public verification comments record
+actual post-fix outcomes. These are release-software changes, not more science.
+
+
+Publication follow-up local validation: **71 tests passed in 2.06 s** in the
+fresh pinned environment, all 103 links and 21 browser cases (plus the two legacy
+redirects) passed; both local HTTP artifact hashes match. All original E1
+scientific pins remain unchanged. The deployment job also attempts Actions-only
+publishing with its explicitly scoped Pages-write permission, records the actual
+API-reported mode, and emits a warning if that optional configuration attempt is
+denied. A successful website check is never presented as proof that a denied
+settings change succeeded. Public verification itself remains mandatory.
