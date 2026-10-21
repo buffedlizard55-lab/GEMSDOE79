@@ -6,17 +6,24 @@ signature/authentication service and does not establish organizer acceptance.
 """
 from __future__ import annotations
 import math
+import re
 
 EVALUATOR_VERSION = 'gems57-pooled-hide-v2'
 
 
 def _unit_number(value):
-    return type(value) in (int, float) and math.isfinite(value) and 0 <= value <= 1
+    # Range-check first: math.isfinite(10**1000) otherwise raises OverflowError.
+    return type(value) in (int, float) and 0 <= value <= 1 and math.isfinite(value)
 
 
 def submission_decision(card, *, actual_sha256, format_passed):
     blockers = []
-    matching = isinstance(actual_sha256, str) and len(actual_sha256) == 64 and actual_sha256 == card.get('raster_sha256')
+    if not isinstance(card, dict):
+        blockers.append('run_card_is_not_an_object')
+        card = {}
+    matching = (isinstance(actual_sha256, str) and
+                re.fullmatch(r'[0-9a-f]{64}', actual_sha256) is not None and
+                actual_sha256 == card.get('raster_sha256'))
     if not matching:
         blockers.append('raster_bytes_do_not_match_run_card')
     if format_passed is not True:

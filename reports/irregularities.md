@@ -30,6 +30,22 @@ All entries are dated 2026-10-21. No entry authorizes a threshold exemption.
 
 | IR-79-21 | The first Pages deployment action succeeded, but its immediate public consistency check failed. A subsequent cache-busted research fetch confirmed the correct negative manifest/status and fresh 22:56:07 UTC feed. The original error detail is unavailable through the sandbox's allowed log-download hosts, so the exact initial failure cause is not asserted. | Keep all hash/status/exact-feed assertions; add cache-bypassed GETs, bounded publication-readiness retries, failure annotations, and a success annotation containing the actual public hashes/feed counts. Pin Ubuntu 24.04 to avoid the observed migrating `ubuntu-latest` alias. Re-run real GitHub checks and public verification; report observed outcomes in the release comments, not a guessed cause. |
 
+## Follow-up repository review
+
+The current session independently restored and hash-checked **one** frozen
+witness, then re-measured it with the unchanged shared certificate tool. All
+original certificate measurements match, including zero uncovered allowed
+pixels. This is not a new experiment or a fresh complete registry scan. See
+[actual recovery audit](../evidence/session_witness_review.json) and the
+[three-pass follow-up review](session_review_79f9140a.md).
+
+Two software irregularities were fixed without changing the scientific verdict:
+readiness previously raised tracebacks instead of returning JSON for missing or
+corrupt artifacts/cards, and malformed non-object cards/oversized numeric fields
+could crash the decision helper. These now fail closed with explicit blockers;
+strict JSON also rejects duplicate keys and nonfinite constants. Historical
+branch names no longer direct later sessions onto the wrong branch.
+
 ## Outcome
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A newly computed, byte-distinct
