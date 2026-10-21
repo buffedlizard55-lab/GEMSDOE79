@@ -102,6 +102,33 @@ run is authorized by finishing the software or by CI.
 - Input wrapper, frozen registry restoration, cold cache, exact TIFF/ZIP recovery
   and both format CLIs pass; readiness CLI correctly returns **2**.
 
+### Concurrent-main integration and final regression review
+
+PR #4 initially conflicted because main advanced to `a88c9ab` while this branch
+was running. Inspected all incoming preflight code/tests/briefs, merged main into
+the fixed session branch, and resolved conflicts explicitly. This is integration,
+not a switch to the earlier proposed cross-sensor scientific lane.
+
+- Retained the generic-grid format API and its useful unittest coverage. Added
+  zero-exterior and signed north-up regression cases. The primary export remains
+  strictly finite everywhere through the unchanged shared writer/validator.
+- Removed the incoming independent similarity implementation in favor of a thin
+  adapter to the canonical shared gate. Explicit path lists can reject, never
+  certify a complete inventory. Corrected a constant-raster test: Spearman rho
+  is undefined (`null`), while decoded identity / 100% overlap still rejects it.
+- Preserve old briefs as clearly labelled historical snapshots. Replace stale
+  “no file” HTML with two tested compatibility redirects and make the legacy
+  hyphenated JSON path an identical alias of the actual current run card.
+- Legacy unittest workflow now targets its unittest class explicitly (pytest
+  fixtures need pytest's path bootstrap); the main pytest suite includes both
+  legacy and current tests. No failed unittest import is called a passing test.
+- Post-integration regression: **65 pytest tests passed in 1.99 s** in the
+  fresh pinned environment; **14 legacy unittest cases passed** in 0.088 s.
+  Browser rerun: 21 primary cases plus both old-bookmark redirects passed.
+  Generic `--template` CLI accepts the real finite-zero exterior; shared default
+  validation/status remain authoritative. Every original scientific pin stayed
+  byte-identical.
+
 ### Evidence available now
 
 - `evidence/verification.json`: actual committed TIFF/ZIP re-read, pin checks and

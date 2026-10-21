@@ -11,7 +11,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def check_site():
     site = ROOT / 'docs'
-    pages = {p.name: BeautifulSoup(p.read_text(), 'html.parser') for p in site.glob('*.html')}
+    site_manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
+    pages = {name: BeautifulSoup((site / name).read_text(), 'html.parser') for name in site_manifest['pages']}
+    aliases = site_manifest.get('compatibility_redirects', {})
+    assert {p.name for p in site.glob('*.html')} == set(pages) | set(aliases)
+    for alias, target in aliases.items():
+        document = BeautifulSoup((site / alias).read_text(), 'html.parser')
+        assert document.find('meta', attrs={'http-equiv': 'refresh'})['content'] == '0;url=' + target
+        assert document.find('a')['href'] == target and target in pages
     assert len(pages) == 7, 'Expected seven project pages'
     graph = {}
     local_links = 0
@@ -58,6 +65,7 @@ def check_site():
         assert pages[filename].find('a', download=True, href=lambda h: h and h.endswith('.tif'))
     card = json.loads((site / 'evidence/run_card.json').read_text())
     assert card == json.loads((ROOT / 'run_card.json').read_text())
+    assert card == json.loads((site / 'run-card.json').read_text())
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     assert not manifest['ok_to_submit'] and manifest['ok_to_download']
     assert manifest['raster_sha256'] == card['raster_sha256']
@@ -68,7 +76,7 @@ def check_site():
     assert (ROOT / '.nojekyll').exists() and (site / '.nojekyll').exists()
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()
     return {'passed': True, 'pages': len(pages), 'local_links_checked': local_links,
-            'all_pages_reachable_from_home': True, 'external_assets': 0,
+            'all_pages_reachable_from_home': True, 'compatibility_redirects': len(aliases), 'external_assets': 0,
             'source_health_is_not_claimed_as_receipt': True, 'submit': False}
 
 

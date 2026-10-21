@@ -37,6 +37,10 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
     fs.mkdirSync(path.join(root, '.cache/screenshots'), {recursive: true});
     await page.screenshot({path: path.join(root, '.cache/screenshots/home-' + width + '.png'), fullPage: true});
   }
+  for (const [alias, target] of [['EXECUTIVE_SUMMARY.html', 'executive-summary.html'], ['PROJECT_BRIEF.html', 'research.html']]) {
+    await page.goto(base + '/' + alias);
+    await page.waitForURL('**/' + target);
+  }
   await page.setViewportSize({width: 1440, height: 1050});
   await page.goto(base + '/index.html');
   assert.match(await page.locator('.download-warning').innerText(), /OK TO SUBMIT: NO/);
@@ -63,7 +67,7 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   assert.equal(await page.locator('[data-search-row]:visible').count(), 0);
   assert.deepEqual(errors, [], 'Browser or HTTP errors');
   const report = {reviewed_utc: new Date().toISOString(), browser: await browser.version(), cases,
-    downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, feed_rendered: true,
+    downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, feed_rendered: true, legacy_redirects_verified: 2,
     history_filter_verified: true, browser_errors: errors, passed: true,
     scope: 'Local HTTP/static website QA only; not organizer acceptance or geological evaluation.'};
   fs.writeFileSync(path.join(root, 'evidence/browser_review.json'), JSON.stringify(report, null, 2) + '\n');

@@ -37,6 +37,18 @@ Null scores in the run card mean **not measured**, never zero or a projection.
 Only the already-computed rejected surface was serialized as negative-result
 evidence. No human inspector is needed to reach the **DO NOT SUBMIT** decision.
 
+## Concurrent upstream work integrated
+
+The initial checkout was the 11-byte README commit. While E1 was running,
+parallel PRs #1–#3 added a no-data preflight site/validator to `main`. PR #4
+integrates those changes rather than overwriting their history: generic-format
+API and useful tests retained, novelty delegated to the unchanged shared tool,
+old HTML bookmarks redirected, current `docs/run-card.json` aliased to the
+same negative card, and superseded prose archived under
+[`knowledge/prior_work/`](knowledge/prior_work/README.md). The old missing-input
+blocker has been resolved for the used mirror inputs; the literal novelty stop
+has not. No scientific lane switch or new experiment occurred.
+
 ## Scientific work and audit
 
 - Initial checkout: only an 11-byte README; no previous local pipeline or work to continue.

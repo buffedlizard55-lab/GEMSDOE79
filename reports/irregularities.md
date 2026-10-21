@@ -23,6 +23,8 @@ All entries are dated 2026-10-21. No entry authorizes a threshold exemption.
 | IR-79-16 | Re-running the original discovery/index or restoration scripts could overwrite the frozen registry/restoration receipts. | Guard fresh indexing after E1 exists; add exact frozen-registry restoration and preserve-receipt input mode. Tested 992/992 cached byte pins and all five input pins without rewriting scientific receipts. |
 | IR-79-17 | Available external radiometrics are labelled uint8 derivatives, not independently authenticated calibrated USGS values. | Record exact file/bands and rank-only scope for the untested third hypothesis; no units, concentrations or original binary acquisition claim. E1 does not use them. |
 
+| IR-79-18 | Main advanced concurrently to `a88c9ab` through preflight PRs #1–#3, causing PR #4 conflicts. Incoming prose still claimed no data/file, and its independent similarity API treated identical constant rasters as rho=1 and an arbitrary supplied registry list as complete. | Merge main into the fixed session branch; retain useful generic-format checks/tests, use the unmodified shared similarity mathematics, report undefined constant rho as null with explicit identity/overlap rejection, and keep arbitrary lists diagnostic-only. Archive stale briefs; redirect old bookmarks; alias the actual negative card. Scientific preregistration/state/artifact bytes remain unchanged. |
+
 ## Outcome
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A newly computed, byte-distinct
