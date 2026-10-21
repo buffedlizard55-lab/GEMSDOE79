@@ -1,10 +1,15 @@
-# large inputs are restored by scripts/restore_data.py / scripts/fetch_registry.py (SHA-pinned)
+# large inputs are restored by scripts/restore_data.py / scripts/fetch_registry.py (SHA-pinned);
+# data/bridge/ (2 MB grid reference) stays tracked so tests and load_grid work on a fresh clone
 data/raw/
 data/registry/
 data/cache/
+outputs/
+results/
 .venv/
 __pycache__/
-*.pyc
+*.py[cod]
 .pytest_cache/
+.coverage
+htmlcov/
 *.partial
 *.assembling

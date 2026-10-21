@@ -171,6 +171,7 @@ def main():
 <nav><a href="index.html">Status</a><a href="executive-summary.html">Executive summary</a><a href="irregularities.html">Irregularities</a><a href="{REPO_URL}">Repository</a></nav>
 <h1>Irregularities log</h1><pre>{esc(irr)}</pre></main></body></html>""")
     (DOCS / ".nojekyll").write_text("")
+    shutil.copyfile(ROOT / "evidence" / "run_card_h79.json", DOCS / "run-card.json")  # live card on the site
 
     # README status block
     block = f"""<!-- STATUS:BEGIN -->

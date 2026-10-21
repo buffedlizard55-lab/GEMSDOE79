@@ -29,6 +29,10 @@ Site: https://buffedlizard55-lab.github.io/GEMSDOE79/ · feed: `docs/status.json
 3. `registry/preregistration_h79.json`, `research/h79_hypotheses.md`, `evidence/run_card_h79.json`.
 4. `docs/irregularities.md` — everything that looked wrong and what was done about it.
 5. `knowledge/` — verified facts with official links (`knowledge/data_sources.md`, `knowledge/competition_facts.md`).
+6. Historical: `docs/PROJECT_BRIEF.md` and `docs/EXECUTIVE_SUMMARY.md` were written by earlier sessions while the
+   checkout had no data ("no submission is ready"); they are superseded by the status block above and carry a banner.
+   `scripts/validate_submission.py` (same origin) is an independent format preflight; the binding validator is the
+   vendored `gems57` writer/validator used by `scripts/audit_h79.py`.
 
 ## What this repository does end to end (no human in the loop)
 

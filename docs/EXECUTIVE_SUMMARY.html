@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>How to submit · GEMSDOE79</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+<div style="background:#b00020;color:#fff;padding:14px 18px;font:16px system-ui;position:sticky;top:0;z-index:9"><strong>SUPERSEDED 2026-10-21 (lane H79-MCT).</strong> Written while the checkout had no data. Current machine-generated status: <a href="index.html" style="color:#fff;font-weight:700">index.html</a> · <a href="executive-summary.html" style="color:#fff;font-weight:700">executive-summary.html</a> · <a href="status.json" style="color:#fff">status.json</a>. Kept for the record only.</div>
+
+    <header class="topbar">
+      <a class="brand" href="index.html">GEMSDOE79</a>
+      <nav>
+        <a href="index.html#status">Readiness</a
+        ><a href="PROJECT_BRIEF.html">Research brief</a
+        ><a
+          href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/"
+          >Official leaderboard ↗</a
+        >
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Executive summary · submission guide</p>
+        <h1>Make a valid GEMS submission.</h1>
+        <p class="lead">
+          The format checks and evidence gates are separate: a file that opens
+          successfully may still be invalid scientifically or unscored.
+        </p>
+      </section>
+      <section class="status blocked">
+        <div class="status-heading">
+          <span class="status-icon">!</span>
+          <div>
+            <p class="eyebrow">Current state</p>
+            <h2>STOP — no submission TIFF is available</h2>
+          </div>
+        </div>
+        <p>
+          No competition data, sample grid, model, holdout evaluator, or writer
+          exists in this checkout. No artifact is approved.
+          <strong>Do not download or submit a file from this project.</strong>
+          We will only expose an “OK TO SUBMIT” file after it passes every gate
+          below.
+        </p>
+      </section>
+      <section class="card">
+        <h2>Required workflow</h2>
+        <ol>
+          <li>
+            Obtain official <code>training_features.tif</code>,
+            <code>labels.tif</code>, and <code>sample_submission.tif</code> from
+            the
+            <a
+              href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/"
+              >authenticated competition data tab</a
+            >; keep source files local and out of Git.
+          </li>
+          <li>
+            Reuse the canonical cached feature stack, holdout evaluator, and
+            writer. Withhold whole fault segments with a buffer; create
+            catalogue features only from visible segments; pixel-mask visible
+            faults exactly.
+          </li>
+          <li>
+            Run individual feature leakage canaries (AUC &gt; 0.90 is leakage
+            until resolved). Score pooled distance-weighted Tversky using alpha
+            0.2, beta 0.8, and the 300 m triangular kernel. Require improvement
+            over the current holdout best before any slot is considered.
+          </li>
+          <li>
+            Check duplicates against every registry raster, before and after
+            placement: stop if raster rank-correlation exceeds 0.90 or more than
+            70% of dots lie within 3 px of one registry raster's dots.
+          </li>
+          <li>
+            Write one unique, single-band float32 GeoTIFF with probabilities in
+            [0,1]. Match the official sample's CRS, shape, transform, bounds,
+            and footprint. Verify no NaN inside the footprint and that outside
+            cells are null/NaN or explicitly masked.
+          </li>
+          <li>
+            Save SHA-256, full validator JSON, holdout evaluator version,
+            withheld-positive count, 95% CI, unique submission name, and a note
+            of at most 140 characters. Only then show the file and mark it
+            <strong>OK TO SUBMIT</strong>.
+          </li>
+          <li>
+            On DrivenData, select the TIFF (or a ZIP with one TIFF), enter the
+            appropriate experiment/submission name and short note, then retain
+            the submission-page receipt. Only the receipt is organizer-confirmed
+            evidence.
+          </li>
+        </ol>
+        <p>
+          The repository includes a local GeoTIFF format preflight script at
+          <a
+            href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/scripts/validate_submission.py"
+            >scripts/validate_submission.py</a
+          >
+          (requires Python dependencies and the official sample template).
+          Format validation alone does not establish scientific performance. The script also rejects raw finite out-of-range nodata sentinels; repeat `--registry` for every known registry raster or the duplicate gate remains unverified.
+        </p>
+      </section>
+      <section class="grid">
+        <article class="card">
+          <h2>Official format</h2>
+          <p>
+            EPSG:32611; 100 m resolution; same bounds/grid as training; one
+            float32 layer; predictions in [0,1]; null/NaN outside bounds. Always
+            compare directly with the official sample GeoTIFF.
+          </p>
+          <a
+            href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/"
+            >Competition format and metric ↗</a
+          >
+        </article>
+        <article class="card" id="score-check">
+          <h2>Score attribution: check before repeating</h2>
+          <p>
+            The official public leaderboard page fetched on 2026-10-21 UTC lists
+            a current leading entry newer than the figures quoted in the prompt.
+            The GEMSDOE32 H33-2-B2 report calls that download an unscored
+            candidate and says no organizer score exists for it; its
+            catalogue-near dot pruning could plausibly reduce redundant
+            known-fault predictions, but can also discard true positives. The
+            cited association is not verified there, so the score cannot be
+            explained without a receipt.
+          </p>
+          <a
+            href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/"
+            >Live official leaderboard ↗</a
+          ><br /><a
+            href="https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html"
+            >GEMSDOE32 report ↗</a
+          >
+        </article>
+      </section>
+      <section class="sources">
+        <p class="eyebrow">Trusted links</p>
+        <a
+          href="https://www.drivendata.org/competitions/306/competition-doe-gems/"
+          >Competition overview</a
+        ><a
+          href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/"
+          >Official rules</a
+        ><a
+          href="https://github.com/drivendataorg/gems-prize-reference-solution"
+          >Reference solution</a
+        ><a href="PROJECT_BRIEF.html">Full research brief</a>
+      </section>
+    </main>
+    <footer>
+      <span>GEMSDOE79 · status as of 2026-10-21 UTC</span
+      ><span>No file is currently approved for submission.</span>
+    </footer>
+  </body>
+</html>
