@@ -4,6 +4,11 @@ Session branch: `arena/79f9140a-gemsdoe79`. Starting commit:
 `350e40dc3c2f325b82b8deb3d613edd2f6a34db9`. Integrated the concurrently merged
 review PR #8 (`0f19e30`) on this same branch without restarting science.
 Historical branch names in immutable receipts remain historical provenance.
+PR #9 merged while this review PR was being opened; integrated `7433391` too.
+Preserved its separately attributed source/byte observations, resolved generated
+receipt/site conflicts by rebuilding, and retained both reviews. Corrected its
+unsupported implication that a large total predicted mass proves a large FP:
+actual FP depends on hidden truth and is unmeasured.
 
 ## Executive decision
 
