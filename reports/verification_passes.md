@@ -216,4 +216,20 @@ scientific pins remain unchanged. The deployment job also attempts Actions-only
 publishing with its explicitly scoped Pages-write permission, records the actual
 API-reported mode, and emits a warning if that optional configuration attempt is
 denied. A successful website check is never presented as proof that a denied
-settings change succeeded. Public verification itself remains mandatory.
+settings change succeeded.
+
+### Session review checkpoint — 2026-10-21
+
+Re-read the complete 951-line README (including the preserved original prompt),
+`run_card.json`, `reports/irregularities.md`, and `registry/preregistration.json`.
+Confirmed the current Arena branch name against the checkout; corrected the
+stale hard-coded branch name in `AGENTS.md` so future sessions start from the
+actual assigned branch. Created a clean isolated Python environment from the
+pinned lockfile. Fresh verification: **71 tests passed**; `verify_project.py`
+passed every recorded integrity check; `check_site.py` passed seven pages, 103
+local links and two compatibility redirects. The readiness CLI returned its
+expected negative verdict and exit code 2 (`ok_to_download=true`,
+`ok_to_submit=false`). Its verification timestamp was refreshed; all scientific
+artifact hashes and preregistration remain unchanged. No new experiment, holdout,
+submission, source-fetch claim, or slot selection was made. Browser QA and live
+Pages/API verification were not rerun in this checkpoint. Public verification itself remains mandatory.
