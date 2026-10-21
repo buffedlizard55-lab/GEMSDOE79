@@ -1,0 +1,11 @@
+# Competition rasters and generated outputs: never commit private/large input data.
+.venv/
+data/
+outputs/
+*.tif
+*.tiff
+!docs/downloads/*.tif
+!docs/downloads/*.tiff
+*.aux.xml
+__pycache__/
+*.py[cod]
