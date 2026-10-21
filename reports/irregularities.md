@@ -30,6 +30,21 @@ All entries are dated 2026-10-21. No entry authorizes a threshold exemption.
 
 | IR-79-21 | The first Pages deployment action succeeded, but its immediate public consistency check failed. A subsequent cache-busted research fetch confirmed the correct negative manifest/status and fresh 22:56:07 UTC feed. The original error detail is unavailable through the sandbox's allowed log-download hosts, so the exact initial failure cause is not asserted. | Keep all hash/status/exact-feed assertions; add cache-bypassed GETs, bounded publication-readiness retries, failure annotations, and a success annotation containing the actual public hashes/feed counts. Pin Ubuntu 24.04 to avoid the observed migrating `ubuntu-latest` alias. Re-run real GitHub checks and public verification; report observed outcomes in the release comments, not a guessed cause. |
 
+## Follow-up repository review
+
+The current session independently restored and hash-checked **one** frozen
+witness, then re-measured it with the unchanged shared certificate tool. All
+original certificate measurements match, including zero uncovered allowed
+pixels. This is not a new experiment or a fresh complete registry scan. See
+[actual recovery audit](../evidence/session_witness_review.json) and the
+[three-pass follow-up review](session_review_79f9140a.md).
+
+Two software irregularities were fixed without changing the scientific verdict:
+readiness previously raised tracebacks instead of returning JSON for missing or
+corrupt artifacts/cards, and malformed non-object cards/oversized numeric fields
+could crash the decision helper. These now fail closed with explicit blockers;
+strict JSON also rejects duplicate keys and nonfinite constants. Historical
+branch names no longer direct later sessions onto the wrong branch.
 
 Session 2026-10-21 re-verification (branch `arena/c39eea47-gemsdoe79`):
 
@@ -38,7 +53,7 @@ Session 2026-10-21 re-verification (branch `arena/c39eea47-gemsdoe79`):
 | IR-79-22 | The official data page says the sample submission “predicts total fault absence”. Its bytes contain 60,988 cells equal to 1 inside the footprint, and those cells equal the positive cells of `existing_faults.tif` exactly (RM-3 in `evidence/session_verification_2026-10-21.json`). | Treat the sample as a format template only; do not read its values as an absence prediction. Flag for organizer clarification via the forum. |
 | IR-79-23 | The prompt's “0.3195 highest” figure does not appear on the public leaderboard read on 2026-10-21. Rank 21 = 0.3261 and rank 22 = 0.3183; the leader is 0.4413 (PO-1). | Keep 0.3195 as an unverified user-reported figure. Public leaderboard values are PUBLIC-OBSERVATION, not ORGANIZER-CONFIRMED artifact scores. |
 | IR-79-24 | The duplicate gate is ill-defined for continuous rasters. The literal rule (“every finite positive cell is a dot”) makes the 17GEMSDOE E-proba raster cover 100% of the footprint, which forces overlap = 1.0 for any candidate. The arithmetic was re-verified from the GitHub commit `6fc71d19…` (sha256 `ab0a0a62…`). | Decision D-1 in the evidence file. The agent did not redefine the gate. Options: keep literal, top-K = 37,654 dots, or p ≥ 0.5. Needs the protocol owner to choose, then a full registry rerun under that definition. |
-| IR-79-25 | The current downloadable GeoTIFF has finite zeros on all 7,111,787 cells that the official sample leaves NaN (outside the 5,167,373-cell footprint). The official text permits NaN outside the bounds, and zeros inside the bounds are not prohibited, but the format is not identical to the sample. The E1 surface also places probability mass on 1,882,872 cells (sum p = 76,273.67), so its FP term is structurally large. | Not measured as a score. Matching the sample's NaN pattern is a possible format change for a future candidate only. Mass structure is recorded as RM-2. |
+| IR-79-25 | The current downloadable GeoTIFF has finite zeros on all 7,111,787 cells that the official sample leaves NaN (outside the 5,167,373-cell footprint). The official text permits NaN outside the bounds, and zeros inside the bounds are not prohibited, but the format is not identical to the sample. The E1 surface also places probability mass on 1,882,872 cells (sum p = 76,273.67), which could increase FP when mass is far from hidden truth; actual FP is unknown without that truth. | Not measured as a score. Matching the sample's NaN pattern is a possible format change for a future candidate only. Mass structure is recorded as RM-2. |
 
 ## Outcome
 

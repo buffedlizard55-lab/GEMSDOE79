@@ -1,0 +1,33 @@
+{
+  "reviewed_utc": "2026-10-21T23:16:51.632459+00:00",
+  "evidence_class": "REGISTRY-MEASUREMENT",
+  "all_checks_passed": true,
+  "checks": {
+    "allowed_pixels": true,
+    "covered_allowed_fraction": true,
+    "evidence_class": true,
+    "implication": true,
+    "overlap_limit": true,
+    "positive_pixels": true,
+    "support_definition": true,
+    "uncovered_allowed_pixels": true,
+    "universal_overlap_blocker": true,
+    "witness_sha256": true
+  },
+  "measured_certificate": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "witness_file": "/home/user/GEMSDOE79/.cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif",
+    "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "positive_pixels": 5167373,
+    "allowed_pixels": 5106385,
+    "uncovered_allowed_pixels": 0,
+    "covered_allowed_fraction": 1.0,
+    "universal_overlap_blocker": true,
+    "overlap_limit": 0.7,
+    "support_definition": "finite prediction > 0 (inherited literal support rule)",
+    "implication": "Every nonempty candidate dot set in the allowed domain has forward overlap 1.0 with this prior; therefore it cannot pass the 0.70 gate."
+  },
+  "scientific_experiments_performed": 0,
+  "submission_slots_used": 0,
+  "scope": "Recovery and re-measurement of one frozen rejection witness, not a complete inventory audit, new experiment or organizer acceptance."
+}
