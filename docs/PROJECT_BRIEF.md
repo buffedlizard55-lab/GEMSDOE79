@@ -4,7 +4,7 @@
 
 ## Non-negotiable operating rules
 
-1. Work in one declared hypothesis lane per experiment. Before placement and on the final raster, compare against every available registry raster: stop and report a duplicate if absolute raster rank-correlation exceeds 0.90 or if over 70% of predicted dots fall within 3 pixels of any registry raster's dots. No registry rasters are present in this checkout, so this gate is presently untestable.
+1. Work in one declared hypothesis lane per experiment. Before placement and on the final raster, compare against every available registry raster: stop and report a duplicate if raster rank-correlation exceeds 0.90 or if over 70% of predicted dots fall within 3 pixels of any registry raster's dots. No registry rasters are present in this checkout, so this gate is presently untestable.
 2. Reuse the project's cached feature stack, `evaluate_holdout.py`, and `submission_writer.py`; fix shared tools rather than forking them. This checkout currently has none of those assets. The specified holdout is whole fault segments withheld with a spatial buffer; derive catalogue-based features from visible faults only; mask visible faults pixel-exactly; score pooled distance-weighted Tversky (alpha 0.2, beta 0.8, 300 m triangular kernel). Do not substitute a random pixel split.
 3. Label every numeric score as either **HOLDOUT-DTI** (evaluator version, withheld-positive count, 95% CI) or **ORGANIZER-CONFIRMED** (copied from a submission-page receipt). A projection or model score is never a competition score.
 4. Leakage canary: test each feature alone on the holdout first. Any AUC > 0.90 is leakage until investigated and explained.
@@ -40,7 +40,7 @@ Scores are deliberately not fabricated. The ranking is a qualitative prior for t
 
 ## Blocker / next steps
 
-1. Obtain `training_features.tif`, `labels.tif`, `sample_submission.tif`, and any DEM link file from the official DrivenData data tab while logged into an authorized account; store them locally under `data/` (ignored by Git). The official data URL redirected to the DrivenData login page when fetched during this review. This sandbox has no DrivenData authentication and the repository is empty, so it cannot retrieve these files or perform the required hidden-data experiment autonomously.
+1. Obtain `training_features.tif`, `labels.tif`, `sample_submission.tif`, and any DEM link file from the official DrivenData data tab while logged into an authorized account; store them locally under `data/` (ignored by Git). The official data URL redirected to the DrivenData login page when fetched during this review. This sandbox has no DrivenData authentication and this checkout has no competition data, so it cannot retrieve these files or perform the required holdout experiment autonomously.
 2. Bring in/reuse the shared cache, holdout evaluator, and writer from the project's canonical template rather than creating a private copy. Confirm provenance and source revision.
 3. Run the top lane through the exact holdout protocol, record withheld positive count, evaluator version, confidence interval, leakage canaries, registry comparison, and all-format checks.
 4. Only if validation beats the current best holdout and passes duplication/format gates, write a unique raster, SHA-256 it, run the validator, attach a <=140-character note, and make the download prominently **OK TO SUBMIT**. Otherwise publish the negative result and keep no submission slot spent.

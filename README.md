@@ -25,11 +25,11 @@ After obtaining the competition's `sample_submission.tif` through an authorized 
 ```bash
 python -m venv .venv
 .venv/bin/pip install -r requirements.txt
-.venv/bin/python scripts/validate_submission.py path/to/candidate.tif --template data/sample_submission.tif
+.venv/bin/python scripts/validate_submission.py path/to/candidate.tif --template data/sample_submission.tif --registry path/to/registry.tif
 .venv/bin/python -m unittest discover -s tests -v
 ```
 
-The tool fails closed if CRS, dimensions, transform, band count, or float32 type differ; if any valid-footprint prediction is non-finite or outside `[0, 1]`; or if values are supplied outside the template footprint. Passing this file-format preflight is **not** evidence of model quality or organizer acceptance.
+The tool fails closed if the reference grid is not EPSG:32611 at 100 m, if CRS/dimensions/transform/band count/float32 type differ, if an in-footprint prediction is non-finite or outside `[0,1]`, or if finite predictions occur outside the template footprint. It rejects raw finite nodata sentinels outside `[0,1]` to guard against portal range-check behavior. With `--registry`, it also reports Spearman rank-correlation and the fraction of predicted dots within 3 pixels for each registry; thresholds above 0.90 correlation or 0.70 overlap block promotion. Without all registry rasters, similarity remains unverified. Passing the format preflight is **not** evidence of model quality or organizer acceptance.
 
 ## Project values
 
