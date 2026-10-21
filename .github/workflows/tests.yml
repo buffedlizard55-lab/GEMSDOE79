@@ -2,6 +2,7 @@ name: Generic preflight compatibility
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:

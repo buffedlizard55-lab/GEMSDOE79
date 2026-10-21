@@ -125,3 +125,22 @@ def test_truthy_strings_and_booleans_do_not_fake_evidence():
     got = submission_decision(card, actual_sha256=card['raster_sha256'], format_passed=True)
     assert not got['ok_to_submit'] and not got['organizer_acceptance_established']
     assert 'current_account_weekly_capacity_not_verified' in got['blockers']
+
+
+def test_incoming_mct_archive_preserves_provenance_without_executable_fork():
+    archive = ROOT / 'archive/h79_mct_c26efec'
+    manifest = json.loads((archive / 'manifest.json').read_text())
+    for row in manifest['files']:
+        if 'archive_path' in row:
+            assert hashlib.sha256((ROOT / row['archive_path']).read_bytes()).hexdigest() == row['archived_sha256']
+    assert not list(archive.rglob('*.py')) and not list(archive.rglob('*.html'))
+    assert not list(archive.rglob('vendor/gems57/uniqueness.py'))
+    assert 'DO NOT SUBMIT' in (archive / 'README.md').read_text()
+
+
+def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
+    card = json.loads((ROOT / 'run_card.json').read_text())
+    status = json.loads((ROOT / 'docs/status.json').read_text())
+    assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
+    assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
+    assert not hasattr(__import__('gems57.uniqueness', fromlist=['uniqueness']), 'binding_duplicate_decision')

@@ -66,6 +66,9 @@ def check_site():
     card = json.loads((site / 'evidence/run_card.json').read_text())
     assert card == json.loads((ROOT / 'run_card.json').read_text())
     assert card == json.loads((site / 'run-card.json').read_text())
+    status = json.loads((site / 'status.json').read_text())
+    assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
+    assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     assert not manifest['ok_to_submit'] and manifest['ok_to_download']
     assert manifest['raster_sha256'] == card['raster_sha256']

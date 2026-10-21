@@ -1,0 +1,235 @@
+{
+  "evidence_class": "FEATURE-RECEIPT",
+  "lane": "H79-MCT",
+  "path": "data/cache/features/stack.f32.npy",
+  "shape": [
+    3730,
+    3292,
+    30
+  ],
+  "dtype": "float32",
+  "channels": [
+    "lid_ex_max",
+    "lid_ex_mean",
+    "lid_step_max",
+    "lid_lapneg_max",
+    "lid_lappos_max",
+    "lid_downface_max",
+    "lid_upface_max",
+    "lid_cross_max",
+    "lid_relief",
+    "lid_coh100",
+    "lid_strike_cos2",
+    "lid_strike_sin2",
+    "lid_valid",
+    "d10_slope_max",
+    "d10_slope_std",
+    "d10_hgm20_max",
+    "d10_hgm50_max",
+    "d10_steep_ratio_max",
+    "d10_resid_std",
+    "d10_curv_absmax",
+    "d10_onesided3",
+    "det_elev",
+    "det_elev_slope",
+    "line_lid_ex",
+    "line_lid_step",
+    "line_d10_hgm20",
+    "line_d10_steep",
+    "line_det_slope",
+    "lid_step_sm",
+    "d10_hgm20_sm"
+  ],
+  "catalogue_free": true,
+  "geophysics_used": false,
+  "prior_submission_rasters_used": false,
+  "sources": {
+    "lidar": "data/raw/external/lidar_scarp_features_u8.tif (USGS 3DEP 1 m tiles; GEMSDOE24 mirror, sha256 d580bb8b\u2026)",
+    "dem10": "data/cache/dem10/*.f32.npy (USGS 3DEP 1/3 arc-second; GEMSDOE10 tag ext/dem10-36343078537)",
+    "det_elev": "data/raw/training_features.tif bands 12 and 19 (owner mirror sha256 4371c82e\u2026)"
+  },
+  "channel_stats": {
+    "lid_ex_max": {
+      "finite_in_footprint": 3893184,
+      "p01": 0.003348006634041667,
+      "p50": 0.13429227471351624,
+      "p99": 1.2406456470489502
+    },
+    "lid_ex_mean": {
+      "finite_in_footprint": 3893184,
+      "p01": 0.0005626511992886662,
+      "p50": 0.019646290689706802,
+      "p99": 0.22506046295166016
+    },
+    "lid_step_max": {
+      "finite_in_footprint": 3893184,
+      "p01": 0.0005580011056736112,
+      "p50": 0.05395560339093208,
+      "p99": 0.5134230256080627
+    },
+    "lid_lapneg_max": {
+      "finite_in_footprint": 3893184,
+      "p01": 6.277513602981344e-05,
+      "p50": 0.004129983484745026,
+      "p99": 0.0427994579076767
+    },
+    "lid_lappos_max": {
+      "finite_in_footprint": 3893184,
+      "p01": 4.960009755450301e-05,
+      "p50": 0.004129983484745026,
+      "p99": 0.039583977311849594
+    },
+    "lid_downface_max": {
+      "finite_in_footprint": 3207200,
+      "p01": 0.0015500030713155866,
+      "p50": 0.057675618678331375,
+      "p99": 0.42711883783340454
+    },
+    "lid_upface_max": {
+      "finite_in_footprint": 3207200,
+      "p01": 0.0005580011056736112,
+      "p50": 0.04191208630800247,
+      "p99": 0.4219883382320404
+    },
+    "lid_cross_max": {
+      "finite_in_footprint": 3207200,
+      "p01": 0.005022010765969753,
+      "p50": 0.09920019656419754,
+      "p99": 0.5893886685371399
+    },
+    "lid_relief": {
+      "finite_in_footprint": 3893184,
+      "p01": 0.0744001492857933,
+      "p50": 8.597867012023926,
+      "p99": 81.02175903320312
+    },
+    "lid_coh100": {
+      "finite_in_footprint": 3882902,
+      "p01": 0.08267716318368912,
+      "p50": 0.665354311466217,
+      "p99": 0.9685039520263672
+    },
+    "lid_strike_cos2": {
+      "finite_in_footprint": 3893184,
+      "p01": -0.9996940493583679,
+      "p50": -0.06180295720696449,
+      "p99": 0.9996940493583679
+    },
+    "lid_strike_sin2": {
+      "finite_in_footprint": 3893184,
+      "p01": -0.9993116855621338,
+      "p50": 0.02473442815244198,
+      "p99": 0.9993116855621338
+    },
+    "lid_valid": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 1.0,
+      "p99": 1.0
+    },
+    "d10_slope_max": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 8.140494346618652,
+      "p99": 44.19221115112305
+    },
+    "d10_slope_std": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 1.2393773794174194,
+      "p99": 8.776545524597168
+    },
+    "d10_hgm20_max": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 0.09782470762729645,
+      "p99": 0.7456644177436829
+    },
+    "d10_hgm50_max": {
+      "finite_in_footprint": 5167373,
+      "p01": 6.011265577399172e-05,
+      "p50": 0.07541969418525696,
+      "p99": 0.623681902885437
+    },
+    "d10_steep_ratio_max": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 1.4867284297943115,
+      "p99": 8.235042572021484
+    },
+    "d10_resid_std": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0015797028318047523,
+      "p50": 0.9329182505607605,
+      "p99": 11.499923706054688
+    },
+    "d10_curv_absmax": {
+      "finite_in_footprint": 5167373,
+      "p01": 1.220703097715159e-06,
+      "p50": 0.0014416504418477416,
+      "p99": 0.015406494028866291
+    },
+    "d10_onesided3": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.02214149944484234,
+      "p50": 0.37677881121635437,
+      "p99": 0.9559814929962158
+    },
+    "det_elev": {
+      "finite_in_footprint": 5164312,
+      "p01": -466.8299865722656,
+      "p50": -75.57621002197266,
+      "p99": 707.4249267578125
+    },
+    "det_elev_slope": {
+      "finite_in_footprint": 5164312,
+      "p01": 0.07005272060632706,
+      "p50": 3.749262809753418,
+      "p99": 32.722740173339844
+    },
+    "line_lid_ex": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 0.004825265146791935,
+      "p99": 0.13913385570049286
+    },
+    "line_lid_step": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 0.0038379868492484093,
+      "p99": 0.15393903851509094
+    },
+    "line_d10_hgm20": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 0.007548863999545574,
+      "p99": 0.14170965552330017
+    },
+    "line_d10_steep": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 0.009750117547810078,
+      "p99": 0.17730629444122314
+    },
+    "line_det_slope": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 0.006904636975377798,
+      "p99": 0.143610879778862
+    },
+    "lid_step_sm": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0,
+      "p50": 0.04640856385231018,
+      "p99": 0.635770857334137
+    },
+    "d10_hgm20_sm": {
+      "finite_in_footprint": 5167373,
+      "p01": 0.0003568712854757905,
+      "p50": 0.13801689445972443,
+      "p99": 0.8327280879020691
+    }
+  },
+  "stack_sha256_first_64MB": "4e018036574a4a055f34fba0d78a2bcfba7b44cc0850192e182099058f0d0a11",
+  "built_utc": "2026-10-21T22:03:11Z"
+}

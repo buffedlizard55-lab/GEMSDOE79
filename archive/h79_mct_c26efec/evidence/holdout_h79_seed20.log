@@ -1,0 +1,26 @@
+[22:10:07] seed 20: withheld positives=11321 visible=48340 catalogue=60988
+[22:10:09] canary worst: lid_lappos_max symAUC=0.5992; leakage(>0.90)=[]
+[22:10:10] fold NW: train {'pos': 36343, 'neg_hard': 36343, 'neg_easy': 36343}
+[22:10:14] NW fit 3s rows=109029 ch=30
+[22:10:25] fold NE: train {'pos': 34605, 'neg_hard': 34605, 'neg_easy': 34605}
+[22:10:28] NE fit 3s rows=103815 ch=30
+[22:10:41] fold SW: train {'pos': 29366, 'neg_hard': 29366, 'neg_easy': 29366}
+[22:10:44] SW fit 3s rows=88098 ch=30
+[22:10:58] fold SE: train {'pos': 31146, 'neg_hard': 31146, 'neg_easy': 31146}
+[22:11:01] SE fit 3s rows=93438 ch=30
+[22:11:12] OOF p done (68s)
+[22:11:42] C1_pixel B=25000: pooled HOLDOUT-DTI=0.0944 dots=25001
+[22:11:56] C2_continuity B=25000: pooled HOLDOUT-DTI=0.1003 dots=25001
+[22:12:09] C1_pixel B=37654: pooled HOLDOUT-DTI=0.1087 dots=37653
+[22:12:22] C2_continuity B=37654: pooled HOLDOUT-DTI=0.1095 dots=37653
+[22:12:35] C1_pixel B=50000: pooled HOLDOUT-DTI=0.1166 dots=49999
+[22:12:48] C2_continuity B=50000: pooled HOLDOUT-DTI=0.1144 dots=49999
+[22:12:48] selected budget (holdout optimum of C2): 50000
+[22:13:00] C3_continuity_q B37654: pooled HOLDOUT-DTI=0.1095 in-halo=22868
+[22:13:13] C0_random B37654: pooled HOLDOUT-DTI=0.0491
+[22:13:26] REF_h19_5_redot B37654: pooled HOLDOUT-DTI=0.0968
+[22:13:38] C3_continuity_q B50000: pooled HOLDOUT-DTI=0.1144 in-halo=28431
+[22:13:52] C0_random B50000: pooled HOLDOUT-DTI=0.0552
+[22:14:04] REF_h19_5_redot B50000: pooled HOLDOUT-DTI=0.0968
+[22:14:12] REF_champion_static: pooled HOLDOUT-DTI=0.0037
+[22:14:12] wrote /home/user/GEMSDOE79/evidence/holdout_h79_seed20.json (247.6s)

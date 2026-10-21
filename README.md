@@ -49,6 +49,15 @@ same negative card, and superseded prose archived under
 blocker has been resolved for the used mirror inputs; the literal novelty stop
 has not. No scientific lane switch or new experiment occurred.
 
+A later concurrent main update (`c26efec`, PRs #5–#6) added H79-MCT and a
+local dense-halo gate exemption. Its own audit records 100% literal overlap.
+That approval is **not adopted**: the lane's original evidence/artifacts and
+non-executable source are preserved in
+[`archive/h79_mct_c26efec/`](archive/h79_mct_c26efec/README.md), with source hashes.
+The original shared module remains unmodified; old active H79-MCT download URLs
+are retired, and every active status path stays negative. No H79-MCT experiment
+was rerun by this session; its reported holdout numbers are not E1 measurements.
+
 ## Scientific work and audit
 
 - Initial checkout: only an 11-byte README; no previous local pipeline or work to continue.

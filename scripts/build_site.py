@@ -167,6 +167,13 @@ def main():
     for alias, target in aliases.items():
         (SITE/alias).write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=' + target + '"><title>GEMSDOE79 — current negative result</title></head><body><p>DO NOT SUBMIT. <a href="' + target + '">Open the current GEMSDOE79 evidence and submission decision</a>.</p></body></html>\n')
     shutil.copyfile(ROOT/'run_card.json', SITE/'run-card.json')
+    (SITE/'status.json').write_text(json.dumps({'ok_to_download': True, 'ok_to_submit': False,
+        'verdict': 'negative', 'file': 'downloads/' + Path(card['submission_file']).name,
+        'zip': 'downloads/' + Path(card['zip_file']).name, 'sha256': card['raster_sha256'],
+        'name': card['submission_name'], 'note': card['submission_note'],
+        'artifact_kind': card['artifact_kind'], 'stop_reason': card['stop_reason'],
+        'scope': 'Current E1 only. Archived concurrent approval is not adopted.'}, indent=2) + '\n')
+
 
     (SITE/'.nojekyll').write_text('')
     (ROOT/'.nojekyll').write_text('')

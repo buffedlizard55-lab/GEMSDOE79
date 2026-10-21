@@ -52,12 +52,15 @@ def verify(url, expected_feed_attempt=None):
         if actual != expected:
             raise ValueError('Published artifact bytes changed: ' + name)
         hashes[name] = actual
+    status = json.loads(get(urljoin(base, 'status.json')))
+    if status['ok_to_submit'] is not False or status['sha256'] != card['raster_sha256']:
+        raise ValueError('Published status retains a stale or different approval')
     feed = json.loads(get(urljoin(base, 'evidence/source_health.json')))
     if expected_feed_attempt is not None and feed['attempted_utc'] != expected_feed_attempt:
         raise ValueError('Published source feed does not match this deployment attempt')
     return {'verified_utc': datetime.now(timezone.utc).isoformat(), 'served_base': base,
             'pages': pages, 'published_hashes': hashes, 'source_feed_attempted_utc': feed['attempted_utc'],
-            'expected_source_feed_attempt_utc': expected_feed_attempt, 'passed': True, 'ok_to_submit': False,
+            'public_status_fail_closed': True, 'expected_source_feed_attempt_utc': expected_feed_attempt, 'passed': True, 'ok_to_submit': False,
             'scope': 'Public/local website GET and exact-byte checks; not a competition upload, scientific score or organizer-acceptance receipt.'}
 
 

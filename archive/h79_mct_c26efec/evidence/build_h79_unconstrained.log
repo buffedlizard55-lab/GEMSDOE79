@@ -1,0 +1,37 @@
+[22:11:11] full-catalogue training set {'pos': 60988, 'neg_hard': 60988, 'neg_easy': 60988}
+[22:11:16] FULL fit 5s rows=182964 ch=30
+[22:12:07] p predicted over footprint (57s)
+[22:12:26] dots: {'dots': 37654, 'budget': 37654, 'in_quota_pool': 24001, 'quota_cap': 24852, 'candidates_scanned': 451848, 'skipped_by_quota': 0, 'exhausted_candidates': False}
+[22:12:28] {
+ "dots": 37654,
+ "budget": 37654,
+ "emit_info": {
+  "dots": 37654,
+  "budget": 37654,
+  "in_quota_pool": 24001,
+  "quota_cap": 24852,
+  "candidates_scanned": 451848,
+  "skipped_by_quota": 0,
+  "exhausted_candidates": false
+ },
+ "min_dist_to_catalogue_px": 2.23606797749979,
+ "dist_to_catalogue_km_pct": {
+  "<=0.4": 0.14975832580867904,
+  "0.4-2": 0.3730280979444415,
+  "2-6": 0.3422478355553195,
+  ">6": 0.13496574069156
+ },
+ "nn_spacing_px_pct": {
+  "p5": 2.8284271247461903,
+  "p50": 3.1622776601683795,
+  "p95": 8.602325267042627
+ },
+ "dots_in_h19_5_halo": 24001,
+ "share_in_h19_5_halo": 0.6374090402082117,
+ "dots_in_lidar_gap": 8686,
+ "share_in_lidar_gap": 0.2306793434960429,
+ "lidar_gap_share_of_allowed": 0.24872291312148803,
+ "s_threshold_last_dot": 0.4508790671825409,
+ "s_p50_dots": 0.5306459665298462
+}
+[22:12:29] wrote /home/user/GEMSDOE79/docs/downloads/gems79-h79-mct-continuity-37654-20261021T221110Z-72e58da0-zeros.tif sha256=78be4cfae1e336add1997ecbb44eaf34675866ce0801263b1b0dd89f1e10abe9

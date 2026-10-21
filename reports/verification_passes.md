@@ -85,7 +85,7 @@ Final local tests, clean dependency install, workflow checks, PR/merge and publi
 Pages outcomes are recorded below **only after execution**. No new geological
 run is authorized by finishing the software or by CI.
 
-### Final local execution results
+### Pre-integration local execution checkpoint
 
 - Pinned clean environment installed successfully from `requirements.lock`.
 - Full suite: **51 passed in 2.45 s** in the existing environment and **51 passed
@@ -129,6 +129,32 @@ not a switch to the earlier proposed cross-sensor scientific lane.
   validation/status remain authoritative. Every original scientific pin stayed
   byte-identical.
 
+### Second concurrent-main safety integration
+
+Main subsequently advanced to `c26efec` (H79-MCT PRs #5–#6), after the first
+integration. Inspected incoming source/pins/card/audit before choosing a merge
+resolution. Its own literal audit records overlap 1.0 / 43 firings; its binding
+approval exempts 43 dense-halo priors using a local shared-module amendment and
+its card records post-duplicate placement changes. These are not authorized by
+the active user's literal protocol.
+
+Preserve that branch's evidence and small artifacts in a SHA-256 manifest-backed
+historical archive; store code/HTML/CSS as non-executable text, not an alternative
+active pipeline. Do not copy its modified shared module as an executable private
+fork; the source remains in the merge parent. Keep canonical upstream modules,
+all E1 scientific pins, the current negative card and one active research TIFF.
+Retire the old active artifact URLs and replace `docs/status.json` with a
+fail-closed current-E1 alias. No incoming holdout score becomes an E1 result, no
+new lane is run, and no competition slot is spent.
+
+Final integration regression: **67 pytest tests passed in 1.97 s** (fresh
+pinned environment), the legacy 14-case unittest suite passes, and 21 browser
+cases plus both compatibility redirects pass. All 103 local links and the exact
+HTTP TIFF/ZIP hashes pass. SHA-256 archive-manifest checks pass, all original E1
+scientific pins are unchanged, and every active JSON status is negative. This is an
+explicit safety review, not a claim that the archived methodology or claimed
+performance was independently validated.
+
 ### Evidence available now
 
 - `evidence/verification.json`: actual committed TIFF/ZIP re-read, pin checks and
@@ -150,8 +176,11 @@ not a switch to the earlier proposed cross-sensor scientific lane.
   **HTTP 403, Resource not accessible by integration**. The setting was not
   changed. Existing legacy main/root publishing has a `.nojekyll` root redirect;
   artifact deployment uses only `docs/`. No additional credential was requested.
-- PR/check/merge/deployment results: **not yet executed at this checkpoint**.
-  They must be replaced with observed outcomes before the final response.
+- Release tracking: [PR #4](https://github.com/buffedlizard55-lab/GEMSDOE79/pull/4)
+  is the authoritative check/merge timeline. The final post-merge confirmation
+  and any deployment limitation are recorded in its release-verification comment
+  and the Pages workflow; this file is the pre-merge review, not a prediction of
+  future success. The final response reports only observed outcomes.
 
 ## Remaining scientific limitations
 
