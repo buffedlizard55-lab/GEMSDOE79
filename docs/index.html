@@ -1,100 +1,151 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Evidence-first research and submission readiness for the DOE GEMS Prize. No unverified or copied predictions are offered.">
-  <title>GEMSDOE79 — GEMS research & submission readiness</title>
-  <style>
-    :root { color-scheme: light; --ink:#142b39; --muted:#526674; --line:#d9e3e7; --paper:#f5f8f7; --white:#fff; --teal:#087e78; --deep:#0c303b; --amber:#8a4b00; --amber-bg:#fff3d7; --green-bg:#e8f6f1; }
-    * { box-sizing:border-box } body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.58 system-ui,-apple-system,Segoe UI,Roboto,sans-serif }
-    a { color:#086b72; text-underline-offset:3px } a:hover { color:#064b52 }
-    header { background:var(--deep); color:white; padding:22px max(22px,calc((100% - 1080px)/2)); display:flex; justify-content:space-between; gap:16px; align-items:center }
-    .brand { font-weight:750; letter-spacing:.02em; color:white; text-decoration:none } nav { display:flex; flex-wrap:wrap; gap:18px } nav a { color:#d5eeed; font-size:.94rem }
-    main { max-width:1080px; margin:38px auto 70px; padding:0 22px }
-    .eyebrow { color:var(--teal); font-size:.78rem; text-transform:uppercase; font-weight:800; letter-spacing:.13em }
-    h1 { font-size:clamp(2.1rem,4vw,3.4rem); letter-spacing:-.04em; line-height:1.08; margin:.35rem 0 1rem; max-width:850px }
-    .lead { max-width:790px; color:var(--muted); font-size:1.12rem }
-    .alert { border:1px solid #f0c66c; border-left:6px solid #d58a11; background:var(--amber-bg); border-radius:12px; padding:22px 24px; margin:28px 0 26px }
-    .alert h2 { margin:0 0 6px; color:#683a00; font-size:1.25rem }.alert p { margin:6px 0 }
-    .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:18px; margin:24px 0 }
-    .card { grid-column:span 6; background:var(--white); border:1px solid var(--line); border-radius:14px; padding:22px; box-shadow:0 3px 12px #132c3910 }
-    .card.wide { grid-column:span 12 }.card h2 { margin:0 0 10px; font-size:1.2rem }.card p:last-child { margin-bottom:0 }
-    .status { display:inline-flex; align-items:center; gap:8px; border-radius:999px; padding:5px 11px; background:#fff0d0; color:#704100; font-weight:750; font-size:.83rem }
-    .dot { width:9px;height:9px;border-radius:50%;background:#c77c00 }
-    .cta { display:inline-block; border-radius:8px; padding:11px 16px; background:#aab7ba; color:#27383e; text-decoration:none; font-weight:750; cursor:not-allowed; margin-top:6px }
-    .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:22px 0 }
-    .fact { background:var(--green-bg); border:1px solid #cde8dd; padding:15px; border-radius:11px }.fact strong { display:block; font-size:1.05rem }.fact span { font-size:.87rem;color:var(--muted) }
-    ul { padding-left:1.25rem } li { margin:.35rem 0 } .small { font-size:.9rem;color:var(--muted) }
-    footer { border-top:1px solid var(--line); padding:22px; text-align:center; color:var(--muted); font-size:.88rem }
-    @media(max-width:700px) { header {align-items:flex-start;flex-direction:column} .card,.card.wide {grid-column:span 12} .facts {grid-template-columns:repeat(2,1fr)} }
-  </style>
-</head>
-<body>
-  <header>
-    <a class="brand" href="./">GEMSDOE79</a>
-    <nav aria-label="Main navigation">
-      <a href="./executive-summary.html">Executive summary</a>
-      <a href="./submission-guide.html">How to submit</a>
-      <a href="./research-plan.html">Research plan</a>
-      <a href="./sources.html">Sources & evidence</a>
-      <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Live leaderboard ↗</a>
-    </nav>
-  </header>
-  <main>
-    <div class="eyebrow">DOE GEMS Prize · evidence-first fault discovery</div>
-    <h1>Research candidate faults. Validate before any submission.</h1>
-    <p class="lead">An auditable workspace for testing geological hypotheses against the competition's spatially blocked holdout, then producing a format-checked GeoTIFF only when evidence supports it.</p>
-
-    <section class="alert" aria-labelledby="readiness">
-      <span class="status"><span class="dot"></span> NOT READY — NO VALIDATED TIFF</span>
-      <h2 id="readiness">There is currently no file to download or submit.</h2>
-      <p>This repository has no competition rasters, cached feature stack, shared holdout evaluator, or submission writer. We will not pass off an empty raster, a sister-site artifact, or an untested model as a unique candidate.</p>
-      <span class="cta" aria-disabled="true">Download submission GeoTIFF — blocked</span>
-      <p class="small">A download will appear here only after a candidate beats the holdout baseline, passes the registry-duplicate gate and automated format checks, and receives a separate promotion decision.</p>
-    </section>
-
-    <div class="facts" aria-label="Official submission requirements">
-      <div class="fact"><strong>EPSG:32611</strong><span>UTM zone 11N</span></div>
-      <div class="fact"><strong>100 m</strong><span>same grid / bounds as training data</span></div>
-      <div class="fact"><strong>1 × float32</strong><span>single prediction band</span></div>
-      <div class="fact"><strong>[0, 1]</strong><span>probability/confidence range</span></div>
-    </div>
-
-    <div class="grid">
-      <section class="card">
-        <h2>What we verified</h2>
-        <ul>
-          <li>The official task is to map geological faults; the public catalogue is incomplete.</li>
-          <li>The official metric is distance-weighted Tversky: α=0.2, β=0.8, triangular support 300 m.</li>
-          <li>Live public leaderboard observation (2026-10-21; not a GEMSDOE79 score or receipt): <strong>0.4413 at rank 1</strong>.</li>
-          <li>The competition data endpoint redirects unauthenticated visitors to login.</li>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Auditable research and submission-readiness status for the DOE GEMS Prize."
+    />
+    <title>GEMSDOE79 — GEMS fault research</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./">GEMSDOE79</a>
+      <nav aria-label="Main navigation">
+        <a href="#status">Readiness</a>
+        <a href="EXECUTIVE_SUMMARY.html">How to submit</a>
+        <a href="PROJECT_BRIEF.html">Research brief</a>
+        <a
+          href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/"
+          >Official leaderboard ↗</a
+        >
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <p class="eyebrow">DOE GEMS Prize · DrivenData competition 306</p>
+        <h1>
+          Find unmapped geothermal-indicative faults.<br /><span
+            >Prove it before submitting.</span
+          >
+        </h1>
+        <p class="lead">
+          An auditable research workflow for testing geologic hypotheses against
+          spatially blocked holdouts and producing a format-checked GeoTIFF.
+        </p>
+        <div class="values">
+          <b>Maximize P(Win)</b
+          ><span>Use evidence before scarce submission slots.</span
+          ><b>Own the Outcome</b
+          ><span>Report uncertainty, defects, and negative results.</span>
+        </div>
+      </section>
+      <section
+        id="status"
+        class="status blocked"
+        aria-labelledby="status-title"
+      >
+        <div class="status-heading">
+          <span class="status-icon" aria-hidden="true">!</span>
+          <div>
+            <p class="eyebrow">Submission readiness</p>
+            <h2 id="status-title">
+              STOP — no TIF is ready to download or submit
+            </h2>
+          </div>
+        </div>
+        <p>
+          This repository has no authorized competition rasters or sample grid,
+          and no cached feature stack, holdout evaluator, or submission writer.
+          A unique, competition-compatible prediction cannot be generated or
+          validated from what is present. We will not publish a fabricated,
+          all-zero, or copied submission.
+        </p>
+        <p class="callout">
+          There is intentionally no download button. Do not submit any file from
+          this repository.
+        </p>
+        <p>
+          <a href="run-card.json">View the current blocked run card (JSON)</a>
+        </p>
+        <ul class="checklist">
+          <li>
+            <span class="pending">Pending</span> Obtain official input rasters
+            from the authenticated DrivenData data page.
+          </li>
+          <li>
+            <span class="pending">Pending</span> Validate a single-lane
+            candidate on buffered, whole-segment spatial holdouts.
+          </li>
+          <li>
+            <span class="pending">Pending</span> Pass the registry-duplication
+            and exact-format checks.
+          </li>
+          <li>
+            <span class="pending">Pending</span> Record the evaluator version,
+            withheld count, 95% CI, SHA-256, and unique note.
+          </li>
         </ul>
-        <p class="small">Each fact and its evidence limits are recorded in the <a href="./sources.html">source ledger</a>.</p>
       </section>
-      <section class="card">
-        <h2>How a file becomes eligible</h2>
-        <ol>
-          <li>Place authorized competition data and establish a shared baseline.</li>
-          <li>Run leakage canaries and buffered whole-segment hide-and-recover evaluation.</li>
-          <li>Reject correlated/overlapping duplicates against every available registry raster.</li>
-          <li>Write one-band float32 GeoTIFF; compare CRS, shape, transform, footprint and values.</li>
-          <li>Record a run card and hash; let the separate selector choose whether to use a slot.</li>
-        </ol>
-        <p><a href="./submission-guide.html">Read the exact submission guide →</a></p>
+      <section class="grid">
+        <article class="card">
+          <p class="eyebrow">Selected next experiment · not yet run</p>
+          <h2>Cross-sensor structural edge agreement</h2>
+          <p>
+            Test whether scale-consistent, orientation-coherent boundaries
+            jointly present in magnetic, conductivity, and (if available)
+            radiometric layers identify unmapped structures better than the
+            holdout baseline.
+          </p>
+          <p>
+            <b>Named mimic:</b> lithologic contacts or survey seams can create
+            coincident geophysical edges. Feature-alone leakage canaries and
+            registry comparisons are mandatory.
+          </p>
+          <a href="PROJECT_BRIEF.html">See ranked hypotheses and gates →</a>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Evidence distinction</p>
+          <h2>Scores are not interchangeable</h2>
+          <p>
+            The live official public leaderboard fetched on 2026-10-21 UTC lists
+            a current leading entry newer than the figures quoted in the prompt.
+            The cited GEMSDOE32 page calls its H33-2-B2 file an unscored
+            candidate and does not verify the claimed organizer result for that
+            file.
+          </p>
+          <a href="EXECUTIVE_SUMMARY.html#score-check"
+            >Read the evidence and submission guide →</a
+          >
+        </article>
       </section>
-      <section class="card wide">
-        <h2>Next experiment proposal (not yet tested)</h2>
-        <p>Test whether multi-scale edges in <em>depth to conductive base</em> and <em>isostatic gravity</em>, conditioned on coherent strain-tensor structure, identify concealed fault traces better than the incumbent. A lithologic contact or basin-fill boundary can mimic this signal. This is a hypothesis only: no holdout DTI, confidence interval, duplicate comparison, or raster exists yet.</p>
-        <p><a href="./research-plan.html">Review the ranked candidate hypotheses →</a></p>
+      <section class="sources">
+        <p class="eyebrow">Official references</p>
+        <a
+          href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/"
+          >Problem, metric, and GeoTIFF format</a
+        >
+        <a
+          href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/"
+          >Competition data page (login may be required)</a
+        >
+        <a
+          href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and"
+          >USGS GeoDAWN survey release</a
+        >
+        <a href="https://github.com/drivendataorg/gems-prize-reference-solution"
+          >Official reference solution</a
+        >
       </section>
-      <section class="card wide">
-        <h2>Core values</h2>
-        <p><strong>Maximize P(Win):</strong> spend scarce submission slots only on measured evidence. <strong>Own the Outcome:</strong> surface blockers, preserve negative findings, and never call a projection an organizer score.</p>
-      </section>
-    </div>
-    <p class="small">Status snapshot: 2026-10-21 UTC. This is a static project page, not a live leaderboard feed. The leaderboard link opens the organizer's current page.</p>
-  </main>
-  <footer>GEMSDOE79 · Evidence before emission · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Official competition brief</a></footer>
-</body>
+    </main>
+    <footer>
+      <span>GEMSDOE79 · research status reviewed 2026-10-21 UTC</span
+      ><span
+        >Internal results are not organizer-confirmed unless labeled with a
+        portal receipt.</span
+      >
+    </footer>
+  </body>
 </html>

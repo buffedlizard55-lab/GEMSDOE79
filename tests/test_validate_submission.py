@@ -1,188 +1,141 @@
-"""Synthetic unit tests for the format/duplicate gate; not competition evidence."""
-from __future__ import annotations
-
-import contextlib
-import io
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
 
 import numpy as np
 import rasterio
 from affine import Affine
 
-from scripts.validate_submission import main
+from scripts.validate_submission import compare_registry, validate
 
 
-class ValidateSubmissionTests(unittest.TestCase):
-    def setUp(self) -> None:
+class SubmissionValidationTests(unittest.TestCase):
+    def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.root = Path(self.tmp.name)
-        self.transform = Affine(100, 0, 1000, 0, -100, 2000)
-        self.crs = "EPSG:32611"
-        self.shape = (8, 8)
-        self.footprint = np.full(self.shape, np.nan, dtype=np.float32)
-        self.footprint[:6, :6] = 0.0
-        self.reference = self.root / "reference.tif"
-        self.write(self.reference, self.footprint)
+        self.template = self.root / "sample_submission.tif"
+        self.candidate = self.root / "candidate.tif"
+        self.transform = Affine(100, 0, 500000, 0, -100, 4300000)
+        self.footprint = np.zeros((4, 5), dtype=bool)
+        self.footprint[1:3, 1:4] = True
+        self._write(self.template, np.where(self.footprint, 0.0, np.nan))
 
-    def tearDown(self) -> None:
+    def tearDown(self):
         self.tmp.cleanup()
 
-    def write(self, path: Path, values: np.ndarray, nodata: float = np.nan,
-              transform: Affine | None = None, crs: str | None = None) -> None:
-        profile = {
-            "driver": "GTiff",
-            "height": values.shape[0],
-            "width": values.shape[1],
-            "count": 1,
-            "dtype": "float32",
-            "crs": crs or self.crs,
-            "transform": transform or self.transform,
-            "nodata": nodata,
-        }
-        with rasterio.open(path, "w", **profile) as ds:
-            ds.write(values.astype(np.float32), 1)
+    def _write(self, path, values, *, width=5, crs="EPSG:32611", dtype="float32",
+               nodata=np.nan, transform=None):
+        with rasterio.open(
+            path,
+            "w",
+            driver="GTiff",
+            width=width,
+            height=4,
+            count=1,
+            dtype=dtype,
+            crs=crs,
+            transform=transform or self.transform,
+            nodata=nodata,
+        ) as dst:
+            dst.write(np.asarray(values, dtype=dtype), 1)
 
-    def run_cli(self, *args: str) -> tuple[int, str]:
-        output = io.StringIO()
-        with patch("sys.argv", ["validate_submission.py", *args]), \
-                contextlib.redirect_stdout(output):
-            code = main()
-        return code, output.getvalue()
+    def test_valid_probabilities_and_nan_outside_pass(self):
+        values = np.where(self.footprint, 0.4, np.nan)
+        self._write(self.candidate, values)
+        result = validate(self.candidate, self.template)
+        self.assertTrue(result["ok"], result["errors"])
+        self.assertEqual(result["footprint_pixels"], 6)
+        self.assertEqual(result["valid_prediction_pixels"], 6)
+        self.assertEqual(len(result["sha256"]), 64)
+        self.assertAlmostEqual(result["prediction_min"], 0.4, places=6)
 
-    def test_valid_grid_and_independent_registry_pass(self) -> None:
-        candidate = np.full(self.shape, np.nan, dtype=np.float32)
-        candidate[:6, :6] = 0.0
-        candidate[0, 0] = 0.6
-        candidate[2, 2] = 0.7
-        candidate[4, 4] = 0.8
-        registry_values = np.full(self.shape, np.nan, dtype=np.float32)
-        registry_values[:6, :6] = 0.0
-        registry_values[0, 5] = 0.5
-        registry_values[5, 0] = 0.5
-        candidate_path = self.root / "candidate.tif"
-        registry_path = self.root / "registry.tif"
-        self.write(candidate_path, candidate)
-        self.write(registry_path, registry_values)
+    def test_out_of_range_value_inside_fails(self):
+        values = np.where(self.footprint, 0.4, np.nan)
+        values[1, 1] = 1.01
+        self._write(self.candidate, values)
+        result = validate(self.candidate, self.template)
+        self.assertFalse(result["ok"])
+        self.assertIn("prediction outside [0, 1] inside the template footprint", result["errors"])
 
-        code, stdout = self.run_cli(
-            "--submission", str(candidate_path),
-            "--reference", str(self.reference),
-            "--footprint", str(self.reference),
-            "--registry", str(registry_path),
-        )
-        self.assertEqual(code, 0, stdout)
-        self.assertIn('"status": "passed"', stdout)
-        self.assertIn('"values_in_0_1": true', stdout)
+    def test_finite_value_outside_footprint_fails(self):
+        values = np.where(self.footprint, 0.4, np.nan)
+        values[0, 0] = 0.2
+        self._write(self.candidate, values)
+        result = validate(self.candidate, self.template)
+        self.assertFalse(result["ok"])
+        self.assertIn("finite, unmasked predictions found outside the template footprint", result["errors"])
 
-    def test_grid_mismatch_fails(self) -> None:
-        candidate = np.zeros((7, 8), dtype=np.float32)
-        candidate_path = self.root / "wrong-grid.tif"
-        self.write(candidate_path, candidate,
-                   transform=Affine(100, 0, 1001, 0, -100, 2000))
-        code, stdout = self.run_cli(
-            "--submission", str(candidate_path),
-            "--reference", str(self.reference),
-            "--footprint", str(self.reference),
-            "--registry", str(self.reference),
-        )
-        self.assertEqual(code, 1)
-        self.assertIn('"shape_matches": false', stdout)
-        self.assertIn('"transform_matches": false', stdout)
+    def test_nan_inside_footprint_fails(self):
+        values = np.where(self.footprint, 0.4, np.nan)
+        values[1, 1] = np.nan
+        self._write(self.candidate, values)
+        result = validate(self.candidate, self.template)
+        self.assertFalse(result["ok"])
+        self.assertIn("non-finite prediction inside the template footprint", result["errors"])
 
-    def test_above_one_fails(self) -> None:
-        candidate = np.full(self.shape, np.nan, dtype=np.float32)
-        candidate[:6, :6] = 0.0
-        candidate[1, 1] = 1.01
-        candidate_path = self.root / "bad-range.tif"
-        self.write(candidate_path, candidate)
-        code, stdout = self.run_cli(
-            "--submission", str(candidate_path),
-            "--reference", str(self.reference),
-            "--footprint", str(self.reference),
-            "--registry", str(candidate_path),
-        )
-        self.assertEqual(code, 1)
-        self.assertIn('"values_in_0_1": false', stdout)
+    def test_non_100m_reference_grid_fails(self):
+        wrong_transform = Affine(50, 0, 500000, 0, -50, 4300000)
+        wrong_template = self.root / "wrong-resolution-template.tif"
+        values = np.where(self.footprint, 0.0, np.nan)
+        self._write(wrong_template, values, transform=wrong_transform)
+        candidate_values = np.where(self.footprint, 0.4, np.nan)
+        self._write(self.candidate, candidate_values, transform=wrong_transform)
+        result = validate(self.candidate, wrong_template)
+        self.assertFalse(result["ok"])
+        self.assertIn("template_north_up_100m failed", result["errors"])
 
-    def test_nan_inside_footprint_fails(self) -> None:
-        candidate = np.full(self.shape, np.nan, dtype=np.float32)
-        candidate[:6, :6] = 0.0
-        candidate[2, 2] = np.nan
-        candidate_path = self.root / "nan-inside.tif"
-        self.write(candidate_path, candidate)
-        code, stdout = self.run_cli(
-            "--submission", str(candidate_path),
-            "--reference", str(self.reference),
-            "--footprint", str(self.reference),
-            "--registry", str(self.reference),
-        )
-        self.assertEqual(code, 1)
-        self.assertIn('"no_nan_inside_footprint": false', stdout)
+    def test_wrong_crs_fails(self):
+        values = np.where(self.footprint, 0.4, np.nan)
+        self._write(self.candidate, values, crs="EPSG:32610")
+        result = validate(self.candidate, self.template)
+        self.assertFalse(result["ok"])
+        self.assertIn("crs_match failed", result["errors"])
 
-    def test_outside_footprint_must_be_null(self) -> None:
-        candidate = np.full(self.shape, np.nan, dtype=np.float32)
-        candidate[:6, :6] = 0.0
-        candidate[7, 7] = 0.0  # finite outside the scoring footprint
-        candidate_path = self.root / "outside-value.tif"
-        self.write(candidate_path, candidate)
-        code, stdout = self.run_cli(
-            "--submission", str(candidate_path),
-            "--reference", str(self.reference),
-            "--footprint", str(self.reference),
-            "--registry", str(candidate_path),
-        )
-        self.assertEqual(code, 1)
-        self.assertIn('"outside_is_nodata_or_nan": false', stdout)
+    def test_nodata_zero_inside_footprint_fails(self):
+        values = np.where(self.footprint, 0.4, np.nan)
+        values[1, 1] = 0.0
+        self._write(self.candidate, values, nodata=0.0)
+        result = validate(self.candidate, self.template)
+        self.assertFalse(result["ok"])
+        self.assertIn("masked or nodata prediction inside the template footprint", result["errors"])
 
-    def test_negative_nodata_sentinel_is_rejected_even_outside(self) -> None:
+    def test_negative_nodata_sentinel_outside_fails_range_guard(self):
         sentinel = np.float32(-3.4028235e38)
-        candidate = np.full(self.shape, sentinel, dtype=np.float32)
-        candidate[:6, :6] = 0.0
-        candidate_path = self.root / "sentinel-nodata.tif"
-        self.write(candidate_path, candidate, nodata=float(sentinel))
-        code, stdout = self.run_cli(
-            "--submission", str(candidate_path),
-            "--reference", str(self.reference),
-            "--footprint", str(self.reference),
-            "--registry", str(self.reference),
-        )
-        self.assertEqual(code, 1)
-        self.assertIn('"every_stored_value_in_0_1_or_nan": false', stdout)
+        values = np.full((4, 5), sentinel, dtype="float32")
+        values[self.footprint] = 0.4
+        self._write(self.candidate, values, nodata=float(sentinel))
+        result = validate(self.candidate, self.template)
+        self.assertFalse(result["ok"])
+        self.assertIn("raw stored finite value outside [0, 1] (including possible nodata sentinel)",
+                      result["errors"])
 
-    def test_exact_copy_is_flagged_duplicate(self) -> None:
-        candidate = np.full(self.shape, np.nan, dtype=np.float32)
-        candidate[:6, :6] = 0.0
-        candidate[1, 1] = 0.5
-        candidate[3, 3] = 0.7
-        candidate_path = self.root / "candidate.tif"
-        self.write(candidate_path, candidate)
-        code, stdout = self.run_cli(
-            "--submission", str(candidate_path),
-            "--reference", str(self.reference),
-            "--footprint", str(self.reference),
-            "--registry", str(candidate_path),
-        )
-        self.assertEqual(code, 1)
-        self.assertIn('"status": "duplicate"', stdout)
-        self.assertIn('"duplicate_threshold_exceeded": true', stdout)
+    def test_registry_similarity_flags_exact_copy(self):
+        values = np.where(self.footprint, 0.4, np.nan)
+        self._write(self.candidate, values)
+        registry = self.root / "registry.tif"
+        self._write(registry, values)
+        result = compare_registry(self.candidate, self.template, [registry])
+        self.assertEqual(result["status"], "duplicate")
+        self.assertTrue(result["comparisons"][0]["duplicate_threshold_exceeded"])
+        self.assertEqual(result["comparisons"][0]["rank_correlation"], 1.0)
 
-    def test_missing_registry_blocks_gate(self) -> None:
-        candidate = np.full(self.shape, np.nan, dtype=np.float32)
-        candidate[:6, :6] = 0.0
-        candidate[1, 1] = 0.5
-        candidate_path = self.root / "candidate.tif"
-        self.write(candidate_path, candidate)
-        code, stdout = self.run_cli(
-            "--submission", str(candidate_path),
-            "--reference", str(self.reference),
-            "--footprint", str(self.reference),
-        )
-        self.assertEqual(code, 1)
-        self.assertIn('"status": "unverified"', stdout)
-        self.assertIn("No registry rasters supplied", stdout)
+    def test_missing_registry_is_unverified(self):
+        result = compare_registry(self.candidate, self.template, [])
+        self.assertEqual(result["status"], "unverified")
+
+    def test_registry_file_missing_blocks_similarity_gate(self):
+        self._write(self.candidate, np.where(self.footprint, 0.4, np.nan))
+        result = compare_registry(self.candidate, self.template,
+                                  [self.root / "missing-registry.tif"])
+        self.assertEqual(result["status"], "incomplete")
+
+    def test_wrong_grid_shape_fails_closed(self):
+        values = np.full((4, 4), 0.4, dtype="float32")
+        self._write(self.candidate, values, width=4)
+        result = validate(self.candidate, self.template)
+        self.assertFalse(result["ok"])
+        self.assertIsNone(result["footprint_pixels"])
+        self.assertIn("width_match failed", result["errors"])
 
 
 if __name__ == "__main__":
