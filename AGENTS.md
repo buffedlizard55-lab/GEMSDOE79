@@ -19,3 +19,8 @@
    invented source data, synthetic scientific scores, or a quarantined file as ready.
 8. Run tests, offline byte/format verification, site link checking and a final
    requirements review. Record all three review passes and unresolved limitations.
+
+- Concurrent H79-MCT material is historical text/data under `archive/`; do not
+  reactivate its dense-prior exemptions, placement amendments or positive flags.
+  Current E1 is stopped, all active status aliases are negative, and any protocol
+  clarification requires explicit authorization, not an agent-created bypass.

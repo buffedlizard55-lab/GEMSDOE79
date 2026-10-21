@@ -147,7 +147,7 @@ Retire the old active artifact URLs and replace `docs/status.json` with a
 fail-closed current-E1 alias. No incoming holdout score becomes an E1 result, no
 new lane is run, and no competition slot is spent.
 
-Final integration regression: **67 pytest tests passed in 1.97 s** (fresh
+Final integration regression: **67 pytest tests passed in 2.02 s** (fresh
 pinned environment), the legacy 14-case unittest suite passes, and 21 browser
 cases plus both compatibility redirects pass. All 103 local links and the exact
 HTTP TIFF/ZIP hashes pass. SHA-256 archive-manifest checks pass, all original E1
