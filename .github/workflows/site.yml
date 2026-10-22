@@ -11,7 +11,8 @@ permissions:
   contents: read
 concurrency:
   # PR builds must not replace a pending main/scheduled publication.
-  group: pages-${{ github.event.pull_request.number || 'production' }}
+  # Keep the original production key to serialize already-queued deployments.
+  group: ${{ github.event.pull_request.number && format('pages-pr-{0}', github.event.pull_request.number) || 'pages' }}
   cancel-in-progress: false
 jobs:
   build:
