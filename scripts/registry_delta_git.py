@@ -96,27 +96,32 @@ def scan_gitdir(gitdir: Path, repo: str, known: set[str], cache_dir: Path | None
                 continue
             candidates.setdefault(blob_sha, set()).add(rel_path)
 
-    # Direct blob refs (defensive edge case when a ref points directly to a blob)
+    # Fetch missing promisor blobs via single-pass `git cat-file --batch` (fixing Git 2.39
+    # `fatal: bad revision / did not send all necessary objects` on raw `git fetch origin <blob_sha>`),
+    # with individual REST blob fallback if a PR blob was pruned from promisor negotiation.
     to_fetch = [sha for sha in sorted(candidates) if not (cache_dir / f"{sha}.tif").is_file()]
     if to_fetch:
-        for i in range(0, len(to_fetch), 64):
-            batch = to_fetch[i:i + 64]
-            missing_in_odb = [
-                sha for sha in batch
-                if subprocess.run(
-                    ["git", "--git-dir", str(gitdir), "cat-file", "-e", sha],
-                    capture_output=True,
-                ).returncode != 0
-            ]
-            if missing_in_odb:
-                subprocess.run(
-                    [
-                        "git", "--git-dir", str(gitdir), "-c", "gc.auto=0",
-                        "fetch", "-q", "--no-write-fetch-head", "origin", *missing_in_odb,
-                    ],
-                    check=True,
-                    capture_output=True,
+        inp = "".join(sha + "\n" for sha in to_fetch).encode()
+        raw_batch = subprocess.check_output(
+            ["git", "--git-dir", str(gitdir), "cat-file", "--batch"],
+            input=inp,
+        )
+        pos = 0
+        for sha in to_fetch:
+            nl = raw_batch.index(b"\n", pos)
+            hdr = raw_batch[pos:nl].decode().split()
+            pos = nl + 1
+            if hdr[-1] == "missing":
+                data = subprocess.check_output(
+                    ["gh", "api", f"repos/{OWNER}/{repo}/git/blobs/{sha}", "-H", "Accept: application/vnd.github.raw"]
                 )
+            else:
+                sz = int(hdr[2])
+                data = raw_batch[pos : pos + sz]
+                pos += sz + 1
+            tmp = (cache_dir / f"{sha}.tif").with_suffix(".delta.tmp")
+            tmp.write_bytes(data)
+            tmp.replace(cache_dir / f"{sha}.tif")
 
     new = []
     for sha in sorted(candidates):

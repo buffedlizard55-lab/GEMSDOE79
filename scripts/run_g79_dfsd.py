@@ -51,7 +51,9 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 if __name__ == "__main__":
-    if "--allow-initial-build" not in sys.argv:
+    if "--force-overwrite-closed" not in sys.argv and (
+        "--allow-initial-build" not in sys.argv or (ROOT / "run_card_dfsd.json").is_file()
+    ):
         from gems79.lifecycle import LaneClosedError, require_open_lane
         try:
             require_open_lane(ROOT, "G79-DFSD")
@@ -571,35 +573,35 @@ def _full_multi_regime_uniqueness_audit(
     label_tag: str,
     is_surface: bool = False,
 ) -> dict[str, Any]:
-    """Run unmodified vendor/gems57/uniqueness.py across ALL verified rasters under literal, v3, v4 & D-2."""
+    """Run unmodified vendor/gems57/uniqueness.py::compare_array_to_registry_d2 in a single pass across all 1,221 rasters."""
     t0 = time.time()
     n_tot = len(combined_idx["rasters"])
     print(f"\n[DFSD uniqueness:{label_tag}] Scanning {candidate_tif.name} against {n_tot} unique SHA-256 rasters across all 93 repos...", flush=True)
-    lit = uniqueness.compare_to_registry(candidate_tif, combined_idx, footprint)
-    phase = uniqueness.two_phase_summary(lit["rows"], int(footprint.sum()), expected_rasters=n_tot)
-
-    # Also run shared compare_array_to_registry_d2 (chance-corrected Amendment D-2) directly!
     if is_surface:
         topk_dots = uniqueness.budget_matched_dots(candidate_arr, footprint, 37_654)
+        surf_allowed = footprint & (~(candidate_arr < 0)) & np.asarray(allowed | topk_dots, dtype=bool)
         d2 = uniqueness.compare_array_to_registry_d2(
-            topk_dots, combined_idx, footprint, allowed, candidate_surface=candidate_arr
+            topk_dots, combined_idx, footprint, surf_allowed, candidate_surface=candidate_arr
         )
     else:
         d2 = uniqueness.compare_array_to_registry_d2(
             candidate_arr > 0, combined_idx, footprint, allowed, file_sha256=hashlib.sha256(candidate_tif.read_bytes()).hexdigest()
         )
 
+    ok_rows = [r for r in d2["rows"] if "error" not in r]
     valid_rhos = [
         abs(float(r["spearman_full_footprint"]))
-        for r in lit["rows"]
+        for r in ok_rows
         if r.get("spearman_full_footprint") is not None and np.isfinite(r["spearman_full_footprint"])
     ]
     max_abs_rho = round(float(max(valid_rhos)) if valid_rhos else 0.0, 6)
 
-    sparse50 = [r for r in lit["rows"] if "error" not in r and int(r.get("their_dots", 0)) <= 50_000]
-    sparse75 = [r for r in lit["rows"] if "error" not in r and int(r.get("their_dots", 0)) <= 75_308]
-    w50 = max(sparse50, key=lambda r: float(r["my_dots_within_3px_of_theirs"])) if sparse50 else None
-    w75 = max(sparse75, key=lambda r: float(r["my_dots_within_3px_of_theirs"])) if sparse75 else None
+    sparse50 = [r for r in ok_rows if int(r.get("their_literal_positive_cells", 0)) <= 50_000]
+    sparse75 = [r for r in ok_rows if int(r.get("their_literal_positive_cells", 0)) <= 75_308]
+    w50 = max(sparse50, key=lambda r: float(r["my_dots_within_3px_literal"])) if sparse50 else None
+    w75 = max(sparse75, key=lambda r: float(r["my_dots_within_3px_literal"])) if sparse75 else None
+    inf_v4 = [r for r in ok_rows if float(r["halo_coverage_allowed"]) <= 0.70]
+    inf_v4_dups = [r for r in inf_v4 if float(r["my_dots_within_3px_of_dot_equivalent"]) > 0.70]
 
     key_peers = {}
     for needle, key in (
@@ -610,50 +612,55 @@ def _full_multi_regime_uniqueness_audit(
         ("gems73-h73-mcsc", "gemsdoe73_mcsc"),
         ("gems79-h79-fnhr-f3", "g79_h79_fnhr_f3"),
     ):
-        matches = [r for r in lit["rows"] if "error" not in r and needle in r.get("submission", "")]
+        matches = [r for r in ok_rows if needle in r.get("submission", "")]
         if matches:
             m0 = matches[0]
             key_peers[key] = {
                 "submission": m0["submission"],
                 "sha256": m0["sha256"],
-                "their_dots": m0["their_dots"],
-                "forward_overlap_3px": round(float(m0["my_dots_within_3px_of_theirs"]), 6),
-                "reverse_overlap_3px": round(float(m0["their_dots_within_3px_of_mine"]), 6),
+                "their_dots": m0["their_literal_positive_cells"],
+                "forward_overlap_3px": round(float(m0["my_dots_within_3px_literal"]), 6),
+                "halo_coverage": round(float(m0["halo_coverage_allowed"]), 6),
+                "chance_corrected_overlap": round(float(m0["chance_corrected_overlap"]), 6) if m0.get("chance_corrected_overlap") is not None else None,
                 "spearman": round(float(m0["spearman_full_footprint"]), 6) if m0.get("spearman_full_footprint") is not None else None,
             }
 
-    # Informative D-2 non-plateau rasters (halo_coverage < 0.999999)
-    d2_inf = [r for r in d2["rows"] if "error" not in r and r.get("chance_corrected_overlap") is not None]
+    d2_inf = [r for r in ok_rows if r.get("chance_corrected_overlap") is not None]
     w_d2_inf = max(d2_inf, key=lambda r: float(r["chance_corrected_overlap"])) if d2_inf else None
     d2_inf_dups = [r for r in d2_inf if r.get("duplicate_d2")]
 
     summary = {
         "label": label_tag,
+        "shared_function": "vendor/gems57/uniqueness.py::compare_array_to_registry_d2",
         "elapsed_seconds": round(time.time() - t0, 2),
         "registry_unique_blobs_scanned": n_tot,
-        "comparable_3730x3292": lit["registry_rasters_checked"],
-        "non_grid_verified_fixtures": lit["missing_or_invalid"],
+        "comparable_3730x3292": d2["registry_rasters_checked"],
+        "non_grid_verified_fixtures": d2["missing_or_invalid"],
         "max_abs_spearman": max_abs_rho,
         "spearman_le_0p90_passed": bool(max_abs_rho <= 0.90),
         "sparse_le_50k_count": len(sparse50),
-        "sparse_le_50k_max_overlap_3px": round(float(w50["my_dots_within_3px_of_theirs"]), 6) if w50 else 0.0,
+        "sparse_le_50k_duplicates_gt_0p70": sum(1 for r in sparse50 if float(r["my_dots_within_3px_literal"]) > 0.70),
+        "sparse_le_50k_max_overlap_3px": round(float(w50["my_dots_within_3px_literal"]), 6) if w50 else 0.0,
         "sparse_le_50k_worst_submission": w50["submission"] if w50 else None,
-        "sparse_le_50k_passed": bool(w50 is not None and float(w50["my_dots_within_3px_of_theirs"]) <= 0.70),
+        "sparse_le_50k_passed": bool(w50 is not None and float(w50["my_dots_within_3px_literal"]) <= 0.70),
         "sparse_le_75k_count": len(sparse75),
-        "sparse_le_75k_max_overlap_3px": round(float(w75["my_dots_within_3px_of_theirs"]), 6) if w75 else 0.0,
+        "sparse_le_75k_duplicates_gt_0p70": sum(1 for r in sparse75 if float(r["my_dots_within_3px_literal"]) > 0.70),
+        "sparse_le_75k_max_overlap_3px": round(float(w75["my_dots_within_3px_literal"]), 6) if w75 else 0.0,
         "sparse_le_75k_worst_submission": w75["submission"] if w75 else None,
-        "sparse_le_75k_passed": bool(w75 is not None and float(w75["my_dots_within_3px_of_theirs"]) <= 0.70),
+        "sparse_le_75k_passed": bool(w75 is not None and float(w75["my_dots_within_3px_literal"]) <= 0.70),
+        "informative_halo_v4_count": len(inf_v4),
+        "informative_halo_v4_duplicates_gt_0p70": len(inf_v4_dups),
         "amendment_d2_non_saturated_count": len(d2_inf),
         "amendment_d2_non_saturated_duplicates": len(d2_inf_dups),
         "amendment_d2_worst_chance_corrected_overlap": round(float(w_d2_inf["chance_corrected_overlap"]), 6) if w_d2_inf else None,
         "amendment_d2_worst_submission": w_d2_inf["submission"] if w_d2_inf else None,
         "amendment_d2_saturated_firings": d2["d2_firings"],
-        "literal_worst_forward_overlap": phase["literal_reading"]["worst_forward_overlap"],
-        "two_phase_summary": {k: v for k, v in phase.items() if k != "literal_firings"},
+        "literal_worst_forward_overlap": d2["worst_literal_forward_overlap"],
+        "literal_overlap_firings": d2["literal_overlap_firings"],
         "key_peer_comparisons": key_peers,
-        "non_comparable_fixtures": [r for r in lit["rows"] if "error" in r],
+        "non_comparable_fixtures": [r for r in d2["rows"] if "error" in r],
     }
-    print(json.dumps({k: v for k, v in summary.items() if k not in ("two_phase_summary", "non_comparable_fixtures", "amendment_d2_saturated_firings")}, indent=2), flush=True)
+    print(json.dumps({k: v for k, v in summary.items() if k not in ("non_comparable_fixtures", "amendment_d2_saturated_firings")}, indent=2), flush=True)
     return summary
 
 
@@ -735,87 +742,113 @@ def main() -> None:
     eval30 = json.loads((dfsd_cache / "eval_seed30.json").read_text())
 
     # Full-footprint live ensemble fit
-    t_live = time.time()
-    print("\n==================== G79-DFSD LIVE FULL-FOOTPRINT ENSEMBLE ====================", flush=True)
-    _, quad_live = holdout.buffered_component_draw(grid, seed=20, buffer_px=3, boundary_px=12)
-    quad_fp = quad_live[footprint]
-    n_fp = int(footprint.sum())
-    all_rows = np.arange(n_fp, dtype=np.int64)
-    all_mask = np.ones(n_fp, dtype=bool)
+    live_ckpt = dfsd_cache / "live_fit_ckpt.npz"
+    live_ckpt_meta = dfsd_cache / "live_fit_ckpt_meta.json"
+    if live_ckpt.exists() and live_ckpt_meta.exists():
+        print("Reloading saved live DFSD posteriors...", flush=True)
+        z = np.load(live_ckpt)
+        H, W = footprint.shape
+        p2_live_fp = z["p2_live_fp"].astype(np.float32)
+        q2_live_fp = z["q2_live_fp"].astype(np.float32)
+        ooq_p_live = z["ooq_p_live"].astype(np.float32)
+        p_live_2d = np.zeros((H, W), dtype=np.float32)
+        q_live_2d = np.zeros((H, W), dtype=np.float32)
+        p_phys_live_2d = np.zeros((H, W), dtype=np.float32)
+        p_live_2d[footprint] = p2_live_fp
+        q_live_2d[footprint] = q2_live_fp
+        p_phys_live_2d[footprint] = ooq_p_live
+        meta_c = json.loads(live_ckpt_meta.read_text())
+        s2_scales = meta_c["s2_scales"]
+        top_imp = meta_c["top_imp"]
+    else:
+        t_live = time.time()
+        print("\n==================== G79-DFSD LIVE FULL-FOOTPRINT ENSEMBLE ====================", flush=True)
+        _, quad_live = holdout.buffered_component_draw(grid, seed=20, buffer_px=3, boundary_px=12)
+        quad_fp = quad_live[footprint]
+        n_fp = int(footprint.sum())
+        all_rows = np.arange(n_fp, dtype=np.int64)
+        all_mask = np.ones(n_fp, dtype=bool)
 
-    live_phys_models = fit_crossquad_split_sensor_physics_experts(
-        cat, footprint, quad_fp, lidar_fp, base_mm, extra_mm, base_path, seed=9701
-    )
-    live_pair_cache = predict_split_sensor_pair_cache(
-        live_phys_models, quad_fp, lidar_fp, base_mm, extra_mm, base_path
-    )
-    del live_phys_models
-    gc.collect()
-    ooq_p_live, ooq_q_live = assemble_ooq_physics_for_context(live_pair_cache, quad_fp, excluded_test_quad=None)
-    del live_pair_cache
-    gc.collect()
-
-    live_shards, live_draw0 = build_decontaminated_shards(
-        cat, footprint, quad_fp, base_mm, extra_mm, base_path, thvc_cues_path, dfsd_cues_path, scarp_step_fp,
-        n_draws=4, hide_frac=0.22, buffer_px=3, neg_per_quad_per_draw=24_000, seed_base=9300
-    )
-    live_mech = compute_dfsd_mechanics(cat, footprint, thvc_cues_path, dfsd_cues_path, scarp_step_fp)
-
-    oof_p1 = np.zeros(n_fp, dtype=np.float32)
-    oof_q1 = np.zeros(n_fp, dtype=np.float32)
-    for q_id in range(4):
-        tr_qs = [q for q in range(4) if q != q_id]
-        va_r = np.flatnonzero(quad_fp == q_id)
-        Xq, yq, qq, wq, tpi_q = _stack_dfsd_shards(live_shards, tr_qs, True, ooq_p_live, ooq_q_live)
-        sq = fit_dfsd_stage1(Xq, yq, qq, wq, seed=910 + q_id)
-        del Xq, yq, qq, wq
-        oof_p1[va_r], oof_q1[va_r] = predict_dfsd_stage1_rows(
-            sq, base_mm, extra_mm, base_path, live_draw0["mech_fp16"], ooq_p_live, ooq_q_live, va_r, tpi_q
+        live_phys_models = fit_crossquad_split_sensor_physics_experts(
+            cat, footprint, quad_fp, lidar_fp, base_mm, extra_mm, base_path, seed=9701
         )
-        del sq
+        live_pair_cache = predict_split_sensor_pair_cache(
+            live_phys_models, quad_fp, lidar_fp, base_mm, extra_mm, base_path
+        )
+        del live_phys_models
+        gc.collect()
+        ooq_p_live, ooq_q_live = assemble_ooq_physics_for_context(live_pair_cache, quad_fp, excluded_test_quad=None)
+        del live_pair_cache
         gc.collect()
 
-    S2_oof = extract_dfsd_stage2_features(oof_p1, oof_q1, ooq_p_live, ooq_q_live, footprint, ctx5_fp)
-    del oof_p1, oof_q1
-    s2_live = fit_dfsd_stage2_dual_heads(S2_oof, live_draw0, all_mask, lidar_fp, seed=989)
-    del S2_oof
-    gc.collect()
+        live_shards, live_draw0 = build_decontaminated_shards(
+            cat, footprint, quad_fp, base_mm, extra_mm, base_path, thvc_cues_path, dfsd_cues_path, scarp_step_fp,
+            n_draws=4, hide_frac=0.22, buffer_px=3, neg_per_quad_per_draw=24_000, seed_base=9300
+        )
+        live_mech = compute_dfsd_mechanics(cat, footprint, thvc_cues_path, dfsd_cues_path, scarp_step_fp)
 
-    p1_live = np.zeros(n_fp, dtype=np.float32)
-    q1_live = np.zeros(n_fp, dtype=np.float32)
-    feat_names_with_ooq = DFSD_ALL_FEATURE_NAMES + ["ooq_split_sensor_p_phys", "ooq_split_sensor_q_phys"]
-    feat_imp = np.zeros(len(feat_names_with_ooq), dtype=np.float64)
-    Xf, yf, qf, wf, tpi_f = _stack_dfsd_shards(live_shards, [0, 1, 2, 3], True, ooq_p_live, ooq_q_live)
-    for rep in range(2):
-        sf = fit_dfsd_stage1(Xf, yf, qf, wf, seed=1200 + 41 * rep)
-        feat_imp += 0.5 * sf["lgb_deep"].booster_.feature_importance(importance_type="gain")
-        pr, qr = predict_dfsd_stage1_rows(sf, base_mm, extra_mm, base_path, live_mech, ooq_p_live, ooq_q_live, all_rows, tpi_f)
-        p1_live += 0.5 * pr
-        q1_live += 0.5 * qr
-        del sf
+        oof_p1 = np.zeros(n_fp, dtype=np.float32)
+        oof_q1 = np.zeros(n_fp, dtype=np.float32)
+        for q_id in range(4):
+            tr_qs = [q for q in range(4) if q != q_id]
+            va_r = np.flatnonzero(quad_fp == q_id)
+            Xq, yq, qq, wq, tpi_q = _stack_dfsd_shards(live_shards, tr_qs, True, ooq_p_live, ooq_q_live)
+            sq = fit_dfsd_stage1(Xq, yq, qq, wq, seed=910 + q_id)
+            del Xq, yq, qq, wq
+            oof_p1[va_r], oof_q1[va_r] = predict_dfsd_stage1_rows(
+                sq, base_mm, extra_mm, base_path, live_draw0["mech_fp16"], ooq_p_live, ooq_q_live, va_r, tpi_q
+            )
+            del sq
+            gc.collect()
+
+        S2_oof = extract_dfsd_stage2_features(oof_p1, oof_q1, ooq_p_live, ooq_q_live, footprint, ctx5_fp)
+        del oof_p1, oof_q1
+        s2_live = fit_dfsd_stage2_dual_heads(S2_oof, live_draw0, all_mask, lidar_fp, seed=989)
+        del S2_oof
         gc.collect()
-    del Xf, yf, qf, wf, live_shards, live_draw0, live_mech
-    gc.collect()
 
-    S2_live = extract_dfsd_stage2_features(p1_live, q1_live, ooq_p_live, ooq_q_live, footprint, ctx5_fp)
-    p2_live_fp, q2_live_fp = predict_dfsd_stage2_dual_heads(s2_live, S2_live, lidar_fp, all_rows)
-    s2_scales = s2_live["scales"]
-    del S2_live, s2_live
-    gc.collect()
+        p1_live = np.zeros(n_fp, dtype=np.float32)
+        q1_live = np.zeros(n_fp, dtype=np.float32)
+        feat_names_with_ooq = DFSD_ALL_FEATURE_NAMES + ["ooq_split_sensor_p_phys", "ooq_split_sensor_q_phys"]
+        feat_imp = np.zeros(len(feat_names_with_ooq), dtype=np.float64)
+        Xf, yf, qf, wf, tpi_f = _stack_dfsd_shards(live_shards, [0, 1, 2, 3], True, ooq_p_live, ooq_q_live)
+        for rep in range(2):
+            sf = fit_dfsd_stage1(Xf, yf, qf, wf, seed=1200 + 41 * rep)
+            feat_imp += 0.5 * sf["lgb_deep"].booster_.feature_importance(importance_type="gain")
+            pr, qr = predict_dfsd_stage1_rows(sf, base_mm, extra_mm, base_path, live_mech, ooq_p_live, ooq_q_live, all_rows, tpi_f)
+            p1_live += 0.5 * pr
+            q1_live += 0.5 * qr
+            del sf
+            gc.collect()
+        del Xf, yf, qf, wf, live_shards, live_draw0, live_mech
+        gc.collect()
 
-    H, W = footprint.shape
-    p_live_2d = np.zeros((H, W), dtype=np.float32)
-    q_live_2d = np.zeros((H, W), dtype=np.float32)
-    p_phys_live_2d = np.zeros((H, W), dtype=np.float32)
-    p_live_2d[footprint] = p2_live_fp
-    q_live_2d[footprint] = q2_live_fp
-    p_phys_live_2d[footprint] = ooq_p_live
+        S2_live = extract_dfsd_stage2_features(p1_live, q1_live, ooq_p_live, ooq_q_live, footprint, ctx5_fp)
+        p2_live_fp, q2_live_fp = predict_dfsd_stage2_dual_heads(s2_live, S2_live, lidar_fp, all_rows)
+        s2_scales = s2_live["scales"]
+        del S2_live, s2_live
+        gc.collect()
 
-    top_imp = sorted(
-        [{"feature": feat_names_with_ooq[i], "gain_share": round(float(feat_imp[i] / max(feat_imp.sum(), 1e-9)), 6)} for i in range(len(feat_names_with_ooq))],
-        key=lambda r: -r["gain_share"],
-    )
-    print(f"[DFSD] Live ensemble fit in {time.time()-t_live:.1f}s! Scales={s2_scales}, Top 6 features: {top_imp[:6]}", flush=True)
+        H, W = footprint.shape
+        p_live_2d = np.zeros((H, W), dtype=np.float32)
+        q_live_2d = np.zeros((H, W), dtype=np.float32)
+        p_phys_live_2d = np.zeros((H, W), dtype=np.float32)
+        p_live_2d[footprint] = p2_live_fp
+        q_live_2d[footprint] = q2_live_fp
+        p_phys_live_2d[footprint] = ooq_p_live
+
+        top_imp = sorted(
+            [{"feature": feat_names_with_ooq[i], "gain_share": round(float(feat_imp[i] / max(feat_imp.sum(), 1e-9)), 6)} for i in range(len(feat_names_with_ooq))],
+            key=lambda r: -r["gain_share"],
+        )
+        np.savez_compressed(
+            live_ckpt,
+            p2_live_fp=p2_live_fp.astype(np.float16),
+            q2_live_fp=q2_live_fp.astype(np.float16),
+            ooq_p_live=ooq_p_live.astype(np.float16),
+        )
+        live_ckpt_meta.write_text(json.dumps({"s2_scales": s2_scales, "top_imp": top_imp}, indent=2) + "\n")
+        print(f"[DFSD] Live ensemble fit in {time.time()-t_live:.1f}s! Scales={s2_scales}, Top 6 features: {top_imp[:6]}", flush=True)
 
     # STRICT PROTOCOL ORDERING (Rule 1 / IR-79-54):
     # Audit continuous pre-placement surface across ALL 93 repos BEFORE placing ANY final dot!

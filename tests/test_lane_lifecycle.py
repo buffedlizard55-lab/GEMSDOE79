@@ -97,6 +97,10 @@ def test_absent_card_fails_closed(tmp_path):
     ('finalize_mrnd.py', []),
     ('run_fnhr.py', ['holdout', '--seed', '20']),
     ('audit_and_select_fnhr.py', []),
+    ('generate_etp_submission.py', []),
+    ('generate_etp_v2.py', []),
+    ('run_g79_dfsd.py', ['--stage', 'seed20']),
+    ('run_g79_dfsd.py', ['--stage', 'seed20', '--allow-initial-build']),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (

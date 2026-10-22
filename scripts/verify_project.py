@@ -92,7 +92,8 @@ def publication_contract_checks(root, card):
     """
     root = Path(root)
     readme_full = (root / 'README.md').read_text()
-    readme_parts = readme_full.split('## Original project prompt', 1)
+    marker = '\n## Original project prompt —' if '\n## Original project prompt —' in readme_full else '## Original project prompt'
+    readme_parts = readme_full.split(marker, 1)
     readme = readme_parts[0]
     after_details = (
         readme_parts[1].split('</details>', 1)[1]

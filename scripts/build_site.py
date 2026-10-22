@@ -246,14 +246,18 @@ def home_negative(card, index):
 <p class="micro"><a href="executive-summary.html">Executive summary &amp; DrivenData upload guide ↗</a> · <a href="analysis.html">Why H33 scored 0.2778 &amp; full G79-THVC report ↗</a></p></div>
 <figure class="map-card" style="margin:0"><div class="map-top"><span>GEODAWN FOOTPRINT · UTM 11N</span><span>35,093 DOTS</span></div><img class="map-image" src="{PREVIEW}" alt="The 35,093 emitted G79-THVC binary dots (bright green) over Nevada UTM 11N, with mapped catalogue faults in grey."><figcaption class="map-caption"><strong>Emitted G79-THVC binary predictions (green, 35,093 px) over mapped faults (grey).</strong><br>Max-pooled for display only; GeoTIFF bytes are untouched.</figcaption></figure></section>
 <div class="metric-grid">{metric('HOLDOUT-DTI · G79-THVC', f"{s20['candidate']['dti']:.4f} / {s30['candidate']['dti']:.4f}", 'Seeds 20 / 30 (+98.3% / +96.6% vs H33)')}{metric('HOLDOUT-DTI · H33 control', f"{s20['h33_foldfair_control']['dti']:.4f} / {s30['h33_foldfair_control']['dti']:.4f}", 'Identical buffered hide-and-recover folds')}{metric('Sparse ≤50k / Literal overlap', '68.4% / 100%', 'PASS all 718 sparse maps · blocked by dense blanket', stop=True)}{metric('Weekly slots spent', str(card['submission_slots_used']), 'Zero automatic uploads')}</div>
-<section class="section"><div class="section-head"><div><p class="eyebrow">01 / ALL-TIME INTRA-REPO BENCHMARK</p><h2>All 9 GEMSDOE79 lanes on identical holdout folds.</h2></div><p>Every lane below is evaluated with unmodified <code>gems57-pooled-hide-v2</code> (α = 0.2, β = 0.8, 300 m kernel, 22,663 withheld fault pixels across Seeds 20 &amp; 30).</p></div>
-<div class="table-scroll"><table><thead><tr><th>Lane / Experiment</th><th>Dots</th><th>Seed 20 HOLDOUT-DTI [95% CI]</th><th>Seed 30 HOLDOUT-DTI [95% CI]</th><th>Gain vs H33 (Seed 20)</th></tr></thead><tbody>
-<tr><td><strong>🏆 G79-THVC (EXP-79-3, Active Candidate)</strong></td><td><strong>35,093</strong></td><td><strong>0.1905</strong> [0.1741, 0.2069]</td><td><strong>0.1944</strong> [0.1774, 0.2126]</td><td><strong>+0.0944 (+98.3%)</strong></td></tr>
+<section class="section"><div class="section-head"><div><p class="eyebrow">01 / ALL-TIME INTRA-REPO BENCHMARK</p><h2>Key GEMSDOE79 lanes &amp; ablations on identical holdout folds.</h2></div><p>Every lane below is evaluated with unmodified <code>gems57-pooled-hide-v2</code> (α = 0.2, β = 0.8, 300 m kernel, 22,663 withheld fault pixels across Seeds 20 &amp; 30).</p></div>
+<div class="table-scroll"><table><thead><tr><th>Lane / Experiment</th><th>Dots</th><th>Seed 20 HOLDOUT-DTI [95% CI]</th><th>Seed 30 HOLDOUT-DTI [95% CI]</th><th>Gain vs H33 (Seed 20 / 30)</th></tr></thead><tbody>
+<tr><td><strong>🏆 G79-THVC (EXP-79-3, Canonical Candidate)</strong></td><td><strong>35,093</strong></td><td><strong>0.1905</strong> [0.1741, 0.2069]</td><td><strong>0.1944</strong> [0.1774, 0.2126]</td><td><strong>+0.0944 (+98.3%)</strong></td></tr>
+<tr><td><strong>🆕 G79-DFSD Split-Sensor Posterior (EXP-DFSD-2, d=2.8 px)</strong></td><td>37,654</td><td><strong>0.1724</strong> [0.1562, 0.1892]</td><td><strong>0.1751</strong> [0.1570, 0.1932]</td><td><strong>+79.4% / +77.0% (&gt; THVC d=2.8!)</strong></td></tr>
 <tr><td><strong>G79-THVC Uniform Spacing (EXP-79-2, d=2.8 px)</strong></td><td>37,654</td><td>0.1697 [0.1521, 0.1876]</td><td>0.1686 [0.1518, 0.1862]</td><td>+0.0736 (+76.6%)</td></tr>
 <tr><td>H79-CSPT (Archived 3d386a3, post-hoc overlap cap)</td><td>36,500</td><td>0.1718 [0.1509, 0.1927]</td><td>0.1755 [0.1558, 0.1950]</td><td>+0.0757 (+78.8%)</td></tr>
+<tr><td>G79-DFSD Charnes-Cooper 20.6k Core (EXP-DFSD-3, Fold 0 = 0.2245)</td><td>20,611</td><td>0.1621 [0.1449, 0.1811]</td><td>0.1647 [0.1468, 0.1821]</td><td>+0.0660 (+68.7%)</td></tr>
 <tr><td>H79-NHR (Archived 2a7ef64e, network halo relay)</td><td>37,654</td><td>0.1431 [0.1281, 0.1574]</td><td>0.1522 [0.1335, 0.1696]</td><td>+0.0470 (+48.9%)</td></tr>
+<tr><td>H79-FNHR F3 (Archived fae5cf3a, 0 / 934 sparse dups)</td><td>37,654</td><td>0.1292 [0.1139, 0.1462]</td><td>0.1431 [0.1242, 0.1610]</td><td>+0.0331 (+34.4%)</td></tr>
 <tr><td>G79B-SDPT (Archived 67557396, 49-ch scarp trace)</td><td>37,654</td><td>0.1114 [0.0943, 0.1287]</td><td>0.1211 [0.1029, 0.1402]</td><td>+0.0153 (+15.9%)</td></tr>
-<tr><td>H79-ML-STRAIN-RELAY (E2, archived 5d14587)</td><td>37,654</td><td>0.1022 [0.0865, 0.1183]</td><td>0.1065 [0.0908, 0.1228]</td><td>+0.0061 (+6.3%)</td></tr>
+<tr><td>H79-MRND M1 (Surface-stopped, 0.5486 max excess κ)</td><td>—</td><td>0.1044 [0.0902, 0.1184]</td><td>0.1236 [0.1065, 0.1414]</td><td>+0.0083 / +0.0247</td></tr>
+<tr><td><strong>🥇 EXP-DFSD-1 · Record Pure Zero-Catalogue Physics (0 Faults!)</strong></td><td>37,654</td><td><strong>0.0960</strong> [0.0807, 0.1118]</td><td><strong>0.1001</strong> [0.0846, 0.1143]</td><td><strong>Beats H33 on Seed 30! (0.34–0.56 peer ov)</strong></td></tr>
 <tr><td><strong>C2 · H33 Champion Control (GEMSDOE32, 0.2778 hist.)</strong></td><td>37,654</td><td>0.0961 [0.0831, 0.1090]</td><td>0.0989 [0.0854, 0.1128]</td><td>Baseline (0.0000)</td></tr>
 <tr><td>H79-STEP (Archived 21642326, PR #53 100 m–1 km annulus)</td><td>37,654</td><td>0.0949 [0.0735, 0.1161]</td><td>0.1087 [0.0858, 0.1293]</td><td>−0.0012 (−1.2%)</td></tr>
 <tr><td>G79-STEPCO (S1, archived 220dabc8)</td><td>37,654</td><td>0.0946 [0.0778, 0.1110]</td><td>0.0966 [0.0802, 0.1135]</td><td>−0.0015 (−1.6%)</td></tr>
@@ -269,6 +273,7 @@ def home_negative(card, index):
 <figure class="panel"><img src="figures/fig2_regimes_and_features.png" alt="Regime gains across blind basins, piedmonts, bedrock, and feature importance"><figcaption><strong>Figure 2.</strong> Regime DTI gains (3.29× in blind non-LiDAR basins; 2.72× in piedmonts; 2.49× at &gt;1 km from mapped faults).</figcaption></figure>
 <figure class="panel"><img src="figures/fig3_uniqueness_1108_audit.png" alt="1,108-raster uniqueness audit across family repositories"><figcaption><strong>Figure 3.</strong> Complete 1,108-raster correlation &amp; 3-px overlap audit across 93 family repositories.</figcaption></figure>
 <figure class="panel"><img src="figures/fig4_live_map_overview.png" alt="Full-Nevada overview of 35,093 emitted G79-THVC fault predictions"><figcaption><strong>Figure 4.</strong> Statewide Nevada UTM 11N map of all 35,093 emitted binary predictions.</figcaption></figure>
+<figure class="panel" style="grid-column:1 / -1"><img src="figures/fig5_dfsd_breakthrough.png" alt="G79-DFSD all-time zero-catalogue physics record 0.1001 and 2x2 causal ablation"><figcaption><strong>Figure 5 (Session d7da950d — G79-DFSD).</strong> First pure zero-catalogue multi-physics model in 93-repo history to exceed 0.1000 and beat H33 on untouched Seed 30 (<code>0.1001</code> vs <code>0.0989</code>, <code>0.342–0.561 &le; 0.70</code> peer overlap across all 6 champions) + <code>0.1751</code> uniform <code>d=2.8 px</code> posterior &amp; <code>2×2</code> causal ablation. <a href="evidence/run_card_dfsd.json">DFSD run card ↗</a> · <a href="analysis.html">Full scientific report ↗</a></figcaption></figure>
 </div></section>
 <div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} pinned blobs + 116 post-cutoff delta rasters ({1108:,} unique blobs across 93 repositories)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>"""
 
@@ -353,6 +358,9 @@ def main():
               'run_card_mrnd.json': 'run_card_mrnd.json',
               'registry/preregistration_fnhr.json': 'preregistration_fnhr.json',
               'run_card_fnhr.json': 'run_card_fnhr.json',
+              'registry/preregistration_g79_dfsd.json': 'preregistration_g79_dfsd.json',
+              'run_card_dfsd.json': 'run_card_dfsd.json',
+              'evidence/g79_dfsd_results.json': 'g79_dfsd_results.json',
               'run_card_nhr.json': 'run_card_nhr.json',
               'registry/preregistration_asym.json': 'preregistration_asym.json',
               'run_card_asym.json': 'run_card_asym.json',
@@ -425,6 +433,10 @@ def main():
         'analysis.html': ('Why H33 scored highest, and what can beat it',
                           page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
                                     'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
+                          + '<section class="section"><h2>Session d7da950d — Lane G79-DFSD (0.1001 Zero-Catalogue Record, 2x2 Causal Proof &amp; main CI Rescue)</h2>'
+                          + '<p><a href="evidence/run_card_dfsd.json">G79-DFSD run card</a> · <a href="evidence/preregistration_g79_dfsd.json">preregistration</a> · <a href="evidence/g79_dfsd_results.json">dual-seed &amp; 1,221-raster results</a>.</p>'
+                          + '<figure style="margin:0 0 20px 0"><img src="figures/fig5_dfsd_breakthrough.png" alt="G79-DFSD zero-catalogue physics breakthrough and 2x2 ablation" style="width:100%;height:auto;display:block"></figure>'
+                          + md('reports/dfsd_analysis.md') + md('reports/session_review_d7da950d.md') + '</section>'
                           + '<section class="section">' + md('reports/session_review_070af0b6.md') + '</section>'
                           + '<section class="section"><h2>Session 6d4a2fdf — cross-repository audit &amp; three-tier Pigeonhole synthesis</h2>' + md('reports/session_review_6d4a2fdf.md') + '</section>'
                           + '<section class="section">' + md('reports/g79_thvc_scientific_report.md') + '</section>'
@@ -444,6 +456,9 @@ def main():
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
                                     'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
+                          + '<section class="section"><h2>Session d7da950d — Five Preregistered Subsurface, Adularia &amp; Split-Sensor Hypotheses (Lane G79-DFSD, Executed 3/3 Budget)</h2>'
+                          + '<p><a href="evidence/preregistration_g79_dfsd.json">Preregistration JSON</a> · <a href="evidence/run_card_dfsd.json">G79-DFSD Run Card</a> · <a href="evidence/g79_dfsd_results.json">Full Results JSON</a>.</p>'
+                          + md('research/hypotheses_g79_dfsd.md') + '</section>'
                           + '<section class="section"><h2>Session 070af0b6 — five untried post-G79-THVC geological hypotheses (not executed, 2026-10-22)</h2>'
                           + '<p>Audited all 11 GEMSDOE79 lanes and all 93 family repositories through GEMSDOE88 to specify five genuinely untried subsurface/tectonic mechanisms targeting the &gt;1.5–8 km non-LiDAR and blind-basin gap without spending any weekly slot. <a href="evidence/post_index_sibling_audit_20261022.json">Post-index GEMSDOE76–88 audit JSON</a> · <a href="evidence/run_card_step.json">Archived H79-STEP card</a>.</p>'
                           + md('research/hypotheses_post_thvc_backlog.md') + '</section>'

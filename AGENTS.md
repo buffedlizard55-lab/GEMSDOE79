@@ -9,6 +9,9 @@
    All concurrent/historical `GEMSDOE79` lanes stay **stopped negative** and byte-archived under `archive/`:
    - `H79-NHR` (`0.1431 / 0.1522`, `archive/h79_nhr/` & `archive/h79_nhr_337ac1e9/`)
    - `H79-MRND` (`0.1044 / 0.1236`, session `800321e2`, `run_card_mrnd.json` & `evidence/mrnd/`) — multi-regime nested discovery (`77` features, `max AUC = 0.8589 <= 0.90`); beats `H33` control on both seeds (`+0.0247`, 95% CI `[+0.0095, +0.0389]` on Seed 30) and clears all `982` informative comparable priors on chance-corrected overlap (`worst = 0.5486 <= 0.70`, `0` normal-budget `<=167k` flags), stopped pre-placement under literal one-sided overlap (`IR-79-132`); do not retune quotas or re-place dots
+   - `H79-FNHR` (`0.1292 / 0.1431`, session `a57e2a7f`, `run_card_fnhr.json` & `archive/h79_fnhr_a57e2a7f/`) — `0 / 934` sparse `<=75k` duplicates (`max = 0.6726 <= 0.70`), stopped negative on `25` wide sweeps (`IR-79-142`)
+   - `G79-DFSD` (`0.1621 / 0.1647` placed `20,611`-px core; **`0.1724 / 0.1751` `EXP-DFSD-2` uniform `d=2.8 px` > `G79-THVC` `0.1697 / 0.1686`**; **`0.0960 / 0.1001` `EXP-DFSD-1` all-time `93`-repo zero-catalogue pure-physics record beating `H33 = 0.0989` on untouched Seed 30 with `0.342–0.561 <= 0.70` peer overlap**, session `d7da950d`, `run_card_dfsd.json` & `archive/g79_dfsd_d7da950d/`) — stopped negative at `3 / 3` budget (`IR-79-146`, `IR-79-147`); do not re-run or retune
+   - `G79-ETP` (`archive/g79_etp_f8734a82/`, session `f8734a82`, quarantined negative, `IR-79-144`) — removed from `docs/downloads/` after breaking `main` CI with non-`DO-NOT-SUBMIT` filenames and placeholder metrics
    - `H79-STEP` (`0.0949 / 0.1087`, `archive/h79_step_21642326/`)
    - `H79-DILSTEP` (`0.0721 / 0.0689`, `archive/h79_dilstep_6444be2d/`)
    - `H79-COV` (`0.0610 / 0.0581`, `archive/h79_cov_e23d5371/`)

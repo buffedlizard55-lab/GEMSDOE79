@@ -1,0 +1,78 @@
+{
+  "schema_version": 2,
+  "lane": "G79-DFSD",
+  "lane_title": "De-Striped Subsurface Tilt-Depth, Cross-Fitted Potassic Adularia, Lahontan Isohypse & Coulomb Stress-Shadow Split-Sensor Fault Discovery with Charnes-Cooper Submodular Kernel Allocation",
+  "registered_utc": "2026-10-22T14:22:00+00:00",
+  "branch": "arena/d7da950d-gemsdoe79",
+  "registered_before_any_holdout_or_placement": true,
+  "prior_canonical_baseline": {
+    "lane": "G79-THVC",
+    "seed20_holdout_dti": 0.190523,
+    "seed30_holdout_dti": 0.194393,
+    "limitations_addressed": [
+      "4.2x sensor-domain dot starvation in non-LiDAR SE Nevada (Fold 3: 3,330 dots for 3,250 truth px = 0.1461 vs 0.2140 in Fold 1; 652 dots = 0.0566 in EXP-79-2)",
+      "4:1 false-negative scarp-flank poisoning on 1.0 <= d(x, sim_known) < 3.0 px around unhidden faults plus unweighted 17.6x halo-vs-far classifier sampling bias in src/gems79/thvc_model.py",
+      "Cross-repo sparse collision 0.7139 > 0.70 against live GEMSDOE83 caused by concentrating 97.58% of dots inside <=2.0 km of mapped faults and ~91% inside 1-m LiDAR footprint",
+      "Un-notched GeoDAWN E-W/N-S survey line corrugations, un-vetoed horizontal Lake Lahontan pluvial strandlines, missing lithology-normalized K_d adularia residual, and missing lateral Coulomb stress-relief shadows"
+    ]
+  },
+  "hypothesis": "Uncatalogued Great Basin Quaternary and blind geothermal faults are jointly recoverable across both 1-m LiDAR scarps and the 24.99% non-LiDAR / blind-playa gap by combining (H1) decontaminated importance-weighted split-sensor (LiDAR vs 10m-DEM/geophysics) dual heads with cross-quadrant out-of-fold pure-physics experts and sensor-domain posterior mean conservation, (H2) 2D FFT flight-line/tie-line de-striped Salem magnetic tilt inverse depth ||grad(theta_T)|| and 60-deg up-dip hanging-wall-to-footwall basement step registration, (H3) structure-tensor along-scarp isohypsic Lake Lahontan strandline deconfounding plus Wallace (1978) along-range footwall slip-deficit inversion, (H4) fold-visible lateral normal-fault Coulomb stress relief shadows (Delta_CFS_perp < 0) suppressing flank false positives while preserving tip/relay dilation bridges, and (H5) spatially cross-fitted potassic adularia alteration residuals K_d = K - f_OOF(eTh, eU, topo) x magnetite leaching x smectite conductivity, decoded via sensor/regime-calibrated Charnes-Cooper submodular 300-m kernel optimization.",
+  "mechanism": "1) Reuse pinned 70-channel THVC memmap without duplication and build 20 orthogonal physical/de-striped/adularia/10m-DEM/isohypse channels (90 static channels total) plus 17 strictly fold-visible elastic/Coulomb-shadow/slip-deficit channels (107 channels total), blocking all forbidden columns (dist_known_fault_px, known_fault, label) and excluding SGMC/Qfaults rasters. 2) Verify all 107 channels individually via single-feature symmetric ROC AUC <= 0.90 on both seeds 20 and 30 before trusting any score. 3) Fit decontaminated (d_rem >= 3.0 px) importance-weighted Stage-1 ensembles plus disjoint cross-quadrant split-sensor (lidar_present == 1 vs 0) pure-physics experts and Stage-2 8-azimuth trace/tubularity dual heads (p_exact, q_300m) with inner-fold split-sensor mean conservation. 4) Check continuous surface uniqueness across all 1,214+ SHA-256-verified rasters BEFORE dot placement, then emit binary {0.0, 1.0} predictions via inner-calibrated Charnes-Cooper submodular 300-m kernel allocation with a dedicated blind-basin (>1.5 km) pure-physics exploration tranche.",
+  "named_non_fault_process": "Pleistocene Lake Lahontan and Lake Bonneville horizontal wave-cut paleoshoreline benches, USGS GeoDAWN E-W (200/400 m) flight-line and N-S (2/4 km) tie-line leveling corrugations, highway/rail embankments along basin margins, closed evaporite-playa potassium clays, and lateral thermal outflow plumes in alluvial fans.",
+  "ranked_hypotheses_count": 5,
+  "ranked_hypotheses_doc": "research/hypotheses_g79_dfsd.md",
+  "experiments": [
+    {
+      "id": "EXP-DFSD-1",
+      "name": "Pure Zero-Catalogue Split-Sensor Multi-Physics + De-Striped Subsurface + K_d Adularia Ensemble (37,654 Dots, d=2.8 px)",
+      "description": "Strictly zero fault-catalogue features at inference time (90 static physical/hydrothermal/deconfounder features only), cross-quadrant split-sensor (LiDAR vs Blind-10m) pure-physics experts + Stage-2 trace continuity head, evaluated out-of-fold on seeds 20 and 30."
+    },
+    {
+      "id": "EXP-DFSD-2",
+      "name": "Full 107-Channel DFSD Importance-Weighted Split-Domain Dual Ensemble (Fixed d=2.8 px, 37,654 Dots)",
+      "description": "Adds strictly fold-visible elastic crack-tip, lateral Coulomb stress-relief shadow, and Wallace slip-deficit channels (107 features total) fused with out-of-quadrant split-sensor physics experts and sensor-domain mean conservation under identical d=2.8 px 37,654-dot emission."
+    },
+    {
+      "id": "EXP-DFSD-3",
+      "name": "Full 107-Channel DFSD + Sensor/Regime-Calibrated Charnes-Cooper Submodular Kernel Allocator (Primary Candidate)",
+      "description": "Replaces uniform d=2.8 px spacing on the identical EXP-DFSD-2 fold posteriors with exact Charnes-Cooper submodular 300-m kernel optimization plus inner-calibrated blind-basin (>1.5 km) pure-physics discovery tranche."
+    }
+  ],
+  "holdout_protocol": {
+    "evaluator": "gems57-pooled-hide-v2",
+    "shared_modules_unmodified": true,
+    "seeds": [20, 30],
+    "primary_seed": 20,
+    "replication_seed": 30,
+    "buffer_px": 3,
+    "boundary_px": 12,
+    "bootstrap_cluster_m": 20000,
+    "bootstrap_draws": 1000,
+    "incumbent_to_beat_for_canonical_slot": {
+      "lane": "G79-THVC",
+      "seed20_dti": 0.190523,
+      "seed30_dti": 0.194393
+    }
+  },
+  "leakage_canary": {
+    "metric": "max(ROC_AUC, 1 - ROC_AUC)",
+    "max_allowed": 0.90,
+    "n_features_tested": 107,
+    "forbidden_csv_columns": ["dist_known_fault_px", "known_fault", "label"],
+    "forbidden_rasters": ["derived_sgmc_faults_100m_u8.tif", "gdr_qfaults_traces.csv"]
+  },
+  "uniqueness_gates": {
+    "registry_scope": "All SHA-256-verified rasters across all 93 buffedlizard55-lab GEMS repositories (992 frozen + 207 sibling git delta + all local GEMSDOE79 archived lanes including G79-THVC and GEMSDOE83)",
+    "surface_checked_before_placement": true,
+    "surface_spearman_max_abs": 0.90,
+    "final_spearman_max_abs": 0.90,
+    "comparable_sparse_dot_overlap_max": 0.70,
+    "amendment_d2_chance_corrected_reported": true,
+    "literal_positive_support_reported": true,
+    "post_audit_halo_capping_allowed": false
+  },
+  "budget": {
+    "max_experiments": 3,
+    "max_hours": 2
+  }
+}
