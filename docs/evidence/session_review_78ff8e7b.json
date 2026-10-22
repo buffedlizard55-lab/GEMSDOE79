@@ -24,7 +24,7 @@
   "verification": {
     "pytest": {
       "command": ".venv/bin/python -m pytest -q",
-      "result": "374 passed after refreshing against mainline PR #79"
+      "result": "382 passed after refreshing against mainline PRs #79 and #81"
     },
     "project_verifier": {
       "command": ".venv/bin/python scripts/verify_project.py",
@@ -42,7 +42,7 @@
     },
     "literal_preflight": {
       "command": ".venv/bin/python scripts/preflight_new_lane.py --restore",
-      "result": "start_new_lane=false; state=impossible_under_literal_gate",
+      "result": "start_new_lane=false; state=impossible_under_literal_gate; exit 2, expected; rerun after PRs #79 and #81",
       "exit_code": 2,
       "exit_code_expected": true,
       "scientific_experiments_performed": 0
@@ -171,7 +171,8 @@
     "official_source_ledger": "knowledge/official_sources.json",
     "source_ledger_reviewed_date": "2026-10-22",
     "external_pages_live_fetched_this_review": false,
-    "competition_submission_page_or_weekly_capacity": "not accessible/verified; no login or upload attempted"
+    "competition_submission_page_or_weekly_capacity": "not accessible/verified; no login or upload attempted",
+    "data_bridge_present": true
   },
   "edge_review": {
     "finding": "THVC directional stencils call numpy.roll and therefore wrap across opposite raster boundaries.",
@@ -187,36 +188,45 @@
   "qualitative_candidate_shortlist": [
     {
       "rank": 1,
-      "name": "scale-space scarp-crest migration",
-      "expected_improvement_prior": "moderate; unmeasured",
-      "cost": "low-medium",
-      "data": "pinned training_features.tif and LiDAR scarp-feature bands; files absent locally",
-      "history": "previously proposed in the repository backlog; related family rasters include GEMSDOE40 h13-crest-binary, GEMSDOE77 h82-crestthin, GEMSDOE42 xscale-worm-persistence, and 55GEMSDOE multiscale tensor persistence; exact displacement-between-scales test not confirmed as run"
+      "name": "H-A: FNHR zero-catalogue physics head plus THVC Charnes-Cooper placer",
+      "expected_improvement_prior": "combined gain unknown; no numeric projection",
+      "cost": "medium",
+      "data": "FNHR/THVC raw features and GDR inputs are absent from the current checkout",
+      "history": "proposed in research/hypotheses_842c8c7c_ranked.md; component head and placer exist separately, but the combination is untested; not a new geological mechanism"
     },
     {
       "rank": 2,
-      "name": "magnetic-marker termination corroborated by an independent scarp",
-      "expected_improvement_prior": "moderate; unmeasured",
-      "cost": "medium",
-      "data": "GeoDAWN potential-field features and LiDAR bands; files absent locally",
-      "history": "previously proposed; related family outputs include GEMSDOE45 KMTIP, GEMSDOE70 magnetic/cover outputs, and GEMSDOE77 demagnetization/gravity-step and magnetic/gravity-coherence outputs; exact marker-termination test not confirmed as run"
+      "name": "scale-space scarp-crest migration",
+      "expected_improvement_prior": "moderate qualitative priority; unmeasured",
+      "cost": "low-medium",
+      "data": "pinned training_features.tif and LiDAR scarp-feature bands; absent locally",
+      "history": "related family rasters include GEMSDOE40 h13-crest-binary, GEMSDOE77 h82-crestthin, GEMSDOE42 xscale-worm-persistence, and 55GEMSDOE multiscale tensor persistence; exact displacement-between-scales test unconfirmed; H80-DRAPE notch pilot tested a different, negative method with a timestamp breach"
     },
     {
       "rank": 3,
-      "name": "depth-persistent MT resistivity/phase step aligned with gravity basement edge",
-      "expected_improvement_prior": "medium-high theoretical; low confidence and unmeasured",
-      "cost": "high",
-      "data": "DOE GDR 1391 official source is listed in source ledger; required depth slices are absent from manifest and checkout",
-      "history": "direct sibling raster prior art: GEMSDOE32 h32c-mt-claycap-breach, GEMSDOE76 MT-breach, and GEMSDOE77 h77c-claycap-breach; not family-unique or currently viable"
+      "name": "magnetic-marker termination corroborated by an independent scarp",
+      "expected_improvement_prior": "low-moderate qualitative priority; unmeasured",
+      "cost": "medium",
+      "data": "GeoDAWN potential-field features and LiDAR bands; absent locally",
+      "history": "related family outputs include GEMSDOE45 KMTIP, GEMSDOE70 magnetic/cover outputs, GEMSDOE77 demagnetization/gravity-step and magnetic/gravity-coherence; H80-RADIO tested a related thorium-normalised K residual and was negative; exact marker-termination-plus-scarp test unconfirmed"
+    },
+    {
+      "rank": 4,
+      "name": "deep conductance boundary aligned with gravity basement edge",
+      "expected_improvement_prior": "low/uncertain due coarse depth bands; unmeasured",
+      "cost": "high; 117 MB official input not local and source host outside allowed network",
+      "data": "GDR 1391 conductance layers at 2-12, 12-20, 20-50, 50-90, and 90-200 km; absent from checkout/manifest",
+      "history": "re-scoped from the invalid 500 m / 1.5 km / 3 km resistivity hypothesis (mainline IR-79-149); no run; not family-novelty-cleared"
     }
   ],
   "scope_notes": [
     "This is a scoped three-pass review, not a byte-for-byte revalidation of every historical lane, evidence row, or archive.",
-    "No candidate was tested, so candidate priorities are not HOLDOUT-DTI values or predicted leaderboard scores.",
+    "No candidate was tested by this review; expected-improvement rankings are qualitative, not HOLDOUT-DTI values or predicted leaderboard scores.",
     "The pre-existing uniqueness_final_artifact.json is an early stop after 1 of 992 registry rasters; it is not complete uniqueness clearance.",
-    "No changes to the scientific model, evaluator, shared uniqueness rule, raster, archive, or submission slot state were made.",
-    "origin/main advanced to ffd1647 (PR #79) during this review branch; G79-CFSKD was reviewed as prior merged evidence, not rerun here.",
-    "The Coulomb stress-shadow idea was removed from the untried shortlist because G79-CFSKD implemented and tested that veto; remaining ideas are not certified family-novel."
+    "This review changed no scientific model, shared evaluator, shared uniqueness rule, candidate raster, or slot state; current mainline evidence was reviewed as-is.",
+    "origin/main advanced through PR #79 (ffd1647) and PR #81 (5e0d031) during this branch; G79-CFSKD and H80 pilots are cited as prior evidence, not rerun here.",
+    "H80 pilot preregistration timestamps were withdrawn after the pilots preceded the committing preregistration; their overlap check covered only H33, D2.8, and canonical THVC.",
+    "Coulomb stress shadows were removed from the untried shortlist because G79-CFSKD implemented that veto; H80 RADIO and DRAPE results also lower confidence in related ideas. No remaining candidate is certified family-novel."
   ],
   "maintained_documents": [
     "reports/repository_review_2026-10-22_session-78ff8e7b.md",
@@ -224,7 +234,7 @@
     "reports/irregularities.md",
     "evidence/session_review_78ff8e7b.json"
   ],
-  "reviewed_mainline_commit": "ffd16471f909f99776aac206602aeff3350a0604",
+  "reviewed_mainline_commit": "5e0d031c3f1722ea95da0a758976bf843afd1edd",
   "mainline_refresh": {
     "merged_pull_request": 79,
     "lane": "G79-CFSKD",
@@ -233,7 +243,7 @@
       "run_card_cfskd.json",
       "evidence/cfskd/holdout_results.json"
     ],
-    "reviewed_as": "prior mainline evidence; not run by this review",
+    "reviewed_as": "prior merged mainline evidence; none of these lanes was rerun by this review",
     "primary_arm": "EXP3",
     "holdout_dti": [
       {
@@ -260,6 +270,175 @@
       }
     ],
     "interpretation": "The registered K_d plus visible-only Coulomb flank-shadow hypothesis was falsified on both seeds; this is not organizer-confirmed and does not authorize another lane.",
-    "local_uniqueness_scope": "The CFSKD card reports 4 local archived rasters, not a complete registry scan; its local 0.524 overlap does not override the current literal preflight blocker."
+    "local_uniqueness_scope": "The CFSKD card reports 4 local archived rasters, not a complete registry scan; its local 0.524 overlap does not override the current literal preflight blocker.",
+    "pull_requests_reviewed": [
+      79,
+      81
+    ],
+    "latest_source_commit": "5e0d031c3f1722ea95da0a758976bf843afd1edd"
+  },
+  "mainline_h80_pilots": {
+    "pull_request": 81,
+    "source_commit": "5e0d031c3f1722ea95da0a758976bf843afd1edd",
+    "reviewed_as": "prior mainline scoring-only pilots; not run or independently reproduced by this review",
+    "lanes": {
+      "H80-DRAPE-PILOT": [
+        {
+          "seed": 20,
+          "withheld_positive_count": 11321,
+          "candidate": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "dti": 0.05044329719856235,
+            "ci95": [
+              0.04237764437853984,
+              0.058382831637610065
+            ]
+          },
+          "control": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "dti": 0.0506253150073606,
+            "ci95": [
+              0.042452464347745494,
+              0.058805868287305475
+            ]
+          },
+          "paired_candidate_minus_control": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "delta": -0.0001820178087982502,
+            "ci95": [
+              -0.0023895226855348245,
+              0.0019500394605670062
+            ],
+            "withheld_positive_count": 11321
+          }
+        },
+        {
+          "seed": 30,
+          "withheld_positive_count": 11342,
+          "candidate": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "dti": 0.04585424688587732,
+            "ci95": [
+              0.03875227002269159,
+              0.05291290400484148
+            ]
+          },
+          "control": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "dti": 0.04765439931706607,
+            "ci95": [
+              0.040343284044709424,
+              0.05501364839815414
+            ]
+          },
+          "paired_candidate_minus_control": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "delta": -0.0018001524311887507,
+            "ci95": [
+              -0.003762093027027678,
+              -2.341333361868892e-05
+            ],
+            "withheld_positive_count": 11342
+          }
+        }
+      ],
+      "H80-RADIO-PILOT": [
+        {
+          "seed": 20,
+          "withheld_positive_count": 11321,
+          "candidate": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "dti": 0.020628867260727907,
+            "ci95": [
+              0.010638413897768552,
+              0.0302912844303178
+            ]
+          },
+          "control": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "dti": 0.027425086383268477,
+            "ci95": [
+              0.014558633377776416,
+              0.04017725378398285
+            ]
+          },
+          "paired_candidate_minus_control": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "delta": -0.006796219122540571,
+            "ci95": [
+              -0.015565351679086641,
+              0.0027575413707592172
+            ],
+            "withheld_positive_count": 11321
+          }
+        },
+        {
+          "seed": 30,
+          "withheld_positive_count": 11342,
+          "candidate": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "dti": 0.03182312575187825,
+            "ci95": [
+              0.019866692152212602,
+              0.04402308124923388
+            ]
+          },
+          "control": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "dti": 0.029386682153480212,
+            "ci95": [
+              0.018029396981710046,
+              0.04180716357542533
+            ]
+          },
+          "paired_candidate_minus_control": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator": "gems57-pooled-hide-v2",
+            "delta": 0.002436443598398036,
+            "ci95": [
+              -0.008863907146210442,
+              0.014019797842033407
+            ],
+            "withheld_positive_count": 11342
+          }
+        }
+      ]
+    },
+    "protocol_caveat": "Both pilots ran before the committing preregistration; hand-entered timestamps were withdrawn. See mainline IR-79-148 and reports/session_review_842c8c7c.md.",
+    "outputs": {
+      "new_candidate_raster_written": false,
+      "selector_run": false,
+      "weekly_slots_used": 0,
+      "experiment_budget_used": "2 of 3 in the separate H80 session"
+    },
+    "overlap_check": {
+      "reported_max_within3px": 0.2038,
+      "reported_max_abs_spearman": 0.045,
+      "comparators_only": [
+        "H33",
+        "D2.8",
+        "canonical G79-THVC"
+      ],
+      "full_registry_clearance": false,
+      "does_not_override_current_literal_universal_witness": true
+    },
+    "MT_source_correction": {
+      "prior_specification": "500 m / 1.5 km / 3 km resistivity slices",
+      "status": "invalid as specified; mainline IR-79-149 reports GDR 1391 contains conductance layers at 2-12, 12-20, 20-50, 50-90, and 90-200 km",
+      "re_scoped_idea": "regional deep conductance boundary aligned with gravity edge; untested",
+      "product_source": "USGS ScienceBase item 62979746d34ec53d276c113b; DOI 10.5066/P9TWT2LU",
+      "re_fetched_this_review": false
+    }
   }
 }
