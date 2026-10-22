@@ -24,6 +24,22 @@
 | Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/nhr/selector_decision.json`). |
 | Slots used | 0 |
 
+### This session's additional artifact (2026-10-22, lane H79-FF)
+
+A second, **unique** research GeoTIFF was generated this session and is featured on the home page:
+
+| | |
+|---|---|
+| File | [`docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif`](docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif) · ZIP [`docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip`](docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip) |
+| Unique name | `gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8` |
+| Note (113/140) | `H79-FF far-field lidar-scarp discovery, 2000-8000m off catalogue, 37654 dots, step_max surface; research artifact` |
+| SHA-256 | `b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9` |
+| Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
+| Method | far-field lidar scarp: dots placed 2–8 km off the mapped catalogue, ranked by USGS 3DEP lidar step_max, 3 px Poisson spacing, fixed budget; off-catalogue, zeros elsewhere |
+| Uniqueness gate | **FAIL.** > 70 % of dots within 3 px of registry priors: 13GEMSDOE spacing-5 lattice 0.9976, GEMSDOE48 space-filling surface 1.0000, 5GEMSDOE density probe 1.0000, GEMSDOE3 coverage field 0.8802 (limit 0.70). |
+| Verdict | **negative.** Unique by construction (new bytes, not copied) but not unique under the protocol gate; **do not upload**. See [`evidence/ff/ff_run_card.json`](evidence/ff/ff_run_card.json). |
+| Slots used | 0 |
+
 Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
