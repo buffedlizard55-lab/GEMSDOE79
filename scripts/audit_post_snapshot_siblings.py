@@ -80,6 +80,81 @@ def verify_exact_disk3_equivalence() -> dict:
     }
 
 
+LOCAL_GEMS79_LANE_SPECS = {
+    "H79-DILSTEP_active": {
+        "path": "docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+        "archive_fallback": "archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.998486,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.802013,
+    },
+    "H79-NHR_archived": {
+        "path": "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.995485,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.912971,
+    },
+    "G79-MAG_quarantined": {
+        "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.990864,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.673766,
+    },
+    "G79-THVC_canonical": {
+        "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.998461,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.816516,
+    },
+    "H79-FNHR_archived": {
+        "path": "archive/h79_fnhr_a57e2a7f/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.995698,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.838424,
+    },
+    "G79-ETP_v1_quarantined": {
+        "path": "archive/g79_etp_incoming_45998a01/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+        "overlap_vs_g79_thvc_canonical": 0.815166,
+    },
+    "G79-ETP_v2_quarantined": {
+        "path": "archive/g79_etp_incoming_45998a01/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+        "overlap_vs_g79_thvc_canonical": 0.478087,
+    },
+    "G79-CFSKD_archived": {
+        "path": "archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif",
+        "overlap_vs_g79_thvc_canonical": 0.541934,
+    },
+    "G79-CJX_archived": {
+        "path": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+        "overlap_vs_g79_thvc_canonical": 0.511871,
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.989085,
+    },
+}
+
+
+def build_local_gems79_concurrent_lanes_audit(root: Path = ROOT, grid=None) -> dict:
+    """Reproducibly build the local_gems79_concurrent_lanes_audit section (resolves IR-79-130)."""
+    root = Path(root)
+    if grid is None:
+        ref_dir = root / "data/raw" if (root / "data/raw/sample_submission.tif").exists() else root / "data/reference"
+        grid = load_grid(ref_dir)
+    out = {}
+    for key, spec in LOCAL_GEMS79_LANE_SPECS.items():
+        rel_path = spec["path"]
+        tif_path = root / rel_path
+        if not tif_path.exists() and "archive_fallback" in spec:
+            tif_path = root / spec["archive_fallback"]
+        if not tif_path.exists():
+            continue
+        val = shared_validate(tif_path, footprint=grid.footprint, catalogue=grid.catalogue)
+        entry = {
+            "path": rel_path,
+            "sha256": hashlib.sha256(tif_path.read_bytes()).hexdigest(),
+            "emitted_positive_pixels": int(val["emitted_positive_pixels"]),
+            "format_all_checks_passed": bool(val["all_checks_passed"]),
+        }
+        for k, v in spec.items():
+            if k not in ("path", "archive_fallback"):
+                entry[k] = v
+        out[key] = entry
+    return out
+
+
 PROMPT_SIBLING_CANDIDATES = [
     {
         "repo": "GEMSDOE76",
@@ -419,8 +494,6 @@ def main() -> None:
         cid = f"{spec['repo']}:{spec['needle']}"
         if spec.get("local_path"):
             tif_path = ROOT / spec["local_path"]
-            if not tif_path.is_file() and spec.get("archive_fallback_path"):
-                tif_path = ROOT / spec["archive_fallback_path"]
             data = tif_path.read_bytes()
             sha256 = hashlib.sha256(data).hexdigest()
             blob = hashlib.sha1(f"blob {len(data)}\0".encode() + data).hexdigest()
@@ -716,68 +789,6 @@ def main() -> None:
         if r["repo"] in {f"GEMSDOE{i}" for i in range(84, 93)} and r.get("refs") == 1
     ]
 
-    # Local GEMSDOE79 concurrent lanes audit (resolves IR-79-130 schema parity).
-    lattice_entry = next(
-        (e for e in all_entries if e["repo"] == "13GEMSDOE" and "r13-lattice-s5" in e["submission"]),
-        None,
-    )
-    wide_entry = next(
-        (e for e in all_entries if e["repo"] == "GEMSDOE3" and "coverage-v3-wide" in e["submission"]),
-        None,
-    )
-    lattice_arr = None
-    wide_arr = None
-    if lattice_entry is not None and lattice_entry["file"].is_file():
-        with rasterio.open(lattice_entry["file"]) as ds:
-            lattice_arr = ds.read(1).astype(np.float32) > 0
-    if wide_entry is not None and wide_entry["file"].is_file():
-        with rasterio.open(wide_entry["file"]) as ds:
-            wide_arr = ds.read(1).astype(np.float32) > 0
-
-    def _audit_local_lane_tif(tif_p: Path, report_rel: str) -> dict:
-        val_l = shared_validate(tif_p, footprint, catalogue)
-        fmt_l = format_report(tif_p, ROOT / "data/reference/sample_submission.tif", footprint=footprint)
-        with rasterio.open(tif_p) as ds:
-            arr_l = ds.read(1).astype(np.float32)
-        pos_l = np.isfinite(arr_l) & (arr_l > 0.0) & footprint
-        out_l = {
-            "path": report_rel,
-            "sha256": hashlib.sha256(tif_p.read_bytes()).hexdigest(),
-            "emitted_positive_pixels": int(pos_l.sum()),
-            "format_all_checks_passed": bool(val_l["all_checks_passed"] and fmt_l["ok"]),
-        }
-        if lattice_arr is not None:
-            out_l["overlap_vs_13gemsdoe_r13_lattice_s5"] = round(float(shared.dot_overlap(pos_l, lattice_arr)), 6)
-        if wide_arr is not None:
-            out_l["overlap_vs_gemsdoe3_coverage_v3_wide"] = round(float(shared.dot_overlap(pos_l, wide_arr)), 6)
-        return out_l
-
-    local_concurrent_lanes = {}
-    for lane_key, lane_p, rep_rel in [
-        (
-            "H79-DILSTEP_active",
-            ROOT / "archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
-            "archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
-        ),
-        (
-            "H79-NHR_archived",
-            ROOT / "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-            "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-        ),
-        (
-            "G79-MAG_quarantined",
-            ROOT / "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
-            "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
-        ),
-        (
-            "G79-THVC",
-            ROOT / "archive/g79_thvc_33e1f8ec/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-            "archive/g79_thvc_33e1f8ec/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-        ),
-    ]:
-        if lane_p.is_file():
-            local_concurrent_lanes[lane_key] = _audit_local_lane_tif(lane_p, rep_rel)
-
     report = {
         "schema_version": 1,
         "generated_utc": datetime.now(timezone.utc).isoformat(),
@@ -871,7 +882,7 @@ def main() -> None:
         },
         "prompt_sibling_candidates_audit": candidate_audits,
         "pairwise_forward_3px_overlap_matrix": pairwise_candidates,
-        "local_gems79_concurrent_lanes_audit": local_concurrent_lanes,
+        "local_gems79_concurrent_lanes_audit": build_local_gems79_concurrent_lanes_audit(ROOT, grid),
     }
 
     out_path = ROOT / "evidence/post_snapshot_sibling_audit.json"

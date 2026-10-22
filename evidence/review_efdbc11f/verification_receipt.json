@@ -1,0 +1,103 @@
+{
+  "schema": "session_verification_receipt.v1",
+  "session": "efdbc11f",
+  "branch": "arena/efdbc11f-gemsdoe79",
+  "verified_date_utc": "2026-10-22",
+  "canonical_lane": "G79-THVC",
+  "canonical_verdict": "negative",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "submission_slots_used": 0,
+  "canonical_tif_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "canonical_tif_bytes": 137299,
+  "canonical_zip_sha256": "dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9",
+  "canonical_zip_bytes": 102628,
+  "commands": {
+    "verify_project": {
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "check_site": {
+      "exit_code": 0,
+      "summary": {
+        "passed": true,
+        "pages": 7,
+        "local_links_checked": 128,
+        "all_pages_reachable_from_home": true,
+        "compatibility_redirects": 2,
+        "external_assets": 0,
+        "scientific_tables_and_full_gates_match_receipts": true,
+        "source_health_is_not_claimed_as_receipt": true,
+        "submit": false
+      }
+    },
+    "submission_status": {
+      "exit_code": 2,
+      "decision": {
+        "ok_to_download": true,
+        "ok_to_submit": false,
+        "human_inspection_required_for_this_decision": false,
+        "verdict": "negative",
+        "blockers": [
+          "literal_novelty_not_cleared",
+          "negative_scientific_verdict",
+          "separate_selector_has_not_approved_a_slot",
+          "separate_selector_receipt_missing_or_unbound",
+          "explicit_submission_approval_absent"
+        ],
+        "account_side_conditions": [
+          "A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).",
+          "You must be a registered, eligible participant who accepted the competition rules."
+        ],
+        "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+        "organizer_acceptance_established": false
+      }
+    },
+    "select_submission": {
+      "exit_code": 2,
+      "result": {
+        "selected": false,
+        "ok_to_submit": false,
+        "selector": "scripts/select_submission.py",
+        "lane": "G79-THVC",
+        "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+        "blockers": [
+          "literal_novelty_not_cleared",
+          "negative_scientific_verdict"
+        ],
+        "failed_gates": [
+          "final_forward_overlap_le_0_70",
+          "protocol_unique",
+          "surface_forward_overlap_le_0_70"
+        ],
+        "reason": "Canonical evidence was re-derived; literal registry uniqueness did not clear.",
+        "card_left_unchanged": true
+      }
+    },
+    "preflight_new_lane": {
+      "exit_code": 2,
+      "result": {
+        "start_new_lane": false,
+        "state": "impossible_under_literal_gate",
+        "exit_code": 2,
+        "reason": "One hash-verified registry raster covers every allowed cell with its positive support. Any nonempty candidate has 3-px overlap 1.0 > 0.70; stop before experiments.",
+        "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+        "covered_allowed_fraction": 1.0,
+        "limit": 0.7,
+        "scope": "Literal dot definition only. A protocol amendment is not silently assumed."
+      }
+    },
+    "validate_submission": {
+      "exit_code": 0,
+      "format_passed": true
+    }
+  },
+  "session_irregularities_remediated": [
+    "IR-79-191",
+    "IR-79-192",
+    "IR-79-193"
+  ],
+  "pytest_passed": 520,
+  "node_tests_passed": 12,
+  "browser_qa_cases_passed": 21
+}

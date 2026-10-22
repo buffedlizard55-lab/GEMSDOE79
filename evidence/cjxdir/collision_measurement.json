@@ -1,0 +1,21 @@
+{
+  "evidence_class": "REGISTRY-MEASUREMENT (parallel-lane collision check, protocol rule 1)",
+  "measured_utc": "2026-10-22 (this session, at merge time)",
+  "my_lane_as_registered": "G79-CJX (registry/preregistration_cjxdir.json after rename; bytes unchanged)",
+  "my_raster_sha256": "5bdebaafc7c15bd6f9de6092398c86618986d19d4d06075acf92386948563e47",
+  "their_lane": "G79-CJX (parallel session, merged to main via PR #102 before this branch merged)",
+  "their_raster": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+  "their_raster_sha256": "a422d9a08a07a089f304a0ce7f76eca35bcfeff82877af7ee5034e3f94c294e1",
+  "my_final_forward_overlap_3px_vs_theirs": 0.3474,
+  "reverse_overlap_3px": 0.2138683805173421,
+  "my_surface_top20000_forward_overlap_3px_vs_theirs": 0.4456,
+  "exact_shared_dots": 665,
+  "exact_shared_fraction_of_mine": 0.03325,
+  "spearman_my_surface_vs_their_raster_sample200k": 0.06565306678906942,
+  "spearman_my_dots_vs_their_raster_sample200k": 0.02417471611851239,
+  "thresholds": {
+    "rho_limit": 0.9,
+    "overlap_limit": 0.7
+  },
+  "decision": "NOT a protocol duplicate (both criteria pass on surface and final dots). Distinct implementations (tip-steered coincidence @37654/sep2.8 vs catalogue-free persistent director dispersion @20000/sep3) coincidentally took the same backlog nickname. The parallel lane merged first and keeps the G79-CJX name; this lane is renamed G79-CJX-DIR at merge to protect provenance. Verdict unchanged: negative."
+}

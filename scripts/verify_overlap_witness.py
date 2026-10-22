@@ -21,15 +21,33 @@ from gems79.novelty import UNIVERSAL_WITNESS_BLOB
 from restore_registry import restore_blob
 
 
+def require_unique_rows(rows, key, required, label):
+    """Reject missing/duplicate trust anchors before inspecting scientific bytes."""
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        raise ValueError(f'{label} must be a list of objects')
+    for identity in required:
+        if sum(row.get(key) == identity for row in rows) != 1:
+            raise ValueError(f'{label} requires exactly one {identity}')
+
+
 def verify_witness(root=ROOT, *, restore=False):
     root = Path(root)
     pins = json.loads((root / 'registry/template_pin.json').read_text())
+    require_unique_rows(pins['files'], 'path',
+                        ('vendor/gems57/grid.py', 'vendor/gems57/uniqueness.py'),
+                        'Shared template pins')
     for row in pins['files']:
         if hashlib.sha256((root / row['path']).read_bytes()).hexdigest() != row['sha256']:
             raise ValueError('Shared template pin mismatch')
     inputs = json.loads((root / 'registry/data_manifest.json').read_text())
+    require_unique_rows(inputs['files'], 'id',
+                        ('existing_faults', 'sample_submission'), 'Reference grid pins')
     for row in inputs['files']:
         if row['id'] in ('existing_faults', 'sample_submission'):
+            # Pin the files load_grid actually reads, not an arbitrary alternate
+            # file supplied by a malformed manifest (including path traversal).
+            if row.get('dest') != row['id'] + '.tif':
+                raise ValueError('Reference grid pin destination mismatch')
             path = root / 'data/reference' / row['dest']
             if hashlib.sha256(path.read_bytes()).hexdigest() != row['sha256']:
                 raise ValueError('Reference grid pin mismatch')
@@ -47,8 +65,13 @@ def verify_witness(root=ROOT, *, restore=False):
     grid = load_grid(root / 'data/reference')
     measured = saturation_certificate(path, grid.footprint, grid.catalogue,
                                     expected_grid=(grid.shape, grid.crs, grid.transform))
+    try:
+        measured['witness_file'] = path.resolve().relative_to(root.resolve()).as_posix()
+    except ValueError:
+        measured['witness_file'] = str(path)
     original = json.loads((root / 'evidence/universal_overlap_certificate.json').read_text())
-    # Path serialization differs by checkout; compare every other measured field.
+    # Path serialization differs when fixtures write absolute witness_file paths;
+    # compare every other measured field identically.
     keys = set(measured) - {'witness_file'}
     checks = {key: measured[key] == original.get(key) for key in sorted(keys)}
     return {'reviewed_utc': datetime.now(timezone.utc).isoformat(),
@@ -68,6 +91,7 @@ def main():
     report = verify_witness(restore=args.restore)
     text = json.dumps(report, indent=2, allow_nan=False) + '\n'
     if args.report:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
         with args.report.open('x') as stream:
             stream.write(text)
     print(text, end='')

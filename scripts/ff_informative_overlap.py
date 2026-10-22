@@ -8,6 +8,13 @@ import numpy as np, rasterio
 from scipy import ndimage as ndi
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT/"src"), str(ROOT/"vendor"), str(ROOT/"scripts")]
+if __name__ == "__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H79-FF1",
+        reason="H79-FF1 is stopped and archived; informative-overlap receipt in evidence/ff1/ is frozen.",
+    )
 from nhr_uniqueness import inventory
 from gems57.grid import load_grid
 grid = load_grid(ROOT/"data/reference")

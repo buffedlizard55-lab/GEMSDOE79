@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "lane": "H80-DRAPE-PILOT",
+  "status": "preregistered-before-any-result",
+  "preregistered_utc": null,
+  "preregistration_timestamp_status": "UNVERIFIED. The file was written before the pilot ran and before any commit, but no clock read was taken at write time. The earlier hand-typed value 2026-10-22T14:25:00Z is WITHDRAWN (not a clock reading). Clock read at this correction: 2026-10-22T14:26:36Z UTC. The commit timestamp is the authoritative record. See IR-79-148.",
+  "clock_read_at_correction_utc": "2026-10-22T14:26:36Z",
+  "session_branch": "arena/842c8c7c-gemsdoe79",
+  "parent_hypothesis": "H80-DRAPE-DECONV (research/hypotheses_post_thvc_backlog.md, Hypothesis 2)",
+  "scope_note": "Single-feature zero-catalogue PILOT of the flight-line notch + tilt-edge transform. It does NOT implement the full drape-height source-depth model in the parent hypothesis. It tests only whether the notch changes holdout DTI for a fixed-budget placement of one physics-derived score surface.",
+  "official_sources": {
+    "metric": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/ (DTI, alpha=0.2, beta=0.8, triangular kernel R=300 m)",
+    "geodawn_flight_geometry": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and (Area 1 lines 200 m spacing; Area 2 lines 400 m spacing; both azimuth 90 deg; magnetic micro-leveling applied by contractor)",
+    "geodawn_doi": "https://doi.org/10.5066/P93LGLVQ"
+  },
+  "input_layers": {
+    "rtp": "training_features.tif band 2 (rtp, Reduced to pole magnetic data), EPSG:32611, 100 m, restored from registry/data_manifest.json id training_features",
+    "catalogue_and_folds": "existing_faults.tif via gems57.holdout.buffered_component_draw (seeds 20 and 30)"
+  },
+  "transform": {
+    "step_1": "Fill non-finite and out-of-footprint RTP with the footprint median; no catalogue information used.",
+    "step_2_notch_arm": "Multiply FFT of RTP by a notch that zeroes |f_x| <= 0.02 cycles/px and |f_y| within 0.02 of 0.25 or 0.5 cycles/px (E-W flight-line artifact bands for 400 m and 200 m line spacing at 100 m pixels).",
+    "step_2_control_arm": "No notch (identity), otherwise identical.",
+    "step_3": "Tilt angle theta = atan2(Vz, Hgrad) from the (optionally notched) field computed by FFT derivatives.",
+    "step_4": "Score S = |grad theta| * exp(-(theta/0.15)^2), normalised by its 99th percentile over the scored footprint and clipped to [0,1]."
+  },
+  "placement": "Greedy descending-S placement with minimum Euclidean separation 3 px, restricted to footprint & (distance to visible catalogue > 2 px), budget fixed at 37,654 dots (equal to the H33 / C0 comparator budget), binary value 1.0.",
+  "arms": {
+    "A_notch": "Notched transform, fixed budget placement (candidate)",
+    "B_control_no_notch": "Identical transform without notch (isolates the notch)",
+    "C0_random": "Uniform random in-footprint placement with the same 3 px separation and 37,654-dot budget (sanity comparator; project receipts C0 = 0.0497 / 0.0422)"
+  },
+  "primary_metric": "HOLDOUT-DTI via vendor/gems57 evaluate (gems57-pooled-hide-v2), 4 quadrant folds pooled, paired physical 20 km block bootstrap, 1000 draws",
+  "decision_rules": {
+    "R1_canary": "Single-feature AUC of S for holdout truth vs background must be <= 0.90, else leakage is presumed and the pilot is stopped.",
+    "R2_notch_effect": "Arm A must exceed Arm B with paired 95% CI lower bound > 0 on BOTH seeds to attribute gain to the notch.",
+    "R3_spend_bar": "A slot may only be considered if the best arm exceeds the current holdout best of 0.1905 (seed 20) and 0.1944 (seed 30) for G79-THVC. Expected to fail for a single feature; a failure is a negative result, not a reason to retune.",
+    "R4_fold_check": "Withheld-positive counts per seed must be reported. Project receipts record 11,321 (seed 20) and 11,342 (seed 30); a mismatch is an irregularity to report, not to fix by editing the shared module."
+  },
+  "budget": "1 experiment (this lane), 2 seeds, 3 arms, approximately 45 minutes; no retuning of notch band, kernel or threshold after seeing results.",
+  "named_non_fault_mimics": [
+    "Residual E-W micro-leveling and tie-line artifacts that survive contractor processing (USGS page states micro-leveling was applied)",
+    "Edges of magnetic bodies (plutons, paleochannel basalts) with no fault-slip history"
+  ],
+  "known_limitations": [
+    "A notch on |f_x| <= 0.02 also attenuates true E-W-striking faults at the notched frequencies; the pilot accepts this and reports it.",
+    "No drape-height or flight-height model is used; the USGS flight height is a range, not a per-pixel grid.",
+    "A single feature with no learned model is not expected to beat the 0.1905 bar."
+  ]
+}
