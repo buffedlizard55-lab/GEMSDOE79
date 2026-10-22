@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "lane": "G79-XCR",
+  "title": "Cross-catalogue recovery with exact marginal-DTI emission",
+  "registered_utc": "2026-10-22T21:30:00Z",
+  "protocol_note": "The prompt again supplies no delimited single method paragraph (repeat of IR-79-02/IR-79-41). This lane is self-assigned and declared here before any scoring. No archived lane is restarted; no previous raster is copied, renamed or re-placed.",
+  "hypothesis": "Expert faults missing from the QFDB/INGENIOUS catalogue concentrate where amplitude-balanced potential-field edges (tilt derivative, multi-scale horizontal gradient) and catalogue-tip geometry indicate structure with weak or absent surface expression. A model fitted to those label-blind channels transfers to a fault population compiled by a *different* mapping campaign (SGMC), and the competition DTI is best exploited by exact marginal-DTI emission on that surface rather than a hand-set dot budget.",
+  "mechanism": "14 label-blind physics channels from training_features.tif (19 bands) + 4 channels derived only from the visible catalogue mask; HistGradientBoostingRegressor of the 300 m triangular kernel-credit target built from *other* inner component groups (3 px collar), one fit per fold; emission by gems57.emit.greedy_allocate (exact two-sided marginal-DTI test) with a fixed 37,654-dot NMS arm and a uniform arm as controls.",
+  "named_non_fault_mimic": "Playa and lake-margin shorelines (Lahontan/Bonneville) and fluvial terrace risers produce the same amplitude-balanced gravity/magnetic edges and the same detrended-elevation steps as fault scarps; Quaternary basalt flows produce magnetic edges with no fault; the TIGER road network is a linear cultural feature that the elevation step channel can also see.",
+  "why_not_already_in_catalogue": "The catalogue is a compilation of mapped Quaternary surface traces. A fault buried by basin fill has no surface expression to map, but it still truncates the gravity/magnetic gradient and offsets depth-to-basement. This population is systematically underrepresented in a surface-geology catalogue, which is exactly the failure mode the competition asks us to repair.",
+  "instruments": {
+    "I1": "QFDB/INGENIOUS catalogue hide-and-recover, buffered_whole_components_loqo_v2 (gems57.pooled-hide-v2), 4 folds x seeds 20 and 30; scored with the official DTI (alpha 0.2, beta 0.8, 3 px triangular kernel).",
+    "I2": "Cross-catalogue recovery of SGMC fault components more than 3 px from the competition catalogue (label-blind instrument; SGMC is never a feature). Same DTI formula, per fold region. This is an EXTERNAL-PROXY measurement, not an organizer score and not a substitute for I1."
+  },
+  "arms": {
+    "A_xcr_greedy": "greedy_allocate(surface, allowed=footprint minus catalogue, k_truth=visible catalogue mass in the scored domain, max_dots=150000)",
+    "B_xcr_nms37654": "placement.place(surface, allowed, budget=37654, spacing=3) -- matched to the H33 dot budget",
+    "C_uniform": "deterministic uniform random dots at the B count"
+  },
+  "fixed_parameters": {
+    "static_channels": ["rtp_tilt_abs", "rtp_hgm_s4", "rtp_hgm_s12", "grav_hgm_s4", "grav_hgm_s12", "grav_tilt_abs", "bdepth_grad_s3", "cond_edge_s2", "elev_step_s2", "det_elev_relief_s5", "ieq_density", "strain2inv", "tmi_vg_abs", "grav_slope_abs"],
+    "geometry_channels": ["log1p_d_visible", "dens_visible_15", "dens_visible_40", "d_visible_quantile"],
+    "model": {"type": "HistGradientBoostingRegressor", "loss": "squared_error", "max_iter": 80, "learning_rate": 0.08, "max_leaf_nodes": 31, "min_samples_leaf": 200, "l2_regularization": 1.0, "early_stopping": false},
+    "inner_groups": 4,
+    "target_collar_px": 3,
+    "emission_spacing_px": 3
+  },
+  "leakage_canary": "single-feature symmetric AUC on both instruments; max(AUC, 1-AUC) > 0.90 is leakage until proven otherwise and stops the lane before any score is trusted",
+  "promotion_gate": "A must beat B and the uniform arm on I1 on both seeds, AND beat the canonical incumbent G79-THVC (0.1905 seed 20 / 0.1944 seed 30) on I1, with non-overlapping paired spatial-block 95% CI on at least one seed, AND pass both novelty stages. Otherwise the lane is a negative result and no weekly slot is spent.",
+  "stop_rule": "3 experiments maximum, 2 hours; no parameter search beyond the declared arms; no post-hoc threshold change; no retuning on I1.",
+  "experiment_count": 1,
+  "maximum_experiments": 3
+}

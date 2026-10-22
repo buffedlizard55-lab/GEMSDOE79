@@ -1794,5 +1794,47 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Verdict: negative. The TIFF is archived research-only (<code>artifacts/opc/*-DO-NOT-SUBMIT.tif</code>, <code>run_card_opc.json</code>). The runner refuses to rerun (<code>refuse_if_closed</code>). Calibration was <strong>not</strong> retuned after viewing the holdout. A prospective fix (inner-validated calibration on simulated hides) is listed in <code>research/hypotheses_ff2e4413.md</code> as a new lane.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session 2026-10-22 — G79-XCR (branch <code>arena/3c1d7649-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-232</td>
+<td><strong>Shared writer could not produce an official-format file.</strong> <code>vendor/gems57</code> enforced an all-finite "zeros outside the footprint" export, while the official problem page says "data outside the bounds is null or nan" and the official <code>sample_submission.tif</code> measures 7,111,787 NaN cells outside the footprint with <code>nodata=NaN</code> (<code>evidence/xcr/official_sample_bytes.json</code>). Rule R6 of the project's own validator therefore rejected every artifact the pipeline could write, including the inherited canonical TIFF. This was mis-recorded in earlier sessions as a property of the artifacts rather than of the writer.</td>
+<td>Added an opt-in <code>exterior="nan"</code> mode to <code>grid.write_geotiff</code>, <code>validate.validate</code>, <code>gates.format_report</code> and <code>submission_writer.write_submission</code>; default behaviour unchanged for every existing caller. Re-pinned the four files in <code>registry/template_pin.json</code> with an amendment record. The new G79-XCR artifact is the first in the repository to pass R1–R8 including R6. An upstream patch export is still outstanding.</td>
+</tr>
+<tr>
+<td>IR-79-233</td>
+<td>The prompt again contains no delimited single method paragraph (repeat of IR-79-02, IR-79-41, IR-79-47). The requested "unique submission" and the standing promotion gate (beat the holdout incumbent) could not both be satisfied.</td>
+<td>Declared and preregistered one lane before scoring, validated it on two instruments, and shipped the artifact with an explicit <strong>DOWNLOAD YES / SUBMIT NO</strong> verdict rather than promoting a candidate that fails its own gates. No previous raster was copied, renamed or re-placed.</td>
+</tr>
+<tr>
+<td>IR-79-234</td>
+<td><strong>Every archived lane validates on one instrument that does not represent the competition target.</strong> I1 hides mapped catalogue faults; the competition truth is expert faults <em>missing</em> from that catalogue. Measured on the new off-catalogue instrument (I2, SGMC faults &gt;3 px from the catalogue): catalogue-proximity channels score AUC 0.43–0.55 on I2 but 0.72–0.84 on I1, while terrain-roughness channels score 0.75–0.79 on I2 but 0.53–0.68 on I1.</td>
+<td>Added I2 as a documented second instrument and reported both. This is the first measured explanation of the family's leaderboard plateau and the reason the next lane must drop the catalogue-distance term (H2 in <code>research/hypotheses_xcr.md</code>). I2 is an EXTERNAL-PROXY instrument, not organizer truth.</td>
+</tr>
+<tr>
+<td>IR-79-235</td>
+<td>The exact marginal-DTI emitter (<code>gems57.emit.greedy_allocate</code>) lost to a blanket 37,654-dot budget on the same surface: 0.003 vs 0.05 I1 in the seed-20 folds. Cause: the regressor output is not a probability, so its total expected credit exceeded the truth mass by ~10× and the exact test accepted background cells.</td>
+<td>Reported as a negative result. The shipped artifact uses the blanket budget that measured best, not the emitter that the preregistration expected to win. No post-hoc retuning of the emitter or the surface was performed to rescue the lane.</td>
+</tr>
+<tr>
+<td>IR-79-236</td>
+<td>The shipped surface is a <strong>registry duplicate</strong>: 18 dot fields already contain &gt;70% of its dots within 3 px (worst 1.0), while max abs(Spearman) is only 0.1097. The cause is structural — the surface is half catalogue-corridor density, and all 937 archived dot fields share that ancestor.</td>
+<td>Lane closed negative. Do not retune, jitter or re-place its dots. Recorded so that a future lane cannot claim novelty from a new filename or a low rank correlation while reusing the same emission shape.</td>
+</tr>
+<tr>
+<td>IR-79-237</td>
+<td>213 of 1,199 indexed registry rasters were non-comparable in this scan (grid-invalid or unreadable), and one prior with halo coverage 1.0 is only skipped under the documented like-for-like reading, not under the literal one (48 literal firings vs 18).</td>
+<td>Both readings are reported side by side in <code>evidence/xcr/uniqueness_final.json</code>. The literal reading still fires on 48 rasters and is not suppressed. Registry scope remains owner-repository-bounded.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Branch review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

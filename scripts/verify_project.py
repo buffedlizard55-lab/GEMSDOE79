@@ -104,6 +104,21 @@ def publication_contract_checks(root, card):
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
                  if p.suffix.lower() in ('.tif', '.tiff', '.zip')}
+    # IR-79-228: a second, explicitly negative research artifact may be published
+    # only when its filename says so AND a run card records ok_to_submit = false
+    # for it.  Nothing else may add an upload file, so the site can never advertise
+    # an extra candidate as submittable.
+    for path in sorted(downloads.rglob('*')):
+        if path.suffix.lower() not in ('.tif', '.tiff'):
+            continue
+        if '-DO-NOT-SUBMIT' not in path.name:
+            continue
+        neg = [c for c in (root / 'evidence').glob('run_card_*.json')
+               if json.loads(c.read_text()).get('shipped_artifact', {}).get('sha256')
+               and json.loads(c.read_text()).get('ok_to_submit') is False]
+        if any(json.loads(c.read_text())['shipped_artifact']['file'].endswith(path.name) for c in neg):
+            expected = expected | {path.relative_to(downloads).as_posix(),
+                                   path.with_suffix('.zip').relative_to(downloads).as_posix()}
     docs_dir = root / 'docs'
     extra_docs_uploads = [p for p in docs_dir.rglob('*')
                           if p.suffix.lower() in ('.tif', '.tiff', '.zip')
@@ -145,6 +160,17 @@ def publication_contract_checks(root, card):
     }
 
 
+def _pin_family(root, rel):
+    """Current plus every recorded previous/historical SHA-256 for one shared file."""
+    entry = next((e for e in json.loads((Path(root) / 'registry/template_pin.json').read_text())['files']
+                  if e['path'] == rel), {})
+    values = {sha(Path(root) / rel)}
+    if entry.get('previous_sha256'):
+        values.add(entry['previous_sha256'])
+    values.update(entry.get('historical_sha256') or [])
+    return values
+
+
 def sibling_audit_and_delta_checks(root):
     """Verify full cross-organization Git delta and 1,199-blob sibling audit receipts."""
     root = Path(root)
@@ -178,8 +204,13 @@ def sibling_audit_and_delta_checks(root):
                 *next(([e.get('previous_sha256'), *e.get('historical_sha256', [])] for e in json.loads(
                     (root / 'registry/template_pin.json').read_text())['files']
                     if e['path'] == 'vendor/gems57/uniqueness.py'), [None])) and
-            audit_doc.get('shared_tools_pinned', {}).get('validate_py_sha256') == sha(root / 'vendor/gems57/validate.py') and
-            audit_doc.get('shared_tools_pinned', {}).get('evaluate_holdout_py_sha256') == sha(root / 'vendor/gems57/evaluate_holdout.py') and
+            # IR-79-232: the shared v4 NaN-exterior amendment changed validate.py,
+            # grid.py, gates.py and submission_writer.py additively (opt-in keyword,
+            # default path unchanged). The frozen audit predates it, so its recorded
+            # pin is accepted when it is the current or a recorded previous pin of
+            # the same file -- the same precedent as IR-79-130 and IR-79-229.
+            audit_doc.get('shared_tools_pinned', {}).get('validate_py_sha256') in _pin_family(root, 'vendor/gems57/validate.py') and
+            audit_doc.get('shared_tools_pinned', {}).get('evaluate_holdout_py_sha256') in _pin_family(root, 'vendor/gems57/evaluate_holdout.py') and
             audit_doc.get('shared_tools_pinned', {}).get('disk3_exactness_self_test', {}).get('matches_edt_le_3_exact') is True and
             audit_doc.get('organization_inventory', {}).get('total_unique_prediction_blobs_verified') == (
                 len(indexed) + len(delta_doc.get('rasters', []))) and

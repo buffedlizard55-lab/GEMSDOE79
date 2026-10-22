@@ -28,13 +28,22 @@ def sha256(p: Path) -> str:
 
 
 def validate(path: Path, footprint: np.ndarray | None = None,
-             catalogue: np.ndarray | None = None) -> dict:
-    """Run local format/range checks on one GeoTIFF; return a receipt dict."""
+             catalogue: np.ndarray | None = None, exterior: str = "zeros") -> dict:
+    """Run local format/range checks on one GeoTIFF; return a receipt dict.
+
+    ``exterior="nan"`` selects the official convention (finite [0,1] inside the
+    footprint, NaN outside, nodata=NaN) instead of the inherited all-finite
+    policy.  See ``gems57.grid.write_geotiff`` and IR-79-224.
+    """
+    if exterior not in {"zeros", "nan"}:
+        raise ValueError("exterior must be 'zeros' or 'nan'")
     path = Path(path)
     with rasterio.open(path) as ds:
         a = ds.read(1)
         meta = dict(crs=str(ds.crs), shape=[ds.height, ds.width], dtype=ds.dtypes[0],
-                    count=ds.count, nodata=None if ds.nodata is None else float(ds.nodata),
+                    count=ds.count,
+                    nodata=(None if ds.nodata is None else
+                            (float(ds.nodata) if np.isfinite(ds.nodata) else "nan")),
                     transform=list(tuple(ds.transform)[:6]),
                     profile_compress=ds.profile.get("compress"))
         desc = ds.descriptions
@@ -61,7 +70,7 @@ def validate(path: Path, footprint: np.ndarray | None = None,
         f"dimensions_{HEIGHT}x{WIDTH}": (h, w) == (HEIGHT, WIDTH),
         f"crs_epsg_{EPSG}": meta["crs"] == f"EPSG:{EPSG}",
         "transform_matches_sample_submission": meta["transform"] == list(tuple(TRANSFORM)[:6]),
-        "no_nan_anywhere": bool(finite.all()),
+        "no_nan_anywhere": bool(finite.all()) if exterior == "zeros" else True,
         "no_inf_anywhere": bool(not np.isinf(a).any()),
         "no_sentinel_values": bool(not np.isin(finite_values, SENTINELS).any()),
         "range_0_1_guaranteed": in_range,
@@ -74,7 +83,11 @@ def validate(path: Path, footprint: np.ndarray | None = None,
         checks["in_footprint_range_0_1"] = bool(
             n_fp > 0 and np.isfinite(a[footprint]).all()
             and (a[footprint] >= 0.0).all() and (a[footprint] <= 1.0).all())
-        checks["outside_footprint_zero"] = bool(np.all(a[~footprint] == 0.0))
+        if exterior == "nan":
+            checks["outside_footprint_nan"] = bool(np.isnan(a[~footprint]).all())
+            checks["nodata_is_nan"] = meta["nodata"] == "nan"
+        else:
+            checks["outside_footprint_zero"] = bool(np.all(a[~footprint] == 0.0))
     if catalogue is not None:
         checks["zero_dots_on_mapped_catalogue"] = int((a[catalogue] > 0).sum()) == 0
 

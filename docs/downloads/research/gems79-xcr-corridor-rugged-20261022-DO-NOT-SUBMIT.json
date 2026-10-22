@@ -1,0 +1,135 @@
+{
+  "file": "gems79-xcr-corridor-rugged-20261022-DO-NOT-SUBMIT.tif",
+  "sha256": "74ec512bc9b0c7c7a1e34b91156205fbaca1e0ac963f78adba76ce18be7cfb0b",
+  "bytes": 185736,
+  "submission_name": "gems79-xcr-corridor-rugged-20261022",
+  "note": "G79-XCR corridor+ruggedness dots; holdout below incumbent",
+  "note_chars": 57,
+  "validator": {
+    "file": "/home/user/GEMSDOE79/docs/downloads/gems79-xcr-corridor-rugged-20261022-DO-NOT-SUBMIT.tif",
+    "bytes": 185736,
+    "sha256": "74ec512bc9b0c7c7a1e34b91156205fbaca1e0ac963f78adba76ce18be7cfb0b",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": "nan",
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 5167373,
+    "n_nan": 7111787,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0072868745774030685,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_nan": true,
+      "nodata_is_nan": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "exterior": "nan",
+  "template_report": {
+    "path": "/home/user/GEMSDOE79/docs/downloads/gems79-xcr-corridor-rugged-20261022-DO-NOT-SUBMIT.tif",
+    "bytes": 185736,
+    "sha256": "74ec512bc9b0c7c7a1e34b91156205fbaca1e0ac963f78adba76ce18be7cfb0b",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": "nan",
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": true,
+    "nan_pixels": 7111787,
+    "infinity_pixels": 0,
+    "n_nan": 7111787,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0072868745774030685,
+    "n_nonzero": 37654,
+    "mass": 37654.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems79-xcr-corridor-rugged-20261022-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "106f81ae58dfc06a75a999e27b2959b825af18234c219377b7a5be947bd24720",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "G79-XCR",
+    "surface": "0.5*rank(dens_visible_40) + 0.5*rank(det_elev_relief_s5*elev_step_s2)",
+    "budget": 37654,
+    "placement": {
+      "requested": 37654,
+      "emitted": 37654,
+      "spacing_px": 3,
+      "exhausted": false,
+      "eligible_positive_pixels": 5106385
+    },
+    "preregistration": "registry/preregistration_g79_xcr.json",
+    "official_exterior": "NaN outside footprint, nodata=NaN (rule R6)"
+  }
+}

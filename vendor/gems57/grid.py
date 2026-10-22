@@ -162,11 +162,22 @@ def read_geotiff(path: str | Path) -> dict:
     return info
 
 
-def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = None) -> dict:
+def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = None,
+                  footprint: np.ndarray | None = None, exterior: str = "zeros") -> dict:
     """Write a single-band float32 GeoTIFF on the pinned grid and re-read it.
 
     The re-read is the contract: this returns what the *file* says. Tiled 256 px
     with deflate + horizontal predictor, matching what this family has shipped.
+
+    ``exterior="nan"`` (shared amendment v4, IR-79-224) writes the *official*
+    convention instead: every in-footprint cell finite in [0,1], every
+    out-of-footprint cell NaN with ``nodata=nan``.  The official problem page
+    says "data outside the bounds is null or nan", and the official
+    ``sample_submission.tif`` measures 7,111,787 NaN cells outside the footprint
+    (``evidence/xcr/official_sample_bytes.json``).  The inherited all-finite
+    zeros export contradicted that text, so it could never pass rule R6 of the
+    project's own official-format validator.  ``zeros`` stays the default for
+    every historical caller.
     """
     from rasterio.transform import from_origin
 
@@ -176,10 +187,28 @@ def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = N
         raise TypeError(f"submission must be float32, got {arr.dtype}")
     if arr.shape != SHAPE:
         raise ValueError(f"submission must be {SHAPE}, got {arr.shape}")
-    if not np.isfinite(arr).all():
-        raise ValueError("submission contains NaN/inf; the local all-finite export policy rejects it")
-    if arr.min() < 0.0 or arr.max() > 1.0:
-        raise ValueError(f"submission out of range: min={arr.min()} max={arr.max()}")
+    if exterior not in {"zeros", "nan"}:
+        raise ValueError("exterior must be 'zeros' or 'nan'")
+    if exterior == "nan":
+        if footprint is None:
+            raise ValueError("exterior='nan' requires the footprint mask")
+        fp = np.asarray(footprint, bool)
+        if fp.shape != arr.shape:
+            raise ValueError("footprint shape must match the array")
+        inside = arr[fp]
+        if not np.isfinite(inside).all():
+            raise ValueError("exterior='nan': every in-footprint cell must be finite")
+        if inside.min() < 0.0 or inside.max() > 1.0:
+            raise ValueError(f"submission out of range inside footprint: "
+                             f"min={inside.min()} max={inside.max()}")
+        out = np.where(fp, arr, np.float32(np.nan)).astype(np.float32)
+        arr = out
+        nodata = float("nan")
+    else:
+        if not np.isfinite(arr).all():
+            raise ValueError("submission contains NaN/inf; the local all-finite export policy rejects it")
+        if arr.min() < 0.0 or arr.max() > 1.0:
+            raise ValueError(f"submission out of range: min={arr.min()} max={arr.max()}")
     tr = Affine(*[float(v) for v in tuple(TRANSFORM)[:6]])
     west, north, xs, ys = tr.c, tr.f, tr.a, -tr.e
     check = from_origin(west, north, xs, ys)

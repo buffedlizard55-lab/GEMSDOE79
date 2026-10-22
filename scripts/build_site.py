@@ -695,6 +695,105 @@ SHA-256 <code>{c['raster_sha256']}</code> \u00b7 {val['emitted_positive_pixels']
 <li>Record the organizer receipt in registry/score_ledger.csv as ORGANIZER-CONFIRMED. No score exists for this MDSC file; 0 slots used.</li></ol>
 <p>Full record: <a href="{REPO}/blob/main/reports/session_review_8e58a8d0.md">session review 8e58a8d0</a> \u00b7 <a href="{REPO}/blob/main/run_card_mdsc.json">run_card_mdsc.json</a></p></section>'''
 
+def xcr_page():
+    """G79-XCR: the format-compliant candidate that fails novelty and holdout.
+
+    Generated from committed evidence. The site builder owns docs/*.html and
+    deletes pages it does not emit, so this page must live here, not on disk.
+    """
+    q = ROOT / 'evidence/run_card_xcr.json'
+    c = json.loads(q.read_text())
+    art = c['shipped_artifact']
+    h1 = c['holdout_dti']
+    return f"""
+<section class="hero"><div>
+<p class="eyebrow">G79-XCR · GENERATED 2026-10-22</p>
+<span class="badge">NEGATIVE · DO NOT SUBMIT</span>
+<h1>Download: yes.<br><em>Submit: no.</em></h1>
+<p class="lead">This page decides what to do with the file below. The verdict is produced by the
+repository's automated gates from the file's own bytes. No inspector is needed, and a manual upload
+does not change it.</p>
+<div class="download-warning"><strong>OK TO DOWNLOAD: YES &nbsp;·&nbsp; OK TO SUBMIT: NO</strong><br>
+Reason: the file is a <strong>registry duplicate</strong> — 18 archived dot fields already contain more
+than 70&nbsp;% of its dots within 3&nbsp;px (worst dot-field overlap 1.0) — and its HOLDOUT-DTI is
+<strong>below the incumbent</strong> on both seeds. It is format-compliant and byte-unique; neither of
+those is scientific validity.</div>
+<div class="actions">
+<a class="button" href="downloads/research/{Path(art['file']).name}" download>↓ GeoTIFF · 181 KiB</a>
+<a class="button secondary" href="downloads/research/{Path(art['file']).with_suffix('.zip').name}" download>↓ ZIP · single TIFF</a>
+</div>
+<p class="micro">1 band · float32 · EPSG:32611 · 100 m · 3730 × 3292 · {art['budget_dots']:,} dots ·
+NaN outside the footprint ({art['nan_outside_footprint']:,} cells) · nodata = NaN</p>
+<div class="code-label">SHA-256</div><div class="code-box">{art['sha256']}</div>
+<div class="code-label">Submission name (if it were ever submitted)</div><div class="code-box">{art['submission_name']}</div>
+<div class="code-label">Comment · {art['note_chars']}/140 characters</div><div class="code-box">{art['note']}</div>
+</div></section>
+
+<section class="section"><div class="section-head"><div><p class="eyebrow">01 / OFFICIAL FORMAT</p>
+<h2>First artifact here to pass R1–R8.</h2></div><p>The official text requires null/NaN outside the
+bounds. The shared writer could only emit zeros, so every earlier artifact failed R6 by construction.
+That defect is fixed (IR-79-232).</p></div>
+<div class="table-scroll"><table><caption>Official submission format · src/gems79/portal_spec.py</caption>
+<thead><tr><th>Rule</th><th>Requirement</th><th>Measured</th><th>Result</th></tr></thead><tbody>
+<tr><td>R1</td><td>single GeoTIFF layer</td><td>GTiff, 1 band</td><td>PASS</td></tr>
+<tr><td>R2</td><td>float32</td><td>float32</td><td>PASS</td></tr>
+<tr><td>R3</td><td>EPSG:32611</td><td>EPSG:32611</td><td>PASS</td></tr>
+<tr><td>R4</td><td>shape/transform/bounds = template</td><td>3730 × 3292, 100 m, bounds match</td><td>PASS</td></tr>
+<tr><td>R5</td><td>nodata absent or NaN</td><td>NaN</td><td>PASS</td></tr>
+<tr><td>R6</td><td>outside bounds null/NaN</td><td>0 non-NaN of 7,111,787</td><td>PASS</td></tr>
+<tr><td>R7</td><td>in-bounds finite</td><td>0 NaN/inf inside</td><td>PASS</td></tr>
+<tr><td>R8</td><td>in-bounds values in [0,1]</td><td>min 0.0, max 1.0</td><td>PASS</td></tr>
+</tbody></table></div>
+<p class="micro">Format PASS is a local statement. It is not organizer acceptance and not permission to submit.</p></section>
+
+<section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHY IT IS STILL REJECTED</p>
+<h2>Two automated gates fail.</h2></div><p>Re-derived from the raster bytes by the selector and the shared comparator.</p></div>
+<div class="table-scroll"><table><caption>Gate results</caption>
+<thead><tr><th>Gate</th><th>Result</th><th>Evidence class</th></tr></thead><tbody>
+<tr><td>Official format R1–R8</td><td>PASS</td><td>LOCAL FORMAT</td></tr>
+<tr><td>Byte identity vs {c['registry_novelty']['rasters_expected']:,} indexed registry rasters</td><td>unique (no byte match)</td><td>REGISTRY-MEASUREMENT</td></tr>
+<tr><td>Rank correlation, max abs(rho)</td><td>{c['registry_novelty']['max_abs_spearman_full_footprint']:.4f} (limit 0.90) → PASS</td><td>REGISTRY-MEASUREMENT</td></tr>
+<tr><td>Forward 3 px dot overlap, like-for-like</td><td><strong>FAIL</strong> · {c['registry_novelty']['like_for_like_firings']} firings, worst {c['registry_novelty']['max_forward_overlap_dot_fields']} (limit 0.70)</td><td>REGISTRY-MEASUREMENT</td></tr>
+<tr><td>HOLDOUT-DTI vs incumbent</td><td><strong>FAIL</strong> · {h1['seed_20']['dti']} / {h1['seed_30']['dti']} vs {h1['incumbent_g79_thvc']['seed_20']} / {h1['incumbent_g79_thvc']['seed_30']}</td><td>HOLDOUT-DTI</td></tr>
+<tr><td>Leakage canaries</td><td>PASS · max symmetric AUC 0.791 / 0.793</td><td>CANARY</td></tr>
+</tbody></table></div>
+<p class="micro">HOLDOUT-DTI: evaluator <code>gems57-pooled-hide-v2</code>, 4 buffered whole-component folds, 3 px collar,
+alpha 0.2, beta 0.8, 300 m triangular kernel; n = {h1['seed_20']['withheld_positive_pixels']:,} (seed 20) and
+{h1['seed_30']['withheld_positive_pixels']:,} (seed 30) withheld positive pixels. Point estimates only — no bootstrap
+interval was computed for this arm, so none is quoted.</p></section>
+
+<section class="section"><div class="section-head"><div><p class="eyebrow">03 / WHY 0.2778 LED, AND CAN IT BE BEATEN</p>
+<h2>The leaderboard is distance-weighted recall.</h2></div><p>With alpha 0.2 and beta 0.8 the index is
+T / (0.2T + 0.2F + 0.8G). When false positives are small it is almost monotone in recall r = T/G:</p></div>
+<div class="formula">DTI ≈ r / (0.2r + 0.8) &nbsp;⟹&nbsp; r ≈ 0.8·DTI / (1 − 0.2·DTI)</div>
+<div class="table-scroll"><table><caption>What the reported public scores imply about coverage</caption>
+<thead><tr><th>Reported public DTI</th><th>Implied distance-weighted recall</th><th>Status of the number</th></tr></thead><tbody>
+<tr><td>0.2778 (GEMSDOE32, h33-h33-2-b2)</td><td>≈ 0.235</td><td>UNVERIFIED HISTORICAL REPORT — no organizer receipt for that filename</td></tr>
+<tr><td>0.4413</td><td>≈ 0.387</td><td>PUBLIC-LEADERBOARD OBSERVATION (fetched 2026-10-22)</td></tr>
+</tbody></table></div>
+<p>The 0.26–0.28 cluster removes prediction mass within two pixels of the mapped catalogue while keeping a
+sparse dot field elsewhere. On this metric that is a false-positive saving, because the organizer masks
+mapped faults from scoring — a dot beside a known trace but far from a <em>new</em> fault is fully
+penalised. Whether a copy of a known trace is redundant or useful is decided by the hidden labels, which is
+why the 0.2778 figure cannot be attributed to the thinning alone.</p>
+<p><strong>Beating 0.4413</strong> requires covering more of the hidden population at the same false-positive
+cost. This session measured why the project has not: catalogue-proximity channels score AUC 0.72–0.79 on
+hidden <em>catalogue</em> faults and 0.43–0.55 on SGMC faults the catalogue misses; terrain roughness reverses
+that (0.53–0.68 vs 0.75–0.79). Every archived lane, and this one, mixes in the first family — which is also
+why 18 registry rasters already contain this candidate's dots.</p></section>
+
+<section class="section"><div class="section-head"><div><p class="eyebrow">04 / WHAT TO DO NEXT</p>
+<h2>Drop the catalogue-distance term.</h2></div><p>Ranked and costed in
+<a href="{REPO}/blob/main/research/hypotheses_xcr.md">research/hypotheses_xcr.md</a>.</p></div>
+<ol>
+<li><strong>H2 (next lane):</strong> terrain-only surface, no distance-to-catalogue channel anywhere,
+validated primarily on the off-catalogue instrument, with the budget set by the calibrated marginal-DTI rule.</li>
+<li><strong>Keep both instruments.</strong> A lane that wins I1 and loses I2 is reproducing the catalogue —
+the failure mode that produces duplicates.</li>
+<li><strong>Do not retune this lane.</strong> Its gates are recorded and it is closed negative.</li>
+</ol></section>
+"""
+
 
 def main():
     report = verify()
@@ -884,7 +983,9 @@ def main():
     )
 
     pages = {
-        'index.html': ('Research download & automated decision', home(card, summary, preflight, h33, latest_preflight, runtime_data)),
+        'index.html': ('Research download & automated decision',
+                      '<section class="section"><div class="notice"><strong>NEW 2026-10-22 · G79-XCR:</strong> a GeoTIFF that passes the official format rules R1&ndash;R8 &mdash; the first in this repository &mdash; but fails the novelty and holdout gates. <strong>OK TO DOWNLOAD: YES &middot; OK TO SUBMIT: NO.</strong> <a href="g79-xcr.html">Open the decision page and download &nearr;</a></div></section>'
+                      + home(card, summary, preflight, h33, latest_preflight, runtime_data)),
         'executive-summary.html': ('Decision guide & future submission prerequisites', executive(card, summary, latest_preflight, runtime_data)),
         'analysis.html': ('What H33 teaches us, without score promises',
                           page_head('ANALYSIS / EXACT METRIC / MEASURED LINEAGE', 'Understand H33. Do not copy it.',
@@ -927,6 +1028,7 @@ def main():
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),
         'g79-opc.html': ('G79-OPC new TIF \u2014 oriented pair-correlation lane, automated gate verdict', opc_page()),
         'g79-cjxdir.html': ('G79-CJX-DIR — new unique research GeoTIFF (do not submit)', cjxdir_page()),
+        'g79-xcr.html': ('G79-XCR \u2014 format-compliant TIF; download yes, submit no', xcr_page()),
     }
     for filename, (title, content) in pages.items():
         (SITE / filename).write_text(shell(title, content, card))

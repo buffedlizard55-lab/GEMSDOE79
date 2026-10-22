@@ -49,8 +49,13 @@
     },
     {
       "path": "vendor/gems57/gates.py",
-      "git_blob": "cf7cbda418a6b0f80bbdc44a2e12822a97215963",
-      "sha256": "7c57f70dbba58bb1112df4193a3de56516af0f981970d4b943b394f99b573dae"
+      "git_blob": null,
+      "sha256": "218d3afb2ec128186919da96ef5d5ddd6c00231df060a7f727b61a007ec2b1a8",
+      "amendment": "shared v4 official NaN exterior (IR-79-232): optional exterior=\"nan\" mode added; default behaviour unchanged",
+      "previous_sha256": "7c57f70dbba58bb1112df4193a3de56516af0f981970d4b943b394f99b573dae",
+      "historical_sha256": [
+        "7c57f70dbba58bb1112df4193a3de56516af0f981970d4b943b394f99b573dae"
+      ]
     },
     {
       "path": "vendor/gems57/geo.py",
@@ -59,8 +64,13 @@
     },
     {
       "path": "vendor/gems57/grid.py",
-      "git_blob": "e909e5a219ff242245e24477653a42306401495d",
-      "sha256": "b96df7ec0f33658a61b0baa5db85fcd19be2cd8b1873f99699bd26bddae8cd8d"
+      "git_blob": null,
+      "sha256": "9cbd65ba0f4698124d67963148c899269a75579396153ee09a2024bd7bb197b3",
+      "amendment": "shared v4 official NaN exterior (IR-79-232): optional exterior=\"nan\" mode added; default behaviour unchanged",
+      "previous_sha256": "b96df7ec0f33658a61b0baa5db85fcd19be2cd8b1873f99699bd26bddae8cd8d",
+      "historical_sha256": [
+        "b96df7ec0f33658a61b0baa5db85fcd19be2cd8b1873f99699bd26bddae8cd8d"
+      ]
     },
     {
       "path": "vendor/gems57/holdout.py",
@@ -104,8 +114,13 @@
     },
     {
       "path": "vendor/gems57/submission_writer.py",
-      "git_blob": "5a04a2b0d5d4137f0aad39d862889ef1b92198ea",
-      "sha256": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565"
+      "git_blob": null,
+      "sha256": "38ba4a1f667a8dc1efe8f71236d170ac8413e1812b93976ee84d61ff9ee00644",
+      "amendment": "shared v4 official NaN exterior (IR-79-232): optional exterior=\"nan\" mode added; default behaviour unchanged",
+      "previous_sha256": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
+      "historical_sha256": [
+        "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565"
+      ]
     },
     {
       "path": "vendor/gems57/uniqueness.py",
@@ -121,9 +136,29 @@
     },
     {
       "path": "vendor/gems57/validate.py",
-      "git_blob": "6729226367b1b927ca1c17b469b1bb774680a654",
-      "sha256": "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd"
+      "git_blob": null,
+      "sha256": "1b76677d65f970fbeac3297697b84318396a582caf2f6cd40819402d3585d731",
+      "amendment": "shared v4 official NaN exterior (IR-79-232): optional exterior=\"nan\" mode added; default behaviour unchanged",
+      "previous_sha256": "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd",
+      "historical_sha256": [
+        "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd"
+      ]
     }
   ],
-  "policy": "Shared code; never fork locally. A shared defect is fixed once here with a version note, the pin is updated, and the patch is exported for the upstream template (reports/upstream_patch_uniqueness_v3.diff and reports/upstream_patch_uniqueness_v4.diff)."
+  "policy": "Shared code; never fork locally. A shared defect is fixed once here with a version note, the pin is updated, and the patch is exported for the upstream template (reports/upstream_patch_uniqueness_v3.diff and reports/upstream_patch_uniqueness_v4.diff).",
+  "amendments": [
+    {
+      "version": "v4-official-nan-exterior",
+      "date": "2026-10-22",
+      "files": [
+        "vendor/gems57/gates.py",
+        "vendor/gems57/grid.py",
+        "vendor/gems57/submission_writer.py",
+        "vendor/gems57/validate.py"
+      ],
+      "reason": "The official problem page requires \"data outside the bounds is null or nan\" and the official sample_submission.tif contains 7,111,787 NaN cells outside the footprint. The inherited all-finite zeros export could never satisfy rule R6 of the project validator, so every artifact was blocked at the format stage.",
+      "scope": "Adds an opt-in exterior=\"nan\" mode. All existing callers keep exterior=\"zeros\".",
+      "ir": "IR-79-232"
+    }
+  ]
 }

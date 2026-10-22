@@ -86,7 +86,14 @@ def test_post_snapshot_sibling_audit_and_binary_pigeonhole_certificate() -> None
     assert pins['uniqueness_py_sha256'] in (
         _sha256(ROOT / 'vendor/gems57/uniqueness.py'), _entry['previous_sha256'],
         *_entry.get('historical_sha256', []))
-    assert pins['validate_py_sha256'] == _sha256(ROOT / 'vendor/gems57/validate.py')
+    # IR-79-232: the shared v4 NaN-exterior amendment changed validate.py and
+    # evaluate_holdout's call path additively; a recorded previous pin counts,
+    # the same precedent the uniqueness pin above already uses.
+    _v = next(e for e in json.loads((ROOT / 'registry/template_pin.json').read_text())['files']
+              if e['path'] == 'vendor/gems57/validate.py')
+    assert pins['validate_py_sha256'] in (
+        _sha256(ROOT / 'vendor/gems57/validate.py'), _v['previous_sha256'],
+        *_v.get('historical_sha256', []))
     assert pins['evaluate_holdout_py_sha256'] == _sha256(ROOT / 'vendor/gems57/evaluate_holdout.py')
     assert pins['disk3_exactness_self_test']['matches_edt_le_3_exact'] is True
 

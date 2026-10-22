@@ -27,7 +27,7 @@ def _temp_path(parent: Path, stem: str, suffix: str) -> Path:
 
 
 def write_submission(path, prediction, sample, footprint, *, note, name,
-                     catalogue=None, metadata=None):
+                     catalogue=None, metadata=None, exterior="zeros"):
     """Write a locally validated single-band GeoTIFF and one-TIFF ZIP.
 
     ``name`` and ``note`` are limited to 140 characters.  The prediction must
@@ -46,7 +46,13 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
         raise ValueError('prediction and footprint must be matching 2-D arrays')
     if not np.issubdtype(p.dtype, np.number):
         raise ValueError('prediction must be numeric')
-    if not np.isfinite(p).all() or (p < 0).any() or (p > 1).any():
+    if exterior not in {"zeros", "nan"}:
+        raise ValueError("exterior must be 'zeros' or 'nan'")
+    if exterior == "nan":
+        inside = p[fp]
+        if not np.isfinite(inside).all() or (inside < 0).any() or (inside > 1).any():
+            raise ValueError('in-footprint prediction must be finite and in [0,1]; no silent repair')
+    elif not np.isfinite(p).all() or (p < 0).any() or (p > 1).any():
         raise ValueError('prediction must already be normalized, finite and in [0,1]; no silent repair')
     if np.any((p > 0) & ~fp):
         raise ValueError('positive prediction mass outside the valid footprint')
@@ -78,11 +84,12 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
         tmp_zip = _temp_path(path.parent, path.stem, '.zip')
         tmp_receipt = _temp_path(path.parent, path.stem, '.json')
         # grid.write_geotiff itself rejects shape, dtype, NaN/inf, and range drift.
-        grid.write_geotiff(tmp_tif, p.astype(np.float32, copy=False), nodata=None)
-        report = gates.format_report(tmp_tif, sample, footprint=fp)
+        grid.write_geotiff(tmp_tif, p.astype(np.float32, copy=False), nodata=None,
+                           footprint=fp, exterior=exterior)
+        report = gates.format_report(tmp_tif, sample, footprint=fp, exterior=exterior)
         if not report['ok']:
             raise ValueError(f'on-disk template validator rejected output: {report["problems"]}')
-        local_validation = validate(tmp_tif, fp, cat)
+        local_validation = validate(tmp_tif, fp, cat, exterior=exterior)
         try:
             assert_submittable(local_validation)
         except AssertionError as exc:
@@ -109,6 +116,7 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
             note=note,
             note_chars=len(note),
             validator=local_validation,
+            exterior=exterior,
             template_report=report,
             zip_file=zip_path.name,
             zip_sha256=hashlib.sha256(tmp_zip.read_bytes()).hexdigest(),

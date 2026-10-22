@@ -1,0 +1,27 @@
+{
+  "file": "data/reference/sample_submission.tif",
+  "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+  "crs": "EPSG:32611",
+  "shape": [
+    3730,
+    3292
+  ],
+  "dtype": "float32",
+  "count": 1,
+  "nodata": "nan",
+  "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+  ],
+  "nan_cells": 7111787,
+  "finite_cells": 5167373,
+  "zeros_in_footprint": 5106385,
+  "ones_in_footprint": 60988,
+  "ones_equal_catalogue": true,
+  "reading": "The official template carries NaN outside the footprint with nodata=NaN and values 0/1 inside. This is the byte-level basis for rule R6 and for the shared exterior=\"nan\" writer mode (IR-79-224).",
+  "official_text": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/ (Submission format)"
+}

@@ -1,0 +1,131 @@
+{
+  "schema_version": 2,
+  "lane": "G79-XCR",
+  "generated_utc": "2026-10-22T22:05:00Z",
+  "preregistration_path": "registry/preregistration_g79_xcr.json",
+  "preregistration_sha256": "see evidence/xcr/preregistration_sha256.txt",
+  "hypothesis": "H79-XCR: expert faults missing from the QFDB/INGENIOUS catalogue concentrate where amplitude-balanced potential-field edges and catalogue-tip geometry indicate structure with weak surface expression; a label-blind surface fitted to those channels should transfer to a fault population compiled by a different campaign (SGMC), and the competition metric should be exploited by exact marginal-DTI emission rather than a hand-set dot budget.",
+  "mechanism": "14 label-blind channels from training_features.tif (tilt derivative, multi-scale horizontal gradients of RTP and isostatic gravity, depth-to-basement gradient, conductivity edge, detrended-elevation step/relief, seismicity, strain invariant, TMI vertical gradient, gravity slope) plus 4 channels derived only from the visible catalogue mask; out-of-fold component-masked HistGradientBoosting regression of the 300 m kernel-credit target; emission by gems57.emit.greedy_allocate (exact two-sided marginal test) and by fixed-budget 3 px NMS placement.",
+  "named_non_fault_mimic": "Playa and lake-margin shorelines (Lahontan/Bonneville) and fluvial terrace risers give the same amplitude-balanced gravity/magnetic edges and the same detrended-elevation steps; Quaternary basalt flows give magnetic edges with no fault; linear cultural features (TIGER roads) also register in the elevation-step channel.",
+  "instruments": {
+    "I1": {
+      "name": "QFDB/INGENIOUS catalogue hide-and-recover",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "split": "buffered-whole-components-loqo-v2, 4 folds, 3 px feature collar, 12 px boundary erosion",
+      "alpha": 0.2,
+      "beta": 0.8,
+      "kernel": "300 m triangular (3 px)"
+    },
+    "I2": {
+      "name": "SGMC off-catalogue recovery (external proxy)",
+      "evaluator_version": "gems57-pooled-hide-v2 (same arithmetic)",
+      "truth_definition": "SGMC fault pixels more than 3 px from the competition catalogue",
+      "truth_pixels_total": 62122,
+      "measurement": "evidence/xcr/sgmc_overlap.json",
+      "note": "SGMC is never a model feature. It is a second mapping campaign, so recovering its off-catalogue pixels is a domain-matched proxy for the competition's new-fault population. It is not an organizer score."
+    }
+  },
+  "shipped_artifact": {
+    "file": "docs/downloads/research/gems79-xcr-corridor-rugged-20261022-DO-NOT-SUBMIT.tif",
+    "submission_name": "gems79-xcr-corridor-rugged-20261022",
+    "note": "G79-XCR corridor+ruggedness dots; holdout below incumbent",
+    "note_chars": 54,
+    "sha256": "74ec512bc9b0c7c7a1e34b91156205fbaca1e0ac963f78adba76ce18be7cfb0b",
+    "bytes": 185736,
+    "surface": "0.5*rank(dens_visible_40) + 0.5*rank(det_elev_relief_s5 * elev_step_s2)",
+    "budget_dots": 37654,
+    "placement": "gems79.placement.place, spacing 3 px, deterministic row-major tie-break",
+    "positive_on_catalogue": 0,
+    "exterior": "NaN outside footprint, nodata=NaN (official R6 convention)",
+    "nan_outside_footprint": 7111787
+  },
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "arm": "shipped surface, 37,654 dots, pooled TP/FP/FN over 4 folds",
+    "seed_20": {
+      "dti": 0.1234,
+      "withheld_positive_pixels": 11321,
+      "ci95": null,
+      "ci_note": "point estimate only; a paired spatial-block bootstrap was not run for this arm"
+    },
+    "seed_30": {
+      "dti": 0.1211,
+      "withheld_positive_pixels": 11342,
+      "ci95": null,
+      "ci_note": "point estimate only; a paired spatial-block bootstrap was not run for this arm"
+    },
+    "incumbent_g79_thvc": {
+      "seed_20": 0.1905,
+      "seed_30": 0.1944,
+      "source": "run_card.json",
+      "delta_vs_candidate": {
+        "seed_20": 0.0671,
+        "seed_30": 0.0733
+      }
+    },
+    "verdict": "below the canonical incumbent on both seeds; promotion gate FAILED"
+  },
+  "sgmc_proxy_dti": {
+    "evidence_class": "EXTERNAL-PROXY (not an organizer score, not a DTI on organizer truth)",
+    "seed_20_per_fold": {
+      "NW": 0.2307,
+      "NE": 0.2356,
+      "SW": 0.1878,
+      "SE": 0.2835
+    },
+    "uniform_control_seed_20": {
+      "NW": 0.1520,
+      "NE": 0.1897,
+      "SW": 0.1335,
+      "SE": 0.1988
+    },
+    "reading": "the shipped surface beats its uniform control in 4/4 folds on I2; seed 30 uniform control was not measured and is not claimed"
+  },
+  "leakage_canary": {
+    "result": "PASS (maximum symmetric AUC < 0.90 on both instruments; largest single-feature values were dens_visible_40 0.791 on I1 and det_elev_relief_s5 0.793 on I2)",
+    "evidence": "evidence/xcr/canaries_seed20.json",
+    "key_measurement": "on I2 the catalogue-proximity channels are uninformative (dens_visible_40 AUC 0.47-0.55, log1p_d_visible 0.43-0.53) while terrain channels reach 0.75-0.79; on I1 the ordering reverses (dens_visible_40 0.72-0.79). The two instruments rank the feature families oppositely."
+  },
+  "registry_novelty": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "evidence": "evidence/xcr/uniqueness_final.json",
+    "rasters_expected": 1199,
+    "rasters_checked": 986,
+    "non_comparable": 213,
+    "complete_accessible_scan": true,
+    "max_abs_spearman_full_footprint": 0.1097,
+    "worst_spearman_source": "7GEMSDOE:downloads/gems7-halo15-gbt-v1-90fb7dc0fc1f.tif",
+    "max_forward_overlap_dot_fields": 1.0,
+    "literal_positive_support_firings": 48,
+    "like_for_like_firings": 18,
+    "example_firings": [
+      "12GEMSDOE r7-nms3-dem10-scarp 0.7085",
+      "GEMSDOE3 coverage-v3-wide 0.9427",
+      "GEMSDOE22 h23-a-dti-optimal-emission-6pct 0.7401",
+      "GEMSDOE67 ovtr-ml-cover-tau3p0 0.7505"
+    ],
+    "reading": "DUPLICATE. 18 sparse registry dot fields already contain more than 70% of this candidate's dots within 3 px. Any surface dominated by catalogue corridor density reproduces the family's emission shape, because every archived lane is built on the same distance-to-catalogue signal.",
+    "novelty_verdict": "FAIL"
+  },
+  "validator_output": {
+    "official_rules": "R1 PASS, R2 PASS, R3 PASS, R4 PASS, R5 PASS, R6 PASS (7,111,787 NaN cells outside the footprint, 0 non-NaN), R7 PASS (0 NaN/inf inside), R8 PASS (min 0.0, max 1.0 inside)",
+    "validator": "src/gems79/portal_spec.py gems79-portal-format-v2",
+    "local_range_check": "PASS under vendor/gems57/validate.py exterior='nan'",
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match_sample": true,
+    "note": "This is the first artifact in this repository that satisfies R1-R8 including the official NaN-exterior rule, because the shared writer was corrected (IR-79-232). A format PASS is not organizer acceptance."
+  },
+  "verdict": "negative",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "reason_not_submittable": "Three independent automated gates fail: (1) the candidate is a registry duplicate under the like-for-like reading (18 firings; max dot-field overlap 1.0); (2) its HOLDOUT-DTI is below the canonical incumbent on both seeds; (3) it therefore could not honestly be promoted. Format compliance is real but is not scientific validity.",
+  "deliverables": [
+    "A format-compliant, byte-unique GeoTIFF with an unambiguous DO NOT SUBMIT filename",
+    "A shared-code fix that removes the format dead end for every future lane (IR-79-232)",
+    "A second validation instrument (SGMC off-catalogue) that localizes why the whole family is stuck: catalogue-proximity features do not transfer to the competition's target population and are the direct cause of the duplication",
+    "A preregistered, fully automated decision with no human inspector in the loop"
+  ],
+  "next_research_priority": "A lane whose surface contains no distance-to-catalogue term at all, validated primarily on I2 (SGMC off-catalogue) rather than I1, and whose emission budget is set by the calibrated marginal-DTI rule. The two-instrument split measured here is the evidence base for that decision."
+}

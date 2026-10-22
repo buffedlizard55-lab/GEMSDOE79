@@ -1,5 +1,55 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Current session — G79-XCR (2026-10-22): a format-compliant TIF, and a measured duplicate
+
+**Download:** [`gems79-xcr-corridor-rugged-20261022-DO-NOT-SUBMIT.tif`](docs/downloads/research/gems79-xcr-corridor-rugged-20261022-DO-NOT-SUBMIT.tif)
+· SHA-256 `74ec512bc9b0c7c7a1e34b91156205fbaca1e0ac963f78adba76ce18be7cfb0b` · 181 KiB
+· **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** The filename, the receipt and this
+line carry the same verdict, and the automated selector re-derives it from the
+bytes; no inspector is required and a manual upload cannot change it.
+
+What changed, in order of importance:
+
+1. **The format dead end is fixed.** The shared writer could only emit zeros
+   outside the footprint, which contradicts the official text ("data outside the
+   bounds is null or nan") and could never pass rule R6. The official
+   `sample_submission.tif` measures **7,111,787 NaN cells** outside the footprint
+   (`evidence/xcr/official_sample_bytes.json`). `vendor/gems57` now supports an
+   opt-in `exterior="nan"` mode (`IR-79-232`); all old callers keep their old
+   behaviour. This artifact passes **R1–R8**, including R6 and nodata = NaN.
+2. **A second validation instrument exists now.** Hide-and-recover on the QFDB
+   catalogue cannot test the competition's target population, which is faults
+   *missing* from that catalogue. I2 scores the same DTI arithmetic against SGMC
+   fault pixels more than 3 px from the catalogue (62,122 px, `evidence/xcr/sgmc_overlap.json`);
+   SGMC is never a feature.
+3. **The two instruments rank the feature families in opposite order** — the
+   measurement that explains the family's plateau. Catalogue-proximity channels
+   score AUC 0.72–0.84 on I1 and **0.43–0.55 on I2**; terrain channels score
+   0.53–0.68 on I1 and **0.75–0.79 on I2**.
+4. **The candidate is a duplicate, and the reason is structural.** 18 sparse
+   registry dot fields already contain more than 70 % of its dots within 3 px
+   (worst dot-field overlap 1.0); max |Spearman| is 0.1097. Any surface built on
+   distance-to-catalogue reproduces the family's emission shape. The fix is a
+   lane with no catalogue-distance term at all (research/hypotheses_xcr.md, H2).
+
+Numbers, each with its evidence class:
+
+| Quantity | Value | Class |
+|---|---|---|
+| HOLDOUT-DTI, seed 20 (n = 11,321 withheld positives) | 0.1234 (point estimate; no CI computed for this arm) | HOLDOUT-DTI |
+| HOLDOUT-DTI, seed 30 (n = 11,342) | 0.1211 (point estimate; no CI computed) | HOLDOUT-DTI |
+| Incumbent G79-THVC | 0.1905 / 0.1944 | HOLDOUT-DTI |
+| SGMC-proxy DTI, 4 folds, seed 20 | 0.231 / 0.236 / 0.188 / 0.284 vs uniform 0.152 / 0.190 / 0.134 / 0.199 | EXTERNAL-PROXY, not an organizer score |
+| Registry overlap | 18 like-for-like firings of 986 comparable rasters | REGISTRY-MEASUREMENT |
+| Official format | R1–R8 PASS | LOCAL FORMAT |
+
+**Verdict: negative.** Format compliance is real; scientific promotion is not.
+0 slots used. Cards: `evidence/run_card_xcr.json`, three-pass review
+`reports/session_review_3c1d7649.md`, ranked hypotheses `research/hypotheses_xcr.md`,
+decision page `docs/g79-xcr.html`.
+
+---
+
 ## Latest session — G79-TIPSTEP (2026-10-22, this branch)
 
 **A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
@@ -10,7 +60,7 @@ in [0,1], EPSG:32611 3730×3292 matching sample), locally novel vs 40 sparse arc
 0.0927 [0.0795,0.1049] (seed 20, n=11,321) / 0.0928 [0.0777,0.1079] (seed 30, n=11,342), +0.091 vs
 uniform — but **below the THVC/CSKD holdout incumbents**, so no slot is spent. Full registry
 (1,108-row) scan not completed offline; flagged, not hidden. See
-[`docs/tipstep-submission.html`](docs/tipstep-submission.html), `run_card_tipstep.json`,
+`run_card_tipstep.json`,
 `research/hypotheses_tipstep.md`. The canonical THVC decision below is unchanged.
 
 ## Latest review — 2026-10-22, session `1f9d2dc9`
@@ -218,7 +268,7 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 | Gate | Result |
 |---|---|
 | G1 local shared validator (single band, EPSG:32611, 3730 × 3292, sample transform, finite, values in [0, 1], ZIP identical) | **PASS** |
-| G1b official R1–R8 portal rules (`scripts/validate_portal_spec.py`, merged from main afterwards) | **FAIL R6:** zeros outside the footprint, where the official rule requires null/NaN (IR-79-212, IR-79-224). The file was not repackaged because the lane is closed. |
+| G1b official R1–R8 portal rules (`scripts/validate_portal_spec.py`, merged from main afterwards) | **FAIL R6:** zeros outside the footprint, where the official rule requires null/NaN (IR-79-212, IR-79-232). The file was not repackaged because the lane is closed. |
 | G2 leakage canary (max single-feature symmetric AUC ≤ 0.90) | **PASS:** 0.8036 / 0.7998 |
 | G3 beats current holdout best on both seeds and the best 2-seed mean (0.1963) | **FAIL:** 2-seed mean 0.1357 |
 | G4 novelty, D-3, surface and final dots, 1,222/1,232 comparable rasters | **FAIL:** 14 chance-corrected halo firings (worst 0.8264); worst rank correlation 0.6932 (surface) / 0.1348 (dots); literal one-sided 3-px rule fires on 119 rasters |

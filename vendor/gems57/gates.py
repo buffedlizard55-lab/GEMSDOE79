@@ -34,7 +34,7 @@ def read_raster(path):
         return src.read(1)
 
 
-def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
+def format_report(path, sample, epsg=32611, cell=100.0, footprint=None, exterior="zeros"):
     path, sample = Path(path), Path(sample)
     out = dict(path=str(path), bytes=path.stat().st_size, sha256=sha256(path))
     problems = []
@@ -68,7 +68,21 @@ def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
                 problems.append(f"resolution {src.res} != {(cell, cell)}")
         finite = np.isfinite(a)
         out.update(nan_pixels=int(np.isnan(a).sum()), infinity_pixels=int(np.isinf(a).sum()), n_nan=int((~finite).sum()))
-        if not finite.all():
+        if exterior == "nan":
+            # Official convention (problem page: "data outside the bounds is null
+            # or nan"; sample_submission.tif: 7,111,787 NaN cells).  In-footprint
+            # values must still be finite and in [0,1]; outside must be all NaN.
+            if footprint is None:
+                problems.append("exterior='nan' needs the footprint to verify rule R6")
+            else:
+                fpm = np.asarray(footprint, bool)
+                if np.isfinite(a[fpm]).all() and np.isnan(a[~fpm]).all():
+                    pass
+                else:
+                    problems.append("exterior='nan' violated: in-footprint must be finite, outside must be NaN")
+            if src.nodata is None or not np.isnan(src.nodata):
+                problems.append("exterior='nan' requires nodata=NaN")
+        elif not finite.all():
             problems.append(f"{out['n_nan']} NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)")
         if finite.any():
             lo, hi = float(a[finite].min()), float(a[finite].max())
@@ -77,7 +91,7 @@ def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
                 problems.append(f"values outside [0,1]: min {lo}, max {hi}")
         else:
             problems.append("every pixel is NaN/infinite")
-        if src.nodata is not None and (not np.isfinite(src.nodata) or not 0 <= src.nodata <= 1):
+        if exterior == "zeros" and src.nodata is not None and (not np.isfinite(src.nodata) or not 0 <= src.nodata <= 1):
             problems.append("nodata tag outside all-finite [0,1] export policy")
         if footprint is not None:
             fp = np.asarray(footprint, bool)
