@@ -569,7 +569,12 @@
   "no_nan_inside_footprint": true,
   "values_in_0_1": true,
   "crs_shape_transform_match": true,
-  "zip_contains_identical_tiff": true
+  "zip_contains_identical_tiff": true,
+  "min": 0.0,
+  "max": 1.0,
+  "n_nan": 0,
+  "n_infinite": 0,
+  "on_catalogue_positive_pixels": 0
  },
  "submission_name": "g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT",
  "note": "RESEARCH ONLY: G79-OPC aniso pair-corr prior, 45204 dots; holdout below THVC",
@@ -1067,5 +1072,24 @@
    "colsample_bytree": 0.8,
    "reg_lambda": 1.0
   }
+ },
+ "protocol_literal_drift_check": {
+  "rule": "rank corr > 0.90 OR > 70% of dots within 3 px of a registry raster = duplicate",
+  "worst_abs_rank_corr_surface": 0.6931742254169692,
+  "worst_abs_rank_corr_final": 0.13482018431804618,
+  "rasters_over_70pct_within_3px": 119,
+  "worst_literal": 1.0,
+  "worst_literal_submission": "GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H53-DS-RadEdge-B2xH33D-20261007-4c01fcf2ad8c-radiometric-edge-coherence.tif",
+  "reading": "DUPLICATE under the literal reading (as for every nonempty candidate since the preflight witness, IR-79-128); also non-unique under D-3"
+ },
+ "card_postprocessing_note": "After opc_finalize.py: mechanism prose added (spec kept as mechanism_spec), validator summary derived from the validator report, literal drift-check summary and live_fit placement receipt added. No measured value changed.",
+ "live_fit": {
+  "placement": {
+   "n_dots": 45204,
+   "k_truth_expected": 5112.15283203125,
+   "surrogate_dti": 0.1551085073705581,
+   "rounds": 26
+  },
+  "evidence": "evidence/opc/live_fit.json"
  }
 }

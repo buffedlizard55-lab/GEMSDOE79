@@ -428,7 +428,7 @@ def opc_page():
     raw_zip = f"{REPO}/raw/main/{r['zip']}"
     decision = 'OK TO DOWNLOAD (research): YES · OK TO SUBMIT: ' + ('YES' if c['ok_to_submit'] else 'NO')
     return f'''{page_head('G79-OPC / NEW TIFF / NEGATIVE', 'Fault populations have shape. Not enough to win.',
-                           'A preregistered lane learned where unmapped faults sit relative to mapped ones (strike-rotated pair correlation). It generated a new GeoTIFF, which was machine-validated and then rejected on the holdout bar.')}
+                           'A preregistered lane learned where unmapped faults sit relative to mapped ones (strike-rotated pair correlation). It generated a new GeoTIFF, which was machine-validated and then rejected by the holdout and novelty gates.')}
 <section class="section"><div class="download-warning"><strong>{E(decision)}</strong><br>
 Computed by <code>scripts/opc_finalize.py</code> and re-checked independently by <code>scripts/opc_gate.py</code>, with no human inspector.
 A format PASS is not submission approval.</div>
