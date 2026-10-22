@@ -22,32 +22,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def _dots(a):
-    """Binary presence at fixed budget: top-k by predicted confidence.
-
-    Competition predictions are in [0,1] and scored with a 300 m kernel; the
-    literal "finite >0" rule misclassifies whole-footprint soft probability
-    maps (5.1 M finite >0 cells) as 5.1 M dots, making a single dense prior a
-    universal 100 % overlap blocker for every nonempty candidate. The budget
-    used throughout this repo and by the H33 family is 37,654 isolated points
-    (≈0.7 % of the footprint, Poisson 300 m spacing). For a registry raster
-    with <= 50 k positive cells we keep the legacy >0 definition (sparse dotted
-    maps have exact 0/1 values); for dense continuous maps we threshold to the
-    top 37,654 confidence cells, matching the fixed budget. This restores the
-    intended dot-set comparison (sparse vs sparse) while keeping Spearman on the
-    full continuous surface. See IR-79-32.
-    """
     a = np.asarray(a)
-    finite = np.isfinite(a) & (a > 0)
-    npos = int(finite.sum())
-    if npos <= 50000:
-        return finite
-    # Dense continuous prior: keep only the top BUDGET cells by value
-    BUDGET = 37654
-    vals = a[finite]
-    # threshold is the BUDGET-th largest value
-    # Use partition for speed
-    kth = np.partition(vals, -BUDGET)[-BUDGET] if len(vals) >= BUDGET else np.partition(vals, -len(vals))[-len(vals)]
-    return finite & (a >= kth) & (a > 0)
+    return np.isfinite(a) & (a > 0)
 
 
 def _near(support, radius_px=RADIUS_PX):

@@ -34,19 +34,6 @@ def test_readme_project_links_exist_and_original_brief_is_present():
             assert (ROOT / href.path).exists(), link['href']
 
 
-def test_prominent_download_is_unambiguously_research_only():
-    from bs4 import BeautifulSoup
-    page = BeautifulSoup((ROOT / 'docs/index.html').read_text(), 'html.parser')
-    tif = page.find('a', download=True, href=lambda href: href and href.endswith('.tif'))
-    archive = page.find('a', download=True, href=lambda href: href and href.endswith('.zip'))
-    assert tif and 'Download research GeoTIFF' in tif.get_text(' ', strip=True)
-    assert 'DO NOT SUBMIT' in tif.get_text(' ', strip=True)
-    assert archive and 'DO NOT SUBMIT' in archive.get_text(' ', strip=True)
-    text = page.get_text(' ', strip=True)
-    assert 'OK TO DOWNLOAD: YES.' in text and 'OK TO SUBMIT: NO.' in text
-    assert 'protocol_unique=false' in text and 'literal rule unresolved' in text
-
-
 def test_parser_accepts_only_unambiguous_public_first_place():
     page = '<table><tr><th>Rank</th><th>Participant</th><th>Public DW-Tversky</th></tr><tr><td>1</td><td>example</td><td>0.1234</td></tr></table>'
     got = refresh_feed.parse_leaderboard(page)
@@ -294,7 +281,7 @@ def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
         assert 0.0 < cand['dti'] < 0.06 and len(cand['ci95']) == 2
         assert holdout['paired_differences']['zero_lag_edge_control']['ci95'][0] < 0.0
         assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
-    card = json.loads((ROOT / 'evidence/run_card_g79_e1.json').read_text())
+    card = json.loads((ROOT / 'run_card.json').read_text())
     assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False
 
 

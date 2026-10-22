@@ -2,7 +2,7 @@
 
 # GEMSDOE79
 
-> **Read first on every project session:** [`docs/PROJECT_BRIEF.md`](docs/PROJECT_BRIEF.md). It records the research question, hard validation gates, current evidence, and the no-slot-without-holdout rule. Do not treat old scores or predictions as verified facts.
+> **Read first on every project session:** [`docs/PROJECT_BRIEF.md`](../../docs/PROJECT_BRIEF.md). It records the research question, hard validation gates, current evidence, and the no-slot-without-holdout rule. Do not treat old scores or predictions as verified facts.
 
 ## Current state — no submission is ready
 
@@ -12,9 +12,9 @@
 
 ### Start here
 
-- [Executive summary and submission guide](docs/EXECUTIVE_SUMMARY.md)
-- [Project brief, evidence, candidate hypotheses, and stop rules](docs/PROJECT_BRIEF.md)
-- [Current blocked run card (JSON)](docs/run-card.json)
+- [Executive summary and submission guide](../../docs/EXECUTIVE_SUMMARY.md)
+- [Project brief, evidence, candidate hypotheses, and stop rules](../../docs/PROJECT_BRIEF.md)
+- [Current blocked run card (JSON)](../../docs/run-card.json)
 - [Official competition problem and submission specification](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
 - [Official live leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)
 - [Official reference solution](https://github.com/drivendataorg/gems-prize-reference-solution)

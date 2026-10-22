@@ -1,141 +1,12 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a new, format-validated research GeoTIFF that failed its preregistered holdout gate and remains uncleared by the novelty protocol — automated DO NOT SUBMIT verdict with auditable evidence.">
-<title>Ranked geological hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<meta name="description" content="GEMSDOE79: a newly generated, validated research GeoTIFF with an explicit automated DO NOT SUBMIT verdict and auditable evidence.">
+<title>Four preregistered hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="research.html">Research</a><a href="sources.html">Sources &amp; feed</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">PREREGISTERED HYPOTHESES / NAMED MIMICS / MEASURED OUTCOMES</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative scientific ranking, not projected DTI. Current lane G79B was preregistered, computed once, and rejected by its own holdout gate; prior-lane hypotheses are preserved below.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 2026-10-22 (lane G79B)</h2>
-<p>Written BEFORE computing any new surface. Evidence base: this repo's score
-ledger (110 family submissions, all <code>UNVERIFIED HISTORICAL REPORT</code> — no
-organizer receipts), <code>knowledge/why_h33.md</code> raster forensics, the post-stop
-holdout diagnostic (<code>evidence/post_stop_diagnostic.json</code>), and the live public
-leaderboard read 2026-10-22 (#1 = 0.4413 PUBLIC-OBSERVATION; the prompt's
-"0.3195 highest" is stale — it would rank ≈22nd today).</p>
-<h3>What the family result pattern actually suggests</h3>
-<p>Every numerical family submission score in this section is an <strong>UNVERIFIED
-HISTORICAL REPORT</strong> from the repository ledger; none has an artifact-linked
-submission receipt, none is ORGANIZER-CONFIRMED, and none is HOLDOUT-DTI. The
-values motivate mechanistic questions only. Current holdout measurements are
-reported separately with evaluator, withheld-positive count, and 95% CI.</p>
-<ol>
-<li><strong>Emission geometry appears to matter.</strong> The reported family values ≥ 0.23 are a sparse,
-   isolated, binary dot field (≈37–44k dots, no 8-neighbour duplicates,
-   pruned away from the catalogue). Continuous probability fields of the
-   SAME parent surfaces score far lower (h19-5 continuous 0.1922 → dotted
-   D2.8 0.2600). Reason: the official metric takes a <strong>max</strong> over the 300 m
-   triangular kernel for TP but <strong>sums</strong> p(x)·(1−k) for FP — redundant
-   nearby mass is pure FP cost. Isolated 1.0 dots at ≥300 m spacing are the
-   near-optimal emission for a given ranking surface.</li>
-<li><strong>H33 (0.2778, user-reported, unverified) is not a new model.</strong> Byte
-   forensics in this repo show H33 ≡ D2.8 with the 6,436 dots within 200 m
-   of the known catalogue deleted (44,090 → 37,654; 0 disagreements).
-   Its gain is consistent with removing catalogue-echo dots whose marginal
-   TP credit is low: hidden test faults are NEWLY mapped faults, so dots
-   hugging known traces mostly re-find what is already mapped (scoring
-   masks exact known pixels) while paying FP on the 1–2 px halo.</li>
-<li>The score ledger's <strong>UNVERIFIED HISTORICAL REPORTS</strong> for single-physics
-   novel lanes (Euler depth, worm persistence, SGMC off-catalogue, basement
-   step, supervised HGB, and lidar-scarp-only) are generally low relative to
-   the highest reported family values. The apparent survivors are
-   <strong>multi-evidence corroboration</strong> surfaces (h19-4/h19-5
-   "multiline-corroborated" lineage) — agreement of independent evidence
-   may suppress each sensor's characteristic false positives. Because the
-   file/score pairings are not receipt-authenticated, this is a research
-   pattern, not a verified leaderboard result.</li>
-<li><strong>This repo's own holdout instrument</strong> is <code>gems57-pooled-hide-v2</code>, with
-   whole-component spatial holdouts and a 3-px emission design. The E1
-   post-stop diagnostic and current G79B candidate/control measurements are
-   negative; their seed-specific HOLDOUT-DTI, withheld-positive counts and
-   95% CIs are recorded in <code>evidence/post_stop_diagnostic.json</code>,
-   <code>evidence/run_card.json</code>, and <code>evidence/holdout_g79b_seed20.json</code> /
-   <code>evidence/holdout_g79b_seed30.json</code>. Do not substitute the family
-   leaderboard ledger for holdout evidence. The bar for a future lane is
-   beating the fold-fair H33 control on the same instrument — not a leaderboard
-   projection.</li>
-</ol>
-<h3>Candidates (ranked by expected DTI gain ÷ implementation cost)</h3>
-<table>
-<thead>
-<tr>
-<th>Rank</th>
-<th>Hypothesis (layers)</th>
-<th>Physical signature</th>
-<th>Why it can catch an UNCATALOGUED fault</th>
-<th>Difference from prior art</th>
-<th>Cost</th>
-<th>Named non-fault mimic</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>1 — selected</strong></td>
-<td><strong>Scarp-dipole × potential-field edge AND-consensus.</strong> Lidar 1 m-DEM derivatives <code>lapneg_max</code>+<code>lappos_max</code>+<code>step_max</code> (100 m aggregates) AND max(isostatic-gravity horizontal gradient band 18, TMI horizontal gradient band 3); TIGER road-distance suppression</td>
-<td>A degraded normal-fault scarp has a paired crest-convexity / base-concavity Laplacian dipole plus a short-wavelength step; the same fault at depth juxtaposes density/susceptibility contrasts → gravity OR magnetic edge. Surface = sqrt(lidar-dipole geomean × edge-rank max) × road factor, rank-based, no fitted parameters</td>
-<td>The public catalogue predates systematic 1 m lidar mapping; sub-2 m basin scarps are invisible on 10 m DEMs but produce a LoG dipole at 1–2 m. New expert test labels were mapped with modern data, so they should be enriched exactly in such scarps. The AND with a subsurface edge rejects purely surficial lineaments</td>
-<td>Prior lidar lanes used scarp strength/top-% ridges ALONE; prior geophysics lanes used edges ALONE; r11f fused scarp+radiometrics (not dipole pairing, not potential-field AND, no road suppression). The lapneg×lappos×step triple geomean gated by an independent-physics edge is not in this repo or the inspected sibling records</td>
-<td>Low: rank transforms of hash-pinned cached bands, CPU minutes, no new external data</td>
-<td><strong>Lake Lahontan paleo-shoreline benches</strong> (wave-cut crest/base dipoles along contour-parallel terraces), canal/levee embankments, mine benches</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Strike-continuation + relay-stepover geometry from the visible catalogue only (fault-tip extrapolation along local strike, stepover bridges between en-échelon tips)</td>
-<td>Geometric: dots along strike-projected rays beyond mapped tips, weighted by tip density</td>
-<td>Catalogue traces end where mapping stopped (cover, access), not where faults end</td>
-<td>UNVERIFIED HISTORICAL REPORTS for continuation/tiprelay are low; the reported analog-tip-stepover high value sat on the D28 base surface, so its independent value is unproven. Catalogue-derived → must be recomputed per fold from visible faults only</td>
-<td>Medium-high</td>
-<td>Projected rays crossing unfaulted ground; curved range fronts violate straight-strike assumption</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Geodetic strain localization (bands 4/7/8: 2nd invariant, shear, dilatation) × seismicity intensity (band 16), dotted</td>
-<td>Interseismic strain-rate maxima localized on active structures</td>
-<td>An actively straining blind fault can lack both scarp and catalogue entry</td>
-<td>Not tried as a primary surface in the ledger; but strain grids are smoothed over km–10s km, so 100 m dot precision is mostly illusory — expected precision too low for the 300 m kernel</td>
-<td>Low</td>
-<td><strong>Groundwater-extraction subsidence</strong> in agricultural basins; volcanic inflation (Long Valley fringe)</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Depth-to-basement step (band 15 gradient) AND gravity edge</td>
-<td>Fault offsets basement → step in sediment thickness</td>
-<td>Buried basin-bounding faults with no surface expression</td>
-<td>The h61a basement-step ledger entry is an UNVERIFIED HISTORICAL REPORT, not a receipt-confirmed live score. Also depth-to-basement is itself inverted from gravity → the "AND" is partially circular, not independent evidence</td>
-<td>Low</td>
-<td>Depositional pinch-outs, buried paleochannels, gravity-inversion non-uniqueness</td>
-</tr>
-<tr>
-<td>5</td>
-<td>PU-learned ranker (gradient boosting, catalogue positives vs unlabeled, spatial CV, catalogue-distance features excluded) on all 19+12+8 bands</td>
-<td>Learned multivariate ranking</td>
-<td>Could combine weak evidence nonlinearly</td>
-<td>Family HGB/supervised lanes have low UNVERIFIED HISTORICAL REPORT values despite dotted emission — supervised-on-catalogue learns mapper bias ("looks like a mapped fault's neighbourhood"), which anti-correlates with unmapped-fault discovery. Rejected as primary on that evidence</td>
-<td>Medium</td>
-<td>Mapper-bias leakage; flight-line and DEM-tile artifacts learned as signal</td>
-</tr>
-</tbody>
-</table>
-<h3>Decision</h3>
-<p>Implement <strong>Rank 1 (G79B-SCARP-DIPOLE-GEOAND)</strong> exactly as preregistered in
-<code>registry/preregistration_g79b.json</code>. No fitted model, no catalogue-based
-features (catalogue is used only as a placement exclusion mask, derived from
-visible faults only inside each holdout fold), no prior prediction raster
-enters the surface. Emission: 37,654 isolated binary dots, min spacing 3 px,
-placement excluded within 2 px of the (visible) catalogue — the H33 emission
-lesson applied fold-fairly to every placed control arm too.</p>
-<p>Promotion gate (fixed in advance): pooled HOLDOUT-DTI must beat the
-fold-fair H33 control and every matched control (lidar-only, geo-only,
-uniform) with paired 95% CI lower bound &gt; 0 on both seeds 20 and 30.
-Anything less = verdict <strong>negative</strong>, TIF still generated and clearly
-labelled DO NOT SUBMIT. No leaderboard score is projected from holdout.</p>
-<p>No new external data is required: all inputs are the SHA-256-pinned cached
-stack restored this session (<code>registry/data_manifest.json</code>, 13/13 verified).
-The free official sources behind them are USGS GeoDAWN
-(https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and),
-USGS 3DEP 1 m DEMs (via the competition's <code>1m_DEM_links.csv</code>), and Census
-TIGER roads — all already mirrored as pinned derivatives; no new download is
-on the critical path.</p></div></section><section class="section"><div class="prose table-scroll"><h2>Preregistered hypotheses — G79-FABRIC-OFFSET</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FOUR HYPOTHESES / ONE FIXED SURFACE</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative scientific ranking, not projected DTI. A literal pre-placement duplicate stop ended E1 before canaries or holdout.</p></section><section class="section"><div class="prose table-scroll"><h2>Preregistered hypotheses — G79-FABRIC-OFFSET</h2>
 <p>Recorded before implementing or scoring the new method. Read alongside
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration.json"><code>registry/preregistration.json</code></a>. No predicted
 leaderboard scores are assigned to these ideas.</p>
@@ -232,4 +103,4 @@ are not justified by those bytes. Original USGS GeoDAWN grids/reports are the
 free official source needed to establish units and processing; the release was
 reviewed, but no new direct binary download was verified in this sandbox. This
 clarification does not change the immutable E1 preregistration or revive E1.</p></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 22 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

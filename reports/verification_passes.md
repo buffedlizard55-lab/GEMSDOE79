@@ -261,45 +261,6 @@ Pages/API verification were not rerun in this checkpoint. Public verification it
      measured post-stop diagnostic results while keeping `run_card.json` untouched in its frozen pre-placement
      negative state (`holdout_dti.dti = null`, `verdict = "negative"`).
 - **Pass 3 (Full verification against the original prompt and automated release gates):**
-  Re-verified every requirement in `reports/requirements_review.md` against the verbatim prompt in `README.md`.
-  Rebuilt `docs/` via `scripts/build_site.py`, verified all unit/integration tests (`pytest -q`),
-  `scripts/verify_project.py`, `scripts/check_site.py`, `scripts/submission_status.py` (exit 2), and headless
-  Chromium QA (`node scripts/browser_review.cjs`) across all pages at 1440, 390, and 320 px viewports.
-
-## Session 2026-10-22 — lane G79B-SCARP-DIPOLE-GEOAND (branch `arena/e2f3892f-gemsdoe79`)
-
-- **Pass 1 (Implement completely and verify):** Restored all 13 SHA-256-pinned inputs
-  (`scripts/restore_data.py --preserve-receipt`); read the official problem page and
-  live leaderboard (leader 0.4413, PUBLIC-OBSERVATION); reproduced H33/D2.8 forensics
-  byte-for-byte; wrote five ranked hypotheses and a hash-pinned preregistration
-  (`registry/preregistration_g79b.json`) before computing anything; implemented the
-  rank-only surface in `src/gems79/features_g79b.py`; ran pre-placement surface
-  uniqueness vs 18 restored top family rasters (max |rho| 0.1093, max equal-budget
-  3 px overlap 0.3580 proxy), 72 leakage canaries (max symmetric AUC 0.6553), and the
-  pooled holdout on seeds 20/30. Candidate HOLDOUT-DTI 0.0530/0.0449 vs uniform
-  0.0538/0.0504 and fold-fair H33 0.0961/0.0989 → preregistered promotion gate failed.
-  Serialized the unique 37,654-dot artifact through the shared fail-closed writer
-  (validator PASS; final-dot max overlap 0.4147, max |rho| 0.0192), issued the run
-  card with verdict `negative`, archived the E1 artifact/card byte-identically, and
-  rebuilt the site around the G79B download + decision.
-- **Pass 2 (Bugs, assumptions, edge cases):** (1) Verified the two restored D2.8
-  copies have identical decoded dot sets (44,090) so the fold-fair control is the
-  genuine artifact; (2) confirmed the holdout instrument reproduces the prior
-  session's H33/uniform numbers exactly, ruling out an instrument change; (3) checked
-  per-band canary AUCs and on-catalogue rank means to exclude a band-index or sign
-  error (lidar AUC ~0.58, gravity HG ~0.49 — weak physics, not a bug); (4) verified
-  final-dot minimum spacing 3.0 px by KD-tree and zero catalogue/out-of-footprint
-  mass by the shared validator; (5) fixed a finalize-script guard so the artifact can
-  be regenerated deterministically (identical SHA-256 across reruns) and added the
-  final-raster Spearman check required by the protocol; (6) fixed two test-only
-  assertion errors in the new G79B tests (geometric-mean invariant, pytest.approx on
-  arrays) without touching science code; (7) confirmed the preregistered
-  Experiment-2 contingency condition is not met, so no second experiment was run.
-- **Pass 3 (Re-check against the original request):** Requirements re-audited in the
-  2026-10-22 addendum to `reports/requirements_review.md`. `pytest -q` = 110 passed;
-  `scripts/verify_project.py` all 24 checks pass; `scripts/check_site.py` passes
-  (109 local links); `scripts/submission_status.py` returns download YES / submit NO
-  (exit 2). No leaderboard score is claimed or projected; zero slots used.
 ### Session 2026-10-22 three-pass concurrent-merge quarantine and canary-gate hardening (`arena/700397d4-gemsdoe79`)
 
 - **Pass 1 (Start-of-session protocol audit, upstream PR #12/#13 inspection, and witness re-verification):**
@@ -312,8 +273,8 @@ Pages/API verification were not rerun in this checkpoint. Public verification it
   (`39702012311`) on GitHub Actions.
 - **Pass 2 (Quarantine concurrent `H79-CSPT`, harden `status.py`, and run independent forensic audit — IR-79-30..IR-79-32):**
   1. Merged `origin/main` (`3d386a3`) into `arena/700397d4-gemsdoe79`, restored `reports/session_review_9e23b44d.md` from PR #13,
-      and quarantined all 29 unique artifacts and non-executable `.txt` sources from `H79-CSPT` (`464d591`) under
-      [`archive/h79_cspt_464d591/`](../archive/h79_cspt_464d591/README.md) with a complete 77-entry SHA-256 `manifest.json`
+      and quarantined all 55 incoming artifacts and non-executable `.txt` sources from `H79-CSPT` (`464d591`) under
+      [`archive/h79_cspt_3d386a3/`](../archive/h79_cspt_3d386a3/README.md) with a complete SHA-256 `manifest.json`
       (`IR-79-31`), keeping canonical `vendor/gems57/uniqueness.py` (`1c5094b8…`) and `registry/template_pin.json` intact.
   2. Implemented [`scripts/audit_archived_concurrent_lanes.py`](../scripts/audit_archived_concurrent_lanes.py) and generated
       [`evidence/concurrent_lanes_audit.json`](../evidence/concurrent_lanes_audit.json), proving with unmodified
@@ -344,3 +305,34 @@ Pages/API verification were not rerun in this checkpoint. Public verification it
   5. Added unit tests for script help exit and syntax validity in `tests/test_site_feed_and_recovery.py`.
 - **Pass 3 (End-to-end verification against prompt requirements, live preview, and headless browser QA):**
   Re-checked all requirements against the verbatim prompt in `README.md`. Verified that the static site clearly displays the download links and automated negative verdict (OK TO DOWNLOAD: YES, OK TO SUBMIT: NO) at the top of `index.html` and `executive-summary.html`. Launched live website server on `0.0.0.0:8080`, and executed headless Chromium QA (`node scripts/browser_review.cjs`), verifying all 21 viewport/page combinations pass, downloaded TIFF SHA-256 matches `run_card.json`, clipboard copy functions work, and no HTTP/console errors occur. Ran `scripts/verify_project.py` (all checks passed), `scripts/check_site.py` (all 7 pages and 108 local links passed), and `scripts/submission_status.py` (fail-closed negative verdict with exit code 2).
+
+### Session 2026-10-22 conflict-marker remediation, Smart-HTTP blob recovery, and cross-family lineage audit (`arena/79e8e13e-gemsdoe79`)
+
+- **Pass 1 (Full repository audit, Smart-HTTP cold data/artifact restoration, and cross-family byte forensics):**
+  Read all active files line by line across `AGENTS.md`, `README.md`, `run_card.json`, `reports/`, `knowledge/`,
+  `registry/`, `src/gems79/`, `vendor/gems57/`, `scripts/`, `docs/`, and `tests/`. Audited full Git history and
+  detected four concrete repository defects (`IR-79-36`..`IR-79-39`). Upgraded `scripts/restore_data.py` and
+  `scripts/restore_registry.py` with bare-Git Smart-HTTP object retrieval (`-c gc.auto=0`, zero GitHub REST quota,
+  triple SHA-1/SHA-256/size verification), restored all 13/13 raw/external inputs, reproduced all 10 `.cache/g79/*.npy`
+  feature arrays bit-for-bit (`scripts/prepare_data.py --reproduce`), cold-reproduced the exact GeoTIFF (`8f8c2cd1…`)
+  and single-TIFF ZIP (`51e27e9d…`) (`scripts/reproduce_artifact.py`), re-verified the frozen universal overlap witness
+  (`scripts/verify_overlap_witness.py --restore` → `evidence/session_witness_79e8e13e.json`), re-audited both archived
+  concurrent lanes (`scripts/audit_archived_concurrent_lanes.py` → `evidence/concurrent_lanes_audit.json`), and implemented
+  `scripts/analyze_family_lineage.py` → `evidence/family_lineage_forensics.json` across 16 scored family landmarks
+  (`19GEMSDOE`..`GEMSDOE77`) and 5 post-snapshot siblings (`GEMSDOE78`, `GEMSDOE80`..`GEMSDOE83`).
+- **Pass 2 (Defect remediation, site/verifier hardening, and expanded regression suite — `IR-79-36`..`IR-79-39`):**
+  1. Resolved unresolved Git conflict markers in `AGENTS.md` and `evidence/browser_review.json` (`IR-79-36`).
+  2. Fixed all broken links (`archive/h79_cspt_3d386a3/`, `knowledge/prior_work/README.md`, `docs/*.md`), deduplicated
+     `IR-79-01`..`IR-79-39`, and corrected the `H79-CSPT` GeoTIFF SHA-256 prefix from `d55570bf…` to `388d8678…` (`IR-79-37`).
+  3. Updated `registry/score_ledger.csv` to all 103 data entries (`GEMSDOE73`–`GEMSDOE77` added with `UNVERIFIED HISTORICAL REPORT`),
+     synced the verbatim prompt in `README.md`, and documented the complete cross-family pixel lineage and `0.2778` vs `0.4413`
+     architectural synthesis in `knowledge/why_h33.md` and `reports/session_review_79e8e13e.md` (`IR-79-39`).
+  4. Hardened `scripts/verify_project.py` (`no_git_conflict_markers`, `all_tracked_json_strictly_valid`) and
+     `scripts/build_site.py` (build-time Markdown relative-link existence validation + `docs/evidence/family_lineage_forensics.json`
+     and `docs/evidence/session_witness_79e8e13e.json` publication), and added comprehensive unit tests in `tests/`.
+- **Pass 3 (End-to-end verification, live preview & headless Chromium QA, PR creation, CI verification, and merge):**
+  Re-verified every requirement line by line against `README.md`, rebuilt `docs/` via `scripts/build_site.py`,
+  ran full `pytest` and legacy `unittest` suites, verified `scripts/verify_project.py`, `scripts/check_site.py`,
+  `scripts/submission_status.py` (exit code 2), live preview server + `node scripts/browser_review.cjs` across
+  all 21 responsive cases and downloaded GeoTIFF SHA-256 check, pushed `arena/79e8e13e-gemsdoe79`, verified GitHub Actions
+  checks, merged the PR cleanly onto `main`, and verified public GitHub Pages consistency (`scripts/verify_public_site.py`).

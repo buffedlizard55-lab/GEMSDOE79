@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
-"""Offline end-to-end integrity, format, ZIP and fail-closed status verification.
-
-Current lane: G79B-SCARP-DIPOLE-GEOAND (run_card.json). The prior lane
-G79-FABRIC-OFFSET (E1) is checked only for byte preservation of its archived
-card and artifact; its scientific claims are never recomputed here.
-"""
+"""Offline end-to-end integrity, format, ZIP and fail-closed status verification."""
 from __future__ import annotations
 from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 import sys
 import zipfile
 
@@ -18,32 +14,36 @@ sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
 from validate_submission import validate_path
 
-E1_CARD_SHA256 = '03ad33ff0487081066d9bd332401cf6c1f8d11816a6c4a09ee486a43b54282b9'
+_CONFLICT_MARKER_RE = re.compile(r'^(<{7}(?: .*)?|={7}|\|{7}(?: .*)?|>{7}(?: .*)?)$', re.M)
+_SKIP_PARTS = frozenset({'.git', '.venv', 'node_modules', '.cache', '__pycache__', '.pytest_cache', 'artifacts'})
+
+
+def _reject_dup_keys(pairs):
+    out = {}
+    for k, v in pairs:
+        if k in out:
+            raise ValueError(f'duplicate JSON key: {k!r}')
+        out[k] = v
+    return out
+
+
+def strict_loads_bytes(raw: bytes):
+    return json.loads(
+        raw.decode('utf-8'),
+        parse_constant=lambda c: (_ for _ in ()).throw(ValueError(f'nonfinite constant {c!r}')),
+        object_pairs_hook=_reject_dup_keys,
+    )
 
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def startup_contract_checks(root):
-    """Reject unresolved merge markers and stale branch instructions in AGENTS."""
-    path = Path(root) / 'AGENTS.md'
-    if not path.is_file():
-        return {
-            'startup_contract_exists': False,
-            'startup_contract_conflict_free': False,
-            'startup_contract_branch_neutral': False,
-        }
-    text = path.read_text()
-    normalized = ' '.join(text.split())
-    has_conflict_marker = any(marker in text for marker in ('<<<<<<<', '=======', '>>>>>>>'))
-    has_pinned_arena_branch = 'arena/' in text
-    return {
-        'startup_contract_exists': True,
-        'startup_contract_conflict_free': not has_conflict_marker,
-        'startup_contract_branch_neutral': (
-            'current session metadata' in normalized and not has_pinned_arena_branch),
-    }
+def _iter_repo_files(root: Path):
+    for p in root.rglob('*'):
+        if _SKIP_PARTS.intersection(p.parts) or not p.is_file():
+            continue
+        yield p
 
 
 def publication_contract_checks(root, card):
@@ -64,6 +64,23 @@ def publication_contract_checks(root, card):
     receipt = json.loads((root / 'registry/registry_receipt.json').read_text())
     indexed = [r['blob'] for r in index['rasters']]
     verified = [r['blob'] for r in receipt['files'] if r['status'] == 'verified']
+    conflict_free = True
+    json_strict_ok = True
+    for fpath in _iter_repo_files(root):
+        if fpath.suffix.lower() in ('.tif', '.tiff', '.zip', '.png', '.jpg', '.jpeg', '.npy', '.pdf'):
+            continue
+        raw = fpath.read_bytes()
+        try:
+            txt = raw.decode('utf-8')
+        except UnicodeDecodeError:
+            continue
+        if _CONFLICT_MARKER_RE.search(txt):
+            conflict_free = False
+        if fpath.suffix.lower() == '.json':
+            try:
+                strict_loads_bytes(raw)
+            except Exception:
+                json_strict_ok = False
     return {
         'readme_matches_negative_decision': (
             'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.' in readme and
@@ -72,19 +89,17 @@ def publication_contract_checks(root, card):
         'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
+        'no_git_conflict_markers': conflict_free,
+        'all_repo_json_strictly_valid': json_strict_ok,
     }
 
 
 def verify(refresh_timestamp: bool = False):
     checks = {}
-    checks.update(startup_contract_checks(ROOT))
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
     checks['all_shared_template_bytes_unmodified'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()
     checks['preregistration_preserved'] = sha(ROOT / 'registry/preregistration.json') == expected_prereg
-    checks['preregistration_g79b_preserved'] = (
-        sha(ROOT / 'registry/preregistration_g79b.json') ==
-        (ROOT / 'evidence/preregistration_g79b_sha256.txt').read_text().strip())
     manifest = json.loads((ROOT / 'registry/data_manifest.json').read_text())
     checks['reference_input_hashes_match_pins'] = all(
         sha(ROOT / 'data/reference' / row['dest']) == row['sha256']
@@ -92,7 +107,6 @@ def verify(refresh_timestamp: bool = False):
     card = json.loads((ROOT / 'run_card.json').read_text())
     checks.update(publication_contract_checks(ROOT, card))
     checks['card_copies_equal'] = card == json.loads((ROOT / 'evidence/run_card.json').read_text())
-    checks['card_lane_g79b'] = card.get('lane') == 'G79B-SCARP-DIPOLE-GEOAND'
     path = ROOT / card['submission_file']
     actual_sha = sha(path)
     receipt = json.loads(path.with_suffix('.json').read_text())
@@ -113,43 +127,6 @@ def verify(refresh_timestamp: bool = False):
     checks['zip_hash_matches_receipt'] = sha(zip_path) == receipt['zip_sha256']
     registry = json.loads((ROOT / 'registry/registry_receipt.json').read_text())
     checks['new_bytes_not_copied_from_registry'] = actual_sha not in {r.get('sha256') for r in registry['files']}
-    # --- G79B science evidence consistency (offline cross-check, no recompute)
-    hold_ok = True
-    for seed in (20, 30):
-        h = json.loads((ROOT / f'evidence/holdout_g79b_seed{seed}.json').read_text())
-        c = card['holdout_dti_by_seed'][f'seed_{seed}']
-        hold_ok &= (h['scores']['candidate']['dti'] == c['dti'] and
-                    h['scores']['candidate']['ci95'] == c['ci95'] and
-                    h['scores']['candidate']['withheld_positive_pixels'] == c['withheld_positive_pixels'] and
-                    h['evaluator_version'] == 'gems57-pooled-hide-v2' and
-                    h['scores']['candidate']['dti'] < h['scores']['h33_foldfair_control']['dti'])
-    checks['holdout_evidence_matches_card_and_is_negative'] = bool(hold_ok)
-    canary_rows = []
-    for seed in (20, 30):
-        canary_rows += json.loads((ROOT / f'evidence/canaries_g79b_seed{seed}.json').read_text())['rows']
-    checks['canary_evidence_matches_card'] = (
-        len(canary_rows) == card['leakage_canary']['features_cleared'] and
-        max(r['symmetric_auc'] for r in canary_rows) == card['leakage_canary']['maximum_symmetric_auc'] and
-        card['leakage_canary']['passed'] and card['leakage_canary']['maximum_symmetric_auc'] <= 0.90)
-    surf = json.loads((ROOT / 'evidence/uniqueness_surface_g79b.json').read_text())
-    fin = json.loads((ROOT / 'evidence/uniqueness_final_g79b.json').read_text())
-    checks['uniqueness_evidence_matches_card'] = (
-        surf['max_abs_spearman'] == card['correlation_overlap_vs_registry']['surface_before_placement']['max_abs_spearman'] and
-        fin['max_forward_overlap_3px_optionB'] == card['correlation_overlap_vs_registry']['final_dots']['max_forward_overlap_3px_optionB'] and
-        fin['raster_sha256'] == actual_sha and fin['passed_optionB_and_C'] and
-        surf['passed_optionB_and_rho'] and not card['protocol_unique'])
-    state = json.loads((ROOT / 'evidence/experiment_state_g79b.json').read_text())
-    checks['scientific_stop_honored'] = (state['phase'] == 'finalized_negative' and state['stopped'] and
-                                          card['experiment_count'] == 1 and
-                                          card['current_best_holdout_beaten'] is False)
-    # --- E1 preservation (bytes only)
-    e1_card_path = ROOT / 'evidence/run_card_g79_e1.json'
-    e1_card = json.loads(e1_card_path.read_text())
-    e1_tif = ROOT / 'archive/g79_e1_fabric_offset' / Path(e1_card['submission_file']).name
-    checks['prior_lane_e1_bytes_preserved'] = (
-        sha(e1_card_path) == E1_CARD_SHA256 and e1_tif.exists() and
-        sha(e1_tif) == e1_card['raster_sha256'] and e1_card['verdict'] == 'negative' and
-        e1_card['holdout_dti']['dti'] is None)
     certificate = json.loads((ROOT / 'evidence/universal_overlap_certificate.json').read_text())
     before = json.loads((ROOT / 'evidence/uniqueness_surface.json').read_text())
     after = json.loads((ROOT / 'evidence/uniqueness_final_artifact.json').read_text())
@@ -159,12 +136,14 @@ def verify(refresh_timestamp: bool = False):
         before['certificate']['witness_sha256'] == after['certificate']['witness_sha256'] == certificate['witness_sha256'] and
         before['max_forward_overlap_3px_over_checked'] == after['max_forward_overlap_3px_over_checked'] == 1.0 and
         before['checked'] == after['checked'] == 1 and not before['complete_comparison'])
-    checks['no_fabricated_holdout_or_ci'] = (
-        e1_card['holdout_dti']['dti'] is None and
-        card['holdout_dti']['evaluator_version'] == 'gems57-pooled-hide-v2' and
-        card['holdout_dti']['withheld_positive_pixels'] > 0)
-    checks['no_fabricated_canary'] = (e1_card['leakage_canary']['auc'] is None and
-                                       card['leakage_canary']['features_cleared'] == 72)
+    checks['no_fabricated_holdout_or_ci'] = (card['holdout_dti']['dti'] is None and
+                                              card['holdout_dti']['ci95'] is None and
+                                              card['holdout_dti']['withheld_positive_pixels'] is None)
+    checks['no_fabricated_canary'] = card['leakage_canary']['auc'] is None and not card['leakage_canary']['passed']
+    state = json.loads((ROOT / 'evidence/experiment_state.json').read_text())
+    checks['scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
+                                          state['holdout_evaluations_performed'] == 0 and
+                                          state['final_dot_placements_performed'] == 0)
     decision = submission_decision(card, actual_sha256=actual_sha, format_passed=result['format_passed'])
     checks['automatic_negative_not_format_only_approval'] = (decision['ok_to_download'] and
         not decision['ok_to_submit'] and not card['ok_to_submit'] and card['verdict'] == 'negative' and

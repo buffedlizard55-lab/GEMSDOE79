@@ -44,7 +44,6 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   await page.setViewportSize({width: 1440, height: 1050});
   await page.goto(base + '/index.html');
   assert.match(await page.locator('.download-warning').innerText(), /OK TO SUBMIT: NO/);
-  assert.match(await page.locator('a[download][href$=".tif"]').first().innerText(), /DO NOT SUBMIT/);
   await page.locator('[data-copy="submission-note"]').click();
   await page.waitForFunction(() => document.getElementById('toast').textContent.startsWith('Copied.'));
   const card = JSON.parse(fs.readFileSync(path.join(root, 'run_card.json')));
