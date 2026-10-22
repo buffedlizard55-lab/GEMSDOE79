@@ -1,6 +1,6 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22):** [three-pass active-branch review](reports/repository_review_2026-10-22_active-branch.md). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used.
+**Latest repository audit (2026-10-22):** [three-pass review, session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md). Independently checked 242 tests, 29 integrity gates and the pinned universal-overlap witness. Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used. [Prior active-branch audit](reports/repository_review_2026-10-22_active-branch.md) is retained as history.
 
 ## Download and submission decision — start here
 
