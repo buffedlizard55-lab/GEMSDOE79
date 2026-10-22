@@ -162,4 +162,13 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    import sys
+    if (ROOT / "run_card_mrnd.json").exists():
+        st = _load(EV / "m1_experiment_state.json")
+        if st.get("stopped") or st.get("verdict") in ("negative", "promote"):
+            print(
+                f"H79-MRND: lane is closed ({st.get('verdict', 'stopped')}). No files changed.",
+                file=sys.stderr,
+            )
+            raise SystemExit(2)
     main()

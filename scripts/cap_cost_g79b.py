@@ -22,6 +22,8 @@ BUDGET = 37_654
 
 
 def main():
+    from gems79.lifecycle import require_open_lane
+    require_open_lane(ROOT, "G79B-SDPT")
     emit_info = json.loads((ROOT / "data/cache/final_g79b/emit_info.json").read_text())
     caps = emit_info.get("capped_priors")
     if not caps:
@@ -74,4 +76,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    from gems79.lifecycle import LaneClosedError
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

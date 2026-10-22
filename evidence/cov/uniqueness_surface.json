@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "lane": "H79-COV",
+  "phase": "surface",
+  "evidence_class": "REGISTRY-MEASUREMENT",
+  "generated_utc": "2026-10-22T04:04:05.885892+00:00",
+  "shared_tool": "gems57.uniqueness.compare_array_to_registry",
+  "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+  "dot_definition": "budget-matched-v3",
+  "rho_limit": 0.9,
+  "overlap_limit": 0.7,
+  "registry_rasters_expected": 992,
+  "surface_rank_check": {
+    "worst_spearman_full_footprint": {
+      "value": 0.6440862578913945,
+      "submission": "17GEMSDOE:docs/downloads/17GEMSDOE_E-proba-multiscale_20260930T044527Z.tif",
+      "representation": "continuous_surface",
+      "their_dots": 5106384
+    },
+    "checked": 986,
+    "errors": [
+      {
+        "repo": "GEMSDOE75",
+        "submission": "GEMSDOE75:docs/downloads/gemsdoe75-zeros-SCHEMA-DEMO-DO-NOT-SUBMIT.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/65cbac2663e05541d29de340b1c652582207313e.tif",
+        "error": "registry CRS/transform differs from reference"
+      },
+      {
+        "repo": "14GEMSDOE",
+        "submission": "14GEMSDOE:docs/downloads/GEMS_r5-geom-horse-ensemble_20260929T154852Z_ccbe1de0_site_e96e942f.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/7c12ed8a4164ce549fc8c3114eb30eb7f898af09.tif",
+        "error": "registry CRS/transform differs from reference"
+      },
+      {
+        "repo": "GEMSDOE63",
+        "submission": "GEMSDOE63:docs/downloads/smoke.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/89ffb2d61840859392a758928ffdbae4260f2918.tif",
+        "error": "89ffb2d61840859392a758928ffdbae4260f2918.tif: MissingRequired:TIFF directory is missing required \"StripOffsets\" field"
+      },
+      {
+        "repo": "60GEMSDOE",
+        "submission": "60GEMSDOE:docs/downloads/gems60-h63-strike-corridor-42000px-20261011T020352Z-zeros.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/a73a39a99e3d75fdf8d2160c4736c2f7d63cb766.tif",
+        "error": "registry CRS/transform differs from reference"
+      },
+      {
+        "repo": "GEMSDOE36",
+        "submission": "GEMSDOE36:docs/downloads/GEMS36_FORMAT_TEST_NOT_SUBMISSION.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/a97c7b2a513225c9f9f2b35736afe5abf4d2a491.tif",
+        "error": "registry grid or band-count mismatch"
+      },
+      {
+        "repo": "GEMSDOE75",
+        "submission": "GEMSDOE75:docs/downloads/gems75-fault-tip-halo-20261021-SCHEMA-DEMO-DO-NOT-SUBMIT.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/df07c7c6b4aa87710b2ce97c6b80f7a4c2704c6d.tif",
+        "error": "registry CRS/transform differs from reference"
+      }
+    ],
+    "complete": false
+  },
+  "provisional_topk_check": {
+    "worst_my_dots_within_3px_of_theirs": {
+      "value": 1.0,
+      "submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+      "representation": "continuous_surface",
+      "their_dots": 5167373
+    },
+    "worst_spearman_full_footprint": {
+      "value": 0.32047015945995405,
+      "submission": "GEMSDOE53:docs/submissions/gems53-s3-bands-top_q0p02-20261009-e67cda00.tif",
+      "representation": "dot_field",
+      "their_dots": 103348
+    },
+    "checked": 986,
+    "errors": [
+      {
+        "repo": "GEMSDOE75",
+        "submission": "GEMSDOE75:docs/downloads/gemsdoe75-zeros-SCHEMA-DEMO-DO-NOT-SUBMIT.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/65cbac2663e05541d29de340b1c652582207313e.tif",
+        "error": "registry CRS/transform differs from reference"
+      },
+      {
+        "repo": "14GEMSDOE",
+        "submission": "14GEMSDOE:docs/downloads/GEMS_r5-geom-horse-ensemble_20260929T154852Z_ccbe1de0_site_e96e942f.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/7c12ed8a4164ce549fc8c3114eb30eb7f898af09.tif",
+        "error": "registry CRS/transform differs from reference"
+      },
+      {
+        "repo": "GEMSDOE63",
+        "submission": "GEMSDOE63:docs/downloads/smoke.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/89ffb2d61840859392a758928ffdbae4260f2918.tif",
+        "error": "89ffb2d61840859392a758928ffdbae4260f2918.tif: MissingRequired:TIFF directory is missing required \"StripOffsets\" field"
+      },
+      {
+        "repo": "60GEMSDOE",
+        "submission": "60GEMSDOE:docs/downloads/gems60-h63-strike-corridor-42000px-20261011T020352Z-zeros.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/a73a39a99e3d75fdf8d2160c4736c2f7d63cb766.tif",
+        "error": "registry CRS/transform differs from reference"
+      },
+      {
+        "repo": "GEMSDOE36",
+        "submission": "GEMSDOE36:docs/downloads/GEMS36_FORMAT_TEST_NOT_SUBMISSION.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/a97c7b2a513225c9f9f2b35736afe5abf4d2a491.tif",
+        "error": "registry grid or band-count mismatch"
+      },
+      {
+        "repo": "GEMSDOE75",
+        "submission": "GEMSDOE75:docs/downloads/gems75-fault-tip-halo-20261021-SCHEMA-DEMO-DO-NOT-SUBMIT.tif",
+        "file": "/home/user/GEMSDOE79/.cache/registry/df07c7c6b4aa87710b2ce97c6b80f7a4c2704c6d.tif",
+        "error": "registry CRS/transform differs from reference"
+      }
+    ],
+    "complete": false
+  },
+  "provisional_cells": 37654,
+  "surface_sha256": "064b1c7cf2a5dd62f8607944f10e9668d8fd3086205107b2c3e4c67608f0984e",
+  "worst_spearman": 0.6440862578913945,
+  "worst_forward_overlap_3px": 1.0,
+  "complete_comparison": false,
+  "duplicate": true,
+  "passed": false,
+  "note": "Surface phase has no placed dots, so the B1 exact-cell test does not apply; a literal firing here is adjudicated on the final dots, never silently dropped."
+}

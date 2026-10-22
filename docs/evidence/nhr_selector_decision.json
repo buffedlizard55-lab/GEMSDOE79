@@ -2,7 +2,7 @@
   "selected": false,
   "selector": "scripts/select_submission.py",
   "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
-  "observed_utc": "2026-10-22T02:29:18.655422+00:00",
+  "observed_utc": "2026-10-22T05:03:47.681695+00:00",
   "blockers": [
     "literal_novelty_not_cleared",
     "negative_scientific_verdict"
@@ -11,5 +11,15 @@
     "final_dot_uniqueness_passed",
     "surface_uniqueness_passed"
   ],
-  "card_left_unchanged": true
+  "card_left_unchanged": true,
+  "evidence_checks": {
+    "holdout_card_equals_evaluator_output": true,
+    "holdout_beats_h33_control_both_seeds": true,
+    "leakage_canary_clear": true,
+    "uniqueness_card_matches_evidence": true,
+    "gate_receipt_bound_to_raster_and_verdict": true,
+    "promotion_requires_uniqueness": true,
+    "preregistration_hash_matches_card": true,
+    "complete_literal_gate_receipt": false
+  }
 }

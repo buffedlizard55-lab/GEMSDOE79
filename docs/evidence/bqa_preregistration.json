@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "lane": "H79-BQA",
+  "title": "Band-quota allocation of a band-reweighted nested hide-and-recover model",
+  "registered_utc": "2026-10-22T04:30:00Z",
+  "session": "0bd0e0b2",
+  "registered_before_any_holdout_result": true,
+  "supersedes": "Nothing. H79-NHR, G79-STEPCO, G79B-SDPT, E1 and H79-FF remain stopped negative lanes and are not re-judged.",
+  "protocol_clarification": "registry/protocol_clarification_v4.json (IR-79-68, chance-corrected-v4 overlap), adopted before this lane produced any number.",
+  "lane_paragraph": "The organizer scores expert faults that are absent from the catalogue, whereas the hide-and-recover proxy withholds catalogue components that usually sit next to visible ones. Decouple WHERE from WHICH: (1) train the shared nested hide-to-recover kernel-credit regressor with sample weights that give every distance-to-visible band equal total weight, so the model learns within-band discrimination instead of proximity; (2) place a fixed 37,654-dot budget under per-band quotas equal to the distance profile of H33, the best organizer-scored file in the family (a summary statistic used for learning only, no H33 pixel is an input); (3) inside each band, descending learned score with 3 px Poisson spacing. Binary 0/1 float32 dots, zeros elsewhere, no NaN.",
+  "hypothesis": "With the distance profile held at the organizer-favoured H33 distribution, a learned within-band ranking recovers more withheld-fault kernel credit than H33's hand-built ranking, both on the standard pooled holdout and on the far-field (> 1 km from visible faults) sub-holdout.",
+  "mechanism": "Basin-and-Range normal-fault systems contain intrabasin and piedmont strands kilometres from the range-bounding traces that dominate compiled catalogues; where they offset Quaternary surfaces they leave lidar-resolvable scarps (slope excess, crest convexity / base concavity, 10-50 m steps) aligned with the regional strike, and where buried they perturb gravity and magnetic gradients.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline and terrace risers, alluvial-fan heads and incised channel banks (contour-parallel 2-10 m steps); roads and mine benches.",
+  "inputs": "Identical to H79-NHR static stack (gems79.nhr.build_static_stack; training_features.tif 4371c82e..., lidar_scarp_features_u8.tif d580bb8b..., geodawn_rad_u8.tif c22420f7..., geodawn_extensions_u8.tif a35a9c6d...) plus the 6 visible-catalogue geometry inputs.",
+  "excluded_inputs": "No registry raster, prior submission pixel, SGMC map, Qfaults trace CSV or score is an input to the surface. H33 enters only as six band fractions (below).",
+  "fixed_parameters": {
+    "nested_training": "inherited unchanged from registry/preregistration_nhr.json fixed_parameters (3 replicates, hide 0.20, buffer 3 px, 200,000 negatives per replicate, same HistGradientBoostingRegressor hyper-parameters); reused via scripts/run_nhr.py training_rows/fit/predict_surface",
+    "distance_bands_px": [[2, 3], [3, 5], [5, 10], [10, 20], [20, 50], [50, 1000000]],
+    "band_definition": "Euclidean distance (pixels) to the visible catalogue of the context; cells at distance <= 2 px are never eligible (H33 has 0 dots there)",
+    "sample_weight": "weighting bands = [0,2] plus the six placement bands (7 bands); w = n_rows / (7 * n_rows_in_band), so every band carries equal total weight; distance read back from the visible-geometry input log_dist_visible = log1p(min(d,200))",
+    "h33_band_counts": [1611, 3237, 6292, 7908, 11077, 7529],
+    "h33_band_counts_source": "evidence/nhr/distance_to_catalogue.json (h33.histogram, RASTER-MEASUREMENT, total 37654)",
+    "quota_rule": "quota_b = round(budget * h33_count_b / 37654); greedy descending score with 3 px Euclidean spacing, a dot is accepted only while its band quota is open; any unfilled quota is then filled by a second global descending pass",
+    "budget": 37654,
+    "holdout_budget": "37654 scaled by evaluation-region footprint area (as NHR)"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer 3 px, boundary 12 px; leave-one-quadrant-out models; geometry and bands from the fold-visible catalogue only; visible faults masked pixel-exactly",
+    "evaluator": "shared gems57.evaluate_holdout (gems57-pooled-hide-v2), pooled terms, paired spatial-block bootstrap, 1000 draws",
+    "arms": {
+      "candidate": "band-weighted model + band-quota placement",
+      "nhr_repro": "unweighted model + global placement (NHR X1 recipe, control only)",
+      "quota_only": "unweighted model + band-quota placement (ablation)",
+      "weights_only": "band-weighted model + global placement (ablation)",
+      "h33_foldfair_control": "legacy D2.8 dots > 2 px from the fold's visible faults (identical to NHR's control)",
+      "uniform_control": "seeded uniform surface (seed 790021) with global placement"
+    },
+    "far_field_sub_holdout": "Same fitted surfaces and placed dots; the shared evaluator is called with region restricted to cells > 10 px (1 km) from the fold-visible catalogue, so both truth and predictions outside that zone are excluded. Folds without far-field truth are skipped for every arm alike."
+  },
+  "leakage_canary": "Shared run_experiment.canaries: every input feature alone on each seed and fold; symmetric AUC > 0.90 blocks promotion.",
+  "promotion_gate": [
+    "G1 all canaries <= 0.90 on both seeds",
+    "G2 standard holdout: candidate pooled HOLDOUT-DTI > h33_foldfair_control on BOTH seeds AND paired 95% CI of the difference above 0 on both seeds (current non-duplicate holdout best)",
+    "G3 far-field sub-holdout: candidate point estimate >= h33_foldfair_control on BOTH seeds",
+    "G4 candidate vs uniform_control paired 95% CI above 0 on both seeds",
+    "G5 surface uniqueness BEFORE placement (shared tool, chance-corrected-v4): full-surface Spearman <= 0.90 vs every registry raster and provisional top-37654 cells chance-corrected overlap <= 0.70",
+    "G6 final dots uniqueness (chance-corrected-v4): Spearman <= 0.90 and chance-corrected 3 px overlap <= 0.70 vs every registry raster, complete scan",
+    "G7 format validator: single band float32, EPSG:32611, shape and transform equal to the sample, values in [0,1], no NaN anywhere",
+    "G8 the separate scripts/select_submission.py re-derives every gate and alone may set ok_to_submit"
+  ],
+  "reported_but_not_gating": "candidate vs nhr_repro (a duplicate lane) on both arms; literal and raw-v3 overlap readings.",
+  "experiments": [
+    "X1: the lane exactly as specified",
+    "X2/X3: reserved for a defect fix only, never for tuning against the holdout"
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95% CI). No projected leaderboard score is written. ORGANIZER-CONFIRMED requires a submission-page receipt."
+}

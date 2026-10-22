@@ -1,0 +1,65 @@
+{
+  "verified_count": 5,
+  "files": [
+    {
+      "filename": "2m_temperature_probe_INGENIOUS_regional_data.zip",
+      "sha256": "1301f70d230058e616ea5d34d1c7a32fabf7d49198172f376c59c89bd652eca3",
+      "repo": "buffedlizard55-lab/60GEMSDOE",
+      "ref": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+      "path": "data/external/2m_temperature_probe_INGENIOUS_regional_data.zip",
+      "official_source": "https://gdr.openei.org/submissions/1391",
+      "doi": "10.15121/1881483",
+      "description": "DOE GDR 1391 INGENIOUS regional 2-meter temperature probe dataset (CC BY 4.0)",
+      "status": "present",
+      "bytes": 1080530
+    },
+    {
+      "filename": "paleo_geothermal_regional.zip",
+      "sha256": "faffcf697f32dbbf6cbb317cd1effb3e305538ce38eb239d72d0c6fa071e91ca",
+      "repo": "buffedlizard55-lab/60GEMSDOE",
+      "ref": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+      "path": "data/external/paleo_geothermal_regional.zip",
+      "official_source": "https://gdr.openei.org/submissions/1391",
+      "doi": "10.15121/1881483",
+      "description": "DOE GDR 1391 INGENIOUS Quaternary sinter, travertine & tufa paleogeothermal vents (CC BY 4.0)",
+      "status": "restored",
+      "bytes": 84008
+    },
+    {
+      "filename": "topo_10m_derived_100m_u8.tif",
+      "sha256": "a6398d9950965dec6aae6ccecdaa6ced48645d133eab222cbdd11def9bdabfa4",
+      "repo": "buffedlizard55-lab/60GEMSDOE",
+      "ref": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+      "path": "data/external/topo_10m_derived_100m_u8.tif",
+      "official_source": "https://www.usgs.gov/3d-elevation-program",
+      "doi": "public-domain-usgs-3dep",
+      "description": "USGS 3DEP 1/3 arc-second (~10 m) seamless DEM derived sub-100m morphology channels",
+      "status": "present",
+      "bytes": 32523329
+    },
+    {
+      "filename": "topo_10m_derived_100m_u8.manifest.json",
+      "sha256": "181d5527ba7ed2990031918a8b6c9d5d94e3998b2daf656de0c33322ca94120a",
+      "repo": "buffedlizard55-lab/GEMSDOE65",
+      "ref": "HEAD",
+      "path": "registry/topography_cache_manifest.json",
+      "official_source": "https://www.usgs.gov/3d-elevation-program",
+      "doi": "public-domain-usgs-3dep",
+      "description": "Quantisation manifest for topo_10m_derived_100m_u8.tif",
+      "status": "present",
+      "bytes": 2720
+    },
+    {
+      "filename": "dem10_chi_100m_i16.tif",
+      "sha256": "8897ba9c30ef1cd7ad5f23c16c6dfd7bb070e7e757f36fd9486eb45edfd973a5",
+      "repo": "buffedlizard55-lab/60GEMSDOE",
+      "ref": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+      "path": "data/external/dem10_chi_100m_i16.tif",
+      "official_source": "https://www.usgs.gov/3d-elevation-program",
+      "doi": "public-domain-usgs-3dep",
+      "description": "USGS 3DEP 1/3 arc-second (~10 m) DEM drainage chi/ksn knickpoint channels",
+      "status": "present",
+      "bytes": 12777098
+    }
+  ]
+}

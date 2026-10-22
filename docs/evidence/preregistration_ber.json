@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "lane": "G79-BER",
+  "title": "Distance-banded evidence recovery: per-band nested hide-to-recover learning with buried-fault worms",
+  "registered_utc": "2026-10-22T04:45:00Z",
+  "branch": "arena/4f80e0d0-gemsdoe79",
+  "registered_before_any_ber_result": true,
+  "registered_before": "building the G79-BER new-feature stack, fitting any G79-BER model, reading any G79-BER HOLDOUT-DTI, or running any G79-BER registry comparison. Data/registry restoration (hash verification only) preceded registration and produced no scientific result.",
+  "supersedes": "Nothing. H79-NHR (canonical, stopped negative), G79-FABRIC-OFFSET E1, G79-STEPCO and G79B-SDPT remain frozen negatives with their own cards. X1 of H79-NHR is not retuned, capped or resumed; its cached static feature stack code and the shared vendor evaluator/writer are reused as the parallel-run protocol requires.",
+  "lane_paragraph": "Distance to the mapped catalogue is used only to stratify, never to rank. The allowed domain (footprint, off the catalogue, more than 200 m from any mapped pixel, matching the measured H33 exclusion) is split into five distance-to-visible-catalogue bands, (200,500], (500,1000], (1000,2000], (2000,5000] and >5000 m. Inside each band a separate HistGradientBoostingRegressor is trained on nested hide-and-recover rows (whole 8-connected catalogue components withheld with a 3 px context collar inside the visible catalogue; target = official 300 m triangular kernel credit towards the withheld component). Inputs are the cached NHR static stack (19 supplied bands, multiscale gradient/LoG of elevation, gravity and RTP magnetics, USGS 3DEP lidar scarp morphometry, radiometrics), new label-independent transforms computed for this lane (FFT upward-continuation horizontal-gradient-magnitude and tilt worms of RTP and isostatic gravity at 200/500/1000/2000 m with cross-height persistence; 8-normal step dipoles of depth-to-basement and surface conductivity; lidar antislope/dipole polarity interactions), and visible-catalogue geometry limited to tip distance, lidar-strike alignment and strike-field coherence (raw distance and density are excluded as ranking features). The fixed 37,654-dot budget is allocated across bands in proportion to each band's allowed area, and dots are placed per band in descending band-surface order under one global 3 px spacing mask.",
+  "hypothesis": "Faults missing from the USGS/INGENIOUS catalogue are not drawn from the same distance-to-catalogue distribution as catalogue components: a pooled hide-and-recover learner collapses its budget into the already-mapped, already-dotted <=1 km halo, while the publicly successful H33 lineage and the best independent family lanes spread dots over the full distance profile. Conditioning both training and budget allocation on distance band, and giving far bands buried-fault evidence (potential-field worms, basement/conductivity steps) that does not require a surface scarp, ranks unmapped-fault kernel credit better within every band than the h19-5/D2.8 lineage the H33 control is built from, without re-entering the occupied near-catalogue lane.",
+  "mechanism": "Basin-and-Range fault systems include (a) near-system synthetic/antithetic splays and tip continuations within ~0.2-1 km of mapped traces, (b) independent range-front and piedmont normal faults 1-5 km from any mapped trace, often expressed as short antislope scarps in Quaternary surfaces, and (c) buried intrabasin strands under Quaternary fill with no scarp at all, expressed only as steps in basement depth, density (gravity) and magnetization that persist and migrate systematically under upward continuation. A single pooled model dominated by population (a)'s base rate cannot rank (b) or (c). Per-band models learn each population's evidence weights; area-proportional allocation matches the measured distance profile of both the allowed footprint and the publicly successful H33 field.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline and terrace risers (contour-parallel, downhill-facing steps of the same 2-10 m scale as young scarps) in the scarp bands, and buried lithologic basement contacts / basin onlap edges (identical gravity/magnetic worm signature to a buried fault) in the far bands. Roads and mine benches also create steps; the TIGER road-distance raster is restored for a diagnostic distance profile of final dots, not as a ranking input.",
+  "inputs": [
+    "data/raw/training_features.tif sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5 (19 bands; band order as verified in src/gems79/stepco.py BANDS)",
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568 (USGS 3DEP-derived, 12 bands)",
+    "data/raw/external/geodawn_rad_u8.tif sha256 c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "data/raw/external/geodawn_extensions_u8.tif sha256 a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+    "data/reference/existing_faults.tif sha256 7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093 and sample_submission.tif sha256 2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc (grid, footprint, catalogue; restored copies in data/raw verified to the same pins)"
+  ],
+  "excluded_inputs": "No registry raster, prior submission, score, SGMC/Qfaults product, or the H33/D2.8 dot sets are inputs to any surface or model. D2.8 bytes are used only to build the h33_foldfair_control evaluation arm exactly as in the frozen H79-NHR/STEPCO holdouts. Band quotas derive only from footprint/catalogue geometry. The registry is read only by the uniqueness gate after surfaces exist.",
+  "protocol_amendment": "reports/protocol_amendment_D2_20261022.md (chance-corrected overlap; D-1 dot-equivalent sets; literal reading always reported; thresholds 0.90/0.70 unchanged). The candidate may be described as unique only as 'unique under amendment D-2'.",
+  "fixed_parameters": {
+    "bands_px_distance_to_visible_catalogue": [[2, 5], [5, 10], [10, 20], [20, 50], [50, null]],
+    "band_definition": "lower bound exclusive, upper inclusive, Euclidean distance in 100 m pixels to the VISIBLE catalogue (holdout) or full catalogue (final). Cells at distance <= 2 px and catalogue cells are never eligible, mirroring the measured H33 rule (evidence/h33_forensics.json).",
+    "budget": 37654,
+    "band_allocation_rule": "largest-remainder allocation of the budget proportional to allowed-cell counts per band (final: full-catalogue distance over the whole footprint; holdout folds: fold budget = round(37654 * region_cells/footprint_cells) as in H79-NHR, allocated by the fold region's allowed per-band cell counts using visible-catalogue distance). Measured full-footprint allowed counts from the frozen distance profile are 410131 / 637102 / 1022690 / 1790643 / 1069816; the runner recomputes them from the grid and records both.",
+    "nested_replicates_per_model": 3,
+    "nested_hide_fraction": 0.20,
+    "nested_buffer_px": 3,
+    "negatives_sampled_per_replicate": 200000,
+    "negative_sampling": "uniform without replacement from region cells with target 0, off the context catalogue (as H79-NHR); each row's band is then its distance to the replicate's remaining-visible catalogue. Rows at distance <= 2 px from remaining-visible are excluded from training (they are never eligible at prediction time).",
+    "positive_rows": "all region cells with kernel target > 0, off the context catalogue, distance > 2 px from remaining-visible",
+    "target": "max(1 - d/3 px, 0) towards the nested-withheld component (nhr.kernel_target)",
+    "model": "sklearn HistGradientBoostingRegressor(max_iter=250, learning_rate=0.08, max_leaf_nodes=63, min_samples_leaf=200, l2_regularization=1.0, random_state=seed, early_stopping=False), one per band (identical hyperparameters to H79-NHR; no tuning)",
+    "band_fallback": "if a band has < 3000 positive rows summed over replicates, its model is trained on the union of that band and the adjacent nearer band (for the nearest band, the adjacent farther band); the merge is recorded in the receipt. No other adaptation.",
+    "features_static": "nhr.build_static_stack cached matrix (58 features in the frozen X1 build; names recorded from the cache receipt at runtime and asserted non-empty)",
+    "features_new": [
+      "worms: for RTP (band 2) and iso_grav_anom (band 13), median-fill + linear detrend + cosine edge taper (50 px), FFT upward continuation heights 2/5/10/20 px: horizontal gradient magnitude HGM_h and tilt_h = atan2(vertical derivative, HGM_h); plus persistence = min over heights of footprint rank(HGM_h), and HGM at h=0 from the same spectral derivatives",
+      "step dipoles: stepco.step_dipole (8 normals, radius 3 px, Gaussian 1.5) of log1p(depth_to_base_surf) and cond_surf; plus their Gaussian gradient magnitudes at sigma 3",
+      "lidar interactions (from u8 bands, robust-normalised footprint ranks): antislope = rank(upface_max) - rank(downface_max); face_dom = max(rank(upface), rank(downface)); dip_geo = sqrt(rank(lapneg)*rank(lappos)); dip_balance = min/max of rank(lapneg),rank(lappos); step_vs_cross = rank(step_max) - rank(cross_max); coh_step = rank(coh100)*rank(step_max)",
+      "all new features footprint robust-normalised (x-median)/IQR like the static stack, NaN where the source band is invalid; the runner records the exact ordered name list and input SHA-256 values in the cache receipt"
+    ],
+    "features_geometry": ["log_dist_visible_tip", "lidar_strike_alignment", "strike_field_coherence"],
+    "features_excluded_geometry": ["log_dist_visible", "visible_density_s5", "visible_density_s20 (used only implicitly via banding; never ranking inputs)"],
+    "placement": "per band, descending predicted surface within band-eligible cells, Euclidean spacing >= 3 px under a single global blocked mask shared across bands (bands processed nearest to farthest), per-band quotas from the allocation rule, no jitter (row-major stable tie-break as in gems79.placement). If a band exhausts its eligible positive-surface cells, its unspent quota is NOT redistributed; the shortfall is recorded and the exact-budget gate fails closed.",
+    "surface_for_rank_gate": "within-band footprint percentile rank of the band model's prediction, combined into one [0,1] array (0 outside the allowed domain); provisional surface-phase dots = per-band top-quota cells of that surface without spacing",
+    "final_map": "per-band models trained on nested hides of the full catalogue over the whole footprint; geometry from the full catalogue; 37,654 binary dots at distance > 2 px from the catalogue; zeros elsewhere (all finite, single-band float32 via the shared submission_writer)"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer 3 px, boundary 12 px (identical folds to H79-NHR X1 and G79-STEPCO S1, so every control number is directly comparable)",
+    "training_for_holdout": "leave-one-quadrant-out: for fold q the per-band models are fitted only on nested hides of the VISIBLE catalogue in the three other quadrants; at prediction time geometry and band distances come from the visible catalogue only; visible faults are masked pixel-exactly by the evaluator",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified; alpha 0.2, beta 0.8, 300 m triangular kernel, pooled terms, paired 20 km spatial-cluster bootstrap 1000 draws)",
+    "arms": [
+      "candidate: G79-BER per-band models + banded allocation/placement as above",
+      "h33_foldfair_control: legacy D2.8 dots > 2 px from the fold's visible catalogue, byte-identical construction to H79-NHR X1 (the current-best bar, see promotion_gate note)",
+      "uniform_control: seeded uniform surface + pooled placement at the same fold budget (H79-NHR construction)",
+      "banded_uniform_control: seeded uniform surface + the candidate's banded allocation/placement (isolates allocation from ranking; diagnostic, not a gate)"
+    ],
+    "diagnostics_not_gates": [
+      "truth-distance-stratified kernel credit: candidate vs h33_foldfair_control cover summed by withheld-truth distance-to-visible band (vendor metric.max_cover)",
+      "comparison against the frozen H79-NHR X1 pooled HOLDOUT-DTI (0.1431/0.1522) reported as reference only"
+    ],
+    "ci": "shared paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws (evaluate_holdout.pooled_summary)"
+  },
+  "leakage_canary": "Every input feature alone (static + new + the 3 geometry features) on each seed and fold, shared canaries() construction (held-out positives vs unlabeled proxies > 3 px from truth and > 3 px from visible faults). Symmetric AUC > 0.90 = leakage until proven otherwise and blocks promotion. Canaries run before any holdout score is trusted.",
+  "promotion_gate": [
+    "all canaries <= 0.90 on both seeds",
+    "candidate pooled HOLDOUT-DTI > h33_foldfair_control point estimate on BOTH seeds (current-best bar: the fold-fair form of the publicly best family lineage; the duplicate-stopped H79-NHR pooled candidate is reported as a reference, not the bar, because its instrument advantage is the exact near-catalogue collapse this lane is designed to correct and it is not a submittable lineage)",
+    "paired 95% CI of candidate minus uniform_control excludes 0 on both seeds",
+    "uniqueness under amendment D-2 (shared compare_array_to_registry_d2) vs all 992 frozen registry rasters: surface phase (combined rank surface Spearman <= 0.90 and provisional top-quota dots pass the chance-corrected overlap + identity tests) BEFORE placement, and final dots pass the same tests; literal readings reported alongside",
+    "shared submission_writer + validate: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, values in [0,1], no mass outside footprint or on/<=200 m of the catalogue, exactly 37,654 dots",
+    "verdict promote means promote-to-selector-only; ok_to_submit may be set only by the separate selector step re-deriving the gates (protocol rule 6). No weekly slot is spent by this project."
+  ],
+  "experiments": [
+    "X1: the lane exactly as specified above (canaries, holdout seeds 20+30, final surface, surface uniqueness gate, placement only if the surface gate passes, final uniqueness, format validation)",
+    "X2/X3: reserved; only for a defect fix in code that prevents X1 from running as specified, never for tuning against the holdout or the registry. Any use is recorded with the defect and the diff."
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2, "experiment_clock_start_utc": "2026-10-22T04:45:00Z"},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (evaluator version, withheld positive pixels, 95% CI). Historical family numbers are UNVERIFIED HISTORICAL REPORT unless an organizer submission-page receipt exists (none does in this repo). No projected leaderboard score is written anywhere.",
+  "stop_rules": [
+    "canary > 0.90 on either seed: stop, verdict negative, no trust in any score",
+    "surface D-2 gate fails: stop before placement, verdict negative; the provisional top-quota set may be serialised once as an explicit DO-NOT-SUBMIT research GeoTIFF (negative deliverable, not a second experiment)",
+    "candidate fails to beat h33_foldfair_control on either seed, or paired CI vs uniform includes 0: verdict negative, no retuning, final map (if already placed under a passing surface gate) is published only as DO-NOT-SUBMIT research evidence",
+    "final-dot D-2 gate fails after a passing surface gate: verdict negative, no capping/jitter/re-placement"
+  ]
+}

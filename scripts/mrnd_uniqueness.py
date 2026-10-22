@@ -493,6 +493,16 @@ def run_final(workers: int = 2) -> dict:
 
 
 if __name__ == "__main__":
+    from gems79.lifecycle import LaneClosedError
+    st_path = OUT / "m1_experiment_state.json"
+    if st_path.exists():
+        st = json.loads(st_path.read_text())
+        if st.get("stopped") or st.get("verdict") in ("negative", "promote"):
+            err = LaneClosedError(
+                f"H79-MRND: lane is closed ({st.get('verdict', 'stopped')}). No files changed."
+            )
+            print(str(err), file=sys.stderr)
+            raise SystemExit(2)
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("phase", choices=["surface", "final"])
     ap.add_argument("--workers", type=int, default=2)

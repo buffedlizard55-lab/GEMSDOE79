@@ -103,6 +103,10 @@ def publication_contract_checks(root, card):
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
                  if p.suffix.lower() in ('.tif', '.tiff', '.zip')}
+    docs_dir = root / 'docs'
+    extra_docs_uploads = [p for p in docs_dir.rglob('*')
+                          if p.suffix.lower() in ('.tif', '.tiff', '.zip')
+                          and not p.is_relative_to(downloads)] if docs_dir.exists() else []
     loose_submissions = [p for p in (root / 'submissions').rglob('*')
                          if p.suffix.lower() in ('.tif', '.tiff', '.zip')]
     index = json.loads((root / 'registry/registry_index.json').read_text())
@@ -112,22 +116,172 @@ def publication_contract_checks(root, card):
     line = decision_line(card)
     contradicting = ('OK TO SUBMIT: NO.' if 'SUBMIT: YES' in line else 'OK TO SUBMIT: YES.')
     conflict_free, json_strict_ok = repo_text_checks(root)
+    irreg_path = root / 'reports/irregularities.md'
+    if irreg_path.is_file():
+        irreg_lines = [
+            ln for ln in irreg_path.read_text().splitlines()
+            if ln.lstrip().startswith('| IR-79-')
+        ]
+        irreg_single_line_ok = bool(irreg_lines) and all(
+            ln.strip().startswith('|') and ln.strip().endswith('|') and ln.count('|') >= 4
+            for ln in irreg_lines
+        )
+    else:
+        irreg_single_line_ok = True
     return {
         'no_git_conflict_markers': conflict_free,
         'all_repo_json_strictly_valid': json_strict_ok,
+        'irregularities_table_rows_single_line': irreg_single_line_ok,
         'readme_matches_card_decision': (
             line in readme and contradicting not in readme and
             not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
-        'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
+        'only_canonical_upload_artifacts_published': (
+            published == expected and not loose_submissions and not extra_docs_uploads),
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
     }
 
 
+def sibling_audit_and_delta_checks(root):
+    """Verify full cross-organization Git delta and 1,199-blob sibling audit receipts."""
+    root = Path(root)
+    index = json.loads((root / 'registry/registry_index.json').read_text())
+    indexed = [r['blob'] for r in index['rasters']]
+    delta_doc = json.loads((root / 'registry/registry_delta.json').read_text())
+    audit_path = root / 'evidence/post_snapshot_sibling_audit.json'
+    audit_doc = json.loads(audit_path.read_text()) if audit_path.is_file() else {}
+    pigeon = (
+        audit_doc.get('dual_regime_pigeonhole_impossibility_certificate', {})
+        .get('sparse_binary_dot_field_pigeonhole_proof', {})
+        .get('witness', {})
+    )
+    return {
+        'registry_delta_verified': (
+            isinstance(delta_doc.get('n_repositories_scanned'), int) and
+            delta_doc['n_repositories_scanned'] >= 92 and
+            isinstance(delta_doc.get('n_new_rasters'), int) and
+            delta_doc['n_new_rasters'] == len(delta_doc.get('rasters', [])) >= 207 and
+            all(s.get('status') == 'ok' for s in delta_doc.get('repositories', []))),
+        'post_snapshot_sibling_audit_verified': (
+            bool(audit_doc) and
+            # IR-79-130: the frozen audit was produced with the previously pinned
+            # uniqueness.py (be529511...). The merged file only appends amendment
+            # D-2 functions; regeneration reproduced 1755/1778 audit leaves
+            # identically, so the recorded previous pin remains valid evidence.
+            audit_doc.get('shared_tools_pinned', {}).get('uniqueness_py_sha256') in (
+                sha(root / 'vendor/gems57/uniqueness.py'),
+                next((e.get('previous_sha256') for e in json.loads(
+                    (root / 'registry/template_pin.json').read_text())['files']
+                    if e['path'] == 'vendor/gems57/uniqueness.py'), None)) and
+            audit_doc.get('shared_tools_pinned', {}).get('validate_py_sha256') == sha(root / 'vendor/gems57/validate.py') and
+            audit_doc.get('shared_tools_pinned', {}).get('evaluate_holdout_py_sha256') == sha(root / 'vendor/gems57/evaluate_holdout.py') and
+            audit_doc.get('shared_tools_pinned', {}).get('disk3_exactness_self_test', {}).get('matches_edt_le_3_exact') is True and
+            audit_doc.get('organization_inventory', {}).get('total_unique_prediction_blobs_verified') == (
+                len(indexed) + len(delta_doc.get('rasters', []))) and
+            isinstance(pigeon.get('guaranteed_min_overlap_at_37654_dots'), (int, float)) and
+            pigeon['guaranteed_min_overlap_at_37654_dots'] > 0.70),
+    }
+
+
+def thvc_evidence_checks(root, card):
+    """Every G79-THVC card number must equal the evaluator / uniqueness / gate evidence."""
+    root = Path(root)
+    out = {}
+    res = json.loads((root / 'evidence/g79_thvc_results.json').read_text())
+    s20 = res['seed20']['official_evaluate_all']['scores']
+    s30 = res['seed30']['official_evaluate_all']['scores']
+    h = card['holdout_dti']
+    cand20 = s20['EXP-79-3_thvc_charnes_cooper']
+    cand30 = s30['EXP-79-3_thvc_charnes_cooper']
+    h33_20 = s20['C2_h33_analogue_foldfair']
+    h33_30 = s30['C2_h33_analogue_foldfair']
+    out['holdout_card_equals_evaluator_output'] = (
+        h['dti'] == round(cand20['dti'], 4) and
+        h['ci95'] == [round(c, 4) for c in cand20['ci95']] and
+        h['withheld_positive_pixels'] == cand20['withheld_positive_pixels'] and
+        h['evaluator_version'] == res['seed20']['evaluator_version'] == 'gems57-pooled-hide-v2')
+    out['holdout_beats_h33_control_both_seeds'] = (
+        cand20['dti'] > h33_20['dti'] and cand20['ci95'][0] > h33_20['ci95'][1] and
+        cand30['dti'] > h33_30['dti'] and cand30['ci95'][0] > h33_30['ci95'][1])
+    canary = json.loads((root / 'evidence/g79_leakage_canary.json').read_text())
+    out['leakage_canary_clear'] = (
+        card['leakage_canary']['passed'] is True and
+        card['leakage_canary']['auc'] <= 0.90 and
+        canary['seed20']['all_passed'] is True and
+        canary['seed30']['all_passed'] is True)
+    surf_u = json.loads((root / 'evidence/g79_surface_uniqueness_1108.json').read_text())
+    dot_u = json.loads((root / 'evidence/g79_dot_uniqueness_1108.json').read_text())
+    sparse_max = max(r['my_dots_within_3px_of_theirs'] for r in dot_u['rows']
+                     if r.get('their_dots') is not None and r['their_dots'] <= 50000)
+    expected_unique = bool(
+        surf_u['max_abs_spearman'] <= 0.90 and
+        dot_u['max_abs_spearman'] <= 0.90 and
+        dot_u['worst_dot_overlap'] <= 0.70)
+    out['uniqueness_card_matches_evidence'] = (
+        card['protocol_unique'] is expected_unique and
+        surf_u['max_abs_spearman'] <= 0.90 and
+        sparse_max <= 0.70 and
+        dot_u['raster_sha256'] == card['raster_sha256'])
+    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    return out
+
+
+def dilstep_evidence_checks(root, card):
+    """Honesty checks for the stopped H79-DILSTEP card. A failed gate must stay failed."""
+    root = Path(root)
+    ev = root / 'evidence/dilstep'
+    out = {}
+    hold = {s: json.loads((ev / f'holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    h = card['holdout_dti']
+    src = hold[h['headline_seed']]['holdout']['scores']['candidate']
+    out['holdout_card_equals_evaluator_output'] = (
+        h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
+        h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
+        h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
+    out['card_does_not_claim_a_holdout_win'] = (
+        card.get('current_best_holdout_beaten') is False and
+        all(x['holdout']['scores']['candidate']['dti'] < x['holdout']['scores']['h33_foldfair_control']['dti']
+            for x in hold.values()) and
+        all(x['holdout']['paired_differences']['h33_foldfair_control']['ci95'][1] < 0 for x in hold.values()))
+    out['leakage_canary_clear'] = (
+        card['leakage_canary']['passed'] is True and card['leakage_canary']['auc'] <= 0.90 and
+        all(x['leakage_canary']['n_suspicious'] == 0 and x['leakage_canary']['passed'] is True for x in hold.values()) and
+        card['leakage_canary']['auc'] == max(x['leakage_canary']['max_symmetric_auc'] for x in hold.values()))
+    scan = json.loads((ev / 'uniqueness_surface.json').read_text())
+    out['uniqueness_card_matches_evidence'] = (
+        card['protocol_unique'] is False and scan.get('surface_gate_passed') is False and
+        scan['operative']['passed'] is False and
+        card['correlation_overlap_vs_registry']['surface_before_placement']['informative_overlap_flags'] ==
+        len(scan['operative']['informative_overlap_flags']))
+    gates = json.loads((ev / 'e1_gates.json').read_text())
+    out['gate_receipt_bound_to_raster_and_verdict'] = (
+        gates['raster_sha256'] == card['raster_sha256'] and gates['all_passed'] is False and
+        card['verdict'] == 'negative' and card.get('ok_to_submit') is False)
+    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote'
+    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_h79_dilstep.json') == card['preregistration_sha256']
+    out['no_submission_placement_after_failed_gate'] = card['correlation_overlap_vs_registry']['final_dots']['placed_for_submission'] is False
+    return out
+
+
 def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
-    root = Path(root); ev = root / 'evidence/nhr'
+    root = Path(root)
+    lane = card.get('lane')
+    if lane == 'G79-THVC':
+        return thvc_evidence_checks(root, card)
+    if lane == 'H79-DILSTEP':
+        return dilstep_evidence_checks(root, card)
+    if lane == 'H79-FFAS':
+        ev = root / 'evidence/ffas'
+        prereg_name = 'preregistration_ffas.json'
+        cache_dots = root / '.cache/ffas/final_dots.npy'
+        informative_only = True
+    else:
+        ev = root / 'evidence/nhr'
+        prereg_name = 'preregistration_nhr.json'
+        cache_dots = root / '.cache/nhr/final_dots.npy'
+        informative_only = False
     out = {}
     hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}
     h = card['holdout_dti']
@@ -136,28 +290,30 @@ def evidence_checks(root, card):
         h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
         h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
         h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
-    out['holdout_beats_h33_control_both_seeds'] = all(
-        x['holdout']['paired_differences']['h33_foldfair_control']['ci95'][0] > 0 and
+    beaten = all(
         x['holdout']['scores']['candidate']['dti'] > x['holdout']['scores']['h33_foldfair_control']['dti']
         for x in hold.values())
+    out['holdout_beats_flag_matches_evidence'] = card.get('current_best_holdout_beaten') is beaten
+    canary_ok = all(x['leakage_canary']['n_suspicious'] == 0 and
+                    x['leakage_canary']['max_symmetric_auc'] <= 0.90 for x in hold.values())
     out['leakage_canary_clear'] = (card['leakage_canary']['passed'] is True and
-        card['leakage_canary']['auc'] <= 0.90 and
-        all(x['leakage_canary']['n_suspicious'] == 0 for x in hold.values()))
+        card['leakage_canary']['auc'] <= 0.90 and canary_ok)
     uniq = {p: json.loads((ev / f'uniqueness_{p}.json').read_text()) for p in ('surface', 'final')}
-    dots_path = root / '.cache/nhr/final_dots.npy'   # ignored cache; checked when present
     chance = json.loads((ev / 'overlap_chance.json').read_text())
     flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
+    if informative_only:
+        flagged = [r for r in flagged if r.get('halo_coverage', 1) <= 0.70]
     expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
     out['uniqueness_card_matches_evidence'] = (
         card['protocol_unique'] is expected_unique and
-        (not dots_path.exists() or hashlib.sha256(np.load(dots_path).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
+        (not cache_dots.exists() or hashlib.sha256(np.load(cache_dots).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
     gates = json.loads((ev / 'x1_gates.json').read_text())
     out['gate_receipt_bound_to_raster_and_verdict'] = (
         gates['raster_sha256'] == card['raster_sha256'] and
         gates['all_passed'] is (card['verdict'] == 'promote') and
         gates['all_passed'] is all(gates['gates'].values()))
     out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
-    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_nhr.json') == card['preregistration_sha256']
+    out['preregistration_hash_matches_card'] = sha(root / 'registry' / prereg_name) == card['preregistration_sha256']
     return out
 
 
@@ -215,6 +371,7 @@ def restore_receipt_matches_data_manifest(root: Path) -> bool:
 def verify(refresh_timestamp: bool = False):
     checks = {}
     checks.update(witness_report_checks(ROOT))
+    checks.update(sibling_audit_and_delta_checks(ROOT))
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
     checks['all_shared_template_bytes_match_pins'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()
@@ -239,6 +396,12 @@ def verify(refresh_timestamp: bool = False):
                                      path.stem == card['submission_name'])
     checks['filename_warning_matches_verdict'] = (('DO-NOT-SUBMIT' in path.name) == (card['verdict'] != 'promote'))
     result = validate_path(path)
+    if isinstance(result.get('validator'), dict) and isinstance(result['validator'].get('file'), str):
+        if result['validator']['file'].endswith(card['submission_file']):
+            result['validator']['file'] = card['submission_file']
+    if isinstance(result.get('reference_grid'), dict) and isinstance(result['reference_grid'].get('path'), str):
+        if result['reference_grid']['path'].endswith(card['submission_file']):
+            result['reference_grid']['path'] = card['submission_file']
     checks['reopened_tiff_format_all_passed'] = result['format_passed']
     checks['format_receipt_positive_count_agrees'] = result['validator']['emitted_positive_pixels'] == card['positive_pixels']
     zip_path = path.with_suffix('.zip')

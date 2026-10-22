@@ -6,7 +6,7 @@ Date: 2026-10-22. Branch: `arena/91a8c516-gemsdoe79`.
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 
-The [canonical TIFF](../docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif) is locally format-valid research output, not a competition-ready submission. The [submission guide](../docs/executive-summary.html) and [canonical run card](../run_card.json) correctly retain a negative verdict. No new raster, scientific experiment, selector approval, competition upload, or submission slot was generated/used during this review.
+The [canonical TIFF of that review](../archive/h79_nhr_337ac1e9/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif) is locally format-valid research output, not a competition-ready submission. The [submission guide](../docs/executive-summary.html) and [canonical run card](../run_card.json) correctly retain a negative verdict. No new raster, scientific experiment, selector approval, competition upload, or submission slot was generated/used during this review.
 
 ## Pass 1 — review and independently check the current state
 

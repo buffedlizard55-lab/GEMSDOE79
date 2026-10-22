@@ -37,6 +37,7 @@ from gems57.grid import load_grid                          # noqa: E402
 from gems57.holdout import buffered_component_draw         # noqa: E402
 from gems57 import uniqueness as shared                    # noqa: E402
 from gems79 import asym                                    # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 from gems79.placement import place                         # noqa: E402
 import analyze_h33                                         # noqa: E402
 from run_experiment import canaries                        # noqa: E402  (shared canary, reused)
@@ -167,9 +168,14 @@ if __name__ == "__main__":
     ap.add_argument("stage", choices=["surface", "holdout", "final"])
     ap.add_argument("--seed", type=int, default=20)
     a = ap.parse_args()
-    if a.stage == "surface":
-        sys.exit(0 if stage_surface() else 2)
-    if a.stage == "holdout":
-        stage_holdout(a.seed)
-    else:
-        stage_final()
+    try:
+        require_open_lane(ROOT, LANE)
+        if a.stage == "surface":
+            sys.exit(0 if stage_surface() else 2)
+        if a.stage == "holdout":
+            stage_holdout(a.seed)
+        else:
+            stage_final()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

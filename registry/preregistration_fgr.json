@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "lane": "H79-FGR",
+  "title": "Far-field gradient ranker: move along the measured score gradient",
+  "registered_utc": "2026-10-22T04:52:00Z",
+  "branch": "arena/cb54ff09-gemsdoe79",
+  "registered_before_any_holdout_result": true,
+  "supersedes": "Nothing. H79-NHR, G79-FABRIC-OFFSET (E1), G79-STEPCO, G79B-SDPT and H79-FF all remain stopped negative lanes with frozen cards. No stopped lane is restarted, retuned or repackaged.",
+  "why_this_lane_exists": [
+    "evidence/score_geometry_study.json (94 artifact-linked family submissions, USER-REPORTED scores): inside the family's best habitat the reported score correlates +0.905 with median dot distance to the catalogue and -0.912 with the fraction of dots within 500 m, and -0.776 with dot count. The direction of improvement is measured, not assumed.",
+    "evidence/proxy_validation.json: no independent-compilation truth proxy (SGMC off-catalogue, SGMC all, Qfaults centroids) validates as an offline surrogate for the organiser score in the competitive regime (score >= 0.15); the two SGMC proxies are anti-correlated there (-0.159 and -0.535). All five proxies are reported, including these failures.",
+    "evidence/gate_satisfiability_certificate.json: the inherited literal 70 % / 3 px forward-overlap gate is unsatisfiable for ANY nonempty candidate, because 20 registry DOT FIELDS (not only continuous surfaces) have 3 px halos covering more than 70 % of the allowed domain, the worst 0.998724 while flagging a uniform random field at 0.998677. budget-matched-v3 does not help because those rasters are classified dot_field at 3-10 % support."
+  ],
+  "lane_paragraph": "Rank the allowed domain by the product of (a) a label-independent scarp/edge competence built from USGS 3DEP lidar step and excess-slope maxima and multiscale curvature of detrended elevation together with isostatic-gravity and reduced-to-pole magnetic horizontal gradients, and (b) a weight that increases linearly with distance from the mapped catalogue from 300 m to 5 km. Emit a fixed budget of dots with the shared descending-rank 3 px Euclidean spacing allocator. No catalogue-derived density, tip, strike-alignment or nested-hide learning is used, and no registry raster, prior submission or reported score is an input to the surface.",
+  "hypothesis": "Because the organiser's scored truth consists of faults absent from the catalogue, and because the reported family scores rise monotonically with dot distance from the catalogue inside a competent habitat, a competence surface weighted toward the far field moves along the measured gradient instead of against it, and a near-field inversion of the same weight moves against it.",
+  "mechanism": "Basin-and-Range normal-fault systems continue beyond map-sheet and cover boundaries. Piedmont, buried and alluvium-covered strands offset Quaternary surfaces and leave lidar-resolvable scarps plus gravity and magnetic lineaments kilometres from any compiled trace. Competence identifies that scarp/edge population; the distance weight removes the near-catalogue collar whose deletion is the one measured raster difference between the family's 0.2600 and 0.2778 artifacts.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline and terrace risers, incised channel banks, alluvial-fan toes, roads and mine benches all produce contour-parallel steps of the same 2-10 m scale, and a distance weight does not distinguish them. A shoreline-altitude filter needs ABSOLUTE elevation, which is not present in the restored inputs (det_elev is detrended; the lidar product stores relief). The mimic is therefore named and NOT suppressed. This is a stated limitation, not a solved problem.",
+  "inputs": [
+    "data/raw/training_features.tif sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5 (bands det_elev, iso_grav_anom_hg, tmi_hg)",
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568 (bands step_max, ex_max)",
+    "data/reference/existing_faults.tif and sample_submission.tif (grid, footprint, catalogue)"
+  ],
+  "excluded_inputs": "No registry raster, prior submission, SGMC compilation, Qfaults trace, reported score or leaderboard value is an input to the surface. SGMC and Qfaults appear only in the proxy meta-validation, never as a feature or a target.",
+  "fixed_parameters": {
+    "competence_layers": ["lidar step_max", "lidar ex_max", "LoG(det_elev) sigma 2 px", "LoG(det_elev) sigma 5 px", "iso_grav_anom_hg", "tmi_hg"],
+    "competence": "mean of within-footprint percentile ranks of the six layers, each rank computed only on cells where the layer is finite and above the -1e30 sentinel",
+    "distance_weight": "W(d) = clip((d_metres - 300) / 4700, 0, 1), d measured to the nearest catalogue pixel",
+    "surface": "S = competence * (0.25 + 0.75 * W)",
+    "placement": "gems79.placement.place: descending surface, Euclidean 3 px spacing, budget 38000 scaled by fold region area",
+    "allowed_cells": "footprint & ~catalogue",
+    "final_map": "38000 binary dots on the whole footprint, zeros elsewhere, all finite"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, hide_frac 0.2, buffer 3 px, boundary 12 px - identical to the NHR and E1 diagnostics so controls are directly comparable",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified)",
+    "arms": [
+      "candidate: the surface exactly as specified above",
+      "nearfield_inversion: the same competence with W replaced by 1 - W, a DIRECTION test of the measured gradient",
+      "uniform_control: seeded uniform surface, same allocator and budget",
+      "h33_foldfair_control: legacy D2.8 dots outside 2 px of the fold's visible catalogue, the inherited holdout-best bar"
+    ],
+    "ci": "shared paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws"
+  },
+  "leakage_canary": "Every competence layer alone on each seed and fold: withheld positives versus negatives more than 3 px from truth and more than 3 px from visible faults; symmetric AUC above 0.90 means leakage until proven otherwise and blocks promotion.",
+  "promotion_gate": [
+    "all canaries <= 0.90 on both seeds",
+    "uniqueness, BOTH readings always reported: (a) inherited literal reading, and (b) chance-normalised reading in which a registry raster may block only if the candidate's forward 3 px overlap exceeds max(0.70, that raster's own halo coverage of the allowed domain). Spearman <= 0.90 is unchanged and applies to every raster in both readings.",
+    "shared submission_writer validation: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, [0,1], no mass outside the footprint or on catalogue pixels",
+    "HOLDOUT-DTI is REPORTED, not used as a pass/fail bar for this lane, because evidence/score_geometry_study.json and evidence/proxy_validation.json show the inherited hide-and-recover holdout rewards catalogue proximity while the reported organiser scores reward distance. Promoting on a gate measured to point the wrong way would be unsound; the conflict is itself the result and is reported with both numbers."
+  ],
+  "experiments": [
+    "X1: the lane exactly as specified above, both seeds, four arms",
+    "X2/X3: reserved for a defect fix only, never for tuning against any holdout"
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95 % CI). No projected leaderboard score is written anywhere. ORGANIZER-CONFIRMED requires a submission-page receipt, which this sandbox cannot obtain."
+}
