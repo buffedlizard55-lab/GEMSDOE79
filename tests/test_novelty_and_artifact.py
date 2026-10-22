@@ -40,7 +40,15 @@ def test_committed_deliverable_offline_end_to_end():
     assert verify()['all_checks_passed']
 
 def test_stop_is_not_rewritten_as_an_achieved_score():
+    # The stopped lane is archived E1: its nulls must stay null forever.
+    e1=json.loads((ROOT/'archive/g79_fabric_offset_e1/run_card.json').read_text())
+    assert e1['holdout_dti']['dti'] is None and e1['holdout_dti']['ci95'] is None
+    assert e1['leakage_canary']['auc'] is None and e1['verdict']=='negative'
+    assert e1['final_dot_placements_performed']==0 and e1['submission_slots_used']==0
+    # The canonical STEPCO card measured a holdout tie; it must not be
+    # rewritten as a win, a projection or an organizer score either.
     card=json.loads((ROOT/'run_card.json').read_text())
-    assert card['holdout_dti']['dti'] is None and card['holdout_dti']['ci95'] is None
-    assert card['leakage_canary']['auc'] is None and card['verdict']=='negative'
-    assert card['final_dot_placements_performed']==0 and card['submission_slots_used']==0
+    assert card['verdict']=='negative' and card['submission_slots_used']==0
+    assert card['current_best_holdout_beaten'] is False
+    assert card['leaderboard_improvement_established'] is False
+    assert card['organizer_submission_receipt'] is None

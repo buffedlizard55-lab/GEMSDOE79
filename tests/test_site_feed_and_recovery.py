@@ -281,8 +281,11 @@ def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
         assert 0.0 < cand['dti'] < 0.06 and len(cand['ci95']) == 2
         assert holdout['paired_differences']['zero_lag_edge_control']['ci95'][0] < 0.0
         assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
+    # The post-stop diagnostic belongs to archived E1; its card keeps nulls.
+    e1 = json.loads((ROOT / 'archive/g79_fabric_offset_e1/run_card.json').read_text())
+    assert e1['holdout_dti']['dti'] is None and e1['verdict'] == 'negative' and e1['ok_to_submit'] is False
     card = json.loads((ROOT / 'run_card.json').read_text())
-    assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False
+    assert card['lane'] == 'G79-STEPCO' and card['verdict'] == 'negative' and card['ok_to_submit'] is False
 
 
 def test_post_stop_diagnostic_help_exits_zero():

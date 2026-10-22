@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a newly generated, validated research GeoTIFF with an explicit automated DO NOT SUBMIT verdict and auditable evidence.">
+<meta name="description" content="GEMSDOE79 G79-STEPCO: a newly generated 37,654-dot GeoTIFF with measured holdout evidence, full-registry uniqueness accounting and an explicit automated DO NOT SUBMIT verdict.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -267,6 +267,48 @@ See <code>reports/session_review_8ed5d89a.md</code> and
 <td>IR-79-32</td>
 <td>Both archived concurrent lanes (<code>H79-MCT</code> in <code>archive/h79_mct_c26efec/</code> and <code>H79-CSPT</code> in <code>archive/h79_cspt_3d386a3/</code>) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared <code>gems57.uniqueness</code>, <code>gems57.validate</code>, and <code>gems79.status</code> tools.</td>
 <td>Implemented <code>scripts/audit_archived_concurrent_lanes.py</code> and generated <code>evidence/concurrent_lanes_audit.json</code> (plus <code>evidence/session_witness_700397d4.json</code> and <code>reports/session_review_700397d4.md</code>), proving with unmodified shared code that both archived GeoTIFFs (<code>d1a4158a…</code> and <code>d55570bf…</code>) have <code>1.0000</code> literal 3-px forward overlap against <code>17GEMSDOE_E-proba-multiscale</code>, relied on post-duplicate constrained overlap capping (<code>0.6800</code> and <code>0.6900</code> against sparse/semi-dense registry priors), and return <code>ok_to_submit: false</code>, <code>verdict: "negative"</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 2026-10-22 — G79-STEPCO (branch <code>arena/220dabc8-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-33</td>
+<td>The request again contains no delimited single method paragraph (repeat of IR-79-02), and simultaneously demands a unique submittable TIFF, validation "without human intervention", and autonomous completion.</td>
+<td>Declared and preregistered one lane (<code>G79-STEPCO</code>, <code>registry/preregistration_g79stepco_20261022.json</code>) before scoring. E1's evidence and stop are archived unchanged; no claim the lane was assigned.</td>
+</tr>
+<tr>
+<td>IR-79-34</td>
+<td>Decision D-1 (what counts as a continuous registry raster's "dots") blocked every candidate under the literal reading: one prior is positive on all 5,167,373 footprint cells. Previous sessions stopped rather than define it; two archived lanes exempted themselves post hoc.</td>
+<td>Resolved prospectively and in writing (<code>reports/protocol_amendment_D1_20261022.md</code>) using the pinned shared tool's own <code>two_phase_summary</code>: rank correlation on every raster, dot-overlap like-for-like, matched-budget extraction for continuous surfaces, literal reading always printed, thresholds unchanged, vendor bytes unchanged. Open to reversal by the protocol owner; reversal reverts every candidate to negative.</td>
+</tr>
+<tr>
+<td>IR-79-35</td>
+<td>Even under D-1, the like-for-like reading fires: the registry contains a 206,895-dot space-filling lattice (<code>13GEMSDOE r13-lattice-s5</code>) and dot fields up to ~1M dots under the shared tool's 20% support cut; their 3 px halos cover the study area. STEPCO S1 forward overlap vs the lattice is 1.0 while vs 748 comparable sparse emissions (≤75,308 dots) the worst is 0.6473, and vs H33 itself 0.4138.</td>
+<td>Reported all readings; <code>protocol_unique=false</code>. No post-hoc redefinition after the firing. A registry emitted-mass class policy (emissions vs tilings/surfaces) is the remaining owner decision. S2's worst comparable-sparse overlap is 0.70003 (&gt;0.70 by one dot's worth) — also reported, not rounded down.</td>
+</tr>
+<tr>
+<td>IR-79-36</td>
+<td>Registry completeness: 3 of 992 indexed rasters no longer exist at their paths on current sibling <code>main</code> branches (GEMSDOE73/74 files renamed after the 2026-10-21 index), and 6 restored files are grid-invalid (wrong origin, origin 0,0 schema demos, a 32×48 format test, one corrupt TIFF). A parallel <code>gh api</code> registry restore also exhausted the GitHub REST rate limit (reset 01:42 UTC).</td>
+<td>Restored 989 files by blobless sparse git clones (no REST budget), then the 3 missing blobs individually via <code>gh api</code> after reset; all SHA-256/Git-blob pins verified. The 6 grid-invalid files are documented with array-level diagnostics in <code>evidence/stepco/uniqueness_supplementary.json</code>. Scope is now 992/992 accounted for (986 grid-comparable + 6 invalid), never described as 992 compared.</td>
+</tr>
+<tr>
+<td>IR-79-37</td>
+<td>The user-supplied H33 score 0.2778 conflicts with the GEMSDOE32 site itself, which labels the H33 file <strong>UNSCORED</strong> and its 0.2747 a projection (fetched 2026-10-22); the prompt's "highest 0.3195" also conflicts with the official leaderboard's 0.4413 (fetched same day).</td>
+<td>Both figures kept as UNVERIFIED HISTORICAL REPORTS. No STEPCO leaderboard projection was computed. Whether STEPCO would beat 0.2778 is explicitly unknown; its holdout only ties the H33 lineage, so no improvement is claimed.</td>
+</tr>
+<tr>
+<td>IR-79-38</td>
+<td>STEPCO's incumbent control (fold-fair D2.8 dots) descends from a surface whose family was selected with leaderboard feedback. It is therefore a partially meta-contaminated comparator, yet it is also the strongest available lineage.</td>
+<td>Retained as the promotion gate anyway (conservative direction). Tying a leaderboard-tuned incumbent with a clean per-draw refit is reported as a tie, not upgraded to a win on contamination grounds.</td>
 </tr>
 </tbody>
 </table></div></section></main>

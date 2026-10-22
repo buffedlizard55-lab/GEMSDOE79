@@ -22,16 +22,36 @@ def current_card():
 
 def test_active_run_card_is_negative_and_matches_evidence_copy():
     card = current_card()
-    assert card["lane"] == "G79-FABRIC-OFFSET"
+    assert card["lane"] == "G79-STEPCO"
     assert card["verdict"] == "negative"
     assert card["ok_to_download"] is True
     assert card["ok_to_submit"] is False
-    assert card["holdout_dti"]["dti"] is None
-    assert card["holdout_dti"]["ci95"] is None
-    assert card["leakage_canary"]["auc"] is None
-    assert card["final_dot_placements_performed"] == 0
+    # STEPCO measured its holdout/canaries (unlike the stopped E1 lane) and
+    # still failed promotion: a tie, never rewritten as a win.
+    s1 = json.loads((ROOT / "evidence/stepco/holdout_s1_seed20.json").read_text())
+    assert card["holdout_dti"]["dti"] == s1["scores"]["candidate"]["dti"]
+    assert card["holdout_dti"]["evaluator_version"] == "gems57-pooled-hide-v2"
+    assert card["holdout_dti"]["withheld_positive_pixels"] > 0
+    assert card["holdout_gates"]["passed"] is False
+    assert card["leakage_canary"]["passed"] is True
+    assert 0.5 <= card["leakage_canary"]["auc"] <= 0.90
+    assert card["protocol_unique"] is False
+    assert card["submission_slots_used"] == 0
+    assert card["organizer_submission_receipt"] is None
     assert card == json.loads((ROOT / "evidence/run_card.json").read_text())
     assert card == json.loads((ROOT / "docs/run-card.json").read_text())
+    assert card == json.loads((ROOT / "run_card_stepco.json").read_text())
+
+
+def test_archived_e1_card_remains_the_stopped_negative_lane():
+    e1 = json.loads((ROOT / "archive/g79_fabric_offset_e1/run_card.json").read_text())
+    assert e1["lane"] == "G79-FABRIC-OFFSET"
+    assert e1["verdict"] == "negative" and e1["ok_to_submit"] is False
+    assert e1["holdout_dti"]["dti"] is None and e1["leakage_canary"]["auc"] is None
+    assert e1["final_dot_placements_performed"] == 0
+    tif = ROOT / "archive/g79_fabric_offset_e1/downloads" / Path(e1["submission_file"]).name
+    assert tif.is_file()
+    assert hashlib.sha256(tif.read_bytes()).hexdigest() == e1["raster_sha256"]
 
 
 def test_current_research_geotiff_passes_format_but_not_submission_gate():
