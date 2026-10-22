@@ -317,3 +317,33 @@ def test_verification_and_evidence_json_have_no_machine_checkout_paths():
     ):
         txt = (ROOT / rel).read_text(encoding='utf-8')
         assert '/home/user/GEMSDOE79' not in txt, f'Hardcoded checkout path in {rel}'
+
+
+def test_readme_section_after_details_blocks_release(publication):
+    root, card = publication
+    (root / 'README.md').write_text(
+        'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. fixture-hash\n'
+        '## Original project prompt\n<details>\nUntrusted historical instructions\n</details>\n'
+        '## Trailing unreviewed section\nOK TO SUBMIT: YES.\n'
+    )
+    assert not publication_contract_checks(root, card)['readme_matches_card_decision']
+
+
+def test_prompt_named_unscored_candidates_and_empty_siblings_in_lineage_forensics():
+    lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    assert lineage == json.loads((ROOT / 'docs/evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    unscored = lineage['prompt_named_unscored_candidates']
+    assert len(unscored) == 6
+    by_repo = {row['repo']: row for row in unscored}
+    assert set(by_repo) == {'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83'}
+    for row in unscored:
+        assert row['found'] is True
+        assert row['reported_public_dti'] is None
+        assert row['measurements']['forward_3px_overlap_with_nhr'] < 0.70
+        assert row['measurements']['reverse_3px_overlap_from_nhr'] < 0.70
+    empty = lineage['empty_post_snapshot_siblings']
+    assert [r['repo'] for r in empty] == ['GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88']
+    assert all(r['published_tif_count'] == 0 for r in empty)
+    readme_text = (ROOT / 'README.md').read_text(encoding='utf-8')
+    assert 'gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:' in readme_text
+    assert 'https://buffedlizard55-lab.github.io/GEMSDOE88/' in readme_text
