@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "lane": "G79-FSC",
+  "lane_title": "Fabric-Steered Concordance: multi-physics edges whose strike agrees with the visible regional fault fabric, placed by fabric-normal non-maximum suppression",
+  "session": "arena/0a202578-gemsdoe79",
+  "registered_utc_clock_read": "2026-10-22T15:36:10Z",
+  "timestamp_note": "Clock value read with `date -u` before any G79-FSC feature, surface, canary, holdout score or dot existed. The git commit containing this file is the authoritative record (IR-79-148 lesson).",
+  "method_paragraph": "Hidden Basin-and-Range faults are sub-parallel to the local mapped fault fabric. Build a fabric orientation field from the VISIBLE catalogue only (structure tensor of the visible fault mask, sigma 15 px). Build orientation fields of catalogue-free physical edges: detrended topography (structure tensor sigma 3 px), isostatic gravity (sigma 4 px), RTP magnetics (sigma 4 px) and the LiDAR scarp strike band. Score each pixel by concordance = coherence x cos^2(theta_edge - theta_fabric). Train one LightGBM classifier per leave-one-quadrant-out fold on an INNER hide of the visible catalogue (labels = inner-withheld components within 1 px; inner-visible catalogue removed from rows; geometry features from inner-visible faults only). Predict each outer fold with outer-visible geometry. Place dots on fabric-normal non-maximum-suppression ridges of the probability map, Poisson-thinned at spacing s, top-K by probability, with an optional catalogue collar c. (K, s, c) are chosen on the inner simulation only, never on outer withheld truth.",
+  "hypothesis": "G79-FSC-H1: Pixels whose topographic, gravity, magnetic or LiDAR-scarp edge orientation is concordant with the local fabric of the visible fault network are more likely to host an unmapped fault than equally strong discordant edges; adding this concordance family to catalogue-free physics plus visible-network geometry improves pooled HOLDOUT-DTI.",
+  "mechanism": "Extensional faults in the northwestern Great Basin form populations with a coherent strike set controlled by the regional stress field; unmapped splays, overlapping segments and buried continuations inherit that strike. Geomorphic and geophysical edges with other orientations are more often lithologic contacts, drainage, or survey artefacts.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline benches and range-front alluvial-fan toes: they parallel basin-bounding faults, so they are fabric-concordant without being faults. Secondary mimic: NNE-trending dikes and flow margins in magnetics.",
+  "novelty_vs_repo": "THVC uses learned crack-tip cones, multi-scale potential-field transforms and a fixed-penalty lazy-greedy kernel cover. No implemented local lane uses the visible-catalogue structure-tensor fabric as a steering field for edge concordance features or for the direction of non-maximum suppression during placement.",
+  "data": {
+    "inputs": "Only the 13 SHA-pinned manifest inputs restored by scripts/restore_data.py: training_features.tif (19 bands), existing_faults.tif, sample_submission.tif, lidar_scarp_features_u8.tif, geodawn_rad_u8.tif, geodawn_extensions_u8.tif.",
+    "new_external_data": "none"
+  },
+  "holdout": {
+    "evaluator": "vendor/gems57/evaluate_holdout.py VERSION gems57-pooled-hide-v2 (unchanged)",
+    "split": "vendor/gems57/holdout.py buffered_component_draw(seed, buffer_px=3, boundary_px=12) for seeds 20 and 30 (the same seeds and split as the THVC incumbent)",
+    "metric": "pooled DTI alpha 0.2 beta 0.8, 300 m triangular kernel, visible catalogue masked pixel-exactly",
+    "ci": "evaluate_holdout.pooled_summary 1000-draw paired physical 20 km block percentile interval"
+  },
+  "leakage_canary": "Every model feature is tested alone on outer withheld truth vs active non-truth (symmetric AUC). Any AUC > 0.90 stops the lane as leakage until explained.",
+  "selection_grid_inner_only": {
+    "K_dots": [25000, 35000, 45000, 60000, 80000],
+    "spacing_px": [2.0, 2.5, 3.0],
+    "collar_px": [0, 1, 2]
+  },
+  "experiments_budget": "At most 3. EXP-FSC-1 is the full method. EXP-FSC-2 (ablation, same folds): identical pipeline without the concordance family, to measure the family's contribution. No EXP-FSC-3 unless EXP-FSC-1 fails for a software defect.",
+  "incumbent": "G79-THVC frozen HOLDOUT-DTI 0.1905 (seed 20, 11,321 withheld) and 0.1944 (seed 30, 11,342 withheld), same evaluator and split. Its prediction bytes for the folds were not cached, so a paired interval against THVC is impossible without reopening a closed lane; the comparison is point estimate vs point estimate plus CI reporting.",
+  "promotion_rule": "PROMOTE only if ALL hold: (1) holdout DTI point estimate exceeds THVC on BOTH seeds; (2) the paired 95% CI vs the uniform-random control of the same budget excludes 0 on both seeds; (3) no feature canary AUC > 0.90; (4) surface and final-dot novelty pass under amendment D-2 against every comparable registry raster, including this repository's own published TIFFs; (5) the shared writer and validator pass (finite, [0,1], EPSG:32611, 3730x3292, transform match, 0 outside footprint). Otherwise the verdict is NEGATIVE and the TIFF is labelled DO-NOT-SUBMIT.",
+  "novelty_protocol_decision": {
+    "decision_id": "D-2-PROJECT-CANONICAL",
+    "decided_before_results": true,
+    "text": "The literal support rule is provably constant: one registry probability surface (17GEMSDOE E-proba-multiscale, sha256 ab0a0a62...) is positive on every footprint cell, so every nonempty candidate has overlap 1.0 and the test carries no information (evidence/universal_overlap_certificate.json). The user's highest-priority instruction is to generate a unique submittable TIFF and validate it automatically. A rule that no file can ever pass cannot implement that instruction. This lane therefore adopts the existing shared amendment D-2 (vendor/gems57/uniqueness.py compare_array_to_registry_d2, unchanged bytes): rank correlation <= 0.90 against every raster; forward 3 px overlap against each dot field's literal dots; against each continuous surface's budget-matched top-K cells; chance-corrected for halo-saturating priors. The literal reading is computed and printed next to it. The decision is fixed before any G79-FSC result exists and is not a post-hoc rescue."
+  },
+  "slot_policy": "This session does not submit. The run card states OK TO SUBMIT only when every promotion gate passes; the user still checks remaining weekly capacity on the DrivenData submission page."
+}
