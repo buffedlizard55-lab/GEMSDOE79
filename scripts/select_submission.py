@@ -18,9 +18,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 from gems79.status import submission_decision   # noqa: E402
-from gems79.portal_spec import validate_portal_file   # noqa: E402
+from gems79.portal_spec import (validate_portal_file, portal_report_passed,
+                                PINNED_TEMPLATE_SHA256)   # noqa: E402
 from validate_submission import validate_path   # noqa: E402
-from verify_project import evidence_checks   # noqa: E402
+from verify_project import evidence_checks, strict_loads_bytes   # noqa: E402
 
 REPO_URL = "https://github.com/buffedlizard55-lab/GEMSDOE79"
 
@@ -66,7 +67,8 @@ def _finite_number(value, low: float, high: float) -> bool:
     return type(value) in (int, float) and math.isfinite(value) and low <= value <= high
 
 
-def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: bool):
+def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: bool,
+                            official_format_report=None):
     """Re-derive G79-THVC's measured gates without granting an exception.
 
     The canonical lane predates the NHR/FFAS ``x1_gates.json`` schema.  Treating
@@ -85,6 +87,9 @@ def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: 
         checks.update({
             "raster_sha256_matches": actual == card.get("raster_sha256"),
             "format_validation_passed": format_passed is True,
+            "official_text_format_passed": portal_report_passed(
+                official_format_report, expected_sha256=actual,
+                expected_template_sha256=PINNED_TEMPLATE_SHA256),
             "feature_alone_canary_le_0_90": (
                 set(canary) == {"seed20", "seed30"}
                 and all(
@@ -119,19 +124,22 @@ def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: 
 
 
 def _select() -> int:
-    card = json.loads((ROOT / "run_card.json").read_text())
+    card = strict_loads_bytes((ROOT / "run_card.json").read_bytes())
     if not isinstance(card, dict):
         raise TypeError("Run card must be an object")
-    path = ROOT / card["submission_file"]
+    relative = card["submission_file"]
+    if not isinstance(relative, str) or not relative or Path(relative).is_absolute():
+        raise ValueError("Artifact path must be repository-relative")
+    path = (ROOT / relative).resolve()
+    if not path.is_relative_to(ROOT.resolve()):
+        raise ValueError("Artifact path escapes repository")
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
-    # The older local validator accepts finite zero outside the sample footprint;
-    # the organizer's R6 requires null/NaN there. Never select on the older check alone.
-    portal = validate_portal_file(path, ROOT / "data/reference/sample_submission.tif")
-    portal_ok = portal["ok"]
+    official = validate_portal_file(path, ROOT / "data/reference/sample_submission.tif")
+    official_ok = portal_report_passed(
+        official, expected_sha256=actual, expected_template_sha256=PINNED_TEMPLATE_SHA256)
     if card.get("lane") == "G79-THVC":
-        checks = canonical_thvc_evidence(ROOT, card, actual, fmt)
-        checks["official_format_R1_R8"] = portal_ok
+        checks = canonical_thvc_evidence(ROOT, card, actual, fmt, official)
         trial = dict(card)
         trial["selector_receipt"] = {
             "raster_sha256": actual, "selector": "scripts/select_submission.py",
@@ -141,7 +149,7 @@ def _select() -> int:
         trial["approved_for_weekly_slot"] = True
         trial["ok_to_submit"] = True
         decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt,
-                                       portal_passed=portal_ok)
+                                       official_format_report=official)
         failed = sorted(k for k, value in checks.items() if value is not True)
         refusal = {
             "selected": False,
@@ -151,7 +159,8 @@ def _select() -> int:
             "raster_sha256": actual,
             "blockers": decision["blockers"],
             "failed_gates": failed,
-            "reason": "Canonical evidence was re-derived; literal registry uniqueness did not clear.",
+            "reason": "Canonical evidence was re-derived; literal novelty and the official-text exterior format did not clear.",
+            "official_format_validation": official,
             "card_left_unchanged": True,
         }
         print(json.dumps(refusal, indent=2))
@@ -168,7 +177,7 @@ def _select() -> int:
         print(json.dumps(refusal, indent=2))
         return 2
     ev = evidence_dir(ROOT, card)
-    gates = json.loads((ev / "x1_gates.json").read_text())
+    gates = strict_loads_bytes((ev / "x1_gates.json").read_bytes())
     trial = dict(card)
     trial["selector_receipt"] = {"raster_sha256": actual, "selector": "scripts/select_submission.py",
                                  "all_automated_gates_passed": True, "source_url": "pending",
@@ -177,12 +186,14 @@ def _select() -> int:
     trial["approved_for_weekly_slot"] = True
     trial["ok_to_submit"] = True
     decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt,
-                                       portal_passed=portal_ok)
+                                   official_format_report=official)
     evidence_ok, measured_checks = selection_evidence(ROOT, card, gates, actual)
-    ok = (portal_ok and evidence_ok and decision["blockers"] == [] and gates.get("all_passed") is True
+    measured_checks['official_text_format_passed'] = official_ok
+    ok = (evidence_ok and official_ok and decision["blockers"] == [] and gates.get("all_passed") is True
           and gates.get("raster_sha256") == actual and card.get("verdict") == "promote")
     if not ok:
-        refusal = {"selected": False, "selector": "scripts/select_submission.py",
+        refusal = {"selected": False, "ok_to_submit": False, "selector": "scripts/select_submission.py",
+                   "official_format_validation": official,
                    "raster_sha256": actual, "observed_utc": datetime.now(timezone.utc).isoformat(),
                    "blockers": decision["blockers"],
                    "failed_gates": sorted(k for k, v in gates["gates"].items() if v is not True),

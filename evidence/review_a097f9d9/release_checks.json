@@ -1,0 +1,56 @@
+{
+  "checked_utc": "2026-10-22T20:59:59.203192+00:00",
+  "source_commit": "646f72430ed7cc85b73256e7525122bd326ab454",
+  "checks": [
+    {
+      "check": "integrity",
+      "command": ".venv/bin/python scripts/verify_project.py",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "receipt": "evidence/review_a097f9d9/integrity_release.json"
+    },
+    {
+      "check": "runtime",
+      "command": ".venv/bin/python scripts/data_status.py",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "receipt": "evidence/review_a097f9d9/runtime_release.json"
+    },
+    {
+      "check": "status",
+      "command": ".venv/bin/python scripts/submission_status.py",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "receipt": "evidence/review_a097f9d9/status_release.json"
+    },
+    {
+      "check": "selector",
+      "command": ".venv/bin/python scripts/select_submission.py",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "receipt": "evidence/review_a097f9d9/selector_release.json"
+    },
+    {
+      "check": "readiness",
+      "command": ".venv/bin/python scripts/review_readiness.py",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "receipt": "evidence/review_a097f9d9/readiness_release.json"
+    },
+    {
+      "check": "site",
+      "command": ".venv/bin/python scripts/check_site.py",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "receipt": "evidence/review_a097f9d9/site_release.json"
+    }
+  ],
+  "all_expected_exit_codes": true,
+  "canonical_card_sha256_before_and_after": "628667670ae301916625f7ea56bc834f7978faa1460db40721b5e78bf458a42c",
+  "node_identity_tests": {
+    "command": "node --test tools/browser-qa/download-check.test.cjs",
+    "exit_code": 0,
+    "passed": 12
+  },
+  "scope": "Expected negative selector/readiness exits are refusals, not approval. No scientific experiment or slot."
+}

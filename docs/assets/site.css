@@ -16,3 +16,10 @@ nav a, .button { white-space: nowrap; word-break: normal; overflow-wrap: normal;
 #download-check-result { overflow-wrap: anywhere; }
 #download-check-result[data-state="unknown"],
 #download-check-result[data-state="unverified"] { color: var(--red); }
+
+/* Keep branding intact as navigation/archive counts grow. */
+.nav { flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+.brand { flex-shrink: 0; white-space: nowrap; }
+.brand svg { flex-shrink: 0; }
+nav { max-width: 100%; }
+.archive-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }

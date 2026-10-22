@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: inherited research GeoTIFF; official-text R6 and literal novelty fail. Download for research, never submit this file.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="history.html">History &amp; archives</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>Entries retain their original dates and are ordered by review sequence. No entry authorizes a threshold exemption.</p>
 <table>
@@ -1794,5 +1794,48 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Verdict: negative. The TIFF is archived research-only (<code>artifacts/opc/*-DO-NOT-SUBMIT.tif</code>, <code>run_card_opc.json</code>). The runner refuses to rerun (<code>refuse_if_closed</code>). Calibration was <strong>not</strong> retuned after viewing the holdout. A prospective fix (inner-validated calibration on simulated hides) is listed in <code>research/hypotheses_ff2e4413.md</code> as a new lane.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>a097f9d9</code> — live official-format gates and source/byte re-audit (2026-10-22)</h3>
+<p>Review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a097f9d9.md"><code>session_review_a097f9d9.md</code></a>. Negative card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_a097f9d9/run_card.json"><code>evidence/review_a097f9d9/run_card.json</code></a>. No scientific experiment, placement, new candidate, submission, or slot.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-232</td>
+<td><strong>Wrapped multiband TIFF incorrectly passed local official-format R1.</strong> The old ZIP helper replaced its inner R1 failure with a wrapper-only PASS. A tiny two-band synthetic fixture produced direct-TIFF FAIL but ZIP PASS (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_a097f9d9/multiband_zip_before.json">before receipt</a>).</td>
+<td><code>gems79-portal-format-v3</code> conjoins container and inner R1, checks the GTiff driver and interior validity mask, streams one safe bounded archive member and fails CRC/corrupt input closed. Missing/corrupt artifacts/templates produce complete R1–R8 negative reports. Tests cover wrapped/direct multiband, masks, invalid template/driver, traversal/symlink/size, changing bytes and refusal to overwrite evidence. No geological TIFF was generated. Incoming main independently fixed the original R1 defect in IR-79-220/225; this integrated v3 retains that fix and adds stable-byte, mask, standalone-metadata and resource-bound hardening.</td>
+</tr>
+<tr>
+<td>IR-79-233</td>
+<td><strong>Legacy format PASS was not a sufficient official submission-format gate.</strong> Readiness and selector used the all-finite research policy; the separate R6 checker could fail without being required for selection. Zero exterior also made the old policies incompatible with a future legitimate NaN-exterior raster.</td>
+<td>Readiness, selector, integrity verification and Pages now require a complete strict, SHA/template-bound, stable-byte R1–R8 PASS for the submission-format gate. Research download may use the legacy check <strong>or</strong> valid official-text report; a legacy PASS alone cannot promote. Fresh sample PASS / canonical TIFF and ZIP R6 FAIL is <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_a097f9d9/official_text_format_checks_after_sync.json">recorded</a>. All science/novelty/selector gates remain independent. The frozen shared writer still emits zero exterior; no historical file or shared metric/writer was silently changed.</td>
+</tr>
+<tr>
+<td>IR-79-234</td>
+<td><strong>Misleading active/archive copy and stale availability could be mistaken for approval.</strong> README/lane copy claimed the portal range error “cannot occur” and called failed-literal artifacts “new unique.” Runtime inputs were initially missing; a baseline suite run overlapped restoration and failed two site tests on runtime-feed drift.</td>
+<td>Removed unconditional portal guarantees and unqualified novelty labels from active publication, marked archive pages research-only, added a live official-format widget/report, and preserved the original prompt byte-for-byte (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_a097f9d9/prompt_preservation.json">hash receipt</a>). Restored/hash-checked all 13 manifest inputs (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_a097f9d9/runtime_after.json">after</a>) without replacing the old restore receipt. Rebuild binds the current runtime status; this is a workspace snapshot, not source authentication or a revived modeling lane.</td>
+</tr>
+<tr>
+<td>IR-79-235</td>
+<td><strong>H33 report and source authority still conflict.</strong> Fresh pinned GEMSDOE32 page source explicitly says UNSCORED/no organizer score; the historical ledger has 103 reports across 77 sites and zero artifact-linked organizer receipts. Fresh H33/D2.8 byte measurements reproduce exactly 6,436 deleted <code>d_cat &lt;= 2 px</code> dots and no added dots; none deleted is exactly on a catalogue cell.</td>
+<td>Retained the user-reported result as unverified; the family page cannot independently disprove an external upload. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_a097f9d9/h33_remeasurement.json">Fresh byte receipt</a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_a097f9d9/source_code_inspection.json">source inspection</a> distinguish geometry from score causality. The official notebook was inspected, not trained; its Tversky loss is not the pooled evaluator and its export code is not acceptance evidence. No fresh official leaderboard read or new HOLDOUT-DTI was claimed.</td>
+</tr>
+<tr>
+<td>IR-79-236</td>
+<td><strong>Highest-priority unique submittable TIFF and top-hypothesis holdout remain unmet under the user's unchanged STOP.</strong> The freshly restored witness again covers every allowed cell; every nonempty candidate must exceed 70% literal overlap. The current prompt does not supply an executable method-lane paragraph.</td>
+<td>Honored <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_a097f9d9/preflight.json">preflight exit 2</a>; recorded four exact, ranked, untested <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_a097f9d9.md">hypotheses before implementation</a>, including mimics, controls, cost and source limitations. No density exemption, relabel/re-encoding, new map, canary, holdout, placement or slot. A prospective shared protocol clarification is a prerequisite for any new lane, not a request to approve this negative file.</td>
+</tr>
+<tr>
+<td>IR-79-237</td>
+<td><strong>Incoming main's immutable TIPSTEP card claims zero exterior fixes a past portal range error without the rejected bytes/receipt; its hand-written page was also not regenerated by the site builder.</strong> Preserving other sessions' artifacts must not silently repeat that unsupported diagnosis or delete their public page.</td>
+<td>Preserve TIPSTEP card/TIFF/ZIP byte-for-byte, render its inherited estimates as archived HOLDOUT-DTI with evaluator/n/CI, add a reachable research-only page and a fresh SHA-bound format report (R6 FAIL), and explicitly withdraw the unsupported portal guarantee in active publication. No TIPSTEP model/placement or score was rerun in this review.</td>
+</tr>
+</tbody>
 </table></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Branch review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR archive</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a097f9d9.md">Submission-safety review · a097f9d9</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Prior review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

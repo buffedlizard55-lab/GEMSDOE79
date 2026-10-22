@@ -14,7 +14,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
-from gems79.portal_spec import validate_portal_file
+from gems79.portal_spec import validate_portal_file, portal_report_passed, PINNED_TEMPLATE_SHA256
 from validate_submission import validate_path
 
 
@@ -171,8 +171,8 @@ def sibling_audit_and_delta_checks(root):
             # uniqueness.py (be529511...). The merged file only appends amendment
             # D-2 functions; regeneration reproduced 1755/1778 audit leaves
             # identically, so the recorded previous pin remains valid evidence.
-            # IR-79-229: D-3 appended a third shared amendment; the audit's pin is
-            # accepted if it is the current, previous or a recorded historical pin.
+            # IR-79-229: retain current, previous and recorded historical pins
+            # when checking old receipts after the shared D-3 append.
             audit_doc.get('shared_tools_pinned', {}).get('uniqueness_py_sha256') in (
                 sha(root / 'vendor/gems57/uniqueness.py'),
                 *next(([e.get('previous_sha256'), *e.get('historical_sha256', [])] for e in json.loads(
@@ -481,9 +481,23 @@ def verify(refresh_timestamp: bool = False):
     state = json.loads((ROOT / 'evidence/experiment_state.json').read_text())
     checks['e1_scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
                                              state['final_dot_placements_performed'] == 0)
-    portal = validate_portal_file(path, ROOT / 'data/reference/sample_submission.tif')
+    official = validate_portal_file(path, ROOT / 'data/reference/sample_submission.tif')
+    official_ok = portal_report_passed(
+        official, expected_sha256=actual_sha, expected_template_sha256=PINNED_TEMPLATE_SHA256)
     decision = submission_decision(card, actual_sha256=actual_sha,
-                                   format_passed=result['format_passed'], portal_passed=portal['ok'])
+                                   format_passed=result['format_passed'],
+                                   official_format_report=official)
+    # A correctly rejected research artifact can pass repository integrity. Never
+    # equate this check with a PASS of R1--R8 or organizer acceptance.
+    checks['official_format_measured_and_bound_to_current_bytes'] = (
+        official['sha256'] == actual_sha
+        and official['template_sha256'] == PINNED_TEMPLATE_SHA256
+        and official['bytes_stable_during_validation'] is True
+        and 'inspection_error' not in official
+        and len(official['rules']) == 8)
+    checks['official_format_required_for_any_promotion'] = (
+        decision['official_text_format_passed'] is official_ok
+        and (decision['ok_to_submit'] is not True or official_ok))
     checks['status_tool_and_card_agree'] = (decision['ok_to_download'] == card['ok_to_download'] and
         decision['ok_to_submit'] == card['ok_to_submit'] and decision['verdict'] == card['verdict'] and
         card['submission_slots_used'] == 0 and card['organizer_submission_receipt'] is None)
@@ -491,6 +505,7 @@ def verify(refresh_timestamp: bool = False):
     verified_utc = datetime.now(timezone.utc).isoformat()
     payload = {'all_checks_passed': all(checks.values()), 'checks': checks,
                'raster_sha256': actual_sha, 'format_report': result,
+               'official_format_validation': official,
                'submission_decision': decision,
                'scope': 'Offline byte/format/evidence/status verification. Does not recreate holdout results or authenticate organizer acceptance.'}
     if not refresh_timestamp:

@@ -32,7 +32,7 @@
       const known = manifest.find(row => row.sha256 === sha256 && row.bytes === file.size);
       if (!known) return {...refusal("unknown", "UNKNOWN FILE — bytes differ from both published files. No format or submission approval."), sha256};
       return {state: "match", matched: true, submission_approved: false, sha256, kind: known.kind,
-        message: "IDENTITY MATCH — exact published " + known.kind + " bytes. This file inherits the published local format check, not portal acceptance. This checker grants no submission permission; follow the gate decision above."};
+        message: "IDENTITY MATCH — exact published " + known.kind + " bytes. Identity is not an R1–R8 format PASS or portal acceptance. This checker grants no submission permission; follow the gate decision above."};
     } catch (_) {
       return refusal("unverified", "UNVERIFIED — file reading or SHA-256 failed. No submission approval.");
     }

@@ -1,0 +1,44 @@
+{
+  "checked_utc": "2026-10-22T20:59:46.834125+00:00",
+  "comparison_target_main": "6e3ca9198d736d92a68dd8aeaabc364b4c119a87",
+  "tested_source_commit": "646f72430ed7cc85b73256e7525122bd326ab454",
+  "historical_tracked_files_checked": 838,
+  "scope_expanded_from_earlier_836_file_proof": true,
+  "selection_prefixes": [
+    "archive/",
+    "artifacts/",
+    "data/",
+    "evidence/",
+    "registry/",
+    "vendor/",
+    "docs/downloads/"
+  ],
+  "additional_inclusions": [
+    "root run_card*.json",
+    "docs/run-card.json"
+  ],
+  "mutable_operational_exceptions": [
+    "evidence/source_health.json",
+    "evidence/verification.json"
+  ],
+  "checked_paths_list_sha256": "c6a2a0128cafd11228a04951c397255b37caf2744c972962145e2b98e63fbada",
+  "git_blob_comparison_uses_no_filters": true,
+  "historical_changes_authored_by_this_review": [],
+  "selected_sha256": {
+    "run_card.json": "628667670ae301916625f7ea56bc834f7978faa1460db40721b5e78bf458a42c",
+    "data/restore_receipt.json": "471916b5f4f9c6345882311d814f60f90978f63ef6d42f18481120a83193cf78",
+    "registry/template_pin.json": "0278d504527d90541d4c24d8f05bbb9629e79418a2006eee462a2b85adb874ed",
+    "vendor/gems57/uniqueness.py": "adafe293a9bc27fb416543cc9d30208c8a08540bc0605060e304a4dc7b255779",
+    "vendor/gems57/submission_writer.py": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
+    "vendor/gems57/evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "evidence/h33_forensics.json": "628041f33738fcb9092b5adeab1ceae65a10ac548228a58390fd22c64593df1f",
+    "artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif": "4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a",
+    "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2"
+  },
+  "original_prompt_tail_boundary": "Immediately after section-marker text, including following newline, through EOF.",
+  "original_prompt_tail_bytes": 35279,
+  "original_prompt_tail_sha256": "28b1480498eefb6e684cd31ec71fc3bdb3fa0850119b390e1f13ad33e6723dc8",
+  "original_prompt_byte_identical": true,
+  "passed": true,
+  "scope": "Expanded byte-level preservation proof against incoming main. Includes incoming scientific records; does not attribute them to this review."
+}

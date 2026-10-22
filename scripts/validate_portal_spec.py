@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Check GeoTIFF/ZIP files against the OFFICIAL GEMS submission rules (R1-R8).
+"""Locally check GeoTIFF/ZIP files against published GEMS format text (R1-R8).
 
 Usage:  .venv/bin/python scripts/validate_portal_spec.py FILE [FILE ...] [--json OUT]
 
-Exit 0 = every file passes every official rule (local format only).
-Exit 2 = at least one file fails a rule; the failing rule IDs are printed.
-This never approves a competition submission. Novelty and slot gates still
-apply (see scripts/submission_status.py).
+Exit 0 = every file passes all local official-text format checks.
+Exit 2 = a rule/inspection failed, or the new JSON report could not be written.
+Missing/corrupt inputs are negative reports, never tracebacks or stale PASS.
+This is not the organizer's validator, submission approval, or a slot action.
 """
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument('files', nargs='+')
     ap.add_argument('--template', default=str(ROOT / 'data/reference/sample_submission.tif'))
-    ap.add_argument('--json', default=None, help='optional path to write the full JSON report')
+    ap.add_argument('--json', default=None, help='write a new full JSON report; existing files are never overwritten')
     args = ap.parse_args(argv)
     reports = [validate_portal_file(f, args.template) for f in args.files]
     for r in reports:
@@ -33,8 +33,18 @@ def main(argv=None) -> int:
         for rule in r['rules']:
             if not rule['pass']:
                 print(f"    {rule['rule']} {rule['text']}: {rule['detail']}")
+        if 'inspection_error' in r:
+            error = r['inspection_error']
+            print(f"    Inspection refused at {error['stage']} ({error['type']}). Do not submit.")
     if args.json:
-        Path(args.json).write_text(json.dumps(reports, indent=2, allow_nan=False) + '\n', encoding='utf-8')
+        try:
+            destination = Path(args.json)
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            with destination.open('x', encoding='utf-8') as stream:
+                stream.write(json.dumps(reports, indent=2, allow_nan=False) + '\n')
+        except OSError as exc:
+            print(f'Report not written ({type(exc).__name__}); existing evidence was not replaced.', file=sys.stderr)
+            return 2
     return 0 if all(r['ok'] for r in reports) else 2
 
 

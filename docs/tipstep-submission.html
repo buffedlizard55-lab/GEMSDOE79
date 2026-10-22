@@ -1,44 +1,10 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>G79-TIPSTEP — unique research GeoTIFF · GEMSDOE79</title><link rel="stylesheet" href="assets/site.css"></head>
-<body><main class="wrap" id="main">
-<p><a href="index.html">← GEMSDOE79 home</a> · <a href="executive-summary.html">Decision / executive summary</a></p>
-<h1>G79-TIPSTEP — new unique GeoTIFF (this session)</h1>
-<div class="download-warning"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong><br>
-Machine-validated, unique research artifact. It does <strong>not</strong> beat the current holdout
-incumbent, so no weekly competition slot is approved. No human inspector is needed for this
-decision — it is computed from the gates below.</div>
-<p>
-<a class="button" href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif">↓ Download GeoTIFF (127 KB)</a>
-<a class="button secondary" href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.zip">↓ ZIP (same TIFF)</a>
-</p>
-<h2>Submission identity (for your records — do not upload this one)</h2>
-<div class="code-label">Submission name</div><div class="code-box">gems79-tipstep-20261022</div>
-<div class="code-label">Note (96/140 characters)</div><div class="code-box">G79-TIPSTEP catalogue tip-extension + collinear stepover bridges, dotted 3px, &gt;2px off catalogue</div>
-<div class="code-label">GeoTIFF SHA-256</div><div class="code-box">4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a</div>
-<h2>Why this file will NOT trigger “Predicted values must be in range [0, 1]”</h2>
-<p>That portal error is caused by NaN/out-of-range cells. The sample grid carries NaN outside the
-footprint; NaN-outside exports fail the range check. This file uses <strong>zeros outside the
-footprint</strong>: single float32 band, 12,279,160 finite cells, min 0.0, max 1.0, no NaN/Inf,
-EPSG:32611, 3730×3292, transform matching the sample submission — verified by
-<code>scripts/validate_submission.py</code> (format PASS; format PASS alone never approves a slot).</p>
-<h2>Gates (all labelled, no projections)</h2>
-<ul>
-<li><strong>Format/range:</strong> PASS (above).</li>
-<li><strong>HOLDOUT-DTI</strong> (evaluator gems57-pooled-hide-v2, α=0.2, β=0.8, 300 m kernel):
-seed 20 = 0.0927 [0.0795, 0.1049], n=11,321 withheld px; seed 30 = 0.0928 [0.0777, 0.1079],
-n=11,342. Paired vs uniform control: +0.091 [0.078, 0.103]. Leakage canaries: max symmetric
-AUC 0.806 &lt; 0.90 (tipstep surface alone 0.51).</li>
-<li><strong>Incumbent gate: FAIL.</strong> Below G79-THVC holdout 0.1905/0.1944 and G79-CSKD 0.2145 (seed 30). Protocol: do not spend a slot.</li>
-<li><strong>Novelty (local scope):</strong> vs 40 sparse dot rasters archived in this repo: max 3-px forward overlap 0.4765 &lt; 0.70, max |Spearman| 0.056 &lt; 0.90, zero duplicates. Full 1,108-row cross-repo registry not scanned offline; 4 dense continuous rasters flagged (universal-witness obstruction) — see run card. Hence uniqueness is <em>locally measured</em>, not registry-certified.</li>
-<li><strong>Organiser score:</strong> none. No ORGANIZER-CONFIRMED receipt exists for this file. Historical H33 0.2778 is unverified; leaderboard 0.4413 belongs to another entrant.</li>
-</ul>
-<h2>How to submit a (future, approved) file — executive summary</h2>
-<ol>
-<li>Only upload a file whose page states “OK TO SUBMIT: YES” from the selector; this one states NO.</li>
-<li>On DrivenData: New submission → choose the single-band .tif (or a .zip containing exactly one .tif).</li>
-<li>Paste the submission name and the ≤140-character note shown on that file's page.</li>
-<li>Confirm the page reports a free weekly slot on your account before spending it.</li>
-</ol>
-<p>Full evidence: <code>run_card_tipstep.json</code>, <code>evidence/tipstep_experiment1.json</code>,
-<code>evidence/tipstep_novelty_local.json</code>, <code>research/hypotheses_tipstep.md</code>.</p>
-</main></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: inherited research GeoTIFF; official-text R6 and literal novelty fail. Download for research, never submit this file.">
+<title>G79-TIPSTEP research archive — negative · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="history.html">History &amp; archives</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><div class="download-warning"><strong>Historical research artifact — OK TO SUBMIT: NO.</strong> Byte-distinct files and sparse-only diagnostics are not full protocol uniqueness. Historical “format PASS” means the old local range/grid policy, not the current R1–R8 checks or portal acceptance. <a href="executive-summary.html#portal-rules">Current required format gate ↗</a></div><section class="page-head"><p class="eyebrow">G79-TIPSTEP / ARCHIVED RESEARCH / NEGATIVE</p><h1>Historical tip-and-stepover map. Not a submission.</h1><p class="lead">Preserved from main, not generated, trained or promoted in review a097f9d9.</p></section><section class="section prose"><h2>Research-only artifact</h2><p><strong>OK TO DOWNLOAD: YES (research). OK TO SUBMIT: NO.</strong> The archived local range/grid PASS is not official-format approval. Current standalone-byte checks fail R6. The card’s older statement that zero exterior fixes a portal error is unsupported; no rejected bytes/receipt establish that diagnosis.</p><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif">Research TIFF (GitHub)</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.zip">Research ZIP (GitHub)</a><br>SHA-256 <code>4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a</code> · 29,259 dots</p><h2>Inherited HOLDOUT-DTI · gems57-pooled-hide-v2</h2><p>Frozen archived estimates [95% CI], not rerun or independently revalidated here and not organizer scores.</p><div class="table-scroll"><table><thead><tr><th>Seed</th><th>HOLDOUT-DTI [95% CI]</th><th>Withheld positives</th></tr></thead><tbody><tr><td>seed20</td><td>0.0927 [0.0795, 0.1049]</td><td>11,321</td></tr><tr><td>seed30</td><td>0.0928 [0.0777, 0.1079]</td><td>11,342</td></tr></tbody></table></div><p>Whole-segment buffered shared evaluator; α=0.2, β=0.8, 300 m triangular kernel. Below the matched THVC control; complete literal novelty is not cleared. No slot is authorized.</p><h2>Hypothesis and nonfault mimic</h2><p>Unmapped faults are disproportionately straight continuations beyond mapped catalogue tips and collinear stepover bridges between nearby tips of different mapped faults; dotted emission (3 px spacing, &gt;2 px off catalogue, min separation 2.8 px) captures them at low false-positive cost under the 300 m triangular-kernel DTI.</p><p>Catalogue digitisation fragmentation (a bridge may merely reconnect one fault split by mapping) and roads/drainage lineaments collinear with tips.</p><p><a href="evidence/run_card_tipstep.json">Unmodified archived card</a> · <a href="evidence/tipstep_experiment1.json">Archived holdout receipt</a> · <a href="evidence/tipstep_novelty_local.json">Incomplete historical local novelty check</a> · <a href="evidence/tipstep_official_format.json">Current official-text format report</a></p></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR archive</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a097f9d9.md">Submission-safety review · a097f9d9</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Prior review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

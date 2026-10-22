@@ -12,7 +12,7 @@ import pytest
 import rasterio
 
 from gems79.portal_spec import (DEFAULT_TEMPLATE, RULES, make_example_like,
-                                validate_portal_file)
+                                validate_portal_file, VALIDATOR_VERSION)
 
 ROOT = Path(__file__).resolve().parents[1]
 THVC = ROOT / 'docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif'
@@ -286,7 +286,8 @@ def test_zip_crc_error_is_a_refusal(tmp_path):
     archive.write_bytes(payload)
     report, failed = _failed(archive)
     assert not report['ok'] and failed == set(RULES)
-    assert "CRC error 'one.tif'" in report['rules'][0]['detail']
+    assert report['inspection_error']['type'] == 'BadZipFile'
+    assert report['error'] == report['inspection_error']
 
 
 @pytest.mark.parametrize('error_kind', ['truncated', 'deflate'])
@@ -297,12 +298,13 @@ def test_zip_decompression_errors_return_complete_refusal(tmp_path, monkeypatch,
     with zipfile.ZipFile(archive, 'w') as z:
         z.writestr('one.tif', b'placeholder')
 
-    def broken_testzip(self):
+    def broken_open(self, *args, **kwargs):
         if error_kind == 'truncated':
             raise EOFError('truncated compressed stream')
         raise zlib.error('invalid compressed stream')
 
-    monkeypatch.setattr(zipfile.ZipFile, 'testzip', broken_testzip)
+    monkeypatch.setattr(zipfile.ZipFile, 'open', broken_open)
     report, failed = _failed(archive)
     assert not report['ok'] and failed == set(RULES)
-    assert report['validator_version'] == 'gems79-portal-format-v2'
+    assert report['validator_version'] == VALIDATOR_VERSION
+    assert report['inspection_error']['type'] == ('EOFError' if error_kind == 'truncated' else 'error')

@@ -57,12 +57,14 @@ def inspect_current(root=ROOT):
         actual_sha = hashlib.sha256(path.read_bytes()).hexdigest()
         stage = 'validate_artifact'
         validation = validate_path(path)
-        stage = 'validate_official_format'
-        portal = validate_portal_file(path, root / 'data/reference/sample_submission.tif')
+        stage = 'validate_official_text_format'
+        official = validate_portal_file(path, root / 'data/reference/sample_submission.tif')
         stage = 'decide'
-        return submission_decision(card, actual_sha256=actual_sha,
-                                   format_passed=validation['format_passed'],
-                                   portal_passed=portal['ok'])
+        result = submission_decision(card, actual_sha256=actual_sha,
+                                     format_passed=validation['format_passed'],
+                                     official_format_report=official)
+        result['official_format_validation'] = official
+        return result
     except Exception as exc:
         # Deliberately catch ordinary errors at the CLI boundary. Interrupts and
         # process termination are not caught. No stale PASS is used on failure.

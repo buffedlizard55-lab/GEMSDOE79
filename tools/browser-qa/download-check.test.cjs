@@ -17,6 +17,7 @@ for (let i = 0; i < 2; i++) test('published ' + manifest[i].kind + ' matches but
   assert.equal(result.state, 'match');
   assert.equal(result.sha256, manifest[i].sha256);
   assert.equal(result.submission_approved, false);
+  assert.match(result.message, /Identity is not an R1–R8 format PASS or portal acceptance/);
 });
 
 test('same-size changed content does not match', async () => {

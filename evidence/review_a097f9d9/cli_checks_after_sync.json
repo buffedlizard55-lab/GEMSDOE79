@@ -1,0 +1,40 @@
+{
+  "checked_utc": "2026-10-22T20:47:39.869249+00:00",
+  "commands": [
+    {
+      "command": "scripts/verify_project.py",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "matched": true
+    },
+    {
+      "command": "scripts/data_status.py",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "matched": true
+    },
+    {
+      "command": "scripts/submission_status.py",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "matched": true
+    },
+    {
+      "command": "scripts/select_submission.py",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "matched": true
+    },
+    {
+      "command": "scripts/review_readiness.py",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "matched": true
+    }
+  ],
+  "run_card_unchanged": true,
+  "run_card_sha256": "628667670ae301916625f7ea56bc834f7978faa1460db40721b5e78bf458a42c",
+  "source_primaries_reachability": "All six attempts failed; no new leaderboard value claimed.",
+  "scope": "Read-only/rejection-only verification. Expected exit 2 is not scientific approval or organizer acceptance.",
+  "passed": true
+}

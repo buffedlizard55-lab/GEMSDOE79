@@ -1,0 +1,122 @@
+{
+  "reviewed_utc": "2026-10-22T20:17:40.041929+00:00",
+  "scope": "Claim-by-claim source and local-measurement audit. Not organizer authentication, a scientific experiment, or acceptance.",
+  "network_limits": "Only github.com, codeload.github.com, api.github.com, registry.npmjs.org, pypi.org and files.pythonhosted.org are available to this sandbox. Non-GitHub official pages were not freshly fetched in this review.",
+  "sources": [
+    {
+      "id": "A097-OFFICIAL-REFERENCE",
+      "authority": "DrivenData official reference repository",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution/tree/aebe92f7c8a990f0e3443451b7a825d9afd6336b",
+      "verification": "Fresh GitHub contents fetch at immutable commit; notebook inspected, not executed.",
+      "evidence": "evidence/review_a097f9d9/source_code_inspection.json",
+      "verified_claims": [
+        "Notebook cell 16 uses a Tversky training loss with alpha 0.2 and beta 0.8; this is not a reimplementation of the required pooled DTI evaluator.",
+        "Cell 19 exports a single band with the label raster CRS and transform, without an explicit exterior NaN mask. That is not an organizer acceptance receipt.",
+        "The official README explicitly documents a CPU-only environment. A GPU accelerates training; the prompt's blanket claim that a GPU is required is not supported."
+      ],
+      "limits": [
+        "No notebook model was trained or submitted.",
+        "Reference-source export code cannot resolve how the live portal validates an exterior convention."
+      ]
+    },
+    {
+      "id": "A097-H33-PROJECT",
+      "authority": "GEMSDOE32 project repository, NOT a competition authority",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32/blob/780a5a534269c79adfe6d1d7d5aadead161332aa/docs/index.html",
+      "verification": "Fresh pinned GitHub page source read; the deployed Pages response was not fetched.",
+      "sha256": "4743b95e19539eb1b11bff7ce5cfb1989cdbf0e92d6bd5e7b07c8c51b6173887",
+      "verified_claims": [
+        "The current repository page source labels H33-2-B2 UNSCORED and describes its numerical estimate as a model, not a score.",
+        "It states NO ORGANISER SCORE EXISTS for this or any artifact in this repository. This project-site statement conflicts with the user report but cannot by itself disprove an external upload."
+      ],
+      "limits": [
+        "The user-reported 0.2778 has no artifact-linked submission-page receipt available here.",
+        "Neither a site claim nor an anonymous public leaderboard authenticates a local TIFF score."
+      ]
+    },
+    {
+      "id": "A097-OFFICIAL-FORMAT-TEXT",
+      "authority": "DrivenData published problem page",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "verification": "Previously transcribed text and source ledger reviewed; not newly fetched in this sandbox.",
+      "prior_evidence": "knowledge/review_e4a4422d_sources.json",
+      "verified_local_measurement": "evidence/review_a097f9d9/official_text_format_checks_after_sync.json",
+      "claims_with_scope": [
+        "The prior transcription says exterior data is null or nan. R6 conservatively applies that sentence to the pinned sample footprint.",
+        "Fresh local measurement: the pinned sample has NaN exterior and passes R1-R8; canonical research TIFF/ZIP have zero exterior and fail R6 only.",
+        "The v2 checker is a local official-text checker, not the organizer's validator."
+      ],
+      "limits": [
+        "No statement is made that the portal rejects all zero-exterior files.",
+        "The earlier rejected file and receipt are unavailable, so its reported range error remains undiagnosed."
+      ]
+    },
+    {
+      "id": "A097-H33-BYTES",
+      "authority": "Hash-pinned historical mirror rasters; integrity evidence only",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE68",
+      "verification": "Restored the two frozen Git blobs; checked SHA-256 and grid; remeasured subset geometry.",
+      "evidence": "evidence/review_a097f9d9/h33_remeasurement.json",
+      "verified_claims": [
+        "H33 has 37654 positive footprint cells; D2.8 has 44090; their difference is exactly the 6436 D2.8 cells at distance <=2 pixels from the catalogue.",
+        "None of those removed cells is exactly on a catalogue cell.",
+        "This proves pixel lineage, not private-truth overlap or a causal score improvement."
+      ]
+    },
+    {
+      "id": "A097-NOVELTY-WITNESS",
+      "authority": "Shared pinned registry and unchanged literal mode in incoming main; optional D3 code is retained but not used",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/vendor/gems57/uniqueness.py",
+      "verification": "Fresh restoration and remeasurement of one frozen witness; not a full registry rescan.",
+      "evidence": "evidence/review_a097f9d9/preflight.json",
+      "verified_claims": [
+        "The decisive witness covers every allowed cell under the literal positive-support definition; the required preflight refuses a new lane.",
+        "The stop applies even when raw data are restored. No density exemption or chance-corrected interpretation was adopted."
+      ],
+      "after_sync_evidence": "evidence/review_a097f9d9/preflight_after_sync.json"
+    },
+    {
+      "id": "A097-RUNTIME-INPUTS",
+      "authority": "Owner GitHub mirrors pinned by the existing data manifest",
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/data_manifest.json",
+      "verification": "Autonomous restore_data.py --preserve-receipt followed by current size/SHA-256 verification.",
+      "before": "evidence/review_a097f9d9/runtime_before.json",
+      "after": "evidence/review_a097f9d9/runtime_after.json",
+      "verified_claims": [
+        "All 13 manifest entries were restored and verified locally. Historical scientific restoration receipts were not rewritten.",
+        "The well/spring CSV actually contains temp_c, geothermquartz_c, geothermchalc_c and geothermcat_c; dist_known_fault_px is a forbidden catalogue-derived feature."
+      ],
+      "limits": [
+        "Mirrored consistency is not independent organizer authentication, calibrated sensor provenance, license clearance for every derivative, or proof that ignored data persist into the next checkout.",
+        "The older 54-channel cache was not rebuilt or claimed present."
+      ]
+    },
+    {
+      "id": "A097-DEFERRED-OFFICIAL-DATA",
+      "authority": "USGS / DOE GDR",
+      "urls": [
+        "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+        "https://gdr.openei.org/submissions/1391",
+        "https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28",
+        "https://earthquake.usgs.gov/fdsnws/event/1/"
+      ],
+      "verification": "Prior official-source ledger reviewed; no new primary external binary acquired.",
+      "prior_evidence": "knowledge/review_e4a4422d_sources.json",
+      "limitations": [
+        "The heat-flow ZIP listing and ComCat metadata/sample counts are not newly verified binary access or local training inputs.",
+        "Hypotheses needing those products are explicitly NOT currently viable/data-ready.",
+        "Cached uint8 radiometrics are ordinal derivatives, not authenticated concentration measurements."
+      ]
+    }
+  ],
+  "score_policy": {
+    "new_holdout_results": null,
+    "organizer_confirmed_results": null,
+    "leaderboard_observation_scope": "The earlier 0.4413 public-leader observation is retained as dated history, not freshly checked here or linked to this project. The user's older 0.3195 and H33 0.2778 are not upgraded to measured results.",
+    "canonical_ledger_rows": 103,
+    "canonical_ledger_sites": 77,
+    "artifact_linked_organizer_receipts_in_ledger": 0
+  },
+  "integration_scope": "Incoming main 6e3ca91 already contained independent ZIP/gate fixes and stopped OPC/TIPSTEP/VENTPROX work. Preserved its scientific bytes and optional D3 helper; this review neither uses D3 to bypass the literal STOP nor counts those TIFFs as newly generated here.",
+  "reachability_attempt": "evidence/review_a097f9d9/source_health_attempt_after_sync.json: six primary-host requests failed; no new scientific bytes/leaderboard value were obtained. The current feed preserves its explicitly dated observation."
+}
