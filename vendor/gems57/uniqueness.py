@@ -72,6 +72,8 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
     worst_rho = max(rank_rows, key=lambda r: r['spearman_full_footprint'], default=None)
     worst_ov = max(checked, key=lambda r: r['my_dots_within_3px_of_theirs'], default=None)
     worst_jac = max(checked, key=lambda r: r['jaccard_dot_sets'], default=None)
+    excess_rows = [r for r in checked if r.get('overlap_beyond_chance') is not None]
+    worst_exc = max(excess_rows, key=lambda r: r['overlap_beyond_chance'], default=None)
     my_dot_count = int(candidate_meta['my_dots'])
     norm = bool(candidate_meta['candidate_rank_variation'])
     unique = complete and my_dot_count > 0 and norm and not flags
@@ -90,6 +92,8 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
         worst_overlap_submission=(worst_ov['submission'] if worst_ov else None),
         worst_jaccard_dot_sets=(worst_jac['jaccard_dot_sets'] if worst_jac else None),
         worst_jaccard_submission=(worst_jac['submission'] if worst_jac else None),
+        worst_overlap_beyond_chance=(worst_exc['overlap_beyond_chance'] if worst_exc else None),
+        worst_excess_submission=(worst_exc['submission'] if worst_exc else None),
         byte_unique_among_checked=bool(checked) and not any(r.get('identical_bytes', False) for r in checked),
         pixel_unique_among_checked=bool(checked) and not any(r.get('identical_decoded_predictions', False) for r in checked),
         duplicate_count=len(flags), unique=bool(unique), rows=rows,
@@ -233,9 +237,27 @@ def budget_matched_dots(theirs, footprint, k):
 
 def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=None,
                               include_reverse=True, progress=None, expected_grid=None,
-                              dot_definition='literal'):
+                              dot_definition='literal', allowed=None):
+    """Compare one candidate against every registry raster.
+
+    Shared fix v4 (Amendment D-2, session 167a60a6): when ``allowed`` (the
+    candidate-eligible domain, normally footprint minus catalogue) is given,
+    each row also carries ``halo_coverage_allowed`` -- the share of allowed
+    cells within 3 px of the registry raster's dots, i.e. the overlap a
+    uniformly random candidate is expected to have -- and
+    ``overlap_beyond_chance = (ov - halo) / (1 - halo)`` (``None`` when the
+    halo saturates the domain and the statistic is undefined).  The literal
+    ``duplicate_by_overlap`` flag is unchanged; callers applying Amendment
+    D-2 read the chance-corrected field.  Default ``allowed=None`` preserves
+    the v3 behaviour (both new fields are ``None``).
+    """
     if dot_definition not in DOT_DEFINITIONS:
         raise ValueError(f'unknown dot_definition {dot_definition!r}')
+    allowed_arr = None
+    if allowed is not None:
+        allowed_arr = np.asarray(allowed, bool)
+        if allowed_arr.shape != np.asarray(footprint).shape or not allowed_arr.any():
+            raise ValueError('allowed domain grid mismatch or empty allowed domain')
     mine = np.asarray(mine, np.float32)
     fp = np.asarray(footprint, bool)
     if mine.ndim != 2 or mine.shape != fp.shape or not fp.any():
@@ -297,7 +319,11 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
             if dot_definition == 'budget-matched-v3' and representation == 'continuous_surface':
                 # rho above already used the full surface; only the dot set changes
                 support = budget_matched_dots(theirs, fp, my_dot_count)
-            ov = float(_near(support)[my_support].mean()) if my_dot_count else 0.0
+            near_t = _near(support)
+            ov = float(near_t[my_support].mean()) if my_dot_count else 0.0
+            halo = float(near_t[allowed_arr].mean()) if allowed_arr is not None else None
+            excess = (float((ov - halo) / (1.0 - halo))
+                      if halo is not None and halo < 0.999999 else None)
             reverse = float(my_near[support].mean()) if include_reverse and support.any() else 0.0
             jac = _jaccard(my_support, support)
             their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
@@ -306,6 +332,7 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
                 'their_literal_positive_cells':literal_support_cells,
                 'representation':representation, 'dot_definition':dot_definition,
                 'their_dots_within_3px_of_mine':reverse, 'spearman_full_footprint':rho,
+                'halo_coverage_allowed':halo, 'overlap_beyond_chance':excess,
                 'jaccard_dot_sets':jac,
                 'identical_bytes':bool(file_sha256 and digest==file_sha256),
                 'identical_decoded_predictions':bool(their_decoded==decoded_digest),
