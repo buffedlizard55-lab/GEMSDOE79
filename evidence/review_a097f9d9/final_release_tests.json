@@ -1,0 +1,15 @@
+{
+  "stage": "Final release suite after visual fixes",
+  "tested_commit": "646f72430ed7cc85b73256e7525122bd326ab454",
+  "integration_main_commit": "6e3ca91",
+  "command": ".venv/bin/python -m pytest -q",
+  "environment": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "started_utc": "2026-10-22T20:55:44.053255+00:00",
+  "finished_utc": "2026-10-22T20:57:35.313015+00:00",
+  "exit_code": 0,
+  "summary": "689 passed in 110.80s (0:01:50)",
+  "scope": "Software/evidence/publication verification; no scientific experiment, holdout run or slot."
+}

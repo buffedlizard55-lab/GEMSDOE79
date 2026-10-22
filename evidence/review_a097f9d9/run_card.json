@@ -80,5 +80,20 @@
     "literal_stop_rechecked": "evidence/review_a097f9d9/preflight_after_sync.json",
     "all_incoming_scientific_bytes_preserved": true,
     "scope": "Preserved concurrent main archives/code; did not start, re-run, rescore or promote their lanes."
+  },
+  "reviewed_utc": "2026-10-22T21:00:33.709167+00:00",
+  "software_verification": {
+    "full_suite_receipt": "evidence/review_a097f9d9/final_release_tests.json",
+    "full_suite_passed": 689,
+    "full_suite_tested_source_commit": "646f72430ed7cc85b73256e7525122bd326ab454",
+    "browser_receipt": "evidence/review_a097f9d9/browser_review_release.json",
+    "browser_page_viewport_cases_passed": 45,
+    "cli_node_receipt": "evidence/review_a097f9d9/release_checks.json",
+    "download_identity_units_passed": 12,
+    "historical_preservation_receipt": "evidence/review_a097f9d9/immutability_release.json",
+    "historical_scoped_files_unchanged": 838,
+    "original_prompt_preserved": true,
+    "does_not_establish_new_holdout_or_leaderboard_improvement": true,
+    "local_preview_is_not_proof_of_public_deployment": true
   }
 }

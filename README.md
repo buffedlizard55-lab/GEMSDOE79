@@ -42,6 +42,14 @@ or NaN-reencoded old file would not satisfy the request and was not produced.
 
 Incoming main `6e3ca91` independently merged ZIP/gate fixes and other stopped lanes while this review ran. Their scientific files are preserved; they are **not** new outputs from this review. The integrated checker is `gems79-portal-format-v3`; literal STOP is unchanged, and optional incoming D-3 code was not used to relax it.
 
+**Local release checks:** **689 pytest tests**, **12 download-identity unit tests**,
+and **45 browser page/viewport cases** pass. The 15-page site has 354 checked local
+links; download controls are visible immediately on desktop and mobile, and eight
+stopped lanes are grouped under **History & archives**. Final preservation checks
+cover **838 unchanged historical files** and the byte-identical original prompt.
+These are software checks, not a new holdout result or proof of public deployment.
+See the [release receipts and publishing boundary](reports/session_review_a097f9d9.md#final-local-release-verification--completed-2026-10-22).
+
 Earlier session notes below are archival, not new candidates or slot approvals.
 The [full original prompt](#original-project-prompt--read-at-the-start-of-every-session)
 is preserved byte-for-byte from the session baseline, including the incompatible

@@ -1,0 +1,107 @@
+{
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "local_research_format_passed": true,
+  "official_text_format_passed": false,
+  "human_inspection_required_for_this_decision": false,
+  "verdict": "negative",
+  "blockers": [
+    "official_format_rules_not_cleared",
+    "literal_novelty_not_cleared",
+    "negative_scientific_verdict",
+    "separate_selector_has_not_approved_a_slot",
+    "separate_selector_receipt_missing_or_unbound",
+    "explicit_submission_approval_absent"
+  ],
+  "account_side_conditions": [
+    "A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).",
+    "You must be a registered, eligible participant who accepted the competition rules."
+  ],
+  "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+  "organizer_acceptance_established": false,
+  "official_format_validation": {
+    "schema_version": 2,
+    "validator_version": "gems79-portal-format-v3",
+    "validation_class": "LOCAL-OFFICIAL-TEXT-FORMAT, NOT ORGANIZER ACCEPTANCE",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+      {
+        "rule": "R1",
+        "text": "single GeoTIFF layer (ZIP: exactly one TIFF file with one band)",
+        "pass": true,
+        "detail": "driver GTiff; 1 band(s); self-contained True"
+      },
+      {
+        "rule": "R2",
+        "text": "datatype float32",
+        "pass": true,
+        "detail": "dtype(s) ('float32',)"
+      },
+      {
+        "rule": "R3",
+        "text": "CRS EPSG:32611",
+        "pass": true,
+        "detail": "CRS EPSG:32611"
+      },
+      {
+        "rule": "R4",
+        "text": "shape, transform, 100 m resolution and bounds equal the template",
+        "pass": true,
+        "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+      },
+      {
+        "rule": "R5",
+        "text": "nodata absent or NaN",
+        "pass": true,
+        "detail": "nodata None"
+      },
+      {
+        "rule": "R6",
+        "text": "data outside the footprint is null or NaN (sample-mask interpretation)",
+        "pass": false,
+        "detail": "7111787 non-NaN exterior cell(s) of 7111787"
+      },
+      {
+        "rule": "R7",
+        "text": "every in-footprint cell is finite and valid (no NaN, inf or masked data)",
+        "pass": true,
+        "detail": "0 NaN/inf and 0 masked cell(s) inside the footprint"
+      },
+      {
+        "rule": "R8",
+        "text": "every in-footprint value is between 0 and 1 inclusive",
+        "pass": true,
+        "detail": "0 value(s) outside [0,1] inside footprint; min 0.0, max 1.0"
+      }
+    ],
+    "cells": {
+      "compared": true,
+      "inside_cells": 5167373,
+      "outside_cells": 7111787,
+      "outside_non_nan": 7111787,
+      "inside_nonfinite": 0,
+      "inside_invalid_mask": 0,
+      "inside_out_of_range": 0,
+      "inside_min": 0.0,
+      "inside_max": 1.0,
+      "inside_positive": 35093,
+      "inside_mass": 35093.0
+    },
+    "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "bytes": 137299,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "bytes_stable_during_validation": true,
+    "organizer_acceptance_established": false,
+    "does_not_approve_submission": true,
+    "inspection_policy": {
+      "max_file_or_zip_member_bytes": 536870912,
+      "not_an_organizer_size_rule": true
+    },
+    "failed_rules": [
+      "R6"
+    ],
+    "ok": false
+  }
+}

@@ -88,9 +88,28 @@ Main had advanced while this isolated audit ran. Integration target **`6e3ca91`*
 - Retained main's optional D-3 helper **without using it** to relax this review's literal STOP. The unchanged literal preflight was rerun after synchronization and still exits **2** ([receipt](../evidence/review_a097f9d9/preflight_after_sync.json)). Other sessions' archived TIFFs are not the new deliverable requested from this review.
 - IR IDs were renumbered to **IR-79-232–237**, preserving main's IR-79-220–231 and all scientific records. Incoming TIPSTEP's unsupported portal-error diagnosis is not repeated as fact: the old card remains intact, while a reproducible, reachable archive page displays its inherited evaluator/n/CI, current R6 failure and no submission permission. The builder now preserves **15 pages**, including OPC and TIPSTEP.
 - Six current primary-host reachability probes all failed; the scheduled/feed mechanism preserves its dated leaderboard observation instead of inventing an update ([attempt receipt](../evidence/review_a097f9d9/source_health_attempt_after_sync.json)). No new official scientific binary or score was acquired by that attempt.
-- Post-integration targeted regressions initially passed **203 tests**; the final expanded full-suite/browser/CLI results are recorded below only after execution.
+- Post-integration targeted regressions progressed from **203** to **207 passed**. After the final navigation/download-position correction, the publication-focused subset passed **97 tests**, followed by the full release suite below.
 
-**Final integrated verification is in progress.** Release/PR state is authenticated by GitHub, not inferred from a local PASS or this working document.
+### Final local release verification — completed 2026-10-22
+
+| Check | Actual result | Receipt |
+|---|---|---|
+| Integrated full suite, before final visual refinement | **689 passed in 112.06 s** | [Integrated suite](../evidence/review_a097f9d9/integrated_tests.json), source `369b829` |
+| Full release suite, after visual refinement | **689 passed in 110.80 s** | [Release suite](../evidence/review_a097f9d9/final_release_tests.json), source `646f724` |
+| Browser review | **45/45 page–viewport cases passed**, 15 pages at 1440/390/320 px | [Release browser receipt](../evidence/review_a097f9d9/browser_review_release.json) |
+| Download identity units | **12 passed**; changed bytes refused; no identity-check upload/fetch | [CLI/Node receipt](../evidence/review_a097f9d9/release_checks.json) |
+| Site graph and science/format binding | **15 pages, 354 local links, 2 redirects, 0 external assets**; every page reachable | [Site receipt](../evidence/review_a097f9d9/site_release.json) |
+| Project integrity / runtime inputs | **Exit 0 / exit 0**; 13 inputs currently hash-verified | [Integrity](../evidence/review_a097f9d9/integrity_release.json), [runtime](../evidence/review_a097f9d9/runtime_release.json) |
+| Submission / selector / review readiness | Each **exit 2**, expected automated refusal; no traceback; canonical card unchanged | [CLI receipt](../evidence/review_a097f9d9/release_checks.json) |
+| Historical byte/prompt preservation | **838 files unchanged** in the final expanded scope against incoming main; original prompt tail **35,279 bytes**, same SHA | [Expanded preservation receipt](../evidence/review_a097f9d9/immutability_release.json) |
+
+The first post-integration browser pass also passed [45 cases](../evidence/review_a097f9d9/browser_review_after_sync.json). Manual screenshot inspection then found a real defect that simple horizontal-overflow checks had missed: the enlarged desktop navigation squeezed the logo vertically. The final UI groups eight stopped lane pages under **History & archives**, prevents logo shrinkage, and puts download/status controls before the long explanation. Browser QA now also asserts intact branding on every page, primary download visibility in the initial viewport at all three widths, and the home → archives → TIPSTEP rejection path. Both desktop and mobile screenshots were inspected after the fix. The CSKD active header/figure caption no longer asserts an unqualified current all-lanes record; frozen cards, measurements and figure bytes remain untouched.
+
+All tests here are **software/evidence/publication checks**, not new HOLDOUT-DTI experiments or leaderboard results. The expanded 838-file proof is separately scoped from the earlier 836-file and pre-sync 787-file receipts; their different counts are not new scientific inputs.
+
+### Remote release boundary
+
+At local release review, the GitHub Pages API reported **legacy publishing from `main:/`**, not an authenticated deployment of these reviewed `docs` bytes ([configuration receipt](../evidence/review_a097f9d9/pages_configuration_before.json)). A running sandbox preview is not the public Pages deployment. The release process must check the real PR/CI/merge and exact-byte public verification; no public update is inferred from these local passes. [Session PR/check discovery](https://github.com/buffedlizard55-lab/GEMSDOE79/pulls?q=is%3Apr+head%3Aarena%2Fa097f9d9-gemsdoe79).
 
 ## Next work, in dependency order
 
