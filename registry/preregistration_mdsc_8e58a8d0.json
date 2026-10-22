@@ -1,0 +1,28 @@
+{
+  "lane": "G79-MDSC-8e58a8d0",
+  "session_branch": "arena/8e58a8d0-gemsdoe79",
+  "frozen_before_any_scoring": true,
+  "hypothesis": "Sub-alluvial Quaternary normal faults missing from the USGS/INGENIOUS catalogue offset magnetic basement/volcanic units at 50-400 m depth; their RTP horizontal-gradient ridges attenuate under upward continuation like a structural-index N in [0,0.6] step/contact, unlike surficial basaltic float (N>=1.5, z_top<30 m) and deep pluton roofs (z_top>1800 m). Screening HG ridges by jointly estimated (z_top, N) raises holdout credit density vs unscreened HG amplitude.",
+  "mechanism": "FFT upward continuation of rtp (training_features band 2) to dz = 150/300/600 m; per-pixel two-ratio inversion of HG(z) ~ (z_top/(z_top+dz))^(N+1) via monotone lookup; trapezoidal windows z_top in [50,400] m (ramps 25-50, 400-800) and N in [0,0.6] (ramps -0.3-0, 0.6-1.2); score = clipped HG0 amplitude x Wz x WN. Zero catalogue-derived features.",
+  "named_non_fault_mimic": "Unfaulted basaltic lava-flow lobe margins and volcanic talus aprons (shallow, high-N), and deep Mesozoic granitoid pluton boundaries (deep, slow attenuation).",
+  "arms": {
+    "A_mdsc_screened": "HG0 x Wz x WN",
+    "B_control_hg_only": "HG0 amplitude only, identical normalisation/emission (isolates the screening)",
+    "C0_random": "uniform random order, identical budget/spacing"
+  },
+  "holdout": {
+    "evaluator_version": "gems57-pooled-hide-v2 (vendor/gems57, unmodified)",
+    "split": "holdout.buffered_component_draw(buffer_px=3, boundary_px=12), seeds 20 and 30",
+    "allowed": "footprint & EDT(visible faults) > 2 px (visible faults masked pixel-exactly plus 200 m collar, identical to H80 pilots)",
+    "budget": 37654,
+    "separation_px": 3.0,
+    "alpha": 0.2,
+    "beta": 0.8,
+    "kernel": "300 m triangular (shared metric)"
+  },
+  "leakage_canary": "Single-feature AUC (symmetric max(a,1-a) <= 0.90) for HG0, Wz, WN, A, B on withheld positives vs sampled allowed negatives, both seeds, before trusting DTI.",
+  "promotion_gate_predeclared": "PROMOTE only if ALL hold: (1) canaries pass; (2) HOLDOUT-DTI(A) > 0.1905 (seed 20) AND > 0.1944 (seed 30), the canonical G79-THVC bars; (3) paired A-B 95% CI excludes 0 on both seeds; (4) novelty vs sparse budget-comparable dot submissions: max |Spearman| <= 0.90 and max forward 3-px dot overlap <= 0.70 on surface and final dots; (5) shared-writer validator passes (all-finite, [0,1], EPSG:32611, 3730x3292, transform match, no nodata tag). Otherwise verdict=negative and OK TO SUBMIT: NO. The literal all-registry gate (including dense probability surfaces and a 206,895-dot spacing-5 lattice) is reported separately with its frozen unsatisfiability witnesses; it is not silently substituted.",
+  "experiments_budget": "E1 = this preregistered design only. No post-hoc window/budget retuning counts as the same experiment.",
+  "final_artifact": "One research GeoTIFF is written regardless of verdict (full-catalogue masking d_cat>2 px, budget 37654) via vendor submission_writer; its download/submit status is set solely by the gate above.",
+  "inputs_sha256_pinned_by": "registry/data_manifest.json + data/restore_receipt.json (13/13 verified 2026-10-22 in this session)"
+}

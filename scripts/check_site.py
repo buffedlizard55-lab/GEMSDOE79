@@ -26,8 +26,8 @@ def check_site():
     assert set(pages) == {
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
         'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
-        'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'tdw-submission.html',
-    }, 'Expected the twelve project pages (canonical seven + G79-CSKD + G79-CJX + G79-DZD + G79-CJX-DIR + G79-TDW lane pages)'
+        'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html', 'tdw-submission.html',
+    }, 'Expected the thirteen project pages (canonical seven + lane pages)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():

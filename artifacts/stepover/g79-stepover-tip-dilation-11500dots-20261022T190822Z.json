@@ -1,0 +1,135 @@
+{
+  "file": "g79-stepover-tip-dilation-11500dots-20261022T190822Z.tif",
+  "sha256": "01fd8e7f6f5b0dcb6d94944afefa0733a8b675d28c9b5821868b2a35dc47ce93",
+  "bytes": 144452,
+  "submission_name": "g79-stepover-tip-dilation-11500dots",
+  "note": "G79-STPO fault-tip/step-over dilation sparse dots (research only; not submitted)",
+  "note_chars": 80,
+  "validator": {
+    "file": "artifacts/stepover/g79-stepover-tip-dilation-11500dots-20261022T190822Z.tif",
+    "bytes": 144452,
+    "sha256": "01fd8e7f6f5b0dcb6d94944afefa0733a8b675d28c9b5821868b2a35dc47ce93",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.000454155495390296,
+    "emitted_positive_pixels": 11500,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 11500,
+    "footprint_fraction": 0.0022255022039245087
+  },
+  "template_report": {
+    "path": "artifacts/stepover/g79-stepover-tip-dilation-11500dots-20261022T190822Z.tif",
+    "bytes": 144452,
+    "sha256": "01fd8e7f6f5b0dcb6d94944afefa0733a8b675d28c9b5821868b2a35dc47ce93",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.000454155495390296,
+    "n_nonzero": 11500,
+    "mass": 5576.647912502289,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "g79-stepover-tip-dilation-11500dots-20261022T190822Z.zip",
+  "zip_sha256": "17cc2c009aefcec5a86f9e33921cbef290eae0c8062cdca002de7126626162e7",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "method": "G79-STPO fault-tip/step-over dilation",
+    "evidence_class": "LOCALLY_GENERATED_UNVERIFIED",
+    "holdout_dti": null,
+    "leakage_canary": null
+  },
+  "raster_sha256": "01fd8e7f6f5b0dcb6d94944afefa0733a8b675d28c9b5821868b2a35dc47ce93",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "submit_blockers": [
+    "holdout_dti_not_measured",
+    "leakage_canary_not_run",
+    "uniqueness_not_complete",
+    "no_selector_approval"
+  ],
+  "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO."
+}
