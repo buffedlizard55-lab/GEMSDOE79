@@ -28,9 +28,10 @@ Created an isolated `.venv` and installed the repository's pinned `requirements.
 
 - Before upstream reconciliation, `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q` — **477 passed**.
 - After the first upstream reconciliation, the same suite — **480 passed**.
-- After a further `origin/main` update and merge of the witness-provenance hardening, the final suite — **495 passed**; all added upstream tests were included.
+- After the latest `origin/main` updates were merged into this fixed branch, the final Python suite — **502 passed**; all added upstream tests were included.
+- `node --test tools/browser-qa/download-check.test.cjs` — **12 passed** for selected-file SHA-256/size checking (no upload or submission approval).
 - `.venv/bin/python scripts/verify_project.py` — all repository, frozen-evidence, status, TIFF/ZIP, and publication checks passed; current canonical decision remains negative.
-- `.venv/bin/python scripts/check_site.py` — passed: 7 pages, 128 local links, all pages reachable, evidence-derived tables match receipts.
+- `.venv/bin/python scripts/check_site.py` — passed: 7 pages, 130 local links, all pages reachable, evidence-derived tables match receipts.
 - `.venv/bin/python scripts/submission_status.py` — **exit 2**, correctly refused: literal novelty, negative scientific verdict, and missing selector approval/receipt/explicit approval.
 - `.venv/bin/python scripts/preflight_new_lane.py --restore` — **exit 2**, `start_new_lane: false`; the expected literal-gate stop was reproduced.
 

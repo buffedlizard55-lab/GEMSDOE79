@@ -42,7 +42,7 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 **Portal range error:** without the rejected file and its receipt we cannot diagnose “Predicted values must be in range [0, 1]”. These current bytes pass local checks; that does not prove portal acceptance. The official problem page says exterior values are “null or nan”; this inherited file has zero fill. The discrepancy remains explicit, not “fixed” by inventing a portal result.
 
-## Latest follow-up — session 84124ba0
+## Follow-up — session 84124ba0
 
 [Three-pass audit](reports/session_review_84124ba0.md): independently remeasured the
 universal overlap blocker, verified the inherited TIFF, and hardened witness
@@ -57,6 +57,12 @@ Performance, novelty and format are separate required gates; a known impossibili
 is checked before spending compute or a slot. A local score cannot guarantee a
 leaderboard result. The original full project prompt remains below.
 
+## Current review: private downloaded-file check (session 3ca6c6a6)
+
+The [decision guide now checks downloaded TIFF/ZIP identity in your browser](docs/executive-summary.html#check-download), without uploading the file. It compares SHA-256 and byte size with the published, locally format-checked research files. **A match never approves a competition submission.** Unknown files remain unverified, not falsely diagnosed as invalid rasters.
+
+[Three-pass review and next steps](reports/session_review_3ca6c6a6.md) · [Fresh preflight refusal](evidence/preflight_3ca6c6a6.json) · [Fresh format check](evidence/validator_3ca6c6a6.json) · [H33 remeasurement](evidence/h33_remeasurement_3ca6c6a6.json). Restored all 13 pinned inputs and the exact historical cache without reopening a stopped lane. No new candidate TIFF, holdout score or competition slot was generated. The unique-submission requirement remains **unmet**, not bypassed. The GitHub Pages settings update was refused with HTTP 403; local verification is not a claim that this revision is deployed.
+
 ## What changed in this review
 
 **Independent replay, session f6a01061:** [three-pass repository review](reports/session_review_f6a01061.md) reconfirms the universal novelty blocker, local TIFF format PASS, 477 passing tests, and selector refusal. No new unique TIFF or organizer score was generated.
@@ -66,7 +72,7 @@ leaderboard result. The original full project prompt remains below.
 - Restored and SHA-verified [all 13 manifest inputs](evidence/review_e4a4422d/input_restoration.json), and independently [remeasured H33](evidence/review_e4a4422d/h33_remeasurement.json). Restoration is not a scientific experiment or independent organizer authentication.
 - Ranked [four deferred geological hypotheses](research/hypotheses_e4a4422d.md). Cached-data structural tests are separated from an unacquired heat-flow product. The prior shallow-resistivity plan is not supported by its cited depth-integrated-conductance release.
 - Recorded [official claims, licenses and acquisition limits](knowledge/review_e4a4422d_sources.json). The URL-health feed records actual fetch attempts without upgrading an old observation into a fresh score.
-- The latest three-pass repository review independently reproduced the fail-closed preflight, recorded current raw-data absence and radiometric-pin irregularity, and generated no surface, holdout result, placement or TIFF: [session `c273c7a3`](reports/session_review_c273c7a3.md).
+- This branch’s three-pass repository review independently reproduced the fail-closed preflight, recorded current raw-data absence and radiometric-pin irregularity, and generated no surface, holdout result, placement or TIFF: [session `c273c7a3`](reports/session_review_c273c7a3.md).
 
 **Maximize P(Win):** do not spend a slot on a known duplicate or unavailable data. **Own the Outcome:** report the unmet new-TIFF requirement and preserve the negative result rather than rename an inherited file.
 
@@ -81,6 +87,7 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q
 .venv/bin/python scripts/select_submission.py  # expected exit 2: measured refusal, card unchanged
 .venv/bin/python scripts/build_site.py
 .venv/bin/python scripts/check_site.py
+node --test tools/browser-qa/download-check.test.cjs
 # Optional restoration; preserves the historical scientific receipt:
 .venv/bin/python scripts/restore_data.py --preserve-receipt
 # Prospective lane gate; expected exit 2 before training or placement:
@@ -91,8 +98,9 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 ### Navigation and preserved history
 
+Concurrent review: [session 7fdf94b3](reports/session_review_7fdf94b3.md) remediated `IR-79-175`..`IR-79-177` (repo-relative paths and exact `5,167,373 - 60,988 = 5,106,385` off-catalogue accounting in `scripts/measure_registry_halo.py`, fail-closed `enforce_open_lane` guards on 3 remaining archived CLI scripts, `requirements.txt` deduplication, live `13/13` data restoration via `scripts/restore_data.py --preserve-receipt`, and 3-tier Pigeonhole obstruction reconciliation); 499 tests passed and no new candidate or competition slot was used. Concurrent review: [session 43963905](reports/session_review_43963905.md) independently rechecked the universal novelty blocker, local TIFF format, project verifier, and site; 477 tests passed. No new candidate or competition slot was used. The preceding [session 7d96e79d review](reports/session_review_7d96e79d.md) and [session f652f0b3 review](reports/repository_review_2026-10-22_arena-f652f0b3.md) are preserved as separate session reports.
 
-[Session review c273c7a3](reports/session_review_c273c7a3.md) · [Concurrent witness review 84124ba0](reports/session_review_84124ba0.md) · [Concurrent review 43963905](reports/session_review_43963905.md) · [Prior evidence reconciliation](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
+[Latest concurrent review 3ca6c6a6](reports/session_review_3ca6c6a6.md) · [This branch’s review c273c7a3](reports/session_review_c273c7a3.md) · [Concurrent witness review 84124ba0](reports/session_review_84124ba0.md) · [Concurrent review 43963905](reports/session_review_43963905.md) · [Prior evidence reconciliation](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
 
 Concurrent reports from main also include [session 7d96e79d](reports/session_review_7d96e79d.md), [session f652f0b3](reports/repository_review_2026-10-22_arena-f652f0b3.md), [session d52085f3](reports/session_review_d52085f3.md), [closed-lane and prompt-repair review f0d99a40](reports/session_review_f0d99a40.md), and the other preserved reports linked in the irregularities ledger. Their measurements are not results from this session. Limited-comparator uniqueness claims do not override the current literal novelty stop.
 

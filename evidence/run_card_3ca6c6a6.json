@@ -1,0 +1,249 @@
+{
+  "session": "3ca6c6a6",
+  "verdict": "negative",
+  "hypothesis": "No new geological lane opened: unchanged literal registry-overlap gate is infeasible for every nonempty allowed dot set.",
+  "mechanism": "Hash-verified dense witness positive across allowed domain; pre-placement duplicate feasibility check stops execution. Browser identity checking is software verification, not a geological model.",
+  "named_non_fault_process": "Pleistocene pluvial paleo-shoreline wave-cut benches (Lake Lahontan and Lake Bonneville), fluvial terrace risers along the Humboldt/Carson/Walker rivers, welded ash-flow caldera cooling joints, and down-gradient lateral thermal outflow plumes in permeable alluvial fans.",
+  "new_candidate_generated": false,
+  "scientific_experiments_performed": 0,
+  "submission_slots_used": 0,
+  "new_holdout_dti": null,
+  "inherited_holdout_dti": {
+    "scope": "Inherited canonical THVC results; not rerun in this session; regional seeds are not independent.",
+    "primary": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.1905,
+      "ci95": [
+        0.1741,
+        0.2069
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 3169.2555486038837,
+      "fpw": 34719.4259870535,
+      "fnw": 8151.744451396112,
+      "seed": 20,
+      "headline_seed": 20,
+      "bootstrap_block_km": 20.0,
+      "bootstrap_draws": 1000,
+      "matched_h33_analogue_dti": 0.09608619416803546,
+      "matched_h33_analogue_ci95": [
+        0.08310859732830818,
+        0.108974692419136
+      ],
+      "delta_vs_h33": 0.09443643237762764,
+      "delta_vs_h33_ci95": [
+        0.0784041686960939,
+        0.10976638549307034
+      ],
+      "source_pointer": "evidence/g79_thvc_results.json#/seed20/official_evaluate_all",
+      "per_seed": {
+        "seed_20": {
+          "candidate": {
+            "dti": 0.1905,
+            "ci95": [
+              0.1741,
+              0.2069
+            ]
+          },
+          "withheld_positive_pixels": 11321,
+          "h33_foldfair_control": {
+            "dti": 0.0961,
+            "ci95": [
+              0.0831,
+              0.109
+            ]
+          }
+        },
+        "seed_30": {
+          "candidate": {
+            "dti": 0.1944,
+            "ci95": [
+              0.1774,
+              0.2126
+            ]
+          },
+          "withheld_positive_pixels": 11342,
+          "h33_foldfair_control": {
+            "dti": 0.0989,
+            "ci95": [
+              0.0854,
+              0.1128
+            ]
+          }
+        }
+      }
+    },
+    "replication": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.194393256940719,
+      "ci95": [
+        0.17737153457292731,
+        0.21255176939122447
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 3232.9798237854575,
+      "fpw": 34554.677802018094,
+      "fnw": 8109.020176214538,
+      "seed": 30,
+      "matched_h33_analogue_dti": 0.09889767286222764,
+      "matched_h33_analogue_ci95": [
+        0.08541218338164393,
+        0.11276233290508292
+      ],
+      "delta_vs_h33": 0.09549558407849135,
+      "delta_vs_h33_ci95": [
+        0.07780498406744313,
+        0.1132771899425494
+      ],
+      "source_pointer": "evidence/g79_thvc_results.json#/seed30/official_evaluate_all"
+    }
+  },
+  "correlation_overlap_vs_registry": {
+    "fresh_preflight": {
+      "start_new_lane": false,
+      "state": "impossible_under_literal_gate",
+      "exit_code": 2,
+      "reason": "One hash-verified registry raster covers every allowed cell with its positive support. Any nonempty candidate has 3-px overlap 1.0 > 0.70; stop before experiments.",
+      "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+      "covered_allowed_fraction": 1.0,
+      "limit": 0.7,
+      "scope": "Literal dot definition only. A protocol amendment is not silently assumed."
+    },
+    "inherited_surface_max_abs_rho": 0.771236,
+    "inherited_final_max_abs_rho": 0.121049,
+    "inherited_max_forward_overlap": 1.0,
+    "scope": "Fresh single-witness rejection; correlation numbers from frozen scans, not a new complete registry comparison."
+  },
+  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "raster_scope": "Inherited research file, no new unique TIFF.",
+  "validator_output": {
+    "format_passed": true,
+    "does_not_approve_submission": true,
+    "validator": {
+      "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 137299,
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0028579316567629576,
+      "emitted_positive_pixels": 35093,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 35093,
+      "footprint_fraction": 0.00679126511672372
+    },
+    "reference_grid": {
+      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 137299,
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0028579316567629576,
+      "n_nonzero": 35093,
+      "mass": 35093.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    }
+  },
+  "submission_name": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT",
+  "submission_note": "GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "organizer_submission_receipt": null,
+  "software_verification": {
+    "python_tests_passed": 502,
+    "node_tests_passed": 12,
+    "browser_page_viewport_cases": 21,
+    "identity_check_network_requests": 0
+  },
+  "data_restoration": "13 pinned inputs and 8 exact E1 cached transforms restored; scientific receipts unchanged.",
+  "limitations": [
+    "Literal overlap gate blocks all nonempty candidates.",
+    "No assigned method paragraph; closed lanes not restarted.",
+    "No organizer receipt, private test labels or measured weekly capacity.",
+    "Pages settings update refused with HTTP 403; local preview is not deployment verification."
+  ],
+  "report": "reports/session_review_3ca6c6a6.md"
+}
