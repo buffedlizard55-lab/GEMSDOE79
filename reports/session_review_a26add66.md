@@ -167,3 +167,11 @@ was created by another session and is not a new candidate from this review or
 approved by this work. Rebuilt generated site files from the combined renderer;
 kept both the concurrent readiness command and this review's format-warning fix.
 All final command outcomes above were measured after that synchronization.
+
+A second concurrent merge incorporated an independently discovered copy of the
+same ZIP defect and a new official-format promotion gate. Reconciled these in the
+single shared module, preserving private-path redaction and explicit non-approval
+metadata. The full suite exposed gaps in the concurrent irregularity numbering;
+renumbered the new ledger rows contiguously and corrected their active references
+rather than weakening the sequential-ID tests. Final verification was rerun on
+the fully combined code. Historical intermediate test counts remain scoped above.
