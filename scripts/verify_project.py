@@ -40,7 +40,14 @@ def strict_loads_bytes(raw: bytes):
 
 def _iter_repo_files(root: Path):
     for p in root.rglob('*'):
-        if _SKIP_PARTS.intersection(p.relative_to(root).parts) or not p.is_file():
+        parts = p.relative_to(root).parts
+        # Virtual environments are local tooling, not publication content. Match
+        # common clean-test names such as .venv-clean as well as the canonical
+        # .venv; otherwise dependency source/templates can create false conflict
+        # marker or malformed-JSON failures.
+        if (_SKIP_PARTS.intersection(parts)
+                or any(part.startswith('.venv') for part in parts)
+                or not p.is_file()):
             continue
         yield p
 
@@ -84,7 +91,14 @@ def publication_contract_checks(root, card):
     HTML link happens to point at them. This runs before every Pages build.
     """
     root = Path(root)
-    readme = (root / 'README.md').read_text().split('## Original project prompt', 1)[0]
+    readme_full = (root / 'README.md').read_text()
+    readme_parts = readme_full.split('## Original project prompt', 1)
+    readme = readme_parts[0]
+    after_details = (
+        readme_parts[1].split('</details>', 1)[1]
+        if len(readme_parts) > 1 and '</details>' in readme_parts[1]
+        else ''
+    )
     downloads = root / 'docs/downloads'
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
@@ -103,6 +117,7 @@ def publication_contract_checks(root, card):
         'all_repo_json_strictly_valid': json_strict_ok,
         'readme_matches_card_decision': (
             line in readme and contradicting not in readme and
+            not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
         'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
         'active_inventory_matches_frozen_verified_blobs': (
@@ -159,8 +174,40 @@ def evidence_checks(root, card):
     return out
 
 
+def witness_report_checks(root):
+    """Bind the displayed literal-gate proof to the pinned original witness.
+
+    These are evidence-consistency checks, not a substitute for remeasuring
+    the historical TIFF. Re-measure via verify_overlap_witness.py --restore.
+    """
+    root = Path(root)
+    original = strict_loads_bytes((root / 'evidence/universal_overlap_certificate.json').read_bytes())
+    review = strict_loads_bytes((root / 'evidence/witness_review_20261022_a7d092d7.json').read_bytes())
+    preflight = strict_loads_bytes((root / 'evidence/new_lane_preflight_a7d092d7.json').read_bytes())
+    measured = review.get('measured_certificate', {})
+    return {
+        'witness_review_matches_frozen_certificate': (
+            review.get('all_checks_passed') is True and
+            bool(review.get('checks')) and all(v is True for v in review['checks'].values()) and
+            all(measured.get(k) == v for k, v in original.items() if k not in ('witness_file', 'witness_source')) and
+            measured.get('witness_sha256') == original.get('witness_sha256') and
+            measured.get('allowed_pixels') == 5106385 and
+            measured.get('uncovered_allowed_pixels') == 0 and
+            measured.get('covered_allowed_fraction') == 1.0 and
+            measured.get('overlap_limit') == .70),
+        'new_lane_preflight_stops_on_exact_witness': (
+            preflight.get('start_new_lane') is False and
+            preflight.get('state') == 'impossible_under_literal_gate' and
+            preflight.get('exit_code') == 2 and
+            preflight.get('witness_sha256') == measured.get('witness_sha256') and
+            preflight.get('covered_allowed_fraction') == 1.0 and
+            preflight.get('limit') == .70),
+    }
+
+
 def verify(refresh_timestamp: bool = False):
     checks = {}
+    checks.update(witness_report_checks(ROOT))
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
     checks['all_shared_template_bytes_match_pins'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()
@@ -210,7 +257,15 @@ def verify(refresh_timestamp: bool = False):
     if not refresh_timestamp and out_path.exists():
         try:
             existing = json.loads(out_path.read_text())
-            if {k: v for k, v in existing.items() if k != 'verified_utc'} == payload and isinstance(existing.get('verified_utc'), str):
+            existing_cmp = json.loads(json.dumps({k: v for k, v in existing.items() if k != 'verified_utc'}))
+            fmt = existing_cmp.get('format_report', {})
+            if isinstance(fmt.get('validator'), dict) and isinstance(fmt['validator'].get('file'), str):
+                if fmt['validator']['file'].endswith(card['submission_file']):
+                    fmt['validator']['file'] = card['submission_file']
+            if isinstance(fmt.get('reference_grid'), dict) and isinstance(fmt['reference_grid'].get('path'), str):
+                if fmt['reference_grid']['path'].endswith(card['submission_file']):
+                    fmt['reference_grid']['path'] = card['submission_file']
+            if existing_cmp == payload and isinstance(existing.get('verified_utc'), str):
                 verified_utc = existing['verified_utc']
         except Exception:
             pass

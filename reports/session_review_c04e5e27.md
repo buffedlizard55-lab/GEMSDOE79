@@ -6,7 +6,7 @@ Three review passes (implement → bugfix → requirements) before PR.
 
 - Ranked five untried hypotheses in `research/hypotheses_ffas.md` **before** any holdout.
 - Preregistered H79-FFAS (`registry/preregistration_ffas.json`, 2026-10-22T03:49:08Z).
-- Fixed IR-79-53 once in shared `vendor/gems57/uniqueness.py` as `informative-halo-v4` (IR-79-57).
+- Fixed IR-79-53 once in shared `vendor/gems57/uniqueness.py` as `informative-halo-v4` (IR-79-82).
 - Restored lidar + 992 registry rasters; ran X1 holdout seeds 20/30, surface uniqueness, place, final uniqueness, overlap-chance, shared writer.
 
 ## Pass 2 — bugs / edge cases

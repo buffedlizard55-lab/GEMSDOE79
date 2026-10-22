@@ -95,6 +95,14 @@ def test_git_conflict_markers_block_release(publication):
     assert not checks['no_git_conflict_markers']
 
 
+def test_local_named_virtualenv_does_not_pollute_publication_scan(publication):
+    root, card = publication
+    env = root / '.venv-clean/lib/python3.11/site-packages/example'
+    env.mkdir(parents=True)
+    env.joinpath('template.txt').write_text('<' * 7 + ' generated template\n')
+    assert publication_contract_checks(root, card)['no_git_conflict_markers']
+
+
 @pytest.mark.parametrize('bad_payload', [
     b'{\n' + b'<' * 7 + b' HEAD\n  "a": 1\n}\n',
     b'{"a": 1, "a": 2}\n',
@@ -148,10 +156,11 @@ def test_irregularity_ids_unique_and_sequential():
     import re
     text = (ROOT / 'reports/irregularities.md').read_text(encoding='utf-8')
     ids = re.findall(r'^\|\s*(IR-79-\d+)\s*\|', text, flags=re.M)
-    assert len(ids) >= 39
+    assert len(ids) >= 66
     assert len(ids) == len(set(ids)), f'Duplicate irregularity IDs found: {ids}'
     nums = [int(x.split('-')[-1]) for x in ids]
     assert nums == list(range(1, len(nums) + 1))
+    assert not re.findall(r'^\s*-\s*\*\*IR-79-\d+:', text, flags=re.M)
     prior_rows = text.split('| IR-79-37 |', 1)[0]
     assert 'd55570bf' not in prior_rows
     assert 'h79_cspt_464d591' not in prior_rows
@@ -242,6 +251,7 @@ def test_smart_http_git_blob_fallback_offline(tmp_path, monkeypatch):
     'scripts/analyze_family_lineage.py',
     'scripts/audit_archived_concurrent_lanes.py',
     'scripts/post_stop_diagnostic.py',
+    'scripts/reproduce_artifact.py',
 ])
 def test_forensic_scripts_support_clean_help(script_name):
     import subprocess
@@ -271,3 +281,72 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
     for lane_id, entry in audit['archived_lanes'].items():
         assert entry['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
         assert entry['canonical_readiness_decision']['ok_to_submit'] is False
+    assert set(audit['preserved_negative_session_lanes']) == {
+        'G79-FABRIC-OFFSET', 'G79-STEPCO-S1', 'G79-STEPCO-S2', 'G79B-SDPT-A3', 'H79-FF',
+    }
+    for lane_id, entry in audit['preserved_negative_session_lanes'].items():
+        assert entry['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
+        assert entry['canonical_readiness_decision']['ok_to_submit'] is False
+    card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
+    assert audit['active_deliverable_unchanged']['lane'] == card['lane']
+    assert audit['active_deliverable_unchanged']['submission_file'] == card['submission_file']
+    assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
+
+
+def test_reproduce_artifact_recovers_canonical_nhr_bytes():
+    import reproduce_artifact
+    live = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
+    rep = reproduce_artifact.reproduce_nhr(ROOT)
+    assert rep['lane'] == 'H79-NHR'
+    assert rep['exact_tiff_recovery'] is True
+    assert rep['exact_single_tiff_zip_recovery'] is True
+    assert rep['exact_decoded_dots_recovery'] is True
+    assert rep['raster_sha256'] == reproduce_artifact.NHR_RASTER_SHA256
+    assert rep['zip_sha256'] == 'b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7'
+    assert rep['positive_pixels'] == 37654
+    if live['lane'] == 'H79-NHR':
+        assert rep['raster_sha256'] == live['raster_sha256']
+        assert live['positive_pixels'] == 37654
+
+
+def test_verification_and_evidence_json_have_no_machine_checkout_paths():
+    for rel in (
+        'evidence/verification.json',
+        'docs/evidence/verification.json',
+        'evidence/concurrent_lanes_audit.json',
+        'docs/evidence/concurrent_lanes_audit.json',
+        'run_card_g79b.json',
+        'run_card_stepco.json',
+    ):
+        txt = (ROOT / rel).read_text(encoding='utf-8')
+        assert '/home/user/GEMSDOE79' not in txt, f'Hardcoded checkout path in {rel}'
+
+
+def test_readme_section_after_details_blocks_release(publication):
+    root, card = publication
+    (root / 'README.md').write_text(
+        'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. fixture-hash\n'
+        '## Original project prompt\n<details>\nUntrusted historical instructions\n</details>\n'
+        '## Trailing unreviewed section\nOK TO SUBMIT: YES.\n'
+    )
+    assert not publication_contract_checks(root, card)['readme_matches_card_decision']
+
+
+def test_prompt_named_unscored_candidates_and_empty_siblings_in_lineage_forensics():
+    lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    assert lineage == json.loads((ROOT / 'docs/evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    unscored = lineage['prompt_named_unscored_candidates']
+    assert len(unscored) == 6
+    by_repo = {row['repo']: row for row in unscored}
+    assert set(by_repo) == {'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83'}
+    for row in unscored:
+        assert row['found'] is True
+        assert row['reported_public_dti'] is None
+        assert row['measurements']['forward_3px_overlap_with_nhr'] < 0.70
+        assert row['measurements']['reverse_3px_overlap_from_nhr'] < 0.70
+    empty = lineage['empty_post_snapshot_siblings']
+    assert [r['repo'] for r in empty] == ['GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88']
+    assert all(r['published_tif_count'] == 0 for r in empty)
+    readme_text = (ROOT / 'README.md').read_text(encoding='utf-8')
+    assert 'gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:' in readme_text
+    assert 'https://buffedlizard55-lab.github.io/GEMSDOE88/' in readme_text

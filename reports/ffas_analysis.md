@@ -89,6 +89,6 @@ No weekly slot is used for a file that lost its holdout control.
 
 The 30 space-filling registry rasters are no longer a universal blocker for
 this lane: the shared tool's `informative-halo-v4` overlap test fires only
-when the prior's own 3 px halo covers ≤ 70 % of the allowed domain (IR-79-57).
+when the prior's own 3 px halo covers ≤ 70 % of the allowed domain (IR-79-82).
 Spearman, byte identity and decoded identity still apply to every raster.
 Copies of H33 or of the 26 near-fault fields still fail.

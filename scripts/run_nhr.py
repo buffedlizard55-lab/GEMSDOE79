@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """H79-NHR experiment X1: canaries + two-seed buffered hide-and-recover + final map.
 
+Historical runner: the canonical NHR lane is terminal and commands now refuse
+to rerun it. Read-only software verification remains available.
+
 Stages
 ------
   holdout --seed S   leave-one-quadrant-out models on nested hides of the visible
@@ -33,6 +36,7 @@ from gems57 import evaluate_holdout as evaluator          # noqa: E402
 from gems57.grid import load_grid                          # noqa: E402
 from gems57.holdout import buffered_component_draw, quadrant_ids  # noqa: E402
 from gems79 import nhr                                     # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane
 from gems79.placement import place                         # noqa: E402
 import analyze_h33                                         # noqa: E402
 from run_experiment import canaries                        # noqa: E402  (shared canary, reused)
@@ -124,6 +128,7 @@ def predict_surface(model, stack, cells_mask, geom, use_geometry=True, chunk=400
 
 
 def stage_holdout(seed):
+    require_open_lane(ROOT, "H79-NHR")
     t0 = time.time()
     grid = load_grid(ROOT / "data/reference")
     stack = Stack(grid)
@@ -210,6 +215,7 @@ def stage_holdout(seed):
 
 
 def stage_final():
+    require_open_lane(ROOT, "H79-NHR")
     grid = load_grid(ROOT / "data/reference")
     stack = Stack(grid)
     cat = grid.catalogue
@@ -241,4 +247,8 @@ if __name__ == "__main__":
     ap.add_argument("stage", choices=["holdout", "final"])
     ap.add_argument("--seed", type=int, default=20)
     a = ap.parse_args()
-    stage_holdout(a.seed) if a.stage == "holdout" else stage_final()
+    try:
+        stage_holdout(a.seed) if a.stage == "holdout" else stage_final()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)
