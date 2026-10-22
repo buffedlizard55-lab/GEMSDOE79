@@ -1,7 +1,7 @@
 # Session review — `e846fc02` (2026-10-22)
 
-**Branch:** `arena/e846fc02-gemsdoe79` (active session branch, never renamed)  
-**Baseline:** `9640ed3` (`main` at session start)  
+**Branch:** `arena/e846fc02-gemsdoe79` (active session branch, never renamed)
+**Baseline:** `9640ed3` (`main` at session start)
 **Lane state at entry:** H79-NHR stopped negative after beating H33 control on HOLDOUT-DTI (0.1431/0.1522 vs 0.0961/0.0989, paired CIs exclude zero) but failing the duplicate gate (26 ordinary dot fields >70% within 3 px, worst 0.913 vs 0.610 chance; surface gate also fails). `run_card.json` verdict `negative`, `ok_to_submit: false`, 0 slots used. Universal literal witness (`17GEMSDOE_E-proba-multiscale`, 374c88b…) covers 100% of allowed cells, so any nonempty candidate fails the literal 0.70 gate (IR-79-53).
 
 **Session intent:** Repository audit and publication review, not a new scientific lane. No model training, dot placement, holdout, or weekly-slot selection was performed.

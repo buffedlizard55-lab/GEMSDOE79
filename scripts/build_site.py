@@ -365,9 +365,11 @@ def main():
                           + '<section class="section">' + md('reports/verification_passes.md') + '</section>'
                           + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
-        'research.html': ('Five ranked hypotheses',
-                          page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
-                                    'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
+        'research.html': ('Research hypotheses & constraints',
+                          page_head('RESEARCH REGISTER / HISTORICAL RESULTS / STOP RULES', 'Ideas, evidence, and blockers.',
+                                    'Current candidate hypotheses are qualitative and unvalidated; the active download decision remains negative.')
+                          + '<section class="section"><h2>Current-session shortlist — not run</h2>'
+                          + md('research/hypotheses_session_7c7104d8.md') + '</section>'
                           + '<section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2>'
                           + '<p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p>'
                           + md('research/hypotheses_e846fc02.md') + '</section>'

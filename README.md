@@ -257,6 +257,23 @@ were synthesized. See [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md)
 
 ---
 
+## Latest repository review — Arena session `7c7104d8` (2026-10-22)
+
+**Decision remains: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** At this review's
+branch baseline (`9640ed3`), the active card was H79-NHR and the literal-witness
+preflight returned `impossible_under_literal_gate` (exit 2). During PR
+preparation, the latest `main` changed the canonical artifact to G79-THVC
+(`d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`). Its
+**HOLDOUT-DTI** results (evaluator `gems57-pooled-hide-v2`) are 0.1905, 11,321
+withheld positives, 95% CI [0.1741, 0.2069] (seed 20), and 0.1944, 11,342
+withheld positives, 95% CI [0.1774, 0.2126] (seed 30). They are not leaderboard
+scores. G79-THVC still fails the literal registry overlap gate against
+space-filling/blanket rasters and has no selector/slot approval; it remains
+DO-NOT-SUBMIT. This review ran no model, holdout, placement, or upload. Its
+[three-pass report](reports/repository_review_2026-10-22_session-7c7104d8.md)
+and [unexecuted three-hypothesis shortlist](research/hypotheses_session_7c7104d8.md)
+record the data blockers. No new score is projected.
+
 ## Original project prompt — read at the start of every session
 
 The following is preserved as the project brief (only trailing whitespace is normalized). Historical scores, availability

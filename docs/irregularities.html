@@ -604,5 +604,22 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>Reconciled all concurrent lanes onto <code>arena/33e1f8ec-gemsdoe79</code>, archived concurrent <code>docs/downloads/gems79-h79-*</code> artifacts cleanly, preserved all upstream pins and archives, and published the complete multi-lane <code>gems57-pooled-hide-v2</code> benchmark table showing <code>G79-THVC</code> achieving the highest holdout DTI in <code>GEMSDOE79</code> across both seeds (<code>0.1905</code> on Seed 20 and <code>0.1944</code> on Seed 30 vs <code>H33 = 0.0961 / 0.0989</code>).</td>
 </tr>
 </tbody>
+</table>
+<h3>Arena review — session <code>7c7104d8</code> (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-86</td>
+<td>The branch baseline (<code>9640ed3</code>) listed <code>scikit-image</code> twice in <code>requirements.txt</code> (<code>&gt;=0.25,&lt;0.27</code> and <code>&gt;=0.25,&lt;1</code>). Concurrent main updates had since consolidated the manifest to one <code>&gt;=0.25,&lt;1</code> line; the lock pins <code>0.26.0</code>.</td>
+<td>Preserved the latest main constraint and added a regression test that rejects duplicate normalized package names in <code>requirements.txt</code> or <code>requirements.lock</code>. This PR changes no locked package version, scientific input, model, run card, or TIFF.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
