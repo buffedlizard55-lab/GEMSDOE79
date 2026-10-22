@@ -1,8 +1,8 @@
 {
   "schema": "tracked_raster_scan.v2",
   "rule_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
-  "n_tracked_rasters": 38,
-  "n_prediction_artifacts": 31,
+  "n_tracked_rasters": 39,
+  "n_prediction_artifacts": 32,
   "n_reference_inputs": 7,
   "flagged_prediction_artifacts": [],
   "reference_inputs_outside_0_1": [
@@ -202,6 +202,44 @@
       "n_finite": 12279160,
       "n_zero": 12241506,
       "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_cjxdir/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.tif",
+      "role": "prediction_artifact",
+      "sha256": "5bdebaafc7c15bd6f9de6092398c86618986d19d4d06075acf92386948563e47",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12259160,
+      "n_positive": 20000,
       "n_sentinel": 0,
       "min": 0.0,
       "max": 1.0,

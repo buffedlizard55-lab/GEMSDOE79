@@ -23,7 +23,11 @@ def check_site():
         document = BeautifulSoup((site / alias).read_text(), 'html.parser')
         assert document.find('meta', attrs={'http-equiv': 'refresh'})['content'] == '0;url=' + target
         assert document.find('a')['href'] == target and target in pages
-    assert len(pages) == 9, 'Expected nine project pages'
+    assert set(pages) == {
+        'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
+        'sources.html', 'history.html', 'irregularities.html', 'cjx-submission.html',
+        'dzd-submission.html', 'g79-cjxdir.html',
+    }, 'Expected the ten project pages (canonical seven + G79-CJX + G79-DZD + G79-CJX-DIR lane pages)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
