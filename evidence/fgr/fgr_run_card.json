@@ -1,0 +1,214 @@
+{
+  "schema_version": "gems79-run-card-v2",
+  "generated_utc": "2026-10-22T04:52:44.158220+00:00",
+  "branch": "arena/cb54ff09-gemsdoe79",
+  "lane": "H79-FGR",
+  "status": "archived negative research lane; the canonical deliverable remains H79-NHR",
+  "hypothesis": "Because the organiser's scored truth consists of faults absent from the catalogue, and because the reported family scores rise monotonically with dot distance from the catalogue inside a competent habitat, a competence surface weighted toward the far field moves along the measured gradient instead of against it, and a near-field inversion of the same weight moves against it.",
+  "mechanism": "Basin-and-Range normal-fault systems continue beyond map-sheet and cover boundaries. Piedmont, buried and alluvium-covered strands offset Quaternary surfaces and leave lidar-resolvable scarps plus gravity and magnetic lineaments kilometres from any compiled trace. Competence identifies that scarp/edge population; the distance weight removes the near-catalogue collar whose deletion is the one measured raster difference between the family's 0.2600 and 0.2778 artifacts.",
+  "named_non_fault_process": "Pluvial Lake Lahontan shoreline and terrace risers, incised channel banks, alluvial-fan toes, roads and mine benches all produce contour-parallel steps of the same 2-10 m scale, and a distance weight does not distinguish them. A shoreline-altitude filter needs ABSOLUTE elevation, which is not present in the restored inputs (det_elev is detrended; the lidar product stores relief). The mimic is therefore named and NOT suppressed. This is a stated limitation, not a solved problem.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "headline_seed": 20,
+    "dti": 0.0058,
+    "ci95": [
+      0.0012,
+      0.0112
+    ],
+    "withheld_positive_pixels": 11321,
+    "per_seed": {
+      "seed_20": {
+        "withheld_positive_pixels": 11321,
+        "candidate": {
+          "dti": 0.0058,
+          "ci95": [
+            0.0012,
+            0.0112
+          ]
+        },
+        "nearfield_inversion": {
+          "dti": 0.0846,
+          "ci95": [
+            0.0705,
+            0.0983
+          ]
+        },
+        "uniform_control": {
+          "dti": 0.0456,
+          "ci95": [
+            0.0408,
+            0.0499
+          ]
+        },
+        "h33_foldfair_control": {
+          "dti": 0.0961,
+          "ci95": [
+            0.0831,
+            0.1096
+          ]
+        }
+      },
+      "seed_30": {
+        "withheld_positive_pixels": 11342,
+        "candidate": {
+          "dti": 0.0056,
+          "ci95": [
+            0.0025,
+            0.0095
+          ]
+        },
+        "nearfield_inversion": {
+          "dti": 0.0686,
+          "ci95": [
+            0.0584,
+            0.0803
+          ]
+        },
+        "uniform_control": {
+          "dti": 0.0456,
+          "ci95": [
+            0.0403,
+            0.0506
+          ]
+        },
+        "h33_foldfair_control": {
+          "dti": 0.0989,
+          "ci95": [
+            0.0859,
+            0.1132
+          ]
+        }
+      }
+    },
+    "caveat": "Hide-and-recover of withheld CATALOGUE components. This lane's candidate scores far BELOW the uniform random control on that holdout, which is the result: the inherited holdout rewards catalogue proximity, while the reported organiser scores reward distance inside the family's best habitat. Not a leaderboard score or projection."
+  },
+  "current_best_holdout_beaten": false,
+  "current_best_holdout_reference": "h33_foldfair_control (0.0961 seed 20 / 0.0989 seed 30)",
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "passed": true,
+    "auc": 0.648,
+    "required_threshold": 0.9,
+    "features_cleared": 6,
+    "tests": 48,
+    "worst_feature": "step_max"
+  },
+  "correlation_overlap_vs_registry": {
+    "shared_tool": "gems57.uniqueness (unmodified)",
+    "registry_rasters": 992,
+    "diagnostic_subset": 56,
+    "literal_reading": {
+      "rasters_checked": 56,
+      "blocking": 35,
+      "worst_overlap": 1.0,
+      "worst_submission": "GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H56-OWDS-B2xH33D-20261007-1f7b5a4f18db-unassigned-mtheta.tif",
+      "note": "Fails by proof as well as by measurement: evidence/gate_satisfiability_certificate.json shows 20 registry dot fields whose 3 px halos cover more than 70 % of the allowed domain, so every nonempty candidate exceeds the limit against them."
+    },
+    "chance_normalised_reading": {
+      "rasters_checked": 56,
+      "blocking": 19,
+      "blocking_that_are_informative": 5,
+      "worst_informative_overlap": 0.826947,
+      "worst_informative_submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+      "worst_informative_halo": 0.64134,
+      "nhr_overlap_on_same_raster": 0.879216,
+      "note": "A raster blocks only if the candidate exceeds max(0.70, its own halo coverage), i.e. only if it does worse than a uniform random field would against that raster. The 0.70 threshold is unchanged wherever the test is informative."
+    },
+    "passed": false,
+    "scope": "DIAGNOSTIC SUBSET: can reject, never certify uniqueness. Halo coverages joined by SHA-256 from the hash-pinned census evidence/nhr/overlap_chance.json; the 20 decisive blockers were independently re-measured from restored bytes. The literal reading is authoritative for the verdict."
+  },
+  "protocol_unique": false,
+  "raster_sha256": "ff7c2ee62948e7760e1617fe7a2e48aa18782ef2878b400146068f6b46520442",
+  "zip_sha256": "c811e8855285bdf4b8d1c81ee959e017e1d2fac6b5ca26977b28e46aaac707a6",
+  "validator_output": {
+    "format_passed": true,
+    "no_nan_inside_footprint": true,
+    "crs_shape_transform_match": true,
+    "summary": {
+      "path": "/home/user/GEMSDOE79/archive/fgr_cb54ff09/downloads/gems79-h79-fgr-farfield-38000dots-20261022T045243Z-72c45bc4-DO-NOT-SUBMIT.tif",
+      "bytes": 826924,
+      "sha256": "ff7c2ee62948e7760e1617fe7a2e48aa18782ef2878b400146068f6b46520442",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        1,
+        3292
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030946743208914995,
+      "n_nonzero": 38000,
+      "mass": 38000.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    }
+  },
+  "submission_name": "gems79-h79-fgr-farfield-38000dots-20261022T045243Z-72c45bc4-DO-NOT-SUBMIT",
+  "submission_note": "H79-FGR far-field ranker NEGATIVE; HOLDOUT-DTI 0.0058/0.0056 below uniform 0.0456; research only",
+  "note_length": 96,
+  "submission_file": "archive/fgr_cb54ff09/downloads/gems79-h79-fgr-farfield-38000dots-20261022T045243Z-72c45bc4-DO-NOT-SUBMIT.tif",
+  "zip_file": "archive/fgr_cb54ff09/downloads/gems79-h79-fgr-farfield-38000dots-20261022T045243Z-72c45bc4-DO-NOT-SUBMIT.zip",
+  "artifact_kind": "binary dot map (1.0 at placed cells, 0.0 elsewhere, all finite)",
+  "positive_pixels": 38000,
+  "dot_distance_profile": {
+    "dist_cat_median_m": 5780.13840664737,
+    "dist_cat_mean_m": 6438.32173276506,
+    "frac_within_200m": 0.0,
+    "frac_within_500m": 0.0,
+    "frac_gt_1km": 1.0,
+    "frac_gt_2km": 1.0,
+    "frac_gt_5km": 0.6912631578947368
+  },
+  "mechanism_diagnosis": "The saturating distance weight dominated the rank-averaged competence term: 100 % of the 38,000 emitted dots lie more than 2 km from the catalogue and the median is 5,780 m, so the surface behaved as a pure distance ranking and discarded scarp/edge evidence. This is a design defect in the preregistered weighting, reported rather than retuned.",
+  "experiment_count": 1,
+  "max_experiments": 3,
+  "max_hours": 2,
+  "preregistration_sha256": "47ae749dfcbae6be4760c843abc938598d3384f236b958c3c1ad694c04697294",
+  "verdict": "negative",
+  "promoted": false,
+  "stop_reason": "Far-field relocation is refuted as a route above 0.2778: HOLDOUT-DTI 0.0058/0.0056 is below the uniform random control (0.0456/0.0456) on both seeds, and the literal registry overlap gate is unsatisfiable for any nonempty candidate. No retuning.",
+  "failed_gates": [
+    "holdout_beats_control",
+    "final_dot_uniqueness_literal"
+  ],
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "selector_receipt": null,
+  "human_intervention_needed_for_this_verdict": false,
+  "submission_slots_used": 0,
+  "organizer_submission_receipt": null,
+  "leaderboard_claim": "None. No organiser score exists for this file."
+}
