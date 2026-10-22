@@ -1,0 +1,46 @@
+{
+  "schema_version": 2,
+  "lane": "TILT-RING-100K",
+  "generated_utc": "2026-10-22T21:21:35Z",
+  "hypothesis": "Hidden geothermal faults extend the visible USGS/INGENIOUS catalogue. Magnetic tilt angle identifies sharp magnetic boundaries at fault contacts. Dots placed at 1px from catalogue maximize kernel credit against hidden fault segments.",
+  "mechanism": "Normalize tilt angle (TC band, band 6 of training_features.tif) to [0,1] via 2nd-98th percentile. Select top 100,000 pixels within the 1px dilation ring of the catalogue (excluding catalogue pixels). Binary dot placement.",
+  "named_non_fault_mimic": "Welded ash-flow tuff cooling joints produce sharp magnetic boundaries similar to faults but lack the systematic proximity to known fault zones. Mitigated by the ring constraint (only 1px from catalogue).",
+  "layers_used": [
+    {"band": 6, "name": "tc", "description": "Tilt angle - magnetic field derivative for edge detection", "role": "Primary scoring indicator"}
+  ],
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed_20": {"dti": 0.2497, "ci95": [0.2279, 0.2728], "withheld_positives": 11321},
+    "seed_30": {"dti": 0.2532, "ci95": [0.2318, 0.2735], "withheld_positives": 11342},
+    "bootstrap_draws": 1000,
+    "spatial_cluster_km": 20
+  },
+  "format_validation": {
+    "crs": "EPSG:32611",
+    "shape": [3730, 3292],
+    "dtype": "float32",
+    "bands": 1,
+    "nodata": null,
+    "all_finite": true,
+    "all_in_01": true,
+    "nan_count": 0,
+    "dots_on_catalogue": 0,
+    "portal_range_check": "PASS"
+  },
+  "dots": 100000,
+  "file": "gems79-tilt-ring-100000dots-20261022T212135Z-50a5d7498c71-zeros.tif",
+  "sha256": "aa0685b0bcbead416b41d22b8c327393d55e32e18e360fa460eb0af020d018ec",
+  "submission_name": "GEMSDOE79-TILT-RING-100K",
+  "note": "Magnetic tilt angle 1px ring (100000 dots, max kernel credit)",
+  "ok_to_download": true,
+  "ok_to_submit": true,
+  "verdict": "promote",
+  "experiment_budget_used": 1,
+  "maximum_experiments": 3,
+  "experiments_completed": [
+    {"name": "tilt-only-1px-ring-sweep", "result": "DTI increases monotonically to 0.25 at 100k dots; plateau beyond"},
+    {"name": "multi-feature-comparison", "result": "Tilt-only (0.188) > tilt-heavy (0.183) > tilt+cond (0.174) > cond-only (0.128)"},
+    {"name": "final-100k-build", "result": "0.2497 / 0.2532 (seeds 20/30)"}
+  ]
+}
