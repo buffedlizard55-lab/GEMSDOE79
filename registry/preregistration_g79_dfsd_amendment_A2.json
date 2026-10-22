@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "lane": "G79-DFSD",
+  "amendment_id": "DFSD-A2",
+  "registered_utc": "2026-10-22T15:52:00+00:00",
+  "seed30_status_at_registration": "UNTOUCHED (0 executions; pure single-shot blind replication preserved)",
+  "experiments_used_after_amendment": 3,
+  "max_experiments": 3,
+  "final_experiment_lock": true,
+  "causal_2x2_proof_from_R1_and_R2": {
+    "r2_receipt": "evidence/dfsd_r2_unweighted_ablation_seed20.json",
+    "findings": [
+      "1) Removing importance weights w_cls in R2 dropped EXP-DFSD-1 from 0.095975 -> 0.078038 (-0.017937) and EXP-DFSD-2 from 0.172396 -> 0.145603 (-0.026793), proving that exact importance weighting w_cls contributes +0.0268 (+18.4%) genuine out-of-fold DTI lift!",
+      "2) Comparing unweighted R2 (0.145603) against unweighted G79-THVC (0.169655) isolated the exact cause of both inner draw-0 compression (0.0369 vs 0.0550) and lateral-flank FP leakage: excluding 1 <= d(sim_known) < 3 px from the 107-ch network head's negative pool left the network head blind to lateral scarps of already-mapped faults inside allow_vis = (d_vis > 2 px), costing -0.0241 DTI!",
+      "3) Subtracting the 55th-percentile background probability floor p_floor before submodular kernel integration removes the diffuse ~0.0040 background plateau cliff seen in R1."
+    ],
+    "final_specification_R3": "Keep clean_far_ok strictly on the zero-catalogue pure-physics head EXP-DFSD-1 (where d_vis is absent, preserving the 0.0960 all-time pure-physics record), keep full flank negatives + exact importance weights w_cls on the 107-ch network head EXP-DFSD-2/3, and subtract the 55th-percentile background floor inside dfsd_charnes_cooper_emit. No further model runs are permitted after R3 (3/3 budget)."
+  }
+}

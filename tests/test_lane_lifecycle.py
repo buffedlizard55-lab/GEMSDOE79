@@ -129,6 +129,8 @@ def test_absent_card_fails_closed(tmp_path):
     ('generate_unique_submission.py', ['test-name', 'test-note']),
     ('run_g79_cskd.py', ['--stage', 'seed20']),
     ('run_csmd.py', ['--stage', 'seed20']),
+    ('run_g79_dfsd.py', ['--stage', 'seed20']),
+    ('run_g79_dfsd.py', ['--stage', 'seed20', '--allow-initial-build']),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (

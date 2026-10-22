@@ -588,7 +588,10 @@ def main():
               'evidence/cskd_sources_receipt.json': 'cskd_sources_receipt.json',
               'archive/g79_cskd_6da2620c/run_card_cskd.json': 'run_card_cskd.json',
               'registry/preregistration_csmd.json': 'preregistration_csmd.json',
-              'run_card_csmd.json': 'run_card_csmd.json'}
+              'run_card_csmd.json': 'run_card_csmd.json',
+              'registry/preregistration_g79_dfsd.json': 'preregistration_g79_dfsd.json',
+              'run_card_dfsd.json': 'run_card_dfsd.json',
+              'evidence/g79_dfsd_results.json': 'g79_dfsd_results.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json', 'evidence_summary.json'}
     for stale in (SITE / 'evidence').iterdir():
@@ -623,6 +626,10 @@ def main():
         'analysis.html': ('What H33 teaches us, without score promises',
                           page_head('ANALYSIS / EXACT METRIC / MEASURED LINEAGE', 'Understand H33. Do not copy it.',
                                     'Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.')
+                          + '<section class="section"><h2>Session d7da950d — Lane G79-DFSD (107-ch Split-Sensor Discovery, 2×2 Causal Proof &amp; 1,221-Raster Audit)</h2>'
+                          + '<p><a href="evidence/run_card_dfsd.json">G79-DFSD run card</a> · <a href="evidence/preregistration_g79_dfsd.json">preregistration</a> · <a href="evidence/g79_dfsd_results.json">full results JSON</a>.</p>'
+                          + '<figure style="margin:0 0 20px 0"><img src="figures/fig5_dfsd_breakthrough.png" alt="G79-DFSD zero-catalogue breakthrough and 2x2 causal ablation" style="width:100%;height:auto;display:block"></figure>'
+                          + md('reports/dfsd_analysis.md') + md('reports/session_review_d7da950d.md') + '</section>'
                           + '<section class="section">' + md('reports/session_review_1dc8cff0.md') + '</section>'
                           + '<section class="section">' + md('reports/g79_cskd_session_6da2620c.md') + '</section>'
                           + '<section class="section">' + md('knowledge/h33_review_e4a4422d.md') + '</section>'
@@ -631,6 +638,7 @@ def main():
         'research.html': ('Deferred geological hypotheses',
                           page_head('HYPOTHESES / PREREGISTERED LANES', 'Test a mechanism. Name its mimic.',
                                     'Source-grounded ideas, qualitative ranking, executed preregistered lanes and explicit data gates.')
+                          + '<section class="section">' + md('research/hypotheses_g79_dfsd.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_csmd_1dc8cff0.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_6da2620c.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_0d90d81b.md') + '</section>'
