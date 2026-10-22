@@ -95,6 +95,14 @@ def test_git_conflict_markers_block_release(publication):
     assert not checks['no_git_conflict_markers']
 
 
+def test_local_named_virtualenv_does_not_pollute_publication_scan(publication):
+    root, card = publication
+    env = root / '.venv-clean/lib/python3.11/site-packages/example'
+    env.mkdir(parents=True)
+    env.joinpath('template.txt').write_text('<' * 7 + ' generated template\n')
+    assert publication_contract_checks(root, card)['no_git_conflict_markers']
+
+
 @pytest.mark.parametrize('bad_payload', [
     b'{\n' + b'<' * 7 + b' HEAD\n  "a": 1\n}\n',
     b'{"a": 1, "a": 2}\n',
