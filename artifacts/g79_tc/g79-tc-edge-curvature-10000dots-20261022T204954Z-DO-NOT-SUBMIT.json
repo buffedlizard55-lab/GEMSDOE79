@@ -1,0 +1,135 @@
+{
+  "file": "g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.tif",
+  "sha256": "64f4cccf5dbde7cd4e4bb60e9be5a3f908f514fe268c8306f48681d8ccb2e209",
+  "bytes": 62821,
+  "submission_name": "g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT",
+  "note": "G79-TC: Band 6 magnetic tilt/curvature edge surface, zero on mapped faults, 10000 sparse dots, [0,1]",
+  "note_chars": 100,
+  "validator": {
+    "file": "/home/user/GEMSDOE79/artifacts/g79_tc/g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.tif",
+    "bytes": 62821,
+    "sha256": "64f4cccf5dbde7cd4e4bb60e9be5a3f908f514fe268c8306f48681d8ccb2e209",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0008143879822455347,
+    "emitted_positive_pixels": 10000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 10000,
+    "footprint_fraction": 0.0019352193077604423
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOE79/artifacts/g79_tc/g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.tif",
+    "bytes": 62821,
+    "sha256": "64f4cccf5dbde7cd4e4bb60e9be5a3f908f514fe268c8306f48681d8ccb2e209",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0008143879822455347,
+    "n_nonzero": 10000,
+    "mass": 10000.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "42054e979e36c8e84c2b04f018ecda4c09970cdb23d73c1da55f1c6593d4515f",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "method": "G79-TC single-channel magnetic edge-detection (Band 6 tc)",
+    "geological_target": "blind fault edges missing from the USGS/INGENIOUS catalogue",
+    "band": 6,
+    "band_name": "tc",
+    "surface_min": 2.9534237384796143,
+    "surface_max": 88.56654357910156,
+    "top_k": 10000,
+    "positive_pixels": 10000,
+    "generated_utc": "2026-10-22T20:49:54.085513+00:00",
+    "evidence_class": "LOCALLY_GENERATED_MEASURED_NEGATIVE",
+    "source_feature_stack": "data/raw/training_features.tif (sha256 4371c82e...)"
+  },
+  "raster_sha256": "64f4cccf5dbde7cd4e4bb60e9be5a3f908f514fe268c8306f48681d8ccb2e209",
+  "ok_to_download": true,
+  "ok_to_submit": false
+}

@@ -1,0 +1,87 @@
+{
+  "generated_utc": "2026-10-22T20:46:15.612184+00:00",
+  "evidence_class": "LOCAL_EXPERIMENT_RECEIPT",
+  "hypothesis": "Band 6 'tc' magnetic edge-detection / curvature surface targets blind fault edges missing from the USGS/INGENIOUS catalogue",
+  "mechanism": "Normalise Band 6 to [0,1] over the footprint, zero on mapped faults and outside the footprint, keep top-10,000 sparse dots. Edge response is strongest at fault edges whether or not the trace is mapped.",
+  "named_non_fault_mimic": "Magnetic fabric, intrusive-contact edges and remanent-magnetization contrasts unrelated to Quaternary faulting.",
+  "band": 6,
+  "band_name": "tc",
+  "top_k": 10000,
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "canary": {
+    "seed20": {
+      "withheld_positive_pixels": 11321,
+      "domain_pixels": 4885941,
+      "band": 6,
+      "band_name": "tc",
+      "symmetric_auc": 0.528913585372317,
+      "auc_limit": 0.9,
+      "canary_passed": true,
+      "negative_pixels_sampled": 120000
+    },
+    "seed30": {
+      "withheld_positive_pixels": 11342,
+      "domain_pixels": 4885941,
+      "band": 6,
+      "band_name": "tc",
+      "symmetric_auc": 0.5444027166725445,
+      "auc_limit": 0.9,
+      "canary_passed": true,
+      "negative_pixels_sampled": 120000
+    }
+  },
+  "holdout": {
+    "seed20": {
+      "candidate_dti": 0.0017808386751360411,
+      "candidate_ci95": [
+        0.0002524377420726441,
+        0.0035880773068268455
+      ],
+      "candidate_withheld": 11321,
+      "h33_analogue_dti": 0.002143070413411724,
+      "h33_analogue_ci95": [
+        0.0017308774498773216,
+        0.002558232142219766
+      ],
+      "delta_vs_h33": -0.00036223173827568296,
+      "delta_ci95": [
+        -0.0019245662627177362,
+        0.0016099206765180496
+      ],
+      "candidate_n_emitted": 10000,
+      "best_comparable_control": "h33_analogue"
+    },
+    "seed30": {
+      "candidate_dti": 0.000617214278911799,
+      "candidate_ci95": [
+        0.0,
+        0.0015195050603299483
+      ],
+      "candidate_withheld": 11342,
+      "h33_analogue_dti": 0.0023433104830062586,
+      "h33_analogue_ci95": [
+        0.001880918439906246,
+        0.002755740342572175
+      ],
+      "delta_vs_h33": -0.0017260962040944595,
+      "delta_ci95": [
+        -0.0025729931337478197,
+        -0.0007203359041445558
+      ],
+      "candidate_n_emitted": 10000,
+      "best_comparable_control": "h33_analogue"
+    }
+  },
+  "selection": {
+    "chosen_band": 6,
+    "band_index_used": 6,
+    "rule": "Band 6 'tc' if canary-passing on both seeds; else lowest-index band passing on both seeds (deterministic, no holdout scoring used to choose)"
+  },
+  "candidate": {
+    "surface_min": 2.9534237384796143,
+    "surface_max": 88.56654357910156,
+    "n_dots": 10000,
+    "footprint_fraction": 0.0019352193077604423,
+    "on_catalogue": 0
+  }
+}

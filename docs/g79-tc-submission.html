@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: G79-TC Band-6 magnetic edge-detection research GeoTIFF, format-valid, holdout-measured and negative; download for research, do not submit.">
+<title>G79-TC unique TIF — automated gate verdict · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="g79-tc-submission.html">TC</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">G79-TC / UNIQUE TIF / AUTOMATED GATE</p><h1>A new unique TIF. The gate says no.</h1><p class="lead">Generated and validated with no human inspection. Downloading for research is fine; submitting is not approved.</p></section>
+<section class="section"><div class="notice"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO — DO NOT SUBMIT.</strong><br>
+Produced by scripts/build_g79_tc_submission.py from the measured Band-6 "tc" magnetic edge-detection channel.
+A format PASS alone never approves submission.</div>
+<h2>Download</h2>
+<p><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/g79_tc/g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.tif" download>g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.tif</a> ·
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/g79_tc/g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.zip">g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.zip</a> (ZIP contains exactly that TIFF) ·
+SHA-256 <code>64f4cccf5dbde7cd4e4bb60e9be5a3f908f514fe268c8306f48681d8ccb2e209</code> · 63 KiB · 10,000 dots</p>
+<p><strong>Submission name:</strong> <code>g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT</code><br>
+<strong>Note (103/140 characters):</strong> G79-TC: Band 6 magnetic tilt/curvature edge surface, zero on mapped faults, 10000 sparse dots, [0,1]</p>
+<h2>Automated gates</h2>
+<table><thead><tr><th>Gate</th><th>Result</th><th>Detail</th></tr></thead><tbody>
+<tr><td>G1_format_shared_validator</td><td>PASS</td><td>single float32 band, EPSG:32611, 3730x3292, pinned transform, all finite, values in [0,1], zero outside footprint, zero dots on mapped catalogue, 0 NaN</td></tr>
+<tr><td>G2_dot_budget_and_catalogue_exclusion</td><td>PASS</td><td>10,000 dots (0.0019% of footprint); 0 positive pixels on mapped catalogue</td></tr>
+<tr><td>G3_holdout_measured</td><td>MEASURED · NEGATIVE</td><td>Band-6 tc holdout-DTI Seed 20 = 0.00178 [0.00025, 0.00359] (n=11,321); Seed 30 = 0.00062 [0.0, 0.00152] (n=11,342). Far below the G79-THVC incumbent (0.1905 / 0.1944). Source: evidence/g79_single_channel_screen.json</td></tr>
+<tr><td>G4_leakage_canary</td><td>PASS</td><td>Single feature "tc" alone on the holdout: symmetric AUC 0.5289 (S20) / 0.5444 (S30), limit 0.90. No leakage.</td></tr>
+<tr><td>G5_literal_novelty_full_registry</td><td>BLOCKED</td><td>992-raster registry not cached locally; full scan not runnable offline. The pinned universal-overlap witness covers 100.0% of allowed cells, so under the literal protocol rule any nonempty candidate has 3-px forward overlap 1.0000 &gt; 0.70. Uniqueness is not cleared.</td></tr>
+<tr><td>G6_select_approval</td><td>NOT APPROVED</td><td>no selector receipt bound to this raster; account-side weekly slot not observable</td></tr>
+</tbody></table>
+<h2>Why it is unique</h2>
+<p>Single deterministic channel — no ML, no multi-physics stack: Band 6 "tc" (magnetic tilt / total curvature, an edge-detection transform) min-max normalised to [0,1] over the footprint, zero on mapped faults and outside it, top-10,000 sparse binary dots. Distinct from G79-THVC (84-channel multi-physics ML ensemble), G79-DZD (damage-zone distance decay) and G79-CJX (potential-field junctions). Byte-unique: SHA-256 matches no registry blob and no prior artifact in this repo.</p>
+<h2>Measured holdout (not a leaderboard score)</h2>
+<table><thead><tr><th>Seed</th><th>Withheld positives</th><th>Band-6 tc holdout-DTI [95% CI]</th><th>G79-THVC incumbent</th></tr></thead><tbody>
+<tr><td>20</td><td>11,321</td><td>0.00178 [0.00025, 0.00359]</td><td>0.1905 [0.1741, 0.2069]</td></tr>
+<tr><td>30</td><td>11,342</td><td>0.00062 [0.0, 0.00152]</td><td>0.1944 [0.1774, 0.2126]</td></tr>
+</tbody></table>
+<p class="micro">Evaluator gems57-pooled-hide-v2; pooled DTI alpha=0.2 beta=0.8, 300 m triangular kernel; paired 1,000-draw spatial-cluster bootstrap. This is an offline proxy, not a leaderboard score.</p>
+<h2>If a future banner ever says YES</h2>
+<ol>
+<li>Download the .tif or the .zip containing exactly it.</li>
+<li>Confirm <code>scripts/validate_submission.py</code> passes all checks and <code>scripts/verify_project.py</code> agrees.</li>
+<li>Complete the unmeasured/failed gates (holdout beating the incumbent, full registry novelty, leakage canaries) and let <code>scripts/select_submission.py</code> bind a receipt to this exact SHA-256.</li>
+<li>Choose the file on the DrivenData submission page and paste the name/note above. The "Predicted values must be in range [0, 1]" error cannot come from this writer: it rejects non-finite or out-of-range values at build time and G1 re-verifies the bytes on disk.</li>
+</ol>
+<p><strong>Submitting this file now would be rejected by the gates above.</strong> It is archived as a measured negative deliverable.</p>
+</main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

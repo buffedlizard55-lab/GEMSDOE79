@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "lane": "G79-TC",
+  "generated_utc": "2026-10-22T20:49:55.227358+00:00",
+  "hypothesis": "Band 6 'tc' (magnetic tilt / total curvature, an edge-detection / curvature transform) surfaces blind fault edges missing from the USGS/INGENIOUS catalogue; unmapped blind faults still perturb the magnetic field gradient at their edges.",
+  "mechanism": "Min-max normalise Band 6 to [0,1] over the footprint; zero on mapped catalogue faults and outside the footprint; keep top-10,000 sparse binary dots. Single deterministic channel -- no ML, no multi-physics stack, no kernel cover.",
+  "named_non_fault_mimic": "Magnetic fabric, intrusive-contact edges and remanent-magnetization contrasts unrelated to Quaternary faulting.",
+  "distinct_from": "G79-THVC (84-channel ensemble), G79-DZD (damage-zone distance decay), G79-CJX (junctions)",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300,
+    "per_seed": {
+      "seed_20": {
+        "dti": 0.0017808386751360411,
+        "ci95": [
+          0.0002524377420726441,
+          0.0035880773068268455
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "seed_30": {
+        "dti": 0.000617214278911799,
+        "ci95": [
+          0.0,
+          0.0015195050603299483
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    },
+    "source_pointer": "evidence/g79_single_channel_screen.json",
+    "note": "Measured single-channel Band-6 tc holdout-DTI; negative vs the G79-THVC incumbent (0.1905 / 0.1944) and vs the H33 analogue control.",
+    "dti": 0.0017808386751360411,
+    "ci95": [
+      0.0002524377420726441,
+      0.0035880773068268455
+    ],
+    "withheld_positive_pixels": 11321,
+    "seed": 20,
+    "headline_seed": 20
+  },
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "threshold": 0.9,
+    "per_seed": {
+      "seed20": {
+        "max_symmetric_auc": 0.528913585372317,
+        "passed": true
+      },
+      "seed30": {
+        "max_symmetric_auc": 0.5444027166725445,
+        "passed": true
+      }
+    },
+    "passed": true,
+    "source": "evidence/g79_single_channel_screen.json",
+    "auc": 0.5444027166725445,
+    "features_cleared": 1,
+    "required_threshold": 0.9,
+    "n_features_tested": 1,
+    "n_suspicious_gt_0p90": 0,
+    "max_feature": "tc_band_6"
+  },
+  "correlation_overlap_vs_registry": {
+    "registry_rasters_expected": 1108,
+    "registry_rasters_checked": 0,
+    "detail": "992-raster registry not cached locally; full scan not runnable offline. The pinned universal-overlap witness (17GEMSDOE E-proba-multiscale) covers 100.0% of allowed cells, so under the literal protocol rule any nonempty candidate has 3-px forward overlap 1.0000 > 0.70 -- uniqueness is BLOCKED, not merely unmeasured. Rank correlation vs registry therefore not cleared.",
+    "surface_rank_correlation": null,
+    "final_dot_overlap": null,
+    "literal_gate_blocked": true
+  },
+  "raster_sha256": "64f4cccf5dbde7cd4e4bb60e9be5a3f908f514fe268c8306f48681d8ccb2e209",
+  "zip_sha256": "42054e979e36c8e84c2b04f018ecda4c09970cdb23d73c1da55f1c6593d4515f",
+  "bytes": 62821,
+  "validator": {
+    "file": "/home/user/GEMSDOE79/artifacts/g79_tc/g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.tif",
+    "bytes": 62821,
+    "sha256": "64f4cccf5dbde7cd4e4bb60e9be5a3f908f514fe268c8306f48681d8ccb2e209",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0008143879822455347,
+    "emitted_positive_pixels": 10000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 10000,
+    "footprint_fraction": 0.0019352193077604423
+  },
+  "validator_output": {
+    "file": "/home/user/GEMSDOE79/artifacts/g79_tc/g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.tif",
+    "bytes": 62821,
+    "sha256": "64f4cccf5dbde7cd4e4bb60e9be5a3f908f514fe268c8306f48681d8ccb2e209",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0008143879822455347,
+    "emitted_positive_pixels": 10000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 10000,
+    "footprint_fraction": 0.0019352193077604423
+  },
+  "all_checks_passed": true,
+  "submission_name": "g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT",
+  "submission_note": "G79-TC: Band 6 magnetic tilt/curvature edge surface, zero on mapped faults, 10000 sparse dots, [0,1]",
+  "submission_note_chars": 100,
+  "tif": "g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.tif",
+  "zip": "g79-tc-edge-curvature-10000dots-20261022T204954Z-DO-NOT-SUBMIT.zip",
+  "artifact_dir": "artifacts/g79_tc",
+  "generator": "scripts/build_g79_tc_submission.py",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "submission_slots_used": 0,
+  "approved_for_weekly_slot": false,
+  "selector_receipt": null,
+  "organizer_submission_receipt": null,
+  "blockers": [
+    "holdout_dti_far_below_incumbent_tc_single_channel_0.0018_vs_0.1905",
+    "literal_novelty_blocked_universal_witness_100_percent_footprint_coverage",
+    "full_registry_uniqueness_not_runnable_offline",
+    "no_selector_slot_approval",
+    "no_organizer_submission_receipt"
+  ],
+  "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Locally format-valid unique raster ([0,1], no NaN, matching CRS/shape/transform). Holdout-DTI measured (~0.0018), far below the incumbent; literal novelty gate blocked by the pinned full-footprint witness; no selector approval or organizer receipt. Do not upload.",
+  "secondary_holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "dti": 0.000617214278911799,
+    "ci95": [
+      0.0,
+      0.0015195050603299483
+    ],
+    "withheld_positive_pixels": 11342,
+    "seed": 30
+  }
+}
