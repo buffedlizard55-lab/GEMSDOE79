@@ -1130,5 +1130,27 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Flagged, not a defect. Byte equality is recorded here. Raw-data hash checks against organizer-published checksums remain unverified.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>f40e4f2e</code> addendum (2026-10-22) — canonical selector evidence adapter, exact ETP forensic measurement &amp; autonomous data/cache verification</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-157</td>
+<td><strong>The only selector authorized to set <code>ok_to_submit</code> rejected canonical <code>G79-THVC</code> as an unsupported lane before reading its frozen evidence.</strong> Consequently, unattended selection reported adapter scope instead of the actual scientific blocker, while the README inaccurately described cross-repo selection as pending.</td>
+<td>Added a fail-closed canonical adapter in <code>scripts/select_submission.py</code> with strict finite/range/type checks. It re-derives hash, format, two-seed canary, holdout, rank-correlation, and literal surface/final overlap checks from frozen receipts, refusing (<code>exit 2</code>, card unchanged) because both literal overlaps are <code>1.0 &gt; 0.70</code> and <code>protocol_unique=false</code>. Added adversarial software-fixture tests (<code>tests/test_selector_evidence.py</code>).</td>
+</tr>
+<tr>
+<td>IR-79-158</td>
+<td><strong>Leftover root <code>run_card_etp.json</code>, <code>registry/preregistration_etp.json</code>, and <code>2.02 MB</code> duplicate <code>data/bridge/*.tif</code> remained outside <code>archive/</code> after PR #78.</strong> <code>run_card_etp.json</code> carried a fabricated hex digest (<code>a1b2c3d4e5f67890abcdef…</code>, actual file SHA-256 <code>bb325399fcc5091a…</code>), a dangling <code>docs/downloads/…</code> path, and unmeasured <code>"dti": 0.021 / 0.019</code> (<code>withheld_positive_pixels: 20010 / 19949</code>) claims, while static ETP rasters excluded <code>&lt;=2 px</code> around the full <code>existing_faults.tif</code> (scoring <code>0.0000</code> on withheld truth).</td>
+<td>Evaluated fold-fair <code>G79-ETP-v2</code> on unmodified <code>gems57-pooled-hide-v2</code> (<code>HOLDOUT-DTI = 0.0968</code> <code>[0.0838, 0.1112]</code> on Seed 20 <code>n=11,321</code>; <code>0.1061</code> <code>[0.0911, 0.1217]</code> on Seed 30 <code>n=11,342</code>, nearly <code>2x</code> below canonical <code>G79-THVC</code> <code>0.1905 / 0.1944</code>), recorded <code>evidence/etp_forensic_audit_f40e4f2e.json</code> and <code>evidence/data_and_pipeline_verification_f40e4f2e.json</code> (<code>13/13</code> manifest inputs + <code>8/8</code> reproduced E1 <code>.npy</code> transforms), relocated <code>run_card_etp.json</code> and <code>registry/preregistration_etp.json</code> into <code>archive/g79_etp_incoming_45998a01/</code>, and removed duplicate <code>data/bridge/*.tif</code>.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
