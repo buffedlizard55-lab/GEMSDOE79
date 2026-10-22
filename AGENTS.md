@@ -1,3 +1,12 @@
+# Latest engineering review (3d53e182)
+
+Read reports/session_review_3d53e182.md and evidence/run_card_3d53e182.json first.
+Shared writer v2 supports explicit NaN exterior (IR-79-232); legacy default remains
+zero exterior for reproducibility. No historical file was changed or promoted.
+Synthetic tests are not candidate generation. Fresh literal preflight still stops
+all nonempty candidates. TIPSTEP historical zero-fill/error-cause claims are
+superseded by IR-79-233. Existing stop rules below remain in force.
+
 # Start-of-session contract
 
 1. Read **all of README.md**, including the full original prompt, and current review `reports/session_review_a201fa92.md` / `evidence/run_card_a201fa92.json`, then `run_card.json` (canonical `G79-THVC`),

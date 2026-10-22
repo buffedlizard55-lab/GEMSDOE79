@@ -1,0 +1,213 @@
+diff --git a/vendor/gems57/gates.py b/vendor/gems57/gates.py
+index cf7cbda..be7838c 100644
+--- a/vendor/gems57/gates.py
++++ b/vendor/gems57/gates.py
+@@ -34,7 +34,11 @@ def read_raster(path):
+         return src.read(1)
+ 
+ 
+-def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
++def format_report(path, sample, epsg=32611, cell=100.0, footprint=None, *, exterior="zeros"):
++    if exterior not in {"zeros", "nan"}:
++        raise ValueError("exterior must be zeros or nan")
++    if exterior == "nan" and footprint is None:
++        raise ValueError("NaN-exterior validation requires footprint")
+     path, sample = Path(path), Path(sample)
+     out = dict(path=str(path), bytes=path.stat().st_size, sha256=sha256(path))
+     problems = []
+@@ -68,7 +72,7 @@ def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
+                 problems.append(f"resolution {src.res} != {(cell, cell)}")
+         finite = np.isfinite(a)
+         out.update(nan_pixels=int(np.isnan(a).sum()), infinity_pixels=int(np.isinf(a).sum()), n_nan=int((~finite).sum()))
+-        if not finite.all():
++        if exterior == "zeros" and not finite.all():
+             problems.append(f"{out['n_nan']} NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)")
+         if finite.any():
+             lo, hi = float(a[finite].min()), float(a[finite].max())
+@@ -77,13 +81,21 @@ def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
+                 problems.append(f"values outside [0,1]: min {lo}, max {hi}")
+         else:
+             problems.append("every pixel is NaN/infinite")
+-        if src.nodata is not None and (not np.isfinite(src.nodata) or not 0 <= src.nodata <= 1):
++        if exterior == "zeros" and src.nodata is not None and (not np.isfinite(src.nodata) or not 0 <= src.nodata <= 1):
+             problems.append("nodata tag outside all-finite [0,1] export policy")
+         if footprint is not None:
+             fp = np.asarray(footprint, bool)
+             if fp.shape != a.shape:
+                 problems.append(f"footprint shape {fp.shape} != raster shape {a.shape}")
+             else:
++                if exterior == "nan":
++                    ref_values = ref.read(1)
++                    if not np.array_equal(fp, np.isfinite(ref_values)) or np.isinf(ref_values).any():
++                        problems.append("footprint differs from finite template support")
++                    if not fp.any() or not finite[fp].all() or not np.isnan(a[~fp]).all():
++                        problems.append("require finite interior and exclusively NaN exterior")
++                    if src.nodata is not None and not np.isnan(src.nodata):
++                        problems.append("nodata must be absent or NaN")
+                 out["mass_outside_footprint"] = int(((a > 0) & ~fp).sum())
+                 if out["mass_outside_footprint"]:
+                     problems.append(f"{out['mass_outside_footprint']} emitted pixels outside the valid footprint")
+diff --git a/vendor/gems57/grid.py b/vendor/gems57/grid.py
+index e909e5a..7f35822 100644
+--- a/vendor/gems57/grid.py
++++ b/vendor/gems57/grid.py
+@@ -162,7 +162,8 @@ def read_geotiff(path: str | Path) -> dict:
+     return info
+ 
+ 
+-def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = None) -> dict:
++def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = None,
++                  nan_footprint: np.ndarray | None = None) -> dict:
+     """Write a single-band float32 GeoTIFF on the pinned grid and re-read it.
+ 
+     The re-read is the contract: this returns what the *file* says. Tiled 256 px
+@@ -176,10 +177,21 @@ def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = N
+         raise TypeError(f"submission must be float32, got {arr.dtype}")
+     if arr.shape != SHAPE:
+         raise ValueError(f"submission must be {SHAPE}, got {arr.shape}")
+-    if not np.isfinite(arr).all():
+-        raise ValueError("submission contains NaN/inf; the local all-finite export policy rejects it")
+-    if arr.min() < 0.0 or arr.max() > 1.0:
+-        raise ValueError(f"submission out of range: min={arr.min()} max={arr.max()}")
++    if nan_footprint is None:
++        if not np.isfinite(arr).all():
++            raise ValueError("submission contains NaN/inf; the local all-finite export policy rejects it")
++        values = arr
++    else:
++        fp = np.asarray(nan_footprint, dtype=bool)
++        if fp.shape != arr.shape or not fp.any():
++            raise ValueError("NaN-exterior export requires a matching nonempty footprint")
++        if not np.isfinite(arr[fp]).all() or not np.isnan(arr[~fp]).all():
++            raise ValueError("require finite interior and exclusively NaN exterior")
++        if nodata is not None and not np.isnan(nodata):
++            raise ValueError("NaN-exterior nodata must be absent or NaN")
++        values = arr[fp]
++    if values.min() < 0.0 or values.max() > 1.0:
++        raise ValueError(f"submission out of range: min={values.min()} max={values.max()}")
+     tr = Affine(*[float(v) for v in tuple(TRANSFORM)[:6]])
+     west, north, xs, ys = tr.c, tr.f, tr.a, -tr.e
+     check = from_origin(west, north, xs, ys)
+diff --git a/vendor/gems57/submission_writer.py b/vendor/gems57/submission_writer.py
+index 5a04a2b..32d3613 100644
+--- a/vendor/gems57/submission_writer.py
++++ b/vendor/gems57/submission_writer.py
+@@ -15,6 +15,7 @@ import zipfile
+ from pathlib import Path
+ 
+ import numpy as np
++import rasterio
+ 
+ from . import gates, grid
+ from .validate import assert_submittable, validate
+@@ -27,14 +28,20 @@ def _temp_path(parent: Path, stem: str, suffix: str) -> Path:
+ 
+ 
+ def write_submission(path, prediction, sample, footprint, *, note, name,
+-                     catalogue=None, metadata=None):
++                     catalogue=None, metadata=None, exterior="zeros"):
+     """Write a locally validated single-band GeoTIFF and one-TIFF ZIP.
+ 
+     ``name`` and ``note`` are limited to 140 characters.  The prediction must
+     already be a 2-D finite float field in ``[0,1]``, aligned with the footprint,
+     and have no positive support outside it.  If ``catalogue`` is supplied, the
+     candidate must also have zero positive pixels on mapped faults.
++    ``exterior="nan"`` explicitly encodes the already-zero exterior as NaN,
++    checks the footprint against the pinned-grid template, and keeps the interior
++    unchanged except float32 conversion. Legacy default ``zeros`` is research-only
++    where the official template requires a NaN exterior. Neither mode promotes.
+     """
++    if exterior not in {"zeros", "nan"}:
++        raise ValueError("exterior must be zeros or nan")
+     if not isinstance(name, str) or not name.strip() or len(name) > 140:
+         raise ValueError('name must contain 1..140 non-whitespace characters')
+     if not isinstance(note, str) or not note.strip() or len(note) > 140:
+@@ -44,7 +51,7 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
+     fp = np.asarray(footprint, dtype=bool)
+     if p.ndim != 2 or p.shape != fp.shape:
+         raise ValueError('prediction and footprint must be matching 2-D arrays')
+-    if not np.issubdtype(p.dtype, np.number):
++    if not np.issubdtype(p.dtype, np.number) or np.iscomplexobj(p):
+         raise ValueError('prediction must be numeric')
+     if not np.isfinite(p).all() or (p < 0).any() or (p > 1).any():
+         raise ValueError('prediction must already be normalized, finite and in [0,1]; no silent repair')
+@@ -66,6 +73,15 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
+     if not sample.is_file():
+         raise FileNotFoundError(f'sample grid does not exist: {sample}')
+ 
++    if exterior == "nan":
++        with rasterio.open(sample) as ref:
++            grid._check(ref, "submission template")
++            template = ref.read(1)
++            if ref.count != 1 or np.isinf(template).any():
++                raise ValueError("template must be single-band with finite interior and NaN exterior")
++        if not fp.any() or not np.array_equal(fp, np.isfinite(template)):
++            raise ValueError("footprint must exactly match finite template support")
++
+     zip_path = path.with_suffix('.zip')
+     receipt_path = path.with_suffix('.json')
+     existing = [candidate for candidate in (path, zip_path, receipt_path) if candidate.exists()]
+@@ -78,11 +94,16 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
+         tmp_zip = _temp_path(path.parent, path.stem, '.zip')
+         tmp_receipt = _temp_path(path.parent, path.stem, '.json')
+         # grid.write_geotiff itself rejects shape, dtype, NaN/inf, and range drift.
+-        grid.write_geotiff(tmp_tif, p.astype(np.float32, copy=False), nodata=None)
+-        report = gates.format_report(tmp_tif, sample, footprint=fp)
++        serialized = p.astype(np.float32, copy=True)
++        if exterior == "nan":
++            serialized[~fp] = np.nan  # explicit encoding only; model input was checked above
++            grid.write_geotiff(tmp_tif, serialized, nodata=float("nan"), nan_footprint=fp)
++        else:
++            grid.write_geotiff(tmp_tif, serialized, nodata=None)
++        report = gates.format_report(tmp_tif, sample, footprint=fp, exterior=exterior)
+         if not report['ok']:
+             raise ValueError(f'on-disk template validator rejected output: {report["problems"]}')
+-        local_validation = validate(tmp_tif, fp, cat)
++        local_validation = validate(tmp_tif, fp, cat, exterior=exterior)
+         try:
+             assert_submittable(local_validation)
+         except AssertionError as exc:
+@@ -102,6 +123,8 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
+                 raise IOError('single-TIFF ZIP roundtrip failed')
+ 
+         receipt = dict(
++            writer_version="gems57-writer-v2-exterior",
++            exterior_encoding=exterior,
+             file=path.name,
+             sha256=report['sha256'],
+             bytes=tmp_tif.stat().st_size,
+diff --git a/vendor/gems57/validate.py b/vendor/gems57/validate.py
+index 6729226..2b426c2 100644
+--- a/vendor/gems57/validate.py
++++ b/vendor/gems57/validate.py
+@@ -28,13 +28,17 @@ def sha256(p: Path) -> str:
+ 
+ 
+ def validate(path: Path, footprint: np.ndarray | None = None,
+-             catalogue: np.ndarray | None = None) -> dict:
++             catalogue: np.ndarray | None = None, *, exterior: str = "zeros") -> dict:
+     """Run local format/range checks on one GeoTIFF; return a receipt dict."""
++    if exterior not in {"zeros", "nan"}:
++        raise ValueError("exterior must be zeros or nan")
++    if exterior == "nan" and footprint is None:
++        raise ValueError("NaN-exterior validation requires footprint")
+     path = Path(path)
+     with rasterio.open(path) as ds:
+         a = ds.read(1)
+         meta = dict(crs=str(ds.crs), shape=[ds.height, ds.width], dtype=ds.dtypes[0],
+-                    count=ds.count, nodata=None if ds.nodata is None else float(ds.nodata),
++                    count=ds.count, nodata=None if ds.nodata is None else ("nan" if np.isnan(ds.nodata) else float(ds.nodata)),
+                     transform=list(tuple(ds.transform)[:6]),
+                     profile_compress=ds.profile.get("compress"))
+         desc = ds.descriptions
+@@ -75,6 +79,11 @@ def validate(path: Path, footprint: np.ndarray | None = None,
+             n_fp > 0 and np.isfinite(a[footprint]).all()
+             and (a[footprint] >= 0.0).all() and (a[footprint] <= 1.0).all())
+         checks["outside_footprint_zero"] = bool(np.all(a[~footprint] == 0.0))
++    if exterior == "nan":
++        checks.pop("no_nan_anywhere")
++        checks.pop("outside_footprint_zero")
++        checks["outside_footprint_nan"] = bool(np.isnan(a[~footprint]).all())
++        checks["nodata_absent_or_nan"] = meta["nodata"] in (None, "nan")
+     if catalogue is not None:
+         checks["zero_dots_on_mapped_catalogue"] = int((a[catalogue] > 0).sum()) == 0
+ 

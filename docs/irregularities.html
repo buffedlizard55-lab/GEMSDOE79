@@ -5,7 +5,7 @@
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>Entries retain their original dates and are ordered by review sequence. No entry authorizes a threshold exemption.</p>
 <table>
@@ -1792,6 +1792,28 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-231</td>
 <td><strong><code>G79-OPC</code> stopped negative (G3 and G4 fail). The anisotropy signal did not replicate.</strong> HOLDOUT-DTI (<code>gems57-pooled-hide-v2</code>): full model <code>0.1207 [0.0968, 0.1448]</code> (seed 20, n = 11,321) and <code>0.1506 [0.1246, 0.1768]</code> (seed 30, n = 11,342); both are below G79-THVC <code>0.1905 / 0.1944</code>. Oriented minus isotropic geometry was <code>+0.0464 [0.0277, 0.0622]</code> on seed 20 but <code>-0.0027 [-0.0233, 0.0138]</code> on seed 30. Prior-corrected probabilities were under-calibrated about 5× (Σp <code>2,090</code> vs <code>11,321</code> hidden pixels), so too few dots were emitted (18–20k). D-3 novelty on 1,222/1,232 comparable rasters fired on 14 rows (13 distinct dense dot-field paths; worst chance-corrected <code>0.8264</code>, <code>GEMSDOE53</code> thin_bin).</td>
 <td>Verdict: negative. The TIFF is archived research-only (<code>artifacts/opc/*-DO-NOT-SUBMIT.tif</code>, <code>run_card_opc.json</code>). The runner refuses to rerun (<code>refuse_if_closed</code>). Calibration was <strong>not</strong> retuned after viewing the holdout. A prospective fix (inner-validated calibration on simulated hides) is listed in <code>research/hypotheses_ff2e4413.md</code> as a new lane.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>3d53e182</code> — prospective shared format repair</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-232</td>
+<td>IR-79-224 remained unresolved: the shared writer rejected NaN exterior although the separate R6 check requires it.</td>
+<td>Added explicit <code>exterior="nan"</code> mode in the shared writer and validators; exact template-mask check, finite real [0,1] model input, NaN exterior encoding, strict JSON receipt, TIFF/ZIP roundtrip tests. Legacy mode and historical bytes unchanged. No new scientific raster or promotion.</td>
+</tr>
+<tr>
+<td>IR-79-233</td>
+<td>TIPSTEP page was absent from the site generator/manifest and claimed zero exterior fixes the portal error; the historical card makes the same unsupported causal claim.</td>
+<td>Generate an explicit historical negative page with official R6 failure and no full-registry novelty claim. Preserve historical card as evidence, mark its error diagnosis superseded. No rejected-file bytes or organizer receipt exist to establish that diagnosis.</td>
 </tr>
 </tbody>
 </table></div></section></main>

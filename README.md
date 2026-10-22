@@ -1,6 +1,27 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
-## Latest session — G79-TIPSTEP (2026-10-22, this branch)
+## Current review — session `3d53e182`, 2026-10-22
+
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** Download permission is for the inherited
+research archive only. **No new unique submission TIFF was generated.** Fresh
+preflight proves every nonempty candidate fails the literal overlap rule; no
+experiment or slot was used. Historical “latest session” sections below are archives,
+not this session's work or full-protocol uniqueness claims.
+
+Completed the next shared engineering task: explicit `exterior="nan"` support in
+`vendor/gems57/submission_writer.py` and its validators. Synthetic roundtrip tests
+pass the separate R1–R8 validator without altering historical TIFFs. Legacy zero
+exterior is not official R6 compliance, and no output is promoted automatically.
+Restored all thirteen pinned owner-mirror inputs and reproduced the cached features.
+
+[Three-pass review](reports/session_review_3d53e182.md) ·
+[Conditional hypotheses](research/hypotheses_3d53e182.md) ·
+[Source-access ledger](evidence/source_review_3d53e182.json) ·
+[Negative run card](evidence/run_card_3d53e182.json).
+The original prompt is preserved below, including Core Values and Own the Outcome;
+the validation-gates addendum above remains part of the project contract.
+
+## Historical session — G79-TIPSTEP (2026-10-22, this branch)
 
 **A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
 SHA-256 `4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a`, in `artifacts/tipstep/`).

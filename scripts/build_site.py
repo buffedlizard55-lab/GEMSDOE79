@@ -93,7 +93,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_a92a0164.md">Branch review · a92a0164</a> · <a href="{REPO}/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
@@ -333,6 +333,9 @@ def executive(card, summary, latest_preflight, runtime_data):
 {latest_review_notice(latest_preflight, runtime_data)}
 <section class="section">{download_panel(card)}</section>{opc_summary_box()}{download_check_panel(card)}<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 {portal_rules_panel()}
+<section class="section prose" id="nan-exterior-writer"><h2>Shared writer repair · review 3d53e182</h2>
+<p>The shared writer now supports explicit <code>exterior="nan"</code>: finite real model values in [0,1], exact template footprint, and NaN only outside. Independent TIFF and ZIP format tests pass. This is a software capability, not a new geological candidate. Historical download bytes remain unchanged and blocked.</p>
+<p>All thirteen pinned mirror inputs and the historical cache were restored in this review's workspace. The literal preflight still stops every nonempty candidate; no experiment or slot was used. <a href="{REPO}/blob/main/reports/session_review_3d53e182.md">Review and next steps</a> · <a href="{REPO}/blob/main/evidence/run_card_3d53e182.json">Negative run card</a>.</p></section>
 <section class="section prose" id="validator-hardening"><h2>Automated ZIP checks hardened · review a26add66</h2>
 <p>A ZIP must pass <em>both</em> the single-member archive check and the inner GeoTIFF single-band check. The validator now preserves failures from the inner TIFF, checks the actual GDAL driver, and returns a complete failed-rule report for missing files or unreadable archives instead of crashing. A local PASS still never approves a competition submission.</p>
 <p>This review restored all thirteen hash-pinned mirror inputs in its workspace, but stopped before experiments because the literal novelty witness covers every allowed cell. No new candidate TIFF, holdout score or slot was created. The software fix does not repair or repackage any stopped artifact.</p>
@@ -921,6 +924,14 @@ def main():
         'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
         'tdw-submission.html': ('G79-TDW new unique TIF \u2014 automated gate verdict', tdw_page()),
         'dzd-submission.html': ('G79-DZD unique TIF \u2014 automated gate verdict', dzd_page()),
+        'tipstep-submission.html': ('TIPSTEP historical research — not approved',
+            page_head('HISTORICAL ARCHIVE', 'TIPSTEP: do not submit.')
+            + '<section class="section"><p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> '
+              'The historical sparse-only comparison does not establish full-registry uniqueness. '
+              'The zero exterior fails the separate official R6 check; it does not establish '
+              'a fix for the earlier portal error. The holdout did not beat the incumbent.</p>'
+            + f'<p><a href="{REPO}/raw/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif">Download historical research TIFF — DO NOT SUBMIT</a> · '
+              f'<a href="{REPO}/blob/main/run_card_tipstep.json">Historical card (exterior-error claim superseded by IR-79-233)</a></p></section>'),
         'mdsc-submission.html': ('G79-MDSC unique TIF \u2014 automated gate verdict', mdsc_page()),
         'irregularities.html': ('Irregularities & stop reasons',
                                 page_head('OWN THE OUTCOME', 'Failures are part of the record.')
