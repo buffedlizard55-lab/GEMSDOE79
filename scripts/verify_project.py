@@ -186,45 +186,52 @@ def sibling_audit_and_delta_checks(root):
 
 
 def thvc_evidence_checks(root, card):
-    """Every G79-THVC card number must equal the evaluator / uniqueness / gate evidence."""
+    """Reconcile all canonical views with the shared evaluator and every canary row.
+
+    Passing integrity checks does NOT mean scientific gates passed. In particular,
+    partial registry scans and a sparse-only diagnostic cannot authorize novelty.
+    """
+    from gems79.evidence_summary import build_summary, canonical_holdout_fields, same_json
     root = Path(root)
-    out = {}
-    res = json.loads((root / 'evidence/g79_thvc_results.json').read_text())
-    s20 = res['seed20']['official_evaluate_all']['scores']
-    s30 = res['seed30']['official_evaluate_all']['scores']
-    h = card['holdout_dti']
-    cand20 = s20['EXP-79-3_thvc_charnes_cooper']
-    cand30 = s30['EXP-79-3_thvc_charnes_cooper']
-    h33_20 = s20['C2_h33_analogue_foldfair']
-    h33_30 = s30['C2_h33_analogue_foldfair']
-    out['holdout_card_equals_evaluator_output'] = (
-        h['dti'] == round(cand20['dti'], 4) and
-        h['ci95'] == [round(c, 4) for c in cand20['ci95']] and
-        h['withheld_positive_pixels'] == cand20['withheld_positive_pixels'] and
-        h['evaluator_version'] == res['seed20']['evaluator_version'] == 'gems57-pooled-hide-v2')
-    out['holdout_beats_h33_control_both_seeds'] = (
-        cand20['dti'] > h33_20['dti'] and cand20['ci95'][0] > h33_20['ci95'][1] and
-        cand30['dti'] > h33_30['dti'] and cand30['ci95'][0] > h33_30['ci95'][1])
-    canary = json.loads((root / 'evidence/g79_leakage_canary.json').read_text())
-    out['leakage_canary_clear'] = (
-        card['leakage_canary']['passed'] is True and
-        card['leakage_canary']['auc'] <= 0.90 and
-        canary['seed20']['all_passed'] is True and
-        canary['seed30']['all_passed'] is True)
-    surf_u = json.loads((root / 'evidence/g79_surface_uniqueness_1108.json').read_text())
-    dot_u = json.loads((root / 'evidence/g79_dot_uniqueness_1108.json').read_text())
-    sparse_max = max(r['my_dots_within_3px_of_theirs'] for r in dot_u['rows']
-                     if r.get('their_dots') is not None and r['their_dots'] <= 50000)
-    expected_unique = bool(
-        surf_u['max_abs_spearman'] <= 0.90 and
-        dot_u['max_abs_spearman'] <= 0.90 and
-        dot_u['worst_dot_overlap'] <= 0.70)
-    out['uniqueness_card_matches_evidence'] = (
-        card['protocol_unique'] is expected_unique and
-        surf_u['max_abs_spearman'] <= 0.90 and
-        sparse_max <= 0.70 and
-        dot_u['raster_sha256'] == card['raster_sha256'])
-    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    summary = build_summary(root, card)
+    expected = canonical_holdout_fields(summary)
+    canary = summary['canaries']
+    literal_unique = summary['surface']['literal_gate_passed'] and summary['dots']['literal_gate_passed']
+    u = card['correlation_overlap_vs_registry']
+    surface, dots = summary['surface'], summary['dots']
+    expected_canary = {
+        'evidence_class': 'LEAKAGE-CANARY', 'auc': canary['max_symmetric_auc'],
+        'passed': canary['passed'], 'features_cleared': canary['feature_count'],
+        'required_threshold': canary['threshold'], 'n_features_tested': canary['feature_count'],
+        'n_suspicious_gt_0p90': 0, 'max_feature': canary['max_feature'],
+        'source': 'evidence/g79_leakage_canary.json',
+    }
+    # These legacy card aliases use six-digit rho rounding. The full-precision
+    # derived summary is used for the site; diagnostic subsets never approve.
+    registry_aliases = (
+        (u['registry_rasters_expected'], dots['expected']),
+        (u['registry_rasters_checked_full_grid'], dots['compared']),
+        (u['non_comparable_registry_entries'], dots['non_comparable']),
+        (u['surface_before_placement']['checked_nonconstant'], surface['rank_defined']),
+        (u['surface_before_placement']['max_abs_spearman'], round(surface['max_abs_spearman'], 6)),
+        (u['surface_before_placement']['literal_max_forward_overlap_3px'], surface['max_forward_overlap_3px']),
+        (u['dots_comparable_sparse_budget_le_50k']['checked_sparse_rasters'], dots['sparse_diagnostic']['compared']),
+        (u['dots_comparable_sparse_budget_le_50k']['max_forward_overlap_3px'], dots['sparse_diagnostic']['max_forward_overlap_3px']),
+        (u['dots_all_1088_literal_unchanged_uniqueness_py']['max_abs_spearman'], round(dots['max_abs_spearman'], 6)),
+        (u['dots_all_1088_literal_unchanged_uniqueness_py']['literal_max_forward_overlap_3px'], dots['max_forward_overlap_3px']),
+        (u['dots_all_1088_literal_unchanged_uniqueness_py']['max_jaccard_dot_sets'], dots['max_jaccard_diagnostic']),
+    )
+    out = {
+        'holdout_card_equals_evaluator_output': all(same_json(card.get(k), v) for k, v in expected.items()),
+        'holdout_beats_h33_control_both_seeds': summary['h33_control_beaten_both_seeds'],
+        'holdout_beats_flag_matches_evidence': card.get('current_best_holdout_beaten') is summary['h33_control_beaten_both_seeds'],
+        'all_feature_canaries_reconciled': same_json(card['leakage_canary'], expected_canary),
+        'registry_metadata_aliases_reconciled': all(same_json(a, b) for a, b in registry_aliases),
+        'leakage_canary_clear': canary['passed'],
+        'uniqueness_card_matches_evidence': card['protocol_unique'] is literal_unique,
+        'promotion_requires_uniqueness': card['verdict'] != 'promote' or literal_unique,
+        'preregistration_hash_matches_card': sha(root / card['preregistration_path']) == card['preregistration_sha256'],
+    }
     return out
 
 

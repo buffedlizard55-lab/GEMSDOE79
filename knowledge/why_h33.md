@@ -1,3 +1,5 @@
+> **Historical analysis, not current score evidence.** For the newly remeasured H33 lineage, conditional metric algebra, corrected optimizer description and limits on causal claims, read the [current review](h33_review_e4a4422d.md). The original body below is retained for audit; local holdout results never establish a higher organizer score.
+
 # Forensic Analysis of H33 (`0.2778`), Metric Ceiling Theory (`0.4413`), and Empirical Validation via `G79-THVC`
 
 ## Executive Answer

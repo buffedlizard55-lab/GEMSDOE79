@@ -1,3 +1,5 @@
+> **Historical backlog — data-source correction (2026-10-22).** Do not execute H80-MT-PHASE from the cited release: it provides depth-integrated conductance (the surface layer spans 2–12 km), not 500/1500 m resistivity slices. Coverage/blind-system percentage claims below are not established by that source. See the [current source-grounded backlog](hypotheses_e4a4422d.md) and [official claim ledger](../knowledge/review_e4a4422d_sources.json). Original proposals are retained, not endorsed as acquisition-ready or scientifically validated.
+
 > **Annotation (session 842c8c7c, 2026-10-22).** The MT spec below (500 m / 1.5 km / 3 km resistivity slices) is NOT in the GDR 1391 product. That product holds conductance layers at 2-12, 12-20, 20-50, 50-90 and 90-200 km (ScienceBase 62979746d34ec53d276c113b). Do not use the MT spec as written. See `IR-79-149` in `reports/irregularities.md` and the re-scoped ranking in `research/hypotheses_842c8c7c_ranked.md`.
 
 # Five Genuinely Untried Post-`G79-THVC` Geological Hypotheses (`2026-10-22`)

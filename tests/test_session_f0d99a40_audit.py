@@ -92,6 +92,8 @@ def test_irregularities_159_through_164_and_review_report():
     assert (ROOT / "reports/session_review_f0d99a40.md").is_file()
     ir_txt = (ROOT / "reports/irregularities.md").read_text(encoding="utf-8")
     ir_ids = re.findall(r"^\|\s*(IR-79-\d+)\s*\|", ir_txt, flags=re.M)
-    assert len(ir_ids) == 164
+    # Preserve this review's historical prefix, while allowing later append-only reviews.
+    assert len(ir_ids) == len(set(ir_ids)) and len(ir_ids) >= 164
+    assert {f"IR-79-{n:02d}" for n in range(1, 165)} <= set(ir_ids)
     for n in range(159, 165):
         assert f"IR-79-{n}" in ir_ids
