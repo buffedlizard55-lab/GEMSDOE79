@@ -92,7 +92,7 @@ def main():
                      f"({worst_sub['submission']}) has positive support on {worst_sub['their_dots']} "
                      "footprint cells, so any dot set overlaps it at 1.0. This is the space-filling "
                      "problem (IR-79-53), not a shared fabric. Lane stopped; no retuning or overlap capping."),
-        irregularities=["IR-79-53", "IR-79-68", "IR-79-69", "IR-79-72"],
+        irregularities=["IR-79-53", "IR-79-69", "IR-79-70", "IR-79-73"],
     )
     out = ROOT / "run_card_asym.json"
     out.write_text(json.dumps(card, indent=2, default=float) + "\n")

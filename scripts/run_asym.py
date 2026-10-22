@@ -10,7 +10,7 @@ Stages, in the order the protocol requires:
              dot duplicate gate. Only run after every earlier gate passed.
 
 NOTE (session 2026-10-22): the holdout and final stages were NOT executed. The surface gate
-stopped the lane first (IR-79-68), so this code is a reviewed template only. Run it only after
+stopped the lane first (IR-79-69), so this code is a reviewed template only. Run it only after
 a surface pass, and record the result in a new card.
 
 Every score written here is HOLDOUT-DTI from gems57-pooled-hide-v2.
