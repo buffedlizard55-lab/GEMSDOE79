@@ -97,6 +97,7 @@ def test_absent_card_fails_closed(tmp_path):
     ('finalize_mrnd.py', []),
     ('run_fnhr.py', ['holdout', '--seed', '20']),
     ('audit_and_select_fnhr.py', []),
+    ('run_csmd.py', ['--stage', 'seed20']),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (

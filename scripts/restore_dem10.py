@@ -30,14 +30,42 @@ def sha256_file(p: Path) -> str:
     return h.hexdigest()
 
 
+def _fetch_dem10_file(name: str, dest: Path) -> None:
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    res = subprocess.run(
+        ["gh", "api", "-H", "Accept: application/vnd.github.raw", f"repos/{REPO}/contents/{name}?ref={REF}"],
+        capture_output=True,
+    )
+    if res.returncode == 0 and res.stdout:
+        tmp.write_bytes(res.stdout)
+        tmp.replace(dest)
+        return
+    gitdir = ROOT / ".cache/registry_git/GEMSDOE10.git"
+    if not (gitdir / "HEAD").exists():
+        gitdir.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(
+            ["git", "clone", "-q", "--bare", "--filter=blob:none", f"https://github.com/{REPO}.git", str(gitdir)],
+            check=True,
+        )
+    subprocess.run(
+        ["git", "--git-dir", str(gitdir), "fetch", "-q", "--filter=blob:none", "origin", f"+refs/tags/{REF}:refs/tags/{REF}"],
+        check=True,
+    )
+    data = subprocess.run(
+        ["git", "--git-dir", str(gitdir), "show", f"refs/tags/{REF}:{name}"],
+        check=True,
+        capture_output=True,
+    ).stdout
+    tmp.write_bytes(data)
+    tmp.replace(dest)
+
+
 def main():
     DEST.mkdir(parents=True, exist_ok=True)
     for name in FILES:
         dest = DEST / name
         if not dest.exists():
-            with dest.open("wb") as out:
-                subprocess.run(["gh", "api", "-H", "Accept: application/vnd.github.raw",
-                                f"repos/{REPO}/contents/{name}?ref={REF}"], stdout=out, check=True)
+            _fetch_dem10_file(name, dest)
         print(f"{name:34s} {dest.stat().st_size}")
     man = json.loads((DEST / "manifest.json").read_text())
     ok = True

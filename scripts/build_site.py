@@ -353,6 +353,8 @@ def main():
               'run_card_mrnd.json': 'run_card_mrnd.json',
               'registry/preregistration_fnhr.json': 'preregistration_fnhr.json',
               'run_card_fnhr.json': 'run_card_fnhr.json',
+              'registry/preregistration_csmd.json': 'preregistration_csmd.json',
+              'run_card_csmd.json': 'run_card_csmd.json',
               'run_card_nhr.json': 'run_card_nhr.json',
               'registry/preregistration_asym.json': 'preregistration_asym.json',
               'run_card_asym.json': 'run_card_asym.json',
@@ -414,6 +416,10 @@ def main():
     fnhr_dir.mkdir(exist_ok=True)
     for src in sorted((ROOT / 'evidence/fnhr').glob('*.json')):
         shutil.copyfile(src, fnhr_dir / src.name)
+    csmd_dir = SITE / 'evidence/csmd'
+    csmd_dir.mkdir(exist_ok=True)
+    for src in sorted((ROOT / 'evidence/csmd').glob('*.json')):
+        shutil.copyfile(src, csmd_dir / src.name)
     for source, dest in copies.items():
         shutil.copyfile(ROOT / source, SITE / 'evidence' / dest)
     for stale in (SITE / 'assets').glob('*.png'):
@@ -440,6 +446,9 @@ def main():
                           + '<figure style="margin:0 0 20px 0"><img src="assets/fnhr-pareto-curve.svg" alt="Cross-lane HOLDOUT-DTI progression across all GEMSDOE79 arms" style="width:100%;height:auto;display:block"></figure>'
                           + '<figure style="margin:0 0 20px 0"><img src="assets/fnhr-overlap-spectrum.svg" alt="1204 registry rasters plotted by positive dot count vs 3px overlap" style="width:100%;height:auto;display:block"></figure>'
                           + md('reports/fnhr_analysis.md') + md('reports/session_review_a57e2a7f.md') + '</section>'
+                          + '<section class="section"><h2>Lane G79-CSMD &amp; Session 1dc8cff0 Review (negative, archived)</h2>'
+                          + '<p><a href="evidence/run_card_csmd.json">G79-CSMD run card</a> · <a href="evidence/preregistration_csmd.json">preregistration</a> · <a href="evidence/csmd/eval_seed20.json">seed 20 holdout</a> · <a href="evidence/csmd/eval_seed30.json">seed 30 holdout</a> · <a href="evidence/csmd/leakage_canary.json">720-test leakage canary</a> · <a href="evidence/csmd/like_for_like_diagnostic.json">0 / 939 sparse diagnostic</a>.</p>'
+                          + md('reports/session_review_1dc8cff0.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
@@ -469,6 +478,9 @@ def main():
                           + '<section class="section"><h2>Lane H79-FNHR (session a57e2a7f, negative, archived)</h2>'
                           + '<p>Preregistered 3-arm distance-regime discovery (<code>F1, F2, F3</code>; 75 decontaminated physical + GDR-1391 geothermal + 3DEP scarp features, max AUC 0.8262 &le; 0.90): set the repository record for pure zero-catalogue physics ablation (<code>0.0906 / 0.0966</code> vs <code>G79-THVC</code> <code>0.0784</code>), beat H33 on both seeds across all 3 arms (<code>F3: 0.1292 / 0.1431</code>), and achieved <strong>0 / 934 duplicates across all comparable sparse competition dot maps</strong> (&le; 75,308 dots, max 0.6726; vs H33 0.4814, vs G79-THVC 0.4405), stopping cleanly on 25 wide sweeps (80k–985k dots; IR-79-142). <a href="evidence/run_card_fnhr.json">FNHR run card</a> · <a href="evidence/preregistration_fnhr.json">preregistration</a> · <a href="analysis.html">full analysis</a>.</p>'
                           + md('research/hypotheses_fnhr.md') + '</section>'
+                          + '<section class="section"><h2>Lane G79-CSMD (session 1dc8cff0, negative, archived)</h2>'
+                          + '<p>Preregistered 90-channel Coulomb stress-shadow + sub-smectite MT/gravity + potassic Kd + drape-notched magnetic + multi-regime Charnes-Cooper discovery (<code>EXP-CSMD-1, EXP-CSMD-2, EXP-CSMD-3</code>; 720 canary tests passed, max AUC 0.8611 &le; 0.90): set a new record for zero-catalogue pure physics (<code>0.0996 / 0.1119</code>, beating <code>H33</code> <code>0.0961 / 0.0989</code> on both seeds with zero catalogue geometry), reached an all-time repository high <code>0.1967</code> on Seed 30 unconstrained Charnes-Cooper (<code>EXP-CSMD-3a</code>), scored <code>0.1629 / 0.1749</code> on multi-regime Charnes-Cooper (<code>EXP-CSMD-3</code>, 35,600 dots), and achieved <strong>0 / 939 duplicates across all comparable sparse competition dot maps</strong> (&le; 75,308 dots, max 0.6961; clearing live <code>GEMSDOE83</code> at 0.5921, <code>G79-THVC</code> at 0.6893, and <code>H33</code> at 0.4473; IR-79-145). <a href="evidence/run_card_csmd.json">CSMD run card</a> · <a href="evidence/preregistration_csmd.json">preregistration</a> · <a href="analysis.html">full analysis</a>.</p>'
+                          + md('research/hypotheses_csmd_1dc8cff0.md') + '</section>'
                           + '<section class="section"><h2>Concurrent lane G79B-SDPT (session 67557396, negative, archived) &amp; H79-FF (session 1de1617f, negative, archived)</h2>'
                           + '<p><strong>G79B-SDPT</strong> (archived in <code>archive/g79b_sdpt_67557396/</code>): Unconstrained A3 scored HOLDOUT-DTI 0.1211 [0.1029, 0.1402] (seed 30) and 0.1114 [0.0943, 0.1287] (seed 20) vs its A1 control 0.1143 / 0.1087 (paired 95% CIs vs control span zero), and failed the duplicate gate against 99 dot-field priors. Post-duplicate Amendments B1/B2 overlap-capped 52 priors (E2), reducing HOLDOUT-DTI to 0.1036 / 0.0910 (below control on both seeds). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/run_card_g79b.json">G79B run card</a> · <a href="evidence/concurrent_lanes_audit.json">9-lane &amp; cross-lane audit</a>.</p>'
                           + '<p><strong>H79-FF</strong> (archived in <code>archive/h79_ff_1de1617f/</code>): Placed 37,654 binary dots strictly 2–8 km off the mapped catalogue ranked by USGS 3DEP lidar <code>step_max</code>. Not preregistered and not evaluated on <code>HOLDOUT-DTI</code>; failed the duplicate gate (1.0000 vs space-filling priors, 0.9976 vs 13GEMSDOE lattice, 0.8802 vs GEMSDOE3 coverage-v3-wide). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/ff_run_card.json">H79-FF run card</a>.</p>'

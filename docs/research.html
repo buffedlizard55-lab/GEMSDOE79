@@ -1659,6 +1659,97 @@ followed by shared deterministic 3 px Poisson spacing (<code>gems79.placement.pl
    - <strong><code>external/gdr_qfaults_traces.csv</code> — EXCLUDED</strong> (compiles USGS Quaternary fault traces overlapping <code>existing_faults.tif</code>).
    - <strong>Column <code>dist_known_fault_px</code> in <code>gdr_wellspring_in_footprint.csv</code> and <code>gdr_volcanic_vents_in_footprint.csv</code> — EXCLUDED</strong> (precomputed distance to full catalogue; ignored completely on read).
    - <strong>All single-feature symmetric AUCs</strong> (<code>max(AUC, 1 - AUC)</code>) checked across all <code>4</code> folds of both <code>seed 20</code> and <code>seed 30</code> with mandatory hard fail if any feature exceeds <code>0.90</code>.</li>
+</ol></div></section><section class="section"><h2>Lane G79-CSMD (session 1dc8cff0, negative, archived)</h2><p>Preregistered 90-channel Coulomb stress-shadow + sub-smectite MT/gravity + potassic Kd + drape-notched magnetic + multi-regime Charnes-Cooper discovery (<code>EXP-CSMD-1, EXP-CSMD-2, EXP-CSMD-3</code>; 720 canary tests passed, max AUC 0.8611 &le; 0.90): set a new record for zero-catalogue pure physics (<code>0.0996 / 0.1119</code>, beating <code>H33</code> <code>0.0961 / 0.0989</code> on both seeds with zero catalogue geometry), reached an all-time repository high <code>0.1967</code> on Seed 30 unconstrained Charnes-Cooper (<code>EXP-CSMD-3a</code>), scored <code>0.1629 / 0.1749</code> on multi-regime Charnes-Cooper (<code>EXP-CSMD-3</code>, 35,600 dots), and achieved <strong>0 / 939 duplicates across all comparable sparse competition dot maps</strong> (&le; 75,308 dots, max 0.6961; clearing live <code>GEMSDOE83</code> at 0.5921, <code>G79-THVC</code> at 0.6893, and <code>H33</code> at 0.4473; IR-79-145). <a href="evidence/run_card_csmd.json">CSMD run card</a> · <a href="evidence/preregistration_csmd.json">preregistration</a> · <a href="analysis.html">full analysis</a>.</p><div class="prose table-scroll"><h2>Preregistered Geological Hypotheses &amp; Synthesis Design for Lane <code>G79-CSMD</code> (Session <code>1dc8cff0</code>)</h2>
+<p><strong>Session branch:</strong> <code>arena/1dc8cff0-gemsdoe79</code><br />
+<strong>Date:</strong> <code>2026-10-22</code><br />
+<strong>Baseline reference:</strong> Canonical <code>G79-THVC</code> (<code>HOLDOUT-DTI = 0.1905</code> <code>[0.1741, 0.2069]</code> on Seed 20; <code>0.1944</code> <code>[0.1774, 0.2126]</code> on Seed 30; <code>EXP-79-1</code> pure zero-catalogue physics <code>0.0784 / 0.0648</code>; forward 3-px overlap <code>0.7139 &gt; 0.70</code> vs live post-index <code>GEMSDOE83</code>) and archived <code>H79-FNHR</code> (<code>HOLDOUT-DTI = 0.1292 / 0.1431</code>, decontaminated pure-physics ablation <code>0.0906 / 0.0966</code>, mutual 3-px overlap <code>0.4405</code> vs <code>G79-THVC</code>).</p>
+<hr />
+<h3>1. Two Specific Physical &amp; Algorithmic Bottlenecks Identified in <code>G79-THVC</code></h3>
+<ol>
+<li><strong>False-Negative Scarp-Flank Contamination in <code>build_per_quadrant_training_shards</code> (<code>src/gems79/thvc_model.py</code> line 91, <code>IR-79-140</code>):</strong>
+   - <code>G79-THVC</code> defined its out-of-quadrant negative pool as <code>far_pool = valid &amp; ~sim_known &amp; ~sim_hidden &amp; (d_known &gt; 1.0)</code>.
+   - Because the competition's triangular evaluation kernel has radius $R = 300\text{ m}$ ($3.0\text{ px}$), pixels at $1.0 &lt; d_{\text{known}} &lt; 3.0\text{ px}$ ($141\text{–}283\text{ m}$ from the 78% <code>sim_known</code> visible faults) lie directly on the physical scarp flanks, magnetic horizontal-gradient ridges, and 2-m temperature conductive halos of real mapped faults (<code>q_known &gt; 0</code>), yet were sampled as <code>y = 0, q = 0</code> negative training examples.
+   - Furthermore, <code>G79-THVC</code>'s pure zero-catalogue physics head (<code>EXP-79-1</code>, <code>0.0784 / 0.0648</code>) was trained only on the 22% <code>sim_hidden</code> subset rather than 100% of fold-visible faults (<code>vis</code>) with $1 \le d_{\text{vis}} &lt; 3.0\text{ px}$ scarp flanks excluded from negatives, and was never fused into the final <code>EXP-79-3</code> Charnes-Cooper surface.</li>
+<li><strong>Absence of Planar Elastic Coulomb Failure Stress Shadows ($\Delta\text{CFS} &lt; 0$) on Perpendicular Flanks (<code>0.7139 &gt; 0.70</code> Collision with <code>GEMSDOE83</code>):</strong>
+   - <code>G79-THVC</code> placed <code>97.58%</code> of its <code>35,093</code> dots within $2\text{ km}$ of mapped faults (<code>median d_cat = 565.7 m</code>) because isotropic distance features (<code>topo_log_dist_vis</code>, <code>topo_density_400m</code>) reward a continuous $200\text{–}900\text{ m}$ lateral flank halo around long mapped faults—the exact same near-trace flank corridor where <code>GEMSDOE83</code> (<code>h83-gvcd-dink300</code>, <code>37,654</code> dots) places its dots (<code>0.7139 &gt; 0.70</code> forward 3-px overlap).
+   - Physically, normal slip on a primary Basin-and-Range fault creates an elastic <strong>Coulomb stress shadow ($\Delta\text{CFS} &lt; 0$) perpendicular to strike ($|\cos\theta| &lt; 0.35$, $300\text{ m} \le d_{\text{vis}} \le 2500\text{ m}$)</strong> that suppresses parallel fault nucleation unless an independent geophysical/topographic step is present, while concentrating <strong>positive Coulomb stress ($\Delta\text{CFS} &gt; 0$) ahead of fault tips ($|\cos\theta| &gt; 0.70$) and in $15^\circ\text{–}45^\circ$ synthetic/antithetic relay bridges</strong>.</li>
+</ol>
+<hr />
+<h3>2. Five Candidate Geological Hypotheses Ranked by Expected <code>HOLDOUT-DTI</code> Improvement and Implementation Cost</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Rank</th>
+<th style="text-align: left;">Hypothesis ID</th>
+<th style="text-align: left;">Specific Layers Used</th>
+<th style="text-align: left;">Physical Signature &amp; Transform</th>
+<th style="text-align: left;">Why It Catches Unmapped Faults Missing from USGS/INGENIOUS</th>
+<th style="text-align: left;">Named Non-Fault Mimic &amp; Rejection Filter</th>
+<th style="text-align: left;">Expected $\Delta\text{DTI}$ &amp; Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;"><strong><code>H80-COULOMB-CFS</code></strong> <em>(Planar Elastic Dislocation Coulomb Stress Lobe &amp; Flank Shadow + Flank-Decontaminated Dual Head)</em></td>
+<td style="text-align: left;">Fold-visible (<code>buffer_px=3</code>) <code>existing_faults.tif</code> tips/orientations, <code>training_features.tif</code> (<code>geod_shearrate</code>, <code>geod_dilaterate</code>, <code>rtp_hgm_z200</code>), <code>lidar_scarp_features_u8.tif</code></td>
+<td style="text-align: left;">Planar elastic dislocation Coulomb Failure Stress change $\Delta\text{CFS}(x) = \Delta\tau(x) + \mu'\Delta\sigma_n(x)$ ($\mu'=0.4$) decomposed into forward propagation / oblique relay lobes ($\Delta\text{CFS}^+ &gt; 0$) and perpendicular flank stress shadows ($\Delta\text{CFS}^- &lt; 0$ at $|\cos\theta| &lt; 0.35$, $3 \le d_{\text{vis}} \le 25\text{ px}$), paired with <code>d_known &gt;= 3.0 px</code> training flank decontamination</td>
+<td style="text-align: left;">Unmapped accommodating strands nucleate in positive $\Delta\text{CFS}^+$ tip-propagation cones and en-echelon relay step-overs where field mapping stops at bedrock-alluvium contacts, while perpendicular stress-shadowed flanks without independent scarp/potential-field steps are false positives</td>
+<td style="text-align: left;">Isotropic $200\text{–}800\text{ m}$ distance-halo artifacts around long range-front faults and road-parallel ditches; rejected by penalizing $\Delta\text{CFS}^- &lt; 0$ perpendicular flanks lacking co-located LiDAR/potential-field ridges</td>
+<td style="text-align: left;"><strong><code>+0.004</code> to <code>+0.015</code> <code>HOLDOUT-DTI</code></strong> over <code>G79-THVC</code> (<code>+0.015</code> to <code>+0.025</code> on pure physics); drops <code>GEMSDOE83</code> overlap <code>&lt; 0.70</code>; Low cost (<code>~25 s</code> vectorized numpy/scipy)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2</strong></td>
+<td style="text-align: left;"><strong><code>H80-SLIP-DEFICIT</code></strong> <em>(Along-Range Footwall Relief Conservation &amp; Piedmont Step-Out Inversion)</em></td>
+<td style="text-align: left;"><code>training_features.tif</code> (<code>det_elev</code>, <code>det_elev_slope</code>, <code>iso_grav_anom_hg</code>), <code>dem10</code> (<code>dem10_onesided3</code>, <code>dem10_curv_absmax</code>), fold-visible <code>existing_faults.tif</code></td>
+<td style="text-align: left;">Footwall structural relief envelope $H_{\text{fw}}(x) = P_{95, 2.5\text{km}}(\text{det_elev}) - P_{10, 2.5\text{km}}(\text{det_elev})$ multiplied by piedmont slope-break curvature at $400\text{–}3500\text{ m}$ downslope of mountain walls and fold-visible fault-density deficit $\max(0, \hat{z}(H_{\text{fw}}) - \hat{z}(\rho_{\text{vis}, 1.5\text{km}}))$</td>
+<td style="text-align: left;">In segmented Great Basin range fronts (Wallace 1978), total cumulative throw is conserved across short gaps in the mapped range-front trace by stepping $0.5\text{–}3.5\text{ km}$ basinward onto piedmont scarps buried by Holocene fan heads</td>
+<td style="text-align: left;">Non-tectonic alluvial fan-head trenches and bajada coalescing apexes; rejected unless accompanied by a persistent subsurface gravity horizontal-gradient step (<code>grav_hgm_z200</code>) or 10 m one-sided step persistence</td>
+<td style="text-align: left;"><strong><code>+0.003</code> to <code>+0.010</code> <code>HOLDOUT-DTI</code></strong> in piedmont step-out band ($500\text{–}3500\text{ m}$); Low cost (<code>~15 s</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3</strong></td>
+<td style="text-align: left;"><strong><code>H80-MT-PHASE</code></strong> <em>(Sub-Smectite Electrical Conductivity × Basement-Depth Normal-Vector Colinearity)</em></td>
+<td style="text-align: left;"><code>training_features.tif</code> Band 17 (<code>cond_surf</code>), Band 15 (<code>depth_to_base_surf</code>), Band 18 (<code>iso_grav_anom_hg</code>), <code>gdr_wellspring_in_footprint.csv</code></td>
+<td style="text-align: left;">Normal-vector structural colinearity $C_{\text{MT-grav}}(x) = |\hat{n}<em>{\text{cond}}(x) \cdot \hat{n}</em>{z_{\text{base}}}(x)| \cdot \sqrt{|\nabla\text{cond}<em>{\text{hp}}| \cdot |\nabla z</em>{\text{base}}|}$ weighted by GDR-1391 quartz geothermometer enthalpy plumes</td>
+<td style="text-align: left;">Blind intrabasin geothermal faults beneath electrically conductive smectite clay caps or playal evaporites lack surface scarps; true steep basement-cutting conduits align the horizontal gradient of electrical conductivity with the basement-depth structural step</td>
+<td style="text-align: left;">Flat-lying saline playa brines and lacustrine smectite lenses (<code>cond_surf</code> high over zero basement relief); rejected because $\nabla z_{\text{base}} \approx 0$ and normal vectors are incoherent across flat basin floors</td>
+<td style="text-align: left;"><strong><code>+0.003</code> to <code>+0.008</code> <code>HOLDOUT-DTI</code></strong> in blind-basin regime ($d_{\text{vis}} &gt; 2\text{ km}$); Low cost (<code>~10 s</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4</strong></td>
+<td style="text-align: left;"><strong><code>H80-RADIO-KD</code></strong> <em>(Out-of-Quadrant Lithology-Normalized Potassic Adularia Alteration Residual $K_d$)</em></td>
+<td style="text-align: left;"><code>geodawn_rad_u8.tif</code> (<code>rad_K</code>, <code>rad_Th</code>, <code>rad_U</code>), <code>training_features.tif</code> (<code>rtp_demag_trough</code>, <code>det_elev</code>, <code>det_elev_slope</code>)</td>
+<td style="text-align: left;">Spatial-quadrant cross-fitted residual $K_d(x) = \frac{K(x) - \hat{f}<em>{\text{oof}}(\text{eTh}(x))}{\hat{\sigma}</em>{\text{oof}}(\text{eTh}(x))} \cdot (1 - M_{\text{playa}}(x))$ coupled with magnetic oxidation troughs (<code>rtp_demag_trough</code>)</td>
+<td style="text-align: left;">Epithermal/geothermal fluid circulation along unmapped range-front and intrabasin fault conduits precipitates adularia + illite ($+K$) while immobile $\text{eTh}$ remains fixed to host-rock lithology and primary magnetite is oxidized to hematite</td>
+<td style="text-align: left;">Felsic ash-flow tuffs (high $K$ AND high $\text{eTh}$ in fixed primary magmatic ratio) and closed-basin potash/illite playas; rejected by out-of-quadrant $\text{eTh}$ regression and closed-basin topographic wetness mask $M_{\text{playa}}$</td>
+<td style="text-align: left;"><strong><code>+0.002</code> to <code>+0.006</code> <code>HOLDOUT-DTI</code></strong> on hydrothermally altered conduits; Low cost (<code>~10 s</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5</strong></td>
+<td style="text-align: left;"><strong><code>H80-DRAPE-DECONV</code></strong> <em>(2D Fourier Butterworth Flight-Line Notch &amp; Drape-Corrected Magnetic Wavenumber Depth)</em></td>
+<td style="text-align: left;"><code>training_features.tif</code> (<code>rtp</code>, <code>tmi</code>, <code>tmi_hg</code>, <code>tmi_vg</code>, <code>det_elev_slope</code>), <code>geodawn_extensions_u8.tif</code> (<code>ext_TMI_up150</code>)</td>
+<td style="text-align: left;">2D FFT Butterworth notch filter around the $400\text{ m}$ E–W flight-line corrugation harmonic ($k_y = \pi/200\text{ m}$) applied to $\text{RTP}$, followed by local wavenumber source-depth estimation $z_{\text{mag}}^{-1} \propto |\nabla\theta_{\text{notch}}| \cdot \exp(+\alpha \sigma_{\text{elev}, 800\text{m}})$ correcting aircraft terrain-clearance attenuation</td>
+<td style="text-align: left;">Shallow intra-sedimentary fault offsets ($50\text{–}300\text{ m}$ depth) in Quaternary volcaniclastic basin fill are masked in raw <code>tmi_hg</code> by $400\text{ m}$ E–W tie-line leveling corrugation and suppressed near steep range fronts where fixed-wing aircraft climb for terrain clearance</td>
+<td style="text-align: left;">E–W aeromagnetic survey flight-line stripes and shallow cultural/pipeline dipoles; rejected by the directional $k_y$ Fourier notch and TIGER/Line road/corridor deconfounding</td>
+<td style="text-align: left;"><strong><code>+0.002</code> to <code>+0.005</code> <code>HOLDOUT-DTI</code></strong>; Medium-low cost (<code>~15 s</code> 2D FFT)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>3. Preregistered 3-Experiment Ladder for Lane <code>G79-CSMD</code></h3>
+<p>Under the strict competition budget (<strong>maximum 3 experiments or 2 hours</strong>), we preregister:</p>
+<ol>
+<li><strong><code>CSMD-1</code> (<code>ablation_zero_catalogue_csmd_phys</code>):</strong>
+   - <strong>Zero-catalogue pure physics + hydrothermal + 4 new static physical transforms</strong> (<code>74</code> static channels total: the <code>70</code> <code>G79-THVC</code> static channels + <code>mt_grav_conduit_colin</code>, <code>mag_notch_drape_wavenumber</code>, <code>rad_kd_adularia_resid</code>, <code>piedmont_relief_step</code>; zero <code>existing_faults.tif</code> topology channels).
+   - Trained across 4 spatial quadrants on <strong>100% of fold-visible faults (<code>vis</code>)</strong> with $1 \le d_{\text{vis}} &lt; 3.0\text{ px}$ scarp flanks excluded from the negative pool (<code>IR-79-140</code> fix), predicting both exact centerline probability $p_{\text{phys}}$ and $300\text{ m}$ triangular kernel credit $q_{\text{phys}, 300\text{m}}$.
+   - Emitted via uniform <code>3.0 px</code> Poisson disk (<code>37,654</code> dots).</li>
+<li><strong><code>CSMD-2</code> (<code>csmd_dual_coulomb_uniform_d28</code>):</strong>
+   - Full <code>90</code>-channel <code>G79-CSMD</code> feature stack (<code>74</code> static physical channels + <code>16</code> strictly fold-visible topology &amp; elastic Coulomb stress / slip-deficit channels: <code>topo_coulomb_cfs_lobe</code> and <code>topo_slip_deficit_gap</code>, recomputed per fold after dilating <code>withheld</code> by <code>buffer_px=3</code>).
+   - Two-stage flank-decontaminated (<code>d_known &gt;= 3.0 px</code>) out-of-quadrant dual-head ensemble ($p_{\text{exact}}, q_{300\text{m}}$) blended with the 100%-visible decontaminated pure-physics head ($p_{\text{phys}}, q_{\text{phys}, 300\text{m}}$) across distance regimes.
+   - Emitted via uniform <code>2.8 px</code> Poisson disk (<code>37,654</code> dots) to isolate feature + flank-decontamination gain from allocator gain.</li>
+<li><strong><code>CSMD-3</code> (<code>csmd_charnes_cooper_multiregime</code>):</strong>
+   - Same <code>90</code>-channel <code>G79-CSMD</code> dual-head + decontaminated far-field physics surfaces ($p_{\text{exact}}, q_{300\text{m}}$), coupled with <strong>Coulomb-Shadow-Penalized Charnes-Cooper Submodular Kernel Allocation</strong> (<code>allocate_dots_csmd_charnes_cooper</code>), which penalizes perpendicular stress-shadowed flanks ($\Delta\text{CFS}^- &lt; 0$ lacking independent physical scarp/ridge support) and allocates marginal kernel credit $\mathbb{E}[\Delta\text{TP}<em>w] - \lambda</em>{\text{fp}}(1 - q_{300\text{m}}(x)) &gt; 0$ across both near-tip/relay lobes and far-field ($d_{\text{vis}} &gt; 1.2\text{ km}$) physical fault corridors.</li>
 </ol></div></section><section class="section"><h2>Concurrent lane G79B-SDPT (session 67557396, negative, archived) &amp; H79-FF (session 1de1617f, negative, archived)</h2><p><strong>G79B-SDPT</strong> (archived in <code>archive/g79b_sdpt_67557396/</code>): Unconstrained A3 scored HOLDOUT-DTI 0.1211 [0.1029, 0.1402] (seed 30) and 0.1114 [0.0943, 0.1287] (seed 20) vs its A1 control 0.1143 / 0.1087 (paired 95% CIs vs control span zero), and failed the duplicate gate against 99 dot-field priors. Post-duplicate Amendments B1/B2 overlap-capped 52 priors (E2), reducing HOLDOUT-DTI to 0.1036 / 0.0910 (below control on both seeds). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/run_card_g79b.json">G79B run card</a> · <a href="evidence/concurrent_lanes_audit.json">9-lane &amp; cross-lane audit</a>.</p><p><strong>H79-FF</strong> (archived in <code>archive/h79_ff_1de1617f/</code>): Placed 37,654 binary dots strictly 2–8 km off the mapped catalogue ranked by USGS 3DEP lidar <code>step_max</code>. Not preregistered and not evaluated on <code>HOLDOUT-DTI</code>; failed the duplicate gate (1.0000 vs space-filling priors, 0.9976 vs 13GEMSDOE lattice, 0.8802 vs GEMSDOE3 coverage-v3-wide). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/ff_run_card.json">H79-FF run card</a>.</p><div class="prose table-scroll"><h2>G79B hypothesis register — written BEFORE any G79B experiment (2026-10-22)</h2>
 <p>Session lane (declared by this session; the prompt again contains no explicit
 single method paragraph — same absence recorded as IR-79-02 in the prior run):</p>
