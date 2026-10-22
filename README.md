@@ -155,6 +155,25 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 | Full 3-arm `HOLDOUT-DTI` (`gems57-pooled-hide-v2`, `600` canary tests `max AUC = 0.8262 <= 0.90`) | **`F3` (`52% > 1 km`):** **`0.1292`** `[0.1139, 0.1462]` / **`0.1431`** `[0.1242, 0.1610]` (`paired Δ = +0.0331 / +0.0442` vs `H33` `0.0961 / 0.0989`) · **`F2` (`60% > 1 km`):** **`0.1207 / 0.1332`** · **`F1` (`70% > 1 km`, H33-matched):** **`0.1078 / 0.1173`** (all 3 arms beat `H33` on both seeds with paired 95% CIs strictly `> 0`; ranks #3 blind placed-dot `HOLDOUT-DTI` behind `G79-THVC` and `H79-NHR`). |
 | `0 / 934` sparse competition uniqueness proof (`1,210` total rasters across `93` repos) | **`0 / 934` duplicates across ALL comparable sparse dot fields (`<= 75,308` dots, max overlap `0.6726 <= 0.70`, `0.4814` vs `H33`, `0.4405` vs `G79-THVC`)** + **`0 / 32` space-filling false positives (`chance-calibrated-v4`, `IR-79-139`)**; stopped cleanly with zero post-hoc capping on `25` un-budget-matched wide sweeps (`80,000–985,492` dots, where `H33` itself overlaps **`0.9295`**; `IR-79-142`, [`reports/fnhr_analysis.md`](reports/fnhr_analysis.md), [`reports/session_review_a57e2a7f.md`](reports/session_review_a57e2a7f.md)). |
 
+---
+
+## Session `bda00cff` — `G79-CFSKD` (negative, DO NOT SUBMIT)
+
+> **OK TO DOWNLOAD: YES (research/inspection). OK TO SUBMIT: NO.** New unique raster
+> [`g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif`](archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif)
+> (37,654 dots, SHA-256 `418d1292e9d27314e94597185e8858ff4697ec161f7aa66864a078091a7bbe85`) passes all
+> automated format/[0,1]/CRS/footprint checks ([`evidence/cfskd/validator.json`](evidence/cfskd/validator.json),
+> 0 human inspection) and local-archive uniqueness (max 3-px overlap 0.5240 ≤ 0.70, max Spearman 0.0573 ≤ 0.90),
+> but **HOLDOUT-DTI (gems57-pooled-hide-v2) = 0.0654 (seed 20, n=11,321) / 0.0678 (seed 30, n=11,342)** —
+> below EXP1 physics-only (0.0825/0.0843), the H33 fold-fair control (0.0961/0.0989) and G79-THVC
+> (0.1905/0.1944). The K_d potassic residual and Coulomb flank-shadow veto are falsified on both seeds.
+> Verdict **negative**, 0 weekly slots used. Card: [`run_card_cfskd.json`](run_card_cfskd.json) ·
+> Summary: [`reports/cfskd_summary.html`](reports/cfskd_summary.html) · Analysis: [`reports/cfskd_analysis.md`](reports/cfskd_analysis.md).
+> Canonical artifact remains G79-THVC above. Limitations: full 1,108-raster registry uniqueness was not
+> re-restored this session (local 4-raster scope only); H80-MT-PHASE/H80-DRAPE-DECONV blocked (data not in pinned inputs).
+
+---
+
 ## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 
@@ -968,3 +987,4 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
+
