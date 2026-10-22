@@ -32,9 +32,17 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
       const dimensions = await page.evaluate(() => ({width: innerWidth, scroll: document.documentElement.scrollWidth}));
       assert(dimensions.scroll <= dimensions.width + 1, filename + ' horizontally overflows at ' + width);
       assert.equal(await page.locator('h1').count(), 1);
-      cases.push({page: filename, viewport_width: width, http: response.status(), horizontal_overflow: false});
+      const brand = await page.locator('.brand').boundingBox();
+      assert(brand && brand.width >= 120 && brand.height <= 50,
+        filename + ' squeezed/vertical branding at ' + width);
+      cases.push({page: filename, viewport_width: width, http: response.status(), horizontal_overflow: false,
+        brand_width: brand.width, brand_height: brand.height});
     }
     await page.goto(base + '/index.html', {waitUntil: 'networkidle'});
+    const downloadButton = await page.locator('a[download][href$=".tif"]').first().boundingBox();
+    assert(downloadButton && downloadButton.y >= 0 &&
+      downloadButton.y + downloadButton.height <= (width > 680 ? 1050 : 900),
+      'Primary download control is below the initial viewport at ' + width);
     fs.mkdirSync(path.join(root, '.cache/screenshots'), {recursive: true});
     await page.screenshot({path: path.join(root, '.cache/screenshots/home-' + width + '.png'), fullPage: true});
   }
@@ -100,6 +108,14 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   await page.waitForFunction(() => document.querySelectorAll('#health-rows tr').length > 0);
   assert.match(await page.locator('#feed-observation').innerText(), /Not this candidate/);
   assert.match(await page.locator('#feed-status').innerText(), /Scientific claims last reviewed/);
+  await page.goto(base + '/index.html', {waitUntil: 'networkidle'});
+  await page.locator('nav a[href="history.html"]').click();
+  await page.waitForURL('**/history.html');
+  assert.equal(await page.locator('.archive-grid a').count(), 8);
+  await page.locator('.archive-grid a[href="tipstep-submission.html"]').click();
+  await page.waitForURL('**/tipstep-submission.html');
+  assert.match(await page.locator('.download-warning').first().innerText(), /OK TO SUBMIT: NO/);
+  assert.match(await page.locator('main').innerText(), /R6/);
   await page.goto(base + '/history.html', {waitUntil: 'networkidle'});
   const all = await page.locator('[data-search-row]:visible').count();
   await page.locator('#history-search').fill('h33');
@@ -110,7 +126,9 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   assert.deepEqual(errors, [], 'Browser or HTTP errors');
   const report = {reviewed_utc: new Date().toISOString(), browser: await browser.version(), cases,
     downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, download_identity_verified: {tiff: true, zip: true, altered_bytes_refused: true, reset: true, network_requests: 0}, feed_rendered: true, legacy_redirects_verified: 2,
-    history_filter_verified: true, official_format_gate_verified: {pages: ['index.html', 'executive-summary.html'], blocked: true, failed_rules: formatReport.failed_rules, sha256: formatReport.sha256}, browser_errors: errors, passed: true,
+    history_filter_verified: true, archive_navigation_verified: true,
+    primary_download_visible_in_initial_viewport: [1440, 390, 320], branding_not_squeezed: true,
+    official_format_gate_verified: {pages: ['index.html', 'executive-summary.html'], blocked: true, failed_rules: formatReport.failed_rules, sha256: formatReport.sha256}, browser_errors: errors, passed: true,
     scope: 'Local HTTP/static website QA only; not organizer acceptance or geological evaluation.'};
   const reportRel = process.env.QA_REPORT_PATH || 'evidence/browser_review.json';
   const reportPath = path.isAbsolute(reportRel) ? reportRel : path.join(root, reportRel);

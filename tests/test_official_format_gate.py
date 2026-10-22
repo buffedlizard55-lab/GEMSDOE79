@@ -201,4 +201,7 @@ def test_preserved_tipstep_page_is_reachable_and_does_not_repeat_portal_guarante
     assert actual['sha256'] == card['raster']['sha256']
     assert actual['failed_rules'] == ['R6']
     home = BeautifulSoup((ROOT / 'docs/index.html').read_text(), 'html.parser')
-    assert home.find('a', href='tipstep-submission.html')
+    assert home.find('a', href='history.html')
+    history = BeautifulSoup((ROOT / 'docs/history.html').read_text(), 'html.parser')
+    assert history.find('a', href='tipstep-submission.html')
+    assert len(history.select('.archive-grid a')) == 8

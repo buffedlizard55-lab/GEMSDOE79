@@ -1,7 +1,7 @@
 """Fail-closed local readiness. No upload or account lookup.
 
 ok_to_submit is True only when every automated project gate passes: byte
-integrity, on-disk format, uniqueness, leakage canaries, matched holdout beaten
+integrity, on-disk research/official-text format, uniqueness, leakage canaries, matched holdout beaten
 with a measured CI, positive scientific verdict, and a separate automated
 selector receipt bound to the exact raster SHA-256. Account-side conditions the
 project cannot observe (a free weekly slot on the DrivenData submission page,

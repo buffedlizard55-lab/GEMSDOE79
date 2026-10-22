@@ -156,7 +156,7 @@ def test_g79_cskd_archived_artifacts_and_receipts_are_complete_and_valid():
 
     s20 = results["seed20"]["official_evaluate_all"]["scores"]["EXP-CSKD-3_counterfactual_cc"]["dti"]
     s30 = results["seed30"]["official_evaluate_all"]["scores"]["EXP-CSKD-3_counterfactual_cc"]["dti"]
-    assert s30 > 0.214  # All-time GEMSDOE79 Seed-30 record (0.214488)
+    assert s30 > 0.214  # Frozen CSKD Seed-30 measurement (0.214488), not an all-lanes rank
     assert 0.5 * (s20 + s30) > 0.196  # Beats G79-THVC 2-seed mean (0.192442)
     assert results["comparison_vs_g79_thvc"]["beats_thvc_on_both_seeds"] is False
     assert results["comparison_vs_g79_thvc"]["promoted_to_canonical_downloads"] is False
