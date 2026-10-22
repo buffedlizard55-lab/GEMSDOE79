@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: a format-valid research GeoTIFF that lost its holdout and failed the duplicate gate. Download for audit. Do not submit.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Analysis</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
 <table>
@@ -638,7 +638,7 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 </tr>
 </tbody>
 </table>
-<h3>Session 2026-10-22 — audit, sibling lineage forensics, and concurrent <code>G79-MAG</code> reconciliation (<code>arena/3cfa694f-gemsdoe79</code>, report <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_3cfa694f.md"><code>reports/session_review_3cfa694f.md</code></a>)</h3>
+<h3>Session 2026-10-22 — H79-DILSTEP (branch <code>arena/6444be2d-gemsdoe79</code>)</h3>
 <table>
 <thead>
 <tr>
@@ -650,21 +650,53 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <tbody>
 <tr>
 <td>IR-79-90</td>
+<td>2026-10-22. This session's preregistration cited IR-79-67 before that id was taken by a concurrent merge (session 566bec0c). The rule actually used is the same as shared <code>informative-halo-v4</code> (IR-79-86): Spearman &gt; 0.90 always stops; forward overlap &gt; 0.70 stops only when that prior's 3 px halo covers at most 70% of allowed cells. Thresholds were not changed. No named raster was exempted. The preregistration file was not edited after the score, so its hash still matches the card.</td>
+<td>H79-DILSTEP E1 lost the holdout to the H33 control on both seeds and failed this gate against 12 registry files (7 distinct maps). No retune, no overlap cap, no submission placement, no slot. H79-FFAS, which was canonical on main, is archived so <code>docs/downloads/</code> keeps one pair.</td>
+</tr>
+<tr>
+<td>IR-79-91</td>
+<td><strong>Amendment-B1 discriminating-prior rule adopted as the automated duplicate test for concurrent lane H79-COV</strong> (session e23d5371; originally numbered IR-79-57 in that session's preregistration, renumbered twice at merge because main reached IR-79-90 (H79-DILSTEP)). Preregistered in <code>registry/preregistration_g79cov_20261022.json</code> before any result.</td>
+<td>No threshold value changed. Literal readings in <code>evidence/cov/uniqueness_final.json</code>. H79-COV fails under BOTH readings (36 discriminating firings, worst 0.927 vs 0.610 chance; 66 literal firings), so its verdict does not depend on the interpretation. Flagged for user confirmation/reversal.</td>
+</tr>
+<tr>
+<td>IR-79-92</td>
+<td><strong>H79-COV sequencing (repeat of IR-79-54 pattern).</strong> Final-stage cache placement ran before the surface uniqueness scan completed (same stage produces surface+dots).</td>
+<td>Packaging waited for both scans and re-derived every gate; outcome unchanged (negative on the holdout gate regardless).</td>
+</tr>
+<tr>
+<td>IR-79-93</td>
+<td><strong>H79-COV negative on both scientific gates; concurrent-lane merge.</strong> HOLDOUT-DTI 0.0610/0.0581 vs H33 control 0.0961/0.0989 (paired Δ −0.035/−0.041); canaries pass; 36 discriminating duplicate firings. Main concurrently merged H79-FFAS and then H79-DILSTEP (both negative); DILSTEP is canonical at this merge. Note: main also adopted the same discriminating-halo principle in shared code as informative-halo-v4 (IR-79-86); COV fails under that reading too (36 firings with halo &lt; 0.70).</td>
+<td>COV preserved as <code>run_card_cov.json</code> + <code>evidence/cov/</code>; TIFF/ZIP/receipt moved byte-for-byte to <code>archive/h79_cov_e23d5371/downloads/</code>. Independently corroborates FFAS: antislope/far-field signal at 100 m does not beat H33.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 2026-10-22 — audit, sibling lineage forensics, and concurrent <code>G79-MAG</code> reconciliation (<code>arena/3cfa694f-gemsdoe79</code>, report <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_3cfa694f.md"><code>reports/session_review_3cfa694f.md</code></a>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-94</td>
 <td><strong>Conflicting user-reported scores across consecutive prompts for <code>GEMSDOE76</code> (<code>0.1555</code> vs <code>0.2194</code>).</strong> Prompt <code>18e94cdc</code> reported <code>gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555</code>; prompt <code>3cfa694f</code> updated the line to <code>gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.2194</code> and added <code>gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros: ?</code>. <code>GEMSDOE76</code> at <code>97f3dd5a81</code> publishes five <code>.tif</code> files in <code>docs/downloads/</code>, including both <code>gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif</code> (<code>37,654</code> dots, <code>sha256: d706807d...</code>) and <code>gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif</code> (<code>39,200</code> dots, <code>sha256: 54c97839...</code>), with no organizer submission-page receipt.</td>
 <td>Both <code>0.1555</code> and <code>0.2194</code> are recorded strictly as <code>UNVERIFIED HISTORICAL REPORT (NO ORGANIZER SUBMISSION-PAGE RECEIPT)</code> in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/family_lineage_forensics.json"><code>evidence/family_lineage_forensics.json</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/why_h33.md"><code>knowledge/why_h33.md</code></a>; neither is relabelled <code>ORGANIZER-CONFIRMED</code>, and both <code>GEMSDOE76</code> artifacts are byte-audited.</td>
 </tr>
 <tr>
-<td>IR-79-91</td>
+<td>IR-79-95</td>
 <td><strong>Protocol and completeness irregularities across newly referenced sibling repositories (<code>GEMSDOE78</code>, <code>GEMSDOE80</code>..<code>GEMSDOE88</code>).</strong> Direct byte inspection at current <code>HEAD</code> shows: (1) <code>GEMSDOE78</code> (<code>b7a3e5b09d</code>) promotes <code>gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros.tif</code> (<code>sha256: 8ca06ece...</code>) as <code>OK TO SUBMIT</code> even though its own README states overall <code>HOLDOUT-DTI</code> (<code>0.1771</code>) does not beat its repo control (<code>0.1826</code>) and relies on an unratified local uniqueness exemption (<code>0.6988</code> vs <code>H78-A</code>); (2) <code>GEMSDOE80</code> (<code>02f8fd64be</code>) promotes <code>gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros.tif</code> (<code>51,667</code> dots, <code>sha256: a3c14d76...</code>) using a custom non-shared evaluator (<code>GEMSDOE80-evaluate_holdout.py-v2</code>) and publishes 10 <code>.tif</code> files in <code>docs/downloads/</code>; (3) <code>GEMSDOE81</code> (<code>15bf850cfd</code>) places 100 % of its <code>44,090</code> dots inside <code>200 &lt; d_cat &lt;= 500 m</code> (<code>0 %</code> <code>&gt; 1 km</code>); (4) <code>GEMSDOE82</code> (<code>4fb7df6f65</code>) promotes two concurrent lanes with 10 <code>.tif</code> files in <code>docs/downloads/</code> using mutual overlap rather than literal forward overlap and publishes a dense surface (<code>artifacts/surface_h82.tif</code>, <code>4,862,825</code> positive pixels); (5) <code>GEMSDOE83</code> (<code>da9ec5a3b4</code>) checks only 119 rasters rather than the 992-raster family registry; and (6) <code>GEMSDOE84</code>..<code>GEMSDOE88</code> contain only 14-byte <code>README.md</code> stubs with <code>0</code> <code>.tif</code> files and <code>0</code> GitHub Pages files.</td>
 <td>All 11 sibling repositories (<code>GEMSDOE76</code>, <code>GEMSDOE78</code>, <code>GEMSDOE80</code>..<code>GEMSDOE88</code>) are audited via <code>select_sibling_tifs()</code> in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/family_lineage_forensics.json"><code>evidence/family_lineage_forensics.json</code></a>. None of their local uniqueness exemptions or non-shared evaluators are adopted in <code>GEMSDOE79</code>.</td>
 </tr>
 <tr>
-<td>IR-79-92</td>
-<td><strong>Concurrent PR #54 (<code>39ebe4c</code>, session <code>730d5ee7</code>, lane <code>G79-MAG</code>) placed a second negative GeoTIFF/ZIP (<code>gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.{tif,zip}</code>, <code>sha256: e48a9293...</code>) inside <code>docs/g79_mag/</code> without <code>-DO-NOT-SUBMIT</code> in the filename and injected a duplicate download banner into <code>README.md</code> and generated <code>docs/index.html</code>.</strong> Although <code>run_card_g79_mag.json</code> has <code>verdict: "negative"</code> (<code>HOLDOUT-DTI = 0.0045 / 0.0067</code> vs <code>H33 = 0.0961 / 0.0989</code>), its uniqueness check was incomplete (<code>952 / 992</code> rasters checked), its <code>submission_note</code> ended in <code>PASS</code>, and its placement under <code>docs/g79_mag/</code> bypassed <code>only_canonical_upload_artifacts_published</code> (which previously checked only <code>docs/downloads</code> and <code>submissions/</code>).</td>
-<td>Archived <code>G79-MAG</code> byte-for-byte under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_mag_730d5ee7/README.md"><code>archive/g79_mag_730d5ee7/</code></a>, removed the duplicate top-of-page banner from <code>README.md</code> and <code>docs/index.html</code>, and tightened <code>publication_contract_checks</code> in <code>scripts/verify_project.py</code> to reject any <code>.tif</code>/<code>.tiff</code>/<code>.zip</code> anywhere in <code>docs/</code> outside the canonical pair in <code>docs/downloads/</code>.</td>
+<td>IR-79-96</td>
+<td><strong>Concurrent PR #54 (<code>39ebe4c</code>, session <code>730d5ee7</code>, lane <code>G79-MAG</code>) placed a second negative GeoTIFF/ZIP (<code>gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.{tif,zip}</code>, <code>sha256: e48a9293...</code>) inside <code>docs/g79_mag/</code> without <code>-DO-NOT-SUBMIT</code> in the filename.</strong> Although <code>run_card_g79_mag.json</code> has <code>verdict: "negative"</code> (<code>HOLDOUT-DTI = 0.0045 / 0.0067</code> vs <code>H33 = 0.0961 / 0.0989</code>), its uniqueness check was incomplete (<code>952 / 992</code> rasters checked), its <code>submission_note</code> ended in <code>PASS</code>, and its placement under <code>docs/g79_mag/</code> bypassed <code>only_canonical_upload_artifacts_published</code> (which previously checked only <code>docs/downloads</code> and <code>submissions/</code>).</td>
+<td>Archived <code>G79-MAG</code> byte-for-byte under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_mag_730d5ee7/README.md"><code>archive/g79_mag_730d5ee7/</code></a> and tightened <code>publication_contract_checks</code> in <code>scripts/verify_project.py</code> to reject any <code>.tif</code>/<code>.tiff</code>/<code>.zip</code> anywhere in <code>docs/</code> outside the canonical pair in <code>docs/downloads/</code>.</td>
 </tr>
 <tr>
-<td>IR-79-93</td>
+<td>IR-79-97</td>
 <td><strong>Historical/archived and <code>H79-FFAS</code> lane scripts lacked fail-closed <code>require_open_lane</code> guards.</strong> While <code>run_nhr.py</code>, <code>build_nhr_submission.py</code>, and <code>run_g79_thvc.py</code> checked <code>require_open_lane</code>, 21 other closed-lane entry points (<code>finalize_nhr.py</code>, <code>nhr_uniqueness.py</code>, <code>nhr_overlap_chance.py</code>, <code>nhr_surface_flagged.py</code>, <code>nhr_distance_profile.py</code>, <code>run_stepco_experiment.py</code>, <code>run_stepco_s2.py</code>, <code>build_stepco_run_card.py</code>, <code>supplementary_uniqueness_stepco.py</code>, <code>run_holdout_g79b.py</code>, <code>build_submission_g79b.py</code>, <code>cap_cost_g79b.py</code>, <code>build_ff_candidate.py</code>, <code>run_asym.py</code>, <code>finalize_asym.py</code>, <code>asym_surface_diagnostic.py</code>, <code>run_edge_lane.py</code>, <code>run_ffas.py</code>, <code>build_ffas_submission.py</code>, <code>finalize_ffas.py</code>, <code>ffas_uniqueness.py</code>, <code>ffas_overlap_chance.py</code>) did not check <code>require_open_lane</code> before reading caches or writing to <code>run_card*.json</code>, <code>evidence/</code>, or <code>docs/downloads/</code>.</td>
 <td>Added <code>require_open_lane</code> (exiting with code 2 on <code>LaneClosedError</code>) to all 22 scripts, wrapped <code>nhr_surface_flagged.py</code> in <code>def main():</code>, and added subprocess regression tests in <code>tests/test_lane_lifecycle.py</code> verifying that all 25 closed-lane CLI invocations refuse to run and leave all repository files untouched.</td>
 </tr>

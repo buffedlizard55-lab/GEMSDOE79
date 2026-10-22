@@ -1,8 +1,19 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22):** [three-pass review, session 3cfa694f](reports/session_review_3cfa694f.md) · [session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md). Independently checked 283 tests, 29 integrity gates, the pinned universal-overlap witness, and all 11 post-snapshot sibling repositories (`GEMSDOE76`, `GEMSDOE78`, `GEMSDOE80`..`GEMSDOE88`). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used. [Prior active-branch audit](reports/repository_review_2026-10-22_active-branch.md) is retained as history.
+**Latest repository audit (2026-10-22):** [three-pass review, session 3cfa694f](reports/session_review_3cfa694f.md) · [session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md). Independently checked all pytest tests, 29 integrity gates, the pinned universal-overlap witness, and all 11 post-snapshot sibling repositories (`GEMSDOE76`, `GEMSDOE78`, `GEMSDOE80`..`GEMSDOE88`). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used. [Prior active-branch audit](reports/repository_review_2026-10-22_active-branch.md) is retained as history.
 
 Current session review: [b79882e0 — three passes and automated preflight hardening](reports/session_review_b79882e0.md). The pinned registry witness was freshly restored and remeasured; it still blocks any nonempty new candidate under the literal overlap rule. No new scientific experiment or submission slot was used. Malformed-manifest/restore failures now return structured preflight refusals instead of tracebacks.
+
+
+## Not the canonical file: G79-MAG (archived research preview, do not submit)
+
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** This is not the file in the decision table below.
+>
+> Archived preview: [`archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip). Values are in [0, 1] with no NaN.
+>
+> Reported by that lane, not remeasured here: budget-matched overlap 0.644, Spearman 0.18, HOLDOUT-DTI 0.0045 / 0.0067 versus the H33 control 0.096. That holdout loss is why it is not a submission. Do not upload it. The canonical download is the H79-DILSTEP file in the next section.
+>
+> **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue, overlap 0.64 vs worst — **contrarian far-field + multi-physics vs single-scrap amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`archive/g79_mag_730d5ee7/run_card_g79_mag.json`](archive/g79_mag_730d5ee7/run_card_g79_mag.json).
 
 
 ## Download and submission decision — start here
@@ -12,27 +23,33 @@ Latest independent repository review and three-pass verification: [2026-10-22 se
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> This is a newly generated, format-valid research GeoTIFF. It lost the holdout
-> control and failed the informative duplicate gate, so **do not upload it**.
-> The decision is automatic: `scripts/submission_status.py` exits with code 2,
-> and no human inspection is needed.
+> This is a newly generated, format-valid research GeoTIFF. It lost the holdout and failed the duplicate gate,
+> so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
+> exits with code 2, and no human inspection is needed.
 
 | | |
 |---|---|
-| File | [`docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.zip) |
-| Unique name | `gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT` |
-| Note (114/140) | `H79-FFAS research only; HOLDOUT-DTI 0.042/0.037; FAIL beats_current_holdout_best_both_seeds,paired_ci_vs_uniform_e` |
-| SHA-256 | `13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227` |
+| File | [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip) |
+| Unique name | `gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT` |
+| Note (113/140) | `H79-DILSTEP research only; HOLDOUT-DTI 0.072/0.065 lost to H33; 0.85 of dots within 3px of a prior; do not submit` |
+| SHA-256 | `8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b` |
 | Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
-| Lane / experiment | H79-FFAS / X1 (1 of 3 allowed) |
-| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0422** [0.0288, 0.0558], n = 11,321 · seed 30: **0.0367** [0.0279, 0.0452], n = 11,342 |
-| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.112] |
-| HOLDOUT-DTI, uniform control | 0.0500 [0.0448, 0.0552] · 0.0498 [0.0449, 0.0541] |
-| Ablation, no far-field weight | 0.0579 [0.0438, 0.0731] · 0.0507 [0.0404, 0.0607] |
-| Leakage canary | 72 single-feature AUC tests, max 0.8481 ≤ 0.90 (`logistic_farfield`): **PASS** |
-| Duplicate gate (`informative-halo-v4`) | **FAIL.** 31 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `62GEMSDOE:docs/downloads/gems62-h62i-scarpcrosscut-hardcore-zeros.tif` at 0.986, against 0.231 expected by chance. Rank correlation is clear: worst ρ 0.309. Space-filling priors (halo > 0.70) are reported but do not fire (IR-79-86). |
-| Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/ffas/selector_decision.json`). |
+| Lane / experiment | H79-DILSTEP / E1 (1 of 3 allowed) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0721** [0.0577, 0.0874], n = 11,321 · seed 30: **0.0650** [0.0528, 0.0778], n = 11,342 |
+| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.1120] |
+| Paired Δ vs H33 control | −0.0240 [−0.0418, −0.0050] · −0.0339 [−0.0526, −0.0159] |
+| Leakage canary | 72 single-feature AUC tests, max 0.6981 ≤ 0.90 (`horsetail`): **PASS** |
+| Duplicate gate | **FAIL.** 12 registry files (7 distinct maps; nan/all-finite twins counted separately) hold > 70% of the check dots within 3 px, and each of those priors covers at most 70% of allowed cells. Worst: `13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif` at 0.8527, against halo coverage 0.6413. Worst Spearman 0.6406, under 0.90. Literal overlap against a full-footprint witness is 1.0 and is not called uniqueness. The operative rule matches shared `informative-halo-v4` (IR-79-86). |
+| Verdict | **negative**. Lost to the H33 control on both seeds, and the surface gate failed before submission placement. No retune. No overlap cap. No slot. |
 | Slots used | 0 |
+
+### Archived H79-FFAS (session c04e5e27, stopped negative)
+
+Moved out of `docs/downloads/` in this merge so the repository still publishes one upload pair. Bytes are in [`archive/h79_ffas_c04e5e27/`](archive/h79_ffas_c04e5e27/README.md). SHA-256 `13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227`. HOLDOUT-DTI 0.0422 / 0.0367, below the H33 control and below uniform. Do not submit that file either.
+
+### Archived H79-NHR (session 337ac1e9, stopped negative)
+
+Moved out of `docs/downloads/` so this repository still publishes one upload pair. Bytes are unchanged in [`archive/h79_nhr/`](archive/h79_nhr/README.md). SHA-256 `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`. HOLDOUT-DTI 0.1431 / 0.1522 beat the H33 control and failed the duplicate gate. Do not submit that file either.
 
 ### Archived concurrent artifact (2026-10-22, lane H79-FF, session 1de1617f)
 
@@ -49,12 +66,6 @@ Session `1de1617f` generated an additional negative research GeoTIFF (`H79-FF`);
 | Uniqueness gate | **FAIL.** > 70 % of dots within 3 px of registry priors: 13GEMSDOE spacing-5 lattice 0.9976, GEMSDOE48 space-filling surface 1.0000, 5GEMSDOE density probe 1.0000, GEMSDOE3 coverage field 0.8802 (limit 0.70). |
 | Verdict | **negative.** Unique by construction (new bytes, not copied) but not unique under the protocol gate and not evaluated on `HOLDOUT-DTI`; **do not upload**. See [`evidence/ff/ff_run_card.json`](evidence/ff/ff_run_card.json). |
 | Slots used | 0 |
-
-Additional concurrent negative research artifacts preserved byte-for-byte outside `docs/`:
-- **`H79-NHR`** (`session 337ac1e9`): [`archive/h79_nhr_337ac1e9/README.md`](archive/h79_nhr_337ac1e9/README.md) (`HOLDOUT-DTI = 0.1456 / 0.1684`, duplicate on 26 informative rasters).
-- **`G79-THVC`** (`session 33e1f8ec`): [`archive/g79_thvc_33e1f8ec/README.md`](archive/g79_thvc_33e1f8ec/README.md) (`HOLDOUT-DTI = 0.1905 / 0.1944`, flagged by 30 space-filling priors under literal threshold).
-- **`H79-STEP`** (`session 21642326`): [`archive/h79_step_21642326/README.md`](archive/h79_step_21642326/README.md) (`HOLDOUT-DTI = 0.0949 / 0.1087`, lost Seed 20 and uniqueness unchecked).
-- **`G79-MAG`** (`session 730d5ee7`): [`archive/g79_mag_730d5ee7/README.md`](archive/g79_mag_730d5ee7/README.md) (`HOLDOUT-DTI = 0.0045 / 0.0067`, lost holdout and incomplete `952/992` uniqueness check).
 
 Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
@@ -308,7 +319,24 @@ presented as protocol-unique.
 - Full three-pass repository, lineage, and software review: [`reports/session_review_4b4b1214.md`](reports/session_review_4b4b1214.md).
 - **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — no new scientific experiment, retuning, or competition slot was used (`0` slots used).
 - Fixed a blobless-clone hang in `scripts/analyze_family_lineage.py` (`git ls-tree -r -l` lazily fetched every missing blob from the promisor remote) and extended `evidence/family_lineage_forensics.json` (and `docs/evidence/family_lineage_forensics.json`) with pixel-byte measurements of all 6 newly listed prompt-named unscored candidates (`GEMSDOE76` `gems76-ptcf-tiltworm-submod39k`, `GEMSDOE78` `gems78-h78sigx-fuse-b5`, `GEMSDOE80` `gemsdoe80-h80g-choquet-tworegime`, `GEMSDOE81` `gems81-cont-poisson44090-buf2`, `GEMSDOE82` `gemsdoe82-h82-submodular-punoisyor`, `GEMSDOE83` `gems83-h83-gvcd-dink300`) and verified that `GEMSDOE84`..`GEMSDOE88` currently have `0` published `.tif` files (`IR-79-80`).
-- Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Original project prompt` (`IR-79-81`).
+- Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Concurrent lane H79-COV (session `e23d5371`): also negative, archived
+
+Catalogue-free antithetic-scarp + covered basement-step detector
+([hypotheses](research/hypotheses_g79cov.md),
+[preregistration](registry/preregistration_g79cov_20261022.json),
+[run card](run_card_cov.json)), archived under
+[`archive/h79_cov_e23d5371/`](archive/h79_cov_e23d5371/README.md) —
+**not** the canonical download; **DO NOT SUBMIT**. HOLDOUT-DTI
+(`gems57-pooled-hide-v2`) 0.0610 [0.0477, 0.0740] (n = 11,321) /
+0.0581 [0.0465, 0.0700] (n = 11,342) vs the H33 fold-fair control
+0.0961 / 0.0989; canaries pass (max AUC 0.676); 36 discriminating
+registry priors > 0.70 forward overlap (worst 0.927). It independently
+corroborates this README's canonical H79-FFAS result: antislope/far-field
+signal at 100 m does not beat H33. Full record: `evidence/cov/`,
+[`reports/session_e23d5371_h79cov.md`](reports/session_e23d5371_h79cov.md),
+IR-79-91/92/93. Slots used: 0.
+
+## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 
 ## Latest repository review — session `e9955043` (2026-10-22)

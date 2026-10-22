@@ -130,10 +130,49 @@ def publication_contract_checks(root, card):
     }
 
 
+def dilstep_evidence_checks(root, card):
+    """Honesty checks for the stopped H79-DILSTEP card. A failed gate must stay failed."""
+    root = Path(root)
+    ev = root / 'evidence/dilstep'
+    out = {}
+    hold = {s: json.loads((ev / f'holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    h = card['holdout_dti']
+    src = hold[h['headline_seed']]['holdout']['scores']['candidate']
+    out['holdout_card_equals_evaluator_output'] = (
+        h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
+        h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
+        h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
+    out['card_does_not_claim_a_holdout_win'] = (
+        card.get('current_best_holdout_beaten') is False and
+        all(x['holdout']['scores']['candidate']['dti'] < x['holdout']['scores']['h33_foldfair_control']['dti']
+            for x in hold.values()) and
+        all(x['holdout']['paired_differences']['h33_foldfair_control']['ci95'][1] < 0 for x in hold.values()))
+    out['leakage_canary_clear'] = (
+        card['leakage_canary']['passed'] is True and card['leakage_canary']['auc'] <= 0.90 and
+        all(x['leakage_canary']['n_suspicious'] == 0 and x['leakage_canary']['passed'] is True for x in hold.values()) and
+        card['leakage_canary']['auc'] == max(x['leakage_canary']['max_symmetric_auc'] for x in hold.values()))
+    scan = json.loads((ev / 'uniqueness_surface.json').read_text())
+    out['uniqueness_card_matches_evidence'] = (
+        card['protocol_unique'] is False and scan.get('surface_gate_passed') is False and
+        scan['operative']['passed'] is False and
+        card['correlation_overlap_vs_registry']['surface_before_placement']['informative_overlap_flags'] ==
+        len(scan['operative']['informative_overlap_flags']))
+    gates = json.loads((ev / 'e1_gates.json').read_text())
+    out['gate_receipt_bound_to_raster_and_verdict'] = (
+        gates['raster_sha256'] == card['raster_sha256'] and gates['all_passed'] is False and
+        card['verdict'] == 'negative' and card.get('ok_to_submit') is False)
+    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote'
+    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_h79_dilstep.json') == card['preregistration_sha256']
+    out['no_submission_placement_after_failed_gate'] = card['correlation_overlap_vs_registry']['final_dots']['placed_for_submission'] is False
+    return out
+
+
 def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
     root = Path(root)
     lane = card.get('lane')
+    if lane == 'H79-DILSTEP':
+        return dilstep_evidence_checks(root, card)
     if lane == 'H79-FFAS':
         ev = root / 'evidence/ffas'
         prereg_name = 'preregistration_ffas.json'

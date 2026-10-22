@@ -325,7 +325,7 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
     assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
 
 
-def test_reproduce_artifact_recovers_canonical_nhr_bytes():
+def test_reproduce_artifact_recovers_archived_nhr_bytes():
     import reproduce_artifact
     live = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
     rep = reproduce_artifact.reproduce_nhr(ROOT)
