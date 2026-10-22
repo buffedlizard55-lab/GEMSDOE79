@@ -32,6 +32,48 @@ holdout validation. Do not delete registry witnesses, jitter dots, rename an old
 TIFF, or spend a slot to bypass failed gates. Historical reports below are not
 experiments or scores from this review. The original full prompt remains below.
 
+## Current session — 2026-10-22, `a201fa92`: automatic stop, no new TIFF
+
+**OK TO DOWNLOAD: YES (inherited research file only). OK TO SUBMIT: NO.**
+The requested new unique competition TIF **could not be generated honestly**:
+`python scripts/preflight_new_lane.py --restore` remeasured a hash-pinned registry
+witness covering every allowed cell, forcing 100% forward overlap for every
+nonempty candidate (required ≤70%). The inherited download also **fails official
+R6**, which requires null/NaN outside the sample footprint despite its passing
+older local range/grid checks; we did not repackage an old candidate to feign
+novelty. The portal error on the user's earlier different upload is undiagnosed
+without its bytes and submission receipt. **No scientific experiment, placement,
+new TIF, upload or weekly slot.** See [three-pass review](reports/session_review_a201fa92.md),
+[ranked candidate hypotheses](research/hypotheses_a201fa92.md),
+[measured preflight](evidence/preflight_a201fa92.json) and
+[negative JSON run card](evidence/run_card_a201fa92.json).
+
+This session autonomously restored and SHA-256 checked **13/13** pinned owner-mirrored
+files to ignored `data/raw/`, including the 19-band `training_features.tif`; those
+local bytes are **not** proof of organizer provenance and are not committed. Run
+`python scripts/restore_data.py --preserve-receipt` in a fresh checkout, then
+`python scripts/data_status.py` to check current availability. The data blocker
+was removed for this workspace, but the novelty protocol and missing assigned
+method paragraph remain blockers to a new experiment. The project now runs the
+separate official R1–R8 validation in its automated readiness and selector paths;
+local format/range PASS alone cannot authorize a weekly slot. A future shared
+writer/validator revision must support NaN exterior without permitting NaN inside;
+this session did not rewrite any historically scored or pinned scientific bytes. See the
+[executive summary](docs/executive-summary.html) and the original prompt below.
+
+## Review 148fa8f5 — validator fixed; no new submission approved
+
+**OK TO DOWNLOAD inherited research artifact: YES. OK TO SUBMIT: NO.**
+[Three-pass review](reports/session_review_148fa8f5.md) ·
+[ranked deferred hypotheses](research/hypotheses_148fa8f5.md) ·
+[JSON run card](evidence/run_card_148fa8f5.json).
+Fresh preflight proves the unchanged literal novelty rule blocks every nonempty
+candidate; no new TIFF or score was generated and no slot used. Fixed a real
+ZIP validator bug that discarded the inner TIFF's multi-band failure. The
+strict R1–R8 format check still rejects the inherited artifact's zero exterior
+(R6), despite its finite [0,1] interior; it is research-only. Full regression
+suite: **603 passed**. The full original project prompt remains below.
+
 ## Current session review — `e1bfa000` (2026-10-22)
 
 **OK TO DOWNLOAD: YES (inherited research file). OK TO SUBMIT: NO.**

@@ -131,7 +131,8 @@ def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
     out = {'validator_version': VALIDATOR_VERSION,
            'file': _rel(path), 'sha256': None, 'bytes': None,
            'template': _rel(template), 'template_sha256': None,
-           'official_source': OFFICIAL_PAGE, 'rules': [], 'cells': {'compared': False}}
+           'official_source': OFFICIAL_PAGE, 'does_not_approve_submission': True,
+           'rules': [], 'cells': {'compared': False}}
     try:
         out['sha256'] = _sha256(path)
         out['bytes'] = path.stat().st_size
@@ -161,16 +162,17 @@ def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
                     out['inner_tif'] = tifs[0]
         else:
             _validate_tif(path, template, out)
-    except (OSError, zipfile.BadZipFile, rasterio.errors.RasterioIOError,
+    except (OSError, zipfile.BadZipFile, rasterio.errors.RasterioError, ValueError,
             NotImplementedError, RuntimeError, EOFError, zlib.error) as exc:
         # Invalid/missing inputs and unsupported/encrypted ZIPs are refusals,
         # not tracebacks or partial PASS results. Never authorize a submission.
-        out['error'] = {'type': type(exc).__name__, 'detail': str(exc)}
+        out['error'] = {'type': type(exc).__name__}
+        out['inspection_error'] = {'type': type(exc).__name__}
         existing_r1 = next((r for r in out['rules'] if r['rule'] == 'R1'), None)
         if existing_r1 is None:
-            _check(out['rules'], 'R1', False, f'cannot inspect input/template: {exc}')
+            _check(out['rules'], 'R1', False, 'cannot inspect input/template; see inspection_error type')
         else:
-            existing_r1.update({'pass': False, 'detail': f'cannot inspect archive/raster: {exc}'})
+            existing_r1.update({'pass': False, 'detail': 'cannot inspect archive/raster; see inspection_error type'})
     # Every outcome has exactly one result per rule. Uninspected rules fail
     # closed, including malformed ZIPs and mismatched/absent input files.
     checked = {r['rule'] for r in out['rules']}
