@@ -60,22 +60,101 @@ def selection_evidence(root, card, gates, actual):
         return False, {"evidence_read_error": type(exc).__name__}
 
 
+def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: bool):
+    """Re-derive G79-THVC's measured gates without granting an exception.
+
+    The canonical lane predates the NHR/FFAS ``x1_gates.json`` schema.  Treating
+    it as an unsupported lane hid the actual scientific blocker from unattended
+    callers.  This adapter reads the frozen canonical receipts and reports every
+    gate explicitly; critically, the literal overlap gate remains unchanged.
+    """
+    try:
+        surface = json.loads((root / "evidence/g79_surface_uniqueness_1108.json").read_text())
+        dots = json.loads((root / "evidence/g79_dot_uniqueness_1108.json").read_text())
+        canary = json.loads((root / "evidence/g79_leakage_canary.json").read_text())
+        results = json.loads((root / "evidence/g79_thvc_results.json").read_text())
+        checks = evidence_checks(root, card)
+        checks.update({
+            "raster_sha256_matches": actual == card.get("raster_sha256"),
+            "format_validation_passed": format_passed is True,
+            "feature_alone_canary_le_0_90": (
+                set(canary) == {"seed20", "seed30"}
+                and all(
+                    isinstance(canary.get(seed), dict)
+                    and canary[seed].get("all_passed") is True
+                    and type(canary[seed].get("max_symmetric_auc")) in (int, float)
+                    and canary[seed]["max_symmetric_auc"] <= 0.90
+                    and canary[seed].get("threshold") == 0.90
+                    for seed in ("seed20", "seed30")
+                )
+            ),
+            "holdout_best_beaten_both_seeds": card.get("current_best_holdout_beaten") is True,
+            "surface_rank_correlation_le_0_90": (
+                type(surface.get("max_abs_spearman")) in (int, float)
+                and abs(surface["max_abs_spearman"]) <= 0.90
+            ),
+            "final_rank_correlation_le_0_90": (
+                type(dots.get("max_abs_spearman")) in (int, float)
+                and abs(dots["max_abs_spearman"]) <= 0.90
+            ),
+            # Protocol rule 1 is literal: every checked registry raster counts.
+            "surface_forward_overlap_le_0_70": (
+                type(surface.get("worst_dot_overlap")) in (int, float)
+                and surface["worst_dot_overlap"] <= 0.70
+            ),
+            "final_forward_overlap_le_0_70": (
+                type(dots.get("worst_dot_overlap")) in (int, float)
+                and dots["worst_dot_overlap"] <= 0.70
+            ),
+            "protocol_unique": card.get("protocol_unique") is True,
+            "holdout_receipt_present": isinstance(results, dict) and bool(results),
+        })
+        return checks
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError) as exc:
+        return {"canonical_evidence_read_error": False, "error_type": type(exc).__name__}
+
+
 def _select() -> int:
     card = json.loads((ROOT / "run_card.json").read_text())
-    if isinstance(card, dict) and card.get("lane") not in (None, "H79-NHR", "H79-FFAS"):
+    path = ROOT / card["submission_file"]
+    actual = hashlib.sha256(path.read_bytes()).hexdigest()
+    fmt = validate_path(path)["format_passed"]
+    if card.get("lane") == "G79-THVC":
+        checks = canonical_thvc_evidence(ROOT, card, actual, fmt)
+        trial = dict(card)
+        trial["selector_receipt"] = {
+            "raster_sha256": actual, "selector": "scripts/select_submission.py",
+            "all_automated_gates_passed": True, "source_url": "pending",
+            "observed_utc": "pending",
+        }
+        trial["approved_for_weekly_slot"] = True
+        trial["ok_to_submit"] = True
+        decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt)
+        failed = sorted(k for k, value in checks.items() if value is not True)
         refusal = {
             "selected": False,
             "ok_to_submit": False,
             "selector": "scripts/select_submission.py",
-            "reason": "This adapter re-derives H79-NHR and H79-FFAS gates only. It will not approve another lane.",
+            "lane": "G79-THVC",
+            "raster_sha256": actual,
+            "blockers": decision["blockers"],
+            "failed_gates": failed,
+            "reason": "Canonical evidence was re-derived; literal registry uniqueness did not clear.",
+            "card_left_unchanged": True,
+        }
+        print(json.dumps(refusal, indent=2))
+        return 2
+    if card.get("lane") not in (None, "H79-NHR", "H79-FFAS"):
+        refusal = {
+            "selected": False,
+            "ok_to_submit": False,
+            "selector": "scripts/select_submission.py",
+            "reason": "No reviewed evidence adapter exists for this lane; fail closed.",
             "lane": card.get("lane"),
             "card_left_unchanged": True,
         }
         print(json.dumps(refusal, indent=2))
         return 2
-    path = ROOT / card["submission_file"]
-    actual = hashlib.sha256(path.read_bytes()).hexdigest()
-    fmt = validate_path(path)["format_passed"]
     ev = evidence_dir(ROOT, card)
     gates = json.loads((ev / "x1_gates.json").read_text())
     trial = dict(card)

@@ -1,5 +1,6 @@
 """Software-only selector fixtures; not scientific measurements or receipts."""
 import copy
+import json
 
 import pytest
 import select_submission as selector
@@ -42,6 +43,40 @@ def test_summary_cannot_override_incomplete_receipt(gate_fixture, change):
 def test_inconsistent_frozen_measurements_refuse_even_with_pass_receipt(monkeypatch, gate_fixture):
     monkeypatch.setattr(selector, 'evidence_checks', lambda *_: {'uniqueness_card_matches_evidence': False})
     assert not selector.selection_evidence(None, {}, gate_fixture, 'a' * 64)[0]
+
+
+def test_canonical_adapter_reports_literal_overlap_blocker(tmp_path, monkeypatch):
+    evidence = tmp_path / 'evidence'
+    evidence.mkdir()
+    (evidence / 'g79_surface_uniqueness_1108.json').write_text(json.dumps({
+        'max_abs_spearman': 0.2, 'worst_dot_overlap': 1.0,
+    }))
+    (evidence / 'g79_dot_uniqueness_1108.json').write_text(json.dumps({
+        'max_abs_spearman': 0.1, 'worst_dot_overlap': 1.0,
+    }))
+    canary = {
+        seed: {'all_passed': True, 'max_symmetric_auc': 0.8, 'threshold': 0.9}
+        for seed in ('seed20', 'seed30')
+    }
+    (evidence / 'g79_leakage_canary.json').write_text(json.dumps(canary))
+    (evidence / 'g79_thvc_results.json').write_text('{"measured": true}')
+    monkeypatch.setattr(selector, 'evidence_checks', lambda *_: {'frozen_receipts_consistent': True})
+    card = {
+        'raster_sha256': 'a' * 64, 'current_best_holdout_beaten': True,
+        'protocol_unique': False,
+    }
+    checks = selector.canonical_thvc_evidence(tmp_path, card, 'a' * 64, True)
+    assert checks['feature_alone_canary_le_0_90'] is True
+    assert checks['surface_rank_correlation_le_0_90'] is True
+    assert checks['final_rank_correlation_le_0_90'] is True
+    assert checks['surface_forward_overlap_le_0_70'] is False
+    assert checks['final_forward_overlap_le_0_70'] is False
+    assert checks['protocol_unique'] is False
+
+
+def test_canonical_adapter_fails_closed_on_missing_receipt(tmp_path):
+    checks = selector.canonical_thvc_evidence(tmp_path, {}, 'a' * 64, True)
+    assert checks['canonical_evidence_read_error'] is False
 
 
 @pytest.mark.parametrize('error', [FileNotFoundError, ValueError, KeyError, TypeError, IndexError])

@@ -2,7 +2,7 @@
 
 ## Download & Automated Submission Status — Start Here
 
-> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(Automated fail-closed machine gate: format/CRS/`[0,1]`/canary/holdout gates ALL PASS with #1 `GEMSDOE79` two-seed `HOLDOUT-DTI = 0.1905 / 0.1944`; automatic submission remains `NO` so zero weekly slots are spent automatically.)*
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(Automated fail-closed machine decision: format/CRS/`[0,1]`/canary/holdout gates pass with #1 `GEMSDOE79` two-seed `HOLDOUT-DTI = 0.1905 / 0.1944`, but the required literal registry-overlap gate fails. Do not upload this file; zero weekly slots were spent.)*
 
 | Gate / Decision | Automated Result | Verified Machine Evidence |
 |---|---|---|
@@ -11,7 +11,7 @@
 | **`BEATS H33 ON SPATIAL HOLDOUT?`** | **✅ YES — NEARLY `2×` ACROSS BOTH SEEDS** | **Seed 20 (`n = 11,321`)**: **`HOLDOUT-DTI = 0.1905`** `[0.1741, 0.2069]` vs `H33 = 0.0961` `[0.0831, 0.1090]` (**`+98.3%`, `P = 1.000`**)<br>**Seed 30 (`n = 11,342`)**: **`HOLDOUT-DTI = 0.1944`** `[0.1774, 0.2126]` vs `H33 = 0.0989` `[0.0854, 0.1128]` (**`+96.6%`, `P = 1.000`**) ([`evidence/g79_thvc_results.json`](evidence/g79_thvc_results.json)) |
 | **`LEAKAGE CANARIES CLEARED?`** | **✅ PASS (`84 / 84` channels `<= 0.90`)** | Max single-channel raw AUC = **`0.8036 <= 0.90`** (`net_tip_fwd_35px`); symmetric fold AUC = **`0.7896 <= 0.90`** (`seed=20`) and **`0.7871 <= 0.90`** (`seed=30`); `dist_known_fault_px` blocked at ingestion ([`evidence/g79_leakage_canary.json`](evidence/g79_leakage_canary.json)) |
 | **`REGISTRY UNIQUENESS (`1,108` rasters / `93` repos)`** | **✅ SPARSE PASS (`0.6844 <= 0.70`) / ⚠️ BLANKETS FAIL-CLOSED** | Pre-placement surface `max |Spearman| = 0.7712 <= 0.90` (`1,082` rasters); post-placement `max |Spearman| = 0.1210 <= 0.90`, `max Jaccard = 0.0417 <= 0.55`; **comparable `<= 50k`-dot sparse overlap = `0.6844 <= 0.70` across all `718` sparse maps (`0.3427` vs `H33`)**; literal unchanged `uniqueness.py` flags space-filling/`80k` blankets (`17GEMSDOE = 1.0000`, `13GEMSDOE = 0.9985`, `59GEMSDOE = 0.8224` where **Oracle ground truth `truth20 = 0.8682 > 0.70`**) |
-| **`OK TO SUBMIT AUTOMATICALLY?`** | **⛔ NO (`ok_to_submit: false`, exit code `2`)** | Held strictly fail-closed (`0 / 3` weekly slots used) pending **cross-repo selector comparison** across parallel lanes (`GEMSDOE79` vs `GEMSDOE73`, etc.) and DrivenData weekly capacity verification. See [**Executive Summary & Submission Guide**](docs/executive-summary.html). |
+| **`OK TO SUBMIT AUTOMATICALLY?`** | **⛔ NO (`ok_to_submit: false`, exit code `2`)** | The automated selector now re-derives canonical `G79-THVC` evidence and refuses it on the unchanged literal novelty rule: a hash-verified registry raster covers every allowed cell, so every nonempty candidate has `1.0 > 0.70` forward overlap. **Do not upload** (`0 / 3` weekly slots used). See [**Executive Summary & Submission Guide**](docs/executive-summary.html). |
 
 - **Unique Submission Name (`43 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
 - **Short Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
