@@ -28,13 +28,17 @@ def sha256(p: Path) -> str:
 
 
 def validate(path: Path, footprint: np.ndarray | None = None,
-             catalogue: np.ndarray | None = None) -> dict:
+             catalogue: np.ndarray | None = None, *, exterior: str = "zeros") -> dict:
     """Run local format/range checks on one GeoTIFF; return a receipt dict."""
+    if exterior not in {"zeros", "nan"}:
+        raise ValueError("exterior must be zeros or nan")
+    if exterior == "nan" and footprint is None:
+        raise ValueError("NaN-exterior validation requires footprint")
     path = Path(path)
     with rasterio.open(path) as ds:
         a = ds.read(1)
         meta = dict(crs=str(ds.crs), shape=[ds.height, ds.width], dtype=ds.dtypes[0],
-                    count=ds.count, nodata=None if ds.nodata is None else float(ds.nodata),
+                    count=ds.count, nodata=None if ds.nodata is None else ("nan" if np.isnan(ds.nodata) else float(ds.nodata)),
                     transform=list(tuple(ds.transform)[:6]),
                     profile_compress=ds.profile.get("compress"))
         desc = ds.descriptions
@@ -75,6 +79,11 @@ def validate(path: Path, footprint: np.ndarray | None = None,
             n_fp > 0 and np.isfinite(a[footprint]).all()
             and (a[footprint] >= 0.0).all() and (a[footprint] <= 1.0).all())
         checks["outside_footprint_zero"] = bool(np.all(a[~footprint] == 0.0))
+    if exterior == "nan":
+        checks.pop("no_nan_anywhere")
+        checks.pop("outside_footprint_zero")
+        checks["outside_footprint_nan"] = bool(np.isnan(a[~footprint]).all())
+        checks["nodata_absent_or_nan"] = meta["nodata"] in (None, "nan")
     if catalogue is not None:
         checks["zero_dots_on_mapped_catalogue"] = int((a[catalogue] > 0).sum()) == 0
 

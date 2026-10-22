@@ -15,6 +15,7 @@ import zipfile
 from pathlib import Path
 
 import numpy as np
+import rasterio
 
 from . import gates, grid
 from .validate import assert_submittable, validate
@@ -27,14 +28,20 @@ def _temp_path(parent: Path, stem: str, suffix: str) -> Path:
 
 
 def write_submission(path, prediction, sample, footprint, *, note, name,
-                     catalogue=None, metadata=None):
+                     catalogue=None, metadata=None, exterior="zeros"):
     """Write a locally validated single-band GeoTIFF and one-TIFF ZIP.
 
     ``name`` and ``note`` are limited to 140 characters.  The prediction must
     already be a 2-D finite float field in ``[0,1]``, aligned with the footprint,
     and have no positive support outside it.  If ``catalogue`` is supplied, the
     candidate must also have zero positive pixels on mapped faults.
+    ``exterior="nan"`` explicitly encodes the already-zero exterior as NaN,
+    checks the footprint against the pinned-grid template, and keeps the interior
+    unchanged except float32 conversion. Legacy default ``zeros`` is research-only
+    where the official template requires a NaN exterior. Neither mode promotes.
     """
+    if exterior not in {"zeros", "nan"}:
+        raise ValueError("exterior must be zeros or nan")
     if not isinstance(name, str) or not name.strip() or len(name) > 140:
         raise ValueError('name must contain 1..140 non-whitespace characters')
     if not isinstance(note, str) or not note.strip() or len(note) > 140:
@@ -44,7 +51,7 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
     fp = np.asarray(footprint, dtype=bool)
     if p.ndim != 2 or p.shape != fp.shape:
         raise ValueError('prediction and footprint must be matching 2-D arrays')
-    if not np.issubdtype(p.dtype, np.number):
+    if not np.issubdtype(p.dtype, np.number) or np.iscomplexobj(p):
         raise ValueError('prediction must be numeric')
     if not np.isfinite(p).all() or (p < 0).any() or (p > 1).any():
         raise ValueError('prediction must already be normalized, finite and in [0,1]; no silent repair')
@@ -66,6 +73,15 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
     if not sample.is_file():
         raise FileNotFoundError(f'sample grid does not exist: {sample}')
 
+    if exterior == "nan":
+        with rasterio.open(sample) as ref:
+            grid._check(ref, "submission template")
+            template = ref.read(1)
+            if ref.count != 1 or np.isinf(template).any():
+                raise ValueError("template must be single-band with finite interior and NaN exterior")
+        if not fp.any() or not np.array_equal(fp, np.isfinite(template)):
+            raise ValueError("footprint must exactly match finite template support")
+
     zip_path = path.with_suffix('.zip')
     receipt_path = path.with_suffix('.json')
     existing = [candidate for candidate in (path, zip_path, receipt_path) if candidate.exists()]
@@ -78,11 +94,16 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
         tmp_zip = _temp_path(path.parent, path.stem, '.zip')
         tmp_receipt = _temp_path(path.parent, path.stem, '.json')
         # grid.write_geotiff itself rejects shape, dtype, NaN/inf, and range drift.
-        grid.write_geotiff(tmp_tif, p.astype(np.float32, copy=False), nodata=None)
-        report = gates.format_report(tmp_tif, sample, footprint=fp)
+        serialized = p.astype(np.float32, copy=True)
+        if exterior == "nan":
+            serialized[~fp] = np.nan  # explicit encoding only; model input was checked above
+            grid.write_geotiff(tmp_tif, serialized, nodata=float("nan"), nan_footprint=fp)
+        else:
+            grid.write_geotiff(tmp_tif, serialized, nodata=None)
+        report = gates.format_report(tmp_tif, sample, footprint=fp, exterior=exterior)
         if not report['ok']:
             raise ValueError(f'on-disk template validator rejected output: {report["problems"]}')
-        local_validation = validate(tmp_tif, fp, cat)
+        local_validation = validate(tmp_tif, fp, cat, exterior=exterior)
         try:
             assert_submittable(local_validation)
         except AssertionError as exc:
@@ -102,6 +123,8 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
                 raise IOError('single-TIFF ZIP roundtrip failed')
 
         receipt = dict(
+            writer_version="gems57-writer-v2-exterior",
+            exterior_encoding=exterior,
             file=path.name,
             sha256=report['sha256'],
             bytes=tmp_tif.stat().st_size,

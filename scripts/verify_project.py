@@ -178,7 +178,12 @@ def sibling_audit_and_delta_checks(root):
                 *next(([e.get('previous_sha256'), *e.get('historical_sha256', [])] for e in json.loads(
                     (root / 'registry/template_pin.json').read_text())['files']
                     if e['path'] == 'vendor/gems57/uniqueness.py'), [None])) and
-            audit_doc.get('shared_tools_pinned', {}).get('validate_py_sha256') == sha(root / 'vendor/gems57/validate.py') and
+            audit_doc.get('shared_tools_pinned', {}).get('validate_py_sha256') in (
+                sha(root / 'vendor/gems57/validate.py'),
+                # IR-79-242: opt-in exterior mode; frozen default-policy audit remains historical.
+                *next((e.get('historical_sha256', []) for e in json.loads(
+                    (root / 'registry/template_pin.json').read_text())['files']
+                    if e['path'] == 'vendor/gems57/validate.py'), [])) and
             audit_doc.get('shared_tools_pinned', {}).get('evaluate_holdout_py_sha256') == sha(root / 'vendor/gems57/evaluate_holdout.py') and
             audit_doc.get('shared_tools_pinned', {}).get('disk3_exactness_self_test', {}).get('matches_edt_le_3_exact') is True and
             audit_doc.get('organization_inventory', {}).get('total_unique_prediction_blobs_verified') == (

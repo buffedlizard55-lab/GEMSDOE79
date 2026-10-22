@@ -5,7 +5,7 @@
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="thvc-nanfix.html">NANFIX</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (0.1982 #1)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (NO)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a href="thvc-nanfix.html">NANFIX (NO)</a><a href="ugbp-submission.html">UGBP (NO)</a><a href="gem-submission.html">GEM (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>Entries retain their original dates and are ordered by review sequence. No entry authorizes a threshold exemption.</p>
 <table>
@@ -1854,6 +1854,28 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-241</td>
 <td>Merging concurrent <code>origin/main</code> PR <code>#141</code> (<code>406e4cf</code>) uncovered live <code>main</code> CI failures in both <code>Verify research deliverable</code> and <code>Pages and public-source health</code>: <code>406e4cf</code> placed a duplicate copy of <code>g79-thvc-nanfix-35093dots-20261022-b262e265-nan.{tif,zip}</code> into <code>docs/downloads/</code> (breaking six single-canonical-TIFF tests) AND recorded nonexistent <code>...T203418Z-a141df56-nan.tif</code> paths in <code>run_card_thvc_nanfix.json</code>.</td>
 <td>Removed the duplicate copy from <code>docs/downloads/</code> while preserving <code>artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.{tif,zip}</code>, fixed <code>run_card_thvc_nanfix.json</code> and <code>docs/thvc-nanfix.html</code> paths to <code>artifacts/thvc_nanfix/</code>, restored strict <code>expected = {sub, zip}</code> in <code>scripts/verify_project.py</code>, and re-verified all <code>637</code> tests green.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>3d53e182</code> — prospective shared format repair</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-242</td>
+<td>IR-79-224 remained unresolved: the shared writer rejected NaN exterior although the separate R6 check requires it.</td>
+<td>Added explicit <code>exterior="nan"</code> mode in the shared writer and validators; exact template-mask check, finite real [0,1] model input, NaN exterior encoding, strict JSON receipt, TIFF/ZIP roundtrip tests. Legacy mode and historical bytes unchanged. No new scientific raster or promotion.</td>
+</tr>
+<tr>
+<td>IR-79-243</td>
+<td>TIPSTEP page was absent from the site generator/manifest and claimed zero exterior fixes the portal error; the historical card makes the same unsupported causal claim.</td>
+<td>Generate an explicit historical negative page with official R6 failure and no full-registry novelty claim. Preserve historical card as evidence, mark its error diagnosis superseded. No rejected-file bytes or organizer receipt exist to establish that diagnosis.</td>
 </tr>
 </tbody>
 </table></div></section></main>
