@@ -8,6 +8,7 @@ novelty gate blocks every nonempty candidate. See the
 [three-pass review and next steps](reports/session_review_4fe5a2f6.md).
 Historical sections below are inherited evidence, not work performed in this session.
 The full original project prompt remains archived below and is the starting contract.
+Related concurrent review: [three-pass audit and terminal negative run card](reports/review_b0325dc8/README.md). Fresh literal-overlap preflight stops new generation; no new submission-ready TIFF is claimed.
 
 ## Download and automated decision
 
