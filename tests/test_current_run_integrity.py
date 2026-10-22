@@ -36,7 +36,7 @@ def test_card_copies_agree_and_carry_protocol_fields():
                 "correlation_overlap_vs_registry", "raster_sha256", "validator_output",
                 "submission_name", "submission_note", "verdict", "leakage_canary"):
         assert key in card, key
-    assert card["lane"] in ("H79-NHR", "H79-FFAS")
+    assert card["lane"] == "H79-DILSTEP"
     assert card["verdict"] in ("promote", "negative")
     assert card["experiment_count"] <= card["max_experiments"] == 3
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None
@@ -47,8 +47,7 @@ def test_holdout_numbers_are_copied_from_evaluator_output():
     h = card["holdout_dti"]
     assert h["evidence_class"] == "HOLDOUT-DTI" and h["evaluator_version"] == "gems57-pooled-hide-v2"
     for seed in (20, 30):
-        lane_dir = "ffas" if card["lane"] == "H79-FFAS" else "nhr"
-        ev = json.loads((ROOT / f"evidence/{lane_dir}/x1_holdout_seed{seed}.json").read_text())
+        ev = json.loads((ROOT / f"evidence/dilstep/holdout_seed{seed}.json").read_text())
         sc = ev["holdout"]["scores"]
         row = h["per_seed"][f"seed_{seed}"]
         assert row["candidate"]["dti"] == round(sc["candidate"]["dti"], 4)
@@ -118,6 +117,13 @@ def test_selector_receipt_is_bound_to_the_exact_bytes_when_promoted():
         assert receipt["raster_sha256"] == card["raster_sha256"]
         tampered = dict(card, raster_sha256="0" * 64)
         assert not submission_decision(tampered, actual_sha256="0" * 64, format_passed=True)["ok_to_submit"]
+
+
+def test_archived_nhr_bytes_remain_the_stopped_negative_lane():
+    nhr = json.loads((ROOT / "archive/h79_nhr/run_card.json").read_text())
+    assert nhr["lane"] == "H79-NHR" and nhr["verdict"] == "negative" and nhr["ok_to_submit"] is False
+    tif = ROOT / nhr["submission_file"]
+    assert hashlib.sha256(tif.read_bytes()).hexdigest() == nhr["raster_sha256"]
 
 
 def test_archived_e1_card_remains_the_stopped_negative_lane():

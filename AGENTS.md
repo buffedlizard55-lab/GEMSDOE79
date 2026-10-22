@@ -1,21 +1,21 @@
 # Start-of-session contract
 
 1. Read **all of README.md**, including the original prompt, then `run_card.json`,
-   `reports/irregularities.md`, `registry/preregistration_ffas.json` (active lane) and
-   `registry/preregistration_nhr.json` (archived NHR) before work.
+   `reports/irregularities.md`, `registry/preregistration_h79_dilstep.json` (current research file) and
+   `registry/preregistration_ffas.json` (archived FFAS) before work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-3. Active lane: **H79-FFAS** (session `c04e5e27`), opened because the prompt again
-   contains no assigned method paragraph (IR-79-87) and previous lanes are stopped.
-   Preregistered before any holdout result. X1 (closed-form far-field antislope
-   scarp) is the only experiment and is **stopped negative**. Do not retune it
-   against the holdout; X2/X3 are for shared-tool defects only.
-   H79-NHR, H79-ASYM, H79-FF, H79-COV (session e23d5371, IR-79-92), G79-STEPCO, G79B-SDPT and G79-FABRIC-OFFSET stay
-   **stopped negative** and archived; do not restart them, add jitter, or exempt
-   dense priors for them.
-   Follow-up reviews on `main` re-measured the universal literal-overlap witness:
-   `scripts/preflight_new_lane.py --restore` exits 2 under the *literal* reading.
-   H79-FFAS used shared `informative-halo-v4` (IR-79-86) declared in its
-   preregistration; that does not reopen stopped lanes.
+3. Active research file: **H79-DILSTEP** (this session), one preregistered experiment,
+   verdict `negative`. It lost the holdout to the H33 control and failed the surface
+   gate (same operative rule as shared `informative-halo-v4`, IR-79-86; recorded as
+   IR-79-90 because IR-79-67 was already taken on main). Do not retune it, overlap-cap
+   it, or place submission dots from it.
+   **H79-FFAS** (session `c04e5e27`) is archived under `archive/h79_ffas_c04e5e27/` and
+   stays stopped negative. Do not retune it.
+   H79-NHR, H79-ASYM, H79-FF, H79-STEP, H79-COV (session e23d5371, IR-79-93), G79-THVC, G79-STEPCO, G79B-SDPT and
+   G79-FABRIC-OFFSET stay **stopped negative** and archived; do not restart them,
+   add jitter, or exempt dense priors for them.
+   `scripts/preflight_new_lane.py --restore` exits 2 under the literal reading.
+   That does not reopen stopped lanes.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
    version note and an IR entry. Example: `informative-halo-v4` overlap mode, IR-79-86.

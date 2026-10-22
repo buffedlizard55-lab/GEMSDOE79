@@ -1,5 +1,5 @@
 {
-  "verified_utc": "2026-10-22T04:49:34.067234+00:00",
+  "verified_utc": "2026-10-22T04:56:04.800534+00:00",
   "all_checks_passed": true,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
@@ -23,23 +23,24 @@
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
     "holdout_card_equals_evaluator_output": true,
-    "holdout_beats_flag_matches_evidence": true,
+    "card_does_not_claim_a_holdout_win": true,
     "leakage_canary_clear": true,
     "uniqueness_card_matches_evidence": true,
     "gate_receipt_bound_to_raster_and_verdict": true,
     "promotion_requires_uniqueness": true,
     "preregistration_hash_matches_card": true,
+    "no_submission_placement_after_failed_gate": true,
     "e1_scientific_stop_honored": true,
     "status_tool_and_card_agree": true
   },
-  "raster_sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
+  "raster_sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif",
-      "bytes": 137784,
-      "sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
+      "file": "docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+      "bytes": 131455,
+      "sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -93,9 +94,9 @@
       "footprint_fraction": 0.007286874781441169
     },
     "reference_grid": {
-      "path": "docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif",
-      "bytes": 137784,
-      "sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
+      "path": "docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+      "bytes": 131455,
+      "sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",

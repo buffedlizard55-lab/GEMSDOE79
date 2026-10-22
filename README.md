@@ -5,13 +5,13 @@
 Current session review: [b79882e0 — three passes and automated preflight hardening](reports/session_review_b79882e0.md). The pinned registry witness was freshly restored and remeasured; it still blocks any nonempty new candidate under the literal overlap rule. No new scientific experiment or submission slot was used. Malformed-manifest/restore failures now return structured preflight refusals instead of tracebacks.
 
 
-## NEW: G79-MAG unique magnetic-gravity submission — easy download, validated, ready
+## Not the canonical file: G79-MAG (archived research preview, do not submit)
 
-> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO — RESEARCH PREVIEW (format PASS, unique, holdout measured).**
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** This is not the file in the decision table below.
 >
-> **EASY DOWNLOAD:** [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip) · **Predicted values in [0,1] — passes portal range check (no NaN).**
+> Archived preview: [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip). Values are in [0, 1] with no NaN.
 >
-> This is a newly generated, format-valid, **UNIQUE** GeoTIFF (budget-matched-v3: worst overlap 0.644 <0.70, Spearman 0.18 <0.90, 952/992 rasters checked). It does NOT copy any previous submission bytes (SHA256 e48a9293...). Holdout 0.0045/0.0067 vs H33 0.096, so scientific verdict is negative and no weekly slot is spent, but **download is one-click and submission is automated — no human inspector needed**. Run `python scripts/submission_status.py` (exit 2 = DO NOT SUBMIT) and `python scripts/validate_submission.py docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif` to verify locally.
+> Reported by that lane, not remeasured here: budget-matched overlap 0.644, Spearman 0.18, HOLDOUT-DTI 0.0045 / 0.0067 versus the H33 control 0.096. That holdout loss is why it is not a submission. Do not upload it. The canonical download is the H79-DILSTEP file in the next section.
 >
 > **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue, overlap 0.64 vs worst — **contrarian far-field + multi-physics vs single-scrap amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`run_card_g79_mag.json`](run_card_g79_mag.json).
 
@@ -23,27 +23,33 @@ Latest independent repository review and three-pass verification: [2026-10-22 se
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> This is a newly generated, format-valid research GeoTIFF. It lost the holdout
-> control and failed the informative duplicate gate, so **do not upload it**.
-> The decision is automatic: `scripts/submission_status.py` exits with code 2,
-> and no human inspection is needed.
+> This is a newly generated, format-valid research GeoTIFF. It lost the holdout and failed the duplicate gate,
+> so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
+> exits with code 2, and no human inspection is needed.
 
 | | |
 |---|---|
-| File | [`docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.zip) |
-| Unique name | `gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT` |
-| Note (114/140) | `H79-FFAS research only; HOLDOUT-DTI 0.042/0.037; FAIL beats_current_holdout_best_both_seeds,paired_ci_vs_uniform_e` |
-| SHA-256 | `13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227` |
+| File | [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip) |
+| Unique name | `gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT` |
+| Note (113/140) | `H79-DILSTEP research only; HOLDOUT-DTI 0.072/0.065 lost to H33; 0.85 of dots within 3px of a prior; do not submit` |
+| SHA-256 | `8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b` |
 | Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
-| Lane / experiment | H79-FFAS / X1 (1 of 3 allowed) |
-| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0422** [0.0288, 0.0558], n = 11,321 · seed 30: **0.0367** [0.0279, 0.0452], n = 11,342 |
-| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.112] |
-| HOLDOUT-DTI, uniform control | 0.0500 [0.0448, 0.0552] · 0.0498 [0.0449, 0.0541] |
-| Ablation, no far-field weight | 0.0579 [0.0438, 0.0731] · 0.0507 [0.0404, 0.0607] |
-| Leakage canary | 72 single-feature AUC tests, max 0.8481 ≤ 0.90 (`logistic_farfield`): **PASS** |
-| Duplicate gate (`informative-halo-v4`) | **FAIL.** 31 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `62GEMSDOE:docs/downloads/gems62-h62i-scarpcrosscut-hardcore-zeros.tif` at 0.986, against 0.231 expected by chance. Rank correlation is clear: worst ρ 0.309. Space-filling priors (halo > 0.70) are reported but do not fire (IR-79-86). |
-| Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/ffas/selector_decision.json`). |
+| Lane / experiment | H79-DILSTEP / E1 (1 of 3 allowed) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0721** [0.0577, 0.0874], n = 11,321 · seed 30: **0.0650** [0.0528, 0.0778], n = 11,342 |
+| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.1120] |
+| Paired Δ vs H33 control | −0.0240 [−0.0418, −0.0050] · −0.0339 [−0.0526, −0.0159] |
+| Leakage canary | 72 single-feature AUC tests, max 0.6981 ≤ 0.90 (`horsetail`): **PASS** |
+| Duplicate gate | **FAIL.** 12 registry files (7 distinct maps; nan/all-finite twins counted separately) hold > 70% of the check dots within 3 px, and each of those priors covers at most 70% of allowed cells. Worst: `13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif` at 0.8527, against halo coverage 0.6413. Worst Spearman 0.6406, under 0.90. Literal overlap against a full-footprint witness is 1.0 and is not called uniqueness. The operative rule matches shared `informative-halo-v4` (IR-79-86). |
+| Verdict | **negative**. Lost to the H33 control on both seeds, and the surface gate failed before submission placement. No retune. No overlap cap. No slot. |
 | Slots used | 0 |
+
+### Archived H79-FFAS (session c04e5e27, stopped negative)
+
+Moved out of `docs/downloads/` in this merge so the repository still publishes one upload pair. Bytes are in [`archive/h79_ffas_c04e5e27/`](archive/h79_ffas_c04e5e27/README.md). SHA-256 `13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227`. HOLDOUT-DTI 0.0422 / 0.0367, below the H33 control and below uniform. Do not submit that file either.
+
+### Archived H79-NHR (session 337ac1e9, stopped negative)
+
+Moved out of `docs/downloads/` so this repository still publishes one upload pair. Bytes are unchanged in [`archive/h79_nhr/`](archive/h79_nhr/README.md). SHA-256 `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`. HOLDOUT-DTI 0.1431 / 0.1522 beat the H33 control and failed the duplicate gate. Do not submit that file either.
 
 ### Archived concurrent artifact (2026-10-22, lane H79-FF, session 1de1617f)
 
@@ -328,7 +334,7 @@ registry priors > 0.70 forward overlap (worst 0.927). It independently
 corroborates this README's canonical H79-FFAS result: antislope/far-field
 signal at 100 m does not beat H33. Full record: `evidence/cov/`,
 [`reports/session_e23d5371_h79cov.md`](reports/session_e23d5371_h79cov.md),
-IR-79-90/91/92. Slots used: 0.
+IR-79-91/92/93. Slots used: 0.
 
 ## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).

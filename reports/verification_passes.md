@@ -35,4 +35,4 @@ Every claim, byte hash, holdout metric, uniqueness statistic, figure, HTML page,
 
 - Pass 1: preregistered C1 run once on shared folds/evaluator (controls reproduced session 337ac1e9 to 4 decimals); canaries pass; holdout + duplicate gates fail; DO-NOT-SUBMIT artifact via shared writer; selector refused.
 - Pass 2: fixed a lost parallel edit in the selector, made verify/site/tests card-driven on the session branch, independent portal-style raster check (finite, exactly {0,1}, 37,654 positives).
-- Pass 3: verify_project 27/27, check_site pass, pytest 190 passed on the session branch. At merge, main's H79-FFAS stayed canonical (IR-79-92); post-merge verification re-run below in the merge commit checks.
+- Pass 3: verify_project 27/27, check_site pass, pytest 190 passed on the session branch. At merge, main's H79-FFAS stayed canonical (IR-79-93); post-merge verification re-run below in the merge commit checks.

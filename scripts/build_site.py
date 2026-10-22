@@ -26,7 +26,7 @@ from verify_project import verify, decision_line   # noqa: E402
 SITE = ROOT / 'docs'
 REPO = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
 COMP = 'https://www.drivendata.org/competitions/306/competition-doe-gems'
-PREVIEW = 'assets/nhr-dots-preview.png'
+PREVIEW = 'assets/dilstep-dots-preview.png'
 E = html.escape
 
 
@@ -82,11 +82,11 @@ def shell(title, content, card):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: a format-valid research GeoTIFF that lost its holdout and failed the duplicate gate. Download for audit. Do not submit.">
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Analysis</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 
@@ -122,7 +122,7 @@ def identity_panel(card):
 <div class="code-label">GeoTIFF SHA-256</div><div class="code-box">{E(card['raster_sha256'])}</div></div>'''
 
 
-def checks_panel(card):
+def checks_panel_nhr(card):
     u = card['correlation_overlap_vs_registry']; c = card['leakage_canary']; h = card['holdout_dti']
     s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
     def row(ok, title, text):
@@ -147,7 +147,75 @@ def metric(label, value, desc, stop=False):
     return f'<div class="metric"><div class="label">{label}</div><div class="value{cls}">{value}</div><div class="description">{desc}</div></div>'
 
 
+def checks_dilstep(card):
+    u = card['correlation_overlap_vs_registry']['surface_before_placement']
+    c = card['leakage_canary']
+    h = card['holdout_dti']
+    s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
+
+    def row(ok, title, text):
+        icon = '✓' if ok else '×'
+        style = '' if ok else ' style="color:var(--red)"'
+        return f'<div class="check-row"><div class="check-icon"{style}>{icon}</div><div><strong>{title}</strong><span>{text}</span></div></div>'
+
+    fmt = card['validator_output']['format_passed']
+    return ('<div class="panel"><h3>Automated gates (no human inspector)</h3><p>Each line is computed from the written bytes or an evidence file. A pass on one line does not cancel a fail on another.</p>'
+        + row(fmt, 'Format: grid, range, finiteness', 'One float32 band, EPSG:32611, shape and transform identical to the sample; values exactly 0 or 1; no NaN anywhere; zero outside the footprint and on mapped faults.')
+        + row(False, 'Unique before placement (IR-79-67)', f"Worst Spearman ρ {u['worst_spearman']:.3f} (limit 0.90, this part passes). {u['informative_overlap_flags']} informative rasters hold more than 70% of the check dots within 3 px. Worst {u['worst_forward_overlap_3px_provisional_topk']:.3f} against halo {u['worst_informative_halo_coverage']:.3f}.")
+        + row(False, 'Submission placement', 'Refused. The surface gate failed, so no submission dots were placed after it.')
+        + row(c['passed'], 'Leakage canary', f"{c['tests']} single-feature AUC tests; max {c['auc']:.4f} ≤ 0.90 ({E(c['worst_feature'])}).")
+        + row(False, 'Beats the holdout best', f"Candidate {s20['candidate']['dti']:.4f} / {s30['candidate']['dti']:.4f}. H33 control {s20['h33_foldfair_control']['dti']:.4f} / {s30['h33_foldfair_control']['dti']:.4f}. Paired 95% CIs are entirely below zero.")
+        + row(False, 'Separate selector', 'Not run for approval. Only scripts/select_submission.py may set OK to submit, and this lane did not qualify.')
+        + '<a class="text-link" href="evidence/dilstep_uniqueness_surface.json">Registry scan ↗</a></div>')
+
+
+def home_dilstep(card, index):
+    h = card['holdout_dti']
+    s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
+    u = card['correlation_overlap_vs_registry']['surface_before_placement']
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / H79-DILSTEP · EXECUTIVE SUMMARY</p><span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>
+<h1>Download the research file.<br><em>Do not upload it.</em></h1>
+<p class="lead">This session tested one idea: expert-missing faults should sit in dilatational stepovers and horsetail tips of the mapped network, not on playa shorelines. The holdout says the idea does not beat the H33 control. The duplicate gate says the dots are not new. Both stops are automatic. No slot was spent.</p>
+{download_panel(card)}
+<p class="micro"><a href="executive-summary.html">Full executive summary and why a higher score is not supported ↗</a> · <a href="analysis.html">The measured numbers ↗</a></p></div>
+<figure class="map-card" style="margin:0"><div class="map-top"><span>GEODAWN FOOTPRINT · UTM 11N</span><span>DO NOT SUBMIT</span></div><img class="map-image" src="{PREVIEW}" alt="The 37,654 research check dots in bright green over the study footprint, with mapped faults in grey. This file failed its gates and must not be uploaded."><figcaption class="map-caption"><strong>Check dots (green) and mapped faults (grey).</strong><br>Published so the failed gate can be audited. Not a submission.</figcaption></figure></section>
+<div class="metric-grid">{metric('HOLDOUT-DTI · this file', f"{s20['candidate']['dti']:.3f} / {s30['candidate']['dti']:.3f}", 'Seeds 20 / 30. Not a leaderboard score.')}{metric('HOLDOUT-DTI · H33 control', f"{s20['h33_foldfair_control']['dti']:.3f} / {s30['h33_foldfair_control']['dti']:.3f}", 'Same folds. This file loses.')}{metric('Informative overlap', f"STOP · {u['informative_overlap_flags']}", 'Rasters with >70% of dots within 3 px', stop=True)}{metric('Weekly slots spent', '0', 'Nothing uploaded')}</div>
+<section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Why download is allowed and submit is not.</h2></div><p>Format passes. Science and uniqueness do not. The selector was not asked to approve a slot.</p></div><div class="two-col">{identity_panel(card)}{checks_dilstep(card)}</div></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHAT THE NUMBERS MEAN</p><h2>A real loss, not a missing measurement.</h2></div><p>User-reported 0.2778 and the public 0.4413 are not this file's score. This file has no organizer receipt.</p></div><div class="steps"><article class="step"><div class="step-no">01 — HOLDOUT</div><h3>Lost to H33</h3><p>Paired 95% intervals versus the H33 control are entirely below zero on both seeds. The structure term beats an ablation, so the masks are not empty. They still miss the withheld faults.</p><a class="text-link" href="analysis.html">Holdout table ↗</a></article><article class="step"><div class="step-no">02 — UNIQUENESS</div><h3>{u['informative_overlap_flags']} informative priors</h3><p>Worst forward overlap {u['worst_forward_overlap_3px_provisional_topk']:.3f}, against {u['worst_informative_halo_coverage']:.3f} expected from that prior's own halo. Rank correlation passes (worst ρ {u['worst_spearman']:.3f}). Overlap does not.</p><a class="text-link" href="evidence/dilstep_uniqueness_surface.json">Scan ↗</a></article><article class="step"><div class="step-no">03 — STOP</div><h3>No second try</h3><p>The protocol forbids retuning after a score and forbids an overlap cap. A higher organizer score is possible in principle. It is not supported by this measurement, so no slot is spent.</p><a class="text-link" href="executive-summary.html">What would be required ↗</a></article></div></section>
+<section class="section"><div class="proof"><div><p class="eyebrow">LITERAL GATE VS OPERATIVE GATE</p><h2>A full-footprint prior<br>is not a duplicate detector.</h2></div><div><p>halo coverage = 100% of allowed cells for one hash-verified witness, so every nonempty dot set has literal overlap 1.0 against it. That fact does not prove every map fails a useful duplicate test. IR-79-67 still stops this file, because 12 registry files (7 distinct maps; nan and all-finite twins counted separately) whose own halos cover at most 70% of the allowed area also contain more than 70% of these dots.</p></div></div></section>
+<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories. This scan compared {card['correlation_overlap_vs_registry']['compared']} and listed {card['correlation_overlap_vs_registry']['not_comparable']} unreadable or off-grid files.</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
+
+
+def executive_dilstep(card):
+    h = card['holdout_dti']
+    s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
+    u = card['correlation_overlap_vs_registry']['surface_before_placement']
+    return f'''<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY</p><h1>Do not submit this file.</h1><p class="lead">H79-DILSTEP was the one preregistered experiment this session. It lost the holdout and failed the duplicate gate. Download is for audit. Upload is not allowed.</p></section>
+<section class="section">{download_panel(card)}</section>
+<section class="section"><div class="two-col">{identity_panel(card)}{checks_dilstep(card)}</div></section>
+<section class="section prose"><h2>Executive summary</h2><ul>
+<li><strong>Decision:</strong> OK to download. Not OK to submit. The decision is automatic. No human inspection is required to reject this file.</li>
+<li><strong>Holdout:</strong> HOLDOUT-DTI <code>{s20['candidate']['dti']}</code> {s20['candidate']['ci95']} on seed 20 (n = {s20['withheld_positive_pixels']:,}) and <code>{s30['candidate']['dti']}</code> {s30['candidate']['ci95']} on seed 30 (n = {s30['withheld_positive_pixels']:,}). The H33 fold-fair control scored <code>{s20['h33_foldfair_control']['dti']}</code> / <code>{s30['h33_foldfair_control']['dti']}</code>. Both paired 95% intervals are entirely below zero.</li>
+<li><strong>Uniqueness:</strong> {u['informative_overlap_flags']} registry files (7 distinct maps; nan and all-finite twins counted separately) each contain more than 70% of the check dots within 3 px, and each of those priors covers at most 70% of the allowed area with its own halo. Worst: <code>{E(u['worst_informative_submission'])}</code> at {u['worst_forward_overlap_3px_provisional_topk']:.4f}, against halo coverage {u['worst_informative_halo_coverage']:.4f}. Worst Spearman is {u['worst_spearman']:.4f}, under 0.90. Literal overlap against a space-filling witness is 1.0 and is not called uniqueness.</li>
+<li><strong>Stop:</strong> the surface gate failed, so no submission dots were placed after it. No retune. No overlap cap. Slots used: 0.</li>
+</ul>
+<h2>Why H33's reported 0.2778 is not a target this file has beaten</h2>
+<p>The user reported that the H33 zeros file scored 0.2778. That number is not an organizer receipt in this repository. On the same folds, this file scores below the H33 control. A method that recovers hidden catalogue faults worse than H33 has no measured case for a higher organizer score. The public leaderboard figure 0.4413, observed on the competition page on 2026-10-22, is someone else's score, not a projection for this file.</p>
+<h2>Could a higher score still be possible?</h2>
+<p>Yes, as an untested possibility. The organizer scores expert faults that are absent from the public map, and this holdout withholds mapped faults. Those are different targets. H79-NHR, now archived, beat this holdout (0.1431 / 0.1522) and still failed uniqueness, because the near-catalogue band is already occupied by earlier family rasters. A far-field map might be more novel and might match expert faults better, but H79-FF tried a far-field lidar scarp map, was not holdout-scored, and was not unique. This session does not spend a slot on either hope.</p>
+<h2>What a future file would need before anyone should upload it</h2>
+<ol>
+<li><code>.venv/bin/python scripts/submission_status.py</code> must print <code>OK TO SUBMIT: YES</code> and exit 0.</li>
+<li>The holdout must beat the recorded best on both seeds, with the paired interval above zero.</li>
+<li>The surface gate must pass before placement, and the final dots must pass again. IR-79-67 is the operative rule. Literal overlap of 1.0 against a full-footprint witness is not, by itself, the stop.</li>
+<li>The DrivenData submissions page must show a free weekly slot. This project cannot see that.</li>
+</ol>
+<p><a class="button secondary" href="analysis.html">Measured holdout and scan ↗</a></p></section>'''
+
+
 def home(card, index):
+    if card.get('lane') == 'H79-DILSTEP':
+        return home_dilstep(card, index)
     if not promoted(card):
         return home_negative(card, index)
     return home_promoted(card, index)
@@ -173,7 +241,15 @@ def u_count(card):
     return f"{card['correlation_overlap_vs_registry']['registry_rasters']:,}"
 
 
+def checks_panel(card):
+    if card.get('lane') == 'H79-DILSTEP':
+        return checks_dilstep(card)
+    return checks_panel_nhr(card)
+
+
 def executive(card):
+    if card.get('lane') == 'H79-DILSTEP':
+        return executive_dilstep(card)
     if not promoted(card):
         return executive_negative(card)
     return executive_promoted(card)
@@ -352,6 +428,11 @@ def main():
               'evidence/family_lineage_forensics.json': 'family_lineage_forensics.json',
               'evidence/artifact_reproduction.json': 'artifact_reproduction.json',
               'evidence/ff/ff_run_card.json': 'ff_run_card.json',
+              'evidence/dilstep/holdout_seed20.json': 'dilstep_holdout_seed20.json',
+              'evidence/dilstep/holdout_seed30.json': 'dilstep_holdout_seed30.json',
+              'evidence/dilstep/uniqueness_surface.json': 'dilstep_uniqueness_surface.json',
+              'evidence/dilstep/e1_gates.json': 'dilstep_gates.json',
+              'registry/preregistration_h79_dilstep.json': 'preregistration_h79_dilstep.json',
               'run_card_stepco.json': 'run_card_stepco.json',
               'run_card_g79b.json': 'run_card_g79b.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
@@ -371,16 +452,18 @@ def main():
     pages = {
         'index.html': ('Download & automatic decision', home(card, index)),
         'executive-summary.html': ('Executive summary & how to submit', executive(card)),
-        'analysis.html': ('Why H33 scored highest, and what can beat it',
-                          page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
-                                    'Metric algebra, byte forensics of H33, the H79-FFAS holdout results and the main risk.')
-                          + '<section class="section">' + md('reports/ffas_analysis.md') + '</section>'
-                          + '<section class="section"><h2>Prior lane (H79-NHR)</h2>' + md('reports/nhr_analysis.md') + '</section>'
+        'analysis.html': ('Why this file is not a submission',
+                          page_head('ANALYSIS / HOLDOUT-DTI / NOT A LEADERBOARD SCORE', 'H79-DILSTEP lost the holdout.',
+                                    'Measured numbers only. User-reported 0.2778 and public 0.4413 are not this file\'s score.')
+                          + '<section class="section">' + md('reports/dilstep_result.md') + '</section>'
+                          + '<section class="section"><h2>Earlier H79-FFAS notes</h2>' + md('reports/ffas_analysis.md') + '</section>'
+                          + '<section class="section"><h2>Earlier H33 and H79-NHR notes</h2>' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
-                                    'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 of this lane was run.')
-                          + '<section class="section">' + md('research/hypotheses_ffas.md') + '</section>'
+                                    'H79-DILSTEP rank 1 was preregistered and run. It lost. Ranks 2–5 were not started.')
+                          + '<section class="section">' + md('research/hypotheses_h79_dilstep.md') + '</section>'
+                          + '<section class="section"><h2>Archived lane H79-FFAS</h2>' + md('research/hypotheses_ffas.md') + '</section>'
                           + '<section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2>'
                           + '<p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p>'
                           + md('research/hypotheses_e846fc02.md') + '</section>'
