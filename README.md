@@ -36,7 +36,11 @@ The full original project prompt remains archived below and is the starting cont
   - **Uniqueness scan (Rule 1):** Pre-placement surface `max |Spearman| = 0.6065 <= 0.90` (**PASS**); post-placement `max |Spearman| = 0.2366 <= 0.90` (**PASS**); **clears `GEMSDOE83` under Amendment D-2 (`0.6591 <= 0.70`, PASS)**, `GEMSDOE77` (`0.6952`), `GEMSDOE80` (`0.6494`), and `GEMSDOE78` (`0.6237`), but flags `16 / 1,209` legacy dense corridor rasters (`max external D-2 = 0.8182`, `59GEMSDOE`) plus the `1.0000` universal coverage witness (`IR-79-240`).
 - **Live `origin/main` regression repaired (`IR-79-232`):** Registered `docs/tipstep-submission.html` and [`docs/g79-cshd.html`](docs/g79-cshd.html) cleanly inside `scripts/build_site.py` and `scripts/check_site.py`, restoring `100%` test pass across the entire repository. See [`reports/session_review_e8afe252.md`](reports/session_review_e8afe252.md), [`research/hypotheses_cshd.md`](research/hypotheses_cshd.md), and [`docs/executive-summary.html`](docs/executive-summary.html).
 
-## Latest session — G79-TIPSTEP (2026-10-22, this branch)
+## Independent repository audit — session `f7f01963`
+
+This assigned-branch review was completed before synchronizing the concurrent `G79-CSHD` update from `origin/main`. Its negative findings remain scoped to that review snapshot; it did not run CSHD or re-evaluate any historical result. See the [three-pass audit](reports/session_review_f7f01963.md) and [negative audit card](evidence/run_card_f7f01963.json). It also corrected the site-inventory drift present in the branch baseline; the latest main page inventory now includes its reviewed historical TIPSTEP page.
+
+## Historical session — G79-TIPSTEP (2026-10-22; not the current decision)
 
 **A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
 SHA-256 `4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a`, in `artifacts/tipstep/`).
