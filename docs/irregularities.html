@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
+<meta name="description" content="GEMSDOE79: fault-mapping research GeoTIFF with automated format and submission-readiness checks. Format validity is not uniqueness clearance.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -371,5 +371,33 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to <code>archive/g79_stepco_s1/downloads/</code>. <code>run_card_stepco.json</code>, <code>evidence/stepco/</code> and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at <code>archive/g79_fabric_offset_e1/</code>. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision.</td>
 </tr>
 </tbody>
-</table></div></section></main>
+</table>
+<h3>Session 2026-10-22 — software review (branch <code>arena/2203b2cc-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-57</td>
+<td>Clean lockfile install could not collect the merged G79B tests: missing <code>skimage</code>, despite <code>src/gems79b/features.py</code> importing <code>sato</code>.</td>
+<td>Added scikit-image to requirements and pinned its dependencies; full suite rerun. This was also a Pages/CI blocker, not a scientific result.</td>
+</tr>
+<tr>
+<td>IR-79-58</td>
+<td>README invited rerunning/packaging stopped H79-NHR; runner entry points did not enforce its negative terminal state.</td>
+<td>Added fail-closed terminal-lane guards before bulk reads/writes; regression tests require exit 2 and unchanged scientific files. No force flag, rerun or retune.</td>
+</tr>
+<tr>
+<td>IR-79-59</td>
+<td>Current home-page prose and README treated dots in a 200 m catalogue collar as pure FP, although only exact catalogue pixels are masked. Metadata also called the negative artifact unique; control tiles claimed equal budgets.</td>
+<td>Corrected the conditional causal explanation, metadata, idealized straight-trace example and inherited-control budget disclosure. Artifact-linked organizer score receipts remain absent.</td>
+</tr>
+</tbody>
+</table>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2203b2cc.md">session_review_2203b2cc.md</a>.</p></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

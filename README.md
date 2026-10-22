@@ -32,10 +32,11 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
    So sparse dots win: one dot on a trace earns up to about 2.33 truth units of TP and pays at most 1 unit of FP.
-   H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
-   masked, so those dots were pure false positives. Removing them lifted the user-reported score from 0.2600
-   to 0.2778. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
-   0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
+   H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Only exact mapped pixels are
+   masked; a 200 m collar is NOT masked. Removing those dots could reduce FP but could also lose
+   credit for nearby unmapped strands. The user-reported pair is 0.2600 → 0.2778; without artifact-linked
+   organizer receipts and hidden labels, this does not prove that all removed dots were false positives. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
+   0.4413 (the public leader) needs at least 38.4 %. Conditional metric analysis: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
 2. **Can we beat it?** Five untried hypotheses were ranked in
    [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
    learning, was preregistered in [`registry/preregistration_nhr.json`](registry/preregistration_nhr.json)
@@ -107,20 +108,36 @@ already dotted, so uniqueness after the fact costs more than detector gains.
 
 ## Reproduce and verify
 
+The NHR lane is **closed**. Do not rerun its models, placement or packaging. These commands
+perform read-only scientific-evidence checks and rebuild the presentation, not a new experiment:
+
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.lock
-.venv/bin/python scripts/restore_data.py              # hash-pinned inputs (see registry/data_manifest.json)
-.venv/bin/python scripts/restore_registry_git.py      # 992 registry rasters via git (no REST quota)
-.venv/bin/python scripts/run_nhr.py holdout --seed 20 # X1 holdout (also --seed 30), about 12 min each
-.venv/bin/python scripts/run_nhr.py final             # final surface + dots
-.venv/bin/python scripts/nhr_uniqueness.py surface && .venv/bin/python scripts/nhr_uniqueness.py final
-.venv/bin/python scripts/nhr_overlap_chance.py        # per-raster overlap vs chance
-.venv/bin/python scripts/build_nhr_submission.py      # gate check + shared writer
-.venv/bin/python scripts/finalize_nhr.py              # run card from evidence
-.venv/bin/python scripts/select_submission.py         # separate selector (refuses here)
-.venv/bin/python scripts/verify_project.py && .venv/bin/python scripts/submission_status.py
-.venv/bin/python scripts/build_site.py && .venv/bin/python scripts/check_site.py && .venv/bin/python -m pytest -q
+.venv/bin/python scripts/verify_project.py
+.venv/bin/python scripts/submission_status.py  # expected exit 2: DO NOT SUBMIT
+.venv/bin/python scripts/build_site.py
+.venv/bin/python scripts/check_site.py
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q
 ```
+
+Historical experimental commands remain in source for audit, but `run_nhr.py holdout`,
+`run_nhr.py final`, and `build_nhr_submission.py` now refuse a terminal lane before
+loading bulk data or changing evidence. Reproduction of frozen outputs is not permission
+to restart a stopped scientific lane. Any future runner must separate surface generation,
+completed uniqueness clearance, and placement; the archived runner's sequencing is not a template.
+
+## Latest repository review — session `2203b2cc` (2026-10-22)
+
+- Fixed a clean-install test/Pages blocker: `scikit-image` was imported by the merged
+  G79B tests but absent from both dependency manifests. It and its dependencies are now pinned.
+- Added terminal-lane guards and regression tests; no new experiment, copied submission,
+  uniqueness exemption, slot selection or competition upload occurred.
+- Removed the website metadata's unsupported “validated, unique” assertion and corrected
+  the H33 explanation: a known-fault pixel mask does not make the surrounding collar pure FP.
+- The existing TIFF remains downloadable and format-valid, **not protocol-unique**.
+  No file meeting all submission gates was generated this session.
+- Review and next-session blockers: [three-pass report](reports/session_review_2203b2cc.md).
+
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
