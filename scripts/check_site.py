@@ -25,8 +25,8 @@ def check_site():
         assert document.find('a')['href'] == target and target in pages
     assert set(pages) == {
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
-        'sources.html', 'history.html', 'irregularities.html', 'g79-cjx.html',
-    }, 'Expected the eight project pages (canonical seven + G79-CJX lane page)'
+        'sources.html', 'history.html', 'irregularities.html', 'g79-cjxdir.html',
+    }, 'Expected the eight project pages (canonical seven + G79-CJX-DIR lane page)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():

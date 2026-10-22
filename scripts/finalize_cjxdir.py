@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Finalize G79-CJX: re-derive every preregistered gate from receipts on disk,
-write run_card_cjx.json and the archive README (the site page is rendered by
+"""Finalize G79-CJX-DIR: re-derive every preregistered gate from receipts on disk,
+write run_card_cjxdir.json and the archive README (the site page is rendered by
 scripts/build_site.py from the same card).
-No number is hand-typed here; all values flow from evidence/cjx/*.json and a
+No number is hand-typed here; all values flow from evidence/cjxdir/*.json and a
 fresh local format validation of the written TIFF bytes.
 """
 from __future__ import annotations
@@ -18,8 +18,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
 from validate_submission import validate_path  # noqa: E402
 
-EV = ROOT / "evidence" / "cjx"
-ARCHIVE = ROOT / "archive" / "g79_cjx"
+EV = ROOT / "evidence" / "cjxdir"
+ARCHIVE = ROOT / "archive" / "g79_cjxdir"
 THVC_BEST = {"seed20": 0.1905, "seed30": 0.1944}  # canonical run_card.json, same evaluator
 
 
@@ -28,10 +28,10 @@ def load(p: Path):
 
 
 def main():
-    if (ROOT / "run_card_cjx.json").exists():
-        sys.stderr.write("run_card_cjx.json already exists; lane is closed. No files changed.\n")
+    if (ROOT / "run_card_cjxdir.json").exists():
+        sys.stderr.write("run_card_cjxdir.json already exists; lane is closed. No files changed.\n")
         return 2
-    prereg = load(ROOT / "registry" / "preregistration_cjx.json")
+    prereg = load(ROOT / "registry" / "preregistration_cjxdir.json")
     holdout = load(EV / "holdout_results.json")
     final = load(EV / "final_receipt.json")
     uniq = load(EV / "uniqueness_restored_subset.json")
@@ -110,11 +110,11 @@ def main():
 
     card = {
         "schema_version": 2,
-        "lane": "G79-CJX",
+        "lane": "G79-CJX-DIR",
         "generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        "preregistration_path": "registry/preregistration_cjx.json",
+        "preregistration_path": "registry/preregistration_cjxdir.json",
         "preregistration_sha256": hashlib.sha256(
-            (ROOT / "registry" / "preregistration_cjx.json").read_bytes()).hexdigest(),
+            (ROOT / "registry" / "preregistration_cjxdir.json").read_bytes()).hexdigest(),
         "hypothesis": prereg["hypothesis"],
         "mechanism": prereg["mechanism"],
         "named_non_fault_mimic": prereg["named_non_fault_mimic"],
@@ -127,12 +127,12 @@ def main():
             "ci95": per_seed["seed20"]["candidate_CJXFULL_20K"]["ci95"],
             "withheld_positive_pixels": per_seed["seed20"]["candidate_CJXFULL_20K"]["withheld_positive_pixels"],
             "per_seed": per_seed,
-            "source_pointer": "evidence/cjx/holdout_results.json",
+            "source_pointer": "evidence/cjxdir/holdout_results.json",
         },
         "phase_randomized_null_diagnostic": {
             "evidence_class": "HOLDOUT-DTI diagnostic (falsification null, not a candidate)",
             "per_seed": phase_per_seed,
-            "source_pointer": "evidence/cjx/phase_null.json",
+            "source_pointer": "evidence/cjxdir/phase_null.json",
         },
         "leakage_canary": {
             "features_tested": feats["features"],
@@ -148,10 +148,10 @@ def main():
             "reading_ii_dotfield_like_for_like": uniq["reading_ii_dotfield_like_for_like"],
             "reading_iii_d2_chance_corrected": uniq["reading_iii_d2_chance_corrected"],
             "shared_tool_cross_check": uniq["shared_tool_cross_check"],
-            "source_pointer": "evidence/cjx/uniqueness_restored_subset.json",
+            "source_pointer": "evidence/cjxdir/uniqueness_restored_subset.json",
         },
-        "submission_file": f"archive/g79_cjx/{final['submission_name']}.tif",
-        "zip_file": f"archive/g79_cjx/{final['submission_name']}.zip",
+        "submission_file": f"archive/g79_cjxdir/{final['submission_name']}.tif",
+        "zip_file": f"archive/g79_cjxdir/{final['submission_name']}.zip",
         "raster_sha256": actual_sha,
         "zip_sha256": final["zip_sha256"],
         "bytes": final["bytes"],
@@ -166,7 +166,7 @@ def main():
                        "finite and in [0,1] (binary 0/1, zeros outside the footprint); no positive "
                        "pixel on the mapped catalogue. Local format PASS is portal-format evidence "
                        "only, never scientific or selector approval.",
-            "detail_pointer": "evidence/cjx/final_receipt.json + archive/g79_cjx/*.json writer receipt",
+            "detail_pointer": "evidence/cjxdir/final_receipt.json + archive/g79_cjxdir/*.json writer receipt",
         },
         "gates": gates,
         "blockers": blockers,
@@ -174,7 +174,7 @@ def main():
         "ok_to_download": True,
         "ok_to_submit": False,
         "ok_to_submit_note": (
-            "This lane never selects itself (protocol rule 6). select_submission.py has no G79-CJX "
+            "This lane never selects itself (protocol rule 6). select_submission.py has no G79-CJX-DIR "
             "evidence adapter and the literal novelty gate fails, so ok_to_submit stays false "
             "regardless of the verdict field. Manual upload is not an exception."
         ),
@@ -184,18 +184,18 @@ def main():
         "organizer_confirmed_note": "No submission was made; there is no ORGANIZER-CONFIRMED score for this artifact. Any number above is HOLDOUT-DTI only.",
     }
     text = json.dumps(card, indent=2, allow_nan=False) + "\n"
-    (ROOT / "run_card_cjx.json").write_text(text)
-    shutil.copyfile(ROOT / "run_card_cjx.json", ROOT / "docs" / "evidence" / "run_card_cjx.json")
-    for src, dst in (("holdout_results.json", "cjx_holdout_results.json"),
-                     ("uniqueness_restored_subset.json", "cjx_uniqueness_restored_subset.json"),
-                     ("phase_null.json", "cjx_phase_null.json"),
-                     ("final_receipt.json", "cjx_final_receipt.json"),
-                     ("feature_receipt.json", "cjx_feature_receipt.json")):
+    (ROOT / "run_card_cjxdir.json").write_text(text)
+    shutil.copyfile(ROOT / "run_card_cjxdir.json", ROOT / "docs" / "evidence" / "run_card_cjxdir.json")
+    for src, dst in (("holdout_results.json", "cjxdir_holdout_results.json"),
+                     ("uniqueness_restored_subset.json", "cjxdir_uniqueness_restored_subset.json"),
+                     ("phase_null.json", "cjxdir_phase_null.json"),
+                     ("final_receipt.json", "cjxdir_final_receipt.json"),
+                     ("feature_receipt.json", "cjxdir_feature_receipt.json")):
         shutil.copyfile(EV / src, ROOT / "docs" / "evidence" / dst)
 
     # ---- archive README ----
     s20, s30 = per_seed["seed20"], per_seed["seed30"]
-    readme = f"""# G79-CJX — archived lane (verdict: {card['verdict']})
+    readme = f"""# G79-CJX-DIR — archived lane (verdict: {card['verdict']})
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** Research artifact only; the lane is
 closed (3/3 preregistered arms exhausted). Do not restart, retune or re-place.
@@ -213,11 +213,11 @@ seed 30 = {s30['candidate_CJXFULL_20K']['dti']:.4f} {s30['candidate_CJXFULL_20K'
 (n = {s30['candidate_CJXFULL_20K']['withheld_positive_pixels']}).
 Canonical G79-THVC same-evaluator point estimates: {THVC_BEST['seed20']} / {THVC_BEST['seed30']}.
 
-Full receipts: `evidence/cjx/` and `run_card_cjx.json` at the repo root.
+Full receipts: `evidence/cjxdir/` and `run_card_cjxdir.json` at the repo root.
 """
     (ARCHIVE / "README.md").write_text(readme)
 
-    # The public page (docs/g79-cjx.html) is rendered by scripts/build_site.py
+    # The public page (docs/g79-cjxdir.html) is rendered by scripts/build_site.py
     # from this same run card, so CI reproduces it byte-consistently; this
     # finalizer deliberately does not maintain a second renderer.
     print(json.dumps({"verdict": card["verdict"], "blockers": blockers,

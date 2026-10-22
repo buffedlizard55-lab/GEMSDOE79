@@ -1,8 +1,12 @@
-"""G79-CJX: cross-scale potential-field contact-junction statistic.
+"""G79-CJX-DIR: cross-scale potential-field contact-junction statistic.
 
-Preregistered in registry/preregistration_cjx.json (2026-10-22T15:36:01Z),
+Registered 2026-10-22 as "G79-CJX"; renamed at merge time because a parallel
+session merged a different lane with the same backlog nickname first
+(measured non-duplicate: evidence/cjxdir/collision_measurement.json).
+
+Preregistered in registry/preregistration_cjxdir.json (2026-10-22T15:36:01Z),
 implementing research/hypotheses_e4a4422d.md priority 1.  Pure array
-functions only; the experiment driver is scripts/run_cjx.py.  No catalogue
+functions only; the experiment driver is scripts/run_cjxdir.py.  No catalogue
 information is used anywhere in this module.
 """
 from __future__ import annotations

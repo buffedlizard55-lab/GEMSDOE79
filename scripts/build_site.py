@@ -90,7 +90,7 @@ def shell(title, content, card):
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjx.html">G79-CJX (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 
 
 def decision_box(card):
@@ -191,13 +191,13 @@ def holdout_table(summary):
 
 def novelty_explanation(summary, preflight):
     sparse = summary['dots']['sparse_diagnostic']
-    return f'''<section class="section"><div class="proof"><div><p class="eyebrow">WHY THE CANONICAL REVIEW GENERATED NO NEW TIFF — AND WHY THE LATER G79-CJX TIFF IS STILL BLOCKED</p><h2>The literal novelty gate<br>blocks every nonempty candidate.</h2><div class="proof-stat">{100 * preflight['covered_allowed_fraction']:.0f}% <small>of allowed cells covered</small></div></div><div><p>A SHA-256-pinned registry witness was independently restored and remeasured in this review. Its positive-support halo covers every allowed cell. Every nonempty candidate therefore exceeds the {preflight['limit']:.0%} overlap limit, regardless of geology.</p><div class="formula">halo coverage = {100 * preflight["covered_allowed_fraction"]:.0f}% of allowed cells ⇒ 1.0000 forward overlap ⇒ STOP</div><p style="margin-top:18px">Partial halo coverage above 70% alone does not prove every map fails. This witness is stronger: it covers every allowed cell. No cosmetic pixel change, copied file, new filename or sparse-prior exclusion repairs that failure. The current artifact remains blocked for manual as well as automated submission. A prospective shared protocol decision is needed before a new lane, not a post-hoc exception for this candidate.</p><p>The {sparse['compared']} prior maps with ≤ {sparse['maximum_prior_dot_count']:,} dots have maximum overlap {sparse['max_forward_overlap_3px']:.4f} in the frozen scan. This subset is <strong>diagnostic only, not a passed novelty gate</strong>; later sibling evidence also found an above-limit sparse collision. Neither scan covers private organizer submissions.</p><a href="evidence/preflight_e4a4422d.json">This review's preflight ↗</a> · <a href="evidence/post_index_sibling_audit_20261022.json">Later sibling audit ↗</a> · <a href="evidence/g79_dot_uniqueness_1108.json">Frozen full scan ↗</a></div></div></section>'''
+    return f'''<section class="section"><div class="proof"><div><p class="eyebrow">WHY THE CANONICAL REVIEW GENERATED NO NEW TIFF — AND WHY THE LATER G79-CJX-DIR TIFF IS STILL BLOCKED</p><h2>The literal novelty gate<br>blocks every nonempty candidate.</h2><div class="proof-stat">{100 * preflight['covered_allowed_fraction']:.0f}% <small>of allowed cells covered</small></div></div><div><p>A SHA-256-pinned registry witness was independently restored and remeasured in this review. Its positive-support halo covers every allowed cell. Every nonempty candidate therefore exceeds the {preflight['limit']:.0%} overlap limit, regardless of geology.</p><div class="formula">halo coverage = {100 * preflight["covered_allowed_fraction"]:.0f}% of allowed cells ⇒ 1.0000 forward overlap ⇒ STOP</div><p style="margin-top:18px">Partial halo coverage above 70% alone does not prove every map fails. This witness is stronger: it covers every allowed cell. No cosmetic pixel change, copied file, new filename or sparse-prior exclusion repairs that failure. The current artifact remains blocked for manual as well as automated submission. A prospective shared protocol decision is needed before a new lane, not a post-hoc exception for this candidate.</p><p>The {sparse['compared']} prior maps with ≤ {sparse['maximum_prior_dot_count']:,} dots have maximum overlap {sparse['max_forward_overlap_3px']:.4f} in the frozen scan. This subset is <strong>diagnostic only, not a passed novelty gate</strong>; later sibling evidence also found an above-limit sparse collision. Neither scan covers private organizer submissions.</p><a href="evidence/preflight_e4a4422d.json">This review's preflight ↗</a> · <a href="evidence/post_index_sibling_audit_20261022.json">Later sibling audit ↗</a> · <a href="evidence/g79_dot_uniqueness_1108.json">Frozen full scan ↗</a></div></div></section>'''
 
 
 def home(card, summary, preflight, h33):
     dots = card['positive_pixels']
     c = summary['canaries']
-    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>No new unique TIFF was produced in that review; a later preregistered lane, <a href="g79-cjx.html">G79-CJX</a>, generated one, falsified it on the holdout, and archived it as research-only.</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div>
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>No new unique TIFF was produced in that review; a later preregistered lane, <a href="g79-cjxdir.html">G79-CJX-DIR</a>, generated one, falsified it on the holdout, and archived it as research-only.</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div>
 <figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
 <div class="metric-grid">{metric('Local format', 'PASS', 'Finite [0, 1] · matching sample grid')}{metric('Full novelty', 'BLOCKED', f"{summary['dots']['max_forward_overlap_3px']:.4f} overlap; limit 0.70", stop=True)}{metric('Feature canaries', f"{c['feature_seed_tests']} tests", f"{c['feature_count']} features × 2 seeds; max AUC {c['max_symmetric_auc']:.5f}")}{metric('This review', '0 experiments', '0 new placements · 0 slots spent')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / CLEAR PERMISSION BOUNDARIES</p><h2>Downloadable does not mean submittable.</h2></div><p>Automated local verification binds the card to the exact bytes. Scientific gates, organizer acceptance and weekly slot capacity are separate checks.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
@@ -252,14 +252,14 @@ def history_page():
     return f'''<section class="page-head"><p class="eyebrow">HISTORICAL REPORTS / NOT RECEIPTS</p><h1>The family results, with caveats.</h1><p class="lead">{len(rows)} inherited filename-to-score reports. They are a research starting point, not organizer-confirmed artifact scores or independent experiments.</p></section><div class="notice">No submission-page receipt authenticates these file/score pairings. Similar scores can reflect shared surfaces and copied dot sets. This table does not rank new hypotheses or select a slot.</div><input class="search" id="history-search" type="search" placeholder="Filter by repository or submission name" aria-label="Filter historical reports"><div class="table-scroll"><table><thead><tr><th>Repository</th><th>Reported submission</th><th>Reported public DTI</th><th>Evidence class</th></tr></thead><tbody>{table}</tbody></table></div><p class="footnote"><a href="evidence/score_ledger.csv">Download the complete labelled CSV ↗</a> · <a href="analysis.html">What the actual H33 raster bytes show ↗</a></p>'''
 
 
-def cjx_page():
-    """G79-CJX page rendered only from run_card_cjx.json (2026-10-22 lane).
+def cjxdir_page():
+    """G79-CJX-DIR page rendered only from run_card_cjxdir.json (2026-10-22 lane).
 
     The canonical card above remains authoritative for the inherited THVC
     artifact; this page documents a separate, later, preregistered lane whose
     new TIFF was falsified on the holdout and archived research-only.
     """
-    c = load_json(ROOT / 'run_card_cjx.json')
+    c = load_json(ROOT / 'run_card_cjxdir.json')
     per = c['holdout_dti']['per_seed']
     phase = c['phase_randomized_null_diagnostic']['per_seed']
     reg2 = c['registry_correlation_overlap']['reading_ii_dotfield_like_for_like']
@@ -275,7 +275,7 @@ def cjx_page():
     raw_tif = f"{REPO}/raw/main/{c['submission_file']}"
     raw_zip = f"{REPO}/raw/main/{c['zip_file']}"
     yn = lambda v: 'PASS' if v is True else 'FAIL'
-    return f'''{page_head('G79-CJX / NEW UNIQUE TIFF / NEGATIVE', 'A new map. Falsified before any slot.',
+    return f'''{page_head('G79-CJX-DIR / NEW UNIQUE TIFF / NEGATIVE', 'A new map. Falsified before any slot.',
                            'A later preregistered, catalogue-free lane generated a genuinely new GeoTIFF, machine-validated it, and rejected it on the holdout. Download for research; do not submit.')}
 <section class="section"><div class="download-warning"><strong>{E(c['decision_line'])}</strong><br>
 Computed automatically from the run-card gates below; no human inspector is involved. Local format passes every
@@ -312,9 +312,9 @@ pre-placement surface reaches {reg2['worst_surface_forward_overlap']['value']:.4
 <li>Literal novelty gate: <strong>BLOCKED for every nonempty candidate</strong> — {E(g['literal_novelty_note'])}</li></ul>
 <p><strong>Verdict: {E(c['verdict'])}.</strong> Slots used by this lane: {c['submission_slots_used']}.
 No ORGANIZER-CONFIRMED score exists for this artifact.</p>
-<p><a href="evidence/run_card_cjx.json">Run card ↗</a> · <a href="evidence/cjx_holdout_results.json">Holdout receipts ↗</a> ·
-<a href="evidence/cjx_uniqueness_restored_subset.json">Novelty audit ↗</a> · <a href="evidence/cjx_phase_null.json">Phase-null diagnostic ↗</a> ·
-<a href="evidence/preregistration_cjx.json">Preregistration ↗</a> · <a href="index.html">Canonical G79-THVC decision ↗</a></p></section>'''
+<p><a href="evidence/run_card_cjxdir.json">Run card ↗</a> · <a href="evidence/cjxdir_holdout_results.json">Holdout receipts ↗</a> ·
+<a href="evidence/cjxdir_uniqueness_restored_subset.json">Novelty audit ↗</a> · <a href="evidence/cjxdir_phase_null.json">Phase-null diagnostic ↗</a> ·
+<a href="evidence/preregistration_cjxdir.json">Preregistration ↗</a> · <a href="index.html">Canonical G79-THVC decision ↗</a></p></section>'''
 
 
 def main():
@@ -433,13 +433,13 @@ def main():
               'evidence/dilstep/uniqueness_surface.json': 'dilstep_uniqueness_surface.json',
               'evidence/dilstep/e1_gates.json': 'dilstep_gates.json',
               'registry/preregistration_h79_dilstep.json': 'preregistration_h79_dilstep.json',
-              'registry/preregistration_cjx.json': 'preregistration_cjx.json',
-              'run_card_cjx.json': 'run_card_cjx.json',
-              'evidence/cjx/holdout_results.json': 'cjx_holdout_results.json',
-              'evidence/cjx/uniqueness_restored_subset.json': 'cjx_uniqueness_restored_subset.json',
-              'evidence/cjx/phase_null.json': 'cjx_phase_null.json',
-              'evidence/cjx/final_receipt.json': 'cjx_final_receipt.json',
-              'evidence/cjx/feature_receipt.json': 'cjx_feature_receipt.json',
+              'registry/preregistration_cjxdir.json': 'preregistration_cjxdir.json',
+              'run_card_cjxdir.json': 'run_card_cjxdir.json',
+              'evidence/cjxdir/holdout_results.json': 'cjxdir_holdout_results.json',
+              'evidence/cjxdir/uniqueness_restored_subset.json': 'cjxdir_uniqueness_restored_subset.json',
+              'evidence/cjxdir/phase_null.json': 'cjxdir_phase_null.json',
+              'evidence/cjxdir/final_receipt.json': 'cjxdir_final_receipt.json',
+              'evidence/cjxdir/feature_receipt.json': 'cjxdir_feature_receipt.json',
               'registry/preregistration_g79_thvc.json': 'preregistration_g79_thvc.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json', 'evidence_summary.json'}
@@ -482,7 +482,7 @@ def main():
         'irregularities.html': ('Irregularities & stop reasons',
                                 page_head('OWN THE OUTCOME', 'Failures are part of the record.')
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),
-        'g79-cjx.html': ('G79-CJX — new unique research GeoTIFF (do not submit)', cjx_page()),
+        'g79-cjxdir.html': ('G79-CJX-DIR — new unique research GeoTIFF (do not submit)', cjxdir_page()),
     }
     for filename, (title, content) in pages.items():
         (SITE / filename).write_text(shell(title, content, card))

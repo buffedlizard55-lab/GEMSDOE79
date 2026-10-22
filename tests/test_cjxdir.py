@@ -1,8 +1,8 @@
-"""G79-CJX unit tests: synthetic geometry only, no geological scores."""
+"""G79-CJX-DIR unit tests: synthetic geometry only, no geological scores."""
 import numpy as np
 import pytest
 
-from gems79.cjx import fill_invalid, geomean2, junction_at_scale, percentile_rank
+from gems79.cjxdir import fill_invalid, geomean2, junction_at_scale, percentile_rank
 
 
 def test_percentile_rank_bounds_and_ties():

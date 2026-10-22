@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "lane": "G79-CJX",
+  "lane": "G79-CJX-DIR",
   "generated_utc": "2026-10-22T15:59:19Z",
-  "preregistration_path": "registry/preregistration_cjx.json",
+  "preregistration_path": "registry/preregistration_cjxdir.json",
   "preregistration_sha256": "d4abffa890698f977d7dae7f39393b844508cf637f0b75647f5e7cd43b91da38",
   "hypothesis": "Buried fault intersections, terminations and stepovers that are missing from the USGS/INGENIOUS catalogue still juxtapose rocks of different density and magnetic susceptibility. At such a junction, potential-field edge directors are multi-modal (several strikes meet) persistently across smoothing scales in BOTH reduced-to-pole magnetics and isostatic gravity, whereas a single straight lithologic contact is uni-modal and a flat basin has no edge energy. A catalogue-free surface that requires persistent, edge-weighted director dispersion in both fields therefore targets unmapped structural junctions rather than continuations of mapped traces.",
   "mechanism": "For each of band 2 (rtp) and band 13 (iso_grav_anom): median-fill invalid cells inside the footprint, Gaussian-smooth at sigma in {1,2,4} px, compute gradients, edge magnitude m and along-strike director theta. In a sigma=2 px Gaussian neighbourhood compute coherence C = |<m*exp(2i*theta)>| / <m>; junction statistic J = rank(<m>) * (1 - C). Per-field persistence = min over the three scales of the footprint percentile rank of J. EXP1 surface CJXJ = sqrt(rank_rtp_persistent * rank_grav_persistent). EXP2 (candidate) CJXFULL = CJXJ * sqrt(rank(<m_rtp>) * rank(<m_grav>)) at base scale sigma=2, requiring signed-contrast edge energy in both fields. EXP3 = CJXFULL placed at the H33-matched 37654-dot budget (sensitivity arm only; never the candidate). No catalogue-derived feature is used anywhere, so every fold surface is identical to the full-data surface by construction (fold-fair); the catalogue enters only through the fixed exclusion rule (no dot within 2 px) and through holdout masking.",
@@ -226,7 +226,7 @@
         "canary_worst_feature": "edge_grav_s2"
       }
     },
-    "source_pointer": "evidence/cjx/holdout_results.json"
+    "source_pointer": "evidence/cjxdir/holdout_results.json"
   },
   "phase_randomized_null_diagnostic": {
     "evidence_class": "HOLDOUT-DTI diagnostic (falsification null, not a candidate)",
@@ -308,7 +308,7 @@
         }
       }
     },
-    "source_pointer": "evidence/cjx/phase_null.json"
+    "source_pointer": "evidence/cjxdir/phase_null.json"
   },
   "leakage_canary": {
     "features_tested": [
@@ -382,10 +382,10 @@
       "in_loop_edt_h33": 0.2503,
       "agree_abs_tol_1e-9": true
     },
-    "source_pointer": "evidence/cjx/uniqueness_restored_subset.json"
+    "source_pointer": "evidence/cjxdir/uniqueness_restored_subset.json"
   },
-  "submission_file": "archive/g79_cjx/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.tif",
-  "zip_file": "archive/g79_cjx/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.zip",
+  "submission_file": "archive/g79_cjxdir/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.tif",
+  "zip_file": "archive/g79_cjxdir/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.zip",
   "raster_sha256": "5bdebaafc7c15bd6f9de6092398c86618986d19d4d06075acf92386948563e47",
   "zip_sha256": "64eea65a8913c27cd266080f0519d631e0f5bf44283de00831b38a882e9f1435",
   "bytes": 96603,
@@ -397,7 +397,7 @@
     "format_passed": true,
     "does_not_approve_submission": true,
     "summary": "Single-band float32 GeoTIFF; CRS/shape/transform match the sample; all values finite and in [0,1] (binary 0/1, zeros outside the footprint); no positive pixel on the mapped catalogue. Local format PASS is portal-format evidence only, never scientific or selector approval.",
-    "detail_pointer": "evidence/cjx/final_receipt.json + archive/g79_cjx/*.json writer receipt"
+    "detail_pointer": "evidence/cjxdir/final_receipt.json + archive/g79_cjxdir/*.json writer receipt"
   },
   "gates": {
     "canaries_all_le_0_90_both_seeds": true,
@@ -422,5 +422,13 @@
   "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
   "submission_slots_used": 0,
   "organizer_confirmed_score": null,
-  "organizer_confirmed_note": "No submission was made; there is no ORGANIZER-CONFIRMED score for this artifact. Any number above is HOLDOUT-DTI only."
+  "organizer_confirmed_note": "No submission was made; there is no ORGANIZER-CONFIRMED score for this artifact. Any number above is HOLDOUT-DTI only.",
+  "merge_addendum": {
+    "reason": "Parallel session merged a different lane also nicknamed G79-CJX (PR #102) while this branch was in flight.",
+    "action": "This lane renamed G79-CJX -> G79-CJX-DIR at merge; preregistration bytes unchanged (file moved only); generated evidence bytes unchanged (directory moved only); TIF/ZIP bytes and filenames unchanged (directory moved only).",
+    "original_card_sha256": "25e7cdd8c3a01f65ad85feac9ef5d8994d2d575664e059f9477f1a8e3c23ce4c",
+    "original_card_preserved_at": "evidence/cjxdir/run_card_as_generated_20261022.json",
+    "collision_measurement": "evidence/cjxdir/collision_measurement.json",
+    "duplicate_under_protocol_rule_1": false
+  }
 }

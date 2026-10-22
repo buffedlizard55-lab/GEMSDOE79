@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""G79-CJX preregistered experiment driver (registry/preregistration_cjx.json).
+"""G79-CJX-DIR preregistered experiment driver (registry/preregistration_cjxdir.json).
 
 Stages: features -> holdout -> final.  Shared tools only:
 gems57.holdout.buffered_component_draw, gems57.evaluate_holdout,
@@ -26,12 +26,12 @@ from gems57 import evaluate_holdout as ev  # noqa: E402
 from gems57.grid import load_grid  # noqa: E402
 from gems57.holdout import buffered_component_draw  # noqa: E402
 from gems57.submission_writer import write_submission  # noqa: E402
-from gems79.cjx import SIGMAS, fill_invalid, geomean2, junction_at_scale, percentile_rank  # noqa: E402
+from gems79.cjxdir import SIGMAS, fill_invalid, geomean2, junction_at_scale, percentile_rank  # noqa: E402
 from gems79.placement import place  # noqa: E402
 
 RAW = ROOT / "data" / "raw"
-CACHE = ROOT / ".cache" / "cjx"
-OUT = ROOT / "evidence" / "cjx"
+CACHE = ROOT / ".cache" / "cjxdir"
+OUT = ROOT / "evidence" / "cjxdir"
 BUDGET = 20_000
 BUDGET_SENSITIVITY = 37_654
 SPACING = 3
@@ -208,25 +208,28 @@ def stage_final():
     log("placement", info)
     prediction = dots.astype(np.float32)
     cfg = hashlib.sha256(
-        (ROOT / "registry" / "preregistration_cjx.json").read_bytes()
+        (ROOT / "registry" / "preregistration_cjxdir.json").read_bytes()
         + hashlib.sha256((CACHE / "CJXFULL.npy").read_bytes()).digest()
     ).hexdigest()[:10]
     stamp = time.strftime("%Y%m%dT%H%M%SZ", time.gmtime())
     name = f"gems79-cjx-junction-20000dots-{stamp}-{cfg}-zeros"
+    # Literals below reproduce the archived artifact exactly as generated on
+    # 2026-10-22, when this lane was still named G79-CJX (renamed G79-CJX-DIR at
+    # merge; see evidence/cjxdir/collision_measurement.json). Do not "fix" them.
     note = "GEMSDOE79 G79-CJX: RTP x gravity persistent director junctions, catalogue-free, 20k dots s3"
     assert len(name) <= 140 and len(note) <= 140, (len(name), len(note))
-    outdir = ROOT / "archive" / "g79_cjx"
+    outdir = ROOT / "archive" / "g79_cjxdir"
     outdir.mkdir(parents=True, exist_ok=True)
     receipt = write_submission(
         outdir / f"{name}.tif", prediction, RAW / "sample_submission.tif", fp,
         note=note, name=name, catalogue=cat,
         metadata={"lane": "G79-CJX", "placement": info, "config_hash10": cfg,
-                  "preregistration": "registry/preregistration_cjx.json"},
+                  "preregistration": "registry/preregistration_cjxdir.json"},
     )
     np.save(CACHE / "final_dots.npy", dots)
     (OUT / "final_receipt.json").write_text(json.dumps(
         {"submission_name": name, "note": note, "note_chars": len(note),
-         "writer_receipt_file": f"archive/g79_cjx/{name}.json",
+         "writer_receipt_file": f"archive/g79_cjxdir/{name}.json",
          "raster_sha256": receipt["sha256"], "zip_sha256": receipt["zip_sha256"],
          "bytes": receipt["bytes"], "placement": info}, indent=2) + "\n")
     log("final written", name, receipt["sha256"])
@@ -253,13 +256,13 @@ def _guard_open() -> None:
     run_card.json (G79-THVC, untouched by this lane), so a non-canonical lane
     needs its own equivalent check against its own preregistration/card.
     """
-    prereg = ROOT / "registry" / "preregistration_cjx.json"
+    prereg = ROOT / "registry" / "preregistration_cjxdir.json"
     if not prereg.is_file():
-        sys.stderr.write("G79-CJX: preregistration missing; no files changed\n")
+        sys.stderr.write("G79-CJX-DIR: preregistration missing; no files changed\n")
         raise SystemExit(2)
-    if (ROOT / "run_card_cjx.json").exists():
+    if (ROOT / "run_card_cjxdir.json").exists():
         sys.stderr.write(
-            "G79-CJX is closed (run_card_cjx.json exists; 3/3 preregistered arms "
+            "G79-CJX-DIR is closed (run_card_cjxdir.json exists; 3/3 preregistered arms "
             "exhausted). Do not restart, retune, or repackage it. No files changed.\n"
         )
         raise SystemExit(2)

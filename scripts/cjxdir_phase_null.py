@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""G79-CJX preregistered falsification diagnostic: phase-randomized null.
+"""G79-CJX-DIR preregistered falsification diagnostic: phase-randomized null.
 
 Rebuild a single-scale (sigma=2) junction surface from power-spectrum-matched
 phase-randomized RTP/gravity fields.  Junctions are a phase-alignment
@@ -24,12 +24,12 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 from gems57 import evaluate_holdout as ev  # noqa: E402
 from gems57.grid import load_grid  # noqa: E402
 from gems57.holdout import buffered_component_draw  # noqa: E402
-from gems79.cjx import fill_invalid, geomean2, junction_at_scale, percentile_rank, phase_randomized  # noqa: E402
+from gems79.cjxdir import fill_invalid, geomean2, junction_at_scale, percentile_rank, phase_randomized  # noqa: E402
 from gems79.placement import place  # noqa: E402
 
 RAW = ROOT / "data" / "raw"
-CACHE = ROOT / ".cache" / "cjx"
-OUT = ROOT / "evidence" / "cjx"
+CACHE = ROOT / ".cache" / "cjxdir"
+OUT = ROOT / "evidence" / "cjxdir"
 BUDGET = 20_000
 
 
@@ -92,7 +92,7 @@ def main():
     }
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "phase_null.json").write_text(json.dumps(payload, indent=2) + "\n")
-    log("written evidence/cjx/phase_null.json")
+    log("written evidence/cjxdir/phase_null.json")
 
 
 if __name__ == "__main__":

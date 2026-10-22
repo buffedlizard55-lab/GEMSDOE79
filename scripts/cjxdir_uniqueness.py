@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""G79-CJX novelty audit vs every candidate raster whose bytes are in this
+"""G79-CJX-DIR novelty audit vs every candidate raster whose bytes are in this
 repo, plus H33 and D2.8 restored from their pinned GEMSDOE68 registry paths.
 
-Three readings, reported separately (registry/preregistration_cjx.json):
+Three readings, reported separately (registry/preregistration_cjxdir.json):
 (i) literal positive-support overlap (inherited definition);
 (ii) dot-field like-for-like forward overlap and |Spearman|;
 (iii) shared amendment D-2 chance-corrected overlap (vendor/gems57/uniqueness.py).
@@ -27,8 +27,8 @@ from gems57.grid import load_grid  # noqa: E402
 from gems57.uniqueness import chance_corrected_overlap, dot_overlap, representation_class  # noqa: E402
 
 RAW = ROOT / "data" / "raw"
-CACHE = ROOT / ".cache" / "cjx"
-OUT = ROOT / "evidence" / "cjx"
+CACHE = ROOT / ".cache" / "cjxdir"
+OUT = ROOT / "evidence" / "cjxdir"
 EXCLUDE_NAMES = {"existing_faults.tif", "labels.tif", "sample_submission.tif"}
 
 
@@ -78,7 +78,7 @@ def main():
             candidates += sorted(base.rglob("*.tif"))
     # Never compare the candidate against itself: exclude this lane's own
     # artifact directory (a self-comparison would report a meaningless 1.0).
-    own_dir = (ROOT / "archive" / "g79_cjx").resolve()
+    own_dir = (ROOT / "archive" / "g79_cjxdir").resolve()
     candidates = [p for p in candidates if own_dir not in p.resolve().parents]
     rows, seen = [], {}
     for path in candidates:
@@ -109,7 +109,7 @@ def main():
         del arr, finite, theirs, their_sample
         rel = str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else path.name
         rows.append({
-            "path": ".cache/cjx/registry/" + path.name if "cjx/registry" in rel else rel,
+            "path": ".cache/cjxdir/registry/" + path.name if "cjxdir/registry" in rel else rel,
             "sha256": digest,
             "their_dots": their_dots,
             "representation": rep["kind"],

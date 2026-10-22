@@ -1,4 +1,4 @@
-# Session review — G79-CJX (2026-10-22, branch arena/d36b74f0-gemsdoe79)
+# Session review — G79-CJX-DIR (2026-10-22, branch arena/d36b74f0-gemsdoe79)
 
 ## What was asked vs what was delivered
 
@@ -20,7 +20,7 @@ Delivered:
   non-finite or out-of-range array before writing (no silent clipping). Which earlier
   file the user uploaded is unknown, so no stronger diagnosis is claimed.
 - Automated decision, no human step: **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
-  (`run_card_cjx.json` gates). Three independent blockers: candidate does not beat
+  (`run_card_cjxdir.json` gates). Three independent blockers: candidate does not beat
   controls, does not beat the current holdout best, literal novelty fails.
   Format PASS ≠ approval; the lane never selects itself (protocol rule 6) and
   `select_submission.py` has no CJX adapter, so `ok_to_submit` stays false.
@@ -59,7 +59,7 @@ witness covers 100% of allowed cells). D-2 chance-corrected worst = 0.4651 on th
 ## Three passes
 
 **Pass 1 — implement & verify.** Preregistration frozen before any holdout
-(`registry/preregistration_cjx.json`, SHA in card). Restored pinned inputs
+(`registry/preregistration_cjxdir.json`, SHA in card). Restored pinned inputs
 (`training_features` 4371c82e…, labels/sample hashes match manifest). Features →
 holdout → final TIF → novelty → phase-null → run card → site page. Unit tests
 (`tests/test_cjx.py`, synthetic crossing vs straight edge) pass.
@@ -67,9 +67,9 @@ holdout → final TIF → novelty → phase-null → run card → site page. Uni
 **Pass 2 — bug/assumption review (fixes applied).**
 1. `enforce_open_lane` guards the *canonical* card; using it for a non-canonical
    lane would have dead-locked the runner — replaced with a lane-local equivalent
-   that fails closed once `run_card_cjx.json` exists (verified: re-run exits 2).
+   that fails closed once `run_card_cjxdir.json` exists (verified: re-run exits 2).
 2. First novelty scan compared the candidate against **itself** (its own TIF lives
-   under `archive/`) giving a spurious 1.0 — excluded `archive/g79_cjx/` and re-ran;
+   under `archive/`) giving a spurious 1.0 — excluded `archive/g79_cjxdir/` and re-ran;
    all published novelty numbers are from the corrected scan.
 3. HTML template typo (`meta` tag missing `<`) fixed before generation.
 4. Writer output files were mode 0600 — chmod 0644 (bytes/hash unchanged).
@@ -77,15 +77,15 @@ holdout → final TIF → novelty → phase-null → run card → site page. Uni
    draws (11,321/11,342); H33/D2.8 restored hashes equal the pinned remeasurement;
    vendor `dot_overlap` vs in-loop EDT agree to <1e-9; surfaces finite, rank range
    (0,1], zero outside footprint-band-valid cells (3,061 invalid in-footprint cells
-   per band median-filled, recorded in `evidence/cjx/feature_receipt.json`).
+   per band median-filled, recorded in `evidence/cjxdir/feature_receipt.json`).
 
 **Pass 3 — requirements re-check & quality.** Canonical `run_card.json`, registry
 index/receipt, score ledger, shared `vendor/` code and the THVC artifact are
-byte-untouched; CJX lives in `archive/g79_cjx/` + `run_card_cjx.json` +
-`evidence/cjx/` per sibling-lane precedent, because the publication contract
+byte-untouched; CJX lives in `archive/g79_cjxdir/` + `run_card_cjxdir.json` +
+`evidence/cjxdir/` per sibling-lane precedent, because the publication contract
 allows only canonical artifacts under `docs/downloads/`. README gains a clearly
 labelled CJX section (canonical decision line untouched, contradicted nowhere);
-`docs/g79-cjx.html` is receipt-generated (no hand-typed numbers) with the
+`docs/g79-cjxdir.html` is receipt-generated (no hand-typed numbers) with the
 download/decision box at the top; AGENTS.md and IR-79-172 record the closed lane.
 Every label distinguishes HOLDOUT-DTI from (absent) ORGANIZER-CONFIRMED scores.
 
@@ -107,3 +107,21 @@ Every label distinguishes HOLDOUT-DTI from (absent) ORGANIZER-CONFIRMED scores.
    USGS DOI 10.5066/P9BZPVUC binaries outside this sandbox's egress allowlist.
 5. Leaderboard figures in the prompt (0.2778 / 0.3195 / 0.4413) remain unverified
    historical reports / public observations, not artifact-linked receipts.
+
+## Merge-time addendum: parallel-lane name collision (not a duplicate)
+
+At PR time, `main` already contained a different lane also nicknamed G79-CJX
+(parallel session, PR #102: tip-steered mag+grav coincidence, 37,654 dots,
+`artifacts/cjx/...6a9bf2a2...tif`, sha256 `a422d9a0...`, also verdict negative).
+Protocol rule 1 measurement of this lane against that raster
+(`evidence/cjxdir/collision_measurement.json`): final-dot forward 3-px overlap
+0.3474 (reverse 0.2139), surface top-20k 0.4456, exact shared dots 665 (3.3%),
+Spearman ρ = 0.0657 (surface) / 0.0242 (dots) — all inside the 0.70 / 0.90
+limits, so this is **not** a duplicate lane; it is a namespace collision between
+two distinct implementations of the same backlog nickname. Because theirs
+merged first, this lane is renamed **G79-CJX-DIR**; preregistration and
+generated-evidence bytes are unchanged (files moved only), the TIF/ZIP bytes
+and filenames are unchanged, and the original run card is preserved at
+`evidence/cjxdir/run_card_as_generated_20261022.json`. The irregularity entry
+for this session is renumbered at merge to the first free ID on the merged
+main. Nothing about the scientific verdict changes.

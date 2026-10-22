@@ -1,13 +1,17 @@
-# Candidate hypotheses after G79-CJX (2026-10-22, this session)
+# Candidate hypotheses after G79-CJX-DIR (2026-10-22, this session)
+
+> Naming note: this lane was registered as G79-CJX and renamed G79-CJX-DIR at merge
+> after a parallel session merged a different, also-negative G79-CJX implementation
+> first (measured non-duplicate; `evidence/cjxdir/collision_measurement.json`).
 
 Scope rule (unchanged): every number below is **HOLDOUT-DTI**
 (`gems57-pooled-hide-v2`, buffered whole-component hide-and-recover, seeds
 20/30, n = 11,321 / 11,342 withheld positives) or a **registry measurement**;
 none is a leaderboard score or a projection of one. Novelty statements are
 relative to executable code in this repo and the 25-raster restored subset in
-`evidence/cjx/uniqueness_restored_subset.json`, not a full-registry census.
+`evidence/cjxdir/uniqueness_restored_subset.json`, not a full-registry census.
 
-## Tested this session: G79-CJX — NEGATIVE, lane closed
+## Tested this session: G79-CJX-DIR — NEGATIVE, lane closed
 
 **Layers:** cached `training_features.tif` band 2 (`rtp`) and band 13
 (`iso_grav_anom`) only. **Signature:** persistent (σ = 1/2/4 px) edge-weighted
@@ -28,7 +32,7 @@ seed 20 and nearly on seed 30). Interpretation: in this stack, multi-strike
 potential-field junctions are dominated by the named mimics (pluton/caldera
 contacts, survey seams) and withheld catalogue strands are predominantly
 single-strike, where junction-ness is low by construction. **Do not retune,
-re-place or restart this lane** (`run_card_cjx.json`, IR-79-172).
+re-place or restart this lane** (`run_card_cjxdir.json`, IR-79-172).
 
 ## Remaining ranked candidates (not run; each needs its own preregistration and a protocol decision on the literal novelty gate first)
 
