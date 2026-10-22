@@ -1,0 +1,65 @@
+{
+  "lane": "G79-SWER",
+  "training_features_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "feature_names": [
+    "log_deq",
+    "log_ieq",
+    "swarm_excess",
+    "mag_edge_rank",
+    "grav_edge_rank",
+    "edge_coherence",
+    "transtension",
+    "cover",
+    "candidate"
+  ],
+  "band_descriptions": {
+    "tmi_hg": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+    "geod_shearrate": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+    "geod_dilaterate": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+    "deq_n100a15": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+    "depth_to_base_surf": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+    "ieq_n100a15": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+    "iso_grav_anom_hg": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change"
+  },
+  "valid_pixels": 5164312,
+  "footprint_pixels": 5167373,
+  "invalid_inside_footprint": 3061,
+  "candidate_positive_pixels": 345492,
+  "candidate_max_before_rescale": 0.7602616548538208,
+  "p10_p90": {
+    "log_deq": [
+      5.346154689788818,
+      8.314179992675786
+    ],
+    "log_ieq": [
+      5.897518873214722,
+      7.7293671607971195
+    ],
+    "swarm_excess": [
+      -0.8859699249267577,
+      0.9709172248840332
+    ],
+    "mag_edge_rank": [
+      1.2799843788146974,
+      4.163940811157227
+    ],
+    "grav_edge_rank": [
+      0.1894105091691017,
+      1.469637441635132
+    ],
+    "positive_shear": [
+      0.0,
+      24.299999237060547
+    ],
+    "positive_dilatation": [
+      0.0,
+      14.0
+    ],
+    "cover": [
+      2.8243571996688845,
+      7.1548676013946535
+    ]
+  },
+  "formula": "swarm^1.5*(.20+.80*edge_coherence)*(.35+.65*transtension)*(.40+.60*cover)",
+  "support": "valid & swarm>=.60 & edge_coherence>=.35"
+}

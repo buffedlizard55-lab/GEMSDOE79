@@ -1,10 +1,27 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
-## Download and automated decision
+## Latest generated TIFF: G79-SWER — automatic decision
+
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO — DO NOT SUBMIT.**
+>
+> **A new, byte-distinct GeoTIFF was generated in this session; it is not a copied or renamed prior submission.** It passes every automatic local format/range/grid check, but it is scientifically negative and fails the unchanged literal novelty rule. No human inspection is required to make that decision, no weekly slot was selected, and no organizer receipt exists.
+
+**[Download the new G79-SWER research GeoTIFF](artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.tif)** · **[ZIP containing exactly that TIFF](artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.zip)** · **[Automatic decision page](docs/swer-submission.html)** · **[One JSON run card](run_card_swer.json)** · **[Five ranked hypotheses](research/hypotheses_778c4a96.md)** · **[Three-pass review](reports/session_review_778c4a96.md)**
+
+- **TIFF identity:** 1,515,441 bytes; SHA-256 `e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa`; 340,574 positive pixels; mode `0644`.
+- **Submission identity (records only):** `g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT`; note (102/140): `G79-SWER: swarm-excess x coherent mag-gravity ridge x transtension/cover; fixed surface; research only`.
+- **Automatic format validation: PASS.** Single float32 band, EPSG:32611, 3730 × 3292, exact sample transform, all 12,279,160 cells finite, 0 NaN/Inf/sentinels, range `[0,1]`, zero outside the footprint and on mapped catalogue pixels. Format PASS is not organizer acceptance.
+- **Every-feature leakage canaries: PASS.** 9 features × 4 folds × 2 seeds = 72 tests; maximum symmetric AUC `0.5879 / 0.6118 ≤ 0.90`.
+- **HOLDOUT-DTI (`gems57-pooled-hide-v2`): FAIL.** Seed 20: `0.0117 [0.0075,0.0170]`, `n=11,321`; seed 30: `0.0113 [0.0077,0.0148]`, `n=11,342`. It loses to the equal-support uniform control (`0.0606 / 0.0610`) and G79-THVC (`0.1905 / 0.1944`).
+- **Literal registry gate: FAIL / mandatory stop.** Witness absolute Spearman `0.0262 ≤ 0.90`, but forward 3-pixel overlap `1.0000 > 0.70`. The file is byte-new but not protocol-unique. The preflight had already proved this result for every nonempty map; running the fixed lane to satisfy the separate urgent file requirement is disclosed as a protocol irregularity, never presented as clearance.
+- **Post-run implementation review: additional defect.** Positives are `2.91×` enriched in an 8-pixel interior-sentinel halo and `2.24×` along the footprint edge because invalid cells were zeroed before structure-tensor gradients. This strengthens the negative verdict; the closed lane was not repaired or retuned.
+- **H33 comparison:** no improvement is demonstrated. H33's `0.2778` remains an unverified historical report without an artifact-linked organizer receipt; `0.4413` is a public leaderboard observation, not this file's score. G79-SWER has no organizer-confirmed score or projection.
+
+## Canonical inherited G79-THVC download and automated decision
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
+> **This is the inherited G79-THVC research artifact, not the latest generated TIFF.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. The current G79-SWER artifact above is separate and also negative. This work spent **zero competition slots**.
 
 **[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_0d90d81b.md)** · **[Five untried hypotheses](research/hypotheses_0d90d81b.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 

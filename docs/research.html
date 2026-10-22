@@ -5,8 +5,90 @@
 <title>Deferred geological hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">HYPOTHESES / PREREGISTERED LANES</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Source-grounded ideas, qualitative ranking, executed preregistered lanes and explicit data gates.</p></section><section class="section"><div class="prose table-scroll"><h2>Five Untried Subsurface, Hydrothermal &amp; Split-Sensor Geological Hypotheses — Lane <code>G79-DFSD</code> (<code>arena/d7da950d-gemsdoe79</code>, Preregistered <code>2026-10-22</code>)</h2>
+<nav aria-label="Main navigation"><a href="swer-submission.html">Latest TIFF</a><a href="index.html#download">Canonical</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">HYPOTHESES / PREREGISTERED LANES</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Source-grounded ideas, qualitative ranking, executed preregistered lanes and explicit data gates.</p></section><section class="section"><div class="prose table-scroll"><h2>Prospective hypotheses — session <code>778c4a96</code> (2026-10-22)</h2>
+<h3>Evidence boundary and ranking policy</h3>
+<p>These are <strong>prospective fault-detection hypotheses</strong>, not geothermal-resource discoveries and not leaderboard-score projections. “Expected improvement” below is qualitative geological/engineering judgment only. Any number produced by the experiment must be labelled <code>HOLDOUT-DTI</code> with evaluator/version, withheld-positive count and 95% CI; only a submission-page receipt can be <code>ORGANIZER-CONFIRMED</code>.</p>
+<p>The official/source-grounded inputs and limitations are recorded in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json"><code>knowledge/official_sources.json</code></a>, especially:</p>
+<ul>
+<li><a href="https://gdr.openei.org/submissions/1391">DOE GDR / INGENIOUS submission 1391</a>, DOI <code>10.15121/1881483</code> (seismicity and regional geothermal compilation; CC BY 4.0);</li>
+<li><a href="https://doi.org/10.5066/P93LGLVQ">USGS GeoDAWN Area 2 release</a> (magnetic/radiometric survey; CC0 1.0);</li>
+<li><a href="https://doi.org/10.5066/P9Z6SA1Z">USGS regional Great Basin geophysics</a> (gravity, magnetics and depth to basement);</li>
+<li><a href="https://doi.org/10.5066/P9BCVRCK">USGS Quaternary Fault and Fold Database</a> (surface-deformation compilation; simplified trace geometry);</li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description</a> and <a href="https://github.com/drivendataorg/gems-prize-reference-solution">official reference solution</a>.</li>
+</ul>
+<p>Local competition inputs are owner-mirrored and SHA-256 pinned in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/data_manifest.json"><code>registry/data_manifest.json</code></a>; the hashes prove mirror consistency, <strong>not organizer authentication</strong>. A code/history search at base commit <code>1c85356b6b5a1da96c1a16bc1b25fef0acbf6704</code> found the individual raw bands in earlier ensembles but no implemented operator matching any complete transform below. Earlier backlog proposals do not count as implementations.</p>
+<h3>Ranked candidates</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Rank</th>
+<th>ID</th>
+<th>Specific layers</th>
+<th>Physical signature / transform</th>
+<th>Why it may recover a catalogue-missing fault</th>
+<th>Difference from implemented repo lanes</th>
+<th>Named non-fault mimic</th>
+<th>Expected improvement / cost / availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>1</strong></td>
+<td><strong>G79-SWER — swarm-excess structural ridge</strong></td>
+<td><code>training_features.tif</code>: B10 <code>deq_n100a15</code>, B16 <code>ieq_n100a15</code>, B3 <code>tmi_hg</code>, B18 <code>iso_grav_anom_hg</code>, B7 <code>geod_shearrate</code>, B8 <code>geod_dilaterate</code>, B15 <code>depth_to_base_surf</code></td>
+<td>Sentinel-safe log dependent/independent-earthquake contrast, multiplied by magnetic–gravity edge concordance and structure-tensor line coherence; positive shear/dilatation and thick cover are soft gates</td>
+<td>Blind intrabasin transfer/accommodation strands can organize clustered seismicity and offset basement markers while remaining buried beneath alluvium and therefore absent from a surface-deformation catalogue</td>
+<td>THVC/DFSD/CSMD ingest B10/B16 as separate learner inputs; no implemented lane constructs the preregistered log-ratio × coherent dual-edge × strain × cover operator. It is not CONJ’s catalogue-derived cross-strike offset geometry or FSC’s visible-fault fabric steering</td>
+<td>Mine blasts, geothermal injection/production seismicity, and aftershock halos; isotropic clusters are down-weighted unless a coherent gravity/magnetic ridge is present</td>
+<td><strong>Highest qualitative chance per CPU-minute; low cost; all bytes locally obtainable from the pinned stack</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>2</strong></td>
+<td><strong>G79-PGDC — pseudogravity demagnetization contrast</strong></td>
+<td>B2 <code>rtp</code>, B13 <code>iso_grav_anom</code>, B18 <code>iso_grav_anom_hg</code>, B8 <code>geod_dilaterate</code>, B15 <code>depth_to_base_surf</code></td>
+<td>Fourier-domain vertical integration of RTP to a tapered pseudogravity field; detect coherent observed-gravity edges with anomalously weak pseudogravity response</td>
+<td>Hydrothermal oxidation can destroy magnetite along a permeable fault while a density/basement step remains, so coincidence-only magnetic+gravity methods can miss the conduit</td>
+<td>No implemented source file computes a Baranov/Poisson pseudogravity residual; prior lanes use RTP continuation, derivatives, lags, or direct gravity–magnetic concurrence</td>
+<td>Non-magnetic carbonate/quartzite contact, deep pluton boundary, or locked thrust; filter with positive extension and basin cover</td>
+<td><strong>Moderate qualitative improvement; low–moderate FFT cost; pinned inputs available</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>3</strong></td>
+<td><strong>G79-UGTH — up-gradient silica-geothermometer backtrace</strong></td>
+<td><code>external/gdr_wellspring_in_footprint.csv</code> (<code>temp_c</code>, quartz/chalcedony geothermometers), B12 <code>det_elev</code>, B18 <code>iso_grav_anom_hg</code>, B17 <code>cond_surf</code></td>
+<td>Route high geothermometer-minus-measured-temperature mass up the smoothed topographic gradient until it intersects a basement/gravity hinge instead of centering an isotropic spring halo</td>
+<td>A cooled spring can sit kilometres down-gradient from a buried feeder fault, so backtracing targets the missing conduit rather than the mapped sample point</td>
+<td>THVC uses isotropic thermal/geochemistry kernels; no implemented lane solves the directional up-gradient intersection operator</td>
+<td>Silica released by volcanic-glass dissolution in a cold aquifer; require measured warmth or an independent thermal/paleogeothermal indicator</td>
+<td><strong>Moderate precision but sparse coverage; moderate implementation cost; pinned CSV and bands available</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>4</strong></td>
+<td><strong>G79-SRBR — strain-resolved bedrock reactivation</strong></td>
+<td><code>external/derived_sgmc_faults_100m_u8.tif</code>, B4 <code>geod_2ndinv</code>, B7 <code>geod_shearrate</code>, B8 <code>geod_dilaterate</code>, B19 <code>det_elev_slope</code></td>
+<td>Structure-tensor azimuth of off-catalogue SGMC traces, weighted by compatibility with modern extensional/transtensional strain and subtle topographic expression</td>
+<td>A pre-Quaternary mapped bedrock structure can be reactivated beneath young cover without qualifying for the Quaternary surface-deformation catalogue</td>
+<td>Existing SGMC uses are orientation-blind or generic learner channels; no implemented lane applies the closed resolved-reactivation operator</td>
+<td>Bedding contact, dike wall or inactive thrust with favorable strike by chance; reject without strain/topographic corroboration</td>
+<td><strong>Moderate/uncertain improvement; low cost; pinned raster available</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>5</strong></td>
+<td><strong>G79-VFA — volcanic-fissure alignment</strong></td>
+<td><code>external/gdr_volcanic_vents_in_footprint.csv</code>, B2 <code>rtp</code>, B3 <code>tmi_hg</code>, B8 <code>geod_dilaterate</code></td>
+<td>Collinear 2–3 vent chains bridged only where a narrow magnetic dike/edge ridge persists in a favorable extensional direction</td>
+<td>Young lava can bury its feeder fracture immediately, leaving aligned vents and a magnetic dike but no persistent scarp</td>
+<td>THVC uses an isotropic 3 km vent proximity; no implemented lane builds straight multi-vent segments with a magnetic-ridge continuity test</td>
+<td>Channelized lava-flow margins or chance vent alignments; require straightness and continuous magnetic support</td>
+<td><strong>Localized, low–moderate opportunity; very low cost; pinned inputs available</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>Selected lane</h3>
+<p><strong>G79-SWER ranks first</strong> because it is fully data-ready, catalogue-free, cheap enough for both prescribed holdout seeds, and tests a physical interaction not represented by merely passing the two seismicity fields separately to a tree model. The exact method is frozen in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_g79_swer.json"><code>registry/preregistration_g79_swer.json</code></a> before any SWER canary, holdout score, thresholded prediction, or TIFF is computed.</p>
+<h3>Mandatory feasibility warning</h3>
+<p>The literal registry rule is already mathematically obstructed. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/preflight_778c4a96.json"><code>evidence/preflight_778c4a96.json</code></a> re-verifies a registry raster (SHA-256 <code>ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be</code>) whose positive support covers <strong>100% of allowed cells</strong>. Therefore every nonempty SWER prediction has literal 3-pixel forward overlap <code>1.0 &gt; 0.70</code>. This fact is not relaxed or hidden: even a byte-new, format-valid TIFF must be labelled <strong>DO NOT SUBMIT</strong> under the user’s unchanged literal gate, and no competition slot may be used. The negative result remains a deliverable.</p></div></section><section class="section"><div class="prose table-scroll"><h2>Five Untried Subsurface, Hydrothermal &amp; Split-Sensor Geological Hypotheses — Lane <code>G79-DFSD</code> (<code>arena/d7da950d-gemsdoe79</code>, Preregistered <code>2026-10-22</code>)</h2>
 <blockquote>
 <p><strong>Governance, Preregistration &amp; Evidence Discipline (<code>AGENTS.md</code> Rules #1–#6):</strong>
 - <strong>Preregistered BEFORE any experiment, holdout evaluation, or dot placement:</strong> Locked in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_g79_dfsd.json"><code>registry/preregistration_g79_dfsd.json</code></a> (<code>SHA-256</code> pinned in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/preregistration_g79_dfsd_sha256.txt"><code>evidence/preregistration_g79_dfsd_sha256.txt</code></a>).

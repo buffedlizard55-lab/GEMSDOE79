@@ -380,6 +380,141 @@ def evidence_checks(root, card):
     return out
 
 
+def swer_evidence_checks(root):
+    """Bind the latest G79-SWER negative artifact to every frozen receipt.
+
+    G79-SWER is intentionally not the canonical selectable artifact.  These
+    checks prove download integrity and the automatic NO decision; they never
+    promote it or reinterpret the literal overlap gate.
+    """
+    root = Path(root)
+    card = strict_loads_bytes((root / 'run_card_swer.json').read_bytes())
+    prereg = root / card['preregistration_path']
+    prereg_lock = (root / 'evidence/preregistration_g79_swer_sha256.txt').read_text().strip()
+    tif = root / card['submission_file']
+    zip_path = root / card['zip_file']
+    receipt_path = root / card['receipt_file']
+    receipt = strict_loads_bytes(receipt_path.read_bytes())
+    hold = {
+        seed: strict_loads_bytes((root / f'evidence/swer/holdout_seed{seed}.json').read_bytes())
+        for seed in (20, 30)
+    }
+    canary = {
+        seed: strict_loads_bytes((root / f'evidence/swer/canary_seed{seed}.json').read_bytes())
+        for seed in (20, 30)
+    }
+    novelty = strict_loads_bytes((root / 'evidence/swer/novelty_stop.json').read_bytes())
+    boundary = strict_loads_bytes((root / 'evidence/swer/boundary_diagnostic.json').read_bytes())
+    preflight = strict_loads_bytes((root / 'evidence/preflight_778c4a96.json').read_bytes())
+    reopened = validate_path(tif)
+    registry = strict_loads_bytes((root / 'registry/registry_receipt.json').read_bytes())
+
+    with zipfile.ZipFile(zip_path) as archive:
+        zip_ok = (
+            archive.namelist() == [tif.name]
+            and archive.testzip() is None
+            and archive.read(tif.name) == tif.read_bytes()
+        )
+
+    per_seed_ok = True
+    canary_ok = True
+    for seed in (20, 30):
+        source = hold[seed]
+        score = source['scores']['candidate']
+        bound = card['holdout_dti']['per_seed'][f'seed_{seed}']
+        per_seed_ok &= (
+            source['evidence_class'] == 'HOLDOUT-DTI'
+            and source['evaluator_version'] == card['holdout_dti']['evaluator_version']
+            and bound['dti'] == score['dti']
+            and bound['ci95'] == score['ci95']
+            and bound['withheld_positive_pixels'] == score['withheld_positive_pixels']
+            and bound['beats_incumbent_point_estimate'] is False
+        )
+        summary = card['leakage_canary']['per_seed'][f'seed_{seed}']
+        canary_ok &= (
+            canary[seed]['passed'] is True
+            and canary[seed]['n_suspicious'] == 0
+            and canary[seed]['max_symmetric_auc'] <= 0.90
+            and summary['max_symmetric_auc'] == canary[seed]['max_symmetric_auc']
+            and summary['max_feature'] == canary[seed]['max_feature']
+            and summary['tests'] == canary[seed]['tests'] == 36
+        )
+
+    actual_sha = sha(tif)
+    return {
+        'swer_preregistration_hash_locked': (
+            sha(prereg) == prereg_lock == card['preregistration_sha256']),
+        'swer_scientific_implementation_bound': (
+            sha(root / card['scientific_implementation']['transform_path']) ==
+                card['scientific_implementation']['transform_sha256']
+            and card['scientific_implementation']['git_commit_at_run'] ==
+                '6f290a0e2d531b508290b4923f34914c6838a82e'
+            and card['scientific_implementation']['writer_sha256_at_generation'] ==
+                next(row['previous_sha256'] for row in strict_loads_bytes(
+                    (root / 'registry/template_pin.json').read_bytes())['files']
+                     if row['path'] == 'vendor/gems57/submission_writer.py')),
+        'swer_raster_receipt_card_hash_agree': (
+            actual_sha == card['raster_sha256'] == receipt['sha256']),
+        'swer_tiff_reopens_format_valid': (
+            reopened['format_passed'] is True
+            and reopened['validator']['emitted_positive_pixels'] == card['positive_pixels']
+            and reopened['validator']['checks']['zero_dots_on_mapped_catalogue'] is True),
+        'swer_complete_validator_bound_to_card': (
+            card['validator_output']['shared_validator'] == receipt['validator']
+            and card['validator_output']['template_report'] == receipt['template_report']
+            and receipt['validator']['all_checks_passed'] is True
+            and all(receipt['validator']['checks'].values())),
+        'swer_zip_exactly_identical_tiff': zip_ok and sha(zip_path) == receipt['zip_sha256'],
+        'swer_name_note_and_permissions_valid': (
+            0 < len(card['submission_name']) <= 140
+            and 0 < len(card['submission_note']) <= 140
+            and card['submission_name'] == receipt['submission_name'] == tif.stem
+            and card['submission_note'] == receipt['note']
+            and all((path.stat().st_mode & 0o777) == 0o644
+                    for path in (tif, zip_path, receipt_path))),
+        'swer_holdout_card_matches_shared_evaluator': bool(per_seed_ok),
+        'swer_all_feature_canaries_clear_and_bound': bool(canary_ok),
+        'swer_boundary_bug_diagnostic_bound_and_negative': (
+            boundary['candidate_sha256'] == actual_sha
+            and boundary['rows']['invalid_8px_halo']['enrichment_vs_all_allowed'] ==
+                card['post_run_implementation_diagnostic']['invalid_8px_halo_enrichment']
+            and boundary['rows']['footprint_inner_8px_edge']['enrichment_vs_all_allowed'] ==
+                card['post_run_implementation_diagnostic']['footprint_inner_8px_edge_enrichment']
+            and boundary['rows']['invalid_8px_halo']['enrichment_vs_all_allowed'] > 1.0
+            and boundary['scientific_experiments_performed'] == 0
+            and 'Strengthens negative verdict' in card['post_run_implementation_diagnostic']['decision_effect']),
+        'swer_literal_duplicate_stop_bound': (
+            novelty == card['correlation_overlap_vs_registry']['final_prediction_support']
+            and novelty == card['correlation_overlap_vs_registry']['surface_before_any_placement']
+            and novelty['forward_overlap_3px'] == 1.0 > novelty['overlap_limit']
+            and novelty['duplicate'] is True and novelty['stop_required'] is True
+            and card['protocol_unique'] is False),
+        'swer_bytes_distinct_but_not_protocol_unique': (
+            actual_sha not in {row.get('sha256') for row in registry['files']}
+            and card['byte_distinct_from_registry_index'] is True
+            and card['protocol_unique'] is False),
+        'swer_negative_decision_and_zero_slots': (
+            card['verdict'] == 'negative'
+            and card['ok_to_download'] is True and card['ok_to_submit'] is False
+            and card['approved_for_weekly_slot'] is False
+            and card['submission_slots_used'] == 0
+            and card['organizer_confirmed_score'] is None),
+        'swer_preflight_protocol_conflict_disclosed': (
+            preflight['start_new_lane'] is False
+            and preflight['state'] == 'impossible_under_literal_gate'
+            and preflight['exit_code'] == 2
+            and preflight['covered_allowed_fraction'] == 1.0
+            and isinstance(card.get('protocol_irregularity'), str)
+            and bool(card['protocol_irregularity'].strip())
+            and card['preregistration_ordering_authority'] == {
+                'git_commit': '5b590a8bb51827489ebf72130c74be63c3121447',
+                'git_commit_utc': '2026-10-22T19:11:46Z',
+                'registered_utc_field_authoritative': False,
+                'note': 'The JSON timestamp was hand-entered; the immutable pre-result Git commit proves ordering.',
+            }),
+    }
+
+
 def witness_report_checks(root):
     """Bind the displayed literal-gate proof to the pinned original witness.
 
@@ -475,6 +610,7 @@ def verify(refresh_timestamp: bool = False):
     registry = json.loads((ROOT / 'registry/registry_receipt.json').read_text())
     checks['new_bytes_not_copied_from_registry'] = actual_sha not in {r.get('sha256') for r in registry['files']}
     checks.update(evidence_checks(ROOT, card))
+    checks.update(swer_evidence_checks(ROOT))
     state = json.loads((ROOT / 'evidence/experiment_state.json').read_text())
     checks['e1_scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
                                              state['final_dot_placements_performed'] == 0)

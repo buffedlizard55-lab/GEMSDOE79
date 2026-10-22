@@ -1,0 +1,31 @@
+{
+  "evidence_class": "POST-RUN IMPLEMENTATION DIAGNOSTIC, NOT HOLDOUT-DTI",
+  "purpose": "Check whether zeroing invalid cells before structure-tensor gradients enriched the fixed candidate at invalid/footprint boundaries.",
+  "candidate_sha256": "e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa",
+  "interior_invalid_pixels": 3061,
+  "radius_px": 8,
+  "rows": {
+    "invalid_8px_halo": {
+      "pixels": 41651,
+      "positive_pixels": 8072,
+      "positive_fraction": 0.19380086912679167,
+      "fraction_of_all_positive": 0.023701163330142643,
+      "enrichment_vs_all_allowed": 2.905746918719609
+    },
+    "footprint_inner_8px_edge": {
+      "pixels": 99936,
+      "positive_pixels": 14900,
+      "positive_fraction": 0.14909542106948448,
+      "fraction_of_all_positive": 0.04374966967531285,
+      "enrichment_vs_all_allowed": 2.235457262497723
+    },
+    "all_allowed": {
+      "pixels": 5106385,
+      "positive_pixels": 340574,
+      "positive_fraction": 0.06669571526627938,
+      "fraction_of_all_positive": 1.0
+    }
+  },
+  "scientific_experiments_performed": 0,
+  "submission_slots_used": 0
+}

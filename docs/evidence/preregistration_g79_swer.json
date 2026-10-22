@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "lane": "G79-SWER",
+  "title": "Sentinel-safe earthquake swarm-excess structural ridge under transtension and basin cover",
+  "branch": "arena/778c4a96-gemsdoe79",
+  "registered_utc": "2026-10-22T19:10:25Z",
+  "registered_before_any_swer_result": true,
+  "hypotheses_doc": "research/hypotheses_778c4a96.md",
+  "method_paragraph": "From the SHA-256-pinned 19-band competition feature stack, mask every non-finite or <= -1e30 sentinel before transforming Band 10 deq_n100a15, Band 16 ieq_n100a15, Band 3 tmi_hg, Band 18 iso_grav_anom_hg, Band 7 geod_shearrate, Band 8 geod_dilaterate and Band 15 depth_to_base_surf. Compute a label-free swarm-excess rank from log1p(deq)-log1p(ieq); magnetic and gravity edge ranks; a structure-tensor coherence of their geometric-mean edge field; a positive transtension rank from positive shear times positive dilatation; and a log-depth-to-basement cover rank. The fixed candidate is swarm_excess^1.5 * (0.20+0.80*edge_coherence) * (0.35+0.65*transtension) * (0.40+0.60*cover), with support restricted prospectively to swarm_excess >= 0.60 and edge_coherence >= 0.35, then rescaled to [0,1]. It uses no fault catalogue, registry raster or hidden label as an input. Evaluate this fixed surface without fitted weights on buffered whole-component holds (seeds 20 and 30), masking visible catalogue pixels exactly, using the shared pooled 300 m DTI evaluator. The competition-format live TIFF is the same fixed thresholded continuous surface with mapped catalogue pixels zeroed; there is no adaptive dot placement or holdout-selected hyperparameter.",
+  "hypothesis": "Catalogue-missing blind intrabasin transfer and accommodation faults are enriched where dependent earthquake swarm excess is spatially organized into a coherent magnetic-gravity structural ridge under positive transtension and thick basin cover.",
+  "mechanism": "Active permeable fracture meshes can concentrate clustered seismicity while displacing magnetic/density boundaries; burial suppresses a Quaternary surface scarp, and extensional/transtensional strain helps distinguish an active structure from an inherited contact.",
+  "named_non_fault_process": "Open-pit mine blasts, geothermal injection or production-induced seismicity, and mainshock aftershock halos can elevate the seismic contrast; lithologic contacts and survey artifacts can provide an unrelated edge.",
+  "why_missing_from_catalogue": "The USGS Quaternary compilation is based on evidence of Quaternary surface deformation and simplifies trace geometry. Buried intrabasin strands under thick alluvium can lack a persistent surface rupture while retaining subsurface and seismic expressions.",
+  "difference_from_implemented_repo": "THVC, COV, CSMD and DFSD include deq_n100a15 and ieq_n100a15 as separate raw learner channels. No implemented source constructs this closed log-ratio x dual-edge-coherence x transtension x cover operator. It uses no CONJ cross-strike catalogue geometry and no FSC visible-fault fabric field.",
+  "inputs": {
+    "training_features": {
+      "path": "data/raw/training_features.tif",
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "bands": {
+        "tmi_hg": 3,
+        "geod_shearrate": 7,
+        "geod_dilaterate": 8,
+        "deq_n100a15": 10,
+        "depth_to_base_surf": 15,
+        "ieq_n100a15": 16,
+        "iso_grav_anom_hg": 18
+      }
+    },
+    "existing_faults_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "sample_submission_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "new_external_data": "none"
+  },
+  "fixed_transforms": {
+    "valid": "footprint & isfinite(all seven bands) & all seven bands > -1e30",
+    "q": "clip((x-P10_valid)/(P90_valid-P10_valid),0,1); constant -> 0",
+    "swarm_excess": "q(log1p(max(deq,0))-log1p(max(ieq,0)))",
+    "edge": "sqrt(q(log1p(abs(tmi_hg)))*q(log1p(abs(iso_grav_anom_hg))))",
+    "edge_coherence": "edge * C, where C=sqrt((Jxx-Jyy)^2+4*Jxy^2)/(Jxx+Jyy+1e-6), gradients of Gaussian(edge,sigma=1.5), tensor Gaussian sigma=4",
+    "transtension": "sqrt(q(max(geod_shearrate,0))*q(max(geod_dilaterate,0)))",
+    "cover": "q(log1p(max(depth_to_base_surf,0)))",
+    "candidate": "swarm_excess^1.5*(0.20+0.80*edge_coherence)*(0.35+0.65*transtension)*(0.40+0.60*cover)",
+    "support": "valid & swarm_excess>=0.60 & edge_coherence>=0.35",
+    "output": "candidate/support linearly rescaled by its valid maximum to [0,1]; zero elsewhere, outside footprint and on visible/full mapped catalogue as appropriate"
+  },
+  "experiments": [
+    {
+      "id": "EXP-SWER-1",
+      "purpose": "Leakage canaries for every base/derived feature alone on both holdout seeds; symmetric ROC AUC > 0.90 blocks score trust."
+    },
+    {
+      "id": "EXP-SWER-2",
+      "purpose": "One fixed primary candidate evaluated on both seeds with preregistered swarm-only, edge-only and deterministic uniform controls; no arm is selected after seeing holdout."
+    }
+  ],
+  "holdout": {
+    "evaluator": "gems57-pooled-hide-v2",
+    "seeds": [20, 30],
+    "buffer_px": 3,
+    "boundary_px": 12,
+    "metric": "pooled DTI alpha=0.2 beta=0.8, 300 m triangular kernel",
+    "ci": "1000-draw paired physical 20 km spatial-block percentile bootstrap",
+    "incumbent_bar": {
+      "seed_20": 0.1905226265456631,
+      "seed_30": 0.194393256940719,
+      "evidence_class": "HOLDOUT-DTI",
+      "source": "run_card.json G79-THVC"
+    }
+  },
+  "leakage_canary": {
+    "metric": "max(ROC_AUC,1-ROC_AUC)",
+    "limit": 0.9,
+    "features": [
+      "log_deq",
+      "log_ieq",
+      "swarm_excess",
+      "mag_edge_rank",
+      "grav_edge_rank",
+      "edge_coherence",
+      "transtension",
+      "cover",
+      "candidate"
+    ]
+  },
+  "literal_novelty": {
+    "limits": {
+      "max_abs_spearman": 0.9,
+      "max_forward_overlap_3px": 0.7
+    },
+    "preflight": "evidence/preflight_778c4a96.json",
+    "known_result_before_lane": "impossible_under_literal_gate: pinned registry witness covers every allowed cell, so every nonempty candidate overlaps 1.0",
+    "policy": "Do not reinterpret or silently exempt the witness. Any generated research TIFF is automatically negative/DO-NOT-SUBMIT and uses zero weekly slots."
+  },
+  "budget": {
+    "max_experiments": 3,
+    "planned_experiments": 2,
+    "max_hours": 2,
+    "submission_slots": 0
+  },
+  "score_policy": "No leaderboard projection. HOLDOUT-DTI is labelled with evaluator, withheld n and CI. ORGANIZER-CONFIRMED requires a submission-page receipt.",
+  "artifact_policy": "The urgent unique-file requirement is satisfied only as a format-valid negative research artifact. It cannot be promoted under the unchanged literal overlap rule."
+}

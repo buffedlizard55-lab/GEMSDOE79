@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "lane": "G79-SWER",
+  "reviewed_date_utc": "2026-10-22",
+  "review_mode": "Line-by-line reuse of the repository's existing official-source ledger; no fresh live-domain fetch was possible in this restricted execution environment.",
+  "claims": [
+    {
+      "claim": "The competition task scores discovery of fault pixels absent from the public catalogue, with alpha 0.2, beta 0.8 and a 300 m triangular kernel.",
+      "source_id": "DD-PROBLEM-REVIEW",
+      "authority": "DrivenData competition organizers",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "status": "VERIFIED_IN_EXISTING_SOURCE_LEDGER",
+      "ledger": "knowledge/review_e4a4422d_sources.json"
+    },
+    {
+      "claim": "The INGENIOUS regional compilation lists seismicity, magnetics, gravity, geodetics and depth-to-basement inputs and states public CC BY 4.0 access.",
+      "source_id": "GDR-1391-REVIEW",
+      "authority": "DOE Geothermal Data Repository / INGENIOUS",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "doi": "10.15121/1881483",
+      "status": "VERIFIED_IN_EXISTING_SOURCE_LEDGER",
+      "ledger": "knowledge/review_e4a4422d_sources.json"
+    },
+    {
+      "claim": "USGS describes the Quaternary Fault and Fold Database as compiling geological evidence of coseismic surface deformation and notes simplified trace geometry.",
+      "source_id": "USGS-QFAULTS-REVIEW",
+      "authority": "USGS Earthquake Hazards Program",
+      "url": "https://www.usgs.gov/programs/earthquake-hazards/faults",
+      "doi": "10.5066/P9BCVRCK",
+      "status": "VERIFIED_IN_EXISTING_SOURCE_LEDGER",
+      "ledger": "knowledge/review_e4a4422d_sources.json"
+    },
+    {
+      "claim": "Airborne magnetic data support subsurface geologic interpretation; nominal line spacing and terrain-clearance limitations constrain apparent 100 m detail.",
+      "source_id": "USGS-GEODAWN-REVIEW",
+      "authority": "U.S. Geological Survey",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "status": "VERIFIED_IN_EXISTING_SOURCE_LEDGER",
+      "ledger": "knowledge/review_e4a4422d_sources.json"
+    },
+    {
+      "claim": "The public leaderboard showed 0.4413 for xiaofanhu on 2026-10-22.",
+      "source_id": "DD-LEADERBOARD-REVIEW",
+      "authority": "DrivenData public leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "status": "PUBLIC_OBSERVATION_NOT_ARTIFACT_RECEIPT",
+      "ledger": "knowledge/review_e4a4422d_sources.json"
+    },
+    {
+      "claim": "H33's reported 0.2778 is linked by the prompt to a sibling project, but no organizer submission-page receipt binds that number to the measured H33 raster SHA-256.",
+      "source_id": "H33-SIBLING-REVIEW",
+      "authority": "GEMSDOE32 sibling project, not a competition authority",
+      "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+      "status": "UNVERIFIED_HISTORICAL_REPORT",
+      "ledger": "knowledge/review_e4a4422d_sources.json",
+      "raster_measurement": "evidence/review_e4a4422d/h33_remeasurement.json"
+    },
+    {
+      "claim": "Band 10 deq_n100a15 is dependent/swarm density rather than the embedded 'Distance to earthquake' description.",
+      "source_id": "GDR-1391-LINEAGE",
+      "authority": "DOE GDR / INGENIOUS source-package lineage as audited in session 87f53313",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "status": "SOURCE_LINEAGE_INTERPRETATION_WITH_CONFLICTING_EMBEDDED_METADATA",
+      "ledger": "reports/session_review_87f53313.md",
+      "byte_receipt": "evidence/review_87f53313/feature_stack_audit.json",
+      "limitation": "The conflict is unresolved in the TIFF metadata and is preserved as IR-79-210."
+    }
+  ],
+  "organizer_confirmed_receipt_for_swer": null,
+  "new_paid_or_private_data": false,
+  "manual_review_links_retained": true
+}

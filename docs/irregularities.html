@@ -5,7 +5,7 @@
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="swer-submission.html">Latest TIFF</a><a href="index.html#download">Canonical</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
 <table>
@@ -1565,6 +1565,49 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-206</td>
 <td><strong>55th-percentile floor clipping inside <code>_submodular_stage</code> truncated <code>EXP-DFSD-3</code> at <code>20,611</code> live core pixels (<code>0.1621 / 0.1647</code> overall <code>HOLDOUT-DTI</code>; <code>0.2107 / 0.2245</code> peak in <code>NW</code> Fold 0), concentrating <code>92.59%</code> of placed core dots inside <code>G79-THVC</code> across the <code>1,221</code>-raster <code>compare_array_to_registry_d2</code> scan.</strong> Both pre-placement surface (<code>max abs(ρ) = 0.6235 &lt;= 0.90</code>) and post-placement dots (<code>max abs(ρ) = 0.1457 &lt;= 0.90</code>, <code>0.3952</code> vs <code>H33</code>, <code>0.3460</code> vs <code>GEMSDOE73</code>, <code>0.5368</code> vs <code>H79-FNHR</code>, <code>0.6043</code> vs <code>GEMSDOE78</code>) passed Spearman, and the lane stopped cleanly as <code>verdict = "negative"</code> (<code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code>, <code>0</code> slots used).</td>
 <td>Archived <code>g79-dfsd-ccsubmod-20261022-947eff42-zeros-DO-NOT-SUBMIT.{tif,zip,json}</code> (<code>SHA-256: 9df6c871…</code>) under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_dfsd_d7da950d/README.md"><code>archive/g79_dfsd_d7da950d/</code></a> with <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_dfsd.json"><code>run_card_dfsd.json</code></a>, guarded <code>scripts/run_g79_dfsd.py</code> (<code>exit 2</code>, <code>No files changed.</code>), and preserved canonical <code>G79-THVC</code> in <code>docs/downloads/</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>778c4a96</code> addendum (<code>2026-10-22</code>) — <code>G79-SWER</code> fixed swarm-excess ridge, new negative TIFF, shared-writer permissions fix</h3>
+<p>Full record: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_778c4a96.md"><code>reports/session_review_778c4a96.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_778c4a96.md"><code>research/hypotheses_778c4a96.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_g79_swer.json"><code>registry/preregistration_g79_swer.json</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_swer.json"><code>run_card_swer.json</code></a>, and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/swer"><code>evidence/swer/</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-207</td>
+<td><strong>Irreconcilable ordering requirements were made explicit rather than hidden.</strong> The literal preflight (<code>evidence/preflight_778c4a96.json</code>, exit 2) proved every nonempty candidate has 3-pixel forward overlap <code>1.0 &gt; 0.70</code>, so the parallel-lane rule required stopping before an experiment. The same prompt separately made generation of a new TIFF the highest urgency.</td>
+<td>The fixed G79-SWER lane was run only to deliver a newly generated, format-valid <strong>negative research artifact</strong>. <code>run_card_swer.json</code> records the protocol irregularity, <code>protocol_unique=false</code>, <code>ok_to_submit=false</code>, and <code>0</code> slots. No gate reinterpretation, density exemption, overlap cap, rename, or organizer claim was used.</td>
+</tr>
+<tr>
+<td>IR-79-208</td>
+<td><strong>G79-SWER is scientifically negative despite clean canaries.</strong> <code>HOLDOUT-DTI</code> (<code>gems57-pooled-hide-v2</code>) is <code>0.0117 [0.0075,0.0170]</code> (<code>n=11,321</code>) / <code>0.0113 [0.0077,0.0148]</code> (<code>n=11,342</code>), below its equal-support uniform control (<code>0.0606 / 0.0610</code>) and G79-THVC (<code>0.1905 / 0.1944</code>). All <code>72</code> canaries pass (<code>max symmetric AUC 0.5879 / 0.6118</code>). The new TIFF is byte-distinct (<code>e20be747…</code>) but overlaps the pinned witness at <code>1.0000</code>; its absolute witness Spearman is <code>0.0262</code>.</td>
+<td>Closed negative; no retuning, alternate ratio, support thinning, placement, slot selection, or upload. README/site say <strong>OK TO DOWNLOAD: YES / OK TO SUBMIT: NO</strong>. The result does not beat H33, whose <code>0.2778</code> remains an unverified historical report rather than an artifact-linked receipt.</td>
+</tr>
+<tr>
+<td>IR-79-209</td>
+<td><strong>Shared writer outputs inherited <code>mkstemp</code> mode <code>0600</code>, making otherwise published TIFF/ZIP/JSON files owner-readable only.</strong> This was an operational download defect in <code>vendor/gems57/submission_writer.py</code>, not a raster-byte or scientific defect.</td>
+<td>Shared writer v2 now applies <code>0644</code> to all three staged files before atomic <code>os.replace</code>; content bytes and hashes are unchanged. Added a focused mocked success-path regression test, updated <code>registry/template_pin.json</code> and <code>vendor/README.md</code>, and normalized the new G79-SWER deliverables to <code>0644</code>.</td>
+</tr>
+<tr>
+<td>IR-79-210</td>
+<td><strong>Band 10 source metadata conflict remains consequential.</strong> Its embedded GDAL description says <code>deq_n100a15 - Distance to earthquake</code>; prior official-lineage audit (<code>IR-79-195</code>, GDR 1391 DOI <code>10.15121/1881483</code>) identifies it as dependent/swarm earthquake density, paired with B16 independent density. G79-SWER used the latter interpretation.</td>
+<td>Preserved both statements in the feature receipt and session report. The measured negative result is valid for the exact numeric transform regardless of label, but its proposed swarm mechanism is conditional on the lineage interpretation. Reconcile against the authoritative source package before any future seismic-contrast lane.</td>
+</tr>
+<tr>
+<td>IR-79-211</td>
+<td><strong><code>registry/preregistration_g79_swer.json</code> contains a hand-entered <code>registered_utc</code> (<code>2026-10-22T19:10:25Z</code>) rather than a separately captured clock receipt.</strong> Its value is plausible but is not independently authenticated and must not be used to prove ordering.</td>
+<td>The immutable Git commit <code>5b590a8bb51827489ebf72130c74be63c3121447</code> (<code>2026-10-22T19:11:46Z</code>) and its locked preregistration SHA-256 <code>36bdfde7…</code> are the authoritative pre-result record; implementation commit <code>6f290a0</code> and the run followed. The timestamp field is retained rather than post-result rewritten.</td>
+</tr>
+<tr>
+<td>IR-79-212</td>
+<td><strong>Post-run G79-SWER edge review found invalid-boundary gradient enrichment.</strong> <code>masked_gaussian</code> normalizes smoothing by valid weight but zeros invalid cells before <code>np.gradient</code>, creating artificial structure-tensor contrast. The frozen TIFF is <code>2.91x</code> enriched in the 8-pixel halo around 3,061 interior sentinels (8,072 / 41,651 positive; 2.37% of all positives) and <code>2.24x</code> enriched along the inner 8-pixel footprint edge (14,900 / 99,936; 4.37% of positives), per <code>evidence/swer/boundary_diagnostic.json</code>.</td>
+<td>The defect further weakens an already negative lane; it was not repaired and rerun after outcome review. G79-SWER stays closed. Any future structure-tensor lane must preregister valid-domain extension or boundary exclusion before gradients and test it before scientific evaluation.</td>
 </tr>
 </tbody>
 </table></div></section></main>

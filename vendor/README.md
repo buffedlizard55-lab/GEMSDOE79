@@ -7,11 +7,17 @@ Most files in `gems57/` are byte-identical to
 local SHA-256 pins, prior digests, upstream blob identifiers and amendment notes
 are in [`registry/template_pin.json`](../registry/template_pin.json).
 
-The shared evaluator, pooled metric, buffered whole-component split and submission
-writer remain unchanged in review `e4a4422d`. `verify_project.py` checks every pinned
-file. Reuse these shared tools; do not create lane-local metric or writer forks.
-A shared defect must be fixed once, with a version note and irregularity entry.
-Explicit data paths avoid the vendored-root ambiguity.
+The shared evaluator, pooled metric and buffered whole-component split remain
+unchanged in review `778c4a96`. The shared submission writer has one prospective
+operational amendment: v2 normalizes the atomically staged TIFF, ZIP and JSON
+receipt to mode `0644`. Earlier `mkstemp` outputs inherited private mode `0600`,
+which made a locally valid download unnecessarily inaccessible. The amendment
+changes mode bits only—not TIFF/ZIP/receipt bytes, hashes, validation, gates or
+scientific output—and is recorded in `registry/template_pin.json` and
+`reports/irregularities.md`. `verify_project.py` checks every pinned file. Reuse
+these shared tools; do not create lane-local metric or writer forks. A shared
+defect must be fixed once, with a version note and irregularity entry. Explicit
+data paths avoid the vendored-root ambiguity.
 
 The literal novelty default remains mandatory for the active decision. Historical
 `informative-halo-v4` and D-2 modes coexisting in the shared module do **not** give

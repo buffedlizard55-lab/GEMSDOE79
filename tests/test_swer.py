@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import stat
 import sys
 from pathlib import Path
 
@@ -41,7 +42,7 @@ def test_structure_coherence_is_bounded_and_line_exceeds_isotropic_blob():
     assert c_line[40, 40] > c_blob[40, 40]
 
 
-def test_structure_coherence_does_not_turn_invalid_cells_into_signal():
+def test_structure_coherence_zeros_invalid_outputs_even_though_boundary_halo_is_audited():
     edge = np.zeros((51, 51), np.float32)
     edge[:, 25:] = 1.0
     valid = np.ones_like(edge, bool)
@@ -67,11 +68,15 @@ def test_swer_run_card_and_artifact_when_present():
         return
     card = json.loads(card_path.read_text())
     tif = ROOT / card["submission_file"]
+    zip_path = ROOT / card["zip_file"]
+    receipt_path = ROOT / card["receipt_file"]
     assert card["lane"] == "G79-SWER"
     assert card["verdict"] == "negative"
     assert card["ok_to_download"] is True and card["ok_to_submit"] is False
     assert "DO-NOT-SUBMIT" in tif.name
     assert hashlib.sha256(tif.read_bytes()).hexdigest() == card["raster_sha256"]
+    assert all(stat.S_IMODE(path.stat().st_mode) == 0o644 for path in (tif, zip_path, receipt_path))
     assert card["protocol_unique"] is False
     assert card["correlation_overlap_vs_registry"]["final_prediction_support"]["forward_overlap_3px"] == 1.0
+    assert card["post_run_implementation_diagnostic"]["invalid_8px_halo_enrichment"] > 1.0
     assert card["submission_note_chars"] <= 140

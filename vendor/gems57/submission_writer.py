@@ -120,6 +120,14 @@ def write_submission(path, prediction, sample, footprint, *, note, name,
         )
         tmp_receipt.write_text(json.dumps(receipt, indent=2, allow_nan=False) + '\n', encoding='utf-8')
 
+        # mkstemp deliberately creates 0600 files.  These are downloadable
+        # deliverables, so normalize all three staged outputs before the atomic
+        # commit rather than relying on a caller-side chmod or process umask.
+        # This changes mode bits only; receipt/ZIP/TIFF content hashes stay bound
+        # to exactly the bytes validated above.
+        for temporary in (tmp_tif, tmp_zip, tmp_receipt):
+            os.chmod(temporary, 0o644)
+
         # Stage auxiliary files first and commit the TIFF last as the primary artifact.
         for source, destination in ((tmp_zip, zip_path), (tmp_receipt, receipt_path), (tmp_tif, path)):
             os.replace(source, destination)

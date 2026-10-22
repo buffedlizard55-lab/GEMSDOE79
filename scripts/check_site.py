@@ -26,8 +26,8 @@ def check_site():
     assert set(pages) == {
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
         'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
-        'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html',
-    }, 'Expected the eleven project pages (canonical seven + G79-CSKD + G79-CJX + G79-DZD + G79-CJX-DIR lane pages)'
+        'swer-submission.html', 'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html',
+    }, 'Expected twelve project pages (canonical seven + five lane pages including G79-SWER)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
@@ -78,6 +78,20 @@ def check_site():
         assert card['submission_name'] in text and card['raster_sha256'] in text
     assert card == json.loads((ROOT / 'run_card.json').read_text())
     assert card == json.loads((site / 'run-card.json').read_text())
+
+    # The latest newly generated research artifact is separate from the
+    # canonical THVC card and must be just as explicit and receipt-bound.
+    swer = json.loads((ROOT / 'run_card_swer.json').read_text())
+    assert swer == json.loads((site / 'evidence/run_card_swer.json').read_text())
+    assert swer['ok_to_download'] is True and swer['ok_to_submit'] is False
+    assert swer['verdict'] == 'negative' and swer['submission_slots_used'] == 0
+    swer_text = pages['swer-submission.html'].get_text(' ', strip=True)
+    assert 'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO' in swer_text
+    assert swer['submission_name'] in swer_text and swer['raster_sha256'] in swer_text
+    assert 'DO NOT SUBMIT' in swer_text and '1.0000' in swer_text
+    swer_tif = ROOT / swer['submission_file']
+    assert hashlib.sha256(swer_tif.read_bytes()).hexdigest() == swer['raster_sha256']
+
     # Gate widgets and scientific tables must match the validated receipts too,
     # not merely display the same download/submit banner as the card.
     from gems79.evidence_summary import build_summary, load_json, same_json
@@ -97,10 +111,22 @@ def check_site():
     status = json.loads((site / 'status.json').read_text())
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert status['verdict'] == card['verdict'] and status['decision_line'] == line
+    assert status['latest_generated_artifact'] == {
+        'lane': swer['lane'], 'ok_to_download': True, 'ok_to_submit': False,
+        'verdict': 'negative', 'page': 'swer-submission.html',
+        'file': swer['submission_file'], 'sha256': swer['raster_sha256'],
+    }
+    swer_status = json.loads((site / 'swer-status.json').read_text())
+    assert swer_status['sha256'] == swer['raster_sha256']
+    assert swer_status['ok_to_download'] is True and swer_status['ok_to_submit'] is False
     assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     assert manifest['ok_to_submit'] is card['ok_to_submit'] and manifest['ok_to_download']
     assert manifest['raster_sha256'] == card['raster_sha256']
+    assert manifest['latest_generated_lane'] == 'G79-SWER'
+    assert manifest['latest_generated_raster_sha256'] == swer['raster_sha256']
+    assert manifest['latest_generated_ok_to_download'] is True
+    assert manifest['latest_generated_ok_to_submit'] is False
     feed = json.loads((site / 'evidence/source_health.json').read_text())
     assert feed['submission_slots_used_by_this_refresh'] == 0
     assert feed['scientific_claims_reviewed_date'] == json.loads((ROOT / 'knowledge/official_sources.json').read_text())['reviewed_date_utc']

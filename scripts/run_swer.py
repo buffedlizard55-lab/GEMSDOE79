@@ -201,6 +201,40 @@ def evaluate_seed(grid, arms: dict[str, np.ndarray], folds: list[dict], seed: in
     return summary
 
 
+def boundary_diagnostic(prediction: np.ndarray, valid: np.ndarray, grid) -> dict:
+    """Post-run implementation review for invalid/boundary-gradient enrichment."""
+    positive = prediction > 0
+    interior_invalid = grid.footprint & ~valid
+    regions = {
+        "invalid_8px_halo": ndi.binary_dilation(interior_invalid, iterations=8) & grid.footprint,
+        "footprint_inner_8px_edge": grid.footprint & (ndi.distance_transform_edt(grid.footprint) <= 8),
+        "all_allowed": grid.footprint & ~grid.catalogue,
+    }
+    rows = {}
+    for name, region in regions.items():
+        n = int(region.sum())
+        hits = int((positive & region).sum())
+        rows[name] = {
+            "pixels": n,
+            "positive_pixels": hits,
+            "positive_fraction": hits / n if n else None,
+            "fraction_of_all_positive": hits / int(positive.sum()),
+        }
+    baseline = rows["all_allowed"]["positive_fraction"]
+    for name in ("invalid_8px_halo", "footprint_inner_8px_edge"):
+        rows[name]["enrichment_vs_all_allowed"] = rows[name]["positive_fraction"] / baseline
+    return {
+        "evidence_class": "POST-RUN IMPLEMENTATION DIAGNOSTIC, NOT HOLDOUT-DTI",
+        "purpose": "Check whether zeroing invalid cells before structure-tensor gradients enriched the fixed candidate at invalid/footprint boundaries.",
+        "candidate_sha256": "BOUND_AFTER_WRITE",
+        "interior_invalid_pixels": int(interior_invalid.sum()),
+        "radius_px": 8,
+        "rows": rows,
+        "scientific_experiments_performed": 0,
+        "submission_slots_used": 0,
+    }
+
+
 def witness_audit(prediction: np.ndarray, grid) -> dict:
     if not WITNESS.is_file():
         raise FileNotFoundError("pinned universal witness was not restored by preflight")
@@ -302,6 +336,10 @@ def main() -> int:
         },
     )
 
+    boundary = boundary_diagnostic(prediction, stack.valid, grid)
+    boundary["candidate_sha256"] = receipt["sha256"]
+    write_json(EVIDENCE / "boundary_diagnostic.json", boundary)
+
     novelty = witness_audit(prediction, grid)
     write_json(EVIDENCE / "novelty_stop.json", novelty)
 
@@ -330,6 +368,20 @@ def main() -> int:
         "branch": "arena/778c4a96-gemsdoe79",
         "preregistration_path": str(PREREG.relative_to(ROOT)),
         "preregistration_sha256": prereg_sha,
+        "preregistration_ordering_authority": {
+            "git_commit": "5b590a8bb51827489ebf72130c74be63c3121447",
+            "git_commit_utc": "2026-10-22T19:11:46Z",
+            "registered_utc_field_authoritative": False,
+            "note": "The JSON timestamp was hand-entered; the immutable pre-result Git commit proves ordering."
+        },
+        "source_claims_receipt": "evidence/swer/source_claims.json",
+        "scientific_implementation": {
+            "git_commit_at_run": "6f290a0e2d531b508290b4923f34914c6838a82e",
+            "transform_path": "src/gems79/swer.py",
+            "transform_sha256": "7c006979e00071ef4edde0135362844bca7de2683132d82782dbe83f0bf6afd2",
+            "writer_sha256_at_generation": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
+            "writer_current_change": "Permission-only v2 amendment; TIFF/ZIP/receipt bytes unchanged."
+        },
         "hypothesis": prereg["hypothesis"],
         "mechanism": prereg["mechanism"],
         "named_non_fault_process": prereg["named_non_fault_process"],
@@ -344,6 +396,12 @@ def main() -> int:
             "per_seed": seed_cards,
             "current_incumbent_beaten_both_seeds": bool(beats_incumbent),
             "leaderboard_projection": None,
+        },
+        "post_run_implementation_diagnostic": {
+            "evidence": "evidence/swer/boundary_diagnostic.json",
+            "invalid_8px_halo_enrichment": boundary["rows"]["invalid_8px_halo"]["enrichment_vs_all_allowed"],
+            "footprint_inner_8px_edge_enrichment": boundary["rows"]["footprint_inner_8px_edge"]["enrichment_vs_all_allowed"],
+            "decision_effect": "Strengthens negative verdict; no post-result repair or retuning."
         },
         "leakage_canary": {
             "evidence_class": "LEAKAGE-CANARY",

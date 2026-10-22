@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "lane": "G79-SWER",
+  "generated_utc": "2026-10-22T19:15:04.342896+00:00",
+  "branch": "arena/778c4a96-gemsdoe79",
+  "preregistration_path": "registry/preregistration_g79_swer.json",
+  "preregistration_sha256": "36bdfde744d6fd247fccd241caed8cbbb4dd5d6e57ec32a323783dcfc7453f01",
+  "preregistration_ordering_authority": {
+    "git_commit": "5b590a8bb51827489ebf72130c74be63c3121447",
+    "git_commit_utc": "2026-10-22T19:11:46Z",
+    "registered_utc_field_authoritative": false,
+    "note": "The JSON timestamp was hand-entered; the immutable pre-result Git commit proves ordering."
+  },
+  "source_claims_receipt": "evidence/swer/source_claims.json",
+  "scientific_implementation": {
+    "git_commit_at_run": "6f290a0e2d531b508290b4923f34914c6838a82e",
+    "transform_path": "src/gems79/swer.py",
+    "transform_sha256": "7c006979e00071ef4edde0135362844bca7de2683132d82782dbe83f0bf6afd2",
+    "writer_sha256_at_generation": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
+    "writer_current_change": "Permission-only v2 amendment; TIFF/ZIP/receipt bytes unchanged."
+  },
+  "hypothesis": "Catalogue-missing blind intrabasin transfer and accommodation faults are enriched where dependent earthquake swarm excess is spatially organized into a coherent magnetic-gravity structural ridge under positive transtension and thick basin cover.",
+  "mechanism": "Active permeable fracture meshes can concentrate clustered seismicity while displacing magnetic/density boundaries; burial suppresses a Quaternary surface scarp, and extensional/transtensional strain helps distinguish an active structure from an inherited contact.",
+  "named_non_fault_process": "Open-pit mine blasts, geothermal injection or production-induced seismicity, and mainshock aftershock halos can elevate the seismic contrast; lithologic contacts and survey artifacts can provide an unrelated edge.",
+  "experiments_used": 2,
+  "experiment_budget": {
+    "max_experiments": 3,
+    "planned_experiments": 2,
+    "max_hours": 2,
+    "submission_slots": 0
+  },
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_kernel_m": 300,
+    "per_seed": {
+      "seed_20": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.011722085947149862,
+        "ci95": [
+          0.0075247295934954194,
+          0.016960999627459252
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 328.3237058216019,
+        "fpw": 94432.59121029507,
+        "fnw": 10992.6762941784,
+        "incumbent_g79_thvc": 0.1905226265456631,
+        "beats_incumbent_point_estimate": false,
+        "source": "evidence/swer/holdout_seed20.json#/scores/candidate"
+      },
+      "seed_30": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.011315614510050202,
+        "ci95": [
+          0.007696981439579349,
+          0.014771361855234606
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 317.0098061804409,
+        "fpw": 94391.25644470764,
+        "fnw": 11024.990193819556,
+        "incumbent_g79_thvc": 0.194393256940719,
+        "beats_incumbent_point_estimate": false,
+        "source": "evidence/swer/holdout_seed30.json#/scores/candidate"
+      }
+    },
+    "current_incumbent_beaten_both_seeds": false,
+    "leaderboard_projection": null
+  },
+  "post_run_implementation_diagnostic": {
+    "evidence": "evidence/swer/boundary_diagnostic.json",
+    "invalid_8px_halo_enrichment": 2.905746918719609,
+    "footprint_inner_8px_edge_enrichment": 2.235457262497723,
+    "decision_effect": "Strengthens negative verdict; no post-result repair or retuning."
+  },
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "threshold": 0.9,
+    "per_seed": {
+      "seed_20": {
+        "features_tested": 9,
+        "tests": 36,
+        "max_symmetric_auc": 0.587856676923077,
+        "max_feature": "swarm_excess",
+        "max_fold": "SE",
+        "n_suspicious": 0,
+        "passed": true
+      },
+      "seed_30": {
+        "features_tested": 9,
+        "tests": 36,
+        "max_symmetric_auc": 0.6118252094829348,
+        "max_feature": "swarm_excess",
+        "max_fold": "SE",
+        "n_suspicious": 0,
+        "passed": true
+      }
+    },
+    "passed": true
+  },
+  "correlation_overlap_vs_registry": {
+    "surface_before_any_placement": {
+      "evidence_class": "REGISTRY-MEASUREMENT",
+      "registry_scope": "first pinned rejection witness; protocol stops at first duplicate",
+      "witness_file": ".cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif",
+      "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+      "candidate_positive_pixels_off_catalogue": 340574,
+      "abs_spearman_full_footprint": 0.026232371910458227,
+      "spearman_limit": 0.9,
+      "forward_overlap_3px": 1.0,
+      "overlap_limit": 0.7,
+      "duplicate": true,
+      "stop_required": true,
+      "full_registry_rank_scan": "NOT RUN after first literal-overlap failure, per stop rule",
+      "mathematical_max_overlap_established": 1.0
+    },
+    "final_prediction_support": {
+      "evidence_class": "REGISTRY-MEASUREMENT",
+      "registry_scope": "first pinned rejection witness; protocol stops at first duplicate",
+      "witness_file": ".cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif",
+      "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+      "candidate_positive_pixels_off_catalogue": 340574,
+      "abs_spearman_full_footprint": 0.026232371910458227,
+      "spearman_limit": 0.9,
+      "forward_overlap_3px": 1.0,
+      "overlap_limit": 0.7,
+      "duplicate": true,
+      "stop_required": true,
+      "full_registry_rank_scan": "NOT RUN after first literal-overlap failure, per stop rule",
+      "mathematical_max_overlap_established": 1.0
+    },
+    "note": "No placement stage exists; the fixed continuous surface is the final prediction. Literal positive support is the protocol dot definition."
+  },
+  "raster_sha256": "e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa",
+  "byte_distinct_from_registry_index": true,
+  "protocol_unique": false,
+  "validator_output": {
+    "shared_validator": {
+      "file": "/home/user/GEMSDOE79/artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.tif",
+      "bytes": 1515441,
+      "sha256": "e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.008348877541720867,
+      "emitted_positive_pixels": 340574,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 340574,
+      "footprint_fraction": 0.06590853805212049
+    },
+    "template_report": {
+      "path": "/home/user/GEMSDOE79/artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.tif",
+      "bytes": 1515441,
+      "sha256": "e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.008348877541720867,
+      "n_nonzero": 340574,
+      "mass": 102517.19906156138,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    },
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true
+  },
+  "submission_name": "g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT",
+  "submission_note": "G79-SWER: swarm-excess x coherent mag-gravity ridge x transtension/cover; fixed surface; research only",
+  "submission_note_chars": 102,
+  "submission_file": "artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.tif",
+  "zip_file": "artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.zip",
+  "receipt_file": "artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.json",
+  "positive_pixels": 340574,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "human_inspection_required_for_decision": false,
+  "approved_for_weekly_slot": false,
+  "submission_slots_used": 0,
+  "organizer_confirmed_score": null,
+  "leaderboard_improvement_established": false,
+  "verdict": "negative",
+  "stop_reason": "literal_registry_overlap_1.0_exceeds_0.70_and_holdout_incumbent_not_beaten",
+  "protocol_irregularity": "The preflight mandated stopping before experiments. The current user simultaneously required a newly generated TIFF. The lane ran only to produce a negative research artifact; it is not protocol-clear and cannot be submitted.",
+  "runtime_seconds": 58.161265620999984
+}

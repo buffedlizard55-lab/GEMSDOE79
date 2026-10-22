@@ -90,7 +90,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="swer-submission.html">Latest TIFF</a><a href="index.html#download">Canonical</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
@@ -219,10 +219,47 @@ def novelty_explanation(summary, preflight):
     return f'''<section class="section"><div class="proof"><div><p class="eyebrow">WHY THE CANONICAL REVIEW GENERATED NO NEW TIFF — AND WHY THE LATER G79-CJX-DIR TIFF IS STILL BLOCKED</p><h2>The literal novelty gate<br>blocks every nonempty candidate.</h2><div class="proof-stat">{100 * preflight['covered_allowed_fraction']:.0f}% <small>of allowed cells covered</small></div></div><div><p>A SHA-256-pinned registry witness was independently restored and remeasured in this review. Its positive-support halo covers every allowed cell. Every nonempty candidate therefore exceeds the {preflight['limit']:.0%} overlap limit, regardless of geology.</p><div class="formula">halo coverage = {100 * preflight["covered_allowed_fraction"]:.0f}% of allowed cells ⇒ 1.0000 forward overlap ⇒ STOP</div><p style="margin-top:18px">Partial halo coverage above 70% alone does not prove every map fails. This witness is stronger: it covers every allowed cell. No cosmetic pixel change, copied file, new filename or sparse-prior exclusion repairs that failure. The current artifact remains blocked for manual as well as automated submission. A prospective shared protocol decision is needed before a new lane, not a post-hoc exception for this candidate.</p><p>The {sparse['compared']} prior maps with ≤ {sparse['maximum_prior_dot_count']:,} dots have maximum overlap {sparse['max_forward_overlap_3px']:.4f} in the frozen scan. This subset is <strong>diagnostic only, not a passed novelty gate</strong>; later sibling evidence also found an above-limit sparse collision. Neither scan covers private organizer submissions.</p><a href="evidence/preflight_e4a4422d.json">This review's preflight ↗</a> · <a href="evidence/post_index_sibling_audit_20261022.json">Later sibling audit ↗</a> · <a href="evidence/g79_dot_uniqueness_1108.json">Frozen full scan ↗</a></div></div></section>'''
 
 
+def swer_banner(swer):
+    """Latest generated-file decision; separate from the canonical THVC card."""
+    return f'''<section class="section"><div class="download-warning"><strong>LATEST GENERATED TIFF · OK TO DOWNLOAD: YES · OK TO SUBMIT: NO.</strong><br>
+G79-SWER is a newly generated, byte-distinct swarm-excess structural-ridge GeoTIFF. Local format checks pass, but HOLDOUT-DTI is {swer['holdout_dti']['per_seed']['seed_20']['dti']:.4f} / {swer['holdout_dti']['per_seed']['seed_30']['dti']:.4f}, far below the incumbent, and literal 3-pixel registry overlap is {swer['correlation_overlap_vs_registry']['final_prediction_support']['forward_overlap_3px']:.4f} &gt; 0.70. The automatic verdict is <strong>negative / DO NOT SUBMIT</strong>; no manual review or slot was used.</div>
+<div class="actions"><a class="button" href="swer-submission.html">Open G79-SWER download &amp; decision</a><a class="button secondary" href="evidence/run_card_swer.json">Run card JSON</a></div></section>'''
+
+
+def swer_page():
+    """G79-SWER page derived exclusively from its immutable negative run card."""
+    c = load_json(ROOT / 'run_card_swer.json')
+    h20 = c['holdout_dti']['per_seed']['seed_20']
+    h30 = c['holdout_dti']['per_seed']['seed_30']
+    n = c['correlation_overlap_vs_registry']['final_prediction_support']
+    v = c['validator_output']['shared_validator']
+    raw_tif = f"{REPO}/raw/main/{c['submission_file']}"
+    raw_zip = f"{REPO}/raw/main/{c['zip_file']}"
+    return f'''{page_head('G79-SWER / NEW BYTE-DISTINCT TIFF / NEGATIVE', 'Download the research bytes. Do not submit them.',
+        'Dependent-versus-independent earthquake swarm contrast × coherent magnetic/gravity edges × transtension × basin cover. Fixed before evaluation; automatically falsified.')}
+<section class="section"><div class="download-warning"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO — DO NOT SUBMIT.</strong><br>
+This decision is fully automatic. The exact TIFF passes every local format/range/grid check, but the physical hypothesis loses badly on buffered segment holdout and its literal registry overlap is 1.0000 &gt; 0.70. Format validity and byte novelty do not override those failures.</div>
+<div class="actions"><a class="button" href="{E(raw_tif)}">↓ G79-SWER research GeoTIFF <span>{c['validator_output']['shared_validator']['bytes'] / 1024:.0f} KiB</span></a>
+<a class="button secondary" href="{E(raw_zip)}">↓ ZIP containing the identical TIFF</a></div>
+<p class="micro"><strong>Name:</strong> <code>{E(c['submission_name'])}</code><br><strong>Note ({c['submission_note_chars']}/140):</strong> {E(c['submission_note'])}<br>
+<strong>TIFF SHA-256:</strong> <code>{E(c['raster_sha256'])}</code> · {c['positive_pixels']:,} positive pixels · byte-distinct from indexed registry: {str(c['byte_distinct_from_registry_index']).upper()} · protocol-unique: NO</p></section>
+<section class="section prose"><h2>Hypothesis, mechanism and named mimics</h2><p><strong>Hypothesis:</strong> {E(c['hypothesis'])}</p><p><strong>Mechanism:</strong> {E(c['mechanism'])}</p><p><strong>Named non-fault mimics:</strong> {E(c['named_non_fault_process'])}</p></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">HOLDOUT-DTI · {E(c['holdout_dti']['evaluator_version'])} · NOT A LEADERBOARD SCORE</p><h2>The fixed method is falsified.</h2></div><p>Buffered whole-fault-component hide-and-recover; visible catalogue masked pixel-exactly; α = 0.2, β = 0.8, 300 m triangular kernel; 1,000-draw physical spatial-block bootstrap.</p></div>
+<div class="table-scroll"><table><thead><tr><th>Seed</th><th>Withheld-positive pixels</th><th>G79-SWER HOLDOUT-DTI [95% CI]</th><th>G79-THVC incumbent</th><th>Decision</th></tr></thead><tbody>
+<tr><td>20</td><td>{h20['withheld_positive_pixels']:,}</td><td>{h20['dti']:.4f} [{h20['ci95'][0]:.4f}, {h20['ci95'][1]:.4f}]</td><td>{h20['incumbent_g79_thvc']:.4f}</td><td>FAIL</td></tr>
+<tr><td>30</td><td>{h30['withheld_positive_pixels']:,}</td><td>{h30['dti']:.4f} [{h30['ci95'][0]:.4f}, {h30['ci95'][1]:.4f}]</td><td>{h30['incumbent_g79_thvc']:.4f}</td><td>FAIL</td></tr>
+</tbody></table></div><p>The equal-support uniform control scored 0.0606 / 0.0610, also above G79-SWER. The interaction does not localize held-out catalogue geometry and is not demonstrated to beat reported H33 0.2778, the 0.4413 public observation, or any current holdout incumbent.</p></section>
+<section class="section"><div class="two-col"><div class="panel"><h3>Automatic local validator · PASS</h3><ul><li>One float32 band; EPSG:32611; 3730 × 3292; exact sample transform.</li><li>All {v['n_finite']:,} cells finite; 0 NaN; 0 infinity; no sentinels.</li><li>Range [{v['min']:.1f}, {v['max']:.1f}]; zero outside footprint and on mapped catalogue.</li><li>TIFF and ZIP bytes were round-tripped automatically. This is not organizer acceptance.</li></ul></div><div class="panel"><h3>Scientific and novelty gates · BLOCKED</h3><ul><li>Every-feature leakage canary PASS: max symmetric AUC {max(x['max_symmetric_auc'] for x in c['leakage_canary']['per_seed'].values()):.4f} ≤ 0.90.</li><li>Witness |Spearman ρ| {n['abs_spearman_full_footprint']:.4f} ≤ 0.90.</li><li>Forward 3-pixel overlap {n['forward_overlap_3px']:.4f} &gt; {n['overlap_limit']:.2f}: duplicate and mandatory stop.</li><li>0 competition slots; no organizer-confirmed receipt; verdict {E(c['verdict'])}.</li></ul></div></div></section>
+<section class="section prose"><h2>Post-run implementation review</h2><p>The fixed output is enriched <strong>{c['post_run_implementation_diagnostic']['invalid_8px_halo_enrichment']:.2f}×</strong> in the 8-pixel halo around interior sentinels and <strong>{c['post_run_implementation_diagnostic']['footprint_inner_8px_edge_enrichment']:.2f}×</strong> along the inner footprint edge. Mask-normalized smoothing was followed by zeroing invalid cells before gradients, allowing artificial boundary contrast. Only 2.37% / 4.37% of all positives lie in those two diagnostic regions, but the flaw further weakens interpretation. It was documented after the run and not repaired or retuned because the lane is already negative. <a href="evidence/swer_boundary_diagnostic.json">Boundary diagnostic ↗</a></p></section>
+<section class="section prose"><h2>Why H33 remains informative—but not proven for these bytes</h2><p>The independently inspected H33 raster is an exact 37,654-dot subset of D2.8: it removes 6,436 cells within two pixels of the mapped catalogue. Under DTI's maximum truth-credit and summed prediction-cost geometry, that spacing and near-catalogue pruning can remove redundant false-positive mass without sacrificing much novel coverage. That is a measured geometric mechanism, not causal proof of its reported 0.2778. No artifact-linked organizer receipt verifies that report.</p><p>G79-SWER has the opposite problem: 340,574 positive cells create large false-positive mass while recovering little held-out catalogue geometry. Its physical interaction ranks below the equal-support random control. Therefore it supplies no evidence of improvement over H33.</p>
+<p><a href="evidence/run_card_swer.json">Run card ↗</a> · <a href="evidence/swer_holdout_seed20.json">Seed-20 receipt ↗</a> · <a href="evidence/swer_holdout_seed30.json">Seed-30 receipt ↗</a> · <a href="evidence/swer_novelty_stop.json">Novelty stop ↗</a> · <a href="evidence/swer_source_claims.json">Source-claim ledger ↗</a> · <a href="{REPO}/blob/main/research/hypotheses_778c4a96.md">Five ranked hypotheses ↗</a> · <a href="{REPO}/blob/main/reports/session_review_778c4a96.md">Three-pass review ↗</a></p></section>'''
+
+
 def home(card, summary, preflight, h33):
     dots = card['positive_pixels']
     c = summary['canaries']
-    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>Later lanes generated new unique research GeoTIFFs — including <a href="g79-cskd.html">G79-CSKD</a> (all-time GEMSDOE79 Seed-30 HOLDOUT-DTI record <code>0.2145</code> &amp; 2-seed mean <code>0.1963</code>, resolving <code>GEMSDOE83</code> overlap to <code>0.6137 &le; 0.70</code>), <a href="cjx-submission.html">G79-CJX</a>, <a href="g79-cjxdir.html">G79-CJX-DIR</a>, and <a href="dzd-submission.html">G79-DZD</a> — each archived as research-only (<code>OK TO SUBMIT: NO</code>).</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="g79-cskd.html">Open G79-CSKD (0.2145 Seed-30 record) ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
+    swer = load_json(ROOT / 'run_card_swer.json')
+    return swer_banner(swer) + f'''<section id="download" class="hero"><div><p class="eyebrow">CANONICAL G79-THVC / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the canonical evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>Later lanes generated new unique research GeoTIFFs — including <a href="g79-cskd.html">G79-CSKD</a> (all-time GEMSDOE79 Seed-30 HOLDOUT-DTI record <code>0.2145</code> &amp; 2-seed mean <code>0.1963</code>, resolving <code>GEMSDOE83</code> overlap to <code>0.6137 &le; 0.70</code>), <a href="cjx-submission.html">G79-CJX</a>, <a href="g79-cjxdir.html">G79-CJX-DIR</a>, and <a href="dzd-submission.html">G79-DZD</a> — each archived as research-only (<code>OK TO SUBMIT: NO</code>).</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="g79-cskd.html">Open G79-CSKD (0.2145 Seed-30 record) ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
 <div class="metric-grid">{metric('Local format', 'PASS', 'Finite [0, 1] · matching sample grid')}{metric('Full novelty', 'BLOCKED', f"{summary['dots']['max_forward_overlap_3px']:.4f} overlap; limit 0.70", stop=True)}{metric('Feature canaries', f"{c['feature_seed_tests']} tests", f"{c['feature_count']} features × 2 seeds; max AUC {c['max_symmetric_auc']:.5f}")}{metric('This review', '0 experiments', '0 new placements · 0 slots spent')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / CLEAR PERMISSION BOUNDARIES</p><h2>Downloadable does not mean submittable.</h2></div><p>Automated local verification binds the card to the exact bytes. Scientific gates, organizer acceptance and weekly slot capacity are separate checks.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 {holdout_table(summary)}
@@ -232,9 +269,12 @@ def home(card, summary, preflight, h33):
 
 
 def executive(card, summary):
-    return f'''{page_head('EXECUTIVE SUMMARY / NO UPLOAD AUTHORIZED', 'Download for research. Do not submit.', 'This review improves evidence consistency and reporting. It does not deliver a newly unique candidate or establish a leaderboard gain.')}
-<section class="section">{download_panel(card)}</section>{download_check_panel(card)}<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
-<section class="section prose"><h2>The decision in plain language</h2><ul><li><strong>Research download: yes.</strong> The single-band raster is finite and in [0, 1], with sample-matching CRS, shape and transform. ZIP and TIFF hashes are checked.</li><li><strong>Competition submission: no.</strong> Both frozen novelty stages fail. The separate selector has not approved a slot. A person must not bypass these failures by uploading manually.</li><li><strong>Scientific evidence: limited.</strong> Historical buffered HOLDOUT-DTI exceeds its H33 control, but this is not a new experiment beating the incumbent and not an organizer score.</li><li><strong>New deliverable requested: not achieved.</strong> A universal-overlap witness made any nonempty new candidate impossible under the stipulated literal rule. We stopped rather than disguise an inherited map as new.</li></ul>
+    swer = load_json(ROOT / 'run_card_swer.json')
+    return f'''{page_head('EXECUTIVE SUMMARY / NO UPLOAD AUTHORIZED', 'A new TIFF was generated. The gate says no.', 'G79-SWER is easy to download and automatically format-valid, but scientifically negative and protocol-duplicate. No leaderboard gain or submission permission is established.')}
+{swer_banner(swer)}
+<section class="section prose"><h2>The latest decision in plain language</h2><ul><li><strong>New research download: yes.</strong> G79-SWER is byte-distinct, one-band float32, all finite and in [0,1], with sample-matching CRS, shape and transform. TIFF and ZIP were checked automatically.</li><li><strong>Competition submission: no.</strong> G79-SWER scores only 0.0117 / 0.0113 HOLDOUT-DTI and overlaps the pinned registry witness at 1.0000. No person should bypass those failures by uploading manually.</li><li><strong>H33 improvement: not demonstrated.</strong> H33's 0.2778 is an unverified historical report; G79-SWER has no organizer receipt and loses to the current holdout incumbent on both seeds.</li><li><strong>Protocol conflict disclosed.</strong> Preflight proved any nonempty map must fail the unchanged literal gate. The separate highest-urgency TIFF requirement was fulfilled only as an explicitly negative research artifact, never as a submission-cleared candidate.</li></ul></section>
+<section class="section"><h2>Canonical G79-THVC artifact (also blocked)</h2>{download_panel(card)}</section>{download_check_panel(card)}<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
+<section class="section prose">
 <h2>What happened to the “values must be in [0, 1]” error?</h2><p>The rejected artifact and its submission-page receipt are unavailable, so its cause cannot be diagnosed. Local checks for this file find no NaN, infinity, sentinel or out-of-range pixel. That is evidence about <em>these bytes</em>, not a claim to have repaired or tested the earlier upload.</p><p>Outside-footprint convention (IR-79-69): the official problem page says outside-footprint data is “null or nan”. This inherited file has finite zero fill. The reference notebook's export cell does not explicitly apply an exterior NaN mask; that is not an organizer acceptance receipt. The convention must be resolved against the current official contract before any future eligible upload; no replacement TIFF was made here.</p>
 <p>The <a href="evidence/post_index_sibling_audit_20261022.json">later sibling collision audit (IR-79-122)</a> is a further reason not to treat the frozen sparse-only diagnostic as clearance.</p>
 <h2>How a future candidate could become eligible</h2><ol><li>Resolve the prospective shared novelty protocol; do not change a finished lane's definition to pass it.</li><li>Pre-register one new mechanism, confirm actual input availability, run all feature canaries, and validate with the shared buffered holdout. Beat the current incumbent under the declared comparison, not merely H33.</li><li>Pass the complete pre-placement surface and final-dot novelty gates, format checks and evidence binding. Let the separate selector decide whether to promote.</li><li>Only for a genuinely promoted file, confirm remaining capacity on the signed-in <a href="{COMP}/submissions/">official submissions page</a>, download its exact file, use its name and ≤140-character note, and keep the submission-page receipt with the file hash.</li></ol><p>The <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official rules, §§3.2–3.4</a>, allow up to three submissions per week and one final selected entry per participating entity. This maximum is not proof of remaining capacity. Generative-AI use must be disclosed in the narrative; competitors remain responsible for accuracy and authorship.</p>
@@ -460,6 +500,7 @@ def main():
         bad = [k for k, v in report['checks'].items() if not v]
         raise ValueError(f'Refusing to build a site around inconsistent evidence: {bad}')
     card = json.loads((ROOT / 'run_card.json').read_text())
+    swer = load_json(ROOT / 'run_card_swer.json')
     if card.get('lane') != 'G79-THVC' or promoted(card):
         raise ValueError('This review renderer is for the canonical negative G79-THVC artifact only')
     summary = build_summary(ROOT, card)
@@ -589,6 +630,17 @@ def main():
               'archive/g79_cskd_6da2620c/run_card_cskd.json': 'run_card_cskd.json',
               'registry/preregistration_csmd.json': 'preregistration_csmd.json',
               'run_card_csmd.json': 'run_card_csmd.json',
+              'run_card_swer.json': 'run_card_swer.json',
+              'registry/preregistration_g79_swer.json': 'preregistration_g79_swer.json',
+              'evidence/preflight_778c4a96.json': 'preflight_778c4a96.json',
+              'evidence/swer/feature_receipt.json': 'swer_feature_receipt.json',
+              'evidence/swer/canary_seed20.json': 'swer_canary_seed20.json',
+              'evidence/swer/canary_seed30.json': 'swer_canary_seed30.json',
+              'evidence/swer/holdout_seed20.json': 'swer_holdout_seed20.json',
+              'evidence/swer/holdout_seed30.json': 'swer_holdout_seed30.json',
+              'evidence/swer/novelty_stop.json': 'swer_novelty_stop.json',
+              'evidence/swer/source_claims.json': 'swer_source_claims.json',
+              'evidence/swer/boundary_diagnostic.json': 'swer_boundary_diagnostic.json',
               'registry/preregistration_g79_dfsd.json': 'preregistration_g79_dfsd.json',
               'run_card_dfsd.json': 'run_card_dfsd.json',
               'evidence/g79_dfsd_results.json': 'g79_dfsd_results.json'}
@@ -626,6 +678,8 @@ def main():
         'analysis.html': ('What H33 teaches us, without score promises',
                           page_head('ANALYSIS / EXACT METRIC / MEASURED LINEAGE', 'Understand H33. Do not copy it.',
                                     'Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.')
+                          + '<section class="section"><h2>Session 778c4a96 — G79-SWER falsification and H33 comparison</h2>'
+                          + md('reports/session_review_778c4a96.md') + '</section>'
                           + '<section class="section"><h2>Session d7da950d — Lane G79-DFSD (107-ch Split-Sensor Discovery, 2×2 Causal Proof &amp; 1,221-Raster Audit)</h2>'
                           + '<p><a href="evidence/run_card_dfsd.json">G79-DFSD run card</a> · <a href="evidence/preregistration_g79_dfsd.json">preregistration</a> · <a href="evidence/g79_dfsd_results.json">full results JSON</a>.</p>'
                           + '<figure style="margin:0 0 20px 0"><img src="figures/fig5_dfsd_breakthrough.png" alt="G79-DFSD zero-catalogue breakthrough and 2x2 causal ablation" style="width:100%;height:auto;display:block"></figure>'
@@ -638,6 +692,7 @@ def main():
         'research.html': ('Deferred geological hypotheses',
                           page_head('HYPOTHESES / PREREGISTERED LANES', 'Test a mechanism. Name its mimic.',
                                     'Source-grounded ideas, qualitative ranking, executed preregistered lanes and explicit data gates.')
+                          + '<section class="section">' + md('research/hypotheses_778c4a96.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_g79_dfsd.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_csmd_1dc8cff0.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_6da2620c.md') + '</section>'
@@ -648,6 +703,7 @@ def main():
         'sources.html': ('Official sources, availability & source health', sources_page(sources)),
         'history.html': ('Historical reports, not receipts', history_page()),
         'g79-cskd.html': ('G79-CSKD unique TIF — Seed-30 record (0.2145) & automated gate verdict', cskd_page()),
+        'swer-submission.html': ('G79-SWER new research TIFF — automated negative verdict', swer_page()),
         'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
         'dzd-submission.html': ('G79-DZD unique TIF \u2014 automated gate verdict', dzd_page()),
         'irregularities.html': ('Irregularities & stop reasons',
@@ -671,7 +727,22 @@ def main():
         'zip': 'downloads/' + Path(card['zip_file']).name, 'sha256': card['raster_sha256'],
         'name': card['submission_name'], 'note': card['submission_note'],
         'account_side_conditions': decision['account_side_conditions'],
-        'scope': 'Inherited research artifact, not a new submission. Generated from run_card.json and gems79.status at build time.'}, indent=2) + '\n')
+        'latest_generated_artifact': {
+            'lane': swer['lane'], 'ok_to_download': swer['ok_to_download'],
+            'ok_to_submit': swer['ok_to_submit'], 'verdict': swer['verdict'],
+            'page': 'swer-submission.html', 'file': swer['submission_file'],
+            'sha256': swer['raster_sha256'],
+        },
+        'scope': 'Top-level fields describe canonical G79-THVC; latest_generated_artifact describes new G79-SWER. Both are blocked.'}, indent=2) + '\n')
+    (SITE / 'swer-status.json').write_text(json.dumps({
+        'lane': swer['lane'], 'ok_to_download': swer['ok_to_download'],
+        'ok_to_submit': swer['ok_to_submit'], 'verdict': swer['verdict'],
+        'decision': 'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.',
+        'file': swer['submission_file'], 'zip': swer['zip_file'],
+        'sha256': swer['raster_sha256'], 'name': swer['submission_name'],
+        'note': swer['submission_note'], 'no_human_inspection_required': True,
+        'submission_slots_used': swer['submission_slots_used'],
+    }, indent=2) + '\n')
     (SITE / '.nojekyll').write_text('')
     (ROOT / '.nojekyll').write_text('')
     (ROOT / 'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/index.html"><title>GEMSDOE79</title></head><body><p><a href="docs/index.html">Open GEMSDOE79 — download and automatic submission decision</a></p></body></html>\n')
@@ -681,6 +752,9 @@ def main():
         'ok_to_download': decision['ok_to_download'], 'ok_to_submit': decision['ok_to_submit'],
         'verdict': card['verdict'], 'scientific_snapshot_utc': card['generated_utc'],
         'scientific_summary_sha256': hashlib.sha256((SITE / 'evidence/evidence_summary.json').read_bytes()).hexdigest(),
+        'latest_generated_lane': swer['lane'], 'latest_generated_raster_sha256': swer['raster_sha256'],
+        'latest_generated_ok_to_download': swer['ok_to_download'],
+        'latest_generated_ok_to_submit': swer['ok_to_submit'],
         'pages': list(pages), 'compatibility_redirects': aliases, 'no_human_inspection_required': True}, indent=2) + '\n')
     print(f"Built {len(pages)} pages; {decision_line(card)}")
 

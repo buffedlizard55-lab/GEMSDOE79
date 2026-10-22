@@ -1,11 +1,13 @@
 import hashlib
 import json
+import stat
 from pathlib import Path
 import numpy as np
 import pytest
 import rasterio
 from affine import Affine
 from gems57 import uniqueness
+from gems57 import submission_writer
 from gems57.submission_writer import write_submission
 from verify_project import verify
 
@@ -66,6 +68,41 @@ def test_writer_rejects_invalid_name_and_note(tmp_path):
                 name=name,
                 note=note,
             )
+
+
+def test_writer_commits_world_readable_outputs(monkeypatch, tmp_path):
+    """Shared-writer v2 fixes mkstemp's private 0600 mode without byte edits."""
+    sample = tmp_path / "sample.tif"
+    sample.write_bytes(b"sample fixture")
+    payload = b"synthetic geotiff fixture"
+
+    def fake_write(path, prediction, nodata=None):
+        Path(path).write_bytes(payload)
+
+    def fake_report(path, sample_path, footprint=None):
+        return {
+            "ok": True,
+            "problems": [],
+            "n_nonzero": 1,
+            "sha256": hashlib.sha256(payload).hexdigest(),
+        }
+
+    monkeypatch.setattr(submission_writer.grid, "write_geotiff", fake_write)
+    monkeypatch.setattr(submission_writer.gates, "format_report", fake_report)
+    monkeypatch.setattr(submission_writer, "validate", lambda *args: {"checks": {}})
+    monkeypatch.setattr(submission_writer, "assert_submittable", lambda report: None)
+
+    path = tmp_path / "output.tif"
+    write_submission(
+        path,
+        np.array([[1.0]], np.float32),
+        sample,
+        np.ones((1, 1), bool),
+        name="permission-test",
+        note="software test only",
+    )
+    for output in (path, path.with_suffix(".zip"), path.with_suffix(".json")):
+        assert stat.S_IMODE(output.stat().st_mode) == 0o644
 
 
 def test_committed_deliverable_offline_end_to_end():

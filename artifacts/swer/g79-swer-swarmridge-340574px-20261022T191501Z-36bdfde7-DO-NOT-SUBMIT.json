@@ -1,0 +1,126 @@
+{
+  "file": "g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.tif",
+  "sha256": "e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa",
+  "bytes": 1515441,
+  "submission_name": "g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT",
+  "note": "G79-SWER: swarm-excess x coherent mag-gravity ridge x transtension/cover; fixed surface; research only",
+  "note_chars": 102,
+  "validator": {
+    "file": "/home/user/GEMSDOE79/artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.tif",
+    "bytes": 1515441,
+    "sha256": "e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.008348877541720867,
+    "emitted_positive_pixels": 340574,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 340574,
+    "footprint_fraction": 0.06590853805212049
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOE79/artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.tif",
+    "bytes": 1515441,
+    "sha256": "e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.008348877541720867,
+    "n_nonzero": 340574,
+    "mass": 102517.19906156138,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "cee327eb1fe8248af507e37d2e46c6b9de4e7d954e96e267cd124803e116d403",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "G79-SWER",
+    "preregistration_sha256": "36bdfde744d6fd247fccd241caed8cbbb4dd5d6e57ec32a323783dcfc7453f01",
+    "fixed_continuous_surface": true,
+    "experimental_prediction": true,
+    "warning": "DO NOT SUBMIT: literal registry overlap is mathematically blocked"
+  }
+}
