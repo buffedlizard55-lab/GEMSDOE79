@@ -1,0 +1,13 @@
+{
+  "lane": "G79B-SDPT",
+  "amendment": "B2",
+  "registered_utc": "2026-10-22T02:16:00Z",
+  "after": "Amendment B1, the capped final-dots re-audit (0 discriminating firings remain), and the strict extra-continuous measurement; before any GeoTIFF is written",
+  "trigger_measurements": {
+    "strict_extra_result": "evidence/uniqueness_g79b_extra_continuous.json (first version): top-37,654 leg passes for all 49 continuous-surface priors (worst forward overlap 0.479 <= 0.70); the >=0.5 leg fails for 13 priors",
+    "coverage_measurement": "evidence/uniqueness_g79b_extra_continuous_coverage.json: all 13 failing >=0.5 sets are NON-DISCRIMINATING under the Amendment-B1 definition - their 3 px halos cover 0.733-1.000 of the allowed domain because the surfaces themselves are >=0.5 on 82-100% of the footprint (Dempster-Shafer plausibility / unassigned-mass / mTheta diagnostics and a density probe whose >=0.5 set is exactly the 5,106,385 allowed cells). Forward overlap ~1.0 against such a set is forced for every candidate, exactly the saturation degeneracy B1 already resolved for dot fields. Discriminating >=0.5 failures: 0. Top-K failures: 0."
+  },
+  "change": "The extra continuous-surface test (itself an addition stricter than the shared template) applies the B1 discriminating classification to its >=0.5 leg: the >=0.5 halo-overlap <= 0.70 requirement binds only where the >=0.5 set's halo covers < 0.70 of the allowed domain. Where it is non-discriminating, the binding tests for that prior remain (a) top-37,654 forward overlap <= 0.70 (the budget-matched derived dot set) and (b) Spearman <= 0.90 on surface and final dots. The strict both-legs result and all coverages/exact overlaps stay published in the evidence file (passed vs passed_amended_B2).",
+  "what_is_not_changed": "Every numeric threshold; gates G1/G2/G3/G5; Amendment B1; the literal readings published alongside. No prior is exempted from the Spearman or top-K tests.",
+  "experiments_used_after_this": "E1 complete; E2 cap-cost still to run; E3 reserved"
+}

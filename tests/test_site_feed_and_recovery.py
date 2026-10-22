@@ -139,10 +139,13 @@ def test_incoming_mct_archive_preserves_provenance_without_executable_fork():
 
 
 def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
-    card = json.loads((ROOT / 'run_card.json').read_text())
+    card_e1 = json.loads((ROOT / 'run_card.json').read_text())
+    card = json.loads((ROOT / 'run_card_g79b.json').read_text())
     status = json.loads((ROOT / 'docs/status.json').read_text())
     assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
-    assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
+    tifs = {p.name for p in (ROOT / 'docs/downloads').glob('*.tif')}
+    assert tifs == {Path(card_e1['submission_file']).name, card['submission_name'] + '.tif'}
+    assert all('DO-NOT-SUBMIT' in t for t in tifs)
     assert not hasattr(__import__('gems57.uniqueness', fromlist=['uniqueness']), 'binding_duplicate_decision')
 
 

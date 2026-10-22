@@ -1,6 +1,33 @@
 # GEMSDOE79 — auditable fault-discovery research
 
-## Download and submission decision — start here
+## Current lane: G79B-SDPT (2026-10-22) — start here
+
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative`.**
+
+[**Download the G79B research GeoTIFF (DO NOT SUBMIT)**](docs/downloads/gems79b-sdpt-a3-37654dots-20261022T022252Z-0b639b8d-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/gems79b-sdpt-a3-37654dots-20261022T022252Z-0b639b8d-DO-NOT-SUBMIT.zip) · [G79B run card](run_card_g79b.json) · [Executive summary / submission guide](docs/executive-summary.html) · [Site](docs/index.html)
+
+37,654 binary dots from a new scarp dipole-persistence + trace-object detector
+([hypothesis register](research/hypotheses_g79b.md),
+[preregistration](registry/preregistration_g79b.json)). SHA-256:
+`7f88b358f8d0bbdcb529a3d69d23abfb824473c9ba41c1398f6f0b963527ba03`.
+Format-validated on the written bytes (float32 `{0,1}`, EPSG:32611,
+3730 × 3292, no NaN, no nodata tag — the portal "[0, 1]" error cannot fire on
+it) and registry-unique vs all 992 prior family rasters under
+[Amendments B1](registry/preregistration_g79b_amendment_B1.json)/[B2](registry/preregistration_g79b_amendment_B2.json)
+(worst Spearman 0.093).
+
+**Why negative:** the unconstrained detector beat the control and the archived
+holdout best on both hide-and-recover seeds (HOLDOUT-DTI 0.1211/0.1114 vs
+control 0.1143/0.1087, `gems57-pooled-hide-v2`), but its dots duplicated 99
+prior dot fields. The preregistered uniqueness cap (52 priors at 0.68) cost
+−0.0176/−0.0203 HOLDOUT-DTI (experiment E2,
+[evidence](evidence/cap_cost_g79b.json)), dropping the unique version below
+the control (0.1036/0.0910). Per the preregistered rule: **do not spend a
+weekly slot on this file**. Reproduce the decision with no human inspection:
+`PYTHONPATH=src:vendor:scripts .venv/bin/python scripts/submission_status_g79b.py`
+(exit 2 = negative). 0 submission slots used.
+
+## Previous lane E1 — download and submission decision (closed)
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative`.**
 

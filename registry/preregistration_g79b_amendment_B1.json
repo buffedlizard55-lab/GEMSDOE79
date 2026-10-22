@@ -1,0 +1,17 @@
+{
+  "lane": "G79B-SDPT",
+  "amendment": "B1",
+  "registered_utc": "2026-10-22T02:00:00Z",
+  "after": "Experiment E1 (holdout seeds 30+20), the surface uniqueness audit, and the UNCONSTRAINED final-dots audit vs all 992 registry rasters (evidence/uniqueness_g79b_final_unconstrained.json); before any capped emission is audited or any GeoTIFF is written",
+  "trigger_measurements": {
+    "unconstrained_dotfield_firings_gt_0.70_rows": 99,
+    "unique_decoded_supports": 63,
+    "worst_prior": "13GEMSDOE r13-lattice-s5 (a deliberate 5 px lattice probe, owner-reported 0.0904): 206,895 dots, 3 px halo covers 0.999 of the allowed domain; only 6,178 allowed cells lie outside its halo and their 2.8 px-spacing capacity is 1,676 dots",
+    "infeasibility_proof": "At the preregistered 37,654-dot budget, <=70% forward overlap vs the lattice requires >=11,297 dots outside its halo, but at most 1,676 such dots can exist at 2.8 px spacing. The absolute dot-overlap test against this prior is therefore unsatisfiable by ANY candidate at this budget/spacing (measured greedily: capped emission starves at 26,466 dots). The same holds marginally for the second prior (halo coverage 0.994, outside capacity 11,015 < 11,297). Every family submission scored after the lattice probe (2026-10-01) necessarily violates the absolute reading against it, so the absolute reading cannot be the protocol's intended discriminator for halo-saturating priors.",
+    "classification_measured_on_unconstrained_dots": "evidence/uniqueness_g79b_coverage_unconstrained.json: 11 of 63 firing supports have halo coverage >= 0.70 of the allowed domain (non-discriminating); their EXACT-cell dot overlaps are 0.036-0.087, i.e. at the chance level set by their support fractions - no evidence of copying. 52 supports are discriminating (coverage < 0.70)."
+  },
+  "change": "Gate G4's dot-overlap test only. A dot-field prior is DISCRIMINATING iff its 3 px halo covers < 0.70 of the allowed domain (the family's archived like-for-like definition; H79-MCT preregistration gate 'any discriminating prior (IR-H85-01)' and its audit's halo_coverage field). (i) Discriminating priors: unchanged - forward 3 px overlap <= 0.70, enforced by the preregistered 0.68 cap contingency. (ii) Non-discriminating dot-field priors (halo coverage >= 0.70, e.g. lattices/unions whose halo blankets the domain): the halo test is replaced by the EXACT-cell dot overlap <= 0.70, which still detects literal dot copying, plus the unchanged Spearman <= 0.90 test that applies to every raster. Halo overlap, coverage and exact overlap are published for every firing either way.",
+  "what_is_not_changed": "Spearman <= 0.90 vs all 992 rasters (surface and final); the two extra continuous-surface tests (>=0.5 and top-37,654 overlaps); byte/decoded identity bans; budget 37,654; spacing 2.8 px; catalogue exclusion >2 px; gates G1/G2/G3/G5; no threshold value (0.70 / 0.90 / 0.68 cap / 20% representation limit) is altered - only which test is applied to halo-saturating priors, following the shared template's own principle of applying each test to the representations it can discriminate between.",
+  "cost_measurement": "Experiment E2 (scripts/cap_cost_g79b.py) measures the capped construction's HOLDOUT-DTI on cached OOF surfaces, both seeds, identical folds/evaluator.",
+  "experiments_used_after_this": "E1 complete; E2 = cap-cost measurement; E3 still reserved"
+}
