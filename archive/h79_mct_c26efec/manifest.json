@@ -1,0 +1,810 @@
+{
+  "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+  "purpose": "Preserve concurrent lane evidence without adopting its gate exemption, lane or submit approval. Shared modules remain original upstream bytes, not local forks. Source PY/HTML/CSS stored as non-executable text.",
+  "files": [
+    {
+      "source_path": ".github/workflows/tests.yml",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "5a54a1b3883b31406df27f3970eeff13d5b5dd3015b4efd79f2f349e09578269",
+      "bytes": 407,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": ".gitignore",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "20ce2aebf5a5d7837ff5b04361f53f687720bd325ef6e34464d6fa18492e191a",
+      "bytes": 335,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": ".nojekyll",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "README.md",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "3d4e3bb8fddba028e5c80676bcd1a40f88b913d2ea517883b96acffc0bb7acdb",
+      "bytes": 13749,
+      "archive_path": "archive/h79_mct_c26efec/ORIGINAL_README.md",
+      "archived_sha256": "31bacfff08e05764a86d6dbc67c6ec7d43e2e4175257a1c2753bb3ad9119ace6",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "data/bridge/existing_faults.tif",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830,
+      "archive_path": "archive/h79_mct_c26efec/data/bridge/existing_faults.tif",
+      "archived_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "data/bridge/sample_submission.tif",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "bytes": 1599597,
+      "archive_path": "archive/h79_mct_c26efec/data/bridge/sample_submission.tif",
+      "archived_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "data/restore_receipt.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "1fedfc6fe0b06d4d6baf26532e4fdc739cfb6547b07cf4e01bf355e025e875e6",
+      "bytes": 6194,
+      "archive_path": "archive/h79_mct_c26efec/data/restore_receipt.json",
+      "archived_sha256": "1fedfc6fe0b06d4d6baf26532e4fdc739cfb6547b07cf4e01bf355e025e875e6",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/.nojekyll",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "docs/EXECUTIVE_SUMMARY.html",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "595cc074b92b27bb4769f129cbf31f666d80eca9b9f937121b9e0dfebd64039d",
+      "bytes": 7370,
+      "archive_path": "archive/h79_mct_c26efec/docs/EXECUTIVE_SUMMARY.html.txt",
+      "archived_sha256": "595cc074b92b27bb4769f129cbf31f666d80eca9b9f937121b9e0dfebd64039d",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/EXECUTIVE_SUMMARY.md",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "7ffa2aa06439dd080d6f88badcca7adfd6ffa7088858030ff4faa36565b1eee1",
+      "bytes": 6258,
+      "archive_path": "archive/h79_mct_c26efec/docs/EXECUTIVE_SUMMARY.md",
+      "archived_sha256": "b182e1a3737d07fd617a1fb84332cf2f9c8c4bfdc44d5aef279e93d85cc2eeab",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/PROJECT_BRIEF.html",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "ee79dd29fe5f6d0a46dcaa87a9a28b1eb6cb66b14dcf4d02b2cf6e73fe6fccd3",
+      "bytes": 9471,
+      "archive_path": "archive/h79_mct_c26efec/docs/PROJECT_BRIEF.html.txt",
+      "archived_sha256": "ee79dd29fe5f6d0a46dcaa87a9a28b1eb6cb66b14dcf4d02b2cf6e73fe6fccd3",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/PROJECT_BRIEF.md",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "0cbd707044390aa2a3494744be5e3ec740ecdcba5d38f8077ad13114fd12ac68",
+      "bytes": 12781,
+      "archive_path": "archive/h79_mct_c26efec/docs/PROJECT_BRIEF.md",
+      "archived_sha256": "f8afb16f0a29acfa9318eb3088b0d053a197519f71f265a74cac3514f85a948f",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "237d9c1b46b3dd97e303d9e328b0ee91830cf6ed810ac696a66d415d9fb047d0",
+      "bytes": 20429,
+      "archive_path": "archive/h79_mct_c26efec/docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.json",
+      "archived_sha256": "237d9c1b46b3dd97e303d9e328b0ee91830cf6ed810ac696a66d415d9fb047d0",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.tif",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "d1a4158acb3b6593c659ef37749bc80c5af0ddf20c62357554462e0870b7df6d",
+      "bytes": 150540,
+      "archive_path": "archive/h79_mct_c26efec/docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.tif",
+      "archived_sha256": "d1a4158acb3b6593c659ef37749bc80c5af0ddf20c62357554462e0870b7df6d",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.zip",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "94c82efc23701b07f54644401780cf2b2e531a31dda36802f84a331b53a7e615",
+      "bytes": 119481,
+      "archive_path": "archive/h79_mct_c26efec/docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.zip",
+      "archived_sha256": "94c82efc23701b07f54644401780cf2b2e531a31dda36802f84a331b53a7e615",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/executive-summary.html",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "ba9c69077c7e2a33c93c9a55297c5aa00dce3a8d5be8865b52a1ce4a726514b9",
+      "bytes": 6847,
+      "archive_path": "archive/h79_mct_c26efec/docs/executive-summary.html.txt",
+      "archived_sha256": "ba9c69077c7e2a33c93c9a55297c5aa00dce3a8d5be8865b52a1ce4a726514b9",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/index.html",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "51556e405284ea03ea55f7dbd3afa386658d193a6b46c0d46f018a00f12122c1",
+      "bytes": 11399,
+      "archive_path": "archive/h79_mct_c26efec/docs/index.html.txt",
+      "archived_sha256": "51556e405284ea03ea55f7dbd3afa386658d193a6b46c0d46f018a00f12122c1",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/irregularities.html",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "c19623177c76e6ba3332d248bc50399a0d3cb073e4a6f1cbedc337202ef8a410",
+      "bytes": 8136,
+      "archive_path": "archive/h79_mct_c26efec/docs/irregularities.html.txt",
+      "archived_sha256": "c19623177c76e6ba3332d248bc50399a0d3cb073e4a6f1cbedc337202ef8a410",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/irregularities.md",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "fe9689af633edfe13b0d03e3962f49bc956d4e624757484e881bd4d9c05cff02",
+      "bytes": 6275,
+      "archive_path": "archive/h79_mct_c26efec/docs/irregularities.md",
+      "archived_sha256": "7040082f801e38ea19ef1f86642d42ab233e5310167d6ff98aa751d52838ca54",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/run-card.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "66de164eb9d9d8d02eba0eb9a49997c9f6a7c19712ecce756ee94b3609249b94",
+      "bytes": 11602,
+      "archive_path": "archive/h79_mct_c26efec/docs/run-card.json",
+      "archived_sha256": "66de164eb9d9d8d02eba0eb9a49997c9f6a7c19712ecce756ee94b3609249b94",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/status.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "62e4dc351e244f5feb317cf4aac10d5f0ca446a281b68e1ccd478a37f57d9168",
+      "bytes": 1413,
+      "archive_path": "archive/h79_mct_c26efec/docs/status.json",
+      "archived_sha256": "62e4dc351e244f5feb317cf4aac10d5f0ca446a281b68e1ccd478a37f57d9168",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/audit_h79.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "add564ad4e4051e23f26613011d69d77ca55cb3fc4e19d0a3874b4a0b83bcc0c",
+      "bytes": 1212,
+      "archive_path": "archive/h79_mct_c26efec/evidence/audit_h79.log",
+      "archived_sha256": "add564ad4e4051e23f26613011d69d77ca55cb3fc4e19d0a3874b4a0b83bcc0c",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/audit_h79_unconstrained.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "d0179b455abf0db74f2abb060bdfacb1385eb65fa6c392455818936751995a22",
+      "bytes": 1214,
+      "archive_path": "archive/h79_mct_c26efec/evidence/audit_h79_unconstrained.log",
+      "archived_sha256": "d0179b455abf0db74f2abb060bdfacb1385eb65fa6c392455818936751995a22",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/build_h79.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "a75db51d2871a2d20d4bd9cc4d8da7e935db63088b251bf80c8c5fdb43c23075",
+      "bytes": 39008,
+      "archive_path": "archive/h79_mct_c26efec/evidence/build_h79.json",
+      "archived_sha256": "a75db51d2871a2d20d4bd9cc4d8da7e935db63088b251bf80c8c5fdb43c23075",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/build_h79.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "1d17a978c6bd55a5f484e5cbd07cda5011e14a6ac008135adb190c073a2aff25",
+      "bytes": 14685,
+      "archive_path": "archive/h79_mct_c26efec/evidence/build_h79.log",
+      "archived_sha256": "1d17a978c6bd55a5f484e5cbd07cda5011e14a6ac008135adb190c073a2aff25",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/build_h79_unconstrained.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "597bc2b6633d8c52cdaea51f8c268ada5e3c728c6d1b0be7412f21fc00de1b0e",
+      "bytes": 7738,
+      "archive_path": "archive/h79_mct_c26efec/evidence/build_h79_unconstrained.json",
+      "archived_sha256": "597bc2b6633d8c52cdaea51f8c268ada5e3c728c6d1b0be7412f21fc00de1b0e",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/build_h79_unconstrained.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "0f7b4d0bacfa3f778a2c07fe2f9652b670577abbe2aaac9692916dbb98d62dab",
+      "bytes": 1377,
+      "archive_path": "archive/h79_mct_c26efec/evidence/build_h79_unconstrained.log",
+      "archived_sha256": "0f7b4d0bacfa3f778a2c07fe2f9652b670577abbe2aaac9692916dbb98d62dab",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/features_build.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "c36864fc4467a87a85a5c4d0dd633678db7e2f90f1d71f120b11946c79eb266f",
+      "bytes": 2404,
+      "archive_path": "archive/h79_mct_c26efec/evidence/features_build.log",
+      "archived_sha256": "c36864fc4467a87a85a5c4d0dd633678db7e2f90f1d71f120b11946c79eb266f",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/features_receipt.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "385d3d7c9accf26e73ef9d08e944f3a045483e41e47f33b19d25a891baf6ba79",
+      "bytes": 6286,
+      "archive_path": "archive/h79_mct_c26efec/evidence/features_receipt.json",
+      "archived_sha256": "385d3d7c9accf26e73ef9d08e944f3a045483e41e47f33b19d25a891baf6ba79",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/holdout_h79_constrained.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "68f997519c4965413712884b2ddcf26b9ca51b243bd0fa85d0c10fa7192f876c",
+      "bytes": 27208,
+      "archive_path": "archive/h79_mct_c26efec/evidence/holdout_h79_constrained.json",
+      "archived_sha256": "68f997519c4965413712884b2ddcf26b9ca51b243bd0fa85d0c10fa7192f876c",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/holdout_h79_constrained.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "fddad08af3c6a256f3fd702836b96ffc38d883f20dd2a35d1dca468d43665051",
+      "bytes": 414,
+      "archive_path": "archive/h79_mct_c26efec/evidence/holdout_h79_constrained.log",
+      "archived_sha256": "fddad08af3c6a256f3fd702836b96ffc38d883f20dd2a35d1dca468d43665051",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/holdout_h79_seed20.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "96bacbf5892ff436e1be5a22a5e9ca97c154709a99ae20f176bd79ab336b78ab",
+      "bytes": 25151,
+      "archive_path": "archive/h79_mct_c26efec/evidence/holdout_h79_seed20.json",
+      "archived_sha256": "96bacbf5892ff436e1be5a22a5e9ca97c154709a99ae20f176bd79ab336b78ab",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/holdout_h79_seed20.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "b10e6fb4bad3510b784115342b9fb1664535d1d1afd6ee515a8d3dd50c16dfa1",
+      "bytes": 1635,
+      "archive_path": "archive/h79_mct_c26efec/evidence/holdout_h79_seed20.log",
+      "archived_sha256": "b10e6fb4bad3510b784115342b9fb1664535d1d1afd6ee515a8d3dd50c16dfa1",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/holdout_h79_seed30.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "a14ebef5e7d9c5d35a1508c54d72d952b6aeccbe9a28c54a2573f4e9494e8da3",
+      "bytes": 25147,
+      "archive_path": "archive/h79_mct_c26efec/evidence/holdout_h79_seed30.json",
+      "archived_sha256": "a14ebef5e7d9c5d35a1508c54d72d952b6aeccbe9a28c54a2573f4e9494e8da3",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/holdout_h79_seed30.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "39056a100f3388b056b960fcb9600dd53c0e6af1de7b3d116c4b2ee29e3844dd",
+      "bytes": 1635,
+      "archive_path": "archive/h79_mct_c26efec/evidence/holdout_h79_seed30.log",
+      "archived_sha256": "39056a100f3388b056b960fcb9600dd53c0e6af1de7b3d116c4b2ee29e3844dd",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/registry_audit_h79.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "56bd45afd94886fcd68e4c3cc7d2f0ed1ac3cf00d291d62a16fc88c1bc2af1fd",
+      "bytes": 675767,
+      "archive_path": "archive/h79_mct_c26efec/evidence/registry_audit_h79.json",
+      "archived_sha256": "56bd45afd94886fcd68e4c3cc7d2f0ed1ac3cf00d291d62a16fc88c1bc2af1fd",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/registry_audit_h79_unconstrained.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "f2fe4fdacadaff3e87ddd8f68b2317152fa9cba0b4411da1c6b0c0f71576fda5",
+      "bytes": 675521,
+      "archive_path": "archive/h79_mct_c26efec/evidence/registry_audit_h79_unconstrained.json",
+      "archived_sha256": "f2fe4fdacadaff3e87ddd8f68b2317152fa9cba0b4411da1c6b0c0f71576fda5",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/registry_fetch.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "059624b7c2359cf9741b5a2849f86ce110ce0c45ba7156afa27c5a26a6ff4945",
+      "bytes": 4399,
+      "archive_path": "archive/h79_mct_c26efec/evidence/registry_fetch.log",
+      "archived_sha256": "059624b7c2359cf9741b5a2849f86ce110ce0c45ba7156afa27c5a26a6ff4945",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/registry_fetch_receipt.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "058d3d8c322ddd32ad20ae7adb6707e3b6a15c3a9b4ca20121f3726ab4068fca",
+      "bytes": 411,
+      "archive_path": "archive/h79_mct_c26efec/evidence/registry_fetch_receipt.json",
+      "archived_sha256": "058d3d8c322ddd32ad20ae7adb6707e3b6a15c3a9b4ca20121f3726ab4068fca",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/restore_data.log",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "fa026bb5255c4797c577063a316e2c639c7515082eae83925fd3f394b6f19c92",
+      "bytes": 2824,
+      "archive_path": "archive/h79_mct_c26efec/evidence/restore_data.log",
+      "archived_sha256": "fa026bb5255c4797c577063a316e2c639c7515082eae83925fd3f394b6f19c92",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/run_card_h79.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "66de164eb9d9d8d02eba0eb9a49997c9f6a7c19712ecce756ee94b3609249b94",
+      "bytes": 11602,
+      "archive_path": "archive/h79_mct_c26efec/evidence/run_card_h79.json",
+      "archived_sha256": "66de164eb9d9d8d02eba0eb9a49997c9f6a7c19712ecce756ee94b3609249b94",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/run_card_h79_unconstrained.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "0cdbb10d50d9bf5d5dcdacd1c372f886cda4802d4014940d56435a8a28658017",
+      "bytes": 9140,
+      "archive_path": "archive/h79_mct_c26efec/evidence/run_card_h79_unconstrained.json",
+      "archived_sha256": "0cdbb10d50d9bf5d5dcdacd1c372f886cda4802d4014940d56435a8a28658017",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "knowledge/competition_facts.md",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "91fe72a3779b1053afc22bf0a77649d18b8803e3c71a79015d885c54d25f2865",
+      "bytes": 3022,
+      "archive_path": "archive/h79_mct_c26efec/knowledge/competition_facts.md",
+      "archived_sha256": "5be1b8a426b10b022fe61be244cb8806308d4b7b166bcc8280cb70f00a04821f",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "knowledge/data_sources.md",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "de52d23d9aa3bccfb6874d519f15c1eb9c9a8b067755f900705c9acb81ec94fe",
+      "bytes": 4696,
+      "archive_path": "archive/h79_mct_c26efec/knowledge/data_sources.md",
+      "archived_sha256": "54346e902811b632a1ba107a5f9c4ab2c223d9232b92611354fca23d78b35eca",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "knowledge/dem10_STATUS.txt",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "8b32bc3c229d2f4071d8c92a806786883d095f9262a4eb06dee4565f4275bc82",
+      "bytes": 75,
+      "archive_path": "archive/h79_mct_c26efec/knowledge/dem10_STATUS.txt",
+      "archived_sha256": "8b32bc3c229d2f4071d8c92a806786883d095f9262a4eb06dee4565f4275bc82",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "knowledge/dem10_manifest.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "bfb79f39be0737b448b1a3bf5432db168a77d6786240eafdca352e7a87400f0d",
+      "bytes": 13194,
+      "archive_path": "archive/h79_mct_c26efec/knowledge/dem10_manifest.json",
+      "archived_sha256": "bfb79f39be0737b448b1a3bf5432db168a77d6786240eafdca352e7a87400f0d",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "knowledge/lidar_scarp_features.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "9ef0df6e87598a8b0cd52fe821661e5fdb3a00568c5d9b1c5d61fd6b242dcd41",
+      "bytes": 3531,
+      "archive_path": "archive/h79_mct_c26efec/knowledge/lidar_scarp_features.json",
+      "archived_sha256": "9ef0df6e87598a8b0cd52fe821661e5fdb3a00568c5d9b1c5d61fd6b242dcd41",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "registry/data_manifest.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "f08f96e534cf91dbb02d7655a4e6d661837235ebb88b2e5eabdc0b3cc7bcee21",
+      "bytes": 13501,
+      "archive_path": "archive/h79_mct_c26efec/registry/data_manifest.json",
+      "archived_sha256": "f08f96e534cf91dbb02d7655a4e6d661837235ebb88b2e5eabdc0b3cc7bcee21",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "registry/preregistration_amendment_A1.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "f971c9a0429deb18ff1ec0ed089f7302d550d72f9845d7ba6a53ef514314e9dc",
+      "bytes": 1320,
+      "archive_path": "archive/h79_mct_c26efec/registry/preregistration_amendment_A1.json",
+      "archived_sha256": "f971c9a0429deb18ff1ec0ed089f7302d550d72f9845d7ba6a53ef514314e9dc",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "registry/preregistration_h79.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "80fbc86cfaefaa1adf280fd1faeb6b891af316c225b7d46a1b5eec095a36d3e0",
+      "bytes": 3246,
+      "archive_path": "archive/h79_mct_c26efec/registry/preregistration_h79.json",
+      "archived_sha256": "80fbc86cfaefaa1adf280fd1faeb6b891af316c225b7d46a1b5eec095a36d3e0",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "registry/registry_index.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "73216d76cebc7bd4bf55ac144f4bf8d9f71408b5d18705ec9cbeaa571f307c67",
+      "bytes": 330595,
+      "archive_path": "archive/h79_mct_c26efec/registry/registry_index.json",
+      "archived_sha256": "73216d76cebc7bd4bf55ac144f4bf8d9f71408b5d18705ec9cbeaa571f307c67",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "registry/registry_inventory.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "120544d7478b41fc7faa449f7d6c6afa74de7ef78ccfa2fe73ab2432d1c3e47f",
+      "bytes": 406482,
+      "archive_path": "archive/h79_mct_c26efec/registry/registry_inventory.json",
+      "archived_sha256": "120544d7478b41fc7faa449f7d6c6afa74de7ef78ccfa2fe73ab2432d1c3e47f",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "registry/template_pin.json",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "310251c790e657b0d629ceef821330dcdf96cf4bc0bbea9ddf496c9f8d175df0",
+      "bytes": 3010,
+      "archive_path": "archive/h79_mct_c26efec/registry/template_pin.json",
+      "archived_sha256": "310251c790e657b0d629ceef821330dcdf96cf4bc0bbea9ddf496c9f8d175df0",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "reports/why_02778.md",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "3a76ff3a395a4c28aab15a825299562dd565b86fc77f512ce340b0f4c23944e3",
+      "bytes": 9728,
+      "archive_path": "archive/h79_mct_c26efec/reports/why_02778.md",
+      "archived_sha256": "d05af8225b8875787bee85e9839f256f4be37182086410222fc2059353d5e0fb",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "requirements.txt",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "4fe1c70523fc873386fd6885e7b2ea19c7054e36277872284acdd2802cd543c7",
+      "bytes": 97,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "research/h79_hypotheses.md",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "2809dfe7770a61567c6ad7869e1a2528643f8c8c7b3868d58f248f6b272c5aa5",
+      "bytes": 4915,
+      "archive_path": "archive/h79_mct_c26efec/research/h79_hypotheses.md",
+      "archived_sha256": "2a03b4899f765de56ea0833dbffe863ee6276d0b348d9a8d37ab9e26e15bcc96",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/audit_h79.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "3deb3133a1a31706c4cde45df9cca224f08ae0f6b2e3b33fcdb4fa74b1c3aad3",
+      "bytes": 17535,
+      "archive_path": "archive/h79_mct_c26efec/scripts/audit_h79.py.txt",
+      "archived_sha256": "3deb3133a1a31706c4cde45df9cca224f08ae0f6b2e3b33fcdb4fa74b1c3aad3",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/build_registry_inventory.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "38cd186e16a5118d19c3c4066df97917282ac0568853a4985ebbe046f27a6fc8",
+      "bytes": 2753,
+      "archive_path": "archive/h79_mct_c26efec/scripts/build_registry_inventory.py.txt",
+      "archived_sha256": "38cd186e16a5118d19c3c4066df97917282ac0568853a4985ebbe046f27a6fc8",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/build_site.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "a4b274d56d6f9c6b6bc17437bf0260cc813565a12b5794cc75f556520382ca5d",
+      "bytes": 19504,
+      "archive_path": "archive/h79_mct_c26efec/scripts/build_site.py.txt",
+      "archived_sha256": "a4b274d56d6f9c6b6bc17437bf0260cc813565a12b5794cc75f556520382ca5d",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/build_submission_h79.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "6aed5453bec5b853ac75e651d8224c08b359224526bba10a361213c22b525890",
+      "bytes": 8205,
+      "archive_path": "archive/h79_mct_c26efec/scripts/build_submission_h79.py.txt",
+      "archived_sha256": "6aed5453bec5b853ac75e651d8224c08b359224526bba10a361213c22b525890",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/fetch_registry.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "ab237791a60d8e7b42b60173580618e6ded67badfadf8f3875844807dbe630f5",
+      "bytes": 4697,
+      "archive_path": "archive/h79_mct_c26efec/scripts/fetch_registry.py.txt",
+      "archived_sha256": "ab237791a60d8e7b42b60173580618e6ded67badfadf8f3875844807dbe630f5",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/holdout_constrained_h79.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "b1ccf167427721e551b5e82a8f6717fca733d8eb704c0913f10e6a6b5d18b086",
+      "bytes": 4120,
+      "archive_path": "archive/h79_mct_c26efec/scripts/holdout_constrained_h79.py.txt",
+      "archived_sha256": "b1ccf167427721e551b5e82a8f6717fca733d8eb704c0913f10e6a6b5d18b086",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/restore_data.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "23841fe05cc8591beb249f49f81787ff287aea68cc23442f8f8203dec5527742",
+      "bytes": 5255,
+      "archive_path": "archive/h79_mct_c26efec/scripts/restore_data.py.txt",
+      "archived_sha256": "23841fe05cc8591beb249f49f81787ff287aea68cc23442f8f8203dec5527742",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/run_holdout_h79.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "75e8559ad0c7ae7e741aa78dffd49b4be4e70c8d706f39bd62de07d508ed6c8a",
+      "bytes": 10800,
+      "archive_path": "archive/h79_mct_c26efec/scripts/run_holdout_h79.py.txt",
+      "archived_sha256": "75e8559ad0c7ae7e741aa78dffd49b4be4e70c8d706f39bd62de07d508ed6c8a",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/__init__.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "cee61115ea9384dc72e03f32f3f01fb163bf7a90a52b0c587821f26c65a43130",
+      "bytes": 344,
+      "archive_path": "archive/h79_mct_c26efec/src/gems79/__init__.py.txt",
+      "archived_sha256": "cee61115ea9384dc72e03f32f3f01fb163bf7a90a52b0c587821f26c65a43130",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/data.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "2adace1bf78667af7dde0261b1158b1660dc4eaca88c755765cd9f0ff0da1e36",
+      "bytes": 4342,
+      "archive_path": "archive/h79_mct_c26efec/src/gems79/data.py.txt",
+      "archived_sha256": "2adace1bf78667af7dde0261b1158b1660dc4eaca88c755765cd9f0ff0da1e36",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/features.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "1e309182a643e95b52b0dc91667f6e0d2b5312f14d6f599512bb6a8a1aeaf7e4",
+      "bytes": 7433,
+      "archive_path": "archive/h79_mct_c26efec/src/gems79/features.py.txt",
+      "archived_sha256": "1e309182a643e95b52b0dc91667f6e0d2b5312f14d6f599512bb6a8a1aeaf7e4",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/model.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "ed9233f7e5b70ab6169b4d8152a3138e77e6d901178ea7dc43dc83d3c51a96d3",
+      "bytes": 3571,
+      "archive_path": "archive/h79_mct_c26efec/src/gems79/model.py.txt",
+      "archived_sha256": "ed9233f7e5b70ab6169b4d8152a3138e77e6d901178ea7dc43dc83d3c51a96d3",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/trace.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "9a73983c658e653cbdc4d5e6444d992bbad69c93446f2eaf8bcb0c49084ef2f0",
+      "bytes": 7283,
+      "archive_path": "archive/h79_mct_c26efec/src/gems79/trace.py.txt",
+      "archived_sha256": "9a73983c658e653cbdc4d5e6444d992bbad69c93446f2eaf8bcb0c49084ef2f0",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "tests/conftest.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "1b4c8a66f9f28b3f14ea0dd49fe21e5f93982da7f7307c8fb17470b21bfe4838",
+      "bytes": 188,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "tests/test_release_artifacts.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "91f48e70498214280cf8b5d4d653f1b11e2f078b9b4f14bfc1c9920ae079baa2",
+      "bytes": 2502,
+      "archive_path": "archive/h79_mct_c26efec/tests/test_release_artifacts.py.txt",
+      "archived_sha256": "91f48e70498214280cf8b5d4d653f1b11e2f078b9b4f14bfc1c9920ae079baa2",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "tests/test_trace.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "ff3fe973aab3d9e059763e63eb6a4b5ee542ce15ddcb2316345c3ac0e80cd6ec",
+      "bytes": 2103,
+      "archive_path": "archive/h79_mct_c26efec/tests/test_trace.py.txt",
+      "archived_sha256": "ff3fe973aab3d9e059763e63eb6a4b5ee542ce15ddcb2316345c3ac0e80cd6ec",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "vendor/__init__.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/__init__.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "bd7f12b45caf67b7b4d0da4656c7c3895513bec524ec0b7f251227ecbdd39d26",
+      "bytes": 641,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/anatomy.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "f47103ae0f615a0f04ef0427ea83ad2dd11ecd4af34e53b99f2e20e557025cf9",
+      "bytes": 20081,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/damagezone_envelope.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "5e5cc359f3ccc239a0906d96f642057461ae7928e967f02249b62dab2ac98a36",
+      "bytes": 9838,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/emit.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "05c473e736e4a599b35be77b2791b62d72460383853c8fba0eb56ea26c99055d",
+      "bytes": 19204,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/evaluate_holdout.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "bytes": 7490,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/evaluator_provenance.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "6f1d1932fbe427ceb028f74d80926aa836b2cb77c982625c97d1c4141b7b80e2",
+      "bytes": 2952,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/faultzone.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "620537490173e565898911577f6cdf95e288d8eff326830a1da9c71f4b467bdd",
+      "bytes": 17696,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/fit.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "936488cc00c0f71c64d7e36a94dd1ddd0f17625abeefb41e7c6e75360ac14ae8",
+      "bytes": 5891,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/fitting.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "91fbc11fc51374ca07b5246d5221edee33636e546fa457331e84272b80a7cbc7",
+      "bytes": 10707,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/gates.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "7c57f70dbba58bb1112df4193a3de56516af0f981970d4b943b394f99b573dae",
+      "bytes": 10238,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/geo.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "4320d4fb718a66a794b21c35af28cc1f2ce7b6e49649b17e86b3e9eb34235ff8",
+      "bytes": 6015,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/grid.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "b96df7ec0f33658a61b0baa5db85fcd19be2cd8b1873f99699bd26bddae8cd8d",
+      "bytes": 8704,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/holdout.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "bytes": 14883,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/metric.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "bytes": 9895,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/network.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "d5e53d7df182e69bb22a6e39ac16f43d3f5b730e503d86538d5f8f7360020943",
+      "bytes": 9095,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/offcatalogue.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "5c1937dda9f16563d8679446bb60e66c8c878e7440c522c44afa0e7879b7b6e8",
+      "bytes": 16436,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/relay_bend_anatomy.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "cb9b79b9b61feaaaf6305009f571b6222c1ec390d1f94a1b05a91e05e7eb5dcb",
+      "bytes": 13742,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/spatial.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8",
+      "bytes": 9879,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/strand_orientation.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "c1dd6d8bc39c48c4cda11321c116e600b59b18cf1764e23ce3d5438bea9dd0bc",
+      "bytes": 5342,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/strike_zone.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "eaf5b1030b731ec743650568d28598d3b6104e641a089dd6cca196e05be4e9c4",
+      "bytes": 5132,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/submission_writer.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
+      "bytes": 6387,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/uniqueness.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "d60cd8db338e8dcbb1f14168f7579f5b8c6212a79fe5087545a9156cf27392b9",
+      "bytes": 28936,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/validate.py",
+      "source_commit": "c26efecdd9488a6f2be798eff6d3daed700272a5",
+      "sha256": "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd",
+      "bytes": 4765,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    }
+  ]
+}

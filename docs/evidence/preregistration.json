@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "lane": "G79-FABRIC-OFFSET",
+  "registered_utc": "2026-10-21T21:46:02.023966+00:00",
+  "branch": "arena/f61b17a2-gemsdoe79",
+  "assignment_irregularity": "No delimited single-method paragraph occurs in the request. This narrow autonomous lane is explicitly self-declared, not claimed as a supplied assignment.",
+  "hypothesis": "A concealed cross-cutting fault can displace a magnetic lithologic marker across an independent gravity edge. A repeatable nonzero along-edge registration lag between opposite-side magnetic gradient profiles is more specific to displacement than a same-pixel edge product.",
+  "mechanism": "Sample magnetic-gradient fabric on both sides of a gravity-gradient normal. Compare short tangent profiles at zero lag and signed nonzero lags. Retain coherent, repeatable nonzero-lag improvement at two cross-contact offsets, weighted by gravity edge strength and magnetic contrast. No prior prediction values enter the surface.",
+  "named_non_fault_mimic": "An unfaulted oblique intrusive or lava-flow contact, or an airborne survey levelling seam, can shift magnetic fabric across a gravity boundary.",
+  "inputs": [
+    "Immutable SHA-256-pinned cached 19-band numerical feature GeoTIFF, using rtp (2), iso_grav_anom (13), and optionally tmi (14) as a sensor-consistency diagnostic",
+    "Pinned sample_submission.tif for footprint and grid only",
+    "Pinned existing_faults.tif: whole-component hide-and-recover labels; visible catalogue used only for placement masks and the fair comparator"
+  ],
+  "cache_policy": "Reuse the cached numerical feature stack directly. The historical 54-channel stack.npy has a receipt but no portable byte source; do not silently rebuild it or claim it was restored. All newly computed transforms belong to this lane. Shared evaluate_holdout.py and submission_writer.py are unmodified, pinned from 60GEMSDOE.",
+  "fixed_transform": {
+    "magnetic_gaussian_sigma_px": 1.5,
+    "gravity_gaussian_sigma_px": 3.0,
+    "gravity_normals": 8,
+    "opposite_side_offsets_px": [
+      3,
+      5
+    ],
+    "tangent_profile_half_width_px": 4,
+    "registration_lags_px": [
+      -3,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      3
+    ],
+    "minimum_profile_correlation": 0.35,
+    "surface": "gravity_edge_rank * magnetic_contrast_rank * sqrt(nonzero_lag_improvement_r3 * nonzero_lag_improvement_r5) * same_signed_lag_consistency; no catalogue-distance or borrowed prediction features",
+    "boundary_policy": "Require valid input support for the complete stencil; no wraparound and no filtered nodata/sentinel seams. Missing-support cells abstain."
+  },
+  "holdout": {
+    "split": "shared holdout.buffered_component_draw, seeds 20 and 30; whole 8-connected components; label-blind quadrant regions eroded 12 px; visible context removed within 3 px of hidden truth",
+    "training": "No fitted model in E1; no catalogue-based scientific features. The hide-and-recover masks are still enforced.",
+    "placement": "Fixed descending-surface greedy Euclidean 3 px spacing; fixed budget 37654 scaled to each evaluation region by footprint area; visible faults masked pixel-exactly, with no truth-based geometry. Final map uses the full visible catalogue with identical rules.",
+    "controls": [
+      "zero-lag independent-edge product with same allocator and budget",
+      "seeded uniform surface with same allocator and budget",
+      "H33 legacy artifact, explicitly contaminated as-is diagnostic, never a promotion control"
+    ],
+    "evaluator": "gems57-pooled-hide-v2",
+    "metric": "Pool TP/FP/FN before DTI; alpha=0.2 beta=0.8; 300 m triangular kernel",
+    "ci": "Shared evaluator paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws; conditional, not a leaderboard interval",
+    "incumbent": "No previous local run exists. Sibling-reported 0.152718 is an unverified HOLDOUT-DTI reference, not an organizer score and not a matched control; cannot promote merely by beating an unmatched number. Require paired improvement over the fixed matched control, and do not claim global current-best improvement without reproduction."
+  },
+  "leakage_canary": "Each intermediate feature alone: held-out positives vs fixed region negatives at >3 px from truth and >3 px from visible faults; symmetric AUC=max(AUC,1-AUC). Any AUC>0.90 blocks trust and promotion.",
+  "uniqueness": {
+    "surface": "Exact footprint Spearman against each accessible registry raster before dot placement; absolute rho>0.90 stops as duplicate. Constant rasters yield null correlation, not a pass on missing evidence.",
+    "final": "Exact candidate-positive to registry-positive Euclidean distance <=3 px overlap, plus exact Spearman; rho>0.90 or forward overlap>0.70 logs duplicate and stops. Dense/lattice witnesses are NOT silently exempted.",
+    "inventory": "Union of pinned historical registry and fresh accessible owner GEMSDOE default-branch raster trees, de-duplicated by Git blob; record inaccessible/unaligned files. Universal uniqueness cannot be claimed for inaccessible files."
+  },
+  "experiments": [
+    "E1: one fixed fabric-offset surface, single-feature canaries, pre-placement registry correlation, two-seed buffered holdout and matched controls, one new final raster if pre-placement gate permits; stop after any duplicate",
+    "E2/E3 reserved; no tuning or second lane after a duplicate or failed canary"
+  ],
+  "budget": {
+    "max_experiments": 3,
+    "max_hours": 2
+  },
+  "promotion": "All format, provenance, canary, literal uniqueness and matched holdout gates must pass; selector approval and live weekly cap remain separate. No competition upload in this session.",
+  "score_policy": "Only newly measured evaluator outputs are HOLDOUT-DTI with version, withheld positives and CI. Only a submission-page receipt can establish ORGANIZER-CONFIRMED. User-supplied scores remain unverified historical reports. No projected leaderboard scores."
+}

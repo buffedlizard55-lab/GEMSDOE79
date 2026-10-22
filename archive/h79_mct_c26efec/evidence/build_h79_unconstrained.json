@@ -1,0 +1,254 @@
+{
+  "evidence_class": "BUILD-RECEIPT",
+  "lane": "H79-MCT",
+  "name": "gems79-h79-mct-continuity-37654-20261021T221110Z-72e58da0-zeros",
+  "note": "H79-MCT terrain-only lidar+10m scarp likelihood x Sato line-continuity; 37654 binary dots 2.8px apart >2px off catalogue; zeros outside",
+  "note_chars": 135,
+  "tif": "docs/downloads/gems79-h79-mct-continuity-37654-20261021T221110Z-72e58da0-zeros.tif",
+  "sha256": "78be4cfae1e336add1997ecbb44eaf34675866ce0801263b1b0dd89f1e10abe9",
+  "decoded_sha256": "72e58da0982059373e4cc9e3a927d62ef68fdd64cd194a43dc4f2dbb26193509",
+  "construction": {
+    "dots": 37654,
+    "budget": 37654,
+    "emit_info": {
+      "dots": 37654,
+      "budget": 37654,
+      "in_quota_pool": 24001,
+      "quota_cap": 24852,
+      "candidates_scanned": 451848,
+      "skipped_by_quota": 0,
+      "exhausted_candidates": false
+    },
+    "min_dist_to_catalogue_px": 2.23606797749979,
+    "dist_to_catalogue_km_pct": {
+      "<=0.4": 0.14975832580867904,
+      "0.4-2": 0.3730280979444415,
+      "2-6": 0.3422478355553195,
+      ">6": 0.13496574069156
+    },
+    "nn_spacing_px_pct": {
+      "p5": 2.8284271247461903,
+      "p50": 3.1622776601683795,
+      "p95": 8.602325267042627
+    },
+    "dots_in_h19_5_halo": 24001,
+    "share_in_h19_5_halo": 0.6374090402082117,
+    "dots_in_lidar_gap": 8686,
+    "share_in_lidar_gap": 0.2306793434960429,
+    "lidar_gap_share_of_allowed": 0.24872291312148803,
+    "s_threshold_last_dot": 0.4508790671825409,
+    "s_p50_dots": 0.5306459665298462
+  },
+  "training": {
+    "pos": 60988,
+    "neg_hard": 60988,
+    "neg_easy": 60988,
+    "feature_importance_note": "HGB has no native importances; see holdout canary AUCs"
+  },
+  "writer_receipt": {
+    "file": "gems79-h79-mct-continuity-37654-20261021T221110Z-72e58da0-zeros.tif",
+    "sha256": "78be4cfae1e336add1997ecbb44eaf34675866ce0801263b1b0dd89f1e10abe9",
+    "bytes": 149444,
+    "submission_name": "gems79-h79-mct-continuity-37654-20261021T221110Z-72e58da0-zeros",
+    "note": "H79-MCT terrain-only lidar+10m scarp likelihood x Sato line-continuity; 37654 binary dots 2.8px apart >2px off catalogue; zeros outside",
+    "note_chars": 135,
+    "validator": {
+      "file": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-mct-continuity-37654-20261021T221110Z-72e58da0-zeros.tif",
+      "bytes": 149444,
+      "sha256": "78be4cfae1e336add1997ecbb44eaf34675866ce0801263b1b0dd89f1e10abe9",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    },
+    "template_report": {
+      "path": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-mct-continuity-37654-20261021T221110Z-72e58da0-zeros.tif",
+      "bytes": 149444,
+      "sha256": "78be4cfae1e336add1997ecbb44eaf34675866ce0801263b1b0dd89f1e10abe9",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    },
+    "zip_file": "gems79-h79-mct-continuity-37654-20261021T221110Z-72e58da0-zeros.zip",
+    "zip_sha256": "7b75d6012440d6a54f7ac76c180ad00815a32fc60ae83898cbdf7e52f71358af",
+    "approved_for_weekly_slot": false,
+    "promoted": false,
+    "submission_slots_used": 0,
+    "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+    "metadata": {
+      "lane": "H79-MCT",
+      "construction": {
+        "dots": 37654,
+        "budget": 37654,
+        "emit_info": {
+          "dots": 37654,
+          "budget": 37654,
+          "in_quota_pool": 24001,
+          "quota_cap": 24852,
+          "candidates_scanned": 451848,
+          "skipped_by_quota": 0,
+          "exhausted_candidates": false
+        },
+        "min_dist_to_catalogue_px": 2.23606797749979,
+        "dist_to_catalogue_km_pct": {
+          "<=0.4": 0.14975832580867904,
+          "0.4-2": 0.3730280979444415,
+          "2-6": 0.3422478355553195,
+          ">6": 0.13496574069156
+        },
+        "nn_spacing_px_pct": {
+          "p5": 2.8284271247461903,
+          "p50": 3.1622776601683795,
+          "p95": 8.602325267042627
+        },
+        "dots_in_h19_5_halo": 24001,
+        "share_in_h19_5_halo": 0.6374090402082117,
+        "dots_in_lidar_gap": 8686,
+        "share_in_lidar_gap": 0.2306793434960429,
+        "lidar_gap_share_of_allowed": 0.24872291312148803,
+        "s_threshold_last_dot": 0.4508790671825409,
+        "s_p50_dots": 0.5306459665298462
+      },
+      "training": {
+        "pos": 60988,
+        "neg_hard": 60988,
+        "neg_easy": 60988,
+        "feature_importance_note": "HGB has no native importances; see holdout canary AUCs"
+      },
+      "mix": 0.5,
+      "exclusion_px": 2.0,
+      "quota": 0.66
+    }
+  },
+  "features": [
+    "lid_ex_max",
+    "lid_ex_mean",
+    "lid_step_max",
+    "lid_lapneg_max",
+    "lid_lappos_max",
+    "lid_downface_max",
+    "lid_upface_max",
+    "lid_cross_max",
+    "lid_relief",
+    "lid_coh100",
+    "lid_strike_cos2",
+    "lid_strike_sin2",
+    "lid_valid",
+    "d10_slope_max",
+    "d10_slope_std",
+    "d10_hgm20_max",
+    "d10_hgm50_max",
+    "d10_steep_ratio_max",
+    "d10_resid_std",
+    "d10_curv_absmax",
+    "d10_onesided3",
+    "det_elev",
+    "det_elev_slope",
+    "line_lid_ex",
+    "line_lid_step",
+    "line_d10_hgm20",
+    "line_d10_steep",
+    "line_det_slope",
+    "lid_step_sm",
+    "d10_hgm20_sm"
+  ],
+  "hgb": {
+    "max_iter": 160,
+    "learning_rate": 0.08,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 50,
+    "l2_regularization": 1.0,
+    "early_stopping": false,
+    "random_state": 79
+  },
+  "runtime_s": 79.6,
+  "built_utc": "2026-10-21T22:12:29Z"
+}

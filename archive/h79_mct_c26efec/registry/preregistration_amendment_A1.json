@@ -1,0 +1,16 @@
+{
+  "lane": "H79-MCT",
+  "amendment": "A1",
+  "registered_utc": "2026-10-21T22:27:00Z",
+  "after": "experiments 1-2 (seeds 30/20) and the first full registry audit of the unconstrained build (evidence/registry_audit_h79_unconstrained.json)",
+  "trigger": "binding like-for-like duplicate test fired: forward overlap 0.893 > 0.70 against a 516,738-px terrain raster (halo coverage 0.517 < 0.70, hence 'discriminating'); 39 discriminating priors > 0.70 in total",
+  "change": "emission rule only: per-prior cap of 0.68 x budget inside the 3-px halo of each prior raster that the unconstrained emission overlapped > 0.60 (58 distinct supports) plus the H19-5 line set; surface, model, budget, spacing and catalogue exclusion unchanged",
+  "what_is_not_changed": "no threshold of the shared template was relaxed; both readings are still reported",
+  "cost_measured_before_shipping": "experiment 3 (reuses cached OOF surfaces, same folds/evaluator): see evidence/holdout_h79_constrained.json",
+  "gates_for_the_capped_file": [
+    "same validator gates",
+    "like-for-like duplicate test passes on the full 812-raster audit of the capped file",
+    "capped construction beats random on both seeds (conservative interval difference > 0)"
+  ],
+  "experiments_used_after_this": "3 of 3 (budget exhausted; no further tuning)"
+}
