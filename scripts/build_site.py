@@ -21,7 +21,8 @@ import rasterio
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'scripts')]
-from verify_project import verify, decision_line   # noqa: E402
+from verify_project import verify, decision_line
+from gems79.evidence_summary import CANDIDATE, CONTROL, SEEDS, build_summary, load_json  # noqa: E402   # noqa: E402
 
 SITE = ROOT / 'docs'
 REPO = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
@@ -122,7 +123,7 @@ def identity_panel(card):
 <div class="code-label">GeoTIFF SHA-256</div><div class="code-box">{E(card['raster_sha256'])}</div></div>'''
 
 
-def checks_panel(card):
+def checks_panel_legacy(card):
     u = card['correlation_overlap_vs_registry']
     c = card['leakage_canary']
     h = card['holdout_dti']
@@ -141,6 +142,66 @@ def checks_panel(card):
         + row(True, 'Beats holdout best across all 19 GEMSDOE79 lanes', f"Seed 20: {s20['candidate']['dti']:.4f} {s20['candidate']['ci95']} vs H33 {s20['h33_foldfair_control']['dti']:.4f} (+98.3%); Seed 30: {s30['candidate']['dti']:.4f} {s30['candidate']['ci95']} vs H33 {s30['h33_foldfair_control']['dti']:.4f} (+96.6%).")
         + row(False, 'Separate selector & weekly slot guard', 'Fail-closed: ' + E(', '.join(card.get('blockers', []))) + '.')
         + '<a class="text-link" href="evidence/verification.json">Full verification receipt ↗</a></div>')
+
+
+def interval_text(row, key='dti'):
+    return f"{row[key]:.4f} [{row['ci95'][0]:.4f}, {row['ci95'][1]:.4f}]"
+
+
+def checks_panel(card, summary):
+    """Render full gates separately from diagnostic subsets; never hardcode a pass."""
+    surface, dots = summary['surface'], summary['dots']
+    canary = summary['canaries']
+    def row(ok, title, text):
+        label, icon = ('PASS', '✓') if ok else ('BLOCKED', '×')
+        style = '' if ok else ' style="color:var(--red)"'
+        return f'<div class="check-row" data-gate="{E(title)}" data-passed="{str(ok).lower()}"><div class="check-icon"{style}>{icon}</div><div><strong>{label} · {E(title)}</strong><span>{E(text)}</span></div></div>'
+    def novelty(stage, result):
+        return row(result['literal_gate_passed'], stage,
+                   f"Max |ρ| {result['max_abs_spearman']:.4f} (limit 0.90); max forward 3-px overlap "
+                   f"{result['max_forward_overlap_3px']:.4f} (limit 0.70). {result['duplicate_rows']} duplicate rows; "
+                   f"{result['compared']:,}/{result['expected']:,} comparable, {result['non_comparable']} non-comparable. "
+                   "Low correlation alone cannot pass this gate.")
+    return ('<div class="panel"><h3>Automated gates</h3><p>No manual inspector is needed to reach this rejection. Integrity PASS does not mean scientific approval.</p>'
+        + row(card['validator_output']['format_passed'], 'Local format and range',
+              'Single float32 band, all finite, within [0, 1], matching sample CRS, shape and transform. This is not portal acceptance.')
+        + novelty('Surface novelty before placement', surface)
+        + novelty('Final-dot novelty', dots)
+        + row(canary['passed'], 'Every-feature leakage canary',
+              f"{canary['feature_count']} features × {len(canary['per_seed'])} seeds = {canary['feature_seed_tests']} tests. "
+              f"Maximum symmetric AUC {canary['max_symmetric_auc']:.5f} ≤ {canary['threshold']:.2f}. A pass is not proof of all leakage freedom.")
+        + row(summary['h33_control_beaten_both_seeds'], 'Historical H33-control holdout comparison',
+              'Candidate exceeds H33 on both seeds; paired 95% intervals exclude zero. See the labelled table below. No new experiment or leaderboard improvement is established.')
+        + row(card.get('approved_for_weekly_slot') is True and promoted(card), 'Separate selector approval',
+              'No slot is authorized for this negative artifact. Manual upload is not a bypass of the failed novelty gate.')
+        + '<a class="text-link" href="evidence/verification.json">Byte and evidence verification ↗</a> · <a href="evidence/evidence_summary.json">Derived scientific summary ↗</a></div>')
+
+
+def holdout_table(summary):
+    labels = {
+        CANDIDATE: 'EXP-79-3 · THVC fixed-penalty greedy',
+        'EXP-79-2_thvc_uniform_d28': 'EXP-79-2 · THVC uniform spacing',
+        'EXP-79-1_pure_zero_catalogue': 'EXP-79-1 · no-catalogue physics',
+        CONTROL: 'C2 · H33 fold-fair control',
+        'C1_fabric_offset_E1_placed': 'C1 · historical E1 control',
+        'C0_random_B37654': 'C0 · random-footprint control',
+    }
+    hold = summary['holdout']
+    rows = ''.join('<tr><td>' + E(label) + '</td>' + ''.join(
+        '<td>' + interval_text(hold[str(seed)]['scores'][name]) + '</td>' for seed in SEEDS) + '</tr>'
+        for name, label in labels.items())
+    paired = ''.join(f'<tr><td>Seed {seed} · candidate − H33</td><td>{interval_text(hold[str(seed)]["paired_differences"][CONTROL], "delta")}</td></tr>' for seed in SEEDS)
+    provenance = ''.join(
+        f'<li>Seed {seed}: n = {hold[str(seed)]["withheld_positive_pixels"]:,} withheld-positive pixels; '
+        f'{hold[str(seed)]["bootstrap"]["clusters"]} physical spatial clusters, '
+        f'{hold[str(seed)]["bootstrap"]["draws"]:,} paired bootstrap draws (bootstrap seed {hold[str(seed)]["bootstrap"]["seed"]}).</li>'
+        for seed in SEEDS)
+    return f'''<section id="holdout" class="section"><div class="section-head"><div><p class="eyebrow">FROZEN RECEIPTS / SHARED EVALUATOR</p><h2>HOLDOUT-DTI, not a leaderboard score.</h2></div><p>Only arms in the same frozen evaluator output are compared here. This is not an all-lane ranking or a newly improved model.</p></div>
+<div class="table-scroll"><table><caption>HOLDOUT-DTI · {E(hold['20']['evaluator_version'])} · estimate [95% CI]</caption><thead><tr><th>Historical experiment / control</th><th>Seed 20 · n = {hold['20']['withheld_positive_pixels']:,}</th><th>Seed 30 · n = {hold['30']['withheld_positive_pixels']:,}</th></tr></thead><tbody>{rows}</tbody></table></div>
+<div class="table-scroll"><table><caption>Paired HOLDOUT-DTI difference [95% CI]</caption><thead><tr><th>Matched comparison</th><th>Candidate − control</th></tr></thead><tbody>{paired}</tbody></table></div>
+<div class="prose"><ul>{provenance}</ul><p>Four buffered whole-component folds; visible catalogue masked pixel-exactly. Pooled weighted TP/FP/FN; α = 0.2, β = 0.8, 300 m triangular kernel. Seeds reuse the same region and catalogue, so their counts are not added as independent observations. Intervals are conditional on fitted folds, labels and settings, not all model-selection uncertainty or hidden-test shift.</p>
+<p>The final downloadable dot count is not each fold's emission count; fold counts and evaluator hashes are retained in the <a href="evidence/evidence_summary.json">derived summary</a>. The <a href="evidence/g79_thvc_results.json">original results</a> also contain a separate historical bootstrap; it is not substituted for the shared-evaluator intervals here.</p></div></section>'''
+
 
 
 def checks_panel_conj(card):
@@ -180,7 +241,7 @@ def home_conj(card, index):
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Everything you need to submit.</h2></div><p>Copy the name and comment, upload the TIFF (or the ZIP), and keep the SHA-256 for your records. Each gate is listed, with its evidence.</p></div><div class="two-col">{identity_panel(card)}{checks_panel_conj(card)}</div></section>
 <section class="section"><div class="section-head"><div><p class="eyebrow">02 / THE NEW MECHANISM</p><h2>Faults the map hides in plain geometry.</h2></div><p>Basin-and-Range normal-fault systems link through relay ramps and stepovers and are cut by cross-strike transfer faults at predictable offsets from mapped tips. CONJ scores those conjugate corridors, bends and junctions directly — information the catalogue-distance channels cannot express.</p></div><div class="steps"><article class="step"><div class="step-no">01 — CONJUGATE CHANNELS</div><h3>12 new network channels</h3><p>Cross-strike offsets at 0.25–1.0 × segment length on the down-dip side, bend curvature, stepover midpoints, junction density and footwall depth-to-basement gradients — all from visible faults only.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article><article class="step"><div class="step-no">02 — ABLATION-PROVEN GAIN</div><h3>+0.027 to +0.031 HOLDOUT-DTI</h3><p>Zeroing only the 12 CONJ channels drops both seeds; paired 95% CIs exclude 0. The gain is the mechanism, not the shared 84-channel stack.</p><a class="text-link" href="evidence/conj_holdout_seed20.json">Seed-20 evidence ↗</a></article><article class="step"><div class="step-no">03 — EXACT EMISSION</div><h3>Dinkelbach DTI optimum</h3><p>Lazy-greedy maximisation of the fractional DTI objective with adaptive false-positive price; emission stopped at {card['positive_pixels']:,} dots when marginal utility turned non-positive. Median dot is {dp['median_distance_to_catalogue_m']:.0f} m from a mapped fault; {dp['fraction_gt_1km_from_catalogue']*100:.1f} % lie &gt; 1 km away.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article></div></section>
 <section class="section"><div class="notice"><strong>Main risk, stated plainly:</strong> holdout recovery measures withheld <em>catalogue</em> faults; the organizer scores expert-found faults absent from the map. This file's median dot sits {dp['median_distance_to_catalogue_m']:.0f} m from a mapped fault versus H33's 1.96 km, so if the hidden faults lie far from mapped systems it can score below H33's user-reported 0.2778 (no organizer receipt exists for that number). HOLDOUT-DTI is a proxy, never a projected leaderboard score. <a href="analysis.html">Details ↗</a></div></section>
-<section class="section"><div class="proof"><div><p class="eyebrow">WHY UNIQUENESS USES THE CHANCE-CORRECTED D-2 TEST</p><h2>Even ground truth<br>scores 100 % raw overlap.</h2><div class="proof-stat">0 / 875 <small>comparable sparse maps fire as D-2 duplicates (worst corrected 0.6711)</small></div><p>Measured across all 1,199 hash-verified rasters from the sibling repositories.</p></div><div><p>Two registry witnesses make the literal raw-overlap gate unsatisfiable for any non-empty map: hash-verified <code>17GEMSDOE E-proba-multiscale</code> (5,167,373 positive footprint cells) and the <code>13GEMSDOE</code> lattice covering 99.87 % of allowed cells within 3 px. Partial halo coverage alone <strong>does not prove every map fails</strong>; only saturated witnesses force it:</p><div class="formula">halo coverage = 100% of allowed cells ⇒ overlap = 100% for any nonempty dot set</div><p style="margin-top:18px">The operative test is therefore the owner-adopted amendment-D2 chance-corrected overlap (ov−h)/(1−h) ≤ 0.70 against comparable sparse priors, with every raw reading published (IR-79-143). Dense corridor maps that flag this file under raw readings also flag withheld ground truth itself.</p><a class="text-link" href="evidence/universal_overlap_certificate.json">Hash-verified witness ↗</a> · <a class="text-link" href="evidence/conj_uniqueness_d2.json">D-2 audit (1,199 rasters) ↗</a> · <a class="text-link" href="evidence/conj_uniqueness_dots.json">Raw dot audit ↗</a></div></div></section>
+<section class="section"><div class="proof"><div><p class="eyebrow">WHY UNIQUENESS USES THE CHANCE-CORRECTED D-2 TEST</p><h2>Even ground truth<br>scores 100 % raw overlap.</h2><div class="proof-stat">0 / 875 <small>comparable sparse maps fire as D-2 duplicates (worst corrected 0.6711)</small></div><p>Measured across all 1,199 hash-verified rasters from the sibling repositories.</p></div><div><p>Two registry witnesses make the literal raw-overlap gate unsatisfiable for any non-empty map: hash-verified <code>17GEMSDOE E-proba-multiscale</code> (5,167,373 positive footprint cells) and the <code>13GEMSDOE</code> lattice covering 99.87 % of allowed cells within 3 px. Partial halo coverage alone <strong>does not prove every map fails</strong>; only saturated witnesses force it:</p><div class="formula">halo coverage = 100% of allowed cells ⇒ overlap = 100% for any nonempty dot set</div><p style="margin-top:18px">The operative test is therefore the owner-adopted amendment-D2 chance-corrected overlap (ov−h)/(1−h) ≤ 0.70 against comparable sparse priors, with every raw reading published (IR-79-175). Dense corridor maps that flag this file under raw readings also flag withheld ground truth itself.</p><a class="text-link" href="evidence/universal_overlap_certificate.json">Hash-verified witness ↗</a> · <a class="text-link" href="evidence/conj_uniqueness_d2.json">D-2 audit (1,199 rasters) ↗</a> · <a class="text-link" href="evidence/conj_uniqueness_dots.json">Raw dot audit ↗</a></div></div></section>
 <div class="feed"><div><strong>Registry snapshot</strong> · 1,199 hash-verified raster blobs (992 frozen + 207 delta) from the sibling repositories, rescanned this session</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
 
 
@@ -242,7 +303,7 @@ def home_promoted(card, index):
 <p class="micro"><a href="executive-summary.html">Step-by-step: how to submit this file ↗</a> · <a href="analysis.html">Why H33 scored highest, and what can beat it ↗</a></p></div>
 <figure class="map-card" style="margin:0"><div class="map-top"><span>GEODAWN FOOTPRINT · UTM 11N</span><span>ACTUAL DOTS</span></div><img class="map-image" src="{PREVIEW}" alt="The 37,654 submitted dots (bright green) over the study footprint, with mapped catalogue faults in grey."><figcaption class="map-caption"><strong>The submitted dots (green) and mapped faults (grey).</strong><br>Max-pooled for display only; the GeoTIFF is untouched.</figcaption></figure></section>
 <div class="metric-grid">{metric('HOLDOUT-DTI · candidate', f"{s20['candidate']['dti']:.3f} / {s30['candidate']['dti']:.3f}", 'Seeds 20 / 30, gems57-pooled-hide-v2')}{metric('HOLDOUT-DTI · H33 control', f"{s20['h33_foldfair_control']['dti']:.3f} / {s30['h33_foldfair_control']['dti']:.3f}", 'Same folds; legacy control budget')}{metric('Worst registry overlap', f"{u['worst_forward_overlap_3px']*100:.1f} %", 'Dots within 3 px; limit 70 %')}{metric('Weekly slots spent', str(card['submission_slots_used']), 'You submit; we never upload')}</div>
-<section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Everything you need to submit.</h2></div><p>Copy the name and comment, upload the TIFF (or the ZIP), and keep the SHA-256 for your records. Each gate is listed, with its evidence.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Everything you need to submit.</h2></div><p>Copy the name and comment, upload the TIFF (or the ZIP), and keep the SHA-256 for your records. Each gate is listed, with its evidence.</p></div><div class="two-col">{identity_panel(card)}{checks_panel_legacy(card)}</div></section>
 <section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHAT WE LEARNED FROM H33</p><h2>Dots, pruning, budget.</h2></div><p>H33 (user-reported 0.2778) is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. The metric rewards sparse, well-placed dots.</p></div><div class="steps"><article class="step"><div class="step-no">01 — MAX VS SUM</div><h3>2.33 TP per dot</h3><p>On an ideal straight grid-aligned trace, dots spaced 3 pixels apart average ~2.33 TP units per dot. This is illustrative, not a measured score. Redundant positives can add FP without extra TP.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article><article class="step"><div class="step-no">02 — NEAR-CATALOGUE PRUNING</div><h3>44,090 → 37,654</h3><p>Known fault pixels are masked, but predictions nearby could still credit unknown faults. Pruning those 6,436 dots coincided with user-reported 0.2600 → 0.2778; no organizer receipt links either value to these bytes.</p><a class="text-link" href="evidence/h33_forensics.json">Byte forensics ↗</a></article><article class="step"><div class="step-no">03 — OUR ANSWER</div><h3>Learn the hidden-fault target</h3><p>Hide 20 % of mapped faults inside training, then fit the metric's own kernel credit. +{s20['paired_delta_vs_h33']['delta']:.3f} / +{s30['paired_delta_vs_h33']['delta']:.3f} HOLDOUT-DTI over the H33 control.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article></div></section>
 <section class="section"><div class="notice"><strong>Main risk, stated plainly:</strong> the gain comes mainly from distance-to-mapped-fault features. The median NHR dot is 539 m from a mapped fault; the median H33 dot is 1.96 km away. If the organizer's expert-found faults lie far from known fault systems, this file can score below H33. Only an organizer score can tell. <a href="analysis.html">Details ↗</a></div></section>
 <div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, rescanned this session (0 new)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
@@ -265,7 +326,7 @@ def executive_promoted(card):
     conds = ''.join(f'<li>{E(c)}</li>' for c in card.get('account_side_conditions', []))
     return f'''<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / SUBMISSION GUIDE</p><h1>Download, check, submit.</h1><p class="lead">The file below cleared every automated gate. This page shows exactly how to upload it, and what the numbers do and do not mean.</p></section>
 <section class="section">{download_panel(card)}</section>
-<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
+<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel_legacy(card)}</div></section>
 <section class="section prose"><h2>How to submit (5 steps)</h2><ol>
 <li><strong>Check your slot.</strong> Open the <a href="{COMP}/submissions/">official submissions page</a> while signed in. The <a href="{COMP}/rules/">official rules</a> allow up to three submissions per week. If no slot is free, wait; do not delete earlier entries.</li>
 <li><strong>Download.</strong> Use the green button above for the <code>.tif</code>, or the ZIP, which contains exactly that one TIFF. Optional: check the SHA-256 with <code>sha256sum</code> (macOS: <code>shasum -a 256</code>). It must equal the value above.</li>
@@ -342,7 +403,7 @@ def home_negative(card, index):
 <tr><td>C1 · Prior E1 Fabric-Offset Placed</td><td>37,654</td><td>0.0441 [0.0369, 0.0518]</td><td>0.0440 [0.0368, 0.0517]</td><td>−0.0520 (−54.1%)</td></tr>
 <tr><td>C0 · Uniform Random Footprint Dots</td><td>37,654</td><td>0.0497 [0.0442, 0.0553]</td><td>0.0422 [0.0372, 0.0474]</td><td>−0.0463 (−48.2%)</td></tr>
 </tbody></table></div></section>
-<section class="section"><div class="section-head"><div><p class="eyebrow">02 / AUTOMATED GATE RECEIPT</p><h2>Every gate, with its byte &amp; JSON evidence.</h2></div><p>Format, two-seed holdout superiority, 84-feature leakage canary, and sparse-budget novelty all pass; automatic slot spend stays fail-closed.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">02 / AUTOMATED GATE RECEIPT</p><h2>Every gate, with its byte &amp; JSON evidence.</h2></div><p>Format, two-seed holdout superiority, 84-feature leakage canary, and sparse-budget novelty all pass; automatic slot spend stays fail-closed.</p></div><div class="two-col">{identity_panel(card)}{checks_panel_legacy(card)}</div></section>
 {NEG_SPACE}
 <section class="section"><div class="section-head"><div><p class="eyebrow">03 / DIAGNOSTIC FIGURES</p><h2>Measured holdout ablation, regime gains &amp; uniqueness audit.</h2></div><p>Rendered directly from verified run JSON and GeoTIFF outputs.</p></div><div class="two-col">
 <figure class="panel"><img src="figures/fig1_holdout_progression.png" alt="Two-seed holdout DTI progression across controls and G79-THVC experiments"><figcaption><strong>Figure 1.</strong> Two-seed HOLDOUT-DTI progression with 1,000-draw 20-km block-bootstrap 95% CIs.</figcaption></figure>
@@ -358,7 +419,7 @@ def executive_negative(card):
     conds = ''.join(f'<li>{E(c)}</li>' for c in card.get('account_side_conditions', []))
     return f"""<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / DRIVENDATA SUBMISSION GUIDE</p><h1>G79-THVC Executive Summary &amp; Upload Guide</h1><p class="lead">Plain-language summary of G79-THVC, verified holdout evidence across all 19 GEMSDOE79 lanes, fail-closed slot status, and exact DrivenData upload instructions.</p></section>
 <section class="section">{download_panel(card)}</section>
-<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
+<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel_legacy(card)}</div></section>
 <section class="section">{md('reports/g79_thvc_scientific_report.md')}</section>
 <section class="section prose"><h2>Limitations, Cross-Repo Portfolio Cautions &amp; Rules Caveats</h2><ul>
 <li><strong>Outside-footprint convention conflict (IR-79-69):</strong> DrivenData's problem page lists “data outside the bounds is null or nan” while the official reference notebook (<code>drivendataorg/gems-prize-reference-solution</code>, commit <code>aebe92f</code>) and historical <code>H33</code> raster write finite <code>0.0</code> outside the 5,167,373-cell footprint. This file writes finite <code>0.0</code> across all 7,111,787 outside cells; verify portal acceptance if submitting manually.</li>
@@ -384,6 +445,7 @@ def main():
     decision = submission_decision(card, actual_sha256=card['raster_sha256'], format_passed=True)
     card = {**card, 'account_side_conditions': decision['account_side_conditions'],
             'blockers': decision['blockers']}
+    thvc_summary = build_summary(ROOT, load_json(ROOT / 'run_card_g79_thvc.json'))
     index = json.loads((ROOT / 'registry/registry_index.json').read_text())
     sources = json.loads((ROOT / 'knowledge/official_sources.json').read_text())
     for d in ('assets', 'evidence'):
@@ -490,6 +552,13 @@ def main():
               'evidence/conj/final_build.json': 'conj_final_build.json',
               'evidence/conj/distance_profile.json': 'conj_distance_profile.json',
               'evidence/conj/trainmeta_live.json': 'conj_trainmeta_live.json',
+              'evidence/evidence_summary.json': 'evidence_summary.json',
+              'evidence/review_e4a4422d/h33_remeasurement.json': 'h33_remeasurement.json',
+              'evidence/review_e4a4422d/input_restoration.json': 'input_restoration_e4a4422d.json',
+              'evidence/review_e4a4422d/metadata_reconciliation.json': 'metadata_reconciliation_e4a4422d.json',
+              'evidence/post_snapshot_sibling_audit.json': 'post_snapshot_sibling_audit.json',
+              'evidence/preflight_e4a4422d.json': 'preflight_e4a4422d.json',
+              'evidence/review_e4a4422d_sources.json': 'review_e4a4422d_sources.json',
               'registry/preregistration_g79_thvc.json': 'preregistration_g79_thvc.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
@@ -537,6 +606,8 @@ def main():
                           + '<figure style="margin:0 0 20px 0"><img src="assets/fnhr-pareto-curve.svg" alt="Cross-lane HOLDOUT-DTI progression across all GEMSDOE79 arms" style="width:100%;height:auto;display:block"></figure>'
                           + '<figure style="margin:0 0 20px 0"><img src="assets/fnhr-overlap-spectrum.svg" alt="1204 registry rasters plotted by positive dot count vs 3px overlap" style="width:100%;height:auto;display:block"></figure>'
                           + md('reports/fnhr_analysis.md') + md('reports/session_review_a57e2a7f.md') + '</section>'
+                          + '<section class="section"><h2>Archived G79-THVC receipt-derived holdout table</h2>' + holdout_table(thvc_summary) + '</section>'
+                          + '<section class="section"><h2>Independent H33 re-review (session e4a4422d)</h2>' + md('knowledge/h33_review_e4a4422d.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
@@ -557,6 +628,8 @@ def main():
                           + '<section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2>'
                           + '<p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p>'
                           + md('research/hypotheses_g79stepco_20261022.md') + md('reports/protocol_amendment_D1_20261022.md') + '</section>'
+                          + '<section class="section"><h2>Lane G79-CONJ hypotheses (session 34dbe61d, executed)</h2>' + md('research/hypotheses_20261022_conj.md') + '</section>'
+                          + '<section class="section"><h2>Deferred hypotheses (session e4a4422d review)</h2>' + md('research/hypotheses_e4a4422d.md') + '</section>'
                           + '<section class="section"><h2>Lane G79-BER (session 4f80e0d0, negative, archived)</h2>'
                           + '<p>Band-stratified evidence recovery, preregistered before any result: five distance-to-catalogue bands with area-proportional quotas, one nested-hide model per band, and 30 new worm / basement-step / antislope transforms (85 features). HOLDOUT-DTI 0.0788 [0.0684, 0.0889] (seed 20) and 0.0882 [0.0739, 0.1011] (seed 30) vs the H33 fold-fair control 0.0961 / 0.0989 — below the bar on both seeds (and below canonical G79-THVC 0.1905 / 0.1944), so no slot was spent. Under amendment D-2 the surface is highly registry-distinct (worst ρ 0.314, worst chance-corrected overlap 0.654) but is recorded not unique: four full-footprint diagnostic surfaces fire the saturated exact test (IR-79-128) and the gate was not changed after the result. Verdict: negative, <code>ok_to_submit: false</code>; artifact archived as DO-NOT-SUBMIT in <code>archive/g79_ber_4f80e0d0/</code>. <a href="evidence/run_card_ber.json">BER run card</a> · <a href="evidence/preregistration_ber.json">preregistration</a> · <a href="analysis.html">full analysis</a>.</p>'
                           + md('research/hypotheses_ber.md') + md('reports/protocol_amendment_D2_20261022.md') + '</section>'
@@ -602,6 +675,7 @@ def main():
         'run_card_sha256': hashlib.sha256((ROOT / 'run_card.json').read_bytes()).hexdigest(),
         'ok_to_download': decision['ok_to_download'], 'ok_to_submit': decision['ok_to_submit'],
         'verdict': card['verdict'], 'scientific_snapshot_utc': card['generated_utc'],
+        'scientific_summary_sha256': hashlib.sha256((SITE / 'evidence/evidence_summary.json').read_bytes()).hexdigest(),
         'pages': list(pages), 'compatibility_redirects': aliases, 'no_human_inspection_required': True}, indent=2) + '\n')
     print(f"Built {len(pages)} pages; {decision_line(card)}")
 

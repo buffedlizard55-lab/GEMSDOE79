@@ -12,7 +12,7 @@
 | **`FORMAT & [0, 1] RANGE VALID?`** | **✅ PASS (`format_passed: true`)** | Single-band `float32`, `EPSG:32611`, `3730 × 3292`, transform `[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]` identical to the sample; **`37,863` binary pixels with values only `0.0` / `1.0`** (inside `[0, 1]`), `0` NaN/Inf anywhere, `0` on mapped catalogue faults, `0` outside the footprint ([`evidence/verification.json`](evidence/verification.json)) |
 | **`BEATS THE PREVIOUS HOLDOUT BEST?`** | **✅ YES — BOTH SEEDS** | **Seed 20 (`n = 11,321`)**: **`HOLDOUT-DTI = 0.2348`** `[0.2148, 0.2559]` vs `G79-THVC = 0.1905`, zero-CONJ ablation `0.2034`, H33 fold-fair `0.0961`. **Seed 30 (`n = 11,342`)**: **`0.2521`** `[0.2312, 0.2733]` vs `0.1944` / `0.2248` / `0.0989`. Paired candidate−ablation 95% CIs `[+0.0227, +0.0409]` / `[+0.0190, +0.0369]` exclude 0 ([`evidence/conj/holdout_seed20.json`](evidence/conj/holdout_seed20.json), [`evidence/conj/holdout_seed30.json`](evidence/conj/holdout_seed30.json)) |
 | **`LEAKAGE CANARIES CLEARED?`** | **✅ PASS (`96 / 96` channels `<= 0.90`)** | Max single-channel symmetric AUC `<= 0.8036` across both seeds; strongest new channel `conj_bend` (`0.7844` / `0.7944`) ([`evidence/conj/canary.json`](evidence/conj/canary.json)) |
-| **`REGISTRY UNIQUENESS (`1,199` rasters)`** | **✅ PASS (operative amendment-D2, fully disclosed)** | Surface pre-placement `max |Spearman ρ| = 0.7331 <= 0.90`; placed dots `max |ρ| = 0.1233`, `max Jaccard = 0.0463`, no byte/decoded-identical twin; **D-2 duplicate firings `0 / 875` comparable sparse maps, worst chance-corrected overlap `0.6711 <= 0.70`**. Raw readings disclosed: worst raw 3-px overlap `1.0` only vs dense corridor/diagnostic maps that also flag withheld ground truth; single sparse raw reading `0.7290` vs `GEMSDOE25` factorial (halo `0.1762`, Jaccard `0.0275`, `ρ = 0.046`) = habitat co-location, not duplication ([`evidence/conj/uniqueness_d2.json`](evidence/conj/uniqueness_d2.json), `IR-79-143`) |
+| **`REGISTRY UNIQUENESS (`1,199` rasters)`** | **✅ PASS (operative amendment-D2, fully disclosed)** | Surface pre-placement `max |Spearman ρ| = 0.7331 <= 0.90`; placed dots `max |ρ| = 0.1233`, `max Jaccard = 0.0463`, no byte/decoded-identical twin; **D-2 duplicate firings `0 / 875` comparable sparse maps, worst chance-corrected overlap `0.6711 <= 0.70`**. Raw readings disclosed: worst raw 3-px overlap `1.0` only vs dense corridor/diagnostic maps that also flag withheld ground truth; single sparse raw reading `0.7290` vs `GEMSDOE25` factorial (halo `0.1762`, Jaccard `0.0275`, `ρ = 0.046`) = habitat co-location, not duplication ([`evidence/conj/uniqueness_d2.json`](evidence/conj/uniqueness_d2.json), `IR-79-175`) |
 
 - **Unique Submission Name (`67 / 140` chars):** `gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros`
 - **Short Submission Note (`99 / 140` chars):** `GEMSDOE79 G79-CONJ: cross-strike conjugate offsets + 84ch stack, Dinkelbach DTI emission (37863 px)`
@@ -63,8 +63,6 @@ python3 -m venv .venv
 
 ---
 
-## Original project prompt` (`IR-79-81`).
-- Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
@@ -453,7 +451,7 @@ h45-eulerdepthreadcluster-20261006-f28e5cff6826-zeros: 0.0984
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE41/](https://buffedlizard55-lab.github.io/GEMSDOE41/)
+[https://buffedlizard55-lab.github.io/GEMSDOE41/docs/index.html](https://buffedlizard55-lab.github.io/GEMSDOE41/docs/index.html)
 
 h42-submission-primary: 0.0245
 
@@ -627,19 +625,19 @@ gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros: 0.19
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
+GEMSDOE74:[https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
 
 gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros: 0.0669
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
+GEMSDOE75:[https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
 
 gems75-trlt-radon-loco-ridge-20261021-zeros: 0.1627
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
+GEMSDOE76:[https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
 
 gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555
 
@@ -647,77 +645,79 @@ gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
+GEMSDOE77:[https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
 
 gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
+GEMSDOE78: [https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
 
 gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/)
+GEMSDOE79: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
+GEMSDOE80: [https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
 
 gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
+GEMSDOE81: [https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
 
 gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
+GEMSDOE82: [https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
 
 gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
+GEMSDOE83: [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
 
 gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
+GEMSDOE84: [https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
+GEMSDOE85: [https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
+GEMSDOE86: [https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
+GEMSDOE87: [https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
+GEMSDOE88: [https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
 
 :
 
 ....
+
+I want to have a validation gates in place so I never get the "Predicted values must be in range [0, 1]" error again when I submit my TIF file to the competition.
 
 The following is the leaderboard for the competition:
 

@@ -186,4 +186,10 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H79-FGR",
+        reason="H79-FGR is stopped and archived (HOLDOUT-DTI 0.0058/0.0056 < uniform).",
+    )
     raise SystemExit(main())

@@ -80,6 +80,77 @@ def verify_exact_disk3_equivalence() -> dict:
     }
 
 
+LOCAL_GEMS79_LANE_SPECS = {
+    "H79-DILSTEP_active": {
+        "path": "docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+        "archive_fallback": "archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.998486,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.802013,
+    },
+    "H79-NHR_archived": {
+        "path": "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.995485,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.912971,
+    },
+    "G79-MAG_quarantined": {
+        "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.990864,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.673766,
+    },
+    "G79-THVC_canonical": {
+        "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+        "archive_fallback": "archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.998461,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.816516,
+    },
+    "H79-FNHR_archived": {
+        "path": "archive/h79_fnhr_a57e2a7f/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.995698,
+        "overlap_vs_gemsdoe3_coverage_v3_wide": 0.838424,
+    },
+    "G79-ETP_v1_quarantined": {
+        "path": "archive/g79_etp_incoming_45998a01/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+        "overlap_vs_g79_thvc_canonical": 0.815166,
+    },
+    "G79-ETP_v2_quarantined": {
+        "path": "archive/g79_etp_incoming_45998a01/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+        "overlap_vs_g79_thvc_canonical": 0.478087,
+    },
+    "G79-CFSKD_archived": {
+        "path": "archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif",
+        "overlap_vs_g79_thvc_canonical": 0.541934,
+    },
+}
+
+
+def build_local_gems79_concurrent_lanes_audit(root: Path = ROOT, grid=None) -> dict:
+    """Reproducibly build the local_gems79_concurrent_lanes_audit section (resolves IR-79-130)."""
+    root = Path(root)
+    if grid is None:
+        ref_dir = root / "data/raw" if (root / "data/raw/sample_submission.tif").exists() else root / "data/reference"
+        grid = load_grid(ref_dir)
+    out = {}
+    for key, spec in LOCAL_GEMS79_LANE_SPECS.items():
+        rel_path = spec["path"]
+        tif_path = root / rel_path
+        if not tif_path.exists() and "archive_fallback" in spec:
+            tif_path = root / spec["archive_fallback"]
+        if not tif_path.exists():
+            continue
+        val = shared_validate(tif_path, footprint=grid.footprint, catalogue=grid.catalogue)
+        entry = {
+            "path": rel_path,
+            "sha256": hashlib.sha256(tif_path.read_bytes()).hexdigest(),
+            "emitted_positive_pixels": int(val["emitted_positive_pixels"]),
+            "format_all_checks_passed": bool(val["all_checks_passed"]),
+        }
+        for k, v in spec.items():
+            if k not in ("path", "archive_fallback"):
+                entry[k] = v
+        out[key] = entry
+    return out
+
+
 PROMPT_SIBLING_CANDIDATES = [
     {
         "repo": "GEMSDOE76",
@@ -807,6 +878,7 @@ def main() -> None:
         },
         "prompt_sibling_candidates_audit": candidate_audits,
         "pairwise_forward_3px_overlap_matrix": pairwise_candidates,
+        "local_gems79_concurrent_lanes_audit": build_local_gems79_concurrent_lanes_audit(ROOT, grid),
     }
 
     out_path = ROOT / "evidence/post_snapshot_sibling_audit.json"

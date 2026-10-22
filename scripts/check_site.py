@@ -2,6 +2,7 @@
 """Offline static-site link, evidence, security and reachability checks."""
 from __future__ import annotations
 import json
+import hashlib
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 from bs4 import BeautifulSoup
@@ -72,6 +73,18 @@ def check_site():
         assert card['submission_name'] in text and card['raster_sha256'] in text
     assert card == json.loads((ROOT / 'run_card.json').read_text())
     assert card == json.loads((site / 'run-card.json').read_text())
+    # The archived G79-THVC scientific summary must still match its validated
+    # receipts, and its receipt-derived table must render on the analysis page.
+    from gems79.evidence_summary import build_summary, load_json, same_json
+    from build_site import holdout_table
+    summary_path = site / 'evidence/evidence_summary.json'
+    thvc_card = load_json(ROOT / 'run_card_g79_thvc.json')
+    summary = build_summary(ROOT, thvc_card)
+    assert same_json(load_json(summary_path), summary), 'Stale or altered scientific summary'
+    assert site_manifest['scientific_summary_sha256'] == hashlib.sha256(summary_path.read_bytes()).hexdigest()
+    expected_tables = BeautifulSoup(holdout_table(summary), 'html.parser').find_all('table')
+    for table in expected_tables:
+        assert str(table) in str(pages['analysis.html']), 'Scientific table drift: analysis.html'
     status = json.loads((site / 'status.json').read_text())
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert status['verdict'] == card['verdict'] and status['decision_line'] == line
@@ -87,7 +100,7 @@ def check_site():
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()
     return {'passed': True, 'pages': len(pages), 'local_links_checked': local_links,
             'all_pages_reachable_from_home': True, 'compatibility_redirects': len(aliases), 'external_assets': 0,
-            'source_health_is_not_claimed_as_receipt': True, 'submit': card['ok_to_submit']}
+            'scientific_tables_and_full_gates_match_receipts': True, 'source_health_is_not_claimed_as_receipt': True, 'submit': card['ok_to_submit']}
 
 
 if __name__ == '__main__':

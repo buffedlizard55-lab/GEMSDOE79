@@ -1,0 +1,67 @@
+{
+  "file": "g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif",
+  "sha256": "418d1292e9d27314e94597185e8858ff4697ec161f7aa66864a078091a7bbe85",
+  "bytes": 826362,
+  "meta": {
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "dtype": "float32",
+    "count": 1,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ]
+  },
+  "dots": 37654,
+  "checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "shape_3730x3292": true,
+    "crs_epsg32611": true,
+    "transform_matches": true,
+    "no_nan_inf": true,
+    "range_0_1": true,
+    "binary": true,
+    "outside_footprint_zero": true,
+    "zero_on_catalogue": true
+  },
+  "all_checks_passed": true,
+  "uniqueness_local_archives": {
+    "G79-THVC": {
+      "ref_dots": 35093,
+      "exact_overlap_frac_of_candidate": 0.03157699049237797,
+      "within3px_frac_of_candidate": 0.5047006958092102,
+      "within3px_frac_of_ref": 0.5250049867494943,
+      "binary_spearman_sample": 0.045514015013887354
+    },
+    "H79-FNHR": {
+      "ref_dots": 37654,
+      "exact_overlap_frac_of_candidate": 0.05794869071015032,
+      "within3px_frac_of_candidate": 0.42409836936314865,
+      "within3px_frac_of_ref": 0.42128326339831096,
+      "binary_spearman_sample": 0.05659216090517475
+    },
+    "H79-NHR": {
+      "ref_dots": 37654,
+      "exact_overlap_frac_of_candidate": 0.05122961703935837,
+      "within3px_frac_of_candidate": 0.5239549583045626,
+      "within3px_frac_of_ref": 0.5482286078504276,
+      "binary_spearman_sample": 0.05727112825564791
+    },
+    "G79-MAG": {
+      "ref_dots": 37654,
+      "exact_overlap_frac_of_candidate": 0.016386041323630956,
+      "within3px_frac_of_candidate": 0.15921283263398311,
+      "within3px_frac_of_ref": 0.18882456047166304,
+      "binary_spearman_sample": 0.012068699119158387
+    }
+  },
+  "scope_note": "Uniqueness vs 4 locally archived rasters only; full 1,108-raster registry restore was not re-run this session - a limitation, fail-closed verdict already negative on holdout."
+}

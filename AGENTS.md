@@ -5,12 +5,16 @@
    `registry/preregistration_h79_dilstep.json` (archived DILSTEP), and
    `registry/preregistration_ffas.json` (archived FFAS) before any work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-3. Canonical submission file in `docs/downloads/`: **`G79-CONJ`** (`gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros.tif`, SHA-256 `96a715909aefa722a0f1a81d6658e68eb996f08a25f78c5b1483f513f2d93e80`), `HOLDOUT-DTI` (`gems57-pooled-hide-v2`) **`0.2348` / `0.2521`** (seeds 20/30) vs previous best `G79-THVC` `0.1905 / 0.1944`, verdict `promote`, selector-approved (`OK TO DOWNLOAD: YES. OK TO SUBMIT: YES` with account-side weekly-slot caveat; `0` slots spent by any agent). Uniqueness: operative amendment-D2 chance-corrected test, `0 / 875` sparse firings (worst `0.6711`), surface/dot `max |rho| = 0.7331 / 0.1233`; raw readings disclosed in `evidence/conj/` and `IR-79-143`. Do not retune CONJ on holdout or registry after this result; a future lane needs a new preregistered mechanism. `G79-THVC` remains byte-archived (`archive/g79_thvc_33e1f8ec/`, card `run_card_g79_thvc.json`) with its historical negative verdict unchanged.
+3. Canonical submission file in `docs/downloads/`: **`G79-CONJ`** (`gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros.tif`, SHA-256 `96a715909aefa722a0f1a81d6658e68eb996f08a25f78c5b1483f513f2d93e80`), `HOLDOUT-DTI` (`gems57-pooled-hide-v2`) **`0.2348` / `0.2521`** (seeds 20/30) vs previous best `G79-THVC` `0.1905 / 0.1944`, verdict `promote`, selector-approved (`OK TO DOWNLOAD: YES. OK TO SUBMIT: YES` with account-side weekly-slot caveat; `0` slots spent by any agent). Uniqueness: operative amendment-D2 chance-corrected test, `0 / 875` sparse firings (worst `0.6711`), surface/dot `max |rho| = 0.7331 / 0.1233`; raw readings disclosed in `evidence/conj/` and `IR-79-175`. Do not retune CONJ on holdout or registry after this result; a future lane needs a new preregistered mechanism. `G79-THVC` remains byte-archived (`archive/g79_thvc_33e1f8ec/`, card `run_card_g79_thvc.json`) with its historical negative verdict unchanged.
+   Historical note: `src/gems79/evidence_summary.py` derives site tables for the archived THVC lane from both seeds of the frozen shared evaluator; its original card and metadata correction are preserved under `evidence/review_e4a4422d/`. Read `knowledge/h33_review_e4a4422d.md` and `research/hypotheses_e4a4422d.md` for corrected interpretation and data-source limits.
    All concurrent/historical `GEMSDOE79` lanes stay **stopped negative** and byte-archived under `archive/`:
    - `H79-NHR` (`0.1431 / 0.1522`, `archive/h79_nhr/` & `archive/h79_nhr_337ac1e9/`)
+   - `H79-FNHR` (`0.1292 / 0.1431` `F3`, `0.0906 / 0.0966` pure zero-catalogue physics, `archive/h79_fnhr_a57e2a7f/` & `run_card_fnhr.json`, `IR-79-140`..`IR-79-142`)
    - `H79-MRND` (`0.1044 / 0.1236`, session `800321e2`, `run_card_mrnd.json` & `evidence/mrnd/`) — multi-regime nested discovery (`77` features, `max AUC = 0.8589 <= 0.90`); beats `H33` control on both seeds (`+0.0247`, 95% CI `[+0.0095, +0.0389]` on Seed 30) and clears all `982` informative comparable priors on chance-corrected overlap (`worst = 0.5486 <= 0.70`, `0` normal-budget `<=167k` flags), stopped pre-placement under literal one-sided overlap (`IR-79-132`); do not retune quotas or re-place dots
+   - `G79-ETP` / `G79-ETP-v2` (`0.0968 / 0.1061` fold-fair `gems57-pooled-hide-v2`, `0.0000` static full-catalogue, `archive/g79_etp_incoming_45998a01/` & `run_card_etp.json`, `IR-79-147` / `IR-79-151`)
    - `H79-STEP` (`0.0949 / 0.1087`, `archive/h79_step_21642326/`)
    - `H79-DILSTEP` (`0.0721 / 0.0689`, `archive/h79_dilstep_6444be2d/`)
+   - `G79-CFSKD` (`0.0654 / 0.0678`, `archive/g79_cfskd_bda00cff/` & `run_card_cfskd.json`, `IR-79-152`)
    - `H79-COV` (`0.0610 / 0.0581`, `archive/h79_cov_e23d5371/`)
    - `H79-FF` (`0.0510 / 0.0488`, `archive/h79_ff/` & `archive/h79_ff_1de1617f/`)
    - `H79-ML-STRAIN-RELAY` (`0.0472 / 0.0442`, `archive/concurrent_2026-10-22_5d14587/`)
@@ -22,7 +26,7 @@
    - `G79-MAG` (`0.0045 / 0.0067`, `archive/g79_mag_730d5ee7/`)
    - Surface-stopped / quarantined: `G79-FABRIC-OFFSET`, `H79-ASYM`, `H79-MCT`, `H79-CSPT`, `G79B-SCARP-DIPOLE-GEOAND`.
    Do not restart stopped lanes, retune on holdout, add overlap caps/jitter, or exempt dense priors locally. `scripts/preflight_new_lane.py --restore` exits `2` under the literal reading.
-4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
+4. `vendor/gems57` is shared code, not a private fork. Most files match the upstream pin; `uniqueness.py` contains documented shared amendments (see `vendor/README.md`). Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
    version note and an IR entry. Example: `informative-halo-v4` overlap mode, IR-79-86.
    Amendment D-2's chance-corrected overlap (`compare_array_to_registry_d2`, IR-79-128)
@@ -34,7 +38,7 @@
    and user-reported scores must retain their evidence classes.
 6. A local format PASS does not mean OK TO SUBMIT. `run_card.json`,
    `scripts/submission_status.py`, README and Pages must agree. They are all generated from
-   or checked against the card by `scripts/verify_project.py`. Only
+   or checked against the card by `scripts/verify_project.py`. A manual upload is not an exception to failed gates. Only
    `scripts/select_submission.py` may set `ok_to_submit` after re-deriving every gate.
    Weekly-slot availability stays an account-side condition that the user checks, and DOE Rules §3.4 restricts each participating entity to **one final submission**.
 7. Keep large input/cache files ignored. Serve only `docs/` in previews and artifact deployments; legacy Pages also has a root redirect. Never publish credentials,

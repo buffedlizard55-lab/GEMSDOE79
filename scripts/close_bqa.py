@@ -172,4 +172,12 @@ def main():
 
 
 if __name__ == "__main__":
+    import sys
+    sys.path[:0] = [str(ROOT / "src")]
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H79-BQA",
+        reason="H79-BQA is already closed; run_card_bqa.json and evidence/bqa/state.json are frozen.",
+    )
     main()
