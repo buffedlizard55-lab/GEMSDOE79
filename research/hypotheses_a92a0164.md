@@ -4,7 +4,7 @@
 
 `evidence/preflight_a92a0164.json` is a deliberate fail-closed stop: a hash-pinned witness covers **1.0000** of the allowed cells, so every non-empty candidate has literal 3-pixel forward overlap **1.0000 > 0.70**. The protocol does not permit excluding that witness or changing the rule locally. Therefore this is a **research backlog only**: no surface, leakage canary, holdout, placement, validator run on a new raster, TIFF, submission, or selector action occurred in this session. No weekly slot was used. Do not treat any row below as validated or ready to submit.
 
-The latest checkout also has no `data/raw/` directory or local `training_features.tif`; `data/restore_receipt.json` is historical provenance, not proof those inputs are present now. The current work tree contains the two reference rasters and that receipt only. Restoring the stack is necessary for any local-stack candidate, but it would **not** clear the novelty stop.
+The a92 checkout had no `data/raw/` directory or local `training_features.tif`; `data/restore_receipt.json` is historical provenance, not proof those inputs are present now. At that review, the `data/` tree contained the two reference rasters and that receipt only. The current merged checkout still lacks `data/raw/` inputs (build-time status: 0/13 manifest files present). Restoring the stack is necessary for any local-stack candidate, but it would **not** clear the novelty stop.
 
 ## What “untried” means here
 

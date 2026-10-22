@@ -6,7 +6,11 @@
 
 Therefore this session produced **no experiment, leakage canary, holdout, surface/dot placement, candidate raster, validator result, submission, selector action, or new downloadable TIFF**. No weekly slot was used. The inherited research TIFF remains available through the [download guide](../docs/executive-summary.html), labeled **DO NOT SUBMIT**; it is not new work and its format receipt is not organizer approval. No higher leaderboard result is forecast or promised.
 
-The checkout has only reference rasters and a historical restore receipt; `data/raw/` and the local training-feature raster are absent. The absence of training data is a separate limitation, not a reason to override the preflight. See the [source/availability receipt](../evidence/source_review_a92a0164.json) and [run card](../evidence/run_card_a92a0164.json).
+At the time of the a92 source audit, the `data/` tree contained only the two reference rasters and a historical restore receipt; `data/raw/` and the local training-feature raster were absent. The subsequent merge from the advanced `main` branch brings in separate archived lane artifacts and a fresh build-time runtime check, but those are not experiments performed by session a92. The current `data/` tree still has no `data/raw/` training inputs. The absence of training data is separate from—and does not override—the preflight. See the [source/availability receipt](../evidence/source_review_a92a0164.json), [build-time runtime status](../docs/evidence/runtime_data_status.json), and [run card](../evidence/run_card_a92a0164.json).
+
+### Branch integration note
+
+During PR preparation, `main` advanced from the session's original base to `eebee979` and introduced separate, later lane records. I merged that updated base into this branch so the PR can be reviewed against current `main`; the imported lane artifacts remain attributed to their own run cards/reports and are **not** claimed as a92 work. The a92 run card is scoped to the pre-merge session and remains a negative, no-candidate record.
 
 ## Pass 1 — protocol, preflight, and local data
 
@@ -44,9 +48,9 @@ The corrected [H33 analysis](../research/h33_analysis.md) and supersession note 
 ## Pass 3 — documentation, site, and verification
 
 - Preserved the full project prompt in `README.md`, updated its current status/links, and made the inherited TIFF's download-only / do-not-submit decision explicit. The decision guide now says this session made no TIFF.
-- Rebuilt the static site: **11 pages**, `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` The site check passed: **269 local links**, every page reachable from home, no external assets, and submit remains false.
+- Rebuilt the site against the advanced `main` base while keeping the a92 session distinct from later archived lanes: **13 pages**, `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` The site check passed: **339 local links**, every page reachable from home, no external assets, and submit remains false. The latest build-time runtime check found `0/13` manifest inputs under `data/raw`.
 - The current H33 explanation explicitly separates the unverified `0.2778` report, rank-1 public observation `0.4413`, and older user-reported `0.3195`. Superseded full narratives and speculative old hypothesis notes are linked as historical source files rather than rendered as current advice.
-- Added tests for public top-50 parsing, the fail-closed session card, and stale-vs-current leaderboard snapshots. Full test suite: **562 passed**. `scripts/build_site.py` and `scripts/refresh_feed.py` compile successfully.
+- Added tests for public top-50 parsing, the fail-closed session card, and stale-vs-current leaderboard snapshots. Full merged-branch test suite: **597 passed**. `scripts/build_site.py`, `scripts/check_site.py`, and `scripts/refresh_feed.py` compile; `node --check docs/assets/site.js` passes.
 - Rechecked the report and run card against the no-candidate state; no TIFF hash, holdout score, submission name/note, validator pass, selector receipt, or slot was invented.
 
 **Pass 3 result: PASS — site, evidence labels, code checks, and tests agree with the blocked/no-candidate decision.**

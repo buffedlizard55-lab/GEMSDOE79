@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 import sys
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'scripts')]
 from verify_project import decision_line  # noqa: E402
+from gems79.data_status import inspect_runtime_inputs  # noqa: E402
 
 
 def check_site():
@@ -26,8 +27,8 @@ def check_site():
     assert set(pages) == {
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
         'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
-        'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html',
-    }, 'Expected the eleven project pages (canonical seven + G79-CSKD + G79-CJX + G79-DZD + G79-CJX-DIR lane pages)'
+        'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html', 'tdw-submission.html',
+    }, 'Expected the thirteen project pages (canonical seven + lane pages)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
@@ -104,6 +105,26 @@ def check_site():
     feed = json.loads((site / 'evidence/source_health.json').read_text())
     assert feed['submission_slots_used_by_this_refresh'] == 0
     assert feed['scientific_claims_reviewed_date'] == json.loads((ROOT / 'knowledge/official_sources.json').read_text())['reviewed_date_utc']
+    runtime_path = site / 'evidence/runtime_data_status.json'
+    runtime = json.loads(runtime_path.read_text())
+    observed_now = inspect_runtime_inputs(ROOT)
+    for key in ('manifest_sha256', 'state', 'expected_count', 'verified_count', 'missing_count',
+                'mismatch_count', 'training_supervision_ready', 'core_pipeline_inputs_ready',
+                'all_manifest_inputs_ready', 'files'):
+        assert runtime[key] == observed_now[key], f'Runtime data feed drift: {key}'
+    assert site_manifest['runtime_data_status_sha256'] == hashlib.sha256(runtime_path.read_bytes()).hexdigest()
+    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_a92a0164.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_review_card_sha256'] == hashlib.sha256((site / 'evidence/run_card_a92a0164.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_source_review_sha256'] == hashlib.sha256((site / 'evidence/source_review_a92a0164.json').read_bytes()).hexdigest()
+    assert json.loads((site / 'evidence/preflight_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/preflight_a92a0164.json').read_text())
+    assert json.loads((site / 'evidence/run_card_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/run_card_a92a0164.json').read_text())
+    assert json.loads((site / 'evidence/source_review_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/source_review_a92a0164.json').read_text())
+    source_text = pages['sources.html'].get_text(' ', strip=True)
+    assert 'Runtime input availability at this build' in source_text
+    assert f"{runtime['verified_count']}/{runtime['expected_count']}" in source_text
+    for filename in ('index.html', 'executive-summary.html'):
+        current_text = pages[filename].get_text(' ', strip=True)
+        assert 'Parallel review' in current_text and 'no new candidate GeoTIFF' in current_text
     assert '@import' not in (site / 'assets/site.css').read_text()
     assert (ROOT / '.nojekyll').exists() and (site / '.nojekyll').exists()
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()

@@ -1,0 +1,296 @@
+[
+  {
+    "file": "data/reference/sample_submission.tif",
+    "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "bytes": 1599597,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+      {
+        "rule": "R1",
+        "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+        "pass": true,
+        "detail": "1 band(s)"
+      },
+      {
+        "rule": "R2",
+        "text": "datatype float32",
+        "pass": true,
+        "detail": "dtype float32"
+      },
+      {
+        "rule": "R3",
+        "text": "CRS EPSG:32611",
+        "pass": true,
+        "detail": "CRS EPSG:32611"
+      },
+      {
+        "rule": "R4",
+        "text": "shape, transform, 100 m resolution and bounds equal the template",
+        "pass": true,
+        "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+      },
+      {
+        "rule": "R5",
+        "text": "nodata absent or NaN",
+        "pass": true,
+        "detail": "nodata nan"
+      },
+      {
+        "rule": "R6",
+        "text": "data outside the bounds is null or NaN",
+        "pass": true,
+        "detail": "0 non-NaN cell(s) outside the template bounds (of 7111787)"
+      },
+      {
+        "rule": "R7",
+        "text": "every in-bounds cell is finite (no NaN, no inf)",
+        "pass": true,
+        "detail": "0 NaN/inf cell(s) inside the bounds"
+      },
+      {
+        "rule": "R8",
+        "text": "every in-bounds value is between 0 and 1 inclusive",
+        "pass": true,
+        "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+      }
+    ],
+    "cells": {
+      "compared": true,
+      "inside_cells": 5167373,
+      "outside_cells": 7111787,
+      "outside_non_nan": 0,
+      "inside_nonfinite": 0,
+      "inside_out_of_range": 0,
+      "inside_min": 0.0,
+      "inside_max": 1.0,
+      "inside_positive": 60988,
+      "inside_mass": 60988.0
+    },
+    "failed_rules": [],
+    "ok": true
+  },
+  {
+    "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "bytes": 137299,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+      {
+        "rule": "R1",
+        "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+        "pass": true,
+        "detail": "1 band(s)"
+      },
+      {
+        "rule": "R2",
+        "text": "datatype float32",
+        "pass": true,
+        "detail": "dtype float32"
+      },
+      {
+        "rule": "R3",
+        "text": "CRS EPSG:32611",
+        "pass": true,
+        "detail": "CRS EPSG:32611"
+      },
+      {
+        "rule": "R4",
+        "text": "shape, transform, 100 m resolution and bounds equal the template",
+        "pass": true,
+        "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+      },
+      {
+        "rule": "R5",
+        "text": "nodata absent or NaN",
+        "pass": true,
+        "detail": "nodata None"
+      },
+      {
+        "rule": "R6",
+        "text": "data outside the bounds is null or NaN",
+        "pass": false,
+        "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+      },
+      {
+        "rule": "R7",
+        "text": "every in-bounds cell is finite (no NaN, no inf)",
+        "pass": true,
+        "detail": "0 NaN/inf cell(s) inside the bounds"
+      },
+      {
+        "rule": "R8",
+        "text": "every in-bounds value is between 0 and 1 inclusive",
+        "pass": true,
+        "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+      }
+    ],
+    "cells": {
+      "compared": true,
+      "inside_cells": 5167373,
+      "outside_cells": 7111787,
+      "outside_non_nan": 7111787,
+      "inside_nonfinite": 0,
+      "inside_out_of_range": 0,
+      "inside_min": 0.0,
+      "inside_max": 1.0,
+      "inside_positive": 35093,
+      "inside_mass": 35093.0
+    },
+    "failed_rules": [
+      "R6"
+    ],
+    "ok": false
+  },
+  {
+    "file": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+    "sha256": "a422d9a08a07a089f304a0ce7f76eca35bcfeff82877af7ee5034e3f94c294e1",
+    "bytes": 827272,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+      {
+        "rule": "R1",
+        "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+        "pass": true,
+        "detail": "1 band(s)"
+      },
+      {
+        "rule": "R2",
+        "text": "datatype float32",
+        "pass": true,
+        "detail": "dtype float32"
+      },
+      {
+        "rule": "R3",
+        "text": "CRS EPSG:32611",
+        "pass": true,
+        "detail": "CRS EPSG:32611"
+      },
+      {
+        "rule": "R4",
+        "text": "shape, transform, 100 m resolution and bounds equal the template",
+        "pass": true,
+        "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+      },
+      {
+        "rule": "R5",
+        "text": "nodata absent or NaN",
+        "pass": true,
+        "detail": "nodata None"
+      },
+      {
+        "rule": "R6",
+        "text": "data outside the bounds is null or NaN",
+        "pass": false,
+        "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+      },
+      {
+        "rule": "R7",
+        "text": "every in-bounds cell is finite (no NaN, no inf)",
+        "pass": true,
+        "detail": "0 NaN/inf cell(s) inside the bounds"
+      },
+      {
+        "rule": "R8",
+        "text": "every in-bounds value is between 0 and 1 inclusive",
+        "pass": true,
+        "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+      }
+    ],
+    "cells": {
+      "compared": true,
+      "inside_cells": 5167373,
+      "outside_cells": 7111787,
+      "outside_non_nan": 7111787,
+      "inside_nonfinite": 0,
+      "inside_out_of_range": 0,
+      "inside_min": 0.0,
+      "inside_max": 1.0,
+      "inside_positive": 37654,
+      "inside_mass": 37654.0
+    },
+    "failed_rules": [
+      "R6"
+    ],
+    "ok": false
+  },
+  {
+    "file": "artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif",
+    "sha256": "42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab",
+    "bytes": 172278,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+      {
+        "rule": "R1",
+        "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+        "pass": true,
+        "detail": "1 band(s)"
+      },
+      {
+        "rule": "R2",
+        "text": "datatype float32",
+        "pass": true,
+        "detail": "dtype float32"
+      },
+      {
+        "rule": "R3",
+        "text": "CRS EPSG:32611",
+        "pass": true,
+        "detail": "CRS EPSG:32611"
+      },
+      {
+        "rule": "R4",
+        "text": "shape, transform, 100 m resolution and bounds equal the template",
+        "pass": true,
+        "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+      },
+      {
+        "rule": "R5",
+        "text": "nodata absent or NaN",
+        "pass": true,
+        "detail": "nodata None"
+      },
+      {
+        "rule": "R6",
+        "text": "data outside the bounds is null or NaN",
+        "pass": false,
+        "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+      },
+      {
+        "rule": "R7",
+        "text": "every in-bounds cell is finite (no NaN, no inf)",
+        "pass": true,
+        "detail": "0 NaN/inf cell(s) inside the bounds"
+      },
+      {
+        "rule": "R8",
+        "text": "every in-bounds value is between 0 and 1 inclusive",
+        "pass": true,
+        "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+      }
+    ],
+    "cells": {
+      "compared": true,
+      "inside_cells": 5167373,
+      "outside_cells": 7111787,
+      "outside_non_nan": 7111787,
+      "inside_nonfinite": 0,
+      "inside_out_of_range": 0,
+      "inside_min": 0.0,
+      "inside_max": 1.0,
+      "inside_positive": 12000,
+      "inside_mass": 11464.639295399189
+    },
+    "failed_rules": [
+      "R6"
+    ],
+    "ok": false
+  }
+]

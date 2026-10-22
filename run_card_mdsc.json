@@ -1,0 +1,196 @@
+{
+  "schema_version": "gems79-run-card-mdsc-v1",
+  "lane": "G79-MDSC-8e58a8d0",
+  "session_branch": "arena/8e58a8d0-gemsdoe79",
+  "canonical_project_card": "run_card.json (G79-THVC, unchanged; this is a lane card)",
+  "preregistration": "registry/preregistration_mdsc_8e58a8d0.json",
+  "preregistration_sha256_file": "registry/preregistration_mdsc_8e58a8d0.sha256",
+  "experiments_run": 2,
+  "max_experiments": 3,
+  "hypothesis": "Sub-alluvial Quaternary normal faults offset magnetic units at 50-400 m depth; RTP horizontal-gradient ridges screened by upward-continuation (z_top, structural-index N) inversion localise them better than unscreened gradient amplitude.",
+  "mechanism": "FFT upward continuation of rtp to 150/300/600 m; two-ratio (z_top,N) lookup inversion; trapezoidal windows z in [50,400] m, N in [0,0.6]; score = HG0 x Wz x WN; zero catalogue-derived features; 37,654 dots at 3 px separation, d_catalogue>2 px.",
+  "named_non_fault_process": "Unfaulted basaltic lava-flow lobe margins / volcanic talus (shallow, high-N) and deep Mesozoic pluton roofs (slow attenuation).",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "dti": 0.0448,
+    "ci95": [
+      0.0328,
+      0.0565
+    ],
+    "withheld_positive_pixels": 11321,
+    "seed": 20,
+    "bar_THVC": 0.1905,
+    "beats_bar": false,
+    "control_B_hg_only": {
+      "dti": 0.0454,
+      "ci95": [
+        0.0312,
+        0.0593
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "control_C0_random": {
+      "dti": 0.0457,
+      "ci95": [
+        0.0398,
+        0.0517
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "paired_A_minus_B": {
+      "B_control_hg_only": [
+        -0.0005,
+        [
+          -0.0061,
+          0.0052
+        ]
+      ],
+      "C0_random": [
+        -0.0008,
+        [
+          -0.0127,
+          0.0112
+        ]
+      ]
+    },
+    "source_pointer": "evidence/mdsc_8e58a8d0/summary.json"
+  },
+  "secondary_holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "dti": 0.0434,
+    "ci95": [
+      0.0329,
+      0.054
+    ],
+    "withheld_positive_pixels": 11342,
+    "seed": 30,
+    "bar_THVC": 0.1944,
+    "beats_bar": false,
+    "control_B_hg_only": {
+      "dti": 0.0453,
+      "ci95": [
+        0.0326,
+        0.0577
+      ],
+      "withheld_positive_pixels": 11342
+    },
+    "control_C0_random": {
+      "dti": 0.0459,
+      "ci95": [
+        0.0411,
+        0.0506
+      ],
+      "withheld_positive_pixels": 11342
+    },
+    "source_pointer": "evidence/mdsc_8e58a8d0/summary.json"
+  },
+  "experiment_E2_sfgc_lite_scoring_only": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed20": {
+      "dti": 0.0683,
+      "ci95": [
+        0.0568,
+        0.0786
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "seed30": {
+      "dti": 0.0626,
+      "ci95": [
+        0.0527,
+        0.0723
+      ],
+      "withheld_positive_pixels": 11342
+    },
+    "control_B_unsigned_seed20": {
+      "dti": 0.053,
+      "ci95": [
+        0.0425,
+        0.0639
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "control_B_unsigned_seed30": {
+      "dti": 0.0436,
+      "ci95": [
+        0.0352,
+        0.052
+      ],
+      "withheld_positive_pixels": 11342
+    },
+    "finding": "Signed scarp polarity beats THVC's unsigned quantity standalone on both seeds (paired CIs exclude 0) but remains far below THVC ensemble bars; supports SFGC-full as a feature fix inside a future ensemble retrain, not a standalone submission.",
+    "max_symmetric_canary_auc": 0.5968,
+    "source_pointer": "evidence/sfgc_lite_8e58a8d0/summary.json"
+  },
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "max_symmetric_auc_E1": 0.5421,
+    "threshold": 0.9,
+    "passed": true,
+    "features": [
+      "HG0",
+      "Wz",
+      "WN",
+      "A_mdsc",
+      "B_hg"
+    ]
+  },
+  "correlation_overlap_vs_registry": {
+    "evidence_class": "REGISTRY-MEASUREMENT (local sparse subset)",
+    "comparators_checked": 28,
+    "max_forward_overlap_3px": 0.3736,
+    "worst_overlap_file": "archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+    "max_abs_spearman_surface_sample400k": 0.0311,
+    "sparse_budget_comparable_pass": true,
+    "literal_all_registry_gate": "UNSATISFIABLE for any nonempty candidate (frozen witnesses: 17GEMSDOE E-proba covers 100% of allowed cells; 13GEMSDOE spacing-5 lattice forces >=82.7% overlap at 37,654 dots) - see evidence/mdsc_8e58a8d0/novelty_local_sparse.json",
+    "scope_limit": "28 unique sparse rasters in this checkout; not the 1,108-raster frozen family scan; not the organizer registry."
+  },
+  "raster_sha256": "270183cb79342a087dc425325c1517260068c57c711d5f0978610e17ba186a21",
+  "zip_sha256": "f4bfe3ebc31117e8425946351154cc9dc5b8f774c607957937690cd471cd9a75",
+  "validator_output": {
+    "file": "artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif",
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "format_pass": true,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "nodata": null,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "emitted_positive_pixels": 37654
+  },
+  "submission_name": "gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT",
+  "submission_note": "GEMSDOE79 MDSC E1: RTP upward-cont (z,N) screen, 37654 dots; HOLDOUT-DTI 0.0448/0.0434 < THVC bars; DO NOT SUBMIT",
+  "note_chars": 113,
+  "submission_file": "artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif",
+  "zip_file": "artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.zip",
+  "organizer_confirmed_score": null,
+  "submission_slots_used": 0,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+  "verdict": "negative",
+  "stop_reason": "E1 MDSC HOLDOUT-DTI 0.0448/0.0434 is indistinguishable from random (0.0457/0.0459) and far below THVC bars 0.1905/0.1944; preregistered promotion gate fails on science. E2 SFGC-lite (0.0683/0.0626) also below bars. Format and sparse-novelty pass, but format PASS is never permission to submit."
+}

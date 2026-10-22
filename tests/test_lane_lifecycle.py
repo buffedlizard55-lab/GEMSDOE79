@@ -131,6 +131,8 @@ def test_absent_card_fails_closed(tmp_path):
     ('run_csmd.py', ['--stage', 'seed20']),
     ('run_g79_dfsd.py', ['--stage', 'seed20']),
     ('run_g79_dfsd.py', ['--stage', 'seed20', '--allow-initial-build']),
+    ('run_pfsd.py', ['--stage', 'seed20']),
+    ('run_pfsd.py', []),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (
@@ -138,6 +140,7 @@ def test_current_scientific_commands_refuse_before_writing(script, args):
         + list((ROOT / 'evidence/nhr').glob('*.json'))
         + list((ROOT / 'evidence/ffas').glob('*.json'))
         + list((ROOT / 'evidence/cjx').glob('*.json'))
+        + list((ROOT / 'evidence/pfsd').glob('*.json'))
         + list((ROOT / 'artifacts/cjx').glob('*'))
         + list((ROOT / 'docs/downloads').glob('*'))
     )

@@ -122,7 +122,7 @@
     {
       "pass": 3,
       "scope": "Website/README, test semantics, code/site verification and final requirement review",
-      "result": "PASS; README/site classification and links reviewed; site built 11 pages; check_site passed (269 local links, all reachable, submit=false); full pytest passed (562 tests); code compiles."
+      "result": "PASS; merged current main base for PR review without reattributing its later lane artifacts; README/site and evidence labels reviewed; 13-page build passed; check_site passed (339 local links, all reachable, submit=false); full merged-branch pytest passed (597 tests); Python and JavaScript syntax checks passed."
     }
   ],
   "verdict": "blocked_no_candidate",
@@ -136,24 +136,38 @@
       "passed": true,
       "files": [
         "scripts/build_site.py",
+        "scripts/check_site.py",
         "scripts/refresh_feed.py"
       ]
     },
+    "javascript_syntax": {
+      "passed": true,
+      "command": "node --check docs/assets/site.js"
+    },
     "site_build": {
       "passed": true,
-      "pages": 11,
+      "pages": 13,
       "decision": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO."
     },
     "site_check": {
       "passed": true,
-      "local_links_checked": 269,
+      "local_links_checked": 339,
       "all_pages_reachable_from_home": true,
       "submit": false
     },
+    "runtime_inputs_at_final_site_build": {
+      "verified_count": 0,
+      "expected_count": 13,
+      "state": "missing_inputs"
+    },
     "pytest": {
       "passed": true,
-      "tests": 562,
+      "tests": 597,
       "command": "PYTHONPATH=scripts .venv/bin/python -m pytest -q"
     }
+  },
+  "repository_integration": {
+    "main_commit_merged_for_pr_review": "eebee979cb49e0f79810b8595244e68aac1f2c7f",
+    "scope_note": "Later main-branch lane artifacts remain attributed to their own evidence; they were not generated, rerun, or scored by this a92 session."
   }
 }
