@@ -1,0 +1,201 @@
+{
+  "lane": "G79-TIPSTEP",
+  "hypothesis": "Unmapped faults are disproportionately straight continuations beyond mapped tips and collinear stepover bridges between nearby fault tips; dotted 3px emission >2px off catalogue captures them at low FP cost.",
+  "mimic": "Roads/drainage lineaments and catalogue digitisation fragmentation (bridges may merely reconnect one fault split by mapping, not a hidden fault).",
+  "experiments": [],
+  "canaries": {
+    "seed20_tipstep_surface": {
+      "auc": 0.5076239328528491,
+      "symmetric_auc": 0.5076239328528491,
+      "withheld": 11321
+    },
+    "seed20_dist_to_visible": {
+      "auc": 0.8063083702624754,
+      "symmetric_auc": 0.8063083702624754,
+      "withheld": 11321
+    },
+    "seed30_tipstep_surface": {
+      "auc": 0.5071997815045395,
+      "symmetric_auc": 0.5071997815045395,
+      "withheld": 11342
+    },
+    "seed30_dist_to_visible": {
+      "auc": 0.8021057675428074,
+      "symmetric_auc": 0.8021057675428074,
+      "withheld": 11342
+    }
+  },
+  "holdout": {
+    "seed20": {
+      "emitted": 23719,
+      "surface_info": {
+        "endpoints": 1762,
+        "bridge_points": 6300,
+        "candidates": 41540,
+        "emitted": 23719,
+        "kinds": {
+          "tip": 21964,
+          "bridge": 1755
+        }
+      },
+      "pooled": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "alpha": 0.2,
+        "beta": 0.8,
+        "triangular_radius_m": 300.0,
+        "pooled": true,
+        "scores": {
+          "TIPSTEP": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2",
+            "dti": 0.0926914409768605,
+            "ci95": [
+              0.079489325002107,
+              0.10491644274555928
+            ],
+            "withheld_positive_pixels": 11321,
+            "tpw": 1265.1067833396044,
+            "fpw": 21693.8059390673,
+            "fnw": 10055.893216660394
+          },
+          "UNIFORM": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2",
+            "dti": 0.0017410257191642806,
+            "ci95": [
+              0.0012753842474417941,
+              0.0022525669435690715
+            ],
+            "withheld_positive_pixels": 11321,
+            "tpw": 23.59050610369392,
+            "fpw": 22441.28259790111,
+            "fnw": 11297.409493896306
+          }
+        },
+        "best_comparable_control": "UNIFORM",
+        "paired_differences": {
+          "UNIFORM": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2",
+            "delta": 0.09095041525769622,
+            "ci95": [
+              0.07792495294860358,
+              0.10320158576953681
+            ],
+            "withheld_positive_pixels": 11321
+          }
+        },
+        "bootstrap": {
+          "method": "paired physical spatial-cluster percentile",
+          "clusters": 184,
+          "draws": 1000,
+          "seed": 520810,
+          "confidence": 0.95,
+          "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+        },
+        "implementation_sha256": {
+          "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+          "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+          "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+          "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+        }
+      }
+    },
+    "seed30": {
+      "emitted": 24276,
+      "surface_info": {
+        "endpoints": 1782,
+        "bridge_points": 6577,
+        "candidates": 42217,
+        "emitted": 24276,
+        "kinds": {
+          "tip": 22445,
+          "bridge": 1831
+        }
+      },
+      "pooled": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "alpha": 0.2,
+        "beta": 0.8,
+        "triangular_radius_m": 300.0,
+        "pooled": true,
+        "scores": {
+          "TIPSTEP": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2",
+            "dti": 0.09279881441472161,
+            "ci95": [
+              0.07771126429112543,
+              0.10786648258461327
+            ],
+            "withheld_positive_pixels": 11342,
+            "tpw": 1279.156166195036,
+            "fpw": 22273.77640512185,
+            "fnw": 10062.843833804965
+          },
+          "UNIFORM": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2",
+            "dti": 0.0018735044403021958,
+            "ci95": [
+              0.0015263245047590138,
+              0.0022723145581088427
+            ],
+            "withheld_positive_pixels": 11342,
+            "tpw": 25.59634737910486,
+            "fpw": 22917.81735542528,
+            "fnw": 11316.403652620893
+          }
+        },
+        "best_comparable_control": "UNIFORM",
+        "paired_differences": {
+          "UNIFORM": {
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2",
+            "delta": 0.09092530997441942,
+            "ci95": [
+              0.0756199987776301,
+              0.1060431555583005
+            ],
+            "withheld_positive_pixels": 11342
+          }
+        },
+        "bootstrap": {
+          "method": "paired physical spatial-cluster percentile",
+          "clusters": 184,
+          "draws": 1000,
+          "seed": 520810,
+          "confidence": 0.95,
+          "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+        },
+        "implementation_sha256": {
+          "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+          "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+          "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+          "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+        }
+      }
+    }
+  },
+  "final_info": {
+    "endpoints": 2247,
+    "bridge_points": 10361,
+    "candidates": 55301,
+    "emitted": 29259,
+    "kinds": {
+      "tip": 26712,
+      "bridge": 2547
+    }
+  },
+  "final_dots": 29259,
+  "submission": {
+    "name": "gems79-tipstep-20261022",
+    "note": "G79-TIPSTEP catalogue tip-extension + collinear stepover bridges, dotted 3px, >2px off catalogue",
+    "note_chars": 96,
+    "file": "artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif",
+    "sha256": "4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a",
+    "dots": 29259
+  }
+}
