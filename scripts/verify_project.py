@@ -40,7 +40,14 @@ def strict_loads_bytes(raw: bytes):
 
 def _iter_repo_files(root: Path):
     for p in root.rglob('*'):
-        if _SKIP_PARTS.intersection(p.relative_to(root).parts) or not p.is_file():
+        parts = p.relative_to(root).parts
+        # Virtual environments are local tooling, not publication content. Match
+        # common clean-test names such as .venv-clean as well as the canonical
+        # .venv; otherwise dependency source/templates can create false conflict
+        # marker or malformed-JSON failures.
+        if (_SKIP_PARTS.intersection(parts)
+                or any(part.startswith('.venv') for part in parts)
+                or not p.is_file()):
             continue
         yield p
 

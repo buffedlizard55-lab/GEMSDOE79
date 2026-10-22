@@ -58,7 +58,7 @@ Rebuilt the seven-page site and checked all local links, verified reopened
 TIFF, ZIP, hashes, run-card identity and generated status. Tested the
 negative preflight, tampered report failure, missing witness failure, and
 non-saturation failure. `pip check` reports no broken requirements;
-`pytest` is green (207 tests after integrating concurrent main PR #29);
+`pytest` is green (208 tests after integrating concurrent main PRs #29 and #30);
 `verify_project.py` checks the displayed proof and the current artifact,
 but does **not** authenticate an organizer score. The concurrent review also
 hardened the selector independently; duplicate dependency pins introduced by
