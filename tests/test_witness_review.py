@@ -17,12 +17,20 @@ def witness_root(tmp_path, monkeypatch):
     for directory in ('registry', 'evidence', '.cache/registry', 'vendor/gems57', 'data/reference'):
         (root / directory).mkdir(parents=True, exist_ok=True)
     # Pin the actual shared bytes, not a local copy of its mathematics.
-    shared = Path(review.__file__).parents[1] / 'vendor/gems57/uniqueness.py'
-    rel = 'vendor/gems57/uniqueness.py'
-    shutil.copyfile(shared, root / rel)
-    (root / 'registry/template_pin.json').write_text(json.dumps({'files': [
-        {'path': rel, 'sha256': hashlib.sha256(shared.read_bytes()).hexdigest()}]}))
-    (root / 'registry/data_manifest.json').write_text('{"files":[]}')
+    repo = Path(review.__file__).parents[1]
+    pins = []
+    for name in ('grid.py', 'uniqueness.py'):
+        rel = 'vendor/gems57/' + name
+        shutil.copyfile(repo / rel, root / rel)
+        pins.append({'path': rel, 'sha256': hashlib.sha256((repo / rel).read_bytes()).hexdigest()})
+    (root / 'registry/template_pin.json').write_text(json.dumps({'files': pins}))
+    references = []
+    for name in ('existing_faults', 'sample_submission'):
+        data = ('software fixture ' + name).encode()
+        (root / 'data/reference' / (name + '.tif')).write_bytes(data)
+        references.append({'id': name, 'dest': name + '.tif',
+                           'sha256': hashlib.sha256(data).hexdigest()})
+    (root / 'registry/data_manifest.json').write_text(json.dumps({'files': references}))
     crs, transform = rasterio.crs.CRS.from_epsg(32611), Affine(100, 0, 0, 0, -100, 500)
     fp = np.ones((5, 5), dtype=bool)
     grid = SimpleNamespace(footprint=fp, catalogue=np.zeros_like(fp),
@@ -93,9 +101,7 @@ def test_missing_witness_does_not_fetch_without_explicit_restore(witness_root, m
 
 def test_reference_pin_tampering_is_rejected(witness_root):
     root, _ = witness_root
-    (root / 'data/reference/sample.tif').write_bytes(b'changed reference')
-    (root / 'registry/data_manifest.json').write_text(json.dumps({'files': [
-        {'id': 'sample_submission', 'dest': 'sample.tif', 'sha256': '0' * 64}]}))
+    (root / 'data/reference/sample_submission.tif').write_bytes(b'changed reference')
     with pytest.raises(ValueError, match='Reference grid pin mismatch'):
         review.verify_witness(root)
 
@@ -111,3 +117,41 @@ def test_report_cli_never_overwrites_existing_evidence(witness_root, monkeypatch
     with pytest.raises(FileExistsError):
         review.main()
     assert output.read_text() == 'original evidence'
+
+
+@pytest.mark.parametrize('manifest,key,identity', [
+    ('data_manifest.json', 'id', 'existing_faults'),
+    ('data_manifest.json', 'id', 'sample_submission'),
+    ('template_pin.json', 'path', 'vendor/gems57/grid.py'),
+    ('template_pin.json', 'path', 'vendor/gems57/uniqueness.py'),
+])
+@pytest.mark.parametrize('mutation', ['remove', 'duplicate'])
+def test_required_pin_cannot_be_omitted_or_duplicated(witness_root, manifest, key, identity, mutation):
+    root, _ = witness_root
+    path = root / 'registry' / manifest
+    document = json.loads(path.read_text())
+    row = next(row for row in document['files'] if row[key] == identity)
+    if mutation == 'remove':
+        document['files'].remove(row)
+    else:
+        document['files'].append(row.copy())
+    path.write_text(json.dumps(document))
+    with pytest.raises(ValueError, match='requires exactly one'):
+        review.verify_witness(root)
+
+
+@pytest.mark.parametrize('destination', ['other.tif', '../sample_submission.tif', '/tmp/sample.tif'])
+def test_reference_pin_must_cover_loaded_filename(witness_root, destination):
+    root, _ = witness_root
+    path = root / 'registry/data_manifest.json'
+    document = json.loads(path.read_text())
+    document['files'][0]['dest'] = destination
+    path.write_text(json.dumps(document))
+    with pytest.raises(ValueError, match='destination mismatch'):
+        review.verify_witness(root)
+
+
+@pytest.mark.parametrize('rows', [None, {}, [None], ['not a row']])
+def test_malformed_pin_rows_are_rejected(rows):
+    with pytest.raises(ValueError, match='list of objects'):
+        review.require_unique_rows(rows, 'id', ('required',), 'test')

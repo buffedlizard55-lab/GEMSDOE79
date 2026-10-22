@@ -1241,6 +1241,33 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>PR builds and production deployments used the same Pages concurrency group. The review PR's Pages run was cancelled while its two verification workflows completed successfully; a later pending PR run can displace a pending production run under the shared group.</td>
 <td>Separate PR-number groups from the production group. Keep production serialized and PR deployments disabled; retain exact public-byte verification. Added a workflow regression test. Observed cancellation alone does not authenticate a successful deployment.</td>
 </tr>
+<tr>
+<td>IR-79-172</td>
+<td>Session d52085f3 was asked for a unique submittable TIF. The new-lane preflight fails closed without the pinned witness (exit 3) and exits 2 with it, because the literal gate blocks every candidate. The witness is a continuous 17GEMSDOE surface positive on all 5,167,373 footprint cells, values 0.00046–0.98412. No lane method paragraph is in the record, so no lane was assigned.</td>
+<td>Reproduced both preflight exits and the full test/verify run (477 passed; verify exit 0). Measured the witness directly and, using the shared <code>budget_matched_dots</code> and <code>_near</code>, its top-37,654 footprint coverage is 0.0185 (top-38,000: 0.0186). That is a chance-level feasibility measurement, not a candidate score. No gate was changed, no lane started, no placement or submission made. The decision on literal versus top-k (D-1) and a lane paragraph are the owner's (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_d52085f3.md">review d52085f3</a> §7). Public leaderboard page confirms #1 at 0.4413, not 0.3195 (IR-79-05).</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 84124ba0 — witness provenance hardening (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-173</td>
+<td>Witness verification could skip missing reference/module pins; a reference destination could differ from the filename loaded by <code>load_grid</code>.</td>
+<td>Require exactly one pin for both references and grid/uniqueness modules and exact reference destinations. Added omission, duplication, malformed-row and destination regression tests. No scientific module or threshold changed. Fresh witness remeasurement still blocks every nonempty candidate under the literal gate.</td>
+</tr>
+<tr>
+<td>IR-79-174</td>
+<td>Preflight help claimed an exit-0 path, but the rejection-only implementation returns only 2 or 3.</td>
+<td>Corrected help text. An unverified witness is not permission to begin a lane. Official reference README also supports CPU-only execution; the historical GPU-required prompt statement is not a verified limitation of that baseline.</td>
+</tr>
 </tbody>
 </table>
 <h3>Session <code>4d7aa82a</code> addendum — current-checkout review and input restoration</h3>
@@ -1255,7 +1282,7 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-172</td>
+<td>IR-79-175</td>
 <td>The fresh assigned-branch workspace did not contain <code>data/raw/</code> or the derived <code>.cache/g79/</code> feature arrays; only the small tracked reference rasters were present. Prior sessions' restored inputs were local ignored data, not a portable tracked cache.</td>
 <td>Ran <code>scripts/restore_data.py --preserve-receipt</code>: all 13 manifest entries restored from the pinned owner-maintained GitHub mirrors with matching SHA-256 values; receipt recorded at <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/input_restoration_4d7aa82a.json"><code>evidence/input_restoration_4d7aa82a.json</code></a> and the frozen <code>data/restore_receipt.json</code> preserved. This proves mirror-byte consistency, not independent organizer authentication. The official DrivenData data tab remains login-gated. Derived arrays were not rebuilt: the shared literal novelty preflight re-measured the universal witness and stopped before any experiment, and the required single-method lane paragraph was absent. No TIFF, holdout, or submission slot was generated.</td>
 </tr>
