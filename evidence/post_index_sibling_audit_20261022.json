@@ -128,6 +128,26 @@
       "total_files": 1,
       "tif_count": 0,
       "empty_stub_repo": true
+    },
+    "GEMSDOE89": {
+      "head_commit": "9bf120b9cc",
+      "published_tifs": 0,
+      "status": "empty_11byte_readme_stub_no_tif_pages_404"
+    },
+    "GEMSDOE90": {
+      "head_commit": "7e61faa83e",
+      "published_tifs": 0,
+      "status": "empty_11byte_readme_stub_no_tif_pages_404"
+    },
+    "GEMSDOE91": {
+      "head_commit": "f049d02902",
+      "published_tifs": 0,
+      "status": "empty_11byte_readme_stub_no_tif_pages_404"
+    },
+    "GEMSDOE92": {
+      "head_commit": "b99296cae6",
+      "published_tifs": 0,
+      "status": "empty_11byte_readme_stub_no_tif_pages_404"
     }
   },
   "prompt_filename_discrepancies": {
@@ -1055,5 +1075,148 @@
         }
       ]
     }
+  },
+  "gemsdoe79_16_lanes_summary": {
+    "canonical_lane": "G79-THVC",
+    "canonical_holdout_dti_seed20": 0.1905,
+    "canonical_holdout_dti_seed30": 0.1944,
+    "lanes_ranked_by_seed20_holdout_dti": [
+      {
+        "lane": "G79-THVC",
+        "pr": 51,
+        "seed20": 0.1905,
+        "seed30": 0.1944,
+        "dots": 35093,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-NHR",
+        "pr": 38,
+        "seed20": 0.1431,
+        "seed30": 0.1522,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-STEP",
+        "pr": 53,
+        "seed20": 0.0949,
+        "seed30": 0.1087,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-DILSTEP",
+        "pr": 55,
+        "seed20": 0.0721,
+        "seed30": 0.0689,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-COV",
+        "pr": 56,
+        "seed20": 0.061,
+        "seed30": 0.0581,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-FF",
+        "pr": 39,
+        "seed20": 0.051,
+        "seed30": 0.0488,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-ML-STRAIN-RELAY",
+        "pr": 20,
+        "seed20": 0.0472,
+        "seed30": 0.0442,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "G79-STEPCO",
+        "pr": 16,
+        "seed20": 0.0468,
+        "seed30": 0.0422,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-FFAS",
+        "pr": 52,
+        "seed20": 0.0422,
+        "seed30": 0.0367,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "G79B-SDPT",
+        "pr": 18,
+        "seed20": 0.0297,
+        "seed30": 0.029,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-FGR",
+        "pr": 57,
+        "seed20": 0.0058,
+        "seed30": 0.0056,
+        "dots": 38000,
+        "verdict": "negative"
+      },
+      {
+        "lane": "G79-MAG",
+        "pr": 54,
+        "seed20": 0.0045,
+        "seed30": 0.0067,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "G79-FABRIC-OFFSET",
+        "pr": 8,
+        "seed20": null,
+        "seed30": null,
+        "dots": null,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-ASYM",
+        "pr": 44,
+        "seed20": null,
+        "seed30": null,
+        "dots": null,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-MCT",
+        "pr": 11,
+        "seed20": null,
+        "seed30": null,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "H79-CSPT",
+        "pr": 12,
+        "seed20": null,
+        "seed30": null,
+        "dots": 37654,
+        "verdict": "negative"
+      },
+      {
+        "lane": "G79B-SCARP-DIPOLE-GEOAND",
+        "pr": 19,
+        "seed20": null,
+        "seed30": null,
+        "dots": 37654,
+        "verdict": "negative"
+      }
+    ]
   }
 }

@@ -138,7 +138,7 @@ def checks_panel(card):
         + row(True, 'Comparable sparse dot maps (≤ 50k dots, 718 rasters)', 'Max 3-px forward overlap = 0.6844 ≤ 0.7000 (0.3427 vs H33; 0.5267 vs GEMSDOE73).')
         + row(card['protocol_unique'], 'Literal 3-px overlap across high-density blankets (> 50k px)', 'Universal space-filling & dense corridor priors cover up to 100% of allowed Nevada pixels (1.0000 on 17GEMSDOE; 0.9985 on 13GEMSDOE lattice; Oracle truth20 = 1.0000).')
         + row(c['passed'], 'Leakage canary', f"{c['features_cleared']} single-feature symmetric AUC tests cleared; max {c['auc']:.4f} ≤ 0.90 ({E(c.get('max_feature', 'geom_log_dist_vis_fault'))}).")
-        + row(True, 'Beats holdout best across all 9 GEMSDOE79 lanes', f"Seed 20: {s20['candidate']['dti']:.4f} {s20['candidate']['ci95']} vs H33 {s20['h33_foldfair_control']['dti']:.4f} (+98.3%); Seed 30: {s30['candidate']['dti']:.4f} {s30['candidate']['ci95']} vs H33 {s30['h33_foldfair_control']['dti']:.4f} (+96.6%).")
+        + row(True, 'Beats holdout best across all 17 GEMSDOE79 lanes', f"Seed 20: {s20['candidate']['dti']:.4f} {s20['candidate']['ci95']} vs H33 {s20['h33_foldfair_control']['dti']:.4f} (+98.3%); Seed 30: {s30['candidate']['dti']:.4f} {s30['candidate']['ci95']} vs H33 {s30['h33_foldfair_control']['dti']:.4f} (+96.6%).")
         + row(False, 'Separate selector & weekly slot guard', 'Fail-closed: ' + E(', '.join(card.get('blockers', []))) + '.')
         + '<a class="text-link" href="evidence/verification.json">Full verification receipt ↗</a></div>')
 
@@ -276,14 +276,14 @@ def home_negative(card, index):
 def executive_negative(card):
     h = card['holdout_dti']; s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
     conds = ''.join(f'<li>{E(c)}</li>' for c in card.get('account_side_conditions', []))
-    return f"""<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / DRIVENDATA SUBMISSION GUIDE</p><h1>G79-THVC Executive Summary &amp; Upload Guide</h1><p class="lead">Plain-language summary of G79-THVC, verified holdout evidence across all 11 GEMSDOE79 lanes, fail-closed slot status, and exact DrivenData upload instructions.</p></section>
+    return f"""<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / DRIVENDATA SUBMISSION GUIDE</p><h1>G79-THVC Executive Summary &amp; Upload Guide</h1><p class="lead">Plain-language summary of G79-THVC, verified holdout evidence across all 17 GEMSDOE79 lanes, fail-closed slot status, and exact DrivenData upload instructions.</p></section>
 <section class="section">{download_panel(card)}</section>
 <section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
 <section class="section">{md('reports/g79_thvc_scientific_report.md')}</section>
 <section class="section prose"><h2>Limitations, Cross-Repo Portfolio Cautions &amp; Rules Caveats</h2><ul>
 <li><strong>Outside-footprint convention conflict (IR-79-69):</strong> DrivenData's problem page lists “data outside the bounds is null or nan” while the official reference notebook (<code>drivendataorg/gems-prize-reference-solution</code>, commit <code>aebe92f</code>) and historical <code>H33</code> raster write finite <code>0.0</code> outside the 5,167,373-cell footprint. This file writes finite <code>0.0</code> across all 7,111,787 outside cells; verify portal acceptance if submitting manually.</li>
-<li><strong>Cross-repo post-index sibling collision (IR-79-89):</strong> Byte audit across <code>GEMSDOE76</code>–<code>GEMSDOE88</code> (<a href="evidence/post_index_sibling_audit_20261022.json">post_index_sibling_audit_20261022.json</a>) shows <code>71.39%</code> (<code>0.7139 &gt; 0.70</code>) of <code>G79-THVC</code>'s 35,093 dots fall within 3 px (300 m) of <code>GEMSDOE83</code>'s <code>gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif</code> (37,654 dots; self-reported dual-seed <code>HOLDOUT-DTI = 0.1999 / 0.2138</code>). Never spend two weekly DrivenData slots on both <code>G79-THVC</code> and <code>GEMSDOE83</code>; compare them as one portfolio slot candidate alongside orthogonal <code>GEMSDOE78</code> (<code>0.4041–0.5538 &lt;= 0.70</code> overlap).</li>
-<li><strong>Three-tier Pigeonhole duplicate-gate obstruction (IR-79-84, IR-79-90):</strong> Unchanged literal <code>vendor/gems57/uniqueness.py</code> is universally blocked by continuous surface <code>17GEMSDOE</code> (<code>halo = 1.0000</code>), four tied plateaus in <code>GEMSDOE48</code>/<code>5GEMSDOE</code>, and sparse-support lattice <code>13GEMSDOE r13-lattice-s5</code> (<code>206,895</code> dots = <code>4.00%</code> support, <code>6,514</code> uncovered boundary cells, forcing <code>overlap &gt;= 0.8144 &gt; 0.70</code> for every 35,093-dot map).</li>
+<li><strong>Cross-repo post-index sibling collision (IR-79-107):</strong> Byte audit across <code>GEMSDOE76</code>–<code>GEMSDOE88</code> (<a href="evidence/post_index_sibling_audit_20261022.json">post_index_sibling_audit_20261022.json</a>) shows <code>71.39%</code> (<code>0.7139 &gt; 0.70</code>) of <code>G79-THVC</code>'s 35,093 dots fall within 3 px (300 m) of <code>GEMSDOE83</code>'s <code>gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif</code> (37,654 dots; self-reported dual-seed <code>HOLDOUT-DTI = 0.1999 / 0.2138</code>). Never spend two weekly DrivenData slots on both <code>G79-THVC</code> and <code>GEMSDOE83</code>; compare them as one portfolio slot candidate alongside orthogonal <code>GEMSDOE78</code> (<code>0.4041–0.5538 &lt;= 0.70</code> overlap).</li>
+<li><strong>Three-tier Pigeonhole duplicate-gate obstruction (IR-79-84, IR-79-108):</strong> Unchanged literal <code>vendor/gems57/uniqueness.py</code> is universally blocked by continuous surface <code>17GEMSDOE</code> (<code>halo = 1.0000</code>), four tied plateaus in <code>GEMSDOE48</code>/<code>5GEMSDOE</code>, and sparse-support lattice <code>13GEMSDOE r13-lattice-s5</code> (<code>206,895</code> dots = <code>4.00%</code> support, <code>6,514</code> uncovered boundary cells, forcing <code>overlap &gt;= 0.8144 &gt; 0.70</code> for every 35,093-dot map).</li>
 <li><strong>DOE / NLR Official Rules §§ 3.2 &amp; 3.4 (<a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">96647.pdf</a>):</strong> Up to three submissions per week, mandatory narrative disclosure of generative AI usage, and strictly <strong>one final selected submission per participating entity</strong> across both prize rounds.</li>
 </ul></section>
 <section class="section prose"><h2>Account-side conditions for human DrivenData submission</h2><ul>{conds}</ul></section>"""
@@ -349,6 +349,26 @@ def main():
               'evidence/official_ingenious_receipt.json': 'official_ingenious_receipt.json',
               'evidence/post_index_sibling_audit_20261022.json': 'post_index_sibling_audit_20261022.json',
               'archive/h79_step_21642326/run_card_step.json': 'run_card_step.json',
+              'archive/h79_dilstep_6444be2d/run_card_dilstep.json': 'run_card_dilstep.json',
+              'run_card_cov.json': 'run_card_cov.json',
+              'evidence/fgr/fgr_run_card.json': 'run_card_fgr.json',
+              'evidence/score_geometry_study.json': 'score_geometry_study.json',
+              'evidence/gate_satisfiability_certificate.json': 'gate_satisfiability_certificate.json',
+              'evidence/proxy_validation.json': 'proxy_validation.json',
+              'registry/preregistration_ffas.json': 'preregistration_ffas.json',
+              'evidence/ffas/x1_holdout_seed20.json': 'ffas_holdout_seed20.json',
+              'evidence/ffas/x1_holdout_seed30.json': 'ffas_holdout_seed30.json',
+              'evidence/ffas/uniqueness_surface.json': 'ffas_uniqueness_surface.json',
+              'evidence/ffas/uniqueness_final.json': 'ffas_uniqueness_final.json',
+              'evidence/ffas/x1_gates.json': 'ffas_gates.json',
+              'evidence/ffas/x1_final_build.json': 'ffas_final_build.json',
+              'evidence/ffas/overlap_chance.json': 'ffas_overlap_chance.json',
+              'evidence/ffas/selector_decision.json': 'ffas_selector_decision.json',
+              'evidence/dilstep/holdout_seed20.json': 'dilstep_holdout_seed20.json',
+              'evidence/dilstep/holdout_seed30.json': 'dilstep_holdout_seed30.json',
+              'evidence/dilstep/uniqueness_surface.json': 'dilstep_uniqueness_surface.json',
+              'evidence/dilstep/e1_gates.json': 'dilstep_gates.json',
+              'registry/preregistration_h79_dilstep.json': 'preregistration_h79_dilstep.json',
               'registry/preregistration_g79_thvc.json': 'preregistration_g79_thvc.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
@@ -370,7 +390,9 @@ def main():
         'analysis.html': ('Why H33 scored highest, and what can beat it',
                           page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
                                     'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
+                          + '<section class="section">' + md('reports/session_review_070af0b6.md') + '</section>'
                           + '<section class="section">' + md('reports/g79_thvc_scientific_report.md') + '</section>'
+                          + '<section class="section"><h2>Concurrent negative lanes (H79-DILSTEP, H79-FFAS, H79-FGR)</h2>' + md('reports/dilstep_result.md') + md('reports/ffas_analysis.md') + md('reports/fgr_farfield_refutation.md') + '</section>'
                           + '<section class="section">' + md('reports/verification_passes.md') + '</section>'
                           + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
@@ -380,6 +402,7 @@ def main():
                           + '<section class="section"><h2>Session 070af0b6 — five untried post-G79-THVC geological hypotheses (not executed, 2026-10-22)</h2>'
                           + '<p>Audited all 11 GEMSDOE79 lanes and all 93 family repositories through GEMSDOE88 to specify five genuinely untried subsurface/tectonic mechanisms targeting the &gt;1.5–8 km non-LiDAR and blind-basin gap without spending any weekly slot. <a href="evidence/post_index_sibling_audit_20261022.json">Post-index GEMSDOE76–88 audit JSON</a> · <a href="evidence/run_card_step.json">Archived H79-STEP card</a>.</p>'
                           + md('research/hypotheses_post_thvc_backlog.md') + '</section>'
+                          + '<section class="section"><h2>Concurrent negative lanes (H79-DILSTEP &amp; H79-FFAS)</h2>' + md('research/hypotheses_h79_dilstep.md') + md('research/hypotheses_ffas.md') + '</section>'
                           + '<section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2>'
                           + '<p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p>'
                           + md('research/hypotheses_e846fc02.md') + '</section>'

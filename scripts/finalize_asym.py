@@ -7,10 +7,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path[:0] = [str(ROOT / "src")]
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 EV = ROOT / "evidence" / "asym"
 
 
@@ -19,6 +22,7 @@ def _load(p: Path):
 
 
 def main():
+    require_open_lane(ROOT, "H79-ASYM")
     prereg_path = ROOT / "registry/preregistration_asym.json"
     prereg = _load(prereg_path)
     build = _load(EV / "surface_build.json")
@@ -100,4 +104,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Deterministic private reserialization check for active G79-THVC, archived H79-NHR, or archived E1."""
+"""Deterministic private reserialization check for canonical G79-THVC, H79-NHR, or archived E1 artifacts.
+
+No experiment, canary, holdout, placement, registry re-audit or card rewrite.
+"""
 from __future__ import annotations
 import argparse
 from datetime import datetime, timezone
@@ -16,6 +19,7 @@ sys.path.insert(0, str(ROOT / 'vendor'))
 from gems57.grid import load_grid
 from gems57.submission_writer import write_submission
 
+
 ARCHIVED_E1_REPRODUCTION = {
     'lane': 'G79-FABRIC-OFFSET',
     'verified_utc': '2026-10-22T01:27:30.932955+00:00',
@@ -25,11 +29,16 @@ ARCHIVED_E1_REPRODUCTION = {
     'zip_sha256': '51e27e9d484fbb45b75cfb4cbd9c2d1d0dfde0717584668ff4f140a70c623c2c',
 }
 
+NHR_ARCHIVE = Path('archive/h79_nhr_337ac1e9/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif')
+NHR_RASTER_SHA256 = 'abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2'
 
-def reproduce_current(root: Path = ROOT) -> dict:
+
+def reproduce_thvc(root: Path = ROOT) -> dict:
     card = json.loads((root / 'run_card.json').read_text())
+    if card.get('lane') != 'G79-THVC':
+        raise ValueError('run_card.json is not G79-THVC')
     if card['verdict'] != 'negative' or card['ok_to_submit']:
-        raise ValueError('This command only recovers the existing stopped/fail-closed negative artifact')
+        raise ValueError('This command only recovers the existing stopped negative artifact')
     original = root / card['submission_file']
     original_receipt = json.loads(original.with_suffix('.json').read_text())
     grid = load_grid(root / 'data/reference')
@@ -47,10 +56,10 @@ def reproduce_current(root: Path = ROOT) -> dict:
             catalogue=grid.catalogue,
             name=card['submission_name'],
             note=card['submission_note'],
-            metadata=original_receipt.get('metadata'),
+            metadata=original_receipt['metadata'],
         )
         if receipt['sha256'] != card['raster_sha256'] or receipt['zip_sha256'] != original_receipt['zip_sha256']:
-            raise ValueError('Recovered TIFF/ZIP bytes differ; originals remain unchanged')
+            raise ValueError('Recovered THVC TIFF/ZIP bytes differ; originals remain unchanged')
     return {
         'verified_utc': datetime.now(timezone.utc).isoformat(),
         'lane': card['lane'],
@@ -67,12 +76,40 @@ def reproduce_current(root: Path = ROOT) -> dict:
         'slots_used': 0,
         'original_artifacts_and_run_card_not_overwritten': True,
         'archived_e1_reproduction': ARCHIVED_E1_REPRODUCTION,
+        'scope': (
+            'Private deterministic reserialization of the canonical stopped G79-THVC field '
+            '(with archived E1 reserialization preserved); not a new candidate or scientific evaluation.'
+        ),
     }
 
 
+def _nhr_original(root: Path) -> tuple[dict, Path]:
+    """Locate the frozen H79-NHR bytes even after a later lane became canonical."""
+    live = json.loads((root / 'run_card.json').read_text())
+    if live.get('lane') == 'H79-NHR':
+        original = root / live['submission_file']
+        card = live
+    else:
+        original = root / NHR_ARCHIVE
+        receipt = json.loads(original.with_suffix('.json').read_text())
+        card = {
+            'lane': 'H79-NHR',
+            'verdict': 'negative',
+            'ok_to_submit': False,
+            'submission_name': receipt['submission_name'],
+            'submission_note': receipt['note'],
+            'raster_sha256': receipt['sha256'],
+            'zip_sha256': receipt['zip_sha256'],
+            'positive_pixels': 37654,
+        }
+    return card, original
+
+
 def reproduce_nhr(root: Path = ROOT) -> dict:
+    card, original = _nhr_original(root)
     build = json.loads((root / 'evidence/nhr/x1_final_build.json').read_text())
-    original = root / 'archive/concurrent_downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif'
+    if card['verdict'] != 'negative' or card['ok_to_submit']:
+        raise ValueError('This command only recovers the existing stopped negative artifact')
     original_receipt = json.loads(original.with_suffix('.json').read_text())
     grid = load_grid(root / 'data/reference')
     with rasterio.open(original) as ds:
@@ -81,6 +118,10 @@ def reproduce_nhr(root: Path = ROOT) -> dict:
     dots_sha256 = hashlib.sha256(dots.tobytes()).hexdigest()
     if dots_sha256 != build['dots_sha256']:
         raise ValueError('Decoded dots_sha256 does not match evidence/nhr/x1_final_build.json')
+    cache_dots = root / '.cache/nhr/final_dots.npy'
+    if cache_dots.exists():
+        if hashlib.sha256(np.load(cache_dots).tobytes()).hexdigest() != dots_sha256:
+            raise ValueError('Cached .cache/nhr/final_dots.npy does not match decoded dots_sha256')
     prediction = np.where(dots, np.float32(1.0), np.float32(0.0))
     with tempfile.TemporaryDirectory(prefix='g79-nhr-byte-recovery-') as tmp:
         receipt = write_submission(
@@ -89,15 +130,15 @@ def reproduce_nhr(root: Path = ROOT) -> dict:
             root / 'data/reference/sample_submission.tif',
             grid.footprint,
             catalogue=grid.catalogue,
-            name=original_receipt['submission_name'],
-            note=original_receipt['note'],
+            name=card['submission_name'],
+            note=card['submission_note'],
             metadata=original_receipt['metadata'],
         )
-        if receipt['sha256'] != original_receipt['sha256'] or receipt['zip_sha256'] != original_receipt['zip_sha256']:
-            raise ValueError('Recovered NHR TIFF/ZIP bytes differ')
+        if receipt['sha256'] != card['raster_sha256'] or receipt['zip_sha256'] != original_receipt['zip_sha256']:
+            raise ValueError('Recovered TIFF/ZIP bytes differ; originals and scientific receipts remain unchanged')
     return {
         'verified_utc': datetime.now(timezone.utc).isoformat(),
-        'lane': 'H79-NHR',
+        'lane': card['lane'],
         'exact_tiff_recovery': True,
         'exact_single_tiff_zip_recovery': True,
         'exact_decoded_dots_recovery': True,
@@ -111,16 +152,81 @@ def reproduce_nhr(root: Path = ROOT) -> dict:
         'slots_used': 0,
         'original_artifacts_and_run_card_not_overwritten': True,
         'archived_e1_reproduction': ARCHIVED_E1_REPRODUCTION,
+        'scope': (
+            'Private deterministic reserialization of the stopped H79-NHR field '
+            '(with archived E1 reserialization preserved); not a new candidate or scientific evaluation.'
+        ),
+    }
+
+
+def reproduce_e1(root: Path = ROOT) -> dict:
+    card = json.loads((root / 'archive/g79_fabric_offset_e1/run_card.json').read_text())
+    state = json.loads((root / 'evidence/experiment_state.json').read_text())
+    if card['verdict'] != 'negative' or card['ok_to_submit'] or not state['stopped']:
+        raise ValueError('This command only recovers the existing stopped negative E1 artifact')
+    cache_path = root / '.cache/g79/fabric_offset_surface.npy'
+    if not cache_path.exists():
+        raise FileNotFoundError(
+            f'Missing {cache_path.relative_to(root)}; run scripts/prepare_data.py --reproduce first'
+        )
+    expected = card['surface_cache_sha256']
+    if hashlib.sha256(cache_path.read_bytes()).hexdigest() != expected:
+        raise ValueError('Pinned feature cache changed; no new surface is authorized')
+    original = root / 'archive/g79_fabric_offset_e1/downloads' / Path(card['submission_file']).name
+    original_receipt = json.loads(original.with_suffix('.json').read_text())
+    grid = load_grid(root / 'data/reference')
+    prediction = np.load(cache_path).astype(np.float32, copy=True)
+    prediction[~grid.footprint | grid.catalogue] = 0
+    with tempfile.TemporaryDirectory(prefix='g79-e1-byte-recovery-') as tmp:
+        receipt = write_submission(
+            Path(tmp) / original.name,
+            prediction,
+            root / 'data/reference/sample_submission.tif',
+            grid.footprint,
+            catalogue=grid.catalogue,
+            name=card['submission_name'],
+            note=card['submission_note'],
+            metadata=original_receipt['metadata'],
+        )
+        if receipt['sha256'] != card['raster_sha256'] or receipt['zip_sha256'] != original_receipt['zip_sha256']:
+            raise ValueError('Recovered E1 TIFF/ZIP bytes differ; originals remain unchanged')
+    return {
+        'verified_utc': datetime.now(timezone.utc).isoformat(),
+        'lane': 'G79-FABRIC-OFFSET',
+        'exact_tiff_recovery': True,
+        'exact_single_tiff_zip_recovery': True,
+        'raster_sha256': receipt['sha256'],
+        'zip_sha256': receipt['zip_sha256'],
+        'scientific_experiments': 0,
+        'holdouts': 0,
+        'dot_placements': 0,
+        'slots_used': 0,
+        'original_artifacts_and_run_card_not_overwritten': True,
+        'scope': 'Private deterministic reserialization of the archived E1 field; not a new candidate.',
     }
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--lane', choices=('thvc', 'nhr'), default='thvc')
-    parser.add_argument('--no-write-evidence', action='store_true')
+    parser.add_argument(
+        '--lane',
+        choices=('canonical', 'thvc', 'nhr', 'e1'),
+        default='canonical',
+        help='Which stopped artifact to reserialize in a temporary directory (default: canonical).',
+    )
+    parser.add_argument(
+        '--no-write-evidence',
+        action='store_true',
+        help='Print verification JSON without updating evidence/artifact_reproduction.json.',
+    )
     args = parser.parse_args(argv)
-    report = reproduce_current(ROOT) if args.lane == 'thvc' else reproduce_nhr(ROOT)
-    if args.lane == 'thvc' and not args.no_write_evidence:
+    if args.lane in ('canonical', 'thvc'):
+        report = reproduce_thvc(ROOT)
+    elif args.lane == 'nhr':
+        report = reproduce_nhr(ROOT)
+    else:
+        report = reproduce_e1(ROOT)
+    if args.lane in ('canonical', 'thvc') and not args.no_write_evidence:
         (ROOT / 'evidence/artifact_reproduction.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
     return 0

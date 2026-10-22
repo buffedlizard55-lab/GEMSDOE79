@@ -342,17 +342,6 @@ def main() -> None:
         'G79B-SDPT-A3': g79b_sdpt,
         'H79-FF': h79_ff,
     }
-    nhr_tif_path = next((ROOT / p for p in (
-        'archive/h79_nhr/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif',
-        'archive/concurrent_downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif',
-    ) if (ROOT / p).exists()), None)
-    if nhr_tif_path is not None:
-        preserved['H79-NHR'] = {
-            'artifact': str(nhr_tif_path.relative_to(ROOT)),
-            'raster_sha256': sha256(nhr_tif_path),
-            'canonical_literal_uniqueness': {'worst_forward_overlap_3px': 1.0},
-            'canonical_readiness_decision': {'ok_to_submit': False, 'verdict': 'negative'},
-        }
 
     report = {
         'schema_version': 2,

@@ -26,6 +26,7 @@ from gems57.emit import expected_credit
 from gems57.grid import load_grid
 from gems57.holdout import buffered_component_draw
 from gems57.submission_writer import write_submission
+from gems79.lifecycle import LaneClosedError, require_open_lane
 from gems79.placement import place
 import run_stepco_experiment as s1
 
@@ -71,6 +72,7 @@ def holdout_seed(grid, support, seed, d28_pos, dem_step):
 
 
 def main():
+    require_open_lane(ROOT, "G79-STEPCO")
     started = datetime.now(timezone.utc)
     grid = load_grid(ROOT / "data/reference")
     support = np.load(CACHE / "support.npy")
@@ -153,4 +155,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path
 import subprocess
 import sys
@@ -34,7 +35,7 @@ def test_run_card_paths_are_repo_relative_across_all_copies():
         assert fval == card["submission_file"]
 
 
-def test_h79_step_archived_intact_and_runner_refuses_rerun():
+def test_h79_step_and_dilstep_archived_intact_and_runner_refuses_rerun():
     arch = ROOT / "archive/h79_step_21642326"
     tif = arch / "downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif"
     zf = arch / "downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.zip"
@@ -43,6 +44,12 @@ def test_h79_step_archived_intact_and_runner_refuses_rerun():
     step_card = json.loads(rc.read_text())
     assert hashlib.sha256(tif.read_bytes()).hexdigest() == step_card["raster_sha256"]
     assert hashlib.sha256(zf.read_bytes()).hexdigest() == step_card["zip_sha256"]
+
+    darch = ROOT / "archive/h79_dilstep_6444be2d"
+    dtif = darch / "downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif"
+    drc = darch / "run_card_dilstep.json"
+    assert dtif.is_file() and drc.is_file()
+    assert hashlib.sha256(dtif.read_bytes()).hexdigest() == json.loads(drc.read_text())["raster_sha256"]
 
     downloads_tifs = sorted(p.name for p in (ROOT / "docs/downloads").glob("*.tif"))
     assert downloads_tifs == ["g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"]
@@ -54,11 +61,10 @@ def test_h79_step_archived_intact_and_runner_refuses_rerun():
         text=True,
     )
     assert proc.returncode == 2
-    payload = json.loads(proc.stdout)
-    assert payload["refused"] is True
+    assert "no files changed" in proc.stderr.lower()
 
 
-def test_exact_dti_algebra_and_pigeonhole_bounds():
+def test_exact_dti_algebra_pigeonhole_bounds_and_unique_ir_ids():
     c_2778 = (0.8 * 0.2778) / (1.0 - 0.2 * 0.2778)
     c_3195 = (0.8 * 0.3195) / (1.0 - 0.2 * 0.3195)
     c_4413 = (0.8 * 0.4413) / (1.0 - 0.2 * 0.4413)
@@ -72,12 +78,17 @@ def test_exact_dti_algebra_and_pigeonhole_bounds():
     assert tier3["min_overlap_at_35093_dots_g79_thvc"] > 0.81
     assert tier3["min_overlap_at_37654_dots_h33_budget"] > 0.82
     assert audit["pairwise_matrix_10_candidates"]["G79-THVC (GEMSDOE79)"]["GEMSDOE83 (h83-gvcd-dink300)"]["dot_overlap_3px"] > 0.70
+    assert len(audit["gemsdoe79_16_lanes_summary"]["lanes_ranked_by_seed20_holdout_dti"]) == 17
+
+    ir_txt = (ROOT / "reports/irregularities.md").read_text(encoding="utf-8")
+    ir_ids = re.findall(r"\|\s*(IR-79-\d+)\s*\|", ir_txt)
+    assert len(ir_ids) == len(set(ir_ids)) == 110
 
 
 def test_executive_summary_and_sources_surface_caveats_and_date():
     exec_html = (ROOT / "docs/executive-summary.html").read_text()
     assert "IR-79-69" in exec_html
-    assert "IR-79-89" in exec_html
+    assert "IR-79-107" in exec_html
     assert "post_index_sibling_audit_20261022.json" in exec_html
 
     sources = json.loads((ROOT / "knowledge/official_sources.json").read_text())

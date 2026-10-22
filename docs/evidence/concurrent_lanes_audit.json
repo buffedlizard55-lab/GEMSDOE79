@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "reviewed_utc": "2026-10-22T05:19:26.207631+00:00",
+  "reviewed_utc": "2026-10-22T05:36:25.875664+00:00",
   "session_branch": "arena/070af0b6-gemsdoe79",
-  "shared_uniqueness_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+  "shared_uniqueness_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
   "purpose": "Independent byte-level audit of all four quarantined concurrent lanes merged into main (H79-MCT at c26efec, H79-CSPT at 464d591 / 3d386a3, G79B-SCARP-DIPOLE-GEOAND at 0ae2506, and H79-ML-STRAIN-RELAY at 5d14587) plus the preserved negative session lanes (G79-FABRIC-OFFSET E1, G79-STEPCO S1/S2, G79B-SDPT A3, H79-FF, and H79-NHR) and cross-lane spatial forensics against the canonical H79-NHR deliverable. Confirms all archived lanes have 1.0000 literal 3-px forward overlap against 17GEMSDOE E-proba under canonical vendor/gems57/uniqueness.py, and all return ok_to_submit=False under the fail-closed readiness gate.",
   "archived_lanes": {
     "H79-MCT": {
@@ -22,7 +22,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.062403524057228106,
@@ -148,7 +148,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.05465696772610623,
@@ -275,7 +275,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.02267175142653651,
@@ -398,7 +398,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.12275373820696177,
@@ -522,7 +522,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.014722241281786565,
@@ -645,7 +645,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.0855041763761864,
@@ -766,7 +766,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.08188954176652058,
@@ -888,7 +888,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.0602365678398239,
@@ -1012,7 +1012,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.027273404605102906,
@@ -1119,17 +1119,6 @@
         "Not preregistered in registry/ and did not evaluate HOLDOUT-DTI (gems57-pooled-hide-v2).",
         "Failed duplicate gate (1.0000 vs 17GEMSDOE E-proba, GEMSDOE48 unassigned-mass, and 5GEMSDOE density-probe; 0.9976 vs 13GEMSDOE lattice; 0.8802 vs GEMSDOE3 coverage-v3-wide)."
       ]
-    },
-    "H79-NHR": {
-      "artifact": "archive/h79_nhr/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-      "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
-      "canonical_literal_uniqueness": {
-        "worst_forward_overlap_3px": 1.0
-      },
-      "canonical_readiness_decision": {
-        "ok_to_submit": false,
-        "verdict": "negative"
-      }
     }
   },
   "cross_lane_comparison": {

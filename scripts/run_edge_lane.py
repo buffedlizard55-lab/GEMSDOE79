@@ -28,6 +28,7 @@ from gems57 import evaluate_holdout as EH
 from gems57.grid import load_grid
 from gems57.holdout import buffered_component_draw
 from gems57.submission_writer import write_submission
+from gems79.lifecycle import LaneClosedError, require_open_lane
 from gems79.placement import place
 
 BUDGET = 37654
@@ -145,20 +146,12 @@ def evaluate_seed(grid, surface, seed):
 
 
 def main():
-    state_path = ROOT / 'evidence/experiment_state_edge.json'
-    if state_path.exists():
-        prior_state = json.loads(state_path.read_text())
-        if prior_state.get('stopped') is True:
-            print(json.dumps({
-                'lane': prior_state.get('lane', 'H79-STEP'),
-                'refused': True,
-                'reason': 'H79-STEP is a stopped negative historical lane (archived in archive/h79_step_21642326/). Do not re-run or overwrite canonical G79-THVC artifacts.',
-            }, indent=2))
-            raise SystemExit(2)
+    require_open_lane(ROOT, "H79-STEP")
     prereg = json.loads((ROOT / 'registry/preregistration_edge.json').read_text())
     registered = datetime.fromisoformat(prereg['registered_utc'].replace('Z', '+00:00'))
     if datetime.now(timezone.utc) > registered + timedelta(hours=2):
         raise TimeoutError('Two-hour budget exhausted')
+    state_path = ROOT / 'evidence/experiment_state_edge.json'
     state = {'lane': prereg['lane'], 'started_utc': datetime.now(timezone.utc).isoformat(),
              'preregistration_sha256': digest(ROOT / 'registry/preregistration_edge.json')}
     write_json(state_path, state)
@@ -290,4 +283,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)
