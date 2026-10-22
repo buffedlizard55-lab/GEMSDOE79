@@ -92,4 +92,11 @@ def main():
 
 
 if __name__ == "__main__":
+    sys.path[:0] = [str(ROOT / "src")]
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H80-PILOTS",
+        reason="H80 pilots are stopped negative; evidence/h80_pilot_overlap_check.json is frozen.",
+    )
     main()

@@ -26,13 +26,12 @@ def main():
           "H79-NHR":ROOT/"archive/h79_nhr_337ac1e9/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
           "G79-MAG":ROOT/"archive/g79_mag_730d5ee7/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif"}
     uniq={}
-    cand_dil=ndi.binary_dilation(cand,structure=np.ones((7,7),bool))  # 3px Chebyshev approx via dilation iterations below
-    cand_dil=ndi.binary_dilation(cand,iterations=3)
+    cand_dil=ndi.distance_transform_edt(~cand)<=3.0
     rng=np.random.default_rng(0); sample_idx=rng.choice(a.size,size=200_000,replace=False)
     for k,rp in refs.items():
         if not rp.exists(): uniq[k]={"missing":True}; continue
         with rasterio.open(rp) as s: ra=s.read(1)
-        rd=ra>0; ref_dil=ndi.binary_dilation(rd,iterations=3)
+        rd=ra>0; ref_dil=ndi.distance_transform_edt(~rd)<=3.0
         uniq[k]={"ref_dots":int(rd.sum()),"exact_overlap_frac_of_candidate":float((cand&rd).sum()/max(cand.sum(),1)),
                  "within3px_frac_of_candidate":float((cand&ref_dil).sum()/max(cand.sum(),1)),
                  "within3px_frac_of_ref":float((rd&cand_dil).sum()/max(rd.sum(),1)),
@@ -42,4 +41,12 @@ def main():
          "scope_note":"Uniqueness vs 4 locally archived rasters only; full 1,108-raster registry restore was not re-run this session - a limitation, fail-closed verdict already negative on holdout."}
     (ROOT/"evidence"/"cfskd"/"validator.json").write_text(json.dumps(out,indent=2)+"\n"); print(json.dumps(out,indent=2))
     return 0 if out["all_checks_passed"] else 1
-if __name__=="__main__": sys.exit(main())
+if __name__=="__main__":
+    sys.path[:0]=[str(ROOT/"src")]
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "G79-CFSKD",
+        reason="G79-CFSKD is closed and archived; evidence/cfskd/validator.json is frozen.",
+    )
+    sys.exit(main())

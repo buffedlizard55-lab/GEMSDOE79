@@ -48,4 +48,10 @@ def run(phase):
     (OUT / f"uniqueness_{phase}.json").write_text(json.dumps(result, indent=2, default=float).replace(str(ROOT) + "/", "") + "\n")
     print(json.dumps({k: result[k] for k in ("phase","worst_spearman","worst_forward_overlap_3px","complete_comparison","duplicate","passed")}, indent=2))
 if __name__ == "__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H79-FF1",
+        reason="H79-FF1 is stopped and archived; uniqueness receipts in evidence/ff1/ are frozen.",
+    )
     ap = argparse.ArgumentParser(); ap.add_argument("phase", choices=["surface","final"]); run(ap.parse_args().phase)
