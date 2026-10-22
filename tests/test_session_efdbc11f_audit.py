@@ -88,4 +88,4 @@ def test_hypotheses_and_irregularities_efdbc11f_documented():
         assert hid in hyp
     ir = (ROOT / "reports/irregularities.md").read_text(encoding="utf-8")
     found_ids = set(re.findall(r"\|\s*(IR-79-\d+)\s*\|", ir))
-    assert {"IR-79-184", "IR-79-185", "IR-79-186", "IR-79-187"} <= found_ids
+    assert {"IR-79-188", "IR-79-189", "IR-79-190"} <= found_ids

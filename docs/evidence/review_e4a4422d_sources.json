@@ -25,20 +25,32 @@
       "id": "DD-LEADERBOARD-REVIEW",
       "authority": "DrivenData public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "access": "First content chunk read successfully",
+      "access": "All three content chunks read successfully on 2026-10-22",
       "evidence_class": "PUBLIC-OBSERVATION, NOT ORGANIZER-CONFIRMED FOR A LOCAL ARTIFACT",
       "observation": {
         "rank": 1,
         "participant": "xiaofanhu",
-        "public_dti": 0.4413
+        "public_dti": 0.4413,
+        "rank_2_participant": "cfld__",
+        "rank_2_public_dti": 0.3904,
+        "rank_3_participant": "Batik Shirt Brothers",
+        "rank_3_public_dti": 0.3894,
+        "rank_21_participant": "kinghorton42",
+        "rank_21_public_dti": 0.3261,
+        "rank_48_participant": "moongrega",
+        "rank_48_public_dti": 0.2818,
+        "rank_49_participant": "arnofault",
+        "rank_49_public_dti": 0.2817,
+        "rank_50_participant": "sam35",
+        "rank_50_public_dti": 0.2804
       },
       "limits": [
-        "The observation does not authenticate H33's reported score or imply any new file will achieve it.",
-        "Only the visible first chunk was re-read in this session; no new full leaderboard census is claimed."
+        "The observation does not authenticate H33's reported score (0.2778, now below the #50 visible floor 0.2804) or imply any new file will achieve it.",
+        "Public leaderboard scores do not substitute for authenticated submission-page receipts."
       ],
       "source_type": "PUBLIC-OBSERVATION",
       "verified_claims": [
-        "PUBLIC-OBSERVATION on 2026-10-22: the visible first-ranked participant is xiaofanhu, public DTI 0.4413. Not a score for this project or an artifact-linked receipt."
+        "PUBLIC-OBSERVATION across all three leaderboard pages on 2026-10-22: #1 xiaofanhu 0.4413 (27 subs), #2 cfld__ 0.3904 (15 subs), #3 Batik Shirt Brothers 0.3894 (45 subs), #21 kinghorton42 0.3261 (21 teams > 0.3195), and visible top-50 floor #48 moongrega 0.2818, #49 arnofault 0.2817, #50 sam35 0.2804."
       ]
     },
     {
@@ -150,6 +162,33 @@
       "limits": [
         "The notebook was not executed. Its source is not evidence that the competition portal accepts this project's all-finite exterior.",
         "Local hashes and inspected cell index are recorded in evidence/review_e4a4422d/band_and_reference_metadata.json."
+      ]
+    },
+    {
+      "id": "USGS-QFAULTS-REVIEW",
+      "source_type": "OFFICIAL PRIMARY SOURCE",
+      "authority": "USGS Earthquake Hazards Program (DOI: 10.5066/P9BCVRCK)",
+      "url": "https://www.usgs.gov/programs/earthquake-hazards/faults",
+      "access": "Read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "Database compiles Quaternary faults demonstrating geological evidence of coseismic surface deformation in M>6 earthquakes, and notes hazard-map traces are simplified geometry representations.",
+        "Public-domain GIS archive URL: https://earthquake.usgs.gov/static/lfs/nshm/qfaults/Qfaults_GIS.zip."
+      ],
+      "limits": [
+        "Explains catalogue omission of sub-M6 accommodation faults, alluvial/playa-buried blind geothermal feeders, and simplified outboard piedmont splays."
+      ]
+    },
+    {
+      "id": "UNR-NGL-MIDAS-REVIEW",
+      "source_type": "OFFICIAL PRIMARY SOURCE",
+      "authority": "Nevada Geodetic Laboratory, UNR (Blewitt, Hammond & Kreemer 2018, DOI: 10.1029/2018EO104623)",
+      "url": "https://geodesy.unr.edu/",
+      "access": "Read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "Publishes open-access MAGNET/global GPS horizontal and vertical velocity tables via MIDAS, including IGS20 North America plate velocities (midas.NA.txt)."
+      ],
+      "limits": [
+        "URL and metadata verified; direct shell download from geodesy.unr.edu is blocked in the restricted sandbox, requiring owner mirror placement before model execution."
       ]
     }
   ]
