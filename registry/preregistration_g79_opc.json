@@ -103,5 +103,13 @@
   "Pleistocene Lake Lahontan wave-cut shorelines (linear, parallel, characteristic spacing)",
   "fluvial terrace risers",
   "roads/railways (TIGER distance feature)"
+ ],
+ "deviations_before_any_holdout_result": [
+  {
+   "id": "D-OPC-1",
+   "utc": "2026-10-22T19:24:00Z",
+   "change": "lidar_strike_concordance uses cos^2(theta_lidar - theta_opc) = (1+cos 2 delta)/2 instead of |cos 2 delta|, and the label-free convention check uses the signed mean cos 2 delta",
+   "reason": "|cos 2 delta| equals 1 for both parallel and perpendicular strikes, so it cannot express concordance and cannot detect a 90-degree convention error (measured: two conventions differing by 90 deg scored identically, evidence/opc/lidar_strike_convention.json first version). Found by inspecting the label-free convention scores only; no holdout, canary or truth-based number existed."
+  }
  ]
 }
