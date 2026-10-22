@@ -1734,5 +1734,37 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>This session prevents approval of the mismatch but does not alter pinned scientific writer/grid bytes or rescore historical TIFFs. Prospective shared writer/validator update with NaN exterior <em>only</em>, finite [0,1] interior and full test/pin migration is the next engineering step after method/protocol authorization.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>a26add66</code> — automated official-format validator review (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-225</td>
+<td>The ZIP path discarded the inner TIFF's R1 result, so a one-member ZIP containing a two-band GeoTIFF could return <code>ok:true</code>. Reproduced by a failing regression before the fix.</td>
+<td>Preserve and combine archive/raster R1; require GDAL <code>GTiff</code> driver. Fix once in <code>src/gems79/portal_spec.py</code>, version <code>gems79-portal-format-v2</code>; no private evaluator/writer fork.</td>
+</tr>
+<tr>
+<td>IR-79-226</td>
+<td>Missing inputs, an unreadable TIFF inside a ZIP, and some decompression failures could raise instead of returning an automated refusal. A non-GeoTIFF with a <code>.tif</code> filename could pass R1.</td>
+<td>Complete eight-rule failed reports, actual-driver checks, archive/IO error handling, CLI continuation and adversarial tests. No malformed input is promoted by this fix.</td>
+</tr>
+<tr>
+<td>IR-79-227</td>
+<td>Homepage used unqualified local-format PASS while the official R6 exterior rule failed. This was a policy/communication ambiguity, not proof of portal acceptance.</td>
+<td>Homepage now says Official format FAIL R6 and links to the guide. Rechecked official sample PASS and inherited THVC TIFF/ZIP FAIL R6. Shared writer and archived bytes unchanged; prior upload error still undiagnosed.</td>
+</tr>
+<tr>
+<td>IR-79-228</td>
+<td>Data-placement claims needed current verification; historical restore metadata alone was insufficient.</td>
+<td>Restored and SHA-verified all thirteen owner-mirror inputs and exactly reproduced the historical cache in this workspace. Pins prove mirror integrity, not organizer origin. New-lane feasibility still exits 2, with full coverage of allowed cells. No candidate, holdout, placement or slot.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Branch review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

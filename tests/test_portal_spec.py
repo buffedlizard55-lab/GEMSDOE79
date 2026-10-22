@@ -195,3 +195,114 @@ def test_not_a_raster_is_rejected(tmp_path, zipped):
         path = archive
     rep, failed = _failed(path)
     assert rep['ok'] is False and 'R1' in failed
+
+
+def test_zipped_two_band_tiff_must_not_lose_inner_r1_failure(tmp_path):
+    with rasterio.open(DEFAULT_TEMPLATE) as ref:
+        profile, arr = ref.profile.copy(), ref.read(1)
+    profile.update(count=2)
+    tif = tmp_path / 'two_bands.tif'
+    with rasterio.open(tif, 'w', **profile) as dst:
+        dst.write(arr, 1)
+        dst.write(arr, 2)
+    archive = tmp_path / 'two_bands.zip'
+    with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED) as z:
+        z.write(tif, arcname=tif.name)
+    report, failed = _failed(archive)
+    assert not report['ok']
+    assert failed == {'R1'}
+    assert len(report['rules']) == len(RULES)
+    assert '2 band(s)' in report['rules'][0]['detail']
+
+
+def test_zip_with_unreadable_inner_tiff_returns_failed_report(tmp_path):
+    archive = tmp_path / 'junk.zip'
+    with zipfile.ZipFile(archive, 'w') as z:
+        z.writestr('junk.tif', b'not a raster')
+    report, failed = _failed(archive)
+    assert not report['ok'] and 'R1' in failed
+    assert len(report['rules']) == len(RULES)
+
+
+def test_missing_file_returns_failed_report(tmp_path):
+    report, failed = _failed(tmp_path / 'missing.tif')
+    assert not report['ok'] and 'R1' in failed
+    assert report['sha256'] is None
+    assert len(report['rules']) == len(RULES)
+
+
+def test_non_geotiff_with_tif_extension_is_rejected(tmp_path):
+    # GDAL auto-detects formats regardless of the filename suffix.
+    path = tmp_path / 'actually_envi.tif'
+    with rasterio.open(DEFAULT_TEMPLATE) as ref:
+        profile, arr = ref.profile.copy(), ref.read(1)
+    profile = {k: v for k, v in profile.items()
+               if k not in {'blockxsize', 'blockysize', 'compress', 'interleave', 'tiled'}}
+    profile.update(driver='ENVI')
+    with rasterio.open(path, 'w', **profile) as dst:
+        dst.write(arr, 1)
+    report, failed = _failed(path)
+    assert not report['ok'] and 'R1' in failed
+
+
+def test_corrupt_zip_returns_all_failed_rules(tmp_path):
+    path = tmp_path / 'broken.zip'
+    path.write_bytes(b'PK\x03\x04not an archive')
+    report, failed = _failed(path)
+    assert not report['ok'] and failed == set(RULES)
+    assert report['error']['type'] == 'BadZipFile'
+
+
+def test_missing_template_cannot_produce_partial_pass(tmp_path):
+    report = validate_portal_file(DEFAULT_TEMPLATE, tmp_path / 'missing_template.tif')
+    assert not report['ok']
+    assert set(report['failed_rules']) == set(RULES)
+    assert report['template_sha256'] is None
+
+
+def test_cli_continues_after_missing_input_and_writes_strict_json(tmp_path):
+    import json
+    import subprocess
+    import sys
+
+    output = tmp_path / 'report.json'
+    result = subprocess.run(
+        [sys.executable, str(ROOT / 'scripts/validate_portal_spec.py'),
+         str(tmp_path / 'missing.tif'), str(DEFAULT_TEMPLATE), '--json', str(output)],
+        capture_output=True, text=True, check=False)
+    assert result.returncode == 2
+    assert 'Traceback' not in result.stderr
+    reports = json.loads(output.read_text())
+    assert len(reports) == 2
+    assert not reports[0]['ok'] and reports[1]['ok']
+    assert len(reports[0]['rules']) == len(RULES)
+
+
+def test_zip_crc_error_is_a_refusal(tmp_path):
+    archive = tmp_path / 'bad_crc.zip'
+    with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_STORED) as z:
+        z.writestr('one.tif', b'payload_to_corrupt')
+    payload = archive.read_bytes().replace(b'payload_to_corrupt', b'PAYLOAD_to_corrupt')
+    archive.write_bytes(payload)
+    report, failed = _failed(archive)
+    assert not report['ok'] and failed == set(RULES)
+    assert "CRC error 'one.tif'" in report['rules'][0]['detail']
+
+
+@pytest.mark.parametrize('error_kind', ['truncated', 'deflate'])
+def test_zip_decompression_errors_return_complete_refusal(tmp_path, monkeypatch, error_kind):
+    import zlib
+
+    archive = tmp_path / 'decompression_error.zip'
+    with zipfile.ZipFile(archive, 'w') as z:
+        z.writestr('one.tif', b'placeholder')
+
+    def broken_testzip(self):
+        if error_kind == 'truncated':
+            raise EOFError('truncated compressed stream')
+        raise zlib.error('invalid compressed stream')
+
+    monkeypatch.setattr(zipfile.ZipFile, 'testzip', broken_testzip)
+    report, failed = _failed(archive)
+    assert not report['ok'] and failed == set(RULES)
+    assert report['validator_version'] == 'gems79-portal-format-v2'

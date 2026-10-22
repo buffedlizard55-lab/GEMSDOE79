@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "reviewed_date_utc": "2026-10-22",
+  "session": "a26add66",
+  "method": "Research fetch_page reads during this review; exact retrieval timestamp not exposed. Observations are not signed organizer receipts.",
+  "sources": [
+    {
+      "id": "DD-PROBLEM",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "authority": "DrivenData organizers",
+      "access": "Both chunks read successfully",
+      "claims": [
+        "Task is prediction of geological faults, not certification of geothermal vents or production.",
+        "Experts label previously uncatalogued faults for initial evaluation; expanded expert labels are used for final rescoring.",
+        "Metric: distance-weighted Tversky, alpha 0.2, beta 0.8, triangular 300 m support.",
+        "Submission: one float32 layer, EPSG:32611, 100 m, matching bounds; outside-bounds values null or NaN."
+      ],
+      "limits": [
+        "No private truth, account access, submission-page receipt or weekly capacity was acquired.",
+        "Physical hypotheses are proposals, not claims validated by this page."
+      ]
+    },
+    {
+      "id": "DD-BOARD",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "authority": "DrivenData public leaderboard",
+      "access": "First chunk read successfully",
+      "evidence_class": "PUBLIC-OBSERVATION, NOT ORGANIZER-CONFIRMED FOR A LOCAL ARTIFACT",
+      "observed_first_place": {
+        "participant": "xiaofanhu",
+        "public_dti": 0.4413
+      },
+      "limits": [
+        "Not this repository's score. No entire-board or submission-account audit claimed. The prompt's 0.3195 is not the leader in this observation."
+      ]
+    },
+    {
+      "id": "USGS-GEODAWN",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "authority": "USGS",
+      "access": "First content chunk read successfully",
+      "doi": "10.5066/P93LGLVQ",
+      "claims": [
+        "Airborne magnetic and radiometric observations inform subsurface structure and surface geology respectively.",
+        "Actual flight heights vary; variable terrain clearance should be considered in interpretation.",
+        "The page marks the release CC0 1.0 Universal."
+      ],
+      "limits": [
+        "No new binary downloaded from this official release. No claim of a fault detector or high holdout performance follows from the description."
+      ]
+    },
+    {
+      "id": "H33-SOURCE",
+      "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+      "authority": "Related owner repository, NOT organizer",
+      "access": "First chunk read successfully",
+      "claims": [
+        "The page calls H33-2-B2 UNSCORED and states no organizer score exists for its artifacts.",
+        "The page describes a two-pixel catalogue-collar prune and a 37654-dot output."
+      ],
+      "limits": [
+        "Page projections and claims about portal rejection causes are not adopted as verified facts.",
+        "The reported 0.2778 remains user-reported without an artifact-linked organizer receipt.",
+        "Prior local byte-lineage evidence is inherited, not remeasured in this session."
+      ]
+    }
+  ]
+}
