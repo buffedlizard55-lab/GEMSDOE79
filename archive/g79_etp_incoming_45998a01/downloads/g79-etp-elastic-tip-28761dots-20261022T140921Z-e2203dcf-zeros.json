@@ -6,7 +6,7 @@
   "note": "G79-ETP: elastic Mode-II/III crack-tip lobe 28761px Poisson3.0 tip-relay (pure geom, no geophys)",
   "note_chars": 96,
   "validator": {
-    "file": "/home/user/GEMSDOE79/docs/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+    "file": "archive/g79_etp_20261022/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
     "bytes": 122138,
     "sha256": "e2203dcf897e210dc124b48138ad57690bc7f19ec3f2df3830acc64b7de90e67",
     "meta": {
@@ -62,7 +62,7 @@
     "footprint_fraction": 0.005565884251049808
   },
   "template_report": {
-    "path": "/home/user/GEMSDOE79/docs/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+    "path": "archive/g79_etp_20261022/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
     "bytes": 122138,
     "sha256": "e2203dcf897e210dc124b48138ad57690bc7f19ec3f2df3830acc64b7de90e67",
     "bands": 1,
@@ -114,7 +114,7 @@
   "zip_sha256": "39bcbc4cf41378931e6d08be1fee2febaf9c4efcdb7816183670b8dd70b2c348",
   "n_dots": 28761,
   "n_candidates": 144347,
-  "hypothesis": "Elastic crack-tip Mode-II/III process-zone propagation ahead of mapped tips (splay \u00b112\u00b0, SIF \u221d sqrt(length), 2px catalogue collar, relay bridges <3km)",
+  "hypothesis": "Elastic crack-tip Mode-II/III process-zone propagation ahead of mapped tips (splay ±12°, SIF ∝ sqrt(length), 2px catalogue collar, relay bridges <3km)",
   "mechanism": "Endpoint detection via 8-neighbor count, PCA strike of 12-px tail, SIF-weighted lobe (500-2500m) with distance-decayed scores, KDTree relay midpoints, greedy Poisson-disk 3.0px selection",
   "mimic": "Anthropogenic linear features (roads, fence lines, powerlines) aligned with fault strike; canal levees & field boundaries",
   "holdout_estimate": "HOLDOUT-DTI proxy not yet measured on hide-and-recover; expected +0.02-0.04 over H33 tip-only (0.096) via blind relay recovery, validated by endpoint density vs withheld truth overlap",

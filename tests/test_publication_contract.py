@@ -453,6 +453,10 @@ def test_mt_backlog_uses_official_depth_integrated_conductance_metadata():
     assert "no raster bytes" in " ".join(source["limits"])
 
     backlog = (ROOT / "research/hypotheses_post_thvc_backlog.md").read_text(encoding="utf-8")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "H80-MT-CONDUCTANCE" in readme
+    assert "H80-MT-PHASE" not in readme
+    assert "none is an exhaustive current total" in readme
     assert "H80-MT-CONDUCTANCE" in backlog
     assert "H80-MT-PHASE" not in backlog
     assert "gb_conductance_surface_tp.tif" in backlog

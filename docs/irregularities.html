@@ -1091,8 +1091,8 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 <tr>
 <td>IR-79-149</td>
-<td><strong>Backlog hypothesis H80-MT-PHASE was invalid as specified.</strong> It cited 500 m, 1.5 km, and 3 km resistivity slices, but the official USGS ScienceBase release <em>Electrical Conductance Maps of the Great Basin, USA</em> (Peacock &amp; Bedrosian, 2022; DOI <code>10.5066/P9TWT2LU</code>) lists depth-integrated conductance GeoTIFFs for <code>2–12</code>, <code>12–20</code>, <code>20–50</code>, <code>50–90</code>, and <code>90–200 km</code>; metadata reports <code>EPSG:4269</code>, not shallow resistivity or phase-tensor products.</td>
-<td>Session <code>0607bf35</code> renamed the proposal <code>H80-MT-CONDUCTANCE</code>, added the official metadata and explicit scale/availability limits to <code>knowledge/official_sources.json</code>, and corrected the backlog. TIFF bytes were not retrieved; no experiment ran; numeric gain/runtime ranges remain unvalidated planning estimates.</td>
+<td><strong>The cited MT source did not support the backlog’s original fixed-depth resistivity/phase-tensor proposal.</strong> The official USGS ScienceBase release “Electrical Conductance Maps of the Great Basin, USA” (DOI <code>10.5066/P9TWT2LU</code>; Peacock &amp; Bedrosian, 2022) lists conductance products integrated over <code>2–12</code>, <code>12–20</code>, <code>20–50</code>, <code>50–90</code>, and <code>90–200 km</code>; metadata reports native CRS <code>EPSG:4269</code>. The TIFF bytes were not retrieved or tested here.</td>
+<td>Corrected the hypothesis to <code>H80-MT-CONDUCTANCE</code>, limited it to possible coarse regional context pending grid/coverage/unit QA, and left it untested. The estimates remain planning-only; see <code>research/hypotheses_post_thvc_backlog.md</code> and <code>knowledge/official_sources.json</code>.</td>
 </tr>
 <tr>
 <td>IR-79-150</td>
@@ -1131,8 +1131,7 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
-<h3>Session <code>0607bf35</code> (2026-10-22) — site-status and historical-scope reconciliation (<code>arena/0607bf35-gemsdoe79</code>)</h3>
-<p>Three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0607bf35.md"><code>reports/session_review_0607bf35.md</code></a>. Documentation and publication-copy work only; no scientific lane was restarted and no submission slot was used.</p>
+<h3>Session <code>f40e4f2e</code> addendum (2026-10-22) — canonical selector evidence adapter, exact ETP forensic measurement &amp; autonomous data/cache verification</h3>
 <table>
 <thead>
 <tr>
@@ -1144,8 +1143,18 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <tbody>
 <tr>
 <td>IR-79-157</td>
-<td><strong>Generated-site comparison and approval wording mixed incompatible historical scopes.</strong> The site called canonical <code>G79-THVC</code> an “Active Candidate,” described a selected comparison table as all lanes, and used incompatible <code>All 9</code>, <code>all 19</code>, and <code>all 11</code> claims. The frozen post-index key <code>gemsdoe79_16_lanes_summary</code> contains 17 rows; the separate through-PR-62 scope describes 19 records; the earlier backlog compares 11 named formulations; later records extend these dated scopes.</td>
-<td>Site and README now label the 17-row table as a dated, non-exhaustive snapshot; identify the other counts by scope; compare measured HOLDOUT-DTI only with the H33 control; remove “Active Candidate” and upload-clearance copy; and state that account-side slots cannot bypass the literal gate. Added fail-closed site assertions. No current all-time lane total or submission approval is claimed.</td>
+<td><strong>The only selector authorized to set <code>ok_to_submit</code> rejected canonical <code>G79-THVC</code> as an unsupported lane before reading its frozen evidence.</strong> Consequently, unattended selection reported adapter scope instead of the actual scientific blocker, while the README inaccurately described cross-repo selection as pending.</td>
+<td>Added a fail-closed canonical adapter in <code>scripts/select_submission.py</code> with strict finite/range/type checks. It re-derives hash, format, two-seed canary, holdout, rank-correlation, and literal surface/final overlap checks from frozen receipts, refusing (<code>exit 2</code>, card unchanged) because both literal overlaps are <code>1.0 &gt; 0.70</code> and <code>protocol_unique=false</code>. Added adversarial software-fixture tests (<code>tests/test_selector_evidence.py</code>).</td>
+</tr>
+<tr>
+<td>IR-79-158</td>
+<td><strong>Leftover root <code>run_card_etp.json</code>, <code>registry/preregistration_etp.json</code>, and <code>2.02 MB</code> duplicate <code>data/bridge/*.tif</code> remained outside <code>archive/</code> after PR #78.</strong> <code>run_card_etp.json</code> carried a fabricated hex digest (<code>a1b2c3d4e5f67890abcdef…</code>, actual file SHA-256 <code>bb325399fcc5091a…</code>), a dangling <code>docs/downloads/…</code> path, and unmeasured <code>"dti": 0.021 / 0.019</code> (<code>withheld_positive_pixels: 20010 / 19949</code>) claims, while static ETP rasters excluded <code>&lt;=2 px</code> around the full <code>existing_faults.tif</code> (scoring <code>0.0000</code> on withheld truth).</td>
+<td>Evaluated fold-fair <code>G79-ETP-v2</code> on unmodified <code>gems57-pooled-hide-v2</code> (<code>HOLDOUT-DTI = 0.0968</code> <code>[0.0838, 0.1112]</code> on Seed 20 <code>n=11,321</code>; <code>0.1061</code> <code>[0.0911, 0.1217]</code> on Seed 30 <code>n=11,342</code>, nearly <code>2x</code> below canonical <code>G79-THVC</code> <code>0.1905 / 0.1944</code>), recorded <code>evidence/etp_forensic_audit_f40e4f2e.json</code> and <code>evidence/data_and_pipeline_verification_f40e4f2e.json</code> (<code>13/13</code> manifest inputs + <code>8/8</code> reproduced E1 <code>.npy</code> transforms), relocated <code>run_card_etp.json</code> and <code>registry/preregistration_etp.json</code> into <code>archive/g79_etp_incoming_45998a01/</code>, and removed duplicate <code>data/bridge/*.tif</code>.</td>
+</tr>
+<tr>
+<td>IR-79-159</td>
+<td><strong>Generated-site language mixed historical lane inventories and could imply a current exhaustive total or upload clearance.</strong> The frozen <code>gemsdoe79_16_lanes_summary</code> key is labeled “16” but contains 17 rows; a separate through-PR-#62 review describes 19 records; an earlier backlog compares 11 formulations. Main now also contains later findings <code>IR-79-157</code> and <code>IR-79-158</code>.</td>
+<td>Marked the comparison table as selected and non-exhaustive; documented the distinct dated scopes without an all-time count; tied measured scores to HOLDOUT-DTI evidence class, evaluator, withheld-positive counts and 95% CIs against H33; retained the explicit <code>OK TO SUBMIT: NO</code> state. No score is represented as organizer-confirmed and no slot is authorized.</td>
 </tr>
 </tbody>
 </table></div></section></main>
