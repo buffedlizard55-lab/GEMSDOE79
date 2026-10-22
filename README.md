@@ -47,9 +47,10 @@ above random and the frozen H33 fold-fair control (0.0961/0.0989) but
 slot may be spent. Max leakage-canary symmetric AUC 0.5674 (≤ 0.90, PASS).
 Gate G4 (literal novelty vs all 992 restored registry rasters, surface and
 final dots) and G1 (format) are reported in `run_card_cjx.json`. No
-leaderboard score is claimed: 0.2778/0.4413 remain unverified historical
-reports, and beating them is not demonstrated. Verdict: **negative** —
-a deliverable, per the parallel-run protocol.
+leaderboard score is claimed: 0.2778 remains an unverified historical user
+report and 0.4413 is a public leaderboard observation (`#1 xiaofanhu`), not an
+organizer receipt for this artifact, and beating them is not demonstrated.
+Verdict: **negative** — a deliverable, per the parallel-run protocol.
 
 ## Scientific evidence, not a leaderboard projection
 
@@ -123,7 +124,7 @@ research artifact with its own automated decision.
 - **TIFF:** `gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.tif`, 96,603 bytes, SHA-256 `5bdebaafc7c15bd6f9de6092398c86618986d19d4d06075acf92386948563e47`; 20,000 binary dots, spacing 3 px, >2 px from the catalogue.
 - **Format (machine-validated): PASS** — single float32 band, EPSG:32611, 3730 × 3292, sample transform, all values finite and in [0, 1] (min 0.0, max 1.0, zero NaN), zeros outside the footprint. The shared writer rejects out-of-range arrays, so these bytes cannot produce the portal "[0, 1]" range error; format PASS is still not submission approval.
 - **HOLDOUT-DTI** (`gems57-pooled-hide-v2`): candidate **0.0256 / 0.0319** (seeds 20/30, n = 11,321 / 11,342), below EDGE and UNIFORM controls and far below canonical G79-THVC (0.1905 / 0.1944). The phase-randomized null (0.0338 / 0.0324) beats the real σ=2 junction surface (0.0225 / 0.0230): the junction reading is falsified. Canaries pass (max symmetric AUC 0.5526 / 0.5710 ≤ 0.90). Full receipts: [evidence/cjx](evidence/cjxdir/holdout_results.json).
-- **Novelty (25-raster restored subset, not a full census):** final-dot 3-px overlap vs H33 = 0.2503 (exact 0.0132, surface ρ = 0.0243); worst final overlap vs any restored dot-field = 0.5219 ≤ 0.70 and worst |ρ| = 0.0832 ≤ 0.90; the pre-placement surface reaches 0.7593 vs G79-MAG and the literal gate fails as it does for every nonempty candidate. Verdict **negative** on three independent gates; 0 slots used; do not restart or retune this lane (IR-79-191).
+- **Novelty (25-raster restored subset, not a full census):** final-dot 3-px overlap vs H33 = 0.2503 (exact 0.0132, surface ρ = 0.0243); worst final overlap vs any restored dot-field = 0.5219 ≤ 0.70 and worst |ρ| = 0.0832 ≤ 0.90; the pre-placement surface reaches 0.7593 vs G79-MAG and the literal gate fails as it does for every nonempty candidate. Verdict **negative** on three independent gates; 0 slots used; do not restart or retune this lane (IR-79-194).
 
 Why H33 leads the family and what beating it would require is analysed in the
 [hypotheses document](research/hypotheses_cjxdir_20261022.md): spaced binarization plus
@@ -152,7 +153,9 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 ### Navigation and preserved history
 
-Concurrent review: [session b80aa866](reports/session_review_b80aa866.md) repaired `AGENTS.md` path/IR integrity (`IR-79-188`), added fail-closed `enforce_open_lane` CLI guards to `scripts/audit_g79b.py` and `scripts/build_cjx_page.py` (`IR-79-189`), and registered `G79-CJX` in `local_gems79_concurrent_lanes_audit` with halo-domain reconciliation (`IR-79-190`). Latest review: [session 2669a0a3](reports/session_review_2669a0a3.md) and [four untried post-CJX hypotheses](research/hypotheses_2669a0a3.md) added closed-lane `enforce_open_lane` guards to all five `G79-CJX` scripts, hardened exterior-halo masking & single-band checks in `scripts/measure_registry_halo.py`, and audited live 92-repo sibling & leaderboard drift (`IR-79-181`..`IR-79-183`); 0 new experiments and 0 competition slots used.
+Latest review: [session efdbc11f](reports/session_review_efdbc11f.md) remediated `IR-79-191`..`IR-79-193` (multi-band and `float32` sentinel/all-NaN hardening in `scripts/scan_tracked_rasters.py`, fail-closed explicit catalogue grid/path & `radius_px` checks in `scripts/measure_registry_halo.py`, 92-repo post-delta sibling byte forensics for both new `GEMSDOE78` blobs in [post_delta_sibling_check.json](evidence/review_efdbc11f/post_delta_sibling_check.json), five untried source-grounded geological hypotheses in [hypotheses_efdbc11f.md](research/hypotheses_efdbc11f.md), and `G79-CJX` `--verify-readonly` + fail-closed partial-registry novelty bounds + `0.4413` evidence-class correction); 0 new experiments and 0 competition slots used.
+
+Concurrent review: [session b80aa866](reports/session_review_b80aa866.md) repaired `AGENTS.md` path/IR integrity (`IR-79-188`), added fail-closed `enforce_open_lane` CLI guards to `scripts/audit_g79b.py` and `scripts/build_cjx_page.py` (`IR-79-189`), and registered `G79-CJX` in `local_gems79_concurrent_lanes_audit` with halo-domain reconciliation (`IR-79-190`). Concurrent review: [session 2669a0a3](reports/session_review_2669a0a3.md) and [four untried post-CJX hypotheses](research/hypotheses_2669a0a3.md) added closed-lane `enforce_open_lane` guards to all five `G79-CJX` scripts, hardened exterior-halo masking & single-band checks in `scripts/measure_registry_halo.py`, and audited live 92-repo sibling & leaderboard drift (`IR-79-181`..`IR-79-183`); 0 new experiments and 0 competition slots used.
 
 Concurrent review: [session 7fdf94b3](reports/session_review_7fdf94b3.md) remediated `IR-79-175`..`IR-79-177` (repo-relative paths and exact `5,167,373 - 60,988 = 5,106,385` off-catalogue accounting in `scripts/measure_registry_halo.py`, fail-closed `enforce_open_lane` guards on 3 remaining archived CLI scripts, `requirements.txt` deduplication, live `13/13` data restoration via `scripts/restore_data.py --preserve-receipt`, and 3-tier Pigeonhole obstruction reconciliation); 499 tests passed and no new candidate or competition slot was used. Concurrent review: [session 43963905](reports/session_review_43963905.md) independently rechecked the universal novelty blocker, local TIFF format, project verifier, and site; 477 tests passed. No new candidate or competition slot was used. The preceding [session 7d96e79d review](reports/session_review_7d96e79d.md) and [session f652f0b3 review](reports/repository_review_2026-10-22_arena-f652f0b3.md) are preserved as separate session reports.
 

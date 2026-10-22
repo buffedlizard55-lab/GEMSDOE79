@@ -1412,7 +1412,8 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
-<h3>Session d36b74f0 — G79-CJX-DIR unique TIF, falsified (2026-10-22; merged after IR-79-190)</h3>
+<h3>Session <code>efdbc11f</code> addendum (2026-10-22) — Multi-band/sentinel raster-scanner hardening, fail-closed catalogue &amp; <code>G79-CJX</code> novelty bounds, and five untried hypotheses (<code>arena/efdbc11f-gemsdoe79</code>)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_efdbc11f.md"><code>reports/session_review_efdbc11f.md</code></a>.</p>
 <table>
 <thead>
 <tr>
@@ -1424,6 +1425,33 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <tbody>
 <tr>
 <td>IR-79-191</td>
+<td><strong>Single-band-only read, missing float32 sentinel/all-NaN flags, and silent file overwrite in <code>scripts/scan_tracked_rasters.py</code>.</strong> <code>scan_one()</code> called <code>s.read(1)</code> (silently ignoring out-of-<code>[0, 1]</code> or NaN values on bands <code>2..N</code>), did not count explicit float32 nodata sentinels (<code>-3.4028235e+38</code>, <code>-9999</code>, <code>-999</code>, <code>9999</code>, <code>1e30</code> — the exact sentinel class documented on <code>GEMSDOE32</code> behind DrivenData <code>"Predicted values must be in range [0, 1]"</code> rejections) or flag all-NaN rasters (<code>n_finite == 0</code>), and overwrote <code>--out</code> unconditionally.</td>
+<td>Updated <code>scripts/scan_tracked_rasters.py</code> to scan all bands (<code>s.read()</code>) while preserving <code>role</code>, <code>single_band</code>, and <code>nodata_is_nan</code>, report <code>bands_checked</code>, <code>n_sentinel</code>, and <code>non_single_band_float32</code>, flag <code>n_finite == 0</code>, normalize paths inside <code>ROOT</code>, and refuse overwriting existing <code>--out</code> files unless <code>--force</code> is passed; added unit tests in <code>tests/test_scan_tracked_rasters.py</code> and saved <code>evidence/review_efdbc11f/tracked_raster_scan.json</code> (<code>37</code> tracked rasters, <code>0</code> candidate sentinels).</td>
+</tr>
+<tr>
+<td>IR-79-192</td>
+<td><strong>Fail-open explicit <code>catalogue_path</code> handling and negative <code>radius_px</code> crash in <code>scripts/measure_registry_halo.py</code>.</strong> When an explicit <code>catalogue_path</code> was missing or mismatched the footprint grid (<code>shape</code>/<code>transform</code>/<code>crs</code>), <code>measure()</code> silently skipped off-catalogue calculation instead of raising <code>FileNotFoundError</code> / <code>ValueError</code>, negative <code>radius_px</code> produced an empty kernel error, and <code>--catalogue</code> was not exposed on the CLI.</td>
+<td>Enforced fail-closed <code>FileNotFoundError</code> on missing explicit <code>catalogue_path</code> and <code>ValueError</code> on catalogue grid mismatch or <code>radius_px &lt; 0</code>, exposed <code>--catalogue</code>, enforced <code>allow_nan=False</code> + parent directory creation on <code>--json</code>, and added regression tests in <code>tests/test_measure_registry_halo.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-193</td>
+<td><strong>Fail-open partial-registry novelty bounds in <code>scripts/cjx_gate.py</code>, missing clean-checkout <code>--verify-readonly</code> mode, and <code>0.4413</code> evidence-class mislabelling in <code>README.md</code> / <code>scripts/build_site.py</code>.</strong> Inside <code>scripts/cjx_gate.py</code>, <code>G4_novelty</code> evaluated <code>lit_ok = True</code> whenever <code>.cache/registry/</code> was empty or incomplete (<code>n_checked &lt; len(rows)</code>), lacked a read-only clean-checkout verifier (<code>--verify-readonly</code>), and <code>README.md</code> + <code>scripts/build_site.py</code> mislabelled <code>0.4413</code> as an <code>"unverified historical report"</code> rather than a verified <code>PUBLIC-OBSERVATION</code> (<code>#1 xiaofanhu</code>).</td>
+<td>Added fail-closed <code>evaluate_novelty_bounds()</code> requiring <code>n_checked == n_expected &gt; 0</code>, added <code>--verify-readonly</code> (<code>exit 2</code>, zero file mutations, live byte/SHA-256/ZIP/format/holdout/novelty check) tested in <code>tests/test_cjx.py</code>, corrected <code>0.4413</code> labelling in <code>README.md</code> and <code>scripts/build_site.py</code>, and published <code>evidence/review_efdbc11f/</code> + <code>research/hypotheses_efdbc11f.md</code> (<code>G79-EF1</code>..<code>G79-EF5</code>).</td>
+</tr>
+</tbody>
+</table>
+<h3>Session d36b74f0 — G79-CJX-DIR unique TIF, falsified (2026-10-22; merged after IR-79-193)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-194</td>
 <td>Session 2026-10-22 (branch arena/d36b74f0-gemsdoe79) ran the previously nominated G79-CJX lane under <code>registry/preregistration_cjxdir.json (registered as G79-CJX, renamed G79-CJX-DIR at merge after the parallel G79-CJX lane in IR-79-180/181 landed first; measured non-duplicate, final-dot overlap 0.3474)</code> despite the literal-gate preflight exit 2, because the user instruction required generating and machine-validating a unique TIF; the literal novelty failure is reported in <code>run_card_cjx.json</code>, never bypassed. First novelty scan compared the candidate to itself (<code>archive/g79_cjx/</code> inside the scan root, spurious 1.0); fixed by excluding the lane's own directory and re-running (final-dot vs H33 = 0.2503). CJX is falsified on holdout (candidate 0.0256/0.0319 below EDGE/UNIFORM) and by its phase-randomized null (0.0338/0.0324 vs real 0.0225/0.0230).</td>
 <td>Lane closed negative with 0 slots used; artifact archived as research-only with OK TO SUBMIT: NO. Canonical G79-THVC card, registry and shared <code>vendor/</code> code untouched. The binding program-level blocker remains the unsatisfiable literal novelty gate, which needs a prospective owner protocol decision (D-3), not per-lane exceptions.</td>
 </tr>

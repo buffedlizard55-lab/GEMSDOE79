@@ -31,3 +31,33 @@ def test_endpoints():
     vis[5, 2:6] = True
     ep = catalogue_endpoints(vis)
     assert ep[5, 2] and ep[5, 5] and ep.sum() == 2
+
+
+def test_cjx_gate_fails_closed_on_incomplete_registry_and_runs_clean_readonly():
+    import json
+    import subprocess
+    root = Path(__file__).resolve().parents[1]
+    sys.path.insert(0, str(root / "scripts"))
+    import cjx_gate
+    assert cjx_gate.evaluate_novelty_bounds(
+        n_checked=0, n_expected=992, rho_surface=0.0, rho_dots=0.0, overlap_dots=0.0
+    ) is False
+    assert cjx_gate.evaluate_novelty_bounds(
+        n_checked=991, n_expected=992, rho_surface=0.1, rho_dots=0.1, overlap_dots=0.2
+    ) is False
+    assert cjx_gate.evaluate_novelty_bounds(
+        n_checked=992, n_expected=992, rho_surface=0.1, rho_dots=0.1, overlap_dots=0.2
+    ) is True
+
+    before = (root / "run_card_cjx.json").read_bytes()
+    proc = subprocess.run([sys.executable, str(root / "scripts/cjx_gate.py"), "--verify-readonly"], capture_output=True, text=True, timeout=60)
+    assert proc.returncode == 2
+    out = json.loads(proc.stdout)
+    assert out["ok_to_download"] is True
+    assert out["ok_to_submit"] is False
+    assert out["gates_passed"]["G1_format"] is True
+    assert out["gates_passed"]["G2_canary"] is True
+    assert out["gates_passed"]["G3_holdout"] is False
+    assert out["gates_passed"]["G4_novelty"] is False
+    assert (root / "run_card_cjx.json").read_bytes() == before
+

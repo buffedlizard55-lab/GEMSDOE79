@@ -86,4 +86,5 @@ def main():
 
 
 if __name__ == "__main__":
+    enforce_open_lane(ROOT, "G79-CJX", reason="3-experiment CJX budget exhausted")
     main()
