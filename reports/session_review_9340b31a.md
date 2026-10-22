@@ -11,7 +11,7 @@
 | Tests: 14 rule-by-rule cases incl. calibration (template passes; project TIFF fails exactly R6) | `tests/test_portal_spec.py` (14 passed) |
 | Calibration evidence, sha256-bound | `evidence/portal_spec_calibration.json` |
 | Executive-summary page: generated “Official-rule validator” panel and the new command in “Recheck automatically” | `scripts/build_site.py` → `docs/executive-summary.html` (only generated page that changed) |
-| Irregularities IR-79-207 and IR-79-208 | `reports/irregularities.md` |
+| Irregularities IR-79-212 and IR-79-213 (renumbered from 207/208 at merge: `main` already uses 207–211) | `reports/irregularities.md` |
 
 Calibration results (measured, not projected):
 
@@ -67,6 +67,10 @@ Protocol says none may run until the owner resolves the novelty-gate policy (IR-
 - **Pass 1 — implement and verify.** Validator + CLI + tests + calibration + site panel. 14/14 validator tests; `build_site.py` deterministic; `check_site.py` PASS.
 - **Pass 2 — bugs and edge cases.** Found and fixed: test fixtures picking an exterior pixel (R8 tests); deprecated `*` on affine transforms (now `@`); a shifted-grid file correctly marks R6–R8 unevaluated. The calibration evidence first recorded an absolute sandbox path; it now stores repo-relative paths (verified: no `/home/user` string remains). The site anchor edits failed twice on quoting; each attempt was verified by reading the file bytes, not assumed.
 - **Pass 3 — requirements re-check.** The request's “unique TIF” and “download to submit” items remain **unmet by design** (§3). The “never get the range error again” item is met only as a local format gate; it cannot see the portal's own check. The “executive summary at the top” item already exists (`docs/executive-summary.html`, download panel first); the new validator panel is added below it. The README already contains the full original prompt (search “THE FOLLOWING IS THE HIGHEST URGENCY”), so it does not need a second copy.
+
+**Merge reconciliation (Pass 2 addendum).** `main` moved while this branch was open (PRs #114–#120). Its concurrent session `a1183e85` (`scripts/audit_submission_format.py`, `evidence/official_format_audit_20261022.json`, `reports/session_review_20261022_format_audit.md`) independently measured the same NaN-vs-zero facts; its IR-S3 matches my IR-79-212. Both are kept: that audit measures facts, while this validator enforces the rules with tests. Two real defects surfaced and were fixed before push: (a) my IR IDs 207/208 collided with `main`'s PFSD lane, so they were renumbered to 212/213 and moved to the end of the register (the contract test requires ascending order); (b) the merge was not mergeable until conflicts in README, `irregularities.md` and the generated `irregularities.html` were resolved. The full suite then passed (584).
+
+Concurrent-audit claims I did **not** re-verify: that `0.2778` is absent from the top-50 leaderboard (IR-S1). My own fetch covered only the first 23 rows, so I neither confirm nor refute it.
 
 ## 7. Owner decisions and limits (not resolved here)
 
