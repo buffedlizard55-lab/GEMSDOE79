@@ -1,5 +1,35 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Current session — 2026-10-22, `a201fa92`: automatic stop, no new TIFF
+
+**OK TO DOWNLOAD: YES (inherited research file only). OK TO SUBMIT: NO.**
+The requested new unique competition TIF **could not be generated honestly**:
+`python scripts/preflight_new_lane.py --restore` remeasured a hash-pinned registry
+witness covering every allowed cell, forcing 100% forward overlap for every
+nonempty candidate (required ≤70%). The inherited download also **fails official
+R6**, which requires null/NaN outside the sample footprint despite its passing
+older local range/grid checks; we did not repackage an old candidate to feign
+novelty. The portal error on the user's earlier different upload is undiagnosed
+without its bytes and submission receipt. **No scientific experiment, placement,
+new TIF, upload or weekly slot.** See [three-pass review](reports/session_review_a201fa92.md),
+[ranked candidate hypotheses](research/hypotheses_a201fa92.md),
+[measured preflight](evidence/preflight_a201fa92.json) and
+[negative JSON run card](evidence/run_card_a201fa92.json).
+
+This session autonomously restored and SHA-256 checked **13/13** pinned owner-mirrored
+files to ignored `data/raw/`, including the 19-band `training_features.tif`; those
+local bytes are **not** proof of organizer provenance and are not committed. Run
+`python scripts/restore_data.py --preserve-receipt` in a fresh checkout, then
+`python scripts/data_status.py` to check current availability. The data blocker
+was removed for this workspace, but the novelty protocol and missing assigned
+method paragraph remain blockers to a new experiment. The project now runs the
+separate official R1–R8 validation in its automated readiness and selector paths;
+local format/range PASS alone cannot authorize a weekly slot. A future shared
+writer/validator revision must support NaN exterior without permitting NaN inside;
+this session did not rewrite any historically scored or pinned scientific bytes. See the
+[executive summary](docs/executive-summary.html) and the original prompt below.
+
+
 ## Latest review — 2026-10-22, session `1f9d2dc9`
 
 **No new candidate TIFF was generated; no submission is approved.** The
