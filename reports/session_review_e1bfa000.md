@@ -55,3 +55,7 @@ Terminal JSON card: `evidence/run_card_e1bfa000.json`. Automated combined receip
 - `scripts/check_site.py`: PASS, 13 pages, 341 local links, every page reachable, `submit:false`.
 - `git diff --check`: exit 0.
 - Combined readiness command: expected exit 2; no inspection exception, runtime missing, new lane unauthorized, local-format PASS, portal-text R6 FAIL.
+
+### Concurrent-main reconciliation
+
+PR #132 initially conflicted with concurrently merged reviews. Merged `origin/main` into the fixed session branch, preserved both README reviews, and regenerated only the derived Pages files. Preserved the incoming VENTPROX artifacts as inherited negative research, not artifacts generated or approved by this review. Post-merge verification: **601 passed** (81.30 s), integrity verifier exit 0, site PASS (13 pages / 341 local links). No scope expansion or new scientific run occurred.
