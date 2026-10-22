@@ -1,0 +1,88 @@
+{
+  "schema_version": "gems79-preregistration.v1",
+  "lane": "G79-CSKD",
+  "title": "Lahontan Equipotential Isohypse & BLM Mine-Deconfounded Multi-Physics, Flight-Notched Magnetics, Potassic Adularia Kd, Elastic Coulomb Stress-Shadow & Slip-Deficit Counterfactual Charnes-Cooper Discovery",
+  "branch": "arena/6da2620c-gemsdoe79",
+  "registered_utc": "2026-10-22T14:25:00Z",
+  "status": "closed",
+  "hypotheses_document": "research/hypotheses_6da2620c.md",
+  "shared_evaluator_pin": {
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seeds": [
+      20,
+      30
+    ],
+    "buffer_px": 3,
+    "boundary_px": 12,
+    "hide_frac": 0.2,
+    "alpha": 0.2,
+    "beta": 0.8,
+    "kernel_radius_m": 300.0,
+    "bootstrap_block_m": 20000,
+    "bootstrap_draws": 1000
+  },
+  "official_external_sources": [
+    {
+      "id": "usgs_geodawn_dem_a2",
+      "file": "geodawn_dem_a2_100m.tif",
+      "official_doi": "https://doi.org/10.5066/P93LGLVQ",
+      "official_url": "https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7",
+      "expected_sha256": "d32762a38222764389e948da423ebc6cadd00ac617ad3938d3dd79c6cfe14431",
+      "label_free": true,
+      "role": "Absolute elevation Z(x) across 100% of footprint for Pleistocene Lake Lahontan isohypse veto, along-scarp elevation climb, closed-playa floor identification, and footwall slip-deficit relief."
+    },
+    {
+      "id": "usgs_geodawn_acquisition_blocks",
+      "file": "acquisition_block_id_100m.tif",
+      "official_doi": "https://doi.org/10.5066/P93LGLVQ",
+      "official_url": "https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7",
+      "expected_sha256": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a",
+      "label_free": true,
+      "role": "Survey-block conditioning (Area 1 50-m/200-m lines vs Area 2 100-m/400-m lines across Winnemucca, Fallon, Hawthorne, Tonopah) for 2D FFT flight-line corrugation notch and local-wavenumber source depth."
+    },
+    {
+      "id": "blm_closed_mining_claims_distance",
+      "file": "blm_closed_claim_distance_m.tif",
+      "official_url": "https://gis.blm.gov/nlsdb/rest/services/Mining_Claims/MiningClaims/MapServer/2",
+      "expected_sha256": "a88356423c03fc8b6510a84f77cee2b1d38c4ccbd7761bc95c1ca8332a2e166a",
+      "label_free": true,
+      "role": "Distance (m) to US Bureau of Land Management mining claims to deconfound anthropogenic open-pit haul benches, waste-rock dumps, and potassic mine tailings."
+    },
+    {
+      "id": "doe_gdr_1391_ingenious",
+      "official_doi": "https://doi.org/10.15121/1907699",
+      "official_url": "https://gdr.openei.org/submissions/1391",
+      "label_free": true,
+      "role": "2-m shallow temperature probes (F2mDAB), paleo-geothermal sinter/travertine/tufa vents, aqueous quartz geothermometry, and USGS 3DEP 10-m scarp/chi channels."
+    }
+  ],
+  "structural_fixes_over_g79_thvc": [
+    "Exclude 0 < d(x, sim_vis) <= 3.0 px from Stage-1 and Stage-2 negative pools (resolves IR-79-140 4:1 unhidden scarp flank contamination and matches buffer_px=3 holdout geometry).",
+    "Restrict placement domain to d(x, visible) > 3.0 px (eliminates dead-collar dot waste in 2.0 < d <= 3.0 px where buffered_component_draw has zero withheld positives).",
+    "Add broadside normal-fault elastic Coulomb stress-drop shadow (Delta_CFS < 0) and along-range footwall relief minus mapped-trace slip-deficit.",
+    "Couple calibrated zero-catalogue pure-physics OOF posterior (p_phys, q_phys) with full mechanics posterior (p_full, q_full) via inner-validated counterfactual blending weight w_cf before Charnes-Cooper submodular 300-m kernel allocation."
+  ],
+  "named_non_fault_mimic": "Pleistocene pluvial Lake Lahontan (~1,200-1,345 m ASL) and Lake Bonneville wave-cut shoreline benches, anthropogenic open-pit mining haul benches and potassic tailings piles, incised alluvial-fan channel margins, and unaltered potassic felsic ash-flow tuffs or closed evaporite playas.",
+  "experiments_budget_max_3": [
+    {
+      "id": "EXP-CSKD-1_zero_catalogue_physics",
+      "description": "100% zero-catalogue multi-physics + Lahontan isohypse + BLM mine deconfounding + flight-notched magnetic k_loc + cross-regressed potassic adularia Kd + GDR hydrothermal plumes, emitted via d=2.8 px Poisson disk (37,654 dots on d > 3.0 px)."
+    },
+    {
+      "id": "EXP-CSKD-2_cskd_uniform_d28",
+      "description": "Full decontaminated Stage-1+Stage-2 ensemble including Coulomb stress shadow and along-range slip-deficit, emitted via uniform d=2.8 px Poisson disk (37,654 dots on d > 3.0 px)."
+    },
+    {
+      "id": "EXP-CSKD-3_cskd_counterfactual_charnes_cooper",
+      "description": "Inner-validated counterfactual fusion of zero-catalogue pure-physics OOF head and full Coulomb/slip-deficit head allocated via Charnes-Cooper submodular 300-m kernel optimization on d > 3.0 px."
+    }
+  ],
+  "gates": {
+    "leakage_canary_max_single_feature_auc": 0.9,
+    "spearman_abs_max": 0.9,
+    "sparse_dot_overlap_max": 0.7,
+    "canonical_replacement_rule": "Promote G79-CSKD research GeoTIFF (-DO-NOT-SUBMIT.tif, verdict=negative, ok_to_submit=false under literal 17GEMSDOE/13GEMSDOE pigeonhole witnesses) to canonical docs/downloads/ slot IF AND ONLY IF EXP-CSKD-3 strictly beats G79-THVC on BOTH Seed 20 (> 0.190517) and Seed 30 (> 0.194366) AND achieves <= 0.70 forward 3-px dot overlap against ALL <= 50,000-dot sparse competition maps across the 93-repo family (explicitly including GEMSDOE83 79f14dc8... and G79-THVC d3db2e95...). Otherwise retain G79-THVC as canonical and archive G79-CSKD intact in archive/g79_cskd_6da2620c/."
+  },
+  "completed_utc": "20261022T161939Z",
+  "results_evidence": "evidence/g79_cskd_results.json"
+}

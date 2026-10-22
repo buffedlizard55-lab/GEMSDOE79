@@ -90,7 +90,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="cjx-submission.html">CJX candidate</a><a href="dzd-submission.html">DZD candidate</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
@@ -222,7 +222,7 @@ def novelty_explanation(summary, preflight):
 def home(card, summary, preflight, h33):
     dots = card['positive_pixels']
     c = summary['canaries']
-    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>No new unique TIFF was produced in that review; two later lanes, <a href="cjx-submission.html">G79-CJX</a> and <a href="g79-cjxdir.html">G79-CJX-DIR</a>, each generated one, falsified it on the holdout, and archived it as research-only.</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>Later lanes generated new unique research GeoTIFFs — including <a href="g79-cskd.html">G79-CSKD</a> (all-time GEMSDOE79 Seed-30 HOLDOUT-DTI record <code>0.2145</code> &amp; 2-seed mean <code>0.1963</code>, resolving <code>GEMSDOE83</code> overlap to <code>0.6137 &le; 0.70</code>), <a href="cjx-submission.html">G79-CJX</a>, <a href="g79-cjxdir.html">G79-CJX-DIR</a>, and <a href="dzd-submission.html">G79-DZD</a> — each archived as research-only (<code>OK TO SUBMIT: NO</code>).</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="g79-cskd.html">Open G79-CSKD (0.2145 Seed-30 record) ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
 <div class="metric-grid">{metric('Local format', 'PASS', 'Finite [0, 1] · matching sample grid')}{metric('Full novelty', 'BLOCKED', f"{summary['dots']['max_forward_overlap_3px']:.4f} overlap; limit 0.70", stop=True)}{metric('Feature canaries', f"{c['feature_seed_tests']} tests", f"{c['feature_count']} features × 2 seeds; max AUC {c['max_symmetric_auc']:.5f}")}{metric('This review', '0 experiments', '0 new placements · 0 slots spent')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / CLEAR PERMISSION BOUNDARIES</p><h2>Downloadable does not mean submittable.</h2></div><p>Automated local verification binds the card to the exact bytes. Scientific gates, organizer acceptance and weekly slot capacity are separate checks.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 {holdout_table(summary)}
@@ -274,6 +274,49 @@ def history_page():
     rows.sort(key=lambda r:float(r['reported_public_dti']),reverse=True)
     table=''.join(f'<tr data-search-row><td>{E(r["site_repo"])}</td><td style="overflow-wrap:anywhere;max-width:460px">{E(r["submission_name"])}</td><td>{float(r["reported_public_dti"]):.4f}</td><td>Unverified historical report</td></tr>' for r in rows)
     return f'''<section class="page-head"><p class="eyebrow">HISTORICAL REPORTS / NOT RECEIPTS</p><h1>The family results, with caveats.</h1><p class="lead">{len(rows)} inherited filename-to-score reports. They are a research starting point, not organizer-confirmed artifact scores or independent experiments.</p></section><div class="notice">No submission-page receipt authenticates these file/score pairings. Similar scores can reflect shared surfaces and copied dot sets. This table does not rank new hypotheses or select a slot.</div><input class="search" id="history-search" type="search" placeholder="Filter by repository or submission name" aria-label="Filter historical reports"><div class="table-scroll"><table><thead><tr><th>Repository</th><th>Reported submission</th><th>Reported public DTI</th><th>Evidence class</th></tr></thead><tbody>{table}</tbody></table></div><p class="footnote"><a href="evidence/score_ledger.csv">Download the complete labelled CSV ↗</a> · <a href="analysis.html">What the actual H33 raster bytes show ↗</a></p>'''
+
+
+def cskd_page():
+    """G79-CSKD page rendered dynamically from archive/g79_cskd_6da2620c/run_card_cskd.json."""
+    c = load_json(ROOT / 'archive/g79_cskd_6da2620c/run_card_cskd.json')
+    res = load_json(ROOT / 'evidence/g79_cskd_results.json')
+    s20 = c['holdout_dti']['seed_20']
+    s30 = c['holdout_dti']['seed_30']
+    u = c['uniqueness_vs_registry']
+    raw_tif = f"{REPO}/raw/main/{c['submission_file']}"
+    raw_zip = f"{REPO}/raw/main/{c['zip_file']}"
+    exp2_20 = res['seed20']['official_evaluate_all']['scores']['EXP-CSKD-2_cskd_uniform_d28']
+    exp2_30 = res['seed30']['official_evaluate_all']['scores']['EXP-CSKD-2_cskd_uniform_d28']
+    exp1_20 = res['seed20']['official_evaluate_all']['scores']['EXP-CSKD-1_zero_catalogue_physics']
+    exp1_30 = res['seed30']['official_evaluate_all']['scores']['EXP-CSKD-1_zero_catalogue_physics']
+    c0_20 = res['seed20']['official_evaluate_all']['scores']['C0_random_B37654']
+    c0_30 = res['seed30']['official_evaluate_all']['scores']['C0_random_B37654']
+    return f'''{page_head('G79-CSKD / SESSION 6da2620c / ARCHIVED UNIQUE GEOTIFF', 'All-time GEMSDOE79 Seed-30 (0.2145) & 2-seed mean (0.1963) HOLDOUT-DTI record.',
+                           'Preregistered decontaminated multi-physics + Coulomb stress-shadow + counterfactual Charnes-Cooper lane. Resolves GEMSDOE83 collision (0.6137 <= 0.70); archived as research-only per the both-seed promotion rule.')}
+<section class="section"><div class="download-warning"><strong>OK TO DOWNLOAD (RESEARCH ARCHIVE): YES. OK TO SUBMIT: NO.</strong><br>
+{E(c['stop_reason'])}</div>
+<div class="actions"><a class="button" href="{E(raw_tif)}">↓ Research GeoTIFF (GitHub) <span>{c['raster_bytes'] / 1024:.0f} KiB</span></a>
+<a class="button secondary" href="{E(raw_zip)}">↓ Single-TIFF ZIP (GitHub) <span>{c['zip_bytes'] / 1024:.0f} KiB</span></a></div>
+<p class="micro">Name: <code>{E(c['submission_name'])}</code> · Note ({c['submission_note_length']}/140): <code>{E(c['submission_note'])}</code><br>
+GeoTIFF SHA-256: <code>{E(c['raster_sha256'])}</code> · ZIP SHA-256: <code>{E(c['zip_sha256'])}</code> · {c['positive_pixels']:,} binary {{0.0, 1.0}} pixels · 0 NaN/Inf anywhere · 0 catalogue overlap</p></section>
+<section class="section"><figure class="panel" style="margin:0"><img src="figures/fig5_cskd_seed30_breakthrough.png" alt="G79-CSKD dual-seed holdout comparison, decontamination physics shift, and GEMSDOE83 de-collision"><figcaption><strong>Figure 5.</strong> Dual-seed <code>HOLDOUT-DTI</code> comparison, collapse of Stage-1 isotropic distance gain share (<code>52.8% → 9.7%</code>), and cross-repo de-collision against <code>GEMSDOE83</code> (<code>0.7139 → 0.6137 &le; 0.70</code>).</figcaption></figure></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">HOLDOUT-DTI · {E(c['holdout_dti']['evaluator_version'])} · NOT A LEADERBOARD PROJECTION</p>
+<h2>Dual-seed experimental ladder.</h2></div><p>Buffered whole-component hide-and-recover (α = 0.2, β = 0.8, 300 m kernel; n = {s20['withheld_positives']:,} / {s30['withheld_positives']:,} withheld fault pixels).</p></div>
+<div class="table-scroll"><table><thead><tr><th>Arm</th><th>Dots</th><th>Seed 20 HOLDOUT-DTI [95% CI]</th><th>Seed 30 HOLDOUT-DTI [95% CI]</th><th>2-Seed Mean</th></tr></thead><tbody>
+<tr><td><strong>EXP-CSKD-3 · Counterfactual + Charnes-Cooper</strong></td><td><strong>42,000</strong></td><td><strong>{s20['dti']:.4f}</strong> [{s20['ci95'][0]:.4f}, {s20['ci95'][1]:.4f}]</td><td><strong>{s30['dti']:.4f}</strong> [{s30['ci95'][0]:.4f}, {s30['ci95'][1]:.4f}]</td><td><strong>{c['holdout_dti']['dual_seed_mean_dti']:.4f}</strong></td></tr>
+<tr><td>Canonical G79-THVC (incumbent baseline)</td><td>35,093</td><td>0.1905 [0.1741, 0.2069]</td><td>0.1944 [0.1774, 0.2126]</td><td>{c['holdout_dti']['g79_thvc_dual_seed_mean_dti']:.4f}</td></tr>
+<tr><td>EXP-CSKD-2 · Uniform d=2.8 px</td><td>37,654</td><td>{exp2_20['dti']:.4f} [{exp2_20['ci95'][0]:.4f}, {exp2_20['ci95'][1]:.4f}]</td><td>{exp2_30['dti']:.4f} [{exp2_30['ci95'][0]:.4f}, {exp2_30['ci95'][1]:.4f}]</td><td>{0.5*(exp2_20['dti']+exp2_30['dti']):.4f}</td></tr>
+<tr><td>C2 · H33 Fold-Fair Control</td><td>37,654</td><td>{s20['h33_foldfair_control_dti']:.4f}</td><td>{s30['h33_foldfair_control_dti']:.4f}</td><td>{0.5*(s20['h33_foldfair_control_dti']+s30['h33_foldfair_control_dti']):.4f}</td></tr>
+<tr><td>EXP-CSKD-1 · Zero-Catalogue 84-Ch Physics</td><td>37,654</td><td>{exp1_20['dti']:.4f} [{exp1_20['ci95'][0]:.4f}, {exp1_20['ci95'][1]:.4f}]</td><td>{exp1_30['dti']:.4f} [{exp1_30['ci95'][0]:.4f}, {exp1_30['ci95'][1]:.4f}]</td><td>{0.5*(exp1_20['dti']+exp1_30['dti']):.4f}</td></tr>
+<tr><td>C0 · Uniform Random Footprint</td><td>37,654</td><td>{c0_20['dti']:.4f}</td><td>{c0_30['dti']:.4f}</td><td>{0.5*(c0_20['dti']+c0_30['dti']):.4f}</td></tr>
+</tbody></table></div></section>
+<section class="section prose"><h2>Automated gates &amp; 1,221-raster uniqueness audit</h2><ul>
+<li><strong>Format &amp; [0, 1] finiteness:</strong> PASS — single float32 band, EPSG:32611, 3730 × 3292, finite {{0.0, 1.0}}, 0 NaN/Inf, 0 outside-footprint or mapped-catalogue positives.</li>
+<li><strong>102-feature leakage canary:</strong> PASS — 204 single-feature AUC tests cleared; max symmetric AUC = {c['leakage_canary']['overall_max_symmetric_auc']:.4f} &le; 0.90 (<code>{E(c['leakage_canary']['overall_worst_feature'])}</code>).</li>
+<li><strong>Pre-placement continuous surface ({u['rasters_expected']:,} rasters):</strong> max |Spearman ρ| = {u['pre_placement_surface_max_abs_spearman']:.4f} &le; 0.90 (0 cross-repo &le;50k collisions).</li>
+<li><strong>Post-placement binary dots ({u['rasters_expected']:,} rasters):</strong> max |Spearman ρ| = {u['post_placement_dots_max_abs_spearman']:.4f} &le; 0.90; <strong>overlap vs <code>GEMSDOE83</code> (<code>h83-gvcd-dink300</code>) = {u['overlap_vs_gemsdoe83_h83_gvcd']:.4f} &le; 0.70 (PASS — resolves <code>G79-THVC</code>'s 0.7139 collision)</strong>; 100% of valid <code>-zeros.tif</code> cross-repo &le;50k maps &le; {u['valid_zeros_cross_repo_sparse_le_50k_max_overlap']:.4f} &le; 0.70 (1 invalid <code>-nan.tif</code> at {u['all_cross_repo_sparse_le_50k_max_overlap']:.4f}; literal <code>17GEMSDOE</code> = {u['overlap_vs_17gemsdoe_proba_multiscale']:.4f}, <code>13GEMSDOE</code> = {u['overlap_vs_13gemsdoe_r13_lattice_s5']:.4f}).</li>
+<li><strong>Preregistered promotion gate:</strong> BLOCKED — Seed 20 trailed canonical <code>G79-THVC</code> by {s20['delta_vs_g79_thvc']:+.4f} despite Seed 30 beating <code>G79-THVC</code> by {s30['delta_vs_g79_thvc']:+.4f}; <code>verdict = negative</code>, <code>0</code> weekly slots spent.</li></ul>
+<p><a href="evidence/run_card_cskd.json">G79-CSKD Run Card ↗</a> · <a href="evidence/g79_cskd_results.json">Full results &amp; 1,221-raster JSON ↗</a> · <a href="evidence/g79_cskd_leakage_canary.json">102-feature canary JSON ↗</a> · <a href="evidence/preregistration_g79_cskd.json">Preregistration ↗</a> · <a href="evidence/cskd_sources_receipt.json">CSKD sources receipt ↗</a> · <a href="analysis.html">Full scientific report ↗</a></p></section>'''
 
 
 def cjxdir_page():
@@ -537,7 +580,12 @@ def main():
               'evidence/session_0d90d81b_audit.json': 'session_0d90d81b_audit.json',
               'evidence/session_0d90d81b_run_card.json': 'session_0d90d81b_run_card.json',
               'evidence/halo_saturation_13GEMSDOE_1db538e6.json': 'halo_saturation_13GEMSDOE_1db538e6.json',
-              'evidence/halo_saturation_17GEMSDOE_Eproba_1db538e6.json': 'halo_saturation_17GEMSDOE_Eproba_1db538e6.json'}
+              'evidence/halo_saturation_17GEMSDOE_Eproba_1db538e6.json': 'halo_saturation_17GEMSDOE_Eproba_1db538e6.json',
+              'registry/preregistration_g79_cskd.json': 'preregistration_g79_cskd.json',
+              'evidence/g79_cskd_results.json': 'g79_cskd_results.json',
+              'evidence/g79_cskd_leakage_canary.json': 'g79_cskd_leakage_canary.json',
+              'evidence/cskd_sources_receipt.json': 'cskd_sources_receipt.json',
+              'archive/g79_cskd_6da2620c/run_card_cskd.json': 'run_card_cskd.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json', 'evidence_summary.json'}
     for stale in (SITE / 'evidence').iterdir():
@@ -568,18 +616,21 @@ def main():
         'analysis.html': ('What H33 teaches us, without score promises',
                           page_head('ANALYSIS / EXACT METRIC / MEASURED LINEAGE', 'Understand H33. Do not copy it.',
                                     'Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.')
+                          + '<section class="section">' + md('reports/g79_cskd_session_6da2620c.md') + '</section>'
                           + '<section class="section">' + md('knowledge/h33_review_e4a4422d.md') + '</section>'
                           + '<section class="section">' + md('research/h33_analysis.md') + '</section>'
                           + holdout_table(summary) + archive_links()),
         'research.html': ('Deferred geological hypotheses',
-                          page_head('DEFERRED HYPOTHESES / ZERO NEW EXPERIMENTS', 'Test a mechanism. Name its mimic.',
-                                    'Source-grounded ideas, qualitative ranking and explicit data gates. None is an approved or executed new lane.')
+                          page_head('HYPOTHESES / PREREGISTERED LANES', 'Test a mechanism. Name its mimic.',
+                                    'Source-grounded ideas, qualitative ranking, executed preregistered lanes and explicit data gates.')
+                          + '<section class="section">' + md('research/hypotheses_6da2620c.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_0d90d81b.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_e4a4422d.md') + '</section>'
                           + '<section class="section">' + md('research/candidate_hypotheses.md') + '</section>'
                           + novelty_explanation(summary, preflight) + archive_links()),
         'sources.html': ('Official sources, availability & source health', sources_page(sources)),
         'history.html': ('Historical reports, not receipts', history_page()),
+        'g79-cskd.html': ('G79-CSKD unique TIF — Seed-30 record (0.2145) & automated gate verdict', cskd_page()),
         'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
         'dzd-submission.html': ('G79-DZD unique TIF \u2014 automated gate verdict', dzd_page()),
         'irregularities.html': ('Irregularities & stop reasons',

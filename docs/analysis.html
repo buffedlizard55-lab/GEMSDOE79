@@ -5,8 +5,202 @@
 <title>What H33 teaches us, without score promises · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="cjx-submission.html">CJX candidate</a><a href="dzd-submission.html">DZD candidate</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / MEASURED LINEAGE</p><h1>Understand H33. Do not copy it.</h1><p class="lead">Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.</p></section><section class="section"><div class="prose table-scroll"><h2>What H33 teaches us — and what it does not prove</h2>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / MEASURED LINEAGE</p><h1>Understand H33. Do not copy it.</h1><p class="lead">Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.</p></section><section class="section"><div class="prose table-scroll"><h2>Session <code>6da2620c</code> Scientific Report — PhD Forensic Reconciliation of <code>H33</code> (<code>0.2778</code>–<code>0.4413</code>) and Execution of Lane <code>G79-CSKD</code></h2>
+<p><strong>Session branch:</strong> <code>arena/6da2620c-gemsdoe79</code> · <strong>Date:</strong> <code>2026-10-22</code> UTC<br />
+<strong>Preregistered lane:</strong> <code>G79-CSKD</code> (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_g79_cskd.json"><code>registry/preregistration_g79_cskd.json</code></a>)<br />
+<strong>Archived artifact (<code>DO-NOT-SUBMIT</code>):</strong> <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif"><code>archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif</code></a> (<code>151,998 B</code>, SHA-256 <code>91ffc11017f7d7ff1d6f77feb8be3734560e295e2f1067a463d89185c4ac37e7</code>, <code>42,000</code> dots)<br />
+<strong>Canonical repository artifact (preserved unchanged in <code>docs/downloads/</code>):</strong> <code>G79-THVC</code> (<code>g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif</code>, SHA-256 <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>, <code>35,093</code> dots, <strong><code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code></strong>)</p>
+<hr />
+<h3>1. Why <code>H33</code> (<code>GEMSDOE32</code>, Reported <code>0.2778</code>) Scored Highest in the Historical Family &amp; Full Benchmark Reconciliation</h3>
+<h4>1.1 Exact Metric Algebra of Pooled Distance-Weighted Tversky Index (<code>DW-DTI</code>)</h4>
+<p>Per official DrivenData competition rules (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem Description</a>) and staff clarifications (<a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">Thread 11516/2</a>, <a href="https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550/2">Thread 11550/2</a>), predictions $p(\mathbf{x}) \in [0, 1]$ on the <code>EPSG:32611</code> <code>100 m</code> GeoDAWN grid (<code>3730 × 3292</code>, <code>5,167,373</code> active footprint pixels; <code>60,988</code> mapped USGS/INGENIOUS catalogue pixels masked out) are scored globally across the evaluation domain $E$ against unmapped expert-identified faults $T \subset E$ using the pooled Distance-Weighted Tversky Index ($\alpha = 0.2$, $\beta = 0.8$, triangular kernel $K(\mathbf{x}, \mathbf{y}) = \max(0, 1 - |\mathbf{x} - \mathbf{y}|_2 / 300\text{ m})$):</p>
+<p>$$\operatorname{TP}<em>w(p, T) = \sum</em>{\mathbf{y} \in T} \max_{\mathbf{x} \in E} \big[p(\mathbf{x})\, K(\mathbf{x}, \mathbf{y})\big], \qquad \operatorname{FP}<em>w(p, T) = \sum</em>{\mathbf{x} \in E} p(\mathbf{x}) \Big(1 - \max_{\mathbf{y} \in T} K(\mathbf{x}, \mathbf{y})\Big),$$</p>
+<p>$$\operatorname{FN}_w(p, T) = |T| - \operatorname{TP}_w(p, T), \qquad \operatorname{DTI}(p, T) = \frac{\operatorname{TP}_w(p, T)}{(1 - \beta)\, \operatorname{TP}_w(p, T) + \alpha\, \operatorname{FP}_w(p, T) + \beta\, |T|}.$$</p>
+<p>Three non-obvious mathematical consequences explain the entire 103-entry family score hierarchy (<code>registry/score_ledger.csv</code>):</p>
+<ol>
+<li><strong>Asymmetric <code>MAX</code>-TP vs <code>SUM</code>-FP Duality (Anti-Ribbon Theorem):</strong> Because $\operatorname{TP}_w$ applies a <strong>pointwise $\max$</strong> over all predictions within $300\text{ m}$ ($3\text{ px}$) of a truth pixel $\mathbf{y} \in T$, whereas $\operatorname{FP}_w$ <strong>sums</strong> $p(\mathbf{x})$ linearly over every off-fault pixel, painting a continuous $5\text{ px}$-wide probability ribbon along a fault increases $\operatorname{FP}<strong>$ $5</strong>imes$–$15\times$ while contributing <em>*zero** marginal $\operatorname{TP}_w$ once one binary $p(\mathbf{x}) = 1$ dot sits within the $300\text{ m}$ kernel. Conversely, isolated binary ${0, 1}$ dots spaced every $\Delta s \approx 2.8\text{–}3.0\text{ px}$ al</em>ng a 1-px fault trace harvest $\sum_{\Delta k = -2}^{2} (1 - |\Delta k|/3) = \mathbf{2.333}$ weighted TP units per single unit of prediction mass.</li>
+<li><strong>Fractional-Threshold Collapse of Calibrated Posteriors:</strong> Replacing a binary dot $p(\mathbf{x}_0) = 1$ by calibrated probabilities $p \approx 0.15$ across a $10\text{ px}$ halo slashes peak $\operatorname{TP}_w$ by $85\%$ while leaving integrated $\sum p(\mathbf{x}) \approx 1.5$ nearly unchanged, collapsing $\operatorname{DTI}$ from $\sim 0.27$ to $&lt; 0.08$ (<code>17GEMSDOE</code> <code>0.0725</code>, <code>12GEMSDOE</code> <code>0.0680</code>).</li>
+<li><strong>Byte-Exact Forensics of <code>H33</code> (<code>c55bafc4...</code>):</strong> Direct raster diffing (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/h33_forensics.json"><code>evidence/h33_forensics.json</code></a>) proves that <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code> (<code>37,654</code> binary <code>1.0</code> pixels, <code>0.0</code> outside footprint) is <strong>pixel-for-pixel identical</strong> to <code>GEMSDOE29</code> <code>D2.8</code> (<code>44,090</code> Poisson-disk dots at $r = 2.8\text{ px}$ ranked by an unsupervised multi-sensor tectonic composite) <strong>minus the <code>6,436</code> dots lying at Euclidean distance $0 &lt; d_{\text{cat}} \le 2.0\text{ px}$ ($200\text{ m}$) from mapped USGS/INGENIOUS faults</strong>. Because mapped faults are pixel-masked (<code>60,988</code> px) and geologically flanked by unmapped parallel splays or digitization offsets only beyond $\sim 200\text{–}300\text{ m}$, pruning the $6,436$ near-collar dots eliminated pure $\alpha \cdot \operatorname{FP}_w = 0.2 \times 6{,}436 \approx 1{,}287$ denominator penalty at near-zero $\operatorname{TP}_w$ loss, lifting the user-reported score from <code>0.2600</code> (<code>D2.8</code>) to <code>0.2778</code> (<code>H33</code>).</li>
+</ol>
+<h4>1.2 Rigorous Reconciliation of <code>0.2778</code>, <code>0.3195</code>, and <code>0.4413</code></h4>
+<table>
+<thead>
+<tr>
+<th>Benchmark / Number</th>
+<th>Strict Evidence Class</th>
+<th>Verified Source &amp; Exact Forensics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>0.4413</code></strong> (<code>#1 xiaofanhu</code>)</td>
+<td><code>PUBLIC-OBSERVATION</code> (<code>2026-10-22T10:10Z</code>)</td>
+<td>Verified live #1 score on the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData Public Leaderboard</a> (<code>#2 cfld__ = 0.3904</code>, <code>#3 Batik Shirt Brothers = 0.3894</code>, <code>#4 BrandenKMurray = 0.3713</code>). Demonstrates that ~<code>+0.1635</code> headroom exists above <code>H33</code> (<code>0.2778</code>) via high-precision fault-trace &amp; step-over localization rather than heuristic geophysical thresholding.</td>
+</tr>
+<tr>
+<td><strong><code>0.3195</code></strong> (prompt reference)</td>
+<td><code>UNVERIFIED PROMPT REFERENCE</code> (absent on live board; <code>IR-79-123</code>)</td>
+<td>Live 200-row public leaderboard audit (<code>2026-10-22</code>) shows <code>#21 kinghorton42 = 0.3261</code> and <code>#22 li002666 = 0.3183</code>, with <strong>no <code>0.3195</code> entry currently on the leaderboard</strong> (consistent with an earlier transient team best later superseded by a higher submission).</td>
+</tr>
+<tr>
+<td><strong><code>0.2778</code></strong> (<code>GEMSDOE32</code> <code>H33</code>)</td>
+<td><code>UNVERIFIED HISTORICAL REPORT</code> + <code>#52 extradr19 = 0.2778</code> <code>PUBLIC-OBSERVATION</code></td>
+<td>Highest score in the 103-row prompt table; matches <code>#52 extradr19 = 0.2778</code> on the live public leaderboard, though <code>GEMSDOE32</code>'s own site labels <code>h33-h33-2-b2-...-zeros.tif</code> (<code>c55bafc4...</code>) <code>UNSCORED</code> without an authenticated portal receipt.</td>
+</tr>
+<tr>
+<td><strong><code>0.1847</code></strong> (<code>#103 doegemsDrivendata</code>)</td>
+<td><code>PUBLIC-OBSERVATION</code> (official organizer baseline)</td>
+<td>DrivenData reference solution by Prof. John Lipor (<a href="https://github.com/drivendataorg/gems-prize-reference-solution"><code>drivendataorg/gems-prize-reference-solution</code></a>), writing finite <code>0.0</code> outside the footprint (<code>aebe92f</code>).</td>
+</tr>
+<tr>
+<td><strong><code>0.1944 / 0.2145</code></strong> (<code>G79-THVC</code> / <code>G79-CSKD</code> Seed 30)</td>
+<td><code>HOLDOUT-DTI</code> (<code>gems57-pooled-hide-v2</code>, $n = 11{,}342$ withheld px)</td>
+<td>Offline spatially blocked hide-and-recover proxy on withheld USGS/INGENIOUS segments (<code>H33</code> scores <code>0.0961 / 0.0989</code> on the exact same folds). <strong>Never projected to a public leaderboard number.</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>2. Pre-Implementation Candidate Hypotheses &amp; Selection of <code>G79-CSKD</code></h3>
+<p>Before writing model code, five untried geological/geophysical hypotheses were formulated and ranked in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_6da2620c.md"><code>research/hypotheses_6da2620c.md</code></a>:</p>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>ID &amp; Short Title</th>
+<th>Core Untried Layers &amp; Physical Transform</th>
+<th>Expected Holdout Uplift &amp; Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 (Executed)</strong></td>
+<td><strong><code>G79-CSKD</code></strong> — Coulomb Shadow + Lahontan/BLM Deconfounded Scarp + GeoDAWN FFT Notch + Adularia $K_d$ + Counterfactual Charnes–Cooper</td>
+<td><code>geodawn_dem_a2_100m.tif</code> ($Z(\mathbf{x})$ isohypse veto), <code>blm_closed_claim_distance_m.tif</code> (open-pit/tailings suppressor), <code>acquisition_block_id_100m.tif</code> + 2D FFT E-W flight-line notch, <code>(Th, TC)</code>-regressed potassic residual $K_d$, decontaminated $d_{\text{vis}} &gt; 3.0\text{ px}$ + Crider–Pollard Coulomb shadow $\Delta\text{CFS} &lt; 0$, counterfactual pure-physics blend</td>
+<td>High uplift, moderate cost (~45 min CPU, <code>&lt; 2.9 GiB</code> RAM)</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong><code>H2-MTCS</code></strong> — Magnetotelluric/Gravity Basin-Floor Detachment + Curvature Step-Over</td>
+<td>Gravity horizontal-gradient worms + tensor curvature invariant + basin-depth inflection</td>
+<td>Moderate-high uplift, low-moderate cost</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong><code>H3-PALEO-HYDRO</code></strong> — Paleogeothermal Sinter/Travertine Structural Trend + Upflow Conduit Alignment</td>
+<td>GDR-1391 sinter/travertine azimuth alignment with local aeromagnetic tilt zero-contours</td>
+<td>Moderate uplift, low cost (sparse spatial coverage)</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td><strong><code>H4-DRAINAGE-KNICK</code></strong> — Tectonic Piedmont Knickpoint &amp; Alluvial Fan Apex Lineament</td>
+<td>Regional elevation profile convexity across range-front bajada apices</td>
+<td>Low-moderate uplift, moderate cost</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td><strong><code>H5-ANISO-MARKOV</code></strong> — Anisotropic Strike-Propagating Geodesic Tube Allocation</td>
+<td>Fast-marching geodesic fault-strand completion between crack tips</td>
+<td>Moderate uplift, higher combinatorial runtime</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>3. Physical &amp; Mathematical Design of <code>G79-CSKD</code> (<code>src/gems79/cskd.py</code>)</h3>
+<p><code>G79-CSKD</code> addresses the two structural failure modes discovered in <code>G79-THVC</code> (<code>IR-79-122</code>, <code>IR-79-140</code>):
+1. <strong>Scarp-Flank Label Contamination (<code>IR-79-140</code>):</strong> In <code>G79-THVC</code>, training shards sampled pixels at $0 &lt; d_{\text{vis}} \le 3\text{ px}$ ($100\text{–}300\text{ m}$) from visible faults with label $y = 0$. Because real fault scarps and magnetic contacts span $200\text{–}400\text{ m}$, this taught Stage-1 trees to suppress physical scarp signatures unless accompanied by isotropic distance-to-catalogue (<code>52.8%</code> of <code>G79-THVC</code>'s total GBDT gain), crowding <code>G79-THVC</code> into the <code>300–500 m</code> collar (<code>median = 316 m</code>, <code>0.21% &gt; 2 km</code>) and causing a <code>0.7139 &gt; 0.70</code> overlap collision with <code>GEMSDOE83</code> (<code>h83-gvcd-dink300</code>).
+2. <strong>Non-Fault Geomorphic &amp; Survey Confounders:</strong> Pure-physics models elevate false positives along Pleistocene Lake Lahontan (<code>~1,200–1,345 m</code> ASL) and Lake Bonneville (<code>~1,552 m</code> ASL) wave-cut shoreline terraces, open-pit mine haul roads/tailings piles (<code>US BLM Mining Claims</code>), and GeoDAWN E-W flight-line levelling corrugations (<code>200 m</code> spacing in Area 1 vs <code>400 m</code> spacing in Area 2).</p>
+<p><code>G79-CSKD</code> builds an <strong>84-channel static label-free stack</strong> (<code>cskd_static_fp84.f32.mmap</code>) plus <strong>18 fold-recomputed fracture/Coulomb channels</strong> (<code>102</code> total channels):</p>
+<ul>
+<li><strong>Pleistocene Shoreline Equipotential Veto &amp; Along-Scarp Climb (<code>geodawn_dem_a2_100m.tif</code>):</strong> Wave-cut pluvial shorelines follow gravitational equipotentials ($\nabla Z \perp \hat{\mathbf{t}}<em>{\text{scarp}} \implies |\hat{\mathbf{t}}</em>{\text{scarp}} \cdot \nabla Z| \approx 0$ inside <code>[1185, 1355] m</code> and <code>[1535, 1570] m</code>), whereas segmented normal faults climb elevation toward range-front structural culminations and plunge toward relay tips ($|\hat{\mathbf{t}}_{\text{scarp}} \cdot \nabla Z| &gt; 0$). Note: <code>1,729</code> edge <code>-999999.0</code> sentinels inside the active footprint and a <code>(0.03 m, 0.09 m)</code> float32 origin offset in <code>geodawn_dem_a2_100m.tif</code> were detected and cleaned via Euclidean nearest-neighbor infill (<code>IR-79-198</code>).</li>
+<li><strong>US BLM Mining-Claim Deconfounder (<code>blm_closed_claim_distance_m.tif</code>):</strong> Encodes proximity to historical mining disturbance (<code>exp(-d_claim / 500 m)</code> and <code>scarp * (1 - exp(-d_claim / 500 m))</code>) to separate natural tectonic scarps and hydrothermal adularia from open-pit benches and cyanide-heap-leach pads.</li>
+<li><strong>Survey-Aware 2D FFT E-W Flight-Line Notch &amp; Thurston–Smith Local Wavenumber (<code>acquisition_block_id_100m.tif</code>):</strong> Applies a Gaussian directional notch around $k_x \approx 0, \lambda_y \in [200, 600]\text{ m}$ to <code>tmi_rtp</code> before computing analytic-signal amplitude $A(\mathbf{x})$, tilt angle $\theta_{\text{tilt}}$, and shallow-contact local wavenumber $k_{\text{loc}}(\mathbf{x}) = |\nabla \theta_{\text{tilt}}(\mathbf{x})|_2$ conditioned on GeoDAWN survey block spacing.</li>
+<li><strong>Lithology-Regressed Potassic Adularia Residual $K_d(\mathbf{x})$:</strong> Regresses GeoDAWN <code>K</code> linearly against <code>(Th, TC)</code> across the active footprint so felsic tuffs and K-feldspar arkoses cancel ($K_d \approx 0$), isolating hydrothermal adularia/illite upflow zones where $K_d &gt; 0$ coincides with hydrothermal magnetite-destruction troughs.</li>
+<li><strong>Decontaminated Shards + Crider–Pollard Normal-Fault Coulomb Shadow ($\Delta\text{CFS}$):</strong> Excludes $d_{\text{vis}} \le 3.0\text{ px}$ from all training shards and computes an explicit broadside stress-drop shadow (<code>net_coulomb_shadow</code>: perpendicular offset $3\text{–}14\text{ px}$ alongside long fault interiors without tip support) paired with along-range <code>net_slip_deficit</code> (<code>3.5 km</code> smoothed fault density minus <code>700 m</code> local fault density).</li>
+<li><strong>Counterfactual Pure-Physics + Structural OOF Blend &amp; Charnes–Cooper 300-m Allocation:</strong> Trains both a 102-feature structural 2-stage ensemble (LightGBM + HistGBDT + Ridge meta-stacker) and an 84-feature <strong>zero-catalogue</strong> pure-physics OOF ensemble inside nested LOQO folds, mass-calibrating the zero-catalogue head and blending $q_{\text{cf}}(\mathbf{x}) = (1 - w(\mathbf{x})) q_{\text{full}}(\mathbf{x}) + w(\mathbf{x}) \tilde{q}<em>{\text{zero}}(\mathbf{x})$ with distance-ramped Hill weight $w(\mathbf{x}) = w</em>{\text{base}} + w_{\text{far}}\, d_{\text{vis}}^2 / (d_{\text{vis}}^2 + d_0^2)$ ($d_0 = 18\text{ px}$; <code>w_base=0.05, w_far=0.25</code> selected strictly on inner folds) before lazy-greedy Charnes–Cooper fractional programming (<code>max_dots = 42,000</code>, <code>min_sep = 2.6 px</code>, <code>d_cat &gt; 3.0 px</code>).</li>
+</ul>
+<hr />
+<h3>4. Measured Experimental Results (<code>HOLDOUT-DTI</code> &amp; <code>1,221</code>-Raster Uniqueness)</h3>
+<h4>4.1 102-Feature Single-Feature Leakage Canary (<code>evidence/g79_cskd_leakage_canary.json</code>)</h4>
+<p>All <code>102</code> features (84 static + 18 fold-recomputed mechanics) were tested individually on both Seed 20 and Seed 30 (<code>204</code> tests total):
+- <strong>Seed 20 max symmetric AUC:</strong> <code>0.789071 &lt;= 0.90</code> (<code>net_log_dist</code>) — <strong>PASS (<code>0</code> violations)</strong>
+- <strong>Seed 30 max symmetric AUC:</strong> <code>0.805165 &lt;= 0.90</code> (<code>net_log_dist</code>) — <strong>PASS (<code>0</code> violations)</strong>
+- <strong>Max static label-free feature AUC:</strong> <code>0.692857</code> (Seed 20) / <code>0.715575</code> (Seed 30) (<code>lidar_ coverage / scarp</code>).</p>
+<h4>4.2 Official Dual-Seed <code>HOLDOUT-DTI</code> (<code>gems57-pooled-hide-v2</code>, <code>evidence/g79_cskd_results.json</code>)</h4>
+<table>
+<thead>
+<tr>
+<th>Arm / Candidate</th>
+<th>Budget (Dots)</th>
+<th>Seed 20 <code>HOLDOUT-DTI</code> [95% CI] ($n=11{,}321$)</th>
+<th>Seed 30 <code>HOLDOUT-DTI</code> [95% CI] ($n=11{,}342$)</th>
+<th>2-Seed Mean <code>HOLDOUT-DTI</code> ($n=22{,}663$)</th>
+<th>Dots <code>&gt; 2 km</code> from Visible</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>EXP-CSKD-3</code> (<code>G79-CSKD</code> Counterfactual + Charnes–Cooper)</strong></td>
+<td><strong><code>42,000</code></strong></td>
+<td><code>0.178129</code> <code>[0.161835, 0.194433]</code></td>
+<td><strong><code>0.214488</code></strong> <code>[0.196592, 0.232188]</code> (<strong>#1 <code>GEMSDOE79</code> Record</strong>)</td>
+<td><strong><code>0.196308</code></strong> (<strong>#1 <code>GEMSDOE79</code> Mean</strong>)</td>
+<td><strong><code>12.96%</code> (S20) / <code>8.84%</code> (S30)</strong></td>
+</tr>
+<tr>
+<td><code>G79-THVC</code> (<code>EXP-79-3</code>, Canonical Baseline)</td>
+<td><code>35,093</code></td>
+<td><strong><code>0.190517</code></strong> <code>[0.174082, 0.206932]</code></td>
+<td><code>0.194366</code> <code>[0.177400, 0.212627]</code></td>
+<td><code>0.192442</code></td>
+<td><code>0.21%</code> (live)</td>
+</tr>
+<tr>
+<td><code>EXP-CSKD-2</code> (<code>G79-CSKD</code> Uniform <code>d=2.8 px</code>, <code>37,654</code> dots)</td>
+<td><code>37,654</code></td>
+<td><code>0.149307</code> <code>[0.133514, 0.166028]</code></td>
+<td><strong><code>0.211781</code></strong> <code>[0.191327, 0.231608]</code></td>
+<td><code>0.180544</code></td>
+<td><code>1.13%</code> / <code>0.76%</code></td>
+</tr>
+<tr>
+<td><code>C2</code> (<code>H33</code> Fold-Fair Champion Control)</td>
+<td><code>37,654</code></td>
+<td><code>0.096086</code> <code>[0.082774, 0.109514]</code></td>
+<td><code>0.098898</code> <code>[0.085412, 0.112762]</code></td>
+<td><code>0.097492</code></td>
+<td>~<code>49%</code></td>
+</tr>
+<tr>
+<td><code>EXP-CSKD-1</code> (Pure Zero-Catalogue 84-Ch Multi-Physics)</td>
+<td><code>37,654</code></td>
+<td><code>0.076289</code> <code>[0.062322, 0.089525]</code></td>
+<td><code>0.069605</code> <code>[0.053984, 0.086325]</code></td>
+<td><code>0.072947</code></td>
+<td><code>78.79%</code> / <code>78.57%</code></td>
+</tr>
+<tr>
+<td><code>C0</code> (Uniform Random Footprint Control)</td>
+<td><code>37,654</code></td>
+<td><code>0.044670</code> <code>[0.039968, 0.049392]</code></td>
+<td><code>0.049097</code> <code>[0.043424, 0.055134]</code></td>
+<td><code>0.046884</code></td>
+<td>~<code>75%</code></td>
+</tr>
+</tbody>
+</table>
+<h4>4.3 Decontamination Physics Shift &amp; <code>1,221</code>-Raster Uniqueness Audit</h4>
+<ol>
+<li><strong>Collapse of Isotropic Distance Shortcut (<code>52.8% -&gt; 9.7%</code>):</strong> Removing false-negative flank pixels ($0 &lt; d_{\text{vis}} \le 3\text{ px}$) slashed Stage-1 GBDT gain on isotropic fault distance (<code>net_log_dist</code> + <code>net_exp_near_600</code> + <code>net_exp_mid_1800</code> + <code>net_exp_far_4500</code>) from <strong><code>52.8%</code> in <code>G79-THVC</code> down to <code>9.7%</code> in <code>G79-CSKD</code></strong>, shifting <strong><code>90.3%</code> of model gain</strong> onto directional fracture-mechanics and physical observables: <code>net_tip_fwd_35px</code> (<code>17.96%</code>), <code>net_tip_x_scarp</code> (<code>7.96%</code>), <code>det_elev_prom_600m</code> (<code>3.65%</code>), <code>volc_vent_prox_3km</code> (<code>2.45%</code>), and <code>net_coulomb_shadow</code> (<code>1.47%</code>).</li>
+<li><strong>Broader Off-Fault Discovery Reach:</strong> On the full-footprint live map (<code>42,000</code> dots, strictly $d_{\text{cat}} \ge 3.162\text{ px} = 316.2\text{ m}$), <code>G79-CSKD</code> places <strong><code>2.85%</code> (<code>1,198</code> dots) beyond <code>2 km</code></strong> (<code>90th percentile = 1.28 km</code>) versus only <code>0.21%</code> (<code>74</code> dots, <code>90th percentile = 632 m</code>) in <code>G79-THVC</code>.</li>
+<li><strong>Complete De-Collision Against <code>GEMSDOE83</code> &amp; All Valid <code>-zeros.tif</code> Cross-Repo Sparse Maps (<code>1,221</code> rasters audited):</strong>
+   - <strong>Pre-placement continuous surface:</strong> <code>max |Spearman ρ| = 0.6409 &lt;= 0.90</code> (<code>0</code> Spearman collisions); <code>0</code> cross-repo <code>&lt;= 50k</code> surface collisions (<code>max = 0.2437</code>).
+   - <strong>Post-placement binary dots (<code>42,000</code> px):</strong> <code>max |Spearman ρ| = 0.4246 &lt;= 0.90</code>; <strong><code>GEMSDOE83</code> (<code>h83-gvcd-dink300</code>) forward 3-px overlap drops from <code>0.7139</code> (<code>G79-THVC</code> collision) to <code>0.6137 &lt;= 0.70</code> (<code>G79-CSKD</code> PASS)</strong>! Across <strong>100% of valid all-finite <code>-zeros.tif</code> cross-repo sparse maps (<code>&lt;= 50k</code> dots)</strong>, max 3-px overlap is <strong><code>0.6796 &lt;= 0.70</code> (<code>0</code> collisions)</strong>. Only a single invalid NaN-outside file (<code>GEMSDOE25:...5e4b5a98d2c7-nan.tif</code>, <code>48,664</code> dots) edges to <code>0.7062</code> (<code>IR-79-200</code>), alongside self-repo <code>G79-THVC</code> (<code>0.7626</code>) and the universal pigeonhole witnesses (<code>17GEMSDOE = 1.0000</code>, <code>13GEMSDOE = 0.9982</code>).</li>
+</ol>
+<h4>4.4 Preregistered Gate Verdict &amp; Portfolio Recommendation</h4>
+<p>Per <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_g79_cskd.json"><code>registry/preregistration_g79_cskd.json</code></a>, replacing <code>G79-THVC</code> as canonical artifact required beating <code>G79-THVC</code> on <strong>both</strong> Seed 20 and Seed 30 individually AND clearing the literal <code>uniqueness.py</code> gate. Because <code>G79-CSKD</code> set the all-time <code>GEMSDOE79</code> record on Seed 30 (<code>0.2145</code> vs <code>0.1944</code>, <code>+0.0201</code>) and 2-seed mean (<code>0.1963</code> vs <code>0.1924</code>), but trailed <code>G79-THVC</code> on Seed 20 (<code>0.1781</code> vs <code>0.1905</code>, <code>-0.0124</code>) where inner-fold selection chose a higher far-field weight (<code>w_far = 0.25</code>, placing <code>12.96%</code> of dots <code>&gt; 2 km</code> vs <code>8.84%</code> on Seed 30), we strictly honor the preregistration:
+- <strong><code>G79-THVC</code> remains canonical</strong> in <code>docs/downloads/</code> and <code>run_card.json</code> (<code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code>, <code>0</code> slots spent).
+- <strong><code>G79-CSKD</code> is preserved byte-intact</strong> in <code>archive/g79_cskd_6da2620c/</code> with its complete Run Card (<code>archive/g79_cskd_6da2620c/run_card_cskd.json</code>). Notably, if a human participant has already tested or plans to test <code>GEMSDOE83</code>, <code>G79-CSKD</code> (<code>0.6137 &lt;= 0.70</code> overlap vs <code>GEMSDOE83</code>) provides a genuinely orthogonal counterfactual alternative whereas <code>G79-THVC</code> (<code>0.7139 &gt; 0.70</code>) collides with <code>GEMSDOE83</code>.</p></div></section><section class="section"><div class="prose table-scroll"><h2>What H33 teaches us — and what it does not prove</h2>
 <h3>Answer to the competition question</h3>
 <p><strong>A better leaderboard result is possible in principle, but this repository has not demonstrated one.</strong> The reported H33 result is <strong>an unverified historical report</strong>, not an artifact-linked organizer receipt. The GEMSDOE32 site itself still describes its file as <strong>UNSCORED</strong>. The public leader observed on 2026-10-22 is recorded separately as a <strong>PUBLIC-OBSERVATION</strong> in the <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/review_e4a4422d_sources.json">source ledger</a>, never as this project's score. No numerical leaderboard projection is made here.</p>
 <p>The useful lesson is <strong>prediction efficiency</strong>, not copying H33's pixels. Its apparent historical advantage is consistent with reducing redundant prediction mass while retaining coverage. That is a conditional metric explanation, not proof of why the organizer assigned a particular score.</p>

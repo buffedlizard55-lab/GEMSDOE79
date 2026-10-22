@@ -279,6 +279,19 @@
       "limits": [
         "Metadata and product URLs verified on 2026-10-22; direct shell download from geodesy.unr.edu is blocked inside the restricted sandbox, so midas.NA.txt requires owner mirror placement before ingestion."
       ]
+    },
+    {
+      "id": "BLM-MINING-CLAIMS",
+      "source_type": "OFFICIAL PUBLIC FEDERAL GIS",
+      "authority": "U.S. Bureau of Land Management (BLM) National Mining Claims ArcGIS MapServer Layer 2",
+      "url": "https://gis.blm.gov/nlsdb/rest/services/Mining_Claims/MiningClaims/MapServer/2",
+      "access": "SHA-256-verified GeoDAWN-grid distance compilation via buffedlizard55-lab/GEMSDOE24 (commit 07345ea0604953d7efb858d9cfbc21e20c7aca0b)",
+      "verified_claims": [
+        "Public federal mineral-estate mining claim records across Nevada/Great Basin; used in G79-CSKD strictly as a non-fault anthropogenic surface-disturbance deconfounder (open-pit benches, haul roads, and potassic tailings piles)."
+      ],
+      "limits": [
+        "Mirrored Euclidean distance grid verified via SHA-256 (92c2762b1c205221...); proximity to closed claims does not preclude genuine fault-hosted mineralization."
+      ]
     }
   ]
 }
