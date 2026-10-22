@@ -36,9 +36,10 @@ def verify_manifest(archive_dir: Path) -> dict:
     manifest = json.loads((archive_dir / 'manifest.json').read_text())
     archived_files = 0
     for row in manifest['files']:
-        if 'archive_path' in row:
+        if row.get('archive_path'):
             p = ROOT / row['archive_path']
-            if not p.exists() or sha256(p) != row['archived_sha256']:
+            expected_sha = row.get('archived_sha256') or row['source_sha256']
+            if not p.exists() or sha256(p) != expected_sha:
                 raise ValueError(f"Archive hash mismatch: {row['archive_path']}")
             archived_files += 1
     if list(archive_dir.rglob('*.py')) or list(archive_dir.rglob('*.html')):
@@ -173,9 +174,9 @@ def main() -> None:
 
     cspt = audit_lane(
         lane_id='H79-CSPT',
-        archive_dir=ROOT / 'archive/h79_cspt_464d591',
-        tif_rel='archive/h79_cspt_464d591/docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif',
-        card_rel='archive/h79_cspt_464d591/evidence/h79_cspt/run_card.json',
+        archive_dir=ROOT / 'archive/h79_cspt_3d386a3',
+        tif_rel='archive/h79_cspt_3d386a3/docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif',
+        card_rel='archive/h79_cspt_3d386a3/evidence/h79_cspt/run_card.json',
         grid=grid,
         witness_records=witnesses,
         protocol_violations=[

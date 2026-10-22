@@ -127,13 +127,14 @@ def test_truthy_strings_and_booleans_do_not_fake_evidence():
     assert 'current_account_weekly_capacity_not_verified' in got['blockers']
 
 
-@pytest.mark.parametrize('archive_rel', ['archive/h79_mct_c26efec', 'archive/h79_cspt_464d591'])
+@pytest.mark.parametrize('archive_rel', ['archive/h79_mct_c26efec', 'archive/h79_cspt_3d386a3'])
 def test_incoming_concurrent_archives_preserve_provenance_without_executable_fork(archive_rel):
     archive = ROOT / archive_rel
     manifest = json.loads((archive / 'manifest.json').read_text())
     for row in manifest['files']:
-        if 'archive_path' in row:
-            assert hashlib.sha256((ROOT / row['archive_path']).read_bytes()).hexdigest() == row['archived_sha256']
+        if row.get('archive_path'):
+            expected_sha = row.get('archived_sha256') or row['source_sha256']
+            assert hashlib.sha256((ROOT / row['archive_path']).read_bytes()).hexdigest() == expected_sha
     assert not list(archive.rglob('*.py')) and not list(archive.rglob('*.html'))
     assert not list(archive.rglob('vendor/gems57/uniqueness.py'))
     assert 'DO NOT SUBMIT' in (archive / 'README.md').read_text()

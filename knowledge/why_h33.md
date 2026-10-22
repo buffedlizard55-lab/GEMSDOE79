@@ -118,7 +118,7 @@ underperforming uniform random placement (`0.0504` / `0.0496`), and trailing the
 fold-fair H33 control (`0.0961` / `0.0989`). Likewise, independent canonical
 audits (`evidence/concurrent_lanes_audit.json`) of the two archived concurrent
 lanes (`H79-MCT` in `archive/h79_mct_c26efec/` and `H79-CSPT` in
-`archive/h79_cspt_464d591/`) confirm that both failed the literal `0.70` overlap
+`archive/h79_cspt_3d386a3/`) confirm that both failed the literal `0.70` overlap
 gate (`1.0000` overlap against `17GEMSDOE_E-proba-multiscale`) and relied on
 unauthorized local dense-prior exemptions and post-duplicate constrained overlap
 capping (`0.6800` and `0.6900`).

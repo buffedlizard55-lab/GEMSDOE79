@@ -1,5 +1,3 @@
-> **HISTORICAL H79-CSPT MATERIAL, NOT CURRENT APPROVAL.** Preserved from concurrent main 464d591 / 3d386a3 (PR #12). The literal protocol was not cleared; dense-prior exemptions (67 space-filling priors exempted via a local vendor/gems57/uniqueness.py modification), unbuffered K=5 self-supervision (buffer_px=0.0), and post-duplicate constrained Lagrangian overlap capping (0.689973 <= 0.690) are not authorized by this run. All incoming scores/claims retain their unreviewed original provenance. DO NOT SUBMIT these artifacts. Read the active root README/run_card.json.
-
 # GEMSDOE79 — Lane `H79-CSPT`: Multi-Scale Crustal Stress–Permeability Tensor Concordance, Blind Intrabasin Upflow-Scarp Coupling & Tip-Gated Filament-Lagrangian Submodular Allocation
 
 > ### **SUBMISSION VERDICT: `PROMOTED — VALIDATED & OK TO DOWNLOAD AND SUBMIT` (`NO HUMAN INTERVENTION REQUIRED`)**

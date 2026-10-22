@@ -49,19 +49,18 @@ to `registry/template_pin.json`, and zero competition submission slots were used
 ## Pass 2 — Bugs fixed, concurrent lane quarantined, and readiness gate hardened
 
 1. **Quarantined concurrent `H79-CSPT` (`IR-79-31`):**
-   - Merged `origin/main` (`3d386a3`) into `arena/700397d4-gemsdoe79`, preserving
+   - Merged `origin/main` (`3d386a3` and `f93b8d7`) into `arena/700397d4-gemsdoe79`, preserving
      canonical `E1` files and restoring `reports/session_review_9e23b44d.md`
      from PR #13 (`20eef10`).
-   - Archived all 29 unique artifacts and non-executable `.txt` sources from
-     `464d591` under [`archive/h79_cspt_464d591/`](../archive/h79_cspt_464d591/README.md)
-     with a 77-entry SHA-256 `manifest.json`, explicit `DO NOT SUBMIT` banners,
+   - Verified the unified archive under [`archive/h79_cspt_3d386a3/`](../archive/h79_cspt_3d386a3/README.md)
+     with its SHA-256 `manifest.json`, explicit `DO NOT SUBMIT` banners,
      zero executable `.py`/`.html` files, and no private `uniqueness.py` fork.
    - Created [`scripts/audit_archived_concurrent_lanes.py`](../scripts/audit_archived_concurrent_lanes.py)
      and generated [`evidence/concurrent_lanes_audit.json`](../evidence/concurrent_lanes_audit.json),
-     verifying both `archive/h79_mct_c26efec` and `archive/h79_cspt_464d591` with
+     verifying both `archive/h79_mct_c26efec` and `archive/h79_cspt_3d386a3` with
      the unmodified canonical `gems57.validate`, `gems57.uniqueness`, and
      `gems79.status` tools.
-2. **Hardened `leakage_canary` validation in `src/gems79/status.py` (`IR-79-30`):**
+2. **Hardened `leakage_canary` validation in `src/gems79/status.py` (`IR-79-31`):**
    - Previously, `src/gems79/status.py` checked only `canary.get('passed') is True`,
      allowing missing, non-numeric, or out-of-range `auc` values (`< 0.5` or
      `> 0.90`), wrong `required_threshold`, or `features_cleared <= 0` to bypass
@@ -72,7 +71,7 @@ to `registry/template_pin.json`, and zero competition submission slots were used
 3. **Updated `AGENTS.md` and `knowledge/why_h33.md` (`IR-79-32`):**
    - Made Rule 2 in `AGENTS.md` branch-neutral (referring to Arena's active
      session metadata rather than hardcoding a prior session's branch) and noted
-     both `archive/h79_mct_c26efec/` and `archive/h79_cspt_464d591/`.
+     both `archive/h79_mct_c26efec/` and `archive/h79_cspt_3d386a3/`.
    - Updated `knowledge/why_h33.md` to reference both the post-stop offline
      diagnostic (`evidence/post_stop_diagnostic.json`) and the concurrent-lane
      audit (`evidence/concurrent_lanes_audit.json`) while keeping `run_card.json`

@@ -20,8 +20,13 @@
 8. Run tests, offline byte/format verification, site link checking and a final
    requirements review. Record all three review passes and unresolved limitations.
 
-- Concurrent H79-MCT (`archive/h79_mct_c26efec/`) and H79-CSPT (`archive/h79_cspt_464d591/`)
-  material is historical text/data under `archive/`; do not reactivate their dense-prior
-  exemptions, unbuffered self-supervision, placement amendments, constrained overlap caps
-  or positive flags. Current E1 is stopped, all active status aliases are negative, and any
-  protocol clarification requires explicit authorization, not an agent-created bypass.
+- Concurrent H79-MCT material is historical text/data under `archive/`; do not
+  reactivate its dense-prior exemptions, placement amendments or positive flags.
+  Current E1 is stopped, all active status aliases are negative, and any protocol
+  clarification requires explicit authorization, not an agent-created bypass.
+
+- PR #12 H79-CSPT is also historical/non-authoritative under
+  `archive/h79_cspt_3d386a3/`. It excluded space-filling priors and changed the
+  shared novelty module; neither promotion nor the local fork is adopted.
+  Before publishing run `scripts/verify_project.py`: its publication contract
+  rejects a conflicting README, extra upload artifacts or a replaced inventory.

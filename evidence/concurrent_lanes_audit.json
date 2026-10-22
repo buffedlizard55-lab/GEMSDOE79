@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "reviewed_utc": "2026-10-22T00:56:45.620972+00:00",
+  "reviewed_utc": "2026-10-22T01:04:09.167161+00:00",
   "session_branch": "arena/700397d4-gemsdoe79",
   "shared_uniqueness_sha256": "1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95",
   "purpose": "Independent byte-level audit of both concurrent lanes merged into main (H79-MCT at c26efec and H79-CSPT at 464d591 / 3d386a3). Confirms both are properly archived as non-executable historical provenance, both fail the canonical literal 0.70 overlap gate (1.0000 overlap against 17GEMSDOE E-proba), and both return ok_to_submit=False under the fail-closed readiness gate.",
@@ -130,14 +130,14 @@
     "H79-CSPT": {
       "lane_id": "H79-CSPT",
       "manifest_verification": {
-        "archive_dir": "archive/h79_cspt_464d591",
-        "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
-        "total_manifest_entries": 77,
-        "archived_files_verified": 29,
+        "archive_dir": "archive/h79_cspt_3d386a3",
+        "source_commit": "3d386a3f0c6f89c31e33a656dee8851cee64753d",
+        "total_manifest_entries": 55,
+        "archived_files_verified": 54,
         "no_executable_py_or_html": true,
         "no_private_uniqueness_fork": true
       },
-      "archived_tif": "archive/h79_cspt_464d591/docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif",
+      "archived_tif": "archive/h79_cspt_3d386a3/docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif",
       "archived_tif_sha256": "388d86783e743a7f1a466e5f2cc58e5a694da12908a3ffe14bb8e55409cf75fc",
       "emitted_positive_pixels": 36500,
       "local_format_passed": true,

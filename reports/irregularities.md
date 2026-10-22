@@ -80,3 +80,34 @@ Session 2026-10-22 concurrent-merge quarantine and canary-gate hardening (branch
 GeoTIFF is available. It is **not protocol-unique** and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
 inspector. Negative results and the impossible-gate certificate are deliverables.
+
+## Session 2026-10-22 — PR #12 release conflict (IR-79-30)
+
+The starting merge `3d386a3` advertised H79-CSPT promotion in the README and
+main/executive pages, while the canonical root card and status API remained
+negative for G79-FABRIC-OFFSET. The CSPT solver's
+`load_packed_informative_halos` excluded `is_space_filling` priors; its audit's
+`overall_uniqueness_pass` was therefore not an all-registry literal pass. The
+merge also replaced the shared novelty module, pin-manifest schema, feature API,
+data manifest and registry index. Existing verification would fail before
+publishing (feature import and pin schema did not match the stopped run).
+
+Preserved all 55 incoming changed paths in a SHA-256 manifest and a clearly
+non-authoritative archive; the modified shared module is retained in Git history
+only. Recovered active files from the verified first parent without changing
+branches. No CSPT score, canary or organizer receipt is authenticated by this
+review. Its README's unreceipted organizer-score label and projected gains are
+not repeated as scientific results. Archived source/tests are non-executable.
+Added release guards for contradictory README status, unlinked/extra downloadable
+TIFF/ZIPs, and a replaced frozen inventory. A new one-witness re-measurement
+confirms zero uncovered allowed pixels; this is not a new full registry scan.
+See `reports/session_review_8ed5d89a.md` and
+`evidence/session_witness_review_8ed5d89a.json`. E1 and weekly slots remain stopped.
+
+## Session 2026-10-22 — Canary readiness hardening and independent concurrent-lane audit (branch `arena/700397d4-gemsdoe79`)
+
+| ID | Finding and evidence | Resolution / remaining limitation |
+|---|---|---|
+| IR-79-31 | `src/gems79/status.py` checked only `canary.get("passed") is True` for `leakage_canary`, allowing a contradictory or missing numerical `auc`, `required_threshold != 0.90`, or `features_cleared <= 0` to clear `feature_alone_canaries_not_cleared`. | Hardened `src/gems79/status.py` to require numeric `0.5 <= auc <= 0.90`, `required_threshold == 0.90`, and positive `int` `features_cleared` in addition to `passed is True`. Added 19 parameterized unit tests in `tests/test_readiness_errors.py`. |
+| IR-79-32 | Both archived concurrent lanes (`H79-MCT` in `archive/h79_mct_c26efec/` and `H79-CSPT` in `archive/h79_cspt_3d386a3/`) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared `gems57.uniqueness`, `gems57.validate`, and `gems79.status` tools. | Implemented `scripts/audit_archived_concurrent_lanes.py` and generated `evidence/concurrent_lanes_audit.json` (plus `evidence/session_witness_700397d4.json` and `reports/session_review_700397d4.md`), proving with unmodified shared code that both archived GeoTIFFs (`d1a4158a…` and `d55570bf…`) have `1.0000` literal 3-px forward overlap against `17GEMSDOE_E-proba-multiscale`, relied on post-duplicate constrained overlap capping (`0.6800` and `0.6900` against sparse/semi-dense registry priors), and return `ok_to_submit: false`, `verdict: "negative"`. |
+

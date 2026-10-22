@@ -200,5 +200,47 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 <p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A newly computed, byte-distinct
 GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
-inspector. Negative results and the impossible-gate certificate are deliverables.</p></div></section></main>
+inspector. Negative results and the impossible-gate certificate are deliverables.</p>
+<h3>Session 2026-10-22 — PR #12 release conflict (IR-79-30)</h3>
+<p>The starting merge <code>3d386a3</code> advertised H79-CSPT promotion in the README and
+main/executive pages, while the canonical root card and status API remained
+negative for G79-FABRIC-OFFSET. The CSPT solver's
+<code>load_packed_informative_halos</code> excluded <code>is_space_filling</code> priors; its audit's
+<code>overall_uniqueness_pass</code> was therefore not an all-registry literal pass. The
+merge also replaced the shared novelty module, pin-manifest schema, feature API,
+data manifest and registry index. Existing verification would fail before
+publishing (feature import and pin schema did not match the stopped run).</p>
+<p>Preserved all 55 incoming changed paths in a SHA-256 manifest and a clearly
+non-authoritative archive; the modified shared module is retained in Git history
+only. Recovered active files from the verified first parent without changing
+branches. No CSPT score, canary or organizer receipt is authenticated by this
+review. Its README's unreceipted organizer-score label and projected gains are
+not repeated as scientific results. Archived source/tests are non-executable.
+Added release guards for contradictory README status, unlinked/extra downloadable
+TIFF/ZIPs, and a replaced frozen inventory. A new one-witness re-measurement
+confirms zero uncovered allowed pixels; this is not a new full registry scan.
+See <code>reports/session_review_8ed5d89a.md</code> and
+<code>evidence/session_witness_review_8ed5d89a.json</code>. E1 and weekly slots remain stopped.</p>
+<h3>Session 2026-10-22 — Canary readiness hardening and independent concurrent-lane audit (branch <code>arena/700397d4-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-31</td>
+<td><code>src/gems79/status.py</code> checked only <code>canary.get("passed") is True</code> for <code>leakage_canary</code>, allowing a contradictory or missing numerical <code>auc</code>, <code>required_threshold != 0.90</code>, or <code>features_cleared &lt;= 0</code> to clear <code>feature_alone_canaries_not_cleared</code>.</td>
+<td>Hardened <code>src/gems79/status.py</code> to require numeric <code>0.5 &lt;= auc &lt;= 0.90</code>, <code>required_threshold == 0.90</code>, and positive <code>int</code> <code>features_cleared</code> in addition to <code>passed is True</code>. Added 19 parameterized unit tests in <code>tests/test_readiness_errors.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-32</td>
+<td>Both archived concurrent lanes (<code>H79-MCT</code> in <code>archive/h79_mct_c26efec/</code> and <code>H79-CSPT</code> in <code>archive/h79_cspt_3d386a3/</code>) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared <code>gems57.uniqueness</code>, <code>gems57.validate</code>, and <code>gems79.status</code> tools.</td>
+<td>Implemented <code>scripts/audit_archived_concurrent_lanes.py</code> and generated <code>evidence/concurrent_lanes_audit.json</code> (plus <code>evidence/session_witness_700397d4.json</code> and <code>reports/session_review_700397d4.md</code>), proving with unmodified shared code that both archived GeoTIFFs (<code>d1a4158a…</code> and <code>d55570bf…</code>) have <code>1.0000</code> literal 3-px forward overlap against <code>17GEMSDOE_E-proba-multiscale</code>, relied on post-duplicate constrained overlap capping (<code>0.6800</code> and <code>0.6900</code> against sparse/semi-dense registry priors), and return <code>ok_to_submit: false</code>, <code>verdict: "negative"</code>.</td>
+</tr>
+</tbody>
+</table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
