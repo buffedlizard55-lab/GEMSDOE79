@@ -1,7 +1,197 @@
 {
   "schema_version": 1,
   "session": "a26add66",
-  "state": "final_checks_in_progress",
+  "checked_utc": "2026-10-22T20:09:34.269657+00:00",
+  "state": "completed",
+  "all_expected_outcomes": true,
+  "dependency_freeze_matches_lock": true,
+  "checks": [
+    {
+      "check": "python_tests",
+      "command": [
+        "/home/user/GEMSDOE79/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "stdout_tail": [
+        "........................................................................ [ 11%]",
+        "........................................................................ [ 23%]",
+        "........................................................................ [ 35%]",
+        "........................................................................ [ 46%]",
+        "........................................................................ [ 58%]",
+        "........................................................................ [ 70%]",
+        "........................................................................ [ 82%]",
+        "........................................................................ [ 93%]",
+        ".....................................                                    [100%]",
+        "613 passed in 91.65s (0:01:31)"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "check": "project_integrity",
+      "command": [
+        "/home/user/GEMSDOE79/.venv/bin/python",
+        "scripts/verify_project.py"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "stdout_tail": [
+        "      \"separate_selector_has_not_approved_a_slot\",",
+        "      \"separate_selector_receipt_missing_or_unbound\",",
+        "      \"explicit_submission_approval_absent\"",
+        "    ],",
+        "    \"account_side_conditions\": [",
+        "      \"A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).\",",
+        "      \"You must be a registered, eligible participant who accepted the competition rules.\"",
+        "    ],",
+        "    \"message\": \"OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.\",",
+        "    \"organizer_acceptance_established\": false",
+        "  }",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "check": "site_links_and_evidence",
+      "command": [
+        "/home/user/GEMSDOE79/.venv/bin/python",
+        "scripts/check_site.py"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "stdout_tail": [
+        "{",
+        "  \"passed\": true,",
+        "  \"pages\": 13,",
+        "  \"local_links_checked\": 342,",
+        "  \"all_pages_reachable_from_home\": true,",
+        "  \"compatibility_redirects\": 2,",
+        "  \"external_assets\": 0,",
+        "  \"scientific_tables_and_full_gates_match_receipts\": true,",
+        "  \"source_health_is_not_claimed_as_receipt\": true,",
+        "  \"submit\": false",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "check": "download_identity_tests",
+      "command": [
+        "node",
+        "--test",
+        "tools/browser-qa/download-check.test.cjs"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "stdout_tail": [
+        "  duration_ms: 0.201227",
+        "  type: 'test'",
+        "  ...",
+        "1..12",
+        "# tests 12",
+        "# suites 0",
+        "# pass 12",
+        "# fail 0",
+        "# cancelled 0",
+        "# skipped 0",
+        "# todo 0",
+        "# duration_ms 78.937127"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "check": "submission_refusal",
+      "command": [
+        "/home/user/GEMSDOE79/.venv/bin/python",
+        "scripts/submission_status.py"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "passed": true,
+      "stdout_tail": [
+        "    \"negative_scientific_verdict\",",
+        "    \"separate_selector_has_not_approved_a_slot\",",
+        "    \"separate_selector_receipt_missing_or_unbound\",",
+        "    \"explicit_submission_approval_absent\"",
+        "  ],",
+        "  \"account_side_conditions\": [",
+        "    \"A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).\",",
+        "    \"You must be a registered, eligible participant who accepted the competition rules.\"",
+        "  ],",
+        "  \"message\": \"OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.\",",
+        "  \"organizer_acceptance_established\": false",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "check": "official_format",
+      "command": [
+        "/home/user/GEMSDOE79/.venv/bin/python",
+        "scripts/validate_portal_spec.py",
+        "data/reference/sample_submission.tif",
+        "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+        "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "passed": true,
+      "stdout_tail": [
+        "PASS                     data/reference/sample_submission.tif",
+        "FAIL R6                  docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+        "    R6 data outside the bounds is null or NaN: 7111787 non-NaN cell(s) outside the template bounds (of 7111787)",
+        "FAIL R6                  docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip",
+        "    R6 data outside the bounds is null or NaN: 7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "check": "literal_preflight",
+      "command": [
+        "/home/user/GEMSDOE79/.venv/bin/python",
+        "scripts/preflight_new_lane.py"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "passed": true,
+      "stdout_tail": [
+        "{",
+        "  \"start_new_lane\": false,",
+        "  \"state\": \"impossible_under_literal_gate\",",
+        "  \"exit_code\": 2,",
+        "  \"reason\": \"One hash-verified registry raster covers every allowed cell with its positive support. Any nonempty candidate has 3-px overlap 1.0 > 0.70; stop before experiments.\",",
+        "  \"witness_sha256\": \"ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be\",",
+        "  \"covered_allowed_fraction\": 1.0,",
+        "  \"limit\": 0.7,",
+        "  \"scope\": \"Literal dot definition only. A protocol amendment is not silently assumed.\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "check": "whitespace",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "passed": true,
+      "stdout_tail": [],
+      "stderr_tail": []
+    }
+  ],
+  "scientific_experiments": 0,
+  "new_candidate_tiffs": 0,
+  "competition_slots_used": 0,
   "submission_approved": false,
-  "note": "Temporary check inventory; replaced with actual command outcomes before final delivery."
+  "scope": "Software and inherited-file verification; not candidate validation or organizer acceptance."
 }

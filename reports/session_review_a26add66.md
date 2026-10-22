@@ -84,6 +84,7 @@ An initial final sweep caught links to this not-yet-created report; the report w
 created before the final rerun rather than suppressing link validation. Final
 command outcomes are recorded in
 [`verification_a26add66.json`](../evidence/verification_a26add66.json).
+After synchronizing concurrent main work, **613 Python tests and 12 JavaScript tests passed**.
 Checks include the full Python suite, project verifier, site links/evidence,
 JavaScript downloaded-file identity tests, expected blocked submission status,
 strict format refusal and whitespace diff checks. The installed package freeze
@@ -156,3 +157,13 @@ The terminal [JSON card](../evidence/run_card_a26add66.json) is negative and use
 nulls for unmeasured candidate quantities. Core values are served by not spending
 a slot on an impossible novelty gate, fixing an actual automated-validation bug,
 and stating unmet requirements rather than manufacturing a success.
+
+## Concurrent-main reconciliation
+
+Merged the then-current `origin/main` into the active session branch without
+switching branches. Preserved concurrent readiness-review code, README history,
+source-feed changes and their separately generated VENTPROX archive. That raster
+was created by another session and is not a new candidate from this review or
+approved by this work. Rebuilt generated site files from the combined renderer;
+kept both the concurrent readiness command and this review's format-warning fix.
+All final command outcomes above were measured after that synchronization.
