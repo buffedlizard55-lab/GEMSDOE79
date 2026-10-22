@@ -74,6 +74,8 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
 
+Concurrent reports merged from main remain available: [validator/publication review 45998a01](reports/session_review_45998a01.md), [H80 pilot review 842c8c7c](reports/session_review_842c8c7c.md), and [CFSKD negative report](reports/cfskd_analysis.md). Their scientific experiments were performed by other sessions, not this one. Limited-comparator uniqueness claims in those reports are not the required full-registry clearance and do not alter the canonical STOP. Their prior README prose is [preserved verbatim](archive/review_e4a4422d/readme_incoming_5e0d031.txt), not adopted as current guidance.
+
 Archived lane narratives and figures are historical, not current approval. Stopped-lane bytes and concurrent reviewers' work remain preserved. The following full prompt is retained verbatim from the pre-review README; historical requests inside it do not override the measured STOP.
 
 ---
