@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<title>G79-CJX — new unique research GeoTIFF (do not submit) · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">G79-CJX / NEW UNIQUE TIFF / NEGATIVE</p><h1>A new map. Falsified before any slot.</h1><p class="lead">A later preregistered, catalogue-free lane generated a genuinely new GeoTIFF, machine-validated it, and rejected it on the holdout. Download for research; do not submit.</p></section>
+<section class="section"><div class="download-warning"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong><br>
+Computed automatically from the run-card gates below; no human inspector is involved. Local format passes every
+portal-format check (single band, EPSG:32611, sample shape/transform, all values finite and in [0, 1]), but format PASS
+is not submission approval, and a manual upload is not a bypass of the failed scientific gates.</div>
+<div class="actions"><a class="button" href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/archive/g79_cjx/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.tif">↓ Research GeoTIFF (GitHub) <span>94 KiB</span></a>
+<a class="button secondary" href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/archive/g79_cjx/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.zip">↓ ZIP (GitHub)</a></div>
+<p class="micro">Name (records only): gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros · Note (91/140): GEMSDOE79 G79-CJX: RTP x gravity persistent director junctions, catalogue-free, 20k dots s3<br>
+SHA-256: 5bdebaafc7c15bd6f9de6092398c86618986d19d4d06075acf92386948563e47 · 20,000 binary dots · zeros outside the footprint</p></section>
+<section class="section prose"><h2>Hypothesis and mimic</h2><p>Buried fault intersections, terminations and stepovers that are missing from the USGS/INGENIOUS catalogue still juxtapose rocks of different density and magnetic susceptibility. At such a junction, potential-field edge directors are multi-modal (several strikes meet) persistently across smoothing scales in BOTH reduced-to-pole magnetics and isostatic gravity, whereas a single straight lithologic contact is uni-modal and a flat basin has no edge energy. A catalogue-free surface that requires persistent, edge-weighted director dispersion in both fields therefore targets unmapped structural junctions rather than continuations of mapped traces.</p>
+<p><strong>Named non-fault mimic:</strong> Pluton margins and volcanic caldera ring contacts (multi-strike density/susceptibility junctions with no through-going fault), and airborne survey-block seams/levelling joins in the GeoDAWN grids. Falsification checks: a phase-randomized (power-spectrum-matched) field rebuild must collapse the junction surface&#x27;s holdout skill toward the uniform control; skill confined to one smoothing scale or one field also falsifies the junction reading.</p></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">HOLDOUT-DTI · gems57-pooled-hide-v2 · NOT A LEADERBOARD SCORE</p>
+<h2>Below its own controls.</h2></div><p>Buffered whole-component hide-and-recover; α = 0.2, β = 0.8, 300 m triangular kernel.
+Withheld positives: seed 20 n = 11,321, seed 30 n = 11,342.</p></div>
+<div class="table-scroll"><table><thead><tr><th>Arm</th><th>Seed 20 HOLDOUT-DTI</th><th>Seed 30 HOLDOUT-DTI</th></tr></thead><tbody>
+<tr><td>EXP2 CJXFULL @20k (candidate)</td><td>0.0256 [0.0181, 0.0338]</td><td>0.0319 [0.0224, 0.0418]</td></tr>
+<tr><td>EXP1 CJXJ @20k</td><td>0.0248</td><td>0.0220</td></tr>
+<tr><td>EXP3 CJXFULL @37,654 (sensitivity)</td><td>0.0335</td><td>0.0387</td></tr>
+<tr><td>EDGE control</td><td>0.0259</td><td>0.0338</td></tr>
+<tr><td>UNIFORM control</td><td>0.0310</td><td>0.0335</td></tr>
+<tr><td>Phase-randomized null (σ=2)</td><td>0.0338</td><td>0.0324</td></tr>
+</tbody></table></div>
+<p class="micro">The null beats the real σ=2 junction surface on both seeds, so the junction reading is falsified, not merely weak.
+Canonical G79-THVC same-evaluator point estimates (0.1905 / 0.1944) remain the holdout bar. Leakage canary max symmetric AUC:
+0.5526 / 0.5710 (gate ≤ 0.90).</p></section>
+<section class="section prose"><h2>Automated gates</h2><ul>
+<li>Local format and [0, 1] range: <strong>PASS</strong></li>
+<li>Leakage canaries, both seeds: <strong>PASS</strong></li>
+<li>Beats EDGE/UNIFORM controls (paired CI excludes 0, both seeds): <strong>FAIL</strong></li>
+<li>Beats current holdout best (G79-THVC), both seeds: <strong>FAIL</strong></li>
+<li>Dot-field novelty on the restored subset: <strong>FAIL</strong>
+(worst final forward overlap 0.5219; worst |ρ| 0.0832;
+pre-placement surface reaches 0.7593 vs G79-MAG)</li>
+<li>Literal novelty gate: <strong>BLOCKED for every nonempty candidate</strong> — Impossible for every nonempty candidate under the literal positive-support reading: pinned witness ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be covers 100% of allowed cells (preflight exit 2). On the restored subset alone the worst literal forward overlap is 0.82515. This gate cannot be repaired by any pixel change; it needs a prospective protocol decision (amendment D-3 question), not a lane-local bypass.</li></ul>
+<p><strong>Verdict: negative.</strong> Slots used by this lane: 0.
+No ORGANIZER-CONFIRMED score exists for this artifact.</p>
+<p><a href="evidence/run_card_cjx.json">Run card ↗</a> · <a href="evidence/cjx_holdout_results.json">Holdout receipts ↗</a> ·
+<a href="evidence/cjx_uniqueness_restored_subset.json">Novelty audit ↗</a> · <a href="evidence/cjx_phase_null.json">Phase-null diagnostic ↗</a> ·
+<a href="evidence/preregistration_cjx.json">Preregistration ↗</a> · <a href="index.html">Canonical G79-THVC decision ↗</a></p></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjx.html">G79-CJX (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
