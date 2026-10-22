@@ -1248,7 +1248,7 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
-<h3>Session 3ca6c6a6 — downloaded-file identity and publishing permissions</h3>
+<h3>Session 84124ba0 — witness provenance hardening (2026-10-22)</h3>
 <table>
 <thead>
 <tr>
@@ -1260,11 +1260,33 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <tbody>
 <tr>
 <td>IR-79-173</td>
+<td>Witness verification could skip missing reference/module pins; a reference destination could differ from the filename loaded by <code>load_grid</code>.</td>
+<td>Require exactly one pin for both references and grid/uniqueness modules and exact reference destinations. Added omission, duplication, malformed-row and destination regression tests. No scientific module or threshold changed. Fresh witness remeasurement still blocks every nonempty candidate under the literal gate.</td>
+</tr>
+<tr>
+<td>IR-79-174</td>
+<td>Preflight help claimed an exit-0 path, but the rejection-only implementation returns only 2 or 3.</td>
+<td>Corrected help text. An unverified witness is not permission to begin a lane. Official reference README also supports CPU-only execution; the historical GPU-required prompt statement is not a verified limitation of that baseline.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 3ca6c6a6 — downloaded-file identity and publishing permissions</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-175</td>
 <td>The site had no local way to bind a user's chosen downloaded file to its published format-checked bytes. An old, altered or repacked file cannot inherit another file's range validation, and the prior portal rejection cannot be diagnosed without its bytes and receipt.</td>
 <td>Added SHA-256 plus size checking for the exact TIFF and ZIP in the executive summary, with no upload or raster-decoding claim. Unknown bytes, crypto/read errors and stale async results cannot authorize submission. Python, Node and real-browser tests cover both matching files, same-size tampering, error paths and zero network requests. The canonical novelty STOP and all scientific receipts remain unchanged.</td>
 </tr>
 <tr>
-<td>IR-79-174</td>
+<td>IR-79-176</td>
 <td>GitHub Pages API reported legacy main-root publishing and errored status; the public site was still readable. Attempting to select workflow publishing returned HTTP 403, Resource not accessible by integration.</td>
 <td>Kept the existing workflow's explicit permission warning and public-byte verification. Local preview passed, but neither local success nor an attempted API update proves deployment. Settings permission remains unavailable to this integration; no credential was requested or stored. See session review 3ca6c6a6 for the precise scope.</td>
 </tr>

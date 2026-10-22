@@ -57,7 +57,7 @@ If a prospectively authorized protocol allows a future lane, preregister CJX onc
 
 ### Pass 3 — complete requirements and remaining gaps
 
-- Integrated Python suite: **483 passed**; all Node tests and browser checks passed. Offline project and site-link checks passed. Submission-status and separate-selector commands returned **2**, the correct refusal; canonical card bytes were unchanged.
+- Integrated Python suite initially passed **483** tests; after incorporating concurrent witness-provenance hardening it passed **498** tests; all Node tests and browser checks passed. Offline project and site-link checks passed. Submission-status and separate-selector commands returned **2**, the correct refusal; canonical card bytes were unchanged.
 - Rechecked the H33 lineage and source claims; no newly run HOLDOUT-DTI or organizer receipt exists. Scientific receipt files and download bytes remain unchanged.
 - Verified no large data/cache artifact is being added to Git. Added an accessible label, live result, busy state and no-JavaScript refusal; bounded hashing memory and kept permission decisions separate.
 - **Not fully satisfied:** unique/new submittable TIFF, top-candidate holdout validation and leaderboard improvement cannot be delivered under the current STOP. We report this explicitly rather than fabricate a success.
