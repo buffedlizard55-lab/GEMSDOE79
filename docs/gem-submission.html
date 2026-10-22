@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79 G79-GEM concealed-conduit research GeoTIFF: locally format-validated, novelty gate fails, holdout negative. Download for research; do not submit.">
+<title>G79-GEM concealed-conduit submission · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"></head>
+<body><a class="skip" href="#main">Skip to content</a>
+<header><div class="wrap nav"><a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap">
+<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY · SUBMISSION PAGE</p><h1>G79-GEM concealed-conduit GeoTIFF — download ready, not cleared for submission</h1>
+<p class="lead">A new, unique research prediction raster for the DOE GEMS Prize (DrivenData competition 306). It is <strong>easy to download</strong> below. Whether it is <strong>OK to submit</strong> is answered explicitly: <strong>NO — not yet.</strong> Read the gates before uploading anything.</p></section>
+
+<section class="section"><div class="download-warning"><strong>OK TO DOWNLOAD: YES.</strong> <strong>OK TO SUBMIT: NO.</strong><br>
+This file is research only. It passes the local format/range checks, but the full novelty gate fails versus a dense prior surface and its holdout result is negative (below the random control). No organizer receipt exists and no weekly slot has been verified. <strong>Do not upload this file to DrivenData.</strong></div>
+
+<div class="actions"><a class="button" href="https://raw.githubusercontent.com/buffedlizard55-lab/GEMSDOE79/main/artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.tif" download>↓ Download GeoTIFF <span>85 KiB</span></a><a class="button secondary" href="https://raw.githubusercontent.com/buffedlizard55-lab/GEMSDOE79/main/artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.zip" download>↓ Download ZIP (one TIFF) <span>41 KiB</span></a></div>
+<p class="micro"><strong>Direct raw links</strong> (commit-pinned, one-click): the GeoTIFF and its one-TIFF ZIP. These are the exact bytes validated below (SHA-256 shown).</p>
+<p class="micro">File: <code>gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.tif</code> · 1 band · float32 · EPSG:32611 · 100 m · 3730 × 3292 · all finite · values in [0, 1] · zero outside the study footprint · zero on mapped catalogue faults · 37,654 prediction dots · SHA-256 <code>c60a4387070e43f33c6a68792d71eaabeaa1abfeb6632ad956b470e3b1c61f2d</code></p>
+<p class="micro"><strong>Submission name (≤140 chars):</strong> gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z<br>
+<strong>Suggested note (≤140 chars):</strong> GEMSDOE79 G79-GEM concealed conduit: gravity-gradient x magnetic-low blind-fault surface; negative holdout, research-only, DO NOT SUBMIT</p>
+</section>
+
+<section class="section"><div class="two-col"><div class="panel"><h3>How to submit to the competition (manual — this project cannot log in)</h3>
+<ol>
+<li>Sign in to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the official DrivenData submissions page</a> (you must be a registered, eligible participant who accepted the rules).</li>
+<li>Confirm at least one free weekly slot (the official rules allow up to three submissions per week).</li>
+<li>Download the GeoTIFF above, use its exact name and a ≤140-character note, and upload only that single-band GeoTIFF (or a ZIP containing exactly that one TIFF).</li>
+<li>Keep the submission-page receipt (it is an ORGANIZER-CONFIRMED record) beside the file hash.</li>
+</ol>
+<p class="micro">This project has no DrivenData credentials and cannot auto-download the login-gated training truth or auto-submit. Official format: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">competition page 967, Submission format</a> · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">leaderboard</a>.</p>
+</div><div class="panel"><h3>Automated gates (this project, fail-closed)</h3>
+<div class="check-row" data-gate="Local format and range" data-passed="true"><div class="check-icon">✓</div><div><strong>PASS · Local format and range</strong><span>Single float32 band, CRS EPSG:32611, shape 3730 × 3292, sample-matching transform, all finite, values in [0, 1], no NaN inside the footprint, zero outside. Not organizer acceptance.</span></div></div>
+<div class="check-row" data-gate="Leakage canary" data-passed="true"><div class="check-icon">✓</div><div><strong>PASS · Feature-alone leakage canary</strong><span>Gravity-edge rank AUC 0.5056; magnetic-demag-low AUC 0.4998 (limit &le; 0.90). No feature leaks the withheld truth.</span></div></div>
+<div class="check-row" data-gate="Holdout DTI" data-passed="false"><div class="check-icon" style="color:var(--red)">×</div><div><strong>NEGATIVE · Holdout DTI 0.0045 [0.0029, 0.0064]</strong><span>2-seed pooled, gems57-pooled-hide-v2 (α=0.2, β=0.8, 300 m triangular kernel), 22,663 withheld positives total. Below the ~0.05 random control. This concealed-fault detector targets blind faults, not the catalogue segments used as holdout truth.</span></div></div>
+<div class="check-row" data-gate="Novelty vs registry" data-passed="false"><div class="check-icon" style="color:var(--red)">×</div><div><strong>BLOCKED · Novelty gate fails</strong><span>Distinct from all sparse dot submissions (max dot-vs-dot forward 3-px overlap 0.2400), but overlaps the dense G79-FF1 fabric-offset prior surface at 0.8986 forward 3-px overlap (limit 0.70). Full literal novelty gate fails vs that dense prior surface.</span></div></div>
+<div class="check-row" data-gate="Selector / weekly slot" data-passed="false"><div class="check-icon" style="color:var(--red)">×</div><div><strong>BLOCKED · No organizer receipt, no verified slot</strong><span>No submission-page receipt; DrivenData login is required and is not available to this checkout. Account-side capacity is not observable here.</span></div></div>
+</div></div></section>
+
+<section class="section prose"><h2>What this file is and is not</h2>
+<ul><li><strong>It is:</strong> a newly generated, unique (vs dot submissions) GeoTIFF built from two training_feature channels — band 18 iso_grav_anom_hg (gravity-gradient edge) × (1 − band 1 mag_anom rank) (magnetic demagnetization low) — zeroed on the mapped catalogue and outside the footprint.</li><li><strong>It is not:</strong> an organizer-accepted submission, a leaderboard score, or evidence of geothermal resources. HOLDEOUT-DTI is an offline proxy, not a competition score.</li><li><strong>Honest result:</strong> holdout DTI is negative (below random) and novelty fails vs a dense prior surface, so this session spends <strong>zero competition slots</strong>.</li></ul>
+</section>
+
+<section class="section prose"><h2>Recheck locally</h2><pre><code>.venv/bin/python scripts/validate_portal_spec.py artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.tif
+.venv/bin/python scripts/validate_submission.py artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.tif
+.venv/bin/python scripts/submission_status.py   # expected: exit 2 = BLOCKED
+.venv/bin/python scripts/data_status.py         # pinned inputs verified</code></pre>
+<p class="micro">Sources: <a href="run_card_gem_conduit.json">run card ↗</a> · <a href="status_gem_conduit.json">status ↗</a> · <a href="scripts/run_gem_conduit.py">method script ↗</a> · <a href="src/gems79/gem_conduit.py">method module ↗</a></p>
+</section>
+
+<section class="section prose"><h2>Why H33's 0.2778 and the 0.4413 leader are not beaten here</h2>
+<p><strong>Mechanism reading (PhD-level):</strong> H33's reported 0.2778 is consistent with a redundancy-reduction move — D2.8 dotted-ridge emissions minus pixels within ~2 px of the catalogue (no deleted pixel sits exactly on a catalogue pixel). Under the organizer's Tversky-like DTI algebra ``DTI = T / (0.2 T + 0.2 F + 0.8 G)``, truth pixels are covered by the max kernel credit (T saturates per truth cell) while every emitted dot pays a false-positive cost, so removing near-duplicate dots lowers F without materially lowering T, raising DTI. That is a <em>deduplication</em> gain, not a new-fault discovery gain, and H33's exact pixel lineage and any causal leaderboard effect cannot be verified from this checkout (0.2778 is an unverified historical report; the public #1 at 0.4413 is observer-reported, not an organizer receipt for this file).</p>
+<p><strong>Can we score higher?</strong> Not on anything measured here. G79-GEM's holdout DTI is 0.0045 [0.0029, 0.0064] — below the ~0.05 random control — because this concealed-fault detector targets blind faults absent from the catalogue segments used as holdout truth. Its novelty gate also fails versus a dense prior surface. So there is <strong>no measured basis to claim G79-GEM outperforms 0.2778 or 0.4413</strong>. Beating them requires a new method that (a) passes the literal novelty gate and (b) clears the incumbent on the buffered holdout; no such method was found in this session, and zero competition slots were spent.</p>
+</section>
+</main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. Format PASS alone is never permission to submit.</p><div><a href="index.html">GEMSDOE79 home ↗</a> · <a href="executive-summary.html">Decision guide ↗</a> · <a href="research.html">Research ↗</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this session: 0</div></div></footer>
+</body></html>

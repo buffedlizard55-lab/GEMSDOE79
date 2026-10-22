@@ -1,5 +1,20 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Latest review — 2026-10-22, session `arena/1f1c75eb-gemsdoe79`
+
+**A new unique research GeoTIFF was generated, validated locally, and published with an explicit download/submit decision.**
+
+- New method lane **G79-GEM** (concealed-conduit: training_features band 18 iso_grav_anom_hg gravity-gradient edge × (1 − band 1 mag_anom rank), zeroed on the catalogue and outside the footprint, top-37,654 dots).
+- Download: `docs/gem-submission.html` — **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
+- Artifacts: `artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.{tif,zip,json}` (SHA-256 `c60a4387070e43f33c6a68792d71eaabeaa1abfeb6632ad956b470e3b1c61f2d`).
+- Format: PASS (single float32 band, EPSG:32611, 3730 × 3292, sample-matching transform, all finite, [0, 1]).
+- Holdout (measured): **0.0045 [0.0029, 0.0064]**, below the ~0.05 random control → **negative**.
+- Novelty vs locally cached rasters: distinct from all sparse dot submissions, but **fails** vs the dense G79-FF1 fabric-offset surface (0.8986 forward 3-px overlap > 0.70) → novelty gate fails.
+- Leakage canary: PASS (max feature-alone AUC 0.5056 ≤ 0.90).
+- **Zero competition slots spent.** Not submitted; no organizer receipt; DrivenData login required to upload.
+
+The full original project prompt remains archived below and is the starting contract.
+
 ## Latest review — 2026-10-22, session `1f9d2dc9`
 
 **No new candidate TIFF was generated; no submission is approved.** The

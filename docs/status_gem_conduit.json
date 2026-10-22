@@ -1,0 +1,27 @@
+{
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+  "file": "artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.tif",
+  "zip": "artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.zip",
+  "sha256": "c60a4387070e43f33c6a68792d71eaabeaa1abfeb6632ad956b470e3b1c61f2d",
+  "name": "gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z",
+  "note": "GEMSDOE79 G79-GEM concealed-conduit: gravity-gradient x magnetic-low blind-fault surface; negative holdout, research-only, DO NOT SUBMIT",
+  "holdout_dti": 0.0045,
+  "holdout_ci95": [
+    0.0029,
+    0.0064
+  ],
+  "leakage_canary_max_auc": 0.5056,
+  "novelty": {
+    "forward_overlap_vs_dense_fabric_surface": 0.8986,
+    "novelty_limit": 0.7,
+    "novelty_passed": false
+  },
+  "account_side_conditions": [
+    "A free weekly slot must be shown on your DrivenData submission page (up to 3/week).",
+    "You must be a registered, eligible participant who accepted the competition rules."
+  ],
+  "scope": "G79-GEM novel research artifact, locally format-validated only. Novelty gate fails vs a dense prior surface; holdout is negative (below random). Not organizer acceptance."
+}
