@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a newly generated, validated research GeoTIFF with an explicit automated DO NOT SUBMIT verdict and auditable evidence.">
+<meta name="description" content="GEMSDOE79: a new, format-validated research GeoTIFF that failed its preregistered holdout gate and remains uncleared by the novelty protocol — automated DO NOT SUBMIT verdict with auditable evidence.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="research.html">Research</a><a href="sources.html">Sources &amp; feed</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
-<p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
+<p>Entries are grouped by review session and dated below. No entry authorizes a threshold exemption.</p>
 <table>
 <thead>
 <tr>
@@ -223,12 +223,49 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 </tr>
 </tbody>
 </table>
-<h3>Outcome</h3>
-<p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A newly computed, byte-distinct
-GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated
-competition candidate. This verdict is automated, not deferred to a human
-inspector. Negative results and the impossible-gate certificate are deliverables.</p>
-<h3>Session 2026-10-22 — PR #12 release conflict (IR-79-30)</h3>
+<h3>Outcome — historical E1 session snapshot (not the current run card)</h3>
+<p>At the end of the earlier E1 review, the result was <strong>OK TO DOWNLOAD: YES.
+OK TO SUBMIT: NO.</strong> A byte-distinct GeoTIFF was available but was not
+protocol-unique or a validated competition candidate. That was an automated
+negative decision. After upstream PR #22 merged, G79B became the current lane;
+its current evidence and the integration status are recorded below.</p>
+<p>Session 2026-10-22, lane G79B-SCARP-DIPOLE-GEOAND (branch <code>arena/e2f3892f-gemsdoe79</code>):</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-36</td>
+<td><code>AGENTS.md</code> (prior session) instructed "do not silently open a new scientific lane", while the 2026-10-22 owner prompt explicitly requires a new unique submission and new hypotheses.</td>
+<td>Owner instruction governs. The new lane is declared loudly (<code>registry/preregistration_g79b.json</code>, hash-pinned before computation), E1 remains stopped-negative and byte-preserved, and no E1 threshold or gate was altered. <code>AGENTS.md</code> updated (branch-neutral session rule) to record both lanes as closed.</td>
+</tr>
+<tr>
+<td>IR-79-37</td>
+<td>Decision D-1 (IR-79-24) remains formally open: the literal &gt;0-support dot definition rejects every nonempty candidate vs the full-footprint E-proba witness.</td>
+<td>G79B used the disclosed operative definitions (actual support for sparse priors; equal-budget top-37,654 Option B and p&gt;=0.5 Option C for continuous priors) against 18 restored comparators, reported the literal result, and keeps <code>protocol_unique=false</code>. The scoped scan is not a full 992-raster clearance; a protocol-owner ruling is still required before any future promotion claim.</td>
+</tr>
+<tr>
+<td>IR-79-38</td>
+<td>G79B Experiment 1 is negative: the candidate did not beat the uniform-random or fold-fair H33 controls. All candidate/control results are <strong>HOLDOUT-DTI</strong>; the evaluator, withheld-positive count, and 95% CI for every seed/arm are in <code>run_card.json</code> and <code>evidence/holdout_g79b_seed20.json</code> / <code>evidence/holdout_g79b_seed30.json</code>. Leakage canaries passed (72 feature-fold tests; maximum symmetric AUC 0.6553, threshold 0.90; <strong>LEAKAGE-CANARY</strong>, not a competition score). The preregistered Experiment-2 contingency condition was not met (candidate-minus-lidar-only paired CIs include zero on both seeds).</td>
+<td>Lane closed as a negative deliverable. No retuning, no second experiment, no slot used. The pixel-level lidar-dipole association and chance-level dot recovery are diagnostics, not HOLDOUT-DTI scores; see <code>evidence/session_verification_2026-10-22.json</code>. The recommended future lane is strike-coherent lineament-level aggregation before emission.</td>
+</tr>
+<tr>
+<td>IR-79-39</td>
+<td>The prompt repeats "0.3195 is the highest score" alongside "leaderboard high score 0.4413". The public leaderboard read on 2026-10-22 shows #1 = 0.4413, #2 = 0.3904; 0.3195 would rank about 22nd.</td>
+<td>0.4413 recorded as PUBLIC-OBSERVATION; 0.3195 treated as a stale unverified figure. No artifact in this repo has an ORGANIZER-CONFIRMED score.</td>
+</tr>
+<tr>
+<td>## Session 2026-10-22 — PR #12 release conflict (IR-79-31)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>The starting merge <code>3d386a3</code> advertised H79-CSPT promotion in the README and
 main/executive pages, while the canonical root card and status API remained
 negative for G79-FABRIC-OFFSET. The CSPT solver's
@@ -259,15 +296,42 @@ See <code>reports/session_review_8ed5d89a.md</code> and
 </thead>
 <tbody>
 <tr>
-<td>IR-79-31</td>
-<td><code>src/gems79/status.py</code> checked only <code>canary.get("passed") is True</code> for <code>leakage_canary</code>, allowing a contradictory or missing numerical <code>auc</code>, <code>required_threshold != 0.90</code>, or <code>features_cleared &lt;= 0</code> to clear <code>feature_alone_canaries_not_cleared</code>.</td>
-<td>Hardened <code>src/gems79/status.py</code> to require numeric <code>0.5 &lt;= auc &lt;= 0.90</code>, <code>required_threshold == 0.90</code>, and positive <code>int</code> <code>features_cleared</code> in addition to <code>passed is True</code>. Added 19 parameterized unit tests in <code>tests/test_readiness_errors.py</code>.</td>
-</tr>
-<tr>
-<td>IR-79-32</td>
+<td>IR-79-40</td>
 <td>Both archived concurrent lanes (<code>H79-MCT</code> in <code>archive/h79_mct_c26efec/</code> and <code>H79-CSPT</code> in <code>archive/h79_cspt_3d386a3/</code>) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared <code>gems57.uniqueness</code>, <code>gems57.validate</code>, and <code>gems79.status</code> tools.</td>
 <td>Implemented <code>scripts/audit_archived_concurrent_lanes.py</code> and generated <code>evidence/concurrent_lanes_audit.json</code> (plus <code>evidence/session_witness_700397d4.json</code> and <code>reports/session_review_700397d4.md</code>), proving with unmodified shared code that both archived GeoTIFFs (<code>d1a4158a…</code> and <code>d55570bf…</code>) have <code>1.0000</code> literal 3-px forward overlap against <code>17GEMSDOE_E-proba-multiscale</code>, relied on post-duplicate constrained overlap capping (<code>0.6800</code> and <code>0.6900</code> against sparse/semi-dense registry priors), and return <code>ok_to_submit: false</code>, <code>verdict: "negative"</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session 2026-10-22 — branch integration and release-safety review (Arena branch <code>arena/a23a7367-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-41</td>
+<td>The session-start checkout contained merge-conflict markers in <code>AGENTS.md</code> and instructions tied to a prior Arena session.</td>
+<td>Resolved the contract to use current session metadata, added automated checks for conflict markers and pinned branch names, and preserved the now-current main contract after integration. No scientific result was changed.</td>
+</tr>
+<tr>
+<td>IR-79-42</td>
+<td>Upstream PR #22 advanced <code>main</code> to a newer G79B negative artifact while PR #23 was open, so the E1-based branch was behind and conflicting in README, site, run-card and verifier files.</td>
+<td>Integrated <code>origin/main</code> on the existing Arena branch. Preserved the current G79B run card and <code>DO-NOT-SUBMIT</code> TIFF, kept E1 archived, regenerated current status/site artifacts, and did not recompute, retune, upload, or use a competition slot for G79B.</td>
+</tr>
+<tr>
+<td>IR-79-43</td>
+<td>The generated status manifest hardcoded download/submit flags instead of deriving them from the verified decision, and the visible download links did not themselves carry a persistent <code>DO NOT SUBMIT</code> label.</td>
+<td>The site now consumes the verifier's <code>submission_decision</code>, blocks download links if local byte/format validation fails, places <code>DO NOT SUBMIT</code> on both current file links, and tests status/card/hash consistency. This does not turn a local format pass into submission approval.</td>
+</tr>
+<tr>
+<td>IR-79-44</td>
+<td>The current summary UI displayed G79B DTI values without consistently showing evaluator version, withheld-positive count, and 95% CI next to each candidate/control result.</td>
+<td>The site renderer validates and displays those metadata with every presented HOLDOUT-DTI measurement; README and G79B review tables now include the same labels. Raw scientific evidence and scores were not modified.</td>
+</tr>
+</tbody>
 </table></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 22 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

@@ -1,4 +1,4 @@
-"""Current E1 artifact integrity checks; these are not geological score tests."""
+"""Current-lane artifact integrity checks; these are not geological score tests."""
 from __future__ import annotations
 
 import hashlib
@@ -21,17 +21,22 @@ def current_card():
 
 
 def test_active_run_card_is_negative_and_matches_evidence_copy():
+    # Current lane (2026-10-22): G79B, measured and negative.
     card = current_card()
-    assert card["lane"] == "G79-FABRIC-OFFSET"
+    assert card["lane"] == "G79B-SCARP-DIPOLE-GEOAND"
     assert card["verdict"] == "negative"
     assert card["ok_to_download"] is True
     assert card["ok_to_submit"] is False
-    assert card["holdout_dti"]["dti"] is None
-    assert card["holdout_dti"]["ci95"] is None
-    assert card["leakage_canary"]["auc"] is None
-    assert card["final_dot_placements_performed"] == 0
+    assert card["holdout_dti"]["evidence_class"] == "HOLDOUT-DTI"
+    assert card["current_best_holdout_beaten"] is False
+    assert card["submission_slots_used"] == 0
     assert card == json.loads((ROOT / "evidence/run_card.json").read_text())
     assert card == json.loads((ROOT / "docs/run-card.json").read_text())
+    # Prior lane E1 remains preserved in its unmeasured stopped state.
+    e1 = json.loads((ROOT / "evidence/run_card_g79_e1.json").read_text())
+    assert e1["lane"] == "G79-FABRIC-OFFSET" and e1["verdict"] == "negative"
+    assert e1["holdout_dti"]["dti"] is None and e1["leakage_canary"]["auc"] is None
+    assert e1["final_dot_placements_performed"] == 0
 
 
 def test_current_research_geotiff_passes_format_but_not_submission_gate():
