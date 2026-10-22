@@ -1,0 +1,125 @@
+{
+  "session_id": "2364b96e",
+  "review_date_utc": "2026-10-22",
+  "branch": "arena/2364b96e-gemsdoe79",
+  "starting_commit": "268c86424ef2a7837302953cb3cb1a4b9abe923d",
+  "review_class": "REPOSITORY-REVIEW; NO SCIENTIFIC EXPERIMENT",
+  "hypothesis": "No geological hypothesis was selected for implementation: the prompt's method-specific lane paragraph is absent and the literal novelty preflight blocks every nonempty candidate.",
+  "mechanism": "No candidate mechanism was modeled or tested. A non-scientific readiness change now requires official portal rules R1-R8 to pass before submission approval.",
+  "named_non_fault_process": "Not applicable; no candidate geological mechanism was evaluated.",
+  "holdout_dti": {
+    "status": "NOT RUN",
+    "required_evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "withheld_positive_count": null,
+    "dti": null,
+    "ci95": null,
+    "reason": "No lane or candidate was authorized; missing runtime inputs and literal novelty obstruction stop work before canaries or holdout."
+  },
+  "novelty_results": {
+    "candidate_surface_created": false,
+    "candidate_final_dots_created": false,
+    "candidate_rank_correlation": null,
+    "candidate_final_dot_overlap": null,
+    "candidate_specific_novelty_scan": "NOT RUN",
+    "preflight_state": "impossible_under_literal_gate",
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "witness_positive_support_coverage_of_allowed_cells": 1.0,
+    "literal_candidate_overlap_if_nonempty": 1.0,
+    "overlap_limit": 0.7,
+    "preflight_exit_code": 2
+  },
+  "candidate_raster_sha256": null,
+  "validator_output": {
+    "candidate": "NOT GENERATED",
+    "inherited_research_artifact": {
+      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "shared_local_format_passed": true,
+      "validators_read_same_bytes": true,
+      "validated_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "official_format_passed": false,
+      "official_format_failed_rules": ["R6"],
+      "official_format_r8_in_bounds_range_passed": true,
+      "in_bounds_min": 0.0,
+      "in_bounds_max": 1.0,
+      "in_bounds_out_of_range_cells": 0,
+      "outside_cells_zero_not_nan": 7111787,
+      "official_template_outside_cells": 7111787,
+      "ok_to_download_for_research": true,
+      "ok_to_submit": false
+    },
+    "official_sample_submission": {
+      "path": "data/reference/sample_submission.tif",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "official_r1_r8_result": "PASS"
+    }
+  },
+  "submission_name": null,
+  "submission_note": "No candidate generated; literal novelty and official-format gates remain blocked.",
+  "submission_note_characters": 81,
+  "verdict": "negative",
+  "new_candidate_ok_to_download": false,
+  "inherited_research_artifact_ok_to_download": true,
+  "ok_to_submit": false,
+  "experiments_used": 0,
+  "max_experiments": 3,
+  "submission_slots_used": 0,
+  "runtime_data_status": {
+    "evidence_class": "RUNTIME-LOCAL-AVAILABILITY",
+    "checked_utc": "2026-10-22T20:10:40.667076Z",
+    "state": "blocked_missing_inputs",
+    "expected_count": 13,
+    "verified_count": 0,
+    "missing_count": 13,
+    "mismatch_count": 0,
+    "exit_code": 2
+  },
+  "software_changes": [
+    "scripts/validate_submission.py now reports the shared and official R1-R8 validators separately, proves the validators read identical bytes, and binds status/selector checks to the card SHA-256; strict default CLI exit requires both.",
+    "src/gems79/status.py now blocks submission unless official-format validation is an explicit literal boolean pass; download remains a separate research decision.",
+    "scripts/submission_status.py and scripts/select_submission.py carry the official failed-rule IDs and fail closed.",
+    "scripts/verify_project.py, scripts/build_site.py, scripts/check_site.py and regression tests reconcile the official-format status.",
+    "No shared writer, run card, existing TIFF, holdout receipt, novelty definition, or scientific model was changed."
+  ],
+  "verification": {
+    "verified_utc": "2026-10-22T20:23:43Z",
+    "project_verifier": {
+      "command": ".venv/bin/python scripts/verify_project.py",
+      "exit_code": 0,
+      "all_checks_passed": true
+    },
+    "pytest": {
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q",
+      "exit_code": 0,
+      "passed": 601,
+      "failed": 0
+    },
+    "site_check": {
+      "command": ".venv/bin/python scripts/check_site.py",
+      "exit_code": 0,
+      "passed": true,
+      "pages": 13,
+      "local_links_checked": 339,
+      "all_pages_reachable_from_home": true
+    },
+    "official_portal_validator": {
+      "official_sample_passed": true,
+      "canonical_failed_rules": ["R6"],
+      "exit_code_for_canonical": 2
+    },
+    "strict_submission_validator_exit_code": 1,
+    "submission_status_exit_code": 2,
+    "selector": {
+      "exit_code": 2,
+      "selected": false,
+      "card_left_unchanged": true
+    }
+  },
+  "source_review": {
+    "fresh_external_pages_fetched_this_review": 0,
+    "official_submission_rules_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "source_claims_scope": "Official URLs and prior review dates are cited; no external source was freshly re-fetched and no third-party binary was acquired in this review."
+  }
+}

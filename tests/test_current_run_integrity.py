@@ -79,6 +79,18 @@ def test_geotiff_is_a_valid_binary_dot_map_on_the_sample_grid():
     assert hashlib.sha256(path.read_bytes()).hexdigest() == card["raster_sha256"]
     result = validate_path(path)
     assert result["format_passed"] is True
+    assert result["validated_sha256"] == card["raster_sha256"]
+    assert result["validators_read_same_bytes"] is True
+    assert result["official_format_passed"] is False
+    assert result["official_format_report"]["failed_rules"] == ["R6"]
+    official_decision = submission_decision(
+        card, actual_sha256=card["raster_sha256"],
+        format_passed=result["format_passed"],
+        official_format_passed=result["official_format_passed"],
+    )
+    assert official_decision["ok_to_download"] is True
+    assert official_decision["ok_to_submit"] is False
+    assert "official_submission_format_not_cleared" in official_decision["blockers"]
     with rasterio.open(path) as tif, rasterio.open(ROOT / "data/reference/sample_submission.tif") as ref:
         assert tif.count == 1 and tif.dtypes == ("float32",)
         assert tif.crs == ref.crs and tif.shape == ref.shape == (3730, 3292)
@@ -120,7 +132,12 @@ def test_name_and_note_are_unique_and_short():
 
 def test_status_tool_card_and_pages_tell_the_same_story():
     card = current_card()
-    decision = submission_decision(card, actual_sha256=card["raster_sha256"], format_passed=True)
+    validation = validate_path(ROOT / card["submission_file"])
+    decision = submission_decision(
+        card, actual_sha256=card["raster_sha256"],
+        format_passed=validation["format_passed"],
+        official_format_passed=validation["official_format_passed"],
+    )
     assert decision["ok_to_submit"] is card["ok_to_submit"]
     assert decision["verdict"] == card["verdict"]
     assert decision["human_inspection_required_for_this_decision"] is False

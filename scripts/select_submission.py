@@ -65,7 +65,8 @@ def _finite_number(value, low: float, high: float) -> bool:
     return type(value) in (int, float) and math.isfinite(value) and low <= value <= high
 
 
-def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: bool):
+def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: bool,
+                            official_format_passed: bool = False):
     """Re-derive G79-THVC's measured gates without granting an exception.
 
     The canonical lane predates the NHR/FFAS ``x1_gates.json`` schema.  Treating
@@ -84,6 +85,7 @@ def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: 
         checks.update({
             "raster_sha256_matches": actual == card.get("raster_sha256"),
             "format_validation_passed": format_passed is True,
+            "official_submission_format_passed": official_format_passed is True,
             "feature_alone_canary_le_0_90": (
                 set(canary) == {"seed20", "seed30"}
                 and all(
@@ -123,9 +125,13 @@ def _select() -> int:
         raise TypeError("Run card must be an object")
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
-    fmt = validate_path(path)["format_passed"]
+    validation = validate_path(path)
+    validation_matches_bytes = validation.get("validated_sha256") == actual
+    fmt = validation["format_passed"] is True and validation_matches_bytes
+    official_fmt = (validation.get("official_format_passed") is True
+                    and validation_matches_bytes)
     if card.get("lane") == "G79-THVC":
-        checks = canonical_thvc_evidence(ROOT, card, actual, fmt)
+        checks = canonical_thvc_evidence(ROOT, card, actual, fmt, official_fmt)
         trial = dict(card)
         trial["selector_receipt"] = {
             "raster_sha256": actual, "selector": "scripts/select_submission.py",
@@ -134,7 +140,10 @@ def _select() -> int:
         }
         trial["approved_for_weekly_slot"] = True
         trial["ok_to_submit"] = True
-        decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt)
+        decision = submission_decision(
+            trial, actual_sha256=actual, format_passed=fmt,
+            official_format_passed=official_fmt,
+        )
         failed = sorted(k for k, value in checks.items() if value is not True)
         refusal = {
             "selected": False,
@@ -144,7 +153,9 @@ def _select() -> int:
             "raster_sha256": actual,
             "blockers": decision["blockers"],
             "failed_gates": failed,
-            "reason": "Canonical evidence was re-derived; literal registry uniqueness did not clear.",
+            "official_format_failed_rules": validation.get("official_format_report", {}).get("failed_rules", []),
+            "validation_sha256_matches_snapshot": validation_matches_bytes,
+            "reason": "Canonical evidence was re-derived; literal registry uniqueness, byte binding, and official format were not cleared.",
             "card_left_unchanged": True,
         }
         print(json.dumps(refusal, indent=2))
@@ -169,13 +180,18 @@ def _select() -> int:
     # The two fields only this selector may grant; every other gate must already pass.
     trial["approved_for_weekly_slot"] = True
     trial["ok_to_submit"] = True
-    decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt)
+    decision = submission_decision(
+        trial, actual_sha256=actual, format_passed=fmt,
+        official_format_passed=official_fmt,
+    )
     evidence_ok, measured_checks = selection_evidence(ROOT, card, gates, actual)
     ok = (evidence_ok and decision["blockers"] == [] and gates.get("all_passed") is True
           and gates.get("raster_sha256") == actual and card.get("verdict") == "promote")
     if not ok:
         refusal = {"selected": False, "selector": "scripts/select_submission.py",
                    "raster_sha256": actual, "observed_utc": datetime.now(timezone.utc).isoformat(),
+                   "official_format_failed_rules": validation.get("official_format_report", {}).get("failed_rules", []),
+                   "validation_sha256_matches_snapshot": validation_matches_bytes,
                    "blockers": decision["blockers"],
                    "failed_gates": sorted(k for k, v in gates["gates"].items() if v is not True),
                    "card_left_unchanged": True, "evidence_checks": measured_checks}

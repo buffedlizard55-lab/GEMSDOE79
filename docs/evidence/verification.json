@@ -1,5 +1,5 @@
 {
-  "verified_utc": "2026-10-22T14:28:36.127590+00:00",
+  "verified_utc": "2026-10-22T20:18:08.431864+00:00",
   "all_checks_passed": true,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
@@ -21,6 +21,10 @@
     "name_and_note_valid": true,
     "filename_warning_matches_verdict": true,
     "reopened_tiff_format_all_passed": true,
+    "validators_inspected_exact_card_bytes": true,
+    "official_portal_rule_report_complete": true,
+    "official_portal_result_matches_rules": true,
+    "canonical_official_r6_deviation_is_explicit": true,
     "format_receipt_positive_count_agrees": true,
     "zip_exactly_one_identical_tiff": true,
     "zip_crc_valid": true,
@@ -36,11 +40,89 @@
     "promotion_requires_uniqueness": true,
     "preregistration_hash_matches_card": true,
     "e1_scientific_stop_honored": true,
+    "official_format_failure_blocks_submission": true,
     "status_tool_and_card_agree": true
   },
   "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
   "format_report": {
     "format_passed": true,
+    "official_format_passed": false,
+    "validated_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "validators_read_same_bytes": true,
+    "official_format_report": {
+      "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "bytes": 137299,
+      "template": "data/reference/sample_submission.tif",
+      "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "rules": [
+        {
+          "rule": "R1",
+          "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+          "pass": true,
+          "detail": "1 band(s)"
+        },
+        {
+          "rule": "R2",
+          "text": "datatype float32",
+          "pass": true,
+          "detail": "dtype float32"
+        },
+        {
+          "rule": "R3",
+          "text": "CRS EPSG:32611",
+          "pass": true,
+          "detail": "CRS EPSG:32611"
+        },
+        {
+          "rule": "R4",
+          "text": "shape, transform, 100 m resolution and bounds equal the template",
+          "pass": true,
+          "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+        },
+        {
+          "rule": "R5",
+          "text": "nodata absent or NaN",
+          "pass": true,
+          "detail": "nodata None"
+        },
+        {
+          "rule": "R6",
+          "text": "data outside the bounds is null or NaN",
+          "pass": false,
+          "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+        },
+        {
+          "rule": "R7",
+          "text": "every in-bounds cell is finite (no NaN, no inf)",
+          "pass": true,
+          "detail": "0 NaN/inf cell(s) inside the bounds"
+        },
+        {
+          "rule": "R8",
+          "text": "every in-bounds value is between 0 and 1 inclusive",
+          "pass": true,
+          "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+        }
+      ],
+      "cells": {
+        "compared": true,
+        "inside_cells": 5167373,
+        "outside_cells": 7111787,
+        "outside_non_nan": 7111787,
+        "inside_nonfinite": 0,
+        "inside_out_of_range": 0,
+        "inside_min": 0.0,
+        "inside_max": 1.0,
+        "inside_positive": 35093,
+        "inside_mass": 35093.0
+      },
+      "failed_rules": [
+        "R6"
+      ],
+      "ok": false
+    },
     "does_not_approve_submission": true,
     "validator": {
       "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
@@ -148,12 +230,88 @@
       "validation_class": "local on-disk template/range check; not organizer upload acceptance"
     }
   },
+  "official_format_report": {
+    "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "bytes": 137299,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+      {
+        "rule": "R1",
+        "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+        "pass": true,
+        "detail": "1 band(s)"
+      },
+      {
+        "rule": "R2",
+        "text": "datatype float32",
+        "pass": true,
+        "detail": "dtype float32"
+      },
+      {
+        "rule": "R3",
+        "text": "CRS EPSG:32611",
+        "pass": true,
+        "detail": "CRS EPSG:32611"
+      },
+      {
+        "rule": "R4",
+        "text": "shape, transform, 100 m resolution and bounds equal the template",
+        "pass": true,
+        "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+      },
+      {
+        "rule": "R5",
+        "text": "nodata absent or NaN",
+        "pass": true,
+        "detail": "nodata None"
+      },
+      {
+        "rule": "R6",
+        "text": "data outside the bounds is null or NaN",
+        "pass": false,
+        "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+      },
+      {
+        "rule": "R7",
+        "text": "every in-bounds cell is finite (no NaN, no inf)",
+        "pass": true,
+        "detail": "0 NaN/inf cell(s) inside the bounds"
+      },
+      {
+        "rule": "R8",
+        "text": "every in-bounds value is between 0 and 1 inclusive",
+        "pass": true,
+        "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+      }
+    ],
+    "cells": {
+      "compared": true,
+      "inside_cells": 5167373,
+      "outside_cells": 7111787,
+      "outside_non_nan": 7111787,
+      "inside_nonfinite": 0,
+      "inside_out_of_range": 0,
+      "inside_min": 0.0,
+      "inside_max": 1.0,
+      "inside_positive": 35093,
+      "inside_mass": 35093.0
+    },
+    "failed_rules": [
+      "R6"
+    ],
+    "ok": false
+  },
   "submission_decision": {
     "ok_to_download": true,
+    "official_format_passed": false,
     "ok_to_submit": false,
     "human_inspection_required_for_this_decision": false,
     "verdict": "negative",
     "blockers": [
+      "official_submission_format_not_cleared",
       "literal_novelty_not_cleared",
       "negative_scientific_verdict",
       "separate_selector_has_not_approved_a_slot",

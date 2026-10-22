@@ -57,12 +57,23 @@ def inspect_current(root=ROOT):
         stage = 'validate_artifact'
         validation = validate_path(path)
         stage = 'decide'
-        return submission_decision(card, actual_sha256=actual_sha,
-                                   format_passed=validation['format_passed'])
+        validation_matches_bytes = validation.get('validated_sha256') == actual_sha
+        result = submission_decision(
+            card, actual_sha256=actual_sha,
+            format_passed=validation['format_passed'] is True and validation_matches_bytes,
+            official_format_passed=(validation.get('official_format_passed') is True
+                                    and validation_matches_bytes),
+        )
+        result['validation_sha256_matches_snapshot'] = validation_matches_bytes
+        result['official_format_report'] = validation.get('official_format_report')
+        return result
     except Exception as exc:
         # Deliberately catch ordinary errors at the CLI boundary. Interrupts and
         # process termination are not caught. No stale PASS is used on failure.
-        result = submission_decision(card, actual_sha256=actual_sha, format_passed=False)
+        result = submission_decision(
+            card, actual_sha256=actual_sha, format_passed=False,
+            official_format_passed=False,
+        )
         result['blockers'].insert(0, 'readiness_inspection_failed')
         result['inspection_error'] = {'stage': stage, 'type': type(exc).__name__}
         return result

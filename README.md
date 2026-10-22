@@ -1,15 +1,22 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
-## Latest review — 2026-10-22, session `1f9d2dc9`
+## Latest repository review — 2026-10-22, session `2364b96e`
 
-**No new candidate TIFF was generated; no submission is approved.** The
-[three-pass review](reports/session_review_1f9d2dc9.md) documents the literal-novelty
-stop, current-main synchronization, and H33 evidence-class inconsistency. The
-[ranked untried hypotheses](research/hypotheses_1f9d2dc9.md) are proposals only—not
-scores or selector approvals. Historical sections below are prior evidence, not
-work performed in this review. The full original project prompt remains archived
-below and is the starting contract. Related concurrent review: [three-pass audit
-and terminal negative run card](reports/review_b0325dc8/README.md).
+**No new candidate TIFF was generated; no submission is approved.** This review
+performed repository checks and a fail-closed official-format readiness fix only:
+no scientific experiment, holdout, canary, placement, upload, or competition slot
+was used. The literal novelty preflight still stops before a new lane; runtime
+inputs remain unavailable. The official sample passes R1–R8, while the inherited
+THVC research TIFF fails official R6 (outside-footprint zeros); its in-bounds range
+check R8 passes. The status CLI and selector now require the complete official
+R1–R8 report, bound to the exact candidate SHA-256, before submission approval,
+without changing the shared writer or
+existing TIFF. Verification: 601 tests passed, `verify_project.py` passed, and the
+site check passed (13 pages, 339 local links). See the [three-pass repository review](reports/session_review_2364b96e.md),
+[session run card](evidence/session_2364b96e_run_card.json), and [ranked hypotheses](research/hypotheses_1f9d2dc9.md), which are proposals only and were not tested this session.
+Historical sections below are prior evidence. The full original project prompt
+remains archived below and is the starting contract. Related concurrent review:
+[three-pass audit and terminal negative run card](reports/review_b0325dc8/README.md).
 
 ## Parallel session 9eb122ea — runtime-data availability audit
 
@@ -25,13 +32,13 @@ A separate three-pass review independently recorded the literal-gate stop, four 
 
 ## Download and automated decision
 
-> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
+> **OK TO DOWNLOAD: YES (research only). OK TO SUBMIT: NO.**
 >
-> **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
+> **This is the inherited G79-THVC research artifact, not a new unique submission.** Shared local checks pass and the in-bounds range is [0, 1], but the official R1–R8 validator fails R6: all 7,111,787 outside-footprint cells are zero rather than null/NaN. Novelty also fails. The automated status and selector now block on either failure; manual upload does not override them. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
 
 > **NEW SESSION 0be4d7bb — G79-TDW:** A new unique 37,654-dot TIF (`gems79-tdw-tiltworm-37654dots-20261022`, SHA-256 `0a79e3e54c1c8b9254ba0c8a36e61a1c41f09c594ae59778b2bf6478ba391eef`) was generated and machine-validated. **OK TO DOWNLOAD: YES (research only, `artifacts/tdw/`). OK TO SUBMIT: NO** — HOLDOUT-DTI 0.0395/0.0413 fell below the uniform control and the THVC incumbent, so no slot was spent. Details: `docs/tdw-submission.html`, `run_card_tdw.json`, `evidence/tdw/experiment1.json`. The canonical THVC decision below is unchanged.
 >
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_1f9d2dc9.md)** · **[Ranked untried hypotheses](research/hypotheses_1f9d2dc9.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_2364b96e.md)** · **[Ranked untried hypotheses](research/hypotheses_1f9d2dc9.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
@@ -42,7 +49,8 @@ The historical “Charnes-Cooper” identifier is not an exact-optimization clai
 
 | Gate | Evidence-backed disposition |
 |---|---|
-| Local format | **PASS:** one float32 band, EPSG:32611, shape 3730 × 3292, affine `[100, 0, 243350, 0, -100, 4508550]`, finite binary 0/1 values; matching sample grid. ZIP contains identical TIFF bytes. |
+| Shared local format/range | **PASS:** one float32 band, EPSG:32611, shape 3730 × 3292, affine `[100, 0, 243350, 0, -100, 4508550]`, finite binary 0/1 values; matching sample grid. ZIP contains identical TIFF bytes. |
+| Official portal format R1–R8 | **FAIL R6:** all 7,111,787 cells outside the official footprint are zero instead of null/NaN; R1–R5, R7 and R8 pass. The in-bounds range `[0,1]` is valid. |
 | Surface novelty | **BLOCKED:** maximum absolute rank correlation 0.7712, but maximum forward overlap 1.0000 exceeds 0.70. |
 | Final-dot novelty | **BLOCKED:** maximum absolute rank correlation 0.1210, but maximum forward overlap 1.0000 exceeds 0.70. Low correlation alone is not approval. |
 | Scan completeness | **Incomplete:** 1,108 rows, 1,088 comparable, 20 non-comparable; 1,082 defined rank correlations and 6 undefined. Frozen accessible inventory, not a new full-family or organizer census. |

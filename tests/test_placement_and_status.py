@@ -60,6 +60,61 @@ def test_edited_ok_flag_cannot_bypass_individual_gates():
     assert "holdout_dti_and_ci_not_measured" in result2["blockers"]
 
 
+def _fully_gated_software_card():
+    digest = "a" * 64
+    return {
+        "raster_sha256": digest,
+        "protocol_unique": True,
+        "leakage_canary": {
+            "passed": True, "auc": 0.8, "features_cleared": 1,
+            "required_threshold": 0.90,
+        },
+        "current_best_holdout_beaten": True,
+        "holdout_dti": {
+            "dti": 0.6, "ci95": [0.5, 0.7], "withheld_positive_pixels": 10,
+            "evaluator_version": "gems57-pooled-hide-v2",
+        },
+        "source_provenance_verified": True,
+        "verdict": "promote",
+        "approved_for_weekly_slot": True,
+        "selector_receipt": {
+            "raster_sha256": digest, "selector": "scripts/select_submission.py",
+            "all_automated_gates_passed": True, "source_url": "software-fixture",
+            "observed_utc": "software-fixture",
+        },
+        "ok_to_submit": True,
+    }
+
+
+def test_official_portal_format_is_required_for_submission_not_research_download():
+    # Synthetic software fixture only; values are not empirical holdout results.
+    card = _fully_gated_software_card()
+    rejected = submission_decision(
+        card, actual_sha256=card["raster_sha256"], format_passed=True,
+        official_format_passed=False,
+    )
+    assert rejected["ok_to_download"] is True
+    assert rejected["official_format_passed"] is False
+    assert rejected["ok_to_submit"] is False
+    assert "official_submission_format_not_cleared" in rejected["blockers"]
+
+    accepted_fixture = submission_decision(
+        card, actual_sha256=card["raster_sha256"], format_passed=True,
+        official_format_passed=True,
+    )
+    assert accepted_fixture["ok_to_submit"] is True
+
+
+def test_official_portal_format_requires_literal_boolean_pass():
+    card = _fully_gated_software_card()
+    result = submission_decision(
+        card, actual_sha256=card["raster_sha256"], format_passed=True,
+        official_format_passed="yes",
+    )
+    assert result["ok_to_download"] is True and not result["ok_to_submit"]
+    assert "official_submission_format_not_cleared" in result["blockers"]
+
+
 def test_corrupt_bytes_disable_download_and_submission():
     card = json.loads((ROOT / "run_card.json").read_text())
     result = submission_decision(card, actual_sha256="bad", format_passed=True)

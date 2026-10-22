@@ -27,6 +27,7 @@ from gems57.gates import format_report
 from gems57.grid import load_grid
 from gems57.validate import validate as shared_validate
 from gems79.status import submission_decision
+from gems79.portal_spec import validate_portal_file
 from restore_registry import restore_blob
 
 
@@ -115,6 +116,7 @@ def audit_lane(
     actual_sha = sha256(tif_path)
     val_report = shared_validate(tif_path, grid.footprint, grid.catalogue)
     ref_report = format_report(tif_path, ROOT / 'data/reference/sample_submission.tif', footprint=grid.footprint)
+    official_report = validate_portal_file(tif_path)
     with rasterio.open(tif_path) as ds:
         arr = ds.read(1)
     cmp_res = shared.compare_array_to_registry(
@@ -130,6 +132,7 @@ def audit_lane(
         archived_card,
         actual_sha256=actual_sha,
         format_passed=bool(val_report['all_checks_passed'] and ref_report['ok']),
+        official_format_passed=official_report['ok'],
     )
     return {
         'lane_id': lane_id,
@@ -138,6 +141,8 @@ def audit_lane(
         'archived_tif_sha256': actual_sha,
         'emitted_positive_pixels': val_report['emitted_positive_pixels'],
         'local_format_passed': bool(val_report['all_checks_passed'] and ref_report['ok']),
+        'official_format_passed': official_report['ok'],
+        'official_format_failed_rules': official_report['failed_rules'],
         'canonical_literal_uniqueness': {
             'evidence_class': 'REGISTRY-MEASUREMENT',
             'shared_tool': 'gems57.uniqueness.compare_array_to_registry',

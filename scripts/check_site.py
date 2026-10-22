@@ -98,9 +98,15 @@ def check_site():
     status = json.loads((site / 'status.json').read_text())
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert status['verdict'] == card['verdict'] and status['decision_line'] == line
+    verification = json.loads((site / 'evidence/verification.json').read_text())
+    official = verification['official_format_report']
+    assert status['official_format_passed'] is official['ok']
+    assert status['official_format_failed_rules'] == official['failed_rules']
     assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     assert manifest['ok_to_submit'] is card['ok_to_submit'] and manifest['ok_to_download']
+    assert manifest['official_format_passed'] is official['ok']
+    assert manifest['official_format_failed_rules'] == official['failed_rules']
     assert manifest['raster_sha256'] == card['raster_sha256']
     feed = json.loads((site / 'evidence/source_health.json').read_text())
     assert feed['submission_slots_used_by_this_refresh'] == 0

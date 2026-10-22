@@ -602,7 +602,12 @@ def main():
             raise ValueError('Review preflight disagrees with the verified frozen witness')
     h33 = load_json(ROOT / 'evidence/review_e4a4422d/h33_remeasurement.json')
     from gems79.status import submission_decision
-    decision = submission_decision(card, actual_sha256=card['raster_sha256'], format_passed=True)
+    current_format = report['format_report']
+    decision = submission_decision(
+        card, actual_sha256=card['raster_sha256'],
+        format_passed=current_format['format_passed'],
+        official_format_passed=report['official_format_report']['ok'],
+    )
     card = {**card, 'account_side_conditions': decision['account_side_conditions'],
             'blockers': decision['blockers']}
     index = json.loads((ROOT / 'registry/registry_index.json').read_text())
@@ -819,6 +824,8 @@ def main():
     shutil.copyfile(ROOT / 'run_card.json', SITE / 'run-card.json')
     (SITE / 'status.json').write_text(json.dumps({
         'ok_to_download': decision['ok_to_download'], 'ok_to_submit': decision['ok_to_submit'],
+        'official_format_passed': decision['official_format_passed'],
+        'official_format_failed_rules': report['official_format_report']['failed_rules'],
         'verdict': decision['verdict'], 'decision_line': decision_line(card),
         'file': 'downloads/' + Path(card['submission_file']).name,
         'zip': 'downloads/' + Path(card['zip_file']).name, 'sha256': card['raster_sha256'],
@@ -832,6 +839,8 @@ def main():
         'raster_sha256': card['raster_sha256'],
         'run_card_sha256': hashlib.sha256((ROOT / 'run_card.json').read_bytes()).hexdigest(),
         'ok_to_download': decision['ok_to_download'], 'ok_to_submit': decision['ok_to_submit'],
+        'official_format_passed': decision['official_format_passed'],
+        'official_format_failed_rules': report['official_format_report']['failed_rules'],
         'verdict': card['verdict'], 'scientific_snapshot_utc': card['generated_utc'],
         'scientific_summary_sha256': hashlib.sha256((SITE / 'evidence/evidence_summary.json').read_bytes()).hexdigest(),
         'runtime_data_status_sha256': hashlib.sha256((SITE / 'evidence/runtime_data_status.json').read_bytes()).hexdigest(),

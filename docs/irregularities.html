@@ -1670,5 +1670,23 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Corrected the unit and recorded the exact URL and advertised-but-unverified MD5. Public listing is not proof of archive transfer, a local hash, suitable schema, or target-area coverage.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>2364b96e</code> — official portal-format readiness gate (2026-10-22)</h3>
+<p>Full repository review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2364b96e.md"><code>reports/session_review_2364b96e.md</code></a>; regression evidence: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/session_2364b96e_run_card.json"><code>evidence/session_2364b96e_run_card.json</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-220</td>
+<td><strong>The shared local format validator passed the canonical THVC raster although the separate official R1–R8 validator fails R6. <code>submission_status.py</code> and <code>select_submission.py</code> previously consumed only the shared result, so a future card clearing scientific gates could be approved despite the known outside-footprint convention failure.</strong> Reproduction: the official sample passes; the canonical TIFF fails only R6 because all 7,111,787 cells outside the footprint are finite zero (R8 in-bounds range passes).</td>
+<td>Added the rule-by-rule official format result to <code>validate_path</code>, verified that the shared/reference/official validators read identical bytes, and bound that validation hash to the card snapshot in the status CLI and selector. <code>submission_decision</code> now requires an explicit official-format pass (default false); the project verifier and published JSON status carry the gate. Research download remains distinct from submit approval. The shared writer and TIFF were not changed; official-format uncertainty for the old rejected upload remains unresolved.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Branch review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

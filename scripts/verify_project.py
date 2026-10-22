@@ -466,6 +466,21 @@ def verify(refresh_timestamp: bool = False):
         if result['reference_grid']['path'].endswith(card['submission_file']):
             result['reference_grid']['path'] = card['submission_file']
     checks['reopened_tiff_format_all_passed'] = result['format_passed']
+    validation_matches_snapshot = result.get('validated_sha256') == actual_sha
+    checks['validators_inspected_exact_card_bytes'] = validation_matches_snapshot
+    official_report = result.get('official_format_report', {})
+    official_rules = official_report.get('rules', []) if isinstance(official_report, dict) else []
+    checks['official_portal_rule_report_complete'] = (
+        [row.get('rule') for row in official_rules] == [f'R{i}' for i in range(1, 9)]
+    )
+    checks['official_portal_result_matches_rules'] = (
+        result.get('official_format_passed') is (official_report.get('ok') is True)
+        and official_report.get('failed_rules') == [row['rule'] for row in official_rules if row.get('pass') is not True]
+    )
+    checks['canonical_official_r6_deviation_is_explicit'] = (
+        official_report.get('failed_rules') == ['R6']
+        and all(row.get('pass') is True for row in official_rules if row.get('rule') != 'R6')
+    )
     checks['format_receipt_positive_count_agrees'] = result['validator']['emitted_positive_pixels'] == card['positive_pixels']
     zip_path = path.with_suffix('.zip')
     with zipfile.ZipFile(zip_path) as z:
@@ -478,7 +493,17 @@ def verify(refresh_timestamp: bool = False):
     state = json.loads((ROOT / 'evidence/experiment_state.json').read_text())
     checks['e1_scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
                                              state['final_dot_placements_performed'] == 0)
-    decision = submission_decision(card, actual_sha256=actual_sha, format_passed=result['format_passed'])
+    decision = submission_decision(
+        card, actual_sha256=actual_sha,
+        format_passed=result['format_passed'] is True and validation_matches_snapshot,
+        official_format_passed=result['official_format_passed'] is True and validation_matches_snapshot,
+    )
+    checks['official_format_failure_blocks_submission'] = (
+        validation_matches_snapshot and (
+            result['official_format_passed'] is True
+            or ('official_submission_format_not_cleared' in decision['blockers'] and not decision['ok_to_submit'])
+        )
+    )
     checks['status_tool_and_card_agree'] = (decision['ok_to_download'] == card['ok_to_download'] and
         decision['ok_to_submit'] == card['ok_to_submit'] and decision['verdict'] == card['verdict'] and
         card['submission_slots_used'] == 0 and card['organizer_submission_receipt'] is None)
@@ -486,6 +511,7 @@ def verify(refresh_timestamp: bool = False):
     verified_utc = datetime.now(timezone.utc).isoformat()
     payload = {'all_checks_passed': all(checks.values()), 'checks': checks,
                'raster_sha256': actual_sha, 'format_report': result,
+               'official_format_report': official_report,
                'submission_decision': decision,
                'scope': 'Offline byte/format/evidence/status verification. Does not recreate holdout results or authenticate organizer acceptance.'}
     if not refresh_timestamp:

@@ -1,4 +1,5 @@
 """Software rejection fixtures; no geological score is produced by these tests."""
+import hashlib
 import json
 from pathlib import Path
 import pytest
@@ -62,6 +63,24 @@ def test_corrupt_artifact_returns_json_rejection(tmp_path):
     result = cli.inspect_current(tmp_path)
     assert_blocked(result)
     assert result['inspection_error']['stage'] == 'validate_artifact'
+
+
+def test_readiness_requires_all_validators_to_inspect_the_snapshotted_bytes(tmp_path, monkeypatch):
+    artifact = tmp_path / 'raster.tif'
+    artifact.write_bytes(b'byte-identity fixture')
+    actual = hashlib.sha256(artifact.read_bytes()).hexdigest()
+    (tmp_path / 'run_card.json').write_text(json.dumps({
+        'submission_file': 'raster.tif', 'raster_sha256': actual,
+    }))
+    monkeypatch.setattr(cli, 'validate_path', lambda _: {
+        'format_passed': True, 'official_format_passed': True,
+        'validated_sha256': 'b' * 64,
+        'official_format_report': {'sha256': 'b' * 64, 'ok': True, 'failed_rules': []},
+    })
+    result = cli.inspect_current(tmp_path)
+    assert result['validation_sha256_matches_snapshot'] is False
+    assert result['ok_to_download'] is False
+    assert result['ok_to_submit'] is False
 
 
 def test_validation_error_does_not_leak_details(tmp_path, monkeypatch):

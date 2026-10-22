@@ -56,13 +56,28 @@ def test_report_collision_never_prints_pass_or_overwrites(tmp_path, monkeypatch,
     assert report.read_text() == 'immutable evidence'
 
 
+def test_default_cli_exit_requires_official_rules_even_if_shared_checks_pass(monkeypatch, capsys):
+    monkeypatch.setattr(cli, 'validate_path', lambda _: {
+        'format_passed': True,
+        'official_format_passed': False,
+        'official_format_report': {'failed_rules': ['R6']},
+        'does_not_approve_submission': True,
+    })
+    code, result = invoke(monkeypatch, capsys, 'candidate.tif')
+    assert code == 1
+    assert result['format_passed'] is True
+    assert result['official_format_passed'] is False
+    assert result['official_format_report']['failed_rules'] == ['R6']
+
+
 def test_zip_single_tiff_and_report_success(tmp_path, monkeypatch, capsys):
     archive = tmp_path / 'valid-layout.zip'
     with zipfile.ZipFile(archive, 'w') as out:
         out.writestr('candidate.TIF', b'fixture')
     def inspect(path):
         assert path.read_bytes() == b'fixture'
-        return {'format_passed': True, 'does_not_approve_submission': True}
+        return {'format_passed': True, 'official_format_passed': True,
+                'does_not_approve_submission': True}
     monkeypatch.setattr(cli, 'validate_path', inspect)
     code, result = invoke(monkeypatch, capsys, archive)
     assert code == 0

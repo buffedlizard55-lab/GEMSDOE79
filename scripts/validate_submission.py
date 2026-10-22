@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Reopen and validate TIFF/ZIP format. PASS never approves competition use.
 
---template retains the concurrently merged generic-grid preflight interface.
-The primary default uses the pinned shared validator/reference. --registry is
-optional diagnostic-only shared-tool rejection, never a uniqueness certificate.
+The default path runs the pinned shared checks plus official portal rules R1-R8.
+--template retains a generic-grid compatibility preflight; its PASS is not
+submission-format readiness. --registry is optional diagnostic-only shared-tool
+rejection, never a uniqueness certificate.
 """
 import argparse
 import json
@@ -17,6 +18,7 @@ from gems57.grid import load_grid
 from gems57.gates import format_report
 from gems57.validate import validate as shared_validate
 from gems79.preflight import validate, compare_registry
+from gems79.portal_spec import validate_portal_file
 
 
 def _repo_rel(path: Path) -> str:
@@ -34,7 +36,17 @@ def validate_path(path):
     rel = _repo_rel(path)
     report['file'] = rel
     reference['path'] = rel
-    return {'format_passed': report['all_checks_passed'] and reference['ok'],
+    official = validate_portal_file(path)
+    hashes = [report.get('sha256'), reference.get('sha256'), official.get('sha256')]
+    same_bytes = (
+        all(isinstance(value, str) and len(value) == 64 for value in hashes)
+        and len(set(hashes)) == 1
+    )
+    return {'format_passed': report['all_checks_passed'] and reference['ok'] and same_bytes,
+            'official_format_passed': official['ok'] and same_bytes,
+            'validated_sha256': hashes[0] if same_bytes else None,
+            'validators_read_same_bytes': same_bytes,
+            'official_format_report': official,
             'does_not_approve_submission': True, 'validator': report, 'reference_grid': reference}
 
 
@@ -49,7 +61,11 @@ def main():
     def inspect(tif):
         if args.template:
             report = validate(tif, args.template)
-            result = {'format_passed': report['ok'], 'does_not_approve_submission': True,
+            result = {'format_passed': report['ok'], 'official_format_passed': False,
+                      'official_format_report': {
+                          'checked': False,
+                          'reason': 'Generic-template mode is not the pinned official submission validator.',
+                      }, 'does_not_approve_submission': True,
                       'validator': report, 'scope': 'Generic-grid compatibility preflight; NaN or zero exterior allowed, not submission readiness.'}
         else:
             result = validate_path(tif)
@@ -103,7 +119,8 @@ def main():
                 rendered = json.dumps(result, indent=2, allow_nan=False)
     print(rendered)
     # A supplied legacy path-list comparison can reject, never certify uniqueness.
-    return 0 if result['format_passed'] and not args.registry else 1
+    official_scope_ok = args.template is not None or result.get('official_format_passed') is True
+    return 0 if result['format_passed'] and official_scope_ok and not args.registry else 1
 
 
 if __name__ == '__main__':
