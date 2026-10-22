@@ -142,15 +142,22 @@ def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
                         extracted = Path(tmp) / Path(tifs[0]).name
                         extracted.write_bytes(z.read(tifs[0]))
                         _validate_tif(extracted, template, out)
-                        # Keep R1 from the zip check; drop a duplicate R1 from the inner TIFF.
-                        out['rules'] = [r for i, r in enumerate(out['rules'])
-                                        if not (r['rule'] == 'R1' and i > 0)]
+                        # R1 requires BOTH a single archive member and a
+                        # single-band GeoTIFF. Never discard an inner failure.
+                        inner_r1 = out['rules'][1]
+                        archive_r1 = out['rules'][0]
+                        archive_r1['pass'] = archive_r1['pass'] and inner_r1['pass']
+                        archive_r1['detail'] += '; inner TIFF: ' + inner_r1['detail']
+                        del out['rules'][1]
                     out['inner_tif'] = tifs[0]
                 else:
                     for rule in ('R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8'):
                         _check(out['rules'], rule, False, 'not evaluated: zip is not a single TIFF')
-        except zipfile.BadZipFile as exc:
-            _check(out['rules'], 'R1', False, f'not a valid zip: {exc}')
+        except (zipfile.BadZipFile, rasterio.errors.RasterioIOError) as exc:
+            # A readable archive is not evidence that its member is a TIFF.
+            # Return a refusal rather than crashing the automated inspector.
+            out['rules'] = []
+            _check(out['rules'], 'R1', False, f'not a readable single-GeoTIFF zip: {exc}')
     else:
         try:
             _validate_tif(path, template, out)

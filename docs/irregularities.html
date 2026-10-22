@@ -1670,5 +1670,32 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Corrected the unit and recorded the exact URL and advertised-but-unverified MD5. Public listing is not proof of archive transfer, a local hash, suitable schema, or target-area coverage.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>50335987</code> — ZIP inspector correction</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-50335987-01</td>
+<td>ZIP format inspector dropped the inner TIFF single-band failure, allowing a multi-band member to pass R1.</td>
+<td>Combine container and inner R1; regression tests require rejection for direct and zipped multi-band TIFFs. Central validator fixed, scientific template unchanged.</td>
+</tr>
+<tr>
+<td>IR-50335987-02</td>
+<td>A non-raster member named <code>.tif</code> in a valid ZIP raised RasterioIOError instead of a machine-readable refusal.</td>
+<td>Return negative R1; paired direct/ZIP regression tests.</td>
+</tr>
+<tr>
+<td>IR-50335987-03</td>
+<td>Homepage conflated byte-distinct historical artifacts with protocol uniqueness; executive summary generalized a three-file calibration to every research TIFF.</td>
+<td>Hero explicitly says no approved submission; narrowed calibration scope. No historical receipts or raster bytes altered.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Branch review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
