@@ -1,0 +1,154 @@
+{
+  "file": "h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+  "sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+  "bytes": 146056,
+  "submission_name": "h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT",
+  "note": "GEMSDOE79 H79-PFSD: strike-concord+2m-flux+10m3DEP dual-expert + equil Charnes-Cooper (39250 px)",
+  "note_chars": 96,
+  "validator": {
+    "file": "archive/h79_pfsd_9574eb05/h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 146056,
+    "sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003196472767740488,
+    "emitted_positive_pixels": 39250,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 39250,
+    "footprint_fraction": 0.007595735782959736
+  },
+  "template_report": {
+    "path": "archive/h79_pfsd_9574eb05/h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 146056,
+    "sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003196472767740488,
+    "n_nonzero": 39250,
+    "mass": 39250.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "68aea1e223041cda84aa81ce7fd2013ac7ff0b25bf1a9245455df1f7a6ce9813",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "H79-PFSD",
+    "consensus_equilibrated_charnes_cooper": {
+      "gamma_eq": 0.225,
+      "lambda_fp": 0.005,
+      "min_sep_px": 2.2,
+      "max_budget": 39250
+    },
+    "holdout_dti_seed20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.18858227461488186,
+      "ci95": [
+        0.17103720531945785,
+        0.20644131789893164
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 3112.869592707566,
+      "fpw": 34136.592236210156,
+      "fnw": 8208.13040729243
+    },
+    "holdout_dti_seed30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.17458762862745109,
+      "ci95": [
+        0.15777164212126277,
+        0.19113711749079113
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 2444.1226430655283,
+      "fpw": 22184.89439303244,
+      "fnw": 8897.877356934472
+    }
+  }
+}

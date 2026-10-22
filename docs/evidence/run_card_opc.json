@@ -574,7 +574,11 @@
   "max": 1.0,
   "n_nan": 0,
   "n_infinite": 0,
-  "on_catalogue_positive_pixels": 0
+  "on_catalogue_positive_pixels": 0,
+  "official_R1_R8_passed": false,
+  "official_failed_rules": [
+   "R6"
+  ]
  },
  "submission_name": "g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT",
  "note": "RESEARCH ONLY: G79-OPC aniso pair-corr prior, 45204 dots; holdout below THVC",
@@ -1046,6 +1050,161 @@
     }
    },
    "zip_contains_identical_tiff": true
+  },
+  "G1b_official_portal_spec": {
+   "passed": false,
+   "tif": {
+    "file": "artifacts/opc/g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "5b8756e4b3f31008027980c71e5f8362a24332b74d7b2b5fcd43aaabe74fd40b",
+    "bytes": 139575,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+     {
+      "rule": "R1",
+      "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+      "pass": true,
+      "detail": "driver GTiff; 1 band(s)"
+     },
+     {
+      "rule": "R2",
+      "text": "datatype float32",
+      "pass": true,
+      "detail": "dtype float32"
+     },
+     {
+      "rule": "R3",
+      "text": "CRS EPSG:32611",
+      "pass": true,
+      "detail": "CRS EPSG:32611"
+     },
+     {
+      "rule": "R4",
+      "text": "shape, transform, 100 m resolution and bounds equal the template",
+      "pass": true,
+      "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+     },
+     {
+      "rule": "R5",
+      "text": "nodata absent or NaN",
+      "pass": true,
+      "detail": "nodata None"
+     },
+     {
+      "rule": "R6",
+      "text": "data outside the bounds is null or NaN",
+      "pass": false,
+      "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+     },
+     {
+      "rule": "R7",
+      "text": "every in-bounds cell is finite (no NaN, no inf)",
+      "pass": true,
+      "detail": "0 NaN/inf cell(s) inside the bounds"
+     },
+     {
+      "rule": "R8",
+      "text": "every in-bounds value is between 0 and 1 inclusive",
+      "pass": true,
+      "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+     }
+    ],
+    "cells": {
+     "compared": true,
+     "inside_cells": 5167373,
+     "outside_cells": 7111787,
+     "outside_non_nan": 7111787,
+     "inside_nonfinite": 0,
+     "inside_out_of_range": 0,
+     "inside_min": 0.0,
+     "inside_max": 1.0,
+     "inside_positive": 45204,
+     "inside_mass": 45204.0
+    },
+    "failed_rules": [
+     "R6"
+    ],
+    "ok": false,
+    "does_not_approve_submission": true
+   },
+   "zip": {
+    "file": "artifacts/opc/g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.zip",
+    "sha256": "0c309a558b2bd465e13ff17d173c0525429e13bc3e0af049ce81062dddec9f18",
+    "bytes": 102158,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+     {
+      "rule": "R1",
+      "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+      "pass": true,
+      "detail": "zip members ['g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.tif']; CRC error None; driver GTiff; 1 band(s)"
+     },
+     {
+      "rule": "R2",
+      "text": "datatype float32",
+      "pass": true,
+      "detail": "dtype float32"
+     },
+     {
+      "rule": "R3",
+      "text": "CRS EPSG:32611",
+      "pass": true,
+      "detail": "CRS EPSG:32611"
+     },
+     {
+      "rule": "R4",
+      "text": "shape, transform, 100 m resolution and bounds equal the template",
+      "pass": true,
+      "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+     },
+     {
+      "rule": "R5",
+      "text": "nodata absent or NaN",
+      "pass": true,
+      "detail": "nodata None"
+     },
+     {
+      "rule": "R6",
+      "text": "data outside the bounds is null or NaN",
+      "pass": false,
+      "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+     },
+     {
+      "rule": "R7",
+      "text": "every in-bounds cell is finite (no NaN, no inf)",
+      "pass": true,
+      "detail": "0 NaN/inf cell(s) inside the bounds"
+     },
+     {
+      "rule": "R8",
+      "text": "every in-bounds value is between 0 and 1 inclusive",
+      "pass": true,
+      "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+     }
+    ],
+    "cells": {
+     "compared": true,
+     "inside_cells": 5167373,
+     "outside_cells": 7111787,
+     "outside_non_nan": 7111787,
+     "inside_nonfinite": 0,
+     "inside_out_of_range": 0,
+     "inside_min": 0.0,
+     "inside_max": 1.0,
+     "inside_positive": 45204,
+     "inside_mass": 45204.0
+    },
+    "inner_tif": "g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.tif",
+    "failed_rules": [
+     "R6"
+    ],
+    "ok": false,
+    "does_not_approve_submission": true
+   },
+   "note": "Official R1-R8 validator (scripts/validate_portal_spec.py, merged from main after this lane ran). The shared writer zero-fills outside the footprint, but official R6 requires null/NaN there (IR-79-212, IR-79-224, IR-79-227). Not repackaged: the lane is closed, and the writer policy needs an owner decision."
   }
  },
  "ok_to_download": true,
@@ -1082,7 +1241,7 @@
   "worst_literal_submission": "GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H53-DS-RadEdge-B2xH33D-20261007-4c01fcf2ad8c-radiometric-edge-coherence.tif",
   "reading": "DUPLICATE under the literal reading (as for every nonempty candidate since the preflight witness, IR-79-128); also non-unique under D-3"
  },
- "card_postprocessing_note": "After opc_finalize.py: mechanism prose added (spec kept as mechanism_spec), validator summary derived from the validator report, literal drift-check summary and live_fit placement receipt added. No measured value changed.",
+ "card_postprocessing_note": "After opc_finalize.py: mechanism prose added (spec kept as mechanism_spec), validator summary derived from the validator report, literal drift-check summary and live_fit placement receipt added. No measured value changed. After merging main: official R1-R8 portal-spec result added (G1b, FAIL R6).",
  "live_fit": {
   "placement": {
    "n_dots": 45204,

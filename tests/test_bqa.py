@@ -39,7 +39,7 @@ def test_shared_tool_is_left_as_main_pinned_it():
     entry = next(e for e in json.loads((ROOT / "registry/template_pin.json").read_text())["files"]
                  if e["path"] == "vendor/gems57/uniqueness.py")
     assert current == entry["sha256"]
-    # IR-79-207: amendment D-3 appended a third shared change; the pin chain
+    # IR-79-228: amendment D-3 appended a third shared change; the pin chain
     # now also carries historical_sha256 (same rule as scripts/verify_project.py).
     assert pin["uniqueness_py_sha256"] in (entry["sha256"], entry["previous_sha256"],
                                            *entry.get("historical_sha256", []))

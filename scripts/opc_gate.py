@@ -35,9 +35,13 @@ def evaluate() -> dict:
     tif = ROOT / card["raster"]["path"]
     from validate_submission import validate_path
     fmt = validate_path(tif)
+    from gems79.portal_spec import validate_portal_file
+    tpl = ROOT / "data/reference/sample_submission.tif"
+    official = [validate_portal_file(str(f), str(tpl)) for f in (tif, ROOT / card["raster"]["zip"])]
     g = {
         "G0_preregistration_sha_intact": pre_ok,
         "G1_format_validator": bool(fmt["format_passed"]) and sha(tif) == card["raster"]["sha256"],
+        "G1b_official_portal_spec_R1_R8": all(o["ok"] for o in official),
         "G2_canary_le_0.90": canary <= 0.90,
         "G3_beats_holdout_best": dti[20] > THVC[20] and dti[30] > THVC[30] and (dti[20] + dti[30]) / 2 > BEST_MEAN,
         "G4_novelty_D3_both_phases": all(n.get("unique_under_D3") is True and n["complete_accessible_scan"] for n in nov),
@@ -46,7 +50,7 @@ def evaluate() -> dict:
                            and card["submission_name"].endswith("-DO-NOT-SUBMIT") != all(g.values())
                            and len(card["note"]) <= 140)
     ok = all(g.values()) and card["ok_to_submit"] is True
-    return dict(gates=g, holdout_dti=dti, two_seed_mean=(dti[20] + dti[30]) / 2, canary_max=canary,
+    return dict(gates=g, official_failed_rules=sorted({x for o in official for x in o["failed_rules"]}), holdout_dti=dti, two_seed_mean=(dti[20] + dti[30]) / 2, canary_max=canary,
                 tif=card["raster"]["path"], ok_to_download=bool(g["G1_format_validator"]),
                 ok_to_submit=ok, verdict=card["verdict"])
 

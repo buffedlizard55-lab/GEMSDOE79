@@ -151,7 +151,11 @@ def main() -> int:
     from validate_submission import validate_path
     fmt = validate_path(tif)
     G["G1_format"] = dict(passed=bool(fmt["format_passed"]), validator=fmt)
-    ok = ok and G["G1_format"]["passed"]
+    from gems79.portal_spec import validate_portal_file
+    tpl = ROOT / "data/reference/sample_submission.tif"
+    off = [validate_portal_file(str(f), str(tpl)) for f in (tif, tif.with_suffix(".zip"))]
+    G["G1b_official_portal_spec"] = dict(passed=all(o["ok"] for o in off), tif=off[0], zip=off[1])
+    ok = ok and G["G1_format"]["passed"] and G["G1b_official_portal_spec"]["passed"]
     zp = tif.with_suffix(".zip")
     with zipfile.ZipFile(zp) as zf:
         names = zf.namelist()

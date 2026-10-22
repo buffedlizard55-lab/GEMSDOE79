@@ -1,10 +1,10 @@
 {
-  "attempted_utc": "2026-10-22T15:57:03.873184+00:00",
+  "attempted_utc": "2026-10-22T20:00:04.781955+00:00",
   "sources": [
     {
       "id": "DD-PROBLEM",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
-      "attempted_utc": "2026-10-22T15:57:03.717963+00:00",
+      "attempted_utc": "2026-10-22T20:00:04.611476+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -13,7 +13,7 @@
     {
       "id": "DOE-RULES",
       "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
-      "attempted_utc": "2026-10-22T15:57:03.718690+00:00",
+      "attempted_utc": "2026-10-22T20:00:04.612157+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -22,7 +22,7 @@
     {
       "id": "USGS-GEODAWN",
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
-      "attempted_utc": "2026-10-22T15:57:03.719063+00:00",
+      "attempted_utc": "2026-10-22T20:00:04.612620+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -31,7 +31,7 @@
     {
       "id": "GDR-1391",
       "url": "https://gdr.openei.org/submissions/1391",
-      "attempted_utc": "2026-10-22T15:57:03.719700+00:00",
+      "attempted_utc": "2026-10-22T20:00:04.613058+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -40,7 +40,7 @@
     {
       "id": "DD-LEADERBOARD",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "attempted_utc": "2026-10-22T15:57:03.721736+00:00",
+      "attempted_utc": "2026-10-22T20:00:04.614169+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -49,7 +49,7 @@
     {
       "id": "DD-AUTH",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/",
-      "attempted_utc": "2026-10-22T15:57:03.725379+00:00",
+      "attempted_utc": "2026-10-22T20:00:04.618441+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -65,19 +65,30 @@
     "third_place_public_dti": 0.3894,
     "rank_21_participant": "kinghorton42",
     "rank_21_public_dti": 0.3261,
-    "rank_48_participant": "moongrega",
-    "rank_48_public_dti": 0.2818,
-    "rank_49_participant": "arnofault",
-    "rank_49_public_dti": 0.2817,
-    "rank_50_participant": "sam35",
-    "rank_50_public_dti": 0.2804,
-    "prior_2026_10_21_rank_48_participant": "extradr19",
-    "prior_2026_10_21_rank_48_public_dti": 0.2778,
+    "rank_22_participant": "li002666",
+    "rank_22_public_dti": 0.3183,
+    "rank_48_participant": "jgaines",
+    "rank_48_public_dti": 0.282,
+    "rank_49_participant": "moongrega",
+    "rank_49_public_dti": 0.2818,
+    "rank_50_participant": "arnofault",
+    "rank_50_public_dti": 0.2817,
     "first_place_submissions": 27,
-    "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
+    "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 NOT A SUBMISSION RECEIPT",
     "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
     "observed_date": "2026-10-22",
-    "method": "Reviewed through research fetch_page tool, not the failed direct request"
+    "observed_utc": null,
+    "method": "All three chunks read via research fetch_page on 2026-10-22; exact later read time not exposed. Separate direct shell HTTP probe at 15:57Z failed; that failure is not treated as a fresh content review.",
+    "historical_prior_snapshot": {
+      "observed_date_utc": "2026-10-22",
+      "rank_48_participant": "moongrega",
+      "rank_48_public_dti": 0.2818,
+      "rank_49_participant": "arnofault",
+      "rank_49_public_dti": 0.2817,
+      "rank_50_participant": "sam35",
+      "rank_50_public_dti": 0.2804,
+      "evidence_ref": "evidence/session_0d90d81b_audit.json#/live_public_leaderboard_20261022"
+    }
   },
   "scientific_claims_reviewed_date": "2026-10-22",
   "note": "A new fetch attempt does not refresh an old observation. No submission receipt, remaining-account-capacity or scientific result is inferred.",

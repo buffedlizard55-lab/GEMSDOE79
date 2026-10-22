@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "lane": "G79-TDW",
+  "session": "0be4d7bb",
+  "experiment": "EXP-TDW-1 of max 3 (stopped: falsified, no retuning)",
+  "hypothesis": "Blind intrabasin step faults buried under fan/playa cover appear as shallow (<600 m) Salem tilt-zero worms in flight-line de-striped RTP, concordant with a unilateral gravity step.",
+  "mechanism": "FFT E-W flight-line notch; tilt=atan(dz/HGM); worm x shallow-depth gate x gravity concordance rank product; greedy 2.8 px binary emission (37,654 dots), zero on catalogue, 200 m prune, zeros outside footprint; shared submission_writer (zeros, all-finite [0,1]).",
+  "named_non_fault_process": "Miocene basalt dike swarms (symmetric magnetic dipoles) and residual GeoDAWN micro-levelling seams; plus pluvial shoreline benches for scarp-like mimics.",
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "kernel_m": 300,
+    "seed20": {
+      "dti": 0.0395,
+      "ci95": [
+        0.029726024289191858,
+        0.049034879592381675
+      ],
+      "withheld_positive_pixels": 11321,
+      "uniform_control": 0.046802128425354694
+    },
+    "seed30": {
+      "dti": 0.0413,
+      "ci95": [
+        0.03210002905130892,
+        0.05069269394882935
+      ],
+      "withheld_positive_pixels": 11342,
+      "uniform_control": 0.04912972051733127
+    },
+    "incumbent_THVC_frozen": {
+      "seed20": 0.1905,
+      "seed30": 0.1944
+    },
+    "beats_incumbent": false,
+    "beats_uniform": false
+  },
+  "leakage_canary": {
+    "threshold": 0.9,
+    "seed20_max_symmetric_auc": 0.5321079690261767,
+    "seed30_max_symmetric_auc": 0.5711338652592809,
+    "passed": true
+  },
+  "novelty_local_partial": {
+    "scope": "PARTIAL local inventory only (docs/downloads + artifacts + archive in this checkout); NOT the full 1108-raster registry; full literal gate NOT MEASURED here and known unsatisfiable vs saturated priors (evidence/gate_satisfiability_certificate.json)",
+    "n_comparable": 40,
+    "max_abs_spearman_sample200k": 0.05698127009485294,
+    "max_forward_overlap_all_local": 0.8821373559250013,
+    "sparse_le100k": {
+      "n": 38,
+      "max_forward_overlap": 0.5419610134381473,
+      "passed_le_0.70": true
+    },
+    "literal_blocker": "1,882,872-px continuous fabric-offset surface (halo covers candidate at 0.8821; non-informative saturated prior, cf. evidence/gate_satisfiability_certificate.json)",
+    "full_registry": "NOT MEASURED (1,108-raster census not re-restored this session)"
+  },
+  "raster_sha256": "0a79e3e54c1c8b9254ba0c8a36e61a1c41f09c594ae59778b2bf6478ba391eef",
+  "validator": {
+    "file": "/home/user/GEMSDOE79/docs/downloads/gems79-tdw-tiltworm-37654dots-20261022.tif",
+    "bytes": 136272,
+    "sha256": "0a79e3e54c1c8b9254ba0c8a36e61a1c41f09c594ae59778b2bf6478ba391eef",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "submission_name": "gems79-tdw-tiltworm-37654dots-20261022",
+  "submission_note": "G79-TDW destriped tilt-depth worms, gravity-concordant, 37654 dots, zeros outside footprint",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "submission_slots_used": 0,
+  "verdict": "negative",
+  "stop_reason": "HOLDOUT-DTI 0.0395/0.0413 is below the uniform control (0.0468/0.0491) and far below frozen THVC incumbent (0.1905/0.1944) on both seeds; protocol forbids spending a slot. Format PASS and sparse-novelty PASS do not override the failed holdout gate."
+}
