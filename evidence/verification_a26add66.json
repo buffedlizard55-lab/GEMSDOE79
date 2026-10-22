@@ -194,5 +194,10 @@
   "competition_slots_used": 0,
   "submission_approved": false,
   "scope": "Software and inherited-file verification; not candidate validation or organizer acceptance.",
-  "concurrent_main_reconciled": "a824282 (shared validator, official-format selector gate, private-path redaction; ledger gaps repaired)"
+  "concurrent_main_reconciled": "a824282 (shared validator, official-format selector gate, private-path redaction; ledger gaps repaired)",
+  "final_metadata_only_sync": {
+    "main_commit": "383cd5a",
+    "scope": "Concurrent repair of same irregularity IDs plus generated timestamps only; no model, validator or selector code changed.",
+    "publication_regressions": "Targeted publication, AGENTS references, site-feed and review regressions passed after rebuild."
+  }
 }
