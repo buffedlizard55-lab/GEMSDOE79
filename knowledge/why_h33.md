@@ -102,8 +102,26 @@ writer. It is byte-distinct from the 992 restored registry files. The literal
 pre-placement shared gate nevertheless reports 100% support overlap with a
 verified dense prior. **Scientific work stopped before canaries, hide-and-recover
 or dot placement**. The downloadable TIFF is negative-result evidence, not a
-validated detector. We explicitly do not invent a HOLDOUT-DTI or CI, and do not
-claim this lane is better or worse scientifically than the incumbent.
+validated detector. We explicitly do not invent a HOLDOUT-DTI or CI in
+`run_card.json`, and do not claim this lane is better or worse scientifically
+than the incumbent on the official run card.
+
+In a separate **post-stop offline diagnostic** (`evidence/post_stop_diagnostic.json`,
+which does not alter `run_card.json` or `evidence/experiment_state.json`),
+evaluating E1 under hypothetical Decision D-1 Option B (`top-37,654` overlap
+`0.0119` vs E-proba) or Option C (`p >= 0.5` overlap `0.3046` vs E-proba) showed
+that while E1 passes all 72 feature-fold leakage canaries (`max_symmetric_auc =
+0.5872` on seed 20, `0.6162` on seed 30, both `<= 0.90`), its pooled `HOLDOUT-DTI`
+(`gems57-pooled-hide-v2`) is `0.0474 [0.0390, 0.0552]` on seed 20 and `0.0466
+[0.0388, 0.0543]` on seed 30—failing to beat its matched zero-lag edge control,
+underperforming uniform random placement (`0.0504` / `0.0496`), and trailing the
+fold-fair H33 control (`0.0961` / `0.0989`). Likewise, independent canonical
+audits (`evidence/concurrent_lanes_audit.json`) of the two archived concurrent
+lanes (`H79-MCT` in `archive/h79_mct_c26efec/` and `H79-CSPT` in
+`archive/h79_cspt_464d591/`) confirm that both failed the literal `0.70` overlap
+gate (`1.0000` overlap against `17GEMSDOE_E-proba-multiscale`) and relied on
+unauthorized local dense-prior exemptions and post-duplicate constrained overlap
+capping (`0.6800` and `0.6900`).
 
 ## Next decision, not another submission gamble
 

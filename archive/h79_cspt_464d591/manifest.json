@@ -1,0 +1,604 @@
+{
+  "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+  "merge_commit_on_main": "3d386a3f0c6f89c31e33a656dee8851cee64753d",
+  "purpose": "Preserve concurrent H79-CSPT lane (PR #12) evidence without adopting its vendor/gems57/uniqueness.py dense-halo exemption, unbuffered self-supervision, post-duplicate constrained Lagrangian overlap capping, or submit approval. Shared modules remain original upstream bytes, not local forks. Source PY/C/HTML stored as non-executable text.",
+  "files": [
+    {
+      "source_path": ".gitignore",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "19016eb19d3adb34cd53797c2b4b1827b807e90df10331960698074f259a1571",
+      "bytes": 289,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "README.md",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "1cd9ed48915c6146ec9dfaec1d9a21a26fe6134886030ac7f4656f54def01162",
+      "bytes": 25017,
+      "archive_path": "archive/h79_cspt_464d591/ORIGINAL_README.md",
+      "archived_sha256": "af2ebbb2f7a39e4e16b5f3af6d2a4ee6e2878519b495eaf08f298f4c290cb3c7",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "conftest.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "e84677643023cf015e99d3264b6aa1d18870cabcdf25768098d7f1aac467a3a7",
+      "bytes": 378,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "data/bridge/existing_faults.tif",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "data/bridge/labels.tif",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "bytes": 425830,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "data/bridge/sample_submission.tif",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "bytes": 1599597,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "d0e4552cc490e84b2afee833e3a6a789aca45fc68ed260bbf364f9402126cae6",
+      "bytes": 3477,
+      "archive_path": "archive/h79_cspt_464d591/docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.json",
+      "archived_sha256": "d0e4552cc490e84b2afee833e3a6a789aca45fc68ed260bbf364f9402126cae6",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "388d86783e743a7f1a466e5f2cc58e5a694da12908a3ffe14bb8e55409cf75fc",
+      "bytes": 138386,
+      "archive_path": "archive/h79_cspt_464d591/docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif",
+      "archived_sha256": "388d86783e743a7f1a466e5f2cc58e5a694da12908a3ffe14bb8e55409cf75fc",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.zip",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "14f73fa1c3d6864e19be1563e827555fd68c87ed6e71aaa9ca93f41107356d0d",
+      "bytes": 103557,
+      "archive_path": "archive/h79_cspt_464d591/docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.zip",
+      "archived_sha256": "14f73fa1c3d6864e19be1563e827555fd68c87ed6e71aaa9ca93f41107356d0d",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/executive-summary.html",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "d5bd38f66d777c79709777ee49256c77d7e343ee1066558fbdb4094170d0eb4c",
+      "bytes": 13876,
+      "archive_path": "archive/h79_cspt_464d591/docs/executive-summary.html.txt",
+      "archived_sha256": "d5bd38f66d777c79709777ee49256c77d7e343ee1066558fbdb4094170d0eb4c",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "docs/figures/h79_holdout_progression.png",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "1bb99bbe32b084ce5a8eeda702b3be22c2cc4ff83c37185cdb97d9dc9aa43c02",
+      "bytes": 192984,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "docs/figures/h79_overview_map.png",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "92a1843cad7e69df5d490508afd93a8b5c95f31307110460b6024d3802c81c72",
+      "bytes": 1515356,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "docs/figures/h79_uniqueness_and_canary.png",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "a399066424f1c71ddccdf952dbd4ab6a9b91367949d1584b4f908dab301da751",
+      "bytes": 181117,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "docs/index.html",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "4cc0ef1f7d5bcfab08a391188261adf6a6a1f2f3f6943fef55c20ca57f0358e0",
+      "bytes": 40707,
+      "archive_path": "archive/h79_cspt_464d591/docs/index.html.txt",
+      "archived_sha256": "4cc0ef1f7d5bcfab08a391188261adf6a6a1f2f3f6943fef55c20ca57f0358e0",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/data_receipt.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "75e4d86fc02b8850983a735296af82bae5c9503201aaaa8cc6f186aa1b7434f2",
+      "bytes": 901,
+      "archive_path": "archive/h79_cspt_464d591/evidence/data_receipt.json",
+      "archived_sha256": "75e4d86fc02b8850983a735296af82bae5c9503201aaaa8cc6f186aa1b7434f2",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/h77e_data_receipt.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "43bced9ea32bef3f17761796c8293f2ba1debe91919e48d08613dacf9ed0eb97",
+      "bytes": 3998,
+      "archive_path": "archive/h79_cspt_464d591/evidence/h77e_data_receipt.json",
+      "archived_sha256": "43bced9ea32bef3f17761796c8293f2ba1debe91919e48d08613dacf9ed0eb97",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/h79_cspt/dual_seed_holdout_summary.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "18a777b3268387a3253820f98650a85224f61c1c2d9cbb7d75da81695785aa50",
+      "bytes": 7461,
+      "archive_path": "archive/h79_cspt_464d591/evidence/h79_cspt/dual_seed_holdout_summary.json",
+      "archived_sha256": "18a777b3268387a3253820f98650a85224f61c1c2d9cbb7d75da81695785aa50",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/h79_cspt/exp1_seed20_holdout.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "8bf62f35e34f65e40b3ca0ec1259a9bd4013cbb59fc9958c30dba9944d43e8d8",
+      "bytes": 59839,
+      "archive_path": "archive/h79_cspt_464d591/evidence/h79_cspt/exp1_seed20_holdout.json",
+      "archived_sha256": "8bf62f35e34f65e40b3ca0ec1259a9bd4013cbb59fc9958c30dba9944d43e8d8",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/h79_cspt/exp2_seed30_holdout.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "4b684a47793bdef5f246f8d28d7112b53ad70f4add7b35f61271dc4b3c31c669",
+      "bytes": 60184,
+      "archive_path": "archive/h79_cspt_464d591/evidence/h79_cspt/exp2_seed30_holdout.json",
+      "archived_sha256": "4b684a47793bdef5f246f8d28d7112b53ad70f4add7b35f61271dc4b3c31c669",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/h79_cspt/exp3_full_oof_and_uniqueness_1016.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "525a05042b9fdfb696ea69a58680bbc788ae498ecd7d20f6f1b11b2cf9865786",
+      "bytes": 67413,
+      "archive_path": "archive/h79_cspt_464d591/evidence/h79_cspt/exp3_full_oof_and_uniqueness_1016.json",
+      "archived_sha256": "525a05042b9fdfb696ea69a58680bbc788ae498ecd7d20f6f1b11b2cf9865786",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/h79_cspt/leakage_canary_130ch.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "b53df0e13007e5755a0728c2714dc4adfdd96448ebf20398625c4a239c5586b9",
+      "bytes": 35690,
+      "archive_path": "archive/h79_cspt_464d591/evidence/h79_cspt/leakage_canary_130ch.json",
+      "archived_sha256": "b53df0e13007e5755a0728c2714dc4adfdd96448ebf20398625c4a239c5586b9",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "evidence/h79_cspt/run_card.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "e408698d641435a0c0402ae118462a4f2d66a93c07681dd2acd411c2e4eb68a1",
+      "bytes": 20390,
+      "archive_path": "archive/h79_cspt_464d591/evidence/h79_cspt/run_card.json",
+      "archived_sha256": "e408698d641435a0c0402ae118462a4f2d66a93c07681dd2acd411c2e4eb68a1",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "pyproject.toml",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "f1fb24bca593fa84947d5cc46ffd2a896009f7e4157a028fc03f4fd11d33962e",
+      "bytes": 640,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "registry/data_manifest.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "f08f96e534cf91dbb02d7655a4e6d661837235ebb88b2e5eabdc0b3cc7bcee21",
+      "bytes": 13501,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "registry/live_scores.csv",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "957706f3c576d6ad38bee56bc819db5c16dfa3ac410864e59de6e3701563f708",
+      "bytes": 6419,
+      "archive_path": "archive/h79_cspt_464d591/registry/live_scores.csv",
+      "archived_sha256": "957706f3c576d6ad38bee56bc819db5c16dfa3ac410864e59de6e3701563f708",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "registry/registry_index.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "73216d76cebc7bd4bf55ac144f4bf8d9f71408b5d18705ec9cbeaa571f307c67",
+      "bytes": 330595,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "registry/template_pin.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "310251c790e657b0d629ceef821330dcdf96cf4bc0bbea9ddf496c9f8d175df0",
+      "bytes": 3010,
+      "archive_path": "archive/h79_cspt_464d591/registry/template_pin.json",
+      "archived_sha256": "310251c790e657b0d629ceef821330dcdf96cf4bc0bbea9ddf496c9f8d175df0",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "reports/why_02778_and_h79_cspt.md",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "933c36807f41e3e56cdac617eedf9d4d08236cae7ebc82b214339c27333f56df",
+      "bytes": 11708,
+      "archive_path": "archive/h79_cspt_464d591/reports/why_02778_and_h79_cspt.md",
+      "archived_sha256": "df5fc7623d4ee35957da9f0135bba68ada23d3640cbb5f649ee4d8e6097895b2",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "requirements.txt",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "e736730f5591d3089b2b4e5291ee6bd2b4e9596fbf51ac951872e978708af9fc",
+      "bytes": 393,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "scripts/download_competition_data.sh",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "1e9f1507d651f57d61f030ead7af258dddbbc469a6df129c43e1eee6ab13b8f9",
+      "bytes": 101,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "scripts/generate_h79_figures.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "dcf70dffb9a63fa32a09f5130b8b8b02c39c3e124eae9451cf5b4f3beb029d6b",
+      "bytes": 9832,
+      "archive_path": "archive/h79_cspt_464d591/scripts/generate_h79_figures.py.txt",
+      "archived_sha256": "dcf70dffb9a63fa32a09f5130b8b8b02c39c3e124eae9451cf5b4f3beb029d6b",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/h82gmns_build_holdout_clean_halos.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "ba5032d0d8ba3d80da6250cbd769fd58ff235a4b75c8d18e847304b8b53013ef",
+      "bytes": 3670,
+      "archive_path": "archive/h79_cspt_464d591/scripts/h82gmns_build_holdout_clean_halos.py.txt",
+      "archived_sha256": "ba5032d0d8ba3d80da6250cbd769fd58ff235a4b75c8d18e847304b8b53013ef",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/h82gmns_build_portfolio_index.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "a03b5eaf7da3fd2b98f140622fb80dccfa1b0be2aca878c8a380ea6980184c9b",
+      "bytes": 14481,
+      "archive_path": "archive/h79_cspt_464d591/scripts/h82gmns_build_portfolio_index.py.txt",
+      "archived_sha256": "a03b5eaf7da3fd2b98f140622fb80dccfa1b0be2aca878c8a380ea6980184c9b",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/restore_h77_step_data.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "634b16610cba163b39da57869831ef51c78d3d7f6f67bb7c5676e659822b2668",
+      "bytes": 5009,
+      "archive_path": "archive/h79_cspt_464d591/scripts/restore_h77_step_data.py.txt",
+      "archived_sha256": "634b16610cba163b39da57869831ef51c78d3d7f6f67bb7c5676e659822b2668",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/restore_h77pd_data.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "26db7c260afd1da99c8bba5ba4b5c3f987444ed21c6495a8cc04cd0841c0166b",
+      "bytes": 7519,
+      "archive_path": "archive/h79_cspt_464d591/scripts/restore_h77pd_data.py.txt",
+      "archived_sha256": "26db7c260afd1da99c8bba5ba4b5c3f987444ed21c6495a8cc04cd0841c0166b",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "scripts/run_h79_experiments.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "4e3b9039308f61e5b596473ec831353034531ba4cb8efec78f482540672a6907",
+      "bytes": 42929,
+      "archive_path": "archive/h79_cspt_464d591/scripts/run_h79_experiments.py.txt",
+      "archived_sha256": "4e3b9039308f61e5b596473ec831353034531ba4cb8efec78f482540672a6907",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems77_h82gmns/__init__.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "494fdd8ff91fedacf0ac17b79c9340fc1742617f0b80b12da687b523701691ba",
+      "bytes": 385,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems77_h82gmns/_fast_submod.c",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "346df601cf2b0ad458f8d2380a2ca7aacfe6268b44c42cd1dc857b0c6aaac28e",
+      "bytes": 11026,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems77_h82gmns/features.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "5ed3e41010cc7a7a65c601f2d756499355f6c2c940dbe20d7d034711630fecf7",
+      "bytes": 37381,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems77_h82gmns/lagrangian_solver.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "4ac611bedb26cb9f4c6f74e0d0de24a531ebafc5ba2880e851f90be224248407",
+      "bytes": 19895,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems77_h82gmns/models.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "7e7226625b9d3192f4084364a0271d77a4311299be4307945ce11ca288e7c0b9",
+      "bytes": 5652,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems77_step/__init__.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "818f0e138dc7d4f92dc241336abbbdd8c08afe7722f9b029f04036e786dcfcc8",
+      "bytes": 213,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems77_step/emit.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "05ac657e535af26d5649257daf8d6c406b5df775086e933ad772280f5910ae25",
+      "bytes": 5875,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems77_step/features.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "88941c729fee5eff2abaca0ab5bfa32d7945c03acd017d101d796a73edebf895",
+      "bytes": 38781,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems77_step/models.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "b9ec5a4016fce9a40737a8fa482c8132904f1870319a2dc8782ce1447694725d",
+      "bytes": 11150,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "src/gems79/__init__.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "efad1985fab0c2ac405e79369bd8f2009932dd5e965e268b75b34cf7f0943a7d",
+      "bytes": 245,
+      "archive_path": "archive/h79_cspt_464d591/src/gems79/__init__.py.txt",
+      "archived_sha256": "efad1985fab0c2ac405e79369bd8f2009932dd5e965e268b75b34cf7f0943a7d",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/_fast_submod.c",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "2878fdc6b93ee715299fe94e41e52368b65c60f433d845e3b7783a3dd9672c05",
+      "bytes": 43228,
+      "archive_path": "archive/h79_cspt_464d591/src/gems79/_fast_submod.c.txt",
+      "archived_sha256": "2878fdc6b93ee715299fe94e41e52368b65c60f433d845e3b7783a3dd9672c05",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/features.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "a9648c41c401cd78362d0f2f615dff7c56f3f89bcba526d800f0a1e09cb1340f",
+      "bytes": 20132,
+      "archive_path": "archive/h79_cspt_464d591/src/gems79/features.py.txt",
+      "archived_sha256": "a9648c41c401cd78362d0f2f615dff7c56f3f89bcba526d800f0a1e09cb1340f",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/lagrangian_solver.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "95f19ea02b63fb8a6caaf4234bdb40b019298d2dac3dcfbaf0ffb054d6df2671",
+      "bytes": 29920,
+      "archive_path": "archive/h79_cspt_464d591/src/gems79/lagrangian_solver.py.txt",
+      "archived_sha256": "95f19ea02b63fb8a6caaf4234bdb40b019298d2dac3dcfbaf0ffb054d6df2671",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "src/gems79/models.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "c9b558e020d61b1be807fa4f63979b39443d7c46a60a6f67df924c8d57e41731",
+      "bytes": 11705,
+      "archive_path": "archive/h79_cspt_464d591/src/gems79/models.py.txt",
+      "archived_sha256": "c9b558e020d61b1be807fa4f63979b39443d7c46a60a6f67df924c8d57e41731",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "submissions/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.json",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "9ce4367283a51d64bdaeb3af9c623124d95697907deb8ef7a37d7b92a53d1054",
+      "bytes": 3471,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "submissions/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "388d86783e743a7f1a466e5f2cc58e5a694da12908a3ffe14bb8e55409cf75fc",
+      "bytes": 138386,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "submissions/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.zip",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "14f73fa1c3d6864e19be1563e827555fd68c87ed6e71aaa9ca93f41107356d0d",
+      "bytes": 103557,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "tests/test_h79_pipeline.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "0decf4ad602802c31714b3994b169e68294cbcfdb87f749b40c83123109c6a7d",
+      "bytes": 7331,
+      "archive_path": "archive/h79_cspt_464d591/tests/test_h79_pipeline.py.txt",
+      "archived_sha256": "0decf4ad602802c31714b3994b169e68294cbcfdb87f749b40c83123109c6a7d",
+      "disposition": "Historical source/data only; no scientific re-execution or validation claim"
+    },
+    {
+      "source_path": "vendor/gems57/__init__.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "bd7f12b45caf67b7b4d0da4656c7c3895513bec524ec0b7f251227ecbdd39d26",
+      "bytes": 641,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/anatomy.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "f47103ae0f615a0f04ef0427ea83ad2dd11ecd4af34e53b99f2e20e557025cf9",
+      "bytes": 20081,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/damagezone_envelope.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "5e5cc359f3ccc239a0906d96f642057461ae7928e967f02249b62dab2ac98a36",
+      "bytes": 9838,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/emit.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "05c473e736e4a599b35be77b2791b62d72460383853c8fba0eb56ea26c99055d",
+      "bytes": 19204,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/evaluate_holdout.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "bytes": 7490,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/evaluator_provenance.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "6f1d1932fbe427ceb028f74d80926aa836b2cb77c982625c97d1c4141b7b80e2",
+      "bytes": 2952,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/faultzone.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "620537490173e565898911577f6cdf95e288d8eff326830a1da9c71f4b467bdd",
+      "bytes": 17696,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/fit.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "936488cc00c0f71c64d7e36a94dd1ddd0f17625abeefb41e7c6e75360ac14ae8",
+      "bytes": 5891,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/fitting.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "91fbc11fc51374ca07b5246d5221edee33636e546fa457331e84272b80a7cbc7",
+      "bytes": 10707,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/gates.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "7c57f70dbba58bb1112df4193a3de56516af0f981970d4b943b394f99b573dae",
+      "bytes": 10238,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/geo.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "4320d4fb718a66a794b21c35af28cc1f2ce7b6e49649b17e86b3e9eb34235ff8",
+      "bytes": 6015,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/grid.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "b96df7ec0f33658a61b0baa5db85fcd19be2cd8b1873f99699bd26bddae8cd8d",
+      "bytes": 8704,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/holdout.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "bytes": 14883,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/metric.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "bytes": 9895,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/network.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "d5e53d7df182e69bb22a6e39ac16f43d3f5b730e503d86538d5f8f7360020943",
+      "bytes": 9095,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/offcatalogue.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "5c1937dda9f16563d8679446bb60e66c8c878e7440c522c44afa0e7879b7b6e8",
+      "bytes": 16436,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/relay_bend_anatomy.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "cb9b79b9b61feaaaf6305009f571b6222c1ec390d1f94a1b05a91e05e7eb5dcb",
+      "bytes": 13742,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/spatial.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8",
+      "bytes": 9879,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/strand_orientation.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "c1dd6d8bc39c48c4cda11321c116e600b59b18cf1764e23ce3d5438bea9dd0bc",
+      "bytes": 5342,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/strike_zone.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "eaf5b1030b731ec743650568d28598d3b6104e641a089dd6cca196e05be4e9c4",
+      "bytes": 5132,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/submission_writer.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
+      "bytes": 6387,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/uniqueness.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "d60cd8db338e8dcbb1f14168f7579f5b8c6212a79fe5087545a9156cf27392b9",
+      "bytes": 28936,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    },
+    {
+      "source_path": "vendor/gems57/validate.py",
+      "source_commit": "464d5919f13b3e9acf6c25a7c0872cae55166e86",
+      "sha256": "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd",
+      "bytes": 4765,
+      "disposition": "Git history only; not copied as an executable fork or active project configuration"
+    }
+  ]
+}

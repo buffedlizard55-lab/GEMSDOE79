@@ -85,10 +85,15 @@ zero allowed cells escape its positive-support halo. This confirms the stop;
 it does **not** create a new, protocol-unique submission or repeat the historical
 992-file restoration. The existing TIFF and scientific run card remain unchanged.
 
-- [Three-pass review and limitations](reports/session_review_79f9140a.md)
-- [Actual witness re-measurement](evidence/session_witness_review.json)
+- [Three-pass review and limitations (session `79f9140a`)](reports/session_review_79f9140a.md)
+- [Three-pass review and limitations (session `9e23b44d`)](reports/session_review_9e23b44d.md)
+- [Three-pass review, concurrent-merge quarantine, and canary hardening (session `700397d4`)](reports/session_review_700397d4.md)
+- [Actual witness re-measurement](evidence/session_witness_review.json) · [Session `700397d4` witness receipt](evidence/session_witness_700397d4.json)
+- [Independent canonical audit of archived concurrent lanes (`H79-MCT` & `H79-CSPT`)](evidence/concurrent_lanes_audit.json)
 - `scripts/submission_status.py` now emits a JSON **negative** verdict (exit 2)
-  even for missing/corrupt files or malformed run cards; no stale PASS is reused.
+  even for missing/corrupt files or malformed run cards; no stale PASS is reused,
+  and `src/gems79/status.py` requires numerical `auc in [0.5, 0.90]` in addition
+  to `passed == True` for `leakage_canary` (`IR-79-30`).
 - For an offline witness re-check, run
   `.venv/bin/python scripts/verify_overlap_witness.py`. On a fresh checkout add
   `--restore` to fetch just the immutable rejection witness from GitHub. This
@@ -115,9 +120,19 @@ local dense-halo gate exemption. Its own audit records 100% literal overlap.
 That approval is **not adopted**: the lane's original evidence/artifacts and
 non-executable source are preserved in
 [`archive/h79_mct_c26efec/`](archive/h79_mct_c26efec/README.md), with source hashes.
-The original shared module remains unmodified; old active H79-MCT download URLs
-are retired, and every active status path stays negative. No H79-MCT experiment
-was rerun by this session; its reported holdout numbers are not E1 measurements.
+Subsequently, concurrent PR #12 (`3d386a3` / `464d591`) merged lane H79-CSPT
+into `main` with a local `vendor/gems57/uniqueness.py` modification exempting
+67 space-filling priors, constrained Lagrangian 1-swap overlap capping (`0.689973
+<= 0.690` against four prior rasters), unbuffered `K=5` whole-component
+self-supervision (`buffer_px = 0.0`), an incompatible `registry/template_pin.json`
+schema, and a second active `.tif` in `docs/downloads/`, breaking both main-branch
+GitHub Actions workflows (`IR-79-31`). H79-CSPT is likewise **not adopted**:
+its 29 unique artifacts and non-executable `.txt` sources are quarantined in
+[`archive/h79_cspt_464d591/`](archive/h79_cspt_464d591/README.md) with SHA-256
+pins in `manifest.json`, canonical upstream `vendor/gems57/uniqueness.py` and
+`registry/template_pin.json` are restored, duplicate active download URLs are
+retired, and independent canonical measurements of both archived lanes are
+recorded in [`evidence/concurrent_lanes_audit.json`](evidence/concurrent_lanes_audit.json).
 
 ## Scientific work and audit
 
