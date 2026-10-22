@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-"""G79-ETP-v2: Relay-Ramp & Conjugate Intersection hypothesis (far from tip lobes).
+"""Historical G79-ETP-v2 relay-ramp generator (terminal, fail-closed).
 
-To achieve uniqueness vs THVC (which is tip-heavy), focus on:
-- Relay ramp midpoints between subparallel en-echelon segments (10-30px tip distance, subparallel strike <25°)
-- Conjugate intersection zones where strike changes >30° within 500m (potential horsetail)
-- Exclude individual tip lobes (that's THVC domain)
-
-This targets blind linkage structures, not tip process zones.
+The previous run did not clear literal registry uniqueness and its reported
+approximate pooled-truth proxy is not the shared buffered whole-segment
+HOLDOUT-DTI. The entry point refuses before reading inputs or writing files.
+See archive/g79_etp_v2/ and the session audit for retained evidence.
 """
 import hashlib, json, pathlib, sys, time, math, random
 import numpy as np
@@ -54,6 +52,15 @@ def compute_tip_strike(y0,x0,cat_in, footprint, search_len=12):
     return direction
 
 def main():
+    # This exploratory lane is terminal and must never recreate active downloads.
+    # require_open_lane fails before data access or writes because G79-ETP-v2 is
+    # not the canonical, prospectively open run card.
+    from gems79.lifecycle import LaneClosedError, require_open_lane
+    try:
+        require_open_lane(ROOT, "G79-ETP-v2")
+    except LaneClosedError as exc:
+        print(f"REFUSED: {exc}", file=sys.stderr)
+        raise SystemExit(2) from None
     with rasterio.open(DATA_REF/"sample_submission.tif") as ds:
         footprint=np.isfinite(ds.read(1))
     with rasterio.open(DATA_REF/"existing_faults.tif") as ds:

@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "session_branch": "arena/6515acc4-gemsdoe79",
+  "session_date_utc": "2026-10-22",
+  "decision_class": "PREFLIGHT_BLOCKED_NO_EXPERIMENT",
+  "hypothesis": {
+    "id": "H80-MT-GRAV-DEPTH",
+    "status": "ranked_first_for_research_only; not selected, implemented, or tested",
+    "inputs": [
+      "DOE GDR 1391 georeferenced multi-depth MT resistivity/phase product (exact asset absent and availability unverified)",
+      "competition training_features.tif isostatic-gravity anomaly channel",
+      "competition training_features.tif depth-to-basement channel"
+    ],
+    "statement": "A depth-persistent magnetotelluric boundary aligned with a gravity or basement-depth edge may reveal covered faults absent from the catalogue.",
+    "mechanism": "Cross-compare georeferenced multi-depth MT resistivity/phase gradients with gravity and basement-depth boundary normals; require persistence across depth and independent geophysical support.",
+    "named_non_fault_mimic": "Saline basin brine or a conductive lithologic unit producing an electrical boundary without a fault.",
+    "named_non_fault_process": "Saline basin brine or a conductive lithologic unit producing an electrical boundary without a fault."
+  },
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "status": "NOT RUN — new-lane preflight returned exit 2 before feature extraction, leakage canaries, or holdout evaluation.",
+    "evaluator_version": "gems57-pooled-hide-v2 (planned only; not invoked)",
+    "withheld_positive_pixels": null,
+    "ci95": null,
+    "result": null,
+    "reason": "A blocked novelty preflight is not a holdout result; no score or projection is recorded."
+  },
+  "registry_correlation_overlap": {
+    "evidence_class": "REGISTRY-OVERLAP",
+    "candidate_surface_created": false,
+    "surface_max_abs_spearman": null,
+    "candidate_dots_created": false,
+    "candidate_dot_forward_overlap_3px": null,
+    "preflight_receipt": "evidence/preflight_6515acc4.json",
+    "preflight_witness": {
+      "state": "impossible_under_literal_gate",
+      "registry_witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+      "covered_allowed_fraction": 1.0,
+      "forced_overlap_3px": 1.0,
+      "limit": 0.7,
+      "reason": "The pinned positive-support witness covers every allowed cell; any nonempty candidate would exceed the literal 0.70 overlap limit."
+    }
+  },
+  "leakage_canary": {
+    "status": "NOT RUN — preflight stopped before feature extraction",
+    "single_feature_tests": 0,
+    "auc_warning_threshold": 0.90,
+    "auc_results": null
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "status": "NOT RUN — no candidate raster was written.",
+    "format_passed": null,
+    "nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null
+  },
+  "new_candidate_submission_name": null,
+  "new_candidate_submission_note": null,
+  "submission_note_character_limit": 140,
+  "new_candidate_download_status": "NO CANDIDATE FILE",
+  "ok_to_download": false,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "verdict_reason": "Literal uniqueness is mathematically blocked by the pinned full-footprint registry witness; no exception or protocol amendment was assumed.",
+  "experiments_used": 0,
+  "submission_slots_used": 0,
+  "automated_submission_decision": {
+    "scope": "existing canonical G79-THVC research artifact only; no new candidate exists",
+    "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "verdict": "negative",
+    "exit_code": 2,
+    "blockers": [
+      "literal_novelty_not_cleared",
+      "negative_scientific_verdict",
+      "separate_selector_has_not_approved_a_slot",
+      "separate_selector_receipt_missing_or_unbound",
+      "explicit_submission_approval_absent"
+    ],
+    "account_side_conditions": [
+      "A free weekly slot must be shown on your DrivenData submission page; the official rules allow up to three submissions per week.",
+      "Participant registration, eligibility and acceptance of the competition rules remain account-side conditions."
+    ],
+    "organizer_acceptance_established": false
+  },
+  "canonical_artifact_status": {
+    "lane": "G79-THVC",
+    "evidence_class": "RESEARCH_ARTIFACT; NOT ORGANIZER-CONFIRMED",
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "submission_name": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT",
+    "submission_note": "GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)",
+    "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "holdout_dti": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seed_20": {
+        "dti": 0.1905,
+        "ci95": [
+          0.1741,
+          0.2069
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "seed_30": {
+        "dti": 0.1944,
+        "ci95": [
+          0.1774,
+          0.2126
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    }
+  },
+  "fresh_official_web_pages_fetched_this_session": 0,
+  "source_availability_boundary": "Reviewed the dated local official-source ledger and data manifests only; no fresh official page or new third-party data product was obtained."
+}

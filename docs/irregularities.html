@@ -7,7 +7,7 @@
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
-<p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
+<p>Base-table findings are dated 2026-10-21; later addenda carry their own session dates. No entry authorizes a threshold exemption.</p>
 <table>
 <thead>
 <tr>
@@ -1021,6 +1021,39 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-142</td>
 <td><strong>Complete <code>0 / 934</code> sparse competition uniqueness proof &amp; controlled refutation of near-fault crowding (<code>evidence/fnhr/like_for_like_diagnostic.json</code>).</strong> Across all <strong><code>934</code> comparable sparse dot fields (<code>&lt;= 75,308</code> dots = <code>&lt;= 2x</code> budget)</strong> in 93 sibling repositories, <code>H79-FNHR</code> (<code>F3</code>, <code>d5f69d51…</code>) achieves <strong><code>0 / 934</code> duplicates (<code>max overlap = 0.6726 &lt;= 0.70</code>, <code>0.4814</code> vs <code>H33</code>, <code>0.4405</code> vs canonical <code>G79-THVC</code>)</strong>, whereas all <code>25</code> remaining raw overlaps (<code>20</code> even at <code>F1</code>'s <code>70 % &gt; 1 km</code> H33 distance distribution) are <code>80,000–985,492</code>-dot wide sweeps against which <strong><code>H33</code> itself overlaps <code>0.9295</code></strong>.</td>
 <td>Canonical repository artifact remains <strong><code>G79-THVC</code></strong> (<code>0.1905 / 0.1944 HOLDOUT-DTI</code>); <code>H79-FNHR</code> (<code>F3</code>, <code>verdict = negative</code>, <code>OK TO SUBMIT: NO</code>, <code>0</code> slots used) is archived cleanly under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_fnhr_a57e2a7f/README.md"><code>archive/h79_fnhr_a57e2a7f/</code></a>. Combining <code>H79-FNHR</code>'s <code>0.0906</code> zero-catalogue physics head with <code>G79-THVC</code>'s Charnes-Cooper placer (<code>0.4405</code> mutual overlap) is the top candidate for the next prospective lane once the owner decides <code>DENSE_SUPPORT_FRACTION</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>6515acc4</code> addendum (2026-10-22) — ETP archive correction, source review, and preflight stop (<code>arena/6515acc4-gemsdoe79</code>)</h3>
+<p>Three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_6515acc4.md"><code>reports/session_review_6515acc4.md</code></a> · hypotheses and source-by-source boundary: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_6515acc4.md"><code>research/hypotheses_6515acc4.md</code></a> · session run card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/run_card_6515acc4.json"><code>evidence/run_card_6515acc4.json</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-143</td>
+<td>After fast-forwarding to <code>c18abee</code> (PR #70), <code>docs/downloads/</code> contained three TIFFs instead of the canonical one; verification failed its only-canonical-artifact check, the site check failed the one-TIFF contract, and the suite had <code>347 passed, 8 failed</code>. ETP cards mislabelled author-described approximate pooled-truth proxies as <code>HOLDOUT-DTI</code>; their registry comparison covered one raster while literal overlap against the full-footprint witness was <code>1.0</code>. Both generators could write again without lifecycle guards.</td>
+<td>Preserved all six ETP TIFF/ZIP/JSON companions byte-for-byte in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_etp_v2/README.md"><code>archive/g79_etp_v2/downloads/</code></a>, with exact hashes in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_etp_v2/relocation_receipt.json"><code>relocation_receipt.json</code></a>; reclassified <code>0.021 / 0.019</code> as <code>CUSTOM_PROXY_NOT_COMPARABLE</code>, explicitly tagged the elastic-tip <code>+0.02–0.04</code> expected lift as <code>PROJECTION_NOT_RESULT</code>, set active download/submit false, and added pre-read/pre-write <code>require_open_lane</code> guards. Post-move verification passed, site check passed (<code>7</code> pages, <code>154</code> local links), and tests passed (<code>359 passed, 0 failed</code>). Historical per-file receipts remain byte-identical; their generation-time flags are explicitly superseded by the archive disposition.</td>
+</tr>
+<tr>
+<td>IR-79-144</td>
+<td>The top-ranked new MT–gravity hypothesis could not be evaluated: <code>preflight_new_lane.py --restore</code> returned <code>exit 2</code>, <code>impossible_under_literal_gate</code>; the pinned witness covers <code>1.0</code> of allowed cells and forces <code>1.0 &gt; 0.70</code> overlap for every nonempty candidate (<code>evidence/preflight_6515acc4.json</code>).</td>
+<td>Stopped before features, leakage canaries, HOLDOUT-DTI, surface/dot placement or TIFF generation. Card <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/run_card_6515acc4.json"><code>evidence/run_card_6515acc4.json</code></a> records NOT RUN, null result/CI/withheld-positive count and no raster/name/note. Zero experiments and zero weekly slots. No exception was invented; this mathematical novelty obstruction is not a score.</td>
+</tr>
+<tr>
+<td>IR-79-145</td>
+<td><code>knowledge/why_h33.md</code> and generated <code>docs/analysis.html</code> stated <code>D2.8 = 0.2768</code>, while <code>registry/score_ledger.csv</code> and other evidence report <code>0.2600</code>; neither historical H33/D2.8 file-to-score pairing has an organizer submission receipt.</td>
+<td>Corrected active README/forensic prose to <code>0.2600</code> and label both <code>0.2600 / 0.2778</code> unverified historical reports. Removed the causal <code>+0.0010</code> claim; byte-level pruning facts remain separate from unverified score reports.</td>
+</tr>
+<tr>
+<td>IR-79-146</td>
+<td>The local GDR-1391 source description includes MT, but the current manifest and <code>data/raw/</code> contain no exact MT volume. No ARIA product/coverage/checksum is present; the current checkout also lacks raw 3DEP tiles and GeoDAWN flight-line files. A 400 m GeoDAWN Area 2 line spacing is not proof of 400 m aircraft drape height.</td>
+<td>Recorded each claim and availability boundary in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/official_source_audit_6515acc4.json"><code>evidence/official_source_audit_6515acc4.json</code></a> and the hypotheses memo. No official page was freshly fetched and no new external data were obtained; these sources are not represented as currently obtainable or viable.</td>
 </tr>
 </tbody>
 </table></div></section></main>

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-10-22",
+  "reason": "Remove non-canonical ETP upload companions from the active Pages download directory after merged publication checks failed; preserve historical bytes for audit.",
+  "source_directory": "docs/downloads",
+  "archive_directory": "archive/g79_etp_v2/downloads",
+  "byte_preserving_moves": true,
+  "active_download_policy": "Only the canonical G79-THVC TIFF, ZIP, and JSON companions remain in docs/downloads. Archived ETP files are not active downloads.",
+  "files": [
+    {
+      "from": "docs/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.json",
+      "to": "archive/g79_etp_v2/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.json",
+      "sha256": "08a797af10a705f451c46b58bb6ebd92425b254523c6490e4b5f0fa05b694408",
+      "kind": "original generation receipt; generation-time flags are superseded by the archive disposition"
+    },
+    {
+      "from": "docs/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+      "to": "archive/g79_etp_v2/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+      "sha256": "e2203dcf897e210dc124b48138ad57690bc7f19ec3f2df3830acc64b7de90e67",
+      "kind": "GeoTIFF research artifact"
+    },
+    {
+      "from": "docs/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.zip",
+      "to": "archive/g79_etp_v2/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.zip",
+      "sha256": "39bcbc4cf41378931e6d08be1fee2febaf9c4efcdb7816183670b8dd70b2c348",
+      "kind": "single-TIFF ZIP"
+    },
+    {
+      "from": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.json",
+      "to": "archive/g79_etp_v2/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.json",
+      "sha256": "e60f4fe7d3988028b3eaa323daf22614d8a42ff4c973d43cf045b9a99650413c",
+      "kind": "original generation receipt; generation-time flags are superseded by the archive disposition"
+    },
+    {
+      "from": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+      "to": "archive/g79_etp_v2/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+      "sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8",
+      "kind": "GeoTIFF research artifact"
+    },
+    {
+      "from": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.zip",
+      "to": "archive/g79_etp_v2/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.zip",
+      "sha256": "cd10a8eec3001d5046c4e6ded6b30d91e880e5306c55a6ca18062a761a898247",
+      "kind": "single-TIFF ZIP"
+    }
+  ],
+  "remaining_active_downloads": [
+    "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip",
+    "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.json"
+  ],
+  "submission_slots_used": 0
+}

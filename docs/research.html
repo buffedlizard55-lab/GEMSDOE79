@@ -6,7 +6,167 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>Session 070af0b6 — five untried post-G79-THVC geological hypotheses (not executed, 2026-10-22)</h2><p>Audited all 11 GEMSDOE79 lanes and all 93 family repositories through GEMSDOE88 to specify five genuinely untried subsurface/tectonic mechanisms targeting the &gt;1.5–8 km non-LiDAR and blind-basin gap without spending any weekly slot. <a href="evidence/post_index_sibling_audit_20261022.json">Post-index GEMSDOE76–88 audit JSON</a> · <a href="evidence/run_card_step.json">Archived H79-STEP card</a>.</p><div class="prose table-scroll"><h2>Five Genuinely Untried Post-<code>G79-THVC</code> Geological Hypotheses (<code>2026-10-22</code>)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">GEOLOGICAL HYPOTHESES / EVIDENCE-QUALIFIED</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Rankings are qualitative, not DTI projections. The current top hypothesis was stopped before evaluation by the literal novelty preflight.</p></section><section class="section"><h2>Current session `6515acc4` — five candidates; no experiment run</h2><p>The new-lane preflight returned <code>impossible_under_literal_gate</code> (exit 2): the pinned witness forces overlap 1.0 for any nonempty candidate. No feature extraction, leakage canary, shared HOLDOUT-DTI, placement, TIFF generation, or weekly slot followed. The candidate list below is qualitative; MT, ARIA, 3DEP and line-file availability boundaries are explicit. <a href="evidence/run_card_6515acc4.json">Session run card</a> · <a href="evidence/preflight_6515acc4.json">Preflight receipt</a> · <a href="evidence/official_source_audit_6515acc4.json">Official-source claim audit</a> · <a href="evidence/etp_post_merge_audit_6515acc4.json">ETP archive audit</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_6515acc4.md">Three-pass review</a>.</p><div class="prose table-scroll"><h2>Post-ETP hypothesis audit — session <code>arena/6515acc4-gemsdoe79</code></h2>
+<p><strong>Date:</strong> 2026-10-22<br />
+<strong>Purpose:</strong> identify genuinely unexecuted geological hypotheses after reviewing the latest merged repository state, rank them by qualitative DTI potential and implementation cost, and record whether their required data are actually available.</p>
+<blockquote>
+<p><strong>Decision:</strong> no hypothesis was evaluated on the spatial holdout and no new TIFF was generated. <code>scripts/preflight_new_lane.py --restore</code> returned exit <code>2</code>, <code>impossible_under_literal_gate</code>: the pinned registry witness covers every allowed cell, so every nonempty candidate has literal 3-px <code>REGISTRY-OVERLAP = 1.0</code>, above the <code>0.70</code> limit. This is a mathematical novelty obstruction, <strong>not</strong> a HOLDOUT-DTI result. Do not reinterpret it, place dots, or use a weekly slot.</p>
+<p>All priorities below are qualitative research rankings—not scores, score projections, or measured improvement. No numeric DTI lift is forecast. The task's referenced single-method paragraph is still absent; <code>IR-79-02</code> documents that ambiguity. This list does not silently invent an assigned lane.</p>
+</blockquote>
+<h3>What the audit excludes</h3>
+<ul>
+<li><strong>H80-ETP-Relay / G79-ETP-v1/v2 is no longer untried.</strong> The merged <code>PR #70</code> added two ETP rasters. Their full-grid uniqueness check was incomplete; the relay run's card reports a custom approximate pooled-truth proxy, not the shared buffered whole-segment evaluator. Both artifacts have been moved out of the active download folder and preserved under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_etp_v2/README.md"><code>archive/g79_etp_v2/</code></a>. The local <code>0.4781</code> pairwise overlap against G79-THVC is not registry clearance; the card itself records literal overlap <code>1.0</code> against the full-footprint witness. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/etp_post_merge_audit_6515acc4.json"><code>evidence/etp_post_merge_audit_6515acc4.json</code></a>.</li>
+<li><strong>H80-COULOMB-CFS is not genuinely untried.</strong> The archived H79-CSPT feature source contains <code>h82_net_coulomb_strain_transfer</code> and <code>h82_net_footwall_shadow_suppressor</code> (<code>archive/h79_cspt_3d386a3/src/gems77_h82gmns/features.py.txt</code>). It is excluded rather than relabelled as novel.</li>
+<li><strong>H80-MT-PHASE, H80-DRAPE-DECONV and H80-RADIO-KD</strong> have appeared in previous research backlogs, but the audit found no executed implementation of the specific transforms below in active <code>src/</code>/<code>scripts/</code> or archived run receipts. They remain <em>proposed but untested</em>, not proven new science.</li>
+</ul>
+<h3>Ranked hypotheses</h3>
+<p>Ranks order qualitative potential to add useful independent fault evidence; cost and data viability are separate. “High / medium / lower” describes prior plausibility only. It is not a numerical HOLDOUT-DTI estimate.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Rank</th>
+<th>Hypothesis</th>
+<th>Qualitative DTI potential</th>
+<th>Implementation cost</th>
+<th>Data status in this checkout</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td><strong>Depth-persistent MT–gravity boundary</strong></td>
+<td>High potential: a depth-resolved electrical boundary could add information beneath cover not present in surface morphology</td>
+<td>High: obtain and georeference a suitable MT volume, harmonize depth slices, then construct fold-safe transforms</td>
+<td><strong>Not viable now.</strong> GDR 1391 is an official source that the local ledger says includes MT, but no exact MT volume, resource checksum or local file is pinned in the current input manifest/receipt. Availability of the specific required resource was not confirmed this session.</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><strong>Time-series InSAR deformation corridor</strong></td>
+<td>Potentially high but uncertain: an independent, persistent deformation signal could reveal buried active structures</td>
+<td>Very high: source-specific coverage/quality review, time-series processing, coherence and hydrologic confound controls</td>
+<td><strong>Not viable now.</strong> NASA/JPL ARIA is the proposed official source, but it is absent from the official-source ledger and local manifests. The earlier claim that it had been verified obtainable is unsupported by a receipt; no live availability check or download was completed.</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><strong>Cross-fitted GeoDAWN K residual conditional on Th</strong></td>
+<td>Moderate: tests a hydrothermal alteration contrast beyond the existing local K/Th ratio</td>
+<td>Low–medium: robust spatial cross-fitting and one raster transform; compute cost not benchmarked</td>
+<td><strong>Potentially recoverable from the pinned mirror, not present locally.</strong> <code>ext_geodawn_rad_u8</code> is in <code>registry/data_manifest.json</code>; <code>data/raw</code> is absent. No new external product is needed if the pinned mirror restores and verifies.</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td><strong>Catchment-scale drainage capture / divide asymmetry</strong></td>
+<td>Moderate: long-term channel-network response may persist where a fresh scarp does not</td>
+<td>Medium: hydrologic conditioning, catchment segmentation, and topology features</td>
+<td><strong>Not viable from the current files.</strong> USGS 3DEP is the official free source; the older receipt records derived topographic products, but no raw DEM or derived cache is materialized in this checkout. The exact input needed for network extraction has not been restored.</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td><strong>GeoDAWN flight-line-aware magnetic edge correction</strong></td>
+<td>Moderate: could separate a genuine structural edge from acquisition-direction artifacts</td>
+<td>Medium–high: line-level registration, metadata audit, directional correction and independent corroboration</td>
+<td><strong>Not viable now.</strong> USGS lists line CSVs, flight-path files and processing reports, but no such files are locally present and no per-line drape-height field was verified. Do not confuse the USGS-reported <strong>400 m Area 2 line spacing</strong> with aircraft drape height.</td>
+</tr>
+</tbody>
+</table>
+<h3>Candidate specifications</h3>
+<h4>1. Depth-persistent MT–gravity boundary (rank 1; not tested)</h4>
+<ul>
+<li><strong>Inputs:</strong> the exact georeferenced GDR 1391 magnetotelluric resistivity/phase product at multiple depths, plus the competition <code>training_features.tif</code> isostatic-gravity and depth-to-basement channels. <code>cond_surf</code> is a single competition feature and is <strong>not</strong> a substitute for a depth-resolved MT product.</li>
+<li><strong>Physical signature:</strong> a lateral electrical-property boundary that persists across depth and is spatially aligned with a basement-depth or gravity-gradient boundary. The transform would measure the depth persistence and normal alignment, not merely high conductivity.</li>
+<li><strong>Why it could find an uncatalogued fault:</strong> a buried fault conduit or basin-boundary structure may juxtapose electrical and density contrasts below alluvium, with no mapped surface trace. This is a testable hypothesis, not a claim that every conductor is a fault.</li>
+<li><strong>Named non-fault mimic:</strong> saline basin brine or a conductive lithologic unit. Require a depth-persistent boundary and independent gravity/basement support; a shallow conductor alone is insufficient.</li>
+<li><strong>Difference from implemented work:</strong> G79-THVC uses <code>cond_surf</code> and gravity-derived features separately and has a conductivity interaction feature; the specific depth-resolved MT phase/resistivity cross-gradient is not implemented. ETP used catalogue geometry only.</li>
+<li><strong>Official source and availability check:</strong> <a href="https://gdr.openei.org/submissions/1391">DOE Geothermal Data Repository, INGENIOUS submission 1391</a>, DOI <code>10.15121/1881483</code>. The local <code>knowledge/official_sources.json</code> review says the compilation includes MT and that data may be redistributed with attribution. The local <code>evidence/official_ingenious_receipt.json</code> lists five files but <strong>no MT volume</strong>; <code>registry/data_manifest.json</code> likewise has no MT volume; no MT file exists under <code>data/raw</code>. The official page was not freshly fetched this session. Therefore the exact product, coverage, resolution and direct download remain unverified; do not call the data obtainable or run this hypothesis yet.</li>
+</ul>
+<h4>2. Time-series InSAR deformation corridor (rank 2; not tested)</h4>
+<ul>
+<li><strong>Inputs:</strong> geocoded Sentinel-1 line-of-sight time series from NASA/JPL ARIA, with acquisition dates, coherence/uncertainty and incidence geometry. An optical/land-cover mask may be used only to control coherence and seasonal confounds, not as a fault label.</li>
+<li><strong>Physical signature:</strong> a persistent, spatially coherent displacement gradient across a basin margin or concealed corridor across multiple acquisitions, distinguished from seasonal and transient motion.</li>
+<li><strong>Why it could find an uncatalogued fault:</strong> active creep or differential strain may cross a sediment-covered trace where a static DEM has no clear scarp. It would target deformation, not the location of a known line.</li>
+<li><strong>Named non-fault mimic:</strong> groundwater-pumping compaction or seasonal lake/playa motion. Require persistence across independent time windows, coherence support and a tectonically plausible geometry; a single interferogram is not sufficient.</li>
+<li><strong>Difference from implemented work:</strong> the existing stack includes static geodetic strain bands but no Sentinel-1 phase time series, temporal coherence model or transient/seasonal decomposition.</li>
+<li><strong>Official source and availability check:</strong> proposed source <a href="https://aria-share.jpl.nasa.gov/">NASA/JPL ARIA</a>. No ARIA record, product, coverage listing, checksum or data file is in this checkout or source ledger. The previous <code>research/hypotheses_etp.md</code> claim that availability was “verified” has no attached retrieval receipt. Source identity is supplied for manual review only; current area coverage, licensing and downloadability were <strong>not established</strong>, so this is not viable now.</li>
+</ul>
+<h4>3. Cross-fitted GeoDAWN potassium residual conditional on thorium (rank 3; not tested)</h4>
+<ul>
+<li><strong>Inputs:</strong> the K, Th and, if metadata confirms, U channels in <code>external/geodawn_rad_u8.tif</code>; competition footprint and only the visible-fault mask within each holdout fold. The current 8-bit derivative must be treated as a relative feature, not as calibrated concentration.</li>
+<li><strong>Physical signature:</strong> a spatially cross-fitted residual from robustly predicting K from Th (and only documented covariates), followed by a multiscale line-coherence measure. This asks whether K is unusually high for the local radiometric background instead of using a raw K/Th ratio.</li>
+<li><strong>Why it could find an uncatalogued fault:</strong> potassium alteration may accompany hydrothermal fluid pathways that are not mapped as Quaternary faults. It is a surface-sensitive indicator and is not expected to work beneath thick cover.</li>
+<li><strong>Named non-fault mimic:</strong> primary K-rich felsic lithology or a radiometric survey seam. The regression must be spatially cross-fitted; the candidate feature must be tested alone for leakage and checked against survey direction.</li>
+<li><strong>Difference from implemented work:</strong> G79-THVC already computes a smoothed local K/Th alteration ratio (<code>rad_k_th_alteration</code>), and other lanes use raw ratios. The proposed conditional residual is a distinct transform, but it reuses the same signal and is therefore an incremental, not independent-layer hypothesis.</li>
+<li><strong>Official source and availability check:</strong> <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a>. The local official-source ledger says the release includes aeroradiometric products and notes that gridded values do not imply independent 100 m observations. The <code>ext_geodawn_rad_u8</code> input is hash-pinned in the project manifest, but <code>data/raw/external/geodawn_rad_u8.tif</code> is absent. A pinned owner mirror can be restored with the repository restore tool; this session did not restore it or freshly fetch the USGS page. The data path is conditionally recoverable, not presently materialized.</li>
+</ul>
+<h4>4. Catchment-scale drainage capture and divide asymmetry (rank 4; not tested)</h4>
+<ul>
+<li><strong>Inputs:</strong> a validated 3DEP DEM at its delivered resolution, the competition footprint, and terrain validity masks. Do not derive a fine-resolution stream network from a 100 m raster or treat interpolated cells as new observations.</li>
+<li><strong>Physical signature:</strong> catchment-scale channel-network asymmetry, elbows, divide migration and paired headwater/knickzone patterns, summarized over multiple neighboring basins rather than a single local scarp or knickpoint.</li>
+<li><strong>Why it could find an uncatalogued fault:</strong> cumulative tectonic tilting or a concealed step can reorganize drainage over long periods even after a surface scarp is degraded. The inferred lineament would still be a candidate, not proof of a fault.</li>
+<li><strong>Named non-fault mimic:</strong> differential erosion across resistant lithology or a river base-level change. Reject isolated anomalies that coincide with only one basin boundary; require repeatable geometry across independent catchments and separate lithologic explanations where a suitable map exists.</li>
+<li><strong>Difference from implemented work:</strong> existing lanes include local <code>chi_step_max</code>, <code>chi_ksn_max</code>, <code>chi_playa_raised</code>, relief and scarp channels. The proposed feature is network topology/capture across whole catchments, which the audit did not find in executable code or run receipts.</li>
+<li><strong>Official source and availability check:</strong> <a href="https://www.usgs.gov/3d-elevation-program">USGS 3D Elevation Program</a>. The older <code>official_ingenious_receipt.json</code> records derived 3DEP topography and chi products from a prior state, but these files and the raw DEM are not present now; the current <code>data/raw</code> directory is absent. No fresh USGS download check was made. A suitable tile set and current checksum must be confirmed before this is called viable.</li>
+</ul>
+<h4>5. GeoDAWN flight-line-aware magnetic edge correction (rank 5; not tested)</h4>
+<ul>
+<li><strong>Inputs:</strong> GeoDAWN RTP magnetic grid, flight-line CSV/shapefile and processing metadata if the release supplies the needed fields, plus a 3DEP terrain model for registration. Do not invent per-cell aircraft height from terrain alone.</li>
+<li><strong>Physical signature:</strong> a magnetic edge that remains coherent after separating flight-line/tie-line direction and documented leveling effects, with independent geological or gravity support.</li>
+<li><strong>Why it could find an uncatalogued fault:</strong> a basement contact or offset under alluvium may remain in the magnetic field but be obscured or fragmented by acquisition-direction artifacts.</li>
+<li><strong>Named non-fault mimic:</strong> tie-line microleveling or an intrusive/lithologic contact. Directional filtering alone is not enough; require corroboration and report the effective source resolution.</li>
+<li><strong>Difference from implemented work:</strong> earlier lanes apply transforms to gridded RTP/TMI channels, but the audit did not find an implemented transform using flight-line geometry and verified sensor-clearance metadata together.</li>
+<li><strong>Official source and availability check:</strong> the <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN data release</a> is described in the local source ledger as listing GeoTIFF grids, line CSVs, flight-path shapefiles and processing reports. No line-level file is in the local manifest or checkout, and the official page was not refreshed this session. The local source ledger supports 400 m <strong>Area 2 line spacing</strong> and 4,000 m tie-line spacing; it does not establish a 400 m flight/drape height or guarantee a height field in the line file. Confirm exact metadata before implementation.</li>
+</ul>
+<h3>Source-by-source verification boundary</h3>
+<p>Machine-readable claim-by-claim ledger: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/official_source_audit_6515acc4.json"><code>evidence/official_source_audit_6515acc4.json</code></a>. It distinguishes prior official-source review from fresh retrieval and from local file availability; no website was freshly fetched in this session.</p>
+<table>
+<thead>
+<tr>
+<th>Claim used in this memo</th>
+<th>Local evidence reviewed</th>
+<th>Official source / URL</th>
+<th>Status this session</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Competition target is finding faults not already in the public USGS/INGENIOUS compilation; metric uses the 300 m triangular kernel and specified pooled DTI</td>
+<td><code>knowledge/official_sources.json</code>, <code>DD-PROBLEM</code>, <code>DD-POOL</code>, <code>DD-NEW-FAULT-DEF</code></td>
+<td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Competition problem</a>; <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff mask clarification</a>; <a href="https://community.drivendata.org/t/where-do-you-draw-the-line/11536/2">new-fault clarification</a></td>
+<td>Previously reviewed in the local ledger; not freshly fetched this session.</td>
+</tr>
+<tr>
+<td>GDR 1391 includes MT and geothermal compilation data</td>
+<td><code>knowledge/official_sources.json</code>, <code>GDR-1391</code>; <code>evidence/official_ingenious_receipt.json</code></td>
+<td><a href="https://gdr.openei.org/submissions/1391">DOE GDR 1391</a></td>
+<td>Resource description previously reviewed; exact MT binary absent and not newly downloaded.</td>
+</tr>
+<tr>
+<td>GeoDAWN reports 400 m Area 2 line spacing and lists line-level products</td>
+<td><code>knowledge/official_sources.json</code>, <code>USGS-GEODAWN</code>; <code>knowledge/geothermal_vent_discovery.md</code></td>
+<td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a></td>
+<td>Scientific description previously reviewed; latest feed records a failed direct refresh; no line files restored.</td>
+</tr>
+<tr>
+<td>3DEP provides the topographic source for catchment analysis</td>
+<td><code>evidence/official_ingenious_receipt.json</code> and prior local cache manifest</td>
+<td><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a></td>
+<td>Official source named in prior receipt; raw DEM/cache absent in this checkout; not freshly fetched.</td>
+</tr>
+<tr>
+<td>ARIA is a possible InSAR source</td>
+<td>No current official-source ledger entry, manifest row or local file</td>
+<td><a href="https://aria-share.jpl.nasa.gov/">NASA/JPL ARIA</a></td>
+<td><strong>Unverified.</strong> A link is not proof of current availability or coverage; do not treat as viable until the exact product is retrieved and hashed.</td>
+</tr>
+<tr>
+<td>Public leaderboard and H33 score provenance</td>
+<td><code>knowledge/official_sources.json</code>, <code>DD-LEADERBOARD</code> and <code>SIBLING-GEMSDOE32-PAGES</code>; <code>registry/score_ledger.csv</code></td>
+<td><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData leaderboard</a>; <a href="https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html">GEMSDOE32 page</a></td>
+<td>The stored 2026-10-22 public snapshot records leader <code>0.4413</code>; this is a public observation, not this repo's score. The GEMSDOE32 page labels H33 <code>UNSCORED</code>; the <code>0.2778</code> pairing remains an unverified historical report. No fresh page fetch this session.</td>
+</tr>
+</tbody>
+</table>
+<h3>Execution decision</h3>
+<p>The highest qualitative research priority is <strong>not</strong> the next experiment: the exact MT product is absent and the universal novelty preflight blocks every nonempty candidate before the holdout. Therefore the top candidate was not evaluated, no projected DTI is supplied, no new TIFF/ZIP/name/note was created, and no weekly submission slot was selected or used. The machine-readable session card is <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/run_card_6515acc4.json"><code>evidence/run_card_6515acc4.json</code></a>; final status remains the canonical <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card.json"><code>run_card.json</code></a>, <code>OK TO DOWNLOAD: YES / OK TO SUBMIT: NO</code> for the existing G79-THVC research artifact only.</p></div></section><section class="section"><h2>Session 070af0b6 — five untried post-G79-THVC geological hypotheses (not executed, 2026-10-22)</h2><p>Audited all 11 GEMSDOE79 lanes and all 93 family repositories through GEMSDOE88 to specify five genuinely untried subsurface/tectonic mechanisms targeting the &gt;1.5–8 km non-LiDAR and blind-basin gap without spending any weekly slot. <a href="evidence/post_index_sibling_audit_20261022.json">Post-index GEMSDOE76–88 audit JSON</a> · <a href="evidence/run_card_step.json">Archived H79-STEP card</a>.</p><div class="prose table-scroll"><h2>Five Genuinely Untried Post-<code>G79-THVC</code> Geological Hypotheses (<code>2026-10-22</code>)</h2>
 <blockquote>
 <p><strong>Protocol &amp; Budget Status:</strong> Zero experiments were executed on this branch (<code>arena/070af0b6-gemsdoe79</code>). Under <code>AGENTS.md</code> Rule #3 and <code>scripts/preflight_new_lane.py --restore</code> (<code>exit 2</code>, <code>IR-79-04</code> / <code>IR-79-90</code>), no new candidate may be generated or promoted without a fresh preregistered lane AND an explicit protocol-owner ruling on space-filling/lattice registry priors (<code>17GEMSDOE</code> <code>halo = 1.0000</code>, <code>GEMSDOE48</code> plateaus <code>halo = 1.0000</code>, and <code>13GEMSDOE r13-lattice-s5</code> <code>halo = 0.998724</code>, which forces $\text{ov}_{3\text{px}} \ge 0.8144 &gt; 0.70$ for every $\ge 35{,}093$-dot map in Nevada by the Pigeonhole Principle).</p>
 </blockquote>

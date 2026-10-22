@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "session_branch": "arena/6515acc4-gemsdoe79",
+  "review_date_utc": "2026-10-22",
+  "method": "Line-by-line claim review against the repository's dated official_sources.json and local manifests/receipts. No official website was freshly fetched in this session; no source-page or data availability is claimed beyond the cited local evidence.",
+  "claims": [
+    {
+      "claim": "The competition is to identify fault pixels absent from the current USGS/INGENIOUS compilation; the local HOLDOUT-DTI proxy uses a 300 m triangular kernel with alpha 0.2 and beta 0.8.",
+      "official_source_ids": [
+        "DD-PROBLEM",
+        "DD-NEW-FAULT-DEF"
+      ],
+      "official_urls": [
+        "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+        "https://community.drivendata.org/t/where-do-you-draw-the-line/11536/2"
+      ],
+      "local_evidence": "knowledge/official_sources.json (reviewed 2026-10-22); shared evaluator receipts and canonical run_card.json",
+      "status": "PREVIOUSLY_REVIEWED_LOCAL_LEDGER; not freshly fetched this session",
+      "scope_note": "A local hide-and-recover score is HOLDOUT-DTI, not an organizer score."
+    },
+    {
+      "claim": "DOE GDR 1391 describes a compilation that includes MT, gravity/magnetics, geothermal features and well/spring chemistry.",
+      "official_source_ids": [
+        "GDR-1391"
+      ],
+      "official_urls": [
+        "https://gdr.openei.org/submissions/1391"
+      ],
+      "local_evidence": "knowledge/official_sources.json; evidence/official_ingenious_receipt.json; registry/data_manifest.json",
+      "status": "RESOURCE_DESCRIPTION_PREVIOUSLY_REVIEWED; exact MT volume unavailable in current checkout",
+      "availability_check": "No MT volume is pinned by the current manifest or present under data/raw; the older receipt lists other GDR-1391 resources but not an MT volume. Exact product, coverage, resolution and downloadability were not confirmed. The hypothesis is not viable now.",
+      "license_status": "The local official-source ledger records Creative Commons Attribution 4.0; no direct download was made in this session."
+    },
+    {
+      "claim": "GeoDAWN provides public magnetic/radiometric products and lists line-level products; Area 2 has 400 m nominal flight-line spacing and 4,000 m tie-line spacing.",
+      "official_source_ids": [
+        "USGS-GEODAWN"
+      ],
+      "official_urls": [
+        "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and"
+      ],
+      "local_evidence": "knowledge/official_sources.json; knowledge/geothermal_vent_discovery.md; registry/data_manifest.json",
+      "status": "OFFICIAL_DESCRIPTION_PREVIOUSLY_REVIEWED; no fresh page fetch or line-file restoration this session",
+      "availability_check": "No flight-line CSV, path file or per-line drape-height metadata is present in the checkout. The local source evidence does not establish a 400 m drape height; 400 m refers to line spacing.",
+      "license_status": "The local official-source ledger records CC0 1.0 Universal for the release; this is a prior ledger review, not a fresh license-page fetch."
+    },
+    {
+      "claim": "USGS 3DEP is the named official free-elevation source for a future catchment-topology experiment.",
+      "official_source_ids": [],
+      "official_urls": [
+        "https://www.usgs.gov/3d-elevation-program"
+      ],
+      "local_evidence": "evidence/official_ingenious_receipt.json records historical 3DEP-derived products; current data/raw and derived caches are absent",
+      "status": "OFFICIAL_SOURCE_LINK_NOT_REFRESHED; required local DEM/cache is absent",
+      "availability_check": "No raw DEM tile set or derived stream-network inputs are present in this checkout. A suitable tile set and checksum would need to be confirmed before the hypothesis could run.",
+      "license_status": "The historical official receipt labels derived 3DEP products public-domain-usgs-3dep; current product-specific license/availability was not refreshed."
+    },
+    {
+      "claim": "NASA/JPL ARIA may be a source of time-series InSAR products for the proposed deformation hypothesis.",
+      "official_source_ids": [],
+      "official_urls": [
+        "https://aria-share.jpl.nasa.gov/"
+      ],
+      "local_evidence": "No ARIA entry in knowledge/official_sources.json, registry/data_manifest.json, or local data files",
+      "status": "UNVERIFIED; not treated as available or viable",
+      "availability_check": "No coverage listing, product identifier, checksum, licensing confirmation or data file was established. Do not proceed until a specific official product is located and hashed.",
+      "license_status": "Not established from local evidence; no free-use or redistribution claim is made."
+    },
+    {
+      "claim": "The stored public leaderboard observation is not an artifact-linked score for this repository, and H33's 0.2778 filename-to-score pairing lacks an organizer receipt.",
+      "official_source_ids": [
+        "DD-LEADERBOARD"
+      ],
+      "official_urls": [
+        "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+        "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html"
+      ],
+      "local_evidence": "knowledge/official_sources.json; registry/score_ledger.csv",
+      "status": "PREVIOUSLY_REVIEWED_SNAPSHOT; no fresh fetch this session",
+      "scope_note": "The 0.4413 public observation and 0.2778 historical report are not project artifact scores. No projection is presented as a score.",
+      "context_source_ids": [
+        "SIBLING-GEMSDOE32-PAGES"
+      ]
+    }
+  ]
+}

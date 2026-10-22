@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "session_branch": "arena/6515acc4-gemsdoe79",
+  "review_date_utc": "2026-10-22",
+  "merged_base": "c18abee",
+  "finding": "Merged PR #70 added two ETP TIFFs and their ZIP/JSON companions alongside canonical G79-THVC uploads. The ETP run card treated an author-described approximate pooled-truth proxy as HOLDOUT-DTI; its one-raster scan did not establish full-registry uniqueness.",
+  "pre_archive_post_merge_baseline": {
+    "active_tiff_count": 3,
+    "canonical_tiff_count_allowed": 1,
+    "verify_project_only_canonical_upload_artifacts_published": false,
+    "check_site_single_tiff_assertion": false,
+    "pytest_passed": 347,
+    "pytest_failed": 8,
+    "note": "This was measured after fast-forwarding to c18abee and before moving ETP files. Eight test failures were publication-contract consequences of extra ETP artifacts."
+  },
+  "historical_etp_disposition": {
+    "active_download": false,
+    "active_submission": false,
+    "verdict": "negative",
+    "custom_proxy_values": [
+      0.021,
+      0.019
+    ],
+    "custom_proxy_evidence_class": "CUSTOM_PROXY_NOT_COMPARABLE",
+    "shared_holdout_evaluator_run": false,
+    "registry_scan_complete": false,
+    "literal_overlap_vs_full_footprint_witness": 1.0,
+    "literal_overlap_limit": 0.7,
+    "weekly_slots_used": 0,
+    "elastic_tip_estimate": {
+      "evidence_class": "PROJECTION_NOT_RESULT",
+      "reported_text": "expected +0.02–0.04 over H33; holdout not measured",
+      "shared_holdout_run": false,
+      "withheld_positive_count": null,
+      "ci95": null
+    }
+  },
+  "archival": {
+    "receipt": "archive/g79_etp_v2/relocation_receipt.json",
+    "archive_readme": "archive/g79_etp_v2/README.md",
+    "tiff_sha256": {
+      "elastic_tip": "e2203dcf897e210dc124b48138ad57690bc7f19ec3f2df3830acc64b7de90e67",
+      "relay_ramp": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8"
+    },
+    "original_generation_receipts_preserved_byte_for_byte": true,
+    "only_canonical_upload_companions_remain_in_docs_downloads": true
+  },
+  "generator_guards": {
+    "scripts/generate_etp_submission.py": "require_open_lane before input reads/writes",
+    "scripts/generate_etp_v2.py": "require_open_lane before input reads/writes",
+    "no_force_flag_added": true
+  },
+  "post_archive_validation": {
+    "status": "PASS",
+    "verify_project": {
+      "all_checks_passed": true,
+      "only_canonical_upload_artifacts_published": true
+    },
+    "check_site": {
+      "passed": true,
+      "pages": 7,
+      "local_links_checked": 154,
+      "all_pages_reachable_from_home": true,
+      "submit": false
+    },
+    "pytest_passed": 359,
+    "pytest_failed": 0,
+    "submission_status": {
+      "ok_to_download": true,
+      "ok_to_submit": false,
+      "verdict": "negative",
+      "blockers": [
+        "literal_novelty_not_cleared",
+        "negative_scientific_verdict",
+        "separate_selector_has_not_approved_a_slot",
+        "separate_selector_receipt_missing_or_unbound",
+        "explicit_submission_approval_absent"
+      ],
+      "exit_code": 2
+    },
+    "site_build": {
+      "built_pages": 7,
+      "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO."
+    }
+  }
+}

@@ -4,32 +4,9 @@
   "generated_utc": "2026-10-22T14:15:00Z",
   "preregistration_path": "registry/preregistration_etp.json",
   "preregistration_sha256": "a1b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890",
-  "hypothesis": "H80-ETP-Relay: Blind relay ramps (10-35px en-echelon tip separation, subparallel <25\u00b0) + conjugate horsetail splays at junctions + 1.2-2km far-field damage-zone splay host unmapped Quaternary ruptures; geometry-only prediction without geophysics.",
+  "hypothesis": "H80-ETP-Relay: Blind relay ramps (10-35px en-echelon tip separation, subparallel <25°) + conjugate horsetail splays at junctions + 1.2-2km far-field damage-zone splay host unmapped Quaternary ruptures; geometry-only prediction without geophysics.",
   "mechanism": "Endpoint PCA strike (12-px tail) -> KDTree relay pairing (SIF proportional to sqrt(L) weighting) -> junction-proximal fan -> 1.2-2km perpendicular damage offsets -> greedy Poisson-disk 3.0px selection (34,500 dots)",
   "named_non_fault_mimic": "Alluvial-fan distributary avulsions and agricultural field boundaries forming linear relay-like patterns; Pleistocene pluvial paleo-shoreline benches (Lake Lahontan).",
-  "holdout_dti": {
-    "evidence_class": "HOLDOUT-DTI",
-    "evaluator_version": "gems57-pooled-hide-v2 (approximate pooled truth; official hide-and-recover requires full segmentation pipeline)",
-    "seed": 20,
-    "dti": 0.021,
-    "ci95": [
-      0.014,
-      0.028
-    ],
-    "withheld_positive_pixels": 20010,
-    "note": "Relay-only geometry yields 2.0% of withheld truth within 300m (vs 15.3% random uniform, 0.1% THVC on this naive pooled evaluator). Official evidence/g79_thvc_results.json uses 11321 withheld via different segmentation; this run reports negative result honestly - relay-only insufficient without tip lobes or geophysics. HOLDOUT-DTI label indicates offline proxy, not organizer score."
-  },
-  "secondary_holdout_dti": {
-    "evidence_class": "HOLDOUT-DTI",
-    "evaluator_version": "gems57-pooled-hide-v2 (approximate)",
-    "seed": 30,
-    "dti": 0.019,
-    "ci95": [
-      0.012,
-      0.026
-    ],
-    "withheld_positive_pixels": 19949
-  },
   "leakage_canary": {
     "evidence_class": "LEAKAGE-CANARY",
     "auc": 0.612,
@@ -64,7 +41,10 @@
       "max_abs_spearman": 0.31,
       "max_jaccard_dot_sets": 0.02,
       "literal_overlap_vs_17GEMSDOE_blanket": 1.0
-    }
+    },
+    "complete_registry_scan": false,
+    "global_uniqueness_cleared": false,
+    "audit_note": "Only one raster was checked. The 0.4781 value is pairwise REGISTRY-OVERLAP versus G79-THVC, not full-registry clearance. The recorded literal 3-px overlap against the full-footprint witness is 1.0 and fails the 0.70 limit."
   },
   "raster_sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8",
   "raster_bytes": 138983,
@@ -95,14 +75,46 @@
       "n_nonzero": 34500
     }
   },
-  "submission_file": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
-  "zip_file": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.zip",
+  "submission_file": "archive/g79_etp_v2/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+  "zip_file": "archive/g79_etp_v2/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.zip",
   "submission_name": "g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros",
   "submission_note": "G79-ETP v2: relay-ramp + horsetail + damage 34500px Poisson3 pure-geom no-geophys",
-  "ok_to_download": true,
+  "ok_to_download": false,
   "ok_to_submit": false,
   "verdict": "negative",
   "promoted": false,
   "submission_slots_used": 0,
-  "status": "NEGATIVE RESULT - relay-only geometry 0.478 sparse-PASS but 2% holdout recovery < random; valuable negative deliverable per protocol rule 5. No weekly slot spent."
+  "status": "ARCHIVED NEGATIVE RESEARCH ONLY. No shared HOLDOUT-DTI was run; the custom proxy is not comparable. Registry scan covered one raster only and literal overlap against the full-footprint witness is 1.0 > 0.70. Not an active download or submission candidate; no weekly slot used.",
+  "custom_proxy_report": {
+    "evidence_class": "CUSTOM_PROXY_NOT_COMPARABLE",
+    "metric_name": "prior-session approximate pooled-truth proxy (not DTI evidence)",
+    "evaluator_version": "author-described approximate pooled truth; not the shared gems57-pooled-hide-v2 evaluator",
+    "seed": 20,
+    "reported_value": 0.021,
+    "reported_ci95": [
+      0.014,
+      0.028
+    ],
+    "reported_withheld_positive_pixels": 20010,
+    "note": "The prior card called this HOLDOUT-DTI, but explicitly described its truth as approximate and said the full segmentation pipeline was not used. Reclassified as a non-comparable custom proxy; do not compare it with canonical HOLDOUT-DTI results or use it for promotion."
+  },
+  "secondary_custom_proxy_report": {
+    "evidence_class": "CUSTOM_PROXY_NOT_COMPARABLE",
+    "metric_name": "prior-session approximate pooled-truth proxy (not DTI evidence)",
+    "evaluator_version": "author-described approximate pooled truth; not the shared gems57-pooled-hide-v2 evaluator",
+    "seed": 30,
+    "reported_value": 0.019,
+    "reported_ci95": [
+      0.012,
+      0.026
+    ],
+    "reported_withheld_positive_pixels": 19949,
+    "note": "Prior-session custom proxy only; not the required shared buffered whole-segment evaluator."
+  },
+  "original_generation_path": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+  "original_zip_generation_path": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.zip",
+  "archive_audit": "evidence/etp_post_merge_audit_6515acc4.json",
+  "protocol_unique": false,
+  "zip_sha256": "cd10a8eec3001d5046c4e6ded6b30d91e880e5306c55a6ca18062a761a898247",
+  "global_novelty_cleared": false
 }

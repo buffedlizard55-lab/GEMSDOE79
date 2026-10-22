@@ -2,6 +2,8 @@
 
 **Date:** 2026-10-22 · **Base:** `G79-THVC` (0.1905/0.1944 HOLDOUT-DTI) · **Lane:** `G79-ETP` (Elastic Tip Process-Zone & Relay Ramp)
 
+> **Retrospective audit (session `6515acc4`):** this is a historical proposal, not the current experiment plan. `H80-ETP-Relay` was executed and is no longer untried. The ETP relay card's reported values are now classified `CUSTOM_PROXY_NOT_COMPARABLE`, not HOLDOUT-DTI, because its evaluator is explicitly approximate and not the shared buffered whole-segment hide-and-recover. Its one-raster pairwise overlap does not clear the registry; the card records literal overlap `1.0` against the full-footprint witness. The ETP TIFFs are archived and the generator scripts fail closed. Numeric DTI lifts below are **old projections, not results**; see [`research/hypotheses_6515acc4.md`](hypotheses_6515acc4.md) for the current evidence-qualified ranking.
+
 All hypotheses target faults **missing from USGS/INGENIOUS catalogue** (existing_faults.tif), not those already mapped. Each specifies layers, physical signature, why it catches uncatalogued faults, how it differs from prior repo work, and required data source.
 
 ---

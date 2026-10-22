@@ -21,6 +21,7 @@
    - `H79-FGR` (`0.0058 / 0.0056`, `archive/fgr_cb54ff09/`)
    - `G79-MAG` (`0.0045 / 0.0067`, `archive/g79_mag_730d5ee7/`)
    - Surface-stopped / quarantined: `G79-FABRIC-OFFSET`, `H79-ASYM`, `H79-MCT`, `H79-CSPT`, `G79B-SCARP-DIPOLE-GEOAND`.
+   - `G79-ETP` / `G79-ETP-v2` are terminal historical experiments from PR #70. Their approximate pooled-truth proxies are not shared HOLDOUT-DTI, registry clearance is incomplete (literal witness overlap `1.0`), TIFF companions are preserved only under `archive/g79_etp_v2/downloads/`, and both generators must remain fail-closed. Do not republish or rerun them.
    Do not restart stopped lanes, retune on holdout, add overlap caps/jitter, or exempt dense priors locally. `scripts/preflight_new_lane.py --restore` exits `2` under the literal reading.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a

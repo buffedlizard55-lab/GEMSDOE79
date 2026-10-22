@@ -1,17 +1,15 @@
 #!/usr/bin/env python3
-"""G79-ETP: Elastic Tip Process-Zone submission generator.
+"""Historical G79-ETP elastic-tip process-zone proposal and generator.
 
-Hypothesis: Unmapped Basin-and-Range faults propagate as Mode-II/III elastic
-crack-tip tensile lobes ahead of mapped tip terminations.  By extending each
-mapped tip 0.5–2.5 km along strike (±12° splay) with density ∝ sqrt(length)
-(SIF), we catch blind relay-breaches without any geophysics.
+The historical hypothesis proposed that crack-tip tensile lobes ahead of
+mapped terminations could indicate blind relay breaches. That is a hypothesis,
+not an established physical result. This script is retained for audit only.
 
-Uses ONLY existing_faults.tif geometry + footprint.  No training_features.tif,
-no thermal probes, no external download required.  Produces ~35k binary dots
-Poisson-disk spaced ≥3 px and zero on catalogue.
-
-Verifies in-memory: finite, [0,1], outside footprint zero, zero on catalogue,
-unique surface/overlap checks via vendor/gems57, then writes via vendor write.
+The ETP lane is terminal; the `main()`
+entry point now fails closed through `gems79.lifecycle.require_open_lane`
+before reading inputs or writing files. Its archived output is not a current
+submission candidate. The original generator did not establish full-registry
+uniqueness or run the shared buffered whole-segment holdout.
 """
 from __future__ import annotations
 import hashlib, json, pathlib, sys, time, random, math
@@ -121,6 +119,15 @@ def compute_tip_strike(y0, x0, cat_in, footprint, search_len=10):
     return direction  # (dx, dy) outward, unit length
 
 def main():
+    # This exploratory lane is terminal and must never recreate active downloads.
+    # require_open_lane fails before data access or writes because G79-ETP is not
+    # the canonical, prospectively open run card.
+    from gems79.lifecycle import LaneClosedError, require_open_lane
+    try:
+        require_open_lane(ROOT, "G79-ETP")
+    except LaneClosedError as exc:
+        print(f"REFUSED: {exc}", file=sys.stderr)
+        raise SystemExit(2) from None
     print("G79-ETP generation start", time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
     # Load grids
     with rasterio.open(DATA_REF / "sample_submission.tif") as ds:
