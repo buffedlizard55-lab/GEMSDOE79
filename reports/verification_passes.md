@@ -265,3 +265,16 @@ Pages/API verification were not rerun in this checkpoint. Public verification it
   Rebuilt `docs/` via `scripts/build_site.py`, verified all unit/integration tests (`pytest -q`),
   `scripts/verify_project.py`, `scripts/check_site.py`, `scripts/submission_status.py` (exit 2), and headless
   Chromium QA (`node scripts/browser_review.cjs`) across all pages at 1440, 390, and 320 px viewports.
+
+### Session 2026-10-22 environment-portability and automated-verification audit (`arena/9e8bac9e-gemsdoe79`)
+
+- **Pass 1 (Restore pinned data, reproduce deterministic transforms, and run full test suite):**
+  Restored all 5 primary competition inputs into `data/raw/` and `data/reference/` via `scripts/download_competition_data.sh`, matching all SHA-256 pins. Verified bit-for-bit reproduction of all 10 `.cache/g79/*.npy` feature arrays via `scripts/prepare_data.py --reproduce`. Executed full test suite (`pytest`), verifying all unit and integration tests pass without failure.
+- **Pass 2 (Fix environment portability, CLI ergonomics, and branch metadata — IR-79-30..IR-79-32):**
+  1. Updated `AGENTS.md` branch contract to reference `arena/9e8bac9e-gemsdoe79` (`IR-79-30`).
+  2. Fixed bare `pytest` invocation by configuring `pythonpath = ["."]` in `pyproject.toml` (`IR-79-31`), resolving `ModuleNotFoundError: No module named 'scripts'` during collection.
+  3. Made `scripts/download_competition_data.sh` portable across environments by checking `.venv/bin/python` if present or defaulting to `python3` (`IR-79-32`).
+  4. Added `argparse.ArgumentParser` to `scripts/post_stop_diagnostic.py` so `-h`/`--help` exits immediately with documentation instead of executing heavy holdout calculations (`IR-79-32`).
+  5. Added unit tests for script help exit and syntax validity in `tests/test_site_feed_and_recovery.py`.
+- **Pass 3 (End-to-end verification against prompt requirements, live preview, and headless browser QA):**
+  Re-checked all requirements against the verbatim prompt in `README.md`. Verified that the static site clearly displays the download links and automated negative verdict (OK TO DOWNLOAD: YES, OK TO SUBMIT: NO) at the top of `index.html` and `executive-summary.html`. Launched live website server on `0.0.0.0:8080`, and executed headless Chromium QA (`node scripts/browser_review.cjs`), verifying all 21 viewport/page combinations pass, downloaded TIFF SHA-256 matches `run_card.json`, clipboard copy functions work, and no HTTP/console errors occur. Ran `scripts/verify_project.py` (all checks passed), `scripts/check_site.py` (all 7 pages and 107 local links passed), and `scripts/submission_status.py` (fail-closed negative verdict with exit code 2).

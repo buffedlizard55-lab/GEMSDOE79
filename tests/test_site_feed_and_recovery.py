@@ -266,3 +266,20 @@ def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
         assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
     card = json.loads((ROOT / 'run_card.json').read_text())
     assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False
+
+
+def test_post_stop_diagnostic_help_exits_zero():
+    import subprocess
+    import sys
+    res = subprocess.run([sys.executable, str(ROOT / 'scripts/post_stop_diagnostic.py'), '--help'],
+                         capture_output=True, text=True)
+    assert res.returncode == 0
+    assert 'Compute post-stop offline diagnostics' in res.stdout
+
+
+def test_download_competition_data_script_executable_and_syntax():
+    import subprocess
+    script = ROOT / 'scripts/download_competition_data.sh'
+    assert script.exists()
+    res = subprocess.run(['bash', '-n', str(script)], capture_output=True, text=True)
+    assert res.returncode == 0
