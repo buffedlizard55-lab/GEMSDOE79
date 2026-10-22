@@ -88,6 +88,18 @@ near-catalogue false positives and the 70% halo proof.
 Latest concurrent software review: [session `0c9f6bad`](reports/session_review_0c9f6bad.md).
 It independently hardened selector evidence and fixed clean-install dependencies; no scientific slot was used.
 
+## Repository review — session `2747f26f` (2026-10-22)
+
+[Three-pass review and next steps](reports/session_review_2747f26f.md): the fresh
+hash-pinned registry preflight still refuses any new lane under the literal
+positive-support overlap rule. No new scientific raster or competition slot was
+used. The selector CLI now emits a structured refusal for missing/malformed
+inputs rather than a traceback; ten regression cases protect that path.
+All 240 software tests, format/evidence verification and site link checks passed.
+The original request for a newly generated **protocol-unique submittable** TIFF
+remains blocked, not silently marked complete. Official GitHub reference material
+was freshly reviewed; non-GitHub scientific sites were not freshly verified here.
+
 ## What the previous session found (2026-10-22, session `337ac1e9`)
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.

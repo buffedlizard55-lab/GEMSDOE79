@@ -235,8 +235,13 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 <tbody>
 <tr>
 <td>IR-79-36</td>
-<td>Merge commit <code>cdc93fb</code> (merged in PR #20 <code>1ece8d9</code>) left unresolved Git conflict markers (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> / <code>=======</code> / <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main</code>) on <code>main</code> inside both <code>AGENTS.md</code> (lines 5–9) and <code>evidence/browser_review.json</code> (lines 2–6), rendering <code>evidence/browser_review.json</code> syntactically invalid JSON (<code>JSONDecodeError</code>) while <code>verify_project.py</code> checked only <code>docs/evidence/*.json</code> and not all tracked <code>.json</code> or conflict markers.</td>
+<td>Merge commit <code>cdc93fb</code> (merged in PR #20 <code>1ece8d9</code>) left unresolved Git conflict markers (<code>/</code></td>
+<td></td>
+</tr>
+<tr>
+<td>/ <code>`) on</code>main<code>inside both</code>AGENTS.md<code>(lines 5–9) and</code>evidence/browser_review.json<code>(lines 2–6), rendering</code>evidence/browser_review.json<code>syntactically invalid JSON (</code>JSONDecodeError<code>) while</code>verify_project.py<code>checked only</code>docs/evidence/*.json<code>and not all tracked</code>.json` or conflict markers.</td>
 <td>Resolved <code>AGENTS.md</code> to the clean branch-neutral contract, re-generated clean <code>evidence/browser_review.json</code> from live headless Chromium QA, and added repository-wide <code>no_git_conflict_markers</code> and <code>all_tracked_json_strictly_valid</code> assertions to <code>scripts/verify_project.py</code> plus regression tests in <code>tests/test_site_feed_and_recovery.py</code>.</td>
+<td></td>
 </tr>
 <tr>
 <td>IR-79-37</td>
@@ -432,6 +437,24 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>IR-79-66</td>
 <td><strong>PR #34 (<code>d9dfb85</code>, session <code>1de1617f</code>, lane <code>H79-FF</code>) broke <code>main</code> CI (<code>Verify research deliverable</code> <code>39719939692</code> and <code>Pages and public-source health</code> <code>39719939693</code>).</strong> It placed a second <code>.tif</code>/<code>.zip</code> (<code>gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.{tif,zip}</code>, <code>sha256: b4dd75e0...</code>) directly in <code>docs/downloads/</code> without <code>-DO-NOT-SUBMIT</code> in the filename, without preregistration, and without <code>HOLDOUT-DTI</code> evaluation; manually edited <code>docs/index.html</code> and <code>docs/executive-summary.html</code> with a broken link (<code>reports/irregularities.html</code>); and overwrote <code>data/restore_receipt.json</code> with a 4-file subset.</td>
 <td>Quarantined <code>H79-FF</code>'s <code>.tif</code>, <code>.zip</code>, and <code>.json</code> byte-for-byte to <code>archive/h79_ff_1de1617f/downloads/</code> (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_ff_1de1617f/README.md"><code>archive/h79_ff_1de1617f/README.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/ff/ff_run_card.json"><code>evidence/ff/ff_run_card.json</code></a>), restored <code>data/restore_receipt.json</code> to all 7 verified files, added a stopped-lane guard to <code>scripts/build_ff_candidate.py</code>, and rebuilt <code>docs/</code> cleanly via <code>scripts/build_site.py</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>| IR-79-67 | Preflight helper accepted truthy non-boolean blocker flags and boolean coverage, and could crash on null certificate/missing hash. | Session 566bec0c requires typed certificate fields and a valid SHA-256, returns unverified for malformed evidence, and adds regression coverage. No novelty or scientific gate changed. |</p>
+<h3>Review addendum — session 2747f26f (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-68</td>
+<td>Selector evidence adapter refused malformed inputs, but CLI dereferences outside that adapter could still raise a traceback on missing files, invalid JSON, null/list cards or malformed gate receipts.</td>
+<td>Added a structured exit-2 refusal boundary and ten regression cases requiring unchanged scientific bytes. No evaluator, writer, novelty rule or scientific evidence changed. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2747f26f.md">three-pass review</a>.</td>
 </tr>
 </tbody>
 </table></div></section></main>
