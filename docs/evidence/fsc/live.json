@@ -1,0 +1,120 @@
+{
+  "lane": "G79-FSC",
+  "arm": "candidate",
+  "generated_utc": "2026-10-22T15:56:43Z",
+  "selection_rule": "max mean inner-simulation DTI over seeds 20 and 30",
+  "selected": {
+    "K": 45000,
+    "spacing": 3.0,
+    "collar": 2,
+    "mean_inner_sim_dti": 0.12292700000000001
+  },
+  "inner_draw_seed": 2079,
+  "positives": 45202,
+  "negatives": 350000,
+  "emitted_dots": 45000,
+  "dots_on_catalogue": 0,
+  "dots_outside_footprint": 0,
+  "top_features": [
+    {
+      "feature": "log_d_end",
+      "gain_share": 0.15131
+    },
+    {
+      "feature": "log_d_vis",
+      "gain_share": 0.05062
+    },
+    {
+      "feature": "tf_cond_surf",
+      "gain_share": 0.0453
+    },
+    {
+      "feature": "tf_ieq_n100a15",
+      "gain_share": 0.03825
+    },
+    {
+      "feature": "tf_geod_2ndinv",
+      "gain_share": 0.0363
+    },
+    {
+      "feature": "tf_geod_dilaterate",
+      "gain_share": 0.03609
+    },
+    {
+      "feature": "tf_deq_n100a15",
+      "gain_share": 0.03552
+    },
+    {
+      "feature": "tf_geod_shearrate",
+      "gain_share": 0.03226
+    },
+    {
+      "feature": "tf_det_elev",
+      "gain_share": 0.03011
+    },
+    {
+      "feature": "tf_iso_grav_anom",
+      "gain_share": 0.02993
+    },
+    {
+      "feature": "topo_logE",
+      "gain_share": 0.02969
+    },
+    {
+      "feature": "tf_depth_to_base_surf",
+      "gain_share": 0.02734
+    },
+    {
+      "feature": "fab_c2",
+      "gain_share": 0.02541
+    },
+    {
+      "feature": "fab_coh",
+      "gain_share": 0.02394
+    },
+    {
+      "feature": "fab_s2",
+      "gain_share": 0.02371
+    },
+    {
+      "feature": "cat_dens_30",
+      "gain_share": 0.02175
+    },
+    {
+      "feature": "topo_coh",
+      "gain_share": 0.02085
+    },
+    {
+      "feature": "tf_mag_anom",
+      "gain_share": 0.0203
+    },
+    {
+      "feature": "tf_iso_grav_anom_hg",
+      "gain_share": 0.02014
+    },
+    {
+      "feature": "cat_dens_10",
+      "gain_share": 0.01932
+    },
+    {
+      "feature": "hess_grav_4",
+      "gain_share": 0.01848
+    },
+    {
+      "feature": "tf_iso_grav_anom_vg",
+      "gain_share": 0.01782
+    },
+    {
+      "feature": "hess_topo_5",
+      "gain_share": 0.01773
+    },
+    {
+      "feature": "mag_logE",
+      "gain_share": 0.01599
+    },
+    {
+      "feature": "conc_topo",
+      "gain_share": 0.01312
+    }
+  ]
+}

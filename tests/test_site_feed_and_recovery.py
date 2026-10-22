@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_all_site_links_and_status_are_consistent():
-    assert check_site()['passed']
+    result = check_site()
+    assert result['ok'], result['problems']
 
 
 def test_readme_project_links_exist_and_original_brief_is_present():
@@ -160,7 +161,7 @@ def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
     card = json.loads((ROOT / 'run_card.json').read_text())
     card_b = json.loads((ROOT / 'run_card_g79b.json').read_text())
     status = json.loads((ROOT / 'docs/status.json').read_text())
-    assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
+    assert status['ok_to_submit'] is card['ok_to_submit'] and status['raster_sha256'] == card['raster_sha256']
     assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
     # Concurrent lane G79B-SDPT stays quarantined in archive/, never published.
     archived = ROOT / 'archive/g79b_sdpt_67557396/downloads' / (card_b['submission_name'] + '.tif')

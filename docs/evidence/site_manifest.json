@@ -1,23 +1,16 @@
 {
-  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
-  "run_card_sha256": "628667670ae301916625f7ea56bc834f7978faa1460db40721b5e78bf458a42c",
-  "ok_to_download": true,
-  "ok_to_submit": false,
-  "verdict": "negative",
-  "scientific_snapshot_utc": "2026-10-22T03:57:42Z",
-  "scientific_summary_sha256": "1cfc33923babe3f9b01085720f7974792f22be14c0a6954f99c501c0e02c4c1a",
   "pages": [
     "index.html",
     "executive-summary.html",
-    "analysis.html",
     "research.html",
     "sources.html",
-    "history.html",
     "irregularities.html"
   ],
   "compatibility_redirects": {
     "EXECUTIVE_SUMMARY.html": "executive-summary.html",
-    "PROJECT_BRIEF.html": "research.html"
+    "analysis.html": "research.html",
+    "history.html": "research.html",
+    "PROJECT_BRIEF.html": "executive-summary.html"
   },
-  "no_human_inspection_required": true
+  "card_sha256_source": "run_card.json"
 }

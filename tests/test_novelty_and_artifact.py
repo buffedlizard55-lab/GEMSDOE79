@@ -90,7 +90,8 @@ def test_archived_e1_stop_remains_unmeasured_and_active_thvc_card_is_honest():
         assert dti.get("ci95") is None
         assert (e1_card.get("leakage_canary") or {}).get("auc") is None
 
-    card = json.loads((ROOT / "run_card.json").read_text())
+    # THVC is archived (session 0a202578, IR-79-178); its card must stay honest in the archive.
+    card = json.loads((ROOT / "archive/g79_thvc_canonical_0a202578/run_card_thvc.json").read_text())
     assert card["holdout_dti"]["evidence_class"] == "HOLDOUT-DTI"
     assert card["holdout_dti"]["evaluator_version"] == "gems57-pooled-hide-v2"
     analogue = card["holdout_dti"].get("matched_h33_analogue_dti")

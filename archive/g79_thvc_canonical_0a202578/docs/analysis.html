@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<title>What H33 teaches us, without score promises · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / MEASURED LINEAGE</p><h1>Understand H33. Do not copy it.</h1><p class="lead">Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.</p></section><section class="section"><div class="prose table-scroll"><h2>What H33 teaches us — and what it does not prove</h2>
+<h3>Answer to the competition question</h3>
+<p><strong>A better leaderboard result is possible in principle, but this repository has not demonstrated one.</strong> The reported H33 result is <strong>an unverified historical report</strong>, not an artifact-linked organizer receipt. The GEMSDOE32 site itself still describes its file as <strong>UNSCORED</strong>. The public leader observed on 2026-10-22 is recorded separately as a <strong>PUBLIC-OBSERVATION</strong> in the <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/review_e4a4422d_sources.json">source ledger</a>, never as this project's score. No numerical leaderboard projection is made here.</p>
+<p>The useful lesson is <strong>prediction efficiency</strong>, not copying H33's pixels. Its apparent historical advantage is consistent with reducing redundant prediction mass while retaining coverage. That is a conditional metric explanation, not proof of why the organizer assigned a particular score.</p>
+<h3>Re-measured byte lineage</h3>
+<p>We independently restored the two pinned Git blobs and inspected their pixels during this review. These are <strong>RASTER-MEASUREMENTS, NOT SCORES</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Quantity</th>
+<th style="text-align: right;">Measurement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>D2.8 positive pixels</td>
+<td style="text-align: right;">44,090</td>
+</tr>
+<tr>
+<td>H33 positive pixels</td>
+<td style="text-align: right;">37,654</td>
+</tr>
+<tr>
+<td>Deleted D2.8 pixels</td>
+<td style="text-align: right;">6,436</td>
+</tr>
+<tr>
+<td>H33 pixels absent from D2.8</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Disagreement with <code>D2.8 &amp; (distance_to_catalogue &gt; 2 px)</code></td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr>
+<td>Deleted pixels exactly on the catalogue</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<p>The last row matters: these were <strong>nearby off-catalogue pixels</strong>, not exact catalogue pixels. An earlier FNHR narrative described a different deletion count and on-catalogue pruning; that description does not match the pinned H33/D2.8 pair. The new <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_e4a4422d/h33_remeasurement.json">re-measurement</a> agrees with the original <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/h33_forensics.json">forensic receipt</a>.</p>
+<p>A nearby prediction can still recover an unknown fault. A collar is therefore a model choice, not an organizer-mandated exclusion zone. Merely removing exact masked pixels cannot improve a metric that already excludes those pixels.</p>
+<h3>Why thinning can help, precisely</h3>
+<p>The <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">organizer's metric</a> gives each truth pixel the maximum nearby prediction-weighted triangular credit. False-positive contributions are summed over predictions. Additional predictions can therefore incur cost without increasing the maximum coverage of any truth pixel.</p>
+<p>Write <code>T = TP_w</code>, <code>F = FP_w</code>, and <code>G = number of scored truth pixels</code>. Because <code>FN_w = G − T</code>, the metric is</p>
+<pre><code class="language-text">DTI = T / (0.2 T + 0.2 F + 0.8 G + epsilon).
+</code></pre>
+<p>Suppose deleting predictions loses <code>a</code> units of true-positive credit and removes <code>b</code> units of false-positive cost. For fixed truth and masks, the deletion improves DTI exactly when</p>
+<pre><code class="language-text">0.2 T b &gt; a (0.2 F + 0.8 G + epsilon).
+</code></pre>
+<p>Thus a redundant false positive (<code>a = 0</code>, <code>b &gt; 0</code>, <code>T &gt; 0</code>) is worth removing. But a true-positive deletion can be harmful. Hidden organizer truth is unavailable, so the actual <code>a</code> and <code>b</code> for H33's deleted pixels are unknown. There is no theorem that arbitrary thinning, moving dots, or broad catalogue collars increases the competition score.</p>
+<h3>What the current holdout can support</h3>
+<p>The website's table is generated directly from the frozen shared evaluator output: <strong>HOLDOUT-DTI</strong>, <code>gems57-pooled-hide-v2</code>, buffered whole-component hide-and-recover, pooled weighted components, paired spatial-block percentile intervals. Each seed displays its own withheld-positive count and confidence interval.</p>
+<p>The historical G79-THVC candidate improves over the H33 <em>fold-fair control</em> in those receipts. This is <strong>not</strong> a new experiment beating today's incumbent, and the two seeds reuse the same geographical region and catalogue. They are not independent datasets and their positive counts must not be added and described as distinct faults. Confidence intervals are conditional on fitted models, selected settings, catalogue labels and the split; they do not account for all historical model selection or hidden-test distribution shift.</p>
+<p>The holdout hides already mapped faults. The organizer asks for expert-identified faults absent from that catalogue. Geometry-dependent features can perform well on the former without generalizing to the latter. Passing single-feature leakage canaries is necessary under the project protocol, not sufficient proof that every leakage or distribution-shift risk has vanished.</p>
+<h3>Code-review corrections, not new results</h3>
+<ul>
+<li>The old run card mixed shared-evaluator intervals with a separate bootstrap under the same label. All active card views now reference the shared output consistently; the original card and both original result branches are preserved in the <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_e4a4422d/metadata_reconciliation.json">metadata reconciliation</a>.</li>
+<li>A bootstrap's observed fraction of positive resamples is not certainty of geological superiority. The live summary uses paired confidence intervals, not <code>P = 1.000</code> claims.</li>
+<li><code>charnes_cooper_submodular_emit</code> is the historical function name. Its code uses fixed-penalty lazy-greedy weighted kernel cover, a candidate pool, exclusion spacing and budget limits. The parameter search enumerates a grid. It does <strong>not</strong> implement a certified exact Charnes–Cooper transformation or an iterative Dinkelbach optimality test. No claim of global optimality follows from it.</li>
+<li>Endpoint cones in <code>compute_network_mechanics</code> are geometric proxies. They are not a solved three-dimensional elastic stress field, and do not establish slip, permeability, fluid flow or a producing geothermal reservoir.</li>
+<li>Limited sparse-map overlap and low rank correlation are useful diagnostics, but do not clear the required full novelty test. The current file fails it and must not be submitted, even manually.</li>
+</ul>
+<h3>What would genuinely improve the project</h3>
+<ol>
+<li>Set a prospective, shared definition of comparable registry dots. Do not change it to rescue a stopped candidate.</li>
+<li>Reserve a genuinely untouched spatial validation partition before another search; keep the current shared holdout for required comparability, not unrestricted retuning.</li>
+<li>Test an independently motivated physical mechanism with explicit nuisance-process controls and single-feature canaries. The <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e4a4422d.md">new backlog</a> makes no predicted-score claims.</li>
+<li>Re-evaluate the candidate and incumbent under the same buffered folds, budgets and shared evaluator. Require the predeclared improvement gate and both novelty stages before the separate selector considers a slot.</li>
+<li>Keep fault mapping distinct from geothermal-resource certification. Temperature, permeability, sustainable flow and economics require additional evidence.</li>
+</ol>
+<p>Sources were re-read in this session and are listed claim-by-claim in the <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/review_e4a4422d_sources.json">primary-source ledger</a>. Historical analyses remain available for audit, but are not approval or freshly verified results.</p></div></section><section id="holdout" class="section"><div class="section-head"><div><p class="eyebrow">FROZEN RECEIPTS / SHARED EVALUATOR</p><h2>HOLDOUT-DTI, not a leaderboard score.</h2></div><p>Only arms in the same frozen evaluator output are compared here. This is not an all-lane ranking or a newly improved model.</p></div>
+<div class="table-scroll"><table><caption>HOLDOUT-DTI · gems57-pooled-hide-v2 · estimate [95% CI]</caption><thead><tr><th>Historical experiment / control</th><th>Seed 20 · n = 11,321</th><th>Seed 30 · n = 11,342</th></tr></thead><tbody><tr><td>EXP-79-3 · THVC fixed-penalty greedy</td><td>0.1905 [0.1741, 0.2069]</td><td>0.1944 [0.1774, 0.2126]</td></tr><tr><td>EXP-79-2 · THVC uniform spacing</td><td>0.1697 [0.1521, 0.1876]</td><td>0.1686 [0.1510, 0.1866]</td></tr><tr><td>EXP-79-1 · no-catalogue physics</td><td>0.0784 [0.0661, 0.0898]</td><td>0.0648 [0.0524, 0.0781]</td></tr><tr><td>C2 · H33 fold-fair control</td><td>0.0961 [0.0831, 0.1090]</td><td>0.0989 [0.0854, 0.1128]</td></tr><tr><td>C1 · historical E1 control</td><td>0.0441 [0.0370, 0.0512]</td><td>0.0440 [0.0371, 0.0517]</td></tr><tr><td>C0 · random-footprint control</td><td>0.0497 [0.0433, 0.0561]</td><td>0.0422 [0.0378, 0.0465]</td></tr></tbody></table></div>
+<div class="table-scroll"><table><caption>Paired HOLDOUT-DTI difference [95% CI]</caption><thead><tr><th>Matched comparison</th><th>Candidate − control</th></tr></thead><tbody><tr><td>Seed 20 · candidate − H33</td><td>0.0944 [0.0784, 0.1098]</td></tr><tr><td>Seed 30 · candidate − H33</td><td>0.0955 [0.0778, 0.1133]</td></tr></tbody></table></div>
+<div class="prose"><ul><li>Seed 20: n = 11,321 withheld-positive pixels; 158 physical spatial clusters, 1,000 paired bootstrap draws (bootstrap seed 520830).</li><li>Seed 30: n = 11,342 withheld-positive pixels; 159 physical spatial clusters, 1,000 paired bootstrap draws (bootstrap seed 520840).</li></ul><p>Four buffered whole-component folds; visible catalogue masked pixel-exactly. Pooled weighted TP/FP/FN; α = 0.2, β = 0.8, 300 m triangular kernel. Seeds reuse the same region and catalogue, so their counts are not added as independent observations. Intervals are conditional on fitted folds, labels and settings, not all model-selection uncertainty or hidden-test shift.</p>
+<p>The final downloadable dot count is not each fold's emission count; fold counts and evaluator hashes are retained in the <a href="evidence/evidence_summary.json">derived summary</a>. The <a href="evidence/g79_thvc_results.json">original results</a> also contain a separate historical bootstrap; it is not substituted for the shared-evaluator intervals here.</p></div></section><section class="section prose"><h2>Historical record, not current guidance</h2><p>Original narratives and figures remain in Git for audit. They can contain superseded counts, intervals, algorithm descriptions and data-availability claims. The receipt-derived summary and current review above take precedence; historical sparse-only passes never approve submission.</p><ul><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_45998a01.md">reports/session_review_45998a01.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/g79_thvc_scientific_report.md">reports/g79_thvc_scientific_report.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_070af0b6.md">reports/session_review_070af0b6.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_6d4a2fdf.md">reports/session_review_6d4a2fdf.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/fnhr_analysis.md">reports/fnhr_analysis.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_post_thvc_backlog.md">research/hypotheses_post_thvc_backlog.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/why_h33.md">knowledge/why_h33.md</a></li></ul></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

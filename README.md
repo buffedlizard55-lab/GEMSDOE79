@@ -1,97 +1,84 @@
-# GEMSDOE79 — fault-discovery research, with an explicit stop
+# GEMSDOE79 — DOE GEMS fault-prediction GeoTIFF
 
-## Download and automated decision
+> ## OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.
+> **File:** [`g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.tif`](docs/downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.tif) · [ZIP](docs/downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.zip) · SHA-256 `031b133524871de96857dc46a5c7e864181016b777667f17f8e5343b3fd837d7`
+> **Site:** https://buffedlizard55-lab.github.io/GEMSDOE79/ · **How to submit:** [executive summary](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html)
+> Blocked by the automated selector — do NOT upload. Failed gates: G1_holdout_beats_incumbent_both_seeds, G4_surface_novelty_D2, G5_final_dot_novelty_D2.
 
-> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
->
-> **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
+Competition: [DrivenData × DOE GEMS](https://www.drivendata.org/competitions/306/competition-doe-gems/). Lane this session: **G79-FSC** — Fabric-Steered Concordance: multi-physics edges whose strike agrees with the visible regional fault fabric, placed by fabric-normal non-maximum suppression.
 
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
-
-- **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
-- **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
-- **Existing name:** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT` (55 characters, not a new identity).
-- **Legacy note, preserved verbatim (98/140 characters):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`.
-
-The historical “Charnes-Cooper” identifier is not an exact-optimization claim. Code inspection finds **fixed-penalty lazy-greedy weighted kernel cover**, not a certified fractional-programming solver. No model code or raster bytes were changed to make that correction.
-
-| Gate | Evidence-backed disposition |
+| Field | Value |
 |---|---|
-| Local format | **PASS:** one float32 band, EPSG:32611, shape 3730 × 3292, affine `[100, 0, 243350, 0, -100, 4508550]`, finite binary 0/1 values; matching sample grid. ZIP contains identical TIFF bytes. |
-| Surface novelty | **BLOCKED:** maximum absolute rank correlation 0.7712, but maximum forward overlap 1.0000 exceeds 0.70. |
-| Final-dot novelty | **BLOCKED:** maximum absolute rank correlation 0.1210, but maximum forward overlap 1.0000 exceeds 0.70. Low correlation alone is not approval. |
-| Scan completeness | **Incomplete:** 1,108 rows, 1,088 comparable, 20 non-comparable; 1,082 defined rank correlations and 6 undefined. Frozen accessible inventory, not a new full-family or organizer census. |
-| Leakage canaries | **PASS on the frozen checks:** 84 features × 2 seeds = 168 tests; maximum symmetric AUC 0.78961 / 0.80360, below 0.90. Not proof of every form of leakage freedom. |
-| Historical H33-control comparison | Candidate exceeds its H33 fold-fair control on both seeds, with positive paired 95% intervals. See the labelled evidence below. Not a new result beating today's incumbent. |
-| Slot selection | **NOT APPROVED.** No organizer receipt or remaining-account-capacity measurement. Sparse-prior diagnostics cannot substitute for the full novelty gate. |
+| Submission name (≤140) | `g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT` |
+| Note (≤140) | `GEMSDOE79 G79-FSC fabric-steered concordance edges + LightGBM, fabric-normal NMS, 45000 dots, zero on mapped faults` |
+| Format | float32, single band, EPSG:32611, 3730×3292, values in [0, 1], 0 outside footprint and on mapped faults |
+| Verdict | **NEGATIVE** (selector: `scripts/select_submission.py`; status: `scripts/submission_status.py`) |
 
-The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
+## Automated gates (re-derived from frozen evidence)
 
-## Scientific evidence, not a leaderboard projection
+| Gate | Result | Detail |
+|---|---|---|
+| G1_holdout_beats_incumbent_both_seeds | **FAIL** | seed 20: 0.1406 vs 0.1905; seed 30: 0.1472 vs 0.1944 |
+| G2_paired_ci_vs_random_excludes_zero | PASS | seed 20: [+0.0791, +0.1076]; seed 30: [+0.0821, +0.1112] |
+| G3_leakage_canary_le_0_90 | PASS | seed 20: 0.7784; seed 30: 0.7764 |
+| G4_surface_novelty_D2 | **FAIL** | checked 1216, invalid 0, max rho 0.7346044822167301, max overlap 1.0, max chance-corrected 0.8869983960643988, D-2 duplicates 37, literal max overlap 1.0; duplicates by test {'chance_corrected_halo': 33, 'exact_cell_halo_saturated': 4} |
+| G5_final_dot_novelty_D2 | **FAIL** | checked 1216, invalid 0, max rho 0.10993892777244416, max overlap 1.0, max chance-corrected 0.5895804673620688, D-2 duplicates 4, literal max overlap 1.0; duplicates by test {'exact_cell_halo_saturated': 4} (only registry rasters positive on every footprint cell; under the pinned D-2 saturated branch every non-empty file is such a duplicate - owner decision D-3 required) |
+| G6_format_validator | PASS | all checks passed |
+| G7_name_and_note_le_140 | PASS | name 54/140, note 115/140 |
 
-**HOLDOUT-DTI**, shared evaluator `gems57-pooled-hide-v2`; buffered whole-component splits, exact visible-catalogue mask, pooled weighted TP/FP/FN; α = 0.2, β = 0.8, triangular radius 300 m. The following are **inherited measurements**, not experiments performed in this review:
+## HOLDOUT-DTI (gems57-pooled-hide-v2; n = 11321 / 11342 withheld positive pixels; 95% CI paired 20 km block bootstrap)
 
-| Seed | Withheld-positive pixels | G79-THVC [95% CI] | H33 fold-fair control [95% CI] | Paired difference [95% CI] |
-|---|---:|---|---|---|
-| 20 | 11,321 | 0.1905 [0.1741, 0.2069] | 0.0961 [0.0831, 0.1090] | +0.0944 [0.0784, 0.1098] |
-| 30 | 11,342 | 0.1944 [0.1774, 0.2126] | 0.0989 [0.0854, 0.1128] | +0.0955 [0.0778, 0.1133] |
+| Arm | Seed 20 | Seed 30 |
+|---|---|---|
+| EXP-FSC-1 candidate | 0.1406 [0.1265, 0.1551] | 0.1472 [0.1314, 0.1622] |
+| EXP-FSC-2 ablation (no fabric) | 0.1344 [0.1205, 0.1483] | 0.1347 [0.1207, 0.1493] |
+| EXP-FSC-3 amendment A1 | 0.1469 [0.1322, 0.1600] | 0.1580 [0.1432, 0.1732] |
+| Uniform random (same budget) | 0.0471 [0.0413, 0.0529] | 0.0506 [0.0455, 0.0559] |
+| G79-THVC incumbent (frozen) | 0.1905 | 0.1944 |
+| H33 fold-fair analogue (frozen) | 0.0961 | 0.0989 |
 
-1,000-draw paired physical spatial-cluster percentile intervals, 158 / 159 clusters. The seeds share the region and catalogue; they are **not independent datasets**. Bootstrap intervals are conditional on fitted folds and settings and do not cover all model-selection or hidden-test uncertainty. Site tables are generated from [`official_evaluate_all` in the frozen results](evidence/g79_thvc_results.json), not the separate historical bootstrap. [The reconciliation report](evidence/review_e4a4422d/metadata_reconciliation.json) preserves the prior card and explains the correction.
+Holdout caveat: the holdout hides already-mapped faults; the organizer scores expert-labelled *new* faults. HOLDOUT-DTI is not a leaderboard score.
 
-**H33:** independent byte inspection confirms `44,090 − 6,436 = 37,654` dots and exact two-pixel near-catalogue pruning. This establishes geometry, not a causal score improvement. Its reported **0.2778 is an unverified historical report**; GEMSDOE32 labels it UNSCORED. The public leaderboard observation **0.4413** is not this project's score, a ceiling or a target we can promise to beat. The prompt also contains **0.3195**, a different historical report. None is an artifact-linked organizer receipt. [Current H33 analysis and conditional metric algebra](knowledge/h33_review_e4a4422d.md).
+## Novelty vs every comparable registry raster (amendment D-2; literal overlap printed in the run card)
 
-**Portal range error:** without the rejected file and its receipt we cannot diagnose “Predicted values must be in range [0, 1]”. These current bytes pass local checks; that does not prove portal acceptance. The official problem page says exterior values are “null or nan”; this inherited file has zero fill. The discrepancy remains explicit, not “fixed” by inventing a portal result.
+| Stage | Rasters | Max Spearman ρ | Max 3-px dot overlap | D-2 duplicates | Unique |
+|---|---|---|---|---|---|
+| Surface before placement | 1216 | 0.7346 | 1.0000 | 37 | NO |
+| Final dots | 1216 | 0.1099 | 1.0000 | 4 | NO |
 
-## What changed in this review
+## Leaderboard facts (evidence classes kept)
 
-- Reconciled every canonical holdout view, both seeds, paired intervals and ablations with shared evaluator output; preserved original metadata and all scientific receipts.
-- Added a read-only evidence summary, type/interval/algebra/accounting checks, adversarial tests and receipt-derived website tables. Failed full novelty gates are red, not disguised by green sparse-only checks.
-- Restored and SHA-verified [all 13 manifest inputs](evidence/review_e4a4422d/input_restoration.json), and independently [remeasured H33](evidence/review_e4a4422d/h33_remeasurement.json). Restoration is not a scientific experiment or independent organizer authentication.
-- Ranked [four deferred geological hypotheses](research/hypotheses_e4a4422d.md). Cached-data structural tests are separated from an unacquired heat-flow product. The prior shallow-resistivity plan is not supported by its cited depth-integrated-conductance release.
-- Recorded [official claims, licenses and acquisition limits](knowledge/review_e4a4422d_sources.json). The URL-health feed records actual fetch attempts without upgrading an old observation into a fresh score.
+- Public #1 on 2026-10-22: **0.4413** (PUBLIC LEADERBOARD OBSERVATION, [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)); #2 0.3904, #3 0.3894.
+- GEMSDOE32 H33 `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros`: **0.2778** (USER-REPORTED; no organizer receipt here).
+- No file in this repository is ORGANIZER-CONFIRMED.
 
-**Maximize P(Win):** do not spend a slot on a known duplicate or unavailable data. **Own the Outcome:** report the unmet new-TIFF requirement and preserve the negative result rather than rename an inherited file.
+## Read next
 
-## Reproduce verification, not a stopped experiment
+- [knowledge/fsc_findings_0a202578.md](knowledge/fsc_findings_0a202578.md) — why H33 scored, what FSC showed.
+- [research/hypotheses_0a202578.md](research/hypotheses_0a202578.md) — 5 ranked hypotheses and the recommended next lane.
+- [reports/irregularities.md](reports/irregularities.md) · [reports/session_review_0a202578.md](reports/session_review_0a202578.md) · [run_card.json](run_card.json) · [AGENTS.md](AGENTS.md)
+- Archived THVC canonical material: [archive/g79_thvc_canonical_0a202578/](archive/g79_thvc_canonical_0a202578/) (includes the previous README and its preserved prompt).
+
+## Reproduce / verify
 
 ```bash
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.lock
-OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q
-.venv/bin/python scripts/verify_project.py
-.venv/bin/python scripts/submission_status.py  # expected exit 2: BLOCKED
-.venv/bin/python scripts/select_submission.py  # expected exit 2: measured refusal, card unchanged
-.venv/bin/python scripts/build_site.py
-.venv/bin/python scripts/check_site.py
-# Optional restoration; preserves the historical scientific receipt:
-.venv/bin/python scripts/restore_data.py --preserve-receipt
-# Prospective lane gate; expected exit 2 before training or placement:
-.venv/bin/python scripts/preflight_new_lane.py --restore
+python -m venv .venv && .venv/bin/pip install -r requirements.lock
+.venv/bin/python scripts/restore_data.py            # pinned inputs
+.venv/bin/python scripts/verify_project.py          # offline bytes, format, gates, site agreement
+.venv/bin/python scripts/submission_status.py       # exit 0 approved, 2 blocked
+.venv/bin/python scripts/build_site.py && .venv/bin/python scripts/check_site.py
+.venv/bin/python -m pytest -q
 ```
 
-Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap overlaps after failure or retune against the same holdout. The method paragraph required by the parallel-lane protocol was absent; no assignment was invented. A future lane needs a prospective shared protocol decision, a frozen mechanism, actual data acquisition, all-feature canaries and a fair incumbent comparison before a separate selector considers a slot. The official maximum is three submissions per week, not proof of remaining capacity; one final entry is allowed per participating entity.
-
-### Navigation and preserved history
-
-[Three-pass review](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
-
-Concurrent reports merged from main remain available: [closed-lane and prompt-repair review f0d99a40](reports/session_review_f0d99a40.md), [canonical selector review f40e4f2e](reports/session_review_f40e4f2e.md), [input/publication review 64600edb](reports/repository_review_2026-10-22_session-64600edb.md), [validator/publication review 45998a01](reports/session_review_45998a01.md), [H80 pilot review 842c8c7c](reports/session_review_842c8c7c.md), and [CFSKD negative report](reports/cfskd_analysis.md). Their scientific experiments were performed by other sessions, not this one. Limited-comparator uniqueness claims in those reports are not the required full-registry clearance and do not alter the canonical STOP. Their prior README prose is [preserved verbatim](archive/review_e4a4422d/readme_incoming_5e0d031.txt), not adopted as current guidance.
-
-Archived lane narratives and figures are historical, not current approval. Stopped-lane bytes and concurrent reviewers' work remain preserved. The following prompt incorporates the documented upstream restorations in IR-79-160; the initial prompt bytes remain in the archived README. All changes to that body are recorded in the prompt-preservation receipt; historical requests inside it do not override the measured STOP.
-
----
+Experiment pipeline (write-once, already run): `scripts/run_fsc.py static | seed 20 | seed 30 | live | a1 20 | a1 30`,
+`scripts/fsc_novelty.py surface|dots`, `scripts/fsc_write.py exp1`, `scripts/select_submission.py`.
 
 ## Original project prompt — read at the start of every session
 
-The following is preserved as the project brief (only trailing whitespace is normalized). Historical scores, availability
-assertions and pipeline claims inside it are **requests/reports**, not newly
-verified facts. `AGENTS.md` requires reading this README and the latest run card
-before making changes.
+<details><summary>Verbatim prompt for session 0a202578 (also in knowledge/project_prompt_0a202578.md)</summary>
 
-<details>
-<summary>Full original user prompt (including repetitions and historical links)</summary>
-
-Review the repo.
+~~~~text
+Review the repo. 
 
 THE FOLLOWING IS THE HIGHEST URGENCY AND MUST BE FOLLOWED!
 
@@ -129,7 +116,7 @@ Answer the question using Phd level experience, knowledge, and judgement. Then u
 
 Current competition leaderboard GEMSDOE high score:
 
-0.4413
+0.4413		
 
 WE NEED TO STUDY, ANALYZE, AND UNDERSTAND THE HIGHEST SCORE FROM THE GEMDOE SITE WHERE THE SUBMISSION TIF IS DOWNLOADED FROM WHICH IS THE FOLLOWING:
 
@@ -143,7 +130,7 @@ Answer the question using Phd level experience, knowledge, and judgement. Then u
 
 Current competition leaderboard GEMSDOE high score:
 
-0.4413
+0.4413		
 
 [https://buffedlizard55-lab.github.io/GEMSDOE/docs/index.html](https://buffedlizard55-lab.github.io/GEMSDOE/docs/index.html)
 
@@ -635,99 +622,99 @@ gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros: 0.19
 
 ....
 
-GEMSDOE74:[https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
+[https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
 
-gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros: 0.0669
-
-....
-
-GEMSDOE75:[https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
-
-gems75-trlt-radon-loco-ridge-20261021-zeros: 0.1627
+gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros:0.0669
 
 ....
 
-GEMSDOE76:[https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
+[https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
 
-gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555
+gems75-trlt-radon-loco-ridge-20261021-zeros:0.1627
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
+
+gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros:0.1555
 
 gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
 ....
 
-GEMSDOE77:[https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
+[https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
 
-gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
+gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros:0.0964
 
 ....
 
-GEMSDOE78: [https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
+[https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
 
 gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:
 
 ....
 
-GEMSDOE79: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/)
+[https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/)
 
 :
 
 ....
 
-GEMSDOE80: [https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
+[https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
 
 gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros:
 
 ....
 
-GEMSDOE81: [https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
+[https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
 
 gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros:
 
 ....
 
-GEMSDOE82: [https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
+[https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
 
 gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros:
 
 ....
 
-GEMSDOE83: [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
+[https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
 
 gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros:
 
 ....
 
-GEMSDOE84: [https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
+[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
 
 :
 
 ....
 
-GEMSDOE85: [https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
+[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
 
 :
 
 ....
 
-GEMSDOE86: [https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
+[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
 
 :
 
 ....
 
-GEMSDOE87: [https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
+[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
 
 :
 
 ....
 
-GEMSDOE88: [https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
+[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
 
 :
 
 ....
 
-I want to have a validation gates in place so I never get the "Predicted values must be in range [0, 1]" error again when I submit my TIF file to the competition.
+I think it makes sense that in order for a submission to be validated that it needs to pass certain high scoring validation gates before confirming whether a file is unique and can be submitted for scoring.
 
 The following is the leaderboard for the competition:
 
@@ -749,19 +736,19 @@ We need to quickly look at the results and results from the GEMSDOE websites abo
 
 Before implementing, generate 3–5 candidate geological hypotheses we haven't tried yet, each naming: the specific layer(s) involved, the physical signature being targeted (e.g., an edge-detection or curvature transform), why it should catch a fault missing from the USGS/INGENIOUS catalogue rather than one already in it, and how it differs from anything already implemented in this repo. Rank them by expected DTI improvement and implementation cost. Validate the top candidate on our spatially-blocked holdout set before touching a weekly submission slot — do not spend a submission slot on an idea that hasn't beaten the current holdout best. If a candidate can't be validated without new external data, name the specific free, official source needed and check it's obtainable before proposing the idea as viable.
 
-Work line by line verifying from official verified trusted sources, provide links for manual review.  There should be no manual input, work on your own to complete tasks.  Flag any irregularities for review.  No hallucinations.
+Work line by line verifying from official verified trusted sources, provide links for manual review.  There should be no manual input, work on your own to complete tasks.  Flag any irregularities for review.  No hallucinations.                      
 
-Verify no hallucinations.
+Verify no hallucinations.    
 
 The goal of this project is to get a full list that follow our requirements.  No hallucinations.  Verify line by line.
 
 We have a good understanding of how our hypothesis, methodology, calculations, analysis are done so we should be able to figure out a way to score higher on the leaderboard using previous results and scoring that we have across the sites listed above.  We need to come up with distinct and unique strategies to score higher in this competition leaderboard.  We need to start doing heavy and deep research into the part of the project that matters the most, which is the scientific discovery of geothermal vents.  We should store all of our information and knowledge that we can gather from official verified sources.  This will serve as a starting point for other projects as well.  We need to think outside the box but still be grounded in proper scientific research, we are ultimately aiming for a top prize that many others are competing for.  So it's important to be contrarian but be smart about it.  We need to find sources of data that others are over looking or areas of the project when it comes to geothermal vents.  We need to do deep research and critical thinking and come up with new hypothesis to test.
 
-0.3195	is the highest score right now so we need to design a new strategy, research, testing, analyzing, and generating submission system than the current website.  It should be unique, take unique approaches to generating a submission that can score higher than 0.3195.
+0.3195	is the highest score right now so we need to design a new strategy, research, testing, analyzing, and generating submission system than the current website.  It should be unique, take unique approaches to generating a submission that can score higher than 0.3195.  
 
 Put this prompt into the repo readme and read it everytime we work on the project as a starting point to make sure we are building what we are aiming for and have a strong base to continue building and improving on making something useful for everyday use.  It should solve the problem of having to manually check everything ourselves and having an up to date current feed.
 
-Review the repo.
+Review the repo. 
 
 The following is taken from the Arena AI team and I think it makes a good point on building a successful project, so let's keep the Core Values and Own the Outcome as a focal point when building, developing, researching, suggesting upgrades, and implementing the work.
 
@@ -775,15 +762,15 @@ Own the Outcome
 
 We own results end to end — not just our individual slice of the work. When problems arise and we have the means to act, we do so without waiting for permission or assignment. We treat failure and success as signals and use them to improve. At Arena, we stay accountable to the final outcome.
 
-Work line by line verifying from official verified trusted sources, provide links for manual review.  There should be no manual input, work on your own to complete tasks.  Flag any irregularities for review.  No hallucinations.
+Work line by line verifying from official verified trusted sources, provide links for manual review.  There should be no manual input, work on your own to complete tasks.  Flag any irregularities for review.  No hallucinations.                      
 
+  
 
-
-Verify no hallucinations.
+Verify no hallucinations.    
 
 The goal of this project is to get a full list that follow our requirements.  No hallucinations.  Verify line by line.
 
-We need to focus on being able to generate a submission into the competition.
+We need to focus on being able to generate a submission into the competition.  
 
 The site should be able to generate a TIF file that is required for submission.  It should be as easy as download to click a File to submit into the competition.  This needs to be in the executive summary or the very beginning of the site.  it should be obvious when you visit the site.
 
@@ -813,21 +800,21 @@ The goal of this project is to place top of the leaderboard in this competition.
 
 [https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/)
 
-We need to create a project that can compete and place top of the leaderboard.  We need to understand the problem, collect all the data and organize it into a clean easily auditable table with official verified links for manual verification.
+We need to create a project that can compete and place top of the leaderboard.  We need to understand the problem, collect all the data and organize it into a clean easily auditable table with official verified links for manual verification.  
 
 This is the guidelines we need to follow.[https://www.drivendata.org/competitions/306/competition-doe-gems/](https://www.drivendata.org/competitions/306/competition-doe-gems/)
 
 Get familiar with the problem through the overview and problem description,[https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). You might also want to reference additional resources available on the about page,[https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/](https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/).
 
-Download the data from the data,[https://www.drivendata.org/competitions/306/competition-doe-gems/data/](https://www.drivendata.org/competitions/306/competition-doe-gems/data/), tab.
+Download the data from the data,[https://www.drivendata.org/competitions/306/competition-doe-gems/data/](https://www.drivendata.org/competitions/306/competition-doe-gems/data/), tab.  
 
 Create and train your own model. This reference solution,[https://github.com/drivendataorg/gems-prize-reference-solution](https://github.com/drivendataorg/gems-prize-reference-solution) implements a simple approach.
 
 Use your model to generate predictions that match the submission format.
 
-Tell me what are you limitations and what you need access to during this project.  We will need to find free publicly available sources and data from official and verified sources if we are to use 3rd party or external data.
+Tell me what are you limitations and what you need access to during this project.  We will need to find free publicly available sources and data from official and verified sources if we are to use 3rd party or external data.  
 
-this pdf outlines how submissions must be entered into the competition.
+this pdf outlines how submissions must be entered into the competition.  
 
 [https://docs.nlr.gov/docs/fy26osti/96647.pdf](https://docs.nlr.gov/docs/fy26osti/96647.pdf)
 
@@ -853,23 +840,23 @@ See links below for competition data:
 
 [https://www.dropbox.com/scl/fi/ig0mban712ns1atphgphe/Digital-elevation-model-links-JSON.pdf?rlkey=zm77f1vbtt2if8hlruymptnu3&amp;st=srhhir10&amp;dl=0](https://www.dropbox.com/scl/fi/ig0mban712ns1atphgphe/Digital-elevation-model-links-JSON.pdf?rlkey=zm77f1vbtt2if8hlruymptnu3&st=srhhir10&dl=0)
 
-Work line by line verifying from official verified trusted sources, provide links for manual review.  There should be no manual input, work on your own to complete tasks.  Flag any irregularities for review.  No hallucinations.
+Work line by line verifying from official verified trusted sources, provide links for manual review.  There should be no manual input, work on your own to complete tasks.  Flag any irregularities for review.  No hallucinations.                      
 
-Verify no hallucinations.
+Verify no hallucinations.    
 
 The goal of this project is to get a full list that follow our requirements.  No hallucinations.  Verify line by line.
 
 Site creation
 
-Create a github page for this repo that has clean ui, user friendly, simple and easy to use.  It should be organized and clean.
+Create a github page for this repo that has clean ui, user friendly, simple and easy to use.  It should be organized and clean.  
 
 It should include all relevant information in an easy to read format with official verified links as sources for review.  Work line by line verify everything no hallucinations.
 
 **The single remaining blocker to training is data placement**: run `bash scripts/download_competition_data.sh` on any unrestricted machine into `data/`, then `python scripts/prepare_data.py` — after that the full train→inference→validate pipeline is ready to run (GPU needed for training; metric/losses/validation all verified working here on CPU).
 
-you need to complete the above task by yourself.  Work line by line verifying from official verified trusted sources, provide links for manual review.  There should be no manual input, work on your own to complete tasks.  Flag any irregularities for review.  No hallucinations.
+you need to complete the above task by yourself.  Work line by line verifying from official verified trusted sources, provide links for manual review.  There should be no manual input, work on your own to complete tasks.  Flag any irregularities for review.  No hallucinations.                      
 
-Verify no hallucinations.
+Verify no hallucinations.    
 
 The goal of this project is to get a full list that follow our requirements.  No hallucinations.  Verify line by line.
 
@@ -884,5 +871,6 @@ Pass 3: Re-check the entire implementation against the original request. Improve
 Do not stop after the first pass. Each pass must build on the previous one. Before finishing, verify that the final result fully satisfies the original request.  Work line by line verify everything no hallucinations.
 
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
+~~~~
 
 </details>

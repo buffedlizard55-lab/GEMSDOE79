@@ -1,78 +1,192 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
-<title>Four deferred geological hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
-<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
-<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">FOUR HYPOTHESES / ZERO NEW EXPERIMENTS</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Source-grounded ideas, qualitative ranking and explicit data gates. None is an approved or executed new lane.</p></section><section class="section"><div class="prose table-scroll"><h2>Four prospective mechanisms, not four new experiments</h2>
-<p><strong>Status:</strong> none implemented or scored in this session. The prompt again contains no delimited assigned method paragraph. No stopped lane was reopened. The shared new-lane preflight re-measured the universal overlap witness and returned <strong>STOP</strong> before any new surface, canary, holdout or dot placement.</p>
-<p>This is a ranked <strong>research backlog</strong>, not a leaderboard forecast or a selector decision. The ranking is qualitative scientific judgment about possible <em>incremental</em> HOLDOUT-DTI value versus implementation cost; there is insufficient evidence to attach a numerical score gain or runtime. Novelty below is relative to the inspected executable local source, not a claim that no scientist or sibling project has ever considered the idea.</p>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Research — GEMSDOE79</title><link rel="icon" href="assets/favicon.svg"><link rel="stylesheet" href="assets/g79.css"></head><body><a class="skip" href="#main">Skip to content</a><header class="top"><b>GEMSDOE79</b><nav><a href="index.html">Download</a><a href="executive-summary.html">Executive summary</a><a href="research.html" aria-current="page">Research</a><a href="sources.html">Sources</a><a href="irregularities.html">Irregularities</a></nav></header><main id="main"><h1>Research</h1><h2>Session 0a202578: H33, the leaderboard, and the G79-FSC result</h2>
+<h2>1. Why GEMSDOE32 H33 scored 0.2778, and can we beat it?</h2>
+<p><strong>Evidence classes.</strong> The 0.2778 for <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code> is <strong>USER-REPORTED</strong>. On 2026-10-21 the public leaderboard showed the same number (0.2778) at rank 48. That match does not prove which file or account earned it (<code>knowledge/official_sources.json</code>, entry DD-LEADERBOARD). On 2026-10-22 the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">public leaderboard</a> showed <strong>#1 xiaofanhu 0.4413</strong>, #2 0.3904 and #3 0.3894 (PUBLIC LEADERBOARD OBSERVATION). The value 0.3195 in the prompt is not the current top score.</p>
+<p><strong>What H33 is.</strong> H33 is a 37,654-dot binary map. It is D2.8 (44,090 dots) with the 6,436 dots within 2 px of a mapped fault removed. We re-measured this from the pinned bytes; see <code>knowledge/h33_review_e4a4422d.md</code>. Here is how the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">organizer's metric</a> works:</p>
+<ul>
+<li>Each truth pixel gets the <em>maximum</em> nearby kernel credit.</li>
+<li>Every predicted pixel adds false-positive mass.</li>
+</ul>
+<p>With T = weighted TP, F = weighted FP and G = scored truth pixels:</p>
+<p><code>DTI = T / (0.2 T + 0.2 F + 0.8 G)</code></p>
+<p>A dot is worth adding only if its credit exceeds 0.2 × DTI. So sparse, well-placed dots beat dense maps. H33's 0.2778 is consistent with good <strong>per-dot efficiency</strong>. That explanation follows from the metric; it is not proof of what the hidden labels contain.</p>
+<p><strong>Can we beat it?</strong> On this project's spatially blocked holdout, the archived G79-THVC lane scores <strong>HOLDOUT-DTI 0.1905 / 0.1944</strong>. The H33 fold-fair analogue on the same split scores 0.0961 / 0.0989, so THVC is about 2× better. Both pairs of numbers are frozen, from evaluator gems57-pooled-hide-v2. This session's G79-FSC scores 0.1406–0.1580, which also beats the H33 analogue (point estimates only; no paired interval vs H33 was computed). HOLDOUT-DTI hides already-mapped faults, so these numbers <strong>cannot be converted into leaderboard scores</strong>. Whether any of these files would beat 0.2778 publicly is unknown until one is submitted.</p>
+<h2>2. G79-FSC: hypothesis, experiments, result</h2>
+<ul>
+<li><strong>Hypothesis H1:</strong> hidden Basin-and-Range faults are sub-parallel to the local mapped fault fabric. Physical edges whose strike agrees with that fabric are more often faults. The edges come from detrended topography, isostatic gravity, RTP magnetics and the LiDAR scarp strike band. The fabric is the structure tensor of the <em>visible</em> catalogue.</li>
+<li><strong>Mechanism:</strong> fault populations in an extensional stress field share a strike set. Unmapped splays and buried continuations inherit that strike.</li>
+<li><strong>Named non-fault mimics:</strong> pluvial Lake Lahontan shorelines and alluvial-fan toes, which parallel range fronts. Also NNE dikes in magnetics.</li>
+<li><strong>Preregistration:</strong> <code>registry/preregistration_g79_fsc.json</code>, commit 49d2383, made before any feature or score existed. Amendment A1, <code>registry/preregistration_g79_fsc_amendment_A1.json</code>, commit fedd6c7. A1 was registered after the seed-20 result was seen and before seed 30 existed. That is one disclosed extra look at the holdout.</li>
+</ul>
+<p>HOLDOUT-DTI, evaluator gems57-pooled-hide-v2, split <code>buffered_component_draw(seed, buffer_px=3, boundary_px=12)</code>. Withheld positive pixels: seed 20 n = 11,321; seed 30 n = 11,342. The 95% CI is a 1000-draw paired 20 km block bootstrap.</p>
 <table>
 <thead>
 <tr>
-<th>Priority</th>
-<th>Hypothesis and physical signature</th>
-<th>Exact inputs</th>
-<th>Why it might find omitted faults</th>
-<th>Difference from implemented local lanes</th>
-<th>Non-fault mimic and falsification</th>
-<th>Expected incremental value / cost / availability</th>
+<th>Arm</th>
+<th>Seed 20</th>
+<th>Seed 30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EXP-FSC-1 candidate (45k dots)</td>
+<td>0.1406 [0.1265, 0.1551]</td>
+<td>0.1472 [0.1314, 0.1622]</td>
+</tr>
+<tr>
+<td>EXP-FSC-2 ablation, no fabric family</td>
+<td>0.1344 [0.1205, 0.1483]</td>
+<td>0.1347 [0.1207, 0.1493]</td>
+</tr>
+<tr>
+<td>EXP-FSC-3 amendment A1 (+ network-frame offsets)</td>
+<td>0.1469 [0.1322, 0.1600]</td>
+<td>0.1580 [0.1432, 0.1732]</td>
+</tr>
+<tr>
+<td>Uniform random, same budget</td>
+<td>0.0471 [0.0413, 0.0529]</td>
+<td>0.0506 [0.0455, 0.0559]</td>
+</tr>
+<tr>
+<td><strong>G79-THVC incumbent (bar to beat)</strong></td>
+<td><strong>0.1905</strong></td>
+<td><strong>0.1944</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Paired differences on the same folds:</p>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>Seed 20</th>
+<th>Seed 30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fabric family (EXP-1 minus EXP-2)</td>
+<td>+0.0062 [−0.0018, +0.0151], not significant</td>
+<td>+0.0125 [+0.0046, +0.0197]</td>
+</tr>
+<tr>
+<td>A1 minus EXP-1</td>
+<td>+0.0063 [−0.0020, +0.0142]</td>
+<td>+0.0109 [+0.0036, +0.0189]</td>
+</tr>
+<tr>
+<td>EXP-1 minus random</td>
+<td>+0.0935 [+0.0791, +0.1076]</td>
+<td>+0.0966 [+0.0821, +0.1112]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leakage canary:</strong> the maximum single-feature symmetric AUC was 0.778 (EXP-1, <code>log_d_end</code>) and 0.781 (A1, <code>end_across</code>). Both are below 0.90, so the canary passes.</p>
+<p><strong>Verdict: NEGATIVE.</strong></p>
+<ul>
+<li>Every FSC arm is about 0.04–0.05 below THVC on both seeds. The preregistered promotion gate requires beating THVC on both seeds.</li>
+<li>The fabric idea carries some real but small signal: it is significant on one of the two seeds.</li>
+<li>The model's gain is dominated by smooth regional fields: surface conductance, earthquake density, geodetic strain. In other words, it learns <em>where fault-rich regions are</em> more than <em>where a missing strand lies</em>.</li>
+<li>At 45k dots it pays FP mass 41.6k for TP 2.5k. THVC pays 34.7k for 3.2k (seed 20).</li>
+<li><strong>Novelty</strong> (amendment D-2, 1,216 comparable registry rasters, 0 invalid; this repository's own archived TIFFs included):</li>
+<li>The <em>surface before placement</em> is a duplicate of 33 prior dot fields: chance-corrected overlap &gt; 0.70, max 0.887.</li>
+<li>The <em>final dots</em> clear every informative raster: max chance-corrected overlap 0.590, max ρ 0.110. They are still flagged against 4 rasters that are positive on every cell. Under D-2's saturated branch, <em>any</em> non-empty file fails against those 4 (IR-79-173).</li>
+<li>The published GeoTIFF is therefore research-only and labelled DO-NOT-SUBMIT. It fails gate G1 (holdout), gate G4 (surface novelty) and gate G5 (saturated-branch novelty).</li>
+</ul>
+<h2>3. What this teaches</h2>
+<ol>
+<li>Placement efficiency dominates. The incumbent's crack-tip continuation plus kernel-cover placement extracts more TP per dot than a classifier plus top-K NMS.</li>
+<li>Orientation agreement alone does not localize faults at 100 m. Regional context explains most of the classifier's skill.</li>
+<li>The budget rule (≤ 3 experiments) stopped a fourth try. This was the right call because each extra look at the same holdout inflates apparent gains.</li>
+</ol>
+<h2>4. Limitations</h2>
+<ul>
+<li>The holdout hides catalogue faults. The organizer scores <em>new</em> expert-labelled faults, so gains may not transfer.</li>
+<li>The two seeds share geography and catalogue, so they are not independent datasets.</li>
+<li>No paired CI against THVC is possible because THVC's fold predictions were not cached.</li>
+<li>Novelty uses amendment D-2. The literal overlap rule is 1.0 for every non-empty file (<code>evidence/universal_overlap_certificate.json</code>), so it carries no information. The literal reading is still printed.</li>
+<li><strong>Structural blocker:</strong> D-2's saturated branch has the same flaw (IR-79-173). Until the owner makes a prospective decision ("D-3") about rasters that are positive everywhere, no file from any lane can pass every gate.</li>
+</ul><h2>Ranked hypotheses: session 0a202578</h2>
+<p>These are ranked by expected HOLDOUT-DTI gain against cost. Gains are qualitative judgments, not forecasts.</p>
+<p>Rank 1 was tested in this session. Ranks 2–5 are untried in this repository; we checked them against every local lane listed in <code>AGENTS.md</code>. "Untried" here means not implemented locally. It does not mean nobody has ever thought of the idea.</p>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Hypothesis</th>
+<th>Layers (all free, official)</th>
+<th>Physical signature</th>
+<th>Why it could catch off-catalogue faults</th>
+<th>How it differs from tried lanes</th>
+<th>Expected gain / cost</th>
+<th>Status</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>1</td>
-<td><strong>G79-CJX: cross-scale contact-junction localization.</strong> Extract gravity and magnetic ridge directors; detect persistent orientation winding/branch points across smoothing scales, then require compatible signed cross-contact contrasts in both fields. Use locally phase-randomized fields as a nuisance null, not as synthetic fault labels.</td>
-<td>Pinned <code>training_features.tif</code>: band 2 <code>rtp</code> and band 13 <code>iso_grav_anom</code>, checked from the cached band tags.</td>
-<td>A buried intersection or termination may retain density/susceptibility contrasts without an obvious surface scarp. This is a hypothesis, not evidence that every junction is a fault.</td>
-<td>E1 measures cross-field lag, THVC uses a learned multi-feature ensemble and visible-catalogue endpoint cones. Neither implements a persistence-qualified director-winding junction statistic against a matched field-texture null.</td>
-<td>Pluton margins, volcanic caldera contacts and survey-block seams also produce junctions. Compare with closed-contact controls; reject an effect confined to seams or a single scale.</td>
-<td><strong>Moderate but very uncertain</strong> potential; <strong>moderate</strong> implementation cost. Input bytes restored and hash-verified locally. Nominated <em>only for a future authorized lane</em>; preflight blocks execution now.</td>
+<td><strong>G79-FSC: fabric-steered concordance</strong></td>
+<td><code>training_features.tif</code> bands (detrended elevation, isostatic gravity, RTP), LiDAR scarp band, visible catalogue</td>
+<td>Edge strike sub-parallel to the local mapped fault fabric</td>
+<td>Unmapped splays inherit the regional strike set</td>
+<td>First lane to use the visible-catalogue structure tensor as a steering field for features and for the NMS direction</td>
+<td>Moderate expected, low cost</td>
+<td><strong>Tested: NEGATIVE.</strong> 0.1406–0.1580 vs THVC 0.1905/0.1944</td>
 </tr>
 <tr>
 <td>2</td>
-<td><strong>G79-BLC: bilateral lithology-contrast change-point.</strong> Along a data-derived potential-field ridge, compare multichannel distributions on opposite flanks; look for a persistent, abrupt along-strike change in cross-flank ordering rather than high edge magnitude alone.</td>
-<td>Same pinned feature stack plus <code>external/geodawn_rad_u8.tif</code> and <code>external/geodawn_extensions_u8.tif</code>. Use radiometric ordinal ranks only; no calibrated concentration interpretation.</td>
-<td>A transfer fault could offset two pre-existing lithologic contacts under alluvium even where the transfer trace itself has weak relief.</td>
-<td>Not the E1 across-normal maximum lag or a scalar K/Th anomaly. The proposed statistic is an along-contact change in <em>bilateral joint distributions</em>, with flanks defined without catalogue linework.</td>
-<td>Depositional facies changes, lava-flow boundaries and drainage redistribution can create the same contrast. Require independent gravity support and leave-one-survey-block replication.</td>
-<td><strong>Low to moderate, uncertain</strong> potential; <strong>moderate/high</strong> cost because local backgrounds and ridge tracking need validation. Cached inputs are obtainable; radiometric units and censoring remain limitations.</td>
+<td><strong>G79-FGC: fabric-gated kernel cover.</strong> Use the measured concordance family only as a <em>prior inside</em> the incumbent's kernel-cover placement, not as a classifier input</td>
+<td>Same as rank 1 + the incumbent's surface</td>
+<td>Same as rank 1</td>
+<td>The fabric family added +0.006 to +0.012 DTI over its ablation on the same folds. Placement, not features, was FSC's weakness</td>
+<td>Reuses the measured fabric signal with the stronger placement. Not a restart of THVC: it is a new preregistered lane with THVC frozen as the control</td>
+<td>Small (≈ +0.005 to +0.01 if additive), low cost</td>
+<td>Needs an owner decision because it builds on archived THVC code</td>
 </tr>
 <tr>
 <td>3</td>
-<td><strong>G79-RSS: relief-screened structural saddle.</strong> Locate multi-scale detrended-elevation saddles connecting adjacent basins, then require a gravity contrast crossing the saddle rather than following a closed topographic contour.</td>
-<td>Pinned <code>training_features.tif</code>: band 12 <code>det_elev</code>, band 19 <code>det_elev_slope</code>, band 13 <code>iso_grav_anom</code> and band 18 <code>iso_grav_anom_hg</code>. No routing on detrended elevation as though it were a true hydrologic DEM.</td>
-<td>A low-relief transfer zone between range segments may be omitted when maps emphasize long range-front scarps.</td>
-<td>Existing tip/relay channels start from visible fault endpoints; this proposal starts from catalogue-free terrain topology and tests independent geophysical contrast. It is not an extension of stopped relay allocations.</td>
-<td>Stream capture, erosional wind gaps, landslides and resistant-bedrock saddles. A terrain-only ablation and independent geophysical test must distinguish these.</td>
-<td><strong>Low/uncertain</strong> incremental value; <strong>moderate</strong> cost. Cached data are available; coarse relief does not resolve a narrow surface fault.</td>
+<td><strong>G79-CJX: cross-scale contact-junction localization</strong></td>
+<td><code>training_features.tif</code> RTP (band 2) and isostatic gravity (band 13)</td>
+<td>Persistent ridge-director winding and branch points across scales, with signed cross-contact contrast in both fields</td>
+<td>Buried terminations and intersections keep density and susceptibility contrasts without a surface scarp</td>
+<td>No lane uses persistence-qualified director junctions against a phase-randomised null</td>
+<td>Uncertain (moderate), moderate cost</td>
+<td>Untried. Data ready (pinned)</td>
 </tr>
 <tr>
 <td>4</td>
-<td><strong>G79-HFR: paired hydrothermal recharge/upflow residuals.</strong> Use the published well heat-flow residuals, not the smoothed conductive background, to test spatially paired warm/cool departures aligned with an independently inferred structural corridor.</td>
-<td>USGS <strong>Heat flow maps and supporting data for the Great Basin</strong>, DOI <a href="https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28">10.5066/P9BZPVUC</a>, specifically the well-point residual attribute and quality fields; cached gravity/magnetic features for structural context.</td>
-<td>Hydrothermal advection can expose buried permeability pathways without mapped scarps. The official release explicitly identifies residuals as potentially informative about hydrothermal or groundwater influence.</td>
-<td>THVC/FNHR use nearby temperatures, spring points and geothermal context; this proposal separates positive and negative departures from the source's conductive-background estimate and tests a paired transport signature.</td>
-<td>Ordinary groundwater circulation, pumping, incorrect borehole corrections and uneven sampling. Leave entire well clusters out; depth/quality fields must be available before modeling.</td>
-<td><strong>Scientifically promising but unquantified</strong>; <strong>high</strong> acquisition/QA cost. Official metadata and ZIP listing are accessible; binary contents/coverage were not acquired. <strong>NOT data-ready / NOT currently viable for validation.</strong></td>
+<td><strong>G79-KNK: knickpoint and channel-steepness alignment</strong></td>
+<td>USGS 3DEP 1 m DEM tiles listed by the organizer in <code>1m_DEM_links.csv</code></td>
+<td>Aligned knickpoints and steepness jumps across a line, independent of scarp relief</td>
+<td>Slow, young or eroded faults perturb river profiles before a scarp is mappable</td>
+<td>All terrain lanes used the 100 m stack; none used channel-profile physics</td>
+<td>Uncertain, high cost (tile download and hydrology)</td>
+<td>Untried. <strong>Data blocked here:</strong> this sandbox can only reach GitHub and package hosts, so the tiles must be fetched elsewhere</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>G79-HFR: paired heat-flow residuals</strong></td>
+<td>USGS Great Basin heat-flow maps and well residuals, <a href="https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28">DOI 10.5066/P9BZPVUC</a></td>
+<td>Paired warm and cool residuals along a structural corridor</td>
+<td>Hydrothermal advection exposes permeable faults without scarps</td>
+<td>Prior lanes used temperatures or springs, not residual pairs</td>
+<td>Promising but unquantified, high QA cost</td>
+<td>Untried. <strong>Not data-ready:</strong> metadata only; binary not acquired</td>
 </tr>
 </tbody>
 </table>
-<h3>Data availability is a gate, not a footnote</h3>
-<p>The <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/review_e4a4422d/input_restoration.json">new restoration receipt</a> verifies every input in the existing manifest. These are immutable owner mirrors, not a fresh authenticated DrivenData download. No new measurements were invented. Bands 6 (<code>tc</code>), 15 (<code>depth_to_base_surf</code>) and 17 (<code>cond_surf</code>) have interpretation/provenance questions and are not required by the new nominated method. In particular, the organizer describes a conductive-base depth while a cached tag says sedimentary basement; those are not interchangeable. Radiometric derivatives remain rank-only; a checksum does not establish their calibration or license provenance independently.</p>
-<p>For G79-HFR, the official USGS source was opened successfully and describes both the background maps and residual-bearing well points. That establishes <strong>metadata availability only</strong>. This sandbox's direct binary egress is restricted to approved GitHub/package hosts, so a listing is not proof that its ZIP can be ingested here. Acquisition, license review, schema, coordinates, spatial coverage and quality flags must all pass before it is eligible for an experiment. It is deliberately not the nominated top candidate.</p>
-<h3>A prior top hypothesis is not data-supported as written</h3>
-<p>The old <code>H80-MT-PHASE</code> plan calls for resistivity slices at shallow depths, including 500 m and 1500 m. The linked official release, <a href="https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b">USGS Electrical Conductance Maps</a>, instead provides <strong>depth-integrated conductance</strong>. Its layer named <code>surface</code> spans <strong>2–12 km</strong>, and the remaining ranges extend deeper. Conductance cannot simply be relabelled as shallow resistivity or a smectite clay cap. The former plan's broad coverage and blind-system percentage claims are not established by that source. <strong>Do not implement that plan from these products without a different, verified source and resolution analysis.</strong> The original text is retained as historical material, not active scientific guidance.</p>
-<h3>Prospective test for G79-CJX, if the protocol permits a future lane</h3>
-<ol>
-<li>Freeze the feature definitions, scale choices and nuisance-null method <strong>before any holdout score</strong>. Register one method, not a mixture of these four.</li>
-<li>Reuse the pinned cached stack, shared buffered whole-segment split, shared <code>evaluate_holdout.py</code>, shared novelty tool and shared <code>submission_writer.py</code>. Derive any later catalogue features exclusively from visible faults. Mask visible faults pixel-exactly in evaluation.</li>
-<li>Test each input and constructed feature individually on the holdout. Symmetric AUC above the stipulated leakage threshold stops the lane until explained; a pass does not prove general leakage freedom.</li>
-<li>Audit the <strong>surface before placement</strong> against the complete prospectively specified registry. On a duplicate, stop; no overlap-aware caps, jitter or exclusions introduced after seeing the failure.</li>
-<li>If permitted, compare candidate and current G79-THVC incumbent on matched buffered folds under pooled DTI, reporting evaluator hash, withheld count and paired spatial-bootstrap confidence intervals. The historical H33 control is useful but is no longer the current-best bar. Validate settings inside training only, reserve untouched spatial data, and report failures.</li>
-<li>Only after the predeclared holdout and final-dot novelty gates pass may the separate selector consider a slot. The current session spends no slots, starts no experiments and generates no new submission TIFF.</li>
-</ol>
-<p><strong>Maximize P(Win):</strong> reject unavailable data and untestable score claims before expensive modeling. <strong>Own the Outcome:</strong> keep a negative machine-readable deliverable rather than substitute a renamed or copied prior submission.</p></div></section><section class="section"><div class="proof"><div><p class="eyebrow">WHY NO NEW TIFF WAS GENERATED</p><h2>The literal novelty gate<br>blocks every nonempty candidate.</h2><div class="proof-stat">100% <small>of allowed cells covered</small></div></div><div><p>A SHA-256-pinned registry witness was independently restored and remeasured in this review. Its positive-support halo covers every allowed cell. Every nonempty candidate therefore exceeds the 70% overlap limit, regardless of geology.</p><div class="formula">halo coverage = 100% of allowed cells ⇒ 1.0000 forward overlap ⇒ STOP</div><p style="margin-top:18px">Partial halo coverage above 70% alone does not prove every map fails. This witness is stronger: it covers every allowed cell. No cosmetic pixel change, copied file, new filename or sparse-prior exclusion repairs that failure. The current artifact remains blocked for manual as well as automated submission. A prospective shared protocol decision is needed before a new lane, not a post-hoc exception for this candidate.</p><p>The 718 prior maps with ≤ 50,000 dots have maximum overlap 0.6844 in the frozen scan. This subset is <strong>diagnostic only, not a passed novelty gate</strong>; later sibling evidence also found an above-limit sparse collision. Neither scan covers private organizer submissions.</p><a href="evidence/preflight_e4a4422d.json">This review's preflight ↗</a> · <a href="evidence/post_index_sibling_audit_20261022.json">Later sibling audit ↗</a> · <a href="evidence/g79_dot_uniqueness_1108.json">Frozen full scan ↗</a></div></div></section><section class="section prose"><h2>Historical record, not current guidance</h2><p>Original narratives and figures remain in Git for audit. They can contain superseded counts, intervals, algorithm descriptions and data-availability claims. The receipt-derived summary and current review above take precedence; historical sparse-only passes never approve submission.</p><ul><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_45998a01.md">reports/session_review_45998a01.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/g79_thvc_scientific_report.md">reports/g79_thvc_scientific_report.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_070af0b6.md">reports/session_review_070af0b6.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_6d4a2fdf.md">reports/session_review_6d4a2fdf.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/fnhr_analysis.md">reports/fnhr_analysis.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_post_thvc_backlog.md">research/hypotheses_post_thvc_backlog.md</a></li><li><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/why_h33.md">knowledge/why_h33.md</a></li></ul></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<h2>Recommended next lane</h2>
+<p><strong>Prerequisite:</strong> the owner must first make a prospective decision on the novelty rule's saturated branch (IR-79-173). Until then no file from any lane can pass every gate, so a new lane cannot yield a submittable file.</p>
+<p><strong>Rank 2 (G79-FGC)</strong> is the cheapest test of the only signal this session measured. To keep it honest:</p>
+<ul>
+<li>Preregister it with THVC as the frozen control.</li>
+<li>Use the same seeds, evaluator and gates.</li>
+<li>Allow at most 3 experiments.</li>
+</ul>
+<p>Rank 3 is the best fully new mechanism with data on hand.</p>
+<p>Data availability:</p>
+<ul>
+<li>The organizer's <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem description</a> lists the training features and the 1 m DEM links.</li>
+<li>External data is allowed if it is licensed for this use.</li>
+<li>In this sandbox, outbound access is limited to GitHub and package hosts. Ranks 4 and 5 therefore cannot be acquired here, and that has been recorded rather than assumed away.</li>
+</ul></main><footer>Generated from <a href="run-card.json">run-card.json</a> by scripts/build_site.py. Source: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">GitHub repository</a>. No number on this site is an organizer score unless labelled ORGANIZER-CONFIRMED.</footer></body></html>

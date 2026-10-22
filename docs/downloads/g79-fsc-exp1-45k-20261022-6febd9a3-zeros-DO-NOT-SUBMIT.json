@@ -1,0 +1,189 @@
+{
+  "lane": "G79-FSC",
+  "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "submission_name": "g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT",
+  "submission_note": "GEMSDOE79 G79-FSC fabric-steered concordance edges + LightGBM, fabric-normal NMS, 45000 dots, zero on mapped faults",
+  "raster_sha256": "031b133524871de96857dc46a5c7e864181016b777667f17f8e5343b3fd837d7",
+  "zip_sha256": "fb1496c83e2dba1d4acc57e444a38b0aff8f8dbcca4e0df130414272917f5b1d",
+  "failed_gates": [
+    "G1_holdout_beats_incumbent_both_seeds",
+    "G4_surface_novelty_D2",
+    "G5_final_dot_novelty_D2"
+  ],
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "metric": "pooled DTI alpha 0.2 beta 0.8, 300 m triangular kernel; 1000-draw paired 20 km block bootstrap 95% CI",
+    "split": "vendor/gems57/holdout.py buffered_component_draw(seed, buffer_px=3, boundary_px=12), seeds 20 and 30",
+    "per_seed": {
+      "seed_20": {
+        "dti": 0.14058816562724977,
+        "ci95": [
+          0.1264546207760723,
+          0.1551059207242574
+        ],
+        "withheld_positive_pixels": 11321,
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "paired_vs_random_ci95": [
+          0.0791204284636738,
+          0.1075878549572592
+        ],
+        "paired_vs_random_delta": 0.09348631551067536,
+        "canary_max_auc": 0.77837,
+        "canary_max_feature": "log_d_end",
+        "all_scores": {
+          "candidate": {
+            "dti": 0.14058816562724977,
+            "ci95": [
+              0.1264546207760723,
+              0.1551059207242574
+            ]
+          },
+          "ablation_no_fabric": {
+            "dti": 0.1343911562450393,
+            "ci95": [
+              0.1204503228675891,
+              0.14830972425520403
+            ]
+          },
+          "random_control": {
+            "dti": 0.047101850116574404,
+            "ci95": [
+              0.0413148548896912,
+              0.05287627778039783
+            ]
+          }
+        },
+        "paired_differences": {
+          "ablation_no_fabric": {
+            "delta": 0.006197009382210461,
+            "ci95": [
+              -0.001826712771377592,
+              0.015105104570608792
+            ]
+          },
+          "random_control": {
+            "delta": 0.09348631551067536,
+            "ci95": [
+              0.0791204284636738,
+              0.1075878549572592
+            ]
+          }
+        }
+      },
+      "seed_30": {
+        "dti": 0.14716770512220254,
+        "ci95": [
+          0.131433322839885,
+          0.1621661435728429
+        ],
+        "withheld_positive_pixels": 11342,
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "paired_vs_random_ci95": [
+          0.08207198230241726,
+          0.1112117596726661
+        ],
+        "paired_vs_random_delta": 0.0965990993882463,
+        "canary_max_auc": 0.77639,
+        "canary_max_feature": "log_d_end",
+        "all_scores": {
+          "candidate": {
+            "dti": 0.14716770512220254,
+            "ci95": [
+              0.131433322839885,
+              0.1621661435728429
+            ]
+          },
+          "ablation_no_fabric": {
+            "dti": 0.13469689507188976,
+            "ci95": [
+              0.1206807915755581,
+              0.14931893203506116
+            ]
+          },
+          "random_control": {
+            "dti": 0.05056860573395623,
+            "ci95": [
+              0.04553676996154341,
+              0.05589750301835346
+            ]
+          }
+        },
+        "paired_differences": {
+          "ablation_no_fabric": {
+            "delta": 0.01247081005031278,
+            "ci95": [
+              0.004550864481030559,
+              0.019695037824491928
+            ]
+          },
+          "random_control": {
+            "delta": 0.0965990993882463,
+            "ci95": [
+              0.08207198230241726,
+              0.1112117596726661
+            ]
+          }
+        }
+      }
+    }
+  },
+  "incumbent": {
+    "lane": "G79-THVC",
+    "evidence_class": "HOLDOUT-DTI",
+    "per_seed": {
+      "seed_20": 0.1905226265456631,
+      "seed_30": 0.194393256940719
+    },
+    "pointer": "evidence/g79_thvc_results.json#/seed{s}/official_evaluate_all/scores/EXP-79-3_thvc_charnes_cooper",
+    "h33_foldfair_control_same_split": {
+      "seed_20": 0.0961,
+      "seed_30": 0.0989
+    }
+  },
+  "validator_output": {
+    "format_passed": true,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "min": 0.0,
+    "max": 1.0,
+    "n_nan": 0,
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "scope": "local format/range preflight; not organizer acceptance or uniqueness clearance"
+  }
+}

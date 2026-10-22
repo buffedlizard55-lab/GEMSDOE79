@@ -1,18 +1,27 @@
 #!/usr/bin/env python3
-"""JSON readiness decision: 0 approved, 2 blocked (including unreadable evidence).
+"""JSON readiness decision for the published file: exit 0 approved, 2 blocked.
 
-This command never generates a raster, selects a slot, or uploads a submission.
-Validation exceptions are machine-readable negative decisions, not an absent
-verdict or permission to use the last successful result.
+Re-reads run_card.json, re-hashes and re-validates the bytes, and re-derives
+every gate from frozen evidence (src/gems79/fsc_gates.py).  Any error is a
+machine-readable refusal; no stale PASS is reused and no exception text leaks.
+It never generates a raster, selects a slot or uploads anything.
 """
+from __future__ import annotations
+
 import hashlib
 import json
-from pathlib import Path
 import sys
+from pathlib import Path
+
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / 'src'))
-from gems79.status import submission_decision
-from validate_submission import validate_path
+sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'scripts'), str(ROOT / 'vendor')]
+from gems79 import fsc_card, fsc_gates  # noqa: E402
+from validate_submission import validate_path  # noqa: E402
+
+ACCOUNT_SIDE_CONDITIONS = [
+    'A free weekly slot must be visible on your DrivenData submission page.',
+    'You must be a registered participant who accepted the competition rules; DOE Rules restrict each entity to one final submission.',
+]
 
 
 def _unique_object(pairs):
@@ -28,20 +37,22 @@ def _reject_constant(_):
     raise ValueError('Nonfinite JSON number')
 
 
-def inspect_current(root=ROOT):
-    """Read the current bytes, failing closed even on missing/malformed inputs.
+def _result(ok_download: bool, ok_submit: bool, blockers: list, gates: dict | None = None) -> dict:
+    return {'ok_to_download': bool(ok_download), 'ok_to_submit': bool(ok_submit),
+            'verdict': 'promote' if ok_submit else 'negative',
+            'message': f"OK TO DOWNLOAD: {'YES' if ok_download else 'NO'}. OK TO SUBMIT: {'YES' if ok_submit else 'NO'}.",
+            'blockers': blockers, 'gates': gates or {},
+            'account_side_conditions': ACCOUNT_SIDE_CONDITIONS,
+            'human_inspection_required_for_this_decision': False,
+            'organizer_acceptance_established': False}
 
-    ``root`` is injectable for software fixtures, not a CLI approval override.
-    No exception text is returned: it may contain private filesystem details.
-    The error class and inspection stage support diagnosis without a traceback.
-    """
-    card = {}
-    actual_sha = None
+
+def inspect_current(root=ROOT) -> dict:
+    """``root`` is injectable for software fixtures only; it cannot approve anything by itself."""
     stage = 'read_run_card'
     try:
         root = Path(root).resolve()
-        card = json.loads((root / 'run_card.json').read_text(),
-                          object_pairs_hook=_unique_object,
+        card = json.loads((root / 'run_card.json').read_text(), object_pairs_hook=_unique_object,
                           parse_constant=_reject_constant)
         if not isinstance(card, dict):
             raise ValueError('Run card must be an object')
@@ -53,22 +64,32 @@ def inspect_current(root=ROOT):
         if not path.is_relative_to(root):
             raise ValueError('Artifact path escapes repository')
         stage = 'read_artifact'
-        actual_sha = hashlib.sha256(path.read_bytes()).hexdigest()
+        actual = hashlib.sha256(path.read_bytes()).hexdigest()
         stage = 'validate_artifact'
-        validation = validate_path(path)
+        vp = validate_path(path)
         stage = 'decide'
-        return submission_decision(card, actual_sha256=actual_sha,
-                                   format_passed=validation['format_passed'])
-    except Exception as exc:
-        # Deliberately catch ordinary errors at the CLI boundary. Interrupts and
-        # process termination are not caught. No stale PASS is used on failure.
-        result = submission_decision(card, actual_sha256=actual_sha, format_passed=False)
-        result['blockers'].insert(0, 'readiness_inspection_failed')
-        result['inspection_error'] = {'stage': stage, 'type': type(exc).__name__}
-        return result
+        validator = dict(vp['validator'], all_checks_passed=bool(vp['format_passed']))
+        tag = card.get('candidate_tag')
+        if tag not in fsc_card.TAGS:
+            raise ValueError('Unknown candidate tag')
+        gates = fsc_card.derive_gates(root, tag, validator=validator,
+                                      name=card.get('submission_name'), note=card.get('submission_note'))
+        decision = fsc_gates.decide(gates)
+        blockers = list(decision['failed_gates'])
+        matching = actual == card.get('raster_sha256')
+        if not matching:
+            blockers.insert(0, 'raster_bytes_do_not_match_run_card')
+        if card.get('ok_to_submit') is not True:
+            blockers.append('selector_did_not_approve')
+        ok_download = bool(matching and vp['format_passed'])
+        return _result(ok_download, ok_download and not blockers, blockers, gates)
+    except Exception as exc:  # CLI boundary: fail closed, never leak paths or messages
+        r = _result(False, False, ['readiness_inspection_failed'])
+        r['inspection_error'] = {'stage': stage, 'type': type(exc).__name__}
+        return r
 
 
-def main():
+def main() -> int:
     result = inspect_current()
     print(json.dumps(result, indent=2, allow_nan=False))
     return 0 if result['ok_to_submit'] else 2

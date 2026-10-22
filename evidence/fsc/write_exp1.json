@@ -1,0 +1,138 @@
+{
+  "stem": "g79-fsc-exp1-45k-20261022-6febd9a3-zeros",
+  "name": "g79-fsc-exp1-45k-20261022-6febd9a3-zeros",
+  "note": "GEMSDOE79 G79-FSC fabric-steered concordance edges + LightGBM, fabric-normal NMS, 45000 dots, zero on mapped faults",
+  "staging_tif": "data/cache/fsc/staging/g79-fsc-exp1-45k-20261022-6febd9a3-zeros.tif",
+  "decoded_dots_sha256": "b20e48f2e7cd7397ef6cc9d797d04b6a1eb9223c7a2b36ea874a4d8865bee39a",
+  "writer_manifest": {
+    "file": "g79-fsc-exp1-45k-20261022-6febd9a3-zeros.tif",
+    "sha256": "031b133524871de96857dc46a5c7e864181016b777667f17f8e5343b3fd837d7",
+    "bytes": 156972,
+    "submission_name": "g79-fsc-exp1-45k-20261022-6febd9a3-zeros",
+    "note": "GEMSDOE79 G79-FSC fabric-steered concordance edges + LightGBM, fabric-normal NMS, 45000 dots, zero on mapped faults",
+    "note_chars": 115,
+    "validator": {
+      "file": "/home/user/GEMSDOE79/data/cache/fsc/staging/g79-fsc-exp1-45k-20261022-6febd9a3-zeros.tif",
+      "bytes": 156972,
+      "sha256": "031b133524871de96857dc46a5c7e864181016b777667f17f8e5343b3fd837d7",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0036647457163780928,
+      "emitted_positive_pixels": 45000,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 45000,
+      "footprint_fraction": 0.00870848688492199
+    },
+    "template_report": {
+      "path": "/home/user/GEMSDOE79/data/cache/fsc/staging/g79-fsc-exp1-45k-20261022-6febd9a3-zeros.tif",
+      "bytes": 156972,
+      "sha256": "031b133524871de96857dc46a5c7e864181016b777667f17f8e5343b3fd837d7",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0036647457163780928,
+      "n_nonzero": 45000,
+      "mass": 45000.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    },
+    "zip_file": "g79-fsc-exp1-45k-20261022-6febd9a3-zeros.zip",
+    "zip_sha256": "5807671af613130003b3fd479ae3bd11c5bb8f46bb2b46d93b15bfb6af517f77",
+    "approved_for_weekly_slot": false,
+    "promoted": false,
+    "submission_slots_used": 0,
+    "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+    "metadata": {
+      "lane": "G79-FSC",
+      "candidate_tag": "exp1",
+      "live_receipt": "evidence/fsc/live.json",
+      "selected": {
+        "K": 45000,
+        "spacing": 3.0,
+        "collar": 2,
+        "mean_inner_sim_dti": 0.12292700000000001
+      },
+      "emitted_dots": 45000
+    }
+  }
+}

@@ -3,14 +3,22 @@
   "ok_to_submit": false,
   "verdict": "negative",
   "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
-  "file": "downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-  "zip": "downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip",
-  "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
-  "name": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT",
-  "note": "GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)",
-  "account_side_conditions": [
-    "A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).",
-    "You must be a registered, eligible participant who accepted the competition rules."
+  "submission_name": "g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT",
+  "submission_note": "GEMSDOE79 G79-FSC fabric-steered concordance edges + LightGBM, fabric-normal NMS, 45000 dots, zero on mapped faults",
+  "raster_sha256": "031b133524871de96857dc46a5c7e864181016b777667f17f8e5343b3fd837d7",
+  "zip_sha256": "fb1496c83e2dba1d4acc57e444a38b0aff8f8dbcca4e0df130414272917f5b1d",
+  "failed_gates": [
+    "G1_holdout_beats_incumbent_both_seeds",
+    "G4_surface_novelty_D2",
+    "G5_final_dot_novelty_D2"
   ],
-  "scope": "Inherited research artifact, not a new submission. Generated from run_card.json and gems79.status at build time."
+  "account_side_conditions": [
+    "A free weekly slot must be visible on your DrivenData submission page.",
+    "You must be a registered participant who accepted the competition rules; DOE Rules restrict each entity to one final submission."
+  ],
+  "file": "downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.tif",
+  "zip": "downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.zip",
+  "receipt": "downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.json",
+  "lane": "G79-FSC",
+  "generated_utc": "2026-10-22T16:18:05Z"
 }
