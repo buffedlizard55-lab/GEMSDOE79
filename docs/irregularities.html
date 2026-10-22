@@ -1270,6 +1270,34 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
+<h3>Session <code>7fdf94b3</code> addendum (2026-10-22) — Halo-saturation path/catalogue remediation, 3 remaining closed-lane CLI guards, <code>requirements.txt</code> deduplication, and 3-tier obstruction &amp; data-restore verification (<code>arena/7fdf94b3-gemsdoe79</code>)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_7fdf94b3.md"><code>reports/session_review_7fdf94b3.md</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-175</td>
+<td><strong>Machine-specific <code>/home/user/GEMSDOE79/</code> checkout paths in <code>evidence/halo_saturation_*_1db538e6.json</code> and missing off-catalogue (<code>5,167,373 - 60,988 = 5,106,385</code>) reconciliation in <code>scripts/measure_registry_halo.py</code>.</strong> <code>PR #95</code> (<code>cd0be90</code>) committed <code>"footprint_path": "/home/user/GEMSDOE79/data/reference/sample_submission.tif"</code> in <code>evidence/halo_saturation_13GEMSDOE_1db538e6.json</code> and <code>evidence/halo_saturation_17GEMSDOE_Eproba_1db538e6.json</code> (violating <code>IR-79-63</code>/<code>IR-79-129</code>/<code>IR-79-131</code>), and <code>reports/session_review_1db538e6.md</code> (§6.1) described <code>5,167,373</code> vs <code>5,106,385</code> allowed cells (<code>6,649</code> vs <code>6,514</code> uncovered cells for <code>13GEMSDOE r13-lattice-s5</code>) as an undocumented mismatch. Direct raster verification proves that <code>5,167,373</code> (finite footprint in <code>sample_submission.tif</code>) minus <code>60,988</code> (mapped catalogue fault cells in <code>existing_faults.tif</code>) equals <code>5,106,385</code> off-catalogue allowed cells, and <code>6,649</code> full-footprint uncovered cells minus <code>135</code> uncovered cells on mapped catalogue traces equals <code>6,514</code> (<code>5,099,871 / 5,106,385 = 0.9987243422</code>).</td>
+<td>Updated <code>scripts/measure_registry_halo.py</code> to normalize paths inside <code>ROOT</code> to repo-relative POSIX paths and report off-catalogue (<code>existing_faults.tif</code>) coverage alongside full-footprint coverage, regenerated <code>evidence/halo_saturation_*_1db538e6.json</code>, added unit tests in <code>tests/test_measure_registry_halo.py</code>, and added both JSON files to <code>test_verification_and_evidence_json_have_no_machine_checkout_paths</code>.</td>
+</tr>
+<tr>
+<td>IR-79-176</td>
+<td><strong>Three remaining closed-lane CLI scripts (<code>scripts/run_experiment.py</code>, <code>scripts/finalize_negative.py</code>, <code>scripts/build_site_g79b.py</code>) lacked fail-closed <code>enforce_open_lane</code> (<code>exit 2</code>, <code>"No files changed."</code>) guards, and <code>scripts/build_site_g79b.py</code> / <code>scripts/submission_status_g79b.py</code> carried stale <code>H79-NHR</code> canonical comments.</strong> CLI invocation of <code>run_experiment.py</code>, <code>finalize_negative.py</code>, or <code>build_site_g79b.py</code> exited with code <code>1</code> instead of the repository-wide <code>exit 2</code> / <code>"No files changed."</code> lifecycle contract (<code>src/gems79/lifecycle.py</code>).</td>
+<td>Added <code>enforce_open_lane</code> to <code>scripts/run_experiment.py</code> (under <code>__main__</code>, preserving <code>run_experiment.main()</code>'s Python-level <code>FileExistsError</code> tested in <code>tests/test_site_feed_and_recovery.py</code>), <code>scripts/finalize_negative.py</code>, and <code>scripts/build_site_g79b.py</code>, updated stale <code>(H79-NHR)</code> comments to <code>(G79-THVC)</code>, and registered all 3 scripts in <code>tests/test_lane_lifecycle.py</code> (<code>79</code> lifecycle tests passing).</td>
+</tr>
+<tr>
+<td>IR-79-177</td>
+<td><strong>Duplicate <code>scikit-image</code> specifiers in <code>requirements.txt</code>, and incomplete data-restoration / <code>budget-matched-v3</code> claims in concurrent review reports (<code>b40c0d45</code>, <code>d52085f3</code>).</strong> <code>requirements.txt</code> listed both <code>scikit-image&gt;=0.24,&lt;1</code> and <code>scikit-image&gt;=0.25,&lt;1</code>. Meanwhile, <code>reports/session_review_b40c0d45.md</code> and <code>evidence/review_b40c0d45/run_card.json</code> stated <code>data/raw/</code> has "no route" to be restored in this sandbox, overlooking <code>scripts/restore_data.py --preserve-receipt</code> (<code>13/13</code> SHA-256-pinned inputs restored from <code>buffedlizard55-lab</code> GitHub mirrors), and <code>reports/session_review_d52085f3.md</code> suggested <code>budget-matched-v3</code> (<code>Decision D-1</code> top-<code>k</code>) alone would clear the novelty gate, overlooking Tier-2 continuous plateaus (<code>5GEMSDOE</code>/<code>GEMSDOE48</code>, <code>uncovered = 0</code>) and Tier-3 sparse binary <code>dot_field</code> <code>13GEMSDOE r13-lattice-s5</code> (<code>206,895</code> dots = <code>4.00% &lt; 0.20</code>, <code>uncovered = 6,514</code>, minimum 3-px overlap <code>0.8270 &gt; 0.70</code> at <code>37,654</code> dots and <code>0.8144 &gt; 0.70</code> at <code>35,093</code> dots).</td>
+<td>Consolidated <code>requirements.txt</code> to a single <code>scikit-image&gt;=0.26,&lt;1</code> line with a duplicate-package test in <code>tests/test_session_070af0b6_audit.py</code>, verified all <code>13/13</code> pinned inputs live via <code>scripts/restore_data.py --preserve-receipt</code>, and documented the complete 3-tier Pigeonhole obstruction in <code>reports/session_review_7fdf94b3.md</code> and <code>evidence/review_7fdf94b3/summary.json</code>.</td>
+</tr>
+</tbody>
+</table>
 <h3>Session <code>4d7aa82a</code> addendum — current-checkout review and input restoration</h3>
 <p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_4d7aa82a.md"><code>reports/session_review_4d7aa82a.md</code></a>. Current literal novelty stop: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/preflight_4d7aa82a.json"><code>evidence/preflight_4d7aa82a.json</code></a>.</p>
 <table>
@@ -1282,10 +1310,10 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-175</td>
+<td>IR-79-178</td>
 <td>The fresh assigned-branch workspace did not contain <code>data/raw/</code> or the derived <code>.cache/g79/</code> feature arrays; only the small tracked reference rasters were present. Prior sessions' restored inputs were local ignored data, not a portable tracked cache.</td>
 <td>Ran <code>scripts/restore_data.py --preserve-receipt</code>: all 13 manifest entries restored from the pinned owner-maintained GitHub mirrors with matching SHA-256 values; receipt recorded at <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/input_restoration_4d7aa82a.json"><code>evidence/input_restoration_4d7aa82a.json</code></a> and the frozen <code>data/restore_receipt.json</code> preserved. This proves mirror-byte consistency, not independent organizer authentication. The official DrivenData data tab remains login-gated. Derived arrays were not rebuilt: the shared literal novelty preflight re-measured the universal witness and stopped before any experiment, and the required single-method lane paragraph was absent. No TIFF, holdout, or submission slot was generated.</td>
 </tr>
 </tbody>
 </table></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_4d7aa82a.md">Latest review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_4d7aa82a.md">Assigned-branch review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

@@ -46,21 +46,36 @@ def disk_structure(radius_px: int) -> np.ndarray:
     return (xx * xx + yy * yy) <= r * r
 
 
-def measure(registry_path: Path, footprint_path: Path, radius_px: int = 3) -> dict:
+def _rel_path(path: Path) -> str:
+    try:
+        return path.resolve().relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return str(path)
+
+
+def measure(
+    registry_path: Path,
+    footprint_path: Path,
+    radius_px: int = 3,
+    catalogue_path: Path | None = None,
+) -> dict:
     with rasterio.open(registry_path) as reg, rasterio.open(footprint_path) as fp:
         if reg.shape != fp.shape or tuple(reg.transform) != tuple(fp.transform) or reg.crs != fp.crs:
             raise ValueError("registry raster grid (shape/transform/CRS) does not match the footprint grid")
         reg_a = reg.read(1)
         fp_a = fp.read(1)
+        fp_shape = fp.shape
+        fp_transform = tuple(fp.transform)
+        fp_crs = fp.crs
     footprint = np.isfinite(fp_a)
     dots = np.isfinite(reg_a) & (reg_a > 0)
     halo = ndimage.binary_dilation(dots, structure=disk_structure(radius_px))
     covered = int((halo & footprint).sum())
     n_allowed = int(footprint.sum())
-    return {
-        "registry_path": str(registry_path),
+    out = {
+        "registry_path": _rel_path(registry_path),
         "registry_sha256": sha256_file(registry_path),
-        "footprint_path": str(footprint_path),
+        "footprint_path": _rel_path(footprint_path),
         "footprint_sha256": sha256_file(footprint_path),
         "radius_px": int(radius_px),
         "allowed_cells_finite_footprint": n_allowed,
@@ -77,6 +92,36 @@ def measure(registry_path: Path, footprint_path: Path, radius_px: int = 3) -> di
             "This is a measurement of the gate, not a novelty approval."
         ),
     }
+    cat_cand = catalogue_path
+    if cat_cand is None:
+        default_cat = footprint_path.parent / "existing_faults.tif"
+        if default_cat.is_file():
+            cat_cand = default_cat
+    if cat_cand is not None and cat_cand.is_file():
+        with rasterio.open(cat_cand) as cat_ds:
+            if (
+                cat_ds.shape == fp_shape
+                and tuple(cat_ds.transform) == fp_transform
+                and cat_ds.crs == fp_crs
+            ):
+                cat_a = cat_ds.read(1)
+                cat_mask = footprint & np.isfinite(cat_a) & (cat_a > 0)
+                off_cat = footprint & ~cat_mask
+                n_off_cat = int(off_cat.sum())
+                cov_off_cat = int((halo & off_cat).sum())
+                out.update(
+                    catalogue_path=_rel_path(cat_cand),
+                    catalogue_sha256=sha256_file(cat_cand),
+                    catalogue_positive_cells_in_footprint=int(cat_mask.sum()),
+                    off_catalogue_allowed_cells=n_off_cat,
+                    off_catalogue_halo_covered_cells=cov_off_cat,
+                    off_catalogue_halo_coverage_fraction=(
+                        cov_off_cat / n_off_cat if n_off_cat else None
+                    ),
+                    off_catalogue_uncovered_cells=n_off_cat - cov_off_cat,
+                    uncovered_cells_on_catalogue=int((~halo & cat_mask).sum()),
+                )
+    return out
 
 
 def main() -> None:
