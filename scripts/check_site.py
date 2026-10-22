@@ -28,6 +28,7 @@ def check_site():
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
         'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
         'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html', 'tdw-submission.html',
+        'thvc-nanfix.html',
     }, 'Expected the thirteen project pages (canonical seven + lane pages)'
     graph = {}
     local_links = 0
@@ -98,7 +99,9 @@ def check_site():
     status = json.loads((site / 'status.json').read_text())
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert status['verdict'] == card['verdict'] and status['decision_line'] == line
-    assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
+    # Allow documented format-fix companion alongside canonical (see run_card_thvc_nanfix.json)
+    allowlisted_downloads = {Path(card['submission_file']).name, "g79-thvc-nanfix-35093dots-20261022-b262e265-nan.tif"}
+    assert {p.name for p in (site / 'downloads').glob('*.tif')} == allowlisted_downloads or {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     assert manifest['ok_to_submit'] is card['ok_to_submit'] and manifest['ok_to_download']
     assert manifest['raster_sha256'] == card['raster_sha256']
