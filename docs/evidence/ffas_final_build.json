@@ -1,0 +1,21 @@
+{
+  "lane": "H79-FFAS",
+  "experiment": "X1",
+  "phase": "place",
+  "generated_utc": "2026-10-22T04:16:01.960053+00:00",
+  "placement": {
+    "requested": 37654,
+    "emitted": 37654,
+    "spacing_px": 3,
+    "exhausted": false,
+    "eligible_positive_pixels": 3653329
+  },
+  "surface_sha256": "f353be5f71ffa084b7d4a869fdd5feb5f28d7142c4d9e49ef7f8fa06a31565ff",
+  "dots_sha256": "891ecfe5fdeb9e89d89581f4510ce4f08c0b139f586494bae0d4469cd2334690",
+  "n_dots": 37654,
+  "formula": "raw = (downface_max + 2.0 * upface_max) * step_max * (coh100/255) * (cross_max/255) * (ex_max/255) * logistic(EDT(visible), d0=8 px, s=3 px); invalid lidar -> 0; then footprint mid-ranks to [0,1]; catalogue pixels set to 0",
+  "min_distance_to_visible_px": 2,
+  "allowed_cells": 4862825,
+  "median_catalogue_distance_px": 27.073972741361768,
+  "fraction_gt_10px": 0.9258777287937536
+}

@@ -1,5 +1,5 @@
 {
-  "verified_utc": "2026-10-22T04:26:26.123499+00:00",
+  "verified_utc": "2026-10-22T04:49:34.067234+00:00",
   "all_checks_passed": true,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
@@ -23,21 +23,23 @@
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
     "holdout_card_equals_evaluator_output": true,
-    "holdout_beats_h33_control_both_seeds": true,
+    "holdout_beats_flag_matches_evidence": true,
     "leakage_canary_clear": true,
     "uniqueness_card_matches_evidence": true,
+    "gate_receipt_bound_to_raster_and_verdict": true,
     "promotion_requires_uniqueness": true,
+    "preregistration_hash_matches_card": true,
     "e1_scientific_stop_honored": true,
     "status_tool_and_card_agree": true
   },
-  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "raster_sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-      "bytes": 137299,
-      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "file": "docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif",
+      "bytes": 137784,
+      "sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -65,8 +67,8 @@
       "n_infinite": 0,
       "min": 0.0,
       "max": 1.0,
-      "mean": 0.0028579316567629576,
-      "emitted_positive_pixels": 35093,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
       "checks": {
         "single_band": true,
         "dtype_float32": true,
@@ -87,13 +89,13 @@
       "all_checks_passed": true,
       "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
       "on_catalogue_positive_pixels": 0,
-      "in_footprint_positive_pixels": 35093,
-      "footprint_fraction": 0.00679126511672372
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
     },
     "reference_grid": {
-      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-      "bytes": 137299,
-      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "path": "docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif",
+      "bytes": 137784,
+      "sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",
@@ -131,9 +133,9 @@
       "n_nan": 0,
       "min": 0.0,
       "max": 1.0,
-      "mean": 0.0028579316567629576,
-      "n_nonzero": 35093,
-      "mass": 35093.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
       "mass_outside_footprint": 0,
       "problems": [],
       "ok": true,
@@ -147,6 +149,7 @@
     "verdict": "negative",
     "blockers": [
       "literal_novelty_not_cleared",
+      "matched_current_best_holdout_not_beaten",
       "negative_scientific_verdict",
       "separate_selector_has_not_approved_a_slot",
       "separate_selector_receipt_missing_or_unbound",

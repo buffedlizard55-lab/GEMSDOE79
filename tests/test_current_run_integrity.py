@@ -1,4 +1,8 @@
-"""Current active G79-THVC + archived concurrent lane artifact integrity checks."""
+"""Current canonical-lane artifact integrity checks (bytes, format, card agreement).
+
+These tests re-read the published GeoTIFF and evidence files; they do not
+re-run the experiment and they are not geological score tests.
+"""
 from __future__ import annotations
 
 import hashlib
@@ -17,6 +21,8 @@ from validate_submission import validate_path  # noqa: E402
 from gems79.status import submission_decision  # noqa: E402
 from verify_project import decision_line  # noqa: E402
 
+BUDGET = 37654
+
 
 def current_card():
     return json.loads((ROOT / "run_card.json").read_text())
@@ -30,7 +36,7 @@ def test_card_copies_agree_and_carry_protocol_fields():
                 "correlation_overlap_vs_registry", "raster_sha256", "validator_output",
                 "submission_name", "submission_note", "verdict", "leakage_canary"):
         assert key in card, key
-    assert card["lane"] == "G79-THVC"
+    assert card["lane"] in ("H79-NHR", "H79-FFAS")
     assert card["verdict"] in ("promote", "negative")
     assert card["experiment_count"] <= card["max_experiments"] == 3
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None
@@ -40,16 +46,16 @@ def test_holdout_numbers_are_copied_from_evaluator_output():
     card = current_card()
     h = card["holdout_dti"]
     assert h["evidence_class"] == "HOLDOUT-DTI" and h["evaluator_version"] == "gems57-pooled-hide-v2"
-    res = json.loads((ROOT / "evidence/g79_thvc_results.json").read_text())
-    canary = json.loads((ROOT / "evidence/g79_leakage_canary.json").read_text())
     for seed in (20, 30):
-        sc = res[f"seed{seed}"]["official_evaluate_all"]["scores"]
+        lane_dir = "ffas" if card["lane"] == "H79-FFAS" else "nhr"
+        ev = json.loads((ROOT / f"evidence/{lane_dir}/x1_holdout_seed{seed}.json").read_text())
+        sc = ev["holdout"]["scores"]
         row = h["per_seed"][f"seed_{seed}"]
-        assert row["candidate"]["dti"] == round(sc["EXP-79-3_thvc_charnes_cooper"]["dti"], 4)
-        assert row["candidate"]["ci95"] == [round(c, 4) for c in sc["EXP-79-3_thvc_charnes_cooper"]["ci95"]]
-        assert row["withheld_positive_pixels"] == sc["EXP-79-3_thvc_charnes_cooper"]["withheld_positive_pixels"]
-        assert row["h33_foldfair_control"]["dti"] == round(sc["C2_h33_analogue_foldfair"]["dti"], 4)
-        assert canary[f"seed{seed}"]["max_symmetric_auc"] <= 0.90
+        assert row["candidate"]["dti"] == round(sc["candidate"]["dti"], 4)
+        assert row["candidate"]["ci95"] == [round(c, 4) for c in sc["candidate"]["ci95"]]
+        assert row["withheld_positive_pixels"] == sc["candidate"]["withheld_positive_pixels"]
+        assert row["h33_foldfair_control"]["dti"] == round(sc["h33_foldfair_control"]["dti"], 4)
+        assert ev["leakage_canary"]["max_symmetric_auc"] <= 0.90
 
 
 def test_geotiff_is_a_valid_binary_dot_map_on_the_sample_grid():
@@ -65,7 +71,7 @@ def test_geotiff_is_a_valid_binary_dot_map_on_the_sample_grid():
         a = tif.read(1)
     assert np.isfinite(a).all()
     assert set(np.unique(a).tolist()) <= {0.0, 1.0}
-    assert int((a == 1).sum()) == 35093 == card["positive_pixels"]
+    assert int((a == 1).sum()) == BUDGET == card["positive_pixels"]
 
 
 def test_zip_contains_exactly_the_same_single_tiff():

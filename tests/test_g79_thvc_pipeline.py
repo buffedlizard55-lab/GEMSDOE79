@@ -17,6 +17,7 @@ from gems79.thvc_features import (
     compute_network_mechanics,
     parse_safe_csv,
 )
+pytest.importorskip("lightgbm")
 from gems79.thvc_model import charnes_cooper_submodular_emit, poisson_disk_emit
 
 ROOT = Path(__file__).resolve().parents[1]
