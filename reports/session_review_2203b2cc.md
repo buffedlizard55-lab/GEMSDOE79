@@ -108,13 +108,16 @@ The final publication is rebuilt and checked after these fixes.
 
 ## Concurrent main updates integrated before PR
 
-Main advanced through PRs #29/#30 during this review. Their changes independently
+Main advanced through PRs #29/#30 and subsequently #31/#32 during this review. Their changes independently
 fixed the same dependency issue and safe README commands; they also hardened
 selector evidence reconciliation and excluded `.venv*` directories from publication
 scans. All were retained. Merge conflicts were resolved in source, then generated
 HTML was rebuilt. New local irregularity IDs are 61/62; the dependency finding is
 an independent rediscovery of IR-79-57, not a second issue. Final verification below
-is rerun against the combined tree, not just the pre-merge test suite.
+is rerun against the combined tree, not just the pre-merge test suite. PR #32's
+new-lane preflight, prospective hypothesis list and corrected universal-witness
+proof were retained along with our terminal-runner guards and precise
+straight-trace/control-budget disclosures.
 
 ## Next session, in priority order
 

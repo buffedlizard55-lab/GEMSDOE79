@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: fault-mapping research GeoTIFF with automated format and submission-readiness checks. Format validity is not uniqueness clearance.">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
 <title>Why H33 scored highest, and what can beat it · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -233,10 +233,11 @@ not like-for-like, because most used 56 k–985 k dots, but none came close to H
 This is consistent with the shift being real.</p>
 <h3>6. What would most raise P(win) next</h3>
 <ol>
-<li><strong>Decide how to treat the 30 space-filling registry rasters.</strong> A uniformly
-   random map is flagged by 30 registry rasters, because their 3 px halos cover more
-   than 70 % of the allowed area. Taken literally, the duplicate rule therefore rejects
-   every possible submission (IR-79-53). This needs an explicit user decision. One
+<li><strong>Decide how to treat the 30 space-filling registry rasters.</strong> The seeded uniformly
+   random control is flagged by 30 registry rasters whose halos cover more than
+   70 % of the allowed area. That statistic does not prove universal failure.
+   The separate literal-support witness covers <strong>every</strong> allowed cell, which does
+   prove every nonempty map has overlap 1.0 under that reading (IR-79-53). This needs an explicit user decision. One
    option: for those rasters, use overlap beyond chance, <code>(ov − halo)/(1 − halo)</code>,
    and keep the literal rule for all others.</li>
 <li><strong>Target the far field explicitly.</strong> H33's dots are mostly more than 1 km from the
