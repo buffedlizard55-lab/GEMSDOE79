@@ -1,0 +1,169 @@
+{
+  "verified_utc": "2026-10-22T14:31:15.188359+00:00",
+  "session": "arena/f40e4f2e-gemsdoe79",
+  "commands_verified": [
+    "bash scripts/download_competition_data.sh",
+    ".venv/bin/python scripts/restore_data.py --preserve-receipt --ids all",
+    ".venv/bin/python scripts/prepare_data.py --reproduce"
+  ],
+  "manifest_inputs_verified_count": 13,
+  "all_manifest_inputs_sha256_matched": true,
+  "manifest_inputs": [
+    {
+      "id": "training_features",
+      "dest": "training_features.tif",
+      "bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "matches_manifest": true
+    },
+    {
+      "id": "labels",
+      "dest": "labels.tif",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "matches_manifest": true
+    },
+    {
+      "id": "existing_faults",
+      "dest": "existing_faults.tif",
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "matches_manifest": true
+    },
+    {
+      "id": "sample_submission",
+      "dest": "sample_submission.tif",
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_lidar_scarp_features_u8",
+      "dest": "external/lidar_scarp_features_u8.tif",
+      "bytes": 36943606,
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_lidar_scarp_features_json",
+      "dest": "external/lidar_scarp_features.json",
+      "bytes": 3531,
+      "sha256": "9ef0df6e87598a8b0cd52fe821661e5fdb3a00568c5d9b1c5d61fd6b242dcd41",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_geodawn_rad_u8",
+      "dest": "external/geodawn_rad_u8.tif",
+      "bytes": 26612970,
+      "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_geodawn_extensions_u8",
+      "dest": "external/geodawn_extensions_u8.tif",
+      "bytes": 27132925,
+      "sha256": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_derived_sgmc_faults_100m_u8",
+      "dest": "external/derived_sgmc_faults_100m_u8.tif",
+      "bytes": 198602,
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_tiger_road_distance_m",
+      "dest": "external/tiger_road_distance_m.tif",
+      "bytes": 10492276,
+      "sha256": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_gdr_wellspring",
+      "dest": "external/gdr_wellspring_in_footprint.csv",
+      "bytes": 2146771,
+      "sha256": "122718e65bdf55aab0ee12ad20d80062f0deb1de957225a61ad880dd5dc196ea",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_gdr_volcanic_vents",
+      "dest": "external/gdr_volcanic_vents_in_footprint.csv",
+      "bytes": 672,
+      "sha256": "f91bafbaccaaf2754e71d60434fc0f9eb2c7b880c6e714883f4974542ff6a0bf",
+      "matches_manifest": true
+    },
+    {
+      "id": "ext_gdr_qfaults_traces",
+      "dest": "external/gdr_qfaults_traces.csv",
+      "bytes": 126177,
+      "sha256": "9702f2e5c382a4f472ae834d22b94990983b059677a37adfafd51c50f75e643c",
+      "matches_manifest": true
+    }
+  ],
+  "e1_feature_cache_verified_count": 10,
+  "all_e1_feature_cache_sha256_matched": true,
+  "e1_feature_cache": [
+    {
+      "name": "best_correlation_r3",
+      "bytes": 49116768,
+      "sha256": "73980c80d5720d79633560f424bb4f05f89abc1c7fe349ca609a000f02545076",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "best_correlation_r5",
+      "bytes": 49116768,
+      "sha256": "482c8fa7c897b334e3d6e3e3168f819cf8a604f2b70233f0e55d967291313ed2",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "fabric_offset_surface",
+      "bytes": 49116768,
+      "sha256": "89cab569509ffd6780c553c9f79429031a06830d0bbb29696fd98b3213534e5d",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "gravity_edge_rank",
+      "bytes": 49116768,
+      "sha256": "d36d902f6d3f77c890706bdb508b51950fc9cbd5b709956bad9f354d22a367b1",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "lag_gain_r3",
+      "bytes": 49116768,
+      "sha256": "191500c588f18fb5553eacb5934a7a78b730aa8bfa7e855ab000eb84ed7f68a7",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "lag_gain_r5",
+      "bytes": 49116768,
+      "sha256": "974eb049ca1696add1bf218e283d9c7f459e8035aa5758902aed5884272f552d",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "magnetic_contrast_rank",
+      "bytes": 49116768,
+      "sha256": "12cb7136e14502fd9f7ce6a34460d9e3908f5ae6b03072d03bdaed1851d1b088",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "signed_lag_agreement",
+      "bytes": 49116768,
+      "sha256": "a5c8424268595bfabb0558c43e494bde087e807e11255fc000fbb77d79d31162",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "support",
+      "bytes": 12279288,
+      "sha256": "a7db6ce93ed63836332a5e827c635fce450fd88fe1c53ef7c6eca4c949fd7531",
+      "matches_frozen_receipt": true
+    },
+    {
+      "name": "zero_lag_edge_control",
+      "bytes": 49116768,
+      "sha256": "f7e4431e4550df0a7954cadc24b13804e02cb4e244baf70a65473b77d2e982f0",
+      "matches_frozen_receipt": true
+    }
+  ],
+  "scope": "Autonomous cryptographic verification of competition mirror inputs and deterministic feature-cache reproduction; no new lane or upload."
+}

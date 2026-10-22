@@ -79,6 +79,31 @@ def test_canonical_adapter_fails_closed_on_missing_receipt(tmp_path):
     assert checks['canonical_evidence_read_error'] is False
 
 
+@pytest.mark.parametrize('bad_overlap', [float('nan'), float('-inf'), float('inf'), -0.05, True, False, '0.2', None])
+def test_canonical_adapter_rejects_nonfinite_or_out_of_range_numbers(tmp_path, monkeypatch, bad_overlap):
+    evidence = tmp_path / 'evidence'
+    evidence.mkdir()
+    (evidence / 'g79_surface_uniqueness_1108.json').write_text(json.dumps({
+        'max_abs_spearman': 0.2, 'worst_dot_overlap': bad_overlap,
+    }, allow_nan=True))
+    (evidence / 'g79_dot_uniqueness_1108.json').write_text(json.dumps({
+        'max_abs_spearman': 0.1, 'worst_dot_overlap': bad_overlap,
+    }, allow_nan=True))
+    canary = {
+        seed: {'all_passed': True, 'max_symmetric_auc': 0.8, 'threshold': 0.9}
+        for seed in ('seed20', 'seed30')
+    }
+    (evidence / 'g79_leakage_canary.json').write_text(json.dumps(canary))
+    (evidence / 'g79_thvc_results.json').write_text('{"measured": true}')
+    monkeypatch.setattr(selector, 'evidence_checks', lambda *_: {'frozen_receipts_consistent': True})
+    checks = selector.canonical_thvc_evidence(
+        tmp_path, {'raster_sha256': 'a' * 64, 'current_best_holdout_beaten': True, 'protocol_unique': False},
+        'a' * 64, True,
+    )
+    assert checks['surface_forward_overlap_le_0_70'] is False
+    assert checks['final_forward_overlap_le_0_70'] is False
+
+
 @pytest.mark.parametrize('error', [FileNotFoundError, ValueError, KeyError, TypeError, IndexError])
 def test_missing_or_malformed_measurements_fail_closed(monkeypatch, gate_fixture, error):
     def broken(*_):

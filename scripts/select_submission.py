@@ -10,6 +10,7 @@ remaining weekly slots; those are reported as account-side conditions.
 from __future__ import annotations
 import hashlib
 import json
+import math
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -60,6 +61,10 @@ def selection_evidence(root, card, gates, actual):
         return False, {"evidence_read_error": type(exc).__name__}
 
 
+def _finite_number(value, low: float, high: float) -> bool:
+    return type(value) in (int, float) and math.isfinite(value) and low <= value <= high
+
+
 def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: bool):
     """Re-derive G79-THVC's measured gates without granting an exception.
 
@@ -73,6 +78,8 @@ def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: 
         dots = json.loads((root / "evidence/g79_dot_uniqueness_1108.json").read_text())
         canary = json.loads((root / "evidence/g79_leakage_canary.json").read_text())
         results = json.loads((root / "evidence/g79_thvc_results.json").read_text())
+        if not all(isinstance(d, dict) for d in (surface, dots, canary, results)):
+            raise TypeError("Canonical receipts must be JSON objects")
         checks = evidence_checks(root, card)
         checks.update({
             "raster_sha256_matches": actual == card.get("raster_sha256"),
@@ -82,29 +89,25 @@ def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: 
                 and all(
                     isinstance(canary.get(seed), dict)
                     and canary[seed].get("all_passed") is True
-                    and type(canary[seed].get("max_symmetric_auc")) in (int, float)
-                    and canary[seed]["max_symmetric_auc"] <= 0.90
-                    and canary[seed].get("threshold") == 0.90
+                    and _finite_number(canary[seed].get("max_symmetric_auc"), 0.5, 0.90)
+                    and type(canary[seed].get("threshold")) in (int, float)
+                    and canary[seed]["threshold"] == 0.90
                     for seed in ("seed20", "seed30")
                 )
             ),
             "holdout_best_beaten_both_seeds": card.get("current_best_holdout_beaten") is True,
-            "surface_rank_correlation_le_0_90": (
-                type(surface.get("max_abs_spearman")) in (int, float)
-                and abs(surface["max_abs_spearman"]) <= 0.90
+            "surface_rank_correlation_le_0_90": _finite_number(
+                surface.get("max_abs_spearman"), 0.0, 0.90
             ),
-            "final_rank_correlation_le_0_90": (
-                type(dots.get("max_abs_spearman")) in (int, float)
-                and abs(dots["max_abs_spearman"]) <= 0.90
+            "final_rank_correlation_le_0_90": _finite_number(
+                dots.get("max_abs_spearman"), 0.0, 0.90
             ),
             # Protocol rule 1 is literal: every checked registry raster counts.
-            "surface_forward_overlap_le_0_70": (
-                type(surface.get("worst_dot_overlap")) in (int, float)
-                and surface["worst_dot_overlap"] <= 0.70
+            "surface_forward_overlap_le_0_70": _finite_number(
+                surface.get("worst_dot_overlap"), 0.0, 0.70
             ),
-            "final_forward_overlap_le_0_70": (
-                type(dots.get("worst_dot_overlap")) in (int, float)
-                and dots["worst_dot_overlap"] <= 0.70
+            "final_forward_overlap_le_0_70": _finite_number(
+                dots.get("worst_dot_overlap"), 0.0, 0.70
             ),
             "protocol_unique": card.get("protocol_unique") is True,
             "holdout_receipt_present": isinstance(results, dict) and bool(results),
@@ -116,6 +119,8 @@ def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: 
 
 def _select() -> int:
     card = json.loads((ROOT / "run_card.json").read_text())
+    if not isinstance(card, dict):
+        raise TypeError("Run card must be an object")
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
