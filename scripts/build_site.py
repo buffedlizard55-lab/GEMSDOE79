@@ -319,6 +319,8 @@ def main():
               'registry/score_ledger.csv': 'score_ledger.csv',
               'registry/preregistration.json': 'preregistration.json',
               'registry/preregistration_nhr.json': 'preregistration_nhr.json',
+              'registry/preregistration_asym.json': 'preregistration_asym.json',
+              'registry/preregistration_mrnd.json': 'preregistration_mrnd.json',
               'registry/registry_delta.json': 'registry_delta.json',
               'registry/template_pin.json': 'template_pin.json',
               'registry/protocol_clarification.json': 'protocol_clarification.json',
@@ -339,6 +341,8 @@ def main():
               'evidence/artifact_reproduction.json': 'artifact_reproduction.json',
               'evidence/ff/ff_run_card.json': 'ff_run_card.json',
               'run_card_stepco.json': 'run_card_stepco.json',
+              'run_card_asym.json': 'run_card_asym.json',
+              'run_card_mrnd.json': 'run_card_mrnd.json',
               'run_card_g79b.json': 'run_card_g79b.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
@@ -349,6 +353,10 @@ def main():
     stepco_dir.mkdir(exist_ok=True)
     for src in sorted((ROOT / 'evidence/stepco').glob('*.json')):
         shutil.copyfile(src, stepco_dir / src.name)
+    mrnd_dir = SITE / 'evidence/mrnd'
+    mrnd_dir.mkdir(exist_ok=True)
+    for src in sorted((ROOT / 'evidence/mrnd').glob('*.json')):
+        shutil.copyfile(src, mrnd_dir / src.name)
     for source, dest in copies.items():
         shutil.copyfile(ROOT / source, SITE / 'evidence' / dest)
     for stale in (SITE / 'assets').glob('*.png'):
@@ -359,12 +367,16 @@ def main():
         'executive-summary.html': ('Executive summary & how to submit', executive(card)),
         'analysis.html': ('Why H33 scored highest, and what can beat it',
                           page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
-                                    'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
+                                    'Metric algebra, byte forensics of H33, H79-MRND & H79-NHR holdout results, and the Three-Tier Registry Theorem.')
+                          + '<section class="section">' + md('reports/mrnd_analysis.md') + '</section>'
                           + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
                                     'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
+                          + '<section class="section"><h2>Session 800321e2 — Preregistered H79-MRND (M1) &amp; 5-Hypothesis Discovery Shortlist (2026-10-22)</h2>'
+                          + '<p>Preregistered <strong>H79-MRND</strong> across 77 physical features (inverse-sqrt 3DEP dipoles, TIGER road deseaming, scarp-vs-channel invariant, multi-scale gravity/RTP/TMI worms, GeoDAWN radiometrics, and DOE GDR 1391 aqueous geothermometry across three Basin-and-Range regimes). Beat <code>H33</code> fold-fair on both seeds (<code>0.1044</code> vs <code>0.0961</code>; <code>0.1236</code> vs <code>0.0989</code>, paired CI <code>[+0.0095, +0.0389]</code>), passed all 616 canary checks (<code>max AUC = 0.8589</code>), cleared <strong>0 / ~950</strong> normal-budget submissions, and stopped cleanly at the pre-placement surface gate. <a href="evidence/run_card_mrnd.json">H79-MRND card</a> · <a href="evidence/preregistration_mrnd.json">Preregistration</a> · <a href="evidence/mrnd/m1_holdout_seed30.json">Holdout Seed 30</a>.</p>'
+                          + md('research/hypotheses_mrnd_800321e2.md') + '</section>'
                           + '<section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2>'
                           + '<p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p>'
                           + md('research/hypotheses_e846fc02.md') + '</section>'

@@ -1,0 +1,14 @@
+{
+  "lane": "H79-MRND",
+  "experiment": "M1",
+  "experiment_count": 1,
+  "max_experiments": 3,
+  "stage_reached": "surface_pre_placement",
+  "final_dots_generated": false,
+  "stopped": true,
+  "verdict": "negative",
+  "stop_reason": "Pre-placement continuous surface check (gems57.uniqueness.compare_array_to_registry, budget-matched-v3) passed Spearman correlation across all 986 comparable rasters (worst rho = 0.2582 <= 0.90) and cleared all ~950 normal-budget (<= 167,596-dot) family submissions, but flagged 40 rasters above 0.70 forward 3 px overlap: 30 space-filling/lattice priors (halo_coverage > 0.70) plus 10 over-emitted blanket files (6 unique submissions with 167,597..624,025 dots, halo_coverage 0.531..0.676). Stopped immediately before placing final dots per Protocol Rule 1; zero retuning, zero overlap swapping, zero slots spent.",
+  "informative_non_space_filling_surface_flags": 10,
+  "normal_budget_le_167k_surface_flags": 0,
+  "locked_utc": "2026-10-22T05:50:00Z"
+}

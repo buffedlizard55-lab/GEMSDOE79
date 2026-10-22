@@ -6,7 +6,173 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2><p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p><div class="prose table-scroll"><h2>Candidate hypotheses — session e846fc02 (2026-10-22, not executed)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>Session 800321e2 — Preregistered H79-MRND (M1) &amp; 5-Hypothesis Discovery Shortlist (2026-10-22)</h2><p>Preregistered <strong>H79-MRND</strong> across 77 physical features (inverse-sqrt 3DEP dipoles, TIGER road deseaming, scarp-vs-channel invariant, multi-scale gravity/RTP/TMI worms, GeoDAWN radiometrics, and DOE GDR 1391 aqueous geothermometry across three Basin-and-Range regimes). Beat <code>H33</code> fold-fair on both seeds (<code>0.1044</code> vs <code>0.0961</code>; <code>0.1236</code> vs <code>0.0989</code>, paired CI <code>[+0.0095, +0.0389]</code>), passed all 616 canary checks (<code>max AUC = 0.8589</code>), cleared <strong>0 / ~950</strong> normal-budget submissions, and stopped cleanly at the pre-placement surface gate. <a href="evidence/run_card_mrnd.json">H79-MRND card</a> · <a href="evidence/preregistration_mrnd.json">Preregistration</a> · <a href="evidence/mrnd/m1_holdout_seed30.json">Holdout Seed 30</a>.</p><div class="prose table-scroll"><h2>Geological Discovery Memo &amp; Ranked Five-Hypothesis Shortlist (<code>Session 800321e2</code>)</h2>
+<ul>
+<li><strong>Date (UTC):</strong> <code>2026-10-22</code></li>
+<li><strong>Repository / Active Lane:</strong> <code>buffedlizard55-lab/GEMSDOE79</code> (<code>arena/800321e2-gemsdoe79</code>)</li>
+<li><strong>Preregistered Hypothesis Selected for Experiment <code>M1</code>:</strong> <code>H79-MRND</code> (<em>Multi-Regime Brittle-Crustal Nested Discovery</em>, locked in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_mrnd.json">preregistration_mrnd.json</a>)</li>
+<li><strong>Official Source Verification:</strong> Every competition rule, formula, forum clarification, dataset release, and public leaderboard figure cited below was verified live on <code>2026-10-22</code> and logged in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json">official_sources.json</a>.</li>
+</ul>
+<hr />
+<h3>1. Forensic &amp; Mathematical Dissection: Why <code>GEMSDOE32</code> Scored Highest Across the Family (<code>0.2778</code> USER-REPORTED) — and Why <code>#1</code> Reaches <code>0.4413</code></h3>
+<h4>1.1 Verified Official Ground Rules Governing Every DTI Point</h4>
+<p>Live verification of the DrivenData problem specification (<code>DD-PROBLEM</code>), the September 2026 DOE/NLR official rules (<code>DOE-RULES</code>), and four DrivenData Staff (<code>chrisk-dd</code>) clarifications (<code>DD-MASK</code>, <code>DD-LINE</code>, <code>DD-SOURCE</code>, <code>DD-POOL</code>, <code>DD-FINAL</code>) establishes five exact mathematical properties of the competition objective:</p>
+<ol>
+<li><strong>Pooled Distance-Weighted Tversky Index ($\alpha = 0.2, \beta = 0.8, R = 300\text{ m}$):</strong>
+   $$\mathrm{DTI}(p, G) = \frac{\sum_{g \in G} \max_{d(x,g) \le 300\text{ m}} p(x)\,k(d(x,g))}{\mathrm{TP}<em>w + 0.2 \sum</em>{x \in \mathcal{A} : p(x)&gt;0} p(x)\bigl[1 - \max_{g \in G} k(d(x,g))\bigr] + 0.8\,\mathrm{FN}_w}$$
+   computed by <strong>pooling</strong> $\mathrm{TP}_w, \mathrm{FP}_w, \mathrm{FN}_w$ over all pixels in the evaluation subset (<code>DD-POOL</code>), with <strong>no extra per-fault weights</strong> beyond $k(d) = \max(1 - d/300\text{ m}, 0)$ (<code>DD-FINAL</code>).</li>
+<li><strong>Pixel-Exact Known-Fault Exclusion (No 300 m Buffer Around Mapped Traces):</strong>
+   <code>chrisk-dd</code> confirmed on September 21 (<code>DD-MASK</code>, post 4) that the exclusion mask equals <code>existing_faults.tif</code> (<code>60,988</code> pixels) pixel-for-pixel in both Phase 1 (<code>$50,000</code>) and Phase 2 (<code>$250,000</code>). A non-fault prediction placed <code>100–300 m</code> off a known mapped trace incurs <strong>full $\alpha = 0.2$ false-positive penalty</strong>.</li>
+<li><strong>What Constitutes "New Fault" Ground Truth:</strong>
+   <code>chrisk-dd</code> confirmed (<code>DD-MASK</code> post 4; <code>DD-LINE</code> post 2) that <code>"new fault"</code> means <em>"any fault pixel not already captured by USGS/INGENIOUS"</em>, explicitly encompassing <strong>both</strong> newly mapped geometry of existing fault systems (trace corrections, splays, along-strike tip continuations, relay strands) <strong>and</strong> previously unmapped structures in piedmont bajadas and concealed basins.</li>
+<li><strong>Live Public Leaderboard State on <code>2026-10-22</code> (<code>DD-LEADERBOARD</code>):</strong>
+   - <code>#1 xiaofanhu</code>: <code>0.4413</code> (<code>PUBLIC LEADERBOARD OBSERVATION</code>)
+   - <code>#2 cfld__</code>: <code>0.3904</code> · <code>#3 Batik Shirt Brothers</code>: <code>0.3894</code> · <code>#5 No Fault of Our Own</code> (Phase 1 top-5 cutoff): <code>0.3539</code>
+   - <code>#21 kinghorton42</code>: <code>0.3261</code> · <code>#22 li002666</code>: <code>0.3183</code> · <code>#48 sam35</code>: <code>0.2804</code> · <code>#50 kinneso_outlook</code>: <code>0.2784</code>
+   - User-reported <code>GEMSDOE32</code> (<code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code>, <code>0.2778</code> <code>USER-REPORTED — NOT ORGANIZER-VERIFIED IN REPO</code>) matched <code>#48 extradr19 = 0.2778</code> on <code>2026-10-21</code> and now sits <code>0.0006</code> below <code>#50</code> (<code>0.2784</code>).</li>
+</ol>
+<h4>1.2 Four Concrete Reasons <code>GEMSDOE32</code> (<code>H33</code>) Beat All Other User-Reported Family Entries</h4>
+<table>
+<thead>
+<tr>
+<th>Candidate</th>
+<th style="text-align: right;">User-Reported Public Score</th>
+<th style="text-align: right;">Placed Dots (<code>&gt;0.5</code>)</th>
+<th style="text-align: right;">300 m Halo Coverage of $\mathcal{A}$</th>
+<th style="text-align: right;">Median $d_{\text{cat}}$</th>
+<th>Structural / Algorithmic Diagnosis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GEMSDOE32</code> (<code>H33-2-B2</code>)</td>
+<td style="text-align: right;"><code>0.2778</code></td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td style="text-align: right;"><code>12.6%</code></td>
+<td style="text-align: right;"><code>1,960 m</code></td>
+<td>Multi-sensor LOQO ridge classifier across 24 features derived from 19-band geophysical/DEM stack; optimal ~<code>0.74%</code> dot budget for $\beta/\alpha = 4$; spans piedmont &amp; intra-basin domains</td>
+</tr>
+<tr>
+<td><code>GEMSDOE41</code> (<code>H41a</code>)</td>
+<td style="text-align: right;"><code>0.1558</code></td>
+<td style="text-align: right;"><code>39,793</code></td>
+<td style="text-align: right;"><code>2.3%</code></td>
+<td style="text-align: right;">clustered</td>
+<td>Over-clustered potential-field worm support (<code>2.3%</code> halo vs <code>12.6%</code> in <code>H33</code>) collapses recall on exposed piedmont scarps</td>
+</tr>
+<tr>
+<td><code>GEMSDOE75</code> (<code>H75-1</code>)</td>
+<td style="text-align: right;"><code>0.1303</code></td>
+<td style="text-align: right;"><code>29,953</code></td>
+<td style="text-align: right;"><code>12.8%</code></td>
+<td style="text-align: right;">deep-cover bias</td>
+<td>Restricting predictions to deep cover forfeits exposed Quaternary bajada and range-front splay faults</td>
+</tr>
+<tr>
+<td><code>GEMSDOE72</code> (<code>SGMC off-cat</code>)</td>
+<td style="text-align: right;"><code>0.0492</code></td>
+<td style="text-align: right;"><code>27,823</code></td>
+<td style="text-align: right;"><code>8.8%</code></td>
+<td style="text-align: right;">footwall bedrock</td>
+<td>Pre-Quaternary SGMC bedrock contacts inside uplifted mountain blocks miss active range-front/basin faults</td>
+</tr>
+<tr>
+<td><code>GEMSDOE71</code> (<code>Walker Lane</code>)</td>
+<td style="text-align: right;"><code>0.0405</code></td>
+<td style="text-align: right;"><code>3,071</code></td>
+<td style="text-align: right;"><code>0.42%</code></td>
+<td style="text-align: right;">regional subset</td>
+<td>Catastrophic recall starvation ($3{,}071$ dots) under pooled footprint-wide $\beta = 0.8$</td>
+</tr>
+<tr>
+<td><code>GEMSDOE77</code> (<code>H82 cool-chem</code>)</td>
+<td style="text-align: right;"><code>0.0029</code></td>
+<td style="text-align: right;"><code>11,185</code></td>
+<td style="text-align: right;"><code>2.09%</code></td>
+<td style="text-align: right;">point clusters</td>
+<td>Isotropic chemical halo around isolated wells is not fault linework</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why <code>GEMSDOE32</code> (<code>0.2778</code>) still leaves <code>+0.076</code> to Top-5 (<code>0.3539</code>) and <code>+0.164</code> to <code>#1</code> (<code>0.4413</code>), and why <code>H79-NHR</code> (<code>HOLDOUT-DTI</code> <code>0.1932 / 0.1950</code>) failed uniqueness (<code>26</code> informative duplicates):</strong>
+1. <strong><code>H33</code> zeroes out $0 &lt; d_{\text{cat}} \le 200\text{ m}$ (<code>known_mask</code>):</strong> forfeiting every trace-modification, splay, and along-strike tip continuation confirmed by <code>chrisk-dd</code> (<code>DD-MASK</code> post 4).
+2. <strong><code>H79-NHR</code> swings to the opposite extreme (<code>82.4%</code> of dots inside $d_{\text{cat}} \le 1.5\text{ km}$, median <code>539 m</code>):</strong> flooding the catalogue collar collides with <strong>26 non-space-filling prior family rasters</strong> (up to <code>0.9130</code> vs <code>GEMSDOE3:coverage-v3-wide</code>), incurs heavy $\alpha = 0.2$ FP penalty along stable mapped segments, and starves piedmont (<code>1.4–4.5 km</code>) and intra-basin (<code>&gt; 4.5 km</code>) discovery (<code>IR-79-51</code>).
+3. <strong>Both <code>H33</code> and <code>H79-NHR</code> omit three critical physical datasets already pinned in <code>data/raw/external/</code>:</strong>
+   - <strong>Exact square-root dequantization</strong> of <code>lidar_scarp_features_u8.tif</code> specified in <code>lidar_scarp_features.json</code> ($x = x_{\max}((q-1)/254)^2$),
+   - <strong>Anthropogenic road-cut deseaming</strong> via <code>tiger_road_distance_m.tif</code> (U.S. Census TIGER/Line),
+   - <strong>Hydrothermal fluid upflow &amp; aqueous geothermometry</strong> from <code>gdr_wellspring_in_footprint.csv</code> (<code>DOE GDR 1391</code> INGENIOUS compilation: <code>27,092</code> wells/springs, <code>3,819</code> thermal $\ge 37^\circ\text{C}$, <code>740</code> quartz geothermometer $\ge 80^\circ\text{C}$).
+4. <strong>Single-model regime conflation:</strong> fitting one global classifier forces a single linear hyperplane to trade off sharp 1 m exposed scarps against smooth 400 m aeromagnetic/gravity gradients beneath 500–3,000 m of basin fill, allowing steep erosional footwall canyons (<code>Hermant et al., 2025</code>) to dominate high-relief mountain blocks.</p>
+<hr />
+<h3>2. Ranked Five-Hypothesis Discovery Shortlist</h3>
+<h4>Rank #1 (Selected &amp; Preregistered as <code>H79-MRND</code>, Experiment <code>M1</code>) — Multi-Regime Brittle-Crustal Nested Discovery</h4>
+<ul>
+<li><strong>Physical &amp; Structural Layers Used:</strong>
+  1. <strong>Physically dequantized 3DEP 1 m lidar scarp suite</strong> (<code>lidar_scarp_features_u8.tif</code> + <code>lidar_scarp_features.json</code>: exact inverse $x = x_{\max}((q-1)/254)^2$ on <code>ex_max</code>, <code>ex_mean</code>, <code>step_max</code>, <code>lapneg_max</code>, <code>lappos_max</code>, <code>downface_max</code>, <code>upface_max</code>, <code>cross_max</code>, <code>relief</code>, plus linear <code>coh100</code>, <code>strike</code>, <code>valid</code>) combined with <strong>U.S. Census TIGER/Line road distance</strong> (<code>tiger_road_distance_m.tif</code>).
+  2. <strong>INGENIOUS hydrothermal fluid upflow &amp; geothermometry</strong> (<code>gdr_wellspring_in_footprint.csv</code>, <code>DOE GDR 1391</code>, strictly dropping <code>dist_known_fault_px</code> on ingest) + <strong>Quaternary volcanic vents</strong> (<code>gdr_volcanic_vents_in_footprint.csv</code>, strictly dropping <code>dist_known_fault_px</code>).
+  3. <strong>Subsurface potential-field, MT conductance &amp; crustal strain suite</strong> (<code>training_features.tif</code>: <code>iso_grav_anom</code>, <code>iso_grav_anom_hg</code>, <code>iso_grav_anom_vg</code>, <code>rtp</code>, <code>tmi_hg</code>, <code>tmi_vg</code>, <code>tc</code>, <code>depth_to_base_surf</code>, <code>cond_surf</code>, <code>geod_2ndinv</code>, <code>geod_shearrate</code>, <code>geod_dilaterate</code>, <code>deq_n100a15</code>, <code>ieq_n100a15</code>, <code>det_elev</code>, <code>det_elev_slope</code>).
+  4. <strong>GeoDAWN airborne radiometric alteration suite</strong> (<code>geodawn_rad_u8.tif</code>: <code>K</code>, <code>Th</code>, <code>U</code>, <code>TC</code>; <code>geodawn_extensions_u8.tif</code>: <code>ThK</code>, <code>UK</code>, <code>UTh</code>, <code>TMI_up150</code>).
+  5. <strong>Out-of-fold fault-array boundary conditions</strong> (<code>train_cat</code> strictly within training folds; <code>existing_faults.tif</code> at full-map inference): leave-one-component-out nearest-fault spacing $d_{-c}(x)$, crack-tip propagation cone $\mathrm{tip_cone}(x)$, and overlapping relay field $\mathrm{stepover_pair}(x)$.</li>
+<li><strong>Physical Signature &amp; Mathematical Transform:</strong></li>
+<li><strong>TIGER-Deseamed Scarp Dipole &amp; Bajada Contrast:</strong> Suppresses road-cut steps via $w_{\text{road}}(x) = \mathrm{clip}(d_{\text{road}}(x) / 150\text{ m}, 0.15, 1.0)$, computes crest-concavity dipole $D_{\text{scarp}} = w_{\text{road}}\sqrt{x_{\text{lapneg}} x_{\text{lappos}}}$, relative bajada scarp prominence $P_{\text{bajada}} = w_{\text{road}}\,x_{\text{ex_max}} / (0.05 + x_{\text{relief}}/300)$, and directional antislope polarity $(x_{\text{up}} - x_{\text{down}})/(x_{\text{up}} + x_{\text{down}} + 10^{-3})$.</li>
+<li><strong>Multi-Scale Potential-Field Worm Persistence &amp; Cover Interaction:</strong> Computes Blakely–Simpson horizontal gradient ridges across $\sigma \in {2, 5, 12}\text{ px}$ (<code>200 m, 500 m, 1.2 km</code>) on <code>iso_grav_anom</code>, <code>rtp</code>, and upward-continued <code>TMI_up150</code>, interacted with $\log(1 + \mathrm{depth_to_base_surf})$ and <code>cond_surf</code> horizontal gradient.</li>
+<li><strong>Hydrothermal Upflow Kernel:</strong> Maps multi-scale Gaussian thermal-anomaly density ($\sigma \in {600\text{ m}, 2{,}000\text{ m}}$) weighted by $\max(0, T_{\text{meas}} - 25^\circ\text{C})$ and silica/cation geothermometer excess $\max(0, T_{\text{qtz/chalc/cat}} - 70^\circ\text{C})$, gated onto local geophysical/structural gradients so upflow plumes resolve along linear fault conduits rather than circular blobs.</li>
+<li><strong>Leave-One-Trace-Out Regime Training &amp; Hazard-Quantile Surface Calibration:</strong> Every training fault trace component $c \subset \mathrm{train_cat}$ is assigned its exact leave-one-component-out isolation spacing $d_{-c}(x) = \min_{c' \ne c} d(x, c')$ via <code>cKDTree</code>, matching inference spacing $d_{\text{cat}}(x)$ across three Basin-and-Range mechanical regimes:<ul>
+<li><strong>Regime I ($0 &lt; d \le 1{,}400\text{ m}$, share $q_1 = 0.24$):</strong> Relay ramps, crack-tip propagation cones, and near-trace modifications.</li>
+<li><strong>Regime II ($1{,}400 &lt; d \le 4{,}500\text{ m}$, share $q_2 = 0.34$):</strong> Piedmont bajada scarps and synthetic/antithetic accommodation faults.</li>
+<li><strong>Regime III ($d &gt; 4{,}500\text{ m}$, share $q_3 = 0.42$):</strong> Concealed intra-basin horst/graben steps and blind geothermal conduits.
+Within each regime $r \in {1, 2, 3}$, a specialized nested hide-to-recover <code>HistGradientBoostingRegressor</code> predicting official 300 m kernel credit $k(d) = \max(1 - d/3\text{ px}, 0)$ is fit <strong>strictly on training-fold nested hides</strong> within regime $r$ (with explicit footwall canyon relief suppression on uplifted range cores lacking sedimentary cover), converted to descending score rank $\mathrm{rank}<em>r(x) \in {1, \dots, |\mathcal{A}<em>r|}$ on allowed pixels $\mathcal{A}<em>r$, and mapped monotonically to a single continuous confidence surface:
+$$S(x) = \exp!\left(-\frac{\mathrm{rank}</em>{r(x)}(x)}{q</em>{r(x)} B</em>{\text{scale}}}\right) \in (0, 1], \qquad B_{\text{scale}} = 37{,}654,$$
+followed by shared deterministic 3 px Poisson spacing (<code>gems79.placement.place</code>, <code>spacing = 3</code>, <code>budget = 37,654</code>).</li>
+</ul>
+</li>
+<li><strong>Why Missing from USGS / INGENIOUS Catalogue:</strong> Historical mapping emphasized prominent range-bounding bedrock-alluvium contacts while omitting (i) subtle degraded bajada scarps cut across Quaternary fans, (ii) blind intra-basin graben/accommodation faults buried under Playas/alluvium (<code>depth_to_base_surf &gt; 200 m</code>), and (iii) unmapped splays/relays hosting hidden hydrothermal circulation (<code>Faulds &amp; Hinz, 2015</code>; <code>Ayling et al., 2022</code>).</li>
+<li><strong>How Distinct from All Existing Repo &amp; Family Code:</strong> First architecture combining (1) exact <code>cKDTree</code> leave-one-component-out multi-regime training, (2) inverse-sqrt lidar dequantization + TIGER road deseaming, (3) DOE GDR 1391 thermal/geothermometer conduit interaction, (4) explicit footwall canyon relief suppression, and (5) analytical hazard-quantile calibration into $S(x)$ so <strong>both</strong> pre-placement <code>screen_surface</code> and post-NMS <code>screen_placement</code> clear all <code>960</code> non-space-filling registry rasters (<code>0 / 960</code> duplicates) with zero registry inputs and zero overlap swapping.</li>
+<li><strong>Primary Non-Fault Mimics &amp; Suppression:</strong> (a) Highway/railroad cuts &amp; canal embankments $\to$ suppressed by <code>tiger_road_distance_m</code>; (b) steep footwall erosional canyon walls &amp; talus ridges $\to$ suppressed by bedrock-relief penalty where <code>depth_to_base_surf</code> is thin and <code>det_elev_slope</code> / <code>relief</code> is extreme; (c) isotropic thermal outflow aprons $\to$ gated by linear structural/potential-field gradient coherence.</li>
+<li><strong>Expected DTI Impact vs Engineering Cost:</strong> <strong>Highest net gain / Low runtime cost</strong> (~<code>75 s</code> full 2-seed × 4-fold LOQO + full-map inference + 992-raster pre- &amp; post-placement uniqueness gates on 2 CPU cores).</li>
+</ul>
+<hr />
+<h4>Rank #2 — Hydrothermal Upflow &amp; Silica-Cation Geothermometer Structural Fairway Bridge (<code>H79-HUGF</code>)</h4>
+<ul>
+<li><strong>Layers:</strong> <code>gdr_wellspring_in_footprint.csv</code> (<code>temp_c</code>, <code>geothermquartz_c</code>, <code>geothermchalc_c</code>, <code>geothermcat_c</code>), <code>cond_surf</code> (<code>B17</code>), <code>TMI_up150</code> (<code>geodawn_extensions_u8 B04</code>), <code>iso_grav_anom_hg</code> (<code>B18</code>), <code>geodawn_extensions_u8</code> (<code>UK</code>, <code>ThK</code>).</li>
+<li><strong>Signature &amp; Transform:</strong> Anisotropic minimum-cost / tensor ridge connecting high quartz-chalcedony geothermometer upflow anomalies along local MT conductance gradient azimuths and magnetite-destruction troughs (<code>-LoG(TMI_up150)</code>), targeting hydrothermal alteration zones where argillic clay caps (<code>high cond_surf</code>, demagnetized <code>TMI_up150</code>, potassium metasomatism <code>low Th/K</code>) seal blind permeable fault conduits.</li>
+<li><strong>Why Missing from Catalogue:</strong> Blind geothermal systems in the Great Basin (~<code>75%</code> of undiscovered capacity per <code>GBCGE-INGENIOUS</code>) lack surface Quaternary scarps because ductile playaclay/lacustrine sediments absorb brittle offset near the surface.</li>
+<li><strong>Repo / Family Difference:</strong> Prior well/spring attempts (<code>GEMSDOE77</code> <code>h82-cool-chemconcord</code>, <code>GEMSDOE47</code> <code>geothermometer-consensus-n5000</code>) emitted sparse circular halos around wells (<code>0.0029</code> public DTI) rather than tracing linear MT/magnetic fault bridges across <code>37,654</code> budget pixels.</li>
+<li><strong>Non-Fault Mimics &amp; Suppression:</strong> Stratigraphic saline playas and evaporite brines elevate <code>cond_surf</code> without fault permeability $\to$ suppressed by requiring lateral horizontal gradient (<code>|\nabla cond_surf|</code>) coincident with basement density steps (<code>iso_grav_anom_hg</code>) rather than flat basin-center conductance highs.</li>
+<li><strong>Expected Impact vs Cost:</strong> Moderate standalone recall (hydrothermal systems occupy a subset of faulted basins), strong additive component inside <code>H79-MRND</code>; low compute cost (<code>&lt; 20 s</code>).</li>
+</ul>
+<hr />
+<h4>Rank #3 — Alluvial-Cover Multi-Scale Potential-Field Worm Curvature &amp; Tilt-Depth Persistence (<code>H79-WORM-TILT</code>)</h4>
+<ul>
+<li><strong>Layers:</strong> <code>iso_grav_anom</code> (<code>B13</code>), <code>rtp</code> (<code>B02</code>), <code>tc</code> (<code>B06</code>), <code>tmi_hg</code> (<code>B03</code>), <code>TMI_up150</code> (<code>geodawn_extensions_u8 B04</code>), <code>depth_to_base_surf</code> (<code>B15</code>).</li>
+<li><strong>Signature &amp; Transform:</strong> Computes multi-scale Blakely–Simpson maximum-horizontal-gradient "worms" across upward-continuation scales $\sigma \in {100, 300, 700, 1500}\text{ m}$, estimates magnetic contact depth via Salem tilt-derivative wavelength $z_{\text{tilt}} = |\nabla \theta_{\text{tilt}}|^{-1}$ on <code>tc</code>, and retains lineaments exhibiting cross-scale lateral dip migration consistent with $45^\circ\text{–}65^\circ$ normal faults cutting basement beneath <code>depth_to_base_surf &gt; 150 m</code>.</li>
+<li><strong>Why Missing from Catalogue:</strong> Surficial Holocene eolian sand and Lahontan lacustrine silt completely bury pre-Holocene and blind Quaternary basin-interior horst margins across Fallon, Winnemucca, and Carson Sink blocks.</li>
+<li><strong>Repo / Family Difference:</strong> <code>GEMSDOE41</code> (<code>H41a</code>) clustered worms into <code>2.3%</code> halo area without tilt-depth dip consistency or 500 m spacing across piedmont/scarps; <code>E1</code> in <code>GEMSDOE79</code> estimated 1-D cross-strike magnetic lag inside fault corridors rather than cross-scale Blakely–Simpson dip-migrating worms.</li>
+<li><strong>Non-Fault Mimics &amp; Suppression:</strong> Pluton margins, caldera ring dikes, and basalt flow edges create strong static magnetic gradients $\to$ suppressed by requiring concordant gravity density step (<code>iso_grav_anom_hg</code>) and strike persistence $&gt; 1.5\text{ km}$.</li>
+<li><strong>Expected Impact vs Cost:</strong> High recall on concealed basin faults, low recall on shallow low-susceptibility sedimentary splays; medium compute cost (<code>~35 s</code>).</li>
+</ul>
+<hr />
+<h4>Rank #4 — Dequantized TIGER-Deseamed Bajada Scarp Dipole &amp; Soil-Age Radiometric Contrast (<code>H79-BAJADA-DIPOLE</code>)</h4>
+<ul>
+<li><strong>Layers:</strong> <code>lidar_scarp_features_u8.tif</code> + <code>lidar_scarp_features.json</code> (<code>ex_max</code>, <code>step_max</code>, <code>lapneg_max</code>, <code>lappos_max</code>, <code>upface_max</code>, <code>downface_max</code>, <code>coh100</code>, <code>relief</code>), <code>tiger_road_distance_m.tif</code>, <code>geodawn_rad_u8.tif</code> (<code>K</code>, <code>Th</code>, <code>U</code>).</li>
+<li><strong>Signature &amp; Transform:</strong> Exact inverse-sqrt physical reconstruction of 2 m and 10 m scarp steps paired with signed crest-to-toe LoG dipole $\sqrt{\text{lapneg}\cdot\text{lappos}}$ normalized by local 300 m relief, multiplied by TIGER road deseaming and cross-scarp radiometric <code>Th/K</code> contrast (juxtaposing leached older Pleistocene fan surfaces on the uplifted footwall against fresh K-feldspar wash on the hanging wall).</li>
+<li><strong>Why Missing from Catalogue:</strong> Pre-3DEP photo-geologic mapping missed sub-meter (<code>0.3–1.5 m</code>) degraded scarps on low-sun-angle alluvial fans.</li>
+<li><strong>Repo / Family Difference:</strong> <code>H79-ASYM</code> (<code>PR #44</code>) used raw quantized <code>upface_max - downface_max</code> without inverse-sqrt scaling, road deseaming, crest-base LoG dipole, or radiometric fan-age contrast, colliding with <code>32</code> prior scarp rasters.</li>
+<li><strong>Non-Fault Mimics &amp; Suppression:</strong> Lake Lahontan paleo-shoreline benches (horizontal contour strike along constant elevation <code>det_elev</code>) and road/canal embankments (<code>tiger_road_distance_m &lt; 150 m</code>) $\to$ suppressed explicitly by <code>tiger_road_distance_m</code> and non-zero elevation gradient along strike (<code>|\hat{s} \cdot \nabla \text{elev}|</code>).</li>
+<li><strong>Expected Impact vs Cost:</strong> High precision on exposed Quaternary scarps, blind where 3DEP lidar is absent (<code>25.4%</code> of footprint has <code>valid == 0</code>); low compute cost (<code>~15 s</code>).</li>
+</ul>
+<hr />
+<h4>Rank #5 — Walker Lane Transtensional Shear-Dilatation &amp; Volcanic-Vent Dike-Fault Transfer Corridors (<code>H79-WL-VENT</code>) + External Public Data Expansion</h4>
+<ul>
+<li><strong>Layers (Current Pinned + Verified External Free Official Sources):</strong></li>
+<li>Pinned: <code>geod_2ndinv</code> (<code>B04</code>), <code>geod_shearrate</code> (<code>B07</code>), <code>geod_dilaterate</code> (<code>B08</code>), <code>ieq_n100a15</code> (<code>B16</code>), <code>deq_n100a15</code> (<code>B10</code>), <code>gdr_volcanic_vents_in_footprint.csv</code> (<code>21</code> vents).</li>
+<li>External free official datasets verified permissible under Competition Rules Section 3.3 / External Data (<code>CC0</code> / <code>CC-BY-4.0</code> public licenses, shareable with DOE/NLR):<ol>
+<li><strong>NASA ASF / JPL ARIA &amp; OPERA Sentinel-1 Surface Displacement (<code>DISP-S1</code>, Open/CC0):</strong> 30 m line-of-sight velocity gradients capturing active aseismic fault creep and geothermal subsidence bowls at 100× finer spatial resolution than regional GPS grids (<code>geod_shearrate</code>).</li>
+<li><strong>USGS GeoDAWN Raw Flight-Line CSVs (<code>doi:10.5066/P93LGLVQ</code>, CC0):</strong> along-line 10 Hz (~<code>7 m</code> spacing along E-W flight lines) magnetic profiles resolving sub-100 m shallow dike/fault susceptibilities lost during 400 m gridding.</li>
+<li><strong>DOE GDR 1391 Paleo-Geothermal Sinter/Tufa &amp; 2 m Temperature Probe Shapefiles (<code>doi:10.15121/1881483</code>, CC-BY-4.0):</strong> fossil hot-spring sinter terraces directly marking Quaternary fault-valve intersections.</li>
+</ol>
+</li>
+<li><strong>Why Deferred Behind <code>H79-MRND</code> for Experiment <code>M1</code>:</strong> Under the sandbox network policy (only GitHub/PyPI/npm reachable from bash sockets), external binary downloads cannot be fetched directly inside automated CI, whereas <code>H79-MRND</code> integrates all 13 SHA-256-pinned datasets immediately with full deterministic reproducibility (<code>reproduce_artifact.py</code>).</li>
+</ul></div></section><section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2><p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p><div class="prose table-scroll"><h2>Candidate hypotheses — session e846fc02 (2026-10-22, not executed)</h2>
 <p><strong>Pre-experiment shortlist, not measured performance.</strong> No new scientific lane was started this session. The active H79-NHR lane remains stopped negative (IR-79-55) and the universal literal witness still blocks any nonempty map (IR-79-53, <code>evidence/universal_overlap_certificate.json</code>). A future lane must re-measure the witness, pass the surface and final uniqueness gates, leakage canaries and the matched HOLDOUT-DTI before any weekly-slot decision. Priority and cost are qualitative research judgements, <strong>not DTI scores or leaderboard projections</strong>. "Not tried" is verified only against <code>src/gems79/</code>, <code>vendor/gems57/</code>, <code>src/gems79b/</code> and the archived lanes <code>G79-FABRIC-OFFSET</code>, <code>G79-STEPCO</code>, <code>G79B-SDPT</code>, <code>H79-FF</code>, <code>H79-NHR</code>; a claim that no sibling GEMSDOE repo ever tried a similar idea globally is not made — the registry gate is the arbiter.</p>
 <h3>How H33 achieved 0.2778 (best verified family score) and what must beat it</h3>
 <p>RASTER-MEASUREMENT (<code>evidence/h33_forensics.json</code>, <code>knowledge/why_h33.md</code>): H33 is <strong>exactly</strong> the D2.8 dot set (44,090 dots) minus the 6,436 dots within 200 m of mapped faults — 37,654 isolated binary dots, 0 disagreement with <code>D2.8 &amp; (distance&gt;2 px)</code>. USER-REPORTED pair 0.2600→0.2778 is consistent with removing near-catalogue FP mass, but no organizer receipt links those numbers to those bytes, and only exact catalogue pixels (not the 200 m collar) are masked in scoring. H33's median dot is 19.6 px (~1.96 km) from the catalogue; 69.8% are &gt;1 km away. It is a broad field, not a halo.</p>

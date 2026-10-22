@@ -1,0 +1,288 @@
+{
+  "schema_version": "gems79-run-card-mrnd-v1",
+  "generated_utc": "2026-10-22T06:25:54.356492+00:00",
+  "branch": "arena/800321e2-gemsdoe79",
+  "lane": "H79-MRND",
+  "experiment": "M1",
+  "preregistered_utc": "2026-10-22T04:42:00Z",
+  "preregistration_sha256": "ea12fe39a45287a32152958bdfa5160f8514b0bd0200c613b46a245f7d22b265",
+  "hypothesis": "Multi-Regime Brittle-Crustal Nested Discovery (Dequantized TIGER-Deseamed 3DEP Dipoles + Scarp-vs-Channel Invariant + Multi-Scale Potential-Field Worms + INGENIOUS Hydrothermal Conduits + Nested Hide-to-Recover Three-Regime Kernel-Credit Trees)",
+  "mechanism": "Three specialized HistGradientBoostingRegressor models trained on nested hidden-fault 300 m kernel credit across R1 (0 < d <= 1.4 km, share 0.24), R2 (1.4 < d <= 4.5 km, share 0.34), and R3 (d > 4.5 km, share 0.42), combining inverse-sqrt 3DEP scarp dipoles, scarp-vs-channel geomorphic discrimination, TIGER road deseaming, multi-scale gravity/RTP/TMI worms, GeoDAWN radiometrics, and INGENIOUS well/spring geothermometry.",
+  "named_non_fault_process": "Anthropogenic highway/railroad/canal embankments (suppressed via tiger_road_distance_m.tif), down-slope erosional gullies and footwall canyon walls (suppressed via scarp_vs_channel and canyon_bedrock_penalty), and circular well halos (gated by basement horizontal gradients).",
+  "experiment_count": 1,
+  "max_experiments": 3,
+  "stage_reached": "pre-placement surface duplicate gate (Protocol Rule 1) stopped before final dot placement",
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "tests_per_seed": 308,
+    "total_tests_both_seeds": 616,
+    "threshold": 0.9,
+    "max_symmetric_auc": 0.8589,
+    "worst_feature": "geom_log_dist_visible_tip",
+    "n_suspicious": 0,
+    "passed": true
+  },
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "headline_seed": 30,
+    "dti": 0.1236,
+    "ci95": [
+      0.1065,
+      0.1414
+    ],
+    "withheld_positive_pixels": 11342,
+    "per_seed": {
+      "seed_20": {
+        "withheld_positive_pixels": 11321,
+        "candidate": {
+          "dti": 0.1044,
+          "ci95": [
+            0.0902,
+            0.1184
+          ]
+        },
+        "h33_foldfair_control": {
+          "dti": 0.0961,
+          "ci95": [
+            0.0837,
+            0.1086
+          ]
+        },
+        "ablation_single_regime_static": {
+          "dti": 0.0801,
+          "ci95": [
+            0.0648,
+            0.0957
+          ]
+        },
+        "uniform_control": {
+          "dti": 0.0484,
+          "ci95": [
+            0.0432,
+            0.0537
+          ]
+        },
+        "paired_delta_vs_h33": {
+          "delta": 0.0084,
+          "ci95": [
+            -0.0041,
+            0.0211
+          ]
+        },
+        "paired_delta_vs_ablation": {
+          "delta": 0.0243,
+          "ci95": [
+            0.0082,
+            0.0411
+          ]
+        },
+        "paired_delta_vs_uniform": {
+          "delta": 0.056,
+          "ci95": [
+            0.0414,
+            0.0697
+          ]
+        }
+      },
+      "seed_30": {
+        "withheld_positive_pixels": 11342,
+        "candidate": {
+          "dti": 0.1236,
+          "ci95": [
+            0.1065,
+            0.1414
+          ]
+        },
+        "h33_foldfair_control": {
+          "dti": 0.0989,
+          "ci95": [
+            0.0842,
+            0.112
+          ]
+        },
+        "ablation_single_regime_static": {
+          "dti": 0.0817,
+          "ci95": [
+            0.0671,
+            0.0952
+          ]
+        },
+        "uniform_control": {
+          "dti": 0.0482,
+          "ci95": [
+            0.0433,
+            0.0522
+          ]
+        },
+        "paired_delta_vs_h33": {
+          "delta": 0.0247,
+          "ci95": [
+            0.0095,
+            0.0389
+          ]
+        },
+        "paired_delta_vs_ablation": {
+          "delta": 0.0419,
+          "ci95": [
+            0.0269,
+            0.0581
+          ]
+        },
+        "paired_delta_vs_uniform": {
+          "delta": 0.0754,
+          "ci95": [
+            0.0585,
+            0.0925
+          ]
+        }
+      }
+    }
+  },
+  "surface_uniqueness": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "surface_sha256": "9c4d3654fe76cbecb8febbed9befbf9b5d2efad4afdba087f7d9b293dac63333",
+    "registry_rasters_expected": 992,
+    "registry_rasters_compared": 986,
+    "worst_spearman": 0.258228,
+    "worst_spearman_submission": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56b-plausibility-126ca59c2801.tif",
+    "spearman_passed": true,
+    "worst_all_forward_overlap_3px": 1.0,
+    "worst_all_submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+    "flagged_by_literal_gate_all": 40,
+    "space_filling_flagged_halo_gt_0_70": 30,
+    "over_emitted_blanket_flagged_168k_to_624k_dots": 10,
+    "normal_budget_le_167k_flagged": 0,
+    "worst_informative": {
+      "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+      "representation": "dot_field",
+      "their_dots": 624025,
+      "overlap": 0.8163276145960588,
+      "spearman": 0.024592016410005035,
+      "halo_coverage": 0.6096677003398686,
+      "space_filling": false,
+      "beyond_chance": 0.5294461012735363
+    },
+    "top10_informative": [
+      {
+        "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+        "representation": "dot_field",
+        "their_dots": 624025,
+        "overlap": 0.8163276145960588,
+        "spearman": 0.024592016410005035,
+        "halo_coverage": 0.6096677003398686,
+        "space_filling": false,
+        "beyond_chance": 0.5294461012735363
+      },
+      {
+        "submission": "GEMSDOE67:docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif",
+        "representation": "dot_field",
+        "their_dots": 167597,
+        "overlap": 0.788096882137356,
+        "spearman": 0.011479449628449863,
+        "halo_coverage": 0.5437357347712717,
+        "space_filling": false,
+        "beyond_chance": 0.5355693311716717
+      },
+      {
+        "submission": "GEMSDOE67:docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
+        "representation": "dot_field",
+        "their_dots": 167597,
+        "overlap": 0.788096882137356,
+        "spearman": 0.011479449628449863,
+        "halo_coverage": 0.5437357347712717,
+        "space_filling": false,
+        "beyond_chance": 0.5355693311716717
+      },
+      {
+        "submission": "GEMSDOE22:docs/downloads/gems22-h23-b-dti-optimal-emission-10pct-20261002-86176698-nan.tif",
+        "representation": "dot_field",
+        "their_dots": 516738,
+        "overlap": 0.780766983587401,
+        "spearman": 0.027885081438903773,
+        "halo_coverage": 0.5311524689188144,
+        "space_filling": false,
+        "beyond_chance": 0.5324001900851717
+      },
+      {
+        "submission": "GEMSDOE22:docs/downloads/gems22-h23-b-dti-optimal-emission-10pct-20261002-86176698-allfinite.tif",
+        "representation": "dot_field",
+        "their_dots": 516738,
+        "overlap": 0.780766983587401,
+        "spearman": 0.027885081438903773,
+        "halo_coverage": 0.5311524689188144,
+        "space_filling": false,
+        "beyond_chance": 0.5324001900851717
+      },
+      {
+        "submission": "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif",
+        "representation": "dot_field",
+        "their_dots": 201260,
+        "overlap": 0.7729324905720508,
+        "spearman": 0.011659996965103558,
+        "halo_coverage": 0.5602928490507473,
+        "space_filling": false,
+        "beyond_chance": 0.4835937761354366
+      },
+      {
+        "submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+        "representation": "dot_field",
+        "their_dots": 344041,
+        "overlap": 0.7703829606416317,
+        "spearman": 0.004089145970128742,
+        "halo_coverage": 0.6413402044695024,
+        "space_filling": false,
+        "beyond_chance": 0.35979152885329896
+      },
+      {
+        "submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+        "representation": "dot_field",
+        "their_dots": 344041,
+        "overlap": 0.7703829606416317,
+        "spearman": 0.004089145970128742,
+        "halo_coverage": 0.6413402044695024,
+        "space_filling": false,
+        "beyond_chance": 0.35979152885329896
+      },
+      {
+        "submission": "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif",
+        "representation": "dot_field",
+        "their_dots": 246469,
+        "overlap": 0.7302013066340893,
+        "spearman": -0.002807702069190875,
+        "halo_coverage": 0.6759617615984693,
+        "space_filling": false,
+        "beyond_chance": 0.16738624831187143
+      },
+      {
+        "submission": "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref_allfinite.tif",
+        "representation": "dot_field",
+        "their_dots": 246469,
+        "overlap": 0.7302013066340893,
+        "spearman": -0.002807702069190875,
+        "halo_coverage": 0.6759617615984693,
+        "space_filling": false,
+        "beyond_chance": 0.16738624831187143
+      }
+    ],
+    "literal_gate_passed": false
+  },
+  "final_dots": "NOT GENERATED (stopped immediately at pre-placement surface gate per Protocol Rule 1)",
+  "raster_sha256": null,
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "promoted": false,
+  "ok_to_download": false,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "submission_slots_used": 0,
+  "organizer_submission_receipt": null,
+  "stop_reason": "Pre-placement continuous surface check (gems57.uniqueness.compare_array_to_registry, budget-matched-v3) passed Spearman correlation across all 986 comparable rasters (worst rho = 0.2582 <= 0.90) and cleared all ~950 normal-budget (<= 167,596-dot) family submissions, but flagged 40 rasters above 0.70 forward 3 px overlap: 30 space-filling/lattice priors (halo_coverage > 0.70) plus 10 over-emitted blanket files (6 unique submissions with 167,597..624,025 dots, halo_coverage 0.531..0.676). Stopped immediately before placing final dots per Protocol Rule 1; zero retuning, zero overlap swapping, zero slots spent.",
+  "irregularities": [
+    "IR-79-53",
+    "IR-79-82",
+    "IR-79-83",
+    "IR-79-84"
+  ]
+}

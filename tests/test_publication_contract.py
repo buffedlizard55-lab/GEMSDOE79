@@ -347,3 +347,46 @@ def test_prompt_named_unscored_candidates_and_empty_siblings_in_lineage_forensic
     readme_text = (ROOT / 'README.md').read_text(encoding='utf-8')
     assert 'gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:' in readme_text
     assert 'https://buffedlizard55-lab.github.io/GEMSDOE88/' in readme_text
+
+
+def test_restore_receipt_parity_check_catches_hash_or_id_drift(tmp_path):
+    from verify_project import restore_receipt_matches_data_manifest
+
+    (tmp_path / 'registry').mkdir()
+    (tmp_path / 'data').mkdir()
+    manifest = {
+        'files': [
+            {'id': 'training_features', 'sha256': 'a' * 64},
+            {'id': 'ext_geodawn_rad_u8', 'sha256': 'b' * 64},
+        ]
+    }
+    (tmp_path / 'registry/data_manifest.json').write_text(json.dumps(manifest))
+    good_receipt = {
+        'verified_files_count': 2,
+        'storage_root': 'data/raw',
+        'files': [
+            {'id': 'training_features', 'sha256': 'a' * 64, 'status': 'present'},
+            {'id': 'ext_geodawn_rad_u8', 'sha256': 'b' * 64, 'status': 'present'},
+        ],
+    }
+    (tmp_path / 'data/restore_receipt.json').write_text(json.dumps(good_receipt))
+    assert restore_receipt_matches_data_manifest(tmp_path) is True
+
+    # Simulate absolute machine path leak
+    abs_receipt = dict(good_receipt, storage_root='/home/user/GEMSDOE79/data/raw')
+    (tmp_path / 'data/restore_receipt.json').write_text(json.dumps(abs_receipt))
+    assert restore_receipt_matches_data_manifest(tmp_path) is False
+
+    # Simulate the 014edbe receipt corruption: stale hash + phantom ID
+    bad_receipt = {
+        'verified_files_count': 3,
+        'storage_root': 'data/raw',
+        'files': [
+            {'id': 'training_features', 'sha256': 'a' * 64, 'status': 'present'},
+            {'id': 'ext_geodawn_rad_u8', 'sha256': 'e' * 64, 'status': 'present'},
+            {'id': 'ext_geodawn_mag_u8', 'sha256': 'f' * 64, 'status': 'present'},
+        ],
+    }
+    (tmp_path / 'data/restore_receipt.json').write_text(json.dumps(bad_receipt))
+    assert restore_receipt_matches_data_manifest(tmp_path) is False
+

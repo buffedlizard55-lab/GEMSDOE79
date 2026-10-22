@@ -13,11 +13,15 @@
    `scripts/preflight_new_lane.py --restore` exits 2, forbidding any nonempty new
    candidate under that reading. Do not bypass it or restart the stopped lane.
 
-   Session 2026-10-22 also ran **H79-ASYM** (antislope excess, `registry/preregistration_asym.json`).
-   It stopped at the surface duplicate gate before any placement (IR-79-74). Its card is
-   `run_card_asym.json`, which is archival. The canonical card is still `run_card.json`.
-   Do not reopen H79-ASYM by retuning. Note that the lidar-scarp and geodetic-strain channels
-   are already saturated in the registry (16 strain-named rasters; 32 informative scarp-channel overlaps).
+   Session 2026-10-22 also ran **H79-ASYM** (antislope excess, `registry/preregistration_asym.json`)
+   and **H79-MRND** (multi-regime brittle-crustal nested discovery across 77 physical features,
+   `registry/preregistration_mrnd.json`). Both stopped cleanly at the pre-placement surface
+   duplicate gate before placing final dots (`run_card_asym.json`, IR-79-74; `run_card_mrnd.json`,
+   IR-79-83, where `H79-MRND` beat `H33` on both seeds and cleared all ~950 normal-budget
+   `<= 167,596`-dot submissions while exposing the `168k..624k` wide-blanket threshold trap, IR-79-84).
+   The canonical card remains `run_card.json`. Do not reopen H79-ASYM or H79-MRND by retuning.
+   Note that the standalone lidar-scarp and geodetic-strain channels are already saturated in the
+   registry (16 strain-named rasters; 32 informative scarp-channel overlaps).
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256

@@ -572,5 +572,38 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>Relocated the section above <code>## Original project prompt</code> and updated <code>publication_contract_checks</code> (<code>readme_matches_card_decision</code>) to reject any non-whitespace content after <code>&lt;/details&gt;</code> in <code>README.md</code>, with regression coverage in <code>tests/test_publication_contract.py</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session 2026-10-22 — H79-MRND lane &amp; restoration audit (branch <code>arena/800321e2-gemsdoe79</code>)</h3>
+<p>Full three-pass engineering and scientific review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_800321e2.md">session 800321e2</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_mrnd_800321e2.md">hypotheses shortlist</a>, and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/mrnd_analysis.md">H79-MRND technical analysis</a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-82</td>
+<td><strong>Hand-edited <code>data/restore_receipt.json</code> conflicted with <code>registry/data_manifest.json</code> (<code>014edbe</code>).</strong> Running <code>.venv/bin/python scripts/restore_data.py --preserve-receipt</code> restored and SHA-256-verified all 13 raw inputs, then raised <code>ValueError: Restoration conflicts with the frozen original receipt</code> because <code>data/restore_receipt.json</code> recorded non-manifest SHA-256 <code>e8086c43...</code> on <code>ext_geodawn_rad_u8</code> (true manifest SHA-256 <code>c22420f7...</code>) and nonexistent ID <code>ext_geodawn_mag_u8</code>.</td>
+<td>Regenerated <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/data/restore_receipt.json">restore_receipt.json</a> directly from verified bytes via <code>scripts/restore_data.py</code>, confirmed <code>scripts/restore_data.py --preserve-receipt</code> now exits <code>0</code> across all 13/13 inputs, and added <code>restore_receipt_matches_data_manifest</code> in <code>scripts/verify_project.py</code> plus unit coverage in <code>tests/test_publication_contract.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-83</td>
+<td><strong><code>H79-MRND</code> Experiment <code>M1</code> beat <code>H33</code> and ablation controls on both seeds, cleared all ~950 normal-budget submissions, and stopped at the pre-placement surface gate.</strong> Preregistered in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_mrnd.json">preregistration_mrnd.json</a> (<code>sha256: ea12fe39...</code>) across 77 physical features (<code>max single-feature AUC = 0.8589 &lt;= 0.90</code> over 616 tests), <code>H79-MRND</code> scored <code>HOLDOUT-DTI</code> <code>0.1044</code> <code>[0.0902, 0.1184]</code> vs <code>H33</code> <code>0.0961</code> on Seed 20 and <code>0.1236</code> <code>[0.1065, 0.1414]</code> vs <code>H33</code> <code>0.0989</code> on Seed 30 (<code>paired delta +0.0247, 95% CI [+0.0095, +0.0389]</code>; <code>+30.3%</code> and <code>+51.3%</code> over single-regime static ablation). Pre-placement surface scan (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/uniqueness_surface.json">uniqueness_surface.json</a>) passed Spearman correlation across all 986 comparable rasters (<code>worst rho = 0.2582 &lt;= 0.90</code>) and flagged <code>0 / ~950</code> normal-budget (<code>&lt;= 167,596</code>-dot) family submissions, but flagged 40 rasters above <code>0.70</code> one-sided 3 px overlap.</td>
+<td>Stopped immediately before final dot placement per Protocol Rule 1 (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/m1_experiment_state.json">m1_experiment_state.json</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_mrnd.json">run_card_mrnd.json</a>); <code>verdict = negative</code>, <code>ok_to_submit = false</code>, <code>0</code> weekly slots spent, canonical artifact unchanged (<code>H79-NHR</code>).</td>
+</tr>
+<tr>
+<td>IR-79-84</td>
+<td><strong>Over-emitted wide-blanket trap (<code>167,597 .. 624,025</code> dots) exposed in <code>vendor/gems57/uniqueness.py</code> alongside the finite-budget Pigeonhole bound.</strong> All 10 non-space-filling files (<code>halo_coverage &lt;= 0.70</code>) that flagged <code>H79-MRND</code> (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/surface_diagnostic.json">surface_diagnostic.json</a>) are 6 wide-blanket rasters emitting <code>167,597 .. 624,025</code> dots (<code>4.5x .. 16.6x</code> a <code>37,654</code>-dot budget; <code>halo_coverage 0.531 .. 0.676</code>) that escaped <code>budget-matched-v3</code> top-<code>K</code> truncation solely because <code>representation_class</code> sets its <code>continuous_surface</code> cutoff at <code>0.15 * footprint = 775,105</code> pixels, while sparse lattice <code>13GEMSDOE</code> (<code>U = 6,514</code> uncovered pixels) forces $\operatorname{ov}_{3\text{px}} \ge 31{,}140 / 37{,}654 = 0.827004$ on <strong>every</strong> <code>37,654</code>-dot map.</td>
+<td><code>vendor/gems57/uniqueness.py</code> kept byte-pinned (<code>f7974ab4...</code>) with no agent-side exemption. Documented the exact parameter-free resolution for human owner review: symmetric 3 px halo overlap $\min(\operatorname{ov}<em>{3\text{px}}(M, R), \operatorname{ov}</em>{3\text{px}}(R, M)) \le 0.70$ (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/mrnd_analysis.md">mrnd_analysis.md</a>).</td>
+</tr>
+<tr>
+<td>IR-79-85</td>
+<td><strong>Latent checkout-path leak in <code>scripts/restore_data.py</code> and hardcoded review date in <code>tests/test_site_feed_and_recovery.py</code> caught in Pass 3.</strong> Live re-execution of the full verification suite revealed that <code>scripts/restore_data.py</code> serialized machine-local <code>str(root)</code> (<code>/home/user/GEMSDOE79/data/raw</code>, violating <code>IR-79-63</code>) into <code>data/restore_receipt.json</code>'s <code>storage_root</code> (copied into <code>docs/evidence/restore_receipt.json</code> by <code>build_site.py</code>), and <code>test_failed_feed_preserves_old_observation_date</code> hardcoded <code>'2026-10-21'</code> instead of reading <code>ledger['reviewed_date_utc']</code>.</td>
+<td>Normalized <code>storage_root</code> inside <code>ROOT</code> to repo-relative POSIX paths (<code>data/raw</code>) in <code>scripts/restore_data.py</code>, extended <code>restore_receipt_matches_data_manifest()</code> + <code>tests/test_publication_contract.py</code> to reject absolute <code>/home/</code> paths, regenerated <code>data/restore_receipt.json</code>, and updated <code>tests/test_site_feed_and_recovery.py</code> to assert <code>ledger['reviewed_date_utc']</code>.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

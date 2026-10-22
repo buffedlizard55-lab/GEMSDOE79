@@ -135,8 +135,13 @@ def main() -> None:
         if want is None or e["id"] in want:
             r = restore_entry(e, root); results.append(r)
             print(f"{r['status']:>8}  {e['dest']:60s} sha256={r['sha256'][:12]}…", flush=True)
+    storage_label = (
+        root.resolve().relative_to(ROOT.resolve()).as_posix()
+        if root.resolve().is_relative_to(ROOT.resolve())
+        else str(root)
+    )
     receipt = {"schema_version": 1, "verified_files_count": len(results),
-               "storage_root": str(root), "files": results}
+               "storage_root": storage_label, "files": results}
     (ROOT / "data").mkdir(parents=True, exist_ok=True)
     if old is not None:
         expected = {r["id"]: r["sha256"] for r in old["files"]}

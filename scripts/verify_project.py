@@ -192,6 +192,26 @@ def witness_report_checks(root):
     }
 
 
+def restore_receipt_matches_data_manifest(root: Path) -> bool:
+    """Verify data/restore_receipt.json matches every ID and SHA-256 in data_manifest.json."""
+    root = Path(root)
+    manifest = strict_loads_bytes((root / 'registry/data_manifest.json').read_bytes())
+    receipt = strict_loads_bytes((root / 'data/restore_receipt.json').read_bytes())
+    expected = {row['id']: row['sha256'] for row in manifest.get('files', [])}
+    if receipt.get('verified_files_count') != len(expected):
+        return False
+    storage = str(receipt.get('storage_root', ''))
+    if storage.startswith('/') or '/home/' in storage:
+        return False
+    actual = {}
+    for row in receipt.get('files', []):
+        fid = row.get('id')
+        if fid in actual or row.get('status') not in ('present', 'restored', 'verified'):
+            return False
+        actual[fid] = row.get('sha256')
+    return bool(expected) and actual == expected
+
+
 def verify(refresh_timestamp: bool = False):
     checks = {}
     checks.update(witness_report_checks(ROOT))
@@ -203,6 +223,7 @@ def verify(refresh_timestamp: bool = False):
     checks['reference_input_hashes_match_pins'] = all(
         sha(ROOT / 'data/reference' / row['dest']) == row['sha256']
         for row in manifest['files'] if row['id'] in ('existing_faults', 'sample_submission'))
+    checks['restore_receipt_matches_data_manifest'] = restore_receipt_matches_data_manifest(ROOT)
     card = json.loads((ROOT / 'run_card.json').read_text())
     checks.update(publication_contract_checks(ROOT, card))
     checks['card_copies_equal'] = (card == json.loads((ROOT / 'evidence/run_card.json').read_text())
