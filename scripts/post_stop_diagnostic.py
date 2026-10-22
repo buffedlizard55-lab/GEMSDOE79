@@ -59,7 +59,11 @@ def ensure_witnesses_restored() -> None:
         restore_blob(ROOT, hits[0], pins[hits[0]['blob']])
 
 
+import argparse
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.parse_args()
     manifest = json.loads((ROOT / 'evidence/feature_cache.json').read_text())
     cache = ROOT / '.cache/g79'
     for row in manifest['files']:

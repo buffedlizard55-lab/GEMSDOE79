@@ -196,6 +196,33 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 </tr>
 </tbody>
 </table>
+<p>Session 2026-10-22 environment-portability and developer-ergonomics audit (branch <code>arena/9e8bac9e-gemsdoe79</code>):</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-33</td>
+<td><code>AGENTS.md</code> referenced prior branch name on line 5 after PR #11 merged.</td>
+<td>Updated <code>AGENTS.md</code> to use the branch-neutral rule while preserving the requirement that Arena's active session metadata takes precedence.</td>
+</tr>
+<tr>
+<td>IR-79-34</td>
+<td>Direct invocation of <code>pytest</code> without <code>-m pytest</code> failed collection in <code>tests/test_validate_submission.py</code> with <code>ModuleNotFoundError: No module named 'scripts'</code>.</td>
+<td>Added <code>pythonpath = ["."]</code> to <code>[tool.pytest.ini_options]</code> in <code>pyproject.toml</code>, enabling clean execution under both <code>pytest</code> and <code>python3 -m pytest</code>.</td>
+</tr>
+<tr>
+<td>IR-79-35</td>
+<td><code>scripts/download_competition_data.sh</code> hardcoded <code>PYTHON="${PYTHON:-.venv/bin/python}"</code>, failing when <code>.venv</code> does not exist. <code>scripts/post_stop_diagnostic.py</code> lacked CLI argument parsing for <code>-h</code>/<code>--help</code>, causing it to unintentionally trigger heavy holdout computations upon help inspection.</td>
+<td>Updated <code>download_competition_data.sh</code> to check for <code>.venv/bin/python</code> if present or fallback to <code>python3</code>. Added <code>argparse.ArgumentParser</code> to <code>scripts/post_stop_diagnostic.py</code> for immediate <code>-h</code>/<code>--help</code> response. Added unit tests in <code>tests/test_site_feed_and_recovery.py</code>.</td>
+</tr>
+</tbody>
+</table>
 <h3>Outcome</h3>
 <p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A newly computed, byte-distinct
 GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated
