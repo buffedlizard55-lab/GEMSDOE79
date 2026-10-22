@@ -371,5 +371,19 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to <code>archive/g79_stepco_s1/downloads/</code>. <code>run_card_stepco.json</code>, <code>evidence/stepco/</code> and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at <code>archive/g79_fabric_offset_e1/</code>. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision.</td>
 </tr>
 </tbody>
-</table></div></section></main>
+</table>
+<h3>Review addendum — session 0c9f6bad (2026-10-22)</h3>
+<ul>
+<li><strong>IR-79-57:</strong> Pinned clean install could not collect <code>test_g79b.py</code>: <code>skimage</code>
+  was imported by the archived lane's retained tests but absent from requirements.
+  Added scikit-image and its pinned dependency closure. Full suite now passes.</li>
+<li><strong>IR-79-58:</strong> README's routine verification commands reran the stopped NHR lane
+  and placed final dots before the surface uniqueness scan. Replaced with frozen
+  artifact checks. No stopped scientific entry point was executed in this review.</li>
+<li><strong>IR-79-59:</strong> Selector trusted a gate-summary PASS without invoking existing
+  evidence/card reconciliation. It now calls that adapter, requires all named
+  literal-boolean gates, and fails closed on malformed measurement evidence.
+  This is consistency verification, not a fresh holdout or organizer authentication.</li>
+</ul>
+<p>Details and evidence boundaries: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0c9f6bad.md">session review</a>.</p></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

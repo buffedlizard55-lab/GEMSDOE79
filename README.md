@@ -28,13 +28,17 @@ Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard5
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
 
+Latest software review: [three-pass review, session `0c9f6bad`](reports/session_review_0c9f6bad.md).
+This session adds a separate [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md), records a clean-install dependency fix and confirms that no scientific experiment or submission slot was used.
+
 ## What this session found (2026-10-22, session `337ac1e9`)
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
    So sparse dots win: one dot on a trace earns up to about 2.33 truth units of TP and pays at most 1 unit of FP.
    H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
-   masked, so those dots were pure false positives. Removing them lifted the user-reported score from 0.2600
-   to 0.2778. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
+   masked; nearby dots can still earn credit for hidden traces, so their removal is not
+   proved to remove only false positives. The corresponding user-reported scores are 0.2600
+   and 0.2778; these are not artifact-bound organizer receipts or a causal demonstration. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
    0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
 2. **Can we beat it?** Five untried hypotheses were ranked in
    [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
@@ -105,26 +109,29 @@ already dotted, so uniqueness after the fact costs more than detector gains.
   3. Reweight the nested target by distance band.
   4. Add the absolute 3DEP DEM for shoreline suppression.
 
-## Latest repository review — 2026-10-22
+## Verify the frozen result (safe default)
 
-The current-session three-pass review and test/dependency correction are documented in [`reports/repository_review_2026-10-22_session-6302cccd.md`](reports/repository_review_2026-10-22_session-6302cccd.md). No scientific run was restarted: H79-NHR remains stopped negative under the duplicate gate, and the current TIFF remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
-
-## Reproduce and verify
+The active lane is **stopped**. These commands inspect existing bytes and evidence;
+they do not retrain, place dots, regenerate the scientific card or use a slot.
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.lock
-.venv/bin/python scripts/restore_data.py              # hash-pinned inputs (see registry/data_manifest.json)
-.venv/bin/python scripts/restore_registry_git.py      # 992 registry rasters via git (no REST quota)
-.venv/bin/python scripts/run_nhr.py holdout --seed 20 # X1 holdout (also --seed 30), about 12 min each
-.venv/bin/python scripts/run_nhr.py final             # final surface + dots
-.venv/bin/python scripts/nhr_uniqueness.py surface && .venv/bin/python scripts/nhr_uniqueness.py final
-.venv/bin/python scripts/nhr_overlap_chance.py        # per-raster overlap vs chance
-.venv/bin/python scripts/build_nhr_submission.py      # gate check + shared writer
-.venv/bin/python scripts/finalize_nhr.py              # run card from evidence
-.venv/bin/python scripts/select_submission.py         # separate selector (refuses here)
-.venv/bin/python scripts/verify_project.py && .venv/bin/python scripts/submission_status.py
-.venv/bin/python scripts/build_site.py && .venv/bin/python scripts/check_site.py && .venv/bin/python -m pytest -q
+.venv/bin/python scripts/restore_data.py --ids existing_faults,sample_submission --target-dir data/reference --preserve-receipt
+.venv/bin/python scripts/verify_project.py
+.venv/bin/python scripts/submission_status.py  # expected exit 2: DO NOT SUBMIT
+.venv/bin/python scripts/build_site.py
+.venv/bin/python scripts/check_site.py
+.venv/bin/python -m pytest -q
 ```
+
+Historical experiment entry points (`run_nhr.py`, `nhr_uniqueness.py`,
+`build_nhr_submission.py`, `finalize_nhr.py`) document reproduction, **not permission
+to resume this lane**. Do not rerun them in routine verification. A new authorized
+lane must complete the surface novelty gate **before** any final dot placement,
+then clear final novelty, leakage and matched holdout gates before the separate
+selector can approve it. The selector now checks the existing evaluator/novelty
+evidence against the card as well as the complete literal gate receipt. This is
+an evidence-consistency check, not a fresh scientific evaluation.
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
