@@ -1,0 +1,120 @@
+{
+  "lane": "G79-CONJ",
+  "experiment": "EXP-CONJ-1",
+  "threshold": 0.9,
+  "seeds": {
+    "20": {
+      "withheld_positive_pixels": 11321,
+      "active_pixels": 4840798,
+      "channels": {
+        "conj_hw_near": {
+          "symmetric_auc": 0.58329,
+          "passed": true
+        },
+        "conj_hw_mid": {
+          "symmetric_auc": 0.543725,
+          "passed": true
+        },
+        "conj_hw_far": {
+          "symmetric_auc": 0.510724,
+          "passed": true
+        },
+        "conj_fw_near": {
+          "symmetric_auc": 0.593969,
+          "passed": true
+        },
+        "conj_fw_mid": {
+          "symmetric_auc": 0.559683,
+          "passed": true
+        },
+        "conj_fw_far": {
+          "symmetric_auc": 0.503552,
+          "passed": true
+        },
+        "conj_len_scaled": {
+          "symmetric_auc": 0.753438,
+          "passed": true
+        },
+        "conj_dperp_over_len": {
+          "symmetric_auc": 0.712102,
+          "passed": true
+        },
+        "conj_junc_10": {
+          "symmetric_auc": 0.63403,
+          "passed": true
+        },
+        "conj_junc_30": {
+          "symmetric_auc": 0.654002,
+          "passed": true
+        },
+        "conj_bend": {
+          "symmetric_auc": 0.784379,
+          "passed": true
+        },
+        "conj_parallel_support": {
+          "symmetric_auc": 0.703134,
+          "passed": true
+        }
+      },
+      "max_symmetric_auc": 0.784379,
+      "all_passed": true
+    },
+    "30": {
+      "withheld_positive_pixels": 11342,
+      "active_pixels": 4840819,
+      "channels": {
+        "conj_hw_near": {
+          "symmetric_auc": 0.560752,
+          "passed": true
+        },
+        "conj_hw_mid": {
+          "symmetric_auc": 0.516539,
+          "passed": true
+        },
+        "conj_hw_far": {
+          "symmetric_auc": 0.541348,
+          "passed": true
+        },
+        "conj_fw_near": {
+          "symmetric_auc": 0.6185,
+          "passed": true
+        },
+        "conj_fw_mid": {
+          "symmetric_auc": 0.579662,
+          "passed": true
+        },
+        "conj_fw_far": {
+          "symmetric_auc": 0.522546,
+          "passed": true
+        },
+        "conj_len_scaled": {
+          "symmetric_auc": 0.754228,
+          "passed": true
+        },
+        "conj_dperp_over_len": {
+          "symmetric_auc": 0.719029,
+          "passed": true
+        },
+        "conj_junc_10": {
+          "symmetric_auc": 0.656299,
+          "passed": true
+        },
+        "conj_junc_30": {
+          "symmetric_auc": 0.673626,
+          "passed": true
+        },
+        "conj_bend": {
+          "symmetric_auc": 0.794395,
+          "passed": true
+        },
+        "conj_parallel_support": {
+          "symmetric_auc": 0.693962,
+          "passed": true
+        }
+      },
+      "max_symmetric_auc": 0.794395,
+      "all_passed": true
+    }
+  },
+  "all_passed": true
+}

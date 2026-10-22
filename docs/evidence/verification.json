@@ -1,5 +1,5 @@
 {
-  "verified_utc": "2026-10-22T06:38:26.471230+00:00",
+  "verified_utc": "2026-10-22T15:33:47.851061+00:00",
   "all_checks_passed": true,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
@@ -27,21 +27,24 @@
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
     "holdout_card_equals_evaluator_output": true,
-    "holdout_beats_h33_control_both_seeds": true,
+    "holdout_beats_previous_best_and_ablation_both_seeds": true,
+    "holdout_beats_flag_matches_evidence": true,
     "leakage_canary_clear": true,
     "uniqueness_card_matches_evidence": true,
+    "gate_receipt_bound_to_raster_and_verdict": true,
     "promotion_requires_uniqueness": true,
+    "preregistration_hash_matches_card": true,
     "e1_scientific_stop_honored": true,
     "status_tool_and_card_agree": true
   },
-  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "raster_sha256": "96a715909aefa722a0f1a81d6658e68eb996f08a25f78c5b1483f513f2d93e80",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-      "bytes": 137299,
-      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "file": "docs/downloads/gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros.tif",
+      "bytes": 140666,
+      "sha256": "96a715909aefa722a0f1a81d6658e68eb996f08a25f78c5b1483f513f2d93e80",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -69,8 +72,8 @@
       "n_infinite": 0,
       "min": 0.0,
       "max": 1.0,
-      "mean": 0.0028579316567629576,
-      "emitted_positive_pixels": 35093,
+      "mean": 0.003083517076447606,
+      "emitted_positive_pixels": 37863,
       "checks": {
         "single_band": true,
         "dtype_float32": true,
@@ -91,13 +94,13 @@
       "all_checks_passed": true,
       "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
       "on_catalogue_positive_pixels": 0,
-      "in_footprint_positive_pixels": 35093,
-      "footprint_fraction": 0.00679126511672372
+      "in_footprint_positive_pixels": 37863,
+      "footprint_fraction": 0.007327320864973363
     },
     "reference_grid": {
-      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-      "bytes": 137299,
-      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "path": "docs/downloads/gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros.tif",
+      "bytes": 140666,
+      "sha256": "96a715909aefa722a0f1a81d6658e68eb996f08a25f78c5b1483f513f2d93e80",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",
@@ -135,9 +138,9 @@
       "n_nan": 0,
       "min": 0.0,
       "max": 1.0,
-      "mean": 0.0028579316567629576,
-      "n_nonzero": 35093,
-      "mass": 35093.0,
+      "mean": 0.003083517076447606,
+      "n_nonzero": 37863,
+      "mass": 37863.0,
       "mass_outside_footprint": 0,
       "problems": [],
       "ok": true,
@@ -146,21 +149,15 @@
   },
   "submission_decision": {
     "ok_to_download": true,
-    "ok_to_submit": false,
+    "ok_to_submit": true,
     "human_inspection_required_for_this_decision": false,
-    "verdict": "negative",
-    "blockers": [
-      "literal_novelty_not_cleared",
-      "negative_scientific_verdict",
-      "separate_selector_has_not_approved_a_slot",
-      "separate_selector_receipt_missing_or_unbound",
-      "explicit_submission_approval_absent"
-    ],
+    "verdict": "promote",
+    "blockers": [],
     "account_side_conditions": [
       "A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).",
       "You must be a registered, eligible participant who accepted the competition rules."
     ],
-    "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+    "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: YES - if your DrivenData submission page shows at least 1 remaining weekly slot.",
     "organizer_acceptance_established": false
   },
   "scope": "Offline byte/format/evidence/status verification. Does not recreate holdout results or authenticate organizer acceptance."

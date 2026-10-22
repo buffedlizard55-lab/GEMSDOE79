@@ -264,10 +264,74 @@ def dilstep_evidence_checks(root, card):
     return out
 
 
+def conj_evidence_checks(root, card):
+    """Every G79-CONJ card number must equal the evaluator / canary / uniqueness / gate evidence."""
+    root = Path(root)
+    ev = root / 'evidence/conj'
+    out = {}
+    hold = {s: json.loads((ev / f'holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    h = card['holdout_dti']
+    cand = 'EXP-CONJ-3_dinkelbach'
+    src20 = hold[20]['pooled']['scores'][cand]
+    out['holdout_card_equals_evaluator_output'] = (
+        h['dti'] == round(src20['dti'], 4) and
+        h['ci95'] == [round(c, 4) for c in src20['ci95']] and
+        h['withheld_positive_pixels'] == src20['withheld_positive_pixels'] and
+        h['evaluator_version'] == hold[20]['evaluator_version'] == 'gems57-pooled-hide-v2')
+    out['holdout_beats_previous_best_and_ablation_both_seeds'] = all(
+        hold[s]['pooled']['scores'][cand]['dti'] > bar and
+        hold[s]['pooled']['scores'][cand]['dti'] > hold[s]['pooled']['scores']['ABL_zero_conj_cc']['dti'] and
+        hold[s]['pooled']['paired_differences']['C2_h33_analogue_foldfair']['ci95'][0] > 0
+        for s, bar in ((20, 0.1905), (30, 0.1944)))
+    out['holdout_beats_flag_matches_evidence'] = (
+        card.get('current_best_holdout_beaten') is out['holdout_beats_previous_best_and_ablation_both_seeds'])
+    canary = json.loads((ev / 'canary.json').read_text())
+    thvc_canary = json.loads((root / 'evidence/g79_leakage_canary.json').read_text())
+    canary_max = max(
+        max(canary['seeds'][str(s)]['max_symmetric_auc'] for s in (20, 30)),
+        max(thvc_canary[f'seed{s}']['max_symmetric_auc'] for s in (20, 30)))
+    out['leakage_canary_clear'] = (
+        card['leakage_canary']['passed'] is True and
+        card['leakage_canary']['auc'] == round(canary_max, 4) and canary_max <= 0.90 and
+        canary['all_passed'] is True and thvc_canary['seed20']['all_passed'] is True
+        and thvc_canary['seed30']['all_passed'] is True)
+    surf_u = json.loads((ev / 'uniqueness_surface.json').read_text())
+    prov_u = json.loads((ev / 'uniqueness_prov.json').read_text())
+    dot_u = json.loads((ev / 'uniqueness_dots.json').read_text())
+    d2_u = json.loads((ev / 'uniqueness_d2.json').read_text())
+    surf_rho = abs(surf_u['summary']['worst_abs_spearman']['value'])
+    dot_rho = abs(dot_u['summary']['worst_abs_spearman']['value'])
+    dot_rows = [r for r in dot_u['rows'] if 'error' not in r]
+    max_jac = max((r.get('jaccard_dot_sets') or 0.0) for r in dot_rows)
+    any_id = any(r.get('identical_bytes') or r.get('identical_decoded_predictions') for r in dot_rows)
+    prov_rho = abs(prov_u['summary']['worst_abs_spearman']['value'])
+    d2s = d2_u['summary']['sparse_le_50k']
+    expected_unique = bool(
+        surf_rho <= 0.90 and prov_rho <= 0.90 and dot_rho <= 0.90 and not any_id and max_jac <= 0.50 and
+        d2s['d2_firings'] == 0 and
+        d2s['worst_chance_corrected']['chance_corrected_overlap'] <= 0.70)
+    build = json.loads((ev / 'final_build.json').read_text())
+    out['uniqueness_card_matches_evidence'] = (
+        card['protocol_unique'] is expected_unique and
+        card['literal_unique'] is False and
+        build['raster_sha256'] == card['raster_sha256'])
+    gates = json.loads((ev / 'gates.json').read_text())
+    out['gate_receipt_bound_to_raster_and_verdict'] = (
+        gates['raster_sha256'] == card['raster_sha256'] and
+        gates['all_passed'] is (card['verdict'] == 'promote') and
+        gates['all_passed'] is all(gates['gates'].values()))
+    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    out['preregistration_hash_matches_card'] = (
+        sha(root / 'registry/preregistration_g79_conj.json') == card['preregistration_sha256'])
+    return out
+
+
 def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
     root = Path(root)
     lane = card.get('lane')
+    if lane == 'G79-CONJ':
+        return conj_evidence_checks(root, card)
     if lane == 'G79-THVC':
         return thvc_evidence_checks(root, card)
     if lane == 'H79-DILSTEP':

@@ -31,11 +31,23 @@ REQUIRED_GATES = frozenset({
     "final_dots_match_audited_bytes", "exact_budget",
 })
 
+# G79-CONJ (preregistration_g79_conj.json): its own preregistered gate set.
+REQUIRED_GATES_CONJ = frozenset({
+    "canaries_all_le_0_90_both_seeds", "beats_current_holdout_best_both_seeds",
+    "paired_ci_vs_h33_excludes_zero_both_seeds",
+    "point_beats_zero_conj_ablation_both_seeds", "evaluator_version_pinned",
+    "surface_rank_correlation_le_0_90", "final_rank_correlation_le_0_90",
+    "surface_uniqueness_passed", "final_dot_uniqueness_passed",
+    "final_dots_match_audited_bytes", "format_passed",
+})
+
 
 def evidence_dir(root, card):
     lane = card.get("lane")
     if lane == "H79-FFAS":
         return root / "evidence/ffas"
+    if lane == "G79-CONJ":
+        return root / "evidence/conj"
     return root / "evidence/nhr"
 
 
@@ -44,11 +56,12 @@ def selection_evidence(root, card, gates, actual):
 
     Missing or malformed evidence is a refusal, never an approval.
     """
+    required = REQUIRED_GATES_CONJ if card.get("lane") == "G79-CONJ" else REQUIRED_GATES
     try:
         checks = evidence_checks(root, card)
         rows = gates.get("gates")
         checks["complete_literal_gate_receipt"] = (
-            isinstance(rows, dict) and REQUIRED_GATES <= rows.keys()
+            isinstance(rows, dict) and required <= rows.keys()
             and all(value is True for value in rows.values())
             and gates.get("all_passed") is True
             and gates.get("raster_sha256") == actual
@@ -62,12 +75,12 @@ def selection_evidence(root, card, gates, actual):
 
 def _select() -> int:
     card = json.loads((ROOT / "run_card.json").read_text())
-    if isinstance(card, dict) and card.get("lane") not in (None, "H79-NHR", "H79-FFAS"):
+    if isinstance(card, dict) and card.get("lane") not in (None, "H79-NHR", "H79-FFAS", "G79-CONJ"):
         refusal = {
             "selected": False,
             "ok_to_submit": False,
             "selector": "scripts/select_submission.py",
-            "reason": "This adapter re-derives H79-NHR and H79-FFAS gates only. It will not approve another lane.",
+            "reason": "This adapter re-derives H79-NHR, H79-FFAS and G79-CONJ gates only. It will not approve another lane.",
             "lane": card.get("lane"),
             "card_left_unchanged": True,
         }
@@ -77,7 +90,7 @@ def _select() -> int:
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
     ev = evidence_dir(ROOT, card)
-    gates = json.loads((ev / "x1_gates.json").read_text())
+    gates = json.loads((ev / ("gates.json" if card.get("lane") == "G79-CONJ" else "x1_gates.json")).read_text())
     trial = dict(card)
     trial["selector_receipt"] = {"raster_sha256": actual, "selector": "scripts/select_submission.py",
                                  "all_automated_gates_passed": True, "source_url": "pending",
@@ -113,6 +126,8 @@ def _select() -> int:
     (ROOT / "run_card.json").write_text(text)
     (ROOT / "evidence/run_card.json").write_text(text)
     (ROOT / "docs/run-card.json").write_text(text)
+    if card.get("lane") == "G79-CONJ":
+        (ROOT / "run_card_conj.json").write_text(text)
     print(json.dumps({"selected": True, "raster_sha256": actual,
                       "submission_name": card["submission_name"]}, indent=2))
     return 0

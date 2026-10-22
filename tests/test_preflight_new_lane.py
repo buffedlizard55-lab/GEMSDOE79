@@ -26,7 +26,10 @@ def test_public_proof_does_not_conflate_random_expectation_and_certainty():
     assert 'halo coverage = 100% of allowed cells' in html
     assert 'halo coverage &gt; 0.70 ⇒ every map' not in html
     assert 'does not prove every map fails' in html
-    assert 'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.' in html
+    card = json.loads((ROOT / 'run_card.json').read_text())
+    expected = ('OK TO DOWNLOAD: YES. OK TO SUBMIT: YES.' if card.get('ok_to_submit') is True
+                else 'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.')
+    assert expected in html
 
 
 def test_verified_saturated_witness_blocks_new_lane():

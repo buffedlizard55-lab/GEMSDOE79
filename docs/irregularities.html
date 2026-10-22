@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: one unique machine-validated GeoTIFF for DrivenData competition 306, with an automated download/submit decision read from the run card.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -1021,6 +1021,34 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-142</td>
 <td><strong>Complete <code>0 / 934</code> sparse competition uniqueness proof &amp; controlled refutation of near-fault crowding (<code>evidence/fnhr/like_for_like_diagnostic.json</code>).</strong> Across all <strong><code>934</code> comparable sparse dot fields (<code>&lt;= 75,308</code> dots = <code>&lt;= 2x</code> budget)</strong> in 93 sibling repositories, <code>H79-FNHR</code> (<code>F3</code>, <code>d5f69d51…</code>) achieves <strong><code>0 / 934</code> duplicates (<code>max overlap = 0.6726 &lt;= 0.70</code>, <code>0.4814</code> vs <code>H33</code>, <code>0.4405</code> vs canonical <code>G79-THVC</code>)</strong>, whereas all <code>25</code> remaining raw overlaps (<code>20</code> even at <code>F1</code>'s <code>70 % &gt; 1 km</code> H33 distance distribution) are <code>80,000–985,492</code>-dot wide sweeps against which <strong><code>H33</code> itself overlaps <code>0.9295</code></strong>.</td>
 <td>Canonical repository artifact remains <strong><code>G79-THVC</code></strong> (<code>0.1905 / 0.1944 HOLDOUT-DTI</code>); <code>H79-FNHR</code> (<code>F3</code>, <code>verdict = negative</code>, <code>OK TO SUBMIT: NO</code>, <code>0</code> slots used) is archived cleanly under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_fnhr_a57e2a7f/README.md"><code>archive/h79_fnhr_a57e2a7f/</code></a>. Combining <code>H79-FNHR</code>'s <code>0.0906</code> zero-catalogue physics head with <code>G79-THVC</code>'s Charnes-Cooper placer (<code>0.4405</code> mutual overlap) is the top candidate for the next prospective lane once the owner decides <code>DENSE_SUPPORT_FRACTION</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>34dbe61d</code> addendum (2026-10-22) — <code>G79-CONJ</code> conjugate-offset lane, first selector-approved promotion (<code>arena/34dbe61d-gemsdoe79</code>)</h3>
+<p>Full record: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/conj_analysis.md"><code>reports/conj_analysis.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_20261022_conj.md"><code>research/hypotheses_20261022_conj.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_g79_conj.json"><code>registry/preregistration_g79_conj.json</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_conj.json"><code>run_card_conj.json</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/conj"><code>evidence/conj/</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-143</td>
+<td><strong>Operative uniqueness definition made explicit for the first promotion.</strong> Raw 3-px forward overlap of the <code>G79-CONJ</code> dots reaches <code>1.0</code> against dense corridor/diagnostic rasters and <code>0.7290</code> against one sparse map (<code>GEMSDOE25</code> factorial, 48,664 dots). The dense maps' 3-px halos cover most of the allowed domain and they likewise flag withheld ground truth (<code>truth20</code> raw <code>0.8682</code>, excess <code>0.827</code> vs <code>59GEMSDOE</code>), so the raw all-rasters reading is unsatisfiable by a perfect submission; the sparse <code>0.7290</code> has halo coverage <code>0.1762</code>, Jaccard <code>0.0275</code>, <code>rho = 0.046</code> and chance-corrected excess <code>(ov-h)/(1-h) = 0.6711</code>.</td>
+<td>Operative test = pre-existing owner-adopted amendment-D2 (<code>compare_array_to_registry_d2</code>, shared tool, not invented post-hoc; preregistration listed <code>informative-halo-v4</code>/D2 among reported modes): zero D2 firings vs all 875 comparable sparse priors (dot-equivalent <code>&lt;= 50,000</code>), worst chance-corrected <code>0.6711 &lt;= 0.70</code>, plus full-inventory max abs-rho &lt;= 0.90 (surface <code>0.7331</code>, dots <code>0.1233</code>), <code>max Jaccard = 0.0463 &lt;= 0.50</code>, zero byte/decoded identity across 1,199 rasters. All raw readings (sparse <code>0.7290</code> flag and named raster, budget-matched worst <code>1.0</code>, literal) remain printed in the run card and on the site. Switching emission or dot count to duck the raw <code>0.70</code> was rejected as post-hoc registry tuning. Limitation: a stricter owner may still require the raw sparse reading <code>&lt;= 0.70</code>; that reading is disclosed so the slot decision can be revisited without new computation.</td>
+</tr>
+<tr>
+<td>IR-79-144</td>
+<td><strong>Protocol ordering caveat:</strong> live dots were computed into <code>.cache</code> before the registry surface audit finished (cache only, nothing published).</td>
+<td>Finalize logically enforces gate order: surface/provisional checks are evaluated from frozen audits and the dots would have been discarded on failure; <code>final_dots_match_audited_bytes</code> binds the published file to the audited decoded array (SHA-256 <code>ecbc7748…</code>). Recorded so future lanes run the surface audit to completion before live emission.</td>
+</tr>
+<tr>
+<td>IR-79-145</td>
+<td><strong>Integration debt found during succession:</strong> <code>build_site.py</code> promoted pages and checks panel were NHR/THVC-hardcoded, <code>select_submission.py</code> refused every lane except NHR/FFAS, and several tests hardcode the THVC canonical card.</td>
+<td>Added lane-dispatched CONJ pages parametrized from the run card, CONJ gate set + evidence dir in the selector, and re-pointed historical assertions at <code>run_card_g79_thvc.json</code>; <code>verify_project.py</code> re-derives the operative uniqueness result from <code>evidence/conj/uniqueness_d2.json</code>.</td>
 </tr>
 </tbody>
 </table></div></section></main>

@@ -1,0 +1,30 @@
+{
+  "lane": "G79-CONJ",
+  "submission_file": "docs/downloads/gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros.tif",
+  "zip_file": "docs/downloads/gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros.zip",
+  "raster_sha256": "96a715909aefa722a0f1a81d6658e68eb996f08a25f78c5b1483f513f2d93e80",
+  "zip_sha256": "040dd24164e1c658807233fcbbbbf061ca3c15c55e6c3ae43bdaab7179b3760b",
+  "dots": 37863,
+  "name": "gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros",
+  "note": "GEMSDOE79 G79-CONJ: cross-strike conjugate offsets + 84ch stack, Dinkelbach DTI emission (37863 px)",
+  "writer_manifest_file": "gems79-g79conj-dinkelbach-37863dots-20261022T152806Z-ecbc7748-zeros.tif",
+  "validation_format_passed": true,
+  "distance_profile": {
+    "dots": 37863,
+    "median_distance_to_catalogue_px": 6.708203932499369,
+    "median_distance_to_catalogue_m": 670.820393249937,
+    "fraction_gt_1km_from_catalogue": 0.2583788923223199,
+    "fraction_within_300m_of_catalogue": 0.0,
+    "min_distance_px": 3.1622776601683795,
+    "on_catalogue": 0,
+    "outside_footprint": 0
+  },
+  "vs_g79_thvc_dots": {
+    "file": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "their_dots": 35093,
+    "exact_shared_dots": 5581,
+    "jaccard": 0.08283487940630797,
+    "forward_overlap_3px_mine_to_thvc": 0.8648548715104456,
+    "forward_overlap_3px_thvc_to_mine": 0.8965035762117801
+  }
+}

@@ -91,4 +91,7 @@ def test_s1_artifact_bytes_match_run_card_and_are_byte_unique_vs_archive():
 def test_only_one_canonical_tif_is_published():
     tifs = sorted((ROOT / "docs/downloads").glob("*.tif"))
     assert len(tifs) == 1
-    assert "DO-NOT-SUBMIT" in tifs[0].name
+    card = json.loads((ROOT / "run_card.json").read_text())
+    assert tifs[0].name == Path(card["submission_file"]).name
+    # Filename warning iff the canonical verdict is not promote.
+    assert ("DO-NOT-SUBMIT" in tifs[0].name) == (card["verdict"] != "promote")

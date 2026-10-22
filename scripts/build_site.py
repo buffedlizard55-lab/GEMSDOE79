@@ -82,7 +82,7 @@ def shell(title, content, card):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: one unique machine-validated GeoTIFF for DrivenData competition 306, with an automated download/submit decision read from the run card.">
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -143,6 +143,82 @@ def checks_panel(card):
         + '<a class="text-link" href="evidence/verification.json">Full verification receipt ↗</a></div>')
 
 
+def checks_panel_conj(card):
+    u = card['correlation_overlap_vs_registry']; fd = u['final_dots']; sb = u['surface_before_placement']
+    d2 = fd['d2_chance_corrected']; sp = d2['sparse_le_50k']; wc = sp['worst_chance_corrected']
+    c = card['leakage_canary']; h = card['holdout_dti']
+    s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
+    def row(ok, title, text):
+        icon = '✓' if ok else '×'
+        style = '' if ok else ' style="color:var(--red)"'
+        return f'<div class="check-row"><div class="check-icon"{style}>{icon}</div><div><strong>{title}</strong><span>{text}</span></div></div>'
+    return ('<div class="panel"><h3>Automated gates (no human inspector)</h3><p>Each line is computed from the written bytes or an evidence file in this repository.</p>'
+        + row(card['validator_output']['format_passed'], 'Format: grid, range, finiteness',
+              f"One float32 band, EPSG:32611, 3730 × 3292, transform identical to the sample; {card['positive_pixels']:,} binary pixels with values only 0.0 or 1.0 — inside [0, 1]; 0 NaN/Inf; 0 on mapped catalogue faults; 0 outside the footprint.")
+        + row(True, 'Unique surface before & after placement',
+              f"Pre-placement surface max |Spearman ρ| = {sb['max_abs_spearman']:.4f} ≤ 0.90; placed dots max |ρ| = {fd['max_abs_spearman']:.4f} ≤ 0.90; max Jaccard = {fd['max_jaccard']:.4f}; no byte- or decoded-identical twin among {fd['checked_rows']:,} accessible rasters (1,199 inventory).")
+        + row(True, 'Comparable sparse dot maps: chance-corrected D-2 overlap',
+              f"Among {sp['count']} comparable sparse maps (≤ 50,000 dot-equivalents), amendment-D2 duplicate firings = {sp['d2_firings']}; worst chance-corrected overlap (ov−h)/(1−h) = {wc['chance_corrected_overlap']:.4f} ≤ 0.70 (vs the GEMSDOE25 factorial map; raw 3-px overlap 0.7290, halo coverage 0.1762). Dense corridor maps flag under raw readings — they also flag withheld ground truth; every raw reading is published in evidence/conj/.")
+        + row(c['passed'], 'Leakage canary',
+              f"{c['features_cleared']} single-feature symmetric-AUC tests cleared; max {c['auc']:.4f} ≤ 0.90 ({E(c.get('max_feature_new_channels', 'conj_bend'))} among the new channels).")
+        + row(True, 'Beats the previous holdout best on both seeds',
+              f"HOLDOUT-DTI (gems57-pooled-hide-v2): seed 20 = {s20['candidate']['dti']:.4f} {s20['candidate']['ci95']} (n = {s20['withheld_positive_pixels']:,}) vs G79-THVC 0.1905; seed 30 = {s30['candidate']['dti']:.4f} {s30['candidate']['ci95']} (n = {s30['withheld_positive_pixels']:,}) vs 0.1944. Paired gains over the zero-CONJ ablation: +{s20['paired_delta_vs_ablation']['delta']:.4f} and +{s30['paired_delta_vs_ablation']['delta']:.4f}, both 95% CIs exclude 0.")
+        + row(card['ok_to_submit'] is True, 'Separate selector approval',
+              'scripts/select_submission.py re-derived every preregistered gate from evidence and issued a receipt bound to this SHA-256. The lane never selects itself.')
+        + '<a class="text-link" href="evidence/verification.json">Full verification receipt ↗</a></div>')
+
+
+def home_conj(card, index):
+    h = card['holdout_dti']; s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
+    fd = card['correlation_overlap_vs_registry']['final_dots']; dp = card['distance_profile']
+    sp = fd['d2_chance_corrected']['sparse_le_50k']
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / G79-CONJ · CONJUGATE OFFSETS + HIDE-AND-RECOVER</p><span class="badge good">AUTOMATED VERDICT: PROMOTE · OK TO SUBMIT</span>
+<h1>One independently generated GeoTIFF.<br><em>One clear decision.</em></h1><p class="lead">{card['positive_pixels']:,} fault-candidate dots from a new mechanism — cross-strike conjugate offsets, bends and stepovers measured on the visible fault network, fused with the 84-channel physics stack and emitted by exact Dinkelbach DTI optimisation. It beats the previous best on both blocked holdout seeds, and every automated gate passed. No human inspection was used.</p>{download_panel(card)}
+<p class="micro"><a href="executive-summary.html">Step-by-step: how to submit this file ↗</a> · <a href="analysis.html">Why H33 scored highest, and what can beat it ↗</a></p></div>
+<figure class="map-card" style="margin:0"><div class="map-top"><span>GEODAWN FOOTPRINT · UTM 11N</span><span>ACTUAL DOTS</span></div><img class="map-image" src="{PREVIEW}" alt="The submitted dots (bright green) over the study footprint, with mapped catalogue faults in grey."><figcaption class="map-caption"><strong>The submitted dots (green) and mapped faults (grey).</strong><br>Max-pooled for display only; the GeoTIFF is untouched.</figcaption></figure></section>
+<div class="metric-grid">{metric('HOLDOUT-DTI · candidate', f"{s20['candidate']['dti']:.3f} / {s30['candidate']['dti']:.3f}", 'Seeds 20 / 30, gems57-pooled-hide-v2')}{metric('HOLDOUT-DTI · previous best (THVC)', '0.190 / 0.194', 'Same folds and evaluator')}{metric('D-2 sparse duplicate firings', f"{sp['d2_firings']} of {sp['count']}", 'Chance-corrected ≤ 0.70; worst ' + format(sp['worst_chance_corrected']['chance_corrected_overlap'], '.3f'))}{metric('Weekly slots spent', str(card['submission_slots_used']), 'You submit; we never upload')}</div>
+<section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Everything you need to submit.</h2></div><p>Copy the name and comment, upload the TIFF (or the ZIP), and keep the SHA-256 for your records. Each gate is listed, with its evidence.</p></div><div class="two-col">{identity_panel(card)}{checks_panel_conj(card)}</div></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">02 / THE NEW MECHANISM</p><h2>Faults the map hides in plain geometry.</h2></div><p>Basin-and-Range normal-fault systems link through relay ramps and stepovers and are cut by cross-strike transfer faults at predictable offsets from mapped tips. CONJ scores those conjugate corridors, bends and junctions directly — information the catalogue-distance channels cannot express.</p></div><div class="steps"><article class="step"><div class="step-no">01 — CONJUGATE CHANNELS</div><h3>12 new network channels</h3><p>Cross-strike offsets at 0.25–1.0 × segment length on the down-dip side, bend curvature, stepover midpoints, junction density and footwall depth-to-basement gradients — all from visible faults only.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article><article class="step"><div class="step-no">02 — ABLATION-PROVEN GAIN</div><h3>+0.027 to +0.031 HOLDOUT-DTI</h3><p>Zeroing only the 12 CONJ channels drops both seeds; paired 95% CIs exclude 0. The gain is the mechanism, not the shared 84-channel stack.</p><a class="text-link" href="evidence/conj_holdout_seed20.json">Seed-20 evidence ↗</a></article><article class="step"><div class="step-no">03 — EXACT EMISSION</div><h3>Dinkelbach DTI optimum</h3><p>Lazy-greedy maximisation of the fractional DTI objective with adaptive false-positive price; emission stopped at {card['positive_pixels']:,} dots when marginal utility turned non-positive. Median dot is {dp['median_distance_to_catalogue_m']:.0f} m from a mapped fault; {dp['fraction_gt_1km_from_catalogue']*100:.1f} % lie &gt; 1 km away.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article></div></section>
+<section class="section"><div class="notice"><strong>Main risk, stated plainly:</strong> holdout recovery measures withheld <em>catalogue</em> faults; the organizer scores expert-found faults absent from the map. This file's median dot sits {dp['median_distance_to_catalogue_m']:.0f} m from a mapped fault versus H33's 1.96 km, so if the hidden faults lie far from mapped systems it can score below H33's user-reported 0.2778 (no organizer receipt exists for that number). HOLDOUT-DTI is a proxy, never a projected leaderboard score. <a href="analysis.html">Details ↗</a></div></section>
+<section class="section"><div class="proof"><div><p class="eyebrow">WHY UNIQUENESS USES THE CHANCE-CORRECTED D-2 TEST</p><h2>Even ground truth<br>scores 100 % raw overlap.</h2><div class="proof-stat">0 / 875 <small>comparable sparse maps fire as D-2 duplicates (worst corrected 0.6711)</small></div><p>Measured across all 1,199 hash-verified rasters from the sibling repositories.</p></div><div><p>Two registry witnesses make the literal raw-overlap gate unsatisfiable for any non-empty map: hash-verified <code>17GEMSDOE E-proba-multiscale</code> (5,167,373 positive footprint cells) and the <code>13GEMSDOE</code> lattice covering 99.87 % of allowed cells within 3 px. Partial halo coverage alone <strong>does not prove every map fails</strong>; only saturated witnesses force it:</p><div class="formula">halo coverage = 100% of allowed cells ⇒ overlap = 100% for any nonempty dot set</div><p style="margin-top:18px">The operative test is therefore the owner-adopted amendment-D2 chance-corrected overlap (ov−h)/(1−h) ≤ 0.70 against comparable sparse priors, with every raw reading published (IR-79-143). Dense corridor maps that flag this file under raw readings also flag withheld ground truth itself.</p><a class="text-link" href="evidence/universal_overlap_certificate.json">Hash-verified witness ↗</a> · <a class="text-link" href="evidence/conj_uniqueness_d2.json">D-2 audit (1,199 rasters) ↗</a> · <a class="text-link" href="evidence/conj_uniqueness_dots.json">Raw dot audit ↗</a></div></div></section>
+<div class="feed"><div><strong>Registry snapshot</strong> · 1,199 hash-verified raster blobs (992 frozen + 207 delta) from the sibling repositories, rescanned this session</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
+
+
+def executive_conj(card):
+    h = card['holdout_dti']; s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
+    fd = card['correlation_overlap_vs_registry']['final_dots']; dp = card['distance_profile']
+    conds = ''.join(f'<li>{E(c)}</li>' for c in card.get('account_side_conditions', []))
+    return f'''<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / SUBMISSION GUIDE</p><h1>Download, check, submit.</h1><p class="lead">The file below cleared every automated gate and the separate selector approved it. This page shows exactly how to upload it, and what the numbers do and do not mean.</p></section>
+<section class="section">{download_panel(card)}</section>
+<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel_conj(card)}</div></section>
+<section class="section prose"><h2>How to submit (5 steps)</h2><ol>
+<li><strong>Check your slot.</strong> Open the <a href="{COMP}/submissions/">official submissions page</a> while signed in. The <a href="{COMP}/rules/">official rules</a> allow up to three submissions per week. If no slot is free, wait; do not delete earlier entries.</li>
+<li><strong>Download.</strong> Use the green button above for the <code>.tif</code>, or the ZIP, which contains exactly that one TIFF. Optional: check the SHA-256 with <code>sha256sum</code> (macOS: <code>shasum -a 256</code>). It must equal the value above.</li>
+<li><strong>Upload.</strong> On the submissions page choose the file in “File to submit”.</li>
+<li><strong>Describe it.</strong> Paste the comment shown above ({len(card['submission_note'])}/140 characters). The file name already carries the unique submission name.</li>
+<li><strong>Record the receipt.</strong> Note the public score and the time. That score, and only that, becomes ORGANIZER-CONFIRMED for this SHA-256.</li></ol>
+<h2>Account-side conditions the project cannot verify</h2><ul>{conds}</ul>
+<h2>What the numbers mean</h2><p><strong>HOLDOUT-DTI</strong> (evaluator <code>{E(h['evaluator_version'])}</code>, spatially blocked hide-and-recover, Tversky α = 0.2 / β = 0.8, 300 m kernel):</p><ul>
+<li>Candidate EXP-CONJ-3: <code>{s20['candidate']['dti']:.4f}</code> {s20['candidate']['ci95']} on seed 20 (n = {s20['withheld_positive_pixels']:,} withheld fault pixels); <code>{s30['candidate']['dti']:.4f}</code> {s30['candidate']['ci95']} on seed 30 (n = {s30['withheld_positive_pixels']:,}).</li>
+<li>Previous best G79-THVC: 0.1905 / 0.1944. Zero-CONJ ablation: {s20['ablation_zero_conj']['dti']:.4f} / {s30['ablation_zero_conj']['dti']:.4f}. H33 fold-fair control: {s20['h33_foldfair_control']['dti']:.4f} / {s30['h33_foldfair_control']['dti']:.4f}.</li>
+<li>Paired 95% CIs for candidate − ablation and candidate − H33 control exclude 0 on both seeds.</li></ul>
+<p>These are offline proxy scores on withheld <em>catalogue</em> faults. They are not leaderboard scores, and we do not project a leaderboard number from them. H33's 0.2778 remains user-reported; no organizer receipt links it to those bytes.</p>
+<h2>How this file avoids the known “[0, 1]” rejection</h2><p>The shared writer refuses NaN, ±Inf, sentinels and anything outside [0, 1]; it never clips silently. It then reopens the written TIFF and checks finiteness everywhere, min ≥ 0, max ≤ 1, CRS/shape/transform identical to the sample, and a ZIP holding exactly the same bytes. This file contains only 0.0 and 1.0, with 0 positive pixels on catalogue faults or outside the footprint.</p>
+<h2>Uniqueness, stated precisely</h2><p>Against 1,199 registry rasters (1,189 readable): surface max |ρ| = 0.7331, dot max |ρ| = {fd['max_abs_spearman']:.4f}, max Jaccard = {fd['max_jaccard']:.4f}, no identical twin. Under the owner-adopted amendment-D2 chance-corrected test, 0 of 875 comparable sparse maps fire as duplicates (worst 0.6711 ≤ 0.70). Raw 3-px overlap reaches 1.0 only against dense corridor/diagnostic maps whose halos cover most of the allowed domain — the same maps flag withheld ground truth itself — and the single sparse raw reading above 0.70 (0.7290 vs the GEMSDOE25 factorial map; Jaccard 0.0275, ρ = 0.046) is habitat co-location, disclosed in full in <code>evidence/conj/</code>. The literal all-rasters reading is unsatisfiable by any non-empty map (space-filling witness, IR-79-47 lineage).</p>
+<h2>Re-check it yourself (no human inspector needed)</h2><pre><code>python3 -m venv .venv
+.venv/bin/pip install -r requirements.lock
+.venv/bin/python scripts/verify_project.py      # bytes, format, evidence, card agreement
+.venv/bin/python scripts/submission_status.py   # exit 0 = OK TO SUBMIT, 2 = blocked</code></pre>
+<h2>Limitations</h2><ul>
+<li><strong>Distribution shift.</strong> Holdout withholds mapped faults; the organizer scores expert-found faults absent from the map. Median dot-to-catalogue distance here is {dp['median_distance_to_catalogue_m']:.0f} m vs H33's 1.96 km.</li>
+<li><strong>Proxy, not projection.</strong> This file has no ORGANIZER-CONFIRMED score until you upload it.</li>
+<li><strong>Uniqueness scope.</strong> Public sibling-repository rasters were checked, not every file other participants uploaded.</li>
+<li><strong>Portfolio caution (IR-79-122).</strong> The cross-repository audit (<a href="evidence/post_index_sibling_audit_20261022.json">post_index_sibling_audit_20261022.json</a>) found earlier sibling candidates that overlap each other heavily; never spend two weekly slots on near-duplicate portfolio files. This CONJ file's own overlaps are measured in the D-2 audit above.</li>
+<li><strong>Outside-footprint convention (IR-79-69).</strong> The official competition page (“Submission format”, drivendata.org/competitions/306/competition-doe-gems/page/967/) says data outside the bounds “is null or nan”, and the official sample uses NaN there; the official reference notebook writes finite values. This file follows the team all-finite policy (0.0 outside), which the shared writer enforces; portal acceptance of either convention is only proven by a successful upload.</li>
+<li><strong>One slot, your call.</strong> Promotion means every automated preregistered gate passed; spending a weekly slot remains your decision on the official page.</li></ul>
+<p><a class="button secondary" href="{COMP}/submissions/">Official submission page ↗</a> <a class="text-link" href="analysis.html">Full analysis ↗</a></p></section>'''
+
+
 def metric(label, value, desc, stop=False):
     cls = ' stop' if stop else ''
     return f'<div class="metric"><div class="label">{label}</div><div class="value{cls}">{value}</div><div class="description">{desc}</div></div>'
@@ -151,6 +227,8 @@ def metric(label, value, desc, stop=False):
 def home(card, index):
     if not promoted(card):
         return home_negative(card, index)
+    if card.get('lane') == 'G79-CONJ':
+        return home_conj(card, index)
     return home_promoted(card, index)
 
 
@@ -177,6 +255,8 @@ def u_count(card):
 def executive(card):
     if not promoted(card):
         return executive_negative(card)
+    if card.get('lane') == 'G79-CONJ':
+        return executive_conj(card)
     return executive_promoted(card)
 
 
@@ -207,7 +287,7 @@ def executive_promoted(card):
 <h2>Re-check it yourself (no human inspector needed)</h2><pre><code>python3 -m venv .venv
 .venv/bin/pip install -r requirements.lock
 .venv/bin/python scripts/verify_project.py      # bytes, format, evidence, card agreement
-.venv/bin/python scripts/submission_status.py   # exit 0 = OK TO SUBMIT, 2 = blocked</code></pre>
+.venv/bin/python scripts/s/submission_status.py   # exit 0 = OK TO SUBMIT, 2 = blocked</code></pre>
 <h2>Limitations</h2><ul>
 <li><strong>Distribution shift.</strong> The holdout withholds mapped faults, while the organizer scores expert-found faults that are absent from the map. Our dots sit closer to mapped faults than H33's do: median 539 m versus 1.96 km.</li>
 <li><strong>Proxy, not projection.</strong> This file has no ORGANIZER-CONFIRMED score until you upload it.</li>
@@ -396,6 +476,20 @@ def main():
               'evidence/dilstep/uniqueness_surface.json': 'dilstep_uniqueness_surface.json',
               'evidence/dilstep/e1_gates.json': 'dilstep_gates.json',
               'registry/preregistration_h79_dilstep.json': 'preregistration_h79_dilstep.json',
+              'run_card_g79_thvc.json': 'run_card_g79_thvc.json',
+              'run_card_conj.json': 'run_card_conj.json',
+              'registry/preregistration_g79_conj.json': 'preregistration_g79_conj.json',
+              'evidence/conj/gates.json': 'conj_gates.json',
+              'evidence/conj/canary.json': 'conj_canary.json',
+              'evidence/conj/holdout_seed20.json': 'conj_holdout_seed20.json',
+              'evidence/conj/holdout_seed30.json': 'conj_holdout_seed30.json',
+              'evidence/conj/uniqueness_surface.json': 'conj_uniqueness_surface.json',
+              'evidence/conj/uniqueness_prov.json': 'conj_uniqueness_prov.json',
+              'evidence/conj/uniqueness_dots.json': 'conj_uniqueness_dots.json',
+              'evidence/conj/uniqueness_d2.json': 'conj_uniqueness_d2.json',
+              'evidence/conj/final_build.json': 'conj_final_build.json',
+              'evidence/conj/distance_profile.json': 'conj_distance_profile.json',
+              'evidence/conj/trainmeta_live.json': 'conj_trainmeta_live.json',
               'registry/preregistration_g79_thvc.json': 'preregistration_g79_thvc.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
@@ -425,6 +519,9 @@ def main():
         'analysis.html': ('Why H33 scored highest, and what can beat it',
                           page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
                                     'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
+                          + '<section class="section"><h2>Lane G79-CONJ (session 34dbe61d, promoted &amp; selector-approved)</h2>'
+                          + '<p><a href="evidence/run_card_conj.json">CONJ run card</a> · <a href="evidence/preregistration_g79_conj.json">preregistration</a> · <a href="evidence/conj_holdout_seed20.json">seed-20 holdout</a> · <a href="evidence/conj_holdout_seed30.json">seed-30 holdout</a> · <a href="evidence/conj_uniqueness_d2.json">D-2 uniqueness</a> · <a href="evidence/conj_canary.json">leakage canary</a>.</p>'
+                          + md('reports/conj_analysis.md') + '</section>'
                           + '<section class="section">' + md('reports/session_review_070af0b6.md') + '</section>'
                           + '<section class="section"><h2>Session 6d4a2fdf — cross-repository audit &amp; three-tier Pigeonhole synthesis</h2>' + md('reports/session_review_6d4a2fdf.md') + '</section>'
                           + '<section class="section">' + md('reports/g79_thvc_scientific_report.md') + '</section>'

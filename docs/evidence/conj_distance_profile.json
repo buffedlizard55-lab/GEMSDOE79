@@ -1,0 +1,25 @@
+{
+  "distance_profile": {
+    "dots": 37863,
+    "median_distance_to_catalogue_px": 6.708203932499369,
+    "median_distance_to_catalogue_m": 670.820393249937,
+    "fraction_gt_1km_from_catalogue": 0.2583788923223199,
+    "fraction_within_300m_of_catalogue": 0.0,
+    "min_distance_px": 3.1622776601683795,
+    "on_catalogue": 0,
+    "outside_footprint": 0
+  },
+  "vs_g79_thvc_dots": {
+    "file": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "their_dots": 35093,
+    "exact_shared_dots": 5581,
+    "jaccard": 0.08283487940630797,
+    "forward_overlap_3px_mine_to_thvc": 0.8648548715104456,
+    "forward_overlap_3px_thvc_to_mine": 0.8965035762117801
+  },
+  "literal_witness": {
+    "certificate_witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "covered_allowed_fraction": 1.0,
+    "consequence": "Literal dot definition gives forward overlap 1.0 for ANY nonempty candidate; operative uniqueness therefore uses the shared budget-matched-v3 dot definition (IR-79-47/D-1), with the literal reading disclosed here."
+  }
+}

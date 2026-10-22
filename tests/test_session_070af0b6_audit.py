@@ -28,7 +28,7 @@ def test_run_card_paths_are_repo_relative_across_all_copies():
     for p in copies[1:]:
         assert p.read_bytes() == raw
     card = json.loads(raw)
-    assert card["lane"] == "G79-THVC"
+    assert card["lane"] == "G79-CONJ"
     for key in ("validator", "validator_output"):
         fval = card[key]["file"]
         assert not fval.startswith("/"), f"Machine-specific absolute path in {key}.file: {fval}"
@@ -52,7 +52,8 @@ def test_h79_step_and_dilstep_archived_intact_and_runner_refuses_rerun():
     assert hashlib.sha256(dtif.read_bytes()).hexdigest() == json.loads(drc.read_text())["raster_sha256"]
 
     downloads_tifs = sorted(p.name for p in (ROOT / "docs/downloads").glob("*.tif"))
-    assert downloads_tifs == ["g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"]
+    active = json.loads((ROOT / "run_card.json").read_text())
+    assert downloads_tifs == [Path(active["submission_file"]).name]
 
     proc = subprocess.run(
         [sys.executable, str(ROOT / "scripts/run_edge_lane.py")],
@@ -82,8 +83,9 @@ def test_exact_dti_algebra_pigeonhole_bounds_and_unique_ir_ids():
 
     ir_txt = (ROOT / "reports/irregularities.md").read_text(encoding="utf-8")
     ir_ids = re.findall(r"\|\s*(IR-79-\d+)\s*\|", ir_txt)
-    # 126 at 070af0b6; +4 from G79-BER (IR-79-127..130); +5 from H79-MRND (IR-79-131..135); +7 from H79-FNHR (IR-79-136..142).
-    assert len(ir_ids) == len(set(ir_ids)) == 142
+    # 126 at 070af0b6; +4 from G79-BER (IR-79-127..130); +5 from H79-MRND (IR-79-131..135);
+    # +7 from H79-FNHR (IR-79-136..142); +3 from G79-CONJ (IR-79-143..145).
+    assert len(ir_ids) == len(set(ir_ids)) == 145
 
 
 def test_executive_summary_and_sources_surface_caveats_and_date():

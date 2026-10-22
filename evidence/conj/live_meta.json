@@ -1,0 +1,167 @@
+{
+  "chosen_emission_from_seed20": "EXP-CONJ-3_dinkelbach",
+  "emission_info": {
+    "emitted_dots": 37863,
+    "stop_reason": "marginal_utility_nonpositive",
+    "expected_truth_mass_n_hat": 7620.665338882291,
+    "final_tp_exp": 1781.210175564556,
+    "final_fp_exp": 28643.760589327663,
+    "lambda_trace_tail": [
+      {
+        "dots": 32000,
+        "lambda_fp": 0.02988115054915277,
+        "dti_hat": 0.1450708682900913,
+        "tp_exp": 1632.7814427410428,
+        "fp_exp": 24159.86119577661
+      },
+      {
+        "dots": 33000,
+        "lambda_fp": 0.029963439039249903,
+        "dti_hat": 0.14545875078439582,
+        "tp_exp": 1660.2996629627896,
+        "fp_exp": 24928.18987512961
+      },
+      {
+        "dots": 34000,
+        "lambda_fp": 0.03002754396307755,
+        "dti_hat": 0.14576087862439685,
+        "tp_exp": 1686.7838673691656,
+        "fp_exp": 25691.891896087676
+      },
+      {
+        "dots": 35000,
+        "lambda_fp": 0.03007460415108135,
+        "dti_hat": 0.14598265033369515,
+        "tp_exp": 1712.4207134697806,
+        "fp_exp": 26456.43266769871
+      },
+      {
+        "dots": 36000,
+        "lambda_fp": 0.03010514276280515,
+        "dti_hat": 0.14612655307234615,
+        "tp_exp": 1737.179295639215,
+        "fp_exp": 27221.077481593937
+      },
+      {
+        "dots": 37000,
+        "lambda_fp": 0.030121216210314456,
+        "dti_hat": 0.14620229025631856,
+        "tp_exp": 1761.0985769079987,
+        "fp_exp": 27984.386077467352
+      }
+    ],
+    "lambda_updates": 37
+  },
+  "dots": 37863,
+  "train_meta": {
+    "train_seconds": 426.6,
+    "train_rows": 400325,
+    "true_pi": 0.0026254144020500694,
+    "sample_pi": 0.10073065757751465,
+    "top25_gain": [
+      {
+        "feature": "net_tip_fwd_35px",
+        "gain_share": 0.111685
+      },
+      {
+        "feature": "net_log_dist",
+        "gain_share": 0.084776
+      },
+      {
+        "feature": "net_tip_x_scarp",
+        "gain_share": 0.058741
+      },
+      {
+        "feature": "net_tip_x_grav_bdepth",
+        "gain_share": 0.055059
+      },
+      {
+        "feature": "conj_bend",
+        "gain_share": 0.04382
+      },
+      {
+        "feature": "conj_len_scaled",
+        "gain_share": 0.038008
+      },
+      {
+        "feature": "net_exp_near_600",
+        "gain_share": 0.035649
+      },
+      {
+        "feature": "det_elev_prom_600m",
+        "gain_share": 0.035031
+      },
+      {
+        "feature": "tf_det_elev",
+        "gain_share": 0.025542
+      },
+      {
+        "feature": "conj_parallel_support",
+        "gain_share": 0.024055
+      },
+      {
+        "feature": "block_step_elev_600m",
+        "gain_share": 0.023364
+      },
+      {
+        "feature": "net_colinear_bridge",
+        "gain_share": 0.020024
+      },
+      {
+        "feature": "tf_iso_grav_anom",
+        "gain_share": 0.016451
+      },
+      {
+        "feature": "tf_geod_shearrate",
+        "gain_share": 0.014506
+      },
+      {
+        "feature": "tf_geod_dilaterate",
+        "gain_share": 0.014377
+      },
+      {
+        "feature": "volc_vent_prox_3km",
+        "gain_share": 0.013974
+      },
+      {
+        "feature": "tf_depth_to_base_surf",
+        "gain_share": 0.01311
+      },
+      {
+        "feature": "tf_deq_n100a15",
+        "gain_share": 0.012864
+      },
+      {
+        "feature": "tf_geod_2ndinv",
+        "gain_share": 0.012783
+      },
+      {
+        "feature": "grav_hgm_z800",
+        "gain_share": 0.012521
+      },
+      {
+        "feature": "conj_junc_30",
+        "gain_share": 0.012433
+      },
+      {
+        "feature": "tf_ieq_n100a15",
+        "gain_share": 0.012298
+      },
+      {
+        "feature": "tf_cond_surf",
+        "gain_share": 0.011493
+      },
+      {
+        "feature": "mountain_wall_ratio",
+        "gain_share": 0.011155
+      },
+      {
+        "feature": "net_density_40px",
+        "gain_share": 0.010835
+      }
+    ],
+    "conj_gain_share_total": 0.147504
+  },
+  "surface_decoded_sha256": "d2e83c5eb67fb9bf3ac938bdc196586b80218a999d7068e85fee0285e09073af",
+  "dots_decoded_sha256": "ecbc7748742c24fde56db2edc08f797abec017a63ae7dc94d12d4671c1c0e772"
+}

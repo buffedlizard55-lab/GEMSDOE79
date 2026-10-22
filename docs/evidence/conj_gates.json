@@ -1,0 +1,26 @@
+{
+  "lane": "G79-CONJ",
+  "raster_sha256": "96a715909aefa722a0f1a81d6658e68eb996f08a25f78c5b1483f513f2d93e80",
+  "all_passed": true,
+  "gates": {
+    "canaries_all_le_0_90_both_seeds": true,
+    "beats_current_holdout_best_both_seeds": true,
+    "paired_ci_vs_h33_excludes_zero_both_seeds": true,
+    "point_beats_zero_conj_ablation_both_seeds": true,
+    "evaluator_version_pinned": true,
+    "surface_rank_correlation_le_0_90": true,
+    "final_rank_correlation_le_0_90": true,
+    "surface_uniqueness_passed": true,
+    "final_dot_uniqueness_passed": true,
+    "final_dots_match_audited_bytes": true,
+    "format_passed": true
+  },
+  "operative_unique_budget_matched_v3": true,
+  "literal_unique": false,
+  "literal_disclosure": {
+    "certificate_witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "covered_allowed_fraction": 1.0,
+    "consequence": "Literal dot definition gives forward overlap 1.0 for ANY nonempty candidate; operative uniqueness therefore uses the shared budget-matched-v3 dot definition (IR-79-47/D-1), with the literal reading disclosed here."
+  },
+  "generated_utc": "2026-10-22T15:28:08.671827+00:00"
+}

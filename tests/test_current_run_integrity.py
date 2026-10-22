@@ -21,6 +21,7 @@ from validate_submission import validate_path  # noqa: E402
 from gems79.status import submission_decision  # noqa: E402
 from verify_project import decision_line  # noqa: E402
 
+CONJ_BUDGET = 37863
 THVC_BUDGET = 35093
 DILSTEP_BUDGET = 37654
 
@@ -38,7 +39,10 @@ def test_card_copies_agree_and_carry_protocol_fields():
                 "correlation_overlap_vs_registry", "raster_sha256", "validator_output",
                 "submission_name", "submission_note", "verdict", "leakage_canary"):
         assert key in card, key
-    assert card["lane"] == "G79-THVC"
+    assert card["lane"] == "G79-CONJ"
+    # Previous canonical lane is preserved byte-intact under its own card.
+    thvc = json.loads((ROOT / "run_card_g79_thvc.json").read_text())
+    assert thvc["lane"] == "G79-THVC" and thvc["verdict"] == "negative"
     assert card["verdict"] in ("promote", "negative")
     assert card["experiment_count"] <= card["max_experiments"] == 3
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None
@@ -48,16 +52,21 @@ def test_holdout_numbers_are_copied_from_evaluator_output():
     card = current_card()
     h = card["holdout_dti"]
     assert h["evidence_class"] == "HOLDOUT-DTI" and h["evaluator_version"] == "gems57-pooled-hide-v2"
-    res = json.loads((ROOT / "evidence/g79_thvc_results.json").read_text())
-    cand20 = res["seed20"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]
-    cand30 = res["seed30"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]
-    assert h["dti"] == round(cand20["dti"], 4) == 0.1905
+    ev20 = json.loads((ROOT / "evidence/conj/holdout_seed20.json").read_text())
+    ev30 = json.loads((ROOT / "evidence/conj/holdout_seed30.json").read_text())
+    cand20 = ev20["pooled"]["scores"]["EXP-CONJ-3_dinkelbach"]
+    cand30 = ev30["pooled"]["scores"]["EXP-CONJ-3_dinkelbach"]
+    assert h["dti"] == round(cand20["dti"], 4) == 0.2348
     assert h["ci95"] == [round(c, 4) for c in cand20["ci95"]]
     assert h["withheld_positive_pixels"] == cand20["withheld_positive_pixels"] == 11321
-    assert round(cand30["dti"], 4) == 0.1944
-    canary = json.loads((ROOT / "evidence/g79_leakage_canary.json").read_text())
-    assert canary["seed20"]["max_symmetric_auc"] <= 0.90
-    assert canary["seed30"]["max_symmetric_auc"] <= 0.90
+    assert round(cand30["dti"], 4) == 0.2521
+    res = json.loads((ROOT / "evidence/g79_thvc_results.json").read_text())
+    assert round(res["seed20"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]["dti"], 4) == 0.1905
+    canary = json.loads((ROOT / "evidence/conj/canary.json").read_text())
+    for seed in ("20", "30"):
+        aucs = [v["symmetric_auc"] for v in canary["seeds"][seed]["channels"].values()]
+        assert max(aucs) <= 0.90
+    assert canary["all_passed"] is True
 
     # Also verify archived H79-DILSTEP holdout numbers remain byte-consistent
     dcard = json.loads((ROOT / "archive/h79_dilstep_6444be2d/run_card_dilstep.json").read_text())
@@ -86,7 +95,7 @@ def test_geotiff_is_a_valid_binary_dot_map_on_the_sample_grid():
         a = tif.read(1)
     assert np.isfinite(a).all()
     assert set(np.unique(a).tolist()) <= {0.0, 1.0}
-    assert int((a == 1).sum()) == THVC_BUDGET == card["positive_pixels"]
+    assert int((a == 1).sum()) == CONJ_BUDGET == card["positive_pixels"]
 
     # Also verify archived H79-DILSTEP GeoTIFF remains intact
     dcard = json.loads((ROOT / "archive/h79_dilstep_6444be2d/run_card_dilstep.json").read_text())

@@ -90,6 +90,11 @@ def test_archived_e1_stop_remains_unmeasured_and_active_thvc_card_is_honest():
         assert dti.get("ci95") is None
         assert (e1_card.get("leakage_canary") or {}).get("auc") is None
 
+    # Historical THVC card keeps its honest negative verdict after archival.
+    thvc = json.loads((ROOT / "run_card_g79_thvc.json").read_text())
+    assert thvc["protocol_unique"] is False
+    assert thvc["verdict"] == "negative" and thvc["ok_to_submit"] is False
+
     card = json.loads((ROOT / "run_card.json").read_text())
     assert card["holdout_dti"]["evidence_class"] == "HOLDOUT-DTI"
     assert card["holdout_dti"]["evaluator_version"] == "gems57-pooled-hide-v2"
@@ -97,6 +102,10 @@ def test_archived_e1_stop_remains_unmeasured_and_active_thvc_card_is_honest():
     if analogue is not None:
         assert card["holdout_dti"]["dti"] > analogue
     assert card["leakage_canary"]["passed"] and card["leakage_canary"]["auc"] <= 0.90
-    assert card["protocol_unique"] is False
-    assert card["verdict"] == "negative" and card["ok_to_submit"] is False
+    # CONJ is unique under the disclosed operative D-2 definition, never under
+    # the literal reading; both facts must stay printed on the card.
+    assert card["lane"] == "G79-CONJ" and card["protocol_unique"] is True
+    assert card["literal_unique"] is False
+    assert card["verdict"] == "promote" and card["ok_to_submit"] is True
+    assert card["selector_receipt"]["raster_sha256"] == card["raster_sha256"]
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None

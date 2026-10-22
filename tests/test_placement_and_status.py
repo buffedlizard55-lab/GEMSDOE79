@@ -36,14 +36,24 @@ def e1_card():
     return json.loads((ROOT/'evidence/e1/run_card_e1.json').read_text())
 
 def test_format_green_never_means_submit_green():
-    card = json.loads((ROOT / "run_card.json").read_text())
+    # A format-valid but unpromoted card (archived G79-THVC) must stay blocked.
+    card = json.loads((ROOT / "run_card_g79_thvc.json").read_text())
     result = submission_decision(card, actual_sha256=card["raster_sha256"], format_passed=True)
     assert result["ok_to_download"] and not result["ok_to_submit"]
     assert not result["human_inspection_required_for_this_decision"]
+    # The promoted CONJ card is submit-green only because its selector receipt
+    # is bound to the exact bytes; stripping it must re-block submission.
+    conj = json.loads((ROOT / "run_card.json").read_text())
+    ok = submission_decision(conj, actual_sha256=conj["raster_sha256"], format_passed=True)
+    assert ok["ok_to_submit"] is True and ok["blockers"] == []
+    stripped = dict(conj, selector_receipt=None)
+    blocked = submission_decision(stripped, actual_sha256=conj["raster_sha256"], format_passed=True)
+    assert not blocked["ok_to_submit"]
 
 
 def test_edited_ok_flag_cannot_bypass_individual_gates():
-    card = json.loads((ROOT / "run_card.json").read_text())
+    # Forge promotion flags onto the negative THVC card: still blocked.
+    card = json.loads((ROOT / "run_card_g79_thvc.json").read_text())
     card["ok_to_submit"] = True
     card["approved_for_weekly_slot"] = True
     card["verdict"] = "promote"

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "lane": "G79-CONJ",
+  "title": "Cross-strike conjugate-strand completion: side-specific parallel offset loci with length-scaled damage-zone width",
+  "registered_utc": "2026-10-22T14:19:20Z",
+  "branch": "arena/34dbe61d-gemsdoe79",
+  "registered_before_any_result": true,
+  "hypotheses_doc": "research/hypotheses_20261022_conj.md",
+  "lane_paragraph": "Hidden Quaternary faults are disproportionately the secondary synthetic and antithetic strands that sit at characteristic cross-strike offsets (0.3-3 km) from a mapped master trace, preferentially on its downthrown (hanging-wall) side, with an offset scale that grows with the master segment length (displacement-length scaling of the damage zone). G79-CONJ encodes exactly that geometry as fold-safe channels -- side-specific strike-parallel offset ridges at 5/11/22 px, a length-scaled cross-strike decay, junction and bend proximity -- computed only from the fold-visible catalogue via the shared gems57.network strike frame and the depth_to_base_surf throw sense, and lets a nested hide-to-recover kernel-credit ensemble corroborate those loci against the existing 70-channel THVC static stack (lidar scarp, potential fields, hydrothermal) and the 14 along-strike THVC mechanics channels. Emission is binary {0,1} spaced dots under the official 300 m triangular-kernel DTI geometry.",
+  "hypothesis": "Adding side-specific cross-strike conjugate-offset channels (absent from all 17 prior GEMSDOE79 lanes, whose network features are along-strike tip/bridge/relay cones or isotropic distance kernels) raises pooled hide-and-recover HOLDOUT-DTI above the current best G79-THVC (0.1905 seed20 / 0.1944 seed30) on both seeds.",
+  "mechanism": "Basin-and-Range normal-fault zones are multi-strand: the master range-front fault is mapped, while hanging-wall synthetic/antithetic splays at 0.3-3 km cross-strike offset are shorter, lower-throw, often in alluvium, and omitted from regional compilations. Their loci are predictable from the visible trace geometry (strike frame at the nearest visible pixel), the throw sense (basement deepens toward the hanging wall in depth_to_base_surf), and the anchor segment length (damage-zone width scales with displacement, which scales with length). Independent scarp/geophysics evidence in the static stack corroborates which offset loci are real.",
+  "named_non_fault_mimic": "Pleistocene Lake Lahontan shoreline wave-cut benches: strike-parallel benches at characteristic offsets below range fronts, plus fluvial terrace risers. Both produce parallel offset lines with lidar steps; the learner must separate them via elevation/step-sign context, and the zero-conj ablation exposes any mimic-driven gain.",
+  "inputs": [
+    "data/raw/training_features.tif (sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5)",
+    "data/raw/existing_faults.tif (sha256 7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093)",
+    "data/raw/sample_submission.tif (sha256 2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc)",
+    "data/raw/external/* pinned mirrors via registry/data_manifest.json (THVC static stack reuse)",
+    ".cache/official_ing/* pinned DOE GDR 1391 / USGS 3DEP caches via scripts/restore_official_ingenious.py (THVC static stack reuse)"
+  ],
+  "excluded_inputs": [
+    "any prior prediction raster as a feature (registry rasters are used only in the post-hoc uniqueness audit and the H33-analogue control dot set, never as model inputs)",
+    "dist_known_fault_px / known_fault / label point columns (blocked at ingestion by THVC feature code)",
+    "withheld holdout truth in any feature: every catalogue-derived channel is computed from the fold-visible mask only"
+  ],
+  "fixed_parameters": {
+    "static_channels": "THVC STATIC_FEATURE_NAMES (70), rebuilt by unmodified build_static_feature_memmap",
+    "mech_channels": "THVC MECH_FEATURE_NAMES (14), unmodified compute_network_mechanics on the visible mask",
+    "conj_channels": [
+      "conj_hw_near s=5px sigma=2.5", "conj_hw_mid s=11px sigma=4", "conj_hw_far s=22px sigma=7",
+      "conj_fw_near s=5px sigma=2.5", "conj_fw_mid s=11px sigma=4", "conj_fw_far s=22px sigma=7",
+      "conj_len_scaled exp(-d_perp/(0.35L+3))*exp(-|d_par|/(L+10))",
+      "conj_dperp_over_len clip(d_perp/(L+1),0,5)",
+      "conj_junc_10 gaussian(junctions,10px) mass-normalized",
+      "conj_junc_30 gaussian(junctions,30px) mass-normalized",
+      "conj_bend exp(-d/12)*(1-strike coherence at anchor)",
+      "conj_parallel_support coherence(anchor)*exp(-|d_par|/40)*exp(-(d_perp-8)^2/(2*6^2))"
+    ],
+    "along_strike_decay": "exp(-|d_par|/25) for offset ridges",
+    "throw_sense": "depth_to_base_surf sampled at anchor +/-5px along strike normal; deeper side = hanging wall; ties/unknown split 0.5/0.5",
+    "inner_training": "3 simulated hide draws inside the outer visible mask (whole 8-connected components, hide_frac=0.22, buffer_px=3 collar removed from feature context), positives all hidden pixels, negatives halo(q300>0)+far sampled with inverse-probability weights exactly as THVC shard builder",
+    "model": "single-stage ensemble: LightGBM deep classifier + extra-trees LightGBM classifier (prior-corrected, weights 0.6/0.4) and LightGBM q300 kernel-credit regressor; 2 seeds averaged; no stage-2 quadrant OOF",
+    "emission_exp2": "charnes_cooper_submodular_emit lambda_fp=0.0022 min_sep_px=1.9 max_budget=40000 min_budget=20000 (THVC inner-selected point, fixed a priori here)",
+    "emission_exp3": "adaptive Dinkelbach marginal-gain greedy: lambda_t = 0.2 * DTI_hat_t with DTI_hat from accumulated expected TP/FP and expected truth mass sum(p); stop when exact marginal utility <= 0 after 20000 dots; cap 55000; min_sep_px=1.9",
+    "allowed_domain": "footprint & (distance to visible catalogue > 2.0 px); final live: footprint & (distance to full catalogue > 2.0 px)",
+    "values": "binary {0.0, 1.0} float32, zeros outside footprint, no NaN anywhere"
+  },
+  "holdout": {
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "draw": "vendor/gems57/holdout.buffered_component_draw(buffer_px=3, boundary_px=12), seeds 20 and 30",
+    "metric": "pooled DTI alpha=0.2 beta=0.8, 300 m triangular kernel; 95% CI from evaluate_holdout.pooled_summary paired 20 km spatial-block bootstrap (1000 draws)",
+    "controls_same_folds": [
+      "C2_h33_analogue_foldfair = D2.8 registry dots restricted to the fold-allowed domain (same construction as THVC run)",
+      "ABL_zero_conj = identical pipeline with the 12 CONJ channels removed (84 THVC channels), EXP-2 emission",
+      "C0_random_B37654 fixed-seed random allowed dots"
+    ],
+    "reference_bar_not_a_control": "G79-THVC reported HOLDOUT-DTI 0.1905 (seed20) / 0.1944 (seed30) from run_card.json; THVC fold predictions are not byte-available in this checkout, so the paired comparison is against C2 and the ablation on identical folds, and the point-estimate bar is THVC's published number"
+  },
+  "leakage_canary": "EXP-1: every one of the 12 new CONJ channels alone, symmetric ROC AUC on outer seed-20 and seed-30 active cells (features from visible only); any channel > 0.90 is dropped and logged before modelling. The 84 reused THVC channels keep their existing cleared canary (max 0.8036, evidence/g79_leakage_canary.json).",
+  "experiments": [
+    {"id": "EXP-CONJ-1", "what": "Leakage canaries for the 12 CONJ channels on both outer seeds; no modelling"},
+    {"id": "EXP-CONJ-2", "what": "96-channel kernel-credit ensemble + fixed Charnes-Cooper emission; scored on seeds 20/30 with C2, ablation and C0 on identical folds"},
+    {"id": "EXP-CONJ-3", "what": "Same EXP-2 posteriors, adaptive Dinkelbach emission; scored on seeds 20/30. The better of EXP-2/EXP-3 by seed-20 point DTI (tie -> EXP-2) is the candidate emission, chosen before live training"}
+  ],
+  "budget": "3 experiments maximum, 2 hours target; no retuning on outer holdout results",
+  "promotion_gate_all_required": [
+    "canaries: every retained channel symmetric AUC <= 0.90 on both seeds",
+    "candidate HOLDOUT-DTI point estimate > THVC bar on BOTH seeds (0.1905 / 0.1944)",
+    "candidate paired 95% CI vs C2_h33_analogue excludes 0 on both seeds",
+    "candidate point DTI > ABL_zero_conj on both seeds (the new mechanism, not the retrain, must carry the gain)",
+    "uniqueness: pre-placement surface and final dots checked against the restored registry index; max |Spearman| <= 0.90 and forward 3-px dot overlap <= 0.70 under the shared compare modes reported explicitly (literal, budget-matched-v3, informative-halo-v4) with the literal space-filling-witness obstruction (IR on file) disclosed, never silently exempted",
+    "format: shared validator PASS (single-band float32, EPSG:32611, 3730x3292, pinned transform, all values finite in {0,1}, 0 outside footprint, 0 on catalogue)",
+    "selector: only scripts/select_submission.py (extended to this lane by explicit gate re-derivation) may set ok_to_submit; weekly-slot availability remains an account-side check on the DrivenData submission page"
+  ],
+  "score_policy": "Every number labelled HOLDOUT-DTI (evaluator, withheld n, 95% CI) or ORGANIZER-CONFIRMED (receipt only). 0.2778 / 0.4413 / 0.3195 remain unverified historical reports / leaderboard observations, never this candidate's score. No projection is written as a score.",
+  "stop_rules": [
+    "If EXP-2/EXP-3 fail any promotion gate: verdict negative, artifact named DO-NOT-SUBMIT, ok_to_submit stays false, negative result is the deliverable",
+    "If surface or final dots exceed a uniqueness limit vs a comparable sparse registry raster: log duplicate and stop"
+  ]
+}

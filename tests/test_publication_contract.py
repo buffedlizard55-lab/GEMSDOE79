@@ -319,7 +319,9 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
     for lane_id, entry in audit['preserved_negative_session_lanes'].items():
         assert entry['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
         assert entry['canonical_readiness_decision']['ok_to_submit'] is False
-    card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
+    # The concurrent-lane audit is a historical record: its active deliverable
+    # was G79-THVC, now archived under its own preserved card.
+    card = json.loads((ROOT / 'run_card_g79_thvc.json').read_text(encoding='utf-8'))
     assert audit['active_deliverable_unchanged']['lane'] == card['lane']
     assert audit['active_deliverable_unchanged']['submission_file'] == card['submission_file']
     assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
