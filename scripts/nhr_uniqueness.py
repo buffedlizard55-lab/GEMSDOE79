@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 from gems57 import uniqueness as shared        # noqa: E402
 from gems57.grid import load_grid              # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 
 BUDGET = 37654
 
@@ -70,12 +71,19 @@ def compact(res, keys=("my_dots_within_3px_of_theirs", "spearman_full_footprint"
     return out
 
 
-def run(phase):
+def run(phase, lane="H79-NHR", cache=None, out_dir=None):
+    """Shared-tool duplicate gate for one lane. Defaults reproduce H79-NHR exactly.
+
+    ``cache`` holds final_surface.npy and final_dots.npy; ``out_dir`` receives
+    uniqueness_<phase>.json. The shared comparison is unchanged.
+    """
+    require_open_lane(ROOT, lane)
     grid = load_grid(ROOT / "data/reference")
     inv, expected = inventory()
     eg = (grid.shape, grid.crs, grid.transform)
-    cache = ROOT / ".cache/nhr"
-    result = dict(schema_version=1, lane="H79-NHR", phase=phase,
+    cache = Path(cache) if cache else ROOT / ".cache/nhr"
+    out_dir = Path(out_dir) if out_dir else ROOT / "evidence/nhr"
+    result = dict(schema_version=1, lane=lane, phase=phase,
                   evidence_class="REGISTRY-MEASUREMENT",
                   generated_utc=datetime.now(timezone.utc).isoformat(),
                   shared_tool="gems57.uniqueness.compare_array_to_registry",
@@ -117,7 +125,7 @@ def run(phase):
     duplicate = bool((rho is not None and rho > shared.RHO_LIMIT) or ov > shared.OVERLAP_LIMIT)
     result.update(worst_spearman=rho, worst_forward_overlap_3px=ov, complete_comparison=complete,
                   duplicate=duplicate, passed=bool(complete and not duplicate))
-    out = ROOT / "evidence/nhr" / f"uniqueness_{phase}.json"
+    out = out_dir / f"uniqueness_{phase}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, indent=2, default=float).replace(str(ROOT) + "/", "") + "\n")
     print(json.dumps({k: result[k] for k in ("phase", "worst_spearman", "worst_forward_overlap_3px",
@@ -128,4 +136,8 @@ def run(phase):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("phase", choices=["surface", "final"])
-    run(ap.parse_args().phase)
+    try:
+        run(ap.parse_args().phase)
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

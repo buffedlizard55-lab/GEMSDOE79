@@ -1,13 +1,14 @@
 # Session `arena/6d4a2fdf-gemsdoe79` — Three-Pass Line-by-Line Review & Cross-Repository Audit (`2026-10-22`)
 
-- **Repository & Active Branch:** `buffedlizard55-lab/GEMSDOE79` · branch `arena/6d4a2fdf-gemsdoe79` (`active`, branched from `origin/main` `41c07e2`)
+- **Repository & Active Branch:** `buffedlizard55-lab/GEMSDOE79` · branch `arena/6d4a2fdf-gemsdoe79` (`active`, reconciled with `origin/main` `bd02274`)
 - **Automated Submission Status (`scripts/submission_status.py`, exit code `2`):**
   **`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`**
-- **Canonical Research Artifact (Unchanged SHA-256):**
-  `docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif`
-  - **TIFF SHA-256:** `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2` (`139,863` bytes; `37,654` binary `{0.0, 1.0}` dots; `0` NaNs across all `12,279,160` cells; `EPSG:32611`; `3730 x 3292`; exact affine match)
-  - **ZIP SHA-256:** `b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7`
-  - **Weekly DrivenData Upload Slots Consumed:** `0` (`0` new scientific experiments executed; all stopped negative lanes `H79-NHR`, `E1`, `G79-STEPCO`, `G79B-SDPT`, `H79-FF` kept strictly sealed).
+- **Canonical Published Research Artifact (`run_card.json` — `H79-DILSTEP`, Unchanged SHA-256):**
+  [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif`](../docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif)
+  - **Canonical TIFF SHA-256:** `8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b` (`37,654` binary `{0.0, 1.0}` dots; `0` NaNs across all `12,279,160` cells; `EPSG:32611`; `3730 x 3292`; exact affine match)
+  - **Canonical ZIP SHA-256:** `712ab28316d9465354ff1adadf87993f57e0f392b55f0d0af437edbea89d1948`
+  - **Archived `GEMSDOE79` Reference Lanes Preserved Byte-for-Byte:** `H79-NHR` (`archive/h79_nhr/downloads/...`, TIFF `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`, ZIP `b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7`), `G79-THVC` (`archive/g79_thvc_33e1f8ec/`, `d3db2e95…`, `0.1905 / 0.1944`), `H79-FFAS`, `H79-STEP`, `G79-MAG`, `H79-COV`, `H79-ASYM`, `H79-FGR`, `G79-STEPCO`, `G79B-SDPT`, `H79-FF`.
+  - **Weekly DrivenData Upload Slots Consumed:** `0` (`0` new scientific experiments executed in session `6d4a2fdf`; all closed lanes kept strictly sealed; Irregularities `IR-79-105`..`IR-79-109` recorded in [`reports/irregularities.md`](irregularities.md)).
 
 ---
 
@@ -46,7 +47,9 @@ All `16` scored historical landmarks (`GEMSDOE19..GEMSDOE77`), all `6` prompt-na
 
 | Repo | Submission Stem | SHA-256 (`[0,1]` Format) | Dots | Sibling Self-Reported Holdout | Unmodified 992-Raster `v3` Collisions (`>0.70` among 26 Informative Priors) | Worst Excess Overlap Beyond Chance ($\le 0.70$?) | Static Full-Cat Seed-20 / Seed-30 Diagnostic | Forensic Verdict & Critical Irregularity |
 | --- | --- | --- | ---: | --- | ---: | ---: | ---: | --- |
-| **`GEMSDOE79`** *(Canonical)* | `gems79-h79-nhr-research-37654dots-...-DO-NOT-SUBMIT` | `abbf5314…` (`PASS`) | `37,654` | **`0.1431 / 0.1522`** (`gems57-pooled-hide-v2` S20/S30) | **`26` (`0.9130` raw)** | `0.7770` (**FAIL**) | `0.0136 / 0.0148` *(blind OOF `0.1431 / 0.1522`)* | **Reference gold-standard honesty:** fails both raw (`0.913`) and chance-corrected (`0.777 > 0.70`) uniqueness; rightly locked `DO-NOT-SUBMIT`. |
+| **`GEMSDOE79`** *(Canonical `H79-DILSTEP`)* | `gems79-h79-dilstep-research-37654dots-...-DO-NOT-SUBMIT` | `8497da98…` (`PASS`) | `37,654` | `0.0721 / 0.0650` (`gems57-pooled-hide-v2` S20/S30) | **`9` (`0.8527` raw)** | **`0.5894` (PASS excess)** | `0.0575 / 0.0562` | **Canonical negative file (`exit 2`):** clears excess novelty (`0.5894 <= 0.70`), lost blind OOF holdout to `H33` (`0.0961 / 0.0989`). |
+| **`GEMSDOE79-G79-THVC`** *(Archived)* | `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT` | `d3db2e95…` (`PASS`) | `35,093` | **`0.1905 / 0.1944`** (`gems57-pooled-hide-v2` S20/S30) | **`25` (`0.9053` raw)** | `0.7857` (**FAIL**) | `0.0000 / 0.0000` *(mechanical `300m` collar)* | Best internal `GEMSDOE79` holdout (`0.1905 / 0.1944`), properly held back because even chance-excess overlap fails (`0.7857 > 0.70`). |
+| **`GEMSDOE79-H79-NHR`** *(Archived)* | `gems79-h79-nhr-research-37654dots-...-DO-NOT-SUBMIT` | `abbf5314…` (`PASS`) | `37,654` | **`0.1431 / 0.1522`** (`gems57-pooled-hide-v2` S20/S30) | **`26` (`0.9130` raw)** | `0.7770` (**FAIL**) | `0.0136 / 0.0148` *(blind OOF `0.1431 / 0.1522`)* | **Reference gold-standard honesty:** fails both raw (`0.913`) and chance-corrected (`0.777 > 0.70`) uniqueness; archived in `archive/h79_nhr/`. |
 | **`GEMSDOE76`** | `gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros` | `54c97839…` (`PASS`) | `39,200` | `0.1782` (*non-standard `label-blind-quadrants-v2`, `n=60,988`*) | **`22` (`0.9555` raw)** | `0.9051` (**FAIL**) | `0.0015 / 0.0019` | Non-comparable holdout split; fails both raw (`0.956`) & excess (`0.905`) overlap (`GEMSDOE22:10pct`); superseded in `GEMSDOE76` (`h76_3` scored `0.1555` live). |
 | **`GEMSDOE78`** | `gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros` | `8ca06ece…` (`PASS`) | `44,090` | `0.1771` (`gems57-pooled-hide-v2` S20) | **`20` (`0.9378` raw)** | `0.8406` (**FAIL**) | `0.0000 / 0.0000` *(mechanical `b5` `500m` collar)* | Aggressive `b5` (`500 m`) collar deletes all near-fault splays (`11516/4`, `11536/2`); fails raw (`0.938`) & excess (`0.841`) overlap (`GEMSDOE3:coverage-v3-wide`). |
 | **`GEMSDOE80`** | `gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros` | `a3c14d76…` (`PASS`, `+3 -nan.tif` in repo) | `51,667` | `0.2349` (**PRIVATE FORK `GEMSDOE80-v2`, `n=18,313`**) | **`13` (`0.8589` raw)** | **`0.6907` (PASS excess)** | `0.0008 / 0.0010` | **Violated Rule 2 (`AGENTS.md §2`)** via private evaluator fork + only 20-raster uniqueness check + heavy `51,667` dot budget; also ships `-nan.tif` siblings (`IR-79-76`). |

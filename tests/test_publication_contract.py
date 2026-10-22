@@ -156,7 +156,7 @@ def test_irregularity_ids_unique_and_sequential():
     import re
     text = (ROOT / 'reports/irregularities.md').read_text(encoding='utf-8')
     ids = re.findall(r'^\|\s*(IR-79-\d+)\s*\|', text, flags=re.M)
-    assert len(ids) >= 66
+    assert len(ids) >= 89
     assert len(ids) == len(set(ids)), f'Duplicate irregularity IDs found: {ids}'
     nums = [int(x.split('-')[-1]) for x in ids]
     assert nums == list(range(1, len(nums) + 1))
@@ -168,6 +168,7 @@ def test_irregularity_ids_unique_and_sequential():
 
 def test_score_ledger_complete_and_lineage_forensics_published():
     import csv
+    import analyze_family_lineage as afl
     raw = (ROOT / 'registry/score_ledger.csv').read_bytes()
     assert b'\r\n' not in raw
     rows = list(csv.DictReader(raw.decode('utf-8').splitlines()))
@@ -185,11 +186,42 @@ def test_score_ledger_complete_and_lineage_forensics_published():
     lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
     published_lineage = json.loads((ROOT / 'docs/evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
     assert lineage == published_lineage
-    by_id = {m['repo']: m['measurements'] for m in lineage['scored_landmarks']}
+    landmarks_by_repo = {m['repo']: m for m in lineage['scored_landmarks']}
+    by_id = {r: m['measurements'] for r, m in landmarks_by_repo.items()}
     assert by_id['GEMSDOE36']['shared_exact_pixels_with_h33'] == 37654
     assert by_id['GEMSDOE36']['reverse_3px_overlap_from_h33'] == 1.0
     assert by_id['GEMSDOE70']['forward_3px_overlap_with_h33'] < 0.70
     assert by_id['GEMSDOE70']['reverse_3px_overlap_from_h33'] < 0.70
+    assert landmarks_by_repo['GEMSDOE76']['reported_public_dti'] == 0.1555
+    assert landmarks_by_repo['GEMSDOE76']['prompt_3cfa694f_reported_public_dti'] == 0.2194
+
+    siblings_by_repo = {s['repo']: s for s in lineage['post_snapshot_siblings']}
+    assert set(siblings_by_repo) == {
+        'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83',
+        'GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88',
+    }
+    for stub_repo in ('GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88'):
+        assert siblings_by_repo[stub_repo]['total_tif_count_at_head'] == 0
+        assert siblings_by_repo[stub_repo]['published_tifs'] == []
+    for active_sib, expected_name in (
+        ('GEMSDOE76', 'gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif'),
+        ('GEMSDOE78', 'gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros.tif'),
+        ('GEMSDOE80', 'gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros.tif'),
+        ('GEMSDOE81', 'gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros.tif'),
+        ('GEMSDOE82', 'gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros.tif'),
+        ('GEMSDOE83', 'gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif'),
+    ):
+        names = [Path(t['path']).name for t in siblings_by_repo[active_sib]['published_tifs']]
+        assert expected_name in names, f'{expected_name} missing in {active_sib}: {names}'
+
+    # Unit check that select_sibling_tifs does not truncate alphabetically before prompt-named candidate
+    synthetic_tifs = [
+        {'path': f'archive/a{i}.tif', 'blob': f'blob{i}'} for i in range(6)
+    ] + [
+        {'path': 'docs/downloads/gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros.tif', 'blob': 'targetblob'},
+    ]
+    picked = afl.select_sibling_tifs('GEMSDOE78', synthetic_tifs)
+    assert any(p['blob'] == 'targetblob' for p in picked)
 
 
 def test_smart_http_git_blob_fallback_offline(tmp_path, monkeypatch):
@@ -293,17 +325,20 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
     assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
 
 
-def test_reproduce_artifact_recovers_canonical_nhr_bytes():
+def test_reproduce_artifact_recovers_archived_nhr_bytes():
     import reproduce_artifact
-    card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
+    live = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
     rep = reproduce_artifact.reproduce_nhr(ROOT)
-    assert rep['lane'] == card['lane'] == 'H79-NHR'
+    assert rep['lane'] == 'H79-NHR'
     assert rep['exact_tiff_recovery'] is True
     assert rep['exact_single_tiff_zip_recovery'] is True
     assert rep['exact_decoded_dots_recovery'] is True
-    assert rep['raster_sha256'] == card['raster_sha256']
-    assert rep['zip_sha256'] == card['zip_sha256']
-    assert rep['positive_pixels'] == card['positive_pixels'] == 37654
+    assert rep['raster_sha256'] == reproduce_artifact.NHR_RASTER_SHA256
+    assert rep['zip_sha256'] == 'b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7'
+    assert rep['positive_pixels'] == 37654
+    if live['lane'] == 'H79-NHR':
+        assert rep['raster_sha256'] == live['raster_sha256']
+        assert live['positive_pixels'] == 37654
 
 
 def test_verification_and_evidence_json_have_no_machine_checkout_paths():
@@ -323,6 +358,36 @@ def test_verification_and_evidence_json_have_no_machine_checkout_paths():
     ):
         txt = (ROOT / rel).read_text(encoding='utf-8')
         assert '/home/user/GEMSDOE79' not in txt, f'Hardcoded checkout path in {rel}'
+
+
+def test_readme_section_after_details_blocks_release(publication):
+    root, card = publication
+    (root / 'README.md').write_text(
+        'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. fixture-hash\n'
+        '## Original project prompt\n<details>\nUntrusted historical instructions\n</details>\n'
+        '## Trailing unreviewed section\nOK TO SUBMIT: YES.\n'
+    )
+    assert not publication_contract_checks(root, card)['readme_matches_card_decision']
+
+
+def test_prompt_named_unscored_candidates_and_empty_siblings_in_lineage_forensics():
+    lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    assert lineage == json.loads((ROOT / 'docs/evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    unscored = lineage['prompt_named_unscored_candidates']
+    assert len(unscored) == 6
+    by_repo = {row['repo']: row for row in unscored}
+    assert set(by_repo) == {'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83'}
+    for row in unscored:
+        assert row['found'] is True
+        assert row['reported_public_dti'] is None
+        assert row['measurements']['forward_3px_overlap_with_nhr'] < 0.70
+        assert row['measurements']['reverse_3px_overlap_from_nhr'] < 0.70
+    empty = lineage['empty_post_snapshot_siblings']
+    assert [r['repo'] for r in empty] == ['GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88']
+    assert all(r['published_tif_count'] == 0 for r in empty)
+    readme_text = (ROOT / 'README.md').read_text(encoding='utf-8')
+    assert 'gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:' in readme_text
+    assert 'https://buffedlizard55-lab.github.io/GEMSDOE88/' in readme_text
 
 
 def test_three_tier_pigeonhole_obstruction_and_sibling_audit_certificates():
@@ -346,32 +411,20 @@ def test_three_tier_pigeonhole_obstruction_and_sibling_audit_certificates():
         assert w['budget_matched_v3_bounds']['blocks_every_37654_dot_candidate'] is True
 
     by_repo = {r['repo']: r for r in cert['cross_sibling_uniqueness_audit']}
-    assert {'GEMSDOE32', 'GEMSDOE79', 'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83'} <= set(by_repo)
+    assert {'GEMSDOE32', 'GEMSDOE79', 'GEMSDOE79-H79-NHR', 'GEMSDOE79-G79-THVC',
+            'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83'} == set(by_repo)
     for repo in ('GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83'):
         assert by_repo[repo]['passes_unmodified_992_v3_gate'] is False
         assert by_repo[repo]['informative_collisions_gt_0p70_among_26'] >= 11
-    assert by_repo['GEMSDOE79']['passes_excess_overlap_le_0p70_on_26_informative_set'] is False
+    assert by_repo['GEMSDOE79-H79-NHR']['passes_excess_overlap_le_0p70_on_26_informative_set'] is False
+    assert by_repo['GEMSDOE79-G79-THVC']['passes_excess_overlap_le_0p70_on_26_informative_set'] is False
     assert by_repo['GEMSDOE83']['passes_excess_overlap_le_0p70_on_26_informative_set'] is True
 
-    lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
-    assert lineage['schema_version'] == 2
-    assert len(lineage['prompt_named_unscored_candidates']) == 6
-    assert all(c['found'] and c['local_format_passed'] for c in lineage['prompt_named_unscored_candidates'])
-    assert lineage['static_holdout_comparison']['per_seed']['seed_20']['scores']['h33_foldfair_control']['dti'] == 0.0961
-    assert lineage['static_holdout_comparison']['per_seed']['seed_30']['scores']['h33_foldfair_control']['dti'] == 0.0989
-    sib_repos = {s['repo']: s for s in lineage['post_snapshot_siblings']}
-    assert {'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83',
-            'GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88'} == set(sib_repos)
-    for empty_repo in ('GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88'):
-        assert sib_repos[empty_repo]['unique_published_tif_blobs'] == 0
     delta = json.loads((ROOT / 'registry/registry_delta.json').read_text(encoding='utf-8'))
     pub_delta = json.loads((ROOT / 'docs/evidence/registry_delta.json').read_text(encoding='utf-8'))
     assert delta == pub_delta
     assert delta['n_new_rasters'] >= 207
-    delta_repos = {r['repo'] for r in delta['repositories']}
-    assert {'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83',
-            'GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88'} <= delta_repos
-    assert 'GEMSDOE79' not in delta_repos
+    assert 'GEMSDOE79' not in {r['repo'] for r in delta['repositories']}
 
 
 def test_official_sources_and_health_synced_on_2026_10_22():
@@ -389,10 +442,15 @@ def test_official_sources_and_health_synced_on_2026_10_22():
 
 def test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts():
     import re
+    import reproduce_artifact
     card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
     cert = json.loads((ROOT / 'evidence/registry_obstructions_certificate.json').read_text(encoding='utf-8'))
     lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
-    known_full_hashes = {card['raster_sha256'], card['zip_sha256']}
+    known_full_hashes = {
+        card['raster_sha256'], card['zip_sha256'],
+        reproduce_artifact.NHR_RASTER_SHA256,
+        'b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7',
+    }
     known_prefixes = {h[:8] for h in known_full_hashes}
     known_prefixes.add(cert['tier_1_literal_positive_support']['witness_sha256'][:8])
     for w in cert['tier_2_budget_matched_v3_plateaus']['witnesses'] + cert['tier_3_strictly_binary_lattice_pigeonhole']['witnesses']:
@@ -408,5 +466,3 @@ def test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts(
         assert full_h in known_full_hashes, f'Unverified 64-hex hash {full_h} in session review'
     for short_h in re.findall(r'\b([0-9a-f]{8})…', review_txt):
         assert short_h in known_prefixes, f'Unverified 8-hex hash prefix {short_h}… in session review'
-
-

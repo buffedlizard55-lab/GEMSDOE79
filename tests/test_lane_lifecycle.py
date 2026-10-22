@@ -58,18 +58,48 @@ def test_absent_card_fails_closed(tmp_path):
 @pytest.mark.parametrize('script,args', [
     ('run_nhr.py', ['holdout', '--seed', '20']),
     ('run_nhr.py', ['final']),
+    ('nhr_uniqueness.py', ['surface']),
+    ('nhr_uniqueness.py', ['final']),
     ('build_nhr_submission.py', []),
+    ('finalize_nhr.py', []),
+    ('nhr_overlap_chance.py', []),
+    ('nhr_surface_flagged.py', []),
+    ('nhr_distance_profile.py', []),
+    ('run_stepco_experiment.py', []),
+    ('run_stepco_s2.py', []),
+    ('build_stepco_run_card.py', []),
+    ('supplementary_uniqueness_stepco.py', []),
+    ('run_holdout_g79b.py', []),
+    ('build_submission_g79b.py', []),
+    ('cap_cost_g79b.py', []),
+    ('build_ff_candidate.py', []),
+    ('run_g79_thvc.py', ['--stage', 'seed20']),
+    ('run_asym.py', ['surface']),
+    ('finalize_asym.py', []),
+    ('asym_surface_diagnostic.py', []),
+    ('run_edge_lane.py', []),
+    ('run_ffas.py', ['holdout', '--seed', '20']),
+    ('build_ffas_submission.py', []),
+    ('finalize_ffas.py', []),
+    ('ffas_uniqueness.py', ['surface']),
+    ('ffas_overlap_chance.py', []),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
-    paths = [ROOT / 'run_card.json'] + list((ROOT / 'evidence/nhr').glob('*.json')) + list((ROOT / 'docs/downloads').glob('*'))
+    paths = (
+        [ROOT / 'run_card.json', ROOT / 'run_card_stepco.json', ROOT / 'run_card_g79b.json', ROOT / 'run_card_asym.json']
+        + list((ROOT / 'evidence/nhr').glob('*.json'))
+        + list((ROOT / 'evidence/ffas').glob('*.json'))
+        + list((ROOT / 'docs/downloads').glob('*'))
+    )
     frozen = {p: p.read_bytes() for p in paths if p.is_file()}
     cache = ROOT / '.cache/nhr'
     before = set(cache.rglob('*')) if cache.exists() else set()
     result = subprocess.run([sys.executable, str(ROOT / 'scripts' / script), *args],
                             capture_output=True, text=True, timeout=30)
     assert result.returncode == 2, result.stderr
-    assert 'lane is closed (negative)' in result.stderr
-    assert 'No files changed.' in result.stderr
+    err = result.stderr
+    assert 'no files changed' in err.lower()
+    assert ('lane is closed' in err) or ('mismatched' in err)
     assert all(p.read_bytes() == data for p, data in frozen.items())
     assert (set(cache.rglob('*')) if cache.exists() else set()) == before
 

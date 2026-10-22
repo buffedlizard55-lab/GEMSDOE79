@@ -91,11 +91,22 @@ def publication_contract_checks(root, card):
     HTML link happens to point at them. This runs before every Pages build.
     """
     root = Path(root)
-    readme = (root / 'README.md').read_text().split('## Original project prompt', 1)[0]
+    readme_full = (root / 'README.md').read_text()
+    readme_parts = readme_full.split('## Original project prompt', 1)
+    readme = readme_parts[0]
+    after_details = (
+        readme_parts[1].split('</details>', 1)[1]
+        if len(readme_parts) > 1 and '</details>' in readme_parts[1]
+        else ''
+    )
     downloads = root / 'docs/downloads'
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
                  if p.suffix.lower() in ('.tif', '.tiff', '.zip')}
+    docs_dir = root / 'docs'
+    extra_docs_uploads = [p for p in docs_dir.rglob('*')
+                          if p.suffix.lower() in ('.tif', '.tiff', '.zip')
+                          and not p.is_relative_to(downloads)] if docs_dir.exists() else []
     loose_submissions = [p for p in (root / 'submissions').rglob('*')
                          if p.suffix.lower() in ('.tif', '.tiff', '.zip')]
     index = json.loads((root / 'registry/registry_index.json').read_text())
@@ -110,16 +121,68 @@ def publication_contract_checks(root, card):
         'all_repo_json_strictly_valid': json_strict_ok,
         'readme_matches_card_decision': (
             line in readme and contradicting not in readme and
+            not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
-        'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
+        'only_canonical_upload_artifacts_published': (
+            published == expected and not loose_submissions and not extra_docs_uploads),
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
     }
 
 
+def dilstep_evidence_checks(root, card):
+    """Honesty checks for the stopped H79-DILSTEP card. A failed gate must stay failed."""
+    root = Path(root)
+    ev = root / 'evidence/dilstep'
+    out = {}
+    hold = {s: json.loads((ev / f'holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    h = card['holdout_dti']
+    src = hold[h['headline_seed']]['holdout']['scores']['candidate']
+    out['holdout_card_equals_evaluator_output'] = (
+        h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
+        h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
+        h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
+    out['card_does_not_claim_a_holdout_win'] = (
+        card.get('current_best_holdout_beaten') is False and
+        all(x['holdout']['scores']['candidate']['dti'] < x['holdout']['scores']['h33_foldfair_control']['dti']
+            for x in hold.values()) and
+        all(x['holdout']['paired_differences']['h33_foldfair_control']['ci95'][1] < 0 for x in hold.values()))
+    out['leakage_canary_clear'] = (
+        card['leakage_canary']['passed'] is True and card['leakage_canary']['auc'] <= 0.90 and
+        all(x['leakage_canary']['n_suspicious'] == 0 and x['leakage_canary']['passed'] is True for x in hold.values()) and
+        card['leakage_canary']['auc'] == max(x['leakage_canary']['max_symmetric_auc'] for x in hold.values()))
+    scan = json.loads((ev / 'uniqueness_surface.json').read_text())
+    out['uniqueness_card_matches_evidence'] = (
+        card['protocol_unique'] is False and scan.get('surface_gate_passed') is False and
+        scan['operative']['passed'] is False and
+        card['correlation_overlap_vs_registry']['surface_before_placement']['informative_overlap_flags'] ==
+        len(scan['operative']['informative_overlap_flags']))
+    gates = json.loads((ev / 'e1_gates.json').read_text())
+    out['gate_receipt_bound_to_raster_and_verdict'] = (
+        gates['raster_sha256'] == card['raster_sha256'] and gates['all_passed'] is False and
+        card['verdict'] == 'negative' and card.get('ok_to_submit') is False)
+    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote'
+    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_h79_dilstep.json') == card['preregistration_sha256']
+    out['no_submission_placement_after_failed_gate'] = card['correlation_overlap_vs_registry']['final_dots']['placed_for_submission'] is False
+    return out
+
+
 def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
-    root = Path(root); ev = root / 'evidence/nhr'
+    root = Path(root)
+    lane = card.get('lane')
+    if lane == 'H79-DILSTEP':
+        return dilstep_evidence_checks(root, card)
+    if lane == 'H79-FFAS':
+        ev = root / 'evidence/ffas'
+        prereg_name = 'preregistration_ffas.json'
+        cache_dots = root / '.cache/ffas/final_dots.npy'
+        informative_only = True
+    else:
+        ev = root / 'evidence/nhr'
+        prereg_name = 'preregistration_nhr.json'
+        cache_dots = root / '.cache/nhr/final_dots.npy'
+        informative_only = False
     out = {}
     hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}
     h = card['holdout_dti']
@@ -128,28 +191,30 @@ def evidence_checks(root, card):
         h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
         h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
         h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
-    out['holdout_beats_h33_control_both_seeds'] = all(
-        x['holdout']['paired_differences']['h33_foldfair_control']['ci95'][0] > 0 and
+    beaten = all(
         x['holdout']['scores']['candidate']['dti'] > x['holdout']['scores']['h33_foldfair_control']['dti']
         for x in hold.values())
+    out['holdout_beats_flag_matches_evidence'] = card.get('current_best_holdout_beaten') is beaten
+    canary_ok = all(x['leakage_canary']['n_suspicious'] == 0 and
+                    x['leakage_canary']['max_symmetric_auc'] <= 0.90 for x in hold.values())
     out['leakage_canary_clear'] = (card['leakage_canary']['passed'] is True and
-        card['leakage_canary']['auc'] <= 0.90 and
-        all(x['leakage_canary']['n_suspicious'] == 0 for x in hold.values()))
+        card['leakage_canary']['auc'] <= 0.90 and canary_ok)
     uniq = {p: json.loads((ev / f'uniqueness_{p}.json').read_text()) for p in ('surface', 'final')}
-    dots_path = root / '.cache/nhr/final_dots.npy'   # ignored cache; checked when present
     chance = json.loads((ev / 'overlap_chance.json').read_text())
     flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
+    if informative_only:
+        flagged = [r for r in flagged if r.get('halo_coverage', 1) <= 0.70]
     expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
     out['uniqueness_card_matches_evidence'] = (
         card['protocol_unique'] is expected_unique and
-        (not dots_path.exists() or hashlib.sha256(np.load(dots_path).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
+        (not cache_dots.exists() or hashlib.sha256(np.load(cache_dots).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
     gates = json.loads((ev / 'x1_gates.json').read_text())
     out['gate_receipt_bound_to_raster_and_verdict'] = (
         gates['raster_sha256'] == card['raster_sha256'] and
         gates['all_passed'] is (card['verdict'] == 'promote') and
         gates['all_passed'] is all(gates['gates'].values()))
     out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
-    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_nhr.json') == card['preregistration_sha256']
+    out['preregistration_hash_matches_card'] = sha(root / 'registry' / prereg_name) == card['preregistration_sha256']
     return out
 
 

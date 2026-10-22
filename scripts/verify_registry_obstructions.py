@@ -175,24 +175,41 @@ def measure_obstructions(root: Path = ROOT, *, restore: bool = True) -> dict:
         dots_i = shared.budget_matched_dots(arr_i, fp, CANONICAL_BUDGET) if is_dense_i else pos_lit_i
         informative_halos.append((sub, int(hit['their_dots']), float(hit['halo_coverage']), shared._near(dots_i)))
 
+    from gems57 import holdout as holdout_mod, evaluate_holdout as eval_mod
+    folds_by_seed = {
+        seed: holdout_mod.buffered_component_draw(grid, seed=seed)[0]
+        for seed in (20, 30)
+    }
+
     card = json.loads((root / 'run_card.json').read_text())
+    local_targets = {
+        'GEMSDOE79': root / card['submission_file'],
+        'GEMSDOE79-H79-NHR': root / 'archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif',
+        'GEMSDOE79-G79-THVC': root / 'archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif',
+    }
     sibling_audit_targets = [
         ('GEMSDOE32', 'h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros'),
         ('GEMSDOE79', Path(card['submission_file']).stem),
-        *afl.PROMPT_NAMED_UNSCORED,
+        ('GEMSDOE79-H79-NHR', 'gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT'),
+        ('GEMSDOE79-G79-THVC', 'g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT'),
+        *afl.PROMPT_NAMED_UNSCORED_CANDIDATES,
     ]
     sibling_collision_audit = []
     for repo_name, needle in sibling_audit_targets:
-        if repo_name == 'GEMSDOE79':
-            p79 = root / card['submission_file']
-            with rasterio.open(p79) as ds:
+        if repo_name in local_targets:
+            p_local = local_targets[repo_name]
+            with rasterio.open(p_local) as ds:
                 arr_c = ds.read(1)
-            src_c = {'repo': 'GEMSDOE79', 'path': card['submission_file'], 'sha256': card['raster_sha256']}
+            src_c = {
+                'repo': repo_name,
+                'path': str(p_local.relative_to(root)),
+                'sha256': afl.sha256_bytes(p_local.read_bytes()),
+            }
         else:
             loaded_c = afl.locate_and_load(repo_name, needle, index_rows, pins)
             if loaded_c is None:
                 continue
-            arr_c, src_c, _ = loaded_c
+            arr_c, src_c = loaded_c
         pos_c = fp & np.isfinite(arr_c) & (arr_c > 0)
         n_pos_c = int(pos_c.sum())
         n_raw_gt70 = 0
@@ -213,10 +230,18 @@ def measure_obstructions(root: Path = ROOT, *, restore: bool = True) -> dict:
                     'submission': sub, 'their_dots': tdots, 'halo_coverage': round(hcov, 6),
                     'raw_overlap': round(ov, 6), 'excess_overlap_beyond_chance': round(exc, 6),
                 }
+        static_scores = {}
+        pred_f32 = pos_c.astype(np.float32)
+        for seed, folds in folds_by_seed.items():
+            terms = sum(eval_mod.evaluate(pred_f32, fold, fp)[1] for fold in folds)
+            res_s = eval_mod.pooled_summary({'cand': terms}, candidate='cand')['scores']['cand']
+            static_scores[f'seed_{seed}'] = {'dti': round(float(res_s['dti']), 4), 'ci95': [round(float(x), 4) for x in res_s['ci95']]}
         sibling_collision_audit.append({
             'repo': repo_name,
             'submission_name': needle,
             'sha256': src_c['sha256'],
+            'emitted_dots': n_pos_c,
+            'static_fullcat_holdout_diagnostic': static_scores,
             'emitted_dots': n_pos_c,
             'passes_unmodified_992_v3_gate': False,
             'informative_collisions_gt_0p70_among_26': n_raw_gt70,
