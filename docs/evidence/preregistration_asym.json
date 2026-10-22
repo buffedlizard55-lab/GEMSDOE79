@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "lane": "H79-ASYM",
+  "title": "Antislope excess: uphill-facing lidar step gradient over downhill-facing, coherence-weighted, no learning",
+  "registered_utc": "2026-10-22T03:50:40Z",
+  "branch": "arena/4b1abd09-gemsdoe79",
+  "registered_before_any_result": true,
+  "source_hypothesis": "research/hypotheses_nhr.md, hypothesis 2 (antislope-scarp asymmetry). Hypotheses 3-5 are not run here.",
+  "relationship_to_other_lanes": "H79-NHR (canonical, negative duplicate) learns from nested hides and already takes upface_max and downface_max as inputs among 58 features. This lane is a single hand-built transform with no learning and no catalogue input, so its surface is label-independent and can be checked for uniqueness before any placement.",
+  "lane_paragraph": "Uphill-facing (antislope) step gradient in the USGS 3DEP lidar scarp product, minus its downhill-facing counterpart, weighted by along-strike coherence, is the candidate surface. Dots are placed greedily with 3 px Poisson spacing at the 37,654-dot budget scaled to each evaluation region. No catalogue information enters the surface.",
+  "hypothesis": "Where a lidar-resolved step faces uphill against the regional slope and is coherent along strike, the step is more likely to be a normal-fault strand (antithetic or synthetic) than a mapped-trace artefact, so ranking cells by antislope excess places dots on unmapped fault strands better than the uniform control and better than the H33 fold-fair control.",
+  "mechanism": "Antithetic normal-fault strands in extensional terrain can produce uphill-facing free faces; they are coherent along strike and expose a 10-50 m step where they offset Quaternary surfaces (Basin-and-Range normal faulting, USGS: https://www.usgs.gov/faqs/what-a-fault-and-what-are-different-types ; antithetic strand that forms an uphill-facing scarp, Bear River fault zone, USGS SIM 3430: https://pubs.usgs.gov/sim/3430/sim3430_pamphlet.pdf ).",
+  "named_non_fault_mimic": "Sackung and gravitational spreading features are uphill-facing and parallel to contours and ridge crests. The literature treats them as the main confusion for tectonic uphill-facing scarps: Pyrenees sackung (https://www.sciencedirect.com/science/article/abs/pii/S0169555X0500036X), Saint Elias flexural toppling 'not tectonic faults' (https://pubs.geoscienceworld.org/gsa/gsabulletin/article-abstract/122/9-10/1585/125613/Origin-of-sackung-uphill-facing-scarps-in-the?redirectedFrom=fulltext), Yakutat antislope scarps from bedding-plane normal slip (https://pubs.geoscienceworld.org/gsa/geosphere/article/7/5/1143/132478/Antislope-scarps-gravitational-spreading-and). The same literature describes uphill-facing scarps as resembling the head scar of a landslide (https://www.tandfonline.com/doi/pdf/10.3166/ga.21.187-202). The lidar product cannot separate these, so this lane's rule is expected to be weakest where sackung is common.",
+  "inputs": [
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568 (USGS 3DEP-derived; bands upface_max, downface_max, coh100)",
+    "data/reference/existing_faults.tif and sample_submission.tif (grid, footprint, catalogue; used only for holdout splits and for the H33 control)"
+  ],
+  "excluded_inputs": "No registry raster, prior submission, SGMC map, Qfaults trace CSV, learned model or holdout score is an input to the surface. The catalogue is used only by the shared holdout split and by the H33 fold-fair control.",
+  "surface_definition": {
+    "decode": "Each u8 band is decoded from the product's quantisation rule q = 1 + round(254 * t), t = sqrt(clip(x / xmax, 0, 1)) for upface_max and downface_max with xmax = 1.0 (sqrt), and t = (q - 1)/254 for coh100 (linear, xmax = 1.0). Value 0 means no lidar and is excluded.",
+    "U": "upface_max decoded as x = t^2 (m/m).",
+    "D": "downface_max decoded as x = t^2 (m/m).",
+    "C": "coh100 decoded linearly, in [0, 1].",
+    "surface": "S = max(U - D, 0) * C on footprint cells where all three bands are nonzero; 0 elsewhere. Then S is divided by the 99.9th percentile of S over the footprint and clipped to [0, 1] (rank-preserving apart from the clip; computed on the footprint, not on any split). Output is finite and in [0, 1]."
+  },
+  "fixed_parameters": {
+    "budget_full_footprint": 37654,
+    "budget_region_rule": "round(37654 * region_area / footprint_area), as in H79-NHR",
+    "placement": "gems79.placement.place (shared placement, 3 px Poisson spacing, descending surface)",
+    "allowed_cells": "footprint & region & not masked_known (holdout) or footprint & not catalogue (final)"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer 3 px, boundary 12 px, leave-one-quadrant-out folds (same as H79-NHR so controls are comparable)",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified), pooled terms, 1000 spatial-cluster bootstrap draws",
+    "arms": [
+      "candidate: ASYM surface placed inside each fold's region",
+      "uniform_control: seeded uniform surface (rng seed 790021), same allocator and budget",
+      "h33_foldfair_control: legacy D2.8 dots outside 2 px of the fold's visible catalogue (current holdout best recorded in this repo: 0.0961 seed 20 and 0.0989 seed 30)"
+    ]
+  },
+  "leakage_canary": "Every feature alone (S, U, D, C) on each seed and fold, with the shared canary (scripts/run_experiment.canaries). Symmetric AUC > 0.90 means leakage until proven otherwise and blocks promotion.",
+  "promotion_gate": [
+    "surface uniqueness BEFORE placement: Spearman <= 0.90 and provisional top-k 3 px overlap <= 0.70 vs every registry raster (shared gems57.uniqueness, dot_definition budget-matched-v3). A failure stops the lane before any holdout placement.",
+    "all canaries <= 0.90 on both seeds",
+    "candidate pooled HOLDOUT-DTI > h33_foldfair_control point estimate on BOTH seeds",
+    "paired 95% CI of candidate minus uniform_control excludes 0 on both seeds",
+    "final dots uniqueness (shared tool, budget-matched-v3): Spearman <= 0.90 and forward 3 px overlap <= 0.70 vs every registry raster",
+    "shared submission_writer validation: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, [0, 1], no mass outside footprint or on catalogue"
+  ],
+  "uniqueness_rule_note": "The literal rule is applied as written. Registry rasters that are space-filling (IR-79-53) are not exempted, reweighted or overlap-capped. Their presence is reported separately, and the user must decide on IR-79-53.",
+  "experiments": [
+    "X1: the surface, the leakage canary, the two-seed holdout and the final dots, in that order, each gated by the list above."
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95% CI). No projected leaderboard score is written. ORGANIZER-CONFIRMED requires a submission-page receipt.",
+  "no_tuning_statement": "All parameters are fixed here before any result. If a gate fails, the lane stops negative. No threshold, sign convention, decoding rule or placement rule may be changed after a result is seen."
+}

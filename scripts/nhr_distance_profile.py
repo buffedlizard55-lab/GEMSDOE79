@@ -16,6 +16,7 @@ from scipy import ndimage as ndi
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
 from gems57.grid import load_grid   # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 import analyze_h33                  # noqa: E402
 
 H33 = "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif"
@@ -32,6 +33,7 @@ def profile(dist, mask):
 
 
 def main():
+    require_open_lane(ROOT, "H79-NHR")
     g = load_grid(ROOT / "data/reference")
     dist = ndi.distance_transform_edt(~g.catalogue)
     dots = np.load(ROOT / ".cache/nhr/final_dots.npy")
@@ -49,4 +51,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

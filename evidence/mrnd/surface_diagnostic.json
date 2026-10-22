@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "lane": "H79-MRND",
+  "evidence_class": "REGISTRY-MEASUREMENT (diagnostic, not a gate)",
+  "generated_utc": "2026-10-22T06:23:01.967413+00:00",
+  "surface_sha256": "9c4d3654fe76cbecb8febbed9befbf9b5d2efad4afdba087f7d9b293dac63333",
+  "provisional_dots": 37654,
+  "registry_rasters_expected": 992,
+  "compared": 986,
+  "errors": [
+    {
+      "submission": "GEMSDOE75:docs/downloads/gemsdoe75-zeros-SCHEMA-DEMO-DO-NOT-SUBMIT.tif",
+      "error": "registry CRS/transform differs from reference"
+    },
+    {
+      "submission": "14GEMSDOE:docs/downloads/GEMS_r5-geom-horse-ensemble_20260929T154852Z_ccbe1de0_site_e96e942f.tif",
+      "error": "registry CRS/transform differs from reference"
+    },
+    {
+      "submission": "GEMSDOE63:docs/downloads/smoke.tif",
+      "error": "89ffb2d61840859392a758928ffdbae4260f2918.tif: MissingRequired:TIFF directory is missing required \"StripOffsets\" field"
+    },
+    {
+      "submission": "60GEMSDOE:docs/downloads/gems60-h63-strike-corridor-42000px-20261011T020352Z-zeros.tif",
+      "error": "registry CRS/transform differs from reference"
+    },
+    {
+      "submission": "GEMSDOE36:docs/downloads/GEMS36_FORMAT_TEST_NOT_SUBMISSION.tif",
+      "error": "registry grid or band-count mismatch"
+    },
+    {
+      "submission": "GEMSDOE75:docs/downloads/gems75-fault-tip-halo-20261021-SCHEMA-DEMO-DO-NOT-SUBMIT.tif",
+      "error": "registry CRS/transform differs from reference"
+    }
+  ],
+  "space_filling_halo_gt_0_70": 30,
+  "informative_halo_le_0_70": 956,
+  "flagged_by_literal_gate_all": 40,
+  "flagged_by_informative_only": 10,
+  "flagged_by_space_filling_only": 30,
+  "worst_informative": {
+    "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+    "representation": "dot_field",
+    "their_dots": 624025,
+    "overlap": 0.8163276145960588,
+    "spearman": 0.024592016410005035,
+    "halo_coverage": 0.6096677003398686,
+    "space_filling": false,
+    "beyond_chance": 0.5294461012735363
+  },
+  "top10_informative": [
+    {
+      "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+      "representation": "dot_field",
+      "their_dots": 624025,
+      "overlap": 0.8163276145960588,
+      "spearman": 0.024592016410005035,
+      "halo_coverage": 0.6096677003398686,
+      "space_filling": false,
+      "beyond_chance": 0.5294461012735363
+    },
+    {
+      "submission": "GEMSDOE67:docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif",
+      "representation": "dot_field",
+      "their_dots": 167597,
+      "overlap": 0.788096882137356,
+      "spearman": 0.011479449628449863,
+      "halo_coverage": 0.5437357347712717,
+      "space_filling": false,
+      "beyond_chance": 0.5355693311716717
+    },
+    {
+      "submission": "GEMSDOE67:docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
+      "representation": "dot_field",
+      "their_dots": 167597,
+      "overlap": 0.788096882137356,
+      "spearman": 0.011479449628449863,
+      "halo_coverage": 0.5437357347712717,
+      "space_filling": false,
+      "beyond_chance": 0.5355693311716717
+    },
+    {
+      "submission": "GEMSDOE22:docs/downloads/gems22-h23-b-dti-optimal-emission-10pct-20261002-86176698-nan.tif",
+      "representation": "dot_field",
+      "their_dots": 516738,
+      "overlap": 0.780766983587401,
+      "spearman": 0.027885081438903773,
+      "halo_coverage": 0.5311524689188144,
+      "space_filling": false,
+      "beyond_chance": 0.5324001900851717
+    },
+    {
+      "submission": "GEMSDOE22:docs/downloads/gems22-h23-b-dti-optimal-emission-10pct-20261002-86176698-allfinite.tif",
+      "representation": "dot_field",
+      "their_dots": 516738,
+      "overlap": 0.780766983587401,
+      "spearman": 0.027885081438903773,
+      "halo_coverage": 0.5311524689188144,
+      "space_filling": false,
+      "beyond_chance": 0.5324001900851717
+    },
+    {
+      "submission": "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif",
+      "representation": "dot_field",
+      "their_dots": 201260,
+      "overlap": 0.7729324905720508,
+      "spearman": 0.011659996965103558,
+      "halo_coverage": 0.5602928490507473,
+      "space_filling": false,
+      "beyond_chance": 0.4835937761354366
+    },
+    {
+      "submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif",
+      "representation": "dot_field",
+      "their_dots": 344041,
+      "overlap": 0.7703829606416317,
+      "spearman": 0.004089145970128742,
+      "halo_coverage": 0.6413402044695024,
+      "space_filling": false,
+      "beyond_chance": 0.35979152885329896
+    },
+    {
+      "submission": "13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z_allfinite.tif",
+      "representation": "dot_field",
+      "their_dots": 344041,
+      "overlap": 0.7703829606416317,
+      "spearman": 0.004089145970128742,
+      "halo_coverage": 0.6413402044695024,
+      "space_filling": false,
+      "beyond_chance": 0.35979152885329896
+    },
+    {
+      "submission": "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif",
+      "representation": "dot_field",
+      "their_dots": 246469,
+      "overlap": 0.7302013066340893,
+      "spearman": -0.002807702069190875,
+      "halo_coverage": 0.6759617615984693,
+      "space_filling": false,
+      "beyond_chance": 0.16738624831187143
+    },
+    {
+      "submission": "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref_allfinite.tif",
+      "representation": "dot_field",
+      "their_dots": 246469,
+      "overlap": 0.7302013066340893,
+      "spearman": -0.002807702069190875,
+      "halo_coverage": 0.6759617615984693,
+      "space_filling": false,
+      "beyond_chance": 0.16738624831187143
+    }
+  ],
+  "worst_all": {
+    "submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+    "representation": "continuous_surface",
+    "their_dots": 5167373,
+    "overlap": 1.0,
+    "spearman": 0.014826258820703223,
+    "halo_coverage": 1.0,
+    "space_filling": true,
+    "beyond_chance": null
+  }
+}

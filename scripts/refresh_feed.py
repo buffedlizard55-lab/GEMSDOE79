@@ -86,8 +86,11 @@ def main():
               'scientific_claims_reviewed_date': ledger['reviewed_date_utc'],
               'note': 'A new fetch attempt does not refresh an old observation. No submission receipt, remaining-account-capacity or scientific result is inferred.',
               'submission_slots_used_by_this_refresh': 0}
+    serialized = json.dumps(result, indent=2, allow_nan=False) + '\n'
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(result, indent=2, allow_nan=False) + '\n')
+    path.write_text(serialized)
+    if (ROOT / 'evidence').is_dir():
+        (ROOT / 'evidence/source_health.json').write_text(serialized)
     print(json.dumps(result, indent=2))
 
 

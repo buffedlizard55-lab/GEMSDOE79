@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "lane": "H79-FFAS",
+  "experiment": "X1",
+  "generated_utc": "2026-10-22T04:38:33.873534+00:00",
+  "name": "gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT",
+  "note": "H79-FFAS research only; HOLDOUT-DTI 0.042/0.037; FAIL beats_current_holdout_best_both_seeds,paired_ci_vs_uniform_e",
+  "raster_sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
+  "zip_sha256": "bd4c51dd3b72a7cd8e989a314af07fe9dfa588f651d1641c54fdfd1b5f8a738b",
+  "all_passed": false,
+  "gates": {
+    "canaries_all_le_0_90_both_seeds": true,
+    "beats_current_holdout_best_both_seeds": false,
+    "paired_ci_vs_uniform_excludes_zero_both_seeds": false,
+    "evaluator_version_pinned": true,
+    "surface_rank_correlation_le_0_90": true,
+    "final_rank_correlation_le_0_90": true,
+    "surface_uniqueness_passed": false,
+    "final_dot_uniqueness_passed": false,
+    "final_dots_match_audited_bytes": true,
+    "exact_budget": true
+  },
+  "n_informative_overlap_gt_070": 31,
+  "writer": "gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif"
+}

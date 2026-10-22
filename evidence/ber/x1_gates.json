@@ -1,0 +1,18 @@
+{
+  "gates": {
+    "canaries_all_le_0_90_both_seeds": true,
+    "beats_current_holdout_best_both_seeds": false,
+    "paired_ci_vs_uniform_excludes_zero_both_seeds": true,
+    "evaluator_version_pinned": true,
+    "surface_rank_correlation_le_0_90": true,
+    "final_rank_correlation_le_0_90": false,
+    "surface_uniqueness_passed": false,
+    "final_dot_uniqueness_passed": false,
+    "final_dots_match_audited_bytes": true,
+    "exact_budget": true
+  },
+  "all_passed": false,
+  "name": "gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT",
+  "note": "G79-BER research only; HOLDOUT-DTI 0.079/0.088 vs H33 0.096/0.099; FAILED holdout<H33,no-final-dots,surface-uniqueness,final-uniqueness",
+  "raster_sha256": "934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b"
+}

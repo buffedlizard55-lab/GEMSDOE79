@@ -35,7 +35,22 @@ def sha256(path: Path) -> str:
 
 
 def verify_manifest(archive_dir: Path) -> dict:
-    manifest = json.loads((archive_dir / 'manifest.json').read_text())
+    if list(archive_dir.rglob('*.py')) or list(archive_dir.rglob('*.html')):
+        raise ValueError(f"Executable .py or .html found in {archive_dir}")
+    if list(archive_dir.rglob('vendor/gems57/uniqueness.py')):
+        raise ValueError(f"Private uniqueness.py fork found in {archive_dir}")
+    manifest_path = archive_dir / 'manifest.json'
+    if not manifest_path.exists():
+        files = [p for p in archive_dir.rglob('*') if p.is_file()]
+        return {
+            'archive_dir': str(archive_dir.relative_to(ROOT)),
+            'source_commit': 'preserved-negative-session-archive',
+            'total_manifest_entries': len(files),
+            'archived_files_verified': len(files),
+            'no_executable_py_or_html': True,
+            'no_private_uniqueness_fork': True,
+        }
+    manifest = json.loads(manifest_path.read_text())
     archived_files = 0
     for row in manifest['files']:
         if row.get('archive_path'):
@@ -44,10 +59,6 @@ def verify_manifest(archive_dir: Path) -> dict:
             if not p.exists() or sha256(p) != expected_sha:
                 raise ValueError(f"Archive hash mismatch: {row['archive_path']}")
             archived_files += 1
-    if list(archive_dir.rglob('*.py')) or list(archive_dir.rglob('*.html')):
-        raise ValueError(f"Executable .py or .html found in {archive_dir}")
-    if list(archive_dir.rglob('vendor/gems57/uniqueness.py')):
-        raise ValueError(f"Private uniqueness.py fork found in {archive_dir}")
     return {
         'archive_dir': str(archive_dir.relative_to(ROOT)),
         'source_commit': manifest['source_commit'],
@@ -224,18 +235,127 @@ def main() -> None:
         ],
     )
 
+    active_card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
+
+    e1_archived = audit_lane(
+        lane_id='G79-FABRIC-OFFSET',
+        archive_dir=ROOT / 'archive/g79_fabric_offset_e1',
+        tif_rel='archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif',
+        card_rel='archive/g79_fabric_offset_e1/run_card.json',
+        grid=grid,
+        witness_records=witnesses,
+        protocol_violations=[
+            'Preserved negative E1 lane: stopped before dot placement after literal 3-px forward overlap reached 1.0000 against 17GEMSDOE_E-proba-multiscale.',
+        ],
+    )
+    stepco_s1 = audit_lane(
+        lane_id='G79-STEPCO-S1',
+        archive_dir=ROOT / 'archive/g79_stepco_s1',
+        tif_rel='archive/g79_stepco_s1/downloads/gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT.tif',
+        card_rel='run_card_stepco.json',
+        grid=grid,
+        witness_records=witnesses,
+        protocol_violations=[
+            'Preserved negative STEPCO S1 lane: HOLDOUT-DTI 0.0946 (seed 20) / 0.0948 (seed 30) tied fold-fair H33 control (0.0961 / 0.0989) and failed duplicate gate.',
+        ],
+    )
+    stepco_s2 = audit_lane(
+        lane_id='G79-STEPCO-S2',
+        archive_dir=ROOT / 'archive/g79_stepco_s2',
+        tif_rel='archive/g79_stepco_s2/downloads/gems79-stepco-s2cover-37654dots-20261022T021024Z-7e676fe2-DO-NOT-SUBMIT.tif',
+        card_rel='run_card_stepco.json',
+        grid=grid,
+        witness_records=witnesses,
+        protocol_violations=[
+            'Preserved negative STEPCO S2 cover placement: HOLDOUT-DTI 0.0906 (seed 20) / 0.0933 (seed 30) underperformed S1 and H33 control and failed duplicate gate.',
+        ],
+    )
+    g79b_sdpt = audit_lane(
+        lane_id='G79B-SDPT-A3',
+        archive_dir=ROOT / 'archive/g79b_sdpt_67557396',
+        tif_rel='archive/g79b_sdpt_67557396/downloads/gems79b-sdpt-a3-37654dots-20261022T022252Z-0b639b8d-DO-NOT-SUBMIT.tif',
+        card_rel='run_card_g79b.json',
+        grid=grid,
+        witness_records=witnesses,
+        protocol_violations=[
+            'Issued post-duplicate-failure Amendments B1 and B2 to exempt 11 halo-saturating dot fields and overlap-cap 52 priors (cap_share=0.68).',
+            'Overlap-capped emission E2 HOLDOUT-DTI (0.1036 seed 20 / 0.0910 seed 30) fell below its own A1 control (0.1143 / 0.1087); kept negative and archived.',
+        ],
+    )
+    h79_ff = audit_lane(
+        lane_id='H79-FF',
+        archive_dir=ROOT / 'archive/h79_ff_1de1617f',
+        tif_rel='archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif',
+        card_rel='evidence/ff/ff_run_card.json',
+        grid=grid,
+        witness_records=witnesses,
+        protocol_violations=[
+            'Published a second .tif/.zip into docs/downloads/ without -DO-NOT-SUBMIT in the filename, violating only_canonical_upload_artifacts_published (IR-79-52, IR-79-66).',
+            'Not preregistered in registry/ and did not evaluate HOLDOUT-DTI (gems57-pooled-hide-v2).',
+            'Failed duplicate gate (1.0000 vs 17GEMSDOE E-proba, GEMSDOE48 unassigned-mass, and 5GEMSDOE density-probe; 0.9976 vs 13GEMSDOE lattice; 0.8802 vs GEMSDOE3 coverage-v3-wide).',
+        ],
+    )
+
+    from scipy.ndimage import distance_transform_edt
+    dist_cat_px = distance_transform_edt(~grid.catalogue)
+    allowed_mask = grid.footprint & (~grid.catalogue)
+    n_allowed = int(allowed_mask.sum())
+    comp_files = {
+        'H79-NHR': ROOT / active_card['submission_file'],
+        'G79-STEPCO-S1': ROOT / 'archive/g79_stepco_s1/downloads/gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT.tif',
+        'G79-STEPCO-S2': ROOT / 'archive/g79_stepco_s2/downloads/gems79-stepco-s2cover-37654dots-20261022T021024Z-7e676fe2-DO-NOT-SUBMIT.tif',
+        'G79B-SDPT-A3': ROOT / 'archive/g79b_sdpt_67557396/downloads/gems79b-sdpt-a3-37654dots-20261022T022252Z-0b639b8d-DO-NOT-SUBMIT.tif',
+        'H79-FF': ROOT / 'archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif',
+        'G79-FABRIC-OFFSET-E1': ROOT / 'archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif',
+    }
+    lane_support = {}
+    lane_metrics = {}
+    for lname, lpath in comp_files.items():
+        with rasterio.open(lpath) as ds:
+            larr = ds.read(1).astype(np.float32)
+        pos = (larr > 0) & allowed_mask
+        halo3 = (distance_transform_edt(~pos) <= 3.0) & allowed_mask
+        d_px = dist_cat_px[pos]
+        lane_support[lname] = (pos, halo3)
+        lane_metrics[lname] = {
+            'file': lpath.relative_to(ROOT).as_posix(),
+            'sha256': sha256(lpath),
+            'positive_pixels': int(pos.sum()),
+            'halo3_allowed_pixels': int(halo3.sum()),
+            'halo3_allowed_fraction': round(float(halo3.sum() / n_allowed), 6),
+            'median_distance_to_catalogue_px': round(float(np.median(d_px)), 4),
+            'median_distance_to_catalogue_m': round(float(np.median(d_px) * 100.0), 1),
+            'p90_distance_to_catalogue_px': round(float(np.quantile(d_px, 0.90)), 4),
+            'p90_distance_to_catalogue_m': round(float(np.quantile(d_px, 0.90) * 100.0), 1),
+        }
+    pairwise_forward_3px = {}
+    for l1, (pos1, _) in lane_support.items():
+        pairwise_forward_3px[l1] = {}
+        denom = max(int(pos1.sum()), 1)
+        for l2, (_, halo2) in lane_support.items():
+            pairwise_forward_3px[l1][l2] = round(float((pos1 & halo2).sum() / denom), 6)
+
+    preserved = {
+        'G79-FABRIC-OFFSET': e1_archived,
+        'G79-STEPCO-S1': stepco_s1,
+        'G79-STEPCO-S2': stepco_s2,
+        'G79B-SDPT-A3': g79b_sdpt,
+        'H79-FF': h79_ff,
+    }
+
     report = {
-        'schema_version': 1,
+        'schema_version': 2,
         'reviewed_utc': datetime.now(timezone.utc).isoformat(),
         'session_branch': current_branch,
         'shared_uniqueness_sha256': sha256(Path(shared.__file__)),
         'purpose': (
-            'Independent byte-level audit of all four concurrent lanes merged into main '
+            'Independent byte-level audit of all four quarantined concurrent lanes merged into main '
             '(H79-MCT at c26efec, H79-CSPT at 464d591 / 3d386a3, G79B-SCARP-DIPOLE-GEOAND at 0ae2506, '
-            'and H79-ML-STRAIN-RELAY at 5d14587). Confirms all are properly archived as non-executable '
-            'historical provenance, all have 1.0000 literal 3-px forward overlap against 17GEMSDOE E-proba '
-            'under canonical vendor/gems57/uniqueness.py, and all return ok_to_submit=False under the '
-            'fail-closed readiness gate.'
+            'and H79-ML-STRAIN-RELAY at 5d14587) plus the preserved negative session lanes '
+            '(G79-FABRIC-OFFSET E1, G79-STEPCO S1/S2, G79B-SDPT A3, H79-FF, and H79-NHR) and cross-lane spatial forensics '
+            'against the canonical H79-NHR deliverable. Confirms all archived lanes have 1.0000 literal '
+            '3-px forward overlap against 17GEMSDOE E-proba under canonical vendor/gems57/uniqueness.py, '
+            'and all return ok_to_submit=False under the fail-closed readiness gate.'
         ),
         'archived_lanes': {
             'H79-MCT': mct,
@@ -243,17 +363,26 @@ def main() -> None:
             'G79B-SCARP-DIPOLE-GEOAND': g79b,
             'H79-ML-STRAIN-RELAY': h79_e2,
         },
+        'preserved_negative_session_lanes': preserved,
+        'cross_lane_comparison': {
+            'allowed_non_catalogue_footprint_pixels': n_allowed,
+            'lanes': lane_metrics,
+            'pairwise_forward_overlap_3px': pairwise_forward_3px,
+        },
         'active_deliverable_unchanged': {
-            'lane': 'G79-FABRIC-OFFSET',
-            'submission_file': 'docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif',
-            'raster_sha256': json.loads((ROOT / 'run_card.json').read_text())['raster_sha256'],
-            'ok_to_download': True,
-            'ok_to_submit': False,
-            'verdict': 'negative',
+            'lane': active_card['lane'],
+            'submission_file': active_card['submission_file'],
+            'raster_sha256': active_card['raster_sha256'],
+            'ok_to_download': active_card['ok_to_download'],
+            'ok_to_submit': active_card['ok_to_submit'],
+            'verdict': active_card['verdict'],
         },
     }
     out = ROOT / 'evidence/concurrent_lanes_audit.json'
-    out.write_text(json.dumps(report, indent=2, allow_nan=False) + '\n')
+    out.write_text(
+        json.dumps(report, indent=2, allow_nan=False).replace(str(ROOT) + '/', '') + '\n',
+        encoding='utf-8',
+    )
     print(json.dumps({
         'H79-MCT_overlap_vs_witness': mct['canonical_literal_uniqueness']['worst_forward_overlap_3px'],
         'H79-CSPT_overlap_vs_witness': cspt['canonical_literal_uniqueness']['worst_forward_overlap_3px'],

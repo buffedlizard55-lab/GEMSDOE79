@@ -1,0 +1,567 @@
+{
+  "schema_version": "gems79-run-card-v2",
+  "generated_utc": "2026-10-22T05:47:39.081720+00:00",
+  "branch": "arena/4f80e0d0-gemsdoe79",
+  "lane": "G79-BER",
+  "hypothesis": "Faults missing from the USGS/INGENIOUS catalogue are not drawn from the same distance-to-catalogue distribution as catalogue components: a pooled hide-and-recover learner collapses its budget into the already-mapped, already-dotted <=1 km halo, while the publicly successful H33 lineage and the best independent family lanes spread dots over the full distance profile. Conditioning both training and budget allocation on distance band, and giving far bands buried-fault evidence (potential-field worms, basement/conductivity steps) that does not require a surface scarp, ranks unmapped-fault kernel credit better within every band than the h19-5/D2.8 lineage the H33 control is built from, without re-entering the occupied near-catalogue lane.",
+  "mechanism": "Basin-and-Range fault systems include (a) near-system synthetic/antithetic splays and tip continuations within ~0.2-1 km of mapped traces, (b) independent range-front and piedmont normal faults 1-5 km from any mapped trace, often expressed as short antislope scarps in Quaternary surfaces, and (c) buried intrabasin strands under Quaternary fill with no scarp at all, expressed only as steps in basement depth, density (gravity) and magnetization that persist and migrate systematically under upward continuation. A single pooled model dominated by population (a)'s base rate cannot rank (b) or (c). Per-band models learn each population's evidence weights; area-proportional allocation matches the measured distance profile of both the allowed footprint and the publicly successful H33 field.",
+  "named_non_fault_process": "Pluvial Lake Lahontan shoreline and terrace risers (contour-parallel, downhill-facing steps of the same 2-10 m scale as young scarps) in the scarp bands, and buried lithologic basement contacts / basin onlap edges (identical gravity/magnetic worm signature to a buried fault) in the far bands. Roads and mine benches also create steps; the TIGER road-distance raster is restored for a diagnostic distance profile of final dots, not as a ranking input.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "headline_seed": 20,
+    "dti": 0.0788,
+    "ci95": [
+      0.0684,
+      0.0889
+    ],
+    "withheld_positive_pixels": 11321,
+    "per_seed": {
+      "seed_20": {
+        "withheld_positive_pixels": 11321,
+        "candidate": {
+          "dti": 0.0788,
+          "ci95": [
+            0.0684,
+            0.0889
+          ]
+        },
+        "h33_foldfair_control": {
+          "dti": 0.0961,
+          "ci95": [
+            0.0837,
+            0.1086
+          ]
+        },
+        "uniform_control": {
+          "dti": 0.05,
+          "ci95": [
+            0.0448,
+            0.0552
+          ]
+        },
+        "banded_uniform_control": {
+          "dti": 0.0502,
+          "ci95": [
+            0.045,
+            0.0553
+          ]
+        },
+        "paired_delta_vs_h33": {
+          "delta": -0.0173,
+          "ci95": [
+            -0.0287,
+            -0.0055
+          ]
+        },
+        "paired_delta_vs_uniform": {
+          "delta": 0.0288,
+          "ci95": [
+            0.0185,
+            0.0386
+          ]
+        },
+        "stratified_kernel_credit_by_truth_band": {
+          "candidate": {
+            "bands_px": [
+              [
+                2,
+                5
+              ],
+              [
+                5,
+                10
+              ],
+              [
+                10,
+                20
+              ],
+              [
+                20,
+                50
+              ],
+              [
+                50,
+                null
+              ]
+            ],
+            "credit": [
+              275.9928335291296,
+              462.7414395204411,
+              337.49398587274493,
+              195.45608528844065,
+              14.240035719843982
+            ],
+            "truth_pixels": [
+              2509,
+              3662,
+              3306,
+              1659,
+              185
+            ],
+            "credit_per_truth_pixel": [
+              0.11000112934600621,
+              0.12636303646107075,
+              0.10208529518231849,
+              0.11781560294661883,
+              0.07697316605321071
+            ]
+          },
+          "h33_foldfair_control": {
+            "bands_px": [
+              [
+                2,
+                5
+              ],
+              [
+                5,
+                10
+              ],
+              [
+                10,
+                20
+              ],
+              [
+                20,
+                50
+              ],
+              [
+                50,
+                null
+              ]
+            ],
+            "credit": [
+              300.89441927559955,
+              527.6675665546039,
+              498.30990921036937,
+              231.98343177660496,
+              30.065126443106323
+            ],
+            "truth_pixels": [
+              2509,
+              3662,
+              3306,
+              1659,
+              185
+            ],
+            "credit_per_truth_pixel": [
+              0.11992603398788344,
+              0.14409272707662588,
+              0.1507289501543767,
+              0.13983329221012958,
+              0.1625141969897639
+            ]
+          }
+        }
+      },
+      "seed_30": {
+        "withheld_positive_pixels": 11342,
+        "candidate": {
+          "dti": 0.0882,
+          "ci95": [
+            0.0739,
+            0.1011
+          ]
+        },
+        "h33_foldfair_control": {
+          "dti": 0.0989,
+          "ci95": [
+            0.0842,
+            0.112
+          ]
+        },
+        "uniform_control": {
+          "dti": 0.0498,
+          "ci95": [
+            0.0449,
+            0.0541
+          ]
+        },
+        "banded_uniform_control": {
+          "dti": 0.049,
+          "ci95": [
+            0.0442,
+            0.0532
+          ]
+        },
+        "paired_delta_vs_h33": {
+          "delta": -0.0106,
+          "ci95": [
+            -0.0245,
+            0.0044
+          ]
+        },
+        "paired_delta_vs_uniform": {
+          "delta": 0.0385,
+          "ci95": [
+            0.0248,
+            0.0508
+          ]
+        },
+        "stratified_kernel_credit_by_truth_band": {
+          "candidate": {
+            "bands_px": [
+              [
+                2,
+                5
+              ],
+              [
+                5,
+                10
+              ],
+              [
+                10,
+                20
+              ],
+              [
+                20,
+                50
+              ],
+              [
+                50,
+                null
+              ]
+            ],
+            "credit": [
+              293.2514418795547,
+              527.1146470644937,
+              440.71753637244694,
+              182.2495512563928,
+              0.31183496591800663
+            ],
+            "truth_pixels": [
+              2377,
+              3838,
+              3089,
+              1939,
+              99
+            ],
+            "credit_per_truth_pixel": [
+              0.12337040045416689,
+              0.13734097109549082,
+              0.1426732069836345,
+              0.09399151689344652,
+              0.0031498481405859255
+            ]
+          },
+          "h33_foldfair_control": {
+            "bands_px": [
+              [
+                2,
+                5
+              ],
+              [
+                5,
+                10
+              ],
+              [
+                10,
+                20
+              ],
+              [
+                20,
+                50
+              ],
+              [
+                50,
+                null
+              ]
+            ],
+            "credit": [
+              292.4044421242274,
+              504.25929436099,
+              517.683731005187,
+              302.3143706206162,
+              21.354417636679855
+            ],
+            "truth_pixels": [
+              2377,
+              3838,
+              3089,
+              1939,
+              99
+            ],
+            "credit_per_truth_pixel": [
+              0.12301406904679318,
+              0.13138595475794423,
+              0.16758942408714375,
+              0.15591251708128737,
+              0.21570118824929146
+            ]
+          }
+        }
+      }
+    },
+    "nhr_reference_not_a_gate": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seed_20": 0.1431,
+      "seed_30": 0.1522,
+      "source": "run_card.json (H79-NHR X1, duplicate-stopped); reported for context only"
+    },
+    "caveat": "Hide-and-recover of withheld catalogue components; not a leaderboard score or projection."
+  },
+  "current_best_holdout_beaten": false,
+  "current_best_holdout_reference": "h33_foldfair_control (legacy D2.8 dots >2 px from each fold's visible faults), the fold-fair bar used by H79-NHR/G79-STEPCO; see preregistration for why the duplicate-stopped pooled NHR candidate is a reference, not the bar",
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "passed": true,
+    "auc": 0.8589,
+    "required_threshold": 0.9,
+    "features_cleared": 85,
+    "tests_per_seed": 340,
+    "tests": 680,
+    "worst_feature": "geom_log_dist_visible_tip"
+  },
+  "correlation_overlap_vs_registry": {
+    "shared_tool": "gems57.uniqueness.compare_array_to_registry_d2",
+    "gate": "amendment D-2 (reports/protocol_amendment_D2_20261022.md); literal reading reported, never claimed passed",
+    "registry_rasters_expected": 992,
+    "surface_before_placement": {
+      "unique_under_D2": false,
+      "complete_accessible_scan": false,
+      "registry_rasters_checked": 986,
+      "worst_spearman": 0.3144712964957336,
+      "worst_spearman_submission": "GEMSDOE48:docs/downloads/diagnostics/gemsdoe48-h56b-plausibility-126ca59c2801.tif",
+      "worst_forward_overlap_dot_equivalent": 1.0,
+      "worst_forward_overlap_submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+      "worst_chance_corrected_overlap": 0.6541162815335345,
+      "worst_chance_corrected_submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+      "worst_literal_forward_overlap": 1.0,
+      "worst_literal_submission": "GEMSDOE48:docs/downloads/diagnostics/GEMSDOE48-H53-DS-RadEdge-B2xH33D-20261007-4c01fcf2ad8c-radiometric-edge-coherence.tif",
+      "literal_overlap_firings": 78,
+      "duplicate_count_d2": 4,
+      "d2_firings": [
+        {
+          "submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+          "representation": "continuous_surface",
+          "spearman": 0.0012761596430842532,
+          "forward_overlap": 1.0,
+          "halo_coverage": 1.0,
+          "chance_corrected": null,
+          "exact_overlap": 1.0,
+          "test": "exact_cell_halo_saturated"
+        },
+        {
+          "submission": "5GEMSDOE:docs/downloads/gems-density-probe-20260925T184215Z-9cdae9b4.tif",
+          "representation": "continuous_surface",
+          "spearman": 0.1781512560859754,
+          "forward_overlap": 1.0,
+          "halo_coverage": 1.0,
+          "chance_corrected": null,
+          "exact_overlap": 1.0,
+          "test": "exact_cell_halo_saturated"
+        },
+        {
+          "submission": "GEMSDOE48:docs/downloads/gemsdoe48-h48-ds-yager-conflict-20261006-unassigned-diagnostic.tif",
+          "representation": "continuous_surface",
+          "spearman": 0.0012761596430842532,
+          "forward_overlap": 1.0,
+          "halo_coverage": 1.0,
+          "chance_corrected": null,
+          "exact_overlap": 1.0,
+          "test": "exact_cell_halo_saturated"
+        },
+        {
+          "submission": "GEMSDOE48:docs/downloads/GEMSDOE48-unassigned-mass-20261006.tif",
+          "representation": "continuous_surface",
+          "spearman": 0.0012761596430842532,
+          "forward_overlap": 1.0,
+          "halo_coverage": 1.0,
+          "chance_corrected": null,
+          "exact_overlap": 1.0,
+          "test": "exact_cell_halo_saturated"
+        }
+      ]
+    },
+    "final_dots": null,
+    "limits": {
+      "rho": 0.9,
+      "forward_overlap_3px": 0.7,
+      "chance_corrected_overlap": 0.7
+    }
+  },
+  "protocol_unique": false,
+  "protocol_unique_scope": "Not unique under amendment D-2; literal-support reading always reported in evidence/ber/uniqueness_*.json",
+  "byte_distinct_from_registry_pins": true,
+  "raster_sha256": "934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b",
+  "dots_sha256": "ad5194091950f47972aadc28fcf4d115753734d700832a1007e4fb8e7900c276",
+  "validator_output": {
+    "format_passed": true,
+    "no_nan_inside_footprint": true,
+    "values_in_0_1": true,
+    "crs_shape_transform_match": true,
+    "portal_range_preflight": {
+      "min": 0.0,
+      "max": 1.0,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "nodata": null,
+      "note": "Written bytes are single-band float32, all finite, values exactly 0/1, no nodata sentinel: the local conditions for the portal error 'Predicted values must be in range [0, 1]' are absent. This is a local preflight, not organizer acceptance."
+    },
+    "summary": {
+      "file": "archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif",
+      "bytes": 114265,
+      "sha256": "934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    }
+  },
+  "submission_name": "gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT",
+  "submission_note": "G79-BER research only; HOLDOUT-DTI 0.079/0.088 vs H33 0.096/0.099; FAILED holdout<H33,no-final-dots,surface-uniqueness,final-uniqueness",
+  "submission_note_chars": 135,
+  "submission_file": "archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif",
+  "zip_file": "archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "e2f70c1cac7b9b1c74d9b66926c5da2c135c0f466bb3fd5215a1d854fb056e60",
+  "artifact_kind": "binary provisional top-quota dot map serialised once as negative evidence; placement was stopped by the surface gate",
+  "positive_pixels": 37654,
+  "band_quotas": [
+    3170,
+    4609,
+    7814,
+    13803,
+    8258
+  ],
+  "distance_diagnostics": {
+    "evidence_class": "RASTER-MEASUREMENT",
+    "ber": {
+      "dots": 37654,
+      "median_px": 20.8806130178211,
+      "fraction_le_5px": 0.08418760291071334,
+      "fraction_gt_10px": 0.793408402825729,
+      "histogram": {
+        "[0,2] px": 0,
+        "(2,3] px": 1282,
+        "(3,5] px": 1645,
+        "(5,10] px": 4805,
+        "(10,20] px": 7850,
+        "(20,50] px": 13809,
+        "(50,1000000] px": 8263
+      }
+    },
+    "h33": {
+      "dots": 37654,
+      "median_px": 19.6468827043885,
+      "fraction_le_5px": 0.14970521060179529,
+      "fraction_gt_10px": 0.698305624900409,
+      "histogram": {
+        "[0,2] px": 0,
+        "(2,3] px": 1611,
+        "(3,5] px": 3237,
+        "(5,10] px": 6292,
+        "(10,20] px": 7908,
+        "(20,50] px": 11077,
+        "(50,1000000] px": 7529
+      }
+    },
+    "footprint": {
+      "dots": 5106385,
+      "median_px": 23.53720459187964,
+      "fraction_le_5px": 0.12787715771529173,
+      "fraction_gt_10px": 0.7555668050881397,
+      "histogram": {
+        "[0,2] px": 176003,
+        "(2,3] px": 169333,
+        "(3,5] px": 240798,
+        "(5,10] px": 637102,
+        "(10,20] px": 1022690,
+        "(20,50] px": 1790643,
+        "(50,1000000] px": 1069816
+      }
+    },
+    "road_distance_m": {
+      "ber_median": 781.0249633789062,
+      "footprint_median": 640.3124389648438,
+      "ber_fraction_within_100m": 0.1293620863653264,
+      "footprint_fraction_within_100m": 0.16197534027444893
+    }
+  },
+  "experiment_count": 1,
+  "max_experiments": 3,
+  "max_hours": 2,
+  "source_provenance_verified": true,
+  "source_provenance_definition": "Every input byte matches the SHA-256 pins in registry/data_manifest.json (see evidence/ber/feature_receipt.json) and the grid equals sample_submission.tif. Mirrors are owner GitHub copies; organizer-origin authentication is not possible without a DrivenData login.",
+  "source_feature_stack_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "preregistration": "registry/preregistration_ber.json",
+  "preregistration_sha256": "ddc735749cc33bcdf8a759103bd9a5a3d343ae84daae21824b725b7dc5accc50",
+  "gates": {
+    "canaries_all_le_0_90_both_seeds": true,
+    "beats_current_holdout_best_both_seeds": false,
+    "paired_ci_vs_uniform_excludes_zero_both_seeds": true,
+    "evaluator_version_pinned": true,
+    "surface_rank_correlation_le_0_90": true,
+    "final_rank_correlation_le_0_90": false,
+    "surface_uniqueness_passed": false,
+    "final_dot_uniqueness_passed": false,
+    "final_dots_match_audited_bytes": true,
+    "exact_budget": true
+  },
+  "gates_all_passed": false,
+  "verdict": "negative",
+  "promoted": false,
+  "stop_reason": "Preregistered gate(s) failed: beats_current_holdout_best_both_seeds, final_rank_correlation_le_0_90, surface_uniqueness_passed, final_dot_uniqueness_passed. Worst chance-corrected registry overlap 0.6541162815335345. Lane stopped; no retuning, capping or jitter.",
+  "failed_gates": [
+    "beats_current_holdout_best_both_seeds",
+    "final_rank_correlation_le_0_90",
+    "surface_uniqueness_passed",
+    "final_dot_uniqueness_passed"
+  ],
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "selector_receipt": null,
+  "human_intervention_needed_for_this_verdict": false,
+  "submission_slots_used": 0,
+  "organizer_submission_receipt": null,
+  "organizer_confirmed_score": null,
+  "leaderboard_claim": "No leaderboard score is claimed or projected. HOLDOUT-DTI above is the only performance number established for this artifact."
+}

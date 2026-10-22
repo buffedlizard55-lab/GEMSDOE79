@@ -29,6 +29,7 @@ from sklearn.metrics import roc_auc_score
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
 
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 from gems57 import evaluate_holdout as evaluator  # noqa: E402
 from gems57.grid import load_grid  # noqa: E402
 from gems57.holdout import buffered_component_draw, quadrant_ids  # noqa: E402
@@ -413,6 +414,11 @@ def stage_final() -> None:
 
 
 if __name__ == "__main__":
+    try:
+        require_open_lane(ROOT, "H79-FNHR")
+    except LaneClosedError as exc:
+        sys.stderr.write(str(exc) + "\n")
+        sys.exit(2)
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("stage", choices=["holdout", "final", "all"])
     ap.add_argument("--seed", type=int, default=20)

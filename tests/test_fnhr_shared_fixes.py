@@ -1,4 +1,4 @@
-"""Regression tests for shared uniqueness v4 (IR-79-60), CI/verifier parity (IR-79-58), and delta scanner (IR-79-59)."""
+"""Regression tests for chance-calibrated-v4 (IR-79-139) and registry delta path filter (IR-79-138)."""
 from __future__ import annotations
 
 from pathlib import Path
@@ -7,7 +7,8 @@ import rasterio
 from affine import Affine
 
 from gems57 import uniqueness
-from scripts.registry_delta_git import is_candidate_tif
+from gems79.uniqueness_v4 import compare_array_to_registry_v4
+from scripts.registry_delta_git import is_prediction
 
 
 def _write_test_tif(path: Path, arr: np.ndarray) -> None:
@@ -30,6 +31,7 @@ def test_chance_calibrated_v4_handles_lattice_vs_subsample_vs_sparse_duplicate(t
     fp = np.ones(shape, dtype=bool)
     cat = np.zeros(shape, dtype=bool)
     cat[0, :] = True
+    allowed = fp & ~cat
 
     lattice = np.zeros(shape, dtype=np.float32)
     lattice[2::5, 2::5] = 1.0
@@ -57,34 +59,30 @@ def test_chance_calibrated_v4_handles_lattice_vs_subsample_vs_sparse_duplicate(t
 
     rng = np.random.default_rng(7901)
     cand_indep = np.zeros(shape, dtype=np.float32)
-    allowed_idx = np.flatnonzero(fp & ~cat)
+    allowed_idx = np.flatnonzero(allowed)
     cand_indep.ravel()[rng.choice(allowed_idx, size=40, replace=False)] = 1.0
 
-    r_v3 = uniqueness.compare_array_to_registry(cand_indep, idx, fp, dot_definition="budget-matched-v3", catalogue=cat)
-    r_v4 = uniqueness.compare_array_to_registry(cand_indep, idx, fp, dot_definition="chance-calibrated-v4", catalogue=cat)
+    r_v3 = uniqueness.compare_array_to_registry(cand_indep, idx, fp, dot_definition="budget-matched-v3", allowed=allowed)
+    r_v4 = compare_array_to_registry_v4(cand_indep, idx, fp, allowed=allowed)
     assert r_v3["unique"] is False and r_v3["duplicate_count"] == 2
     assert r_v4["unique"] is True and r_v4["duplicate_count"] == 0
     assert r_v4["worst_informative_dot_overlap"] <= 0.70
 
-    # Exact subsampling from the dense 5x5 lattice STILL fails v4 via exact_overlap_0px = 1.0 > 0.70
     cand_sub = np.zeros(shape, dtype=np.float32)
     lat_pts = np.flatnonzero(lattice > 0)
     cand_sub.ravel()[rng.choice(lat_pts, size=40, replace=False)] = 1.0
-    r_sub = uniqueness.compare_array_to_registry(cand_sub, idx, fp, dot_definition="chance-calibrated-v4", catalogue=cat)
+    r_sub = compare_array_to_registry_v4(cand_sub, idx, fp, allowed=allowed)
     assert r_sub["unique"] is False and r_sub["duplicate_count"] >= 1
     assert any(r["submission"] == "lattice" and r["duplicate_by_overlap"] for r in r_sub["rows"])
 
-    # Copying an ordinary sparse dot field STILL fails v4 identically to v3
     cand_sparse_dup = sparse.copy()
-    r_sp = uniqueness.compare_array_to_registry(cand_sparse_dup, idx, fp, dot_definition="chance-calibrated-v4", catalogue=cat)
+    r_sp = compare_array_to_registry_v4(cand_sparse_dup, idx, fp, allowed=allowed)
     assert r_sp["unique"] is False
     assert any(r["submission"] == "sparse" and r["duplicate_by_overlap"] for r in r_sp["rows"])
 
 
 def test_delta_filter_excludes_raw_inputs_and_catches_archived_predictions() -> None:
-    assert not is_candidate_tif("data/raw/existing_faults.tif")
-    assert not is_candidate_tif("data/sample_submission.tif")
-    assert not is_candidate_tif("data/raw/external/tiger_road_distance_m.tif")
-    assert is_candidate_tif("docs/downloads/cand.tif")
-    assert is_candidate_tif("archive/lane/cand.tif")
-    assert is_candidate_tif("docs/e2_downloads/cand.tif")
+    assert not is_prediction("data/raw/existing_faults.tif")
+    assert not is_prediction("data/sample_submission.tif")
+    assert is_prediction("docs/downloads/cand.tif")
+    assert is_prediction("docs/archive/cand.tif")

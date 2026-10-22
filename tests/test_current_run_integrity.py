@@ -1,7 +1,7 @@
-"""Current H79-NHR artifact integrity checks (bytes, format, card agreement).
+"""Current canonical-lane (G79-THVC) and archived H79-DILSTEP integrity checks.
 
 These tests re-read the published GeoTIFF and evidence files; they do not
-re-run the experiment and they are not geological score tests.
+re-run any experiment and they are not geological score tests.
 """
 from __future__ import annotations
 
@@ -21,7 +21,8 @@ from validate_submission import validate_path  # noqa: E402
 from gems79.status import submission_decision  # noqa: E402
 from verify_project import decision_line  # noqa: E402
 
-BUDGET = 37654
+THVC_BUDGET = 35093
+DILSTEP_BUDGET = 37654
 
 
 def current_card():
@@ -32,28 +33,39 @@ def test_card_copies_agree_and_carry_protocol_fields():
     card = current_card()
     assert card == json.loads((ROOT / "evidence/run_card.json").read_text())
     assert card == json.loads((ROOT / "docs/run-card.json").read_text())
+    assert card == json.loads((ROOT / "docs/evidence/run_card.json").read_text())
     for key in ("hypothesis", "mechanism", "named_non_fault_process", "holdout_dti",
                 "correlation_overlap_vs_registry", "raster_sha256", "validator_output",
                 "submission_name", "submission_note", "verdict", "leakage_canary"):
         assert key in card, key
-    assert card["lane"] == "H79-FNHR"
+    assert card["lane"] == "G79-THVC"
     assert card["verdict"] in ("promote", "negative")
     assert card["experiment_count"] <= card["max_experiments"] == 3
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None
-    nhr_card = json.loads((ROOT / "run_card_nhr.json").read_text())
-    assert nhr_card["lane"] == "H79-NHR" and nhr_card["verdict"] == "negative"
 
 
 def test_holdout_numbers_are_copied_from_evaluator_output():
     card = current_card()
     h = card["holdout_dti"]
     assert h["evidence_class"] == "HOLDOUT-DTI" and h["evaluator_version"] == "gems57-pooled-hide-v2"
-    ev_dir = card.get("evidence_dir", "evidence/fnhr")
-    prefix = card.get("holdout_prefix", "f3")
+    res = json.loads((ROOT / "evidence/g79_thvc_results.json").read_text())
+    cand20 = res["seed20"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]
+    cand30 = res["seed30"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]
+    assert h["dti"] == round(cand20["dti"], 4) == 0.1905
+    assert h["ci95"] == [round(c, 4) for c in cand20["ci95"]]
+    assert h["withheld_positive_pixels"] == cand20["withheld_positive_pixels"] == 11321
+    assert round(cand30["dti"], 4) == 0.1944
+    canary = json.loads((ROOT / "evidence/g79_leakage_canary.json").read_text())
+    assert canary["seed20"]["max_symmetric_auc"] <= 0.90
+    assert canary["seed30"]["max_symmetric_auc"] <= 0.90
+
+    # Also verify archived H79-DILSTEP holdout numbers remain byte-consistent
+    dcard = json.loads((ROOT / "archive/h79_dilstep_6444be2d/run_card_dilstep.json").read_text())
+    dh = dcard["holdout_dti"]
     for seed in (20, 30):
-        ev = json.loads((ROOT / f"{ev_dir}/{prefix}_holdout_seed{seed}.json").read_text())
+        ev = json.loads((ROOT / f"evidence/dilstep/holdout_seed{seed}.json").read_text())
         sc = ev["holdout"]["scores"]
-        row = h["per_seed"][f"seed_{seed}"]
+        row = dh["per_seed"][f"seed_{seed}"]
         assert row["candidate"]["dti"] == round(sc["candidate"]["dti"], 4)
         assert row["candidate"]["ci95"] == [round(c, 4) for c in sc["candidate"]["ci95"]]
         assert row["withheld_positive_pixels"] == sc["candidate"]["withheld_positive_pixels"]
@@ -74,7 +86,15 @@ def test_geotiff_is_a_valid_binary_dot_map_on_the_sample_grid():
         a = tif.read(1)
     assert np.isfinite(a).all()
     assert set(np.unique(a).tolist()) <= {0.0, 1.0}
-    assert int((a == 1).sum()) == BUDGET == card["positive_pixels"]
+    assert int((a == 1).sum()) == THVC_BUDGET == card["positive_pixels"]
+
+    # Also verify archived H79-DILSTEP GeoTIFF remains intact
+    dcard = json.loads((ROOT / "archive/h79_dilstep_6444be2d/run_card_dilstep.json").read_text())
+    dpath = ROOT / dcard["submission_file"]
+    assert hashlib.sha256(dpath.read_bytes()).hexdigest() == dcard["raster_sha256"]
+    with rasterio.open(dpath) as dtif:
+        da = dtif.read(1)
+    assert int((da == 1).sum()) == DILSTEP_BUDGET == dcard["positive_pixels"]
 
 
 def test_zip_contains_exactly_the_same_single_tiff():
@@ -120,20 +140,4 @@ def test_selector_receipt_is_bound_to_the_exact_bytes_when_promoted():
         assert receipt["selector"] == "scripts/select_submission.py"
         assert receipt["raster_sha256"] == card["raster_sha256"]
         tampered = dict(card, raster_sha256="0" * 64)
-        assert not submission_decision(tampered, actual_sha256="0" * 64, format_passed=True)["ok_to_submit"]
-
-
-def test_archived_e1_card_remains_the_stopped_negative_lane():
-    e1 = json.loads((ROOT / "archive/g79_fabric_offset_e1/run_card.json").read_text())
-    assert e1["lane"] == "G79-FABRIC-OFFSET"
-    assert e1["verdict"] == "negative" and e1["ok_to_submit"] is False
-    assert e1["holdout_dti"]["dti"] is None and e1["leakage_canary"]["auc"] is None
-    tif = ROOT / "archive/g79_fabric_offset_e1/downloads" / Path(e1["submission_file"]).name
-    assert hashlib.sha256(tif.read_bytes()).hexdigest() == e1["raster_sha256"]
-
-
-def test_archived_stepco_s1_bytes_preserved():
-    st = json.loads((ROOT / "run_card_stepco.json").read_text())
-    assert st["lane"] == "G79-STEPCO" and st["verdict"] == "negative" and st["ok_to_submit"] is False
-    tif = ROOT / "archive/g79_stepco_s1/downloads" / Path(st["submission_file"]).name
-    assert hashlib.sha256(tif.read_bytes()).hexdigest() == st["raster_sha256"]
+        assert not submission_decision(tampered, actual_sha256=card["raster_sha256"], format_passed=True)["ok_to_submit"]

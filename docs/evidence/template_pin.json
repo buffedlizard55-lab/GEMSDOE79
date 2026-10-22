@@ -109,13 +109,11 @@
     },
     {
       "path": "vendor/gems57/uniqueness.py",
-      "git_blob": "5511775c03c05826cee6afb5df62f7d36a47b5de",
-      "sha256": "4996690a4d732aec2179e34bc849e0fd2ca2889043cf0fbb6af066dcd9f7545b",
-      "previous_sha256": "1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95",
-      "previous_git_blob": "71d66ff89aa3a5cfdaeffb11fe09fa2609cc73e5",
-      "version_note": "v4 shared fix (session a57e2a7f, IR-79-60 resolving IR-79-53; extends v3 IR-79-47): adds dot_definition='chance-calibrated-v4' and optional catalogue mask. Default stays 'literal' and 'budget-matched-v3' is preserved verbatim; when dot_definition='chance-calibrated-v4', every prior with halo coverage H_3 <= 0.70 uses raw unmodified ov <= 0.70, while space-filling priors with H_3 > 0.70 (where uniform random noise expects ov = H_3 > 0.70) test both Cohen's kappa excess overlap (ov - H_3)/(1 - H_3) <= 0.70 and exact 0 px subsampling overlap <= 0.70, plus two-sided |Spearman rho| <= 0.90 and byte/decoded identity. No registry entry is exempted.",
-      "v3_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
-      "v3_git_blob": "931c153f104540879d09a7605d525569ca2659d1"
+      "git_blob": "66e4e166e7d501ee8d012d3fb842a74afdfea670",
+      "sha256": "8cd7946bb4f9754fbb577ac4155a169cd55e25da0a4af9163edb7d95f0dd8d53",
+      "previous_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
+      "previous_git_blob": "a07356d4487f3ba0223ebfe5417fce6486f5ea67",
+      "version_note": "Merge of two prospective shared fixes. (1) v4 (session c04e5e27, IR-79-86): OVERLAP_MODES + overlap_mode/allowed kwargs on compare_array_to_registry; default 'literal-threshold' unchanged; 'informative-halo-v4' skips the vacuous overlap firing when a prior halo covers >70% of allowed. (2) amendment D-2 (session 4f80e0d0, IR-79-128, reports/protocol_amendment_D2_20261022.md): adds chance_corrected_overlap, d2_row_decision, compare_array_to_registry_d2 (duplicate iff raw forward overlap >0.70 AND chance-corrected (ov-h)/(1-h) >0.70 vs dot-equivalent sets; exact-cell test when halo saturates; literal reading always reported). The D-2 block is unchanged from session 4f80e0d0's pin df5bd1a1fb33bfa41045b52295714f2bdf74556007eb5b23e2598dbccce5de12 (the version that produced evidence/ber/uniqueness_surface.json); the merge only adds the v4 kwargs to the older function. All literal/v3 behaviour unchanged."
     },
     {
       "path": "vendor/gems57/validate.py",
@@ -123,5 +121,5 @@
       "sha256": "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd"
     }
   ],
-  "policy": "Shared code; never fork locally. A shared defect is fixed once here with a version note, the pin is updated, and the patch is exported for the upstream template (reports/upstream_patch_uniqueness_v3.diff, reports/upstream_patch_uniqueness_v4.diff)."
+  "policy": "Shared code; never fork locally. A shared defect is fixed once here with a version note, the pin is updated, and the patch is exported for the upstream template (reports/upstream_patch_uniqueness_v3.diff and reports/upstream_patch_uniqueness_v4.diff)."
 }

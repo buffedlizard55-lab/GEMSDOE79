@@ -32,6 +32,7 @@ from scipy.stats import rankdata
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
 
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 from gems57 import uniqueness as shared  # noqa: E402
 from gems57.grid import TRANSFORM, load_grid  # noqa: E402
 from gems57.submission_writer import write_submission  # noqa: E402
@@ -731,4 +732,9 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    try:
+        require_open_lane(ROOT, "H79-FNHR")
+    except LaneClosedError as exc:
+        sys.stderr.write(str(exc) + "\n")
+        sys.exit(2)
     main()

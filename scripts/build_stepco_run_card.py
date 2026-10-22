@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 EV = ROOT / "evidence/stepco"
 BUDGET = 37654
 
@@ -51,6 +52,7 @@ def holdout_block(exp_prefix):
 
 
 def main():
+    require_open_lane(ROOT, "G79-STEPCO")
     prereg = load(ROOT / "registry/preregistration_g79stepco_20261022.json")
     s1 = load(EV / "experiment_s1_state.json")
     s2 = load(EV / "experiment_s2_state.json")
@@ -203,4 +205,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

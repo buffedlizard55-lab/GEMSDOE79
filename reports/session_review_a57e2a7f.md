@@ -11,7 +11,7 @@
 - **Scope:** Executed full offline + live HTTP + headless Playwright Chromium suite:
   - `.venv/bin/python scripts/verify_project.py` -> **`all_checks_passed: true` (`28 / 28`)**
   - `.venv/bin/python scripts/check_site.py` -> **`passed: true` (`7` pages, `115` local links, `0` external assets)**
-  - `.venv/bin/python scripts/verify_public_site.py --url http://127.0.0.1:8080` -> **`passed: true` (`200 OK` across all 7 pages, exact `.tif` and `.zip` SHA-256 verified over HTTP)**
+  - `.venv/bin/python scripts/verify_public_site.py --url <served_site_url>` -> **`passed: true` (`200 OK` across all 7 pages, exact `.tif` and `.zip` SHA-256 verified over HTTP)**
   - `node scripts/browser_review.cjs` -> **`passed: true` (`21` rendered cases across `1440px`, `390px`, `320px`, clipboard copy verified, browser download SHA-256 verified, search filter & source feed verified, `0` console/HTTP errors)**
   - `.venv/bin/python -m pytest -q` -> **`192 passed in 9.35s`**
 

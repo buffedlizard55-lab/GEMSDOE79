@@ -1,603 +1,500 @@
 {
-  "built_utc": "2026-10-22T03:57:30.860499+00:00",
+  "built_utc": "2026-10-22T04:31:19.441380+00:00",
   "base_index_built_utc": "2026-10-21T21:46:59.059053+00:00",
-  "method": "blobless git clones incl. refs/heads, refs/tags, refs/pull; rev-list --all --format=%T + ls-tree -r; prediction + archive .tif filter (IR-79-59 fix)",
+  "method": "blobless git clones across all accessible non-self GEMS* owner repositories incl. refs/heads, refs/tags, refs/pull; unique root-tree ls-tree -r -z traversal (fixing promisor ?<oid> path omission in rev-list --missing=allow-promisor); batched Git Smart-HTTP blob verification; same is_prediction() filter",
   "repositories": [
     {
       "repo": "11GEMSDOE",
       "status": "ok",
-      "refs": 6,
-      "unique_trees": 5
+      "refs": 6
     },
     {
       "repo": "12GEMSDOE",
       "status": "ok",
-      "refs": 29,
-      "unique_trees": 75
+      "refs": 29
     },
     {
       "repo": "13GEMSDOE",
       "status": "ok",
-      "refs": 33,
-      "unique_trees": 27
+      "refs": 33
     },
     {
       "repo": "14GEMSDOE",
       "status": "ok",
-      "refs": 21,
-      "unique_trees": 29
+      "refs": 21
     },
     {
       "repo": "15GEMSDOE",
       "status": "ok",
-      "refs": 8,
-      "unique_trees": 5
+      "refs": 8
     },
     {
       "repo": "16GEMSDOE",
       "status": "ok",
-      "refs": 8,
-      "unique_trees": 31
+      "refs": 8
     },
     {
       "repo": "17GEMSDOE",
       "status": "ok",
-      "refs": 10,
-      "unique_trees": 7
+      "refs": 10
     },
     {
       "repo": "18GEMSDOE",
       "status": "ok",
-      "refs": 10,
-      "unique_trees": 8
+      "refs": 10
     },
     {
       "repo": "19GEMSDOE",
       "status": "ok",
-      "refs": 3,
-      "unique_trees": 4
+      "refs": 3
     },
     {
       "repo": "20GEMSDOE",
       "status": "ok",
-      "refs": 9,
-      "unique_trees": 16
+      "refs": 9
     },
     {
       "repo": "55GEMSDOE",
       "status": "ok",
-      "refs": 35,
-      "unique_trees": 34
+      "refs": 35
     },
     {
       "repo": "56GEMSDOE",
       "status": "ok",
-      "refs": 27,
-      "unique_trees": 35
+      "refs": 27
     },
     {
       "repo": "57GEMSDOE",
       "status": "ok",
-      "refs": 79,
-      "unique_trees": 101
+      "refs": 79
     },
     {
       "repo": "58GEMSDOE",
       "status": "ok",
-      "refs": 66,
-      "unique_trees": 83
+      "refs": 66
     },
     {
       "repo": "59GEMSDOE",
       "status": "ok",
-      "refs": 22,
-      "unique_trees": 25
+      "refs": 22
     },
     {
       "repo": "5GEMSDOE",
       "status": "ok",
-      "refs": 11,
-      "unique_trees": 43
+      "refs": 11
     },
     {
       "repo": "60GEMSDOE",
       "status": "ok",
-      "refs": 55,
-      "unique_trees": 90
+      "refs": 55
     },
     {
       "repo": "61GEMSDOE",
       "status": "ok",
-      "refs": 48,
-      "unique_trees": 65
+      "refs": 48
     },
     {
       "repo": "62GEMSDOE",
       "status": "ok",
-      "refs": 47,
-      "unique_trees": 76
+      "refs": 47
     },
     {
       "repo": "6GEMSDOE",
       "status": "ok",
-      "refs": 15,
-      "unique_trees": 8
+      "refs": 15
     },
     {
       "repo": "7GEMSDOE",
       "status": "ok",
-      "refs": 22,
-      "unique_trees": 59
+      "refs": 22
     },
     {
       "repo": "8GEMSDOE",
       "status": "ok",
-      "refs": 18,
-      "unique_trees": 14
+      "refs": 18
     },
     {
       "repo": "GEMSDOE",
       "status": "ok",
-      "refs": 62,
-      "unique_trees": 241
+      "refs": 62
     },
     {
       "repo": "GEMSDOE10",
       "status": "ok",
-      "refs": 23,
-      "unique_trees": 41
+      "refs": 23
     },
     {
       "repo": "GEMSDOE2",
       "status": "ok",
-      "refs": 9,
-      "unique_trees": 32
+      "refs": 9
     },
     {
       "repo": "GEMSDOE21",
       "status": "ok",
-      "refs": 21,
-      "unique_trees": 27
+      "refs": 21
     },
     {
       "repo": "GEMSDOE22",
       "status": "ok",
-      "refs": 13,
-      "unique_trees": 15
+      "refs": 13
     },
     {
       "repo": "GEMSDOE23",
       "status": "ok",
-      "refs": 21,
-      "unique_trees": 51
+      "refs": 21
     },
     {
       "repo": "GEMSDOE24",
       "status": "ok",
-      "refs": 14,
-      "unique_trees": 110
+      "refs": 14
     },
     {
       "repo": "GEMSDOE25",
       "status": "ok",
-      "refs": 15,
-      "unique_trees": 93
+      "refs": 15
     },
     {
       "repo": "GEMSDOE26",
       "status": "ok",
-      "refs": 13,
-      "unique_trees": 16
+      "refs": 13
     },
     {
       "repo": "GEMSDOE27",
       "status": "ok",
-      "refs": 17,
-      "unique_trees": 85
+      "refs": 17
     },
     {
       "repo": "GEMSDOE28",
       "status": "ok",
-      "refs": 43,
-      "unique_trees": 97
+      "refs": 43
     },
     {
       "repo": "GEMSDOE29",
       "status": "ok",
-      "refs": 38,
-      "unique_trees": 72
+      "refs": 38
     },
     {
       "repo": "GEMSDOE3",
       "status": "ok",
-      "refs": 15,
-      "unique_trees": 15
+      "refs": 15
     },
     {
       "repo": "GEMSDOE30",
       "status": "ok",
-      "refs": 39,
-      "unique_trees": 74
+      "refs": 39
     },
     {
       "repo": "GEMSDOE31",
       "status": "ok",
-      "refs": 11,
-      "unique_trees": 11
+      "refs": 11
     },
     {
       "repo": "GEMSDOE32",
       "status": "ok",
-      "refs": 17,
-      "unique_trees": 39
+      "refs": 17
     },
     {
       "repo": "GEMSDOE33",
       "status": "ok",
-      "refs": 16,
-      "unique_trees": 12
+      "refs": 16
     },
     {
       "repo": "GEMSDOE34",
       "status": "ok",
-      "refs": 14,
-      "unique_trees": 15
+      "refs": 14
     },
     {
       "repo": "GEMSDOE35",
       "status": "ok",
-      "refs": 13,
-      "unique_trees": 7
+      "refs": 13
     },
     {
       "repo": "GEMSDOE36",
       "status": "ok",
-      "refs": 10,
-      "unique_trees": 8
+      "refs": 10
     },
     {
       "repo": "GEMSDOE37",
       "status": "ok",
-      "refs": 18,
-      "unique_trees": 17
+      "refs": 18
     },
     {
       "repo": "GEMSDOE38",
       "status": "ok",
-      "refs": 9,
-      "unique_trees": 6
+      "refs": 9
     },
     {
       "repo": "GEMSDOE39",
       "status": "ok",
-      "refs": 18,
-      "unique_trees": 23
+      "refs": 18
     },
     {
       "repo": "GEMSDOE4",
       "status": "ok",
-      "refs": 17,
-      "unique_trees": 45
+      "refs": 17
     },
     {
       "repo": "GEMSDOE40",
       "status": "ok",
-      "refs": 37,
-      "unique_trees": 45
+      "refs": 37
     },
     {
       "repo": "GEMSDOE41",
       "status": "ok",
-      "refs": 32,
-      "unique_trees": 53
+      "refs": 32
     },
     {
       "repo": "GEMSDOE42",
       "status": "ok",
-      "refs": 7,
-      "unique_trees": 7
+      "refs": 7
     },
     {
       "repo": "GEMSDOE43",
       "status": "ok",
-      "refs": 9,
-      "unique_trees": 24
+      "refs": 9
     },
     {
       "repo": "GEMSDOE44",
       "status": "ok",
-      "refs": 15,
-      "unique_trees": 18
+      "refs": 15
     },
     {
       "repo": "GEMSDOE45",
       "status": "ok",
-      "refs": 16,
-      "unique_trees": 14
+      "refs": 16
     },
     {
       "repo": "GEMSDOE46",
       "status": "ok",
-      "refs": 26,
-      "unique_trees": 36
+      "refs": 26
     },
     {
       "repo": "GEMSDOE47",
       "status": "ok",
-      "refs": 57,
-      "unique_trees": 75
+      "refs": 57
     },
     {
       "repo": "GEMSDOE48",
       "status": "ok",
-      "refs": 58,
-      "unique_trees": 81
+      "refs": 58
     },
     {
       "repo": "GEMSDOE49",
       "status": "ok",
-      "refs": 12,
-      "unique_trees": 11
+      "refs": 12
     },
     {
       "repo": "GEMSDOE50",
       "status": "ok",
-      "refs": 53,
-      "unique_trees": 93
+      "refs": 53
     },
     {
       "repo": "GEMSDOE51",
       "status": "ok",
-      "refs": 42,
-      "unique_trees": 51
+      "refs": 42
     },
     {
       "repo": "GEMSDOE52",
       "status": "ok",
-      "refs": 218,
-      "unique_trees": 471
+      "refs": 218
     },
     {
       "repo": "GEMSDOE53",
       "status": "ok",
-      "refs": 32,
-      "unique_trees": 44
+      "refs": 32
     },
     {
       "repo": "GEMSDOE54",
       "status": "ok",
-      "refs": 35,
-      "unique_trees": 32
+      "refs": 35
     },
     {
       "repo": "GEMSDOE63",
       "status": "ok",
-      "refs": 14,
-      "unique_trees": 16
+      "refs": 14
     },
     {
       "repo": "GEMSDOE64",
       "status": "ok",
-      "refs": 25,
-      "unique_trees": 32
+      "refs": 25
     },
     {
       "repo": "GEMSDOE65",
       "status": "ok",
-      "refs": 27,
-      "unique_trees": 52
+      "refs": 27
     },
     {
       "repo": "GEMSDOE66",
       "status": "ok",
-      "refs": 59,
-      "unique_trees": 70
+      "refs": 59
     },
     {
       "repo": "GEMSDOE67",
       "status": "ok",
-      "refs": 16,
-      "unique_trees": 27
+      "refs": 16
     },
     {
       "repo": "GEMSDOE68",
       "status": "ok",
-      "refs": 32,
-      "unique_trees": 30
+      "refs": 32
     },
     {
       "repo": "GEMSDOE69",
       "status": "ok",
-      "refs": 65,
-      "unique_trees": 72
+      "refs": 65
     },
     {
       "repo": "GEMSDOE70",
       "status": "ok",
-      "refs": 97,
-      "unique_trees": 145
+      "refs": 97
     },
     {
       "repo": "GEMSDOE71",
       "status": "ok",
-      "refs": 11,
-      "unique_trees": 12
+      "refs": 11
     },
     {
       "repo": "GEMSDOE72",
       "status": "ok",
-      "refs": 15,
-      "unique_trees": 17
+      "refs": 15
     },
     {
       "repo": "GEMSDOE73",
       "status": "ok",
-      "refs": 25,
-      "unique_trees": 29
+      "refs": 25
     },
     {
       "repo": "GEMSDOE74",
       "status": "ok",
-      "refs": 30,
-      "unique_trees": 28
+      "refs": 30
     },
     {
       "repo": "GEMSDOE75",
       "status": "ok",
-      "refs": 19,
-      "unique_trees": 23
+      "refs": 19
     },
     {
       "repo": "GEMSDOE76",
       "status": "ok",
-      "refs": 17,
-      "unique_trees": 23
+      "refs": 17
     },
     {
       "repo": "GEMSDOE77",
       "status": "ok",
-      "refs": 223,
-      "unique_trees": 347
+      "refs": 223
     },
     {
       "repo": "GEMSDOE78",
       "status": "ok",
-      "refs": 46,
-      "unique_trees": 49
+      "refs": 48
     },
     {
       "repo": "GEMSDOE80",
       "status": "ok",
-      "refs": 40,
-      "unique_trees": 43
+      "refs": 40
     },
     {
       "repo": "GEMSDOE81",
       "status": "ok",
-      "refs": 17,
-      "unique_trees": 15
+      "refs": 17
     },
     {
       "repo": "GEMSDOE82",
       "status": "ok",
-      "refs": 27,
-      "unique_trees": 29
+      "refs": 27
     },
     {
       "repo": "GEMSDOE83",
       "status": "ok",
-      "refs": 19,
-      "unique_trees": 24
+      "refs": 19
     },
     {
       "repo": "GEMSDOE84",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "GEMSDOE85",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "GEMSDOE86",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "GEMSDOE87",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "GEMSDOE88",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "GEMSDOE89",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "GEMSDOE9",
       "status": "ok",
-      "refs": 12,
-      "unique_trees": 12
+      "refs": 12
     },
     {
       "repo": "GEMSDOE90",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "GEMSDOE91",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "GEMSDOE92",
       "status": "ok",
-      "refs": 1,
-      "unique_trees": 1
+      "refs": 1
     },
     {
       "repo": "LEARNGEMSDOE",
       "status": "ok",
-      "refs": 21,
-      "unique_trees": 30
+      "refs": 21
     }
   ],
+  "n_repositories_scanned": 92,
   "n_new_rasters": 207,
   "rasters": [
     {
       "repo": "16GEMSDOE",
-      "path": "docs/archive/gems16-h16-1-pure-physical-scarp-worm-allfinite-20260929-c16f03.tif",
+      "path": "docs/downloads/gems16-h16-1-pure-physical-scarp-worm-allfinite-20260929-c16f03.tif",
       "blob": "d640d30557d695fed214d18a377db3fe54422090",
       "size": 564499,
       "sha256": "91f3dd7a0bb947e623f2c5660f5741bde099f69cb94a5bcc083c060dd5cd06cc",
       "aliases": [
-        "16GEMSDOE:docs/archive/gems16-h16-1-pure-physical-scarp-worm-allfinite-20260929-c16f03.tif",
-        "16GEMSDOE:docs/downloads/gems16-h16-1-pure-physical-scarp-worm-allfinite-20260929-c16f03.tif",
-        "19GEMSDOE:docs/archive/gems16-h16-1-pure-physical-scarp-worm-allfinite-20260929-c16f03.tif",
-        "20GEMSDOE:docs/archive/gems16-h16-1-pure-physical-scarp-worm-allfinite-20260929-c16f03.tif",
-        "GEMSDOE22:docs/archive/gems16-h16-1-pure-physical-scarp-worm-allfinite-20260929-c16f03.tif"
+        "16GEMSDOE:docs/downloads/gems16-h16-1-pure-physical-scarp-worm-allfinite-20260929-c16f03.tif"
       ]
     },
     {
       "repo": "16GEMSDOE",
-      "path": "docs/archive/gems16-h16-1-seamfree-multiscale-ridge-allfinite-20260929-a16f01.tif",
+      "path": "docs/downloads/gems16-h16-1-seamfree-multiscale-ridge-allfinite-20260929-a16f01.tif",
       "blob": "b715491d384aefa60d1924a46f2b6f31f08326a6",
       "size": 778668,
       "sha256": "7da9fe49482c9a826ff11a51b27a054b4cdbe4b4160513389c2c0bd6b37b5eeb",
       "aliases": [
-        "16GEMSDOE:docs/archive/gems16-h16-1-seamfree-multiscale-ridge-allfinite-20260929-a16f01.tif",
-        "16GEMSDOE:docs/downloads/gems16-h16-1-seamfree-multiscale-ridge-allfinite-20260929-a16f01.tif",
-        "19GEMSDOE:docs/archive/gems16-h16-1-seamfree-multiscale-ridge-allfinite-20260929-a16f01.tif",
-        "20GEMSDOE:docs/archive/gems16-h16-1-seamfree-multiscale-ridge-allfinite-20260929-a16f01.tif",
-        "GEMSDOE22:docs/archive/gems16-h16-1-seamfree-multiscale-ridge-allfinite-20260929-a16f01.tif"
+        "16GEMSDOE:docs/downloads/gems16-h16-1-seamfree-multiscale-ridge-allfinite-20260929-a16f01.tif"
       ]
     },
     {
       "repo": "16GEMSDOE",
-      "path": "docs/archive/gems16-h16-1-seamfree-multiscale-ridge-nanmask-20260929-b16f02.tif",
+      "path": "docs/downloads/gems16-h16-1-seamfree-multiscale-ridge-nanmask-20260929-b16f02.tif",
       "blob": "716fa7b4c61a45bccd09dde54aa72bbc34dd6cfc",
       "size": 849871,
       "sha256": "78b2aebe410e016d76c1cf15760561d7699346647955039bcc0b8adce87af30a",
       "aliases": [
-        "16GEMSDOE:docs/archive/gems16-h16-1-seamfree-multiscale-ridge-nanmask-20260929-b16f02.tif",
-        "16GEMSDOE:docs/downloads/gems16-h16-1-seamfree-multiscale-ridge-nanmask-20260929-b16f02.tif",
-        "19GEMSDOE:docs/archive/gems16-h16-1-seamfree-multiscale-ridge-nanmask-20260929-b16f02.tif",
-        "20GEMSDOE:docs/archive/gems16-h16-1-seamfree-multiscale-ridge-nanmask-20260929-b16f02.tif",
-        "GEMSDOE22:docs/archive/gems16-h16-1-seamfree-multiscale-ridge-nanmask-20260929-b16f02.tif"
+        "16GEMSDOE:docs/downloads/gems16-h16-1-seamfree-multiscale-ridge-nanmask-20260929-b16f02.tif"
       ]
     },
     {
@@ -632,6 +529,28 @@
     },
     {
       "repo": "55GEMSDOE",
+      "path": "docs/downloads/archive-superseded/h55-tensor2d-strikegate-40000dots-20261009T052235Z-nan.tif",
+      "blob": "8c49e19f69e9d95ba96f999e50e8bcf3e001a539",
+      "size": 1564108,
+      "sha256": "847e7ea141766144bb28da80388e1b5f956f27b44e6eb8d32d02ae585ea8b679",
+      "aliases": [
+        "55GEMSDOE:docs/downloads/archive-superseded/h55-tensor2d-strikegate-40000dots-20261009T052235Z-nan.tif",
+        "55GEMSDOE:docs/downloads/h55-tensor2d-strikegate-40000dots-20261009T052235Z-nan.tif"
+      ]
+    },
+    {
+      "repo": "55GEMSDOE",
+      "path": "docs/downloads/archive-superseded/h55-tensor2d-strikegate-40000dots-20261009T052235Z-zeros.tif",
+      "blob": "951d2d9b41938cc586617116b799ac1fa1f484a9",
+      "size": 798651,
+      "sha256": "b7c7225d1b35559d27a7800e40ac75a48d9a15ef79f169de0b5b64fc1bd9d368",
+      "aliases": [
+        "55GEMSDOE:docs/downloads/archive-superseded/h55-tensor2d-strikegate-40000dots-20261009T052235Z-zeros.tif",
+        "55GEMSDOE:docs/downloads/h55-tensor2d-strikegate-40000dots-20261009T052235Z-zeros.tif"
+      ]
+    },
+    {
+      "repo": "55GEMSDOE",
       "path": "docs/downloads/audit-h55-160k/h55-tensor2d-strikegate-160000dots-20261009T164334Z-nan.tif",
       "blob": "4bf00fa233a383651a99e1b29cd33d5336ab5471",
       "size": 1708911,
@@ -650,28 +569,6 @@
       "aliases": [
         "55GEMSDOE:docs/downloads/audit-h55-160k/h55-tensor2d-strikegate-160000dots-20261009T164334Z-zeros.tif",
         "55GEMSDOE:docs/downloads/h55-tensor2d-strikegate-160000dots-20261009T164334Z-zeros.tif"
-      ]
-    },
-    {
-      "repo": "55GEMSDOE",
-      "path": "docs/downloads/h55-tensor2d-strikegate-40000dots-20261009T052235Z-nan.tif",
-      "blob": "8c49e19f69e9d95ba96f999e50e8bcf3e001a539",
-      "size": 1564108,
-      "sha256": "847e7ea141766144bb28da80388e1b5f956f27b44e6eb8d32d02ae585ea8b679",
-      "aliases": [
-        "55GEMSDOE:docs/downloads/archive-superseded/h55-tensor2d-strikegate-40000dots-20261009T052235Z-nan.tif",
-        "55GEMSDOE:docs/downloads/h55-tensor2d-strikegate-40000dots-20261009T052235Z-nan.tif"
-      ]
-    },
-    {
-      "repo": "55GEMSDOE",
-      "path": "docs/downloads/h55-tensor2d-strikegate-40000dots-20261009T052235Z-zeros.tif",
-      "blob": "951d2d9b41938cc586617116b799ac1fa1f484a9",
-      "size": 798651,
-      "sha256": "b7c7225d1b35559d27a7800e40ac75a48d9a15ef79f169de0b5b64fc1bd9d368",
-      "aliases": [
-        "55GEMSDOE:docs/downloads/archive-superseded/h55-tensor2d-strikegate-40000dots-20261009T052235Z-zeros.tif",
-        "55GEMSDOE:docs/downloads/h55-tensor2d-strikegate-40000dots-20261009T052235Z-zeros.tif"
       ]
     },
     {
@@ -797,7 +694,7 @@
     },
     {
       "repo": "58GEMSDOE",
-      "path": "docs/ribbon/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
+      "path": "docs/downloads/gems58-adaptive-ribbon-38000-20261011T000000Z.tif",
       "blob": "2023ed0e7f7f1c4c0bead869600be1eca803b7b6",
       "size": 426559,
       "sha256": "d631b4af205bd6e0961f4bad3f4d12bc27b651a020dcd38666e4c5f5246720f7",
@@ -918,23 +815,21 @@
     },
     {
       "repo": "GEMSDOE33",
-      "path": "archive/legacy_candidates/gems33-c0-scored-reference-20261004-89bf5b9a2fea.tif",
+      "path": "docs/downloads/gems33-c0-scored-reference-20261004-89bf5b9a2fea.tif",
       "blob": "2a2861be8581765903fa171822487b42edee88b5",
       "size": 881376,
       "sha256": "b64e198f99108b7678c2d0a78864d9677299206cf5b642388c831435c8272f33",
       "aliases": [
-        "GEMSDOE33:archive/legacy_candidates/gems33-c0-scored-reference-20261004-89bf5b9a2fea.tif",
         "GEMSDOE33:docs/downloads/gems33-c0-scored-reference-20261004-89bf5b9a2fea.tif"
       ]
     },
     {
       "repo": "GEMSDOE33",
-      "path": "archive/legacy_candidates/gems33-c2-stepover-relay-20261004-01f660dd8656.tif",
+      "path": "docs/downloads/gems33-c2-stepover-relay-20261004-01f660dd8656.tif",
       "blob": "0a0940ab1dfd217ea979d12be6a7af801512e161",
       "size": 884296,
       "sha256": "7272633447365d7ec8a9c07972b48df92b071a1ecc5765cf14199c14dea4f0f7",
       "aliases": [
-        "GEMSDOE33:archive/legacy_candidates/gems33-c2-stepover-relay-20261004-01f660dd8656.tif",
         "GEMSDOE33:docs/downloads/gems33-c2-stepover-relay-20261004-01f660dd8656.tif"
       ]
     },
@@ -1476,7 +1371,7 @@
     },
     {
       "repo": "GEMSDOE52",
-      "path": "docs/downloads/gems52-h60d-dis_contrast-arm37654px.tif",
+      "path": "docs/downloads/gems52-h60-dis_contrast-arm37654px.tif",
       "blob": "cd355d1bdd136dde1b2bbe2d52875cda10694552",
       "size": 144529,
       "sha256": "0add72cd69542f19586e94ab3cd9c51fbe5c3ae72fba51f684bd6f510d502fd5",
@@ -1489,7 +1384,7 @@
     },
     {
       "repo": "GEMSDOE52",
-      "path": "docs/downloads/gems52-h62-conc_soft-arm22000px.tif",
+      "path": "docs/downloads/gems52-h61-conc_soft-arm22000px.tif",
       "blob": "abb52d810f602ce08e45ceb45741da95124a96ca",
       "size": 114669,
       "sha256": "1bc5b50c014e70692919c1f604939c02ba6915fcf038f34327cd745e78de6ea7",
@@ -1544,17 +1439,7 @@
     },
     {
       "repo": "GEMSDOE52",
-      "path": "docs/downloads/h87-candidate.tif",
-      "blob": "a2001e31173704048f91c96b0e495b3275728e84",
-      "size": 92018,
-      "sha256": "3fc7708422774f3766d12ecf1fa7e5a3493117ee67c61e1b19dadbe0b6f2d704",
-      "aliases": [
-        "GEMSDOE52:docs/downloads/h87-candidate.tif"
-      ]
-    },
-    {
-      "repo": "GEMSDOE52",
-      "path": "docs/downloads/h95-candidate.tif",
+      "path": "docs/downloads/h84-candidate.tif",
       "blob": "f7d8ac091b40d87d78508387036f551185b58088",
       "size": 132513,
       "sha256": "c122a9ff37abf5512bbddf39c9d55c60effb2229ed992d959e357ffb804a50f3",
@@ -1564,13 +1449,13 @@
       ]
     },
     {
-      "repo": "GEMSDOE53",
-      "path": "archive/do-not-submit/gems53-h1ds-n40000-20261009-c468977c-zeros__DO-NOT-SUBMIT.tif",
-      "blob": "7fe814070b80a40c878a2250d068bb9b55a76f99",
-      "size": 143771,
-      "sha256": "1101b655fbc3315250a6f9404fc3234a84f058726fb3e1a87c08b27eccae4236",
+      "repo": "GEMSDOE52",
+      "path": "docs/downloads/h87-candidate.tif",
+      "blob": "a2001e31173704048f91c96b0e495b3275728e84",
+      "size": 92018,
+      "sha256": "3fc7708422774f3766d12ecf1fa7e5a3493117ee67c61e1b19dadbe0b6f2d704",
       "aliases": [
-        "GEMSDOE53:archive/do-not-submit/gems53-h1ds-n40000-20261009-c468977c-zeros__DO-NOT-SUBMIT.tif"
+        "GEMSDOE52:docs/downloads/h87-candidate.tif"
       ]
     },
     {
@@ -2022,7 +1907,7 @@
     },
     {
       "repo": "GEMSDOE77",
-      "path": "docs/downloads/gems77-h82se-strike-entropy-37654dots-20261021-c1a516e4-zeros.tif",
+      "path": "docs/downloads/gems77-h82-strike-entropy-37654dots-20261021-c1a516e4-zeros.tif",
       "blob": "7ae3c0db5499829ffdbd21b84ddc9135823ce580",
       "size": 115547,
       "sha256": "9ff70787544b23a5c78e0a1b511660c48c6820f8332e9549c9708c3e79ce829f",
@@ -2164,6 +2049,16 @@
       "sha256": "a18160d5b7d7d28eef47521262e1e3b537d2716960313166e96fab2c0fd617fd",
       "aliases": [
         "GEMSDOE78:docs/downloads/gems78-h78fw-flankwarp-44090dots-20261022T013114Z-21656430-DO-NOT-SUBMIT.tif"
+      ]
+    },
+    {
+      "repo": "GEMSDOE78",
+      "path": "docs/downloads/gems78-h78gsc-oof-submod40k-20261021T033000Z-zeros.tif",
+      "blob": "9978e5ccf72a12329291f4c64c0d4ab73fa88240",
+      "size": 147599,
+      "sha256": "e2f21d496925fb1bd2f36c5b28a0e2356286eca719132545474456f81bc5a8eb",
+      "aliases": [
+        "GEMSDOE78:docs/downloads/gems78-h78gsc-oof-submod40k-20261021T033000Z-zeros.tif"
       ]
     },
     {
@@ -2312,6 +2207,18 @@
     },
     {
       "repo": "GEMSDOE80",
+      "path": "docs/downloads/gems80-macs61-triexpert-submod300-31492dots-20261021T235000Z-379576aa-zeros.tif",
+      "blob": "9abd285b0762697351ae20788f04d6fb1e46c4aa",
+      "size": 128473,
+      "sha256": "7bc62f5837739efb6a98aebc34cb908d153840d7f9a75f306c5636ec2e0d8853",
+      "aliases": [
+        "GEMSDOE80:docs/downloads/gems80-macs61-triexpert-submod300-31492dots-20261021T235000Z-379576aa-zeros.tif",
+        "GEMSDOE80:docs/submissions/gems80-macs61-triexpert-submod300-31492dots-20261021T235000Z-379576aa-zeros.tif",
+        "GEMSDOE80:submissions/gems80-macs61-triexpert-submod300-31492dots-20261021T235000Z-379576aa-zeros.tif"
+      ]
+    },
+    {
+      "repo": "GEMSDOE80",
       "path": "docs/downloads/gemsdoe80-h80c-strain-accom-resid-20261021T233457Z-nan.tif",
       "blob": "e7ed7c0a7886870cac424c3cbe62505dd1a570ca",
       "size": 176806,
@@ -2373,18 +2280,6 @@
       "aliases": [
         "GEMSDOE80:docs/downloads/gemsdoe80-h81a-relay-20261022T010259Z-zeros.tif",
         "GEMSDOE80:docs/submissions/gemsdoe80-h81a-relay-20261022T010259Z-zeros.tif"
-      ]
-    },
-    {
-      "repo": "GEMSDOE80",
-      "path": "docs/submissions/gems80-macs61-triexpert-submod300-31492dots-20261021T235000Z-379576aa-zeros.tif",
-      "blob": "9abd285b0762697351ae20788f04d6fb1e46c4aa",
-      "size": 128473,
-      "sha256": "7bc62f5837739efb6a98aebc34cb908d153840d7f9a75f306c5636ec2e0d8853",
-      "aliases": [
-        "GEMSDOE80:docs/downloads/gems80-macs61-triexpert-submod300-31492dots-20261021T235000Z-379576aa-zeros.tif",
-        "GEMSDOE80:docs/submissions/gems80-macs61-triexpert-submod300-31492dots-20261021T235000Z-379576aa-zeros.tif",
-        "GEMSDOE80:submissions/gems80-macs61-triexpert-submod300-31492dots-20261021T235000Z-379576aa-zeros.tif"
       ]
     },
     {
@@ -2667,7 +2562,7 @@
     },
     {
       "repo": "GEMSDOE83",
-      "path": "research/quarantine/concurrent-session/downloads/gemsdoe83-piedmont-basement-triple-37654-20261021-nan.tif",
+      "path": "docs/downloads/gemsdoe83-piedmont-basement-triple-37654-20261021-nan.tif",
       "blob": "d376c6ee32dee2d489da927fd665b28b15662a92",
       "size": 3605421,
       "sha256": "0f4bd0c91dd3e650453cadbf84f37ac971aaac97ad89262e9959465a10ebbc66",
@@ -2678,7 +2573,7 @@
     },
     {
       "repo": "GEMSDOE83",
-      "path": "research/quarantine/concurrent-session/downloads/gemsdoe83-piedmont-basement-triple-37654-20261021.tif",
+      "path": "docs/downloads/gemsdoe83-piedmont-basement-triple-37654-20261021.tif",
       "blob": "9793143c6667b1524724156fcdc1664216cf5244",
       "size": 791152,
       "sha256": "c2d183f5905fda63583acce67d7a33e194964c044ad4d9cfe286eaea50a9c84e",
