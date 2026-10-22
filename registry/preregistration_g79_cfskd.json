@@ -1,0 +1,9 @@
+{"lane":"G79-CFSKD","session":"bda00cff","registered_before_training":true,
+ "hypothesis":"Zero-catalogue physics + label-free lithology-normalised potassic residual (K_d) identifies hydrothermally altered uncatalogued conduits; a visible-only Coulomb flank-shadow veto (suppress 3-15px lateral corridor except near visible endpoints) removes DTI-costly parallel-splay false positives.",
+ "named_non_fault_mimic":"Potassic playa evaporites/illitic lacustrine beds; antithetic splays inside stress shadows (veto false negatives).",
+ "experiments":["EXP-CFS-1 physics-only HGB","EXP-CFS-2 physics+K_d","EXP-CFS-3 physics+K_d+Coulomb veto (primary)"],
+ "holdout":"gems57-pooled-hide-v2 buffered_component_draw seeds 20,30 buffer_px=3, pooled DTI alpha=0.2 beta=0.8 300m triangular",
+ "canary":"per-feature symmetric AUC <=0.90 on held folds",
+ "budget_dots":37654,"spacing_px":3,"exclude_catalogue_px":2,
+ "uniqueness_gates":{"spearman_max":0.90,"dot_overlap_3px_max":0.70},
+ "max_experiments":3}

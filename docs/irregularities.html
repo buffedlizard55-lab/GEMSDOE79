@@ -7,7 +7,7 @@
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
-<p>Entries retain their recorded dates and are grouped by session addenda. No entry authorizes an unratified threshold exemption.</p>
+<p>Historical entries retain their original dates; appended findings are dated as recorded in their source evidence. No entry authorizes a threshold exemption.</p>
 <table>
 <thead>
 <tr>
@@ -1024,8 +1024,7 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
-<h3>Session <code>78ff8e7b</code> addendum (2026-10-22) — three-pass repository review; no new lane</h3>
-<p>Full review and machine-readable card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_session-78ff8e7b.md"><code>reports/repository_review_2026-10-22_session-78ff8e7b.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/session_review_78ff8e7b.json"><code>evidence/session_review_78ff8e7b.json</code></a>. This addendum does not modify the historical G79-THVC run card or reinterpret any closed lane.</p>
+<h3>Session <code>5fb439d3</code> addendum (2026-10-22) — three-pass review, no new lane</h3>
 <table>
 <thead>
 <tr>
@@ -1037,28 +1036,78 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <tbody>
 <tr>
 <td>IR-79-143</td>
-<td><strong>The current literal overlap preflight remains mathematically impossible for every non-empty candidate.</strong> Re-measured <code>evidence/universal_overlap_certificate.json</code> against hash-pinned witness SHA-256 <code>ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be</code>: all <code>5,106,385</code> allowed cells are covered, leaving <code>0</code> uncovered; any allowed candidate dot therefore has forward 3-px overlap <code>1.0</code> against the <code>0.70</code> limit.</td>
-<td><code>scripts/preflight_new_lane.py --restore</code> correctly exits <code>2</code> with <code>start_new_lane=false</code>. No dense-support exemption, threshold alteration, candidate surface, placement, or holdout was attempted. <code>evidence/uniqueness_final_artifact.json</code> remains an early stop at <code>1 / 992</code>, not complete registry clearance. Resolution requires a prospectively ratified, symmetric interpretation of registry “dots”; do not bypass the literal rule locally.</td>
+<td><strong>Submission-name length misstated as 43/140.</strong> <code>len("g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT") = 55</code>, not 43, in <code>README.md</code> and <code>reports/g79_thvc_scientific_report.md</code> (note 98/140 verified correct).</td>
+<td>Fixed to <code>55/140</code> in both sources; site rebuilt. No raster/card/verdict change. Full review: <code>reports/session_review_5fb439d3.md</code>. Canonical artifact stays G79-THVC, OK TO DOWNLOAD YES / OK TO SUBMIT NO, 0 slots used.</td>
 </tr>
+</tbody>
+</table>
+<h3>Session 45998a01 — review-only validator hardening (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td>IR-79-144</td>
-<td><strong>The current checkout does not contain the raw/cache inputs needed for a new scientific run.</strong> <code>data/raw/</code> and <code>.cache/thvc/</code> are absent, although <code>data/restore_receipt.json</code> records manifest inputs as present. <code>scripts/verify_project.py</code> verifies receipt-to-manifest identity, not current physical presence of every ignored raw/cache file.</td>
-<td>Reported as a provenance/availability limitation, not as an input-hash mismatch. No new source data were fetched, and no feature cache was fabricated. Re-materialize data through a permitted, hash-verifiable route before any prospectively authorized experiment.</td>
+<td><code>validate_submission.py</code> raised on corrupt/missing TIFF/ZIP and printed a format PASS before failing to write an existing report.</td>
+<td>JSON rejection at the CLI inspection boundary, nonzero exit, no exception-detail leak, and exclusive evidence creation retained. Added adversarial software tests; shared validator/evaluator/writer pins unchanged.</td>
 </tr>
 <tr>
 <td>IR-79-145</td>
-<td><strong>Potential circular boundary contamination in closed G79-THVC directional features.</strong> <code>src/gems79/thvc_features.py:636,644,653–662</code> uses <code>numpy.roll</code>, which wraps opposite raster edges. A raster-distance check found <code>140</code> canonical positive pixels within <code>10</code> pixels of the outer raster edge, but raw feature inputs are absent and the check did not measure feature influence.</td>
-<td>Preserve this as a possible defect only; it is not evidence that those pixels or historic HOLDOUT-DTI results were affected. No closed-lane code change or rescore was made. Any future prospective implementation should use non-wrapping stencils with explicit support masking and its own holdout receipts.</td>
+<td>The prompt supplies no single-method lane; restored frozen witness still blocks any nonempty candidate under the literal overlap rule.</td>
+<td><code>evidence/preflight_45998a01.json</code> records refusal. No experiments or new TIFFs; canonical negative artifact unchanged.</td>
 </tr>
 <tr>
 <td>IR-79-146</td>
-<td><strong>The reviewed shortlist is not new-to-repository research.</strong> Cross-scale crest migration, magnetic marker termination, depth-persistent MT/clay-cap response, and Coulomb stress shadows already appear in prior hypothesis/backlog files; some are related to sibling submissions.</td>
-<td>Reconciled them as previously proposed but unvalidated ideas, not new discoveries or uniqueness-cleared lanes. Candidate priorities remain qualitative; no DTI or leaderboard lift is projected. External-source pages were not fetched in this review, and required local inputs are absent.</td>
+<td>Inherited <code>knowledge/why_h33.md</code> said “Yes, decisively” in answer to whether a higher organizer score was proven, although only local holdout comparisons exist. README also understated the submission-name length.</td>
+<td>Clarified scope to historical HOLDOUT-DTI; corrected length and added an explicit no-new-artifact notice to README, home and guide. Inherited scalar vs per-seed CI discrepancy is flagged, not silently rewritten (<code>reports/session_review_45998a01.md</code>).</td>
 </tr>
 <tr>
 <td>IR-79-147</td>
-<td><strong>ZIP byte count remained stale after the earlier IR-79-124 correction.</strong> <code>docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip</code> is <code>102,628</code> bytes on disk (<code>stat</code>), but <code>reports/g79_thvc_scientific_report.md</code> and <code>reports/verification_passes.md</code> still said <code>102,600</code>.</td>
-<td>Corrected both source reports to <code>102,628</code>; <code>scripts/build_site.py</code> was updated to surface the current universal-witness preflight and review-card link, then the generated Pages files were rebuilt and checked.</td>
+<td>Merge reconciliation found incoming ETP TIFF/ZIP files published alongside canonical THVC, violating the existing publication boundary. The ETP card uses an approximate evaluator, a patterned preregistration digest and a one-raster novelty comparison.</td>
+<td>Preserved incoming bytes, scripts and publication evidence under <code>archive/g79_etp_incoming_45998a01/</code>; did not validate those scientific claims or promote them. Canonical card and shared tools unchanged.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>78ff8e7b</code> addendum (2026-10-22) — review refreshed after PR #79 entered main</h3>
+<p>Full review and machine-readable card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_session-78ff8e7b.md"><code>repository_review_2026-10-22_session-78ff8e7b.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/session_review_78ff8e7b.json"><code>session_review_78ff8e7b.json</code></a>. These findings do not change the canonical G79-THVC run card or submit status.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-148</td>
+<td><strong>The literal overlap preflight blocks every non-empty candidate.</strong> The frozen witness SHA-256 <code>ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be</code> has positive support covering all <code>5,106,385</code> allowed cells, leaving zero uncovered; any allowed non-empty candidate therefore has forward 3-pixel overlap <code>1.0</code> against the <code>0.70</code> limit.</td>
+<td><code>scripts/preflight_new_lane.py --restore</code> exits <code>2</code> with <code>start_new_lane=false</code>; this is a literal-rule result, not a complete all-raster clearance. <code>evidence/uniqueness_final_artifact.json</code> still stops after <code>1 / 992</code>. Do not bypass via a density exemption, threshold change, alternate dot interpretation, or candidate placement.</td>
+</tr>
+<tr>
+<td>IR-79-149</td>
+<td><strong>The checkout does not currently materialize the raw/cache inputs needed for a new scientific run.</strong> <code>data/raw/</code> and <code>.cache/thvc/</code> are absent; the restore receipt records manifest presence but does not prove ignored source bytes are on disk.</td>
+<td>No external page was fetched and no cache was fabricated. Re-materialize inputs only through a permitted, hash-verifiable route after prospective protocol authorization.</td>
+</tr>
+<tr>
+<td>IR-79-150</td>
+<td><strong>Closed THVC directional features may wrap across raster edges.</strong> <code>src/gems79/thvc_features.py</code> uses <code>numpy.roll</code>; 140 canonical positive pixels lie within 10 pixels of an outer boundary, but raw features were unavailable to measure whether their scores depend on wrapped values.</td>
+<td>Keep this as an unmeasured possible defect; no historical HOLDOUT-DTI score was invalidated or recomputed, and no closed-lane code was changed.</td>
+</tr>
+<tr>
+<td>IR-79-151</td>
+<td><strong>The earlier shortlist's Coulomb stress-shadow entry is no longer untried in the current repository.</strong> Mainline PR #79 added G79-CFSKD, which implemented a visible-only Coulomb flank-shadow veto. Its primary EXP3 was negative: <strong>HOLDOUT-DTI</strong> (<code>gems57-pooled-hide-v2</code>), seed 20 (<code>n=11,321</code>) <code>0.0654</code>, 95% CI <code>[0.0520, 0.0803]</code>; seed 30 (<code>n=11,342</code>) <code>0.0678</code>, 95% CI <code>[0.0561, 0.0816]</code> (<code>evidence/cfskd/holdout_results.json</code>).</td>
+<td>Removed Coulomb stress shadows from the untried shortlist and recorded CFSKD as prior, merged evidence—not as an experiment conducted by this review. Its uniqueness card covers only four locally archived rasters, not the full registry, and cannot override the current literal-witness stop. The archived lane itself is negative and not submit-approved; the remaining qualitative ideas are not certified family-novel.</td>
+</tr>
+<tr>
+<td>IR-79-152</td>
+<td><strong>A merge restored a stale ZIP byte count (<code>102,600 B</code>) in the active scientific report.</strong> <code>stat</code> confirms the canonical ZIP is <code>102,628</code> bytes with SHA-256 <code>dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9</code>.</td>
+<td>Corrected the report to <code>102,628 B</code>; the generated site is rebuilt and validated. The earlier IR-79-124 remains the historical record of the same size correction.</td>
 </tr>
 </tbody>
 </table></div></section></main>

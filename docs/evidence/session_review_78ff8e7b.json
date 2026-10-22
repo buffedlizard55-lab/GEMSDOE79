@@ -24,7 +24,7 @@
   "verification": {
     "pytest": {
       "command": ".venv/bin/python -m pytest -q",
-      "result": "355 passed"
+      "result": "374 passed after refreshing against mainline PR #79"
     },
     "project_verifier": {
       "command": ".venv/bin/python scripts/verify_project.py",
@@ -74,8 +74,18 @@
       "single_band": true,
       "dtype": "float32",
       "crs": "EPSG:32611",
-      "shape": [3730, 3292],
-      "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
       "positive_pixels": 35093,
       "min": 0.0,
       "max": 1.0,
@@ -101,13 +111,19 @@
         "seed": 20,
         "withheld_positive_count": 11321,
         "dti": 0.1905,
-        "ci_95": [0.1741, 0.2069]
+        "ci_95": [
+          0.1741,
+          0.2069
+        ]
       },
       {
         "seed": 30,
         "withheld_positive_count": 11342,
         "dti": 0.1944,
-        "ci_95": [0.1774, 0.2126]
+        "ci_95": [
+          0.1774,
+          0.2126
+        ]
       }
     ],
     "h33_fold_fair_control": [
@@ -115,13 +131,19 @@
         "seed": 20,
         "withheld_positive_count": 11321,
         "dti": 0.0961,
-        "ci_95": [0.0831, 0.109]
+        "ci_95": [
+          0.0831,
+          0.109
+        ]
       },
       {
         "seed": 30,
         "withheld_positive_count": 11342,
         "dti": 0.0989,
-        "ci_95": [0.0854, 0.1128]
+        "ci_95": [
+          0.0854,
+          0.1128
+        ]
       }
     ]
   },
@@ -186,26 +208,58 @@
       "cost": "high",
       "data": "DOE GDR 1391 official source is listed in source ledger; required depth slices are absent from manifest and checkout",
       "history": "direct sibling raster prior art: GEMSDOE32 h32c-mt-claycap-breach, GEMSDOE76 MT-breach, and GEMSDOE77 h77c-claycap-breach; not family-unique or currently viable"
-    },
-    {
-      "rank": 4,
-      "name": "visible-only Coulomb stress shadows and conjugate accommodation",
-      "expected_improvement_prior": "low-moderate; unmeasured",
-      "cost": "high modelling cost",
-      "data": "fold-visible faults and geodetic strain bands; raw feature stack absent and slip/dip/rake assumptions unverified",
-      "history": "previously proposed in the post-THVC backlog; research-only"
     }
   ],
   "scope_notes": [
     "This is a scoped three-pass review, not a byte-for-byte revalidation of every historical lane, evidence row, or archive.",
     "No candidate was tested, so candidate priorities are not HOLDOUT-DTI values or predicted leaderboard scores.",
     "The pre-existing uniqueness_final_artifact.json is an early stop after 1 of 992 registry rasters; it is not complete uniqueness clearance.",
-    "No changes to the scientific model, evaluator, shared uniqueness rule, raster, archive, or submission slot state were made."
+    "No changes to the scientific model, evaluator, shared uniqueness rule, raster, archive, or submission slot state were made.",
+    "origin/main advanced to ffd1647 (PR #79) during this review branch; G79-CFSKD was reviewed as prior merged evidence, not rerun here.",
+    "The Coulomb stress-shadow idea was removed from the untried shortlist because G79-CFSKD implemented and tested that veto; remaining ideas are not certified family-novel."
   ],
   "maintained_documents": [
     "reports/repository_review_2026-10-22_session-78ff8e7b.md",
     "README.md",
     "reports/irregularities.md",
     "evidence/session_review_78ff8e7b.json"
-  ]
+  ],
+  "reviewed_mainline_commit": "ffd16471f909f99776aac206602aeff3350a0604",
+  "mainline_refresh": {
+    "merged_pull_request": 79,
+    "lane": "G79-CFSKD",
+    "source_commit": "ffd16471f909f99776aac206602aeff3350a0604",
+    "evidence_paths": [
+      "run_card_cfskd.json",
+      "evidence/cfskd/holdout_results.json"
+    ],
+    "reviewed_as": "prior mainline evidence; not run by this review",
+    "primary_arm": "EXP3",
+    "holdout_dti": [
+      {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator": "gems57-pooled-hide-v2",
+        "seed": 20,
+        "withheld_positive_count": 11321,
+        "dti": 0.06544475876865188,
+        "ci95": [
+          0.05201541612276507,
+          0.08033769368619784
+        ]
+      },
+      {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator": "gems57-pooled-hide-v2",
+        "seed": 30,
+        "withheld_positive_count": 11342,
+        "dti": 0.06780771885581849,
+        "ci95": [
+          0.05612465647437856,
+          0.08155539832376632
+        ]
+      }
+    ],
+    "interpretation": "The registered K_d plus visible-only Coulomb flank-shadow hypothesis was falsified on both seeds; this is not organizer-confirmed and does not authorize another lane.",
+    "local_uniqueness_scope": "The CFSKD card reports 4 local archived rasters, not a complete registry scan; its local 0.524 overlap does not override the current literal preflight blocker."
+  }
 }
