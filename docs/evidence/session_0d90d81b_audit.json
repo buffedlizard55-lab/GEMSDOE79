@@ -1,0 +1,375 @@
+{
+  "schema": "gems79.session_0d90d81b_audit.v1",
+  "session_branch": "arena/0d90d81b-gemsdoe79",
+  "reviewed_date_utc": "2026-10-22",
+  "canonical_artifact": {
+    "lane": "G79-THVC",
+    "tif_path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "tif_bytes": 137299,
+    "tif_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "zip_path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip",
+    "zip_bytes": 102628,
+    "zip_sha256": "dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9",
+    "emitted_positive_pixels": 35093,
+    "all_15_format_checks_passed": true,
+    "verdict": "negative",
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "submission_slots_used": 0
+  },
+  "data_restoration_and_e1_reproduction": {
+    "manifest_files_total": 13,
+    "manifest_files_sha256_verified": 13,
+    "competition_files_verified": 5,
+    "external_files_verified": 8,
+    "e1_derived_normal_bands_reproduced": 8,
+    "git_tracked_files_dirtied": 0,
+    "correction_of_prior_reviews": "Refutes reports/session_review_b40c0d45.md and reports/review_20261022.md claims that raw competition data cannot be restored in this sandbox: scripts/restore_data.py --preserve-receipt and scripts/prepare_data.py --reproduce succeed via api.github.com and codeload.github.com."
+  },
+  "halo_mask_reconciliation": {
+    "finite_footprint_cells": 5167373,
+    "mapped_catalogue_cells": 60988,
+    "allowed_off_catalogue_cells": 5106385,
+    "r13_lattice_sha256": "c12533bb980234c3a706af641d4f1d514bbbe482714b2ebcac3b10f3e72a7a3f",
+    "r13_uncovered_finite_footprint_cells": 6649,
+    "r13_uncovered_on_catalogue_cells": 135,
+    "r13_uncovered_off_catalogue_cells": 6514,
+    "r17_eproba_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "r17_uncovered_off_catalogue_cells": 0
+  },
+  "family_registry_census_20261022": {
+    "accessible_non_self_gems_repos": 93,
+    "registry_index_unique_blobs": 992,
+    "registry_delta_043119z_unique_blobs": 207,
+    "post_043119z_new_unique_blobs": 2,
+    "total_verified_non_self_unique_blobs": 1201,
+    "post_043119z_new_blobs_repos": [
+      "GEMSDOE78"
+    ],
+    "canonical_g79_thvc_max_post_043119z_forward_overlap": 0.670333,
+    "canonical_g79_thvc_still_distinct_against_all_new_h78_siblings": true
+  },
+  "sibling_byte_forensics": {
+    "H33_GEMSDOE32": {
+      "repo": "GEMSDOE32",
+      "blob_sha": "17a76895f68174cc93f3cb1597d25686f6d6bc67",
+      "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "bytes": 219065,
+      "path_in_repo": "docs/downloads/gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+      "registry_bucket": "registry_index.json",
+      "all_format_checks_passed": true,
+      "emitted_positive_pixels": 37654,
+      "on_catalogue_positive_pixels": 0,
+      "d_cat_m_percentiles": {
+        "p10": 400.0,
+        "p25": 806.23,
+        "p50": 1964.69,
+        "p75": 4245.0,
+        "p90": 6800.74
+      },
+      "fraction_within_500m_of_catalogue": 0.149705,
+      "fraction_beyond_2000m_of_catalogue": 0.491953,
+      "vs_G79_THVC": {
+        "a_off_catalogue_dots": 35093,
+        "b_off_catalogue_dots": 37654,
+        "forward_overlap_a_in_3px_of_b": 0.342746,
+        "forward_overlap_b_in_3px_of_a": 0.284087,
+        "spearman_rho_footprint": 0.017877
+      },
+      "vs_H79_FNHR": {
+        "a_off_catalogue_dots": 37654,
+        "b_off_catalogue_dots": 37654,
+        "forward_overlap_a_in_3px_of_b": 0.456658,
+        "forward_overlap_b_in_3px_of_a": 0.419318,
+        "spearman_rho_footprint": 0.041323
+      }
+    },
+    "H78_SIGX": {
+      "repo": "GEMSDOE78",
+      "blob_sha": "faa536b150278bb0f6ad4d0a890953d14c6ac400",
+      "sha256": "0b9cbb580dd8f94474744bf87a72abb602403cdccf8c6289bbe9625f4ffe75c3",
+      "bytes": 141096,
+      "path_in_repo": "submissions/gems78-h78-sigx-top44090-20261021T073235Z-70e3f27b-zeros.tif",
+      "registry_bucket": "registry_index.json",
+      "all_format_checks_passed": true,
+      "emitted_positive_pixels": 44090,
+      "on_catalogue_positive_pixels": 0,
+      "d_cat_m_percentiles": {
+        "p10": 500.0,
+        "p25": 984.89,
+        "p50": 2118.96,
+        "p75": 4603.53,
+        "p90": 7071.07
+      },
+      "fraction_within_500m_of_catalogue": 0.103969,
+      "fraction_beyond_2000m_of_catalogue": 0.518349,
+      "vs_G79_THVC": {
+        "a_off_catalogue_dots": 35093,
+        "b_off_catalogue_dots": 44090,
+        "forward_overlap_a_in_3px_of_b": 0.159604,
+        "forward_overlap_b_in_3px_of_a": 0.177138,
+        "spearman_rho_footprint": 0.002346
+      },
+      "vs_H79_FNHR": {
+        "a_off_catalogue_dots": 37654,
+        "b_off_catalogue_dots": 44090,
+        "forward_overlap_a_in_3px_of_b": 0.17204,
+        "forward_overlap_b_in_3px_of_a": 0.203697,
+        "spearman_rho_footprint": 0.002863
+      }
+    },
+    "H78_GSC": {
+      "repo": "GEMSDOE78",
+      "blob_sha": "9978e5ccf72a12329291f4c64c0d4ab73fa88240",
+      "sha256": "e2f21d496925fb1bd2f36c5b28a0e2356286eca719132545474456f81bc5a8eb",
+      "bytes": 147599,
+      "path_in_repo": "docs/downloads/gems78-h78-gsc-submodcover-top40000-20261022T013252Z-1045873e-zeros-DO-NOT-SUBMIT.tif",
+      "registry_bucket": "registry_delta.json",
+      "all_format_checks_passed": true,
+      "emitted_positive_pixels": 40000,
+      "on_catalogue_positive_pixels": 0,
+      "d_cat_m_percentiles": {
+        "p10": 412.31,
+        "p25": 500.0,
+        "p50": 761.58,
+        "p75": 1300.0,
+        "p90": 2247.22
+      },
+      "fraction_within_500m_of_catalogue": 0.306675,
+      "fraction_beyond_2000m_of_catalogue": 0.1243,
+      "vs_G79_THVC": {
+        "a_off_catalogue_dots": 35093,
+        "b_off_catalogue_dots": 40000,
+        "forward_overlap_a_in_3px_of_b": 0.681788,
+        "forward_overlap_b_in_3px_of_a": 0.5857,
+        "spearman_rho_footprint": 0.061525
+      },
+      "vs_H79_FNHR": {
+        "a_off_catalogue_dots": 37654,
+        "b_off_catalogue_dots": 40000,
+        "forward_overlap_a_in_3px_of_b": 0.495246,
+        "forward_overlap_b_in_3px_of_a": 0.4508,
+        "spearman_rho_footprint": 0.024003
+      },
+      "vs_H33_GEMSDOE32": {
+        "a_off_catalogue_dots": 40000,
+        "b_off_catalogue_dots": 37654,
+        "forward_overlap_a_in_3px_of_b": 0.444875,
+        "forward_overlap_b_in_3px_of_a": 0.439157,
+        "spearman_rho_footprint": 0.026781
+      },
+      "vs_H78_SIGX": {
+        "a_off_catalogue_dots": 40000,
+        "b_off_catalogue_dots": 44090,
+        "forward_overlap_a_in_3px_of_b": 0.18235,
+        "forward_overlap_b_in_3px_of_a": 0.238172,
+        "spearman_rho_footprint": 0.005587
+      }
+    },
+    "H78_MGHD": {
+      "repo": "GEMSDOE78",
+      "blob_sha": "d6adb232c81ab8f609f391f9741edb3432210f45",
+      "sha256": "44429c439118a6e20f77f6da821ecd4e46697da0545314d20b65e81766d8b698",
+      "bytes": 158254,
+      "path_in_repo": "docs/downloads/gems78-h78mghd-dualcover-44090dots-20261022T032500Z-1045873e-DO-NOT-SUBMIT.tif",
+      "registry_bucket": "post_0431Z_delta_0d90d81b",
+      "all_format_checks_passed": true,
+      "emitted_positive_pixels": 44090,
+      "on_catalogue_positive_pixels": 0,
+      "d_cat_m_percentiles": {
+        "p10": 316.23,
+        "p25": 400.0,
+        "p50": 670.82,
+        "p75": 1334.17,
+        "p90": 2765.86
+      },
+      "fraction_within_500m_of_catalogue": 0.39526,
+      "fraction_beyond_2000m_of_catalogue": 0.15296,
+      "vs_G79_THVC": {
+        "a_off_catalogue_dots": 35093,
+        "b_off_catalogue_dots": 44090,
+        "forward_overlap_a_in_3px_of_b": 0.670333,
+        "forward_overlap_b_in_3px_of_a": 0.516149,
+        "spearman_rho_footprint": 0.031475
+      },
+      "vs_H79_FNHR": {
+        "a_off_catalogue_dots": 37654,
+        "b_off_catalogue_dots": 44090,
+        "forward_overlap_a_in_3px_of_b": 0.535561,
+        "forward_overlap_b_in_3px_of_a": 0.419347,
+        "spearman_rho_footprint": 0.021565
+      },
+      "vs_H33_GEMSDOE32": {
+        "a_off_catalogue_dots": 44090,
+        "b_off_catalogue_dots": 37654,
+        "forward_overlap_a_in_3px_of_b": 0.406328,
+        "forward_overlap_b_in_3px_of_a": 0.472991,
+        "spearman_rho_footprint": 0.030619
+      },
+      "vs_H78_SIGX": {
+        "a_off_catalogue_dots": 44090,
+        "b_off_catalogue_dots": 44090,
+        "forward_overlap_a_in_3px_of_b": 0.165139,
+        "forward_overlap_b_in_3px_of_a": 0.244069,
+        "spearman_rho_footprint": 0.012349
+      }
+    },
+    "H78_GFV": {
+      "repo": "GEMSDOE78",
+      "blob_sha": "2016b3dce36d3e25e2630a569434e7d1db08b615",
+      "sha256": "0338383df9c36c0a2581ddc584e6aafa5ce364ba52cd9e56749628bc4301dd07",
+      "bytes": 147086,
+      "path_in_repo": "submissions/gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif",
+      "registry_bucket": "post_0431Z_delta_0d90d81b",
+      "all_format_checks_passed": true,
+      "emitted_positive_pixels": 37654,
+      "on_catalogue_positive_pixels": 0,
+      "d_cat_m_percentiles": {
+        "p10": 424.26,
+        "p25": 509.9,
+        "p50": 1140.18,
+        "p75": 3517.1,
+        "p90": 6010.82
+      },
+      "fraction_within_500m_of_catalogue": 0.234185,
+      "fraction_beyond_2000m_of_catalogue": 0.388432,
+      "vs_G79_THVC": {
+        "a_off_catalogue_dots": 35093,
+        "b_off_catalogue_dots": 37654,
+        "forward_overlap_a_in_3px_of_b": 0.587012,
+        "forward_overlap_b_in_3px_of_a": 0.432013,
+        "spearman_rho_footprint": 0.043061
+      },
+      "vs_H79_FNHR": {
+        "a_off_catalogue_dots": 37654,
+        "b_off_catalogue_dots": 37654,
+        "forward_overlap_a_in_3px_of_b": 0.453391,
+        "forward_overlap_b_in_3px_of_a": 0.377516,
+        "spearman_rho_footprint": 0.019064
+      },
+      "vs_H33_GEMSDOE32": {
+        "a_off_catalogue_dots": 37654,
+        "b_off_catalogue_dots": 37654,
+        "forward_overlap_a_in_3px_of_b": 0.29957,
+        "forward_overlap_b_in_3px_of_a": 0.325702,
+        "spearman_rho_footprint": 0.01449
+      },
+      "vs_H78_SIGX": {
+        "a_off_catalogue_dots": 37654,
+        "b_off_catalogue_dots": 44090,
+        "forward_overlap_a_in_3px_of_b": 0.147687,
+        "forward_overlap_b_in_3px_of_a": 0.205149,
+        "spearman_rho_footprint": 0.003234
+      }
+    }
+  },
+  "evaluation_protocol_comparison": {
+    "G79_THVC_strict_3quad_LOQO": {
+      "score_label": "HOLDOUT-DTI (run_card.json official_evaluate_all)",
+      "seed20_dti": 0.190523,
+      "seed20_ci95": [
+        0.174098,
+        0.206945
+      ],
+      "seed30_dti": 0.194393,
+      "seed30_ci95": [
+        0.177372,
+        0.212552
+      ],
+      "trains_on_test_quadrant": false
+    },
+    "H78_GFV_strict_3quad_LOQO": {
+      "score_label": "HOLDOUT-DTI (GEMSDOE78 evidence/h78gfv_holdout_seed{20,30}.json)",
+      "seed20_dti": 0.169984,
+      "seed20_ci95": [
+        0.154829,
+        0.184688
+      ],
+      "seed30_dti": 0.17777,
+      "seed30_ci95": [
+        0.161533,
+        0.193414
+      ],
+      "trains_on_test_quadrant": false,
+      "delta_vs_G79_THVC_strict_LOQO": {
+        "seed20": -0.020539,
+        "seed30": -0.016623
+      }
+    },
+    "H78_GFV_global_4quad_in_sample_benchmark": {
+      "score_label": "IN-SAMPLE-4QUAD-BENCHMARK (NOT comparable to strict LOQO)",
+      "seed20_dti": 0.214949,
+      "seed30_dti": 0.219765,
+      "trains_on_test_quadrant": true,
+      "in_quadrant_inflation_over_strict_LOQO": {
+        "seed20": 0.044965,
+        "seed30": 0.041995
+      }
+    },
+    "H83_GVCD_strict_3quad_LOQO": {
+      "score_label": "HOLDOUT-DTI (GEMSDOE83 run_card.json, strict 3-quad LOQO)",
+      "seed20_dti": 0.199915,
+      "seed20_ci95": [
+        0.182383,
+        0.217992
+      ],
+      "seed30_dti": 0.213805,
+      "seed30_ci95": [
+        0.196557,
+        0.231438
+      ],
+      "trains_on_test_quadrant": false,
+      "genuine_mechanisms": [
+        "Excludes 0 < d_cat <= 3.0 px visible-fault scarp flanks from negative training pool",
+        "Iterates exact Dinkelbach fractional-programming penalty lambda(theta) = 0.2*theta / (1 - 0.2*theta)"
+      ],
+      "blocked_by_shared_novelty_gate": {
+        "forward_overlap_vs_coverage_v3_wide": 0.851449,
+        "local_private_fork_exemption": "OVERLAP_CAP = 0.650 (IR-79-122)"
+      }
+    }
+  },
+  "live_public_leaderboard_20261022": {
+    "score_label": "PUBLIC-OBSERVATION",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "rank_1": {
+      "team": "xiaofanhu",
+      "dti": 0.4413,
+      "submissions": 27
+    },
+    "rank_2": {
+      "team": "cfld__",
+      "dti": 0.3904,
+      "submissions": 15
+    },
+    "rank_3": {
+      "team": "Batik Shirt Brothers",
+      "dti": 0.3894,
+      "submissions": 45
+    },
+    "rank_21": {
+      "team": "kinghorton42",
+      "dti": 0.3261,
+      "note": "21 teams strictly exceed stale 0.3195 benchmark"
+    },
+    "rank_22": {
+      "team": "li002666",
+      "dti": 0.3183
+    },
+    "rank_48": {
+      "team": "moongrega",
+      "dti": 0.2818,
+      "submissions": 29
+    },
+    "rank_49": {
+      "team": "arnofault",
+      "dti": 0.2817,
+      "submissions": 4
+    },
+    "rank_50": {
+      "team": "sam35",
+      "dti": 0.2804,
+      "submissions": 4
+    }
+  }
+}
