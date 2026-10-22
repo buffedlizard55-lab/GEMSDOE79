@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "lane": "H80-RADIO-PILOT",
+  "status": "preregistered-before-any-result",
+  "preregistered_utc": null,
+  "preregistration_timestamp_status": "UNVERIFIED. The file was written before the pilot ran and before any commit, but no clock read was taken at write time. The earlier hand-typed value 2026-10-22T14:40:00Z is WITHDRAWN: it was later than the clock at correction, so it cannot be a real reading. Clock read at this correction: 2026-10-22T14:26:36Z UTC. The commit timestamp is the authoritative record. See IR-79-148.",
+  "clock_read_at_correction_utc": "2026-10-22T14:26:36Z",
+  "session_branch": "arena/842c8c7c-gemsdoe79",
+  "parent_hypothesis": "H80-RADIO-KD (research/hypotheses_post_thvc_backlog.md, Hypothesis 3)",
+  "scope_note": "Single-feature zero-catalogue PILOT. It tests whether a potassium residual after thorium normalisation carries holdout-fault signal. It does NOT implement the silica (ASTER) normalisation in the parent hypothesis because the ASTER layer is not in the restored manifest.",
+  "official_sources": {
+    "geodawn_doi": "https://doi.org/10.5066/P93LGLVQ",
+    "geodawn_page": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and (radiometric data corrected for aircraft/cosmic background, radon background, Compton scattering and altitude)",
+    "metric": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/"
+  },
+  "input_layers": {
+    "K": "data/raw/external/geodawn_rad_u8.tif band 1 'K' (uint8, scale 1.0, offset 0; physical units NOT stated in the restored metadata; treated as ordinal)",
+    "eTh": "data/raw/external/geodawn_rad_u8.tif band 2 'Th' (uint8, same caveat)",
+    "nodata": "uint8 value 0 is treated as missing if the footprint-wide median of the band is > 0 (checked at run time and reported)"
+  },
+  "transform": {
+    "step_1": "Fit a robust linear regression K ~ a + b*Th over footprint cells with valid K and Th (Huber loss; no catalogue information).",
+    "step_2_residual_arm": "Residual R = K - (a + b*Th); standardise by footprint robust sigma (MAD x 1.4826).",
+    "step_2_control_arm": "Raw K, standardised by footprint robust sigma (no thorium normalisation).",
+    "step_3": "Gaussian smoothing sigma = 2 px (200 m) of the standardised field; score S = max(smoothed, 0), normalised by its 99th percentile over the scored footprint and clipped to [0,1]."
+  },
+  "placement": "Identical to H80-DRAPE-PILOT: greedy descending-S placement, minimum 3 px separation, footprint & (distance to visible catalogue > 2 px), budget 37,654 binary dots.",
+  "arms": {
+    "A_th_normalised_K": "Th-normalised K residual (candidate)",
+    "B_control_raw_K": "Raw smoothed K (isolates the thorium normalisation)",
+    "C0_random": "Uniform random placement with the same spacing and budget (shared with H80-DRAPE-PILOT, same RNG seed)"
+  },
+  "primary_metric": "HOLDOUT-DTI via vendor/gems57 evaluate (gems57-pooled-hide-v2), 4 quadrant folds pooled, paired physical 20 km block bootstrap, 1000 draws, seeds 20 and 30",
+  "decision_rules": {
+    "R1_canary": "Single-feature AUC of S for holdout truth vs background must be <= 0.90, else leakage is presumed and the pilot is stopped.",
+    "R2_th_effect": "Arm A must exceed Arm B with paired 95% CI lower bound > 0 on BOTH seeds to attribute gain to thorium normalisation.",
+    "R3_spend_bar": "A slot may only be considered if the best arm exceeds 0.1905 (seed 20) and 0.1944 (seed 30). Expected to fail for a single feature.",
+    "R4_fold_check": "Withheld-positive counts must match 11,321 (seed 20) and 11,342 (seed 30)."
+  },
+  "budget": "Experiment 2 of 3 in this session; 2 seeds, 3 arms; no retuning of smoothing, band, or threshold after results.",
+  "named_non_fault_mimics": [
+    "Potassic alteration of granitic and tuffaceous lithology with no fault control (lithology-driven K variation that thorium does not remove)",
+    "Playa and evaporite K-rich salts in closed basins (K enrichment without thorium)",
+    "Radon-related count variation in the uint8 channels"
+  ],
+  "known_limitations": [
+    "No ASTER silica or lithology layer restored; normalisation is by thorium only, so lithology control is partial.",
+    "uint8 quantisation of K and Th with unstated units limits the residual; ordinal treatment is an approximation.",
+    "A single feature with no learned model is not expected to beat the 0.1905 bar."
+  ]
+}

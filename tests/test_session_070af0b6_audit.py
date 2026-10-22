@@ -84,8 +84,8 @@ def test_exact_dti_algebra_pigeonhole_bounds_and_unique_ir_ids():
     ir_ids = re.findall(r"\|\s*(IR-79-\d+)\s*\|", ir_txt)
     # 126 at 070af0b6; +4 from G79-BER (IR-79-127..130); +5 from H79-MRND (IR-79-131..135); +7 from H79-FNHR (IR-79-136..142).
     assert len(ir_ids) == len(set(ir_ids))
-    # The historical prefix through IR-79-149 is immutable; later reviews may append new IDs.
-    assert {f"IR-79-{n:02d}" for n in range(1, 150)} <= set(ir_ids)
+    # The historical prefix through IR-79-158 is immutable; later reviews may append new IDs.
+    assert {f"IR-79-{n:02d}" for n in range(1, 159)} <= set(ir_ids)
 
 
 def test_executive_summary_and_sources_surface_caveats_and_date():
