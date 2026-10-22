@@ -101,9 +101,7 @@ def publication_contract_checks(root, card):
         else ''
     )
     downloads = root / 'docs/downloads'
-    # Allow format-fix companion files alongside canonical (documented in run_card_thvc_nanfix.json)
-    allowlisted_extra = {"g79-thvc-nanfix-35093dots-20261022-b262e265-nan.tif", "g79-thvc-nanfix-35093dots-20261022-b262e265-nan.zip"}
-    expected = {Path(card['submission_file']).name, Path(card['zip_file']).name} | allowlisted_extra
+    expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
                  if p.suffix.lower() in ('.tif', '.tiff', '.zip')}
     docs_dir = root / 'docs'
