@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
 <title>Why H33 scored highest, and what can beat it · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -50,20 +50,23 @@ public score of 0.2778 needs <code>c ≥ 23.6 %</code> and 0.4413 needs <code>c 
 H33 is <strong>exactly</strong> the D2.8 dot set (44,090 dots) minus the 6,436 dots within 200 m
 (2 px) of a mapped fault. No dot was added or moved.</p>
 <p>USER-REPORTED: D2.8 0.2600 and H33 0.2778.</p>
-<p>Under the assumption that the 6,436 removed dots had zero TP (they sat beside masked
-catalogue pixels), only FP changed. Then the ESTIMATE is
+<p>Under the <strong>unverified</strong> assumption that the 6,436 removed dots had zero marginal TP,
+only FP changed. Adjacency to masked catalogue pixels does not establish this: nearby
+unmapped strands can still earn TP, and the 200 m collar itself is not masked. Then the ESTIMATE is
 <code>TP·(1/0.2600 − 1/0.2778) = 0.2·6,436</code>. That gives TP ≈ 5.2 k truth-pixel units in the public set and
 <code>N_truth ≈ 12.8–13.3 k</code>. H33 therefore captures <strong>c ≈ 39–41 %</strong> of public truth
 credit with ≈35–37 k FP units.</p>
 <p>H33 led the family for three reasons, ranked by our confidence:</p>
 <ol>
-<li><strong>It deleted pure false positives.</strong> Mapped pixels are masked, and an expert
-   is unlikely to digitise a "new" fault within 200 m of a mapped one. So dots
-   in that collar pay FP and earn almost no TP. Removing 14.6 % of the dots raised the score by 6.8 %.
-   This is the only change between D2.8 and H33, so it is the best-supported explanation.</li>
-<li><strong>Its dots are already sparse and roughly at budget.</strong> About 37.7 k dots puts the
-   marginal dot near the break-even probability above. Adding more dots dilutes the
-   score, and removing more starts to lose coverage.</li>
+<li><strong>It deleted near-catalogue dots, plausibly reducing redundant FP.</strong> This is
+   the measured raster change, not proof that every deleted dot was a false positive.
+   Exact mapped pixels are masked; the surrounding 200 m collar is not. Nearby
+   unmapped splays could lose TP when those dots are removed. The reported score
+   pair is consistent with a net gain, but artifact-linked organizer receipts and
+   hidden labels are absent, so the causal explanation remains conditional.</li>
+<li><strong>Its dots are already sparse and roughly at budget.</strong> The measured budget is about 37.7 k dots. Whether its marginal dot is near
+   break-even is unknown without hidden truth. Additional dots can either help or
+   hurt according to their incremental TP and FP, not their count alone.</li>
 <li><strong>Its ranking came from distance-to-fault structure plus scarps</strong>, inherited from
    D2.x. RASTER-MEASUREMENT (<code>evidence/nhr/distance_to_catalogue.json</code>):
    - The median H33 dot lies 19.6 px (≈1.96 km) from the catalogue.
@@ -234,10 +237,11 @@ not like-for-like, because most used 56 k–985 k dots, but none came close to H
 This is consistent with the shift being real.</p>
 <h3>6. What would most raise P(win) next</h3>
 <ol>
-<li><strong>Decide how to treat the 30 space-filling registry rasters.</strong> A uniformly
-   random map is flagged by 30 registry rasters, because their 3 px halos cover more
-   than 70 % of the allowed area. Taken literally, the duplicate rule therefore rejects
-   every possible submission (IR-79-53). This needs an explicit user decision. One
+<li><strong>Decide how to treat the 30 space-filling registry rasters.</strong> The seeded uniformly
+   random control is flagged by 30 registry rasters whose halos cover more than
+   70 % of the allowed area. That statistic does not prove universal failure.
+   The separate literal-support witness covers <strong>every</strong> allowed cell, which does
+   prove every nonempty map has overlap 1.0 under that reading (IR-79-53). This needs an explicit user decision. One
    option: for those rasters, use overlap beyond chance, <code>(ov − halo)/(1 − halo)</code>,
    and keep the literal rule for all others.</li>
 <li><strong>Target the far field explicitly.</strong> H33's dots are mostly more than 1 km from the
@@ -511,7 +515,7 @@ into four distinct regimes:</p>
 <p>Three structural findings follow directly from these byte measurements:</p>
 <ol>
 <li><strong>Every reported score above <code>0.2478</code> (<code>0.2600</code> to <code>0.2778</code>) comes from a single root surface (<code>19GEMSDOE</code> <code>h19-5</code>), not nine independent breakthroughs.</strong> In particular, <code>GEMSDOE36</code> (<code>0.2750</code>) contains all <code>37,654</code> exact pixels of <code>H33</code> plus <code>1,200</code> additional pixels, and across <code>D2.8</code> → <code>h33d</code> → <code>h27-4</code> → <code>h36-1</code> → <code>H33</code>, near-catalogue dot counts at <code>0 &lt; d_cat &lt;= 200 m</code> drop monotonically (<code>6,436 → 3,894 → 2,545 → 2,353 → 0</code>) while reported public DTI rises monotonically (<code>0.2600 → 0.2632 → 0.2708 → 0.2710 → 0.2778</code>). Retain-band dots in <code>200 &lt; d_cat &lt;= 300 m</code> (<code>2,171</code> in <code>H33</code>; <code>2,227</code> in <code>GEMSDOE70</code>) preserve step-over/splay linkages, whereas widening the exclusion zone to <code>&gt;= 300 m</code> (<code>GEMSDOE77</code> <code>0.0964</code>) erases fault-tip junction credit.</li>
-<li><strong>Among genuinely non-duplicate models (<code>forward_3px &lt;= 0.55</code> and <code>reverse_3px &lt;= 0.48</code> vs <code>H33</code>), out-of-fold multi-modal learning + submodular 300 m cover (<code>GEMSDOE70</code> <code>0.2478</code>, <code>GEMSDOE49</code> <code>0.2376</code>) beats single-operator geophysical filters (<code>GEMSDOE73</code> <code>0.1917</code>, <code>GEMSDOE75</code> <code>0.1627</code>, <code>GEMSDOE76</code> <code>0.1555</code>) by <code>+0.05</code> to <code>+0.09</code> DTI — yet still trails the public leaderboard leader (<code>xiaofanhu: 0.4413</code>) by <code>-0.1935</code>.</strong> Closing the <code>0.2778 → 0.4413</code> gap requires moving from pixel-local tabular features to multi-scale 2D spatial encoder-decoder architectures (<code>U-Net</code> / <code>ConvNeXt-UNet</code>, as in the official organizer baseline <code>drivendataorg/gems-prize-reference-solution</code>) trained end-to-end with pooled soft-kernel Distance-Weighted Tversky Loss (<code>alpha=0.2, beta=0.8, R=300 m</code>) on multi-kilometre 2D patches + 1 m LiDAR scarp rasters + positive-unlabeled prior calibration, followed by submodular 300 m cover selection and <code>200 m</code> catalogue pruning.</li>
+<li><strong>Among genuinely non-duplicate models (<code>forward_3px &lt;= 0.55</code> and <code>reverse_3px &lt;= 0.48</code> vs <code>H33</code>), out-of-fold multi-modal learning + submodular 300 m cover (<code>GEMSDOE70</code> <code>0.2478</code>, <code>GEMSDOE49</code> <code>0.2376</code>) beats single-operator geophysical filters (<code>GEMSDOE73</code> <code>0.1917</code>, <code>GEMSDOE75</code> <code>0.1627</code>, <code>GEMSDOE76</code> <code>0.1555</code>) by <code>+0.05</code> to <code>+0.09</code> DTI — yet still trails the public leaderboard leader (<code>xiaofanhu: 0.4413</code>) by <code>-0.1935</code>.</strong> One untested strategy for the reported <code>0.2778 → 0.4413</code> gap is moving from pixel-local tabular features to multi-scale 2D spatial encoder-decoder architectures (<code>U-Net</code> / <code>ConvNeXt-UNet</code>, as in the official organizer baseline <code>drivendataorg/gems-prize-reference-solution</code>) potentially trained end-to-end with pooled soft-kernel Distance-Weighted Tversky Loss (<code>alpha=0.2, beta=0.8, R=300 m</code>) on multi-kilometre 2D patches + 1 m LiDAR scarp rasters + positive-unlabeled prior calibration, followed by submodular 300 m cover selection and <code>200 m</code> catalogue pruning.</li>
 <li><strong>Post-snapshot sibling audit (<code>GEMSDOE78</code>, <code>GEMSDOE80</code>..<code>GEMSDOE83</code>) reinforces why Decision D-1 must be resolved first:</strong> <code>GEMSDOE82</code> published a second dense continuous surface (<code>surface_h82.tif</code>, <code>4,862,825</code> positive footprint cells out of <code>5,167,373</code>), confirming that under the literal <code>finite &gt; 0</code> support convention multiple sibling repositories create universal overlap blockers unless the protocol owner explicitly authorizes <code>top-K</code> or thresholded support (<code>Decision D-1</code>).</li>
 </ol>
 <p>The source website calls the file a high-ranked primary, but explicitly says it
@@ -605,7 +609,9 @@ before any new scientific experiment. Then require whole-component buffered
 hide-and-recover, feature-alone leakage canaries, a matched reproduction of the
 incumbent, paired spatial confidence intervals and literal novelty checks. The
 separate selector—not this pipeline—may consider a weekly slot only after those
-gates pass. A public leaderboard value alone never authorizes promotion.</p></div><div class="prose table-scroll"><h3>Additional primary-literature review — implications, not new experiments</h3>
+gates pass. A public leaderboard value alone never authorizes promotion.</p>
+<h4>Review qualification (2026-10-22)</h4>
+<p>The lineage measurements identify shared pixels, not hidden-label precision or causal score effects. Architecture, calibration and pruning proposals above are hypotheses, not necessary or sufficient conditions for a leaderboard improvement. No organizer receipt for the canonical NHR raster exists. Public/user-reported historical scores must not be relabelled ORGANIZER-CONFIRMED.</p></div><div class="prose table-scroll"><h3>Additional primary-literature review — implications, not new experiments</h3>
 <p>Reviewed on <strong>2026-10-21</strong>, after the mandatory E1 stop. This review did not
 change features, consume another experiment, label new faults or authorize a
 second lane. It provides context for interpreting failures and planning an

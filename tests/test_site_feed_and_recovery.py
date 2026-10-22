@@ -20,6 +20,15 @@ def test_all_site_links_and_status_are_consistent():
     assert check_site()['passed']
 
 
+def test_research_page_contains_each_current_hypothesis_section_once():
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup((ROOT / 'docs/research.html').read_text(), 'html.parser')
+    assert len(soup.find_all('h2', string='Literal-rule preflight (upstream review)')) == 1
+    assert len(soup.find_all('h2', string='Follow-up hypotheses from official-source research (not run)')) == 1
+    text = soup.get_text(' ', strip=True)
+    assert text.count('Background-corrected heat-flow residual corridors.') == 1
+
+
 def test_readme_project_links_exist_and_original_brief_is_present():
     import markdown
     from bs4 import BeautifulSoup

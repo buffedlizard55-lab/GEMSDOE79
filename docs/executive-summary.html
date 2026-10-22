@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
 <title>Executive summary &amp; how to submit · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -26,12 +26,12 @@
 <li>Choose the file in “File to submit”, paste the card's comment of 140 characters or fewer, and submit.</li>
 <li>Record the public score. Only that makes a number ORGANIZER-CONFIRMED for the file.</li></ol>
 <h2>Account-side conditions the project cannot verify</h2><ul><li>A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).</li><li>You must be a registered, eligible participant who accepted the competition rules.</li></ul>
-<h2>Why the earlier “values must be in range [0, 1]” rejection cannot recur</h2><p>The shared writer refuses NaN, ±Inf, sentinels and anything outside [0, 1], and never clips silently. It then reopens the written TIFF and checks:</p><ul>
+<h2>How this file avoids the known range error locally</h2><p>The shared writer refuses NaN, ±Inf, sentinels and anything outside [0, 1], and never clips silently. It then reopens the written TIFF and checks:</p><ul>
 <li>values are finite everywhere;</li>
 <li>min ≥ 0 and max ≤ 1;</li>
 <li>CRS, shape and transform match the sample;</li>
 <li>the ZIP holds identical bytes.</li></ul>
-<p>This research file contains only the values 0.0 and 1.0.</p>
+<p>This research file contains only 0.0 and 1.0. Remote acceptance is not established: the original rejected bytes and server receipt are unavailable.</p>
 <h2>Re-check it yourself (no human inspector needed)</h2><pre><code>python3 -m venv .venv
 .venv/bin/pip install -r requirements.lock
 .venv/bin/python scripts/verify_project.py      # bytes, format, evidence, card agreement

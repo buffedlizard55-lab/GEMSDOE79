@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "archive_id": "h79_ff_pr34",
+  "archived_date_utc": "2026-10-22",
+  "source_pr": 34,
+  "source_branch": "arena/1de1617f-gemsdoe79",
+  "source_lane": "H79-FF",
+  "reason": "The H79-FF artifact is a negative, non-canonical research result. The repository publication contract requires docs/downloads to contain only the TIFF and ZIP named by the canonical root run_card.json. The three files were moved byte-for-byte to this archive; no scientific claim or file content was changed.",
+  "files": [
+    {
+      "original_path": "docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.json",
+      "archive_path": "archive/h79_ff_pr34/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.json",
+      "bytes": 3969,
+      "sha256": "0af51e8098aeaf42ce919cf7f85602301a25ba94c5c4a19e14ee91c0346244e9"
+    },
+    {
+      "original_path": "docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif",
+      "archive_path": "archive/h79_ff_pr34/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif",
+      "bytes": 134390,
+      "sha256": "b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9"
+    },
+    {
+      "original_path": "docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip",
+      "archive_path": "archive/h79_ff_pr34/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip",
+      "bytes": 96707,
+      "sha256": "224f211cb2dbabff0a8b1ee1c525c124575e97984fae6e8e080618cd4cbac955"
+    }
+  ],
+  "integrity_scope": "The hashes above were computed immediately before the move and rechecked after. They establish byte preservation, not organizer receipt authenticity, scientific quality, or uniqueness."
+}

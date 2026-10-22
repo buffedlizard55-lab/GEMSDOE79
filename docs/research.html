@@ -1,12 +1,79 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
 <title>Ranked hypotheses and current eligibility · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">RESEARCH / RANKED HYPOTHESES / GATES</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Historical lanes are clearly separated from new prospective ideas; no new holdout runs until prerequisites pass.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">RESEARCH / RANKED HYPOTHESES / GATES</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Historical lanes and prospective ideas are separated; no new holdout before the registry, data, and preregistration gates pass.</p></section><section class="section"><h2>Literal-rule preflight (upstream review)</h2><p>A SHA-256-pinned registry witness covers every allowed cell under the literal positive-support definition. Any nonempty map therefore has 1.0 forward 3-pixel overlap against that witness under the literal rule. This is distinct from the budget-matched-v3 comparison, which also has independent failures. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Witness remeasurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
+<p><strong>Pre-experiment shortlist, not measured performance.</strong> The current request does not
+contain a delimited single-method lane paragraph. No new scientific lane was
+implicitly assigned. The inherited H79-NHR lane already stopped as a duplicate;
+we will not retune it. Priority and cost below are qualitative research judgments,
+<strong>not DTI scores or leaderboard projections</strong>. "Not tried" means not implemented
+as a stand-alone <em>surface</em> in the active <code>src/gems79/</code> pipeline; some inputs and
+related hypotheses have appeared in archived/sibling experiments. In particular,
+SDPT already computed a facing-polarity feature, so that alone is not novel.</p>
+<table>
+<thead>
+<tr>
+<th>Priority / cost</th>
+<th>Layers and physical test</th>
+<th>Why an unlisted fault, not only a mapped one?</th>
+<th>Difference and named non-fault mimic</th>
+<th>Inputs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 / medium-high</td>
+<td><strong>Far-field conditional fault recovery:</strong> <code>training_features.tif</code> (<code>det_elev</code>, <code>rtp</code>, <code>iso_grav_anom</code>) + lidar scarp descriptors + <em>visible-only</em> catalogue distance. Learn separate hide-and-recover rankings in distance bands, with a preregistered far-field &gt;1 km validation arm rather than applying NHR's near-catalogue target everywhere.</td>
+<td>The organizer's expert test faults are <strong>not</strong> in the catalogue; NHR's 300 m–2 km near-fault concentration is already occupied by older dot fields. An independent geomorphic/geophysical lineament far from the map could be a missed short piedmont fault.</td>
+<td>NHR fits one pooled target, not distance-band-specific selection; unlike a dot jitter, this changes the geological conditional model. <strong>Mimic:</strong> Pluvial Lahontan shorelines and alluvial fan margins. Input mirrors are SHA-pinned; no new external data.</td>
+<td></td>
+</tr>
+<tr>
+<td>2 / medium</td>
+<td><strong>Cross-scale crest migration:</strong> lidar <code>lapneg/lappos</code>, <code>step_max</code>, <code>coh100</code> + <code>det_elev</code> multiscale curvature; require a coherent scarp crest stable under 100–500 m smoothing while local signed curvature moves minimally along strike.</td>
+<td>Short, degraded scarps omitted from compiled regional linework may persist at multiple scales where amplitude thresholds fail.</td>
+<td>SDPT used crest-base dipoles and <code>step_max3</code>, but not displacement of a crest <em>between scales</em> as a continuity discriminator. <strong>Mimic:</strong> long terrace risers and abandoned shorelines. Cached lidar available through pinned public mirror; original USGS derivative provenance cannot be independently certified here.</td>
+<td></td>
+</tr>
+<tr>
+<td>3 / medium</td>
+<td><strong>Magnetic-marker break with an independent scarp:</strong> <code>rtp</code>, <code>tmi_hg</code>, lidar <code>cross_max</code>, <code>upface/downface</code>; compare across-trace <em>termination</em> of magnetic marker and the existence of a narrow morphologic step, without fitting the gravity-edge registration lag used by E1.</td>
+<td>Covered strands may disrupt basement fabric despite weak surface expression and therefore escape map digitizing.</td>
+<td>Not E1's across-gravity <em>nonzero lag</em>, nor NHR's generic HGB feature stack; explicit marker termination and scarp coincidence. <strong>Mimic:</strong> intrusive contact or airborne levelling seam. GeoDAWN flight-line spacing is coarser than the grid; avoid claiming 100 m independent magnetic observations.</td>
+<td></td>
+</tr>
+<tr>
+<td>4 / low</td>
+<td><strong>Clay-cap/permeability discordance:</strong> <code>cond_surf</code>, <code>depth_to_base_surf</code>, <code>iso_grav_anom</code>, lidar scarp; find local conductivity-edge departures crossing a gravity structural boundary, not a conductivity maximum.</td>
+<td>Unmapped faults may change fluid pathways beneath cover even if map-visible stratigraphic contacts are absent.</td>
+<td>STEPCO proposed cap <em>breaches</em>, not a cross-boundary discordance; conductivity resolution makes this speculative. <strong>Mimic:</strong> saline playa or lithologic conductor. Existing provided bands only, but no direct permeability observation.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gate before any test:</strong> Re-measured SHA-256-pinned public registry witness
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/witness_review_20261022_a7d092d7.json"><code>evidence/witness_review_20261022_a7d092d7.json</code></a>
+shows all 5,106,385 allowed cells covered by the literal positive support of a
+prior raster. Therefore <em>any nonempty candidate</em> would have 3-pixel overlap
+1.0 &gt; 0.70, regardless of hypothesis. This is the mathematical reason we
+<strong>stopped before implementation / placement / holdout</strong>: testing the top idea
+would break the requested stop rule, and no winner can be selected. If the
+protocol owner prospectively defines what counts as "dots" in continuous
+surfaces, preregister a <em>new</em> single-method lane, run the surface and final
+registry checks, individual-feature leakage canaries and shared buffered
+hide-and-recover DTI on both seeds. Do not silently exempt a prior raster.</p>
+<p>Sources (claims, not candidate scores):
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">organizer problem, data and metric</a>,
+<a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a>,
+<a href="https://github.com/drivendataorg/gems-prize-reference-solution">organizer reference implementation</a>,
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/data_manifest.json">local input provenance limits</a>,
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/nhr_analysis.md">existing experimental findings</a>.
+These are fault-detection proposals, <strong>not</strong> claims of geothermal-vent or reservoir discovery.</p></div></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
 <p>Written before any H79-NHR holdout result existed (preregistration:
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_nhr.json"><code>registry/preregistration_nhr.json</code></a>).
 Ranks are qualitative judgements of expected DTI improvement and cost, <strong>not

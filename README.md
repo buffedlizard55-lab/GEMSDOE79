@@ -24,17 +24,80 @@
 | Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/nhr/selector_decision.json`). |
 | Slots used | 0 |
 
+### Concurrent upstream artifact (2026-10-22, lane H79-FF) — archived
+
+A separate session generated a byte-distinct far-field research GeoTIFF. It is
+**not unique under the protocol gate**, has no HOLDOUT-DTI, and is not a
+submittable candidate. It was moved out of `docs/downloads/` during PR #35
+integration so that the only public TIFF/ZIP pair matches the canonical root
+run card. The files remain byte-for-byte preserved in
+[`archive/h79_ff_pr34/`](archive/h79_ff_pr34/README.md).
+
+| | |
+|---|---|
+| Archived TIFF / ZIP | [`archive/h79_ff_pr34/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif`](archive/h79_ff_pr34/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif) · [`ZIP`](archive/h79_ff_pr34/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip) |
+| Unique name | `gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8` |
+| Note (113/140) | `H79-FF far-field lidar-scarp discovery, 2000-8000m off catalogue, 37654 dots, step_max surface; research artifact` |
+| SHA-256 | `b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9` |
+| Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
+| Method | far-field lidar scarp: dots placed 2–8 km off the mapped catalogue, ranked by USGS 3DEP lidar step_max, 3 px Poisson spacing, fixed budget; off-catalogue, zeros elsewhere |
+| Uniqueness gate | **FAIL.** > 70 % overlap: 13GEMSDOE lattice 0.9976, GEMSDOE48 surface 1.0000, 5GEMSDOE density probe 1.0000, GEMSDOE3 coverage 0.8802 (limit 0.70). |
+| Verdict | **negative; DO NOT SUBMIT.** `HOLDOUT-DTI` is not applicable/not measured. See [`docs/evidence/ff/ff_run_card.json`](docs/evidence/ff/ff_run_card.json) and [archive manifest](archive/h79_ff_pr34/manifest.json). |
+| Slots used | 0 |
+
 Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
-The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
+The canonical H79-NHR decision and numbers are in [`run_card.json`](run_card.json). The separate archived H79-FF details come from [`docs/evidence/ff/ff_run_card.json`](docs/evidence/ff/ff_run_card.json) and its [SHA-256 manifest](archive/h79_ff_pr34/manifest.json).
 
-## What this session found (2026-10-22, session `337ac1e9`)
+## Follow-up preflight (2026-10-22, branch `arena/a7d092d7-gemsdoe79`)
+
+Concurrent [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md)
+confirmed no additional scientific experiment or submission slot was used.
+
+**Automated decision is still OK TO DOWNLOAD: YES / OK TO SUBMIT: NO.**
+The canonical GeoTIFF above is independently generated and locally format-valid,
+but it is *not* protocol-unique. At that preflight review, no extra GeoTIFF was
+issued with a misleading "ready" label and no weekly submission slot was spent.
+The separately generated H79-FF artifact is documented above and archived as a
+negative, non-submittable result.
+
+A re-download and independent measurement of the pinned [17GEMSDOE registry
+witness](evidence/witness_review_20261022_a7d092d7.json) confirmed that all
+5,106,385 allowed cells are covered by the witness's positive support. With the
+literal dot definition (any finite positive value), **every nonempty candidate
+has forward 3 px overlap 1.0 > 0.70**. The automated
+[new-lane preflight](evidence/new_lane_preflight_a7d092d7.json) returns exit 2
+and forbids experiments under that rule. This is a mathematical impossibility
+for a new *submittable* TIFF under the current literal protocol, not a missing
+human inspection step. A byte-distinct file or a format PASS is not a solution.
+The current NHR file fails even the more informative ordinary-dot comparison
+(26 non-space-filling registry rasters); waiving the universal witness alone
+would not promote it.
+
+Four untested [ranked hypotheses](research/hypotheses_preflight_a7d092d7.md)
+are documented for a *future, separately preregistered* lane. None received a
+holdout score in this review; no score is projected. The obstacle must be
+resolved *prospectively* by an explicit protocol definition of what constitutes
+"dots" in continuous prior rasters; silently changing the rule would violate
+the user's stop instruction. The [executive summary](docs/executive-summary.html)
+and [automated status command](scripts/submission_status.py) continue to make
+submission safety explicit. This review also fixed a clean-install test failure
+(missing pinned `scikit-image`) and corrected overconfident wording about
+near-catalogue false positives and the 70% halo proof.
+
+Latest concurrent software review: [session `0c9f6bad`](reports/session_review_0c9f6bad.md).
+It independently hardened selector evidence and fixed clean-install dependencies; no scientific slot was used.
+
+## What the previous session found (2026-10-22, session `337ac1e9`)
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
-   So sparse dots win: one dot on a trace earns up to about 2.33 truth units of TP and pays at most 1 unit of FP.
+   Sparse placements can reduce redundant FP: on an ideal straight grid-aligned trace, dots
+   spaced three pixels apart average about 2.33 TP units per dot. This is an illustrative calculation,
+   not a measured performance bound or proof that all sparse maps win.
    H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
-   masked, so those dots were pure false positives. Removing them lifted the user-reported score from 0.2600
-   to 0.2778. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
+   masked; nearby dots can still credit hidden traces, so the pruning is not proved to remove only
+   false positives. The reported 0.2600 and 0.2778 values have no artifact-bound organizer receipts or
+   causal demonstration. Algebra shows 0.2778 needs at least 23.6 % of truth credit, and
    0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
 2. **Can we beat it?** Five hypotheses were ranked in
    [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
@@ -43,22 +106,23 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
    leakage. However, it duplicated 26 informative family dot fields, so the lane stopped. The current public
    leaderboard snapshot (2026-10-22) shows #1 = 0.4413, #22 = 0.3183, and #48 = 0.2804; these are
    public observations, not file-linked submission receipts. The prompt's 0.3195 is not the current #22 value.
-3. **Protocol / registry blocker (IR-79-53, IR-79-57/58).** 30 registry rasters are space-filling, so even a
-   uniform map is flagged by them. More specifically, the 5-px `13GEMSDOE` lattice's 3-px halo leaves only
-   6,514 of 5,106,385 allowed pixels outside its halo. At the active 37,654-dot budget, at least 31,140 dots
-   (82.70 %) must overlap it—above the 70 % limit, regardless of the candidate surface. This proves the
-   current budget cannot pass that gate; it does **not** prove every smaller-budget map impossible. The registry
-   restore verifies 992/992 byte hashes, but six rasters remain invalid or misaligned in the old comparison
-   audit (986 comparable), so no complete novelty certificate exists. No chance correction, exclusion, or
-   threshold change is authorized.
+3. **Protocol / registry blocker (IR-79-53, IR-79-63/64).** Under the literal support reading, a verified
+   registry witness covers every allowed cell, so every nonempty map has 1.0 3-px overlap and fails. Under
+   the recorded budget-matched-v3 interpretation, 30 registry rasters still have 3-px halos covering more
+   than 70% of the allowed area; that coverage statistic alone does not prove every map fails. More
+   specifically, the 13GEMSDOE 5-pixel lattice's 3-px halo leaves only 6,514 of 5,106,385 allowed pixels
+   outside its halo. At the active 37,654-dot budget, at least 31,140 dots (82.70%) must overlap it. The
+   H79-NHR lane also independently failed on 26 ordinary dot fields, worst 0.913. All 992 bytes are restored,
+   but six rasters remain invalid/misaligned (986 comparable), so no complete v3 novelty certificate exists.
+   No chance correction, exclusion, or threshold change is authorized.
 
 ## Continuation on this fixed branch (`arena/616fe8e7-gemsdoe79`, 2026-10-22)
 
-- The Git-based restore receipt confirms **992/992** registry blobs present and SHA-256/Git-blob/size verified; the 13 manifest inputs also re-hash successfully. Durable summaries are [`evidence/registry_restore_git_2026-10-22.json`](evidence/registry_restore_git_2026-10-22.json) and [`evidence/data_restore_2026-10-22.json`](evidence/data_restore_2026-10-22.json). These verify bytes only; they do not change the NHR uniqueness audit's six grid/format errors or its duplicate witnesses.
-- Rechecked the official public leaderboard: #1 **0.4413**, #22 **0.3183**, #48 **0.2804**. The historical H33 value **0.2778** still has no file-linked organizer receipt, and **0.3195** is not the observed current #22 value.
-- Fixed IR-79-63 in `scripts/refresh_feed.py`: when direct HTTP checks fail, the feed now uses the newest dated reviewed observation instead of retaining an older snapshot. The six sandbox HTTP probes still failed with `SSLError`; the feed retained the reviewed 2026-10-22 values and marks the fetch failures. Rebuilt the site to expose the official-source resources and follow-up shortlist; 187 tests, project verification, and site checks pass.
-- Added a ranked, source-checked shortlist in [`research/hypotheses_followup_20261022.md`](research/hypotheses_followup_20261022.md). The leading *prospective* idea is USGS background heat-flow well residuals as a fluid-flow indicator; the official page lists a 124.12 MB public ZIP and explains the residual, but the binary fetch failed in this sandbox, so no feature or score was computed. Depth-banded USGS MT conductance and USGS ComCat focal mechanisms are lower-ranked alternatives; Qfault-derived slip/dilation values are excluded as leakage-prone.
-- **No new lane was eligible to enter holdout.** The current comparison inventory is incomplete (six invalid/misaligned rasters), the active 37,654-dot budget is mathematically incompatible with the 70% gate against the verified 13GEMSDOE lattice, and no new method paragraph was supplied. H79-NHR remains stopped; no new holdout, TIFF, upload, or weekly slot was used. Review and acceptance details: [`reports/repository_review_2026-10-22.md`](reports/repository_review_2026-10-22.md) and [`reports/requirements_review.md`](reports/requirements_review.md).
+- The Git-based restore summary confirms **992/992** registry blobs present and SHA-256/Git-blob/size verified; 13 manifest inputs also re-hash successfully. See [`evidence/registry_restore_git_2026-10-22.json`](evidence/registry_restore_git_2026-10-22.json), [`evidence/data_restore_2026-10-22.json`](evidence/data_restore_2026-10-22.json), and the budget-specific [`evidence/registry_capacity_2026-10-22.json`](evidence/registry_capacity_2026-10-22.json). Byte restoration does not repair comparison errors or grant novelty.
+- Rechecked the official public leaderboard: #1 **0.4413**, #22 **0.3183**, #48 **0.2804**. H33's historical 0.2778 remains unverified as a file-linked organizer receipt; 0.3195 is not the observed current #22 value.
+- Fixed IR-79-68 in `scripts/refresh_feed.py`: after failed direct HTTP checks, the feed retains the newest dated reviewed observation rather than an older snapshot. All six sandbox probes failed with `SSLError`; the feed preserves the 2026-10-22 source-ledger observation and marks the failures. The site displays the listed official-source resources and research shortlist. This branch's final checks: 187 tests, project verification, and site checks passed before integration with the newer `main` commit.
+- Added four ranked, source-checked hypotheses in [`research/hypotheses_followup_20261022.md`](research/hypotheses_followup_20261022.md). The leading *prospective* idea is USGS background heat-flow well residuals as a fluid-flow indicator. The official page lists the ZIP and explains its residual, but the binary fetch failed, so no feature, score, or new preregistration exists. Depth-banded MT conductance and ComCat focal mechanisms are lower-ranked; Qfault-derived slip/dilation is excluded as leakage-prone.
+- **No new holdout lane was run in this branch's continuation.** H79-NHR remains stopped; this work created no TIFF, upload, or weekly-slot selection. While PR #35 was being prepared, newer `main` separately added H79-FF: a format-valid far-field artifact with no HOLDOUT-DTI and a negative novelty result, also **DO NOT SUBMIT** ([card](docs/evidence/ff/ff_run_card.json)). It is not an experiment from this continuation. Review and acceptance details: [`reports/repository_review_2026-10-22.md`](reports/repository_review_2026-10-22.md) and [`reports/requirements_review.md`](reports/requirements_review.md).
 
 ## Concurrent lane G79-STEPCO (session `220dabc8`): also negative, archived
 
@@ -116,22 +180,53 @@ already dotted, so uniqueness after the fact costs more than detector gains.
   2. Obtain and hash-pin the official heat-flow release (or the chosen alternative source), inspect its native grid/fields, then preregister one fixed method.
   3. Run the surface uniqueness gate on the complete registry **before** placement; stop if incomplete or duplicate. Only a passing preregistered surface may proceed to leakage canaries and buffered holdout.
 
-## Reproduce and verify
+## Verify the frozen result (safe default)
+
+The active lane is **stopped**. These commands inspect existing bytes and evidence;
+they do not retrain, place dots, regenerate the scientific card or use a slot.
 
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -r requirements.lock
-.venv/bin/python scripts/restore_data.py              # hash-pinned inputs (see registry/data_manifest.json)
-.venv/bin/python scripts/restore_registry_git.py      # 992 registry rasters via git (no REST quota)
-.venv/bin/python scripts/run_nhr.py holdout --seed 20 # X1 holdout (also --seed 30), about 12 min each
-.venv/bin/python scripts/run_nhr.py final             # final surface + dots
-.venv/bin/python scripts/nhr_uniqueness.py surface && .venv/bin/python scripts/nhr_uniqueness.py final
-.venv/bin/python scripts/nhr_overlap_chance.py        # per-raster overlap vs chance
-.venv/bin/python scripts/build_nhr_submission.py      # gate check + shared writer
-.venv/bin/python scripts/finalize_nhr.py              # run card from evidence
-.venv/bin/python scripts/select_submission.py         # separate selector (refuses here)
-.venv/bin/python scripts/verify_project.py && .venv/bin/python scripts/submission_status.py
-.venv/bin/python scripts/build_site.py && .venv/bin/python scripts/check_site.py && .venv/bin/python -m pytest -q
+.venv/bin/python scripts/restore_data.py --ids existing_faults,sample_submission --target-dir data/reference --preserve-receipt
+.venv/bin/python scripts/verify_project.py
+.venv/bin/python scripts/submission_status.py  # expected exit 2: DO NOT SUBMIT
+.venv/bin/python scripts/build_site.py
+.venv/bin/python scripts/check_site.py
+.venv/bin/python -m pytest -q
 ```
+
+Historical experiment entry points (`run_nhr.py`, `nhr_uniqueness.py`,
+`build_nhr_submission.py`, `finalize_nhr.py`) document reproduction, **not permission
+to resume this lane**. Do not rerun them in routine verification. A new authorized
+lane must complete the surface novelty gate **before** any final dot placement,
+then clear final novelty, leakage and matched holdout gates before the separate
+selector can approve it. The selector now checks the existing evaluator/novelty
+evidence against the card as well as the complete literal gate receipt. This is
+an evidence-consistency check, not a fresh scientific evaluation.
+
+Historical experimental commands remain in source for audit, but `run_nhr.py holdout`,
+`run_nhr.py final`, and `build_nhr_submission.py` now refuse a terminal lane before
+loading bulk data or changing evidence. Reproduction of frozen outputs is not permission
+to restart a stopped scientific lane. Any future runner must separate surface generation,
+completed uniqueness clearance, and placement; the archived runner's sequencing is not a template.
+
+Concurrent completed software reviews: [0c9f6bad](reports/session_review_0c9f6bad.md)
+and [0a460648](reports/session_review_0a460648.md) independently fixed dependencies,
+hardened selector evidence checks and excluded local virtual environments from scans.
+Those changes were merged into this branch without changing scientific evidence.
+
+## Latest repository review — session `2203b2cc` (2026-10-22)
+
+- Fixed a clean-install test/Pages blocker: `scikit-image` was imported by the merged
+  G79B tests but absent from both dependency manifests. It and its dependencies are now pinned.
+- Added terminal-lane guards and regression tests; no new experiment, copied submission,
+  uniqueness exemption, slot selection or competition upload occurred.
+- Removed the website metadata's unsupported “validated, unique” assertion and corrected
+  the H33 explanation: a known-fault pixel mask does not make the surrounding collar pure FP.
+- The existing TIFF remains downloadable and format-valid, **not protocol-unique**.
+  No file meeting all submission gates was generated this session.
+- Review and next-session blockers: [three-pass report](reports/session_review_2203b2cc.md).
+
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
