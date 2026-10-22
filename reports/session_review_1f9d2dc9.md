@@ -14,7 +14,7 @@ This decision is fail-closed, not a claim that competition submissions are impos
 - The requested assigned method paragraph is absent. The prompt therefore does not designate an experimental lane.
 - Audited current tracked data placement: `data/reference/existing_faults.tif`, `data/reference/sample_submission.tif`, and `data/restore_receipt.json` are present; `data/raw/training_features.tif`, `labels.tif`, lidar derivatives and other large inputs are absent in this checkout. Historical source/restore receipts are not evidence that those raw files are present now.
 - The H33 interpretation already in `knowledge/h33_review_e4a4422d.md` is appropriately cautious: the user-reported `0.2778` is **UNVERIFIED HISTORICAL REPORT** rather than an organizer receipt. The public leaderboard entry `0.4413` is a **PUBLIC-OBSERVATION**, not proof for H33 or this artifact. The thinning argument is metric algebra, not causal evidence for why H33 scored as reported. No claim that a new method beats either number is justified.
-- Reviewed prior candidate notes and checked executable source for relevant named methods. `G79-CJX` has already been executed and is not represented as untried. A consolidated, strictly non-numeric research ranking is in [`research/hypotheses_1f9d2dc9.md`](../research/hypotheses_1f9d2dc9.md): signed scarp-polarity/gravity concordance; relief-screened saddles; bilateral multichannel contact change-points; paired USGS well heat-flow residuals. Their value rankings are qualitative judgments, not DTI projections. Earlier speculative numeric ranges in historical backlog documents are not new scores and were not reused.
+- Reviewed prior candidate notes and checked executable source for relevant named methods. `G79-CJX` was already executed. The latest concurrent main synchronization additionally contained the scoring-only `G79-SFGC-lite` test, so signed scarp polarity is excluded from the remaining untried list. The consolidated, strictly non-numeric ranking in [`research/hypotheses_1f9d2dc9.md`](../research/hypotheses_1f9d2dc9.md) covers conjugate-strike accommodation zones, multi-drainage knickpoint alignment, relief-screened saddles, geothermometer disequilibrium, and USGS well heat-flow residuals. Value rankings are qualitative judgments, not DTI projections. Earlier speculative numeric ranges in historical backlog documents are not new scores and were not reused.
 
 ### Pass 2 — safety gates, inputs, and assumptions
 
@@ -29,8 +29,8 @@ This decision is fail-closed, not a claim that competition submissions are impos
 Environment setup was isolated in ignored `.venv/`; no tracked dependency files or scientific bytes changed.
 
 - `.venv/bin/python scripts/verify_project.py` — **PASS**; all frozen evidence, local format/range, ZIP, card/status, publication contract and stop-state checks reconciled. The canonical submission decision remains negative.
-- `.venv/bin/python scripts/check_site.py` — **PASS**; 11 pages and 259 local links checked, all pages reachable, receipt-derived summaries consistent.
-- `.venv/bin/pytest -q` — **560 passed**.
+- `.venv/bin/python scripts/check_site.py` — **PASS** on the final merged tree; 13 pages and 322 local links checked, all pages reachable, receipt-derived summaries consistent.
+- `.venv/bin/pytest -q` — **584 passed** on the final merged tree.
 - `.venv/bin/python scripts/preflight_new_lane.py --restore` — expected exit **2**, no new lane.
 - Initial bare system Python did not have project dependencies; a system-wide `pip install` was correctly rejected by the externally-managed-environment guard. A repo-local ignored virtual environment was created and `requirements.txt` installed there. No global package changes were made.
 
@@ -38,7 +38,7 @@ No training, canary, holdout, DTI calculation, candidate-surface comparison, pla
 
 ## Main synchronization for PR review
 
-GitHub main advanced while this documentation PR was open. To make the PR mergeable, the latest `origin/main` was merged into this fixed Arena branch; no branch switch occurred. That concurrent main update included the archived `H79-PFSD` TIFF/evidence bundle and the `G79-STPO` research TIFF under `artifacts/stepover/`. These were produced in parallel, not by this review. The PFSD README says its artifact was archived and not selected; the STPO JSON states `OK TO DOWNLOAD: YES`, `OK TO SUBMIT: NO`, and lists holdout, leakage, and complete novelty checks as absent. Neither artifact is endorsed or promoted by this report.
+GitHub main advanced twice while this documentation PR was open. To make the PR mergeable, the latest `origin/main` was merged into this fixed Arena branch; no branch switch occurred. The concurrent updates added archived `H79-PFSD`, `G79-MDSC`, and `G79-TDW` experiments and the `G79-STPO` research TIFF. They were not performed by this review, and none is promoted here. The STPO artifact receipt says `OK TO DOWNLOAD: YES`, `OK TO SUBMIT: NO`, with holdout, leakage, and complete novelty checks absent. MDSC and TDW run cards mark their outcomes negative. The scoring-only signed-scarp experiment is independently recorded in `evidence/sfgc_lite_8e58a8d0/summary.json`; its **HOLDOUT-DTI** results are 0.0683 [0.0568, 0.0786] (seed 20, 11,321 withheld positives) and 0.0626 [0.0527, 0.0723] (seed 30, 11,342 withheld positives), below the frozen THVC incumbent. Accordingly signed scarp polarity is removed from this review's “untried” candidates. These concurrent outputs are separate evidence from this review; no slot was spent by this review.
 
 The merge also made an important historical evidence inconsistency more visible: `reports/session_review_9574eb05.md` calls H33's 0.2778 **ORGANIZER-CONFIRMED**, while `knowledge/h33_review_e4a4422d.md` and `knowledge/review_e4a4422d_sources.json` classify it as unverified and say the sibling page labels its artifact UNSCORED. No artifact-linked submission-page receipt is cited in that report. Treat the H33 numeric claim as **UNVERIFIED HISTORICAL REPORT** unless such a receipt is supplied; this review did not edit the historical report or manufacture one.
 
@@ -67,9 +67,9 @@ After syncing main, this review's changes remain documentation-only. The complet
 
 ```json
 {
-  "hypothesis": "Ranked, unexecuted backlog: signed scarp-polarity/gravity concordance is the highest-priority conditional candidate; no candidate was authorized or tested.",
-  "mechanism": "Preserve lidar scarp-face sign and test its normal-direction agreement with independent gravity change; this would be a feature-only test, not a new allocator or a copy of a prior raster.",
-  "named_non_fault_process_that_could_mimic_it": "Pluvial shorelines, fluvial terraces, landslide scarps, lithologic contacts, survey seams, and shallow groundwater circulation.",
+  "hypothesis": "Ranked, unexecuted backlog: fold-strict conjugate-strike accommodation/Riedel transfer zones are the highest conditional priority; no candidate was authorized or tested.",
+  "mechanism": "Recompute visible fault orientation transitions inside each validation fold and test predicted R/R-prime accommodation polygons against gravity, magnetic and geodetic strain evidence; no candidate surface was created.",
+  "named_non_fault_process_that_could_mimic_it": "Inherited bedrock joint sets, volcanic caldera ring structures, pluton margins, and orientation bias in the mapped fault network.",
   "holdout_dti": null,
   "holdout_dti_status": "NOT RUN: preflight stopped before experiments; no evaluator output, withheld-positive count, or 95% CI exists for this candidate.",
   "correlation_overlap_vs_registry": {

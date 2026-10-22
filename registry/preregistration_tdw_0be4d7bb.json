@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "lane": "G79-TDW",
+  "session": "0be4d7bb",
+  "branch": "arena/0be4d7bb-gemsdoe79",
+  "registered_before_experiments": true,
+  "hypothesis": "Blind intrabasin step faults buried under fan/playa cover offset shallow magnetic basement and appear as shallow (<600 m) Salem tilt-zero worms in flight-line de-striped RTP, concordant with a unilateral gravity step; dike swarms (symmetric dipoles) and flight seams fail the concordance/notch filters.",
+  "mechanism": "FFT directional notch (E-W flight lines) on RTP; tilt=atan(dz/HGM) with dz from 200 m upward-continuation residual; worm proximity exp(-(tilt/0.35)^2)*HGM_rank; half-width depth proxy gate <600 m equivalent; gravity HGM concordance; rank-product surface; greedy 2.8 px-spaced binary emission, zero on catalogue, 200 m catalogue prune, zeros outside footprint.",
+  "named_non_fault_mimic": "Miocene basalt dike swarms and residual GeoDAWN micro-levelling seams",
+  "inputs": ["data/raw/training_features.tif bands 2,12,13,14,15 (SHA 4371c82e...)", "data/reference/existing_faults.tif", "data/reference/sample_submission.tif"],
+  "holdout": {"evaluator": "gems57-pooled-hide-v2", "seeds": [20, 30], "alpha": 0.2, "beta": 0.8, "kernel_m": 300, "incumbent_to_beat": "G79-THVC HOLDOUT-DTI 0.1905/0.1944"},
+  "gates": {"canary_symmetric_auc_max": 0.90, "spearman_max": 0.90, "forward_overlap_3px_max": 0.70, "budget_dots": 37654, "experiments_max": 3},
+  "submission_name": "gems79-tdw-tiltworm-37654dots-20261022",
+  "submission_note": "G79-TDW destriped tilt-depth worms, gravity-concordant, 37654 dots, zeros outside footprint"
+}
