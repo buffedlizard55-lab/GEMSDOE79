@@ -90,7 +90,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
@@ -454,6 +454,45 @@ The \u201cPredicted values must be in range [0, 1]\u201d error cannot come from 
 rejects non-finite or out-of-range values at build time and G1 re-verifies the bytes.</li></ol></section>'''
 
 
+def mdsc_page():
+    """G79-MDSC unique-TIF page, generated solely from run_card_mdsc.json (session 8e58a8d0)."""
+    p = ROOT / 'run_card_mdsc.json'
+    if not p.exists():
+        return page_head('G79-MDSC', 'No MDSC candidate built.', 'Run scripts/run_mdsc.py.')
+    c = json.loads(p.read_text())
+    h, h30 = c['holdout_dti'], c['secondary_holdout_dti']
+    nov, val = c['correlation_overlap_vs_registry'], c['validator_output']
+    tif = Path(c['submission_file']).name
+    zipf = Path(c['zip_file']).name
+    rows = ''.join([
+        f'<tr><td>Format / [0, 1] range</td><td>PASS</td><td>finite, min {val["min"]}, max {val["max"]}, {val["n_nan"]} NaN, nodata=None, {val["crs"]}, shape {val["shape"]}</td></tr>',
+        f'<tr><td>Leakage canary</td><td>PASS</td><td>max symmetric AUC {c["leakage_canary"]["max_symmetric_auc_E1"]} (limit 0.90)</td></tr>',
+        f'<tr><td>Sparse-novelty</td><td>PASS</td><td>max forward 3-px overlap {nov["max_forward_overlap_3px"]} (limit 0.70), max |Spearman| {nov["max_abs_spearman_surface_sample400k"]} across {nov["comparators_checked"]} local sparse rasters</td></tr>',
+        f'<tr><td>Holdout improvement</td><td>FAIL</td><td>HOLDOUT-DTI {h["dti"]} (seed 20, n={h["withheld_positive_pixels"]:,}) / {h30["dti"]} (seed 30, n={h30["withheld_positive_pixels"]:,}); bars 0.1905 / 0.1944; evaluator {h["evaluator_version"]}</td></tr>',
+    ])
+    return f'''{page_head('G79-MDSC / UNIQUE TIF / AUTOMATED GATE',
+        'Unique file. Valid format. Failed science gate.',
+        'Newly generated this session and validated with no human inspection. Downloading for research is fine; submitting is not approved.')}
+<section class="section"><div class="notice"><strong>{c['decision_line']} DO NOT SUBMIT.</strong><br>
+{c['stop_reason']}</div>
+<h2>Download</h2>
+<p><a href="{REPO}/raw/main/artifacts/mdsc_8e58a8d0/{tif}" download>{tif}</a> \u00b7
+<a href="{REPO}/raw/main/artifacts/mdsc_8e58a8d0/{zipf}">{zipf}</a> (ZIP contains exactly that TIFF) \u00b7
+SHA-256 <code>{c['raster_sha256']}</code> \u00b7 {val['emitted_positive_pixels']:,} dots</p>
+<p><strong>Submission name:</strong> <code>{c['submission_name']}</code><br>
+<strong>Note ({c['note_chars']}/140 chars — for the record, do not use):</strong> {c['submission_note']}</p>
+<h2>Automated gates</h2>
+<table><thead><tr><th>Gate</th><th>Result</th><th>Detail</th></tr></thead><tbody>{rows}</tbody></table>
+<h2>What was tested</h2>
+<p>{c['hypothesis']}</p><p>{c['mechanism']}</p>
+<p>E2 (SFGC-lite signed scarp polarity, scoring-only): HOLDOUT-DTI {c['experiment_E2_sfgc_lite_scoring_only']['seed20']['dti']} / {c['experiment_E2_sfgc_lite_scoring_only']['seed30']['dti']} \u2014 {c['experiment_E2_sfgc_lite_scoring_only']['finding']}</p>
+<h2>How an approved file would be submitted</h2>
+<ol><li>Only when a page like this says OK TO SUBMIT: YES, download the .tif (or the .zip containing exactly it) and verify its SHA-256.</li>
+<li>On the DrivenData #306 submission page, choose the file and paste the shown name/note. The \u201cPredicted values must be in range [0, 1]\u201d error cannot come from the shared writer: it rejects non-finite/out-of-range values at build time and the validator re-reads the written bytes.</li>
+<li>Record the organizer receipt in registry/score_ledger.csv as ORGANIZER-CONFIRMED. No score exists for this MDSC file; 0 slots used.</li></ol>
+<p>Full record: <a href="{REPO}/blob/main/reports/session_review_8e58a8d0.md">session review 8e58a8d0</a> \u00b7 <a href="{REPO}/blob/main/run_card_mdsc.json">run_card_mdsc.json</a></p></section>'''
+
+
 def main():
     report = verify()
     if not report['all_checks_passed']:
@@ -650,6 +689,7 @@ def main():
         'g79-cskd.html': ('G79-CSKD unique TIF — Seed-30 record (0.2145) & automated gate verdict', cskd_page()),
         'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
         'dzd-submission.html': ('G79-DZD unique TIF \u2014 automated gate verdict', dzd_page()),
+        'mdsc-submission.html': ('G79-MDSC unique TIF \u2014 automated gate verdict', mdsc_page()),
         'irregularities.html': ('Irregularities & stop reasons',
                                 page_head('OWN THE OUTCOME', 'Failures are part of the record.')
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),
