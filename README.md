@@ -27,6 +27,30 @@ The historical “Charnes-Cooper” identifier is not an exact-optimization clai
 
 The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
 
+## New this session: G79-CJX — a unique TIF was generated, and the automated gate says NO
+
+> **G79-CJX: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
+> Unique file, not a copy or rename of any registry submission:
+> `artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif`
+> (SHA-256 in `run_card_cjx.json`), with a ZIP containing the identical TIFF beside it.
+> Decision page: [docs/cjx-submission.html](docs/cjx-submission.html) ·
+> Gate: `python scripts/cjx_gate.py` (exit 2 = blocked, no human inspection).
+
+Five ranked hypotheses are in [research/cjx_hypotheses.md](research/cjx_hypotheses.md);
+the top candidate (cross-scale magnetic+gravity contact junctions, tip-steered)
+was validated first, per protocol. **HOLDOUT-DTI** (`gems57-pooled-hide-v2`):
+Exp 1 coincident edges 0.0406/0.0473 and Exp 2 junctions 0.0404/0.0452 were
+below random; Exp 3 tip-steered reached 0.1041 [0.0870, 0.1220] (seed 20,
+11,321 withheld) / 0.1063 [0.0910, 0.1207] (seed 30, 11,342 withheld) —
+above random and the frozen H33 fold-fair control (0.0961/0.0989) but
+**below the G79-THVC incumbent (0.1905/0.1944)**, so gate G3 fails and no
+slot may be spent. Max leakage-canary symmetric AUC 0.5674 (≤ 0.90, PASS).
+Gate G4 (literal novelty vs all 992 restored registry rasters, surface and
+final dots) and G1 (format) are reported in `run_card_cjx.json`. No
+leaderboard score is claimed: 0.2778/0.4413 remain unverified historical
+reports, and beating them is not demonstrated. Verdict: **negative** —
+a deliverable, per the parallel-run protocol.
+
 ## Scientific evidence, not a leaderboard projection
 
 **HOLDOUT-DTI**, shared evaluator `gems57-pooled-hide-v2`; buffered whole-component splits, exact visible-catalogue mask, pooled weighted TP/FP/FN; α = 0.2, β = 0.8, triangular radius 300 m. The following are **inherited measurements**, not experiments performed in this review:

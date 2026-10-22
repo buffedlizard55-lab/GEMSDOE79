@@ -90,7 +90,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="cjx-submission.html">CJX candidate</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 
@@ -279,6 +279,37 @@ def history_page():
     return f'''<section class="page-head"><p class="eyebrow">HISTORICAL REPORTS / NOT RECEIPTS</p><h1>The family results, with caveats.</h1><p class="lead">{len(rows)} inherited filename-to-score reports. They are a research starting point, not organizer-confirmed artifact scores or independent experiments.</p></section><div class="notice">No submission-page receipt authenticates these file/score pairings. Similar scores can reflect shared surfaces and copied dot sets. This table does not rank new hypotheses or select a slot.</div><input class="search" id="history-search" type="search" placeholder="Filter by repository or submission name" aria-label="Filter historical reports"><div class="table-scroll"><table><thead><tr><th>Repository</th><th>Reported submission</th><th>Reported public DTI</th><th>Evidence class</th></tr></thead><tbody>{table}</tbody></table></div><p class="footnote"><a href="evidence/score_ledger.csv">Download the complete labelled CSV ↗</a> · <a href="analysis.html">What the actual H33 raster bytes show ↗</a></p>'''
 
 
+def cjx_page():
+    """G79-CJX unique-TIF page, generated solely from run_card_cjx.json."""
+    cjx_path = ROOT / 'run_card_cjx.json'
+    if not cjx_path.exists():
+        return page_head('G79-CJX', 'No CJX candidate built.', 'Run scripts/build_cjx_submission.py and scripts/cjx_gate.py.')
+    c = json.loads(cjx_path.read_text())
+    meta = json.loads((ROOT / 'evidence/cjx/final_build.json').read_text())
+    g = c['gates']; h = g['G3_holdout']['seeds']; nov = g['G4_novelty']
+    rows = ''.join(
+        f"<tr><td>{s}</td><td>{d['dti']:.4f} [{d['ci95'][0]:.4f}, {d['ci95'][1]:.4f}]</td>"
+        f"<td>{d['withheld_positive_pixels']}</td><td>{d['h33_foldfair_control_frozen']:.4f}</td>"
+        f"<td>{d['incumbent_g79_thvc_frozen']:.4f}</td><td>{'PASS' if d['beats_both'] else 'FAIL'}</td></tr>"
+        for s, d in h.items())
+    sparse = nov.get('sparse_diagnostic', {})
+    return f'''{page_head('G79-CJX / UNIQUE TIF / AUTOMATED GATE', 'A new unique TIF. The gate says no.', 'Generated this session, validated with no human inspection. Downloading for research is fine; submitting is not approved.')}
+<section class="section"><div class="notice"><strong>OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO \u2014 DO NOT SUBMIT.</strong><br>
+Produced by scripts/cjx_gate.py. A format PASS alone never approves submission.</div>
+<h2>Download</h2><p><a href="{REPO}/blob/main/artifacts/cjx/{meta['tif']}">{meta['tif']}</a> (ZIP with identical TIFF beside it) \u00b7 SHA-256 <code>{c['raster_sha256']}</code> \u00b7 {c['dots']} dots</p>
+<p><strong>Submission name:</strong> <code>{c['submission_name']}</code><br><strong>Note (\u2264140 chars):</strong> {meta['note']}</p>
+<h2>Automated gates</h2><table><thead><tr><th>Gate</th><th>Result</th></tr></thead><tbody>
+<tr><td>G1 format (shared validator)</td><td>{'PASS' if g['G1_format']['passed'] else 'FAIL'}</td></tr>
+<tr><td>G2 leakage canary \u2264 0.90</td><td>{'PASS' if g['G2_canary']['passed'] else 'FAIL'} \u2014 max {g['G2_canary']['max_symmetric_auc']:.4f}</td></tr>
+<tr><td>G3 holdout beats H33 control AND THVC incumbent</td><td>{'PASS' if g['G3_holdout']['passed'] else 'FAIL'}</td></tr>
+<tr><td>G4 literal novelty vs {nov['registry_rasters_checked']} registry rasters</td><td>{'PASS' if nov['passed'] else 'FAIL'} \u2014 worst literal overlap {nov['worst_literal_overlap_dots_exact'][0]:.4f} (100%-footprint diagnostics raster, the documented universal blocker); sparse diagnostic worst {sparse.get('worst_overlap', 0):.4f} vs {sparse.get('worst_submission', '')}, diagnostic only and not a bypass</td></tr>
+</tbody></table>
+<h2>Holdout \u2014 HOLDOUT-DTI (gems57-pooled-hide-v2, \u03b1=0.2 \u03b2=0.8, 300 m)</h2>
+<table><thead><tr><th>Seed</th><th>CJX v3 tip [95% CI]</th><th>Withheld</th><th>H33 control (frozen)</th><th>THVC incumbent (frozen)</th><th>Gate</th></tr></thead><tbody>{rows}</tbody></table>
+<p>Exp 1\u20132 (catalogue-free coincident edges/junctions) scored below random; Exp 3 (tip-steered) is above. No organizer-confirmed score exists for this artifact; historical reports 0.2778 / 0.4413 are not receipts and are not claimed. Full record: research/cjx_hypotheses.md and evidence/cjx/.</p>
+<h2>If a future banner ever says YES</h2><ol><li>Download the .tif or the .zip containing exactly it.</li><li>Choose it on the DrivenData submission page, paste the name/note above, submit. The \u201cPredicted values must be in range [0, 1]\u201d error cannot come from this writer: zeros mode rejects non-finite/out-of-range values at build time and G1 re-verifies the bytes.</li></ol></section>'''
+
+
 def main():
     report = verify()
     if not report['all_checks_passed']:
@@ -419,6 +450,7 @@ def main():
         if stale.name != Path(PREVIEW).name:
             stale.unlink()
     (SITE / 'evidence/evidence_summary.json').write_text(json.dumps(summary, indent=2, allow_nan=False) + '\n')
+
     pages = {
         'index.html': ('Research download & automated decision', home(card, summary, preflight, h33)),
         'executive-summary.html': ('Decision guide & future submission prerequisites', executive(card, summary)),
@@ -434,6 +466,7 @@ def main():
                           + novelty_explanation(summary, preflight) + archive_links()),
         'sources.html': ('Official sources, availability & source health', sources_page(sources)),
         'history.html': ('Historical reports, not receipts', history_page()),
+        'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
         'irregularities.html': ('Irregularities & stop reasons',
                                 page_head('OWN THE OUTCOME', 'Failures are part of the record.')
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),
