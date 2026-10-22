@@ -1,14 +1,15 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
-## Latest review — 2026-10-22, session 4fe5a2f6
+## Latest review — 2026-10-22, session `1f9d2dc9`
 
-**No new TIFF was generated; no submission is approved.** The independently rerun
-[preflight](evidence/preflight_4fe5a2f6.json) proves that the unchanged literal
-novelty gate blocks every nonempty candidate. See the
-[three-pass review and next steps](reports/session_review_4fe5a2f6.md).
-Historical sections below are inherited evidence, not work performed in this session.
-The full original project prompt remains archived below and is the starting contract.
-Related concurrent review: [three-pass audit and terminal negative run card](reports/review_b0325dc8/README.md). Fresh literal-overlap preflight stops new generation; no new submission-ready TIFF is claimed.
+**No new candidate TIFF was generated; no submission is approved.** The
+[three-pass review](reports/session_review_1f9d2dc9.md) documents the literal-novelty
+stop, current-main synchronization, and H33 evidence-class inconsistency. The
+[ranked untried hypotheses](research/hypotheses_1f9d2dc9.md) are proposals only—not
+scores or selector approvals. Historical sections below are prior evidence, not
+work performed in this review. The full original project prompt remains archived
+below and is the starting contract. Related concurrent review: [three-pass audit
+and terminal negative run card](reports/review_b0325dc8/README.md).
 
 ## Parallel session 9eb122ea — runtime-data availability audit
 
@@ -22,7 +23,7 @@ A separate three-pass review independently recorded the literal-gate stop, four 
 
 > **NEW SESSION 0be4d7bb — G79-TDW:** A new unique 37,654-dot TIF (`gems79-tdw-tiltworm-37654dots-20261022`, SHA-256 `0a79e3e54c1c8b9254ba0c8a36e61a1c41f09c594ae59778b2bf6478ba391eef`) was generated and machine-validated. **OK TO DOWNLOAD: YES (research only, `artifacts/tdw/`). OK TO SUBMIT: NO** — HOLDOUT-DTI 0.0395/0.0413 fell below the uniform control and the THVC incumbent, so no slot was spent. Details: `docs/tdw-submission.html`, `run_card_tdw.json`, `evidence/tdw/experiment1.json`. The canonical THVC decision below is unchanged.
 >
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_022a6324.md)** · **[Prior five-hypothesis research](research/hypotheses_0d90d81b.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_1f9d2dc9.md)** · **[Ranked untried hypotheses](research/hypotheses_1f9d2dc9.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
