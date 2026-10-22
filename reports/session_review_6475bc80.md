@@ -40,13 +40,17 @@ A plausible metric mechanism is reduced redundant prediction cost: under the off
 - Found stale site content that still presented a92/a201 as current, and a site rebuild removed the tracked historical TIPSTEP page while its old prose made an unsupported claim about the prior portal range error. Updated the generator to publish this review's preflight, run card, review report, and hypothesis shortlist while retaining older audits as provenance; preserved the TIPSTEP page as historical, corrected its R6/novelty warnings and unknown portal-error cause, and added a regression guard.
 - The first full test run exposed three stale link/site assertions. Corrected the broken README link and changed the site assertion to check the current session page rather than a superseded 0d90 backlog. Targeted regression tests then passed.
 
+## Integration note — concurrent upstream main advanced during PR review
+
+After this review's initial commit, `origin/main` advanced through merged PR #144 (`G79-CSHD`). That separate lane archived two newly generated CSHD research GeoTIFFs (including an R1–R8 NaN-exterior variant) and reported separate `gems57-pooled-hide-v2` HOLDOUT-DTI measurements. Those artifacts and results are from session `e8afe252`, not this review. The CSHD lane's own full novelty checks still failed against 16/1,209 legacy corridor rasters and the literal universal witness, so its verdict remains negative and it is **not approved to submit**. This integration does not change this review's no-experiment/no-new-TIFF card; the canonical THVC card and decision remain unchanged. The site is regenerated from the merged main code and this review is explicitly linked as a distinct, later review.
+
 ## Pass 3 — final regression and deliverable verification
 
-- Full test suite: **634 passed** (`OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q`).
-- Final site rebuild: **14 pages**; status remains **OK TO DOWNLOAD: YES (inherited research artifact), OK TO SUBMIT: NO**.
+- After merging the concurrent upstream update, full test suite: **637 passed** (`OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q`).
+- Final site rebuild: **17 pages**; canonical status remains **OK TO DOWNLOAD: YES (inherited research artifact), OK TO SUBMIT: NO**.
 - `scripts/verify_project.py`: all checks passed, including canonical file/card hash, strict official format, shared-template pins, historical holdout receipts, selector refusal, README publication contract, and the single-canonical-publication-artifact rule.
-- `scripts/check_site.py`: PASS; **380 local links checked**, all pages reachable, scientific tables/gates reconciled, `submit: false`.
+- `scripts/check_site.py`: PASS; **509 local links checked**, all pages reachable, scientific tables/gates reconciled, `submit: false`.
 - Browser download-check tests: **12 passed**; matching a published file never approves submission.
-- Official-text validator: sample template PASS; inherited TIFF FAIL R6 (expected, 7,111,787 non-NaN exterior cells).
+- Official-text validator: sample template PASS; archived CSHD NaN-exterior TIFF and ZIP PASS R1–R8; inherited THVC TIFF FAIL R6 (7,111,787 non-NaN exterior cells). CSHD remains DO-NOT-SUBMIT because its separate full novelty gate is negative.
 - Fresh preflight: exit 2, expected stop; runtime checker: 0/13, exit 2, current raw inputs missing.
 - No canary, holdout, score, raster creation, upload, or slot was performed. Candidate score/count/CI/raster fields are null or explicitly NOT MEASURED rather than fabricated.

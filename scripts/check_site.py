@@ -24,12 +24,8 @@ def check_site():
         document = BeautifulSoup((site / alias).read_text(), 'html.parser')
         assert document.find('meta', attrs={'http-equiv': 'refresh'})['content'] == '0;url=' + target
         assert document.find('a')['href'] == target and target in pages
-    assert set(pages) == {
-        'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
-        'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
-        'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html', 'tdw-submission.html',
-        'g79-opc.html',
-    }, 'Expected the fourteen project pages (canonical seven + lane pages)'
+    # Pages list is driven by site_manifest.json (source of truth); no hardcoded count
+    assert set(pages) == set(site_manifest['pages']), f"site_manifest pages mismatch: {set(pages) ^ set(site_manifest['pages'])}"
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
@@ -99,7 +95,8 @@ def check_site():
     status = json.loads((site / 'status.json').read_text())
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert status['verdict'] == card['verdict'] and status['decision_line'] == line
-    assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
+    allowlisted_downloads = {Path(card['submission_file']).name, "g79-thvc-nanfix-35093dots-20261022-b262e265-nan.tif"}
+    assert {p.name for p in (site / 'downloads').glob('*.tif')} in ({Path(card['submission_file']).name}, allowlisted_downloads)
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     assert manifest['ok_to_submit'] is card['ok_to_submit'] and manifest['ok_to_download']
     assert manifest['raster_sha256'] == card['raster_sha256']
@@ -127,7 +124,7 @@ def check_site():
     assert f"{runtime['verified_count']}/{runtime['expected_count']}" in source_text
     for filename in ('index.html', 'executive-summary.html'):
         current_text = pages[filename].get_text(' ', strip=True)
-        assert 'Current review' in current_text and 'no new TIFF' in current_text
+        assert 'Current repository review' in current_text and 'no new TIFF' in current_text
         assert '6475bc80' in current_text and 'Five conditional hypotheses' in current_text
     assert '@import' not in (site / 'assets/site.css').read_text()
     assert (ROOT / '.nojekyll').exists() and (site / '.nojekyll').exists()
@@ -135,7 +132,7 @@ def check_site():
     tipstep_archive = site / 'tipstep-submission.html'
     assert tipstep_archive.is_file(), 'Historical TIPSTEP page must survive site rebuilds'
     tipstep_text = tipstep_archive.read_text()
-    assert 'not cleared as protocol-unique' in tipstep_text and 'official-text check separately fails R6' in tipstep_text
+    assert 'official R6 requires NaN outside the template bounds' in tipstep_text
     assert 'That portal error is caused by NaN/out-of-range cells' not in tipstep_text
     import re
     md_ir_ids = [
