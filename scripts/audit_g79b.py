@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "vendor"))
 from gems57 import uniqueness as U  # noqa: E402
+from gems79.lifecycle import enforce_open_lane  # noqa: E402
 from gems79b import data as D  # noqa: E402
 
 K = 37_654
@@ -231,3 +232,7 @@ def topk_mask(surface, allowed, k=K):
     m = np.zeros(key.size, bool)
     m[part] = True
     return m.reshape(surface.shape)
+
+
+if __name__ == "__main__":
+    enforce_open_lane(ROOT, "G79B-SDPT")

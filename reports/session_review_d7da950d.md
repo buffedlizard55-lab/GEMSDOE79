@@ -4,7 +4,7 @@
 
 1. **Emergency `main` CI Remediation (`IR-79-144`):**
    - Detected live on GitHub Actions that concurrent `PR #70` (`c18abee`, `arena/f8734a82-gemsdoe79`, `G79-ETP-v2`) broke both `Verify research deliverable` (`39794181229`) and `Pages and public-source health` (`39794763858`) on `main` by placing two non-`DO-NOT-SUBMIT` `.tif`/`.zip` pairs (`e2203dcf…`, `ce6c5fca…`) directly inside `docs/downloads/`, committing placeholder SHA-256 `a1b2c3d4e5f67890abcdef…` and unmeasured metrics (`0.021`, `0.41`), adding duplicate `data/bridge/*.tif` binaries, and leaving `scripts/generate_etp_submission.py` / `scripts/generate_etp_v2.py` without closed-lane guards.
-   - Quarantined all `PR #70` files byte-for-byte with `-DO-NOT-SUBMIT` filenames and measured SHA-256/overlap/holdout receipts under [`archive/g79_etp_f8734a82/`](../archive/g79_etp_f8734a82/README.md), removed `data/bridge/`, and guarded both ETP scripts with fail-closed `require_open_lane(ROOT, "G79-ETP")` (`exit 2`).
+   - Quarantined all `PR #70` files byte-for-byte under [`archive/g79_etp_incoming_45998a01/`](../archive/g79_etp_incoming_45998a01/README.md) with measured SHA-256/overlap/holdout receipts, removed duplicate `data/bridge/`, and reconciled cleanly with upstream `origin/main` (`206768f`).
 2. **Git `2.39` Promisor Fix in `scripts/registry_delta_git.py` (`IR-79-145`):**
    - Replaced broken `git fetch --no-write-fetch-head origin <blob_sha>` calls with single-pass `git cat-file --batch` over the promisor remote + REST blob fallback, restoring `207 / 207` delta blobs (`992 + 207 = 1,199` family rasters) cleanly with zero errors.
 3. **Preregistered `G79-DFSD` Execution (`3 / 3` Budget Honored, `0` Weekly Slots Spent):**

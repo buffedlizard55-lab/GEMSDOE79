@@ -147,6 +147,12 @@ def stage_final_dots():
     log(meta)
 
 if __name__ == "__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H79-FF1",
+        reason="H79-FF1 is stopped and archived (HOLDOUT-DTI 0.0250/0.0249 < uniform; surface duplicate).",
+    )
     ap = argparse.ArgumentParser(); ap.add_argument("stage", choices=["holdout", "final-surface", "final-dots"])
     ap.add_argument("--seed", type=int, default=20); a = ap.parse_args()
     {"holdout": lambda: stage_holdout(a.seed), "final-surface": stage_final_surface, "final-dots": stage_final_dots}[a.stage]()

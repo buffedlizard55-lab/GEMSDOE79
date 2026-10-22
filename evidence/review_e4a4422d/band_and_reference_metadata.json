@@ -1,0 +1,206 @@
+{
+  "evidence_class": "LOCAL-METADATA, NOT AN ORGANIZER SOURCE-AUTHENTICATION",
+  "feature_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "bands": [
+    {
+      "index": 1,
+      "description": "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+      "tags": {
+        "band_name": "mag_anom",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Magnetic anomaly - deviation from expected Earth's magnetic field"
+      }
+    },
+    {
+      "index": 2,
+      "description": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+      "tags": {
+        "band_name": "rtp",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects"
+      }
+    },
+    {
+      "index": 3,
+      "description": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+      "tags": {
+        "band_name": "tmi_hg",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Total magnetic intensity horizontal gradient - rate of change in horizontal direction"
+      }
+    },
+    {
+      "index": 4,
+      "description": "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+      "tags": {
+        "band_name": "geod_2ndinv",
+        "data_category": "geodetic_strain",
+        "data_type": "numeric",
+        "description": "Geodetic second invariant - measure of strain rate tensor magnitude"
+      }
+    },
+    {
+      "index": 5,
+      "description": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+      "tags": {
+        "band_name": "iso_grav_anom_slope",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly slope - gradient of gravity after isostatic correction"
+      }
+    },
+    {
+      "index": 6,
+      "description": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+      "tags": {
+        "band_name": "tc",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Tilt angle or total curvature - magnetic field derivative for edge detection"
+      }
+    },
+    {
+      "index": 7,
+      "description": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+      "tags": {
+        "band_name": "geod_shearrate",
+        "data_category": "geodetic_strain",
+        "data_type": "numeric",
+        "description": "Geodetic shear rate - rate of angular deformation from GPS/InSAR"
+      }
+    },
+    {
+      "index": 8,
+      "description": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+      "tags": {
+        "band_name": "geod_dilaterate",
+        "data_category": "geodetic_strain",
+        "data_type": "numeric",
+        "description": "Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)"
+      }
+    },
+    {
+      "index": 9,
+      "description": "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+      "tags": {
+        "band_name": "tmi_vg",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Total magnetic intensity vertical gradient - rate of change in vertical direction"
+      }
+    },
+    {
+      "index": 10,
+      "description": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+      "tags": {
+        "band_name": "deq_n100a15",
+        "data_category": "seismic",
+        "data_type": "numeric",
+        "description": "Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)"
+      }
+    },
+    {
+      "index": 11,
+      "description": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+      "tags": {
+        "band_name": "iso_grav_anom_vg",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly vertical gradient - vertical rate of change"
+      }
+    },
+    {
+      "index": 12,
+      "description": "det_elev - Detrended elevation - topography with regional trends removed",
+      "tags": {
+        "band_name": "det_elev",
+        "data_category": "topographic",
+        "data_type": "numeric",
+        "description": "Detrended elevation - topography with regional trends removed"
+      }
+    },
+    {
+      "index": 13,
+      "description": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+      "tags": {
+        "band_name": "iso_grav_anom",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly - gravity after compensating for topographic mass"
+      }
+    },
+    {
+      "index": 14,
+      "description": "tmi - Total magnetic intensity - total strength of magnetic field",
+      "tags": {
+        "band_name": "tmi",
+        "data_category": "magnetic_data",
+        "data_type": "numeric",
+        "description": "Total magnetic intensity - total strength of magnetic field"
+      }
+    },
+    {
+      "index": 15,
+      "description": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+      "tags": {
+        "band_name": "depth_to_base_surf",
+        "data_category": "subsurface",
+        "data_type": "numeric",
+        "description": "Depth to basement surface - thickness of sedimentary cover"
+      }
+    },
+    {
+      "index": 16,
+      "description": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+      "tags": {
+        "band_name": "ieq_n100a15",
+        "data_category": "seismic",
+        "data_type": "numeric",
+        "description": "Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)"
+      }
+    },
+    {
+      "index": 17,
+      "description": "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+      "tags": {
+        "band_name": "cond_surf",
+        "data_category": "subsurface",
+        "data_type": "numeric",
+        "description": "Conductivity surface - electrical conductivity of subsurface"
+      }
+    },
+    {
+      "index": 18,
+      "description": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+      "tags": {
+        "band_name": "iso_grav_anom_hg",
+        "data_category": "gravity_data",
+        "data_type": "numeric",
+        "description": "Isostatic gravity anomaly horizontal gradient - horizontal rate of change"
+      }
+    },
+    {
+      "index": 19,
+      "description": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending",
+      "tags": {
+        "band_name": "det_elev_slope",
+        "data_category": "topographic",
+        "data_type": "numeric",
+        "description": "Detrended elevation slope - gradient of elevation after detrending"
+      }
+    }
+  ],
+  "official_reference": {
+    "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+    "commit": "aebe92f7c8a990f0e3443451b7a825d9afd6336b",
+    "files": {
+      "README.md": "cfa4d55559c9128313beb9417eae7e0a94c31677132afb1120f9e86222804239",
+      "unet-mc-cv-reference-solution.ipynb": "1a7622732ba00f67237058bc0efe79b45ba4e87c449fc9c1e5d6ea659de92ca0"
+    },
+    "write_cell_index_zero_based": 19,
+    "observation": "The export cell opens one GeoTIFF, copies CRS/transform, and writes y_final; it does not explicitly mask the exterior to NaN. This does not establish portal acceptance."
+  }
+}

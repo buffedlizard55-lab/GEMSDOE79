@@ -96,40 +96,24 @@ def scan_gitdir(gitdir: Path, repo: str, known: set[str], cache_dir: Path | None
                 continue
             candidates.setdefault(blob_sha, set()).add(rel_path)
 
-    # Fetch missing promisor blobs via single-pass `git cat-file --batch` (fixing Git 2.39
-    # `fatal: bad revision / did not send all necessary objects` on raw `git fetch origin <blob_sha>`),
-    # with individual REST blob fallback if a PR blob was pruned from promisor negotiation.
-    to_fetch = [sha for sha in sorted(candidates) if not (cache_dir / f"{sha}.tif").is_file()]
-    if to_fetch:
-        inp = "".join(sha + "\n" for sha in to_fetch).encode()
-        raw_batch = subprocess.check_output(
-            ["git", "--git-dir", str(gitdir), "cat-file", "--batch"],
-            input=inp,
-        )
-        pos = 0
-        for sha in to_fetch:
-            nl = raw_batch.index(b"\n", pos)
-            hdr = raw_batch[pos:nl].decode().split()
-            pos = nl + 1
-            if hdr[-1] == "missing":
-                data = subprocess.check_output(
-                    ["gh", "api", f"repos/{OWNER}/{repo}/git/blobs/{sha}", "-H", "Accept: application/vnd.github.raw"]
-                )
-            else:
-                sz = int(hdr[2])
-                data = raw_batch[pos : pos + sz]
-                pos += sz + 1
-            tmp = (cache_dir / f"{sha}.tif").with_suffix(".delta.tmp")
-            tmp.write_bytes(data)
-            tmp.replace(cache_dir / f"{sha}.tif")
-
     new = []
     for sha in sorted(candidates):
         dest = cache_dir / f"{sha}.tif"
         if dest.is_file():
             data = dest.read_bytes()
         else:
-            data = git(gitdir, "cat-file", "blob", sha, binary=True)
+            try:
+                data = git(gitdir, "cat-file", "blob", sha, binary=True)
+            except subprocess.CalledProcessError:
+                subprocess.run(
+                    [
+                        "git", "--git-dir", str(gitdir), "-c", "gc.auto=0",
+                        "fetch", "-q", "--no-write-fetch-head", "origin", sha,
+                    ],
+                    check=True,
+                    capture_output=True,
+                )
+                data = git(gitdir, "cat-file", "blob", sha, binary=True)
         actual_blob = hashlib.sha1(f"blob {len(data)}\0".encode() + data).hexdigest()
         if actual_blob != sha:
             return {"repo": repo, "status": "error", "error": f"blob id mismatch {sha}", "new": []}
@@ -169,8 +153,57 @@ def scan(repo: str, known: set[str], remote_url: str | None = None, cache_dir: P
         return {"repo": repo, "status": "error", "error": (e.stderr or b"").decode()[-300:], "new": []}
 
 
+def restore_pinned_delta(delta_path: Path | None = None, cache_dir: Path | None = None) -> dict:
+    """Restore and SHA-256/blob-SHA1 verify all pinned rasters in registry/registry_delta.json."""
+    delta_path = delta_path or (ROOT / "registry/registry_delta.json")
+    cache_dir = cache_dir or (ROOT / ".cache/registry")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    delta = json.loads(delta_path.read_text())
+    by_repo: dict[str, list[dict]] = {}
+    for row in delta["rasters"]:
+        dest = cache_dir / f"{row['blob']}.tif"
+        if not dest.is_file():
+            by_repo.setdefault(row["repo"], []).append(row)
+    errors: list[str] = []
+    for repo, rows in sorted(by_repo.items()):
+        gitdir = ROOT / ".cache/registry_git" / f"{repo}.git"
+        try:
+            if not (gitdir / "HEAD").exists():
+                gitdir.parent.mkdir(parents=True, exist_ok=True)
+                subprocess.run(
+                    ["git", "clone", "-q", "--bare", "--filter=blob:none",
+                     f"https://github.com/{OWNER}/{repo}.git", str(gitdir)],
+                    check=True,
+                    capture_output=True,
+                )
+            git(
+                gitdir, "-c", "gc.auto=0", "fetch", "-q", "--filter=blob:none", "origin",
+                "+refs/heads/*:refs/heads/*", "+refs/tags/*:refs/tags/*", "+refs/pull/*:refs/pull/*",
+            )
+            for row in rows:
+                data = git(gitdir, "cat-file", "blob", row["blob"], binary=True)
+                if hashlib.sha256(data).hexdigest() != row["sha256"]:
+                    raise ValueError(f"SHA-256 mismatch for {row['blob']}")
+                dest = cache_dir / f"{row['blob']}.tif"
+                tmp = dest.with_suffix(".delta.tmp")
+                tmp.write_bytes(data)
+                tmp.replace(dest)
+        except Exception as exc:
+            errors.append(f"{repo}: {exc}")
+    verified = 0
+    for row in delta["rasters"]:
+        p = cache_dir / f"{row['blob']}.tif"
+        if p.is_file() and hashlib.sha256(p.read_bytes()).hexdigest() == row["sha256"]:
+            verified += 1
+    return {"delta_rasters": len(delta["rasters"]), "verified": verified, "errors": errors}
+
+
 def main(argv: list[str] | None = None) -> int:
     argv = sys.argv[1:] if argv is None else argv
+    if "--restore-only" in argv:
+        res = restore_pinned_delta()
+        print(json.dumps(res, indent=2))
+        return 1 if res["errors"] or res["verified"] != res["delta_rasters"] else 0
     index = json.loads((ROOT / "registry/registry_index.json").read_text())
     known = {r["blob"] for r in index["rasters"]}
     repos = discover_owner_repos(index, argv)

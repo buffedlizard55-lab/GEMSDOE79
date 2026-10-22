@@ -1,0 +1,185 @@
+{
+  "lane": "G79-CFSKD",
+  "session": "bda00cff",
+  "generated_utc": "2026-10-22",
+  "preregistration": "registry/preregistration_g79_cfskd.json",
+  "preregistration_sha256": "bfcbd4e95a8e73fabb183540f3c294c2379d24f5e9c6a83437e6c66501a3ff7a",
+  "hypothesis": "Zero-catalogue physics + label-free lithology-normalised potassic residual (K_d) marks hydrothermally altered uncatalogued conduits; visible-only Coulomb flank-shadow veto removes parallel-splay FP dots.",
+  "mechanism": "38-channel HGB (19 training_features + high-pass/transtension + GeoDAWN rad/ext + LiDAR scarp + K_d/coherence), decontaminated negatives (d_vis>=3px), EXP3 multiplies surface by 0.30 in 3-15px lateral corridor of visible faults except within 8px of endpoints; 37,654 dots, spacing 3px, d_cat>2px.",
+  "named_non_fault_mimic": "Potassic playa evaporites/illitic lacustrine beds; antithetic splays inside stress shadows (veto false negatives - confirmed harmful on holdout).",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed20_withheld": 11321,
+    "seed30_withheld": 11342,
+    "seed20": {
+      "EXP1": {
+        "dti": 0.08251521544327191,
+        "ci95": [
+          0.06478741306153814,
+          0.10383797606507557
+        ]
+      },
+      "EXP2": {
+        "dti": 0.07969443832473241,
+        "ci95": [
+          0.06195970890134845,
+          0.09973959931251501
+        ]
+      },
+      "EXP3": {
+        "dti": 0.06544475876865188,
+        "ci95": [
+          0.05201541612276507,
+          0.08033769368619784
+        ]
+      },
+      "UNIFORM": {
+        "dti": 0.046211782638026,
+        "ci95": [
+          0.04044896000143379,
+          0.052143555851784006
+        ]
+      }
+    },
+    "seed30": {
+      "EXP1": {
+        "dti": 0.08429161460621723,
+        "ci95": [
+          0.06881999544802825,
+          0.09946526524653317
+        ]
+      },
+      "EXP2": {
+        "dti": 0.07658234504900868,
+        "ci95": [
+          0.06262388782907435,
+          0.092127983731905
+        ]
+      },
+      "EXP3": {
+        "dti": 0.06780771885581849,
+        "ci95": [
+          0.05612465647437856,
+          0.08155539832376632
+        ]
+      },
+      "UNIFORM": {
+        "dti": 0.04627210858558664,
+        "ci95": [
+          0.04125280886164868,
+          0.05078014841574414
+        ]
+      }
+    },
+    "reference_H33_foldfair_HOLDOUT-DTI": {
+      "seed20": 0.0961,
+      "seed30": 0.0989,
+      "source": "run_card.json"
+    },
+    "reference_G79-THVC_HOLDOUT-DTI": {
+      "seed20": 0.1905,
+      "seed30": 0.1944,
+      "source": "run_card.json"
+    },
+    "interpretation": "EXP3 (primary) 0.0654/0.0678 is below EXP1 physics-only 0.0825/0.0843, below H33 fold-fair, and far below G79-THVC on both seeds; paired EXP3-vs-EXP1 delta CI strictly negative. Hypothesis falsified."
+  },
+  "leakage_canary": {
+    "max_symmetric_auc_seed20": 0.6650278204087686,
+    "worst_seed20": "lidar_relief",
+    "max_symmetric_auc_seed30": 0.6253830991538762,
+    "threshold": 0.9,
+    "passed": true
+  },
+  "uniqueness": {
+    "scope": "4 locally archived rasters (full registry not re-restored - limitation)",
+    "max_within3px_frac": 0.524,
+    "max_binary_spearman_sample": 0.0573,
+    "gates": {
+      "spearman": 0.9,
+      "within3px": 0.7
+    },
+    "passed_local_scope": true,
+    "details": "evidence/cfskd/validator.json"
+  },
+  "validator": {
+    "file": "g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "418d1292e9d27314e94597185e8858ff4697ec161f7aa66864a078091a7bbe85",
+    "bytes": 826362,
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    },
+    "dots": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "shape_3730x3292": true,
+      "crs_epsg32611": true,
+      "transform_matches": true,
+      "no_nan_inf": true,
+      "range_0_1": true,
+      "binary": true,
+      "outside_footprint_zero": true,
+      "zero_on_catalogue": true
+    },
+    "all_checks_passed": true,
+    "uniqueness_local_archives": {
+      "G79-THVC": {
+        "ref_dots": 35093,
+        "exact_overlap_frac_of_candidate": 0.03157699049237797,
+        "within3px_frac_of_candidate": 0.5047006958092102,
+        "within3px_frac_of_ref": 0.5250049867494943,
+        "binary_spearman_sample": 0.045514015013887354
+      },
+      "H79-FNHR": {
+        "ref_dots": 37654,
+        "exact_overlap_frac_of_candidate": 0.05794869071015032,
+        "within3px_frac_of_candidate": 0.42409836936314865,
+        "within3px_frac_of_ref": 0.42128326339831096,
+        "binary_spearman_sample": 0.05659216090517475
+      },
+      "H79-NHR": {
+        "ref_dots": 37654,
+        "exact_overlap_frac_of_candidate": 0.05122961703935837,
+        "within3px_frac_of_candidate": 0.5239549583045626,
+        "within3px_frac_of_ref": 0.5482286078504276,
+        "binary_spearman_sample": 0.05727112825564791
+      },
+      "G79-MAG": {
+        "ref_dots": 37654,
+        "exact_overlap_frac_of_candidate": 0.016386041323630956,
+        "within3px_frac_of_candidate": 0.15921283263398311,
+        "within3px_frac_of_ref": 0.18882456047166304,
+        "binary_spearman_sample": 0.012068699119158387
+      }
+    },
+    "scope_note": "Uniqueness vs 4 locally archived rasters only; full 1,108-raster registry restore was not re-run this session - a limitation, fail-closed verdict already negative on holdout."
+  },
+  "raster_sha256": "418d1292e9d27314e94597185e8858ff4697ec161f7aa66864a078091a7bbe85",
+  "submission_name": "g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT",
+  "note": "G79-CFSKD EXP3 KD+Coulomb veto; HOLDOUT-DTI 0.0654/0.0678 NEGATIVE - do not submit",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "submission_slots_used": 0,
+  "verdict": "negative",
+  "experiments_used": 3,
+  "limitations": [
+    "Full 1,108-raster registry uniqueness not re-run; local-archive scope only.",
+    "H80-MT-PHASE and H80-DRAPE-DECONV blocked: MT slices/drape metadata not in pinned inputs and source hosts outside sandbox allowlist.",
+    "No ORGANIZER-CONFIRMED score exists for any artifact here; 0.2778/0.4413 remain historical-report / public-leaderboard observations per knowledge/why_h33.md."
+  ]
+}

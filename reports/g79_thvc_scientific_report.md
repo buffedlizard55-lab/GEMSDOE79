@@ -1,3 +1,5 @@
+> **Historical report — superseded scientific interpretation (review e4a4422d, 2026-10-22).** Do not use the original narrative below as submission guidance. Its exact-optimization, independent-seed, complete-scan, sparse-clearance and causal-improvement claims are not supported as written; its ZIP size and some confidence intervals also differ from current receipts. Read the [current analysis](../knowledge/h33_review_e4a4422d.md), [receipt-derived summary](../docs/evidence/evidence_summary.json) and [decision guide](../docs/executive-summary.html). No manual upload is authorized. The historical body is retained for audit.
+
 # GEMSDOE79 (`G79-THVC`) — Complete Scientific, Uniqueness & Strategic Next-Steps Report
 
 ## 1. Executive Summary & Automated Disposition

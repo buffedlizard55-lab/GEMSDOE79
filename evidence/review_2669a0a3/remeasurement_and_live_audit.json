@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "evidence_class": "LOCAL-BYTE-AND-PRIMARY-SOURCE-AUDIT",
+  "generated_utc": "2026-10-22T15:53:10Z",
+  "session_branch": "arena/2669a0a3-gemsdoe79",
+  "manifest_inputs_restored_and_verified": 13,
+  "grid_accounting": {
+    "shape_hw": [
+      3730,
+      3292
+    ],
+    "total_cells": 12279160,
+    "footprint_cells": 5167373,
+    "exterior_nan_cells_in_sample": 7111787,
+    "catalogue_cells_in_footprint": 60988,
+    "off_catalogue_allowed_cells": 5106385,
+    "training_features_band1_nodata": -3.4028234663852886e+38,
+    "training_features_band1_sentinel_cells_total": 7113308,
+    "training_features_band1_sentinel_cells_in_footprint": 3061
+  },
+  "h33_byte_lineage_remeasurement": {
+    "h33_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+    "h33_bytes": 219065,
+    "d28_sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+    "d28_bytes": 836982,
+    "d28_dots": 44090,
+    "h33_dots": 37654,
+    "deleted_dots_0_lt_d_cat_le_2px": 6436,
+    "deleted_dots_on_catalogue": 0,
+    "rule_disagreement_pixels": 0,
+    "h33_d_cat_px_p10_p50_p90": [
+      4.0,
+      19.6469,
+      68.0074
+    ],
+    "thvc_d_cat_px_p10_p50_p90": [
+      4.2426,
+      5.6569,
+      13.1529
+    ]
+  },
+  "tier3_sparse_lattice_alias_reconciliation": {
+    "nonexistent_alias_in_prior_audit": "13GEMSDOE:docs/downloads/13GEMSDOE_r13-lattice-s5_allfinite.tif",
+    "verified_indexed_zerofill_alias": "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif",
+    "verified_git_blob_sha1": "5c1a159439735522659ee78969df3f34efddcdde",
+    "verified_sha256": "c12533bb980234c3a706af641d4f1d514bbbe482714b2ebcac3b10f3e72a7a3f",
+    "positive_pixels_in_footprint": 206895,
+    "footprint_uncovered_cells_including_catalogue": 6649,
+    "catalogue_cells_inside_uncovered": 135,
+    "true_off_catalogue_uncovered_cells": 6514,
+    "min_3px_overlap_at_35093_dots": 0.814379,
+    "min_3px_overlap_at_37654_dots": 0.827004,
+    "max_off_catalogue_dots_capable_of_le_0_70": 21713
+  },
+  "live_sibling_delta_2026_10_22": {
+    "non_self_gems_repositories_checked": 92,
+    "unchanged_empty_stub_repositories": [
+      "GEMSDOE84",
+      "GEMSDOE85",
+      "GEMSDOE86",
+      "GEMSDOE87",
+      "GEMSDOE88",
+      "GEMSDOE89",
+      "GEMSDOE90",
+      "GEMSDOE91",
+      "GEMSDOE92"
+    ],
+    "gemsdoe83_live": {
+      "artifact": "GEMSDOE83:docs/downloads/gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif",
+      "sha256": "79f14dc84cd7760cb44645bc090ed2d33dbcfe789cec844fd83753fcff1082a2",
+      "off_catalogue_dots": 37654,
+      "thvc_forward_overlap_3px": 0.713932,
+      "exceeds_0_70_limit": true
+    },
+    "gemsdoe78_post_0455z_merge": {
+      "main_head": "30f1ab94",
+      "artifact": "GEMSDOE78:docs/downloads/gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif",
+      "git_blob_sha1": "2016b3dce36d3e25e2630a569434e7d1db08b615",
+      "sha256": "0338383df9c36c0a2581ddc584e6aafa5ce364ba52cd9e56749628bc4301dd07",
+      "bytes": 147086,
+      "off_catalogue_dots": 37654,
+      "thvc_forward_overlap_3px": 0.587012,
+      "thvc_spearman_full_footprint": 0.04298,
+      "h33_forward_overlap_3px": 0.325702
+    }
+  },
+  "live_public_leaderboard_observation": {
+    "evidence_class": "PUBLIC-OBSERVATION (NOT ORGANIZER-CONFIRMED FOR ANY LOCAL ARTIFACT)",
+    "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "observed_date_utc": "2026-10-22",
+    "chunks_read": [
+      0,
+      1,
+      2
+    ],
+    "rank_1": {
+      "participant": "xiaofanhu",
+      "public_dti": 0.4413,
+      "submissions": 27
+    },
+    "rank_2": {
+      "participant": "cfld__",
+      "public_dti": 0.3904
+    },
+    "rank_3": {
+      "participant": "Batik Shirt Brothers",
+      "public_dti": 0.3894
+    },
+    "rank_20": {
+      "participant": "nchuzhoy",
+      "public_dti": 0.3262
+    },
+    "rank_21": {
+      "participant": "kinghorton42",
+      "public_dti": 0.3261
+    },
+    "rank_22": {
+      "participant": "li002666",
+      "public_dti": 0.3183
+    },
+    "rank_49": {
+      "participant": "arnofault",
+      "public_dti": 0.2817
+    },
+    "rank_50": {
+      "participant": "sam35",
+      "public_dti": 0.2804
+    },
+    "score_0_3195_present_on_live_board": false,
+    "score_0_2778_below_live_top_50_floor": true
+  }
+}

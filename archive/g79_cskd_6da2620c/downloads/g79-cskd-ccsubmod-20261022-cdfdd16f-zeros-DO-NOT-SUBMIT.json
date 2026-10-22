@@ -1,0 +1,131 @@
+{
+  "file": "g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif",
+  "sha256": "91ffc11017f7d7ff1d6f77feb8be3734560e295e2f1067a463d89185c4ac37e7",
+  "bytes": 151998,
+  "submission_name": "g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT",
+  "note": "RESEARCH ONLY DO NOT SUBMIT: G79-CSKD Lahontan+BLM+Kd+Coulomb+CC (42000 px); blocked by literal 17GEMSDOE/13GEMSDOE witnesses",
+  "note_chars": 125,
+  "validator": {
+    "file": "archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 151998,
+    "sha256": "91ffc11017f7d7ff1d6f77feb8be3734560e295e2f1067a463d89185c4ac37e7",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003420429304242134,
+    "emitted_positive_pixels": 42000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 42000,
+    "footprint_fraction": 0.008127921092593858
+  },
+  "template_report": {
+    "path": "archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 151998,
+    "sha256": "91ffc11017f7d7ff1d6f77feb8be3734560e295e2f1067a463d89185c4ac37e7",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003420429304242134,
+    "n_nonzero": 42000,
+    "mass": 42000.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "bf41727924ecea4f55e10e41e3f33f074bae2fb02f89965d063be57a3ceca0ac",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "G79-CSKD",
+    "branch": "arena/6da2620c-gemsdoe79",
+    "consensus_params": {
+      "w_base": 0.05,
+      "w_far": 0.25,
+      "lambda_fp": 0.0008,
+      "min_sep_px": 2.1,
+      "max_budget": 42000
+    },
+    "generated_timestamp_utc": "20261022T161939Z"
+  }
+}
