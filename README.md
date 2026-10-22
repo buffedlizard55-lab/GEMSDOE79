@@ -1,5 +1,11 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Active branch audit — 2026-10-22 (`arena/2f4b0aa9-gemsdoe79`)
+
+This review generated no candidate surface or TIFF and used no competition slot. Runtime check: **0/13** manifest inputs present in `data/raw`; training/holdout and fresh leakage canaries are therefore unavailable. Before synchronizing later main-branch work, `verify_project.py` passed, `check_site.py` passed (13 pages / 339 local links), and **597 tests passed**. After synchronization, the main-branch irregularity ledger gap (IR-79-220 → IR-79-224; AGENTS cites missing IR-79-223) caused 3 of 609 tests to fail; the provenance gap was not papered over. `verify_project.py` and refreshed `check_site.py` pass. PR #131 is **not merged** because the latest CI build/verify failed and GitHub reported conflicts during concurrent main updates. The unrelated main-branch vent-proximity TIFF is research-only: **OK TO DOWNLOAD: YES; OK TO SUBMIT: NO**. See the [three-pass review and integration finding](reports/session_review_2f4b0aa9.md). No new score is claimed; prior lanes were not reopened.
+
+## Latest review — 2026-10-22, session `1f9d2dc9`
+
 ## Current session — 2026-10-22, `a201fa92`: automatic stop, no new TIFF
 
 **OK TO DOWNLOAD: YES (inherited research file only). OK TO SUBMIT: NO.**
