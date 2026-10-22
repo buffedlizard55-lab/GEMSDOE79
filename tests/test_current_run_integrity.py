@@ -1,4 +1,4 @@
-"""Current active G79-THVC + archived concurrent lane artifact integrity checks."""
+"""Current H79-STEP and archived-lane artifact integrity checks."""
 from __future__ import annotations
 
 import hashlib
@@ -30,8 +30,10 @@ def test_card_copies_agree_and_carry_protocol_fields():
                 "correlation_overlap_vs_registry", "raster_sha256", "validator_output",
                 "submission_name", "submission_note", "verdict", "leakage_canary"):
         assert key in card, key
-    assert card["lane"] == "G79-THVC"
-    assert card["verdict"] in ("promote", "negative")
+    assert card["lane"] == "H79-STEP"
+    assert card["verdict"] == "negative" and card["promoted"] is False
+    assert card["protocol_unique"] is False
+    assert card["correlation_overlap_vs_registry"]["gate_executed"] is False
     assert card["experiment_count"] <= card["max_experiments"] == 3
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None
 
@@ -40,16 +42,29 @@ def test_holdout_numbers_are_copied_from_evaluator_output():
     card = current_card()
     h = card["holdout_dti"]
     assert h["evidence_class"] == "HOLDOUT-DTI" and h["evaluator_version"] == "gems57-pooled-hide-v2"
-    res = json.loads((ROOT / "evidence/g79_thvc_results.json").read_text())
-    canary = json.loads((ROOT / "evidence/g79_leakage_canary.json").read_text())
+    prior = json.loads((ROOT / "evidence/g79_thvc_results.json").read_text())
+    canary_max = 0.0
     for seed in (20, 30):
-        sc = res[f"seed{seed}"]["official_evaluate_all"]["scores"]
+        evidence = json.loads((ROOT / f"evidence/holdout_edge_seed{seed}.json").read_text())
         row = h["per_seed"][f"seed_{seed}"]
-        assert row["candidate"]["dti"] == round(sc["EXP-79-3_thvc_charnes_cooper"]["dti"], 4)
-        assert row["candidate"]["ci95"] == [round(c, 4) for c in sc["EXP-79-3_thvc_charnes_cooper"]["ci95"]]
-        assert row["withheld_positive_pixels"] == sc["EXP-79-3_thvc_charnes_cooper"]["withheld_positive_pixels"]
-        assert row["h33_foldfair_control"]["dti"] == round(sc["C2_h33_analogue_foldfair"]["dti"], 4)
-        assert canary[f"seed{seed}"]["max_symmetric_auc"] <= 0.90
+        for arm in ("candidate", "uniform_control"):
+            for key in ("evidence_class", "evaluator_version", "dti", "ci95", "withheld_positive_pixels"):
+                assert row[arm][key] == evidence["scores"][arm][key]
+        paired = evidence["paired_differences"]["uniform_control"]
+        for key in ("evidence_class", "evaluator_version", "delta", "ci95", "withheld_positive_pixels"):
+            assert row["paired_delta_vs_uniform"][key] == paired[key]
+        h33 = prior[f"seed{seed}"]["official_evaluate_all"]["scores"]["C2_h33_analogue_foldfair"]["dti"]
+        assert h[f"h33_foldfair_control_seed_{seed}"] == round(h33, 4)
+        canaries = json.loads((ROOT / f"evidence/canaries_edge_seed{seed}.json").read_text())
+        assert canaries["passed"] is True and canaries["threshold"] == 0.90
+        canary_max = max(canary_max, *(r["symmetric_auc"] for r in canaries["rows"]))
+    headline = h["per_seed"]["seed_20"]["candidate"]
+    assert (h["dti"], h["ci95"], h["withheld_positive_pixels"]) == (
+        headline["dti"], headline["ci95"], headline["withheld_positive_pixels"])
+    assert card["leakage_canary"]["passed"] is True
+    assert card["leakage_canary"]["auc"] == canary_max <= 0.90
+    assert card["current_best_holdout_beaten"] is False
+    assert h["per_seed"]["seed_20"]["candidate"]["dti"] < h["h33_foldfair_control_seed_20"]
 
 
 def test_geotiff_is_a_valid_binary_dot_map_on_the_sample_grid():
@@ -65,7 +80,7 @@ def test_geotiff_is_a_valid_binary_dot_map_on_the_sample_grid():
         a = tif.read(1)
     assert np.isfinite(a).all()
     assert set(np.unique(a).tolist()) <= {0.0, 1.0}
-    assert int((a == 1).sum()) == 35093 == card["positive_pixels"]
+    assert int((a == 1).sum()) == 37654 == card["positive_pixels"]
 
 
 def test_zip_contains_exactly_the_same_single_tiff():
@@ -112,6 +127,22 @@ def test_selector_receipt_is_bound_to_the_exact_bytes_when_promoted():
         assert receipt["raster_sha256"] == card["raster_sha256"]
         tampered = dict(card, raster_sha256="0" * 64)
         assert not submission_decision(tampered, actual_sha256="0" * 64, format_passed=True)["ok_to_submit"]
+
+
+def test_superseded_g79_thvc_artifact_is_preserved_outside_active_downloads():
+    archive = ROOT / "archive/g79_thvc_20261021"
+    card = json.loads((archive / "run_card.json").read_text())
+    assert card["lane"] == "G79-THVC" and card["verdict"] == "negative"
+    tif = archive / "downloads" / Path(card["submission_file"]).name
+    receipt = json.loads(tif.with_suffix(".json").read_text())
+    zip_path = tif.with_suffix(".zip")
+    assert hashlib.sha256(tif.read_bytes()).hexdigest() == card["raster_sha256"] == receipt["sha256"]
+    assert hashlib.sha256(zip_path.read_bytes()).hexdigest() == card["zip_sha256"] == receipt["zip_sha256"]
+    with zipfile.ZipFile(zip_path) as z:
+        assert z.namelist() == [tif.name] and z.read(tif.name) == tif.read_bytes()
+    manifest = json.loads((archive / "manifest.json").read_text())
+    for row in manifest["files"]:
+        assert hashlib.sha256((ROOT / row["archive_path"]).read_bytes()).hexdigest() == row["sha256"]
 
 
 def test_archived_e1_card_remains_the_stopped_negative_lane():

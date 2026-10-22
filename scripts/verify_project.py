@@ -118,44 +118,125 @@ def publication_contract_checks(root, card):
 
 
 def evidence_checks(root, card):
-    """Every card number must equal the evaluator / uniqueness / gate evidence."""
+    """Bind current-card claims to the matching lane evidence, without rerunning science."""
     root = Path(root)
     out = {}
-    res = json.loads((root / 'evidence/g79_thvc_results.json').read_text())
-    s20 = res['seed20']['official_evaluate_all']['scores']
-    s30 = res['seed30']['official_evaluate_all']['scores']
     h = card['holdout_dti']
-    cand20 = s20['EXP-79-3_thvc_charnes_cooper']
-    cand30 = s30['EXP-79-3_thvc_charnes_cooper']
-    h33_20 = s20['C2_h33_analogue_foldfair']
-    h33_30 = s30['C2_h33_analogue_foldfair']
-    out['holdout_card_equals_evaluator_output'] = (
-        h['dti'] == round(cand20['dti'], 4) and
-        h['ci95'] == [round(c, 4) for c in cand20['ci95']] and
-        h['withheld_positive_pixels'] == cand20['withheld_positive_pixels'] and
-        h['evaluator_version'] == res['seed20']['evaluator_version'] == 'gems57-pooled-hide-v2')
-    out['holdout_beats_h33_control_both_seeds'] = (
-        cand20['dti'] > h33_20['dti'] and cand20['ci95'][0] > h33_20['ci95'][1] and
-        cand30['dti'] > h33_30['dti'] and cand30['ci95'][0] > h33_30['ci95'][1])
-    canary = json.loads((root / 'evidence/g79_leakage_canary.json').read_text())
-    out['leakage_canary_clear'] = (
-        card['leakage_canary']['passed'] is True and
-        card['leakage_canary']['auc'] <= 0.90 and
-        canary['seed20']['all_passed'] is True and
-        canary['seed30']['all_passed'] is True)
-    surf_u = json.loads((root / 'evidence/g79_surface_uniqueness_1108.json').read_text())
-    dot_u = json.loads((root / 'evidence/g79_dot_uniqueness_1108.json').read_text())
-    sparse_max = max(r['my_dots_within_3px_of_theirs'] for r in dot_u['rows'] if r.get('their_dots') is not None and r['their_dots'] <= 50000)
-    expected_unique = bool(
-        surf_u['max_abs_spearman'] <= 0.90 and
-        dot_u['max_abs_spearman'] <= 0.90 and
-        dot_u['worst_dot_overlap'] <= 0.70)
-    out['uniqueness_card_matches_evidence'] = (
-        card['protocol_unique'] is expected_unique and
-        surf_u['max_abs_spearman'] <= 0.90 and
-        sparse_max <= 0.70 and
-        dot_u['raster_sha256'] == card['raster_sha256'])
-    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    lane = card.get('lane')
+    if lane == 'H79-STEP':
+        evidence_by_seed = {
+            seed: strict_loads_bytes((root / f'evidence/holdout_edge_seed{seed}.json').read_bytes())
+            for seed in (20, 30)
+        }
+        matched = (
+            h.get('evidence_class') == 'HOLDOUT-DTI' and
+            h.get('evaluator_version') == 'gems57-pooled-hide-v2'
+        )
+        for seed, evidence in evidence_by_seed.items():
+            row = h.get('per_seed', {}).get(f'seed_{seed}', {})
+            scores = evidence.get('scores', {})
+            for arm in ('candidate', 'uniform_control'):
+                recorded = row.get(arm, {})
+                measured = scores.get(arm, {})
+                matched = matched and all(recorded.get(key) == measured.get(key) for key in
+                    ('evidence_class', 'evaluator_version', 'dti', 'ci95', 'withheld_positive_pixels'))
+            paired = row.get('paired_delta_vs_uniform', {})
+            measured_delta = evidence.get('paired_differences', {}).get('uniform_control', {})
+            matched = matched and all(paired.get(key) == measured_delta.get(key) for key in
+                ('evidence_class', 'evaluator_version', 'delta', 'ci95', 'withheld_positive_pixels'))
+        headline = h.get('per_seed', {}).get('seed_20', {}).get('candidate', {})
+        matched = matched and all(h.get(key) == headline.get(key) for key in
+                                  ('dti', 'ci95', 'withheld_positive_pixels'))
+        # The fold-fair H33 controls were measured in the same evaluator record
+        # inherited from the prior lane; retain their evidence class and rounding.
+        prior = strict_loads_bytes((root / 'evidence/g79_thvc_results.json').read_bytes())
+        prior_scores = {
+            seed: prior[f'seed{seed}']['official_evaluate_all']['scores']['C2_h33_analogue_foldfair']
+            for seed in (20, 30)
+        }
+        matched = matched and all(
+            h.get(f'h33_foldfair_control_seed_{seed}') == round(prior_scores[seed]['dti'], 4)
+            for seed in (20, 30)
+        )
+        out['holdout_card_equals_evaluator_output'] = matched
+        beats_h33_both = all(
+            h['per_seed'][f'seed_{seed}']['candidate']['dti'] > h[f'h33_foldfair_control_seed_{seed}']
+            for seed in (20, 30)
+        )
+        out['holdout_gate_enforced_by_current_best_control'] = (
+            card.get('current_best_holdout_beaten') is beats_h33_both and
+            (beats_h33_both or (card.get('verdict') == 'negative' and card.get('ok_to_submit') is False))
+        )
+        canaries = {
+            seed: strict_loads_bytes((root / f'evidence/canaries_edge_seed{seed}.json').read_bytes())
+            for seed in (20, 30)
+        }
+        max_auc = max(row['symmetric_auc'] for ev in canaries.values() for row in ev['rows'])
+        c = card.get('leakage_canary', {})
+        out['leakage_canary_clear'] = (
+            c.get('passed') is True and c.get('auc') == max_auc and c.get('auc') <= 0.90 and
+            c.get('tests') == sum(len(ev['rows']) for ev in canaries.values()) and
+            all(ev.get('passed') is True and ev.get('evaluator_version') == 'gems57-pooled-hide-v2'
+                and all(row.get('suspicious') is False for row in ev['rows'])
+                for ev in canaries.values())
+        )
+        uniqueness = card.get('correlation_overlap_vs_registry', {})
+        witness = strict_loads_bytes((root / 'evidence/universal_overlap_certificate.json').read_bytes())
+        out['uniqueness_card_matches_evidence'] = (
+            uniqueness.get('gate_executed') is False and
+            'registry rasters are not restored' in uniqueness.get('reason', '') and
+            card.get('protocol_unique') is False and
+            card.get('verdict') == 'negative' and card.get('ok_to_submit') is False and
+            witness.get('universal_overlap_blocker') is True and
+            witness.get('covered_allowed_fraction') == 1.0 and
+            witness.get('overlap_limit') == 0.70
+        )
+        out['promotion_requires_uniqueness'] = (
+            card.get('verdict') != 'promote' or
+            (uniqueness.get('gate_executed') is True and card.get('protocol_unique') is True)
+        )
+    elif lane == 'G79-THVC':
+        res = strict_loads_bytes((root / 'evidence/g79_thvc_results.json').read_bytes())
+        s20 = res['seed20']['official_evaluate_all']['scores']
+        s30 = res['seed30']['official_evaluate_all']['scores']
+        cand20 = s20['EXP-79-3_thvc_charnes_cooper']
+        cand30 = s30['EXP-79-3_thvc_charnes_cooper']
+        h33_20 = s20['C2_h33_analogue_foldfair']
+        h33_30 = s30['C2_h33_analogue_foldfair']
+        out['holdout_card_equals_evaluator_output'] = (
+            h['dti'] == round(cand20['dti'], 4) and
+            h['ci95'] == [round(c, 4) for c in cand20['ci95']] and
+            h['withheld_positive_pixels'] == cand20['withheld_positive_pixels'] and
+            h['evaluator_version'] == res['seed20']['evaluator_version'] == 'gems57-pooled-hide-v2')
+        out['holdout_beats_h33_control_both_seeds'] = (
+            cand20['dti'] > h33_20['dti'] and cand20['ci95'][0] > h33_20['ci95'][1] and
+            cand30['dti'] > h33_30['dti'] and cand30['ci95'][0] > h33_30['ci95'][1])
+        canary = strict_loads_bytes((root / 'evidence/g79_leakage_canary.json').read_bytes())
+        out['leakage_canary_clear'] = (
+            card['leakage_canary']['passed'] is True and
+            card['leakage_canary']['auc'] <= 0.90 and
+            canary['seed20']['all_passed'] is True and
+            canary['seed30']['all_passed'] is True)
+        surf_u = strict_loads_bytes((root / 'evidence/g79_surface_uniqueness_1108.json').read_bytes())
+        dot_u = strict_loads_bytes((root / 'evidence/g79_dot_uniqueness_1108.json').read_bytes())
+        sparse_max = max(r['my_dots_within_3px_of_theirs'] for r in dot_u['rows'] if r.get('their_dots') is not None and r['their_dots'] <= 50000)
+        expected_unique = bool(
+            surf_u['max_abs_spearman'] <= 0.90 and
+            dot_u['max_abs_spearman'] <= 0.90 and
+            dot_u['worst_dot_overlap'] <= 0.70)
+        out['uniqueness_card_matches_evidence'] = (
+            card['protocol_unique'] is expected_unique and
+            surf_u['max_abs_spearman'] <= 0.90 and
+            sparse_max <= 0.70 and
+            dot_u['raster_sha256'] == card['raster_sha256'])
+        out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    else:
+        out.update({
+            'holdout_card_equals_evaluator_output': False,
+            'leakage_canary_clear': False,
+            'uniqueness_card_matches_evidence': False,
+            'promotion_requires_uniqueness': False,
+        })
     return out
 
 
@@ -222,9 +303,17 @@ def verify(refresh_timestamp: bool = False):
     registry = json.loads((ROOT / 'registry/registry_receipt.json').read_text())
     checks['new_bytes_not_copied_from_registry'] = actual_sha not in {r.get('sha256') for r in registry['files']}
     checks.update(evidence_checks(ROOT, card))
-    state = json.loads((ROOT / 'evidence/experiment_state.json').read_text())
+    state = strict_loads_bytes((ROOT / 'evidence/experiment_state.json').read_bytes())
     checks['e1_scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
                                              state['final_dot_placements_performed'] == 0)
+    if card.get('lane') == 'H79-STEP':
+        active_state = strict_loads_bytes((ROOT / 'evidence/experiment_state_edge.json').read_bytes())
+        checks['active_lane_stop_state_matches_card'] = (
+            active_state.get('lane') == card['lane'] and active_state.get('stopped') is True and
+            active_state.get('phase') == 'stopped_negative' and
+            active_state.get('sha256') == card['raster_sha256'] and
+            bool(active_state.get('stop_reason'))
+        )
     decision = submission_decision(card, actual_sha256=actual_sha, format_passed=result['format_passed'])
     checks['status_tool_and_card_agree'] = (decision['ok_to_download'] == card['ok_to_download'] and
         decision['ok_to_submit'] == card['ok_to_submit'] and decision['verdict'] == card['verdict'] and

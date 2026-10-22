@@ -1,16 +1,15 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22):** [three-pass active-branch review](reports/repository_review_2026-10-22_active-branch.md). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used.
+**Latest repository audit (2026-10-22):** [three-pass review for this Arena session](reports/repository_review_2026-10-22_session-7c7104d8.md). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no model, holdout, placement, slot selection, or upload was run in this session.
 
 ## Download and submission decision — start here
 
-Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-68182759.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
+Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-7c7104d8.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
 
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> This is a newly generated, format-valid research GeoTIFF. It failed the protocol's duplicate gate,
-> so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
+> The current H79-STEP card points to an upstream-generated, format-valid research GeoTIFF. Its full registry uniqueness gate was not run locally, and it is not cleared: the pinned literal-witness blocks every nonempty candidate under the current rule, so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
 > exits with code 2, and no human inspection is needed.
 
 | | |
@@ -20,7 +19,7 @@ Latest independent repository review and three-pass verification: [2026-10-22 se
 | Note (137/140) | `H79-STEP catalogue-distance annulus x fault-zone complexity; research only; not uniqueness-cleared (registry cache absent); do not submit` |
 | SHA-256 | `0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c` |
 | Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
-| Lane / experiment | H79-STEP / E1 (1 of 3 allowed; about 45 min of 2 h) |
+| Lane / experiment | H79-STEP / E1 (1 of 3 allowed; run-card runtime 24.9 s; no experiment run in this review) |
 | HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0949** [0.0735, 0.1161], n = 11,321 · seed 30: **0.1087** [0.0858, 0.1293], n = 11,342 |
 | HOLDOUT-DTI, uniform control | seed 20: **0.0315** · seed 30: **0.0389** |
 | Paired Δ vs uniform control | +0.063 [0.043, 0.084] · +0.070 [0.046, 0.091]; 95% CIs exclude zero on both seeds |
@@ -151,7 +150,7 @@ parallel, and it merged to `main` first, as PR #26.
 - STEPCO's own uniqueness reading also fired, because of the same space-filling registry rasters.
 - Its verdict is also **OK TO SUBMIT: NO**.
 
-When the two lanes were merged, H79-NHR became the canonical card because its holdout evidence is stronger.
+At that historical merge, H79-NHR became the canonical card because its holdout evidence was stronger; a later upstream update replaced it with H79-STEP (see the latest Arena-session review below).
 The STEPCO files are kept as they are:
 - S1 TIFF, ZIP and receipt: moved byte-for-byte to [`archive/g79_stepco_s1/`](archive/g79_stepco_s1/README.md).
 - S2: [`archive/g79_stepco_s2/`](archive/g79_stepco_s2/).
@@ -180,19 +179,18 @@ control (0.1036/0.0910) — verdict negative, 0 slots used. Reproduce:
 (exit 2). Same wall as STEPCO/NHR: the family's good scarp terrain is
 already dotted, so uniqueness after the fact costs more than detector gains.
 
-## Limitations and next steps
+## Historical H79-NHR limitations and contemporaneous next steps (superseded)
 
 - HOLDOUT-DTI withholds *catalogue* faults; the organizer scores *expert* faults absent from the
-  catalogue. This file's dots sit closer to mapped faults than H33's: median 539 m against 1.96 km
-  (`evidence/nhr/distance_to_catalogue.json`).
-- Uniqueness covers the 992 hash-verified public sibling-repository rasters (0 new on a rescan of
-  branches, tags and pull refs), not every file other participants have uploaded.
-- The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-47) and can be reversed.
-- Next steps:
-  1. Decide IR-79-53.
-  2. Run a far-field lane that ranks within H33-like distance bands (more than 1 km from mapped faults), with
-     antislope or lidar evidence, checking the surface for uniqueness before placement.
-  3. Reweight the nested target by distance band.
+  catalogue. The historical H79-NHR dots sat closer to mapped faults than H33's: median 539 m against
+  1.96 km (`evidence/nhr/distance_to_catalogue.json`).
+- That lane's uniqueness audit covered 992 hash-verified public sibling-repository rasters; it did not
+  cover every file other participants may have uploaded. The v3 dot definition for continuous registry
+  surfaces was a recorded interpretation (IR-79-47), not permission to waive the literal rule.
+- Its contemporaneous proposals to decide IR-79-53, run a far-field lane, and reweight the target were
+  superseded by the later hash-verified universal-support witness. **Do not run a new lane under the
+  current literal rule.** First obtain prospective protocol clarification, then separately verify data
+  availability and preregister any future candidate.
   4. Add the absolute 3DEP DEM for shoreline suppression.
 
 ## Verify the frozen result (safe default)
@@ -261,18 +259,31 @@ were synthesized. See [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md)
 
 **Decision remains: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** At this review's
 branch baseline (`9640ed3`), the active card was H79-NHR and the literal-witness
-preflight returned `impossible_under_literal_gate` (exit 2). During PR
-preparation, the latest `main` changed the canonical artifact to G79-THVC
-(`d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`). Its
-**HOLDOUT-DTI** results (evaluator `gems57-pooled-hide-v2`) are 0.1905, 11,321
-withheld positives, 95% CI [0.1741, 0.2069] (seed 20), and 0.1944, 11,342
-withheld positives, 95% CI [0.1774, 0.2126] (seed 30). They are not leaderboard
-scores. G79-THVC still fails the literal registry overlap gate against
-space-filling/blanket rasters and has no selector/slot approval; it remains
-DO-NOT-SUBMIT. This review ran no model, holdout, placement, or upload. Its
-[three-pass report](reports/repository_review_2026-10-22_session-7c7104d8.md)
+preflight returned `impossible_under_literal_gate` (exit 2). The latest `main`
+now points to H79-STEP
+(`0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c`), an
+upstream research TIFF marked DO-NOT-SUBMIT. Its **HOLDOUT-DTI** results
+(evaluator `gems57-pooled-hide-v2`) are 0.0949, 11,321 withheld positives,
+95% CI [0.0735, 0.1161] (seed 20) and 0.1087, 11,342 withheld positives,
+95% CI [0.0858, 0.1293] (seed 30). They are not leaderboard scores. Its full
+registry uniqueness gate was not executed because the registry cache was
+absent; the pinned universal-support witness blocks every nonempty candidate
+under the literal rule. This review ran no model, holdout, placement, or upload.
+Its [three-pass report](reports/repository_review_2026-10-22_session-7c7104d8.md)
 and [unexecuted three-hypothesis shortlist](research/hypotheses_session_7c7104d8.md)
 record the data blockers. No new score is projected.
+
+## Prior software-only review (session 566bec0c, 2026-10-22)
+
+[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
+witness reproduced; no new experiments or slots used. Preflight now rejects
+malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
+SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
+presented as protocol-unique.
+
+## Sibling lineage evidence (unscored reports, not receipts)
+
+[`evidence/family_lineage_forensics.json`](evidence/family_lineage_forensics.json) records prompt-named candidate `gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:` as found in GEMSDOE78, with no public score or submission receipt reported in that record. The audit also records no published TIFF in the captured GEMSDOE88 head; see the [GEMSDOE88 project page](https://buffedlizard55-lab.github.io/GEMSDOE88/). These are lineage observations, not independent validation or performance scores.
 
 ## Original project prompt — read at the start of every session
 
@@ -1047,11 +1058,3 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
-
-## Latest software-only review (session 566bec0c, 2026-10-22)
-
-[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
-witness reproduced; no new experiments or slots used. Preflight now rejects
-malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
-SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
-presented as protocol-unique.

@@ -301,20 +301,22 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
     for lane_id, entry in audit['preserved_negative_session_lanes'].items():
         assert entry['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
         assert entry['canonical_readiness_decision']['ok_to_submit'] is False
+    audited = audit['active_deliverable_unchanged']
+    assert audited['lane'] == 'G79-THVC'  # historical snapshot, not the current H79-STEP card
+    archived = ROOT / 'archive/g79_thvc_20261021/downloads' / Path(audited['submission_file']).name
+    assert hashlib.sha256(archived.read_bytes()).hexdigest() == audited['raster_sha256']
     card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
-    assert audit['active_deliverable_unchanged']['lane'] == card['lane']
-    assert audit['active_deliverable_unchanged']['submission_file'] == card['submission_file']
-    assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
+    assert card['lane'] == 'H79-STEP'
 
 
 def test_reproduce_artifact_recovers_canonical_and_nhr_bytes():
     import reproduce_artifact
     card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
     rep_cur = reproduce_artifact.reproduce_current(ROOT)
-    assert rep_cur['lane'] == card['lane'] == 'G79-THVC'
+    assert rep_cur['lane'] == card['lane'] == 'H79-STEP'
     assert rep_cur['exact_tiff_recovery'] is True and rep_cur['exact_single_tiff_zip_recovery'] is True
     assert rep_cur['raster_sha256'] == card['raster_sha256'] and rep_cur['zip_sha256'] == card['zip_sha256']
-    assert rep_cur['positive_pixels'] == card['positive_pixels'] == 35093
+    assert rep_cur['positive_pixels'] == card['positive_pixels'] == 37654
     rep_nhr = reproduce_artifact.reproduce_nhr(ROOT)
     assert rep_nhr['lane'] == 'H79-NHR'
     assert rep_nhr['exact_tiff_recovery'] is True and rep_nhr['exact_single_tiff_zip_recovery'] is True

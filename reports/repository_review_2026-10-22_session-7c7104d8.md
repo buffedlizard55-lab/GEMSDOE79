@@ -4,12 +4,15 @@
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** At this session's branch baseline
 (`9640ed3`), the canonical artifact was H79-NHR and already had a local
-format-pass / duplicate-fail verdict. During PR preparation, the latest `main`
-was integrated and changed the canonical card to G79-THVC. Its TIFF
-(`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`,
-SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`)
-was produced by an upstream parallel lane, not this review; the updated card
-still has a negative verdict and no submission approval. No new candidate TIFF,
+format-pass / duplicate-fail verdict. During PR preparation, successive updates
+to `main` moved the canonical card through G79-THVC to H79-STEP. The current
+H79-STEP TIFF
+(`docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif`,
+SHA-256 `0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c`)
+was produced by an upstream parallel lane, not this review; its card remains
+negative and marks registry uniqueness unexecuted because the full registry
+cache was absent. This session's pinned universal-support witness independently
+blocks every nonempty candidate under the literal rule. No new candidate TIFF,
 model, holdout, final-dot placement, slot selection, or DrivenData upload was
 performed in this session. The pinned registry witness was restored and
 verified only in the ignored `.cache`; it is not a submission artifact.
@@ -66,26 +69,41 @@ preserved in `reports/irregularities.md` and `reports/session_review_b79882e0.md
 
 ## Holdout evidence from checked-in run cards — not rerun this session
 
-The latest-main canonical run card (`G79-THVC`; `evidence/g79_thvc_results.json`)
-reports these **HOLDOUT-DTI** results from evaluator
-`gems57-pooled-hide-v2`, using the buffered whole-component hide-and-recover
-split. These are inherited, not rerun by session 7c, not public leaderboard
-scores, and not organizer-confirmed:
+The latest-main canonical run card (`H79-STEP`; `evidence/holdout_edge_seed20.json`
+and `evidence/holdout_edge_seed30.json`) reports these results from evaluator
+`gems57-pooled-hide-v2`, using the pooled 300 m triangular DTI and buffered
+whole-component hide-and-recover split. These are inherited, not rerun by
+session 7c, not public leaderboard scores, and not organizer-confirmed:
 
-| Seed | G79-THVC HOLDOUT-DTI | Matched fold-fair H33-control HOLDOUT-DTI |
+| Seed | H79-STEP candidate HOLDOUT-DTI | Uniform-control HOLDOUT-DTI | Paired delta vs uniform HOLDOUT-DTI |
+|---|---|---|---|
+| 20 | 0.0949; 11,321 withheld positives; 95% CI [0.0735, 0.1161] | 0.0315; 11,321 withheld positives; 95% CI [0.0279, 0.0349] | +0.0635; 11,321 withheld positives; 95% CI [+0.0431, +0.0837] |
+| 30 | 0.1087; 11,342 withheld positives; 95% CI [0.0858, 0.1293] | 0.0389; 11,342 withheld positives; 95% CI [0.0344, 0.0430] | +0.0698; 11,342 withheld positives; 95% CI [+0.0461, +0.0906] |
+
+The card says H79-STEP did not beat its fold-fair H33-control point estimate on
+seed 20; it does not report a paired confidence interval against that H33
+control, so no robust H33 superiority claim is warranted. More importantly,
+`correlation_overlap_vs_registry.gate_executed` is false because the full
+registry cache was absent when this upstream candidate was built. That is
+**not a uniqueness pass**. This session's pinned universal-support witness
+still covers every allowed pixel and rejects every nonempty map under the
+literal rule. Format/range validation alone cannot clear the candidate.
+
+### Earlier G79-THVC results — superseded by H79-STEP
+
+Before the latest main update, the G79-THVC card reported **HOLDOUT-DTI** from
+the same evaluator and buffered whole-component split:
+
+| Seed | G79-THVC candidate HOLDOUT-DTI | Matched fold-fair H33-control HOLDOUT-DTI |
 |---|---|---|
 | 20 | 0.1905; 11,321 withheld positives; 95% CI [0.1741, 0.2069] | 0.0961; 11,321 withheld positives; 95% CI [0.0831, 0.1090] |
 | 30 | 0.1944; 11,342 withheld positives; 95% CI [0.1774, 0.2126] | 0.0989; 11,342 withheld positives; 95% CI [0.0854, 0.1128] |
 
-G79-THVC improves this catalogue hide-and-recover proxy over the matched H33
-control, but it still has a **negative** promotion verdict. Its pre-placement
-maximum absolute Spearman correlation is 0.7712 (below 0.90), while the literal
-forward 3-px overlap is 1.0000 due to a space-filling registry raster. After
-placement, the maximum absolute Spearman correlation is 0.1210 and maximum
-Jaccard is 0.0417; a sparse-only subset of 718 maps has maximum overlap 0.6844.
-Those partial metrics do not override the literal all-registry gate or the
-blanket/space-filling overlaps. No selector receipt or weekly slot approval
-exists. Format validation passes, but **OK TO SUBMIT remains NO**.
+Those stronger proxy results also were not organizer scores and did not clear
+the literal all-registry overlap rule: sparse-only overlap summaries did not
+override the continuous/blanket witnesses. No selector receipt or weekly slot
+approval existed. The current canonical artifact is H79-STEP and remains
+**OK TO SUBMIT: NO**.
 
 ### Historical H79-NHR run — superseded as current canonical card
 
@@ -114,7 +132,8 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
   current status; source ledger; relevant uniqueness, holdout, validator,
   writer, build, test, and site code; and the prior hypothesis registers.
 - Confirmed the request's single-method paragraph is not delimited, as already
-  recorded under IR-79-02/IR-79-41. The active H79-NHR lane is already stopped.
+  recorded under IR-79-02/IR-79-41. At this branch's entry, H79-NHR was already
+  stopped; the latest-main H79-STEP artifact was imported later during PR sync.
 - Installed the pinned Python environment from `requirements.lock` and reran
   `scripts/preflight_new_lane.py --restore`. It independently restored and
   verified the existing witness and returned exit 2. No experimental feature
@@ -165,29 +184,46 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
   an earlier research fetch recorded in the merged report, not a fetch by this
   session.
 
-### Pass 3 — acceptance re-check
+### Pass 3 — acceptance re-check and post-merge regression repair
 
-- Rebuilt the static site from the canonical run card and current research files.
-  It continues to display **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO** and makes
-  the automated rejection explicit without asking for a human inspection.
-- Reopened the latest-main canonical G79-THVC TIFF through the shared local
-  validator. It is single-band float32, EPSG:32611, shape 3730 × 3292, with the
-  sample's exact 100 m transform, finite values in [0,1], and 35,093 binary
-  positive pixels. The file SHA-256 is
-  `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
-  All 15 local format/range checks pass with zero human inspection required;
-  this is **RASTER/FORMAT-MEASUREMENT**, not uniqueness clearance or organizer
-  acceptance.
-- Reconfirmed the card, status CLI and Pages agree on a negative verdict;
-  the status CLI's exit code 2 is expected. No account slot, upload, or
-  ORGANIZER-CONFIRMED receipt is present.
-- After integrating the latest `origin/main` into this fixed Arena branch and
-  regenerating the site, `pip check` passed; `verify_project.py` passed all
-  checks; `check_site.py` passed all seven pages, 121 local links and two
-  compatibility redirects; and `pytest -q` passed 255 tests (three upstream
-  Rasterio deprecation warnings only). `git diff --check` passed after removing
-  two inherited trailing-space issues in a merged report. These are
-  software/format checks, not a new scientific holdout or organizer acceptance result.
+- The first verification after merging the newer main exposed an integration
+  regression: the canonical card had changed to H79-STEP, but the shared
+  verifier, site builder, tests and active download directory still assumed
+  G79-THVC. The site builder refused inconsistent evidence and the first full
+  test run had 16 failures (239 passed). The old and new TIFFs were both in
+  `docs/downloads/`, while the generated analysis page still presented THVC as
+  current. This was a publication/verification mismatch, not a new scientific
+  result.
+- Archived the superseded G79-THVC TIFF, ZIP, receipt, run card and historical
+  byte-recovery receipt under `archive/g79_thvc_20261021/`, with a SHA-256
+  manifest. It is retained as historical evidence; `docs/downloads/` now holds
+  only the current H79-STEP file. No prior artifact was overwritten or deleted.
+- Updated the shared verifier to bind H79-STEP holdout and canary values to
+  their checked-in evidence, validate the H33 comparison, and report the full
+  registry uniqueness gate as **not run** rather than assuming a pass. The
+  pinned universal-support witness and negative verdict remain fail-closed.
+  Updated the site builder to render the current card dynamically and label
+  G79-THVC/H79-NHR material historical. Repaired regression tests so current
+  and archived artifacts are checked separately.
+- Rebuilt the static site. It shows **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**,
+  the inherited HOLDOUT-DTI evidence class, the unexecuted-registry limitation,
+  and an explicit DO-NOT-SUBMIT decision without requiring human inspection.
+  The H79-STEP TIFF was reopened through the format/range validator: one
+  float32 band, EPSG:32611, shape 3730 × 3292, values in [0,1], zero NaNs,
+  and 37,654 positive pixels. SHA-256:
+  `0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c`.
+- A deterministic byte-reserialization check recovered the current TIFF and
+  single-TIFF ZIP exactly (same SHA-256 values, 37,654 decoded pixels); it
+  reports zero scientific experiments, holdouts, dot placements, and slots.
+  This is a format/byte-integrity check, not a model run or scientific
+  re-evaluation.
+- Final verification after the repair: `verify_project.py` passed all checks;
+  `check_site.py` passed 7 pages, 124 local links and 2 compatibility
+  redirects; `pytest -q` passed 256 tests (3 Rasterio pending-deprecation
+  warnings); `pip check` and `git diff --check` passed; and
+  `submission_status.py` returned the expected negative-decision exit 2.
+  These are software, evidence-consistency, format and publication checks—not
+  a new scientific holdout or organizer acceptance result.
 
 ## New candidate shortlist: rank, cost, and blockers
 

@@ -1,6 +1,7 @@
 """Unit and integration checks for G79-THVC feature guards, submodular placement, and audit receipts."""
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 import numpy as np
@@ -90,9 +91,10 @@ def test_charnes_cooper_allocator_respects_separation_and_recovers_hidden_fault(
     assert score_cc > 0.70
 
 
-def test_published_thvc_geotiff_binary_support_and_receipts():
-    card = json.loads((ROOT / "run_card.json").read_text())
-    tif_path = ROOT / card["submission_file"]
+def test_archived_thvc_geotiff_binary_support_and_receipts():
+    archive = ROOT / "archive/g79_thvc_20261021"
+    card = json.loads((archive / "run_card.json").read_text())
+    tif_path = archive / "downloads" / Path(card["submission_file"]).name
     with rasterio.open(tif_path) as ds:
         arr = ds.read(1)
         assert ds.crs.to_string() == "EPSG:32611"
@@ -102,3 +104,4 @@ def test_published_thvc_geotiff_binary_support_and_receipts():
         assert float(arr.min()) == 0.0 and float(arr.max()) == 1.0
         assert set(np.unique(arr)).issubset({0.0, 1.0})
         assert int((arr > 0).sum()) == 35093 == card["positive_pixels"]
+    assert hashlib.sha256(tif_path.read_bytes()).hexdigest() == card["raster_sha256"]

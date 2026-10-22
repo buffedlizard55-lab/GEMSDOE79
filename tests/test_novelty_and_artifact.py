@@ -72,7 +72,7 @@ def test_committed_deliverable_offline_end_to_end():
     assert verify()["all_checks_passed"]
 
 
-def test_archived_e1_stop_remains_unmeasured_and_active_thvc_card_is_honest():
+def test_archived_e1_stop_and_active_step_card_remain_honest():
     e1_card = json.loads(
         (ROOT / "archive/g79_fabric_offset_f61b17a2/run_card_f61b17a2.json").read_text()
     )
@@ -80,11 +80,18 @@ def test_archived_e1_stop_remains_unmeasured_and_active_thvc_card_is_honest():
     assert e1_card["leakage_canary"]["auc"] is None and e1_card["verdict"] == "negative"
 
     card = json.loads((ROOT / "run_card.json").read_text())
-    assert card["holdout_dti"]["evidence_class"] == "HOLDOUT-DTI"
-    assert card["holdout_dti"]["evaluator_version"] == "gems57-pooled-hide-v2"
-    assert card["holdout_dti"]["dti"] > card["holdout_dti"]["matched_h33_analogue_dti"]
-    assert card["secondary_holdout_dti"]["dti"] > card["secondary_holdout_dti"]["matched_h33_analogue_dti"]
+    h = card["holdout_dti"]
+    assert card["lane"] == "H79-STEP"
+    assert h["evidence_class"] == "HOLDOUT-DTI"
+    assert h["evaluator_version"] == "gems57-pooled-hide-v2"
+    for seed in (20, 30):
+        row = h["per_seed"][f"seed_{seed}"]
+        assert row["candidate"]["dti"] > row["uniform_control"]["dti"]
+        assert row["paired_delta_vs_uniform"]["ci95"][0] > 0
+    assert h["per_seed"]["seed_20"]["candidate"]["dti"] < h["h33_foldfair_control_seed_20"]
+    assert card["current_best_holdout_beaten"] is False
     assert card["leakage_canary"]["passed"] and card["leakage_canary"]["auc"] <= 0.90
-    assert card["sparse_comparable_unique"] is True and card["protocol_unique"] is False
+    assert card["correlation_overlap_vs_registry"]["gate_executed"] is False
+    assert card["protocol_unique"] is False
     assert card["verdict"] == "negative" and card["ok_to_submit"] is False
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None

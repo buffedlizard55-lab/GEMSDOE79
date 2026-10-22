@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79 H79-STEP: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Research artifact; review the automated gate evidence before any action.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -619,6 +619,11 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>IR-79-86</td>
 <td>The branch baseline (<code>9640ed3</code>) listed <code>scikit-image</code> twice in <code>requirements.txt</code> (<code>&gt;=0.25,&lt;0.27</code> and <code>&gt;=0.25,&lt;1</code>). Concurrent main updates had since consolidated the manifest to one <code>&gt;=0.25,&lt;1</code> line; the lock pins <code>0.26.0</code>.</td>
 <td>Preserved the latest main constraint and added a regression test that rejects duplicate normalized package names in <code>requirements.txt</code> or <code>requirements.lock</code>. This PR changes no locked package version, scientific input, model, run card, or TIFF.</td>
+</tr>
+<tr>
+<td>IR-79-87</td>
+<td>The latest-main update changed the canonical run card from G79-THVC to H79-STEP but left the publication verifier, builder and tests on the old schema, kept both TIFFs in <code>docs/downloads/</code>, and generated a site still describing THVC as current. First post-merge build refused inconsistent evidence; first full test run had 16 failures (239 passed).</td>
+<td>Archived G79-THVC bytes and receipts under <code>archive/g79_thvc_20261021/</code>; made evidence checks lane-aware and fail-closed for H79-STEP's unexecuted registry gate; regenerated all seven site pages from the current card; and updated tests to distinguish active H79-STEP from historical THVC. Final checks pass (256 tests); H79-STEP remains negative, not uniqueness-cleared and DO-NOT-SUBMIT. No model, holdout, placement, slot selection or upload was run in this Arena session. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_session-7c7104d8.md">three-pass report</a>.</td>
 </tr>
 </tbody>
 </table></div></section></main>

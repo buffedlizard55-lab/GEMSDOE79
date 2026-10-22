@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic private reserialization check for active G79-THVC, archived H79-NHR, or archived E1."""
+"""Deterministic private reserialization check for the current artifact or archived H79-NHR."""
 from __future__ import annotations
 import argparse
 from datetime import datetime, timezone
@@ -38,7 +38,7 @@ def reproduce_current(root: Path = ROOT) -> dict:
     dots = (decoded > 0) & grid.footprint & (~grid.catalogue)
     dots_sha256 = hashlib.sha256(dots.tobytes()).hexdigest()
     prediction = np.where(dots, np.float32(1.0), np.float32(0.0))
-    with tempfile.TemporaryDirectory(prefix='g79-thvc-byte-recovery-') as tmp:
+    with tempfile.TemporaryDirectory(prefix='gems79-current-byte-recovery-') as tmp:
         receipt = write_submission(
             Path(tmp) / original.name,
             prediction,
@@ -116,11 +116,11 @@ def reproduce_nhr(root: Path = ROOT) -> dict:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--lane', choices=('thvc', 'nhr'), default='thvc')
+    parser.add_argument('--lane', choices=('current', 'nhr'), default='current')
     parser.add_argument('--no-write-evidence', action='store_true')
     args = parser.parse_args(argv)
-    report = reproduce_current(ROOT) if args.lane == 'thvc' else reproduce_nhr(ROOT)
-    if args.lane == 'thvc' and not args.no_write_evidence:
+    report = reproduce_current(ROOT) if args.lane == 'current' else reproduce_nhr(ROOT)
+    if args.lane == 'current' and not args.no_write_evidence:
         (ROOT / 'evidence/artifact_reproduction.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
     return 0

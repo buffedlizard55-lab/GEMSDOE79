@@ -1,16 +1,406 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
-<title>Why H33 scored highest, and what can beat it · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<meta name="description" content="GEMSDOE79 H79-STEP: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Research artifact; review the automated gate evidence before any action.">
+<title>Current H79-STEP review, H33 forensics &amp; historical lanes · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>GEMSDOE79 (<code>G79-THVC</code>) — Complete Scientific, Uniqueness &amp; Strategic Next-Steps Report</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">CURRENT CARD / HOLDOUT-DTI / H33 FORENSICS</p><h1>What this file shows — and what it does not.</h1><p class="lead">The active H79-STEP card is a negative research result. Its inherited HOLDOUT-DTI evidence is distinct from a leaderboard score, and its full registry uniqueness gate was not run in this checkout.</p></section><section class="section"><div class="panel"><h2>Current card: H79-STEP</h2><p>Candidate HOLDOUT-DTI: seed 20 0.0949194 (95% CI [0.07353862296735905, 0.11607591124641722], n=11,321); seed 30 0.1086820 (95% CI [0.08578929464349631, 0.12928169416393614], n=11,342). These are inherited upstream results and were not rerun in this review. The candidate did not beat the fold-fair H33 control on seed 20. Full registry uniqueness is not cleared; no submission slot was selected.</p><p><a href="run-card.json">Canonical run card ↗</a> · <a href="evidence/verification.json">Offline verification receipt ↗</a> · <a href="evidence/holdout_edge_seed20.json">Seed 20 evidence ↗</a> · <a href="evidence/holdout_edge_seed30.json">Seed 30 evidence ↗</a></p></div></section><section class="section"><h2>Three-pass review and unexecuted shortlist</h2><div class="prose table-scroll"><h2>Repository review — Arena session <code>7c7104d8</code> — 2026-10-22</h2>
+<h3>Executive decision</h3>
+<p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> At this session's branch baseline
+(<code>9640ed3</code>), the canonical artifact was H79-NHR and already had a local
+format-pass / duplicate-fail verdict. During PR preparation, successive updates
+to <code>main</code> moved the canonical card through G79-THVC to H79-STEP. The current
+H79-STEP TIFF
+(<code>docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif</code>,
+SHA-256 <code>0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c</code>)
+was produced by an upstream parallel lane, not this review; its card remains
+negative and marks registry uniqueness unexecuted because the full registry
+cache was absent. This session's pinned universal-support witness independently
+blocks every nonempty candidate under the literal rule. No new candidate TIFF,
+model, holdout, final-dot placement, slot selection, or DrivenData upload was
+performed in this session. The pinned registry witness was restored and
+verified only in the ignored <code>.cache</code>; it is not a submission artifact.</p>
+<p>The literal new-lane preflight was actually rerun with the pinned witness:</p>
+<pre><code class="language-text">state: impossible_under_literal_gate
+start_new_lane: false
+covered_allowed_fraction: 1.0
+limit: 0.70
+overlap for every nonempty candidate: 1.0 &gt; 0.70
+exit code: 2 (expected stop)
+witness SHA-256: ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be
+</code></pre>
+<p>This is a <strong>REGISTRY-MEASUREMENT</strong>, not a score. Under the literal protocol,
+there is no permitted nonempty submission to score or place in a weekly slot.
+The separate matched-budget interpretation in archived work is not silently
+adopted here. The historical H79-NHR file also exceeded the overlap threshold against
+ordinary, non-space-filling registry dot fields, so resolving only the
+universal-support witness would not promote that archived candidate.</p>
+<h3>Answer to the H33 question</h3>
+<p>The checked-in byte forensics (<code>evidence/h33_forensics.json</code>) show H33 is not a
+newly trained geological detector. Its positive pixels are exactly a subset of
+the earlier D2.8 dot raster after removing dots within 200 m of the mapped
+catalogue: 44,090 D2.8 dots became 37,654 H33 dots; 6,436 were removed and the
+pixel-set disagreement is zero. These are <strong>RASTER-MEASUREMENTS</strong>, not scores.
+The <code>0.2778</code> filename/score pairing in the prompt is an <strong>UNVERIFIED HISTORICAL
+REPORT</strong>: no submission-page receipt binds that score to the H33 filename and
+raster hash.</p>
+<p>A plausible metric mechanism is improved emission efficiency. The competition
+metric's TP credit is distance-weighted and saturates at each truth pixel,
+whereas positive prediction mass away from truth adds FP. Removing redundant
+near-catalogue dots can therefore improve the index if they add more FP than
+lost credit. It is <strong>not proven</strong> that the removed dots were false positives:
+only exact mapped-fault pixels are masked, and an unknown expert fault may lie
+near a mapped trace. The byte relationship explains a plausible mechanism, not
+a causal decomposition of the hidden test score.</p>
+<p>The merged evidence register contains an official leaderboard fetch dated
+2026-10-22 (IR-79-72/77): <strong>PUBLIC-LEADERBOARD OBSERVATION</strong> rank 1 is 0.4413;
+no row among ranks 1–50 shows 0.3195, and the user-reported H33 value 0.2778 is
+also absent from those 50 rows. This is a public-page observation, not an
+artifact-linked submission receipt or ORGANIZER-CONFIRMED score. The H33 value
+is not proof that the H33 bytes earned it. A higher leaderboard result is
+possible in principle, but none of the offline evidence establishes that this
+project can beat the public leader or the organizer's hidden test set. This
+session did not refetch the leaderboard; the date and evidence source are
+preserved in <code>reports/irregularities.md</code> and <code>reports/session_review_b79882e0.md</code>.</p>
+<h3>Holdout evidence from checked-in run cards — not rerun this session</h3>
+<p>The latest-main canonical run card (<code>H79-STEP</code>; <code>evidence/holdout_edge_seed20.json</code>
+and <code>evidence/holdout_edge_seed30.json</code>) reports these results from evaluator
+<code>gems57-pooled-hide-v2</code>, using the pooled 300 m triangular DTI and buffered
+whole-component hide-and-recover split. These are inherited, not rerun by
+session 7c, not public leaderboard scores, and not organizer-confirmed:</p>
+<table>
+<thead>
+<tr>
+<th>Seed</th>
+<th>H79-STEP candidate HOLDOUT-DTI</th>
+<th>Uniform-control HOLDOUT-DTI</th>
+<th>Paired delta vs uniform HOLDOUT-DTI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>0.0949; 11,321 withheld positives; 95% CI [0.0735, 0.1161]</td>
+<td>0.0315; 11,321 withheld positives; 95% CI [0.0279, 0.0349]</td>
+<td>+0.0635; 11,321 withheld positives; 95% CI [+0.0431, +0.0837]</td>
+</tr>
+<tr>
+<td>30</td>
+<td>0.1087; 11,342 withheld positives; 95% CI [0.0858, 0.1293]</td>
+<td>0.0389; 11,342 withheld positives; 95% CI [0.0344, 0.0430]</td>
+<td>+0.0698; 11,342 withheld positives; 95% CI [+0.0461, +0.0906]</td>
+</tr>
+</tbody>
+</table>
+<p>The card says H79-STEP did not beat its fold-fair H33-control point estimate on
+seed 20; it does not report a paired confidence interval against that H33
+control, so no robust H33 superiority claim is warranted. More importantly,
+<code>correlation_overlap_vs_registry.gate_executed</code> is false because the full
+registry cache was absent when this upstream candidate was built. That is
+<strong>not a uniqueness pass</strong>. This session's pinned universal-support witness
+still covers every allowed pixel and rejects every nonempty map under the
+literal rule. Format/range validation alone cannot clear the candidate.</p>
+<h4>Earlier G79-THVC results — superseded by H79-STEP</h4>
+<p>Before the latest main update, the G79-THVC card reported <strong>HOLDOUT-DTI</strong> from
+the same evaluator and buffered whole-component split:</p>
+<table>
+<thead>
+<tr>
+<th>Seed</th>
+<th>G79-THVC candidate HOLDOUT-DTI</th>
+<th>Matched fold-fair H33-control HOLDOUT-DTI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>0.1905; 11,321 withheld positives; 95% CI [0.1741, 0.2069]</td>
+<td>0.0961; 11,321 withheld positives; 95% CI [0.0831, 0.1090]</td>
+</tr>
+<tr>
+<td>30</td>
+<td>0.1944; 11,342 withheld positives; 95% CI [0.1774, 0.2126]</td>
+<td>0.0989; 11,342 withheld positives; 95% CI [0.0854, 0.1128]</td>
+</tr>
+</tbody>
+</table>
+<p>Those stronger proxy results also were not organizer scores and did not clear
+the literal all-registry overlap rule: sparse-only overlap summaries did not
+override the continuous/blanket witnesses. No selector receipt or weekly slot
+approval existed. The current canonical artifact is H79-STEP and remains
+<strong>OK TO SUBMIT: NO</strong>.</p>
+<h4>Historical H79-NHR run — superseded as current canonical card</h4>
+<p>The earlier H79-NHR run card reports the following <strong>HOLDOUT-DTI</strong> values. Each
+is from evaluator <code>gems57-pooled-hide-v2</code>, the same whole-component buffered
+catalogue hide-and-recover split, and includes the withheld-positive count and
+95% CI:</p>
+<table>
+<thead>
+<tr>
+<th>Seed</th>
+<th>Candidate HOLDOUT-DTI</th>
+<th>Fold-fair H33-control HOLDOUT-DTI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>20</td>
+<td>0.1431; 11,321 withheld positives; 95% CI [0.1281, 0.1574]</td>
+<td>0.0961; 11,321 withheld positives; 95% CI [0.0837, 0.1086]</td>
+</tr>
+<tr>
+<td>30</td>
+<td>0.1522; 11,342 withheld positives; 95% CI [0.1335, 0.1696]</td>
+<td>0.0989; 11,342 withheld positives; 95% CI [0.0842, 0.1120]</td>
+</tr>
+</tbody>
+</table>
+<p>The NHR result beat the fold-fair H33 control on this proxy, but its surface and
+final dots failed registry novelty. This is not an ORGANIZER-CONFIRMED result,
+not a leaderboard score, and not a projection. The leakage result is a separate
+<strong>LEAKAGE-CANARY</strong>: 464 feature-alone tests cleared the 0.90 threshold, with
+maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.</p>
+<h3>Repository inspection and three passes</h3>
+<h4>Pass 1 — read and establish the current state</h4>
+<ul>
+<li>Read the full README, including the preserved prompt; <code>AGENTS.md</code>; canonical
+  <code>run_card.json</code>; active NHR and archived E1 preregistrations; irregularities;
+  current status; source ledger; relevant uniqueness, holdout, validator,
+  writer, build, test, and site code; and the prior hypothesis registers.</li>
+<li>Confirmed the request's single-method paragraph is not delimited, as already
+  recorded under IR-79-02/IR-79-41. At this branch's entry, H79-NHR was already
+  stopped; the latest-main H79-STEP artifact was imported later during PR sync.</li>
+<li>Installed the pinned Python environment from <code>requirements.lock</code> and reran
+  <code>scripts/preflight_new_lane.py --restore</code>. It independently restored and
+  verified the existing witness and returned exit 2. No experimental feature
+  or candidate surface was built.</li>
+<li>Inspected current storage: <code>data/reference/existing_faults.tif</code>,
+  <code>data/reference/sample_submission.tif</code>, and <code>data/restore_receipt.json</code> are
+  present. The large training raster, reusable <code>.cache</code> feature stack,
+  <code>data/external</code> files named in the merged GDR receipt, raw GeoDAWN line
+  products, raw MT tensors, and raw 1 m DEM are absent from this checkout. The
+  merged official-data receipt documents source hashes from the upstream run,
+  but is not a substitute for bytes available here. The owner's hash pins verify
+  mirror consistency, not organizer-origin authentication.</li>
+<li>During PR preparation, integrated the newer <code>origin/main</code> rather than leave a
+  stale review branch. Its inherited IR-79-80/81 evidence adds a prompt-named
+  sibling-raster audit and README publication-boundary tests; those are upstream
+  records, not new experiments or scores from this session. The latest official
+  leaderboard observation cited above is likewise inherited from the 2026-10-22
+  source review, not fetched by this session.</li>
+</ul>
+<h4>Pass 2 — identify and fix a repository defect; review hypotheses</h4>
+<ul>
+<li>The branch baseline had two <code>scikit-image</code> declarations in <code>requirements.txt</code>
+  (<code>&gt;=0.25,&lt;0.27</code> and <code>&gt;=0.25,&lt;1</code>). Although pip intersects them, duplication
+  was unnecessary. During this review, current <code>main</code> independently consolidated
+  the file to one <code>&gt;=0.25,&lt;1</code> line (the lock pins <code>0.26.0</code>); the merge preserves
+  that upstream bound. This PR adds a regression test rejecting duplicate
+  normalized package names in either manifest and records the branch-baseline
+  finding as IR-79-86 after integrating newer main updates. No locked package version or scientific artifact changed.</li>
+<li>The previous shortlist in
+  <code>research/hypotheses_preflight_a7d092d7.md</code> was checked against the archives.
+  Its far-field idea is adjacent to archived H79-FF; its cross-scale scarp idea
+  is adjacent to tested SDPT features; and its magnetic/scarp and clay-cap ideas
+  overlap prior E1/STEPCO and hydrothermal family work. They cannot all be
+  described as wholly untried across the family.</li>
+<li>Added a new, explicitly unvalidated three-hypothesis research shortlist to
+  <code>research/hypotheses_session_7c7104d8.md</code> and the generated Research page:
+  raw GeoDAWN flight-line residual coherence, raw MT phase-tensor anisotropy,
+  and a process-based lidar scarp-profile fit. It names each data layer,
+  physical signature, fault-omission rationale, method difference, non-fault
+  mimic, official source link and data-availability check. All three are blocked
+  in this checkout; the list is not an authorization to run them.</li>
+<li>No new official website was fetched. The source links and descriptions are
+  inherited from <code>knowledge/official_sources.json</code> and earlier source reviews;
+  direct DrivenData, USGS and GDR requests are outside this sandbox's host
+  allowlist. The merged source-health feed's latest reachability attempt is
+  2026-10-22T04:35Z and reports SSL failures; reachability checks do not refresh
+  scientific claims. The public-leaderboard observation cited above came from
+  an earlier research fetch recorded in the merged report, not a fetch by this
+  session.</li>
+</ul>
+<h4>Pass 3 — acceptance re-check and post-merge regression repair</h4>
+<ul>
+<li>The first verification after merging the newer main exposed an integration
+  regression: the canonical card had changed to H79-STEP, but the shared
+  verifier, site builder, tests and active download directory still assumed
+  G79-THVC. The site builder refused inconsistent evidence and the first full
+  test run had 16 failures (239 passed). The old and new TIFFs were both in
+  <code>docs/downloads/</code>, while the generated analysis page still presented THVC as
+  current. This was a publication/verification mismatch, not a new scientific
+  result.</li>
+<li>Archived the superseded G79-THVC TIFF, ZIP, receipt, run card and historical
+  byte-recovery receipt under <code>archive/g79_thvc_20261021/</code>, with a SHA-256
+  manifest. It is retained as historical evidence; <code>docs/downloads/</code> now holds
+  only the current H79-STEP file. No prior artifact was overwritten or deleted.</li>
+<li>Updated the shared verifier to bind H79-STEP holdout and canary values to
+  their checked-in evidence, validate the H33 comparison, and report the full
+  registry uniqueness gate as <strong>not run</strong> rather than assuming a pass. The
+  pinned universal-support witness and negative verdict remain fail-closed.
+  Updated the site builder to render the current card dynamically and label
+  G79-THVC/H79-NHR material historical. Repaired regression tests so current
+  and archived artifacts are checked separately.</li>
+<li>Rebuilt the static site. It shows <strong>OK TO DOWNLOAD: YES / OK TO SUBMIT: NO</strong>,
+  the inherited HOLDOUT-DTI evidence class, the unexecuted-registry limitation,
+  and an explicit DO-NOT-SUBMIT decision without requiring human inspection.
+  The H79-STEP TIFF was reopened through the format/range validator: one
+  float32 band, EPSG:32611, shape 3730 × 3292, values in [0,1], zero NaNs,
+  and 37,654 positive pixels. SHA-256:
+  <code>0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c</code>.</li>
+<li>A deterministic byte-reserialization check recovered the current TIFF and
+  single-TIFF ZIP exactly (same SHA-256 values, 37,654 decoded pixels); it
+  reports zero scientific experiments, holdouts, dot placements, and slots.
+  This is a format/byte-integrity check, not a model run or scientific
+  re-evaluation.</li>
+<li>Final verification after the repair: <code>verify_project.py</code> passed all checks;
+  <code>check_site.py</code> passed 7 pages, 124 local links and 2 compatibility
+  redirects; <code>pytest -q</code> passed 256 tests (3 Rasterio pending-deprecation
+  warnings); <code>pip check</code> and <code>git diff --check</code> passed; and
+  <code>submission_status.py</code> returned the expected negative-decision exit 2.
+  These are software, evidence-consistency, format and publication checks—not
+  a new scientific holdout or organizer acceptance result.</li>
+</ul>
+<h3>New candidate shortlist: rank, cost, and blockers</h3>
+<p>The ranked list lives in
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_session_7c7104d8.md"><code>research/hypotheses_session_7c7104d8.md</code></a>
+and is published on the Research page. Ranking is qualitative, <strong>not DTI and
+not a score projection</strong>:</p>
+<ol>
+<li><strong>Raw GeoDAWN line-level anomaly coherence</strong> — medium-high potential,
+   high cost. It would test whether a basement anomaly persists across adjacent
+   flight lines after tie-line and height effects are modeled. The official
+   USGS release is the source lead; actual raw line files and footprint coverage
+   are not verified in this checkout.</li>
+<li><strong>Station-level MT phase-tensor anisotropy</strong> — medium potential, high cost.
+   It could add direction and frequency-depth structure beyond scalar
+   <code>cond_surf</code>; the official DOE GDR submission is the source lead. Raw MT
+   tensors/station coverage are absent and direct download was not checked.</li>
+<li><strong>Process-based lidar scarp-profile inversion</strong> — low-medium potential,
+   medium-high cost. It would fit a fixed scarp diffusion profile rather than
+   repeat an edge/curvature amplitude detector. Official USGS 3DEP is the source
+   lead; raw DEM tiles and target-area availability are absent/unverified.</li>
+</ol>
+<p>All current candidate sources therefore fail the user's availability gate for
+this session. The top candidate was <strong>not</strong> evaluated on HOLDOUT-DTI: the
+literal registry gate stops every nonempty candidate before holdout, and its raw
+input is also missing. No weekly slot was touched. The next allowed scientific
+step is not training; it is an explicit prospective protocol clarification and
+verified source/data access.</p>
+<h3>Limitations and manual-review links</h3>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description / metric / format</a></li>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">DrivenData competition / leaderboard</a></li>
+<li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">DOE competition rules PDF</a></li>
+<li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a></li>
+<li><a href="https://gdr.openei.org/submissions/1391">DOE GDR / INGENIOUS submission 1391</a></li>
+<li><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a></li>
+<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Official DrivenData reference solution</a></li>
+</ul>
+<p>Claim-by-claim source dates, licensing notes and evidence limits are in
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json"><code>knowledge/official_sources.json</code></a>. Links
+are supplied for review; they do not mean those external hosts were fetched
+again in this session. No claim here establishes a current leaderboard value,
+submission receipt, remaining weekly capacity, geothermal vent, productive
+reservoir, or commercial viability.</p></div><div class="prose table-scroll"><h2>Research shortlist — Arena session <code>7c7104d8</code> (not executed)</h2>
+<p><strong>Status:</strong> no new scientific lane was opened. This is a prospective shortlist,
+not a preregistration, score, or promotion recommendation. “Expected DTI
+improvement” is a qualitative research prior only; no number is projected.
+The current request still does not delimit a single method paragraph. More
+importantly, the pinned literal-overlap witness rejects every nonempty candidate
+before feature construction, holdout, or placement. See
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/new_lane_preflight_a7d092d7.json"><code>evidence/new_lane_preflight_a7d092d7.json</code></a>
+and the session review.</p>
+<p>The candidate comparisons below are deliberately scoped to <strong>method-level
+novelty in this checkout and its archived code</strong>, not a claim that nobody in the
+GEMSDOE family or scientific literature has tried similar work. Related prior
+art is named in each row. Every candidate needs a fresh, complete surface
+novelty preflight before any holdout under an authorized protocol.</p>
+<table>
+<thead>
+<tr>
+<th>Rank / expected DTI potential / cost</th>
+<th>Exact layers and physical signature</th>
+<th>Why it could locate a fault absent from the USGS/INGENIOUS catalogue</th>
+<th>Difference from this repository and nearest prior art</th>
+<th>Named non-fault mimic</th>
+<th>Official source and availability check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 · medium-high potential · high cost</strong></td>
+<td><strong>Flight-line-resolved GeoDAWN anomaly coherence.</strong> Original magnetic/radiometric line observations, flight-path geometry, aircraft-height and tie-line metadata, with the existing gravity/RTP grids as context. Remove regional and line/tie-line levelling components, then require a signed cross-line anomaly to persist on adjacent flight lines and at independent crossovers.</td>
+<td>A basement fault under basin cover may have no mapped scarp; a subsurface magnetic/contact offset can persist across several flight lines even where the gridded product smooths it. This targets structural evidence, not geothermal temperature directly.</td>
+<td>The active E1 used <em>gridded</em> magnetic/gravity profile registration; prior family work includes grid-level seam correction (for example the <code>GEMSDOE73</code> seam-free potential-field result). The proposed distinction is the line-level observation/height/tie-line residual model, not another raster edge or a new name for E1. Family-wide novelty is unproven.</td>
+<td>Tie-line or microlevelling residual, flight-height variation, an intrusive contact or dyke.</td>
+<td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a>, DOI <code>10.5066/P93LGLVQ</code>. The checked-in source ledger previously records line data and flight paths as release products. This checkout has gridded/uint8 derivatives only: no raw line observations or flight-path files in <code>registry/data_manifest.json</code>, <code>data/raw/</code>, or <code>.cache/</code>. The USGS host is outside this session's egress allowlist, so exact file coverage and direct download were <strong>not</strong> verified now. <strong>Not viable for this session.</strong> The recorded 400 m flight-line spacing also makes a 300 m scoring kernel a serious localization constraint; a 100 m grid is not 100 m independent measurement spacing.</td>
+</tr>
+<tr>
+<td><strong>2 · medium potential · high cost</strong></td>
+<td><strong>Station-level magnetotelluric phase-tensor anisotropy.</strong> Raw complex MT impedance tensors and frequencies from the DOE GDR compilation, with <code>cond_surf</code>, <code>depth_to_base_surf</code>, and gravity only as contextual rasters. Extract phase-tensor strike, skew/ellipticity, and cross-station directional coherence; test a coherent conductive corridor rather than a scalar conductivity maximum.</td>
+<td>A fault-controlled fluid/alteration pathway can be structurally important without a surface lineament, and its directional electrical response could mark a fault not represented in the public fault map. The prediction target remains a fault, not a geothermal reservoir.</td>
+<td>The supplied stack contains a smooth scalar <code>cond_surf</code> band; archived family methods include scalar conductivity, clay-cap and hydrothermal-proxy surfaces. No active/archived runner in this checkout was found using the <strong>raw frequency-dependent impedance/phase tensor</strong> as its feature. This is a method-level distinction, not evidence of family-wide novelty.</td>
+<td>Conductive clay cap, saline basin fill, graphite-bearing lithology, or hydrothermal alteration without a discrete fault trace.</td>
+<td><a href="https://gdr.openei.org/submissions/1391">DOE Geothermal Data Repository submission 1391</a>. The previously reviewed official source description includes MT among the compilation products. The local manifest has selected derivative well/spring/vent files but no MT station tensor or impedance file; no direct GDR binary was obtained here, and the host is outside the allowlist. Coverage, station spacing, and downloadability for this footprint are <strong>unverified</strong>. <strong>Not viable for this session.</strong></td>
+</tr>
+<tr>
+<td><strong>3 · low-medium potential · medium-high cost</strong></td>
+<td><strong>Process-based lidar scarp-profile inversion.</strong> Raw 1 m DEM elevations, with the existing lidar <code>step_max</code>, <code>lapneg/lappos</code>, <code>upface/downface</code>, <code>cross_max</code>, and <code>coh100</code> channels for transect proposals. Fit a fixed linear-diffusion scarp-profile family across perpendicular transects and score profile-shape consistency along strike, rather than ranking amplitude alone.</td>
+<td>Subdued or degraded Quaternary fault scarps can retain a characteristic cross-scarp shape after their peak slope falls below a hand-mapping threshold. A spatially coherent profile family may recover short traces missing from the catalogue.</td>
+<td>NHR and SDPT tested multiscale scarp amplitudes, curvature dipoles, facing and persistence; the proposed statistic is an explicit process-profile fit. This is adjacent to existing terrain work, and its incremental value is uncertain.</td>
+<td>Lahontan shoreline/terrace riser, alluvial-fan lobe boundary, landslide headscarp, or channel bank.</td>
+<td><a href="https://www.usgs.gov/3d-elevation-program">USGS 3D Elevation Program</a>. The project has only the derived uint8 lidar-scarp stack in its manifest, not raw 1 m elevations; no <code>1m_DEM_links.csv</code> or raw DEM is present in the current checkout. The USGS host is outside the allowlist and tile coverage was not verified in this session. <strong>Not viable for this session.</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>Decision and required gates</h3>
+<ol>
+<li>The strongest <em>scientific</em> candidate in this qualitative ranking is the
+   flight-line-resolved GeoDAWN method, but its raw source files are not in the
+   checkout and were not verified downloadable. It is <strong>not</strong> an authorized or
+   executable top candidate here. The other ideas also lack the named raw data.</li>
+<li>Before attempting any candidate, resolve the missing method-paragraph
+   assignment and the literal continuous-raster definition through a
+   prospective protocol clarification. The verified whole-footprint witness
+   gives every nonempty candidate overlap <code>1.0 &gt; 0.70</code>; changing a method,
+   filename, or data source cannot make that gate pass. Do not silently adopt a
+   top-k interpretation or exclude a prior.</li>
+<li>If those blockers are resolved, preregister one exact method, then use the
+   pinned feature stack, shared <code>evaluate_holdout.py</code>, and shared submission
+   writer. Complete the surface novelty check <strong>before placement</strong>, run every
+   single-feature leakage canary, and compare buffered whole-component
+   HOLDOUT-DTI against the matched incumbent with paired spatial CIs. A new
+   HOLDOUT-DTI must include evaluator version, withheld-positive count, and 95%
+   CI. A weekly slot remains a separate selector/account decision.</li>
+</ol>
+<p>No holdout was run for these hypotheses, no score is inferred, no TIFF was
+created from them, and no submission slot was used. Negative feasibility is the
+current result, not a reason to bypass a gate.</p>
+<h3>Manual-review sources</h3>
+<p>These URLs are official source leads already recorded in
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json"><code>knowledge/official_sources.json</code></a> or the
+prior hypothesis register. They were <strong>not</strong> refetched during this session;
+source-claim freshness is limited to the dated ledger, and exact new product
+availability is not established by a landing-page link.</p>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description and scoring rules</a></li>
+<li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a></li>
+<li><a href="https://gdr.openei.org/submissions/1391">DOE GDR submission 1391 / INGENIOUS</a></li>
+<li><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a></li>
+<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Competition reference implementation</a></li>
+</ul></div></section><section class="section"><h2>Historical G79-THVC result (superseded; not the current card)</h2><div class="prose table-scroll"><h2>Archived G79-THVC artifact (2026-10-21)</h2>
+<p>This is a byte-preserving archive of the former G79-THVC active download. H79-STEP is now the current research artifact; this lane is historical and must not be described as the current canonical download. The TIFF, ZIP, receipt, original run card, and historical byte-recovery receipt are preserved with SHA-256 values in <code>manifest.json</code>. The archived run card retains the original <code>docs/downloads/</code> paths exactly as recorded; use the filenames under this archive when verifying the preserved bytes.</p>
+<p>G79-THVC holdout results are inherited historical evidence, not rerun in the current review or confirmed by an organizer receipt. Its former verdict was negative and it was not eligible to submit. No competition slot was used.</p></div><div class="prose table-scroll"><h2>GEMSDOE79 (<code>G79-THVC</code>) — Historical Scientific &amp; Uniqueness Report</h2>
+<blockquote>
+<p><strong>Historical / superseded.</strong> This report and its results belong to the earlier G79-THVC lane, not the current H79-STEP card. Its TIFF, ZIP, receipt and original card are archived under <code>archive/g79_thvc_20261021/</code>. The HOLDOUT-DTI values are inherited evidence, not organizer-confirmed scores, and were not rerun in the current Arena review. The full-registry gate was not a submission clearance; the literal-support witness blocks any nonempty candidate under the current protocol. Read this report as a preserved historical record, not current submission advice.</p>
+</blockquote>
 <h3>1. Executive Summary &amp; Automated Disposition</h3>
 <ul>
-<li><strong>Downloadable Candidate GeoTIFF:</strong> <code>docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif</code> (<code>137,299 B</code>, SHA-256 <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>)</li>
-<li><strong>Single-TIFF Submission ZIP:</strong> <code>docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip</code> (<code>102,600 B</code>, SHA-256 <code>dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9</code>)</li>
+<li><strong>Downloadable Candidate GeoTIFF:</strong> <code>archive/g79_thvc_20261021/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif</code> (<code>137,299 B</code>, SHA-256 <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>)</li>
+<li><strong>Single-TIFF Submission ZIP:</strong> <code>archive/g79_thvc_20261021/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip</code> (<code>102,600 B</code>, SHA-256 <code>dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9</code>)</li>
 <li><strong>Unique Submission Name (<code>43 / 140</code> chars):</strong> <code>g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT</code></li>
 <li><strong>Submission Note (<code>98 / 140</code> chars):</strong> <code>GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)</code></li>
 <li><strong><code>OK TO DOWNLOAD</code>:</strong> <strong>YES (<code>ok_to_download: true</code>)</strong> — passes <code>15 / 15</code> GeoTIFF grid, CRS (<code>EPSG:32611</code>), shape (<code>3730 × 3292</code>), geotransform (<code>[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]</code>), value-range (<code>[0.0, 1.0]</code>, strictly binary <code>{0.0, 1.0}</code>), finite/zero-NaN, zero outside-footprint, zero mapped-catalogue, and single-TIFF ZIP CRC/byte-identity checks automatically without human intervention.</li>
@@ -104,8 +494,11 @@
    - <strong>Airborne Survey Resolution (<code>GeoDAWN Area 2 = 400 m</code> flight spacing):</strong> <code>100 m</code> raster pixels over <code>400 m</code>-spaced flight lines do not represent independent <code>100 m</code> subsurface measurements.
    - <strong>Structural Favorability $\neq$ Productive Reservoir:</strong> Fault presence establishes structural geometry only — never subsurface permeability, commercial fluid temperature, or economic viability.
    - <strong>Account &amp; Protocol Governance:</strong> Weekly slot capacity (<code>&lt;= 3/week</code>) and signed submission receipts require an authenticated DrivenData session outside this repository, and an explicit rule update in <code>vendor/gems57/uniqueness.py</code> (<code>their_dots &lt;= 50,000</code> or halo-saturation filter) is needed if automated <code>protocol_unique = True</code> is desired across space-filling blankets.</li>
-</ol></div></section><section class="section"><div class="prose table-scroll"><h2>Three-Pass Independent Verification Log (<code>GEMSDOE79</code> — <code>G79-THVC</code>)</h2>
-<p>Every claim, byte hash, holdout metric, uniqueness statistic, figure, HTML page, and CI check in <code>GEMSDOE79</code> was audited across <strong>three independent end-to-end verification passes</strong> on <code>2026-10-21</code> / <code>2026-10-22</code> UTC.</p>
+</ol></div><div class="prose table-scroll"><h2>Historical Three-Pass Verification Log (<code>GEMSDOE79</code> — <code>G79-THVC</code>)</h2>
+<blockquote>
+<p><strong>Historical / superseded by H79-STEP.</strong> The checks below refer to the earlier G79-THVC artifact and historical site. They were inherited, not rerun in the current Arena review; the archived card and bytes are under <code>archive/g79_thvc_20261021/</code>. Do not interpret this log as current H79-STEP verification or organizer acceptance.</p>
+</blockquote>
+<p>The historical G79-THVC artifact was audited across <strong>three end-to-end verification passes</strong> on <code>2026-10-21</code> / <code>2026-10-22</code> UTC.</p>
 <h3>Pass 1 — Scientific, Mathematical, Leakage &amp; Protocol Integrity Audit</h3>
 <ol>
 <li><strong>Unmodified Shared Template (<code>23 / 23</code> SHA-256 matches):</strong> Verified via <code>registry/template_pin.json</code> and <code>git status</code> that zero files in <code>vendor/gems57/</code> were modified (<code>all_shared_template_bytes_unmodified = true</code>).</li>
@@ -121,11 +514,11 @@
 <h3>Pass 2 — Artifact Byte, Format, Permissions &amp; Reproducibility Audit</h3>
 <ol>
 <li><strong>GeoTIFF Format &amp; Value-Range Validation (<code>validate_submission.py</code> + <code>verify_project.py</code>):</strong>
-   - File: <code>docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif</code> (<code>137,299 B</code>, SHA-256 <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>)
+   - File: <code>archive/g79_thvc_20261021/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif</code> (<code>137,299 B</code>, SHA-256 <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>)
    - Band count: <code>1</code>, dtype: <code>float32</code>, CRS: <code>EPSG:32611</code>, shape: <code>3730 × 3292</code>, geotransform: <code>[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]</code>
    - Finite pixels: <code>12,279,160 / 12,279,160</code> (<code>n_nan = 0</code>, <code>n_infinite = 0</code>), min <code>0.0</code>, max <code>1.0</code>, positive pixels <code>35,093</code>, outside footprint <code>0</code>, on mapped catalogue <code>0</code>.</li>
 <li><strong>Single-TIFF ZIP &amp; GitHub Pages File Permissions (<code>IR-79-23</code>):</strong>
-   - File: <code>docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip</code> (<code>102,600 B</code>, SHA-256 <code>dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9</code>) — contains 1 exact byte-identical <code>.tif</code>, <code>CRC OK</code>, mode <code>0644</code> (<code>world_readable_download_permissions = true</code>).</li>
+   - File: <code>archive/g79_thvc_20261021/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip</code> (<code>102,600 B</code>, SHA-256 <code>dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9</code>) — contains 1 exact byte-identical <code>.tif</code>, <code>CRC OK</code>, mode <code>0644</code> (<code>world_readable_download_permissions = true</code>).</li>
 <li><strong>Visual Inspection of All Generated Figures (<code>docs/figures/fig1..fig4.png</code>):</strong>
    - Inspected rendered PNG pixels directly; caught and fixed error-bar label offset in <code>fig1_holdout_progression.png</code> and x-tick rotation in <code>fig2_regimes_and_features.png</code> so zero text elements touch or clip anywhere.</li>
 </ol>
@@ -134,7 +527,7 @@
 <li><strong>Automated Test Suite (<code>pytest</code> + <code>unittest</code>):</strong> Verified all unit, mathematical, placement, uniqueness, site, and submission-validator tests pass (<code>0</code> failures).</li>
 <li><strong>Offline Link, Accessibility, CSP &amp; Evidence Sync Check (<code>scripts/check_site.py</code>):</strong> Verified all <code>7</code> pages + <code>2</code> compatibility redirects, single <code>&lt;h1&gt;</code>, unique DOM IDs, local asset integrity, strict CSP (<code>default-src 'self'</code>), zero external CDN dependencies, and synced <code>run_card.json == docs/run-card.json == docs/evidence/run_card.json</code>.</li>
 <li><strong>Real Headless Chromium Browser Review (<code>node scripts/browser_review.cjs</code>) &amp; HTTP Verification (<code>scripts/verify_public_site.py</code>):</strong> Verified zero console/HTTP errors and zero horizontal overflow across <code>1440 px</code>, <code>390 px</code>, and <code>320 px</code> viewports on all <code>7</code> pages, live clipboard copy of <code>submission_note</code>, live <code>.tif</code> browser download SHA-256 match, and anonymous HTTP SHA-256 verification of both <code>.tif</code> and <code>.zip</code>.</li>
-</ol></div></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
+</ol></div></section><section class="section"><h2>Earlier H79-NHR analysis (historical)</h2><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
 <p>Session 337ac1e9, 2026-10-22. Evidence labels used in this document:
 <strong>HOLDOUT-DTI</strong> is our spatially blocked hide-and-recover proxy (evaluator
 <code>gems57-pooled-hide-v2</code>). <strong>USER-REPORTED</strong> is a filename-to-score pairing given
@@ -377,7 +770,7 @@ This is consistent with the shift being real.</p>
    expert faults rather than of catalogue faults. Preregister this before running it.</li>
 <li><strong>Hypothesis 3 (Lahontan shoreline suppression)</strong> needs the absolute 3DEP DEM, which
    is free from the <a href="https://apps.nationalmap.gov/downloader/">USGS National Map</a>.</li>
-</ol></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>Forensic Analysis of H33 (<code>0.2778</code>), Metric Ceiling Theory (<code>0.4413</code>), and Empirical Validation via <code>G79-THVC</code></h2>
+</ol></div></section><section class="section"><h2>H33 byte forensics and literature</h2><div class="prose table-scroll"><h2>Forensic Analysis of H33 (<code>0.2778</code>), Metric Ceiling Theory (<code>0.4413</code>), and Empirical Validation via <code>G79-THVC</code></h2>
 <h3>Executive Answer</h3>
 <ol>
 <li><strong>What <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code> (<code>GEMSDOE32</code>) actually is (byte-level proof):</strong>

@@ -1,6 +1,6 @@
 {
-  "verified_utc": "2026-10-22T04:40:48.554608+00:00",
-  "all_checks_passed": false,
+  "verified_utc": "2026-10-22T05:06:32.229721+00:00",
+  "all_checks_passed": true,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
     "new_lane_preflight_stops_on_exact_witness": true,
@@ -22,14 +22,13 @@
     "zip_crc_valid": true,
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
-    "holdout_card_equals_evaluator_output": false,
-    "holdout_beats_h33_control_both_seeds": true,
+    "holdout_card_equals_evaluator_output": true,
+    "holdout_gate_enforced_by_current_best_control": true,
     "leakage_canary_clear": true,
     "uniqueness_card_matches_evidence": true,
-    "gate_receipt_bound_to_raster_and_verdict": false,
     "promotion_requires_uniqueness": true,
-    "preregistration_hash_matches_card": false,
     "e1_scientific_stop_honored": true,
+    "active_lane_stop_state_matches_card": true,
     "status_tool_and_card_agree": true
   },
   "raster_sha256": "0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c",
