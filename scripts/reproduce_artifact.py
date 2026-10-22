@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Deterministic private reserialization check for the canonical H79-NHR or archived E1 artifact.
+"""Deterministic private reserialization check for canonical G79-THVC, H79-NHR, or archived E1 artifacts.
 
 No experiment, canary, holdout, placement, registry re-audit or card rewrite.
 """
@@ -29,13 +29,87 @@ ARCHIVED_E1_REPRODUCTION = {
     'zip_sha256': '51e27e9d484fbb45b75cfb4cbd9c2d1d0dfde0717584668ff4f140a70c623c2c',
 }
 
+NHR_ARCHIVE = Path('archive/h79_nhr_337ac1e9/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif')
+NHR_RASTER_SHA256 = 'abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2'
 
-def reproduce_nhr(root: Path = ROOT) -> dict:
+
+def reproduce_thvc(root: Path = ROOT) -> dict:
     card = json.loads((root / 'run_card.json').read_text())
-    build = json.loads((root / 'evidence/nhr/x1_final_build.json').read_text())
+    if card.get('lane') != 'G79-THVC':
+        raise ValueError('run_card.json is not G79-THVC')
     if card['verdict'] != 'negative' or card['ok_to_submit']:
         raise ValueError('This command only recovers the existing stopped negative artifact')
     original = root / card['submission_file']
+    original_receipt = json.loads(original.with_suffix('.json').read_text())
+    grid = load_grid(root / 'data/reference')
+    with rasterio.open(original) as ds:
+        decoded = ds.read(1).astype(np.float32)
+    dots = (decoded > 0) & grid.footprint & (~grid.catalogue)
+    dots_sha256 = hashlib.sha256(dots.tobytes()).hexdigest()
+    prediction = np.where(dots, np.float32(1.0), np.float32(0.0))
+    with tempfile.TemporaryDirectory(prefix='g79-thvc-byte-recovery-') as tmp:
+        receipt = write_submission(
+            Path(tmp) / original.name,
+            prediction,
+            root / 'data/reference/sample_submission.tif',
+            grid.footprint,
+            catalogue=grid.catalogue,
+            name=card['submission_name'],
+            note=card['submission_note'],
+            metadata=original_receipt['metadata'],
+        )
+        if receipt['sha256'] != card['raster_sha256'] or receipt['zip_sha256'] != original_receipt['zip_sha256']:
+            raise ValueError('Recovered THVC TIFF/ZIP bytes differ; originals remain unchanged')
+    return {
+        'verified_utc': datetime.now(timezone.utc).isoformat(),
+        'lane': card['lane'],
+        'exact_tiff_recovery': True,
+        'exact_single_tiff_zip_recovery': True,
+        'exact_decoded_dots_recovery': True,
+        'raster_sha256': receipt['sha256'],
+        'zip_sha256': receipt['zip_sha256'],
+        'dots_sha256': dots_sha256,
+        'positive_pixels': int(dots.sum()),
+        'scientific_experiments': 0,
+        'holdouts': 0,
+        'dot_placements': 0,
+        'slots_used': 0,
+        'original_artifacts_and_run_card_not_overwritten': True,
+        'archived_e1_reproduction': ARCHIVED_E1_REPRODUCTION,
+        'scope': (
+            'Private deterministic reserialization of the canonical stopped G79-THVC field '
+            '(with archived E1 reserialization preserved); not a new candidate or scientific evaluation.'
+        ),
+    }
+
+
+def _nhr_original(root: Path) -> tuple[dict, Path]:
+    """Locate the frozen H79-NHR bytes even after a later lane became canonical."""
+    live = json.loads((root / 'run_card.json').read_text())
+    if live.get('lane') == 'H79-NHR':
+        original = root / live['submission_file']
+        card = live
+    else:
+        original = root / NHR_ARCHIVE
+        receipt = json.loads(original.with_suffix('.json').read_text())
+        card = {
+            'lane': 'H79-NHR',
+            'verdict': 'negative',
+            'ok_to_submit': False,
+            'submission_name': receipt['submission_name'],
+            'submission_note': receipt['note'],
+            'raster_sha256': receipt['sha256'],
+            'zip_sha256': receipt['zip_sha256'],
+            'positive_pixels': 37654,
+        }
+    return card, original
+
+
+def reproduce_nhr(root: Path = ROOT) -> dict:
+    card, original = _nhr_original(root)
+    build = json.loads((root / 'evidence/nhr/x1_final_build.json').read_text())
+    if card['verdict'] != 'negative' or card['ok_to_submit']:
+        raise ValueError('This command only recovers the existing stopped negative artifact')
     original_receipt = json.loads(original.with_suffix('.json').read_text())
     grid = load_grid(root / 'data/reference')
     with rasterio.open(original) as ds:
@@ -79,7 +153,7 @@ def reproduce_nhr(root: Path = ROOT) -> dict:
         'original_artifacts_and_run_card_not_overwritten': True,
         'archived_e1_reproduction': ARCHIVED_E1_REPRODUCTION,
         'scope': (
-            'Private deterministic reserialization of the canonical stopped H79-NHR field '
+            'Private deterministic reserialization of the stopped H79-NHR field '
             '(with archived E1 reserialization preserved); not a new candidate or scientific evaluation.'
         ),
     }
@@ -136,9 +210,9 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         '--lane',
-        choices=('nhr', 'e1'),
-        default='nhr',
-        help='Which stopped artifact to reserialize in a temporary directory (default: nhr).',
+        choices=('canonical', 'thvc', 'nhr', 'e1'),
+        default='canonical',
+        help='Which stopped artifact to reserialize in a temporary directory (default: canonical).',
     )
     parser.add_argument(
         '--no-write-evidence',
@@ -146,8 +220,13 @@ def main(argv: list[str] | None = None) -> int:
         help='Print verification JSON without updating evidence/artifact_reproduction.json.',
     )
     args = parser.parse_args(argv)
-    report = reproduce_nhr(ROOT) if args.lane == 'nhr' else reproduce_e1(ROOT)
-    if args.lane == 'nhr' and not args.no_write_evidence:
+    if args.lane in ('canonical', 'thvc'):
+        report = reproduce_thvc(ROOT)
+    elif args.lane == 'nhr':
+        report = reproduce_nhr(ROOT)
+    else:
+        report = reproduce_e1(ROOT)
+    if args.lane in ('canonical', 'thvc') and not args.no_write_evidence:
         (ROOT / 'evidence/artifact_reproduction.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
     return 0

@@ -16,7 +16,7 @@ before any result; full analysis in
 | Paired Δ vs H33 control | −0.0173 [−0.0287, −0.0055] · −0.0106 [−0.0245, +0.0044] |
 | Paired Δ vs uniform | +0.0288 [0.0185, 0.0386] · +0.0385 [0.0248, 0.0508] (beats chance; not enough) |
 | Leakage canary | 680 single-feature AUC tests over 85 features, max 0.8589 ≤ 0.90: PASS |
-| Uniqueness (amendment D-2) | **Not unique under D-2 as preregistered.** Worst Spearman ρ 0.314 and worst chance-corrected overlap 0.654 against all 982 informative comparable registry rasters (both within limits), but 4 full-footprint diagnostic surfaces fire the saturated-halo exact test (IR-79-68) and 6 of 992 registry rasters are not comparable on this grid. Placement was therefore never run; the TIFF below serialises the audited provisional top-quota dots once, as negative evidence. |
+| Uniqueness (amendment D-2) | **Not unique under D-2 as preregistered.** Worst Spearman ρ 0.314 and worst chance-corrected overlap 0.654 against all 982 informative comparable registry rasters (both within limits), but 4 full-footprint diagnostic surfaces fire the saturated-halo exact test (IR-79-128) and 6 of 992 registry rasters are not comparable on this grid. Placement was therefore never run; the TIFF below serialises the audited provisional top-quota dots once, as negative evidence. |
 | Verdict | **negative**. No retuning, no capping, no second experiment. `ok_to_submit: false`; no submission slot used. |
 
 Artifact (research only):
@@ -28,6 +28,6 @@ Artifact (research only):
 | Dots SHA-256 | `ad5194091950f47972aadc28fcf4d115753734d700832a1007e4fb8e7900c276` |
 | Format | single-band float32, EPSG:32611, 3730 × 3292, values exactly 0/1, all finite, no nodata sentinel: local format PASS (a format pass is not permission to submit) |
 
-The canonical site artifact remains the H79-NHR research GeoTIFF in
-`docs/downloads/` (IR-79-52 single-artifact contract). Nothing in this lane
-changed it.
+This lane never touched the canonical site artifact in `docs/downloads/`
+(IR-79-52 single-artifact contract): that was the H79-NHR research GeoTIFF
+on this session's base (`9640ed3`) and is `G79-THVC` on `main` at merge time.

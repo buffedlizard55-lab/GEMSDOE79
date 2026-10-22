@@ -23,6 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
 from gems57 import uniqueness as shared
 from gems57.grid import load_grid
+from gems79.lifecycle import LaneClosedError, require_open_lane
 import run_stepco_experiment as s1
 
 EV = s1.EV
@@ -45,6 +46,7 @@ def candidates():
 
 
 def main():
+    require_open_lane(ROOT, "G79-STEPCO")
     grid, cand = candidates()
     index = json.loads((ROOT / "registry/registry_index.json").read_text())
     receipt = json.loads((ROOT / "registry/registry_receipt.json").read_text())
@@ -101,4 +103,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

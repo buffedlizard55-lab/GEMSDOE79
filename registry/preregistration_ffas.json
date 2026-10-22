@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "lane": "H79-FFAS",
+  "title": "Far-field polarity-aware antislope scarp",
+  "registered_utc": "2026-10-22T03:49:08Z",
+  "branch": "arena/c04e5e27-gemsdoe79",
+  "registered_before_any_holdout_result": true,
+  "supersedes": "Nothing. H79-NHR, G79-STEPCO, G79B-SDPT and G79-FABRIC-OFFSET remain stopped negative lanes; their cards are preserved. This session does not retune them.",
+  "lane_paragraph": "Uphill-facing and intra-basin fault scarps more than a few hundred metres from the public catalogue are the structures regional compilers under-map. From the USGS 3DEP lidar scarp stack only, form a fixed (not learned) polarity-aware scarp score (downface + 2*upface) times step, slope-excess, along-strike coherence and cross-strike expression, then multiply by a logistic far-field weight of distance to the visible catalogue (centre 8 px = 800 m, scale 3 px). Rank the product on the footprint, mask mapped pixels exactly, apply a 2 px visible-echo collar, and emit 37,654 binary dots with 3 px Poisson spacing. Catalogue-derived inputs use the visible faults only. No nested learner, no magnetic lag, no prior submission as an input.",
+  "hypothesis": "Expert-added faults missing from USGS/INGENIOUS are enriched in antithetic (uphill-facing) and isolated interior scarps farther from already-drawn traces than the subsidiary near-fault strands that nested hide-and-recover learns; a polarity-aware lidar score with a logistic far-field weight therefore ranks unmapped-fault kernel credit in a different spatial band than H33/h19-5 range-front packing and than NHR's 300 m-2 km halo.",
+  "mechanism": "Basin-and-Range normal-fault systems are multi-strand: synthetic range-front scarps face downslope and dominate regional maps; antithetic hanging-wall and intra-horst scarps face upslope, are shorter, and are often omitted. Where they offset Quaternary surfaces they still leave lidar-resolvable slope excess, a 10-50 m step, crest convexity and along-strike coherence. A 2 px collar around visible traces removes catalogue-echo false positives under the organiser's exact-pixel known-fault mask.",
+  "named_non_fault_mimic": "Ridge-top sackung and landslide headscarps are also uphill-facing; irrigation ditches, mine benches and contour-parallel pluvial terrace risers produce coherent steps of similar 2-10 m scale.",
+  "inputs": [
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568 (USGS 3DEP-derived, bands upface_max, downface_max, step_max, ex_max, coh100, cross_max, valid)",
+    "data/reference/existing_faults.tif and sample_submission.tif (grid, footprint, catalogue)"
+  ],
+  "excluded_inputs": "No registry raster, prior submission, SGMC map, Qfaults CSV, GeoDAWN magnetics/radiometrics, training_features.tif, nested hide-and-recover labels, or score is an input to the surface. Distance-to-catalogue is computed from the visible catalogue only.",
+  "fixed_parameters": {
+    "formula": "raw = (downface_max + 2.0 * upface_max) * step_max * (coh100/255) * (cross_max/255) * (ex_max/255) * logistic(EDT(visible), d0=8 px, s=3 px); invalid lidar -> 0; then footprint mid-ranks to [0,1]; catalogue pixels set to 0",
+    "upface_boost": 2.0,
+    "logistic_d0_px": 8.0,
+    "logistic_scale_px": 3.0,
+    "min_distance_to_visible_px": 2,
+    "model": "none — closed-form rank surface, no fitted weights",
+    "placement": "gems79.placement.place: descending surface, Euclidean 3 px spacing, budget 37654 scaled by evaluation-region footprint area",
+    "allowed_cells": "footprint & region & not masked/visible catalogue & EDT(visible) > 2",
+    "final_map": "same formula on the full catalogue as visible; 37654 binary dots off the catalogue; zeros elsewhere (all finite)"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer 3 px, boundary 12 px (identical to H79-NHR, so controls are directly comparable)",
+    "catalogue_features": "logistic far-field weight and the 2 px collar use the VISIBLE catalogue only",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified)",
+    "controls": [
+      "seeded uniform surface, same allocator and budget",
+      "h33_foldfair_control: legacy D2.8 dots outside 2 px of the fold's visible catalogue (as in evidence/nhr/x1_holdout_seed20.json)",
+      "ablation_no_farfield: same polarity score with logistic weight = 1",
+      "ablation_equal_polarity: upface_boost = 1 (down+up) with far-field weight kept"
+    ],
+    "ci": "shared paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws"
+  },
+  "leakage_canary": "Every input feature alone (lidar bands, polarity product, logistic weight) on each seed and fold: held-out positives vs negatives >3 px from truth and >3 px from visible faults; symmetric AUC > 0.90 means leakage until proven otherwise and blocks promotion.",
+  "uniqueness": {
+    "shared_tool": "gems57.uniqueness.compare_array_to_registry",
+    "dot_definition": "budget-matched-v3",
+    "overlap_mode": "informative-halo-v4",
+    "overlap_mode_meaning": "IR-79-53 resolution, fixed once in the shared tool. Rank correlation still applies to every raster (rho > 0.90 fires). The 70 % / 3 px forward-overlap test fires only when the prior's own 3 px halo covers <= 70 % of the allowed domain (otherwise the test is a constant, identical to the E-proba / lattice / plateau vacuous case). Byte and decoded-pixel identity still fire. Default of the shared function remains literal-threshold so historical NHR evidence is unchanged.",
+    "checked_on": "surface (Spearman of the continuous rank surface + overlap of its provisional top-37654 cells) BEFORE placement, and on the final dots"
+  },
+  "promotion_gate": [
+    "all canaries <= 0.90 on both seeds",
+    "candidate pooled HOLDOUT-DTI > h33_foldfair_control point estimate on BOTH seeds",
+    "paired 95% CI of candidate minus uniform_control excludes 0 on both seeds",
+    "uniqueness (shared tool, budget-matched-v3, informative-halo-v4): surface Spearman <= 0.90 vs every registry raster; final dots Spearman <= 0.90 and forward 3 px overlap <= 0.70 vs every registry raster whose 3 px halo covers <= 0.70 of the allowed domain",
+    "shared submission_writer validation: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, [0,1], no mass outside footprint or on catalogue"
+  ],
+  "experiments": [
+    "X1: the lane exactly as specified above",
+    "X2/X3: reserved; only for a defect fix, never for tuning against the holdout"
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95% CI). No projected leaderboard score is written. ORGANIZER-CONFIRMED requires a submission-page receipt."
+}

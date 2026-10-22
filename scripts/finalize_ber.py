@@ -133,7 +133,7 @@ def main():
                                              rank_surface_sha256=surf_build["rank_surface_sha256"]))
     # IR-79-63 class: the shared writer receipt embeds the path it was given;
     # normalise it to repo-relative so published evidence is machine-free.
-    # (Applied to the X1 receipt on disk; the lane is terminal, see IR-79-69.)
+    # (Applied to the X1 receipt on disk; the lane is terminal, see IR-79-129.)
     receipt_path = path.with_suffix(".json")
     receipt_doc = json.loads(receipt_path.read_text())
     def _rel(x):

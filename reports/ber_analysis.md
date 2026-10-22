@@ -38,7 +38,7 @@ produced none.
    ρ = 0.314, worst chance-corrected 3 px overlap = 0.654; limits 0.90 /
    0.70). It is nevertheless recorded **not unique under amendment D-2**,
    because four full-footprint diagnostic surfaces fire D-2's
-   saturated-halo exact test (IR-79-68) and 6 of 992 registry rasters are
+   saturated-halo exact test (IR-79-128) and 6 of 992 registry rasters are
    not comparable on this grid. The gate was **not** modified after seeing
    this; §7 explains why, and what a prospective D-3 would need.
 4. **Can 0.2778 be beaten?** Nothing in this session's evidence supports
@@ -298,7 +298,7 @@ TIFF (`smoke.tif`, missing `StripOffsets`), one grid/band mismatch
   inclusive dot-equivalent set is the entire footprint (5,167,373 cells),
   forcing exact overlap 1.0 for *any* candidate: three GEMSDOE48
   "unassigned-mass" diagnostics (ρ = 0.0013) and the 5GEMSDOE density
-  probe (ρ = 0.178). Recorded as **IR-79-68**.
+  probe (ρ = 0.178). Recorded as **IR-79-128**.
 
 **Decision:** the lane is recorded *not unique under D-2*, placement was
 never run, and the archived TIFF serialises the audited provisional
@@ -309,7 +309,7 @@ plateau surfaces a chance-corrected exact test (or declaring
 adopting it after seeing it fire on our own experiment would be moving
 the goalposts, and the verdict is negative on holdout regardless. A D-3
 amendment is a prospective owner decision for a future lane; the exact
-formula recommended is recorded in IR-79-68. What can be stated as
+formula recommended is recorded in IR-79-128. What can be stated as
 measurement: against all 982 informative comparable rasters, BER passes
 both D-2 numeric criteria with margin — intrinsic uniqueness-by-design
 (banded allocation + per-band rank normalisation) worked where
@@ -317,14 +317,14 @@ uniqueness-by-capping (G79B-SDPT) and pooled ranking (H79-NHR) did not.
 
 ## 7. Irregularities found this session
 
-- **IR-79-67** — `data/restore_receipt.json` pins `ext_geodawn_rad_u8` to
+- **IR-79-127** — `data/restore_receipt.json` pins `ext_geodawn_rad_u8` to
   SHA `e8086c…`, conflicting with the manifest's `c22420…`; the on-disk
   file matches the manifest. Left untouched (frozen evidence); restores
   must not use `--preserve-receipt`.
-- **IR-79-68** — D-2 saturated-halo degeneracy on plateau diagnostics
+- **IR-79-128** — D-2 saturated-halo degeneracy on plateau diagnostics
   (above). Gate left exactly as preregistered; D-3 recommendation
   recorded.
-- **IR-79-69** — a parallel-edit race truncated the first finalize note
+- **IR-79-129** — a parallel-edit race truncated the first finalize note
   mid-token; one documented repackage with identical dots, gates and
   verdict produced byte-identical raster bytes (SHA-256 `934b5c50…`
   before and after).
@@ -367,16 +367,26 @@ earn H33's existing credit.
   on both seeds of the shared instrument — the rule that stopped this
   lane.
 - The duplicate-gate blocker also needs the owner's prospective decision
-  (D-3, IR-79-68): under any reading in force today, even a future
+  (D-3, IR-79-128): under any reading in force today, even a future
   holdout-winning surface would need its uniqueness established against
   plateau diagnostics in a way the current tool cannot express.
 
 **Bottom line for this week:** there is no file in this repository —
 including the one generated this session — that the automatic gates can
-honestly mark OK TO SUBMIT. The canonical site artifact remains the
-H79-NHR research GeoTIFF (DO NOT SUBMIT). Spending a slot now would mean
-choosing between a duplicate (NHR-class) and a holdout-loser (BER-class);
-the protocol exists precisely to refuse that choice.
+honestly mark OK TO SUBMIT. The canonical site artifact (H79-NHR on this
+session's base; G79-THVC on `main` at merge time) remains DO NOT SUBMIT.
+Spending a slot on the BER file would mean choosing a holdout-loser over
+the protocol's bar; the protocol exists precisely to refuse that choice.
+
+*Merge note (2026-10-22): this report was written on base `9640ed3`, whose
+canonical lane was H79-NHR. By merge time, `main`'s canonical card is
+G79-THVC, reporting HOLDOUT-DTI 0.1905 / 0.1944 on the same evaluator (its
+own evidence in `run_card.json`, not re-measured here; also negative /
+DO NOT SUBMIT). BER is below that as well. Nothing in §§3–5 changes: BER's
+preregistered bar was the H33 fold-fair control, and THVC's existence
+strengthens §8's conclusion that corroborated multi-sensor structure —
+not per-pixel tabular ranking — is where offline gains have come from.
+IR numbers in this report were renumbered 67–69 → 127–129 at merge.*
 
 ## 9. Limitations
 

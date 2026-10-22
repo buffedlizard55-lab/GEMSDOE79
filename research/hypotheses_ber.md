@@ -109,7 +109,7 @@ Hypothesis 1 (G79-BER) was run exactly as preregistered
   registry raster — the most registry-distinct surface this repo has
   measured — but the lane is recorded **not unique under D-2**, because 4
   full-footprint diagnostic surfaces fire the saturated-halo exact test
-  (IR-79-68) and the gate was not modified after seeing the result.
+  (IR-79-128) and the gate was not modified after seeing the result.
 
 Hypotheses 2–5 were not run (2 folded into 1; 3 not viable without absolute
 elevation in this sandbox; 4 included as features; 5 infeasible on this
