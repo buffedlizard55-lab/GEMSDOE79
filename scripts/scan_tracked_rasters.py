@@ -34,9 +34,17 @@ def scan_one(rel: str) -> dict:
     try:
         with rasterio.open(p) as s:
             a = s.read(1).astype("float64")
-            rec.update(crs=str(s.crs), shape=[s.height, s.width], dtype=s.dtypes[0],
-                       count=s.count, nodata=None if s.nodata is None or not np.isfinite(s.nodata) else float(s.nodata),
-                       transform=[float(v) for v in tuple(s.transform)[:6]])
+            raw_nodata = s.nodata
+            rec.update(
+                crs=str(s.crs),
+                shape=[s.height, s.width],
+                dtype=s.dtypes[0],
+                count=s.count,
+                single_band=bool(s.count == 1),
+                nodata=None if raw_nodata is None or not np.isfinite(raw_nodata) else float(raw_nodata),
+                nodata_is_nan=bool(raw_nodata is not None and np.isnan(raw_nodata)),
+                transform=[float(v) for v in tuple(s.transform)[:6]],
+            )
         finite = np.isfinite(a)
         n_fin = int(finite.sum())
         vals = a[finite]

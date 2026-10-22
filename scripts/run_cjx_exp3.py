@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 from gems57.grid import load_grid
 from gems57 import evaluate_holdout, holdout
+from gems79.lifecycle import enforce_open_lane
 from gems79.thvc_model import poisson_disk_emit
 
 OUT = ROOT / "evidence" / "cjx"
@@ -39,6 +40,7 @@ def _surface_path():
 
 
 def main():
+    enforce_open_lane(ROOT, "G79-CJX", reason="G79-CJX stopped negative (3/3 budget exhausted)")
     t0 = time.time()
     grid = load_grid(ROOT / "data/reference")
     footprint, catalogue = grid.footprint, grid.catalogue
