@@ -72,6 +72,24 @@ The STEPCO files are kept as they are:
 The STEPCO lane's README section is preserved in [`reports/readme_history_through_9417f4e.md`](reports/readme_history_through_9417f4e.md).
 The merge is recorded as IR-79-56.
 
+## Concurrent lane G79B-SDPT (session `67557396`): also negative, archived
+
+Scarp dipole-persistence + trace-object detector
+([hypotheses](research/hypotheses_g79b.md),
+[preregistration](registry/preregistration_g79b.json),
+[run card](run_card_g79b.json)), archived under
+[`archive/g79b_sdpt_67557396/`](archive/g79b_sdpt_67557396/README.md) —
+**not** the canonical download; **DO NOT SUBMIT**. Unconstrained HOLDOUT-DTI
+0.1211/0.1114 beat its control (0.1143/0.1087) and the archived best on both
+seeds (canary worst AUC 0.600), but duplicated 99 prior dot fields; the
+preregistered uniqueness cap (52 discriminating priors at 0.68,
+[Amendments B1](registry/preregistration_g79b_amendment_B1.json)/[B2](registry/preregistration_g79b_amendment_B2.json))
+cost −0.0176/−0.0203, leaving the registry-unique artifact **below** its
+control (0.1036/0.0910) — verdict negative, 0 slots used. Reproduce:
+`PYTHONPATH=src:vendor:scripts .venv/bin/python scripts/submission_status_g79b.py`
+(exit 2). Same wall as STEPCO/NHR: the family's good scarp terrain is
+already dotted, so uniqueness after the fact costs more than detector gains.
+
 ## Limitations and next steps
 
 - HOLDOUT-DTI withholds *catalogue* faults; the organizer scores *expert* faults absent from the
