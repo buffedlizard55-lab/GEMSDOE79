@@ -113,9 +113,15 @@ def check_site():
                 'all_manifest_inputs_ready', 'files'):
         assert runtime[key] == observed_now[key], f'Runtime data feed drift: {key}'
     assert site_manifest['runtime_data_status_sha256'] == hashlib.sha256(runtime_path.read_bytes()).hexdigest()
-    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_a92a0164.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_414b11bf.json').read_bytes()).hexdigest()
     assert site_manifest['latest_review_card_sha256'] == hashlib.sha256((site / 'evidence/run_card_a92a0164.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_review_session'] == '414b11bf'
+    assert site_manifest['latest_review_evidence_sha256'] == hashlib.sha256((site / 'evidence/review_414b11bf.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_review_report_sha256'] == hashlib.sha256((site / 'evidence/session_review_414b11bf.md').read_bytes()).hexdigest()
     assert site_manifest['latest_source_review_sha256'] == hashlib.sha256((site / 'evidence/source_review_a92a0164.json').read_bytes()).hexdigest()
+    assert json.loads((site / 'evidence/preflight_414b11bf.json').read_text()) == json.loads((ROOT / 'evidence/preflight_414b11bf.json').read_text())
+    assert json.loads((site / 'evidence/review_414b11bf.json').read_text()) == json.loads((ROOT / 'evidence/review_414b11bf.json').read_text())
+    assert (site / 'evidence/session_review_414b11bf.md').read_text() == (ROOT / 'reports/session_review_414b11bf.md').read_text()
     assert json.loads((site / 'evidence/preflight_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/preflight_a92a0164.json').read_text())
     assert json.loads((site / 'evidence/run_card_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/run_card_a92a0164.json').read_text())
     assert json.loads((site / 'evidence/source_review_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/source_review_a92a0164.json').read_text())
@@ -124,7 +130,11 @@ def check_site():
     assert f"{runtime['verified_count']}/{runtime['expected_count']}" in source_text
     for filename in ('index.html', 'executive-summary.html'):
         current_text = pages[filename].get_text(' ', strip=True)
-        assert 'Parallel review' in current_text and 'no new candidate GeoTIFF' in current_text
+        assert 'Latest review' in current_text and 'session 414b11bf' in current_text
+        assert 'no new candidate GeoTIFF' in current_text and 'no slot use' in current_text
+        assert 'review-time runtime availability' in current_text.lower() and '13/13' in current_text
+        assert 'H33' in current_text and '0.2747' in current_text and 'UNSCORED' in current_text and '0.4413' in current_text
+        assert 'ventprox TIFF' in current_text and 'outside-bounds R6' in current_text
     assert '@import' not in (site / 'assets/site.css').read_text()
     assert (ROOT / '.nojekyll').exists() and (site / '.nojekyll').exists()
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()

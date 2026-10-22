@@ -1,0 +1,300 @@
+{
+  "schema": "gemsdoe79.repository_review.v1",
+  "session_id": "414b11bf",
+  "reviewed_date_utc": "2026-10-22",
+  "branch": "arena/414b11bf-gemsdoe79",
+  "initial_commit": "268c86424ef2a7837302953cb3cb1a4b9abe923d",
+  "main_fast_forwarded_into_assigned_branch": "128aea4c31f38e7448ee4c4cd26a63d79c7a7a25",
+  "assigned_method_paragraph_present": false,
+  "decision": "negative_stop_before_experiment",
+  "runtime_inputs": {
+    "evidence_class": "RUNTIME-LOCAL-AVAILABILITY",
+    "status": "all_manifest_inputs_verified",
+    "manifest_sha256": "eb6ec57d001e2e7f9279d450357e61961efabedff0a0085f5022b76b2dd60d0c",
+    "expected_count": 13,
+    "verified_count": 13,
+    "missing_count": 0,
+    "mismatch_count": 0,
+    "checked_utc": "2026-10-22T20:06:12.510691Z",
+    "scope": "Present file bytes under ignored data/raw compared with registry/data_manifest.json pins. Not organizer-origin, license, or scientific-semantics authentication."
+  },
+  "training_feature_schema": {
+    "path": "data/raw/training_features.tif",
+    "band_count": 19,
+    "observed_conductance_bands": [
+      "cond_surf"
+    ],
+    "observed_basement_band": "depth_to_base_surf",
+    "claimed_but_absent_depth_bands": [
+      "cond_2km",
+      "cond_5km",
+      "cond_10km",
+      "cond_15km"
+    ],
+    "inspection": "Rasterio band descriptions; the 19-band raster does not contain the claimed MT depth stack."
+  },
+  "feature_cache": {
+    "historical_receipt": "evidence/feature_cache.json",
+    "expected_array_count": 10,
+    "present_expected_array_count": 0,
+    "current_cache_files": [
+      ".cache/input_restore.json",
+      ".cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif"
+    ],
+    "prepare_data_run": false,
+    "status": "receipt exists; feature arrays are absent"
+  },
+  "preflight": {
+    "evidence_class": "NOVELTY-MEASUREMENT",
+    "path": "evidence/preflight_414b11bf.json",
+    "command": ".venv/bin/python scripts/preflight_new_lane.py --restore --report evidence/preflight_414b11bf.json",
+    "exit_code": 2,
+    "state": "impossible_under_literal_gate",
+    "start_new_lane": false,
+    "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "covered_allowed_fraction": 1.0,
+    "literal_forward_overlap_lower_bound_for_any_nonempty_candidate": 1.0,
+    "overlap_limit": 0.7
+  },
+  "experiment": {
+    "hypothesis_tested": null,
+    "experiment_count": 0,
+    "candidate_surface_built": false,
+    "surface_rank_correlation": "NOT RUN; no candidate surface",
+    "surface_overlap_before_placement": "NOT RUN; preflight stop",
+    "feature_alone_leakage_canaries": "NOT RUN; no candidate features",
+    "holdout_candidate_result": "NOT RUN",
+    "final_dot_overlap": "NOT RUN; no placement",
+    "new_raster_path": null,
+    "new_raster_sha256": null,
+    "validator_output_for_new_raster": "NOT RUN; no new raster",
+    "selector_invoked": false,
+    "submission_slots_used": 0
+  },
+  "inherited_holdout_dti": [
+    {
+      "lane": "G79-THVC",
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seed_20": {
+        "dti": 0.1905,
+        "withheld_positive_count": 11321,
+        "ci95": [
+          0.1741,
+          0.2069
+        ]
+      },
+      "seed_30": {
+        "dti": 0.1944,
+        "withheld_positive_count": 11342,
+        "ci95": [
+          0.1774,
+          0.2126
+        ]
+      },
+      "metric": {
+        "alpha": 0.2,
+        "beta": 0.8,
+        "triangular_kernel_radius_m": 300
+      },
+      "status": "Frozen historical result; not rerun in this review."
+    },
+    {
+      "lane": "G79-CSKD",
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seed_20": {
+        "dti": 0.178129,
+        "withheld_positive_count": 11321,
+        "ci95": [
+          0.161835,
+          0.194433
+        ]
+      },
+      "seed_30": {
+        "dti": 0.214488,
+        "withheld_positive_count": 11342,
+        "ci95": [
+          0.196592,
+          0.232188
+        ]
+      },
+      "metric": {
+        "alpha": 0.2,
+        "beta": 0.8,
+        "triangular_kernel_radius_m": 300
+      },
+      "status": "Frozen historical result; separate negative lane; not rerun in this review."
+    }
+  ],
+  "score_evidence": {
+    "h33_0_2778": {
+      "evidence_class": "UNVERIFIED HISTORICAL REPORT",
+      "artifact_linked_organizer_receipt": null,
+      "interpretation": "No submission-page receipt links 0.2778 to the H33 TIFF. The byte-lineage audit does not establish hidden truth or causality.",
+      "owner_site_note": {
+        "site_label": "UNSCORED",
+        "separate_projection": 0.2747,
+        "evidence_class": "UNSCORED SITE PROJECTION",
+        "is_organizer_receipt": false
+      }
+    },
+    "public_leaderboard": {
+      "evidence_class": "PUBLIC-LEADERBOARD-OBSERVATION",
+      "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "observed_date_utc": "2026-10-22",
+      "rank_1_public_dti": 0.4413,
+      "artifact_linked_organizer_receipt": null
+    },
+    "older_0_3195": {
+      "evidence_class": "UNVERIFIED HISTORICAL USER REPORT",
+      "artifact_linked_organizer_receipt": null
+    }
+  },
+  "existing_artifacts_not_created_in_this_review": [
+    {
+      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "ok_to_download": true,
+      "ok_to_submit": false,
+      "status": "Inherited canonical negative research artifact."
+    },
+    {
+      "path": "artifacts/ventprox/gems79-ventprox-geothermalvents-12000dots-20261022-20261022T200156Z-zeros-DO-NOT-SUBMIT.tif",
+      "sha256": "ff9fbdae78db06ba609d4402229f0e53a90af39333336be2ee1b60dfaa837455",
+      "ok_to_download": true,
+      "ok_to_submit": false,
+      "status": "Already committed on main before this review; local range receipt does not establish novelty or holdout. Official validator failed R6."
+    }
+  ],
+  "current_ranked_hypotheses": {
+    "document": "research/hypotheses_a92a0164.md",
+    "count": 4,
+    "rank_basis": "Qualitative information orthogonality, fault specificity, data readiness, and cost; no numeric DTI forecast.",
+    "items": [
+      "Event-level ComCat lineation and focal-plane coherence",
+      "Gravity-supported magnetic decoupling",
+      "Paired signed USGS heat-flow residuals",
+      "Sentinel-1 SLC interseismic deformation discontinuity"
+    ],
+    "execution_status": "All deferred by the literal preflight; external data are not represented as locally acquired."
+  },
+  "backlog_correction": {
+    "document": "research/hypotheses_4ddab9a1_untried.md",
+    "historical_items_requiring_correction": [
+      "H79-U1",
+      "H79-U2",
+      "H79-U3",
+      "H79-U4",
+      "H79-U5"
+    ],
+    "summary": "U1/U2/U4/U5 overlap with later implementations or tested families; U3's claimed depth bands are absent and its cited conductance product does not provide the proposed shallow slices."
+  },
+  "external_source_status": [
+    {
+      "source": "USGS ComCat FDSN Event Web Service",
+      "url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+      "status": "Official API documentation fetched; prior documented sample-area counts indicate data discoverability; no full event/mechanism dataset ingested."
+    },
+    {
+      "source": "USGS Great Basin Heat Flow ScienceBase item",
+      "url": "https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28",
+      "status": "Official metadata lists a public 130154244-byte ZIP; bytes, schema, target coverage, and file-level license were not acquired or verified."
+    },
+    {
+      "source": "Copernicus Sentinel-1 SLC STAC collection",
+      "url": "https://stac.dataspace.copernicus.eu/v1/collections/sentinel-1-slc",
+      "status": "Prior bbox/time query returned metadata items; no full-footprint coverage audit or SLC asset download."
+    },
+    {
+      "source": "USGS Electrical Conductance Maps ScienceBase item",
+      "url": "https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b",
+      "doi": "10.5066/P9TWT2LU",
+      "status": "Five depth-integrated ranges span 2–200 km; they are not the missing local cond_2km–cond_15km shallow resistivity bands."
+    }
+  ],
+  "submission_decision": {
+    "new_file_created": false,
+    "new_file_ok_to_download": false,
+    "new_file_ok_to_submit": false,
+    "canonical_existing_file_ok_to_download": true,
+    "canonical_existing_file_ok_to_submit": false,
+    "submission_slots_used": 0,
+    "separate_selector_invoked": false
+  },
+  "official_format_audit_of_inherited_ventprox": {
+    "evidence_class": "FORMAT-VALIDATION",
+    "command": ".venv/bin/python scripts/validate_portal_spec.py artifacts/ventprox/gems79-ventprox-geothermalvents-12000dots-20261022-20261022T200156Z-zeros-DO-NOT-SUBMIT.tif",
+    "exit_code": 2,
+    "failed_rule": "R6",
+    "outside_template_non_nan_cells": 7111787,
+    "status": "Existing artifact only; no file changed; not organizer acceptance."
+  },
+  "review_passes": [
+    {
+      "pass": 1,
+      "scope": "Prompt scope, runtime inputs, cache presence, fresh preflight",
+      "result": "PASS; fail-closed stop preserved."
+    },
+    {
+      "pass": 2,
+      "scope": "Score provenance, stale backlog, source availability, ranked hypotheses",
+      "result": "PASS; qualitative priorities only, no score projection."
+    },
+    {
+      "pass": 3,
+      "scope": "README, site, tests and repository-integrity verification",
+      "result": "PASS: rebuilt 13-page site; check_site passed (345 local links, all pages reachable); verify_project passed; pytest 597/597 passed; browser QA passed (12 Node tests and 39 rendered cases); submission_status correctly exited 2 for the negative card. Final staged patch passed git diff --cached --check."
+    }
+  ],
+  "final_verification": {
+    "site_build": {
+      "result": "PASS",
+      "pages": 13,
+      "decision": "OK TO DOWNLOAD: YES; OK TO SUBMIT: NO"
+    },
+    "site_check": {
+      "result": "PASS",
+      "pages": 13,
+      "local_links_checked": 345,
+      "compatibility_redirects": 2,
+      "all_pages_reachable": true
+    },
+    "verify_project": {
+      "result": "PASS",
+      "all_checks_passed": true
+    },
+    "pytest": {
+      "result": "PASS",
+      "passed": 597,
+      "failed": 0,
+      "duration_seconds": 94.4
+    },
+    "browser_qa": {
+      "result": "PASS",
+      "node_unit_tests_passed": 12,
+      "rendered_page_viewport_cases": 39,
+      "download_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "scope": "Static site/browser QA only; not a geology or organizer-acceptance test."
+    },
+    "submission_status": {
+      "result": "EXPECTED_NEGATIVE",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "ok_to_submit": false
+    },
+    "npm_ci": {
+      "result": "PASS",
+      "packages_added": 19,
+      "vulnerabilities": 0
+    },
+    "git_diff_check": "PASS: final staged patch; no whitespace errors."
+  },
+  "limitations": [
+    "No assigned method paragraph is present.",
+    "The literal novelty witness blocks every nonempty candidate before construction.",
+    "Feature arrays listed by the historical receipt are absent from the local cache.",
+    "Remote source metadata is not local data acquisition or validation.",
+    "No organizer submission-page receipt establishes a local artifact score."
+  ]
+}

@@ -1,12 +1,24 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
-## Latest review — 2026-10-22, Arena session `d754356b`
+## Latest review — 2026-10-22, Arena session `414b11bf`
+
+**No experiment or candidate GeoTIFF was created; no competition slot was used.** The assigned method paragraph is absent, and the fresh literal preflight exits `2`: a hash-pinned witness covers every allowed cell, forcing at least `1.0000` 3-px overlap against the unchanged `0.70` limit for any nonempty candidate. No exception, jitter, or re-placement was used. This review's new-file verdict is **no file to download; OK TO SUBMIT: NO**.
+
+The runtime data check did verify all **13/13** manifest inputs locally at `2026-10-22T20:06:12.510691Z`, but the ten feature arrays listed in the historical cache receipt are absent and no feature preparation or experiment was run. The 19-band input does not contain the old backlog's claimed `cond_2km`–`cond_15km` layers. The corrected, qualitative four-item research shortlist and the stale U1–U5 backlog audit are linked below. No numerical DTI gain is forecast.
+
+H33's `0.2778` remains an **UNVERIFIED HISTORICAL REPORT** without an artifact-linked organizer receipt; its owner page labels the raster **UNSCORED** and `0.2747` as a projection. The official page read on 2026-10-22 showed a **PUBLIC-LEADERBOARD-OBSERVATION** of `0.4413` at rank 1; it is not this repository's score or an artifact receipt. The older user-reported `0.3195` is not the current public leader. No score improvement is claimed.
+
+Main already contains a separate `ventprox` research TIFF, not created by this review: it lacks novelty and holdout clearance and fails the official outside-bounds R6 check. **Do not submit it.** Existing canonical G79-THVC remains **OK TO DOWNLOAD: YES; OK TO SUBMIT: NO**; it is inherited, not a new file.
+
+See the [three-pass review](reports/session_review_414b11bf.md), [machine-readable review](evidence/review_414b11bf.json), [fresh preflight](evidence/preflight_414b11bf.json), [updated ranked hypotheses](research/hypotheses_a92a0164.md), and [corrected historical U1–U5 backlog](research/hypotheses_4ddab9a1_untried.md).
+
+## Prior repository review — 2026-10-22, Arena session `d754356b`
 
 **No new candidate TIFF was generated; no submission is approved.** The prompt's purported assigned method paragraph is absent, and the literal novelty preflight returns exit 2: a hash-verified registry witness covers 100% of allowed cells, so every nonempty candidate exceeds the 70% forward-overlap limit. Do not rename, jitter, or re-place an archived raster. This review used zero submission slots.
 
 The audited, already archived STEPCO S2-COVER artifact is **DO NOT SUBMIT**: its `gems57-pooled-hide-v2` HOLDOUT-DTI is 0.09354 (seed 20; 11,321 withheld positives; 95% CI [0.07802, 0.10885]) and 0.09607 (seed 30; 11,342 withheld positives; 95% CI [0.07959, 0.11172]); its paired CIs versus the fold-fair H33 control include zero and its literal final-dot overlap is 1.0. Those are historical results already in the repository, not results from this session. H33's 0.2778 remains an **UNVERIFIED HISTORICAL REPORT**, not an organizer receipt.
 
-See the [three-pass review](reports/session_review_d754356b.md) and [JSON run card](evidence/run_card_d754356b.json) for the five qualitatively ranked hypotheses, official-source links, exact test results, runtime-data status, and blockers. Runtime inputs remain 0/13 under `data/raw`; no model experiment or new submission file was possible under the current stop conditions.
+See the [three-pass review](reports/session_review_d754356b.md) and [JSON run card](evidence/run_card_d754356b.json) for the five qualitatively ranked hypotheses, official-source links, exact test results, runtime-data status, and blockers. Runtime inputs were reported as 0/13 at that review's build; no model experiment or new submission file was created under those stop conditions.
 
 ## Latest prior review — 2026-10-22, session `1f9d2dc9`
 
