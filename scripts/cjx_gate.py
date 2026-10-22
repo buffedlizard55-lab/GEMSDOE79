@@ -27,6 +27,7 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 sys.path.insert(0, str(ROOT / "scripts"))
 import rasterio
 from gems57.grid import load_grid
+from gems79.lifecycle import enforce_open_lane
 from validate_submission import validate_path
 
 INCUMBENT = {"20": 0.1905226265456631, "30": 0.194393256940719}   # G79-THVC frozen
@@ -81,6 +82,7 @@ def _novelty_row(task):
 
 
 def main():
+    enforce_open_lane(ROOT, "G79-CJX", reason="G79-CJX stopped negative (3/3 budget exhausted)")
     meta = json.loads((ROOT / "evidence/cjx/final_build.json").read_text())
     tif = ROOT / "artifacts/cjx" / meta["tif"]
     grid = load_grid(ROOT / "data/reference")

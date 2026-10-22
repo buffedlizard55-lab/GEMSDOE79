@@ -120,4 +120,5 @@ def test_untried_hypotheses_sources_and_irregularities_177():
         for line in ir_lines
         if (m := re.match(r"^\|\s*IR-79-0*(\d+)\s*\|", line))
     ]
-    assert nums == list(range(1, 185))
+    assert len(nums) >= 187
+    assert nums == list(range(1, len(nums) + 1))
