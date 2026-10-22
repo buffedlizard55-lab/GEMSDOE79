@@ -232,10 +232,10 @@ def build_audit() -> tuple[dict, dict]:
             "allowed_off_catalogue_cells": int(allowed_off_cat.sum()),
             "r13_lattice_sha256": h13["registry_sha256"],
             "r13_uncovered_finite_footprint_cells": h13["uncovered_allowed_cells"],
-            "r13_uncovered_on_catalogue_cells": h13["uncovered_allowed_cells"] - h13["uncovered_off_catalogue_cells"],
-            "r13_uncovered_off_catalogue_cells": h13["uncovered_off_catalogue_cells"],
+            "r13_uncovered_on_catalogue_cells": h13["uncovered_cells_on_catalogue"],
+            "r13_uncovered_off_catalogue_cells": h13["off_catalogue_uncovered_cells"],
             "r17_eproba_sha256": h17["registry_sha256"],
-            "r17_uncovered_off_catalogue_cells": h17["uncovered_off_catalogue_cells"],
+            "r17_uncovered_off_catalogue_cells": h17["off_catalogue_uncovered_cells"],
         },
         "family_registry_census_20261022": {
             "accessible_non_self_gems_repos": 93,

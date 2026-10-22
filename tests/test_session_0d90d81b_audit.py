@@ -29,20 +29,20 @@ def test_halo_saturation_receipts_reconcile_off_catalogue_and_have_no_local_path
         assert data["footprint_path"] == "data/reference/sample_submission.tif"
         assert data["catalogue_path"] == "data/reference/existing_faults.tif"
         assert data["allowed_cells_finite_footprint"] == 5_167_373
-        assert data["catalogue_cells_in_footprint"] == 60_988
-        assert data["allowed_off_catalogue_cells"] == 5_106_385
+        assert data["catalogue_positive_cells_in_footprint"] == 60_988
+        assert data["off_catalogue_allowed_cells"] == 5_106_385
         assert (
-            data["allowed_cells_finite_footprint"] - data["catalogue_cells_in_footprint"]
-            == data["allowed_off_catalogue_cells"]
+            data["allowed_cells_finite_footprint"] - data["catalogue_positive_cells_in_footprint"]
+            == data["off_catalogue_allowed_cells"]
         )
 
     h13 = _load_strict(ROOT / "evidence" / "halo_saturation_13GEMSDOE_1db538e6.json")
     assert h13["uncovered_allowed_cells"] == 6_649
-    assert h13["uncovered_off_catalogue_cells"] == 6_514
+    assert h13["off_catalogue_uncovered_cells"] == 6_514
 
     h17 = _load_strict(ROOT / "evidence" / "halo_saturation_17GEMSDOE_Eproba_1db538e6.json")
     assert h17["uncovered_allowed_cells"] == 0
-    assert h17["uncovered_off_catalogue_cells"] == 0
+    assert h17["off_catalogue_uncovered_cells"] == 0
 
 
 def test_tracked_raster_scan_separates_reference_masks_from_prediction_artifacts():
@@ -120,4 +120,4 @@ def test_untried_hypotheses_sources_and_irregularities_177():
         for line in ir_lines
         if (m := re.match(r"^\|\s*IR-79-0*(\d+)\s*\|", line))
     ]
-    assert nums == list(range(1, 178))
+    assert nums == list(range(1, 185))

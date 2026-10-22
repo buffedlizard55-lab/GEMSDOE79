@@ -33,28 +33,6 @@ def test_single_dot_halo_matches_disk_count(tmp_path):
     assert out["registry_dot_cells_total"] == 1
 
 
-def test_catalogue_mask_separates_off_catalogue_allowed_cells_and_normalizes_paths(tmp_path, monkeypatch):
-    monkeypatch.setattr(mod, "ROOT", tmp_path)
-    fp = np.ones((7, 7), dtype="float32")
-    cat = np.zeros((7, 7), dtype="float32")
-    cat[0, 0] = 1.0
-    cat[3, 3] = 1.0
-    reg = np.zeros((7, 7), dtype="float32")
-    reg[3, 3] = 1.0
-    _write(tmp_path / "fp.tif", fp)
-    _write(tmp_path / "cat.tif", cat)
-    _write(tmp_path / "reg.tif", reg)
-    out = mod.measure(tmp_path / "reg.tif", tmp_path / "fp.tif", radius_px=1, catalogue_path=tmp_path / "cat.tif")
-    assert out["footprint_path"] == "fp.tif"
-    assert out["catalogue_path"] == "cat.tif"
-    assert out["allowed_cells_finite_footprint"] == 49
-    assert out["catalogue_cells_in_footprint"] == 2
-    assert out["allowed_off_catalogue_cells"] == 47
-    # Disk r=1 has 5 cells around (3,3), of which (3,3) itself is on catalogue -> 4 off-catalogue cells covered.
-    assert out["halo_covered_off_catalogue_cells"] == 4
-    assert out["uncovered_off_catalogue_cells"] == 43
-
-
 def test_nan_outside_is_not_a_dot_and_zero_is_not_a_dot(tmp_path):
     fp = np.ones((5, 5), dtype="float32")
     reg = np.zeros((5, 5), dtype="float32")  # zeros are background, not dots
@@ -71,7 +49,34 @@ def test_grid_mismatch_fails_closed(tmp_path):
     _write(tmp_path / "reg.tif", np.ones((5, 5), dtype="float32"))
     with pytest.raises(ValueError):
         mod.measure(tmp_path / "reg.tif", tmp_path / "fp.tif")
-    _write(tmp_path / "reg4.tif", np.ones((4, 4), dtype="float32"))
-    _write(tmp_path / "cat5.tif", np.ones((5, 5), dtype="float32"))
-    with pytest.raises(ValueError):
-        mod.measure(tmp_path / "reg4.tif", tmp_path / "fp.tif", catalogue_path=tmp_path / "cat5.tif")
+
+
+def test_off_catalogue_accounting_and_repo_relative_paths(tmp_path):
+    fp = np.ones((11, 11), dtype="float32")
+    cat = np.zeros((11, 11), dtype="float32")
+    cat[0, 0] = 1.0  # 1 catalogue pixel outside the centre dot's 3-px halo
+    cat[5, 5] = 1.0  # 1 catalogue pixel inside the centre dot's 3-px halo
+    reg = np.zeros((11, 11), dtype="float32")
+    reg[5, 5] = 1.0
+    _write(tmp_path / "sample_submission.tif", fp)
+    _write(tmp_path / "existing_faults.tif", cat)
+    _write(tmp_path / "reg.tif", reg)
+    out = mod.measure(tmp_path / "reg.tif", tmp_path / "sample_submission.tif", radius_px=3)
+    assert out["allowed_cells_finite_footprint"] == 121
+    assert out["halo_covered_allowed_cells"] == 29
+    assert out["uncovered_allowed_cells"] == 92
+    assert out["catalogue_positive_cells_in_footprint"] == 2
+    assert out["off_catalogue_allowed_cells"] == 119
+    assert out["off_catalogue_halo_covered_cells"] == 28
+    assert out["off_catalogue_uncovered_cells"] == 91
+    assert out["uncovered_cells_on_catalogue"] == 1
+    assert out["uncovered_allowed_cells"] - out["uncovered_cells_on_catalogue"] == out["off_catalogue_uncovered_cells"]
+
+    # Repo-relative path helper strips ROOT prefix
+    assert mod._rel_path(ROOT / "data/reference/sample_submission.tif") == "data/reference/sample_submission.tif"
+    for fname in ("halo_saturation_13GEMSDOE_1db538e6.json", "halo_saturation_17GEMSDOE_Eproba_1db538e6.json"):
+        import json
+        doc = json.loads((ROOT / "evidence" / fname).read_text(encoding="utf-8"))
+        assert doc["footprint_path"] == "data/reference/sample_submission.tif"
+        assert doc["allowed_cells_finite_footprint"] - doc["catalogue_positive_cells_in_footprint"] == doc["off_catalogue_allowed_cells"] == 5106385
+        assert doc["uncovered_allowed_cells"] - doc["uncovered_cells_on_catalogue"] == doc["off_catalogue_uncovered_cells"]

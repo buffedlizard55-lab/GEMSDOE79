@@ -1,8 +1,8 @@
 {
  "schema": "tracked_raster_scan.v2",
  "rule_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
- "n_tracked_rasters": 36,
- "n_prediction_artifacts": 29,
+ "n_tracked_rasters": 37,
+ "n_prediction_artifacts": 30,
  "n_reference_inputs": 7,
  "flagged_prediction_artifacts": [],
  "reference_inputs_outside_0_1": [
@@ -950,6 +950,35 @@
    "path": "archive/h79_step_21642326/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif",
    "role": "prediction_artifact",
    "sha256": "0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c",
+   "crs": "EPSG:32611",
+   "shape": [
+    3730,
+    3292
+   ],
+   "dtype": "float32",
+   "count": 1,
+   "nodata": null,
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "n_nan": 0,
+   "n_inf": 0,
+   "n_finite": 12279160,
+   "n_zero": 12241506,
+   "n_positive": 37654,
+   "min": 0.0,
+   "max": 1.0,
+   "n_outside_0_1": 0
+  },
+  {
+   "path": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+   "role": "prediction_artifact",
+   "sha256": "a422d9a08a07a089f304a0ce7f76eca35bcfeff82877af7ee5034e3f94c294e1",
    "crs": "EPSG:32611",
    "shape": [
     3730,
