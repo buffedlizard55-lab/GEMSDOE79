@@ -104,7 +104,12 @@ def decision_box(card):
                 'One account-side condition remains, which the project cannot see: your submission page must show ≥ 1 free weekly slot.</div>')
     return (f'<div class="download-warning"><strong>{E(line)}</strong><br>Research download only. '
             'Both novelty stages fail; no slot is approved. This automated rejection needs no '
-            'manual inspector and cannot be overridden by a manual upload.</div>')
+            'manual inspector and cannot be overridden by a manual upload. '
+            '<br><strong>Local format PASS is not the portal-text format gate.</strong> '
+            'The inherited zero-outside TIFF fails R6 in the separate official-text validator '
+            '(NaN outside the template footprint). All in-footprint values are within [0, 1]; '
+            'the cause of the earlier portal rejection remains unverified. '
+            '<a href="executive-summary.html">Read the format limitations.</a></div>')
 
 
 @lru_cache(maxsize=2)

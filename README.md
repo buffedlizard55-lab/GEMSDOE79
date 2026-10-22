@@ -29,6 +29,33 @@ writer/validator revision must support NaN exterior without permitting NaN insid
 this session did not rewrite any historically scored or pinned scientific bytes. See the
 [executive summary](docs/executive-summary.html) and the original prompt below.
 
+## Current session review — `e1bfa000` (2026-10-22)
+
+**OK TO DOWNLOAD: YES (inherited research file). OK TO SUBMIT: NO.**
+No new TIFF was generated: the remeasured, hash-pinned universal witness forces
+literal overlap **1.0 > 0.70** for every nonempty candidate. This is a registry
+measurement, not a competition score. Current runtime inputs: **0/13 verified**.
+No experiments or competition slots were used; stopped lanes were not restarted.
+
+Run the new single-command, read-only review:
+
+```bash
+.venv/bin/python scripts/review_readiness.py --report evidence/my_new_readiness_review.json
+```
+
+Exit **2** means not authorized, not a crashed inspection. Missing checks are
+reported as unverified. Reports cannot overwrite prior evidence. This combines
+current runtime input hashes, the shared novelty preflight, shared local-format
+validator, and separate official-text format validator; it can never select a
+submission. A local format PASS does not hide the inherited TIFF's R6
+zero-exterior/NaN-exterior discrepancy or guarantee portal acceptance.
+
+[Three-pass review and next steps](reports/session_review_e1bfa000.md) ·
+[Machine-readable readiness](evidence/readiness_e1bfa000.json) ·
+[Terminal review card](evidence/run_card_e1bfa000.json) ·
+[Ranked conditional hypothesis shortlist](research/hypotheses_e1bfa000.md).
+The original full user prompt remains archived below and governs future work.
+
 
 ## Latest review — 2026-10-22, Arena session `d754356b`
 
@@ -116,7 +143,7 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 ## New this session (8e58a8d0): G79-MDSC — unique TIF generated; holdout gate says NO
 
-> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A **new unique** GeoTIFF was generated and validated end-to-end with no human inspection: [`gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif`](artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif) (SHA-256 `270183cb79342a087dc425325c1517260068c57c711d5f0978610e17ba186a21`; [ZIP](artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.zip); [decision page](docs/mdsc-submission.html); [run card](run_card_mdsc.json); [session review](reports/session_review_8e58a8d0.md)). Format **PASS** (finite, [0, 1], nodata=None — the `[0, 1]` portal error cannot occur), canaries **PASS** (max AUC 0.5421), sparse-novelty **PASS** (max overlap 0.3736 vs 28 local sparse submissions) — but HOLDOUT-DTI `0.0448/0.0434` ≈ random, far below the G79-THVC bars `0.1905/0.1944`, so the preregistered verdict is **negative**. E2 (SFGC-lite signed scarp polarity, scoring-only) beat its unsigned control on both seeds but also stayed below the bars. Zero slots spent. The canonical G79-THVC stop above is unchanged.
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A **new unique** GeoTIFF was generated and validated end-to-end with no human inspection: [`gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif`](artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif) (SHA-256 `270183cb79342a087dc425325c1517260068c57c711d5f0978610e17ba186a21`; [ZIP](artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.zip); [decision page](docs/mdsc-submission.html); [run card](run_card_mdsc.json); [session review](reports/session_review_8e58a8d0.md)). Local format **PASS** (finite, [0, 1], nodata=None — these byte-level checks do not establish portal acceptance or diagnose the previous range error), canaries **PASS** (max AUC 0.5421), sparse-novelty **PASS** (max overlap 0.3736 vs 28 local sparse submissions) — but HOLDOUT-DTI `0.0448/0.0434` ≈ random, far below the G79-THVC bars `0.1905/0.1944`, so the preregistered verdict is **negative**. E2 (SFGC-lite signed scarp polarity, scoring-only) beat its unsigned control on both seeds but also stayed below the bars. Zero slots spent. The canonical G79-THVC stop above is unchanged.
 
 
 > **G79-CJX: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
