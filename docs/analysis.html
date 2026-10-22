@@ -15,9 +15,9 @@
 <hr />
 <h3>1. Executive Summary of Live Bugs Caught &amp; Reconciled on <code>main</code></h3>
 <ol>
-<li><strong>Emergency CI Restoration after PR #53 (<code>4b38bfa</code>, <code>H79-STEP</code>, <code>IR-79-115</code>):</strong> Commit <code>4b38bfa</code> merged onto <code>main</code> over <code>G79-THVC</code> (<code>f66f90d</code>, <code>HOLDOUT-DTI = 0.1905 / 0.1944</code>) while its own CI checks were failing (<code>39724074871</code>, <code>39724077730</code>, <code>39724077661</code>), leaving two competing <code>.tif</code>/<code>.zip</code>/<code>.json</code> pairs in <code>docs/downloads/</code>, breaking four <code>verify_project.py</code> invariants (<code>readme_matches_card_decision</code>, <code>only_canonical_upload_artifacts_published</code>, <code>holdout_card_equals_evaluator_output</code>, <code>uniqueness_card_matches_evidence</code>) and <code>check_site.py</code>, replacing <code>G79-THVC</code> (<code>0.1905 / 0.1944</code>) with inferior <code>H79-STEP</code> (<code>0.0949</code> Seed 20 <code>&lt; H33 = 0.0961</code>), and misstating its own formula (<code>run_card_step.json</code> claimed <code>annulus_window(D, 200 m-2 km) * complexity</code>, whereas <code>scripts/run_edge_lane.py:68-73</code> discarded <code>complexity</code> and emitted uniform <code>1.0</code> over <code>[100 m, 1 km]</code>). All <code>H79-STEP</code> files were preserved byte-for-byte in <code>archive/h79_step_21642326/</code> with a stopped-lane guard (<code>SystemExit(2)</code>) in <code>scripts/run_edge_lane.py</code>.</li>
-<li><strong>Missing Dependencies in <code>requirements.txt</code> (<code>IR-79-119</code>):</strong> <code>src/gems79/thvc_model.py</code> imports <code>lightgbm</code> unconditionally at line 19, crashing <code>pytest</code> collection in environments installed from <code>requirements.txt</code>. Synchronized <code>requirements.txt</code> (<code>lightgbm&gt;=4.5,&lt;5</code>, <code>matplotlib&gt;=3.9,&lt;4</code>) with <code>requirements.lock</code> (<code>lightgbm==4.7.0</code>, <code>matplotlib==3.11.2</code>).</li>
-<li><strong>Path Portability, Prompt Preservation, Byte Count, <code>AGENTS.md</code>, and Executive Summary Fixes (<code>IR-79-116</code>):</strong> Normalized <code>/home/user/GEMSDOE79/...</code> paths in <code>run_card.json</code> (<code>validator.file</code>, <code>validator_output.file</code>) to repo-relative POSIX paths across all four synced copies; restored PR #49 (<code>931256d</code>)'s verbatim updated prompt (<code>GEMSDOE78</code>, <code>GEMSDOE80</code>–<code>GEMSDOE88</code>) that PR #51 had overwritten; fixed ZIP size (<code>102,600 B</code> -&gt; <code>102,628 B</code>); updated <code>AGENTS.md</code> to name canonical <code>G79-THVC</code> plus all 10 archived lanes; and updated <code>executive_negative()</code> in <code>scripts/build_site.py</code> to surface <code>IR-79-69</code>, <code>IR-79-84</code>/<code>IR-79-118</code>, <code>IR-79-117</code>, and DOE Rules §§ 3.2 &amp; 3.4.</li>
+<li><strong>Emergency CI Restoration after PR #53 (<code>4b38bfa</code>, <code>H79-STEP</code>, <code>IR-79-120</code>):</strong> Commit <code>4b38bfa</code> merged onto <code>main</code> over <code>G79-THVC</code> (<code>f66f90d</code>, <code>HOLDOUT-DTI = 0.1905 / 0.1944</code>) while its own CI checks were failing (<code>39724074871</code>, <code>39724077730</code>, <code>39724077661</code>), leaving two competing <code>.tif</code>/<code>.zip</code>/<code>.json</code> pairs in <code>docs/downloads/</code>, breaking four <code>verify_project.py</code> invariants (<code>readme_matches_card_decision</code>, <code>only_canonical_upload_artifacts_published</code>, <code>holdout_card_equals_evaluator_output</code>, <code>uniqueness_card_matches_evidence</code>) and <code>check_site.py</code>, replacing <code>G79-THVC</code> (<code>0.1905 / 0.1944</code>) with inferior <code>H79-STEP</code> (<code>0.0949</code> Seed 20 <code>&lt; H33 = 0.0961</code>), and misstating its own formula (<code>run_card_step.json</code> claimed <code>annulus_window(D, 200 m-2 km) * complexity</code>, whereas <code>scripts/run_edge_lane.py:68-73</code> discarded <code>complexity</code> and emitted uniform <code>1.0</code> over <code>[100 m, 1 km]</code>). All <code>H79-STEP</code> files were preserved byte-for-byte in <code>archive/h79_step_21642326/</code> with a stopped-lane guard (<code>SystemExit(2)</code>) in <code>scripts/run_edge_lane.py</code>.</li>
+<li><strong>Missing Dependencies in <code>requirements.txt</code> (<code>IR-79-124</code>):</strong> <code>src/gems79/thvc_model.py</code> imports <code>lightgbm</code> unconditionally at line 19, crashing <code>pytest</code> collection in environments installed from <code>requirements.txt</code>. Synchronized <code>requirements.txt</code> (<code>lightgbm&gt;=4.5,&lt;5</code>, <code>matplotlib&gt;=3.9,&lt;4</code>) with <code>requirements.lock</code> (<code>lightgbm==4.7.0</code>, <code>matplotlib==3.11.2</code>).</li>
+<li><strong>Path Portability, Prompt Preservation, Byte Count, <code>AGENTS.md</code>, and Executive Summary Fixes (<code>IR-79-121</code>):</strong> Normalized <code>/home/user/GEMSDOE79/...</code> paths in <code>run_card.json</code> (<code>validator.file</code>, <code>validator_output.file</code>) to repo-relative POSIX paths across all four synced copies; restored PR #49 (<code>931256d</code>)'s verbatim updated prompt (<code>GEMSDOE78</code>, <code>GEMSDOE80</code>–<code>GEMSDOE88</code>) that PR #51 had overwritten; fixed ZIP size (<code>102,600 B</code> -&gt; <code>102,628 B</code>); updated <code>AGENTS.md</code> to name canonical <code>G79-THVC</code> plus all 10 archived lanes; and updated <code>executive_negative()</code> in <code>scripts/build_site.py</code> to surface <code>IR-79-69</code>, <code>IR-79-84</code>/<code>IR-79-123</code>, <code>IR-79-122</code>, and DOE Rules §§ 3.2 &amp; 3.4.</li>
 </ol>
 <hr />
 <h3>2. Exact Mathematical Analysis of <code>H33</code> (<code>0.2778</code>), <code>0.3195</code>, and <code>0.4413</code></h3>
@@ -83,7 +83,7 @@ $$s = \frac{c}{0.8 + 0.2\,c + 0.2\,r} \implies c = \frac{s(0.8 + 0.2\,r)}{1 - 0.
 <th>Shared <code>gems57</code> Holdout</th>
 <th style="text-align: right;">Max Sparse (<code>&lt;=50k</code>) Overlap</th>
 <th style="text-align: right;">Overlap vs <code>G79-THVC</code></th>
-<th>Audit Findings &amp; Irregularities (<code>IR-79-117</code>)</th>
+<th>Audit Findings &amp; Irregularities (<code>IR-79-122</code>)</th>
 </tr>
 </thead>
 <tbody>
@@ -194,13 +194,224 @@ $$s = \frac{c}{0.8 + 0.2\,c + 0.2\,r} \implies c = \frac{s(0.8 + 0.2\,r)}{1 - 0.
 <hr />
 <h3>5. Three-Pass Verification Ledger &amp; Remaining Limitations</h3>
 <ul>
-<li><strong>Pass 1 (Implementation &amp; CI Repair):</strong> Archived <code>H79-STEP</code> (<code>4b38bfa</code>, <code>0c678295...</code>) byte-for-byte to <code>archive/h79_step_21642326/</code>, restored canonical <code>G79-THVC</code> (<code>d3db2e95...</code>, <code>0.1905 / 0.1944 HOLDOUT-DTI</code> — #1 across all <strong>17</strong> <code>GEMSDOE79</code> lanes) with portable repo-relative paths across all 4 <code>run_card.json</code> copies, added <code>lightgbm</code> and <code>matplotlib</code> to <code>requirements.txt</code>, guarded <code>scripts/run_edge_lane.py</code>, synced <code>AGENTS.md</code>, <code>knowledge/official_sources.json</code> (<code>2026-10-22</code>), <code>scripts/refresh_feed.py</code>, <code>README.md</code> (including verbatim <code>931256d</code> updated prompt through <code>GEMSDOE88</code> and exact <code>102,628 B</code> ZIP byte size), <code>reports/irregularities.md</code> (<code>IR-79-115</code>..<code>IR-79-120</code>), <code>research/hypotheses_post_thvc_backlog.md</code>, and <code>scripts/build_site.py</code>.</li>
-<li><strong>Pass 2 (Self-Audit for Concurrent Merges, Edge Cases, Bugs &amp; Assumptions):</strong> Merged concurrent <code>origin/main</code> commits <code>4b38bfa..bd02274</code> (<code>PRs #50, #52, #54, #55, #56, #57, #58</code>), archiving <code>H79-DILSTEP</code> (<code>8497da98...</code>, <code>0.0721 / 0.0689</code>) byte-for-byte in <code>archive/h79_dilstep_6444be2d/</code>, adding fail-closed <code>require_open_lane</code> (<code>exit 2</code>, <code>no files changed</code>) guards to <strong>8</strong> unguarded concurrent scripts across <code>H79-COV</code>, <code>H79-DILSTEP</code>, and <code>H79-FGR</code> (<strong>36</strong> total guarded scientific CLI invocations in <code>tests/test_lane_lifecycle.py</code>, <code>IR-79-116</code>), fixing <code>audit_archived_concurrent_lanes.py</code> and <code>refresh_feed.py</code> <code>tmp_path</code> behavior, repairing a corrupted inline-code merge splice on <code>origin/main:README.md</code> (<code>IR-79-120</code>), extending sibling byte forensics through <code>GEMSDOE92</code>, verifying <code>IR-79-01</code>..<code>IR-79-120</code> (<code>110</code> strictly unique IDs), and passing <strong><code>303 / 303</code> <code>pytest</code> tests + <code>14 / 14</code> <code>unittest</code> checks</strong>.</li>
+<li><strong>Pass 1 (Implementation &amp; CI Repair):</strong> Archived <code>H79-STEP</code> (<code>4b38bfa</code>, <code>0c678295...</code>) byte-for-byte to <code>archive/h79_step_21642326/</code>, restored canonical <code>G79-THVC</code> (<code>d3db2e95...</code>, <code>0.1905 / 0.1944 HOLDOUT-DTI</code> — #1 across all <strong>17</strong> <code>GEMSDOE79</code> lanes) with portable repo-relative paths across all 4 <code>run_card.json</code> copies, added <code>lightgbm</code> and <code>matplotlib</code> to <code>requirements.txt</code>, guarded <code>scripts/run_edge_lane.py</code>, synced <code>AGENTS.md</code>, <code>knowledge/official_sources.json</code> (<code>2026-10-22</code>), <code>scripts/refresh_feed.py</code>, <code>README.md</code> (including verbatim <code>931256d</code> updated prompt through <code>GEMSDOE88</code> and exact <code>102,628 B</code> ZIP byte size), <code>reports/irregularities.md</code> (<code>IR-79-120</code>..<code>IR-79-125</code>), <code>research/hypotheses_post_thvc_backlog.md</code>, and <code>scripts/build_site.py</code>.</li>
+<li><strong>Pass 2 (Self-Audit for Concurrent Merges, Edge Cases, Bugs &amp; Assumptions):</strong> Merged concurrent <code>origin/main</code> commits <code>4b38bfa..bd02274</code> (<code>PRs #50, #52, #54, #55, #56, #57, #58</code>), archiving <code>H79-DILSTEP</code> (<code>8497da98...</code>, <code>0.0721 / 0.0689</code>) byte-for-byte in <code>archive/h79_dilstep_6444be2d/</code>, adding fail-closed <code>require_open_lane</code> (<code>exit 2</code>, <code>no files changed</code>) guards to <strong>8</strong> unguarded concurrent scripts across <code>H79-COV</code>, <code>H79-DILSTEP</code>, and <code>H79-FGR</code> (<strong>36</strong> total guarded scientific CLI invocations in <code>tests/test_lane_lifecycle.py</code>, <code>IR-79-121</code>), fixing <code>audit_archived_concurrent_lanes.py</code> and <code>refresh_feed.py</code> <code>tmp_path</code> behavior, repairing a corrupted inline-code merge splice on <code>origin/main:README.md</code> (<code>IR-79-125</code>), extending sibling byte forensics through <code>GEMSDOE92</code>, verifying <code>IR-79-01</code>..<code>IR-79-125</code> (<code>110</code> strictly unique IDs), and passing <strong><code>303 / 303</code> <code>pytest</code> tests + <code>14 / 14</code> <code>unittest</code> checks</strong>.</li>
 <li><strong>Pass 3 (End-to-End Clean Re-Verification &amp; Live Browser Audit):</strong> Full clean re-run of <code>scripts/refresh_feed.py</code>, <code>scripts/verify_project.py</code> (<code>all_checks_passed: true</code>, all 27 checks <code>true</code>), <code>scripts/build_site.py</code> (<code>7</code> pages), <code>scripts/check_site.py</code> (<code>passed: true</code>, <code>124</code> links), <code>scripts/submission_status.py</code> (<code>exit 2</code>), <code>scripts/select_submission.py</code> (<code>exit 2</code>), <code>scripts/reproduce_artifact.py</code> (<code>exact_tiff_recovery: true</code>), <code>.venv/bin/pytest -q</code> (<code>303 passed, 0 failed</code>), and headless Chromium <code>node scripts/browser_review.cjs</code> across desktop + mobile viewports against a live <code>0.0.0.0:8080</code> preview server.</li>
 <li><strong>Remaining Limitations Requiring Human / Protocol-Owner Action:</strong>
   1. <strong>DrivenData Authentication &amp; Weekly Slot Check:</strong> Login-gated <code>/submissions/</code> and <code>/data/</code> cannot be inspected from the sandbox; a human participant must verify available weekly capacity (<code>&lt;= 3/week</code>) and single-entity compliance (<code>96647.pdf</code> §3.4).
-  2. <strong>Protocol Owner Decision on <code>IR-79-118</code> (<code>13GEMSDOE</code> Pigeonhole Obstruction):</strong> Ratifying $\kappa_{\text{ov}} = (\text{ov} - \text{halo})/(1 - \text{halo}) \le 0.70$ or <code>&lt;= 50,000</code>-dot budget class in shared <code>vendor/gems57/uniqueness.py</code> is required before any future <code>35k–44k</code>-dot candidate can flip <code>ok_to_submit: true</code> automatically.
+  2. <strong>Protocol Owner Decision on <code>IR-79-123</code> (<code>13GEMSDOE</code> Pigeonhole Obstruction):</strong> Ratifying $\kappa_{\text{ov}} = (\text{ov} - \text{halo})/(1 - \text{halo}) \le 0.70$ or <code>&lt;= 50,000</code>-dot budget class in shared <code>vendor/gems57/uniqueness.py</code> is required before any future <code>35k–44k</code>-dot candidate can flip <code>ok_to_submit: true</code> automatically.
   3. <strong>Outside-Footprint Convention (<code>IR-79-69</code>):</strong> Confirm whether DrivenData's live scorer prefers <code>0.0</code> outside footprint (matching <code>gems-prize-reference-solution</code> and <code>H33</code>) or <code>NaN</code> outside footprint (matching <code>sample_submission.tif</code>).</li>
+</ul></div></section><section class="section"><h2>Session 6d4a2fdf — cross-repository audit &amp; three-tier Pigeonhole synthesis</h2><div class="prose table-scroll"><h2>Session <code>arena/6d4a2fdf-gemsdoe79</code> — Three-Pass Line-by-Line Review &amp; Cross-Repository Audit (<code>2026-10-22</code>)</h2>
+<ul>
+<li><strong>Repository &amp; Active Branch:</strong> <code>buffedlizard55-lab/GEMSDOE79</code> · branch <code>arena/6d4a2fdf-gemsdoe79</code> (<code>active</code>, reconciled with <code>origin/main</code> <code>bd02274</code>)</li>
+<li><strong>Automated Submission Status (<code>scripts/submission_status.py</code>, exit code <code>2</code>):</strong>
+  <strong><code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code></strong></li>
+<li><strong>Canonical Published Research Artifact (<code>run_card.json</code> — <code>H79-DILSTEP</code>, Unchanged SHA-256):</strong>
+  <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif"><code>archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif</code></a></li>
+<li><strong>Canonical TIFF SHA-256:</strong> <code>8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b</code> (<code>37,654</code> binary <code>{0.0, 1.0}</code> dots; <code>0</code> NaNs across all <code>12,279,160</code> cells; <code>EPSG:32611</code>; <code>3730 x 3292</code>; exact affine match)</li>
+<li><strong>Canonical ZIP SHA-256:</strong> <code>712ab28316d9465354ff1adadf87993f57e0f392b55f0d0af437edbea89d1948</code></li>
+<li><strong>Archived <code>GEMSDOE79</code> Reference Lanes Preserved Byte-for-Byte:</strong> <code>H79-NHR</code> (<code>archive/h79_nhr/downloads/...</code>, TIFF <code>abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2</code>, ZIP <code>b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7</code>), <code>G79-THVC</code> (<code>archive/g79_thvc_33e1f8ec/</code>, <code>d3db2e95…</code>, <code>0.1905 / 0.1944</code>), <code>H79-FFAS</code>, <code>H79-STEP</code>, <code>G79-MAG</code>, <code>H79-COV</code>, <code>H79-ASYM</code>, <code>H79-FGR</code>, <code>G79-STEPCO</code>, <code>G79B-SDPT</code>, <code>H79-FF</code>.</li>
+<li><strong>Weekly DrivenData Upload Slots Consumed:</strong> <code>0</code> (<code>0</code> new scientific experiments executed in session <code>6d4a2fdf</code>; all closed lanes kept strictly sealed; Irregularities <code>IR-79-115</code>..<code>IR-79-119</code> recorded in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/irregularities.md"><code>reports/irregularities.md</code></a>).</li>
+</ul>
+<hr />
+<h3>Executive Summary of New Findings Verified from Primary Sources &amp; Raw GeoTIFF Bytes</h3>
+<h4>1. Why <code>GEMSDOE32</code> (<code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code>, <code>0.2778</code> reported) Scored Highest in the <code>GEMSDOE</code> Family — and Why <code>#1 xiaofanhu</code> Reached <code>0.4413</code></h4>
+<ol>
+<li><strong>Exact Zero-XOR Pixel Identity (<code>RASTER-MEASUREMENT</code>, <code>evidence/family_lineage_forensics.json</code>):</strong>
+   Across all <code>12,279,160</code> cells, <code>GEMSDOE32</code> (<code>37,654</code> binary <code>1.0</code> dots, <code>c55bafc4…</code>) equals <code>(GEMSDOE25_D2.8 &gt; 0) &amp; (EDT(~existing_faults) &gt; 2.0)</code> with <strong>0 discrepant pixels</strong>.</li>
+<li><strong>Exact DW-Tversky Asymmetry (<code>DD-PROBLEM</code> <code>page/967/</code>, <code>DD-MASK</code> <code>11516/2</code> &amp; <code>11516/4</code>, <code>DD-POOL</code> <code>11550/2</code>):</strong>
+   Because $\text{TP}<em>w$ takes a <strong>maximum</strong> over $B</em>{300\text{m}}(g)$ while $\text{FP}_w$ <strong>sums</strong> over every predicted pixel outside true fault kernels, sparse <code>~2.8 px</code> binary dots cut $\text{FP}_w$ by $\sim 3\times$ vs continuous probability ridges (<code>19GEMSDOE</code> <code>0.1922</code> $\to$ <code>GEMSDOE25</code> <code>D2.8</code> <code>0.2600</code>). And because <code>existing_faults.tif</code> is masked <strong>pixel-exactly</strong> (<code>chrisk-dd</code>, <code>11516/4</code>), removing the <code>6,436</code> <code>D2.8</code> dots sitting in the <code>0 &lt; d_{\text{cat}} \le 200\text{ m}</code> flank collar eliminated pure penalty mass without losing off-catalogue $\text{TP}_w$ (<code>0.2600</code> $\to$ <code>0.2778</code>, <code>UNVERIFIED HISTORICAL REPORTS</code>).</li>
+<li><strong>Resolution of the <code>2026-10-21 -&gt; 2026-10-22</code> Public Leaderboard Cutoff Puzzle (<code>IR-79-72</code>):</strong>
+   - On <code>2026-10-21</code> (<code>knowledge/official_sources.json</code>), <code>#48 extradr19 = 0.2778</code> appeared on the 50-row public leaderboard.
+   - On <code>2026-10-22</code> (live <code>fetch_page</code> across all 3 chunks of <code>/leaderboard/</code>), ranks <code>#1</code>–<code>#50</code> span <strong><code>#1 xiaofanhu = 0.4413</code> (27 submissions)</strong>, <code>#2 cfld__ = 0.3904</code>, <code>#3 Batik Shirt Brothers = 0.3894</code>, <code>#4 BrandenKMurray = 0.3713</code>, <code>#5 No Fault of Our Own = 0.3539</code>, ..., <code>#21 kinghorton42 = 0.3261</code>, down to <strong><code>#48 sam35 = 0.2804</code>, <code>#49 op01 = 0.2797</code>, <code>#50 kinneso_outlook = 0.2784</code></strong>. Two new top-50 entries pushed <code>0.2778</code> immediately below row <code>#50</code> (<code>#51+</code>). Both <code>0.2778</code> and <code>0.3195</code> remain labelled <code>UNVERIFIED HISTORICAL REPORTS</code> without an authenticated submission-page receipt.</li>
+<li><strong>Why Automated Family Runs Stalled at <code>~0.2778</code> While <code>#1</code> Reached <code>0.4413</code> (<code>DD-NEW-FAULT-DEF</code> <code>11543/2</code>, <code>11536/2</code>, <code>11527/7</code>):</strong>
+   - Official Staff (<code>chrisk-dd</code>, Oct 1 in <a href="https://community.drivendata.org/t/using-a-teammates-geological-interpretation-as-training-labels/11543/2"><code>11543/2</code></a>) confirmed <strong>human geological hand-labeling / accept-reject curation on public data inside the GeoDAWN region IS permitted</strong> when saved reproducibly — allowing human+ML teams to purge Lake Lahontan/Bonneville paleoshorelines, mine benches, and road cuts that consume $\ge 50\%$ of purely unsupervised/PU dot budgets!</li>
+</ol>
+<hr />
+<h4>2. Three-Tier Mathematical Obstruction Certificate (<code>IR-79-73</code>, <code>scripts/verify_registry_obstructions.py</code>)</h4>
+<p>Direct single-pixel measurement on SHA-256-verified registry blobs (<code>A = 5,106,385</code> off-catalogue footprint cells, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/registry_obstructions_certificate.json"><code>evidence/registry_obstructions_certificate.json</code></a>) proves why <code>research/hypotheses_e846fc02.md</code>'s threshold-only proposal (<code>p &gt;= 0.5</code> or <code>top-K</code>) <strong>cannot work alone</strong>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Obstruction Tier</th>
+<th>Rule Evaluated</th>
+<th>Hash-Verified Registry Witness(es)</th>
+<th style="text-align: right;">Uncovered Allowed Pixels ($U$)</th>
+<th style="text-align: right;">Global Minimum 3-px Forward Overlap at $K = 37,654$</th>
+<th style="text-align: right;">Max Passable Budget $K_{\max}(0.70)$</th>
+<th>Mathematical Consequence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Tier 1</strong></td>
+<td><code>literal</code> (<code>arr &gt; 0</code>)</td>
+<td><code>17GEMSDOE</code> <code>17GEMSDOE_E-proba-multiscale_20260930T044527Z.tif</code> (<code>ab0a0a62…</code>)</td>
+<td style="text-align: right;"><strong><code>0</code></strong></td>
+<td style="text-align: right;"><strong><code>1.000000</code> (<code>1/1</code>)</strong></td>
+<td style="text-align: right;"><strong><code>0</code></strong></td>
+<td>Every nonempty map ($K \ge 1$) fails (<code>1.0 &gt; 0.70</code>).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Tier 2</strong></td>
+<td><strong><code>p &gt;= 0.5</code> AND <code>budget-matched-v3</code></strong> (<code>top-37,654</code> with ties)</td>
+<td><code>5GEMSDOE:gems-density-probe-20260925T184215Z-9cdae9b4.tif</code> (<code>9cdae9b4…</code>, binary <code>1.0</code> on all <code>5,106,385</code> allowed cells!) + <code>3</code> <code>GEMSDOE48</code> unassigned-mass rasters (<code>11c0e3b6…</code>, <code>86a470fc…</code>, <code>975c217e…</code>)</td>
+<td style="text-align: right;"><strong><code>0</code></strong></td>
+<td style="text-align: right;"><strong><code>1.000000</code> (<code>1/1</code>)</strong></td>
+<td style="text-align: right;"><strong><code>0</code></strong></td>
+<td><strong>Refutes <code>p &gt;= 0.5</code> and tie-inclusive <code>top-K</code>:</strong> every nonempty map ($K \ge 1$) STILL fails (<code>1.0 &gt; 0.70</code>).</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Tier 3</strong></td>
+<td><strong>Any continuous-surface rule leaving sparse (<code>&lt;= 20%</code>) binary dot maps untouched</strong></td>
+<td><code>13GEMSDOE</code> spacing-5 binary lattices (<code>zerofill</code> <code>c12533bb…</code> &amp; <code>nan-outside</code> <code>b4570b40…</code>, <code>206,895</code> binary <code>{0,1}</code> pixels $= 4.00\%$ support; $\max_{\mathbb{Z}^2} d(x, 5\mathbb{Z}^2) = \sqrt{8} \approx 2.8284 &lt; 3.0\text{ px}$)</td>
+<td style="text-align: right;"><strong><code>6,514</code></strong></td>
+<td style="text-align: right;"><strong><code>0.827004</code> (<code>15570/18827</code>)</strong></td>
+<td style="text-align: right;"><strong><code>21,713</code></strong></td>
+<td><strong>Pigeonhole Impossibility:</strong> across ALL $\binom{5,106,385}{37,654}$ subsets, at least $37,654 - 6,514 = 31,140$ dots fall within <code>3 px</code> (<code>82.70% &gt; 70%</code>).</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Exact Shared-Code Solution Requiring Protocol-Owner Ratification (<code>AGENTS.md §4</code>):</strong> Define <code>excess-overlap-v4</code> using <strong>Cohen-style overlap beyond chance</strong> $\text{ov}<em>{\text{excess}}(A, B) = \frac{\text{ov}</em>{3\text{px}}(A, B) - h(B)}{1 - h(B)} \le 0.70$ paired with deterministic coordinate tie-breaking on dense/constant surfaces (<code>h(B) == 1.0</code>), while retaining full-footprint $|\rho_{\text{Spearman}}| \le 0.90$ across all <code>990</code> comparable rasters.</p>
+<hr />
+<h4>3. Complete Cross-Repository Audit of All Prompt-Named Unscored Candidates &amp; Post-Snapshot Siblings (<code>IR-79-74</code>, <code>IR-79-76</code>)</h4>
+<p>All <code>16</code> scored historical landmarks (<code>GEMSDOE19..GEMSDOE77</code>), all <code>6</code> prompt-named unscored candidates (<code>GEMSDOE76</code>, <code>78</code>, <code>80</code>, <code>81</code>, <code>82</code>, <code>83</code>), canonical <code>GEMSDOE79</code> (<code>H79-NHR</code>), and empty stubs <code>GEMSDOE84..90</code> (<code>1</code> file <code>README.md</code>, <code>0</code> <code>.tif</code> each) were verified byte-for-byte in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/family_lineage_forensics.json"><code>evidence/family_lineage_forensics.json</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/registry_obstructions_certificate.json"><code>evidence/registry_obstructions_certificate.json</code></a>:</p>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Submission Stem</th>
+<th>SHA-256 (<code>[0,1]</code> Format)</th>
+<th style="text-align: right;">Dots</th>
+<th>Sibling Self-Reported Holdout</th>
+<th style="text-align: right;">Unmodified 992-Raster <code>v3</code> Collisions (<code>&gt;0.70</code> among 26 Informative Priors)</th>
+<th style="text-align: right;">Worst Excess Overlap Beyond Chance ($\le 0.70$?)</th>
+<th style="text-align: right;">Static Full-Cat Seed-20 / Seed-30 Diagnostic</th>
+<th>Forensic Verdict &amp; Critical Irregularity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>GEMSDOE79</code></strong> <em>(Canonical <code>H79-DILSTEP</code>)</em></td>
+<td><code>gems79-h79-dilstep-research-37654dots-...-DO-NOT-SUBMIT</code></td>
+<td><code>8497da98…</code> (<code>PASS</code>)</td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td><code>0.0721 / 0.0650</code> (<code>gems57-pooled-hide-v2</code> S20/S30)</td>
+<td style="text-align: right;"><strong><code>9</code> (<code>0.8527</code> raw)</strong></td>
+<td style="text-align: right;"><strong><code>0.5894</code> (PASS excess)</strong></td>
+<td style="text-align: right;"><code>0.0575 / 0.0562</code></td>
+<td><strong>Canonical negative file (<code>exit 2</code>):</strong> clears excess novelty (<code>0.5894 &lt;= 0.70</code>), lost blind OOF holdout to <code>H33</code> (<code>0.0961 / 0.0989</code>).</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE79-G79-THVC</code></strong> <em>(Archived)</em></td>
+<td><code>g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT</code></td>
+<td><code>d3db2e95…</code> (<code>PASS</code>)</td>
+<td style="text-align: right;"><code>35,093</code></td>
+<td><strong><code>0.1905 / 0.1944</code></strong> (<code>gems57-pooled-hide-v2</code> S20/S30)</td>
+<td style="text-align: right;"><strong><code>25</code> (<code>0.9053</code> raw)</strong></td>
+<td style="text-align: right;"><code>0.7857</code> (<strong>FAIL</strong>)</td>
+<td style="text-align: right;"><code>0.0000 / 0.0000</code> <em>(mechanical <code>300m</code> collar)</em></td>
+<td>Best internal <code>GEMSDOE79</code> holdout (<code>0.1905 / 0.1944</code>), properly held back because even chance-excess overlap fails (<code>0.7857 &gt; 0.70</code>).</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE79-H79-NHR</code></strong> <em>(Archived)</em></td>
+<td><code>gems79-h79-nhr-research-37654dots-...-DO-NOT-SUBMIT</code></td>
+<td><code>abbf5314…</code> (<code>PASS</code>)</td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td><strong><code>0.1431 / 0.1522</code></strong> (<code>gems57-pooled-hide-v2</code> S20/S30)</td>
+<td style="text-align: right;"><strong><code>26</code> (<code>0.9130</code> raw)</strong></td>
+<td style="text-align: right;"><code>0.7770</code> (<strong>FAIL</strong>)</td>
+<td style="text-align: right;"><code>0.0136 / 0.0148</code> <em>(blind OOF <code>0.1431 / 0.1522</code>)</em></td>
+<td><strong>Reference gold-standard honesty:</strong> fails both raw (<code>0.913</code>) and chance-corrected (<code>0.777 &gt; 0.70</code>) uniqueness; archived in <code>archive/h79_nhr/</code>.</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE76</code></strong></td>
+<td><code>gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros</code></td>
+<td><code>54c97839…</code> (<code>PASS</code>)</td>
+<td style="text-align: right;"><code>39,200</code></td>
+<td><code>0.1782</code> (<em>non-standard <code>label-blind-quadrants-v2</code>, <code>n=60,988</code></em>)</td>
+<td style="text-align: right;"><strong><code>22</code> (<code>0.9555</code> raw)</strong></td>
+<td style="text-align: right;"><code>0.9051</code> (<strong>FAIL</strong>)</td>
+<td style="text-align: right;"><code>0.0015 / 0.0019</code></td>
+<td>Non-comparable holdout split; fails both raw (<code>0.956</code>) &amp; excess (<code>0.905</code>) overlap (<code>GEMSDOE22:10pct</code>); superseded in <code>GEMSDOE76</code> (<code>h76_3</code> scored <code>0.1555</code> live).</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE78</code></strong></td>
+<td><code>gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros</code></td>
+<td><code>8ca06ece…</code> (<code>PASS</code>)</td>
+<td style="text-align: right;"><code>44,090</code></td>
+<td><code>0.1771</code> (<code>gems57-pooled-hide-v2</code> S20)</td>
+<td style="text-align: right;"><strong><code>20</code> (<code>0.9378</code> raw)</strong></td>
+<td style="text-align: right;"><code>0.8406</code> (<strong>FAIL</strong>)</td>
+<td style="text-align: right;"><code>0.0000 / 0.0000</code> <em>(mechanical <code>b5</code> <code>500m</code> collar)</em></td>
+<td>Aggressive <code>b5</code> (<code>500 m</code>) collar deletes all near-fault splays (<code>11516/4</code>, <code>11536/2</code>); fails raw (<code>0.938</code>) &amp; excess (<code>0.841</code>) overlap (<code>GEMSDOE3:coverage-v3-wide</code>).</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE80</code></strong></td>
+<td><code>gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros</code></td>
+<td><code>a3c14d76…</code> (<code>PASS</code>, <code>+3 -nan.tif</code> in repo)</td>
+<td style="text-align: right;"><code>51,667</code></td>
+<td><code>0.2349</code> (<strong>PRIVATE FORK <code>GEMSDOE80-v2</code>, <code>n=18,313</code></strong>)</td>
+<td style="text-align: right;"><strong><code>13</code> (<code>0.8589</code> raw)</strong></td>
+<td style="text-align: right;"><strong><code>0.6907</code> (PASS excess)</strong></td>
+<td style="text-align: right;"><code>0.0008 / 0.0010</code></td>
+<td><strong>Violated Rule 2 (<code>AGENTS.md §2</code>)</strong> via private evaluator fork + only 20-raster uniqueness check + heavy <code>51,667</code> dot budget; also ships <code>-nan.tif</code> siblings (<code>IR-79-76</code>).</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE81</code></strong></td>
+<td><code>gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros</code></td>
+<td><code>9798fe7f…</code> (<code>PASS</code>)</td>
+<td style="text-align: right;"><code>44,090</code></td>
+<td><code>0.2170</code> (<code>gems57-pooled-hide-v2</code>, <code>n=22,641</code>)</td>
+<td style="text-align: right;"><strong><code>25</code> (<code>1.0000</code> raw)</strong></td>
+<td style="text-align: right;"><code>1.0000</code> (<strong>FAIL</strong>)</td>
+<td style="text-align: right;"><strong><code>0.0918 / 0.0935</code></strong> (<strong>PURE COLLAR LEAKAGE!</strong>)</td>
+<td><strong>Severe <code>IR-79-11</code> Collar Pathology:</strong> <code>100.0%</code> of dots in <code>(200, 500 m]</code> (<code>83.6%</code> at <code>223.6–300 m</code>, <code>0.00% &gt; 1 km</code> — same trap as <code>GEMSDOE77 = 0.0964</code>!); checked only <code>5</code> rasters (<code>Rule 1</code> violation); <code>1.0000</code> informative overlap!</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE82</code></strong></td>
+<td><code>gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros</code></td>
+<td><code>120810fe…</code> (<code>PASS</code>, <code>+2 -nan.tif</code> in repo)</td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td><code>0.1253</code> (<code>gems57-pooled-hide-v2</code> S20)</td>
+<td style="text-align: right;"><strong><code>21</code> (<code>0.9648</code> raw)</strong></td>
+<td style="text-align: right;"><code>0.9249</code> (<strong>FAIL</strong>)</td>
+<td style="text-align: right;"><code>0.0039 / 0.0037</code></td>
+<td>Lower S20 <code>HOLDOUT-DTI</code> (<code>0.1253</code>) than <code>GEMSDOE79</code> <code>H79-NHR</code> (<code>0.1431</code>) AND fails raw (<code>0.965</code>) &amp; excess (<code>0.925</code>) overlap (<code>GEMSDOE22:10pct</code>). <em>(Note companion <code>gems82-h82-csam</code> reached <code>0.1658</code> dual-seed).</em></td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE83</code></strong></td>
+<td><code>gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros</code></td>
+<td><code>79f14dc8…</code> (<code>PASS</code>, <code>+4 -nan.tif</code> in repo)</td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td><strong><code>0.2068</code></strong> (<code>0.1999</code> S20 / <code>0.2138</code> S30, <code>gems57-pooled-hide-v2</code>)</td>
+<td style="text-align: right;"><strong><code>11</code> (<code>0.8514</code> raw)</strong></td>
+<td style="text-align: right;"><strong><code>0.6194</code> (BEST — PASS excess)</strong></td>
+<td style="text-align: right;"><code>0.0000 / 0.0000</code> <em>(mechanical <code>b3</code> <code>300m</code> collar)</em></td>
+<td><strong>Strongest cross-family scientific candidate (<code>0.2068</code> dual-seed, <code>37,654</code> dots, <code>0.6194 &lt;= 0.70</code> excess overlap)</strong>, BUT only audited <code>119</code> rasters locally (missed <code>11</code> raw <code>&gt;0.70</code> collisions on wide priors). Needs <code>v4</code> ratification + full 990-raster excess-overlap check before spending a weekly slot.</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE84..90</code></strong></td>
+<td><em>(Empty repository stubs)</em></td>
+<td>—</td>
+<td style="text-align: right;"><code>0</code></td>
+<td>—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td style="text-align: right;">—</td>
+<td>Each contains <code>1</code> file (<code>README.md</code>) and <code>0</code> <code>.tif</code>/<code>.zip</code> artifacts.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>Summary of Three Verification Passes Executed on <code>arena/6d4a2fdf-gemsdoe79</code></h3>
+<ul>
+<li><strong>Pass 1 (Baseline Reproduction, Primary-Source Line-by-Line Verification &amp; Tooling Implementation):</strong>
+  Reproduced all <code>242</code> baseline tests, <code>verify_project.py</code>, <code>submission_status.py</code> (exit <code>2</code>), <code>check_site.py</code>, <code>browser_review.cjs</code> (<code>21</code> Chromium checks), and <code>verify_public_site.py</code>; read all primary competition/USGS/DOE/forum pages (<code>page/967/</code>, <code>page/968/</code>, <code>/leaderboard/</code> ranks <code>#1</code>–<code>#50</code>, <code>96647.pdf</code>, <code>11516/2,4</code>, <code>11527/7</code>, <code>11536/2</code>, <code>11543/2</code>, <code>11550/2</code>, <code>11556/3</code>, <code>10.5066/P93LGLVQ</code>, <code>10.15121/1881483</code>, <code>epsg.io/32611</code>, Tversky 1977, <code>GEMSDOE32</code> Pages); implemented <code>scripts/verify_registry_obstructions.py</code> and upgraded <code>scripts/analyze_family_lineage.py</code> + <code>scripts/refresh_feed.py</code>.</li>
+<li><strong>Pass 2 (Edge-Case, Schema &amp; Cross-Sync Bug Hunt):</strong>
+  Caught and fixed five concrete bugs during implementation: (i) <code>registry_index.json</code> <code>aliases</code> lookup in <code>verify_registry_obstructions.py</code>, (ii) background <code>git gc --auto</code> lock contention during blobless <code>cat-file</code> fetches in <code>analyze_family_lineage.py</code>, (iii) exact tuple signature <code>folds, _ = holdout.buffered_component_draw(grid, seed=seed)</code> in <code>vendor/gems57/holdout.py</code> reproducing <code>h33_foldfair_control = 0.0961 / 0.0989</code> to 4 decimal places, (iv) offline cache preservation contract in <code>scripts/refresh_feed.py</code> (<code>test_failed_feed_preserves_old_observation_date</code>), and (v) the double bug in <code>scripts/registry_delta_git.py</code> (<code>IR-79-77</code>: <code>git rev-list --all --objects --missing=allow-promisor</code> silently omitting promisor blobs in <code>--filter=blob:none</code> clones + missing <code>discover_owner_repos()</code>), whose fix recovered <strong><code>207</code> unique prediction <code>.tif</code> blobs</strong> across <strong><code>91</code> sibling repositories</strong> (<code>repo_errors: []</code>).</li>
+<li><strong>Pass 3 (End-to-End Prompt &amp; Contract Audit, Cryptographic SHA-256 Audit, Live Browser QA, PR &amp; Merge to <code>main</code>):</strong>
+  Caught and fixed a transcribed <code>zip_sha256</code> hex tail in <code>reports/session_review_6d4a2fdf.md</code> by adding <code>test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts()</code>, verified zero uncommitted drift, zero non-compliant/duplicate <code>.tif</code> files presented as submittable, 100% alignment between <code>run_card.json</code>, <code>scripts/submission_status.py</code>, <code>README.md</code>, <code>reports/</code>, <code>research/</code>, and all 7 pages of <code>docs/</code> across desktop (<code>1440x900</code>) and mobile (<code>390x844</code>) Chromium viewports, live <code>0.0.0.0</code> preview server, green GitHub Actions CI, and merged PR onto <code>main</code>.</li>
 </ul></div></section><section class="section"><div class="prose table-scroll"><h2>GEMSDOE79 (<code>G79-THVC</code>) — Complete Scientific, Uniqueness &amp; Strategic Next-Steps Report</h2>
 <h3>1. Executive Summary &amp; Automated Disposition</h3>
 <ul>

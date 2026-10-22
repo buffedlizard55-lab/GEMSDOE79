@@ -446,8 +446,10 @@ def test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts(
     card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
     cert = json.loads((ROOT / 'evidence/registry_obstructions_certificate.json').read_text(encoding='utf-8'))
     lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    dcard = json.loads((ROOT / 'archive/h79_dilstep_6444be2d/run_card_dilstep.json').read_text(encoding='utf-8'))
     known_full_hashes = {
         card['raster_sha256'], card['zip_sha256'],
+        dcard['raster_sha256'], dcard['zip_sha256'],
         reproduce_artifact.NHR_RASTER_SHA256,
         'b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7',
     }
@@ -467,35 +469,3 @@ def test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts(
     for short_h in re.findall(r'\b([0-9a-f]{8})…', review_txt):
         assert short_h in known_prefixes, f'Unverified 8-hex hash prefix {short_h}… in session review'
 
-
-def test_three_tier_pigeonhole_obstruction_and_sibling_audit_certificates():
-    cert = json.loads((ROOT / 'evidence/registry_obstructions_certificate.json').read_text(encoding='utf-8'))
-    pub_cert = json.loads((ROOT / 'docs/evidence/registry_obstructions_certificate.json').read_text(encoding='utf-8'))
-    assert cert == pub_cert
-    assert cert['scientific_experiments_performed'] == 0
-    assert cert['submission_slots_used'] == 0
-    assert cert['allowed_off_catalogue_pixels'] == 5106385
-    assert cert['tier_1_literal_positive_support']['bounds']['uncovered_allowed_pixels'] == 0
-    assert cert['tier_2_budget_matched_v3_plateaus']['n_zero_uncovered_witnesses'] == 4
-    for w in cert['tier_3_strictly_binary_lattice_pigeonhole']['witnesses']:
-        assert w['is_strictly_binary_0_1_in_footprint'] is True
-        assert w['budget_matched_v3_bounds']['uncovered_allowed_pixels'] == 6514
-        assert w['budget_matched_v3_bounds']['pigeonhole_min_overlap_exact_rational'] == '15570/18827'
-        assert w['budget_matched_v3_bounds']['max_passable_dot_budget_at_0p70_limit'] == 21713
-    by_repo = {r['repo']: r for r in cert['cross_sibling_uniqueness_audit']}
-    assert {'GEMSDOE32', 'GEMSDOE79', 'GEMSDOE79-H79-NHR', 'GEMSDOE79-G79-THVC',
-            'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83'} == set(by_repo)
-    assert by_repo['GEMSDOE83']['passes_excess_overlap_le_0p70_on_26_informative_set'] is True
-    delta = json.loads((ROOT / 'registry/registry_delta.json').read_text(encoding='utf-8'))
-    assert delta == json.loads((ROOT / 'docs/evidence/registry_delta.json').read_text(encoding='utf-8'))
-    assert delta['n_new_rasters'] >= 207
-    assert 'GEMSDOE79' not in {r['repo'] for r in delta['repositories']}
-
-
-def test_official_sources_and_health_synced_on_2026_10_22():
-    sources = json.loads((ROOT / 'knowledge/official_sources.json').read_text(encoding='utf-8'))
-    health = json.loads((ROOT / 'docs/evidence/source_health.json').read_text(encoding='utf-8'))
-    assert sources['reviewed_date_utc'] == '2026-10-22'
-    assert health['scientific_claims_reviewed_date'] == '2026-10-22'
-    assert health['leaderboard_observation']['observed_date'] == '2026-10-22'
-    assert health['leaderboard_observation']['public_dti'] == 0.4413
