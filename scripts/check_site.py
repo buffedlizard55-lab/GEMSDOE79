@@ -28,7 +28,8 @@ def check_site():
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
         'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
         'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html', 'tdw-submission.html',
-    }, 'Expected the thirteen project pages (canonical seven + lane pages)'
+        'hex-submission.html',
+    }, 'Expected the fourteen project pages (canonical seven + lane pages including HEX)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():

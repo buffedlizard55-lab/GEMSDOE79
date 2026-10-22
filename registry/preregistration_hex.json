@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "lane": "G79-HEX",
+  "lane_title": "Paleo-Lahontan Shoreline Warp x Isostatic Gravity Step Cross-Cut",
+  "registered_utc": "2026-10-22T19:00:00Z",
+  "branch": "arena/74cbb4bb-gemsdoe79",
+  "hypothesis": "Blind low-slip piedmont faults offset Lahontan shoreline datum and juxtapose density across buried step; LoG warp x gravity cross-cut marks unmapped faults missed by range-front catalogue.",
+  "mechanism": "LoG sigma 3px on smoothed fault density x gravity-step proxy |grad density| x sin(delta_strike) x activity x 400m distance Gaussian, rank-normalized, greedy 2.8px to 32000 dots, zero on catalogue, zeros outside footprint, zeros mode writer.",
+  "named_non_fault_mimic": "Lake stillstands, fluvial terraces, eolian hollows, pluton margins, thermal outflow plumes, basalt dikes, Lahontan bars.",
+  "inputs": ["data/reference/sample_submission.tif footprint", "data/reference/existing_faults.tif catalogue", "no training labels used for surface"],
+  "fixed_transform": { "sigma_warp": 3.0, "sigma_smooth": 2.0, "distance_optimal_px": 4.0, "distance_sigma_px": 2.5, "min_sep_px": 2.8, "budget": 32000 },
+  "holdout": { "evaluator": "gems57-pooled-hide-v2", "seeds": [20,30], "buffer_px": 3, "metric": "pooled DTI alpha0.2 beta0.8 300m triangular", "incumbent": "G79-THVC 0.1905/0.1944" },
+  "leakage_canary": { "metric": "max(ROC_AUC,1-ROC_AUC)", "max_allowed": 0.90 },
+  "uniqueness": { "rho_limit": 0.90, "overlap_limit": 0.70, "radius_px": 3.0, "inventory": "frozen 1108 + delta, literal finite>0 support" },
+  "experiments": ["EXP-HEX-1: 32k greedy-2.8 LoG warp x gravity cross-cut"],
+  "budget": { "max_experiments": 3, "max_hours": 2 },
+  "promotion": "All format, canary, literal uniqueness, matched holdout vs THVC must pass; selector approval separate."
+}

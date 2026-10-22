@@ -1,0 +1,191 @@
+{
+  "file": "g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+  "sha256": "b328ff54488a96da7f958200cbebc6432b2499aa5e624c4dd4642906be2613de",
+  "bytes": 127716,
+  "submission_name": "g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb",
+  "note": "G79-HEX Lahontan warp x gravity cross-cut LoG 3px 32k greedy-2.8 zeros outside footprint",
+  "note_chars": 88,
+  "validator": {
+    "file": "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+    "bytes": 127716,
+    "sha256": "b328ff54488a96da7f958200cbebc6432b2499aa5e624c4dd4642906be2613de",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002606041496619582,
+    "emitted_positive_pixels": 32000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 32000,
+    "footprint_fraction": 0.006192701784833415
+  },
+  "template_report": {
+    "path": "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+    "bytes": 127716,
+    "sha256": "b328ff54488a96da7f958200cbebc6432b2499aa5e624c4dd4642906be2613de",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002606041496619582,
+    "n_nonzero": 32000,
+    "mass": 32000.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.zip",
+  "zip_sha256": "40795f886ae22eecdf368b9db5605712f30f1b6e30fc1b020860f5655a41b200",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "method": "G79-HEX paleo-Lahontan shoreline warp x gravity step cross-cut (LoG sigma=3px, 32k greedy, 2.8px sep)",
+    "geological_target": "blind low-slip piedmont faults offsetting paleo-shoreline datum + buried gravity step",
+    "distinct_from": "G79-THVC (thermal+sinter+ML), G79-CSKD (Lahontan veto), G79-DZD (damage-zone Gaussian), G79-CJX (RTPxGravity junctions), G79-TDW (tilt-worms)",
+    "top_k": 32000,
+    "min_sep_px": 2.8,
+    "sigma_warp": 3.0,
+    "sigma_smooth": 2.0,
+    "generated_utc": "2026-10-22T20:04:42.478128+00:00",
+    "evidence_class": "LOCALLY_GENERATED_UNVERIFIED",
+    "holdout_dti": null,
+    "leakage_canary": null,
+    "uniqueness_vs_registry": "partial local only; full 1108-raster census not cached; universal witness makes literal 1.0 unavoidable per evidence/universal_overlap_certificate.json",
+    "reference_grid": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform": [
+        100,
+        0,
+        243350,
+        0,
+        -100,
+        4508550
+      ]
+    }
+  },
+  "raster_sha256": "b328ff54488a96da7f958200cbebc6432b2499aa5e624c4dd4642906be2613de",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "portal_spec": {
+    "overall": "FAIL_R6_ONLY",
+    "details": "R1-R5 PASS, R7 PASS, R8 PASS, R6 FAIL (outside-footprint zeros vs official null/NaN). Shared writer zeros mode in vendor/gems57/grid.py. Values are in [0,1] so portal [0,1] error cannot come from this file. See evidence/portal_spec_calibration.json."
+  },
+  "partial_novelty": {
+    "local_rasters_checked": 37,
+    "max_forward_overlap_3px": 0.6677,
+    "max_overlap_limit": 0.7,
+    "worst_file": "archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif (37654 dots, 0.6677)",
+    "passed_vs_local": true,
+    "max_abs_spearman": 0.1646,
+    "worst_rho_file": "artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif (0.1646)",
+    "full_registry": "NOT_MEASURED \u2014 universal witness covers 100% allowed cells (evidence/universal_overlap_certificate.json, SHA ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be), literal gate blocked at 1.0; see evidence/new_lane_preflight_a7d092d7.json exit 2",
+    "rank_correlation": "sparse diagnostic max |rho| 0.1646 <=0.90 (200k footprint sample)"
+  },
+  "holdout_dti": {
+    "evidence_class": "NOT_MEASURED",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "reason": "data/raw/training_features.tif login-gated and absent (0/13 verified); no canary or holdout run",
+    "withheld_positive_pixels": null,
+    "dti": null,
+    "ci95": null
+  },
+  "leakage_canary": {
+    "evidence_class": "NOT_RUN",
+    "reason": "training_features absent; no feature-alone AUC computed",
+    "passed": null,
+    "required_threshold": 0.9
+  },
+  "submit_blockers": [
+    "holdout_dti_not_measured_training_data_login_gated",
+    "leakage_canary_not_run_training_data_login_gated",
+    "literal_novelty_blocked_universal_witness_1.0",
+    "separate_selector_has_not_approved_a_slot"
+  ],
+  "message": "OK TO DOWNLOAD: YES (research artifact, locally format-valid). OK TO SUBMIT: NO \u2014 holdout-DTI, leakage canary and full registry novelty not measured (data/raw missing, universal witness). Format PASS prevents [0,1] portal error, but is not slot approval.",
+  "verdict": "negative",
+  "lane": "G79-HEX",
+  "tif": "g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+  "zip": "g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.zip"
+}

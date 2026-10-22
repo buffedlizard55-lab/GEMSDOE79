@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "lane": "G79-HEX",
+  "lane_title": "Paleo-Lahontan Shoreline Warp x Isostatic Gravity Step Cross-Cut (G79-HEX Hypothes is EXplorer)",
+  "session": "74cbb4bb",
+  "generated_utc": "2026-10-22T20:04:42Z",
+  "branch": "arena/74cbb4bb-gemsdoe79",
+  "hypothesis": "Blind low-slip piedmont faults in NW Nevada offset a once-horizontal paleo-Lahontan shoreline datum (10-30 m warp) and juxtapose density across a buried step; a catalogue-free LoG curvature peak on shoreline equipotential residuals cross-cut by an isostatic gravity gradient step (60-120\u00b0) marks unmapped structures missed by range-front-dominated USGS/INGENIOUS compilations, while a nearby visible fault would already appear in the catalogue and have no warp/gravity cross-cut away from it.",
+  "mechanism": "Deterministic single-channel transform, no ML: Gaussian-smoothed fault density (sigma 2px) -> LoG warp (sigma 3px, |Laplacian|) x gravity-step proxy (|grad density| smoothed) x orientation diversity sin(delta_strike) x fault-activity (|grad catalogue| sigma 2px) x 400m distance Gaussian (sigma 2.5px, optimal 4px); rank-normalized to [0,1] on footprint, zero on catalogue and outside footprint; greedy Euclidean NMS with min_sep 2.8px (H33-efficient) to 32,000 binary dots, zeros mode writer (all-finite [0,1], no NaN repair).",
+  "named_non_fault_mimic": "Pleistocene climatically-driven lake stillstands, fluvial terrace treads, eolian deflation hollows, and buried pluton margins / un-faulted lithology contacts can produce shoreline-like benches and gravity steps; also down-gradient thermal outflow plumes, basalt dike swarms, and Lake Lahontan shoreline bars.",
+  "holdout_dti": {
+    "evidence_class": "NOT_MEASURED",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "dti": null,
+    "ci95": null,
+    "withheld_positive_pixels": null,
+    "reason": "DrivenData training_features.tif and labels.tif are login-gated and absent from this checkout (python scripts/data_status.py shows 0/13 verified under data/raw). No leakage canary or holdout run was performed here; see evidence/hex/holdout_seed20.json placeholder.",
+    "per_seed": {
+      "seed_20": {
+        "candidate": null,
+        "withheld_positive_pixels": 11321,
+        "h33_foldfair_control": {
+          "dti": 0.0961,
+          "ci95": [
+            0.0831,
+            0.109
+          ]
+        },
+        "incumbent_g79_thvc": {
+          "dti": 0.1905,
+          "ci95": [
+            0.1741,
+            0.2069
+          ]
+        }
+      },
+      "seed_30": {
+        "candidate": null,
+        "withheld_positive_pixels": 11342,
+        "h33_foldfair_control": {
+          "dti": 0.0989,
+          "ci95": [
+            0.0854,
+            0.1128
+          ]
+        },
+        "incumbent_g79_thvc": {
+          "dti": 0.1944,
+          "ci95": [
+            0.1774,
+            0.2126
+          ]
+        }
+      }
+    },
+    "note": "H33 control and THVC incumbent numbers are frozen HOLDOUT-DTI from evidence/g79_thvc_results.json (gems57-pooled-hide-v2, 158/159 clusters, 1000 paired bootstrap draws). No new DTI is claimed for this artifact."
+  },
+  "secondary_holdout_dti": null,
+  "leakage_canary": {
+    "evidence_class": "NOT_RUN",
+    "passed": null,
+    "required_threshold": 0.9,
+    "n_features_tested": 0,
+    "n_suspicious_gt_0p90": null,
+    "max_feature": null,
+    "reason": "training_features absent; no single-feature AUC computed. Deterministic geometric transform has low leakage risk but not measured."
+  },
+  "correlation_overlap_vs_registry": {
+    "evidence_class": "REGISTRY-MEASUREMENT (partial local diagnostic)",
+    "registry_rasters_expected": 1108,
+    "registry_rasters_checked_full_grid": 1088,
+    "registry_rasters_indexed_locally": 44,
+    "sparse_diagnostic": {
+      "compared": 37,
+      "max_forward_overlap_3px": 0.6677,
+      "limit": 0.7,
+      "passed": true,
+      "worst_file": "archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif (37654 dots, 0.6677)",
+      "note": "Diagnostic only vs locally available sparse dot fields <=80k; not a full census."
+    },
+    "surface_before_placement": {
+      "max_abs_spearman": 0.1646,
+      "limit": 0.9,
+      "passed": true,
+      "worst_file": "artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif",
+      "note": "Sampled 200k footprint cells Spearman; max |rho| 0.1646 <=0.90."
+    },
+    "literal_gate": {
+      "max_forward_overlap_3px": 1.0,
+      "limit": 0.7,
+      "passed": false,
+      "reason": "Universal witness covers 100% of allowed cells (5,167,373 positive pixels, evidence/universal_overlap_certificate.json, SHA-256 ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be, 374c88b1da2b803e2ed160de467fd71ae114010d.tif from 17GEMSDOE). Any nonempty candidate has forward overlap 1.0 >0.70 per PARALLEL-RUN PROTOCOL lane rule. This is logged as duplicate per protocol and is not a fixable bug."
+    },
+    "note": "All 1108 rasters not re-scanned this session; frozen scans in evidence/g79_dot_uniqueness_1108.json show THVC max overlap 1.0. Sparse diagnostic is not a bypass of the literal gate."
+  },
+  "raster_sha256": "b328ff54488a96da7f958200cbebc6432b2499aa5e624c4dd4642906be2613de",
+  "zip_sha256": "40795f886ae22eecdf368b9db5605712f30f1b6e30fc1b020860f5655a41b200",
+  "raster_bytes": 127716,
+  "zip_bytes": 91713,
+  "tif": "g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+  "zip": "g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.zip",
+  "artifact_dir": "artifacts/hex",
+  "submission_file": "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+  "zip_file": "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.zip",
+  "submission_name": "g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb",
+  "submission_note": "G79-HEX Lahontan warp x gravity cross-cut LoG 3px 32k greedy-2.8 zeros outside footprint",
+  "submission_note_chars": 88,
+  "positive_pixels": 32000,
+  "dots": 32000,
+  "validator": {
+    "file": "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+    "bytes": 127716,
+    "sha256": "b328ff54488a96da7f958200cbebc6432b2499aa5e624c4dd4642906be2613de",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002606041496619582,
+    "emitted_positive_pixels": 32000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 32000,
+    "footprint_fraction": 0.006192701784833415
+  },
+  "validator_output": {
+    "file": "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+    "bytes": 127716,
+    "sha256": "b328ff54488a96da7f958200cbebc6432b2499aa5e624c4dd4642906be2613de",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ]
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.002606041496619582,
+    "emitted_positive_pixels": 32000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance"
+  },
+  "portal_spec": {
+    "overall": "FAIL_R6_ONLY",
+    "details": "R1-R5 PASS, R7 PASS, R8 PASS, R6 FAIL (outside-footprint zeros vs official null/NaN). Shared writer uses zeros mode; see evidence/portal_spec_calibration.json. Values are in [0,1] so [0,1] portal error cannot come from this file."
+  },
+  "submission_slots_used": 0,
+  "approved_for_weekly_slot": false,
+  "selector_receipt": null,
+  "organizer_submission_receipt": null,
+  "protocol_unique": false,
+  "current_best_holdout_beaten": false,
+  "source_provenance_verified": true,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "stop_reason": "New unique research GeoTIFF generated (32k dots, byte-distinct SHA-256 b328ff54...) with format PASS (all finite [0,1], zeros outside footprint) and sparse diagnostic PASS (max overlap 0.6677 <=0.70, max |rho| 0.1646 <=0.90), but HOLDOUT-DTI NOT_MEASURED (0/13 data/raw inputs) and literal gate BLOCKED by universal witness (1.0 >0.70). Verdict negative per protocol \u00a75; 0 slots spent. Do not submit.",
+  "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+  "experiments": [
+    {
+      "id": "EXP-HEX-1",
+      "name": "Paleo-Lahontan warp x gravity cross-cut (LoG 3px, 32k greedy-2.8)",
+      "budget": 32000,
+      "min_sep_px": 2.8,
+      "sigma_warp": 3.0,
+      "sigma_smooth": 2.0,
+      "n_pos": 32000,
+      "holdout_dti": null,
+      "verdict": "negative - not measured"
+    }
+  ],
+  "budget": {
+    "max_experiments": 3,
+    "experiments_run": 1,
+    "max_hours": 2,
+    "stop_after": "1 experiment (holdout not runnable) + universal witness preflight"
+  },
+  "preregistration_path": "registry/preregistration_hex.json",
+  "preregistration_sha256": "c271bebf7445b2ea372a5f273dc57bf63725f2268da9d6bedb992537808437b9",
+  "generated_by": "scripts/generate_hex_submission.py (G79-HEX, no enforce_open_lane, deterministic, no ML)",
+  "evidence": [
+    "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.tif",
+    "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.zip",
+    "artifacts/hex/g79-hex-lahontan-warp-x-grav-32000-20261022-74cbb4bb-20261022T200442Z.json",
+    "research/hypotheses_74cbb4bb.md",
+    "knowledge/h33_phd_analysis_74cbb4bb.md",
+    "evidence/hex/experiment_state.json",
+    "evidence/universal_overlap_certificate.json",
+    "evidence/verification.json"
+  ]
+}
