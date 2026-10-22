@@ -1,43 +1,43 @@
 {
-  "verified_utc": "2026-10-22T02:27:43.977295+00:00",
+  "verified_utc": "2026-10-22T02:35:14.192148+00:00",
   "all_checks_passed": true,
   "checks": {
-    "all_shared_template_bytes_unmodified": true,
-    "preregistration_preserved": true,
+    "all_shared_template_bytes_match_pins": true,
+    "e1_preregistration_preserved": true,
     "reference_input_hashes_match_pins": true,
-    "readme_matches_negative_decision": true,
-    "only_canonical_upload_artifacts_published": true,
-    "active_inventory_matches_frozen_verified_blobs": true,
     "no_git_conflict_markers": true,
     "all_repo_json_strictly_valid": true,
+    "readme_matches_card_decision": true,
+    "only_canonical_upload_artifacts_published": true,
+    "active_inventory_matches_frozen_verified_blobs": true,
     "card_copies_equal": true,
     "raster_hash_card_receipt_agree": true,
     "name_and_note_valid": true,
-    "filename_warns_do_not_submit": true,
+    "filename_warning_matches_verdict": true,
     "reopened_tiff_format_all_passed": true,
     "format_receipt_positive_count_agrees": true,
     "zip_exactly_one_identical_tiff": true,
     "zip_crc_valid": true,
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
-    "decisive_overlap_certificate_consistent": true,
-    "e1_lane_archived_unchanged_and_negative": true,
+    "holdout_card_equals_evaluator_output": true,
+    "holdout_beats_h33_control_both_seeds": true,
+    "leakage_canary_clear": true,
+    "uniqueness_card_matches_evidence": true,
+    "gate_receipt_bound_to_raster_and_verdict": true,
+    "promotion_requires_uniqueness": true,
+    "preregistration_hash_matches_card": true,
     "e1_scientific_stop_honored": true,
-    "stepco_holdout_measured_and_consistent": true,
-    "stepco_canaries_passed_and_match_evidence": true,
-    "stepco_uniqueness_evidence_consistent": true,
-    "no_fabricated_holdout_or_ci": true,
-    "scientific_stop_honored": true,
-    "automatic_negative_not_format_only_approval": true
+    "status_tool_and_card_agree": true
   },
-  "raster_sha256": "6ae07fbf14dfe2d169aa9f926c54ee5e74215d7c569ffcc325cb91da297e510a",
+  "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "/home/user/GEMSDOE79/docs/downloads/gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT.tif",
-      "bytes": 125605,
-      "sha256": "6ae07fbf14dfe2d169aa9f926c54ee5e74215d7c569ffcc325cb91da297e510a",
+      "file": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+      "bytes": 136481,
+      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -91,9 +91,9 @@
       "footprint_fraction": 0.007286874781441169
     },
     "reference_grid": {
-      "path": "/home/user/GEMSDOE79/docs/downloads/gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT.tif",
-      "bytes": 125605,
-      "sha256": "6ae07fbf14dfe2d169aa9f926c54ee5e74215d7c569ffcc325cb91da297e510a",
+      "path": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+      "bytes": 136481,
+      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",
@@ -147,15 +147,17 @@
     "verdict": "negative",
     "blockers": [
       "literal_novelty_not_cleared",
-      "matched_current_best_holdout_not_beaten",
-      "source_provenance_not_independently_cleared",
       "negative_scientific_verdict",
       "separate_selector_has_not_approved_a_slot",
-      "current_account_weekly_capacity_not_verified",
       "separate_selector_receipt_missing_or_unbound",
       "explicit_submission_approval_absent"
     ],
+    "account_side_conditions": [
+      "A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).",
+      "You must be a registered, eligible participant who accepted the competition rules."
+    ],
+    "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
     "organizer_acceptance_established": false
   },
-  "scope": "Offline byte/format/status verification. Does not recreate holdout results or authenticate organizer acceptance."
+  "scope": "Offline byte/format/evidence/status verification. Does not recreate holdout results or authenticate organizer acceptance."
 }

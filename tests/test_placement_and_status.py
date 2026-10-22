@@ -23,14 +23,18 @@ def test_invalid_surface_never_silently_clipped():
     for value in (-.1,float('nan'),float('inf')):
         with pytest.raises(ValueError): place(np.full((5,5),value),np.ones((5,5),bool),5)
 
+def e1_card():
+    # The archived negative E1 card is a real, fully measured negative fixture.
+    return json.loads((ROOT/'evidence/e1/run_card_e1.json').read_text())
+
 def test_format_green_never_means_submit_green():
-    card=json.loads((ROOT/'run_card.json').read_text())
+    card=e1_card()
     result=submission_decision(card,actual_sha256=card['raster_sha256'],format_passed=True)
     assert result['ok_to_download'] and not result['ok_to_submit']
     assert not result['human_inspection_required_for_this_decision']
 
 def test_edited_ok_flag_cannot_bypass_individual_gates():
-    card=json.loads((ROOT/'run_card.json').read_text()); card['ok_to_submit']=True
+    card=e1_card(); card['ok_to_submit']=True
     card['approved_for_weekly_slot']=True; card['verdict']='promote'
     result=submission_decision(card,actual_sha256=card['raster_sha256'],format_passed=True)
     assert not result['ok_to_submit']
@@ -42,5 +46,18 @@ def test_edited_ok_flag_cannot_bypass_individual_gates():
 
 def test_corrupt_bytes_disable_download_and_submission():
     card=json.loads((ROOT/'run_card.json').read_text())
+    for c in (card, e1_card()):
+        assert not submission_decision(c,actual_sha256='bad',format_passed=True)['ok_to_submit']
     result=submission_decision(card,actual_sha256='bad',format_passed=True)
     assert not result['ok_to_download'] and not result['ok_to_submit']
+
+
+def test_current_card_without_selector_receipt_is_blocked():
+    card=json.loads((ROOT/'run_card.json').read_text()); card['selector_receipt']=None
+    result=submission_decision(card,actual_sha256=card['raster_sha256'],format_passed=True)
+    assert not result['ok_to_submit'] and 'separate_selector_receipt_missing_or_unbound' in result['blockers']
+
+def test_current_card_with_failed_format_is_blocked():
+    card=json.loads((ROOT/'run_card.json').read_text())
+    result=submission_decision(card,actual_sha256=card['raster_sha256'],format_passed=False)
+    assert not result['ok_to_submit'] and not result['ok_to_download']

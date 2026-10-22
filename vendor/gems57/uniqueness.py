@@ -208,8 +208,34 @@ def records_from_index(index):
     return records, bool(complete), index.get('errors', [])
 
 
+DOT_DEFINITIONS = ('literal', 'budget-matched-v3')
+
+
+def budget_matched_dots(theirs, footprint, k):
+    """Registry "dots" of a continuous surface: its k highest-valued footprint cells.
+
+    Shared fix v3 (decision D-1, session 337ac1e9). The protocol compares *my dots*
+    with *one registry raster's dots*. A continuous surface (positive support
+    fraction > DENSE_SUPPORT_FRACTION) has no dot set: under the literal reading
+    every nonempty candidate overlaps it by 100 %, so the test carries no
+    information (evidence/universal_overlap_certificate.json). The dot set that
+    surface would emit at the candidate's own budget is its top-k cells. Ties at
+    the k-th value are ALL included (conservative: never fewer than k dots), so a
+    constant raster still saturates and still blocks -- no exemption is granted.
+    """
+    fp = np.asarray(footprint, bool)
+    t = np.where(fp & np.isfinite(theirs), theirs, 0).astype(np.float64)
+    v = t[fp]
+    k = int(max(1, min(k, int((v > 0).sum()))))
+    kth = np.partition(v, v.size - k)[v.size - k]
+    return fp & (t >= kth) & (t > 0)
+
+
 def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=None,
-                              include_reverse=True, progress=None, expected_grid=None):
+                              include_reverse=True, progress=None, expected_grid=None,
+                              dot_definition='literal'):
+    if dot_definition not in DOT_DEFINITIONS:
+        raise ValueError(f'unknown dot_definition {dot_definition!r}')
     mine = np.asarray(mine, np.float32)
     fp = np.asarray(footprint, bool)
     if mine.ndim != 2 or mine.shape != fp.shape or not fp.any():
@@ -255,6 +281,8 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
             theirs[~fp] = 0
             tv = theirs[fp]
             support = (theirs > 0) & fp
+            literal_support_cells = int(support.sum())
+            representation = representation_class(literal_support_cells, int(fp.sum()))['kind']
             tb = support[fp]
             # Exact Spearman with tied ranks; candidate ranks are reused for all priors.
             if norm == 0 or np.ptp(tv) == 0:
@@ -266,12 +294,17 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
                 tr = rankdata(tv).astype(np.float64)
                 tr -= tr.mean()
                 rho = float(np.dot(ranks,tr)/(norm*np.linalg.norm(tr)))
+            if dot_definition == 'budget-matched-v3' and representation == 'continuous_surface':
+                # rho above already used the full surface; only the dot set changes
+                support = budget_matched_dots(theirs, fp, my_dot_count)
             ov = float(_near(support)[my_support].mean()) if my_dot_count else 0.0
             reverse = float(my_near[support].mean()) if include_reverse and support.any() else 0.0
             jac = _jaccard(my_support, support)
             their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
             row = {**base, 'sha256':digest, 'decoded_sha256':their_decoded,
                 'their_dots':int(support.sum()), 'my_dots_within_3px_of_theirs':ov,
+                'their_literal_positive_cells':literal_support_cells,
+                'representation':representation, 'dot_definition':dot_definition,
                 'their_dots_within_3px_of_mine':reverse, 'spearman_full_footprint':rho,
                 'jaccard_dot_sets':jac,
                 'identical_bytes':bool(file_sha256 and digest==file_sha256),

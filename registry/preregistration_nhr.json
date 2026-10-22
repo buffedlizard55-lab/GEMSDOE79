@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "lane": "H79-NHR",
+  "title": "Nested hide-to-recover learning with a metric-native kernel target",
+  "registered_utc": "2026-10-22T01:31:00Z",
+  "branch": "arena/337ac1e9-gemsdoe79",
+  "registered_before_any_holdout_result": true,
+  "supersedes": "Nothing. G79-FABRIC-OFFSET (E1) remains a stopped negative lane; its card is preserved in evidence/run_card_e1_fabric_offset.json.",
+  "lane_paragraph": "A fault missing from a catalogue is one the catalogue's mappers did not draw. Rather than learning to recognise mapped fault pixels, simulate the discovery task: inside the visible catalogue repeatedly withhold whole 8-connected components with a 3 px context collar, recompute every catalogue-derived input from what remains, and fit a gradient-boosted regressor whose target is the official 300 m triangular kernel credit towards the withheld component. Inputs are label-independent GeoDAWN/feature-stack geophysics, multiscale edge/curvature transforms of elevation, gravity and RTP magnetics, USGS 3DEP lidar scarp morphometry, radiometrics, and the geometry of visible faults. Dots are placed greedily with 3 px Poisson spacing at a fixed budget.",
+  "hypothesis": "The conditional distribution of an unmapped fault given the mapped network and terrain/geophysics differs from the marginal distribution of mapped fault pixels; a model trained on simulated discoveries ranks unmapped-fault kernel credit better than hand-built single-transform surfaces.",
+  "mechanism": "Basin-and-Range normal-fault systems are multi-strand: subsidiary synthetic/antithetic strands, step-overs and along-strike continuations lie within ~0.3-3 km of mapped traces and share their strike; where they offset Quaternary surfaces they leave lidar-resolvable scarps (slope excess, 10-50 m step, crest convexity/base concavity).",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline/terrace risers and incised channel banks produce contour-parallel steps of similar 2-10 m scale near range fronts; roads and mine benches also create steps.",
+  "inputs": [
+    "data/raw/training_features.tif sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5 (19 bands)",
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568 (USGS 3DEP-derived, 12 bands)",
+    "data/raw/external/geodawn_rad_u8.tif sha256 c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "data/raw/external/geodawn_extensions_u8.tif sha256 a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+    "data/reference/existing_faults.tif and sample_submission.tif (grid, footprint, catalogue)"
+  ],
+  "excluded_inputs": "No registry raster, prior submission, SGMC map, Qfaults trace CSV, or score is an input to the surface.",
+  "fixed_parameters": {
+    "nested_replicates_per_model": 3,
+    "nested_hide_fraction": 0.20,
+    "nested_buffer_px": 3,
+    "negatives_sampled_per_replicate": 200000,
+    "target": "max(1 - d/3 px, 0) towards the nested-withheld component; context catalogue pixels excluded from training rows",
+    "model": "sklearn HistGradientBoostingRegressor(max_iter=250, learning_rate=0.08, max_leaf_nodes=63, min_samples_leaf=200, l2_regularization=1.0, random_state=seed)",
+    "placement": "gems79.placement.place: descending surface, Euclidean 3 px spacing, budget 37654 scaled by evaluation-region footprint area",
+    "allowed_cells": "footprint & region & not masked/visible catalogue",
+    "final_map": "model trained on nested hides of the full catalogue over the whole footprint; geometry from the full catalogue; 37654 binary dots off the catalogue; zeros elsewhere (all finite)"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer 3 px, boundary 12 px (identical to the E1 post-stop diagnostic, so controls are directly comparable)",
+    "training_for_holdout": "leave-one-quadrant-out: for fold q the model is fitted only on nested hides of the VISIBLE catalogue in the three other quadrants; geometry inputs at prediction time come from the visible catalogue only",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified)",
+    "controls": ["seeded uniform surface, same allocator and budget", "h33_foldfair_control: legacy D2.8 dots outside 2 px of the fold's visible catalogue (as in evidence/post_stop_diagnostic.json); contaminated/unmatched historical reference used as the 'current holdout best' bar", "ablation: same learner without catalogue-geometry inputs"],
+    "ci": "shared paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws"
+  },
+  "leakage_canary": "Every input feature alone (static + geometry) on each seed and fold: held-out positives vs negatives >3 px from truth and >3 px from visible faults; symmetric AUC > 0.90 means leakage until proven otherwise and blocks promotion.",
+  "promotion_gate": [
+    "all canaries <= 0.90 on both seeds",
+    "candidate pooled HOLDOUT-DTI > h33_foldfair_control point estimate on BOTH seeds (current holdout best)",
+    "paired 95% CI of candidate minus uniform_control excludes 0 on both seeds",
+    "uniqueness (shared tool, dot definition budget-matched-v3): surface Spearman <= 0.90 vs every registry raster; final dots Spearman <= 0.90 and forward 3 px overlap <= 0.70 vs every registry raster",
+    "shared submission_writer validation: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, [0,1], no mass outside footprint or on catalogue"
+  ],
+  "experiments": [
+    "X1: the lane exactly as specified above",
+    "X2/X3: reserved; only for a defect fix, never for tuning against the holdout"
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95% CI). No projected leaderboard score is written. ORGANIZER-CONFIRMED requires a submission-page receipt."
+}

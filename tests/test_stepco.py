@@ -56,7 +56,8 @@ def test_nan_handling_propagates_as_nonfinite_not_silently_zeroed():
 
 
 def test_run_card_matches_measured_stepco_evidence():
-    card = json.loads((ROOT / "run_card.json").read_text())
+    # STEPCO is an archived concurrent negative lane; its card lives beside the canonical one.
+    card = json.loads((ROOT / "run_card_stepco.json").read_text())
     assert card["lane"] == "G79-STEPCO" and card["verdict"] == "negative"
     s1 = json.loads((ROOT / "evidence/stepco/holdout_s1_seed20.json").read_text())
     assert card["holdout_dti"]["dti"] == s1["scores"]["candidate"]["dti"]
@@ -79,8 +80,8 @@ def test_run_card_matches_measured_stepco_evidence():
 
 
 def test_s1_artifact_bytes_match_run_card_and_are_byte_unique_vs_archive():
-    card = json.loads((ROOT / "run_card.json").read_text())
-    tif = ROOT / card["submission_file"]
+    card = json.loads((ROOT / "run_card_stepco.json").read_text())
+    tif = ROOT / "archive/g79_stepco_s1/downloads" / Path(card["submission_file"]).name
     assert hashlib.sha256(tif.read_bytes()).hexdigest() == card["raster_sha256"]
     s2 = ROOT / card["experiments"]["S2_COVER"]["published_path"]
     assert s2.is_file()
