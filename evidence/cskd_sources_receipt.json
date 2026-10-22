@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "lane": "G79-CSKD",
+  "verified_files_count": 3,
+  "files": [
+    {
+      "id": "geodawn_dem_a2_100m",
+      "dest": ".cache/cskd_sources/geodawn_dem_a2_100m.tif",
+      "status": "present",
+      "bytes": 49531304,
+      "sha256": "d32762a38222764389e948da423ebc6cadd00ac617ad3938d3dd79c6cfe14431",
+      "official_source": "https://doi.org/10.5066/P93LGLVQ",
+      "official_catalog": "https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7",
+      "mirror_repo": "buffedlizard55-lab/60GEMSDOE",
+      "mirror_ref": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+      "mirror_path": "data/geodawn_dem_a2_100m.tif",
+      "label_free": true
+    },
+    {
+      "id": "acquisition_block_id_100m",
+      "dest": ".cache/cskd_sources/acquisition_block_id_100m.tif",
+      "status": "present",
+      "bytes": 85031,
+      "sha256": "2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a",
+      "official_source": "https://doi.org/10.5066/P93LGLVQ",
+      "official_catalog": "https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7",
+      "mirror_repo": "buffedlizard55-lab/GEMSDOE24",
+      "mirror_ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "mirror_path": "data/external/audit_sources/acquisition_block_id_100m.tif",
+      "label_free": true
+    },
+    {
+      "id": "blm_closed_claim_distance_m",
+      "dest": ".cache/cskd_sources/blm_closed_claim_distance_m.tif",
+      "status": "present",
+      "bytes": 5752587,
+      "sha256": "a88356423c03fc8b6510a84f77cee2b1d38c4ccbd7761bc95c1ca8332a2e166a",
+      "official_source": "https://gis.blm.gov/nlsdb/rest/services/Mining_Claims/MiningClaims/MapServer/2",
+      "official_catalog": "https://gbp-blm-egis.hub.arcgis.com/",
+      "mirror_repo": "buffedlizard55-lab/GEMSDOE24",
+      "mirror_ref": "07345ea0604953d7efb858d9cfbc21e20c7aca0b",
+      "mirror_path": "data/external/audit_sources/blm_closed_claim_distance_m.tif",
+      "label_free": true
+    }
+  ]
+}

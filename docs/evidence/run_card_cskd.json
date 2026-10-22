@@ -1,0 +1,191 @@
+{
+  "schema_version": "gems-run-card.v2",
+  "lane": "G79-CSKD",
+  "branch": "arena/6da2620c-gemsdoe79",
+  "generated_utc": "20261022T161939Z",
+  "hypothesis": "Quaternary normal faults missed by the USGS/INGENIOUS catalogue \u2014 bajada-transgressive piedmont scarps obscured by Pleistocene Lake Lahontan shoreline flights, blind intra-basin hydrothermal adularia-illite upflow conduits, sub-alluvial faulted volcanics obscured by GeoDAWN E-W flight-line corrugations, and unmapped range-front slip-deficit gaps \u2014 can be recovered without broadside collar crowding by combining: (1) USGS GeoDAWN 100-m absolute elevation Z(x) Lahontan equipotential isohypse veto + along-scarp climb |t_scarp . grad Z| and US BLM mining-claim open-pit/tailings deconfounding, (2) 2D FFT E-W flight-line notch + Thurston-Smith local wavenumber k_loc conditioned on GeoDAWN survey block, (3) (Th, TC)-regressed potassic adularia residual Kd(x) + magnetite-destruction trough, (4) decontaminated d_vis > 3.0 px training shards + Crider-Pollard broadside normal-fault Coulomb stress-drop shadow (Delta_CFS < 0) + along-range slip-deficit, and (5) counterfactual pure-physics + structural OOF fusion into Charnes-Cooper 300-m submodular kernel allocation.",
+  "mechanism": "Decontaminated 102-channel (84 static label-free + 18 fold-visible fracture/Coulomb/slip-deficit) 2-stage ensemble coupled with an 84-channel zero-catalogue multi-physics OOF head (inner-validated w_base=0.05, w_far=0.25) and allocated via exact lazy-greedy Charnes-Cooper fractional programming on d_cat > 3.0 px.",
+  "named_non_fault_mimic": "Pleistocene pluvial Lake Lahontan (~1,200-1,345 m ASL) and Lake Bonneville (~1,552 m) wave-cut shoreline benches, anthropogenic open-pit mining haul benches and potassic tailings piles (BLM claims), incised alluvial-fan channel margins, and unaltered potassic felsic ash-flow tuffs or closed evaporite playas.",
+  "leakage_canary": {
+    "n_features_tested": 102,
+    "overall_max_symmetric_auc": 0.805165,
+    "overall_worst_feature": "net_tip_fwd_35px",
+    "gate_passed": true
+  },
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed_20": {
+      "dti": 0.178129,
+      "ci95": [
+        0.161835,
+        0.194433
+      ],
+      "withheld_positives": 11321,
+      "h33_foldfair_control_dti": 0.096086,
+      "delta_vs_h33_control": 0.082042,
+      "delta_vs_g79_thvc": -0.012388
+    },
+    "seed_30": {
+      "dti": 0.214488,
+      "ci95": [
+        0.196592,
+        0.232188
+      ],
+      "withheld_positives": 11342,
+      "h33_foldfair_control_dti": 0.098898,
+      "delta_vs_h33_control": 0.11559,
+      "delta_vs_g79_thvc": 0.020122
+    },
+    "dual_seed_mean_dti": 0.196308,
+    "g79_thvc_dual_seed_mean_dti": 0.192441,
+    "pooled_withheld_positives": 22663
+  },
+  "uniqueness_vs_registry": {
+    "rasters_expected": 1221,
+    "rasters_checked": 1211,
+    "pre_placement_surface_max_abs_spearman": 0.640861,
+    "post_placement_dots_max_abs_spearman": 0.424618,
+    "literal_passes_0_70": false,
+    "overlap_vs_gemsdoe83_h83_gvcd": 0.61369,
+    "overlap_vs_g79_thvc": 0.762643,
+    "overlap_vs_13gemsdoe_r13_lattice_s5": 0.998214,
+    "overlap_vs_17gemsdoe_proba_multiscale": 1.0,
+    "valid_zeros_cross_repo_sparse_le_50k_max_overlap": 0.679643,
+    "all_cross_repo_sparse_le_50k_max_overlap": 0.70619
+  },
+  "submission_file": "archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif",
+  "submission_name": "g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT",
+  "submission_note": "RESEARCH ONLY DO NOT SUBMIT: G79-CSKD Lahontan+BLM+Kd+Coulomb+CC (42000 px); blocked by literal 17GEMSDOE/13GEMSDOE witnesses",
+  "submission_note_length": 125,
+  "raster_sha256": "91ffc11017f7d7ff1d6f77feb8be3734560e295e2f1067a463d89185c4ac37e7",
+  "raster_bytes": 151998,
+  "zip_file": "archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "bf41727924ecea4f55e10e41e3f33f074bae2fb02f89965d063be57a3ceca0ac",
+  "zip_bytes": 118433,
+  "positive_pixels": 42000,
+  "spatial_forensics": {
+    "emitted_positive_pixels": 42000,
+    "min_distance_to_catalogue_px": 3.1623,
+    "median_distance_to_catalogue_px": 3.6056,
+    "p90_distance_to_catalogue_px": 12.8062,
+    "fraction_gt_2km_from_catalogue": 0.028524
+  },
+  "validator": {
+    "file": "archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 151998,
+    "sha256": "91ffc11017f7d7ff1d6f77feb8be3734560e295e2f1067a463d89185c4ac37e7",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003420429304242134,
+    "emitted_positive_pixels": 42000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 42000,
+    "footprint_fraction": 0.008127921092593858
+  },
+  "validator_output": {
+    "path": "archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 151998,
+    "sha256": "91ffc11017f7d7ff1d6f77feb8be3734560e295e2f1067a463d89185c4ac37e7",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003420429304242134,
+    "n_nonzero": 42000,
+    "mass": 42000.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "validator_zip": {
+    "file": "archive/g79_cskd_6da2620c/downloads/g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.zip",
+    "member_count": 1,
+    "member_name": "g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif",
+    "inner_tif_sha256_matches": true,
+    "all_checks_passed": true
+  },
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "weekly_submission_slots_used": 0,
+  "verdict": "negative",
+  "stop_reason": "Achieved GEMSDOE79 record HOLDOUT-DTI = 0.2145 on Seed 30 (+0.0201 over G79-THVC) and higher dual-seed mean (0.1963 vs 0.1924) while breaking GEMSDOE83 collision (0.6137 <= 0.70 vs 0.7139), but scored 0.1781 vs 0.1905 on Seed 20 (preregistration required beating G79-THVC on BOTH seeds individually) and remains fail-closed under literal 17GEMSDOE (1.0000) / 13GEMSDOE (0.9982) pigeonhole witnesses and G79-THVC self-repo overlap (0.7626). Retained intact as archived research deliverable; G79-THVC preserved canonical."
+}

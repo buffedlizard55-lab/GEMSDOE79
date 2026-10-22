@@ -24,7 +24,7 @@
 | `C0_random_B37654` *(matched-budget uniform random)* | `0.0497` | `[0.0433, 0.0561]` | `0.0422` | `[0.0378, 0.0465]` | `37,654` | `-0.0463` / `-0.0567` |
 
 1. **Breakthrough 1 — Zero-Catalogue Pure Physics (`EXP-CSMD-1`) Surpasses `H33` on Both Holdout Seeds:**
-   - By training the 74-channel pure-physics Stage-1 (`LightGBM` + `L2 GLM`) and Stage-2 (`Sato Hessian tubularity` + `PyTorch MLP` + `LightGBM` dual `p_3 / q_1` heads) across 100% of fold-visible faults while excluding `1 <= d_vis < 3.0 px` (`100–283 m`) unmapped fault flanks from `far_pool` (`IR-79-140`, `IR-79-199`) and adding 4 new physical channels (`mt_grav_conduit_colin`, `mag_notch_drape_wavenumber`, `rad_kd_adularia_resid`, `piedmont_relief_step`), `EXP-CSMD-1` achieved **`0.0996` (`seed 20`) and `0.1119` (`seed 30`)** — beating `G79-THVC EXP-79-1` (`0.0784 / 0.0648`) by **`+27.1%` / `+72.7%`**, beating `H79-FNHR` pure-physics (`0.0906 / 0.0966`) by **`+10.0%` / `+15.8%`**, and **beating the full `H33` competition benchmark (`0.0961 / 0.0989`) on BOTH holdout seeds with zero mapped-fault distance, tip, or topology channels**!
+   - By training the 74-channel pure-physics Stage-1 (`LightGBM` + `L2 GLM`) and Stage-2 (`Sato Hessian tubularity` + `PyTorch MLP` + `LightGBM` dual `p_3 / q_1` heads) across 100% of fold-visible faults while excluding `1 <= d_vis < 3.0 px` (`100–283 m`) unmapped fault flanks from `far_pool` (`IR-79-140`, `IR-79-202`) and adding 4 new physical channels (`mt_grav_conduit_colin`, `mag_notch_drape_wavenumber`, `rad_kd_adularia_resid`, `piedmont_relief_step`), `EXP-CSMD-1` achieved **`0.0996` (`seed 20`) and `0.1119` (`seed 30`)** — beating `G79-THVC EXP-79-1` (`0.0784 / 0.0648`) by **`+27.1%` / `+72.7%`**, beating `H79-FNHR` pure-physics (`0.0906 / 0.0966`) by **`+10.0%` / `+15.8%`**, and **beating the full `H33` competition benchmark (`0.0961 / 0.0989`) on BOTH holdout seeds with zero mapped-fault distance, tip, or topology channels**!
 2. **Breakthrough 2 — Complete `0 / 939` Sparse Competition Uniqueness & Resolution of `IR-79-122` (`GEMSDOE83` Collision):**
    - Across all `1,209` valid pixel-comparable rasters in the `93`-repository universe (`992` frozen + `207` delta + `22` self-archived = `1,221` total SHA-pinned rasters), `EXP-CSMD-3` (`20,500` near-regime + `15,100` far-regime dots = `35,600` dots, median catalogue distance `10.0 px = 1.00 km`, `48.80% > 1 km`, `18.89% > 2 km`) achieved **`0 / 939` duplicates (`max 3-px overlap = 0.6961 <= 0.7000`) across all comparable sparse dot submissions (`<= 75,308` dots)**:
      - vs **`GEMSDOE83` (`gems83-h83-gvcd-dink300`, `37,654` dots)**: **`0.5921 <= 0.70`** (resolved `IR-79-122`, where `G79-THVC` overlapped `0.7139 > 0.70`)
@@ -32,7 +32,7 @@
      - vs **`H79-FNHR` (`gems79-h79-fnhr-f3`, `37,654` dots)**: **`0.5237 <= 0.70`**
      - vs **`H33` (`h33-h33-2-b2`, `37,654` dots)**: **`0.4473 <= 0.70`**
      - Pre-placement surface Spearman max $|\rho| = 0.6973 \le 0.90$; post-placement dot Spearman max $|\rho| = 0.1969 \le 0.90$.
-3. **Breakthrough 3 — Covariate-Hole Discovery in Simulated Hide-and-Recover Training (`IR-79-199`):**
+3. **Breakthrough 3 — Covariate-Hole Discovery in Simulated Hide-and-Recover Training (`IR-79-202`):**
    - We discovered and proved why excluding `1 <= d_known < 3.0 px` works differently for pure-physics models vs topology-dependent models: in a model that does *not* use `d_vis` (`EXP-CSMD-1`), excluding `1 <= d_vis < 3.0 px` from `far_pool` cleanly removes unmapped fault flanks without altering the feature support. By contrast, in the 90-channel topology model (which uses `net_log_dist` = $\log(1 + d_{\text{vis}})$), `sim_hidden` already has a `3 px` buffer (`d_known > 3.0 px`), so excluding `d_known < 3.0 px` from negatives leaves zero training rows with `1 <= d_known < 3.0 px` and creates an out-of-distribution covariate hole right inside the valid inference collar (`2.0 < d_vis < 3.0 px`). Restoring `sim_active = footprint & ~sim_known` for the 90-channel topology model while keeping `far_pool` decontaminated for the 74-channel pure-physics head lifted 90-channel `HOLDOUT-DTI` by `+40` DTI points (`0.1369 -> 0.1817 / 0.1967`).
 
 ---
@@ -48,15 +48,15 @@
 
 ---
 
-## 4. Three-Pass Audit & Engineering Fixes (`IR-79-198` .. `IR-79-200`)
+## 4. Three-Pass Audit & Engineering Fixes (`IR-79-201` .. `IR-79-203`)
 
 - **Pass 1 (Implementation & Execution):** Restored all 13 competition/external data inputs, 5 DOE GDR 1391 / USGS 3DEP archives, 13 DEM10 channels, and `1,199` external registry rasters (`992` frozen + `207` delta); locked `registry/preregistration_csmd.json`; implemented `src/gems79/csmd.py` (`90` channels) and `scripts/run_csmd.py`; executed 2-seed (`seed 20`, `seed 30`) `gems57-pooled-hide-v2` holdout evaluations (`1,000` paired 20-km block bootstrap draws) and the full `1,209`-raster single-pass uniqueness audit.
 - **Pass 2 (Review for Bugs, Edge Cases & Fixes):**
-  1. Fixed `scripts/registry_delta_git.py` (`IR-79-198`) so `scan_gitdir()` uses `git cat-file blob` (native promisor lazy-fetch) before falling back to `git fetch`, and added `restore_pinned_delta()` (`--restore-only`).
-  2. Added zero-REST-quota Git Smart-HTTP (`--filter=blob:none` + `git show`) fallbacks to `scripts/restore_dem10.py` and `scripts/restore_official_ingenious.py` (`IR-79-198`).
+  1. Fixed `scripts/registry_delta_git.py` (`IR-79-201`) so `scan_gitdir()` uses `git cat-file blob` (native promisor lazy-fetch) before falling back to `git fetch`, and added `restore_pinned_delta()` (`--restore-only`).
+  2. Added zero-REST-quota Git Smart-HTTP (`--filter=blob:none` + `git show`) fallbacks to `scripts/restore_dem10.py` and `scripts/restore_official_ingenious.py` (`IR-79-201`).
   3. Verified `requirements.txt` has no duplicate `scikit-image` specification (`IR-79-177`).
   4. Added `_evict_mmap()` (`mmap.MADV_DONTNEED`) in `src/gems79/csmd.py` and skipped opening `static_fp74.f32.mmap` during cached `--stage live` audits, keeping peak RSS within the `3.6 GB` sandbox ceiling.
   5. Added `require_open_lane(ROOT, "G79-CSMD")` fail-closed lifecycle guard to `scripts/run_csmd.py` and registered it in `tests/test_lane_lifecycle.py`.
 - **Pass 3 (Line-by-Line Verification & Remaining Limitations):**
   - All pytest tests (`tests/`), all `31` `scripts/verify_project.py` checks, and `scripts/check_site.py` pass with zero errors.
-  - **Remaining Limitations:** Under the frozen `informative-halo-v4` gate (`H_3 <= 0.70`), `26` wide density sweeps (`80,000–985,492` dots, `H_3 = 0.531–0.692`) remain un-budget-matched (`DENSE_SUPPORT_FRACTION = 0.15 = 775,105` pixels; `IR-79-63`, `IR-79-116`, `IR-79-142`, `IR-79-200`), flagging every competitive `~35k–40k`-dot Nevada fault map (`H33` itself overlaps `0.9295`). Therefore, both canonical `G79-THVC` and archived `G79-CSMD` keep `OK TO SUBMIT: NO` (`0` weekly slots spent) pending an owner ruling on `DENSE_SUPPORT_FRACTION` or `excess-overlap-v5`.
+  - **Remaining Limitations:** Under the frozen `informative-halo-v4` gate (`H_3 <= 0.70`), `26` wide density sweeps (`80,000–985,492` dots, `H_3 = 0.531–0.692`) remain un-budget-matched (`DENSE_SUPPORT_FRACTION = 0.15 = 775,105` pixels; `IR-79-63`, `IR-79-116`, `IR-79-142`, `IR-79-203`), flagging every competitive `~35k–40k`-dot Nevada fault map (`H33` itself overlaps `0.9295`). Therefore, both canonical `G79-THVC` and archived `G79-CSMD` keep `OK TO SUBMIT: NO` (`0` weekly slots spent) pending an owner ruling on `DENSE_SUPPORT_FRACTION` or `excess-overlap-v5`.
