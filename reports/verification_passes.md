@@ -30,3 +30,9 @@ Every claim, byte hash, holdout metric, uniqueness statistic, figure, HTML page,
 1. **Automated Test Suite (`pytest` + `unittest`):** Verified all unit, mathematical, placement, uniqueness, site, and submission-validator tests pass (`0` failures).
 2. **Offline Link, Accessibility, CSP & Evidence Sync Check (`scripts/check_site.py`):** Verified all `7` pages + `2` compatibility redirects, single `<h1>`, unique DOM IDs, local asset integrity, strict CSP (`default-src 'self'`), zero external CDN dependencies, and synced `run_card.json == docs/run-card.json == docs/evidence/run_card.json`.
 3. **Real Headless Chromium Browser Review (`node scripts/browser_review.cjs`) & HTTP Verification (`scripts/verify_public_site.py`):** Verified zero console/HTTP errors and zero horizontal overflow across `1440 px`, `390 px`, and `320 px` viewports on all `7` pages, live clipboard copy of `submission_note`, live `.tif` browser download SHA-256 match, and anonymous HTTP SHA-256 verification of both `.tif` and `.zip`.
+
+## Session e23d5371 (2026-10-22, lane H79-COV) — merged as concurrent lane
+
+- Pass 1: preregistered C1 run once on shared folds/evaluator (controls reproduced session 337ac1e9 to 4 decimals); canaries pass; holdout + duplicate gates fail; DO-NOT-SUBMIT artifact via shared writer; selector refused.
+- Pass 2: fixed a lost parallel edit in the selector, made verify/site/tests card-driven on the session branch, independent portal-style raster check (finite, exactly {0,1}, 37,654 positives).
+- Pass 3: verify_project 27/27, check_site pass, pytest 190 passed on the session branch. At merge, main's H79-FFAS stayed canonical (IR-79-93); post-merge verification re-run below in the merge commit checks.

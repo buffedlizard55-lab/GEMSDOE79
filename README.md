@@ -319,7 +319,24 @@ presented as protocol-unique.
 - Full three-pass repository, lineage, and software review: [`reports/session_review_4b4b1214.md`](reports/session_review_4b4b1214.md).
 - **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — no new scientific experiment, retuning, or competition slot was used (`0` slots used).
 - Fixed a blobless-clone hang in `scripts/analyze_family_lineage.py` (`git ls-tree -r -l` lazily fetched every missing blob from the promisor remote) and extended `evidence/family_lineage_forensics.json` (and `docs/evidence/family_lineage_forensics.json`) with pixel-byte measurements of all 6 newly listed prompt-named unscored candidates (`GEMSDOE76` `gems76-ptcf-tiltworm-submod39k`, `GEMSDOE78` `gems78-h78sigx-fuse-b5`, `GEMSDOE80` `gemsdoe80-h80g-choquet-tworegime`, `GEMSDOE81` `gems81-cont-poisson44090-buf2`, `GEMSDOE82` `gemsdoe82-h82-submodular-punoisyor`, `GEMSDOE83` `gems83-h83-gvcd-dink300`) and verified that `GEMSDOE84`..`GEMSDOE88` currently have `0` published `.tif` files (`IR-79-80`).
-- Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Original project prompt` (`IR-79-81`).
+- Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Concurrent lane H79-COV (session `e23d5371`): also negative, archived
+
+Catalogue-free antithetic-scarp + covered basement-step detector
+([hypotheses](research/hypotheses_g79cov.md),
+[preregistration](registry/preregistration_g79cov_20261022.json),
+[run card](run_card_cov.json)), archived under
+[`archive/h79_cov_e23d5371/`](archive/h79_cov_e23d5371/README.md) —
+**not** the canonical download; **DO NOT SUBMIT**. HOLDOUT-DTI
+(`gems57-pooled-hide-v2`) 0.0610 [0.0477, 0.0740] (n = 11,321) /
+0.0581 [0.0465, 0.0700] (n = 11,342) vs the H33 fold-fair control
+0.0961 / 0.0989; canaries pass (max AUC 0.676); 36 discriminating
+registry priors > 0.70 forward overlap (worst 0.927). It independently
+corroborates this README's canonical H79-FFAS result: antislope/far-field
+signal at 100 m does not beat H33. Full record: `evidence/cov/`,
+[`reports/session_e23d5371_h79cov.md`](reports/session_e23d5371_h79cov.md),
+IR-79-91/92/93. Slots used: 0.
+
+## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 
 ## Latest repository review — session `e9955043` (2026-10-22)
