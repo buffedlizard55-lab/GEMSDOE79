@@ -37,7 +37,7 @@ clarified; it was not tested or selected in this session.
 
 ## Pass 2 — reliability defect and fix
 
-**IR-79-67:** `selection_evidence()` already refused malformed measurement data,
+**IR-79-68:** `selection_evidence()` already refused malformed measurement data,
 but the selector CLI subsequently dereferenced malformed gate/card fields outside
 that adapter. Missing files, invalid JSON, null/list cards, and absent/non-dict
 gates could produce a traceback instead of a machine-readable refusal.
@@ -96,3 +96,9 @@ not certify vents, temperature or reservoir productivity.
 
 PR creation/merge is an authorized repository operation, not a competition
 submission or scientific promotion. Its actual result is reported separately.
+
+### Concurrent-main reconciliation
+
+Main advanced during review. Merged its maintenance changes on the assigned
+branch, preserving both independent fixes and renumbering this selector finding
+to IR-79-68 because IR-79-67 was allocated concurrently to preflight typing.
