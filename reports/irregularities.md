@@ -129,6 +129,15 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 | IR-79-55 | **H79-NHR stopped as a duplicate after beating the holdout best.** HOLDOUT-DTI was 0.1431 [0.1281, 0.1574] and 0.1522 [0.1335, 0.1696], against H33-control values of 0.0961 and 0.0989. But 26 ordinary registry dot fields each contain more than 70 % of the final dots within 3 px. | Verdict negative. The research GeoTIFF is published as DO-NOT-SUBMIT. The separate selector refused (`evidence/nhr/selector_decision.json`). There was no retuning, no overlap capping and no second lane; budget used: 1 of 3 experiments, about 70 min of 2 h. |
 | IR-79-56 | **Concurrent-lane merge.** PR #26 (G79-STEPCO, session 220dabc8) reached `main` while H79-NHR was running. Both lanes are negative. STEPCO S1 tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989). NHR beat it (0.1431 / 0.1522) but is a duplicate. | When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to `archive/g79_stepco_s1/downloads/`. `run_card_stepco.json`, `evidence/stepco/` and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at `archive/g79_fabric_offset_e1/`. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision. |
 
+## Concurrent review ID index (details in the addenda below)
+
+| ID | Finding | Resolution |
+|---|---|---|
+| IR-79-57 | Missing scikit-image dependency. | Pinned dependency closure; independently rediscovered by multiple sessions. |
+| IR-79-58 | Unsafe routine README rerun commands. | Replaced with frozen artifact checks; terminal enforcement added in IR-79-61. |
+| IR-79-59 | Selector trusted gate summary without evidence reconciliation. | Adapter and strict named-gate validation added by session 0c9f6bad. |
+| IR-79-60 | Publication scan entered `.venv-clean` dependency templates. | Ignore local `.venv*` tooling directories, with regression coverage. |
+
 ## Review addendum — session 0c9f6bad (2026-10-22)
 
 - **IR-79-57:** Pinned clean install could not collect `test_g79b.py`: `skimage`
@@ -154,3 +163,13 @@ Details and evidence boundaries: [session review](session_review_0c9f6bad.md).
   main advanced, so only the non-duplicative scanner fix is assigned a new ID.
 
 Details and evidence boundaries: [session review](session_review_0a460648.md).
+
+## Session 2026-10-22 — software review (branch `arena/2203b2cc-gemsdoe79`)
+
+| ID | Finding and evidence | Resolution / remaining limitation |
+|---|---|---|
+| IR-79-57 (independent rediscovery) | Clean lockfile install could not collect the merged G79B tests: missing `skimage`, despite `src/gems79b/features.py` importing `sato`. | Added scikit-image to requirements and pinned its dependencies; full suite rerun. This was also a Pages/CI blocker, not a scientific result. |
+| IR-79-61 | README invited rerunning/packaging stopped H79-NHR; runner entry points did not enforce its negative terminal state. | Added fail-closed terminal-lane guards before bulk reads/writes; regression tests require exit 2 and unchanged scientific files. No force flag, rerun or retune. |
+| IR-79-62 | Current home-page prose and README treated dots in a 200 m catalogue collar as pure FP, although only exact catalogue pixels are masked. Metadata also called the negative artifact unique; control tiles claimed equal budgets. | Corrected the conditional causal explanation, metadata, idealized straight-trace example and inherited-control budget disclosure. Artifact-linked organizer score receipts remain absent. |
+
+Full three-pass review: [session_review_2203b2cc.md](session_review_2203b2cc.md).

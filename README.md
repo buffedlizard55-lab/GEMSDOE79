@@ -68,7 +68,9 @@ It independently hardened selector evidence and fixed clean-install dependencies
 ## What the previous session found (2026-10-22, session `337ac1e9`)
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
-   So sparse dots win: one dot on a trace earns up to about 2.33 truth units of TP and pays at most 1 unit of FP.
+   Sparse placements can reduce redundant FP: on an ideal straight grid-aligned trace, dots
+   spaced three pixels apart average about 2.33 TP units per dot. This is an illustrative calculation,
+   not a measured performance bound or proof that all sparse maps win.
    H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
    masked; nearby dots can still credit hidden traces, so the pruning is not proved to remove only
    false positives. The reported 0.2600 and 0.2778 values have no artifact-bound organizer receipts or
@@ -81,9 +83,10 @@ It independently hardened selector evidence and fixed clean-install dependencies
    leakage. However, its dots fall in the 300 m–2 km band around mapped faults, which 26 earlier family
    dot fields already occupy. Those fields have unverified historical scores of 0.016–0.143. Under the protocol, that is a
    **duplicate lane → stop**.
-3. **Systemic blocker (IR-79-53).** 30 registry rasters are space-filling: their 3 px halos cover more than 70 % of
-   the area, so even a uniformly random map is flagged by them. Taken literally, the duplicate rule rejects every
-   possible submission. The next lane needs **an explicit user decision** on these rasters.
+3. **Systemic blocker (IR-79-53).** A verified literal-support witness covers every allowed cell,
+   so every nonempty map has overlap 1.0 and fails. Separately, 30 registry halos cover more than
+   70% of the area and flag the seeded uniform control; that statistic alone is NOT a proof of
+   universal rejection. The next lane needs **a prospective protocol clarification**.
 
 ## Concurrent lane G79-STEPCO (session `220dabc8`): also negative, archived
 
@@ -166,6 +169,30 @@ then clear final novelty, leakage and matched holdout gates before the separate
 selector can approve it. The selector now checks the existing evaluator/novelty
 evidence against the card as well as the complete literal gate receipt. This is
 an evidence-consistency check, not a fresh scientific evaluation.
+
+Historical experimental commands remain in source for audit, but `run_nhr.py holdout`,
+`run_nhr.py final`, and `build_nhr_submission.py` now refuse a terminal lane before
+loading bulk data or changing evidence. Reproduction of frozen outputs is not permission
+to restart a stopped scientific lane. Any future runner must separate surface generation,
+completed uniqueness clearance, and placement; the archived runner's sequencing is not a template.
+
+Concurrent completed software reviews: [0c9f6bad](reports/session_review_0c9f6bad.md)
+and [0a460648](reports/session_review_0a460648.md) independently fixed dependencies,
+hardened selector evidence checks and excluded local virtual environments from scans.
+Those changes were merged into this branch without changing scientific evidence.
+
+## Latest repository review — session `2203b2cc` (2026-10-22)
+
+- Fixed a clean-install test/Pages blocker: `scikit-image` was imported by the merged
+  G79B tests but absent from both dependency manifests. It and its dependencies are now pinned.
+- Added terminal-lane guards and regression tests; no new experiment, copied submission,
+  uniqueness exemption, slot selection or competition upload occurred.
+- Removed the website metadata's unsupported “validated, unique” assertion and corrected
+  the H33 explanation: a known-fault pixel mask does not make the surrounding collar pure FP.
+- The existing TIFF remains downloadable and format-valid, **not protocol-unique**.
+  No file meeting all submission gates was generated this session.
+- Review and next-session blockers: [three-pass report](reports/session_review_2203b2cc.md).
+
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).

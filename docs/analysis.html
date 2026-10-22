@@ -50,21 +50,23 @@ public score of 0.2778 needs <code>c ≥ 23.6 %</code> and 0.4413 needs <code>c 
 H33 is <strong>exactly</strong> the D2.8 dot set (44,090 dots) minus the 6,436 dots within 200 m
 (2 px) of a mapped fault. No dot was added or moved.</p>
 <p>USER-REPORTED: D2.8 0.2600 and H33 0.2778.</p>
-<p>In the counterfactual <strong>assumption</strong> that the 6,436 removed dots had zero TP
-(which does not follow from proximity to masked catalogue pixels), only FP changed. Then the ESTIMATE is
+<p>Under the <strong>unverified</strong> assumption that the 6,436 removed dots had zero marginal TP,
+only FP changed. Adjacency to masked catalogue pixels does not establish this: nearby
+unmapped strands can still earn TP, and the 200 m collar itself is not masked. Then the ESTIMATE is
 <code>TP·(1/0.2600 − 1/0.2778) = 0.2·6,436</code>. That gives TP ≈ 5.2 k truth-pixel units in the public set and
 <code>N_truth ≈ 12.8–13.3 k</code>. H33 therefore captures <strong>c ≈ 39–41 %</strong> of public truth
 credit with ≈35–37 k FP units.</p>
 <p>H33 led the family for three reasons, ranked by our confidence:</p>
 <ol>
-<li><strong>It pruned a near-catalogue collar.</strong> The 6,436 removed dots could pay FP,
-   but they might also credit a new fault within 300 m: a pixel-exact mask does not
-   mask nearby unknown truth. Pruning 14.6 % of D2.8 dots coincides with a 6.8 %
-   user-reported score increase; it is an efficiency hypothesis, not a causal
-   conclusion or a verified file-to-receipt mapping.</li>
-<li><strong>Its dots are already sparse and roughly at budget.</strong> About 37.7 k dots puts the
-   marginal dot near the break-even probability above. Adding more dots dilutes the
-   score, and removing more starts to lose coverage.</li>
+<li><strong>It deleted near-catalogue dots, plausibly reducing redundant FP.</strong> This is
+   the measured raster change, not proof that every deleted dot was a false positive.
+   Exact mapped pixels are masked; the surrounding 200 m collar is not. Nearby
+   unmapped splays could lose TP when those dots are removed. The reported score
+   pair is consistent with a net gain, but artifact-linked organizer receipts and
+   hidden labels are absent, so the causal explanation remains conditional.</li>
+<li><strong>Its dots are already sparse and roughly at budget.</strong> The measured budget is about 37.7 k dots. Whether its marginal dot is near
+   break-even is unknown without hidden truth. Additional dots can either help or
+   hurt according to their incremental TP and FP, not their count alone.</li>
 <li><strong>Its ranking came from distance-to-fault structure plus scarps</strong>, inherited from
    D2.x. RASTER-MEASUREMENT (<code>evidence/nhr/distance_to_catalogue.json</code>):
    - The median H33 dot lies 19.6 px (≈1.96 km) from the catalogue.
@@ -231,10 +233,11 @@ not like-for-like, because most used 56 k–985 k dots, but none came close to H
 This is consistent with the shift being real.</p>
 <h3>6. What would most raise P(win) next</h3>
 <ol>
-<li><strong>Decide how to treat the 30 space-filling registry rasters.</strong> A uniformly
-   random map is flagged by 30 registry rasters, because their 3 px halos cover more
-   than 70 % of the allowed area. Taken literally, the duplicate rule therefore rejects
-   every possible submission (IR-79-53). This needs an explicit user decision. One
+<li><strong>Decide how to treat the 30 space-filling registry rasters.</strong> The seeded uniformly
+   random control is flagged by 30 registry rasters whose halos cover more than
+   70 % of the allowed area. That statistic does not prove universal failure.
+   The separate literal-support witness covers <strong>every</strong> allowed cell, which does
+   prove every nonempty map has overlap 1.0 under that reading (IR-79-53). This needs an explicit user decision. One
    option: for those rasters, use overlap beyond chance, <code>(ov − halo)/(1 − halo)</code>,
    and keep the literal rule for all others.</li>
 <li><strong>Target the far field explicitly.</strong> H33's dots are mostly more than 1 km from the
