@@ -71,14 +71,14 @@ def download_panel(card):
     file = Path(card['submission_file']).name
     zipfile = Path(card['zip_file']).name
     size_mib = (ROOT / card['submission_file']).stat().st_size / (1024 * 1024)
-    return f'''<div class="actions"><a class="button" href="downloads/{E(file)}" download>↓ Download new GeoTIFF <span>{size_mib:.1f} MiB</span></a><a class="button secondary" href="downloads/{E(zipfile)}" download>Single-TIFF ZIP ↗</a></div>
+    return f'''<div class="actions"><a class="button" href="downloads/{E(file)}" download>↓ Download research GeoTIFF <span>DO NOT SUBMIT · {size_mib:.1f} MiB</span></a><a class="button secondary" href="downloads/{E(zipfile)}" download>Research ZIP · DO NOT SUBMIT ↗</a></div>
 <p class="micro">Single band · float32 · EPSG:32611 · 100 m · 3730 × 3292 · all values in [0,1]</p>
-<div class="download-warning"><strong>OK TO DOWNLOAD: YES. &nbsp; OK TO SUBMIT: NO.</strong><br>Newly computed research surface. Byte-distinct, but not protocol-unique. No human inspection is needed to reach this automated rejection.</div>'''
+<div class="download-warning"><strong>OK TO DOWNLOAD: YES. &nbsp; OK TO SUBMIT: NO.</strong><br>Research-only artifact. It is byte-distinct, but not protocol-unique. No human inspection is needed to reach this automated rejection.</div>'''
 
 
 def identity_panel(card):
     return f'''<div class="panel"><h3>Artifact identity</h3><p>A new field, not a renamed prior submission. The negative verdict stays attached to every download.</p>
-<div class="copy-line"><div class="code-label">Unique artifact name</div><button class="copy" data-copy="submission-name">Copy name</button></div><div class="code-box" id="submission-name">{E(card['submission_name'])}</div>
+<div class="copy-line"><div class="code-label">Research artifact identifier · not protocol-unique</div><button class="copy" data-copy="submission-name">Copy identifier</button></div><div class="code-box" id="submission-name">{E(card['submission_name'])}</div>
 <div class="copy-line"><div class="code-label">Short comment · {len(card['submission_note'])}/140 characters</div><button class="copy" data-copy="submission-note">Copy comment</button></div><div class="code-box" id="submission-note">{E(card['submission_note'])}</div>
 <div class="code-label">Raster SHA-256</div><div class="code-box">{E(card['raster_sha256'])}</div><p class="micro" style="margin-top:12px;margin-bottom:0">These are identifiers for reproducibility, not an instruction to upload this file.</p></div>'''
 
@@ -138,6 +138,7 @@ def main():
     report=verify()
     if not report['all_checks_passed']:
         raise ValueError('Refusing to build a site around inconsistent evidence or changed raster bytes')
+    decision=report['submission_decision']
     card=json.loads((ROOT/'run_card.json').read_text())
     index=json.loads((ROOT/'registry/registry_index.json').read_text())
     sources=json.loads((ROOT/'knowledge/official_sources.json').read_text())
@@ -173,8 +174,8 @@ def main():
     for alias, target in aliases.items():
         (SITE/alias).write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=' + target + '"><title>GEMSDOE79 — current negative result</title></head><body><p>DO NOT SUBMIT. <a href="' + target + '">Open the current GEMSDOE79 evidence and submission decision</a>.</p></body></html>\n')
     shutil.copyfile(ROOT/'run_card.json', SITE/'run-card.json')
-    (SITE/'status.json').write_text(json.dumps({'ok_to_download': True, 'ok_to_submit': False,
-        'verdict': 'negative', 'file': 'downloads/' + Path(card['submission_file']).name,
+    (SITE/'status.json').write_text(json.dumps({**decision,
+        'file': 'downloads/' + Path(card['submission_file']).name,
         'zip': 'downloads/' + Path(card['zip_file']).name, 'sha256': card['raster_sha256'],
         'name': card['submission_name'], 'note': card['submission_note'],
         'artifact_kind': card['artifact_kind'], 'stop_reason': card['stop_reason'],
@@ -186,8 +187,10 @@ def main():
     (ROOT/'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/index.html"><title>GEMSDOE79</title></head><body><p><a href="docs/index.html">Open GEMSDOE79 — download and automatic submission decision</a></p></body></html>\n')
     (SITE/'evidence/site_manifest.json').write_text(json.dumps({'raster_sha256':card['raster_sha256'],
         'run_card_sha256':hashlib.sha256((ROOT/'run_card.json').read_bytes()).hexdigest(),
-        'ok_to_download':True,'ok_to_submit':False,'verdict':card['verdict'],'scientific_snapshot_utc':card['generated_utc'],
-        'pages':list(pages),'compatibility_redirects':aliases,'no_human_inspection_required':True},indent=2)+'\n')
+        'ok_to_download':decision['ok_to_download'],'ok_to_submit':decision['ok_to_submit'],
+        'verdict':decision['verdict'],'scientific_snapshot_utc':card['generated_utc'],
+        'pages':list(pages),'compatibility_redirects':aliases,
+        'no_human_inspection_required':not decision['human_inspection_required_for_this_decision']},indent=2)+'\n')
     print(f'Built {len(pages)} evidence-driven pages; download YES / submit NO')
 
 

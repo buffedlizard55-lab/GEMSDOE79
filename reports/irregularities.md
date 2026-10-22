@@ -1,6 +1,6 @@
 # Irregularities and disposition
 
-All entries are dated 2026-10-21. No entry authorizes a threshold exemption.
+Entries span multiple dates; dates and branch names inside historical sections are provenance, not current session instructions. No entry authorizes a threshold exemption.
 
 | ID | Finding and evidence | Resolution / remaining limitation |
 |---|---|---|
@@ -88,7 +88,7 @@ GeoTIFF is available. It is **not protocol-unique** and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
 inspector. Negative results and the impossible-gate certificate are deliverables.
 
-## Session 2026-10-22 — PR #12 release conflict (IR-79-30)
+## Session 2026-10-22 — Supplemental narrative for IR-79-31: PR #12 release conflict
 
 The starting merge `3d386a3` advertised H79-CSPT promotion in the README and
 main/executive pages, while the canonical root card and status API remained
@@ -115,6 +115,16 @@ See `reports/session_review_8ed5d89a.md` and
 
 | ID | Finding and evidence | Resolution / remaining limitation |
 |---|---|---|
-| IR-79-31 | `src/gems79/status.py` checked only `canary.get("passed") is True` for `leakage_canary`, allowing a contradictory or missing numerical `auc`, `required_threshold != 0.90`, or `features_cleared <= 0` to clear `feature_alone_canaries_not_cleared`. | Hardened `src/gems79/status.py` to require numeric `0.5 <= auc <= 0.90`, `required_threshold == 0.90`, and positive `int` `features_cleared` in addition to `passed is True`. Added 19 parameterized unit tests in `tests/test_readiness_errors.py`. |
-| IR-79-32 | Both archived concurrent lanes (`H79-MCT` in `archive/h79_mct_c26efec/` and `H79-CSPT` in `archive/h79_cspt_3d386a3/`) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared `gems57.uniqueness`, `gems57.validate`, and `gems79.status` tools. | Implemented `scripts/audit_archived_concurrent_lanes.py` and generated `evidence/concurrent_lanes_audit.json` (plus `evidence/session_witness_700397d4.json` and `reports/session_review_700397d4.md`), proving with unmodified shared code that both archived GeoTIFFs (`d1a4158a…` and `d55570bf…`) have `1.0000` literal 3-px forward overlap against `17GEMSDOE_E-proba-multiscale`, relied on post-duplicate constrained overlap capping (`0.6800` and `0.6900` against sparse/semi-dense registry priors), and return `ok_to_submit: false`, `verdict: "negative"`. |
+| Supplement for IR-79-30 | `src/gems79/status.py` checked only `canary.get("passed") is True` for `leakage_canary`, allowing a contradictory or missing numerical `auc`, `required_threshold != 0.90`, or `features_cleared <= 0` to clear `feature_alone_canaries_not_cleared`. | Expanded evidence for the already-recorded fix: require numeric `0.5 <= auc <= 0.90`, `required_threshold == 0.90`, and positive `int` `features_cleared` in addition to `passed is True`. Added 19 parameterized unit tests in `tests/test_readiness_errors.py`. |
+| IR-79-36 | Both archived concurrent lanes (`H79-MCT` in `archive/h79_mct_c26efec/` and `H79-CSPT` in `archive/h79_cspt_3d386a3/`) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared `gems57.uniqueness`, `gems57.validate`, and `gems79.status` tools. | Implemented `scripts/audit_archived_concurrent_lanes.py` and generated `evidence/concurrent_lanes_audit.json` (plus `evidence/session_witness_700397d4.json` and `reports/session_review_700397d4.md`), proving with unmodified shared code that both archived GeoTIFFs (`d1a4158a…` and `d55570bf…`) have `1.0000` literal 3-px forward overlap against `17GEMSDOE_E-proba-multiscale`, relied on post-duplicate constrained overlap capping (`0.6800` and `0.6900` against sparse/semi-dense registry priors), and return `ok_to_submit: false`, `verdict: "negative"`. |
+
+## Session 2026-10-22 — Active-branch follow-up (`a23a7367`)
+
+| ID | Finding and evidence | Resolution / remaining limitation |
+|---|---|---|
+| IR-79-37 | At checkout, `AGENTS.md` contained literal merge-conflict markers and both a stale branch-specific instruction and a branch-neutral instruction. An unresolved startup contract could direct a later agent to the wrong session branch. | Replaced it with one conflict-free, branch-neutral contract that points to current session metadata; added `startup_contract_checks` to `scripts/verify_project.py` and regression tests. No scientific code, lane, or evidence was changed. |
+| IR-79-38 | This log's blanket “all entries are dated 2026-10-21” statement was false, and historical appendices repeated IDs 30–32 for different or repeated findings. | Corrected the chronology statement, changed the repeated PR #12 heading into a reference to IR-79-31, marked the second canary note as supporting evidence for IR-79-30, and assigned the separate archived-lane audit a unique ID. Historical findings and evidence were retained. |
+| IR-79-39 | The user brief labels conflicting public leaderboard values as the current high score. The repository's latest stored official-page observation is from 2026-10-21, and its source-health fetches failed; neither is a current 2026-10-22 observation or a receipt tied to the H33 TIFF. | Treat user-supplied values as unverified historical reports, retain the dated observation's evidence class, and do not assert a current leader or any H33 artifact score without a fresh official page/receipt. |
+
+Full three-pass review for this follow-up: [`reports/session_review_a23a7367.md`](session_review_a23a7367.md).
 

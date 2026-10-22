@@ -4,7 +4,35 @@
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative`.**
 
-### Current repository review — 2026-10-22 (session `8ed5d89a`)
+### Current follow-up review — 2026-10-22 (session `a23a7367`)
+
+This is a repository/process review, **not** a continuation of the stopped
+scientific experiment. The existing TIFF remains directly downloadable as
+research evidence, but **there is no newly validated submission and no artifact
+that this project says is OK TO SUBMIT**. The literal shared overlap gate
+already stopped E1; generating another file or changing its name would not clear
+that gate. The machine status remains `negative` and blocks submission without
+human intervention. The saved primary run card intentionally leaves
+`HOLDOUT-DTI` and its confidence interval null; separately stored post-stop
+diagnostics are historical and are not promoted into that card.
+
+The four hypotheses in [`research/hypotheses.md`](research/hypotheses.md) were
+already ranked; E1 is the only computed lane and is not eligible for promotion.
+No new experiment, placement, upload, or weekly slot was used. The start-of-
+session contract's merge-conflict markers and stale branch pin were removed,
+and a regression gate now checks for recurrence. Final software-only checks:
+**152 tests passed**, 24 integrity/status checks passed, 7 site pages / 110 local
+links passed, and 21 browser cases passed. These are software/integrity checks,
+not scientific scores. [Three-pass review and limitations](reports/session_review_a23a7367.md).
+
+The source-health feed's newest stored attempt is dated 2026-10-21 and its
+non-GitHub requests failed in the prior restricted environment. The dated public
+leaderboard observation is therefore not re-labelled current; the prompt's
+conflicting descriptions of the current high are recorded as IR-79-39. This
+review did not claim fresh official-source verification. See the [source ledger](knowledge/official_sources.json)
+and [feed status](docs/evidence/source_health.json).
+
+### Prior release review — 2026-10-22 (session `8ed5d89a`)
 
 **Critical release conflict repaired:** PR #12's H79-CSPT pages advertised approval,
 while the canonical run card still rejected E1. Its uniqueness procedure excluded
@@ -94,7 +122,7 @@ Null scores in the run card mean **not measured**, never zero or a projection.
 Only the already-computed rejected surface was serialized as negative-result
 evidence. No human inspector is needed to reach the **DO NOT SUBMIT** decision.
 
-## Latest repository review — no new scientific experiment
+## Earlier repository reviews — no new scientific experiment
 
 The follow-up review on `arena/79f9140a-gemsdoe79` independently restored **one**
 frozen registry witness and re-measured it with the unchanged shared tool.
@@ -109,7 +137,7 @@ it does **not** create a new, protocol-unique submission or repeat the historica
 - `scripts/submission_status.py` now emits a JSON **negative** verdict (exit 2)
   even for missing/corrupt files or malformed run cards; no stale PASS is reused,
   and `src/gems79/status.py` requires numerical `auc in [0.5, 0.90]` in addition
-  to `passed == True` for `leakage_canary` (`IR-79-31`).
+  to `passed == True` for `leakage_canary` (`IR-79-30`).
 - For an offline witness re-check, run
   `.venv/bin/python scripts/verify_overlap_witness.py`. On a fresh checkout add
   `--restore` to fetch just the immutable rejection witness from GitHub. This

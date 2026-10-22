@@ -18,6 +18,27 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def startup_contract_checks(root):
+    """Reject unresolved merge markers and stale branch instructions in AGENTS."""
+    path = Path(root) / 'AGENTS.md'
+    if not path.is_file():
+        return {
+            'startup_contract_exists': False,
+            'startup_contract_conflict_free': False,
+            'startup_contract_branch_neutral': False,
+        }
+    text = path.read_text()
+    normalized = ' '.join(text.split())
+    has_conflict_marker = any(marker in text for marker in ('<<<<<<<', '=======', '>>>>>>>'))
+    has_pinned_arena_branch = 'arena/' in text
+    return {
+        'startup_contract_exists': True,
+        'startup_contract_conflict_free': not has_conflict_marker,
+        'startup_contract_branch_neutral': (
+            'current session metadata' in normalized and not has_pinned_arena_branch),
+    }
+
+
 def publication_contract_checks(root, card):
     """Check the active stopped-run publication boundary, not scientific scores.
 
@@ -49,6 +70,7 @@ def publication_contract_checks(root, card):
 
 def verify(refresh_timestamp: bool = False):
     checks = {}
+    checks.update(startup_contract_checks(ROOT))
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
     checks['all_shared_template_bytes_unmodified'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()

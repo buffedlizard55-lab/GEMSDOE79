@@ -1,7 +1,21 @@
 {
   "ok_to_download": true,
   "ok_to_submit": false,
+  "human_inspection_required_for_this_decision": false,
   "verdict": "negative",
+  "blockers": [
+    "literal_novelty_not_cleared",
+    "feature_alone_canaries_not_cleared",
+    "matched_current_best_holdout_not_beaten",
+    "holdout_dti_and_ci_not_measured",
+    "source_provenance_not_independently_cleared",
+    "negative_scientific_verdict",
+    "separate_selector_has_not_approved_a_slot",
+    "current_account_weekly_capacity_not_verified",
+    "separate_selector_receipt_missing_or_unbound",
+    "explicit_submission_approval_absent"
+  ],
+  "organizer_acceptance_established": false,
   "file": "downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
   "zip": "downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip",
   "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",

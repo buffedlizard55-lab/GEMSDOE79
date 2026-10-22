@@ -7,7 +7,7 @@
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="research.html">Research</a><a href="sources.html">Sources &amp; feed</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
-<p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
+<p>Entries span multiple dates; dates and branch names inside historical sections are provenance, not current session instructions. No entry authorizes a threshold exemption.</p>
 <table>
 <thead>
 <tr>
@@ -228,7 +228,7 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
 inspector. Negative results and the impossible-gate certificate are deliverables.</p>
-<h3>Session 2026-10-22 — PR #12 release conflict (IR-79-30)</h3>
+<h3>Session 2026-10-22 — Supplemental narrative for IR-79-31: PR #12 release conflict</h3>
 <p>The starting merge <code>3d386a3</code> advertised H79-CSPT promotion in the README and
 main/executive pages, while the canonical root card and status API remained
 negative for G79-FABRIC-OFFSET. The CSPT solver's
@@ -259,15 +259,43 @@ See <code>reports/session_review_8ed5d89a.md</code> and
 </thead>
 <tbody>
 <tr>
-<td>IR-79-31</td>
+<td>Supplement for IR-79-30</td>
 <td><code>src/gems79/status.py</code> checked only <code>canary.get("passed") is True</code> for <code>leakage_canary</code>, allowing a contradictory or missing numerical <code>auc</code>, <code>required_threshold != 0.90</code>, or <code>features_cleared &lt;= 0</code> to clear <code>feature_alone_canaries_not_cleared</code>.</td>
-<td>Hardened <code>src/gems79/status.py</code> to require numeric <code>0.5 &lt;= auc &lt;= 0.90</code>, <code>required_threshold == 0.90</code>, and positive <code>int</code> <code>features_cleared</code> in addition to <code>passed is True</code>. Added 19 parameterized unit tests in <code>tests/test_readiness_errors.py</code>.</td>
+<td>Expanded evidence for the already-recorded fix: require numeric <code>0.5 &lt;= auc &lt;= 0.90</code>, <code>required_threshold == 0.90</code>, and positive <code>int</code> <code>features_cleared</code> in addition to <code>passed is True</code>. Added 19 parameterized unit tests in <code>tests/test_readiness_errors.py</code>.</td>
 </tr>
 <tr>
-<td>IR-79-32</td>
+<td>IR-79-36</td>
 <td>Both archived concurrent lanes (<code>H79-MCT</code> in <code>archive/h79_mct_c26efec/</code> and <code>H79-CSPT</code> in <code>archive/h79_cspt_3d386a3/</code>) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared <code>gems57.uniqueness</code>, <code>gems57.validate</code>, and <code>gems79.status</code> tools.</td>
 <td>Implemented <code>scripts/audit_archived_concurrent_lanes.py</code> and generated <code>evidence/concurrent_lanes_audit.json</code> (plus <code>evidence/session_witness_700397d4.json</code> and <code>reports/session_review_700397d4.md</code>), proving with unmodified shared code that both archived GeoTIFFs (<code>d1a4158a…</code> and <code>d55570bf…</code>) have <code>1.0000</code> literal 3-px forward overlap against <code>17GEMSDOE_E-proba-multiscale</code>, relied on post-duplicate constrained overlap capping (<code>0.6800</code> and <code>0.6900</code> against sparse/semi-dense registry priors), and return <code>ok_to_submit: false</code>, <code>verdict: "negative"</code>.</td>
 </tr>
 </tbody>
-</table></div></section></main>
+</table>
+<h3>Session 2026-10-22 — Active-branch follow-up (<code>a23a7367</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-37</td>
+<td>At checkout, <code>AGENTS.md</code> contained literal merge-conflict markers and both a stale branch-specific instruction and a branch-neutral instruction. An unresolved startup contract could direct a later agent to the wrong session branch.</td>
+<td>Replaced it with one conflict-free, branch-neutral contract that points to current session metadata; added <code>startup_contract_checks</code> to <code>scripts/verify_project.py</code> and regression tests. No scientific code, lane, or evidence was changed.</td>
+</tr>
+<tr>
+<td>IR-79-38</td>
+<td>This log's blanket “all entries are dated 2026-10-21” statement was false, and historical appendices repeated IDs 30–32 for different or repeated findings.</td>
+<td>Corrected the chronology statement, changed the repeated PR #12 heading into a reference to IR-79-31, marked the second canary note as supporting evidence for IR-79-30, and assigned the separate archived-lane audit a unique ID. Historical findings and evidence were retained.</td>
+</tr>
+<tr>
+<td>IR-79-39</td>
+<td>The user brief labels conflicting public leaderboard values as the current high score. The repository's latest stored official-page observation is from 2026-10-21, and its source-health fetches failed; neither is a current 2026-10-22 observation or a receipt tied to the H33 TIFF.</td>
+<td>Treat user-supplied values as unverified historical reports, retain the dated observation's evidence class, and do not assert a current leader or any H33 artifact score without a fresh official page/receipt.</td>
+</tr>
+</tbody>
+</table>
+<p>Full three-pass review for this follow-up: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a23a7367.md"><code>reports/session_review_a23a7367.md</code></a>.</p></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

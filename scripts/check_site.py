@@ -62,7 +62,8 @@ def check_site():
     for filename in ('index.html', 'executive-summary.html'):
         text = pages[filename].get_text(' ', strip=True)
         assert 'OK TO DOWNLOAD: YES.' in text and 'OK TO SUBMIT: NO.' in text
-        assert pages[filename].find('a', download=True, href=lambda h: h and h.endswith('.tif'))
+        download = pages[filename].find('a', download=True, href=lambda h: h and h.endswith('.tif'))
+        assert download and 'DO NOT SUBMIT' in download.get_text(' ', strip=True)
     card = json.loads((site / 'evidence/run_card.json').read_text())
     assert card == json.loads((ROOT / 'run_card.json').read_text())
     assert card == json.loads((site / 'run-card.json').read_text())

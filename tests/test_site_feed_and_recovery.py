@@ -34,6 +34,19 @@ def test_readme_project_links_exist_and_original_brief_is_present():
             assert (ROOT / href.path).exists(), link['href']
 
 
+def test_prominent_download_is_unambiguously_research_only():
+    from bs4 import BeautifulSoup
+    page = BeautifulSoup((ROOT / 'docs/index.html').read_text(), 'html.parser')
+    tif = page.find('a', download=True, href=lambda href: href and href.endswith('.tif'))
+    archive = page.find('a', download=True, href=lambda href: href and href.endswith('.zip'))
+    assert tif and 'Download research GeoTIFF' in tif.get_text(' ', strip=True)
+    assert 'DO NOT SUBMIT' in tif.get_text(' ', strip=True)
+    assert archive and 'DO NOT SUBMIT' in archive.get_text(' ', strip=True)
+    text = page.get_text(' ', strip=True)
+    assert 'OK TO DOWNLOAD: YES.' in text and 'OK TO SUBMIT: NO.' in text
+    assert 'not protocol-unique' in text
+
+
 def test_parser_accepts_only_unambiguous_public_first_place():
     page = '<table><tr><th>Rank</th><th>Participant</th><th>Public DW-Tversky</th></tr><tr><td>1</td><td>example</td><td>0.1234</td></tr></table>'
     got = refresh_feed.parse_leaderboard(page)
