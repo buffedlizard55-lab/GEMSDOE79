@@ -30,14 +30,14 @@ human inspection step.
 
 1. **Format wording overstated (fixed).** The public Format line said “zero outside the footprint” as a PASS.
    The official competition page says outside-bounds data “is null or nan”. The line now states the
-   conflict, and a limitation bullet explains it (`scripts/build_site.py`, IR-79-67).
+   conflict, and a limitation bullet explains it (`scripts/build_site.py`, IR-79-69).
 2. **Official sources disagree (flagged, not changed).** The rules text and the sample use NaN outside the
    footprint. The official reference notebook writes finite values. The team's all-finite policy matches the
-   notebook. A protocol-owner decision is needed (IR-79-67).
+   notebook. A protocol-owner decision is needed (IR-79-69).
 3. **Preflight exit 3 vs 2 (documented).** The bare command fails closed with exit 3 because the witness is
-   absent. With `--restore` it reproduces exit 2 (IR-79-68).
-4. **Registry counts (clarified).** 92 index scopes vs 71 distinct repositories; both correct (IR-79-69).
-5. **Leaderboard (checked).** The user-reported “0.3195 highest” does not appear in ranks 1–50 (IR-79-70).
+   absent. With `--restore` it reproduces exit 2 (IR-79-70).
+4. **Registry counts (clarified).** 92 index scopes vs 71 distinct repositories; both correct (IR-79-71).
+5. **Leaderboard (checked).** The user-reported “0.3195 highest” does not appear in ranks 1–50 (IR-79-72).
    This is a claim to verify, not a confirmed fact.
 6. **Canonical GeoTIFF (independently re-read).** The file was not regenerated. Its sha256 matches the card.
    It is float32, EPSG:32611, shape 3730 × 3292, with the same transform as the sample, values exactly {0, 1},
@@ -52,10 +52,10 @@ No code bugs were found in the shared tools. The only code change is the wording
 |---|---|---|
 | Unique TIF, OK-to-download/submit obvious | **Done.** The decision is automatic and visible on the site and in the README. The canonical file is a downloadable GeoTIFF, labelled DO-NOT-SUBMIT. | `scripts/submission_status.py` exit 2; site top section |
 | Unique TIF that may be submitted | **Blocked** by the literal duplicate gate (IR-79-53). No submittable candidate exists under that rule. | `evidence/universal_overlap_certificate.json`; preflight exit 2 |
-| Beat 0.2778 / 0.3195 / 0.4413 | **Not testable here.** No organizer-confirmed artifact score exists. HOLDOUT-DTI is proxy only. The leaderboard values are public observations. | IR-79-23, IR-79-45, IR-79-70 |
+| Beat 0.2778 / 0.3195 / 0.4413 | **Not testable here.** No organizer-confirmed artifact score exists. HOLDOUT-DTI is proxy only. The leaderboard values are public observations. | IR-79-23, IR-79-45, IR-79-72 |
 | Research and hypotheses (3–5, ranked, validated before a slot) | **Existing backlog.** Four untested hypotheses are ranked in `research/hypotheses_preflight_a7d092d7.md`. None was validated, because validation needs a lane the protocol does not yet allow. | `research/hypotheses_preflight_a7d092d7.md` |
 | Verify line by line against official sources | **Done** for the rules, the metric, the leaderboard and the reference notebook. Login-only data pages were not re-fetched. | Ledger below |
-| Flag irregularities | **Done.** IR-79-67 to IR-79-70 added. | `reports/irregularities.md` |
+| Flag irregularities | **Done.** IR-79-69 to IR-79-72 added. | `reports/irregularities.md` |
 | Executive summary and README prompt | Present and retained. This review is linked from the README. | `README.md`, `docs/executive-summary.html` |
 | PR and merge to main | Done as the last step in this session. | see the PR link in the final answer |
 
@@ -64,7 +64,7 @@ No code bugs were found in the shared tools. The only code change is the wording
 | Claim | Source | Result |
 |---|---|---|
 | Metric: distance-weighted Tversky, triangular kernel R = 300 m, α = 0.2, β = 0.8 | https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/ | Confirmed |
-| Format: EPSG 32611, 100 m, float32, one layer, values in [0, 1], outside bounds “null or nan” | same page, “Submission format” | Confirmed. Conflicts with the all-finite policy (IR-79-67) |
+| Format: EPSG 32611, 100 m, float32, one layer, values in [0, 1], outside bounds “null or nan” | same page, “Submission format” | Confirmed. Conflicts with the all-finite policy (IR-79-69) |
 | Up to three submissions per week | https://docs.nlr.gov/docs/fy26osti/96647.pdf, §3.2 Process overview | Confirmed. The account's remaining slots are not observable |
 | Public leader 0.4413 (xiaofanhu); rank 21 0.3261; rank 22 0.3183; no 0.3195 in ranks 1–50 | https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/ | Confirmed |
 | Reference solution: U-Net, Tversky α = 0.2 β = 0.8, writes an all-finite GeoTIFF | https://github.com/drivendataorg/gems-prize-reference-solution (`unet-mc-cv-reference-solution.ipynb`, commit `aebe92f`) | Confirmed by cloning the repo |
@@ -101,7 +101,7 @@ organizer score for any artifact.
     "nan_count": 0,
     "positive_cells": 37654,
     "outside_sample_footprint_finite_cells": 7111787,
-    "outside_footprint_convention": "conflict, IR-79-67"
+    "outside_footprint_convention": "conflict, IR-79-69"
   },
   "submission_name": "gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT",
   "submission_note": "unchanged from the canonical card (122 of 140 characters)",
@@ -111,7 +111,7 @@ organizer score for any artifact.
 }
 ```
 
-## Decision needed from the protocol owner (IR-79-53, IR-79-67)
+## Decision needed from the protocol owner (IR-79-53, IR-79-69)
 
 1. **Duplicate gate for continuous rasters.** Keep the literal rule (no submittable file can exist), or adopt
    a preregistered chance-corrected rule, or pause until the organizers define “dots” for continuous rasters.

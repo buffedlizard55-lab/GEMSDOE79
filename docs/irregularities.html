@@ -235,8 +235,13 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 <tbody>
 <tr>
 <td>IR-79-36</td>
-<td>Merge commit <code>cdc93fb</code> (merged in PR #20 <code>1ece8d9</code>) left unresolved Git conflict markers (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> / <code>=======</code> / <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt; origin/main</code>) on <code>main</code> inside both <code>AGENTS.md</code> (lines 5–9) and <code>evidence/browser_review.json</code> (lines 2–6), rendering <code>evidence/browser_review.json</code> syntactically invalid JSON (<code>JSONDecodeError</code>) while <code>verify_project.py</code> checked only <code>docs/evidence/*.json</code> and not all tracked <code>.json</code> or conflict markers.</td>
+<td>Merge commit <code>cdc93fb</code> (merged in PR #20 <code>1ece8d9</code>) left unresolved Git conflict markers (<code>/</code></td>
+<td></td>
+</tr>
+<tr>
+<td>/ <code>`) on</code>main<code>inside both</code>AGENTS.md<code>(lines 5–9) and</code>evidence/browser_review.json<code>(lines 2–6), rendering</code>evidence/browser_review.json<code>syntactically invalid JSON (</code>JSONDecodeError<code>) while</code>verify_project.py<code>checked only</code>docs/evidence/*.json<code>and not all tracked</code>.json` or conflict markers.</td>
 <td>Resolved <code>AGENTS.md</code> to the clean branch-neutral contract, re-generated clean <code>evidence/browser_review.json</code> from live headless Chromium QA, and added repository-wide <code>no_git_conflict_markers</code> and <code>all_tracked_json_strictly_valid</code> assertions to <code>scripts/verify_project.py</code> plus regression tests in <code>tests/test_site_feed_and_recovery.py</code>.</td>
+<td></td>
 </tr>
 <tr>
 <td>IR-79-37</td>
@@ -435,6 +440,24 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 </tr>
 </tbody>
 </table>
+<p>| IR-79-67 | Preflight helper accepted truthy non-boolean blocker flags and boolean coverage, and could crash on null certificate/missing hash. | Session 566bec0c requires typed certificate fields and a valid SHA-256, returns unverified for malformed evidence, and adds regression coverage. No novelty or scientific gate changed. |</p>
+<h3>Review addendum — session 2747f26f (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-68</td>
+<td>Selector evidence adapter refused malformed inputs, but CLI dereferences outside that adapter could still raise a traceback on missing files, invalid JSON, null/list cards or malformed gate receipts.</td>
+<td>Added a structured exit-2 refusal boundary and ten regression cases requiring unchanged scientific bytes. No evaluator, writer, novelty rule or scientific evidence changed. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2747f26f.md">three-pass review</a>.</td>
+</tr>
+</tbody>
+</table>
 <p>Session 2026-10-22 review (branch <code>arena/52bfa965-gemsdoe79</code>, report <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_52bfa965.md"><code>reports/session_review_52bfa965.md</code></a>):</p>
 <table>
 <thead>
@@ -446,22 +469,22 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 </thead>
 <tbody>
 <tr>
-<td>IR-79-67</td>
+<td>IR-79-69</td>
 <td><strong>Official sources disagree on the outside-footprint convention.</strong> The competition page's “Submission format” list says “data outside the bounds is null or nan” among the requirements (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/, fetched 2026-10-22). The official sample writes NaN outside its 5,167,373-cell footprint. The official reference notebook (https://github.com/drivendataorg/gems-prize-reference-solution, commit <code>aebe92f</code>, <code>unet-mc-cv-reference-solution.ipynb</code>) writes <code>y_final</code> with no nodata and no NaN masking, so its output is finite. The canonical file has finite zeros on 7,111,787 cells that the sample leaves NaN (measured 2026-10-22). IR-79-25 read the official text as permitting NaN; the requirement list supports a stricter reading.</td>
 <td>Not changed. Regenerating the canonical file would change its sha256 and cascade through pins, and the file is DO-NOT-SUBMIT. The public Format line and limitations now state the conflict (<code>scripts/build_site.py</code>). The shared all-finite policy in <code>vendor/gems57/gates.py</code> is unchanged. <strong>Protocol-owner decision needed</strong> on the convention for any future candidate.</td>
 </tr>
 <tr>
-<td>IR-79-68</td>
+<td>IR-79-70</td>
 <td><strong>Preflight exit code depends on <code>--restore</code>.</strong> Run without it, <code>scripts/preflight_new_lane.py</code> exits 3 (<code>FileNotFoundError</code>, witness absent, fail closed). With <code>--restore</code> it exits 2 (<code>impossible_under_literal_gate</code>), witness sha256 <code>ab0a0a62…</code>, identical to IR-79-04. The stop was reproduced, not inherited.</td>
 <td>No code change. Use <code>--restore</code> for the frozen check.</td>
 </tr>
 <tr>
-<td>IR-79-69</td>
+<td>IR-79-71</td>
 <td><strong>Registry count wording.</strong> <code>registry/registry_index.json</code> lists 92 entries in its <code>repositories</code> field, but its 992 rasters come from 71 distinct <code>repo</code> values. IR-79-10 says “92 repository scopes”; the public site says “71 sibling repositories”. Both are correct under their definitions.</td>
 <td>Clarified here. No data changed.</td>
 </tr>
 <tr>
-<td>IR-79-70</td>
+<td>IR-79-72</td>
 <td><strong>Public leaderboard re-read, ranks 1–50</strong> (https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/, fetched 2026-10-22). Rank 1 = 0.4413 (xiaofanhu); rank 21 = 0.3261; rank 22 = 0.3183; rank 50 = 0.2784. No row shows 0.3195. The user-reported H33 figure 0.2778 is also not among these 50 rows. These are PUBLIC-OBSERVATION values, not organizer confirmation of any artifact.</td>
 <td>Confirms IR-79-23 and IR-79-45. “0.3195 highest” and “0.2778” stay UNVERIFIED reports. Ranks beyond 50 were not read.</td>
 </tr>

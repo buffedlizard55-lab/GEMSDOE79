@@ -1,6 +1,11 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
+**Latest repository audit (2026-10-22):** [three-pass active-branch review](reports/repository_review_2026-10-22_active-branch.md). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used.
+
 ## Download and submission decision — start here
+
+Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-68182759.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
+
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
@@ -44,6 +49,8 @@ Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard5
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
 
+Current independent three-pass review for this branch: [`reports/repository_review_2026-10-22_session-14aaf1c8.md`](reports/repository_review_2026-10-22_session-14aaf1c8.md). It records no new experiment, TIFF, upload, or slot use.
+
 ## Follow-up preflight (2026-10-22, branch `arena/a7d092d7-gemsdoe79`)
 
 Concurrent [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md)
@@ -80,6 +87,18 @@ near-catalogue false positives and the 70% halo proof.
 
 Latest concurrent software review: [session `0c9f6bad`](reports/session_review_0c9f6bad.md).
 It independently hardened selector evidence and fixed clean-install dependencies; no scientific slot was used.
+
+## Repository review — session `2747f26f` (2026-10-22)
+
+[Three-pass review and next steps](reports/session_review_2747f26f.md): the fresh
+hash-pinned registry preflight still refuses any new lane under the literal
+positive-support overlap rule. No new scientific raster or competition slot was
+used. The selector CLI now emits a structured refusal for missing/malformed
+inputs rather than a traceback; ten regression cases protect that path.
+All 240 software tests, format/evidence verification and site link checks passed.
+The original request for a newly generated **protocol-unique submittable** TIFF
+remains blocked, not silently marked complete. Official GitHub reference material
+was freshly reviewed; non-GitHub scientific sites were not freshly verified here.
 
 ## What the previous session found (2026-10-22, session `337ac1e9`)
 
@@ -209,6 +228,13 @@ Those changes were merged into this branch without changing scientific evidence.
   No file meeting all submission gates was generated this session.
 - Review and next-session blockers: [three-pass report](reports/session_review_2203b2cc.md).
 
+## Maintenance review — session `e846fc02` (2026-10-22, no new experiment)
+
+- **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — the canonical research GeoTIFF (`abbf5314…`, 37,654 dots, single band float32 EPSG:32611, values exactly 0/1, no NaN anywhere) remains locally format-valid (`Predicted values must be in range [0,1]` PASS) but duplicate-blocked (26 informative dot fields >70%, worst 0.913 vs 0.610 chance; surface also fails; universal whole-footprint witness still covers 100% of allowed cells, `preflight_new_lane.py` exits 2). No retraining, no dot placement, no weekly slot was used.
+- **Fixes:** collapsed duplicate `scikit-image` constraints in `requirements.txt` to `>=0.25,<1` (lock pins 0.26.0; `pip install -r requirements.lock` verified); rebuilt the static site with the new backlog included (`build_site.py` now embeds `research/hypotheses_e846fc02.md`); `verify_project.py` 29/29 PASS, `check_site.py` 7 pages / 120 links PASS, `pytest` 230 PASS, `submission_status.py` exit 2.
+- **New research inputs for a future preregistered lane:** five newly ranked, not-yet-tested hypotheses (`research/hypotheses_e846fc02.md`) — tip-pair stepover linkage, drainage-deflection scarps, antislope polarity, persistent basement-edge worms, radiometric alteration lineament — each with layers, transform, why it targets *uncatalogued* faults, difference from repo, cost/mimic/viability; ranked so a future lane can pick one, preregister, and validate on the spatially blocked HOLDOUT-DTI before touching a slot. A separate geothermal-vent synthesis (`knowledge/geothermal_vent_discovery.md`) consolidates all official sources line-by-line for reuse.
+- **No protocol exemption was added.** The universal literal witness and its implications (IR-79-53) still require an explicit prospective decision before any nonempty map can pass the 0.70 gate; the site's `research.html` now surfaces this with the new backlog.
+- Three-pass review: [`reports/session_review_e846fc02.md`](reports/session_review_e846fc02.md).
 
 ## Latest review — session `52bfa965` (2026-10-22)
 
@@ -219,9 +245,9 @@ Those changes were merged into this branch without changing scientific evidence.
 - Checked against official sources (fetched 2026-10-22): the metric (α 0.2, β 0.8, R 300 m), the three-per-week
   limit, and the leaderboard (leader 0.4413; no 0.3195 row in ranks 1–50).
 - **No experiment, no new candidate and no slot were used.** The blocker is a protocol decision (IR-79-53).
-- Irregularities added: IR-79-67 (the official page's "null or nan" outside-bounds text conflicts with the
-  team's all-finite policy and the sample's NaN; the public Format line now states this conflict), IR-79-68 (preflight
-  exit 3 vs 2 depends on `--restore`), IR-79-69 (92 index scopes vs 71 repositories), IR-79-70 (leaderboard re-read).
+- Irregularities added: IR-79-69 (the official page's "null or nan" outside-bounds text conflicts with the
+  team's all-finite policy and the sample's NaN; the public Format line now states this conflict), IR-79-70 (preflight
+  exit 3 vs 2 depends on `--restore`), IR-79-71 (92 index scopes vs 71 repositories), IR-79-72 (leaderboard re-read).
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
@@ -1003,3 +1029,11 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
+
+## Latest software-only review (session 566bec0c, 2026-10-22)
+
+[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
+witness reproduced; no new experiments or slots used. Preflight now rejects
+malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
+SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
+presented as protocol-unique.
