@@ -9,6 +9,11 @@
    the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
    and the lane is stopped. Do not retune or overlap-cap X1.
    A new idea needs a new preregistered lane, with three experiments or two hours at most.
+   Session 2026-10-22 also ran **H79-ASYM** (antislope excess, `registry/preregistration_asym.json`).
+   It stopped at the surface duplicate gate before any placement (IR-79-57). Its card is
+   `run_card_asym.json`, which is archival. The canonical card is still `run_card.json`.
+   Do not reopen H79-ASYM by retuning. Note that the lidar-scarp and geodetic-strain channels
+   are already saturated in the registry (16 strain-named rasters; 32 informative scarp-channel overlaps).
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256

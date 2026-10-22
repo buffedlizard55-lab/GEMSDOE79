@@ -1,0 +1,92 @@
+{
+  "schema_version": "gems79-run-card-asym-v1",
+  "generated_utc": "2026-10-22T04:25:26.885078+00:00",
+  "branch": "arena/4b1abd09-gemsdoe79",
+  "lane": "H79-ASYM",
+  "registered_utc": "2026-10-22T03:50:40Z",
+  "preregistration_sha256": "2d0871071fedb5ddaa45a981dfacb0a7c8a9bb635d70f0aae9981619bac61127",
+  "preregistration_commit": "365b727",
+  "hypothesis": "Where a lidar-resolved step faces uphill against the regional slope and is coherent along strike, the step is more likely to be a normal-fault strand (antithetic or synthetic) than a mapped-trace artefact, so ranking cells by antislope excess places dots on unmapped fault strands better than the uniform control and better than the H33 fold-fair control.",
+  "mechanism": "Antithetic normal-fault strands in extensional terrain can produce uphill-facing free faces; they are coherent along strike and expose a 10-50 m step where they offset Quaternary surfaces (Basin-and-Range normal faulting, USGS: https://www.usgs.gov/faqs/what-a-fault-and-what-are-different-types ; antithetic strand that forms an uphill-facing scarp, Bear River fault zone, USGS SIM 3430: https://pubs.usgs.gov/sim/3430/sim3430_pamphlet.pdf ).",
+  "named_non_fault_process": "Sackung and gravitational spreading features are uphill-facing and parallel to contours and ridge crests. The literature treats them as the main confusion for tectonic uphill-facing scarps: Pyrenees sackung (https://www.sciencedirect.com/science/article/abs/pii/S0169555X0500036X), Saint Elias flexural toppling 'not tectonic faults' (https://pubs.geoscienceworld.org/gsa/gsabulletin/article-abstract/122/9-10/1585/125613/Origin-of-sackung-uphill-facing-scarps-in-the?redirectedFrom=fulltext), Yakutat antislope scarps from bedding-plane normal slip (https://pubs.geoscienceworld.org/gsa/geosphere/article/7/5/1143/132478/Antislope-scarps-gravitational-spreading-and). The same literature describes uphill-facing scarps as resembling the head scar of a landslide (https://www.tandfonline.com/doi/pdf/10.3166/ga.21.187-202). The lidar product cannot separate these, so this lane's rule is expected to be weakest where sackung is common.",
+  "experiment_count": 1,
+  "max_experiments": 3,
+  "max_hours": 2,
+  "stage_reached": "surface duplicate gate (rule 1) failed before any placement",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "status": "NOT RUN",
+    "reason": "The protocol stops a duplicate before placement; holdout placements were not run."
+  },
+  "leakage_canary": {
+    "status": "NOT RUN",
+    "reason": "Depends on the holdout stage, which was not run."
+  },
+  "surface": {
+    "surface_sha256": "e0e07c3f172a738d01607d04004c7cac1bf4c98725b8d9f2e2aa04cbad8d2d54",
+    "p999": 0.2351342886686325,
+    "valid_fraction_of_footprint": 0.6206635363849291,
+    "positive_cells": 1320612,
+    "surface_rank_check": {
+      "worst_spearman": 0.18531139607258154,
+      "worst_submission": "GEMSDOE66:artifacts/h66-2/gems66-h66-2-concordance-scarp-37654-20261011T212544Z-allfinite.tif",
+      "limit": 0.9,
+      "passed": true
+    },
+    "provisional_topk_check": {
+      "worst_forward_overlap_3px": 1.0,
+      "worst_submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+      "worst_representation": "continuous_surface",
+      "worst_their_dots": 5167373,
+      "limit": 0.7,
+      "passed": false
+    },
+    "complete_comparison": false,
+    "registry_rasters_checked": 986,
+    "registry_rasters_expected": 992
+  },
+  "unexecuted_stages": [
+    "holdout",
+    "final"
+  ],
+  "unexecuted_stages_note": "scripts/run_asym.py holdout and final were not run; the surface gate stopped the lane first. They are a reviewed template only.",
+  "final_dots": "NOT GENERATED (stopped before placement)",
+  "validator_output": "NOT GENERATED (no raster was written)",
+  "raster_sha256": null,
+  "submission_name": null,
+  "submission_note": null,
+  "surface_diagnostic": {
+    "evidence_class": "REGISTRY-MEASUREMENT (diagnostic, not a gate)",
+    "compared": 986,
+    "space_filling_halo_gt_0_70": 30,
+    "informative_halo_le_0_70": 956,
+    "flagged_by_literal_gate_all": 62,
+    "flagged_by_informative_only": 32,
+    "worst_informative": {
+      "submission": "GEMSDOE23:docs/downloads/gemsdoe23-h30-arrangement-matched-habitat-20261002-0d4e02e8-allfinite.tif",
+      "representation": "dot_field",
+      "their_dots": 91533,
+      "overlap": 0.9351728899984065,
+      "spearman": 0.03812141299669951,
+      "halo_coverage": 0.40828413838752853,
+      "space_filling": false,
+      "beyond_chance": 0.8904421628567898
+    },
+    "errors": 6
+  },
+  "verdict": "negative",
+  "promoted": false,
+  "ok_to_download": false,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "submission_slots_used": 0,
+  "organizer_submission_receipt": null,
+  "leaderboard_claim": "None. No holdout score and no artifact exist for this lane.",
+  "stop_reason": "DUPLICATE under the literal surface rule: a continuous registry surface (GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif) has positive support on 5167373 footprint cells, so any dot set overlaps it at 1.0. This is the space-filling problem (IR-79-53), not a shared fabric. Lane stopped; no retuning or overlap capping.",
+  "irregularities": [
+    "IR-79-53",
+    "IR-79-57",
+    "IR-79-58",
+    "IR-79-61"
+  ]
+}

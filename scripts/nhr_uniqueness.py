@@ -70,12 +70,18 @@ def compact(res, keys=("my_dots_within_3px_of_theirs", "spearman_full_footprint"
     return out
 
 
-def run(phase):
+def run(phase, lane="H79-NHR", cache=None, out_dir=None):
+    """Shared-tool duplicate gate for one lane. Defaults reproduce H79-NHR exactly.
+
+    ``cache`` holds final_surface.npy and final_dots.npy; ``out_dir`` receives
+    uniqueness_<phase>.json. The shared comparison is unchanged.
+    """
     grid = load_grid(ROOT / "data/reference")
     inv, expected = inventory()
     eg = (grid.shape, grid.crs, grid.transform)
-    cache = ROOT / ".cache/nhr"
-    result = dict(schema_version=1, lane="H79-NHR", phase=phase,
+    cache = Path(cache) if cache else ROOT / ".cache/nhr"
+    out_dir = Path(out_dir) if out_dir else ROOT / "evidence/nhr"
+    result = dict(schema_version=1, lane=lane, phase=phase,
                   evidence_class="REGISTRY-MEASUREMENT",
                   generated_utc=datetime.now(timezone.utc).isoformat(),
                   shared_tool="gems57.uniqueness.compare_array_to_registry",
@@ -117,7 +123,7 @@ def run(phase):
     duplicate = bool((rho is not None and rho > shared.RHO_LIMIT) or ov > shared.OVERLAP_LIMIT)
     result.update(worst_spearman=rho, worst_forward_overlap_3px=ov, complete_comparison=complete,
                   duplicate=duplicate, passed=bool(complete and not duplicate))
-    out = ROOT / "evidence/nhr" / f"uniqueness_{phase}.json"
+    out = out_dir / f"uniqueness_{phase}.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, indent=2, default=float).replace(str(ROOT) + "/", "") + "\n")
     print(json.dumps({k: result[k] for k in ("phase", "worst_spearman", "worst_forward_overlap_3px",

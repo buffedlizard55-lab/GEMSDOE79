@@ -370,6 +370,36 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td><strong>Concurrent-lane merge.</strong> PR #26 (G79-STEPCO, session 220dabc8) reached <code>main</code> while H79-NHR was running. Both lanes are negative. STEPCO S1 tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989). NHR beat it (0.1431 / 0.1522) but is a duplicate.</td>
 <td>When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to <code>archive/g79_stepco_s1/downloads/</code>. <code>run_card_stepco.json</code>, <code>evidence/stepco/</code> and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at <code>archive/g79_fabric_offset_e1/</code>. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision.</td>
 </tr>
+<tr>
+<td>IR-79-57</td>
+<td><strong>H79-ASYM stopped at the surface gate (1 of 3 experiments).</strong> Hypothesis 2 of <code>research/hypotheses_nhr.md</code> (antislope excess from the USGS 3DEP lidar bands <code>upface_max</code>, <code>downface_max</code>, <code>coh100</code>) was preregistered in <code>registry/preregistration_asym.json</code> (commit 365b727) before any result. The surface duplicate gate (protocol rule 1) failed before placement. Two causes. (a) Space-filling: continuous registry surface <code>GEMSDOE48:...gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif</code> has positive support on all 5,167,373 footprint cells, so its top-k overlap is 1.0. (b) Channel saturation, measured separately: 32 informative dot fields exceed 0.70 overlap, and 14 still exceed 0.70 after chance correction. Several are scarp families (GEMSDOE50, GEMSDOE62, GEMSDOE66).</td>
+<td>Verdict negative. No holdout placement and no final dots, because a duplicate stops the lane (protocol rule 1). No artifact was written. Evidence: <code>evidence/asym/uniqueness_surface.json</code>, <code>evidence/asym/surface_diagnostic.json</code> (reporting only), <code>run_card_asym.json</code>. Literature caveat, preregistered: uphill-facing scarps are often sackung or toppling features rather than tectonic faults (https://www.tandfonline.com/doi/pdf/10.3166/ga.21.187-202, https://pubs.geoscienceworld.org/gsa/gsabulletin/article-abstract/122/9-10/1585/125613/Origin-of-sackung-uphill-facing-scarps-in-the?redirectedFrom=fulltext).</td>
+</tr>
+<tr>
+<td>IR-79-58</td>
+<td><strong>Undeclared dependency.</strong> <code>src/gems79b/features.py</code> (archived G79B lane) imports <code>skimage</code>, but it was in neither <code>requirements.txt</code> nor <code>requirements.lock</code>. Test collection failed on a clean install (<code>tests/test_g79b.py</code>).</td>
+<td>Fixed by pinning <code>scikit-image==0.26.0</code> and its transitive pins (<code>imageio</code>, <code>lazy-loader</code>, <code>networkx</code>, <code>tifffile</code>) in <code>requirements.lock</code>, and adding <code>scikit-image&gt;=0.26,&lt;1</code> to <code>requirements.txt</code>. After the change, <code>pytest</code> gives 186 passed.</td>
+</tr>
+<tr>
+<td>IR-79-59</td>
+<td><strong>Arithmetic correction in the metric bounds.</strong> The bounds <code>c &gt;= 0.8s/(1-0.2s)</code> were stated as 23.6 % for 0.2778 and 38.4 % for 0.4413. Recomputed exactly: 23.5 % and 38.7 %. The derivation is exact because FN_w = N_truth - TP_w (by the official definition).</td>
+<td>Corrected in <code>README.md</code>, <code>reports/nhr_analysis.md</code> and the generated <code>docs/analysis.html</code>. The conclusion does not change.</td>
+</tr>
+<tr>
+<td>IR-79-60</td>
+<td><strong>Score claim not matched by the official leaderboard.</strong> The prompt says 0.3195 is "the highest score right now". The official leaderboard (fetched 2026-10-22, https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) shows #1 0.4413, #5 0.3539, #21 0.3261, #22 0.3183. No row shows 0.3195. The highest score in the user's GEMSDOE site list is 0.2778 (GEMSDOE32).</td>
+<td>Treated as an unverified user claim. The public leader is 0.4413, so this lane's benchmark is the public leader, with 0.2778 (H33, user-reported) as the reference control. Not an ORGANIZER-CONFIRMED score.</td>
+</tr>
+<tr>
+<td>IR-79-61</td>
+<td><strong>Incomplete surface comparison.</strong> 986 of 992 registry rasters were comparable. Six could not be read or compared under the shared reference-grid check: four same-shape rasters with another georeference (GEMSDOE75 x2, 14GEMSDOE, 60GEMSDOE), one invalid TIFF with no StripOffsets (GEMSDOE63 smoke.tif), and one 32x48 format test (GEMSDOE36). The shared comparison's <code>complete</code> flag is therefore false.</td>
+<td>Reported, not hidden. The gate already failed on GEMSDOE48, so the verdict does not depend on this. The six files are listed in <code>evidence/asym/uniqueness_surface.json</code>.</td>
+</tr>
+<tr>
+<td>IR-79-62</td>
+<td><strong>Format question for the organizer.</strong> The problem page says data outside the bounds must be "null or nan" (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). Every raster this repo writes is finite, with 0 outside the footprint. The user-reported H33 raster (score 0.2778, not organizer-confirmed) is also all-finite, with 0 outside the footprint and 7,111,787 zeros there, so the zero-fill follows a file that was reported as scored (<code>evidence/h33_forensics.json</code>). Zeros add no FP or TP under the metric.</td>
+<td>Kept as the repo's shared writer convention, which matches the H33 precedent. Flagged for organizer clarification. Not a proven cause of any rejection.</td>
+</tr>
 </tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
