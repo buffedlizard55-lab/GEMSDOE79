@@ -28,6 +28,7 @@ from gems57 import evaluate_holdout as EH
 from gems57.grid import load_grid
 from gems57.holdout import buffered_component_draw
 from gems57.submission_writer import write_submission
+from gems79.lifecycle import LaneClosedError, require_open_lane
 from gems79.placement import place
 
 BUDGET = 37654
@@ -145,6 +146,7 @@ def evaluate_seed(grid, surface, seed):
 
 
 def main():
+    require_open_lane(ROOT, "H79-STEP")
     prereg = json.loads((ROOT / 'registry/preregistration_edge.json').read_text())
     registered = datetime.fromisoformat(prereg['registered_utc'].replace('Z', '+00:00'))
     if datetime.now(timezone.utc) > registered + timedelta(hours=2):
@@ -281,4 +283,8 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

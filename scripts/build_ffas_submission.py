@@ -15,6 +15,7 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
 from gems57 import evaluate_holdout as evaluator      # noqa: E402
 from gems57.grid import load_grid                      # noqa: E402
 from gems57.submission_writer import write_submission  # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 
 EV = ROOT / "evidence/ffas"
 BUDGET = 37654
@@ -53,6 +54,7 @@ def gates():
 
 
 def main():
+    require_open_lane(ROOT, "H79-FFAS")
     g, hold, uniq, build, dots, chance, informative_flagged = gates()
     passed = all(g.values())
     if not passed:
@@ -96,4 +98,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

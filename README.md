@@ -1,6 +1,6 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22):** [three-pass review, session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md). Independently checked 242 tests, 29 integrity gates and the pinned universal-overlap witness. Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used. [Prior active-branch audit](reports/repository_review_2026-10-22_active-branch.md) is retained as history.
+**Latest repository audit (2026-10-22):** [three-pass review, session 3cfa694f](reports/session_review_3cfa694f.md) · [session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md). Independently checked all pytest tests, 29 integrity gates, the pinned universal-overlap witness, and all 11 post-snapshot sibling repositories (`GEMSDOE76`, `GEMSDOE78`, `GEMSDOE80`..`GEMSDOE88`). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used. [Prior active-branch audit](reports/repository_review_2026-10-22_active-branch.md) is retained as history.
 
 Current session review: [b79882e0 — three passes and automated preflight hardening](reports/session_review_b79882e0.md). The pinned registry witness was freshly restored and remeasured; it still blocks any nonempty new candidate under the literal overlap rule. No new scientific experiment or submission slot was used. Malformed-manifest/restore failures now return structured preflight refusals instead of tracebacks.
 
@@ -9,11 +9,11 @@ Current session review: [b79882e0 — three passes and automated preflight harde
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** This is not the file in the decision table below.
 >
-> Archived preview: [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip). Values are in [0, 1] with no NaN.
+> Archived preview: [`archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip). Values are in [0, 1] with no NaN.
 >
 > Reported by that lane, not remeasured here: budget-matched overlap 0.644, Spearman 0.18, HOLDOUT-DTI 0.0045 / 0.0067 versus the H33 control 0.096. That holdout loss is why it is not a submission. Do not upload it. The canonical download is the H79-DILSTEP file in the next section.
 >
-> **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue, overlap 0.64 vs worst — **contrarian far-field + multi-physics vs single-scrap amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`run_card_g79_mag.json`](run_card_g79_mag.json).
+> **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue, overlap 0.64 vs worst — **contrarian far-field + multi-physics vs single-scrap amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`archive/g79_mag_730d5ee7/run_card_g79_mag.json`](archive/g79_mag_730d5ee7/run_card_g79_mag.json).
 
 
 ## Download and submission decision — start here

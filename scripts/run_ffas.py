@@ -30,6 +30,7 @@ from gems57 import evaluate_holdout as evaluator          # noqa: E402
 from gems57.grid import load_grid                          # noqa: E402
 from gems57.holdout import buffered_component_draw         # noqa: E402
 from gems79 import ffas                                    # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 from gems79.placement import place                         # noqa: E402
 import analyze_h33                                         # noqa: E402
 from run_experiment import canaries                        # noqa: E402
@@ -178,9 +179,14 @@ if __name__ == "__main__":
     ap.add_argument("stage", choices=["holdout", "surface", "place"])
     ap.add_argument("--seed", type=int, default=20)
     a = ap.parse_args()
-    if a.stage == "holdout":
-        stage_holdout(a.seed)
-    elif a.stage == "surface":
-        stage_surface()
-    else:
-        stage_place()
+    try:
+        require_open_lane(ROOT, "H79-FFAS")
+        if a.stage == "holdout":
+            stage_holdout(a.seed)
+        elif a.stage == "surface":
+            stage_surface()
+        else:
+            stage_place()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)
