@@ -245,7 +245,8 @@ def executive(card, summary):
 
 
 def archive_links():
-    paths = ['reports/session_review_45998a01.md', 'reports/g79_thvc_scientific_report.md', 'reports/session_review_070af0b6.md',
+    paths = ['reports/session_review_1dc8cff0.md', 'research/hypotheses_csmd_1dc8cff0.md',
+             'reports/session_review_45998a01.md', 'reports/g79_thvc_scientific_report.md', 'reports/session_review_070af0b6.md',
              'reports/session_review_6d4a2fdf.md', 'reports/fnhr_analysis.md',
              'research/hypotheses_post_thvc_backlog.md', 'knowledge/why_h33.md']
     links = ''.join(f'<li><a href="{REPO}/blob/main/{p}">{E(p)}</a></li>' for p in paths)
@@ -585,7 +586,9 @@ def main():
               'evidence/g79_cskd_results.json': 'g79_cskd_results.json',
               'evidence/g79_cskd_leakage_canary.json': 'g79_cskd_leakage_canary.json',
               'evidence/cskd_sources_receipt.json': 'cskd_sources_receipt.json',
-              'archive/g79_cskd_6da2620c/run_card_cskd.json': 'run_card_cskd.json'}
+              'archive/g79_cskd_6da2620c/run_card_cskd.json': 'run_card_cskd.json',
+              'registry/preregistration_csmd.json': 'preregistration_csmd.json',
+              'run_card_csmd.json': 'run_card_csmd.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json', 'evidence_summary.json'}
     for stale in (SITE / 'evidence').iterdir():
@@ -603,6 +606,10 @@ def main():
     fnhr_dir.mkdir(exist_ok=True)
     for src in sorted((ROOT / 'evidence/fnhr').glob('*.json')):
         shutil.copyfile(src, fnhr_dir / src.name)
+    csmd_dir = SITE / 'evidence/csmd'
+    csmd_dir.mkdir(exist_ok=True)
+    for src in sorted((ROOT / 'evidence/csmd').glob('*.json')):
+        shutil.copyfile(src, csmd_dir / src.name)
     for source, dest in copies.items():
         shutil.copyfile(ROOT / source, SITE / 'evidence' / dest)
     for stale in (SITE / 'assets').glob('*.png'):
@@ -616,6 +623,7 @@ def main():
         'analysis.html': ('What H33 teaches us, without score promises',
                           page_head('ANALYSIS / EXACT METRIC / MEASURED LINEAGE', 'Understand H33. Do not copy it.',
                                     'Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.')
+                          + '<section class="section">' + md('reports/session_review_1dc8cff0.md') + '</section>'
                           + '<section class="section">' + md('reports/g79_cskd_session_6da2620c.md') + '</section>'
                           + '<section class="section">' + md('knowledge/h33_review_e4a4422d.md') + '</section>'
                           + '<section class="section">' + md('research/h33_analysis.md') + '</section>'
@@ -623,6 +631,7 @@ def main():
         'research.html': ('Deferred geological hypotheses',
                           page_head('HYPOTHESES / PREREGISTERED LANES', 'Test a mechanism. Name its mimic.',
                                     'Source-grounded ideas, qualitative ranking, executed preregistered lanes and explicit data gates.')
+                          + '<section class="section">' + md('research/hypotheses_csmd_1dc8cff0.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_6da2620c.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_0d90d81b.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_e4a4422d.md') + '</section>'
