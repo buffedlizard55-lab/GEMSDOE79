@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "lane": "G79-CJX",
+  "preregistered_utc": "2026-10-22T15:36:01Z",
+  "status": "open",
+  "source_hypothesis": "research/hypotheses_e4a4422d.md priority 1 (G79-CJX: cross-scale contact-junction localization), nominated before this session and never implemented (verified: no cjx code, preregistration or archive existed at session start).",
+  "hypothesis": "Buried fault intersections, terminations and stepovers that are missing from the USGS/INGENIOUS catalogue still juxtapose rocks of different density and magnetic susceptibility. At such a junction, potential-field edge directors are multi-modal (several strikes meet) persistently across smoothing scales in BOTH reduced-to-pole magnetics and isostatic gravity, whereas a single straight lithologic contact is uni-modal and a flat basin has no edge energy. A catalogue-free surface that requires persistent, edge-weighted director dispersion in both fields therefore targets unmapped structural junctions rather than continuations of mapped traces.",
+  "mechanism": "For each of band 2 (rtp) and band 13 (iso_grav_anom): median-fill invalid cells inside the footprint, Gaussian-smooth at sigma in {1,2,4} px, compute gradients, edge magnitude m and along-strike director theta. In a sigma=2 px Gaussian neighbourhood compute coherence C = |<m*exp(2i*theta)>| / <m>; junction statistic J = rank(<m>) * (1 - C). Per-field persistence = min over the three scales of the footprint percentile rank of J. EXP1 surface CJXJ = sqrt(rank_rtp_persistent * rank_grav_persistent). EXP2 (candidate) CJXFULL = CJXJ * sqrt(rank(<m_rtp>) * rank(<m_grav>)) at base scale sigma=2, requiring signed-contrast edge energy in both fields. EXP3 = CJXFULL placed at the H33-matched 37654-dot budget (sensitivity arm only; never the candidate). No catalogue-derived feature is used anywhere, so every fold surface is identical to the full-data surface by construction (fold-fair); the catalogue enters only through the fixed exclusion rule (no dot within 2 px) and through holdout masking.",
+  "named_non_fault_mimic": "Pluton margins and volcanic caldera ring contacts (multi-strike density/susceptibility junctions with no through-going fault), and airborne survey-block seams/levelling joins in the GeoDAWN grids. Falsification checks: a phase-randomized (power-spectrum-matched) field rebuild must collapse the junction surface's holdout skill toward the uniform control; skill confined to one smoothing scale or one field also falsifies the junction reading.",
+  "inputs": [
+    {"id": "training_features", "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5", "bands_used": {"2": "rtp", "13": "iso_grav_anom", "3": "tmi_hg (EDGE control only)", "18": "iso_grav_anom_hg (EDGE control only)"}},
+    {"id": "existing_faults", "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093"},
+    {"id": "sample_submission", "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"}
+  ],
+  "shared_tools_sha256": {
+    "vendor/gems57/evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "vendor/gems57/holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "vendor/gems57/metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "vendor/gems57/submission_writer.py": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
+    "vendor/gems57/uniqueness.py": "8cd7946bb4f9754fbb577ac4155a169cd55e25da0a4af9163edb7d95f0dd8d53",
+    "src/gems79/placement.py": "1badddcfadad4fac7dc259c78addc7c4d3fa3939445ebc0e3bd23742152377f6"
+  },
+  "experiments_budget": "3 arms (EXP1 CJXJ, EXP2 CJXFULL candidate, EXP3 CJXFULL budget sensitivity) plus EDGE and UNIFORM controls; seeds 20 and 30; no further arms, quotas or retuning after seeing holdout results.",
+  "holdout": {
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "split": "vendor/gems57/holdout.buffered_component_draw(seed in {20,30}, buffer_px=3): whole catalogue components withheld inside eroded quadrants; visible faults masked pixel-exactly by the evaluator",
+    "metric": "pooled DTI alpha=0.2 beta=0.8, 300 m triangular kernel; per-physical-block terms summed across the 4 folds of a seed (identical global block indexing) before ev.pooled_summary paired bootstrap (1000 draws)",
+    "per_fold_allowed": "region & footprint & ~masked_known & distance_to_masked_known > 2 px",
+    "per_fold_budget": "round(global_budget * fold_allowed / global_allowed)"
+  },
+  "placement": {
+    "function": "src/gems79/placement.place (descending rank, Euclidean spacing)",
+    "spacing_px": 3,
+    "global_budget_candidate": 20000,
+    "budget_rationale": "Frozen before any holdout: (a) H33 showed deleting redundant near-catalogue dots (44090 -> 37654) raised the reported public score within its lineage, and the DTI marginal-dot bar (vendor/gems57/metric.py docstring) penalises low-credit dots; (b) evidence/registry_obstructions_certificate.json tier-3 lattice pigeonhole gives a maximum passable budget of 21713 dots at the 0.70 overlap limit against that witness, so 20000 keeps a budget-matched novelty pass mathematically possible against it (not guaranteed); (c) spacing 3 px equals the 300 m kernel radius, so dots do not duplicate each other's kernel credit.",
+    "catalogue_exclusion_px": 2,
+    "final_values": "binary 1.0 at placed dots, 0.0 everywhere else including outside the footprint (zeros mode); written only via vendor/gems57/submission_writer.write_submission"
+  },
+  "leakage_canary": "Every constructed feature (raw bands, per-field per-scale J, persistence, smoothed edge magnitudes, CJXJ, CJXFULL, EDGE parts) tested alone: symmetric AUC of feature value vs withheld-truth label on pooled seed folds (negatives sampled 120000 per fold, rng seed*100+fold). Gate: max symmetric AUC <= 0.90 on both seeds.",
+  "novelty_protocol": "Check surface (footprint Spearman on a fixed 200000-cell sample + overlap of the surface's pre-spacing top-20000 cells) and final dots against every registry raster whose bytes are present in this repo plus H33 and D2.8 restored from their pinned GEMSDOE68 registry paths. Report three readings without mixing them: (i) literal positive-support (known a priori to fail for every nonempty candidate: scripts/preflight_new_lane.py exit 2, witness sha256 ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be covers 100% of allowed cells); (ii) dot-field like-for-like forward overlap <= 0.70 and |rho| <= 0.90 on the restored subset; (iii) shared amendment D-2 chance-corrected overlap where defined. The restored-subset scope is stated as a limitation, never as a full-registry census.",
+  "decision_rule": "verdict=promote ONLY if all of: canaries pass both seeds; EXP2 pooled HOLDOUT-DTI beats EDGE and UNIFORM on both seeds with paired 95% CI vs the better control excluding 0; EXP2 beats the canonical G79-THVC holdout point estimates (0.1905 seed20 / 0.1944 seed30, same evaluator) on both seeds; format validator passes; literal novelty passes. Any failure -> verdict=negative, ok_to_submit=false. This lane never selects itself for a weekly slot (protocol rule 6); promotion language here governs only the run-card verdict field.",
+  "slots": "0 competition slots are used by this lane."
+}

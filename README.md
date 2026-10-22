@@ -140,6 +140,36 @@ The [decision guide now checks downloaded TIFF/ZIP identity in your browser](doc
 
 **Maximize P(Win):** do not spend a slot on a known duplicate or unavailable data. **Own the Outcome:** report the unmet new-TIFF requirement and preserve the negative result rather than rename an inherited file.
 
+## New unique research TIFF generated 2026-10-22: G79-CJX-DIR (negative, lane closed)
+
+A later session ran the previously nominated top backlog hypothesis (registered as
+G79-CJX, renamed **G79-CJX-DIR** at merge because a parallel session merged a different
+lane with the same nickname first — measured non-duplicate: final-dot 3-px overlap 0.3474
+vs theirs, surface ρ 0.0657; see `evidence/cjxdir/collision_measurement.json`)
+(cross-scale RTP × gravity director-junction localization, catalogue-free) under a
+[preregistration frozen before any holdout](registry/preregistration_cjxdir.json) and
+generated a genuinely new GeoTIFF — it is **not** a copy or rename of any prior file.
+The canonical G79-THVC decision above is unchanged; this is a separate, additional
+research artifact with its own automated decision.
+
+> **G79-CJX-DIR: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** Machine-derived from
+> [`run_card_cjxdir.json`](run_card_cjxdir.json); no human inspector in the loop.
+
+**[G79-CJX-DIR page with download links and gate table](docs/g79-cjxdir.html)** ·
+**[Archive README](archive/g79_cjxdir/README.md)** ·
+**[Ranked hypotheses + H33 analysis](research/hypotheses_cjxdir_20261022.md)** ·
+**[Three-pass session review](reports/session_review_cjxdir_20261022.md)**
+
+- **TIFF:** `gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.tif`, 96,603 bytes, SHA-256 `5bdebaafc7c15bd6f9de6092398c86618986d19d4d06075acf92386948563e47`; 20,000 binary dots, spacing 3 px, >2 px from the catalogue.
+- **Format (machine-validated): PASS** — single float32 band, EPSG:32611, 3730 × 3292, sample transform, all values finite and in [0, 1] (min 0.0, max 1.0, zero NaN), zeros outside the footprint. The shared writer rejects out-of-range arrays, so these bytes cannot produce the portal "[0, 1]" range error; format PASS is still not submission approval.
+- **HOLDOUT-DTI** (`gems57-pooled-hide-v2`): candidate **0.0256 / 0.0319** (seeds 20/30, n = 11,321 / 11,342), below EDGE and UNIFORM controls and far below canonical G79-THVC (0.1905 / 0.1944). The phase-randomized null (0.0338 / 0.0324) beats the real σ=2 junction surface (0.0225 / 0.0230): the junction reading is falsified. Canaries pass (max symmetric AUC 0.5526 / 0.5710 ≤ 0.90). Full receipts: [evidence/cjx](evidence/cjxdir/holdout_results.json).
+- **Novelty (25-raster restored subset, not a full census):** final-dot 3-px overlap vs H33 = 0.2503 (exact 0.0132, surface ρ = 0.0243); worst final overlap vs any restored dot-field = 0.5219 ≤ 0.70 and worst |ρ| = 0.0832 ≤ 0.90; the pre-placement surface reaches 0.7593 vs G79-MAG and the literal gate fails as it does for every nonempty candidate. Verdict **negative** on three independent gates; 0 slots used; do not restart or retune this lane (IR-79-194).
+
+Why H33 leads the family and what beating it would require is analysed in the
+[hypotheses document](research/hypotheses_cjxdir_20261022.md): spaced binarization plus
+2-px catalogue-shell pruning remove pure false-positive cost under the DTI
+max-cover/summed-cost algebra, and every family score above ~0.24 is that same lineage.
+
 ## Reproduce verification, not a stopped experiment
 
 ```bash
