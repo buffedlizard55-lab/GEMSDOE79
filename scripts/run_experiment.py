@@ -217,4 +217,6 @@ def main():
 
 
 if __name__ == '__main__':
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(ROOT, 'G79-FABRIC-OFFSET')
     main()
