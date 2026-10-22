@@ -12,6 +12,12 @@
    Follow-up review a7d092d7 re-measured the universal literal-overlap witness:
    `scripts/preflight_new_lane.py --restore` exits 2, forbidding any nonempty new
    candidate under that reading. Do not bypass it or restart the stopped lane.
+
+   Session 2026-10-22 also ran **H79-ASYM** (antislope excess, `registry/preregistration_asym.json`).
+   It stopped at the surface duplicate gate before any placement (IR-79-74). Its card is
+   `run_card_asym.json`, which is archival. The canonical card is still `run_card.json`.
+   Do not reopen H79-ASYM by retuning. Note that the lidar-scarp and geodetic-strain channels
+   are already saturated in the registry (16 strain-named rasters; 32 informative scarp-channel overlaps).
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256

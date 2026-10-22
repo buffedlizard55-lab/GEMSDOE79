@@ -55,28 +55,33 @@ def test_absent_card_fails_closed(tmp_path):
         require_open_lane(tmp_path, 'fixture-lane')
 
 
-@pytest.mark.parametrize('script,args,expected_msg', [
-    ('run_nhr.py', ['holdout', '--seed', '20'], 'lane is closed (negative)'),
-    ('run_nhr.py', ['final'], 'lane is closed (negative)'),
-    ('nhr_uniqueness.py', ['surface'], 'lane is closed (negative)'),
-    ('nhr_uniqueness.py', ['final'], 'lane is closed (negative)'),
-    ('build_nhr_submission.py', [], 'lane is closed (negative)'),
-    ('finalize_nhr.py', [], 'lane is closed (negative)'),
-    ('nhr_overlap_chance.py', [], 'lane is closed (negative)'),
-    ('nhr_surface_flagged.py', [], 'lane is closed (negative)'),
-    ('nhr_distance_profile.py', [], 'lane is closed (negative)'),
-    ('run_stepco_experiment.py', [], 'canonical lane missing or mismatched'),
-    ('run_stepco_s2.py', [], 'canonical lane missing or mismatched'),
-    ('build_stepco_run_card.py', [], 'canonical lane missing or mismatched'),
-    ('supplementary_uniqueness_stepco.py', [], 'canonical lane missing or mismatched'),
-    ('run_holdout_g79b.py', [], 'canonical lane missing or mismatched'),
-    ('build_submission_g79b.py', [], 'canonical lane missing or mismatched'),
-    ('cap_cost_g79b.py', [], 'canonical lane missing or mismatched'),
-    ('build_ff_candidate.py', [], 'canonical lane missing or mismatched'),
+@pytest.mark.parametrize('script,args', [
+    ('run_nhr.py', ['holdout', '--seed', '20']),
+    ('run_nhr.py', ['final']),
+    ('nhr_uniqueness.py', ['surface']),
+    ('nhr_uniqueness.py', ['final']),
+    ('build_nhr_submission.py', []),
+    ('finalize_nhr.py', []),
+    ('nhr_overlap_chance.py', []),
+    ('nhr_surface_flagged.py', []),
+    ('nhr_distance_profile.py', []),
+    ('run_stepco_experiment.py', []),
+    ('run_stepco_s2.py', []),
+    ('build_stepco_run_card.py', []),
+    ('supplementary_uniqueness_stepco.py', []),
+    ('run_holdout_g79b.py', []),
+    ('build_submission_g79b.py', []),
+    ('cap_cost_g79b.py', []),
+    ('build_ff_candidate.py', []),
+    ('run_g79_thvc.py', ['--stage', 'seed20']),
+    ('run_asym.py', ['surface']),
+    ('finalize_asym.py', []),
+    ('asym_surface_diagnostic.py', []),
+    ('run_edge_lane.py', []),
 ])
-def test_current_scientific_commands_refuse_before_writing(script, args, expected_msg):
+def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (
-        [ROOT / 'run_card.json', ROOT / 'run_card_stepco.json', ROOT / 'run_card_g79b.json']
+        [ROOT / 'run_card.json', ROOT / 'run_card_stepco.json', ROOT / 'run_card_g79b.json', ROOT / 'run_card_asym.json']
         + list((ROOT / 'evidence/nhr').glob('*.json'))
         + list((ROOT / 'docs/downloads').glob('*'))
     )
@@ -86,7 +91,8 @@ def test_current_scientific_commands_refuse_before_writing(script, args, expecte
     result = subprocess.run([sys.executable, str(ROOT / 'scripts' / script), *args],
                             capture_output=True, text=True, timeout=30)
     assert result.returncode == 2, result.stderr
-    assert expected_msg in result.stderr
+    assert ('lane is closed (negative)' in result.stderr or 'canonical lane missing or mismatched' in result.stderr)
+    assert 'no files changed' in result.stderr.lower()
     assert all(p.read_bytes() == data for p, data in frozen.items())
     assert (set(cache.rglob('*')) if cache.exists() else set()) == before
 

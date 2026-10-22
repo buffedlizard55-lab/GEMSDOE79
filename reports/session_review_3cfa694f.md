@@ -1,8 +1,8 @@
 # Three-Pass Audit & Reconciliation Report — Session `3cfa694f` (2026-10-22)
 
 **Branch:** `arena/3cfa694f-gemsdoe79`  
-**Canonical Active Lane:** `H79-NHR` ([`run_card.json`](../run_card.json), `verdict: "negative"`, `ok_to_download: true`, `ok_to_submit: false`)  
-**Canonical Research GeoTIFF:** [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif`](../docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif) (`sha256: abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`)  
+**Canonical Active Lane:** `G79-THVC` ([`run_card.json`](../run_card.json), `verdict: "negative"`, `ok_to_download: true`, `ok_to_submit: false`, `HOLDOUT-DTI = 0.1905 / 0.1944`)  
+**Canonical Research GeoTIFF:** [`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`](../docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif) (`sha256: d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`)  
 **Automated Submission Readiness:** `scripts/submission_status.py` exits with code `2` (`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`)  
 **NewLane Preflight:** `scripts/preflight_new_lane.py --restore` exits with code `2` (`start_new_lane: false`, `state: "impossible_under_literal_gate"`, `covered_allowed_fraction: 1.0`)
 
@@ -11,9 +11,9 @@
 ## 1. Executive Summary of Session `3cfa694f`
 
 Per [`AGENTS.md`](../AGENTS.md) and the Parallel-Run Protocol:
-- The canonical lane `H79-NHR` (session `337ac1e9`) and the five preserved negative session lanes (`G79-FABRIC-OFFSET` `E1`, `G79-STEPCO` `S1`/`S2`, `G79B-SDPT` `A3`, `H79-FF`) remain **stopped negative**. No stopped lane was resumed, retuned, jittered, or overlap-capped, and zero weekly submission slots were spent.
+- All lanes (`G79-THVC`, `H79-NHR`, `G79-FABRIC-OFFSET` `E1`, `G79-STEPCO` `S1`/`S2`, `G79B-SDPT` `A3`, `H79-FF`, `H79-ASYM`, `H79-STEP`) remain in their terminal **stopped negative** state (`ok_to_submit: false`). No stopped lane was resumed, retuned, jittered, or overlap-capped, and zero weekly submission slots were spent.
 - Re-running `scripts/preflight_new_lane.py --restore` against the SHA-256-pinned `17GEMSDOE` universal overlap witness (`ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be`) confirmed `covered_allowed_fraction = 1.0` (`exit 2`), forbidding any new nonempty candidate under the literal positive-support reading without an explicit owner decision on `Decision D-1` (`IR-79-53`).
-- We audited all newly added prompt lines (`GEMSDOE76`..`GEMSDOE88`), fixed two defects in [`scripts/analyze_family_lineage.py`](../scripts/analyze_family_lineage.py) (`IR-79-67`), documented the `GEMSDOE76` score discrepancy (`0.1555` vs `0.2194`, both `UNVERIFIED HISTORICAL REPORT`; `IR-79-68`) and sibling protocol irregularities (`IR-79-69`), and added fail-closed `require_open_lane` terminal-lane guards to all 12 remaining historical `H79-NHR`, `G79-STEPCO`, and `G79B-SDPT` runner/packaging scripts (`IR-79-70`).
+- We audited all newly added prompt lines (`GEMSDOE76`..`GEMSDOE88`), fixed `select_sibling_tifs()` and the `spearmanr` constant-array NaN guard in [`scripts/analyze_family_lineage.py`](../scripts/analyze_family_lineage.py), documented the `GEMSDOE76` score discrepancy (`0.1555` vs `0.2194`, both `UNVERIFIED HISTORICAL REPORT`; `IR-79-86`) and sibling protocol irregularities (`IR-79-87`), reconciled the concurrent PR #53 (`4b38bfa`, `H79-STEP`) merge regression on `main` (`IR-79-88`, archiving `H79-STEP` under [`archive/h79_step_21642326/`](../archive/h79_step_21642326/README.md)), and added fail-closed `require_open_lane` terminal-lane guards to all 17 remaining historical/archived runner and packaging scripts (`IR-79-89`).
 
 ---
 
