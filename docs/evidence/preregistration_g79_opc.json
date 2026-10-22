@@ -1,0 +1,124 @@
+{
+ "schema_version": "gems79-preregistration.v1",
+ "lane": "G79-OPC",
+ "title": "Oriented inter-component pair-correlation (anisotropic second-order fault-population) prior + LiDAR strike concordance, DTI-marginal greedy placement",
+ "branch": "arena/ff2e4413-gemsdoe79",
+ "registered_utc": "2026-10-22T19:15:06Z",
+ "status": "open",
+ "registered_before_any_lane_surface_holdout_or_placement": true,
+ "hypotheses_document": "research/hypotheses_ff2e4413.md",
+ "novelty_gate": {
+  "amendment": "D-3 (reports/protocol_amendment_D3_20261022.md, IR-79-207)",
+  "function": "vendor/gems57/uniqueness.py::compare_array_to_registry_d2(saturated_branch='chance-corrected-d3')",
+  "applied": [
+   "pre-placement surface (provisional dot set = greedy placement of the live surface)",
+   "final dots"
+  ],
+  "registry": "992 frozen registry rasters + frozen 207-raster delta + live delta scanned this session + all GEMSDOE79 archived/artifact rasters (lane's own outputs excluded)",
+  "rho_limit": 0.9,
+  "overlap_limit": 0.7,
+  "radius_px": 3,
+  "literal_reading_reported": true,
+  "no_capping_jitter_or_registry_raster_as_input": true
+ },
+ "shared_evaluator_pin": {
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "split": "holdout.buffered_component_draw",
+  "seeds": [
+   20,
+   30
+  ],
+  "buffer_px": 3,
+  "boundary_px": 12,
+  "hide_frac": 0.2,
+  "alpha": 0.2,
+  "beta": 0.8,
+  "kernel_radius_m": 300.0,
+  "bootstrap_block_px": 200,
+  "bootstrap_draws": 1000
+ },
+ "mechanism": {
+  "catalogue_geometry_from_visible_only": true,
+  "strike_field": "structure tensor of Gaussian(1.5 px) smoothed visible-catalogue mask, integration sigma 3 px; strike = gradient direction + 90 deg",
+  "pair_correlation": "offsets between visible pixels of DIFFERENT 8-connected components within 40 px, rotated into the source pixel's strike frame (u along, v across), folded to |u|,|v|, 2-px bins, normalised by uniform expectation; excess w=max(g-1,0); up to 30,000 source pixels, rng seed fixed",
+  "opc_surface": "sum over 12 strike bins of (visible pixels in bin) convolved with w rotated to the bin angle (81x81 kernel)",
+  "isotropic_control_surface": "same, rotationally averaged w",
+  "lidar_strike_concordance": "|cos 2(theta_lidar - theta_opc)| x OPC coherence; lidar strike convention fixed label-free by agreement with the structure-tensor strike of the lidar step_max band",
+  "model": "LightGBM binary, leave-one-quadrant-out; training labels from 2 simulated buffered whole-component hides (shared buffered_component_draw on the visible catalogue, seeds 9000+10*seed+draw) inside the 3 training quadrants only; negatives = allowed cells (d_simvis > 3 px) not sim-hidden, 60,000 per quadrant per draw; prior-corrected probabilities",
+  "placement": "shared vendor/gems57/emit.py::greedy_allocate(p, allowed=footprint & d_vis>3px, k_truth=sum(p[allowed])) -- exact marginal DTI bar, no holdout-tuned parameters; max_dots 120000",
+  "fixed_hyperparameters": {
+   "num_leaves": 63,
+   "learning_rate": 0.05,
+   "n_estimators": 400,
+   "min_child_samples": 100,
+   "subsample": 0.8,
+   "colsample_bytree": 0.8,
+   "reg_lambda": 1.0
+  }
+ },
+ "features": {
+  "geometry": [
+   "log1p_d_vis",
+   "dens_s10",
+   "dens_s30",
+   "opc",
+   "opc_iso",
+   "opc_aniso_ratio",
+   "opc_cos2",
+   "opc_sin2",
+   "opc_coherence"
+  ],
+  "physics_label_free": [
+   "training_features bands 1-19",
+   "lidar_scarp bands ex_max ex_mean step_max lapneg_max lappos_max downface_max upface_max cross_max relief coh100 valid (0=no lidar -> NaN)",
+   "geodawn_rad K Th U TC",
+   "geodawn_extensions ThK UK UTh TMI_up150",
+   "log1p road distance",
+   "log1p distance to SGMC geologic-map faults",
+   "lidar_strike_concordance"
+  ]
+ },
+ "experiments": {
+  "EXP-OPC-1": "geometry-only model WITH oriented OPC features vs CONTROL C-ISO geometry-only model with isotropic features only (log1p_d_vis, dens_s10, dens_s30, opc_iso); tests the anisotropy hypothesis; same placement",
+  "EXP-OPC-2": "full model (geometry + OPC + physics + concordance); the candidate",
+  "EXP-OPC-3": "live fit on the full catalogue with the identical recipe; pre-placement surface novelty; placement; final-dot novelty; GeoTIFF + ZIP via shared submission_writer"
+ },
+ "controls_same_folds": [
+  "C0 random dots in allowed, same count as EXP-OPC-2",
+  "C-ISO isotropic geometry-only"
+ ],
+ "leakage_canary": "every feature alone: symmetric AUC (truth vs allowed non-truth) on each holdout fold, both seeds; any AUC > 0.90 = leakage until proven otherwise -> stop",
+ "promotion_gates": {
+  "G1_format": "single band float32, EPSG:32611, 3730x3292, sample transform, finite everywhere, values in [0,1], zero outside footprint",
+  "G2_canary": "max symmetric single-feature AUC <= 0.90",
+  "G3_holdout": "EXP-OPC-2 pooled HOLDOUT-DTI > frozen canonical G79-THVC on BOTH seeds (0.1905 seed 20, 0.1944 seed 30) AND 2-seed mean > 0.1963 (best recorded GEMSDOE79 2-seed mean, G79-CSKD)",
+  "G4_novelty": "unique under D-3 on surface and final dots vs the complete accessible registry scan (no error rows treated as pass)",
+  "G5_selector": "scripts/opc_gate.py re-derives G1-G4 from files; sets OK TO SUBMIT only if all pass"
+ },
+ "budget": {
+  "max_experiments": 3,
+  "max_hours": 2
+ },
+ "named_non_fault_mimics": [
+  "Pleistocene Lake Lahontan wave-cut shorelines (linear, parallel, characteristic spacing)",
+  "fluvial terrace risers",
+  "roads/railways (TIGER distance feature)"
+ ],
+ "deviations_before_any_holdout_result": [
+  {
+   "id": "D-OPC-1",
+   "utc": "2026-10-22T19:24:00Z",
+   "change": "lidar_strike_concordance uses cos^2(theta_lidar - theta_opc) = (1+cos 2 delta)/2 instead of |cos 2 delta|, and the label-free convention check uses the signed mean cos 2 delta",
+   "reason": "|cos 2 delta| equals 1 for both parallel and perpendicular strikes, so it cannot express concordance and cannot detect a 90-degree convention error (measured: two conventions differing by 90 deg scored identically, evidence/opc/lidar_strike_convention.json first version). Found by inspecting the label-free convention scores only; no holdout, canary or truth-based number existed."
+  }
+ ],
+ "deviations_after_first_result": [
+  {
+   "id": "D-OPC-2",
+   "utc": "2026-10-22T19:31:00Z",
+   "change": "holdout placement domain and training negative pool exclude only the VISIBLE catalogue (known to the lane), not the full catalogue",
+   "reason": "BUG, found after the first seed-20 run: allowed = footprint & d_vis>3 & ~grid.catalogue removed every withheld-truth pixel from the placement domain (and from the training negatives), i.e. it used truth to forbid dots on truth. This violates the hide-and-recover semantics. The first run (EXP-OPC-2 0.0657) is preserved as evidence/opc/seed20_INVALID_run1_truth_excluded_from_allowed.json and is NOT a lane result. No model, feature, hyperparameter or placement rule was changed. Live mode was always correct: the live catalogue is fully known.",
+   "disclosure": "This is a post-result correction; reviewers should weigh it as such."
+  }
+ ]
+}

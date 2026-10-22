@@ -170,6 +170,8 @@ A separate three-pass review independently recorded the literal-gate stop, four 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
 > **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
+>
+> **Later update, session `ff2e4413`:** a new research TIFF ([G79-OPC](docs/g79-opc.html), details below) was generated and machine-validated. It failed the holdout and novelty gates, so the project decision is unchanged: nothing is OK to submit.
 
 > **NEW SESSION 0be4d7bb — G79-TDW:** A new unique 37,654-dot TIF (`gems79-tdw-tiltworm-37654dots-20261022`, SHA-256 `0a79e3e54c1c8b9254ba0c8a36e61a1c41f09c594ae59778b2bf6478ba391eef`) was generated and machine-validated. **OK TO DOWNLOAD: YES (research only, `artifacts/tdw/`). OK TO SUBMIT: NO** — HOLDOUT-DTI 0.0395/0.0413 fell below the uniform control and the THVC incumbent, so no slot was spent. Details: `docs/tdw-submission.html`, `run_card_tdw.json`, `evidence/tdw/experiment1.json`. The canonical THVC decision below is unchanged.
 >
@@ -195,6 +197,40 @@ The historical “Charnes-Cooper” identifier is not an exact-optimization clai
 | Slot selection | **NOT APPROVED.** No organizer receipt or remaining-account-capacity measurement. Sparse-prior diagnostics cannot substitute for the full novelty gate. |
 
 The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
+
+## Latest session (`ff2e4413`): G79-OPC. A new TIF was generated (not a copy or rename), and the automated gates say NO
+
+> **G79-OPC: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
+> Files: [`artifacts/opc/g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.tif`](artifacts/opc/g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.tif) (139,575 bytes, SHA-256 `5b8756e4b3f31008027980c71e5f8362a24332b74d7b2b5fcd43aaabe74fd40b`, 45,204 binary dots, zeros outside the footprint) · [ZIP with the identical TIFF](artifacts/opc/g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.zip).
+> Name: `g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT` · Note (76/140): `RESEARCH ONLY: G79-OPC aniso pair-corr prior, 45204 dots; holdout below THVC`
+> Decision page: [docs/g79-opc.html](docs/g79-opc.html) · Run card: [`run_card_opc.json`](run_card_opc.json) · Independent re-check: `.venv/bin/python scripts/opc_gate.py` (exit 2 = NO; exit 1 = card/evidence disagree). No human inspection is involved. Session review, limitations and next work: [reports/session_review_ff2e4413.md](reports/session_review_ff2e4413.md).
+
+**Hypothesis.** This was the top-ranked of five untried ideas ([research/hypotheses_ff2e4413.md](research/hypotheses_ff2e4413.md)). Faults come in populations with anisotropic second-order structure: relay steps along strike and sub-parallel splays at a characteristic spacing across strike ([Soliva et al. 2006](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2004JB003507); [Faulds & Hinz 2015](https://pangea.stanford.edu/ERE/db/WGC/papers/WGC/2015/11100.pdf)). The strike-rotated pair-correlation between components of the *visible* catalogue was learned and convolved back onto the map, then combined with LiDAR-strike concordance and the pinned geophysics stack in LightGBM. **Named mimic:** Lake Lahontan shorelines and terrace risers. Preregistered in [`registry/preregistration_g79_opc.json`](registry/preregistration_g79_opc.json), with two disclosed deviations (D-OPC-1 pre-result sign fix; D-OPC-2 post-result holdout-mask bug fix, see `IR-79-230`).
+
+| Arm (HOLDOUT-DTI, `gems57-pooled-hide-v2`, α 0.2, β 0.8, 300 m) | Seed 20 (n = 11,321) | Seed 30 (n = 11,342) |
+|---|---|---|
+| EXP-OPC-2 full model (candidate) | 0.1207 [0.0968, 0.1448] | 0.1506 [0.1246, 0.1768] |
+| EXP-OPC-1 oriented geometry only | 0.0997 [0.0872, 0.1126] | 0.0693 [0.0584, 0.0810] |
+| C-ISO isotropic control | 0.0533 [0.0396, 0.0685] | 0.0720 [0.0564, 0.0943] |
+| C0 random, same count | 0.0249 [0.0209, 0.0292] | 0.0378 [0.0322, 0.0428] |
+| **G79-THVC incumbent (bar)** | **0.1905** | **0.1944** |
+
+| Gate | Result |
+|---|---|
+| G1 local shared validator (single band, EPSG:32611, 3730 × 3292, sample transform, finite, values in [0, 1], ZIP identical) | **PASS** |
+| G1b official R1–R8 portal rules (`scripts/validate_portal_spec.py`, merged from main afterwards) | **FAIL R6:** zeros outside the footprint, where the official rule requires null/NaN (IR-79-212, IR-79-224). The file was not repackaged because the lane is closed. |
+| G2 leakage canary (max single-feature symmetric AUC ≤ 0.90) | **PASS:** 0.8036 / 0.7998 |
+| G3 beats current holdout best on both seeds and the best 2-seed mean (0.1963) | **FAIL:** 2-seed mean 0.1357 |
+| G4 novelty, D-3, surface and final dots, 1,222/1,232 comparable rasters | **FAIL:** 14 chance-corrected halo firings (worst 0.8264); worst rank correlation 0.6932 (surface) / 0.1348 (dots); literal one-sided 3-px rule fires on 119 rasters |
+
+**What we learned, and the verdict.**
+- Every arm beats random.
+- Oriented minus isotropic geometry was **+0.0464** [+0.0277, +0.0622] on seed 20 and **-0.0027** [-0.0233, +0.0138] on seed 30. The anisotropy effect did **not** replicate.
+- The full model was under-calibrated about 5×, so it emitted too few dots.
+- That calibration was not retuned after seeing the holdout, because doing so would be holdout peeking. It is proposed as a new prospective lane instead.
+- **Verdict: negative.**
+- Slots used: 0. No ORGANIZER-CONFIRMED score exists. The 0.2778 H33 figure remains an unverified user report, and 0.4413 is a public-leaderboard observation; neither is claimed for this file.
+- **G79-THVC stays the canonical research artifact. No file in this repository is OK to submit.**
 
 ## New this session: official-format validator (R1–R8) — `9340b31a`
 
