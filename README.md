@@ -6,7 +6,7 @@
 >
 > **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
 
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_0d90d81b.md)** · **[Five untried hypotheses](research/hypotheses_0d90d81b.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest three-pass review](reports/session_review_9eb122ea.md)** · **[Session run card](evidence/session_9eb122ea_run_card.json)** · **[Four untried hypotheses](research/hypotheses_9eb122ea.md)** · **[Runtime data status](evidence/runtime_data_status_9eb122ea.json)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
@@ -25,7 +25,7 @@ The historical “Charnes-Cooper” identifier is not an exact-optimization clai
 | Historical H33-control comparison | Candidate exceeds its H33 fold-fair control on both seeds, with positive paired 95% intervals. See the labelled evidence below. Not a new result beating today's incumbent. |
 | Slot selection | **NOT APPROVED.** No organizer receipt or remaining-account-capacity measurement. Sparse-prior diagnostics cannot substitute for the full novelty gate. |
 
-The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
+The independently remeasured [latest new-lane preflight](evidence/preflight_9eb122ea.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted. Current runtime input availability is separately reported as **0/13 manifest files present under `data/raw`** in this checkout; the historical restore receipt is not live availability proof. Recheck with `python scripts/data_status.py`.
 
 ## New this session: G79-CJX — a unique TIF was generated, and the automated gate says NO
 

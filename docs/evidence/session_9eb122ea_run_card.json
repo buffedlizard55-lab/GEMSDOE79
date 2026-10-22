@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "session_id": "9eb122ea",
+  "branch": "arena/9eb122ea-gemsdoe79",
+  "reviewed_utc": "2026-10-22T19:23:59Z",
+  "review_type": "three-pass repository and evidence review; no scientific experiment",
+  "assigned_method_paragraph": null,
+  "hypotheses_document": "research/hypotheses_9eb122ea.md",
+  "ranked_untried_hypotheses": ["G79-RSS", "G79-SRX", "G79-BLC", "G79-HFR"],
+  "top_research_candidate": "G79-RSS",
+  "top_candidate_status": "UNTESTED; DEFERRED; NOT AUTHORIZED UNDER CURRENT PREFLIGHT",
+  "experiment_count": 0,
+  "holdout_evaluations_performed": 0,
+  "final_dot_placements_performed": 0,
+  "new_candidate_tiff": null,
+  "new_candidate_sha256": null,
+  "new_candidate_status": "NOT_GENERATED",
+  "preflight": {
+    "evidence_file": "evidence/preflight_9eb122ea.json",
+    "state": "impossible_under_literal_gate",
+    "exit_code": 2,
+    "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "covered_allowed_fraction": 1.0,
+    "literal_overlap_implied_for_nonempty_candidate": 1.0,
+    "forward_overlap_limit": 0.7,
+    "interpretation": "Literal dot definition only; no protocol amendment or top-k reinterpretation assumed."
+  },
+  "runtime_data": {
+    "evidence_file": "evidence/runtime_data_status_9eb122ea.json",
+    "evidence_class": "RUNTIME-LOCAL-AVAILABILITY",
+    "expected_manifest_inputs": 13,
+    "verified_in_data_raw": 0,
+    "missing_in_data_raw": 13,
+    "historical_receipt_matches_manifest_metadata": true,
+    "historical_receipt_proves_current_files": false,
+    "training_supervision_ready": false,
+    "all_manifest_inputs_ready": false
+  },
+  "historical_score_context": [
+    {
+      "label": "USER-REPORTED / UNVERIFIED HISTORICAL SCORE",
+      "subject": "H33 reported value",
+      "value": 0.2778,
+      "artifact_linked_organizer_receipt": null
+    },
+    {
+      "label": "USER-PROVIDED COMPARATOR; NOT IN THE REPOSITORY'S 2026-10-22 PUBLIC-BOARD SNAPSHOT",
+      "subject": "user-stated 0.3195 benchmark",
+      "value": 0.3195,
+      "artifact_linked_organizer_receipt": null
+    },
+    {
+      "label": "PUBLIC-OBSERVATION; NOT AN ORGANIZER RECEIPT FOR THIS PROJECT'S TIFF",
+      "subject": "repository-recorded 2026-10-22 public leaderboard first-place observation",
+      "value": 0.4413,
+      "artifact_linked_organizer_receipt": null,
+      "freshly_checked_this_session": false
+    }
+  ],
+  "inherited_holdout_reference": [
+    {
+      "label": "HOLDOUT-DTI",
+      "lane": "G79-THVC",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seed": 20,
+      "value": 0.1905,
+      "withheld_positive_count": 11321,
+      "ci95": [0.1741, 0.2069],
+      "evidence_file": "evidence/g79_thvc_results.json"
+    },
+    {
+      "label": "HOLDOUT-DTI",
+      "lane": "G79-THVC",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seed": 30,
+      "value": 0.194393256940719,
+      "withheld_positive_count": 11342,
+      "ci95": [0.17737153457292731, 0.21255176939122447],
+      "evidence_file": "evidence/g79_thvc_results.json"
+    },
+    {
+      "label": "HOLDOUT-DTI",
+      "lane": "G79-CSKD; archived negative comparison, not canonical promotion",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seed": 20,
+      "value": 0.178129,
+      "withheld_positive_count": 11321,
+      "ci95": [0.161835, 0.194433],
+      "evidence_file": "evidence/g79_cskd_results.json"
+    },
+    {
+      "label": "HOLDOUT-DTI",
+      "lane": "G79-CSKD; archived negative comparison, not canonical promotion",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seed": 30,
+      "value": 0.214488,
+      "withheld_positive_count": 11342,
+      "ci95": [0.196592, 0.232188],
+      "evidence_file": "evidence/g79_cskd_results.json"
+    }
+  ],
+  "canonical_research_artifact": {
+    "lane": "G79-THVC",
+    "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "format_range_validation": "PASS; local format only",
+    "literal_uniqueness": "FAIL",
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "artifact_status_changed_this_session": false
+  },
+  "slot_and_submission_state": {
+    "submission_slots_used": 0,
+    "selector_approval": false,
+    "organizer_submission_receipt": null,
+    "upload_attempted": false
+  },
+  "local_review_checks": {
+    "verify_project": "PASS after all changes",
+    "pytest": "571 passed in 80.48 seconds",
+    "check_site": {
+      "passed": true,
+      "pages": 11,
+      "local_links_checked": 267,
+      "all_pages_reachable_from_home": true,
+      "compatibility_redirects": 2,
+      "external_assets": 0,
+      "submit": false
+    },
+    "public_site_verification": "NOT PERFORMED; sandbox outbound policy excludes the Pages host"
+  },
+  "decision": "STOP before any new surface, leakage canary, holdout, placement, TIFF generation, or submission. Record the negative feasibility result and request prospective protocol-owner clarification before any future lane."
+}
