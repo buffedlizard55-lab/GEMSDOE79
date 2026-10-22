@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "lane": "H79-ASYM",
+  "evidence_class": "REGISTRY-MEASUREMENT (diagnostic, not a gate)",
+  "generated_utc": "2026-10-22T04:22:49.327498+00:00",
+  "surface_sha256": "e0e07c3f172a738d01607d04004c7cac1bf4c98725b8d9f2e2aa04cbad8d2d54",
+  "provisional_dots": 37654,
+  "registry_rasters_expected": 992,
+  "compared": 986,
+  "errors": [
+    {
+      "submission": "GEMSDOE75:docs/downloads/gemsdoe75-zeros-SCHEMA-DEMO-DO-NOT-SUBMIT.tif",
+      "error": "registry CRS/transform differs from reference"
+    },
+    {
+      "submission": "14GEMSDOE:docs/downloads/GEMS_r5-geom-horse-ensemble_20260929T154852Z_ccbe1de0_site_e96e942f.tif",
+      "error": "registry CRS/transform differs from reference"
+    },
+    {
+      "submission": "GEMSDOE63:docs/downloads/smoke.tif",
+      "error": "89ffb2d61840859392a758928ffdbae4260f2918.tif: MissingRequired:TIFF directory is missing required \"StripOffsets\" field"
+    },
+    {
+      "submission": "60GEMSDOE:docs/downloads/gems60-h63-strike-corridor-42000px-20261011T020352Z-zeros.tif",
+      "error": "registry CRS/transform differs from reference"
+    },
+    {
+      "submission": "GEMSDOE36:docs/downloads/GEMS36_FORMAT_TEST_NOT_SUBMISSION.tif",
+      "error": "registry grid or band-count mismatch"
+    },
+    {
+      "submission": "GEMSDOE75:docs/downloads/gems75-fault-tip-halo-20261021-SCHEMA-DEMO-DO-NOT-SUBMIT.tif",
+      "error": "registry CRS/transform differs from reference"
+    }
+  ],
+  "space_filling_halo_gt_0_70": 30,
+  "informative_halo_le_0_70": 956,
+  "flagged_by_literal_gate_all": 62,
+  "flagged_by_informative_only": 32,
+  "flagged_by_space_filling_only": 30,
+  "worst_informative": {
+    "submission": "GEMSDOE23:docs/downloads/gemsdoe23-h30-arrangement-matched-habitat-20261002-0d4e02e8-allfinite.tif",
+    "representation": "dot_field",
+    "their_dots": 91533,
+    "overlap": 0.9351728899984065,
+    "spearman": 0.03812141299669951,
+    "halo_coverage": 0.40828413838752853,
+    "space_filling": false,
+    "beyond_chance": 0.8904421628567898
+  },
+  "worst_all": {
+    "submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+    "representation": "continuous_surface",
+    "their_dots": 5167373,
+    "overlap": 1.0,
+    "spearman": 0.0004988033775539318,
+    "halo_coverage": 1.0,
+    "space_filling": true,
+    "beyond_chance": null
+  },
+  "literal_rule_note": "The literal gate fails when ANY raster exceeds 0.70. A space-filling raster (halo > 0.70) flags any dot set, so the literal rule rejects every submission (IR-79-53). This diagnostic does not change the verdict."
+}

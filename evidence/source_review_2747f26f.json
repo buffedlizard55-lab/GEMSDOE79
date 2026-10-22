@@ -1,0 +1,16 @@
+{
+  "observed_utc": "2026-10-22T04:22:15.701438+00:00",
+  "evidence_class": "OFFICIAL-SOURCE-REVIEW",
+  "url": "https://github.com/drivendataorg/gems-prize-reference-solution/blob/aebe92f7c8a990f0e3443451b7a825d9afd6336b/README.md",
+  "sha256": "cfa4d55559c9128313beb9417eae7e0a94c31677132afb1120f9e86222804239",
+  "verified_claims": [
+    "Organizer reference is a Python baseline, not a claimed winning solution.",
+    "Competition data must be downloaded separately and placed in data/.",
+    "CPU-only environment is supported; GPU accelerates training."
+  ],
+  "limits": [
+    "Does not authenticate mirrored input data or historical submission scores.",
+    "DrivenData, USGS, NLR and Dropbox hosts are outside this sandbox network allowlist; those sources were not freshly reviewed this session.",
+    "Existing official-source ledger is dated prior evidence, not a new verification."
+  ]
+}

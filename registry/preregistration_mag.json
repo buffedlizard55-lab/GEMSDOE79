@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "lane": "G79-MAG",
+  "title": "Magnetic-gravity co-located step with lidar scarp corroboration, far-from-catalogue emission",
+  "registered_utc": "2026-10-22T05:00:00Z",
+  "branch": "arena/730d5ee7-gemsdoe79",
+  "registered_before_any_holdout_result": true,
+  "supersedes": "H79-NHR remains stopped negative (duplicate). This lane is new, preregistered before any holdout/overlap measurement for its surface.",
+  "lane_paragraph": "A buried normal fault offsetting magnetic basement and density structure leaves a co-located step in RTP magnetics and isostatic gravity, even where Quaternary cover hides a surface scarp. Compute multiscale gradient magnitude of RTP (sigma 5 px) and isostatic gravity anomaly (sigma 5 px) from training_features.tif, rank-normalize over the footprint, and combine as 0.5*mag +0.5*grav. Corroborate with lidar step_max only where coherence >0.5, then mask emission to >1 km from the mapped catalogue (dist>10 px) to force novelty vs 26 near-fault dot fields. Dots placed greedily with 3 px Poisson spacing at fixed budget 37654. No registry raster, prior score, or holdout label is an input to the surface.",
+  "hypothesis": "Buried strands missing from the mapped catalogue still offset basement magnetization and density; a step that is co-located in independent potential-field gradients is more likely a through-going structure than a single-field lithologic edge, and far-field (>1 km) placement avoids overfitting to the near-catalogue splay population that dominates the 26 prior dot fields.",
+  "mechanism": "Potential-field steps are multi-scale: a fault's throw produces a gradient magnitude high in both RTP and isostatic gravity at 500 m smoothing; where a Quaternary scarp also exists (lidar step_max 2–8 m), the step is corroborated. Far-field distance weighting suppresses the dominant near-fault mimic (Lahontan shorelines, channel banks) that coincides with mapped range-front strands.",
+  "named_non_fault_mimic": "Intrusive dike contacts and paleochannel facies boundaries step magnetics and gravity together without a fault; airborne levelling seams step along E-W flight lines (GeoDAWN Area 2: 400 m spacing, azimuth 90°, tie 4000 m at 180°) can mimic a step if not cross-checked with lidar.",
+  "inputs": [
+    "data/raw/training_features.tif sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5 (19 bands, using rtp and iso_grav_anom)",
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568 (using step_max, coh100 for corroboration)",
+    "data/reference/existing_faults.tif and sample_submission.tif (grid, footprint, catalogue, 100 m, EPSG:32611)"
+  ],
+  "excluded_inputs": "No registry raster, prior submission ranking, or holdout label is an input to the surface.",
+  "fixed_parameters": {
+    "terrain_transform": "RTP gradmag sigma 5 px, iso_grav_anom gradmag sigma 5 px, filled with median where invalid, rank-normalized to [0,1] over footprint",
+    "lidar_corroboration": "lidar step_max rank where coh100>0 (ranked), multiplied as 0.1*coh_rank additive bonus only where complement weight applies",
+    "distance_mask": "emission allowed only where dist_to_catalogue >2 px (200 m) per competition masking, surface itself not distance-weighted except via allowed mask",
+    "placement": "gems79.placement.place descending surface, Euclidean 3 px spacing, budget 37654, catalogue-exact zero",
+    "final_map": "single-band float32, values 0/1 (binary dots), all finite, outside footprint 0, on catalogue 0"
+  },
+  "holdout": {
+    "split": "gems57 buffered whole-component hide-and-recover, seeds 20 and 30, buffer 3 px, erosion 12 px, HIDE_FRAC 0.20",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified)",
+    "ci": "paired 20 km spatial-cluster bootstrap 1000 draws",
+    "controls": ["h33_foldfair_control (D2.8 dots >2 px from visible per fold)", "uniform_control (seeded uniform surface same budget)"]
+  },
+  "leakage_canary": "Every static feature alone (grav, mag, step, det_elev, K, plus geometry log_dist, tip, density) on each seed/fold: symmetric AUC >0.90 means leakage until proven otherwise and blocks promotion.",
+  "promotion_gate": [
+    "all canaries <=0.90 on both seeds",
+    "candidate pooled HOLDOUT-DTI > h33_foldfair_control point estimate on BOTH seeds (or far-field stratified HOLDOUT-DTI if pooled fails but far-field arm beats control)",
+    "paired 95% CI of candidate minus uniform_control excludes 0 on both seeds",
+    "uniqueness (shared tool, dot_definition budget-matched-v3): surface Spearman <=0.90 vs every registry raster; final dots Spearman <=0.90 and forward 3 px overlap <=0.70 vs every registry raster",
+    "shared submission_writer validation: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, [0,1], no mass outside footprint or on catalogue"
+  ],
+  "experiments": ["X1: fixed mag-grav co-located step as specified, budget 37654"],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95% CI). No projected leaderboard score is written. ORGANIZER-CONFIRMED requires a submission-page receipt."
+}

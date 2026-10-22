@@ -176,7 +176,9 @@ re-measurements matched the frozen census exactly):
 Because `budget-matched-v3` only re-classifies rasters above the
 `DENSE_SUPPORT_FRACTION = 0.20` threshold, a 4 %-support lattice is untouched by
 it. **The canonical fix therefore does not dissolve the blocker.** This closes
-IR-79-53 quantitatively: the literal 70 % / 3 px forward-overlap gate is
+IR-79-53 quantitatively and complements the channel-saturation counts already
+recorded at IR-79-74 (32 informative dot fields above 0.70, 14 after chance
+correction) by proving the blocker is a property of the registry itself: the literal 70 % / 3 px forward-overlap gate is
 unsatisfiable for *any* nonempty candidate in *both* representation classes. This
 is a property of the registry, not of any candidate, and no amount of scientific
 work can remove it.
@@ -263,7 +265,8 @@ predict it monotonically (ρ = −0.835 and +0.908).
 obstacles are now measured rather than suspected:
 
 1. **Formally:** the inherited literal uniqueness gate is unsatisfiable for any
-   nonempty candidate (§4), so no artifact from this repository can be promoted
+   nonempty candidate (§4), so no artifact from this repository can be promoted (the canonical
+H79-DILSTEP deliverable on `main` is stopped for the same class of reason)
    without a protocol-owner decision of the same class as D-1.
 2. **Scientifically:** the route suggested by the score gradient — relocating dots
    to the far field — is refuted on both seeds, below uniform noise (§3).

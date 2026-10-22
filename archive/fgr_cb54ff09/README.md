@@ -4,9 +4,9 @@
 
 This directory holds the bytes of one completed, preregistered, **negative**
 experiment. It is archived here rather than published in `docs/downloads/`
-because the canonical publication contract allows only the canonical H79-NHR
-artifacts there (IR-79-52, IR-79-66); the H79-FF precedent is followed exactly.
-Nothing in this directory changes the canonical deliverable, the canonical
+because the canonical publication contract allows only the canonical
+H79-DILSTEP artifacts there (IR-79-52, IR-79-66); the H79-FF precedent is followed exactly.
+Nothing in this directory changes the canonical H79-DILSTEP deliverable, the canonical
 `run_card.json`, the registry inventory, or the automated submission decision.
 
 | | |

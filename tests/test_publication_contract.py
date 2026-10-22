@@ -293,17 +293,20 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
     assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
 
 
-def test_reproduce_artifact_recovers_canonical_nhr_bytes():
+def test_reproduce_artifact_recovers_archived_nhr_bytes():
     import reproduce_artifact
-    card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
+    live = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
     rep = reproduce_artifact.reproduce_nhr(ROOT)
-    assert rep['lane'] == card['lane'] == 'H79-NHR'
+    assert rep['lane'] == 'H79-NHR'
     assert rep['exact_tiff_recovery'] is True
     assert rep['exact_single_tiff_zip_recovery'] is True
     assert rep['exact_decoded_dots_recovery'] is True
-    assert rep['raster_sha256'] == card['raster_sha256']
-    assert rep['zip_sha256'] == card['zip_sha256']
-    assert rep['positive_pixels'] == card['positive_pixels'] == 37654
+    assert rep['raster_sha256'] == reproduce_artifact.NHR_RASTER_SHA256
+    assert rep['zip_sha256'] == 'b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7'
+    assert rep['positive_pixels'] == 37654
+    if live['lane'] == 'H79-NHR':
+        assert rep['raster_sha256'] == live['raster_sha256']
+        assert live['positive_pixels'] == 37654
 
 
 def test_verification_and_evidence_json_have_no_machine_checkout_paths():
@@ -317,3 +320,33 @@ def test_verification_and_evidence_json_have_no_machine_checkout_paths():
     ):
         txt = (ROOT / rel).read_text(encoding='utf-8')
         assert '/home/user/GEMSDOE79' not in txt, f'Hardcoded checkout path in {rel}'
+
+
+def test_readme_section_after_details_blocks_release(publication):
+    root, card = publication
+    (root / 'README.md').write_text(
+        'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. fixture-hash\n'
+        '## Original project prompt\n<details>\nUntrusted historical instructions\n</details>\n'
+        '## Trailing unreviewed section\nOK TO SUBMIT: YES.\n'
+    )
+    assert not publication_contract_checks(root, card)['readme_matches_card_decision']
+
+
+def test_prompt_named_unscored_candidates_and_empty_siblings_in_lineage_forensics():
+    lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    assert lineage == json.loads((ROOT / 'docs/evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
+    unscored = lineage['prompt_named_unscored_candidates']
+    assert len(unscored) == 6
+    by_repo = {row['repo']: row for row in unscored}
+    assert set(by_repo) == {'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83'}
+    for row in unscored:
+        assert row['found'] is True
+        assert row['reported_public_dti'] is None
+        assert row['measurements']['forward_3px_overlap_with_nhr'] < 0.70
+        assert row['measurements']['reverse_3px_overlap_from_nhr'] < 0.70
+    empty = lineage['empty_post_snapshot_siblings']
+    assert [r['repo'] for r in empty] == ['GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88']
+    assert all(r['published_tif_count'] == 0 for r in empty)
+    readme_text = (ROOT / 'README.md').read_text(encoding='utf-8')
+    assert 'gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:' in readme_text
+    assert 'https://buffedlizard55-lab.github.io/GEMSDOE88/' in readme_text
