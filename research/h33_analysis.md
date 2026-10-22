@@ -1,100 +1,40 @@
-# GEMSDOE79 — H33 score analysis: why 0.2778, and can we beat it?
+# H33 score report: evidence, limits, and conditional metric mechanics
 
-## What H33 actually reported
+## Score-status correction
 
-The GEMSDOE32 site reports a single submission:
+- **`0.2778` — UNVERIFIED HISTORICAL REPORT.** The figure was user-reported for an H33-named file, but no organizer submission-page receipt links that value to the raster bytes. The GEMSDOE32 project page labels H33 `UNSCORED`; its public page is secondary, not an organizer receipt.
+- **`0.4413` — PUBLIC-LEADERBOARD OBSERVATION.** The DrivenData board read on 2026-10-22 listed `xiaofanhu` at rank 1. This is not H33, not this repository's score, not an organizer receipt for any local TIFF, and not a score target we promise to beat.
+- **`0.3195` — OLDER USER-REPORTED BENCHMARK.** It is not the latest public leader. The later board read listed rank 21 at `0.3261` and rank 22 at `0.3183`; neither number authenticates a local artifact.
 
-> `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros`: **0.2778**
+There is no defensible causal statement that H33 “won” because it pruned false positives. A higher leaderboard score remains unproven for this project. Do not convert these three different evidence classes into a single ranking or a prediction.
 
-Source: https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html
+## What was measured in the raster bytes
 
-## Critical caveats (verified from the repo evidence)
+The H33 forensic record (`evidence/h33_forensics.json`) identifies the source TIFF by SHA-256 `c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9` and labels the record `RASTER-MEASUREMENT, NOT A SCORE`.
 
-1. **0.2778 is an unverified historical report.** GEMSDOE32 labels this entry
-   UNSCORED. The number appears on a project Pages site, not on the DrivenData
-   organizer submission page, and no organizer submission receipt is on file in
-   this repository. It is therefore not ORGANIZER-CONFIRMED.
+- D2.8 contains 44,090 positive pixels; H33 contains 37,654.
+- H33 is a subset of D2.8; 6,436 D2.8 pixels are absent from H33.
+- H33 is exactly D2.8 after deleting pixels within 2 pixels of the mapped-catalogue distance surface (`d_cat <= 2 px`); the recorded rule disagreement is zero.
+- No deleted pixel is exactly on a mapped-catalogue positive pixel. The removal was a near-trace thinning rule, not exact catalogue masking.
 
-2. **The public leaderboard observation 0.4413** (cited in the user prompt) is
-   also not this project's score, not a ceiling, and not a target we can promise
-   to beat. It is a third-party observation without an organizer receipt in this
-   checkout.
+These facts describe geometry only. They do not identify hidden truth, precision, recall, a public score, or the cause of an organizer result.
 
-3. **0.3195** (also cited in the prompt) is a different historical report with
-   the same evidential status.
+## Conditional reason thinning can help—or harm
 
-4. **H33's method (from the filename):** `h33-h33-2-b2` suggests an
-   H33-family submission with parameters "2" and "b2", emitted as binary zeros
-   (`-zeros`). The naming convention across GEMSDOE sites indicates `-zeros`
-   submissions are binary 0/1 masks. H33 likely emitted ~37,654 dots (the
-   recurring dot count in this family) as a binary mask.
+DrivenData's published distance-weighted metric gives each truth pixel maximum nearby prediction-weighted triangular credit, while false-positive contributions are summed. With `T = TP_w`, `F = FP_w`, and `G` scored truth pixels, the project's reviewed metric form is
 
-## Why H33 may have scored relatively well (PhD-level assessment)
+```text
+DTI = T / (0.2 T + 0.2 F + 0.8 G + epsilon).
+```
 
-The GEMS prize metric is a distance-weighted Tversky Index (DTI) with
-α = 0.2 (FP penalty), β = 0.8 (FN penalty), 300 m triangular kernel. Because
-β >> α, the metric heavily penalizes missed truth (FN) and lightly penalizes
-false positives (FP). A submission that emits a **dense, broadly distributed
-binary mask** covering much of the footprint can achieve a moderate DTI simply
-by being near many truth pixels:
+Deleting redundant predictions can reduce `F` without lowering the maximum `T`. Deleting useful predictions can lower `T` and harm the score. The hidden organizer labels are unavailable, so the balance for H33's 6,436 deleted pixels is unknown. The algebra therefore explains a possible mechanism; it does **not** prove that this rule caused the user-reported `0.2778`, or that applying the rule elsewhere improves a score.
 
-- With ~37,654 dots spread across ~5.17 million footprint pixels (~0.73%
-  coverage), a binary mask places dots within 300 m of a large fraction of
-  truth pixels.
-- The triangular kernel gives partial credit up to 300 m, so dots don't need to
-  be exact — they just need to be *near* truth.
-- β = 0.8 means each missed truth pixel costs 4× a false positive, so emitting
-  more dots (accepting FP) is usually better than missing truth (FN).
+The 300 m triangular kernel and `alpha=0.2`, `beta=0.8` are part of the public competition metric, not evidence that a nearby prediction is invalid. DrivenData staff clarifies that new target pixels absent from USGS/INGENIOUS can be extensions, splays, or parallel strands of an existing system; proximity alone is not disqualifying.
 
-H33's 0.2778 is plausibly explained by: (a) a well-distributed dot field that
-captures many truth pixels within the 300 m kernel, (b) the β-heavy metric
-rewarding recall over precision, and (c) dots placed near known geothermal
-structures where truth is concentrated. It is NOT evidence of a breakthrough
-method — it is consistent with a dense, informed prior that happens to align
-with truth at kernel scale.
+## Local holdout evidence is a different quantity
 
-## Can we generate a submission that scores higher than 0.2778?
+The inherited G79-THVC baseline is **HOLDOUT-DTI**, evaluator `gems57-pooled-hide-v2`: seed 20 is `0.1905` (95% CI `[0.1741, 0.2069]`, 11,321 withheld positives); seed 30 is `0.1944` (95% CI `[0.1774, 0.2126]`, 11,342 withheld positives). These are archived holdout results, not a new test in this review, not leaderboard scores, and not organizer-confirmed results. They compare to a fold-fair H33 control under shared buffered folds; they do not establish hidden-test performance.
 
-**Honest answer: possibly, but not provable without organizer truth.**
+## Superseded language and current references
 
-The competition truth labels are not public. Holdout-DTI (the shared buffered
-hide-and-recover evaluator) is the only offline proxy, and it requires
-DrivenData training data (login-gated, not in this checkout). Without holdout
-measurements, any claim of beating 0.2778 is speculation.
-
-What we *can* do:
-
-1. **Generate a unique, format-valid TIF** — done (G79-DZD, 12,000 sparse
-   damage-zone dots, max |ρ| = 0.0212 vs local rasters, max overlap = 0.2456).
-   This passes all local format gates and is unique vs locally available
-   rasters.
-
-2. **Measure holdout-DTI** — blocked offline. Needs training_features.tif and
-   labels.tif from DrivenData.
-
-3. **Run leakage canaries** — blocked offline (AUC > 0.90 would indicate
-   leakage).
-
-4. **Complete the full 992-raster registry uniqueness scan** — blocked offline
-   (registry rasters not cached locally; GitHub TLS unavailable).
-
-**Bottom line:** We cannot truthfully claim to beat 0.2778. The G79-DZD
-submission is a legitimate, unique, format-valid candidate, but its leaderboard
-score is unknown until it is uploaded and scored by the organizers — which
-cannot happen until the missing gates (holdout-DTI, leakage canary, selector
-approval) are cleared with DrivenData access.
-
-## What would be needed to claim a score > 0.2778
-
-| Requirement | Status |
-|---|---|
-| DrivenData login + training data download | Not available in this sandbox |
-| Holdout-DTI measured vs incumbent on both seeds, paired 95% CI excludes 0 | Blocked |
-| Leakage canary: max feature-alone AUC ≤ 0.90 | Blocked |
-| Full 992-raster registry uniqueness scan (ρ ≤ 0.90, overlap ≤ 0.70) | Partial only (36 local rasters) |
-| Separate selector approval (scripts/select_submission.py) | Not run |
-| Organizer submission receipt (ORGANIZER-CONFIRMED score) | None |
-
-Until all of the above are complete, the correct label for any generated TIF is:
-
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
+Earlier drafts described the 6,436 removed pixels as known false positives, attributed a score increase to pruning, or called `0.2778` verified. Those claims are withdrawn. The full corrected derivation, scope, code-review corrections, and next steps are in [`knowledge/h33_review_e4a4422d.md`](../knowledge/h33_review_e4a4422d.md). The older narrative is retained in Git history; [`knowledge/why_h33.md`](../knowledge/why_h33.md) now records that it is superseded. The current public leaderboard observation and source-read method are recorded in [`knowledge/official_sources.json`](../knowledge/official_sources.json) and [`evidence/source_review_a92a0164.json`](../evidence/source_review_a92a0164.json).

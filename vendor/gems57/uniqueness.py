@@ -538,25 +538,64 @@ def chance_corrected_overlap(observed, halo_coverage):
     return float((float(observed) - h) / (1.0 - h))
 
 
+SATURATED_BRANCHES = ('exact-d2', 'chance-corrected-d3')
+
+
+def d3_exact_decision(exact_overlap, exact_expected):
+    """Amendment D-3 (IR-79-207): chance-correct the saturated-halo exact-cell test.
+
+    ``exact_expected`` = e = |S ∩ A| / |A| is the exact-cell overlap a candidate
+    placed independently of the prior would have in expectation.  Duplicate iff
+    exact > 0.70 AND (exact - e)/(1 - e) > 0.70.  When e >= HALO_SATURATION the
+    prior's dot-equivalent set is the whole allowed domain (a plateau); the
+    overlap test carries no information and is NOT applied (Spearman rho and
+    identity still are).  Returns (by_overlap, corrected_or_None, test_name).
+    """
+    if exact_overlap is None or exact_expected is None:
+        raise ValueError('D-3 needs exact overlap and its chance expectation')
+    e = float(exact_expected)
+    if e >= HALO_SATURATION:
+        return False, None, 'exact_cell_plateau_noninformative_d3'
+    corr = (float(exact_overlap) - e) / (1.0 - e)
+    return (bool(exact_overlap > OVERLAP_LIMIT and corr > OVERLAP_LIMIT), float(corr),
+            'exact_cell_chance_corrected_d3')
+
+
 def d2_row_decision(*, forward_overlap, halo_coverage, exact_overlap,
-                    spearman, identical):
-    """Pure D-2 decision for one registry raster (unit-testable, no I/O)."""
+                    spearman, identical, saturated_branch='exact-d2',
+                    exact_expected=None):
+    """Pure D-2 decision for one registry raster (unit-testable, no I/O).
+
+    ``saturated_branch='exact-d2'`` (default) reproduces every historical D-2
+    receipt byte-for-byte.  ``'chance-corrected-d3'`` applies amendment D-3 to
+    the halo-saturated branch only (reports/protocol_amendment_D3_20261022.md).
+    """
+    if saturated_branch not in SATURATED_BRANCHES:
+        raise ValueError(f'unknown saturated_branch {saturated_branch!r}')
     corr = chance_corrected_overlap(forward_overlap, halo_coverage)
     by_rho = bool(spearman is not None and spearman > RHO_LIMIT)
-    if corr is None:
+    exact_corr = None
+    if corr is None and saturated_branch == 'chance-corrected-d3':
+        by_overlap, exact_corr, test = d3_exact_decision(exact_overlap, exact_expected)
+    elif corr is None:
         by_overlap = bool(exact_overlap is not None and exact_overlap > OVERLAP_LIMIT)
         test = 'exact_cell_halo_saturated'
     else:
         by_overlap = bool(forward_overlap > OVERLAP_LIMIT and corr > OVERLAP_LIMIT)
         test = 'chance_corrected_halo'
-    return dict(chance_corrected_overlap=corr, overlap_test=test,
-                duplicate_by_rho_d2=by_rho, duplicate_by_overlap_d2=by_overlap,
-                duplicate_d2=bool(by_rho or by_overlap or identical))
+    out = dict(chance_corrected_overlap=corr, overlap_test=test,
+               duplicate_by_rho_d2=by_rho, duplicate_by_overlap_d2=by_overlap,
+               duplicate_d2=bool(by_rho or by_overlap or identical))
+    if saturated_branch == 'chance-corrected-d3':
+        out['exact_cell_chance_corrected_d3'] = exact_corr
+        out['saturated_branch'] = saturated_branch
+    return out
 
 
 def compare_array_to_registry_d2(candidate_dots, registry_index, footprint, allowed,
                                  *, candidate_surface=None, file_sha256=None,
-                                 progress=None, expected_grid=None):
+                                 progress=None, expected_grid=None,
+                                 saturated_branch='exact-d2'):
     """Amendment D-2 registry comparison for one candidate dot set.
 
     ``candidate_dots`` is the boolean dot set under test; Spearman rho is
@@ -638,8 +677,11 @@ def compare_array_to_registry_d2(candidate_dots, registry_index, footprint, allo
                 literal_ov = float(_near(literal)[mine].mean()) if my_dot_count else 0.0
             their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
             identical = bool((file_sha256 and digest == file_sha256) or their_decoded == decoded_digest)
+            exact_expected = float(support[allowed].mean())
             decision = d2_row_decision(forward_overlap=ov, halo_coverage=halo,
-                                       exact_overlap=exact, spearman=rho, identical=identical)
+                                       exact_overlap=exact, spearman=rho, identical=identical,
+                                       saturated_branch=saturated_branch,
+                                       exact_expected=exact_expected)
             rows.append({**base, 'sha256': digest, 'decoded_sha256': their_decoded,
                          'representation': representation,
                          'their_literal_positive_cells': int(literal.sum()),
@@ -650,7 +692,9 @@ def compare_array_to_registry_d2(candidate_dots, registry_index, footprint, allo
                          'my_dots_exactly_on_dot_equivalent': exact,
                          'my_dots_within_3px_literal': literal_ov,
                          'jaccard_vs_dot_equivalent': _jaccard(mine, support),
-                         'identical_bytes_or_decoded': identical, **decision})
+                         'identical_bytes_or_decoded': identical, **decision,
+                         **({'exact_cell_chance_expectation': exact_expected}
+                            if saturated_branch == 'chance-corrected-d3' else {})})
         except (OSError, ValueError, rasterio.errors.RasterioError) as e:
             rows.append({**base, 'error': str(e)})
         if progress:
@@ -671,8 +715,11 @@ def compare_array_to_registry_d2(candidate_dots, registry_index, footprint, allo
                     and len(checked) == len(records))
     unique = bool(complete and my_dot_count > 0 and norm > 0 and not firings)
     return dict(
-        evidence_class='REGISTRY-MEASUREMENT', gate='amendment-D2',
+        evidence_class='REGISTRY-MEASUREMENT',
+        gate=('amendment-D3' if saturated_branch == 'chance-corrected-d3' else 'amendment-D2'),
+        saturated_branch=saturated_branch,
         unique_under_D2=unique, complete_accessible_scan=complete,
+        **({'unique_under_D3': unique} if saturated_branch == 'chance-corrected-d3' else {}),
         registry_rasters_expected=len(records), registry_rasters_checked=len(checked),
         missing_or_invalid=len(errors), source_errors=list(source_errors or []),
         my_dots=my_dot_count, allowed_cells=int(allowed.sum()),

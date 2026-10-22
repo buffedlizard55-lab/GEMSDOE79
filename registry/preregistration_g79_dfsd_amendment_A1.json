@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "lane": "G79-DFSD",
+  "amendment_id": "DFSD-A1",
+  "registered_utc": "2026-10-22T15:25:00+00:00",
+  "seed30_status_at_registration": "UNTOUCHED (0 executions; pure single-shot blind replication preserved)",
+  "experiments_used_after_amendment": 2,
+  "max_experiments": 3,
+  "defect_diagnosed_on_inner_draw0": {
+    "receipt": "evidence/dfsd_r1_hessian_bug_seed20.json",
+    "finding": "Passing clipped importance weights w_cls up to 140.0 into binary log-loss LGBMClassifier/LogisticRegression allowed single noisy negative pixels in a leaf (weight 140) to outweigh 50 true fault pixels (weight 1.0 each), crushing leaf posterior contrast by ~3.8x and lowering inner draw-0 DTI to 0.045021 (stopping early at 26,594 dots < 36,500 cap), even while unweighted pure-physics EXP-DFSD-1 hit an all-time repository record 0.095975 and EXP-DFSD-2 beat G79-THVC uniform d=2.8 (0.172396 vs 0.169655).",
+    "fix": "Restore unweighted classifier log-odds + analytic Bayes prevalence odds correction _prior_correct(p, true_pi, sample_pi) across Stage 1 and Stage 2 (keeping importance weights strictly on continuous MSE kernel-credit regressors q_lgb / q_ridge), set max_bin=127 for 2x faster histogram binning on 2 vCPUs, and expand the inner draw-0 Charnes-Cooper grid across lambda_fp in {0.0014, 0.0019, 0.0025, 0.0032} and far_blind_share in {0.00, 0.03, 0.06}."
+  }
+}

@@ -55,9 +55,17 @@ if (feed) {
       const board = data.leaderboard_observation;
       if (board) {
         const when = board.observed_utc || board.observed_date || "date unavailable";
+        const hasTop = board.public_dti !== null && board.public_dti !== undefined && board.public_dti !== "" && Number.isFinite(Number(board.public_dti));
+        const hasFloor = board.rank_50_public_dti !== null && board.rank_50_public_dti !== undefined && board.rank_50_public_dti !== "" && Number.isFinite(Number(board.rank_50_public_dti));
+        const top = hasTop ? Number(board.public_dti).toFixed(4) : "not recorded";
+        const leader = board.first_place_participant ? " (" + board.first_place_participant + ")" : "";
+        const floor = hasFloor
+          ? "; visible rank-50 value " + Number(board.rank_50_public_dti).toFixed(4) +
+            (board.rank_50_participant ? " (" + board.rank_50_participant + ")" : "")
+          : "";
         document.getElementById("feed-observation").textContent =
-          "Last official public-leaderboard observation: " + Number(board.public_dti).toFixed(4) +
-          " (" + when + "). Not this candidate’s score; not a submission-page receipt. A later failed fetch does not make this value current.";
+          "Recorded public-leaderboard observation: #1 " + top + leader + floor +
+          " (" + when + "). Not this candidate’s score and not a submission-page receipt. The fetch-attempt table reports reachability separately; its failure does not refresh leaderboard content.";
       }
     })
     .catch(() => {

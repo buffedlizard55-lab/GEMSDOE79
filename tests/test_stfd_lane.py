@@ -221,6 +221,16 @@ def test_stfd_sealed_artifacts_hashes_permissions_and_site_parity() -> None:
     assert val["n_nan"] == 0
     assert val["n_infinite"] == 0
 
+    from gems79.portal_spec import validate_portal_file
+
+    pspec = card["official_portal_spec_v2"]
+    nan_tif = ROOT / pspec["nan_exterior_companion_tif"]
+    nan_zip = ROOT / pspec["nan_exterior_companion_zip"]
+    assert nan_tif.is_file() and nan_zip.is_file()
+    assert (nan_tif.stat().st_mode & 0o004) != 0 and (nan_zip.stat().st_mode & 0o004) != 0
+    assert validate_portal_file(nan_tif)["ok"] is True
+    assert validate_portal_file(nan_zip)["ok"] is True
+
     for fig_name in (
         "stfd_holdout_progression.png",
         "stfd_quadrant_calibration.png",

@@ -1046,5 +1046,169 @@
     }
   },
   "elapsed_live_seconds": 385.14,
-  "peak_rss_mb": 2386.8
+  "peak_rss_mb": 2386.8,
+  "official_portal_spec_v2": {
+    "zeros_artifact_portal_spec": {
+      "ok": false,
+      "failed_rules": [
+        "R6"
+      ],
+      "validator_version": "gems79-portal-format-v2"
+    },
+    "nan_exterior_companion_tif": "archive/g79_stfd_1b017e86/downloads/gems79-stfd-dinkelbach-41000dots-20261022-6e022dbe-nan-DO-NOT-SUBMIT.tif",
+    "nan_exterior_companion_tif_bytes": 1568019,
+    "nan_exterior_companion_tif_sha256": "5e284deb588614922ced02950b6c1748f0c786c75ec1bfb0f7309a26f5ef9c6c",
+    "nan_exterior_companion_zip": "archive/g79_stfd_1b017e86/downloads/gems79-stfd-dinkelbach-41000dots-20261022-6e022dbe-nan-DO-NOT-SUBMIT.zip",
+    "nan_exterior_companion_zip_bytes": 303236,
+    "nan_exterior_companion_zip_sha256": "31441c2acef6446ce41ec7a90dd420315648e33f48253a93e80cd015e0e1d718",
+    "nan_exterior_tif_portal_spec": {
+      "validator_version": "gems79-portal-format-v2",
+      "file": "archive/g79_stfd_1b017e86/downloads/gems79-stfd-dinkelbach-41000dots-20261022-6e022dbe-nan-DO-NOT-SUBMIT.tif",
+      "sha256": "5e284deb588614922ced02950b6c1748f0c786c75ec1bfb0f7309a26f5ef9c6c",
+      "bytes": 1568019,
+      "template": "data/reference/sample_submission.tif",
+      "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "does_not_approve_submission": true,
+      "rules": [
+        {
+          "rule": "R1",
+          "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+          "pass": true,
+          "detail": "driver GTiff; 1 band(s)"
+        },
+        {
+          "rule": "R2",
+          "text": "datatype float32",
+          "pass": true,
+          "detail": "dtype float32"
+        },
+        {
+          "rule": "R3",
+          "text": "CRS EPSG:32611",
+          "pass": true,
+          "detail": "CRS EPSG:32611"
+        },
+        {
+          "rule": "R4",
+          "text": "shape, transform, 100 m resolution and bounds equal the template",
+          "pass": true,
+          "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+        },
+        {
+          "rule": "R5",
+          "text": "nodata absent or NaN",
+          "pass": true,
+          "detail": "nodata nan"
+        },
+        {
+          "rule": "R6",
+          "text": "data outside the bounds is null or NaN",
+          "pass": true,
+          "detail": "0 non-NaN cell(s) outside the template bounds (of 7111787)"
+        },
+        {
+          "rule": "R7",
+          "text": "every in-bounds cell is finite (no NaN, no inf)",
+          "pass": true,
+          "detail": "0 NaN/inf cell(s) inside the bounds"
+        },
+        {
+          "rule": "R8",
+          "text": "every in-bounds value is between 0 and 1 inclusive",
+          "pass": true,
+          "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+        }
+      ],
+      "cells": {
+        "compared": true,
+        "inside_cells": 5167373,
+        "outside_cells": 7111787,
+        "outside_non_nan": 0,
+        "inside_nonfinite": 0,
+        "inside_out_of_range": 0,
+        "inside_min": 0.0,
+        "inside_max": 1.0,
+        "inside_positive": 41000,
+        "inside_mass": 41000.0
+      },
+      "failed_rules": [],
+      "ok": true
+    },
+    "nan_exterior_zip_portal_spec": {
+      "validator_version": "gems79-portal-format-v2",
+      "file": "archive/g79_stfd_1b017e86/downloads/gems79-stfd-dinkelbach-41000dots-20261022-6e022dbe-nan-DO-NOT-SUBMIT.zip",
+      "sha256": "31441c2acef6446ce41ec7a90dd420315648e33f48253a93e80cd015e0e1d718",
+      "bytes": 303236,
+      "template": "data/reference/sample_submission.tif",
+      "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "does_not_approve_submission": true,
+      "rules": [
+        {
+          "rule": "R1",
+          "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+          "pass": true,
+          "detail": "zip members ['gems79-stfd-dinkelbach-41000dots-20261022-6e022dbe-nan-DO-NOT-SUBMIT.tif']; CRC error None; driver GTiff; 1 band(s)"
+        },
+        {
+          "rule": "R2",
+          "text": "datatype float32",
+          "pass": true,
+          "detail": "dtype float32"
+        },
+        {
+          "rule": "R3",
+          "text": "CRS EPSG:32611",
+          "pass": true,
+          "detail": "CRS EPSG:32611"
+        },
+        {
+          "rule": "R4",
+          "text": "shape, transform, 100 m resolution and bounds equal the template",
+          "pass": true,
+          "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+        },
+        {
+          "rule": "R5",
+          "text": "nodata absent or NaN",
+          "pass": true,
+          "detail": "nodata nan"
+        },
+        {
+          "rule": "R6",
+          "text": "data outside the bounds is null or NaN",
+          "pass": true,
+          "detail": "0 non-NaN cell(s) outside the template bounds (of 7111787)"
+        },
+        {
+          "rule": "R7",
+          "text": "every in-bounds cell is finite (no NaN, no inf)",
+          "pass": true,
+          "detail": "0 NaN/inf cell(s) inside the bounds"
+        },
+        {
+          "rule": "R8",
+          "text": "every in-bounds value is between 0 and 1 inclusive",
+          "pass": true,
+          "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+        }
+      ],
+      "cells": {
+        "compared": true,
+        "inside_cells": 5167373,
+        "outside_cells": 7111787,
+        "outside_non_nan": 0,
+        "inside_nonfinite": 0,
+        "inside_out_of_range": 0,
+        "inside_min": 0.0,
+        "inside_max": 1.0,
+        "inside_positive": 41000,
+        "inside_mass": 41000.0
+      },
+      "inner_tif": "gems79-stfd-dinkelbach-41000dots-20261022-6e022dbe-nan-DO-NOT-SUBMIT.tif",
+      "failed_rules": [],
+      "ok": true
+    }
+  }
 }

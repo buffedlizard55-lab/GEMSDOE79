@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "reviewed_date_utc": "2026-10-22",
-  "retrieval_method": "Research fetch_page tool across official sources on 2026-10-21 and re-verified on 2026-10-22; direct sandbox egress to non-GitHub domains is restricted. Extracts below are reviewed claims, not archived complete page bytes.",
+  "retrieval_method": "Research fetch_page reads of official sources on 2026-10-22. The separate direct shell reachability probes at 15:57Z failed with SSLError; these are not source-content reviews. Extracts are claim-ledger entries, not full archived page bytes.",
   "sources": [
     {
       "id": "DD-PROBLEM",
@@ -112,7 +112,7 @@
       "id": "DD-LEADERBOARD",
       "authority": "DrivenData public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "access": "all three chunks read on 2026-10-22",
+      "access": "All three leaderboard chunks read again via research fetch_page on 2026-10-22; the later read has no exposed exact timestamp.",
       "observation": {
         "first_place_participant": "xiaofanhu",
         "public_dti": 0.4413,
@@ -122,23 +122,54 @@
         "third_place_public_dti": 0.3894,
         "rank_21_participant": "kinghorton42",
         "rank_21_public_dti": 0.3261,
-        "rank_48_participant": "moongrega",
-        "rank_48_public_dti": 0.2818,
-        "rank_49_participant": "arnofault",
-        "rank_49_public_dti": 0.2817,
-        "rank_50_participant": "sam35",
-        "rank_50_public_dti": 0.2804,
-        "prior_2026_10_21_rank_48_participant": "extradr19",
-        "prior_2026_10_21_rank_48_public_dti": 0.2778,
+        "rank_22_participant": "li002666",
+        "rank_22_public_dti": 0.3183,
+        "rank_48_participant": "jgaines",
+        "rank_48_public_dti": 0.282,
+        "rank_49_participant": "moongrega",
+        "rank_49_public_dti": 0.2818,
+        "rank_50_participant": "arnofault",
+        "rank_50_public_dti": 0.2817,
         "first_place_submissions": 27
       },
-      "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
+      "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION — not a submission-page receipt and not this candidate's score",
       "limits": [
-        "All three public leaderboard chunks re-read on 2026-10-22: new entries (including like2 0.3160 and dmitry_v 0.2963) shifted the visible top-50 floor to 0.2804 (#48 moongrega 0.2818, #49 arnofault 0.2817, #50 sam35 0.2804); 21 teams exceed 0.3195.",
-        "A matching numeric value does not prove the H33 filename, raster hash, or submitting identity.",
-        "No submission in this repository has an ORGANIZER-CONFIRMED submission-page receipt."
+        "Latest read on 2026-10-22: #1 xiaofanhu 0.4413; #21 kinghorton42 0.3261; #22 li002666 0.3183; #50 arnofault 0.2817. Public values are not local-artifact scores.",
+        "The earlier same-day snapshot (#50 sam35 0.2804) is preserved in historical_observations; it is not the current top-50 floor.",
+        "The 0.2778 number is an unverified historical H33 report; an equal number on an earlier leaderboard row does not authenticate the raster/account pairing.",
+        "The user-reported 0.3195 is distinct from the latest #1 public observation; no artifact-linked organizer receipt was found."
       ],
-      "observed_date_utc": "2026-10-22"
+      "observed_date_utc": "2026-10-22",
+      "historical_observations": [
+        {
+          "first_place_participant": "xiaofanhu",
+          "public_dti": 0.4413,
+          "second_place_participant": "cfld__",
+          "second_place_public_dti": 0.3904,
+          "third_place_participant": "Batik Shirt Brothers",
+          "third_place_public_dti": 0.3894,
+          "rank_21_participant": "kinghorton42",
+          "rank_21_public_dti": 0.3261,
+          "rank_48_participant": "moongrega",
+          "rank_48_public_dti": 0.2818,
+          "rank_49_participant": "arnofault",
+          "rank_49_public_dti": 0.2817,
+          "rank_50_participant": "sam35",
+          "rank_50_public_dti": 0.2804,
+          "prior_2026_10_21_rank_48_participant": "extradr19",
+          "prior_2026_10_21_rank_48_public_dti": 0.2778,
+          "first_place_submissions": 27,
+          "observed_date_utc": "2026-10-22",
+          "source_evidence": "evidence/session_0d90d81b_audit.json#/live_public_leaderboard_20261022",
+          "status": "Earlier same-day public observation; retained as historical evidence, superseded by later read."
+        },
+        {
+          "observed_date_utc": "2026-10-21",
+          "rank_48_participant": "extradr19",
+          "rank_48_public_dti": 0.2778,
+          "status": "Earlier public snapshot; does not link that participant/value to H33."
+        }
+      ]
     },
     {
       "id": "DD-AUTH",
@@ -292,6 +323,65 @@
       "limits": [
         "Mirrored Euclidean distance grid verified via SHA-256 (92c2762b1c205221...); proximity to closed claims does not preclude genuine fault-hosted mineralization."
       ]
+    },
+    {
+      "id": "USGS-COMCAT-FDSN",
+      "authority": "U.S. Geological Survey ComCat FDSN Event Web Service",
+      "url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+      "access": "Documentation, count endpoint and limited GeoJSON sample queried via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "The official API supports earthquake event queries and focal-mechanism products.",
+        "For the sample-submission rectangle and 2000-01-01 through 2025-12-31, M>=2.5 returned 5,886 events; producttype=focal-mechanism returned 2,249.",
+        "A limited GeoJSON query returned five event records; no full export or focal-mechanism parsing was performed."
+      ],
+      "limits": [
+        "Remote counts establish API discoverability only, not a local data product or spatially adequate mechanism coverage.",
+        "No event catalogue was downloaded, parsed, deduplicated, projected, or tested against the holdout."
+      ],
+      "evidence_class": "OFFICIAL API AVAILABILITY CHECK; NOT A SCORE"
+    },
+    {
+      "id": "CDSE-SENTINEL1-SLC",
+      "authority": "Copernicus Data Space Ecosystem / Sentinel-1 STAC catalogue",
+      "url": "https://stac.dataspace.copernicus.eu/v1/collections/sentinel-1-slc",
+      "access": "Official collection and bbox/date STAC query read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "The official Copernicus terms describe Sentinel data as free, full and open; user registration is required for data access.",
+        "The Sentinel-1 SLC collection describes complex I/Q measurements retaining amplitude and phase.",
+        "A 2020-01-01–2025-12-31 query for the sample bbox with limit=5 returned five item records; one listed sample subswath asset is approximately 1.2 GB."
+      ],
+      "limits": [
+        "No SLC asset was downloaded or hashed. The observed scene footprint intersects the northeastern edge of the bbox; full study-area coverage, compatible tracks, repeat pairs, coherence, and usable time-series coverage were not verified.",
+        "The data endpoint requires a registered account and generated S3/OIDC access; catalogue discoverability is not proof that a complete local interferometric workflow is ready."
+      ],
+      "evidence_class": "OFFICIAL FREE-DATA CATALOGUE / METADATA CHECK; NOT A SCORE"
+    },
+    {
+      "id": "USGS-AMARGOSA-OF00-188",
+      "authority": "U.S. Geological Survey Open-File Report 00-188",
+      "url": "https://pubs.usgs.gov/of/2000/of00-188/of00-188.pdf",
+      "access": "First parsed PDF chunk read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "The abstract reports linear magnetic anomalies over alluvial deposits in the Amargosa region; alignments with springs suggest concealed faults that cut alluvium and influence groundwater flow."
+      ],
+      "limits": [
+        "This is an analog outside the GeoDAWN sample area, not direct target-area validation.",
+        "Only the first chunk was read; no local PDF or survey raster was acquired."
+      ],
+      "evidence_class": "OFFICIAL PRIMARY-SOURCE ANALOG; NOT TARGET VALIDATION"
+    },
+    {
+      "id": "USGS-MAG-MINERAL-PP1652",
+      "authority": "U.S. Geological Survey Professional Paper 1652-D2",
+      "url": "https://pubs.usgs.gov/pp/2004/1652/pdf/508/ChapD2508.pdf",
+      "access": "Selected parsed PDF chunks read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "This Montana environmental-geophysics study explains RTP/high-pass magnetic processing and magnetic susceptibility/magnetite interpretation; it notes that magnetic responses depend on magnetic-mineral distributions and lithology."
+      ],
+      "limits": [
+        "The study is not a Great Basin fault or geothermal validation. Only selected chunks were read and no local data were acquired."
+      ],
+      "evidence_class": "OFFICIAL PRIMARY-SOURCE ANALOG; NOT TARGET VALIDATION"
     }
   ]
 }

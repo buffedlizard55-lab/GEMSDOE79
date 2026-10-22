@@ -1,0 +1,232 @@
+{
+  "schema": "gemsdoe79.session_source_review.v1",
+  "session_id": "a92a0164",
+  "reviewed_date_utc": "2026-10-22",
+  "method": "Official pages and public APIs were read with the research fetch tool on 2026-10-22. This file records reviewed claims and query responses, not complete archived webpage bytes. No new external binary was downloaded or hash-verified. Direct shell HTTP probes previously logged in source_health.json failed separately with SSLError; those failures do not negate the research fetch reads.",
+  "score_evidence": {
+    "h33_0_2778": {
+      "value": 0.2778,
+      "evidence_class": "UNVERIFIED HISTORICAL REPORT",
+      "artifact_sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "organizer_submission_page_receipt": null,
+      "status": "No receipt links this value to the H33 bytes. The GEMSDOE32 project page labels H33 UNSCORED. The Oct 21 public board snapshot contained a different participant at rank 48 with the same numeric value; numeric equality does not identify an artifact or account."
+    },
+    "public_leaderboard_2026_10_22": {
+      "evidence_class": "PUBLIC-LEADERBOARD-OBSERVATION; NOT ORGANIZER-CONFIRMED FOR A LOCAL ARTIFACT",
+      "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "observed_date_utc": "2026-10-22",
+      "retrieval_method": "All three leaderboard chunks read through the research fetch tool; exact time of this read was not exposed by the tool.",
+      "rank_1": {
+        "participant": "xiaofanhu",
+        "public_dti": 0.4413
+      },
+      "rank_2": {
+        "participant": "cfld__",
+        "public_dti": 0.3904
+      },
+      "rank_3": {
+        "participant": "Batik Shirt Brothers",
+        "public_dti": 0.3894
+      },
+      "rank_21": {
+        "participant": "kinghorton42",
+        "public_dti": 0.3261
+      },
+      "rank_22": {
+        "participant": "li002666",
+        "public_dti": 0.3183
+      },
+      "rank_48": {
+        "participant": "jgaines",
+        "public_dti": 0.282
+      },
+      "rank_49": {
+        "participant": "moongrega",
+        "public_dti": 0.2818
+      },
+      "rank_50": {
+        "participant": "arnofault",
+        "public_dti": 0.2817
+      },
+      "first_place_submission_count": 27,
+      "interpretation": "The latest fetched top-50 floor is 0.2817. The public value 0.4413 is the leader's observation, not a GEMSDoE79 score or a ceiling/projection. The older user-reported 0.3195 is distinct; rank 21 and rank 22 bracket it, but the fetched ranks do not show an exact 0.3195 entry. No submission-page receipt was read."
+    },
+    "prior_public_board_snapshot": {
+      "evidence_class": "HISTORICAL PUBLIC-LEADERBOARD-OBSERVATION",
+      "observed_date_utc": "2026-10-22",
+      "source_receipt": "evidence/session_0d90d81b_audit.json#/live_public_leaderboard_20261022",
+      "rank_48": {
+        "participant": "moongrega",
+        "public_dti": 0.2818
+      },
+      "rank_49": {
+        "participant": "arnofault",
+        "public_dti": 0.2817
+      },
+      "rank_50": {
+        "participant": "sam35",
+        "public_dti": 0.2804
+      },
+      "status": "Preserved as an earlier same-day snapshot; superseded for current-board reporting by the later research fetch recorded above."
+    },
+    "score_receipts_for_local_artifacts": null
+  },
+  "preflight_and_local_inputs": {
+    "preflight_path": "evidence/preflight_a92a0164.json",
+    "preflight_state": "impossible_under_literal_gate",
+    "start_new_lane": false,
+    "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "covered_allowed_fraction": 1.0,
+    "literal_forward_overlap_lower_bound": 1.0,
+    "overlap_limit": 0.7,
+    "current_local_data_inventory": "data/reference/existing_faults.tif, data/reference/sample_submission.tif, and data/restore_receipt.json only; no data/raw/ or local training_features.tif was present during this review.",
+    "external_binary_downloads_this_session": 0
+  },
+  "official_sources": [
+    {
+      "id": "DD-PROBLEM",
+      "authority": "DrivenData competition organizer",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "verified_claims": [
+        "The task is fault mapping indicative of geothermal resources, not direct certification of a producing reservoir.",
+        "Distance-weighted Tversky uses alpha 0.2, beta 0.8 and a 300 m triangular kernel.",
+        "Submission requires a single float32 prediction band in [0,1] on the matching grid and CRS."
+      ],
+      "limits": [
+        "A public problem-page read is not a portal validation or submission receipt."
+      ]
+    },
+    {
+      "id": "DD-LEADERBOARD",
+      "authority": "DrivenData public leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "verified_claims": [
+        "Ranks and values in score_evidence.public_leaderboard_2026_10_22 were read directly from all three public leaderboard chunks."
+      ],
+      "limits": [
+        "Public entries do not authenticate an artifact/score pairing and do not expose private submission-page receipts."
+      ]
+    },
+    {
+      "id": "DD-NEW-FAULT-DEF",
+      "authority": "DrivenData competition staff",
+      "url": "https://community.drivendata.org/t/where-do-you-draw-the-line/11536/2",
+      "verified_claims": [
+        "Staff says a new fault pixel absent from USGS/INGENIOUS can be an extension, splay, or parallel strand of an existing fault system; proximity alone is not proof of invalidity."
+      ],
+      "limits": [
+        "This clarifies label scope, not the correctness of any local prediction."
+      ]
+    },
+    {
+      "id": "USGS-QFAULTS",
+      "authority": "U.S. Geological Survey Earthquake Hazards Program",
+      "url": "https://www.usgs.gov/programs/earthquake-hazards/faults",
+      "verified_claims": [
+        "The current USGS overview describes the Quaternary Fault and Fold Database as documenting geologic evidence of coseismic surface deformation in large Quaternary earthquakes."
+      ],
+      "limits": [
+        "Catalogue scope does not prove that a particular unmapped event cluster is a fault."
+      ]
+    },
+    {
+      "id": "USGS-COMCAT-FDSN",
+      "authority": "U.S. Geological Survey ComCat FDSN Event Web Service",
+      "url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+      "query_url": "https://earthquake.usgs.gov/fdsnws/event/1/count?format=geojson&starttime=2000-01-01&endtime=2025-12-31&minlatitude=37.33119&maxlatitude=40.72469&minlongitude=-120.03717&maxlongitude=-116.14092&minmagnitude=2.5&producttype=focal-mechanism",
+      "verified_claims": [
+        "The documented API supports querying focal-mechanism products. For the sample-submission rectangle and 2000-01-01 through 2025-12-31, an M≥2.5 count query returned 5,886 events; adding producttype=focal-mechanism returned 2,249. A limited GeoJSON event query returned five records."
+      ],
+      "limits": [
+        "Counts are remote API availability checks, not a locally ingested catalogue. The five records were not a complete export; focal mechanisms were not parsed, reprojected, or validated for spatial coverage."
+      ]
+    },
+    {
+      "id": "USGS-AMARGOSA-OF00-188",
+      "authority": "U.S. Geological Survey Open-File Report 00-188",
+      "url": "https://pubs.usgs.gov/of/2000/of00-188/of00-188.pdf",
+      "verified_claims": [
+        "The report abstract describes linear magnetic anomalies over alluvial deposits at Devils Hole and Pahrump Valley; spring alignments suggest concealed faults cutting alluvium and affecting groundwater. This is a regional analogy, not direct GeoDAWN-area validation."
+      ],
+      "limits": [
+        "Only the first parsed chunk was read; the full report was not reviewed or downloaded as a local binary."
+      ]
+    },
+    {
+      "id": "USGS-MAG-MINERAL-PP1652",
+      "authority": "U.S. Geological Survey Professional Paper 1652-D2",
+      "url": "https://pubs.usgs.gov/pp/2004/1652/pdf/508/ChapD2508.pdf",
+      "verified_claims": [
+        "The report discusses reduction-to-pole, high-pass magnetic anomalies, susceptibility models and magnetite abundance; it notes magnetic response depends on magnetic minerals and field/local measurements vary by lithology. It is an environmental geophysical study in Montana, not a Great Basin fault-validation study."
+      ],
+      "limits": [
+        "Selected parsed chunks were read; no complete report or local data were acquired."
+      ]
+    },
+    {
+      "id": "USGS-HEAT-RESIDUALS",
+      "authority": "U.S. Geological Survey ScienceBase Great Basin heat-flow item",
+      "url": "https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28",
+      "doi": "10.5066/P9BZPVUC",
+      "verified_claims": [
+        "Official ScienceBase JSON exposes a public downloadUri for the Great Basin heat-flow supporting-data ZIP (130,154,244 bytes; about 124.12 MiB). The release description identifies well-point residuals and says these may help identify hydrothermal or groundwater influence. The download link is publicly listed; no archive transfer is claimed."
+      ],
+      "limits": [
+        "The ZIP bytes and advertised MD5 were not downloaded or locally verified; residual field names/units, coordinate quality, target-area well coverage, reuse details at file level, and residual QA were not independently checked in the archive."
+      ],
+      "download_url_listed_in_official_metadata": "https://www.sciencebase.gov/catalog/file/get/6297d2fad34ec53d276c5b28?f=__disk__03%2Fac%2F86%2F03ac865d4a5a3c5c52d8ca92bc170105c6fe508a",
+      "listed_file_size_bytes": 130154244,
+      "listed_file_size_mib": 124.12,
+      "listed_md5_unverified": "2f7aed23c8801a9541dc48e50eedb131"
+    },
+    {
+      "id": "CDSE-SENTINEL1-SLC",
+      "authority": "Copernicus Data Space Ecosystem / Sentinel-1 STAC catalogue",
+      "collection_url": "https://stac.dataspace.copernicus.eu/v1/collections/sentinel-1-slc",
+      "sample_query_url": "https://stac.dataspace.copernicus.eu/v1/collections/sentinel-1-slc/items?bbox=-120.03717,37.33119,-116.14092,40.72469&datetime=2020-01-01T00:00:00Z%2F2025-12-31T23:59:59Z&limit=5",
+      "free_data_terms_url": "https://dataspace.copernicus.eu/terms-and-conditions",
+      "access_documentation_url": "https://documentation.dataspace.copernicus.eu/APIs/S3.html",
+      "sample_item_id": "S1C_IW_SLC__1SDV_20251231T013457_20251231T013524_005689_00B5D0_DECC",
+      "verified_claims": [
+        "Sentinel data are free, full and open under the Copernicus data terms; data download requires a registered user. The SLC collection describes complex I/Q pixels retaining phase; the bbox/date query returned five catalogue item records. One returned subswath asset is listed at 1,196,413,256 bytes (about 1.2 GB)."
+      ],
+      "limits": [
+        "No SLC assets were downloaded or hashed. The displayed sample footprint intersects the northeastern edge of the query rectangle; a complete target-footprint, track, repeat-cycle and interferometric-pair audit was not done. STAC discovery does not guarantee service availability or usable coherence."
+      ]
+    },
+    {
+      "id": "GDR-1391",
+      "authority": "U.S. Department of Energy Geothermal Data Repository",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "verified_claims": [
+        "The public listing contains multiple Great Basin resources, including seismicity and geothermal context; its cited license is CC BY 4.0."
+      ],
+      "limits": [
+        "No new GDR binary was acquired or hash-verified in this session."
+      ]
+    },
+    {
+      "id": "UNR-NGL-MIDAS",
+      "authority": "Nevada Geodetic Laboratory, University of Nevada, Reno",
+      "url": "https://geodesy.unr.edu/gps_timeseries/IGS20/midas/midas.NA.txt",
+      "verified_claims": [
+        "The official MIDAS North America velocity text endpoint returned station records in the research fetch tool."
+      ],
+      "limits": [
+        "Only response samples were read; no complete file, footprint-specific station count, hash, temporal coverage or spatial interpolation was verified."
+      ]
+    }
+  ],
+  "external_data_acquisition": {
+    "binary_files_downloaded": 0,
+    "sha256_verified_new_external_files": 0,
+    "api_metadata_or_count_checks": 3,
+    "details": "USGS ComCat counts and Copernicus STAC item metadata were verified remotely. The ScienceBase JSON exposes a public ZIP downloadUri and advertised byte size/MD5, but no binary was acquired or hash-verified. GDR resources were listed but not acquired; UNR MIDAS returned text samples only."
+  },
+  "source_health_reconciliation": {
+    "direct_http_probe_timestamp": "2026-10-22T15:57:03Z",
+    "direct_probe_state": "fetch_failed / SSLError for all six stored probes",
+    "latest_public_leaderboard_observation": "Research fetch_page read all three official leaderboard chunks on 2026-10-22; this is a separate retrieval path and does not convert the failed shell probes into successful HTTP checks.",
+    "no_score_receipt_inferred": true
+  }
+}
