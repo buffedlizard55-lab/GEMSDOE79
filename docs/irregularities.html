@@ -1023,5 +1023,54 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Canonical repository artifact remains <strong><code>G79-THVC</code></strong> (<code>0.1905 / 0.1944 HOLDOUT-DTI</code>); <code>H79-FNHR</code> (<code>F3</code>, <code>verdict = negative</code>, <code>OK TO SUBMIT: NO</code>, <code>0</code> slots used) is archived cleanly under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_fnhr_a57e2a7f/README.md"><code>archive/h79_fnhr_a57e2a7f/</code></a>. Combining <code>H79-FNHR</code>'s <code>0.0906</code> zero-catalogue physics head with <code>G79-THVC</code>'s Charnes-Cooper placer (<code>0.4405</code> mutual overlap) is the top candidate for the next prospective lane once the owner decides <code>DENSE_SUPPORT_FRACTION</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>5fb439d3</code> addendum (2026-10-22) — three-pass review, no new lane</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-143</td>
+<td><strong>Submission-name length misstated as 43/140.</strong> <code>len("g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT") = 55</code>, not 43, in <code>README.md</code> and <code>reports/g79_thvc_scientific_report.md</code> (note 98/140 verified correct).</td>
+<td>Fixed to <code>55/140</code> in both sources; site rebuilt. No raster/card/verdict change. Full review: <code>reports/session_review_5fb439d3.md</code>. Canonical artifact stays G79-THVC, OK TO DOWNLOAD YES / OK TO SUBMIT NO, 0 slots used.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 45998a01 — review-only validator hardening (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-144</td>
+<td><code>validate_submission.py</code> raised on corrupt/missing TIFF/ZIP and printed a format PASS before failing to write an existing report.</td>
+<td>JSON rejection at the CLI inspection boundary, nonzero exit, no exception-detail leak, and exclusive evidence creation retained. Added adversarial software tests; shared validator/evaluator/writer pins unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-145</td>
+<td>The prompt supplies no single-method lane; restored frozen witness still blocks any nonempty candidate under the literal overlap rule.</td>
+<td><code>evidence/preflight_45998a01.json</code> records refusal. No experiments or new TIFFs; canonical negative artifact unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-146</td>
+<td>Inherited <code>knowledge/why_h33.md</code> said “Yes, decisively” in answer to whether a higher organizer score was proven, although only local holdout comparisons exist. README also understated the submission-name length.</td>
+<td>Clarified scope to historical HOLDOUT-DTI; corrected length and added an explicit no-new-artifact notice to README, home and guide. Inherited scalar vs per-seed CI discrepancy is flagged, not silently rewritten (<code>reports/session_review_45998a01.md</code>).</td>
+</tr>
+<tr>
+<td>IR-79-147</td>
+<td>Merge reconciliation found incoming ETP TIFF/ZIP files published alongside canonical THVC, violating the existing publication boundary. The ETP card uses an approximate evaluator, a patterned preregistration digest and a one-raster novelty comparison.</td>
+<td>Preserved incoming bytes, scripts and publication evidence under <code>archive/g79_etp_incoming_45998a01/</code>; did not validate those scientific claims or promote them. Canonical card and shared tools unchanged.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
