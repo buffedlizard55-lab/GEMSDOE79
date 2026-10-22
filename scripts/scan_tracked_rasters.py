@@ -3,10 +3,11 @@
 
 Purpose: check the official submission rule ("values between 0 and 1"; "data outside
 the bounds is null or nan", DrivenData problem page) against each tracked raster, and
-flag files whose values or fill conventions would be questioned by the organizer portal.
-This script never writes a submission and never changes a run card.
+separate reference input masks (existing_faults.tif / labels.tif / sample_submission.tif)
+from candidate prediction artifacts. This script never writes a submission and never
+changes a run card.
 
-Usage:  .venv/bin/python scripts/scan_tracked_rasters.py [--out evidence/review_b40c0d45/tracked_raster_scan.json]
+Usage:  .venv/bin/python scripts/scan_tracked_rasters.py [--out PATH] [--overwrite]
 """
 from __future__ import annotations
 
@@ -20,17 +21,32 @@ import numpy as np
 import rasterio
 
 ROOT = Path(__file__).resolve().parents[1]
+REFERENCE_BASENAMES = frozenset({"existing_faults.tif", "labels.tif", "sample_submission.tif"})
 
 
-def tracked_tifs() -> list[str]:
-    files = subprocess.run(["git", "-C", str(ROOT), "ls-files"], capture_output=True,
+def tracked_tifs(root: Path = ROOT) -> list[str]:
+    files = subprocess.run(["git", "-C", str(root), "ls-files"], capture_output=True,
                            text=True, check=True).stdout.split()
     return [f for f in files if f.lower().endswith((".tif", ".tiff"))]
 
 
+def classify_role(rel: str) -> str:
+    if (
+        rel.startswith("data/reference/")
+        or "/data/bridge/" in rel
+        or Path(rel).name in REFERENCE_BASENAMES
+    ):
+        return "reference_input"
+    return "prediction_artifact"
+
+
 def scan_one(rel: str, root: Path = ROOT) -> dict:
     p = root / rel
-    rec: dict = {"path": rel, "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
+    rec: dict = {
+        "path": rel,
+        "role": classify_role(rel),
+        "sha256": hashlib.sha256(p.read_bytes()).hexdigest(),
+    }
     try:
         with rasterio.open(p) as s:
             a = s.read().astype("float64")
@@ -79,16 +95,28 @@ def is_flagged(rec: dict) -> bool:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", type=Path, default=None, help="optional JSON output path (refuses overwrite unless --overwrite)")
     ap.add_argument("--overwrite", action="store_true", help="allow overwriting --out")
     args = ap.parse_args()
     records = [scan_one(f) for f in tracked_tifs()]
     flagged = [r["path"] for r in records if is_flagged(r)]
+    flagged_predictions = [
+        r["path"] for r in records
+        if r["role"] == "prediction_artifact" and is_flagged(r)
+    ]
+    reference_outside = [
+        r["path"] for r in records
+        if r["role"] == "reference_input" and is_flagged(r)
+    ]
     out = {
-        "schema": "tracked_raster_scan.v1",
+        "schema": "tracked_raster_scan.v2",
         "rule_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
         "n_tracked_rasters": len(records),
+        "n_prediction_artifacts": sum(1 for r in records if r["role"] == "prediction_artifact"),
+        "n_reference_inputs": sum(1 for r in records if r["role"] == "reference_input"),
+        "flagged_prediction_artifacts": flagged_predictions,
+        "reference_inputs_outside_0_1": reference_outside,
         "flagged_outside_0_1_or_error": flagged,
         "records": records,
     }
@@ -106,12 +134,16 @@ def main() -> int:
             disp = dest.resolve().relative_to(ROOT.resolve()).as_posix()
         except ValueError:
             disp = str(dest)
-        print(f"scanned {len(records)} tracked rasters; flagged {len(flagged)} -> {disp}")
+        print(
+            f"scanned {len(records)} tracked rasters ({out['n_prediction_artifacts']} predictions, "
+            f"{out['n_reference_inputs']} reference inputs); "
+            f"flagged_predictions={len(flagged_predictions)} -> {disp}"
+        )
     else:
         print(payload, end="")
     for r in records:
-        if r["path"] in flagged:
-            print(f"  FLAG {r['path']}: min={r.get('min')} max={r.get('max')} "
+        if r["path"] in flagged_predictions:
+            print(f"  FLAG_PREDICTION {r['path']}: min={r.get('min')} max={r.get('max')} "
                   f"outside[0,1]={r.get('n_outside_0_1')} error={r.get('error')}")
     return 0
 
