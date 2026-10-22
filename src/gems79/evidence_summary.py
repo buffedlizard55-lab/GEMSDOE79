@@ -41,9 +41,16 @@ def _bad_constant(_):
     raise ValueError("Nonfinite evidence constant")
 
 
+def _finite_float(text):
+    number = float(text)
+    if not math.isfinite(number):
+        raise ValueError("Nonfinite evidence number")
+    return number
+
+
 def load_json(path):
     return json.loads(Path(path).read_text(), object_pairs_hook=_unique_keys,
-                      parse_constant=_bad_constant)
+                      parse_constant=_bad_constant, parse_float=_finite_float)
 
 
 def same_json(left, right):

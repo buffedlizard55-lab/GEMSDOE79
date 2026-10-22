@@ -5,7 +5,8 @@
    `registry/preregistration_h79_dilstep.json` (archived DILSTEP), and
    `registry/preregistration_ffas.json` (archived FFAS) before any work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-3. Canonical research file in `docs/downloads/`: **`G79-THVC`** (`g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`), achieving the highest shared `gems57-pooled-hide-v2` `HOLDOUT-DTI` across all **17** `GEMSDOE79` lanes (**`0.1905`** on Seed 20, **`0.1944`** on Seed 30 vs `H33` fold-fair control `0.0961 / 0.0989`), verdict `negative` (`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`, `0` weekly slots spent) because of non-sparse / corridor registry overlap (`28` under `informative-halo-v4`, `58` under `budget-matched-v3`, `96` literal, plus live `GEMSDOE83 = 0.7139 > 0.70`, while `0 / 718` sparse `<= 50k` pinned submissions fire at `max = 0.6844 <= 0.70`).
+3. Canonical research file in `docs/downloads/`: **`G79-THVC`** (`g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`), verdict **negative**: **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** It is inherited, not a newly generated or unique candidate. Full literal novelty fails both before and after placement (maximum forward overlap 1.0); the frozen scans have 1,108 rows, 1,088 comparable and 20 non-comparable entries. Sparse-only passes, low correlation, amended diagnostics and manual upload cannot override this refusal.
+   `src/gems79/evidence_summary.py` derives current site tables from both seeds of the frozen shared evaluator (`official_evaluate_all`). Do not mix that output with the separate historical bootstrap, add seed counts as independent observations, or claim all-lane/leaderboard superiority from it. The original card and explicit metadata correction are preserved under `evidence/review_e4a4422d/`; TIFF/ZIP and scientific receipts are unchanged. Read `knowledge/h33_review_e4a4422d.md` and `research/hypotheses_e4a4422d.md` for corrected interpretation and data-source limits. Historical numeric summaries below are archival context, not a new matched benchmark.
    All concurrent/historical `GEMSDOE79` lanes stay **stopped negative** and byte-archived under `archive/`:
    - `H79-NHR` (`0.1431 / 0.1522`, `archive/h79_nhr/` & `archive/h79_nhr_337ac1e9/`)
    - `H79-MRND` (`0.1044 / 0.1236`, session `800321e2`, `run_card_mrnd.json` & `evidence/mrnd/`) — multi-regime nested discovery (`77` features, `max AUC = 0.8589 <= 0.90`); beats `H33` control on both seeds (`+0.0247`, 95% CI `[+0.0095, +0.0389]` on Seed 30) and clears all `982` informative comparable priors on chance-corrected overlap (`worst = 0.5486 <= 0.70`, `0` normal-budget `<=167k` flags), stopped pre-placement under literal one-sided overlap (`IR-79-132`); do not retune quotas or re-place dots
@@ -22,7 +23,7 @@
    - `G79-MAG` (`0.0045 / 0.0067`, `archive/g79_mag_730d5ee7/`)
    - Surface-stopped / quarantined: `G79-FABRIC-OFFSET`, `H79-ASYM`, `H79-MCT`, `H79-CSPT`, `G79B-SCARP-DIPOLE-GEOAND`.
    Do not restart stopped lanes, retune on holdout, add overlap caps/jitter, or exempt dense priors locally. `scripts/preflight_new_lane.py --restore` exits `2` under the literal reading.
-4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
+4. `vendor/gems57` is shared code, not a private fork. Most files match the upstream pin; `uniqueness.py` contains documented shared amendments (see `vendor/README.md`). Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
    version note and an IR entry. Example: `informative-halo-v4` overlap mode, IR-79-86.
    Amendment D-2's chance-corrected overlap (`compare_array_to_registry_d2`, IR-79-128)
@@ -34,7 +35,7 @@
    and user-reported scores must retain their evidence classes.
 6. A local format PASS does not mean OK TO SUBMIT. `run_card.json`,
    `scripts/submission_status.py`, README and Pages must agree. They are all generated from
-   or checked against the card by `scripts/verify_project.py`. Only
+   or checked against the card by `scripts/verify_project.py`. A manual upload is not an exception to failed gates. Only
    `scripts/select_submission.py` may set `ok_to_submit` after re-deriving every gate.
    Weekly-slot availability stays an account-side condition that the user checks, and DOE Rules §3.4 restricts each participating entity to **one final submission**.
 7. Keep large input/cache files ignored. Serve only `docs/` in previews and artifact deployments; legacy Pages also has a root redirect. Never publish credentials,

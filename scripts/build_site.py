@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'scripts'), str(ROOT / 'vendor')]
 from verify_project import verify, decision_line   # noqa: E402
 
-from gems79.evidence_summary import build_summary, load_json, CANDIDATE, CONTROL, SEEDS
+from gems79.evidence_summary import build_summary, load_json, same_json, CANDIDATE, CONTROL, SEEDS
 
 SITE = ROOT / 'docs'
 REPO = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
@@ -100,8 +100,8 @@ def decision_box(card):
                 '(format, uniqueness before and after placement, leakage canaries, holdout beats the best control). '
                 'One account-side condition remains, which the project cannot see: your submission page must show ≥ 1 free weekly slot.</div>')
     return (f'<div class="download-warning"><strong>{E(line)}</strong><br>Research download only. '
-            + E(card.get('stop_reason') or ('Blocked by: ' + ', '.join(card.get('blockers', []))))
-            + ' No human inspection is needed to reach this automated rejection.</div>')
+            'Both novelty stages fail; no slot is approved. This automated rejection needs no '
+            'manual inspector and cannot be overridden by a manual upload.</div>')
 
 
 def download_panel(card):
@@ -191,7 +191,7 @@ def holdout_table(summary):
 
 def novelty_explanation(summary, preflight):
     sparse = summary['dots']['sparse_diagnostic']
-    return f'''<section class="section"><div class="proof"><div><p class="eyebrow">WHY NO NEW TIFF WAS GENERATED</p><h2>The literal novelty gate<br>blocks every nonempty candidate.</h2><div class="proof-stat">{100 * preflight['covered_allowed_fraction']:.0f}% <small>of allowed cells covered</small></div></div><div><p>A SHA-256-pinned registry witness was independently restored and remeasured in this review. Its positive-support halo covers every allowed cell. Every nonempty candidate therefore exceeds the {preflight['limit']:.0%} overlap limit, regardless of geology.</p><div class="formula">full allowed-cell halo ⇒ 1.0000 forward overlap ⇒ STOP</div><p style="margin-top:18px">No cosmetic pixel change, copied file, new filename or sparse-prior exclusion repairs that failure. The current artifact remains blocked for manual as well as automated submission. A prospective shared protocol decision is needed before a new lane, not a post-hoc exception for this candidate.</p><p>The {sparse['compared']} prior maps with ≤ {sparse['maximum_prior_dot_count']:,} dots have maximum overlap {sparse['max_forward_overlap_3px']:.4f} in the frozen scan. This subset is <strong>diagnostic only, not a passed novelty gate</strong>; later sibling evidence also found an above-limit sparse collision. Neither scan covers private organizer submissions.</p><a href="evidence/preflight_e4a4422d.json">This review's preflight ↗</a> · <a href="evidence/post_index_sibling_audit_20261022.json">Later sibling audit ↗</a> · <a href="evidence/g79_dot_uniqueness_1108.json">Frozen full scan ↗</a></div></div></section>'''
+    return f'''<section class="section"><div class="proof"><div><p class="eyebrow">WHY NO NEW TIFF WAS GENERATED</p><h2>The literal novelty gate<br>blocks every nonempty candidate.</h2><div class="proof-stat">{100 * preflight['covered_allowed_fraction']:.0f}% <small>of allowed cells covered</small></div></div><div><p>A SHA-256-pinned registry witness was independently restored and remeasured in this review. Its positive-support halo covers every allowed cell. Every nonempty candidate therefore exceeds the {preflight['limit']:.0%} overlap limit, regardless of geology.</p><div class="formula">halo coverage = {100 * preflight["covered_allowed_fraction"]:.0f}% of allowed cells ⇒ 1.0000 forward overlap ⇒ STOP</div><p style="margin-top:18px">Partial halo coverage above 70% alone does not prove every map fails. This witness is stronger: it covers every allowed cell. No cosmetic pixel change, copied file, new filename or sparse-prior exclusion repairs that failure. The current artifact remains blocked for manual as well as automated submission. A prospective shared protocol decision is needed before a new lane, not a post-hoc exception for this candidate.</p><p>The {sparse['compared']} prior maps with ≤ {sparse['maximum_prior_dot_count']:,} dots have maximum overlap {sparse['max_forward_overlap_3px']:.4f} in the frozen scan. This subset is <strong>diagnostic only, not a passed novelty gate</strong>; later sibling evidence also found an above-limit sparse collision. Neither scan covers private organizer submissions.</p><a href="evidence/preflight_e4a4422d.json">This review's preflight ↗</a> · <a href="evidence/post_index_sibling_audit_20261022.json">Later sibling audit ↗</a> · <a href="evidence/g79_dot_uniqueness_1108.json">Frozen full scan ↗</a></div></div></section>'''
 
 
 def home(card, summary, preflight, h33):
@@ -262,6 +262,10 @@ def main():
         raise ValueError('This review renderer is for the canonical negative G79-THVC artifact only')
     summary = build_summary(ROOT, card)
     preflight = load_json(ROOT / 'evidence/preflight_e4a4422d.json')
+    baseline_preflight = load_json(ROOT / 'evidence/new_lane_preflight_a7d092d7.json')
+    for key in ('start_new_lane', 'state', 'exit_code', 'witness_sha256', 'covered_allowed_fraction', 'limit'):
+        if not same_json(preflight[key], baseline_preflight[key]):
+            raise ValueError('Review preflight disagrees with the verified frozen witness')
     h33 = load_json(ROOT / 'evidence/review_e4a4422d/h33_remeasurement.json')
     from gems79.status import submission_decision
     decision = submission_decision(card, actual_sha256=card['raster_sha256'], format_passed=True)

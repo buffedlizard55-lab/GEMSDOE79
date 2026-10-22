@@ -204,7 +204,7 @@ def test_card_redundant_views_cannot_drift(path, value):
     assert not all(thvc_evidence_checks(ROOT, card).values())
 
 
-@pytest.mark.parametrize('raw', ['{"a": 1, "a": 2}', '{"a": NaN}', '{"a": Infinity}'])
+@pytest.mark.parametrize('raw', ['{"a": 1, "a": 2}', '{"a": NaN}', '{"a": Infinity}', '{"a": 1e999}'])
 def test_strict_receipt_json(tmp_path, raw):
     path = tmp_path / 'receipt.json'
     path.write_text(raw)
