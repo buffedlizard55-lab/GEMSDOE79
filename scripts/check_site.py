@@ -12,6 +12,8 @@ import sys
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'scripts')]
 from verify_project import decision_line  # noqa: E402
 from gems79.data_status import inspect_runtime_inputs  # noqa: E402
+from gems79.portal_spec import (validate_portal_file, portal_report_passed,
+                                PINNED_TEMPLATE_SHA256)  # noqa: E402
 
 
 def check_site():
@@ -95,7 +97,34 @@ def check_site():
         for table in expected_tables:
             assert str(table) in str(pages[filename]), 'Scientific table drift: ' + filename
         assert 'not a bypass' in pages[filename].get_text(' ', strip=True)
+    for source, public in (
+        ('evidence/review_a097f9d9/run_card.json', 'review_a097f9d9_run_card.json'),
+        ('knowledge/review_a097f9d9_sources.json', 'review_a097f9d9_sources.json'),
+        ('evidence/review_a097f9d9/h33_remeasurement.json', 'h33_remeasurement_a097f9d9.json'),
+        ('evidence/review_a097f9d9/preflight.json', 'preflight_a097f9d9.json'),
+    ):
+        assert same_json(load_json(ROOT / source), load_json(site / 'evidence' / public)), public + ': review receipt drift'
+    official_path = site / 'evidence/official_format_validation.json'
+    official = json.loads(official_path.read_text())
+    actual_official = validate_portal_file(ROOT / card['submission_file'])
+    assert same_json(official, actual_official), 'Stale or altered official-text format report'
+    official_ok = portal_report_passed(official, expected_sha256=card['raster_sha256'],
+                                       expected_template_sha256=PINNED_TEMPLATE_SHA256)
+    report_list_path = site / 'evidence/official_format_checks.json'
+    reports = json.loads(report_list_path.read_text())
+    expected_reports = [validate_portal_file(ROOT / 'data/reference/sample_submission.tif'),
+                        actual_official, validate_portal_file(ROOT / card['zip_file'])]
+    assert same_json(reports, expected_reports), 'Stale sample/TIFF/ZIP format checks'
+    assert site_manifest['official_format_validation_sha256'] == hashlib.sha256(official_path.read_bytes()).hexdigest()
+    assert site_manifest['official_format_checks_sha256'] == hashlib.sha256(report_list_path.read_bytes()).hexdigest()
+    assert site_manifest['official_text_format_passed'] is official_ok
+    for filename in ('index.html', 'executive-summary.html'):
+        node = pages[filename].find(attrs={'data-gate': 'Official submission format (R1–R8)'})
+        assert node and node['data-passed'] == str(official_ok).lower(), 'Official-format widget drift'
     status = json.loads((site / 'status.json').read_text())
+    assert status['official_text_format_passed'] is official_ok
+    assert status['official_format_report'] == 'evidence/official_format_validation.json'
+    assert ('official_text_format_not_cleared' in status['blockers']) is (not official_ok)
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert status['verdict'] == card['verdict'] and status['decision_line'] == line
     assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
@@ -142,7 +171,9 @@ def check_site():
     assert html_ir_ids == md_ir_ids, 'Irregularities HTML table out of sync with reports/irregularities.md; run scripts/build_site.py'
     return {'passed': True, 'pages': len(pages), 'local_links_checked': local_links,
             'all_pages_reachable_from_home': True, 'compatibility_redirects': len(aliases), 'external_assets': 0,
-            'scientific_tables_and_full_gates_match_receipts': True, 'source_health_is_not_claimed_as_receipt': True, 'submit': card['ok_to_submit']}
+            'scientific_tables_and_full_gates_match_receipts': True,
+            'official_text_format_report_and_gate_remeasured': True,
+            'source_health_is_not_claimed_as_receipt': True, 'submit': card['ok_to_submit']}
 
 
 if __name__ == '__main__':

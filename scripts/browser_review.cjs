@@ -49,6 +49,22 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
     ? /OK TO SUBMIT: YES/
     : /OK TO SUBMIT: NO/;
   assert.match(await page.locator('.download-warning, .download-ready, main').first().innerText(), expectedVerdictBanner);
+  const formatResponse = await context.request.get(base + '/evidence/official_format_validation.json');
+  assert.equal(formatResponse.status(), 200);
+  const formatReport = await formatResponse.json();
+  assert.equal(formatReport.sha256, card.raster_sha256);
+  assert.equal(formatReport.ok, false);
+  assert.deepEqual(formatReport.failed_rules, ['R6']);
+  for (const filename of ['index.html', 'executive-summary.html']) {
+    await page.goto(base + '/' + filename, {waitUntil: 'networkidle'});
+    const formatGate = page.locator('[data-gate="Official submission format (R1–R8)"]');
+    assert.equal(await formatGate.getAttribute('data-passed'), 'false');
+    assert.match(await formatGate.innerText(), /BLOCKED/);
+    assert.match(await formatGate.innerText(), /R6/);
+    assert.match(await page.locator('main').innerText(), /Unique submittable TIFF: not delivered/);
+    assert.match(await page.locator('.download-warning').first().innerText(), expectedVerdictBanner);
+  }
+  await page.goto(base + '/index.html', {waitUntil: 'networkidle'});
   await page.locator('[data-copy="submission-note"]').click();
   await page.waitForFunction(() => document.getElementById('toast').textContent.startsWith('Copied.'));
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), card.submission_note);
@@ -94,7 +110,7 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   assert.deepEqual(errors, [], 'Browser or HTTP errors');
   const report = {reviewed_utc: new Date().toISOString(), browser: await browser.version(), cases,
     downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, download_identity_verified: {tiff: true, zip: true, altered_bytes_refused: true, reset: true, network_requests: 0}, feed_rendered: true, legacy_redirects_verified: 2,
-    history_filter_verified: true, browser_errors: errors, passed: true,
+    history_filter_verified: true, official_format_gate_verified: {pages: ['index.html', 'executive-summary.html'], blocked: true, failed_rules: formatReport.failed_rules, sha256: formatReport.sha256}, browser_errors: errors, passed: true,
     scope: 'Local HTTP/static website QA only; not organizer acceptance or geological evaluation.'};
   const reportRel = process.env.QA_REPORT_PATH || 'evidence/browser_review.json';
   const reportPath = path.isAbsolute(reportRel) ? reportRel : path.join(root, reportRel);

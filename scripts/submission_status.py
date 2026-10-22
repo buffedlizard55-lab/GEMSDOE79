@@ -12,6 +12,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
+from gems79.portal_spec import validate_portal_file
 from validate_submission import validate_path
 
 
@@ -56,9 +57,14 @@ def inspect_current(root=ROOT):
         actual_sha = hashlib.sha256(path.read_bytes()).hexdigest()
         stage = 'validate_artifact'
         validation = validate_path(path)
+        stage = 'validate_official_text_format'
+        official = validate_portal_file(path, root / 'data/reference/sample_submission.tif')
         stage = 'decide'
-        return submission_decision(card, actual_sha256=actual_sha,
-                                   format_passed=validation['format_passed'])
+        result = submission_decision(card, actual_sha256=actual_sha,
+                                     format_passed=validation['format_passed'],
+                                     official_format_report=official)
+        result['official_format_validation'] = official
+        return result
     except Exception as exc:
         # Deliberately catch ordinary errors at the CLI boundary. Interrupts and
         # process termination are not caught. No stale PASS is used on failure.

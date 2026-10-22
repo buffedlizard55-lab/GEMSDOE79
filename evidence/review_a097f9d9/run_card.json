@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "review": "a097f9d9",
+  "session_branch": "arena/a097f9d9-gemsdoe79",
+  "evidence_class": "NEGATIVE-PREFLIGHT-REVIEW, NOT A SCIENTIFIC EXPERIMENT",
+  "generated_utc": "2026-10-22T20:17:40.042185+00:00",
+  "hypothesis": "Deferred BLC: a paired-flank magnetic/gravity/radiometric marker-discontinuity test could localize buried transfer strands; not constructed or evaluated.",
+  "mechanism": "Proposed along-contact change-point of opposing-flank joint distributions. The literal preflight proves unavoidable duplicate overlap, so no new lane, surface or placement was started.",
+  "named_non_fault_process": "Primary volcanic flow termination, intrusive lithologic contact, or flight-line levelling seam.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "status": "NOT RUN",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "evaluator_executed": false,
+    "dti": null,
+    "withheld_positive_pixels": null,
+    "ci95": null
+  },
+  "leakage_canary": {
+    "status": "NOT RUN; no feature trusted or model fitted",
+    "auc": null
+  },
+  "correlation_overlap_vs_registry": {
+    "surface_spearman": null,
+    "final_dot_spearman": null,
+    "new_surface_status": "NOT GENERATED",
+    "final_dots_status": "NOT GENERATED",
+    "unavoidable_forward_overlap_for_any_nonempty_candidate": 1.0,
+    "overlap_limit": 0.7,
+    "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "preflight": "evidence/review_a097f9d9/preflight.json",
+    "inventory_scope": "One decisive frozen rejection witness remeasured; not a new complete registry comparison."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "status": "NOT GENERATED; no new raster to validate",
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null
+  },
+  "submission_name": null,
+  "submission_note": "No candidate generated: unavoidable literal registry overlap; no competition slot authorized.",
+  "new_candidate_generated": false,
+  "new_candidate_ok_to_download": false,
+  "ok_to_submit": false,
+  "existing_research_diagnostic": {
+    "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "inherited_not_new": true,
+    "ok_to_download_for_research": true,
+    "historical_local_range_grid_passed": true,
+    "official_text_format_passed": false,
+    "failed_official_text_rules": [
+      "R6"
+    ],
+    "official_text_report": "evidence/review_a097f9d9/official_text_format_checks_final.json",
+    "ok_to_submit": false
+  },
+  "scientific_experiments_performed": 0,
+  "new_surfaces_generated": 0,
+  "final_dot_placements_performed": 0,
+  "submission_slots_used": 0,
+  "max_experiments": 3,
+  "max_hours": 2,
+  "source_review": "knowledge/review_a097f9d9_sources.json",
+  "ranked_hypotheses": "research/hypotheses_a097f9d9.md",
+  "verdict": "negative",
+  "stop_reason": "Literal full-footprint witness makes every nonempty new candidate fail the unchanged 70% overlap rule. No lane paragraph is supplied. New unique submission and top-candidate holdout validation remain unmet, not bypassed.",
+  "software_changes_are_not_scientific_experiments": true
+}

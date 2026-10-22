@@ -1,0 +1,19 @@
+{
+  "command": ".venv/bin/python -m pytest -q",
+  "stage": "Baseline before source edits; overlapped data restoration",
+  "exit_code": 1,
+  "passed": 595,
+  "failed": 2,
+  "seconds": 102.94,
+  "failures": [
+    {
+      "test": "tests/test_session_87f53313_audit.py::test_check_site_detects_stale_irregularities_html",
+      "reason": "Expected the injected stale-irregularities failure; the earlier current-runtime parity check instead failed on Runtime data feed drift: state."
+    },
+    {
+      "test": "tests/test_site_feed_and_recovery.py::test_all_site_links_and_status_are_consistent",
+      "reason": "Runtime data feed drift: state."
+    }
+  ],
+  "interpretation": "Both failures were stale generated runtime status while inputs were restored, not evidence of scientific model failure. A site rebuild and separate final rerun are required; this is not a passing baseline."
+}

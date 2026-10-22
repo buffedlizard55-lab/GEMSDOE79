@@ -12,6 +12,8 @@ from __future__ import annotations
 import math
 import re
 
+from .portal_spec import PINNED_TEMPLATE_SHA256, portal_report_passed
+
 EVALUATOR_VERSION = 'gems57-pooled-hide-v2'
 ACCOUNT_SIDE_CONDITIONS = [
     'A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).',
@@ -24,7 +26,14 @@ def _unit_number(value):
     return type(value) in (int, float) and 0 <= value <= 1 and math.isfinite(value)
 
 
-def submission_decision(card, *, actual_sha256, format_passed):
+def submission_decision(card, *, actual_sha256, format_passed, official_format_report=None):
+    """Decide from live local format evidence; absent official-text checks block.
+
+    ``format_passed`` is the historical research range/grid check. A complete
+    byte-bound official-text report can also establish download-format validity
+    (including a valid NaN exterior). Only the latter can clear submission
+    format, and it still cannot clear science, novelty, or the selector.
+    """
     blockers = []
     if not isinstance(card, dict):
         blockers.append('run_card_is_not_an_object')
@@ -34,8 +43,15 @@ def submission_decision(card, *, actual_sha256, format_passed):
                 actual_sha256 == card.get('raster_sha256'))
     if not matching:
         blockers.append('raster_bytes_do_not_match_run_card')
-    if format_passed is not True:
+    official_ok = portal_report_passed(
+        official_format_report, expected_sha256=actual_sha256,
+        expected_template_sha256=PINNED_TEMPLATE_SHA256,
+    )
+    download_format_ok = format_passed is True or official_ok
+    if not download_format_ok:
         blockers.append('format_validation_failed')
+    if not official_ok:
+        blockers.append('official_text_format_not_cleared')
     if card.get('protocol_unique') is not True:
         blockers.append('literal_novelty_not_cleared')
     canary = card.get('leakage_canary')
@@ -80,12 +96,15 @@ def submission_decision(card, *, actual_sha256, format_passed):
         blockers.append('explicit_submission_approval_absent')
     allowed = not blockers
     # A receipt field's mere presence cannot authenticate a remote upload.
-    return {'ok_to_download': format_passed is True and matching,
-            'ok_to_submit': allowed, 'human_inspection_required_for_this_decision': False,
+    return {'ok_to_download': download_format_ok and matching,
+            'ok_to_submit': allowed,
+            'local_research_format_passed': format_passed is True,
+            'official_text_format_passed': official_ok,
+            'human_inspection_required_for_this_decision': False,
             'verdict': 'promote' if allowed else 'negative', 'blockers': blockers,
             'account_side_conditions': ACCOUNT_SIDE_CONDITIONS,
             'message': ('OK TO DOWNLOAD: {}. OK TO SUBMIT: {}'.format(
-                'YES' if format_passed is True and matching else 'NO',
+                'YES' if download_format_ok and matching else 'NO',
                 'YES - if your DrivenData submission page shows at least 1 remaining weekly slot.'
                 if allowed else 'NO.')),
             'organizer_acceptance_established': False}

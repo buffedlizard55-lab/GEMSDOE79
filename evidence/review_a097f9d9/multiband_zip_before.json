@@ -1,0 +1,58 @@
+{
+  "evidence_class": "SOFTWARE-REGRESSION-REPRODUCTION",
+  "not_a_geological_experiment": true,
+  "direct_multiband_ok": false,
+  "zip_multiband_ok": true,
+  "zip_rules": [
+    {
+      "rule": "R1",
+      "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+      "pass": true,
+      "detail": "zip members ['two_bands.tif']; CRC error None"
+    },
+    {
+      "rule": "R2",
+      "text": "datatype float32",
+      "pass": true,
+      "detail": "dtype float32"
+    },
+    {
+      "rule": "R3",
+      "text": "CRS EPSG:32611",
+      "pass": true,
+      "detail": "CRS EPSG:32611"
+    },
+    {
+      "rule": "R4",
+      "text": "shape, transform, 100 m resolution and bounds equal the template",
+      "pass": true,
+      "detail": "shape (4, 5) vs (4, 5); transform match True; res (100.0, 100.0); bounds match True"
+    },
+    {
+      "rule": "R5",
+      "text": "nodata absent or NaN",
+      "pass": true,
+      "detail": "nodata nan"
+    },
+    {
+      "rule": "R6",
+      "text": "data outside the bounds is null or NaN",
+      "pass": true,
+      "detail": "0 non-NaN cell(s) outside the template bounds (of 5)"
+    },
+    {
+      "rule": "R7",
+      "text": "every in-bounds cell is finite (no NaN, no inf)",
+      "pass": true,
+      "detail": "0 NaN/inf cell(s) inside the bounds"
+    },
+    {
+      "rule": "R8",
+      "text": "every in-bounds value is between 0 and 1 inclusive",
+      "pass": true,
+      "detail": "0 value(s) outside [0,1] inside bounds; min 0.5, max 0.5"
+    }
+  ],
+  "cause": "ZIP branch drops inner R1 without ANDing single-band requirement",
+  "expected_multiband_zip_ok": false
+}
