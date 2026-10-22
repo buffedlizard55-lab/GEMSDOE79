@@ -8,6 +8,8 @@ from pathlib import Path
 import sys
 import zipfile
 
+import numpy as np
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
@@ -18,8 +20,15 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def decision_line(card):
+    """The one decision sentence the README and Pages must show for this card."""
+    sub = 'YES' if card.get('ok_to_submit') is True and card.get('verdict') == 'promote' else 'NO'
+    dl = 'YES' if card.get('ok_to_download', True) else 'NO'
+    return f'OK TO DOWNLOAD: {dl}. OK TO SUBMIT: {sub}.'
+
+
 def publication_contract_checks(root, card):
-    """Check the active stopped-run publication boundary, not scientific scores.
+    """Check the active publication boundary against the canonical run card.
 
     Archived claims are not approval. Reject extra upload artifacts even if no
     HTML link happens to point at them. This runs before every Pages build.
@@ -36,30 +45,68 @@ def publication_contract_checks(root, card):
     receipt = json.loads((root / 'registry/registry_receipt.json').read_text())
     indexed = [r['blob'] for r in index['rasters']]
     verified = [r['blob'] for r in receipt['files'] if r['status'] == 'verified']
+    line = decision_line(card)
+    contradicting = ('OK TO SUBMIT: NO.' if 'SUBMIT: YES' in line else 'OK TO SUBMIT: YES.')
     return {
-        'readme_matches_negative_decision': (
-            'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.' in readme and
-            'PROMOTED — VALIDATED' not in readme and
-            card['raster_sha256'] in readme and card['verdict'] == 'negative'),
+        'readme_matches_card_decision': (
+            line in readme and contradicting not in readme and
+            card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
         'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
     }
 
 
+def evidence_checks(root, card):
+    """Every card number must equal the evaluator / uniqueness / gate evidence."""
+    root = Path(root); ev = root / 'evidence/nhr'
+    out = {}
+    hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    h = card['holdout_dti']
+    src = hold[h['headline_seed']]['holdout']['scores']['candidate']
+    out['holdout_card_equals_evaluator_output'] = (
+        h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
+        h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
+        h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
+    out['holdout_beats_h33_control_both_seeds'] = all(
+        x['holdout']['paired_differences']['h33_foldfair_control']['ci95'][0] > 0 and
+        x['holdout']['scores']['candidate']['dti'] > x['holdout']['scores']['h33_foldfair_control']['dti']
+        for x in hold.values())
+    out['leakage_canary_clear'] = (card['leakage_canary']['passed'] is True and
+        card['leakage_canary']['auc'] <= 0.90 and
+        all(x['leakage_canary']['n_suspicious'] == 0 for x in hold.values()))
+    uniq = {p: json.loads((ev / f'uniqueness_{p}.json').read_text()) for p in ('surface', 'final')}
+    dots_path = root / '.cache/nhr/final_dots.npy'   # ignored cache; checked when present
+    chance = json.loads((ev / 'overlap_chance.json').read_text())
+    flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
+    expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
+    out['uniqueness_card_matches_evidence'] = (
+        card['protocol_unique'] is expected_unique and
+        (not dots_path.exists() or hashlib.sha256(np.load(dots_path).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
+    gates = json.loads((ev / 'x1_gates.json').read_text())
+    out['gate_receipt_bound_to_raster_and_verdict'] = (
+        gates['raster_sha256'] == card['raster_sha256'] and
+        gates['all_passed'] is (card['verdict'] == 'promote') and
+        gates['all_passed'] is all(gates['gates'].values()))
+    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_nhr.json') == card['preregistration_sha256']
+    return out
+
+
 def verify(refresh_timestamp: bool = False):
     checks = {}
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
-    checks['all_shared_template_bytes_unmodified'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
+    checks['all_shared_template_bytes_match_pins'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()
-    checks['preregistration_preserved'] = sha(ROOT / 'registry/preregistration.json') == expected_prereg
+    checks['e1_preregistration_preserved'] = sha(ROOT / 'registry/preregistration.json') == expected_prereg
     manifest = json.loads((ROOT / 'registry/data_manifest.json').read_text())
     checks['reference_input_hashes_match_pins'] = all(
         sha(ROOT / 'data/reference' / row['dest']) == row['sha256']
         for row in manifest['files'] if row['id'] in ('existing_faults', 'sample_submission'))
     card = json.loads((ROOT / 'run_card.json').read_text())
     checks.update(publication_contract_checks(ROOT, card))
-    checks['card_copies_equal'] = card == json.loads((ROOT / 'evidence/run_card.json').read_text())
+    checks['card_copies_equal'] = (card == json.loads((ROOT / 'evidence/run_card.json').read_text())
+                                   == json.loads((ROOT / 'docs/run-card.json').read_text()))
     path = ROOT / card['submission_file']
     actual_sha = sha(path)
     receipt = json.loads(path.with_suffix('.json').read_text())
@@ -69,7 +116,7 @@ def verify(refresh_timestamp: bool = False):
                                      card['submission_name'] == receipt['submission_name'] and
                                      card['submission_note'] == receipt['note'] and
                                      path.stem == card['submission_name'])
-    checks['filename_warns_do_not_submit'] = 'DO-NOT-SUBMIT' in path.name
+    checks['filename_warning_matches_verdict'] = (('DO-NOT-SUBMIT' in path.name) == (card['verdict'] != 'promote'))
     result = validate_path(path)
     checks['reopened_tiff_format_all_passed'] = result['format_passed']
     checks['format_receipt_positive_count_agrees'] = result['validator']['emitted_positive_pixels'] == card['positive_pixels']
@@ -77,36 +124,23 @@ def verify(refresh_timestamp: bool = False):
     with zipfile.ZipFile(zip_path) as z:
         checks['zip_exactly_one_identical_tiff'] = z.namelist() == [path.name] and z.read(path.name) == path.read_bytes()
         checks['zip_crc_valid'] = z.testzip() is None
-    checks['zip_hash_matches_receipt'] = sha(zip_path) == receipt['zip_sha256']
+    checks['zip_hash_matches_receipt'] = sha(zip_path) == receipt['zip_sha256'] == card['zip_sha256']
     registry = json.loads((ROOT / 'registry/registry_receipt.json').read_text())
     checks['new_bytes_not_copied_from_registry'] = actual_sha not in {r.get('sha256') for r in registry['files']}
-    certificate = json.loads((ROOT / 'evidence/universal_overlap_certificate.json').read_text())
-    before = json.loads((ROOT / 'evidence/uniqueness_surface.json').read_text())
-    after = json.loads((ROOT / 'evidence/uniqueness_final_artifact.json').read_text())
-    checks['decisive_overlap_certificate_consistent'] = (
-        certificate['universal_overlap_blocker'] and certificate['uncovered_allowed_pixels'] == 0 and
-        certificate['covered_allowed_fraction'] == 1.0 and
-        before['certificate']['witness_sha256'] == after['certificate']['witness_sha256'] == certificate['witness_sha256'] and
-        before['max_forward_overlap_3px_over_checked'] == after['max_forward_overlap_3px_over_checked'] == 1.0 and
-        before['checked'] == after['checked'] == 1 and not before['complete_comparison'])
-    checks['no_fabricated_holdout_or_ci'] = (card['holdout_dti']['dti'] is None and
-                                              card['holdout_dti']['ci95'] is None and
-                                              card['holdout_dti']['withheld_positive_pixels'] is None)
-    checks['no_fabricated_canary'] = card['leakage_canary']['auc'] is None and not card['leakage_canary']['passed']
+    checks.update(evidence_checks(ROOT, card))
     state = json.loads((ROOT / 'evidence/experiment_state.json').read_text())
-    checks['scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
-                                          state['holdout_evaluations_performed'] == 0 and
-                                          state['final_dot_placements_performed'] == 0)
+    checks['e1_scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
+                                             state['final_dot_placements_performed'] == 0)
     decision = submission_decision(card, actual_sha256=actual_sha, format_passed=result['format_passed'])
-    checks['automatic_negative_not_format_only_approval'] = (decision['ok_to_download'] and
-        not decision['ok_to_submit'] and not card['ok_to_submit'] and card['verdict'] == 'negative' and
-        not card['protocol_unique'] and card['submission_slots_used'] == 0 and card['organizer_submission_receipt'] is None)
+    checks['status_tool_and_card_agree'] = (decision['ok_to_download'] == card['ok_to_download'] and
+        decision['ok_to_submit'] == card['ok_to_submit'] and decision['verdict'] == card['verdict'] and
+        card['submission_slots_used'] == 0 and card['organizer_submission_receipt'] is None)
     out_path = ROOT / 'evidence/verification.json'
     verified_utc = datetime.now(timezone.utc).isoformat()
     payload = {'all_checks_passed': all(checks.values()), 'checks': checks,
                'raster_sha256': actual_sha, 'format_report': result,
                'submission_decision': decision,
-               'scope': 'Offline byte/format/status verification. Does not recreate holdout results or authenticate organizer acceptance.'}
+               'scope': 'Offline byte/format/evidence/status verification. Does not recreate holdout results or authenticate organizer acceptance.'}
     if not refresh_timestamp and out_path.exists():
         try:
             existing = json.loads(out_path.read_text())

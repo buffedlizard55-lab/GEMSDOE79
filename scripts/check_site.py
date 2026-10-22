@@ -7,6 +7,9 @@ from urllib.parse import unquote, urlsplit
 from bs4 import BeautifulSoup
 
 ROOT = Path(__file__).resolve().parents[1]
+import sys
+sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'scripts')]
+from verify_project import decision_line  # noqa: E402
 
 
 def check_site():
@@ -59,18 +62,22 @@ def check_site():
             break
         reachable = expanded
     assert reachable == set(pages), 'Orphaned page'
+    card = json.loads((site / 'evidence/run_card.json').read_text())
+    line = decision_line(card)
+    other = 'OK TO SUBMIT: NO.' if 'SUBMIT: YES' in line else 'OK TO SUBMIT: YES.'
     for filename in ('index.html', 'executive-summary.html'):
         text = pages[filename].get_text(' ', strip=True)
-        assert 'OK TO DOWNLOAD: YES.' in text and 'OK TO SUBMIT: NO.' in text
+        assert line in text and other not in text, filename
         assert pages[filename].find('a', download=True, href=lambda h: h and h.endswith('.tif'))
-    card = json.loads((site / 'evidence/run_card.json').read_text())
+        assert card['submission_name'] in text and card['raster_sha256'] in text
     assert card == json.loads((ROOT / 'run_card.json').read_text())
     assert card == json.loads((site / 'run-card.json').read_text())
     status = json.loads((site / 'status.json').read_text())
-    assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
+    assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
+    assert status['verdict'] == card['verdict'] and status['decision_line'] == line
     assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
-    assert not manifest['ok_to_submit'] and manifest['ok_to_download']
+    assert manifest['ok_to_submit'] is card['ok_to_submit'] and manifest['ok_to_download']
     assert manifest['raster_sha256'] == card['raster_sha256']
     feed = json.loads((site / 'evidence/source_health.json').read_text())
     assert feed['submission_slots_used_by_this_refresh'] == 0
@@ -80,7 +87,7 @@ def check_site():
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()
     return {'passed': True, 'pages': len(pages), 'local_links_checked': local_links,
             'all_pages_reachable_from_home': True, 'compatibility_redirects': len(aliases), 'external_assets': 0,
-            'source_health_is_not_claimed_as_receipt': True, 'submit': False}
+            'source_health_is_not_claimed_as_receipt': True, 'submit': card['ok_to_submit']}
 
 
 if __name__ == '__main__':

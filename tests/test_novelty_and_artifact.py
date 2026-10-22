@@ -39,8 +39,9 @@ def test_writer_rejects_invalid_name_and_note(tmp_path):
 def test_committed_deliverable_offline_end_to_end():
     assert verify()['all_checks_passed']
 
-def test_stop_is_not_rewritten_as_an_achieved_score():
-    card=json.loads((ROOT/'run_card.json').read_text())
+def test_e1_stop_is_not_rewritten_as_an_achieved_score():
+    # E1 (archived) stays negative with no invented holdout; H79-NHR has its own card.
+    card=json.loads((ROOT/'evidence/e1/run_card_e1.json').read_text())
     assert card['holdout_dti']['dti'] is None and card['holdout_dti']['ci95'] is None
     assert card['leakage_canary']['auc'] is None and card['verdict']=='negative'
     assert card['final_dot_placements_performed']==0 and card['submission_slots_used']==0

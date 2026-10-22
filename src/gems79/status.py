@@ -1,14 +1,22 @@
-"""Fail-closed local readiness. No upload, account lookup or slot selection.
+"""Fail-closed local readiness. No upload or account lookup.
 
-A future positive decision would require corroborated scientific and selector
-receipts; the current E1 card is final and negative. This is not a receipt
-signature/authentication service and does not establish organizer acceptance.
+ok_to_submit is True only when every automated project gate passes: byte
+integrity, on-disk format, uniqueness, leakage canaries, matched holdout beaten
+with a measured CI, positive scientific verdict, and a separate automated
+selector receipt bound to the exact raster SHA-256. Account-side conditions the
+project cannot observe (a free weekly slot on the DrivenData submission page,
+participant eligibility) are returned explicitly in ``account_side_conditions``
+rather than hidden. This does not establish organizer acceptance or a score.
 """
 from __future__ import annotations
 import math
 import re
 
 EVALUATOR_VERSION = 'gems57-pooled-hide-v2'
+ACCOUNT_SIDE_CONDITIONS = [
+    'A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).',
+    'You must be a registered, eligible participant who accepted the competition rules.',
+]
 
 
 def _unit_number(value):
@@ -62,11 +70,11 @@ def submission_decision(card, *, actual_sha256, format_passed):
         blockers.append('negative_scientific_verdict')
     if card.get('approved_for_weekly_slot') is not True:
         blockers.append('separate_selector_has_not_approved_a_slot')
-    capacity = card.get('remaining_weekly_slots')
-    if type(capacity) is not int or capacity < 1 or card.get('capacity_verified_from_submission_page') is not True:
-        blockers.append('current_account_weekly_capacity_not_verified')
     selector = card.get('selector_receipt')
-    if not isinstance(selector, dict) or selector.get('raster_sha256') != actual_sha256 or not selector.get('source_url') or not selector.get('observed_utc'):
+    if (not isinstance(selector, dict) or selector.get('raster_sha256') != actual_sha256
+            or not isinstance(actual_sha256, str) or selector.get('selector') != 'scripts/select_submission.py'
+            or selector.get('all_automated_gates_passed') is not True
+            or not selector.get('source_url') or not selector.get('observed_utc')):
         blockers.append('separate_selector_receipt_missing_or_unbound')
     if card.get('ok_to_submit') is not True:
         blockers.append('explicit_submission_approval_absent')
@@ -75,4 +83,9 @@ def submission_decision(card, *, actual_sha256, format_passed):
     return {'ok_to_download': format_passed is True and matching,
             'ok_to_submit': allowed, 'human_inspection_required_for_this_decision': False,
             'verdict': 'promote' if allowed else 'negative', 'blockers': blockers,
+            'account_side_conditions': ACCOUNT_SIDE_CONDITIONS,
+            'message': ('OK TO DOWNLOAD: {}. OK TO SUBMIT: {}'.format(
+                'YES' if format_passed is True and matching else 'NO',
+                'YES - if your DrivenData submission page shows at least 1 remaining weekly slot.'
+                if allowed else 'NO.')),
             'organizer_acceptance_established': False}

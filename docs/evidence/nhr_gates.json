@@ -1,0 +1,18 @@
+{
+  "gates": {
+    "canaries_all_le_0_90_both_seeds": true,
+    "beats_current_holdout_best_both_seeds": true,
+    "paired_ci_vs_uniform_excludes_zero_both_seeds": true,
+    "evaluator_version_pinned": true,
+    "surface_rank_correlation_le_0_90": true,
+    "final_rank_correlation_le_0_90": true,
+    "surface_uniqueness_passed": false,
+    "final_dot_uniqueness_passed": false,
+    "final_dots_match_audited_bytes": true,
+    "exact_budget": true
+  },
+  "all_passed": false,
+  "name": "gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT",
+  "note": "H79-NHR research only; HOLDOUT-DTI 0.143/0.152 vs H33 0.096/0.099; DUPLICATE: 0.91 of dots within 3px of a registry raster",
+  "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2"
+}

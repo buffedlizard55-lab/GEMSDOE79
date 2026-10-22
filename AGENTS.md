@@ -1,24 +1,28 @@
 # Start-of-session contract
 
 1. Read **all of README.md**, including the original prompt, then `run_card.json`,
-   `reports/irregularities.md` and `registry/preregistration.json` before work.
-<<<<<<< HEAD
-2. Work only on the Arena-assigned session branch reported in the current session metadata (`arena/9e8bac9e-gemsdoe79`). Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-=======
+   `reports/irregularities.md`, `registry/preregistration_nhr.json` (active lane) and
+   `registry/preregistration.json` (archived E1) before work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
->>>>>>> origin/main
-3. Current run is **stopped negative** by a shared, literal pre-placement duplicate
-   gate. Do not restart, retune, add jitter, exempt dense priors or silently open
-   a new scientific lane. Maximum three experiments/two hours; this run used one
-   fixed surface and zero competition slots.
-4. `vendor/gems57` is immutable shared code, not a private fork. Check its SHA-256
-   pins. A real shared defect belongs upstream once. Use the shared evaluator,
+3. Active lane: **H79-NHR** (session 337ac1e9), opened at the user's explicit
+   request and preregistered before any result. One experiment (X1) was used. It beat
+   the holdout best but **failed the duplicate gate** (IR-79-44), so the verdict is `negative`
+   and the lane is stopped. Do not retune or overlap-cap X1.
+   A new idea needs a new preregistered lane, with three experiments or two hours at most.
+   E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
+   it, add jitter to it, or exempt dense priors for it.
+4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
+   pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
+   version note and an IR entry. Example: the `budget-matched-v3` dot definition, IR-79-36. Use the shared evaluator,
    writer and literal novelty gate; never invent scientific metrics or receipts.
 5. Do not replace missing measurements with zero. Only a submission-page receipt
    establishes ORGANIZER-CONFIRMED for an artifact. Public leaderboard observations
    and user-reported scores must retain their evidence classes.
-6. A local format PASS does not mean OK TO SUBMIT. `run_card.json` and
-   `scripts/submission_status.py` must agree, and currently return a negative verdict.
+6. A local format PASS does not mean OK TO SUBMIT. `run_card.json`,
+   `scripts/submission_status.py`, README and Pages must agree. They are all generated from
+   or checked against the card by `scripts/verify_project.py`. Only
+   `scripts/select_submission.py` may set `ok_to_submit` after re-deriving every gate.
+   Weekly-slot availability stays an account-side condition that the user checks.
 7. Keep large input/cache files ignored. Serve only docs/ in previews and artifact deployments; legacy Pages also has a root redirect. Never publish credentials,
    invented source data, synthetic scientific scores, or a quarantined file as ready.
 8. Run tests, offline byte/format verification, site link checking and a final
@@ -26,8 +30,8 @@
 
 - Concurrent H79-MCT material is historical text/data under `archive/`; do not
   reactivate its dense-prior exemptions, placement amendments or positive flags.
-  Current E1 is stopped, all active status aliases are negative, and any protocol
-  clarification requires explicit authorization, not an agent-created bypass.
+  E1 is stopped. Any protocol clarification must be recorded as an IR entry
+  and applied once in shared code, never as a lane-local bypass.
 
 - PR #12 H79-CSPT is also historical/non-authoritative under
   `archive/h79_cspt_3d386a3/`. It excluded space-filling priors and changed the
