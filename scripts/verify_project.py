@@ -196,11 +196,60 @@ def thvc_evidence_checks(root, card):
     cand30 = s30['EXP-79-3_thvc_charnes_cooper']
     h33_20 = s20['C2_h33_analogue_foldfair']
     h33_30 = s30['C2_h33_analogue_foldfair']
+    s20_card = h['per_seed']['seed_20']
+    s30_card = h['per_seed']['seed_30']
     out['holdout_card_equals_evaluator_output'] = (
         h['dti'] == round(cand20['dti'], 4) and
         h['ci95'] == [round(c, 4) for c in cand20['ci95']] and
         h['withheld_positive_pixels'] == cand20['withheld_positive_pixels'] and
-        h['evaluator_version'] == res['seed20']['evaluator_version'] == 'gems57-pooled-hide-v2')
+        s20_card['candidate']['dti'] == round(cand20['dti'], 4) and
+        s20_card['candidate']['ci95'] == [round(c, 4) for c in cand20['ci95']] and
+        s20_card['withheld_positive_pixels'] == cand20['withheld_positive_pixels'] and
+        s30_card['candidate']['dti'] == round(cand30['dti'], 4) and
+        s30_card['candidate']['ci95'] == [round(c, 4) for c in cand30['ci95']] and
+        s30_card['withheld_positive_pixels'] == cand30['withheld_positive_pixels'] and
+        h['evaluator_version'] == res['seed20']['evaluator_version'] ==
+        res['seed30']['evaluator_version'] == 'gems57-pooled-hide-v2')
+    def official_ci_provenance(seed):
+        source = res[f'seed{seed}']['official_evaluate_all']
+        bootstrap = source['bootstrap']
+        return {
+            'source_file': 'evidence/g79_thvc_results.json',
+            'source_pointer': f'/seed{seed}/official_evaluate_all/scores/EXP-79-3_thvc_charnes_cooper/ci95',
+            'bootstrap_pointer': f'/seed{seed}/official_evaluate_all/bootstrap',
+            'method': bootstrap['method'],
+            'block_km': 20.0,
+            'clusters': bootstrap['clusters'],
+            'draws': bootstrap['draws'],
+            'bootstrap_seed': bootstrap['seed'],
+            'confidence': bootstrap['confidence'],
+        }
+    out['seed20_ci_provenance_matches_official_evaluator'] = (
+        h['ci95_provenance'] == official_ci_provenance(20) and
+        s20_card['candidate']['ci95_provenance'] == official_ci_provenance(20))
+    out['seed30_ci_provenance_matches_official_evaluator'] = (
+        s30_card['candidate']['ci95_provenance'] == official_ci_provenance(30))
+    custom = res['seed30']['spatial_bootstrap_20km']
+    custom_arm = custom['arms']['EXP-79-3_thvc_charnes_cooper']
+    secondary = card['secondary_holdout_dti']
+    secondary_provenance = {
+        'source_file': 'evidence/g79_thvc_results.json',
+        'method': 'independent full-map 20-km spatial block bootstrap implemented by scripts/run_g79_thvc.py::_spatial_block_bootstrap',
+        'block_km': 20.0,
+        'clusters': custom['n_blocks_20km'],
+        'draws': custom['n_bootstrap_draws'],
+        'bootstrap_seed': 20261021,
+        'confidence': 0.95,
+        'source_pointers': [
+            '/seed30/spatial_bootstrap_20km/arms/EXP-79-3_thvc_charnes_cooper/ci95_low',
+            '/seed30/spatial_bootstrap_20km/arms/EXP-79-3_thvc_charnes_cooper/ci95_high',
+        ],
+    }
+    out['secondary_seed30_ci_matches_spatial_bootstrap_source'] = (
+        secondary['ci95'] == [custom_arm['ci95_low'], custom_arm['ci95_high']] and
+        round(secondary['dti'], 6) == custom_arm['point_dti'] and
+        secondary['withheld_positive_pixels'] == res['seed30']['withheld_positive_pixels'] == 11342 and
+        secondary['ci95_provenance'] == secondary_provenance)
     out['holdout_beats_h33_control_both_seeds'] = (
         cand20['dti'] > h33_20['dti'] and cand20['ci95'][0] > h33_20['ci95'][1] and
         cand30['dti'] > h33_30['dti'] and cand30['ci95'][0] > h33_30['ci95'][1])

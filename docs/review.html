@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<title>Current repository review · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="review.html">Current review</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">CURRENT REVIEW / 2026-10-22</p><h1>No new experiment; novelty preflight blocks.</h1><p class="lead">Download remains yes; submit remains no. The reviewed hypotheses are qualitative and unscored.</p></section><section class="section"><div class="prose table-scroll"><h2>Repository Review — Session <code>arena/1a43a589-gemsdoe79</code></h2>
+<p><strong>Review date:</strong> 2026-10-22 UTC<br />
+<strong>Branch/base:</strong> <code>arena/1a43a589-gemsdoe79</code> / <code>80550533de8e12f9a631ed928d50bcfc7f95e319</code><br />
+<strong>Decision:</strong> <strong>OK TO DOWNLOAD: YES · OK TO SUBMIT: NO</strong><br />
+<strong>Scope:</strong> Three review passes, source/evidence audit, fail-closed preflight, card/verifier/site correction. <strong>No experiment, holdout run, dot placement, new TIFF, weekly slot, or submission choice was made.</strong></p>
+<h3>Executive disposition</h3>
+<p>The canonical downloadable artifact is unchanged: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"><code>g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif</code></a>, SHA-256 <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>. Its local file-format evidence and existing two-seed holdout evidence remain recorded, but the literal novelty gate is impossible under the current rule, the scientific verdict is negative for promotion, and the separate selector receipt/explicit approval are absent. No status was promoted or relaxed.</p>
+<p>The new-lane preflight was run with the hash-verified registry witness restored. It returned <code>exit_code: 2</code>, state <code>impossible_under_literal_gate</code>, witness SHA-256 <code>ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be</code>, and <code>covered_allowed_fraction: 1.0</code>. Under the literal positive-support definition, any nonempty candidate therefore has 3-pixel overlap <code>1.0 &gt; 0.70</code>; the pipeline stopped before an experiment. The exact machine receipt is <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/new_lane_preflight_1a43a589.json"><code>evidence/new_lane_preflight_1a43a589.json</code></a>. This is a registry-witness result, <strong>not</strong> a measurement of a candidate that was never generated.</p>
+<h3>Review pass 1 — H33 score provenance and byte-forensic explanation</h3>
+<p>The repository's byte-level H33 audit establishes the raster relationship, not a score receipt:</p>
+<ul>
+<li>The H33 raster contains <code>37,654</code> positive pixels and is a strict subset of D2.8's <code>44,090</code> pixels. Exactly <code>6,436</code> D2.8 pixels at Euclidean distance <code>&lt;= 2 px</code> (<code>200 m</code>) from the mapped catalogue are absent from H33; no H33 pixels lie outside D2.8.</li>
+<li>The same audit records no 8-neighbour positive adjacencies in H33, median catalogue distance <code>19.6469 px</code>, and <code>69.83%</code> of H33 dots farther than <code>1 km</code> from the catalogue.</li>
+<li>The official DTI structure makes sparse predictions and removing nearby redundant emissions a <strong>plausible metric-efficiency mechanism</strong>: weighted TP uses a local maximum while weighted FP sums prediction mass. Those raster facts do not prove that this pruning caused the reported score change, nor do they establish private-test precision or geological correctness.</li>
+</ul>
+<p><strong>The <code>0.2778</code> value remains unverified for the H33 bytes.</strong> The H33 site labels its file unscored and no organizer submission-page receipt binds <code>0.2778</code> to that filename and SHA-256. The full-board audit recorded a public entry with the same decimal, but a matching number does not identify the H33 artifact. The <code>0.3195</code> claim is stale/unmatched in the recorded leaderboard snapshot; the official public-leader observation recorded for 2026-10-22 is <code>0.4413</code> for <code>xiaofanhu</code>, not for H33 or this repository's TIFF. These are public observations and historical reports, not <code>ORGANIZER-CONFIRMED</code> scores. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/why_h33.md"><code>knowledge/why_h33.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/h33_forensics.json"><code>evidence/h33_forensics.json</code></a>, and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json"><code>knowledge/official_sources.json</code></a>.</p>
+<h4>Seed-30 interval provenance discrepancy</h4>
+<p>The previous card had two different seed-30 intervals without identifying their bootstrap sources. The difference is now resolved as provenance, not as an established numerical error:</p>
+<ul>
+<li><code>holdout_dti.per_seed.seed_30.candidate.ci95</code> is rounded from <code>evidence/g79_thvc_results.json#/seed30/official_evaluate_all/scores/EXP-79-3_thvc_charnes_cooper/ci95</code>: <code>[0.1773715346, 0.2125517694]</code>, displayed as <code>[0.1774, 0.2126]</code>. This is the pinned evaluator's paired physical spatial-cluster percentile bootstrap (<code>159</code> clusters, <code>1,000</code> draws).</li>
+<li><code>secondary_holdout_dti.ci95</code> is <code>[0.17688, 0.211578]</code> from the separate <code>seed30.spatial_bootstrap_20km</code> result produced by <code>scripts/run_g79_thvc.py::_spatial_block_bootstrap</code> (<code>159</code> 20-km blocks, <code>1,000</code> draws).</li>
+</ul>
+<p>Both intervals refer to the same <code>HOLDOUT-DTI</code> point <code>0.1943932569</code> and <code>11,342</code> withheld positives. The canonical card now labels both sources, and <code>scripts/verify_project.py</code> checks each interval and provenance independently. The full recorded holdout values remain labelled <strong>HOLDOUT-DTI (<code>gems57-pooled-hide-v2</code>)</strong>: seed 20, <code>n=11,321</code>, <code>0.1905</code>, 95% CI <code>[0.1741, 0.2069]</code>; seed 30, <code>n=11,342</code>, <code>0.1944</code>, 95% CI <code>[0.1774, 0.2126]</code>. They are catalogue hide-and-recover proxy results, not leaderboard scores.</p>
+<h3>Review pass 2 — geological hypotheses and official-data audit</h3>
+<p>The previous backlog contained unsupported numeric gain ranges and described MT inputs as shallow resistivity/phase-tensor slices. Those assertions were removed or corrected. The revised <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_post_thvc_backlog.md"><code>research/hypotheses_post_thvc_backlog.md</code></a> ranks five <strong>qualitative, unscored, unexecuted</strong> hypotheses by target complementarity, data readiness, uncertainty, and cost:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Rank</th>
+<th>Hypothesis</th>
+<th>Why it might reveal an uncatalogued fault / expected qualitative benefit</th>
+<th>Main cost/readiness limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">1</td>
+<td><strong>H80-RANGEFRONT-RELAY</strong></td>
+<td>Terrain and drainage organization that persists beyond a visible trace end could indicate a concealed basinward relay or step-out; potentially adds a network-scale cue to local tip/scarp features.</td>
+<td>Medium cost; requires the competition feature stack plus AOI-checked USGS 3DEP coverage.</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><strong>H80-DRAPE-DECONV</strong></td>
+<td>A corrected cross-line magnetic edge could expose a buried source boundary with no mapped surface trace; benefit would be improved independent geophysical corroboration, not a fault label.</td>
+<td>Medium cost; official GeoDAWN line products are listed, but required per-sample altitude fields are not confirmed.</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><strong>H80-RADIO-KD</strong></td>
+<td>A line-like alteration residual may follow a concealed fault-controlled hydrothermal conduit missed by the catalogue; expected benefit is an orthogonal cue, subject to strong non-fault controls.</td>
+<td>Low–medium cost; channel names/units and raster alignment require source-metadata and byte checks.</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td><strong>H80-MT-CONDUCTANCE</strong></td>
+<td>A broad conductance boundary under basin cover may supply context for concealed basin/basement structures; it is not expected to locate individual 100 m traces.</td>
+<td>Low compute after acquisition; grid resolution/coverage and alignment are unverified. The earlier “H80-MT-PHASE” sketch is not supported by the published product.</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td><strong>H80-COULOMB-CFS</strong></td>
+<td>Visible-only stress concentrations/shadows may prioritize secondary relay candidates absent from the map; this is a directional physical prior with high parameter and leakage uncertainty.</td>
+<td>High modeling and leakage risk; official catalogue-derived slip/dilation data are not a hidden-fault stress raster.</td>
+</tr>
+</tbody>
+</table>
+<p>For each proposal the revised backlog names the input layers, target signature, a non-fault mimic and guard, method differences from repository lanes, official data links, and data/computation prerequisites. It does not assign DTI gains or use projections as scores. This ranking is a research priority only; <strong>the top candidate was not validated on holdout</strong> because the preflight stopped before experiment by design.</p>
+<p>Official listings reviewed for this pass:</p>
+<ul>
+<li><a href="https://gdr.openei.org/submissions/1391">DOE GDR 1391, INGENIOUS compilation</a> lists MT conductance, geodetic shear/dilation, heat-flow, fault, thermal, and other inputs. Its linked <a href="https://doi.org/10.5066/P9TWT2LU">USGS Electrical Conductance Maps release</a> publishes depth-integrated products at <code>2–12</code>, <code>12–20</code>, <code>20–50</code>, <code>50–90</code>, and <code>90–200 km</code>; it does not substantiate the earlier 500 m/1.5 km/3 km phase-tensor proposal.</li>
+<li>The <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a> lists magnetic/radiometric grids, flight-line CSVs, metadata/report, and flight-path products. Its description documents nominal survey layouts and warns that actual terrain clearance can vary; availability of every altitude field needed by H80-DRAPE-DECONV remains unconfirmed.</li>
+<li>The <a href="https://doi.org/10.5066/F7CR5RK7">USGS ASTER-derived hydrothermal-alteration map</a> is a thematic alteration/mineral-group product, not raw ASTER reflectance or a fault inventory. <a href="https://www.usgs.gov/3d-elevation-program/about-3dep-products-services">USGS 3DEP</a> makes public elevation products available but requires an AOI coverage check. The <a href="https://doi.org/10.5066/P9YL58W6">USGS slip/dilation tendency release</a> contains catalogue-derived fault geometry and stress data, so any holdout use must filter/recompute from visible segments only.</li>
+</ul>
+<p><strong>Data readiness remains a blocker.</strong> The official local receipt lists five files and no MT raster. The raw competition training feature stack is absent from this checkout and <code>.cache</code> was empty before the review. Public source listings are not proof that bytes have been obtained, that their grids align, or that a candidate is executable. No feature download or data restoration was attempted for a new lane.</p>
+<h3>Review pass 3 — guardrails, verifier, site, and automated checks</h3>
+<ul>
+<li>Installed the repository's pinned <code>requirements.lock</code> into the ignored <code>.venv</code> because the system Python had no NumPy. This changed no tracked files.</li>
+<li>Ran <code>scripts/preflight_new_lane.py --restore --report evidence/new_lane_preflight_1a43a589.json</code>; it verified the pinned witness and refused to start a lane with exit 2. No model, placement, or holdout command was run.</li>
+<li>Added bootstrap-source fields to <code>run_card.json</code>, made <code>thvc_evidence_checks()</code> compare both seed-30 intervals to their distinct result paths, and added regression assertions to <code>tests/test_current_run_integrity.py</code>.</li>
+<li>Corrected the scientific report's ZIP byte count, replaced unsupported gain estimates in the hypothesis backlog, refreshed the official-source ledger, corrected stale site wording, and added a current-review page to the generated site. The README no longer advertises a rerun command for the closed G79-THVC lane.</li>
+<li>Final project, test-suite, static-site, and headless-browser verification receipts are summarized in the section below.</li>
+</ul>
+<h3>Limitations and next steps</h3>
+<ol>
+<li>The literal novelty gate remains fail-closed. Only the protocol owner can decide whether the operative gate changes; this review does not authorize a substitute definition.</li>
+<li>No experiment, new candidate raster, submission name/note for a new file, holdout result for H80-RANGEFRONT-RELAY, or submission slot was produced. The review card records explicit <code>NOT_RUN</code> fields and a negative verdict: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_run_card_1a43a589.json"><code>reports/session_run_card_1a43a589.json</code></a>.</li>
+<li>Before any future lane, restore and hash-verify the shared feature stack, verify official data bytes/metadata and coverage, preregister exactly one hypothesis, run feature-alone leakage canaries, and follow hide-and-recover with whole fault segments buffered and visible-fault-only catalogue features. Apply the same pooled DTI (<code>alpha=0.2</code>, <code>beta=0.8</code>, 300 m triangular kernel) and shared evaluator/writer.</li>
+<li>Run surface correlation and 3-pixel overlap before placement and repeat dot-overlap checks on final dots. Stop and log duplicates at the existing thresholds. Do not jitter, cap, exempt, or switch novelty definitions after observing results.</li>
+<li>Respect the three-experiment/two-hour ceiling. Do not choose a submission or spend a weekly slot as part of this review. A unique GeoTIFF may be written only if every automated gate supports it; the current file remains <strong>downloadable for research, not approved for submission</strong>.</li>
+</ol>
+<h3>Final verification receipts</h3>
+<ul>
+<li><strong>Preflight:</strong> <code>scripts/preflight_new_lane.py --restore --report evidence/new_lane_preflight_1a43a589.json</code> returned expected exit <code>2</code> (<code>impossible_under_literal_gate</code>; lane not started).</li>
+<li><strong>Project verifier:</strong> <code>scripts/verify_project.py</code> passed <strong>34/34 checks</strong>, including both official CI provenance paths, the separate custom-bootstrap interval, frozen witness, TIFF/ZIP integrity, and fail-closed submission status.</li>
+<li><strong>Test suite:</strong> <code>.venv/bin/python -m pytest -q</code> — <strong>355 passed</strong>.</li>
+<li><strong>Site build/link audit:</strong> <code>scripts/build_site.py</code> built <strong>8 pages</strong>. <code>scripts/check_site.py</code> passed for <strong>8 pages / 170 local links</strong>, all pages reachable, <strong>2</strong> compatibility redirects, and <strong>0</strong> external assets.</li>
+<li><strong>Headless browser QA:</strong> <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/browser_review.json"><code>evidence/browser_review.json</code></a> records <strong>24/24</strong> page/viewport cases (8 pages at 1440, 390, and 320 px), no horizontal overflow, no browser/HTTP errors, verified TIFF download SHA-256, clipboard copy, feed rendering, redirects, and history filtering. The QA is local static-site verification, not organizer acceptance or geological evaluation.</li>
+<li><strong>Submission status:</strong> <code>scripts/submission_status.py</code> reports <strong>OK TO DOWNLOAD: YES · OK TO SUBMIT: NO</strong> and returns expected exit <code>2</code> because the scientific verdict, literal novelty gate, selector receipt, and explicit approval remain blocked/missing. No slot was used.</li>
+</ul></div></section><section class="section"><p><a href="evidence/new_lane_preflight_1a43a589.json">Current machine preflight JSON</a> · <a href="evidence/session_run_card_1a43a589.json">Review run card (no candidate generated)</a> · <a href="evidence/browser_review.json">Automated browser review receipt</a>.</p></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

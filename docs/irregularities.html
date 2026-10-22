@@ -5,9 +5,9 @@
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="review.html">Current review</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Submission guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
-<p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
+<p>Entries span 2026-10-21 through 2026-10-22 and are kept in session order. No entry authorizes a threshold exemption.</p>
 <table>
 <thead>
 <tr>
@@ -292,11 +292,13 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 </tr>
 </tbody>
 </table>
-<h3>Outcome</h3>
-<p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A newly computed, byte-distinct
-GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated
-competition candidate. This verdict is automated, not deferred to a human
-inspector. Negative results and the impossible-gate certificate are deliverables.</p>
+<h3>Outcome of the initial E1 session (historical snapshot)</h3>
+<p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> At that session, a newly computed,
+byte-distinct GeoTIFF was available. It was <strong>not protocol-unique</strong> and was not a
+validated competition candidate. This historical note is superseded by the
+later canonical <code>G79-THVC</code> record and the current review addenda below; the
+current decision remains fail-closed and no entry authorizes a threshold
+exemption.</p>
 <h3>Session 2026-10-22 — G79-STEPCO (branch <code>arena/220dabc8-gemsdoe79</code>)</h3>
 <table>
 <thead>
@@ -1021,6 +1023,39 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-142</td>
 <td><strong>Complete <code>0 / 934</code> sparse competition uniqueness proof &amp; controlled refutation of near-fault crowding (<code>evidence/fnhr/like_for_like_diagnostic.json</code>).</strong> Across all <strong><code>934</code> comparable sparse dot fields (<code>&lt;= 75,308</code> dots = <code>&lt;= 2x</code> budget)</strong> in 93 sibling repositories, <code>H79-FNHR</code> (<code>F3</code>, <code>d5f69d51…</code>) achieves <strong><code>0 / 934</code> duplicates (<code>max overlap = 0.6726 &lt;= 0.70</code>, <code>0.4814</code> vs <code>H33</code>, <code>0.4405</code> vs canonical <code>G79-THVC</code>)</strong>, whereas all <code>25</code> remaining raw overlaps (<code>20</code> even at <code>F1</code>'s <code>70 % &gt; 1 km</code> H33 distance distribution) are <code>80,000–985,492</code>-dot wide sweeps against which <strong><code>H33</code> itself overlaps <code>0.9295</code></strong>.</td>
 <td>Canonical repository artifact remains <strong><code>G79-THVC</code></strong> (<code>0.1905 / 0.1944 HOLDOUT-DTI</code>); <code>H79-FNHR</code> (<code>F3</code>, <code>verdict = negative</code>, <code>OK TO SUBMIT: NO</code>, <code>0</code> slots used) is archived cleanly under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_fnhr_a57e2a7f/README.md"><code>archive/h79_fnhr_a57e2a7f/</code></a>. Combining <code>H79-FNHR</code>'s <code>0.0906</code> zero-catalogue physics head with <code>G79-THVC</code>'s Charnes-Cooper placer (<code>0.4405</code> mutual overlap) is the top candidate for the next prospective lane once the owner decides <code>DENSE_SUPPORT_FRACTION</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Current branch review — session <code>1a43a589</code> (2026-10-22; no experiment)</h3>
+<p>Full three-pass report: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_1a43a589.md"><code>reports/repository_review_2026-10-22_1a43a589.md</code></a>; reviewed qualitative backlog: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_post_thvc_backlog.md"><code>research/hypotheses_post_thvc_backlog.md</code></a>; machine preflight: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/new_lane_preflight_1a43a589.json"><code>evidence/new_lane_preflight_1a43a589.json</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-143</td>
+<td><strong>Seed-30 <code>G79-THVC</code> confidence intervals had different bootstrap provenance without a card label.</strong> <code>holdout_dti.per_seed.seed_30.candidate.ci95</code> is rounded from <code>seed30.official_evaluate_all</code> (<code>[0.1773715346, 0.2125517694]</code>); <code>secondary_holdout_dti.ci95</code> (<code>[0.17688, 0.211578]</code>) comes from the separate <code>seed30.spatial_bootstrap_20km</code> result (<code>159</code> blocks, <code>1,000</code> draws). Both report the same <code>HOLDOUT-DTI</code> point (<code>0.194393...</code>) and <code>11,342</code> withheld positives. No numerical defect was established, but <code>scripts/verify_project.py</code> did not check the secondary interval or either provenance label.</td>
+<td>Added explicit source pointers and bootstrap metadata to the canonical card, documented both intervals and methods in <code>reports/g79_thvc_scientific_report.md</code>, and extended <code>thvc_evidence_checks()</code> plus current-card tests to verify the per-seed evaluator intervals and separate secondary bootstrap against <code>evidence/g79_thvc_results.json</code>. The secondary CI is retained and is not mislabeled as the primary evaluator CI.</td>
+</tr>
+<tr>
+<td>IR-79-144</td>
+<td><strong>The pre-existing H80 backlog overstated the official MT product and included unsubstantiated numeric gain ranges.</strong> <code>H80-MT-PHASE</code> claimed 500 m/1.5 km/3 km resistivity slices and phase-tensor skew, plus expected DTI ranges. The official GDR 1391 listing describes MT conductance; its linked USGS release lists five integrated-depth conductance rasters at 2–12, 12–20, 20–50, 50–90, and 90–200 km. The local official receipt has no MT raster, and binary suitability was not established. The backlog also dated its method audit to an earlier, incomplete lane/repository snapshot.</td>
+<td>Replaced the numerical gain ranges with qualitative benefit/uncertainty/cost, revised the candidate to <code>H80-MT-CONDUCTANCE</code> with the actual published depth ranges and scale limitation, checked official GeoDAWN/ASTER/3DEP/slip-dilation source listings, and made local-byte/coverage prerequisites explicit. No candidate was trained or scored; the protocol-owner novelty blocker remains.</td>
+</tr>
+<tr>
+<td>IR-79-145</td>
+<td><strong>Static site wording and a research-report size field were stale.</strong> <code>scripts/build_site.py</code> titled a 13-row selected comparison table “All 9 ... lanes” and used “all 19 lanes” in a check label without checking that comparison in the verifier; <code>reports/g79_thvc_scientific_report.md</code> gave the ZIP as <code>102,600 B</code> while the actual file is <code>102,628 B</code>.</td>
+<td>Changed the site wording to selected holdout comparisons and the specific H33 control, added an explicit no-upload warning and a current review page, corrected the ZIP byte count, then rebuilt the site and ran link checks. The full lane ledger remains in the README/repository history rather than being claimed by the partial site table.</td>
+</tr>
+<tr>
+<td>IR-79-146</td>
+<td><strong>README reproduction commands invited a rerun of closed lane <code>G79-THVC</code>.</strong> The historical section listed <code>scripts/run_g79_thvc.py --stage all</code>, while the lane guard and <code>AGENTS.md</code> require stopped lanes to refuse execution.</td>
+<td>Replaced the rerun recipe with an explicit closed-lane warning. Verification, status, site, and test commands remain available; no training, feature restoration, placement, holdout, or TIFF generation was started in this review.</td>
 </tr>
 </tbody>
 </table></div></section></main>

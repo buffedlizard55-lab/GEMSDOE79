@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "reviewed_date_utc": "2026-10-22",
-  "retrieval_method": "Research fetch_page tool across official sources on 2026-10-21 and re-verified on 2026-10-22; direct sandbox egress to non-GitHub domains is restricted. Extracts below are reviewed claims, not archived complete page bytes.",
+  "retrieval_method": "Research fetch_page tool across official sources on 2026-10-21 and re-verified on 2026-10-22; direct sandbox egress to non-GitHub domains is restricted. Extracts below are reviewed claims, not archived complete page bytes; additional official USGS ScienceBase, ASTER-alteration, and 3DEP product listings were reviewed on 2026-10-22, without downloading or authenticating their raster bytes.",
   "sources": [
     {
       "id": "DD-PROBLEM",
@@ -72,11 +72,14 @@
         "Aeroradiometric data inform surface geology and soil composition; aeromagnetic data inform subsurface structure and geology.",
         "Area 2 nominal flight-line spacing is 400 m and tie-line spacing is 4000 m; grids at 100 m do not imply independent 100 m observations.",
         "Magnetic processing includes tie-line levelling and micro-levelling; variable terrain clearance should be considered in interpretation.",
-        "GeoTIFF grids, CSV line data, flight-path shapefiles and processing reports are listed as release products."
+        "GeoTIFF grids, CSV line data, flight-path shapefiles and processing reports are listed as release products.",
+        "Area 1 nominal height is targeted at 100 m over low relief and 150 m over mountains, with 200 m flight lines and 2,000 m tie lines; Area 2 targets 150/200 m with 400/4,000 m lines. Actual clearance can vary from the planned drape in steep terrain.",
+        "The official release listing includes contractor reports/readme, metadata CSV, flight-line CSVs, flight paths/outlines, and GeoTIFF geophysical grids."
       ],
       "limits": [
         "Newly estimated magnetic-marker lags do not prove displacement or fault permeability.",
-        "USGS release access is not independent confirmation that each mirrored derivative matches an original product."
+        "USGS release access is not independent confirmation that each mirrored derivative matches an original product.",
+        "The release description warns about variable terrain clearance but does not establish here that every required per-sample altitude field is available; inspect official file metadata before using it."
       ]
     },
     {
@@ -89,10 +92,12 @@
       "verified_claims": [
         "The compilation includes 2 m temperature probes, gravity/magnetics, heat flow, MT, faults, volcanic features, paleogeothermal features and well/spring chemistry.",
         "Datasets are provided as is and may be redistributed with attribution; users are responsible for fitness for purpose.",
-        "Quaternary Faults v2 supersedes v1; that source is not automatically independent of the competition catalogue."
+        "Quaternary Faults v2 supersedes v1; that source is not automatically independent of the competition catalogue.",
+        "The GDR listing labels the MT contribution as electrical conductance maps and links to the separate USGS Electrical Conductance Maps release; this does not provide the specific shallow resistivity/phase-tensor slices sketched in an earlier backlog."
       ],
       "limits": [
-        "No new GDR data are required by this lane; no new direct binary download from this host is claimed."
+        "The canonical G79-THVC lane did not require additional GDR data; no direct binary download from this host was verified in that lane.",
+        "The public listing does not establish that an MT raster is present in this repository or aligned to the competition grid."
       ]
     },
     {
@@ -132,7 +137,7 @@
         "prior_2026_10_21_rank_48_public_dti": 0.2778,
         "first_place_submissions": 27
       },
-      "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
+      "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION — not a submission-page receipt and not this candidate's score",
       "limits": [
         "Between 2026-10-21 and 2026-10-22 new higher entries (including Azazel 0.3289 and kinneso_outlook 0.2784) moved the visible top-50 floor from 0.2778 to 0.2784; 21 teams exceed 0.3195.",
         "A matching numeric value does not prove the H33 filename, raster hash, or submitting identity.",
@@ -251,6 +256,67 @@
       "access": "read in full on 2026-10-22",
       "verified_claims": [
         "Confirms published H33 file h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif (SHA-256 c55bafc470054e82...) is self-labelled UNSCORED on GEMSDOE32's own public page without an uploaded portal receipt."
+      ]
+    },
+    {
+      "id": "USGS-MT-CONDUCTANCE",
+      "authority": "U.S. Geological Survey, Electrical Conductance Maps of the Great Basin",
+      "url": "https://doi.org/10.5066/P9TWT2LU",
+      "access": "Official ScienceBase item, summary, depth-layer names, raster extensions, and native CRS metadata read on 2026-10-22; raster bytes not downloaded.",
+      "doi": "10.5066/P9TWT2LU",
+      "verified_claims": [
+        "The data release estimates electrical conductance from a 3D MT model and publishes five depth-integrated rasters: 2–12 km, 12–20 km, 20–50 km, 50–90 km, and 90–200 km.",
+        "The published product is conductance integrated over broad depth intervals, not 500 m / 1.5 km / 3 km resistivity slices or phase-tensor-skew rasters.",
+        "The release lists GeoTIFF rasters in native CRS EPSG:4269 and is publicly catalogued by USGS."
+      ],
+      "limits": [
+        "No local binary bytes, target-footprint coverage, effective spatial resolution, or reprojection suitability were verified in this review.",
+        "A conductance anomaly is not by itself a fault, geothermal system, or permeability label."
+      ]
+    },
+    {
+      "id": "USGS-ASTER-ALTERATION",
+      "authority": "U.S. Geological Survey, ASTER-derived hydrothermal alteration and mineral-group map",
+      "url": "https://doi.org/10.5066/F7CR5RK7",
+      "access": "Official USGS Science Data Catalog metadata and product description read on 2026-10-22; thematic raster bytes not downloaded.",
+      "doi": "10.5066/F7CR5RK7",
+      "verified_claims": [
+        "The public release maps hydrothermal alteration types, mineral groups, and green vegetation across the southwestern conterminous United States using visible, near-infrared, and shortwave-infrared ASTER data.",
+        "The released item is a thematic map product; its classes are not raw ASTER reflectance channels or direct potassium/thorium measurements."
+      ],
+      "limits": [
+        "The map does not identify faults or confirm active/productive geothermal systems.",
+        "Exact footprint coverage, raster alignment, and byte hashes were not checked in this review."
+      ]
+    },
+    {
+      "id": "USGS-3DEP",
+      "authority": "U.S. Geological Survey, 3D Elevation Program products and services",
+      "url": "https://www.usgs.gov/3d-elevation-program/about-3dep-products-services",
+      "access": "Official product/service page read on 2026-10-22; no AOI tile download performed.",
+      "verified_claims": [
+        "3DEP provides public lidar point clouds and DEMs at multiple resolutions; the USGS states products are free of charge and without use restrictions.",
+        "USGS provides LidarExplorer and DEM-availability tools for checking local coverage."
+      ],
+      "limits": [
+        "One-meter DEM coverage is not assumed to be complete over the competition footprint; coverage and source quality must be checked per AOI.",
+        "No target-AOI 3DEP raster bytes were obtained or hashed in this review."
+      ]
+    },
+    {
+      "id": "USGS-SLIP-DILATION",
+      "authority": "U.S. Geological Survey, Slip and dilation tendency for Quaternary faults in the Great Basin",
+      "url": "https://doi.org/10.5066/P9YL58W6",
+      "access": "Official ScienceBase summary and attached-file listing read on 2026-10-22; shapefile bytes not downloaded.",
+      "doi": "10.5066/P9YL58W6",
+      "verified_claims": [
+        "The release provides shapefiles/KMZ for Great Basin and INGENIOUS areas and includes slip/dilation tendency results, fault geometry, and stress data used in those calculations.",
+        "The analysis is calculated for catalogue-derived Quaternary fault segments and is intended to identify orientations favorable for slip/dilation under ambient stress."
+      ],
+      "limits": [
+        "The release is not a ready-made Coulomb stress raster for unknown faults.",
+        "A hide-and-recover experiment must filter/recompute strictly from fold-visible segments; precomputed held-out segment attributes would leak withheld geometry.",
+        "No local bytes or suitability for the competition grid were verified."
       ]
     }
   ]

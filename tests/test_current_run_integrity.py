@@ -55,6 +55,34 @@ def test_holdout_numbers_are_copied_from_evaluator_output():
     assert h["ci95"] == [round(c, 4) for c in cand20["ci95"]]
     assert h["withheld_positive_pixels"] == cand20["withheld_positive_pixels"] == 11321
     assert round(cand30["dti"], 4) == 0.1944
+    assert h["per_seed"]["seed_30"]["candidate"]["ci95"] == [
+        round(c, 4) for c in cand30["ci95"]
+    ]
+    assert h["ci95_provenance"]["source_pointer"] == (
+        "/seed20/official_evaluate_all/scores/EXP-79-3_thvc_charnes_cooper/ci95"
+    )
+    for seed in (20, 30):
+        bootstrap = res[f"seed{seed}"]["official_evaluate_all"]["bootstrap"]
+        source = h["per_seed"][f"seed_{seed}"]["candidate"]["ci95_provenance"]
+        assert source["method"] == bootstrap["method"]
+        assert source["clusters"] == bootstrap["clusters"]
+        assert source["draws"] == bootstrap["draws"] == 1000
+        assert source["bootstrap_seed"] == bootstrap["seed"]
+        assert source["confidence"] == bootstrap["confidence"] == 0.95
+        assert source["source_pointer"] == (
+            f"/seed{seed}/official_evaluate_all/scores/EXP-79-3_thvc_charnes_cooper/ci95"
+        )
+    spatial = res["seed30"]["spatial_bootstrap_20km"]
+    spatial_arm = spatial["arms"]["EXP-79-3_thvc_charnes_cooper"]
+    secondary = current_card()["secondary_holdout_dti"]
+    assert secondary["ci95"] == [spatial_arm["ci95_low"], spatial_arm["ci95_high"]]
+    assert secondary["ci95_provenance"]["clusters"] == spatial["n_blocks_20km"] == 159
+    assert secondary["ci95_provenance"]["draws"] == spatial["n_bootstrap_draws"] == 1000
+    assert secondary["ci95_provenance"]["bootstrap_seed"] == 20261021
+    assert secondary["ci95_provenance"]["source_pointers"] == [
+        "/seed30/spatial_bootstrap_20km/arms/EXP-79-3_thvc_charnes_cooper/ci95_low",
+        "/seed30/spatial_bootstrap_20km/arms/EXP-79-3_thvc_charnes_cooper/ci95_high",
+    ]
     canary = json.loads((ROOT / "evidence/g79_leakage_canary.json").read_text())
     assert canary["seed20"]["max_symmetric_auc"] <= 0.90
     assert canary["seed30"]["max_symmetric_auc"] <= 0.90

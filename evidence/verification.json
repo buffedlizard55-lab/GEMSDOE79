@@ -1,5 +1,5 @@
 {
-  "verified_utc": "2026-10-22T06:38:26.471230+00:00",
+  "verified_utc": "2026-10-22T14:27:46.609656+00:00",
   "all_checks_passed": true,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
@@ -27,6 +27,9 @@
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
     "holdout_card_equals_evaluator_output": true,
+    "seed20_ci_provenance_matches_official_evaluator": true,
+    "seed30_ci_provenance_matches_official_evaluator": true,
+    "secondary_seed30_ci_matches_spatial_bootstrap_source": true,
     "holdout_beats_h33_control_both_seeds": true,
     "leakage_canary_clear": true,
     "uniqueness_card_matches_evidence": true,

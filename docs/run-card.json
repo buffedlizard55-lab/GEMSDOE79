@@ -47,7 +47,18 @@
           "ci95": [
             0.1741,
             0.2069
-          ]
+          ],
+          "ci95_provenance": {
+            "source_file": "evidence/g79_thvc_results.json",
+            "source_pointer": "/seed20/official_evaluate_all/scores/EXP-79-3_thvc_charnes_cooper/ci95",
+            "bootstrap_pointer": "/seed20/official_evaluate_all/bootstrap",
+            "method": "paired physical spatial-cluster percentile",
+            "block_km": 20.0,
+            "clusters": 158,
+            "draws": 1000,
+            "bootstrap_seed": 520830,
+            "confidence": 0.95
+          }
         },
         "withheld_positive_pixels": 11321,
         "h33_foldfair_control": {
@@ -64,7 +75,18 @@
           "ci95": [
             0.1774,
             0.2126
-          ]
+          ],
+          "ci95_provenance": {
+            "source_file": "evidence/g79_thvc_results.json",
+            "source_pointer": "/seed30/official_evaluate_all/scores/EXP-79-3_thvc_charnes_cooper/ci95",
+            "bootstrap_pointer": "/seed30/official_evaluate_all/bootstrap",
+            "method": "paired physical spatial-cluster percentile",
+            "block_km": 20.0,
+            "clusters": 159,
+            "draws": 1000,
+            "bootstrap_seed": 520840,
+            "confidence": 0.95
+          }
         },
         "withheld_positive_pixels": 11342,
         "h33_foldfair_control": {
@@ -75,6 +97,17 @@
           ]
         }
       }
+    },
+    "ci95_provenance": {
+      "source_file": "evidence/g79_thvc_results.json",
+      "source_pointer": "/seed20/official_evaluate_all/scores/EXP-79-3_thvc_charnes_cooper/ci95",
+      "bootstrap_pointer": "/seed20/official_evaluate_all/bootstrap",
+      "method": "paired physical spatial-cluster percentile",
+      "block_km": 20.0,
+      "clusters": 158,
+      "draws": 1000,
+      "bootstrap_seed": 520830,
+      "confidence": 0.95
     }
   },
   "secondary_holdout_dti": {
@@ -96,7 +129,20 @@
       0.076876,
       0.114184
     ],
-    "prob_beats_h33": 1.0
+    "prob_beats_h33": 1.0,
+    "ci95_provenance": {
+      "source_file": "evidence/g79_thvc_results.json",
+      "method": "independent full-map 20-km spatial block bootstrap implemented by scripts/run_g79_thvc.py::_spatial_block_bootstrap",
+      "block_km": 20.0,
+      "clusters": 159,
+      "draws": 1000,
+      "bootstrap_seed": 20261021,
+      "confidence": 0.95,
+      "source_pointers": [
+        "/seed30/spatial_bootstrap_20km/arms/EXP-79-3_thvc_charnes_cooper/ci95_low",
+        "/seed30/spatial_bootstrap_20km/arms/EXP-79-3_thvc_charnes_cooper/ci95_high"
+      ]
+    }
   },
   "ablation_ladder_seed20": {
     "EXP-79-3_thvc_charnes_cooper": {

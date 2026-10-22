@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "record_type": "preflight review card; not an experimental run card",
+  "session": "arena/1a43a589-gemsdoe79",
+  "generated_utc": "2026-10-22T14:27:08Z",
+  "experiment_status": "NOT_STARTED",
+  "hypothesis": "H80-RANGEFRONT-RELAY: test whether persistent range-front/footwall relief and drainage organization across a gap in the fold-visible mapped-fault network identify candidate basinward relay or step-out structures.",
+  "mechanism": "Build a range-front profile from the official competition topographic context and AOI-verified USGS 3DEP data; derive all catalogue geometry from fold-visible fault segments only; score a preregistered, narrow basinward gap where relief continuity and drainage segmentation persist, with an independent geophysical/structural corroborator. This was a research proposal only; no feature surface was built.",
+  "named_non_fault_mimic": "Alluvial-fan headcuts and stream incision; landslide/sackung scarps are additional mapped non-fault controls.",
+  "holdout_result": {
+    "status": "NOT_RUN",
+    "evidence_class": "NOT_A_SCORE",
+    "evaluator_version": "gems57-pooled-hide-v2 (not invoked for this proposal)",
+    "withheld_positive_pixels": null,
+    "dti": null,
+    "ci95": null,
+    "reason": "The literal novelty preflight stopped the lane before preregistration, training, or holdout evaluation."
+  },
+  "registry_correlation_overlap": {
+    "candidate_surface_correlation": {
+      "status": "NOT_RUN",
+      "limit_abs_spearman": 0.9
+    },
+    "candidate_final_dot_overlap_3px": {
+      "status": "NOT_RUN",
+      "limit_forward_overlap": 0.7
+    },
+    "literal_preflight_witness": {
+      "status": "IMPOSSIBLE_UNDER_LITERAL_GATE",
+      "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+      "covered_allowed_fraction": 1.0,
+      "limit": 0.7,
+      "mathematical_overlap_for_any_nonempty_candidate": 1.0,
+      "note": "The 1.0 value is a certificate-derived bound from universal allowed-cell support, not an overlap measurement of a candidate raster."
+    }
+  },
+  "raster_sha256": null,
+  "candidate_raster_created": false,
+  "validator_results": {
+    "candidate_tiff_validation": "NOT_RUN_NO_TIFF",
+    "candidate_zip_validation": "NOT_RUN_NO_TIFF",
+    "format_gate": "NOT_RUN",
+    "uniqueness_gate": "BLOCKED_BEFORE_CANDIDATE_BY_LITERAL_PREFLIGHT"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "promote": false,
+  "reason": "No experiment was authorized or run. The verified literal registry witness blocks every nonempty candidate; no holdout score, candidate surface, final dots, TIFF, or submission identity exists for H80-RANGEFRONT-RELAY.",
+  "submission_status": {
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "weekly_slots_used": 0,
+    "slot_selection_performed": false,
+    "explicit_approval_present": false
+  },
+  "canonical_existing_artifact": {
+    "submission_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "status": "OK TO DOWNLOAD: YES; OK TO SUBMIT: NO; not created or modified by this review"
+  }
+}
