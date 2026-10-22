@@ -60,6 +60,8 @@ def measure(
     catalogue_path: Path | None = None,
 ) -> dict:
     with rasterio.open(registry_path) as reg, rasterio.open(footprint_path) as fp:
+        if reg.count != 1 or fp.count != 1:
+            raise ValueError("registry and footprint rasters must be single-band")
         if reg.shape != fp.shape or tuple(reg.transform) != tuple(fp.transform) or reg.crs != fp.crs:
             raise ValueError("registry raster grid (shape/transform/CRS) does not match the footprint grid")
         reg_a = reg.read(1)
@@ -69,7 +71,8 @@ def measure(
         fp_crs = fp.crs
     footprint = np.isfinite(fp_a)
     dots = np.isfinite(reg_a) & (reg_a > 0)
-    halo = ndimage.binary_dilation(dots, structure=disk_structure(radius_px))
+    dots_in_fp = dots & footprint
+    halo = ndimage.binary_dilation(dots_in_fp, structure=disk_structure(radius_px))
     covered = int((halo & footprint).sum())
     n_allowed = int(footprint.sum())
     out = {
@@ -79,7 +82,8 @@ def measure(
         "footprint_sha256": sha256_file(footprint_path),
         "radius_px": int(radius_px),
         "allowed_cells_finite_footprint": n_allowed,
-        "registry_dot_cells_in_footprint": int((dots & footprint).sum()),
+        "registry_dot_cells_in_footprint": int(dots_in_fp.sum()),
+        "registry_dot_cells_outside_footprint": int((dots & ~footprint).sum()),
         "registry_dot_cells_total": int(dots.sum()),
         "halo_covered_allowed_cells": covered,
         "halo_coverage_fraction": covered / n_allowed if n_allowed else None,
