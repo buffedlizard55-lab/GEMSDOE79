@@ -31,9 +31,13 @@ def md(path):
         href = match.group(1)
         if href.startswith(('https:', 'http:', '#', 'mailto:')):
             return match.group(0)
-        target = (path.parent / href).resolve()
+        raw_path = href.split('#', 1)[0].split('?', 1)[0]
+        target = (path.parent / raw_path).resolve()
+        if not target.exists():
+            raise FileNotFoundError(f'Broken relative link {href!r} in {path.relative_to(ROOT)}')
         if target.is_relative_to(ROOT):
-            return 'href="' + REPO + '/blob/main/' + str(target.relative_to(ROOT)) + '"'
+            frag = ('#' + href.split('#', 1)[1]) if '#' in href else ''
+            return 'href="' + REPO + '/blob/main/' + str(target.relative_to(ROOT)) + frag + '"'
         return match.group(0)
     text = re.sub(r'href="([^"]+)"', link, text)
     return '<div class="prose table-scroll">' + text + '</div>'
@@ -97,7 +101,7 @@ def home(card, index):
     overlap=card['correlation_overlap_vs_registry']['surface_before_placement']
     return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / E1 · MAGNETIC FABRIC OFFSET</p><span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>
 <h1>A research GeoTIFF.<br><em>A clear decision.</em></h1><p class="lead">The existing E1 geophysical response, exported and checked end to end. The file passes format validation. It does <strong>not</strong> pass the competition-readiness gate.</p>{download_panel(card)}
-<p class="micro"><a href="executive-summary.html">Why it is blocked &amp; how future submissions work ↗</a></p><p class="notice"><strong>Release correction · 2026-10-22:</strong> the conflicting H79-CSPT approval from PR #12 is withdrawn from this site. Its dense-prior exemption was not authorized. Work is preserved in the repository archive, not cleared for submission. <a href="irregularities.html">Audit and limitations ↗</a> · <a href="evidence/session_witness_review_8ed5d89a.json">Fresh witness re-check ↗</a></p></div>
+<p class="micro"><a href="executive-summary.html">Why it is blocked &amp; how future submissions work ↗</a></p><p class="notice"><strong>Release correction · 2026-10-22:</strong> the conflicting H79-CSPT approval from PR #12 is withdrawn from this site. Its dense-prior exemption was not authorized. Work is preserved in the repository archive, not cleared for submission. <a href="irregularities.html">Audit and limitations ↗</a> · <a href="evidence/session_witness_79e8e13e.json">Fresh witness re-check ↗</a> · <a href="evidence/family_lineage_forensics.json">Cross-family lineage JSON ↗</a></p></div>
 <figure class="map-card" style="margin:0"><div class="map-top"><span>GeoDAWN · UTM ZONE 11N</span><span>RESEARCH ONLY</span></div><img class="map-image" src="assets/fabric-offset-preview.png" alt="Actual unvalidated magnetic-marker offset response within the GeoDAWN footprint, brighter where the computed response is larger."><figcaption class="map-caption"><strong>The computed field, not a fault truth map.</strong><br>Display-only log contrast. No synthetic geology, copied prediction values or claimed vent discoveries.</figcaption></figure></section>
 <div class="metric-grid"><div class="metric"><div class="label">File validation</div><div class="value">PASS ↗</div><div class="description">On-disk format &amp; range checks</div></div><div class="metric"><div class="label">Literal novelty</div><div class="value stop">STOP · 100%</div><div class="description">Overlap with a universal prior</div></div><div class="metric"><div class="label">HOLDOUT-DTI</div><div class="value">Not run</div><div class="description">Stopped before scientific scoring</div></div><div class="metric"><div class="label">Weekly slots spent</div><div class="value">0</div><div class="description">No upload or selector action</div></div></div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Validation is not just a green badge.</h2></div><p>Format, uniqueness and performance are separate gates. One passes. One proves the run must stop. The others are explicitly unmeasured.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
@@ -131,7 +135,7 @@ def history_page():
     rows=list(csv.DictReader((ROOT/'registry/score_ledger.csv').open()))
     rows.sort(key=lambda r:float(r['reported_public_dti']),reverse=True)
     table=''.join(f'<tr data-search-row><td>{E(r["site_repo"])}</td><td style="overflow-wrap:anywhere;max-width:460px">{E(r["submission_name"])}</td><td>{float(r["reported_public_dti"]):.4f}</td><td>Unverified historical report</td></tr>' for r in rows)
-    return f'''<section class="page-head"><p class="eyebrow">HISTORICAL REPORTS / NOT RECEIPTS</p><h1>The family results, with caveats.</h1><p class="lead">{len(rows)} inherited filename-to-score reports. They are a research starting point, not organizer-confirmed artifact scores or independent experiments.</p></section><div class="notice">No submission-page receipt authenticates these file/score pairings. Similar scores can reflect shared surfaces and copied dot sets. This table does not rank new hypotheses or select a slot.</div><input class="search" id="history-search" type="search" placeholder="Filter by repository or submission name" aria-label="Filter historical reports"><div class="table-scroll"><table><thead><tr><th>Repository</th><th>Reported submission</th><th>Reported public DTI</th><th>Evidence class</th></tr></thead><tbody>{table}</tbody></table></div><p class="footnote"><a href="evidence/score_ledger.csv">Download the complete labelled CSV ↗</a> · <a href="analysis.html">What the actual H33 raster bytes show ↗</a></p>'''
+    return f'''<section class="page-head"><p class="eyebrow">HISTORICAL REPORTS / NOT RECEIPTS</p><h1>The family results, with caveats.</h1><p class="lead">{len(rows)} inherited filename-to-score reports across sibling repositories. They are a research starting point, not organizer-confirmed artifact scores or independent experiments.</p></section><div class="notice">No submission-page receipt authenticates these file/score pairings. Cross-repository GeoTIFF byte forensics (<a href="evidence/family_lineage_forensics.json">family lineage JSON ↗</a>) prove every score &ge; 0.2600 (0.2600–0.2778) plus <code>GEMSDOE63</code> (0.2303) and <code>GEMSDOE48</code> (0.2296) derives from <code>19GEMSDOE</code> (<code>h19-5</code>), while <code>GEMSDOE70</code> (0.2478), <code>GEMSDOE49</code> (0.2376), and <code>GEMSDOE73</code> (0.1917) lead genuinely non-duplicate runs.</div><input class="search" id="history-search" type="search" placeholder="Filter by repository or submission name" aria-label="Filter historical reports"><div class="table-scroll"><table><thead><tr><th>Repository</th><th>Reported submission</th><th>Reported public DTI</th><th>Evidence class</th></tr></thead><tbody>{table}</tbody></table></div><p class="footnote"><a href="evidence/score_ledger.csv">Download the complete labelled CSV ↗</a> · <a href="evidence/family_lineage_forensics.json">Cross-family pixel lineage JSON ↗</a> · <a href="analysis.html">What the actual H33 &amp; family bytes show ↗</a></p>'''
 
 
 def main():
@@ -147,9 +151,11 @@ def main():
             'evidence/universal_overlap_certificate.json':'universal_overlap_certificate.json',
             'evidence/session_witness_review.json':'session_witness_review.json',
             'evidence/session_witness_review_8ed5d89a.json':'session_witness_review_8ed5d89a.json',
+            'evidence/session_witness_79e8e13e.json':'session_witness_79e8e13e.json',
             'evidence/uniqueness_surface.json':'uniqueness_surface.json',
             'evidence/uniqueness_final_artifact.json':'uniqueness_final_artifact.json',
             'evidence/h33_forensics.json':'h33_forensics.json',
+            'evidence/family_lineage_forensics.json':'family_lineage_forensics.json',
             'knowledge/official_sources.json':'official_sources.json',
             'registry/data_manifest.json':'data_manifest.json','data/restore_receipt.json':'restore_receipt.json',
             'registry/score_ledger.csv':'score_ledger.csv',

@@ -11,9 +11,11 @@ Does NOT modify run_card.json, evidence/experiment_state.json, or any active art
 """
 from __future__ import annotations
 from datetime import datetime, timezone
+import argparse
 import hashlib
 import json
 from pathlib import Path
+import subprocess
 import sys
 import numpy as np
 import rasterio
@@ -154,6 +156,9 @@ def audit_lane(
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.parse_args()
+    current_branch = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', '--abbrev-ref', 'HEAD'], text=True).strip()
     grid = load_grid(ROOT / 'data/reference')
     witnesses = ensure_witnesses()
 
@@ -192,7 +197,7 @@ def main() -> None:
     report = {
         'schema_version': 1,
         'reviewed_utc': datetime.now(timezone.utc).isoformat(),
-        'session_branch': 'arena/700397d4-gemsdoe79',
+        'session_branch': current_branch,
         'shared_uniqueness_sha256': sha256(Path(shared.__file__)),
         'purpose': (
             'Independent byte-level audit of both concurrent lanes merged into main '

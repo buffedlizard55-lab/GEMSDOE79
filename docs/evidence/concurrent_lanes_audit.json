@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "reviewed_utc": "2026-10-22T01:04:09.167161+00:00",
-  "session_branch": "arena/700397d4-gemsdoe79",
+  "reviewed_utc": "2026-10-22T01:36:52.352624+00:00",
+  "session_branch": "arena/79e8e13e-gemsdoe79",
   "shared_uniqueness_sha256": "1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95",
   "purpose": "Independent byte-level audit of both concurrent lanes merged into main (H79-MCT at c26efec and H79-CSPT at 464d591 / 3d386a3). Confirms both are properly archived as non-executable historical provenance, both fail the canonical literal 0.70 overlap gate (1.0000 overlap against 17GEMSDOE E-proba), and both return ok_to_submit=False under the fail-closed readiness gate.",
   "archived_lanes": {
