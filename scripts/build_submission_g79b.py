@@ -113,6 +113,8 @@ def main():
     ap.add_argument("--stage", default="all",
                     choices=["all", "fit", "surface-audit", "emit", "final-audit", "write", "card"])
     args = ap.parse_args()
+    from gems79.lifecycle import require_open_lane
+    require_open_lane(ROOT, "G79B-SDPT")
     grid = D.load_grid()
     foot, cat = grid.footprint, grid.catalogue
     h = holdout_summary()
@@ -394,4 +396,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    from gems79.lifecycle import LaneClosedError
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

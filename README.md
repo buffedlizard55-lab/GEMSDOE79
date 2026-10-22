@@ -187,27 +187,39 @@ evidence against the card as well as the complete literal gate receipt. This is
 an evidence-consistency check, not a fresh scientific evaluation.
 
 Historical experimental commands remain in source for audit, but `run_nhr.py holdout`,
-`run_nhr.py final`, and `build_nhr_submission.py` now refuse a terminal lane before
-loading bulk data or changing evidence. Reproduction of frozen outputs is not permission
-to restart a stopped scientific lane. Any future runner must separate surface generation,
-completed uniqueness clearance, and placement; the archived runner's sequencing is not a template.
+`run_nhr.py final`, `nhr_uniqueness.py`, `build_nhr_submission.py`, `finalize_nhr.py`,
+`nhr_overlap_chance.py`, `nhr_surface_flagged.py`, `nhr_distance_profile.py`,
+and the archived lane runners (`run_stepco_experiment.py`, `run_stepco_s2.py`,
+`build_stepco_run_card.py`, `supplementary_uniqueness_stepco.py`, `run_holdout_g79b.py`,
+`build_submission_g79b.py`, `cap_cost_g79b.py`, `build_ff_candidate.py`) now refuse
+a terminal or mismatched lane (`LaneClosedError`, exit 2) before loading bulk data or
+changing evidence. Reproduction of frozen outputs is not permission to restart a stopped
+scientific lane. Any future runner must separate surface generation, completed uniqueness
+clearance, and placement; the archived runner's sequencing is not a template.
 
-Concurrent completed software reviews: [0c9f6bad](reports/session_review_0c9f6bad.md)
-and [0a460648](reports/session_review_0a460648.md) independently fixed dependencies,
-hardened selector evidence checks and excluded local virtual environments from scans.
-Those changes were merged into this branch without changing scientific evidence.
+Concurrent completed software reviews: [0c9f6bad](reports/session_review_0c9f6bad.md),
+[0a460648](reports/session_review_0a460648.md), [2203b2cc](reports/session_review_2203b2cc.md),
+and [18e94cdc](reports/session_review_18e94cdc.md) independently fixed dependencies,
+hardened selector evidence checks, reconciled concurrent branches, and excluded local
+virtual environments from scans. Those changes were merged without changing scientific evidence.
 
-## Latest repository review — session `2203b2cc` (2026-10-22)
+## Latest repository review — session `3cfa694f` (2026-10-22)
 
-- Fixed a clean-install test/Pages blocker: `scikit-image` was imported by the merged
-  G79B tests but absent from both dependency manifests. It and its dependencies are now pinned.
-- Added terminal-lane guards and regression tests; no new experiment, copied submission,
-  uniqueness exemption, slot selection or competition upload occurred.
-- Removed the website metadata's unsupported “validated, unique” assertion and corrected
-  the H33 explanation: a known-fault pixel mask does not make the surrounding collar pure FP.
-- The existing TIFF remains downloadable and format-valid, **not protocol-unique**.
-  No file meeting all submission gates was generated this session.
-- Review and next-session blockers: [three-pass report](reports/session_review_2203b2cc.md).
+- Fixed a `git ls-tree -r -l` promisor-fetch hang in [`scripts/analyze_family_lineage.py`](scripts/analyze_family_lineage.py)
+  that caused `--filter=blob:none` clones to lazily fetch every blob in `GEMSDOE78` and time out;
+  replaced arbitrary `tifs[:3]` truncation with explicit prompt-named candidate selection across
+  `GEMSDOE76`, `GEMSDOE78`, and `GEMSDOE80`..`GEMSDOE88` (`IR-79-67`), and regenerated
+  [`evidence/family_lineage_forensics.json`](evidence/family_lineage_forensics.json).
+- Documented and flagged the user-reported score discrepancy for `GEMSDOE76`
+  (`gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555` in prompt `18e94cdc` vs
+  `: 0.2194` alongside `gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros: ?`
+  in prompt `3cfa694f`, both `UNVERIFIED HISTORICAL REPORT`s without an organizer receipt; `IR-79-68`),
+  and audited all newly referenced sibling repositories (`GEMSDOE78`, `GEMSDOE80`..`GEMSDOE88`; `IR-79-69`).
+- Extended fail-closed terminal-lane guards (`require_open_lane`, exit 2) across all remaining
+  historical `H79-NHR`, `G79-STEPCO`, and `G79B-SDPT` experiment and packaging scripts (`IR-79-70`).
+- Review and next-session blockers: [three-pass report (`3cfa694f`)](reports/session_review_3cfa694f.md) ·
+  [prior three-pass report (`18e94cdc`)](reports/session_review_18e94cdc.md) ·
+  [prior three-pass report (`2203b2cc`)](reports/session_review_2203b2cc.md).
 
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
@@ -785,9 +797,9 @@ gems75-trlt-radon-loco-ridge-20261021-zeros: 0.1627
 
 [https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
 
-gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555
+gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.2194
 
-gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
+gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros: ?
 
 ....
 
@@ -799,37 +811,67 @@ gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 [https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
 
-:
+gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros: ?
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/)
 
-:
+gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT: ?
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
 
-:
+gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros: ?
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
 
-:
+gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros: ?
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
 
-:
+gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros: ?
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
 
-:
+gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros: ?
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
+
+: ?
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
+
+: ?
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
+
+: ?
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
+
+: ?
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
+
+: ?
 
 ....
 

@@ -156,7 +156,7 @@ def test_irregularity_ids_unique_and_sequential():
     import re
     text = (ROOT / 'reports/irregularities.md').read_text(encoding='utf-8')
     ids = re.findall(r'^\|\s*(IR-79-\d+)\s*\|', text, flags=re.M)
-    assert len(ids) >= 66
+    assert len(ids) >= 70
     assert len(ids) == len(set(ids)), f'Duplicate irregularity IDs found: {ids}'
     nums = [int(x.split('-')[-1]) for x in ids]
     assert nums == list(range(1, len(nums) + 1))
@@ -168,6 +168,7 @@ def test_irregularity_ids_unique_and_sequential():
 
 def test_score_ledger_complete_and_lineage_forensics_published():
     import csv
+    import analyze_family_lineage as afl
     raw = (ROOT / 'registry/score_ledger.csv').read_bytes()
     assert b'\r\n' not in raw
     rows = list(csv.DictReader(raw.decode('utf-8').splitlines()))
@@ -185,11 +186,42 @@ def test_score_ledger_complete_and_lineage_forensics_published():
     lineage = json.loads((ROOT / 'evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
     published_lineage = json.loads((ROOT / 'docs/evidence/family_lineage_forensics.json').read_text(encoding='utf-8'))
     assert lineage == published_lineage
-    by_id = {m['repo']: m['measurements'] for m in lineage['scored_landmarks']}
+    landmarks_by_repo = {m['repo']: m for m in lineage['scored_landmarks']}
+    by_id = {r: m['measurements'] for r, m in landmarks_by_repo.items()}
     assert by_id['GEMSDOE36']['shared_exact_pixels_with_h33'] == 37654
     assert by_id['GEMSDOE36']['reverse_3px_overlap_from_h33'] == 1.0
     assert by_id['GEMSDOE70']['forward_3px_overlap_with_h33'] < 0.70
     assert by_id['GEMSDOE70']['reverse_3px_overlap_from_h33'] < 0.70
+    assert landmarks_by_repo['GEMSDOE76']['reported_public_dti'] == 0.1555
+    assert landmarks_by_repo['GEMSDOE76']['prompt_3cfa694f_reported_public_dti'] == 0.2194
+
+    siblings_by_repo = {s['repo']: s for s in lineage['post_snapshot_siblings']}
+    assert set(siblings_by_repo) == {
+        'GEMSDOE76', 'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83',
+        'GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88',
+    }
+    for stub_repo in ('GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88'):
+        assert siblings_by_repo[stub_repo]['total_tif_count_at_head'] == 0
+        assert siblings_by_repo[stub_repo]['published_tifs'] == []
+    for active_sib, expected_name in (
+        ('GEMSDOE76', 'gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif'),
+        ('GEMSDOE78', 'gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros.tif'),
+        ('GEMSDOE80', 'gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros.tif'),
+        ('GEMSDOE81', 'gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros.tif'),
+        ('GEMSDOE82', 'gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros.tif'),
+        ('GEMSDOE83', 'gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif'),
+    ):
+        names = [Path(t['path']).name for t in siblings_by_repo[active_sib]['published_tifs']]
+        assert expected_name in names, f'{expected_name} missing in {active_sib}: {names}'
+
+    # Unit check that select_sibling_tifs does not truncate alphabetically before prompt-named candidate
+    synthetic_tifs = [
+        {'path': f'archive/a{i}.tif', 'blob': f'blob{i}'} for i in range(6)
+    ] + [
+        {'path': 'docs/downloads/gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros.tif', 'blob': 'targetblob'},
+    ]
+    picked = afl.select_sibling_tifs('GEMSDOE78', synthetic_tifs)
+    assert any(p['blob'] == 'targetblob' for p in picked)
 
 
 def test_smart_http_git_blob_fallback_offline(tmp_path, monkeypatch):

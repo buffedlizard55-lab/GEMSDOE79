@@ -55,21 +55,38 @@ def test_absent_card_fails_closed(tmp_path):
         require_open_lane(tmp_path, 'fixture-lane')
 
 
-@pytest.mark.parametrize('script,args', [
-    ('run_nhr.py', ['holdout', '--seed', '20']),
-    ('run_nhr.py', ['final']),
-    ('build_nhr_submission.py', []),
+@pytest.mark.parametrize('script,args,expected_msg', [
+    ('run_nhr.py', ['holdout', '--seed', '20'], 'lane is closed (negative)'),
+    ('run_nhr.py', ['final'], 'lane is closed (negative)'),
+    ('nhr_uniqueness.py', ['surface'], 'lane is closed (negative)'),
+    ('nhr_uniqueness.py', ['final'], 'lane is closed (negative)'),
+    ('build_nhr_submission.py', [], 'lane is closed (negative)'),
+    ('finalize_nhr.py', [], 'lane is closed (negative)'),
+    ('nhr_overlap_chance.py', [], 'lane is closed (negative)'),
+    ('nhr_surface_flagged.py', [], 'lane is closed (negative)'),
+    ('nhr_distance_profile.py', [], 'lane is closed (negative)'),
+    ('run_stepco_experiment.py', [], 'canonical lane missing or mismatched'),
+    ('run_stepco_s2.py', [], 'canonical lane missing or mismatched'),
+    ('build_stepco_run_card.py', [], 'canonical lane missing or mismatched'),
+    ('supplementary_uniqueness_stepco.py', [], 'canonical lane missing or mismatched'),
+    ('run_holdout_g79b.py', [], 'canonical lane missing or mismatched'),
+    ('build_submission_g79b.py', [], 'canonical lane missing or mismatched'),
+    ('cap_cost_g79b.py', [], 'canonical lane missing or mismatched'),
+    ('build_ff_candidate.py', [], 'canonical lane missing or mismatched'),
 ])
-def test_current_scientific_commands_refuse_before_writing(script, args):
-    paths = [ROOT / 'run_card.json'] + list((ROOT / 'evidence/nhr').glob('*.json')) + list((ROOT / 'docs/downloads').glob('*'))
+def test_current_scientific_commands_refuse_before_writing(script, args, expected_msg):
+    paths = (
+        [ROOT / 'run_card.json', ROOT / 'run_card_stepco.json', ROOT / 'run_card_g79b.json']
+        + list((ROOT / 'evidence/nhr').glob('*.json'))
+        + list((ROOT / 'docs/downloads').glob('*'))
+    )
     frozen = {p: p.read_bytes() for p in paths if p.is_file()}
     cache = ROOT / '.cache/nhr'
     before = set(cache.rglob('*')) if cache.exists() else set()
     result = subprocess.run([sys.executable, str(ROOT / 'scripts' / script), *args],
                             capture_output=True, text=True, timeout=30)
     assert result.returncode == 2, result.stderr
-    assert 'lane is closed (negative)' in result.stderr
-    assert 'No files changed.' in result.stderr
+    assert expected_msg in result.stderr
     assert all(p.read_bytes() == data for p, data in frozen.items())
     assert (set(cache.rglob('*')) if cache.exists() else set()) == before
 
