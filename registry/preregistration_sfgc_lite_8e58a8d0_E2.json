@@ -1,0 +1,11 @@
+{
+  "lane": "G79-MDSC-8e58a8d0",
+  "experiment": "E2 (scoring-only; no raster emitted from E2)",
+  "frozen_before_any_scoring": true,
+  "hypothesis": "Signed lidar scarp-facing polarity separates antithetic fault counter-scarps (upface_max > downface_max; physically impossible for shorelines/terraces) and gravity-step-concordant synthetic scarps from the unsigned step amplitude G79-THVC used (abs(up-down) at thvc_features.py:589). As a standalone zero-catalogue surface it should beat its unsigned control and random on hide-and-recover holdout.",
+  "surface": "q-space bands from lidar_scarp_features_u8.tif (valid>0): signed=(up-down)/(up+down+5); amp=clip((up+down)/p99(footprint)); antithetic=clip(signed,0,1)*amp; synthetic=clip(-signed,0,1)*amp*clip(|iso_grav_anom_hg|/p99); A=max(antithetic,synthetic). Declared limitation: gravity concordance is amplitude-only (no directional dot product) because the strike band's azimuth convention is not documented in lidar_scarp_features.json; inventing one would be unverified.",
+  "arms": {"A_sfgc_lite": "as above", "B_control_unsigned": "abs(signed)*amp (THVC's quantity, standalone)", "C0_random": "identical budget/spacing"},
+  "holdout": "Identical to E1 preregistration (gems57-pooled-hide-v2, seeds 20/30, allowed=footprint & d_vis>2px, budget 37654, sep 3px).",
+  "canary": "Symmetric single-feature AUC <= 0.90 for signed, antithetic, synthetic, A, B.",
+  "gate": "Same THVC bars (0.1905 / 0.1944) for any promotion claim. E2 emits no submission raster regardless; the session's single artifact remains the preregistered E1 MDSC file, labelled by its own gate outcome."
+}
