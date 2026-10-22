@@ -1,0 +1,151 @@
+{
+  "lane": "G79-UGBP",
+  "hypothesis": "Unmapped geothermal conduit faults are marked up-gradient of kinetically disequilibrated well/spring chemistry: distal outflow sites (Tcat-Tqtz>=25C, Tqtz-Tout>=40C, Tcat>=110C) point along +grad(det_elev) streamlines to a blind conduit gated by isostatic gravity horizontal-gradient basement steps, while proximal near-equilibrated sites (Tq>=100C, -40<=Tcat-Tqtz<=15C) mark conduits at the site.",
+  "mechanism": "Catalogue-free UGBP surfaces (proximal isotropic sigma=9px; distal isotropic control sigma=9px; distal streamline advection 3-80px step 3px decay exp(-t/35px); gated = upgradient*(0.25+0.75*rank(iso_grav_anom_hg))) canaried alone, then fused as 4 of 23 frozen features into a HistGradientBoosting hide-and-recover learner trained only on an inner simulated hide (22%, 3px buffer) of the visible catalogue; deterministic dotted greedy emission min_sep=2.8px, >2px off visible catalogue (holdout) / full catalogue (final), budget 37654 binary dots, shared vendor submission_writer (zeros outside footprint). Preregistration registry/preregistration_g79_ugbp.json sha256 5af844a0e9c03a33787508e11cf5afc71d7d828c4a05b692df09f7b2c3be97d1, frozen before any holdout score.",
+  "named_non_fault_mimic": "Lateral thermal groundwater plumes in permeable alluvial-fan channels and agricultural irrigation-return wells.",
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_kernel_m": 300,
+    "candidate_EXP2": {
+      "seed20": {
+        "dti": 0.1465,
+        "ci95": [
+          0.1298,
+          0.1615
+        ],
+        "withheld_positive_pixels": 11321,
+        "uniform_dti": 0.0441,
+        "paired_delta_vs_uniform": 0.1024,
+        "paired_ci95": [
+          0.0865,
+          0.1179
+        ]
+      },
+      "seed30": {
+        "dti": 0.1477,
+        "ci95": [
+          0.1289,
+          0.1661
+        ],
+        "withheld_positive_pixels": 11342,
+        "uniform_dti": 0.0499,
+        "paired_delta_vs_uniform": 0.0978,
+        "paired_ci95": [
+          0.0787,
+          0.1161
+        ]
+      }
+    },
+    "ablation_EXP3_without_ugbp": {
+      "seed20": {
+        "dti": 0.1458,
+        "ci95": [
+          0.129,
+          0.1627
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "seed30": {
+        "dti": 0.1468,
+        "ci95": [
+          0.1271,
+          0.1663
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "ugbp_incremental_delta": [
+        0.0007,
+        0.0009
+      ],
+      "interpretation": "UGBP increment on the catalogue holdout is negligible and intervals overlap; the pure UGBP surface (EXP1) scored 0.0148 [0.0065,0.0242] (seed20) / 0.0100 [0.0044,0.0152] (seed30), below its uniform controls, and every UGBP single-feature canary is at chance (symmetric AUC 0.500-0.512). The advection mechanism is therefore NOT supported by the catalogue hide-and-recover instrument; blind-geothermal value remains untested by that instrument, which is stated rather than used to excuse promotion."
+    },
+    "incumbent_comparison": "FAILS the preregistered promote gate: EXP2 0.1465/0.1477 is below G79-THVC HOLDOUT-DTI 0.1905 (seed 20, n=11,321) / 0.1944 (seed 30, n=11,342) on both seeds. It beats the frozen H33 fold-fair control (0.0961/0.0989) and uniform, which is not the promotion bar.",
+    "leakage_canaries": {
+      "features_tested": 46,
+      "max_symmetric_auc": 0.8063,
+      "max_feature": "mech_logdist (visible-catalogue distance, expected geography signal)",
+      "ugbp_features_symmetric_auc_range": [
+        0.5001,
+        0.5123
+      ],
+      "limit": 0.9,
+      "pass": true,
+      "forbidden_csv_column_dist_known_fault_px_read": false
+    }
+  },
+  "novelty_vs_registry": {
+    "scope": "Local files only: 47 GeoTIFFs under artifacts/, archive/, docs/downloads/ in this checkout. The full 1108-row cross-repo registry was NOT scanned offline, so novelty is locally measured, not registry-certified.",
+    "surface_before_placement": {
+      "max_abs_spearman_sample200k_submission_rasters": 0.1191,
+      "worst": "g79-opc-anisopaircorr (0.1191)",
+      "limit_rho": 0.9,
+      "local_pass": true
+    },
+    "final_dots": {
+      "sparse_le60k_max_forward_overlap_3px": 0.6631,
+      "worst_sparse": "g79-cskd-ccsubmod (0.6631, 42000 dots)",
+      "limit_overlap": 0.7,
+      "local_sparse_pass": true,
+      "literal_all_files_max": 0.8921,
+      "literal_worst": "dense continuous fabric-offset surface (1,882,872 positive cells, not a dot field; halo-saturation obstruction class documented in IR-79-86/D-2/D-3)",
+      "duplicates_sparse": []
+    },
+    "full_registry_gate": "NOT CLEARED - incomplete scan"
+  },
+  "raster": {
+    "file": "artifacts/ugbp/gems79-ugbp-20261022-37654dots-zeros.tif",
+    "sha256": "1bf7a15622e0077f78ffd9b4939e1ea475c6566bd3ad170e9084146a7115a35a",
+    "dots": 37654,
+    "bytes": 135044,
+    "zip_sha256": "8b6b6298636c8f7aba5c435932c602b8d8e1ad368a564bcf72d811dab0f17d6e"
+  },
+  "validator": {
+    "format_passed_local": true,
+    "no_nan_inside_footprint": true,
+    "no_nan_anywhere": true,
+    "values_in_0_1": true,
+    "min": 0.0,
+    "max": 1.0,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "matches_sample": true,
+    "positive_on_catalogue": 0,
+    "outside_footprint": "zeros (all-finite; cannot trigger a NaN/out-of-range 'Predicted values must be in range [0, 1]' failure on local checks)",
+    "official_text_R6": "FAIL in the separate portal-spec validator (official text requires null/NaN outside bounds; zeros convention retained because NaN-outside is the range-error hazard - unresolved shared-writer issue IR-79-224, disclosed, not hidden)",
+    "portal_rules_passed": [
+      "R1",
+      "R2",
+      "R3",
+      "R4",
+      "R5",
+      "R7",
+      "R8"
+    ],
+    "portal_rules_failed": [
+      "R6"
+    ]
+  },
+  "submission_name": "gems79-ugbp-20261022",
+  "submission_note": "G79-UGBP disequilibrium up-gradient conduits x gravity step gate, dotted 2.8px learner fusion",
+  "submission_note_chars": 93,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "verdict_reason": "Unique locally and format-valid (local), and the learner beats uniform (+0.10, CIs exclude 0) and the H33 holdout control on both seeds, but (1) candidate HOLDOUT-DTI 0.1465/0.1477 does not beat the THVC incumbent 0.1905/0.1944, (2) the UGBP mechanism itself is at chance on this instrument (EXP1 below uniform; ablation delta +0.0007/+0.0009), and (3) the full 1108-row registry novelty scan and official-text R6 remain uncleared. Per protocol: do not spend a weekly slot. Lane closed; do not retune thresholds, budgets or placement on this holdout.",
+  "organizer_confirmed_score": null,
+  "leaderboard_claim": "None. No score above 0.2778 (unverified historical H33 report) or any other value is promised or implied; 0.4413 is a public-leaderboard observation for another entrant. HOLDOUT-DTI is not a leaderboard projection."
+}

@@ -162,7 +162,8 @@ def read_geotiff(path: str | Path) -> dict:
     return info
 
 
-def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = None) -> dict:
+def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = None,
+                  nan_footprint: np.ndarray | None = None) -> dict:
     """Write a single-band float32 GeoTIFF on the pinned grid and re-read it.
 
     The re-read is the contract: this returns what the *file* says. Tiled 256 px
@@ -176,10 +177,21 @@ def write_geotiff(path: str | Path, arr: np.ndarray, *, nodata: float | None = N
         raise TypeError(f"submission must be float32, got {arr.dtype}")
     if arr.shape != SHAPE:
         raise ValueError(f"submission must be {SHAPE}, got {arr.shape}")
-    if not np.isfinite(arr).all():
-        raise ValueError("submission contains NaN/inf; the local all-finite export policy rejects it")
-    if arr.min() < 0.0 or arr.max() > 1.0:
-        raise ValueError(f"submission out of range: min={arr.min()} max={arr.max()}")
+    if nan_footprint is None:
+        if not np.isfinite(arr).all():
+            raise ValueError("submission contains NaN/inf; the local all-finite export policy rejects it")
+        values = arr
+    else:
+        fp = np.asarray(nan_footprint, dtype=bool)
+        if fp.shape != arr.shape or not fp.any():
+            raise ValueError("NaN-exterior export requires a matching nonempty footprint")
+        if not np.isfinite(arr[fp]).all() or not np.isnan(arr[~fp]).all():
+            raise ValueError("require finite interior and exclusively NaN exterior")
+        if nodata is not None and not np.isnan(nodata):
+            raise ValueError("NaN-exterior nodata must be absent or NaN")
+        values = arr[fp]
+    if values.min() < 0.0 or values.max() > 1.0:
+        raise ValueError(f"submission out of range: min={values.min()} max={values.max()}")
     tr = Affine(*[float(v) for v in tuple(TRANSFORM)[:6]])
     west, north, xs, ys = tr.c, tr.f, tr.a, -tr.e
     check = from_origin(west, north, xs, ys)

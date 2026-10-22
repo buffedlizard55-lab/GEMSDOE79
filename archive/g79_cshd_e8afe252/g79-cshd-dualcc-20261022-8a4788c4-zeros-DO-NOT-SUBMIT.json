@@ -1,0 +1,157 @@
+{
+  "file": "g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif",
+  "sha256": "e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789",
+  "bytes": 143755,
+  "submission_name": "g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT",
+  "note": "GEMSDOE79 G79-CSHD: 98ch deconv-geophys+2m-probe+3DEP+Okada dual-regime CC (39747 px; 1713 >1.5km)",
+  "note_chars": 98,
+  "validator": {
+    "file": ".cache/g79_cshd/emitted/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 143755,
+    "sha256": "e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003236947814002633,
+    "emitted_positive_pixels": 39747,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 39747,
+    "footprint_fraction": 0.00769191618255543
+  },
+  "template_report": {
+    "path": ".cache/g79_cshd/emitted/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 143755,
+    "sha256": "e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.003236947814002633,
+    "n_nonzero": 39747,
+    "mass": 39747.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "118c3032a2ce019f109fb3650ffb78170a3309b6188d6575ff5c10ce1a97ca90",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "G79-CSHD",
+    "consensus_dual_charnes_cooper": {
+      "far_boost": 0.0,
+      "lambda_fp": 0.0018,
+      "min_sep_px": 1.9,
+      "max_budget": 40000,
+      "emitted_dots": 39747,
+      "far_dots_gt_1500m": 1713
+    },
+    "holdout_dti_seed20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.1924030824363654,
+      "ci95": [
+        0.17603118723288932,
+        0.20779009680055469
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 3197.0808361144227,
+      "fpw": 34601.8094073881,
+      "fnw": 8123.919163885575
+    },
+    "holdout_dti_seed30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.2040329427657942,
+      "ci95": [
+        0.18520662715113825,
+        0.22094350402963425
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 3415.5454780301557,
+      "fpw": 34917.288116052725,
+      "fnw": 7926.454521969845
+    },
+    "generated_timestamp_utc": "20261022T201112Z"
+  }
+}

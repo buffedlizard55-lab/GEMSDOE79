@@ -50,7 +50,11 @@
     {
       "path": "vendor/gems57/gates.py",
       "git_blob": "cf7cbda418a6b0f80bbdc44a2e12822a97215963",
-      "sha256": "7c57f70dbba58bb1112df4193a3de56516af0f981970d4b943b394f99b573dae"
+      "sha256": "f03f84c66087d9359fbf07398b491da899829547cadfdc607b7636f71f495a07",
+      "historical_sha256": [
+        "7c57f70dbba58bb1112df4193a3de56516af0f981970d4b943b394f99b573dae"
+      ],
+      "amendment": "IR-79-242: shared writer v2 explicit NaN-exterior encoding and validators; legacy default unchanged; no scientific artifact rewritten."
     },
     {
       "path": "vendor/gems57/geo.py",
@@ -60,7 +64,11 @@
     {
       "path": "vendor/gems57/grid.py",
       "git_blob": "e909e5a219ff242245e24477653a42306401495d",
-      "sha256": "b96df7ec0f33658a61b0baa5db85fcd19be2cd8b1873f99699bd26bddae8cd8d"
+      "sha256": "067ae212ad7f0cba0ff3e7d4de6db472683b96599382504ef0a1ce08e1d8ae4f",
+      "historical_sha256": [
+        "b96df7ec0f33658a61b0baa5db85fcd19be2cd8b1873f99699bd26bddae8cd8d"
+      ],
+      "amendment": "IR-79-242: shared writer v2 explicit NaN-exterior encoding and validators; legacy default unchanged; no scientific artifact rewritten."
     },
     {
       "path": "vendor/gems57/holdout.py",
@@ -105,7 +113,11 @@
     {
       "path": "vendor/gems57/submission_writer.py",
       "git_blob": "5a04a2b0d5d4137f0aad39d862889ef1b92198ea",
-      "sha256": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565"
+      "sha256": "0888e014aea55ab1830c091bc359b82aed6836fae1222a46d513b0271c39c86d",
+      "historical_sha256": [
+        "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565"
+      ],
+      "amendment": "IR-79-242: shared writer v2 explicit NaN-exterior encoding and validators; legacy default unchanged; no scientific artifact rewritten."
     },
     {
       "path": "vendor/gems57/uniqueness.py",
@@ -122,7 +134,11 @@
     {
       "path": "vendor/gems57/validate.py",
       "git_blob": "6729226367b1b927ca1c17b469b1bb774680a654",
-      "sha256": "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd"
+      "sha256": "7007e710feeb6dfa3e2ef9dbe77a8f73e62888b3c10077d12c358be96f544113",
+      "historical_sha256": [
+        "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd"
+      ],
+      "amendment": "IR-79-242: shared writer v2 explicit NaN-exterior encoding and validators; legacy default unchanged; no scientific artifact rewritten."
     }
   ],
   "policy": "Shared code; never fork locally. A shared defect is fixed once here with a version note, the pin is updated, and the patch is exported for the upstream template (reports/upstream_patch_uniqueness_v3.diff and reports/upstream_patch_uniqueness_v4.diff)."
