@@ -1,5 +1,26 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Current session — `G79-CSHD` (`arena/e8afe252-gemsdoe79`, `2026-10-22`): #1 all-time two-seed `HOLDOUT-DTI` record (`0.1924` / `0.2040`; mean `0.1982`), `8/8` official `R1–R8` `NaN`-exterior GeoTIFF + ZIP, & fail-closed novelty stop
+
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** (`verdict = negative`, `submission_slots_used = 0` — computed automatically from [`run_card_cshd.json`](run_card_cshd.json) and canonical [`run_card.json`](run_card.json); zero human inspection required.)
+
+- **New unique GeoTIFFs generated & SHA-256 verified in [`archive/g79_cshd_e8afe252/`](archive/g79_cshd_e8afe252/):**
+  - **Official DrivenData `R1–R8` `NaN`-exterior artifact (`8/8 PASS` on `src/gems79/portal_spec.py` `gems79-portal-format-v2`):**
+    - GeoTIFF: [`archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif`](archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif) (`SHA-256: c9886dba47fd1de727aff9bd24cfcb406db02982970ee3e5cde901e229055535`)
+    - Single-member ZIP (`8/8 PASS`): [`archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.zip`](archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.zip) (`SHA-256: dffb7aea4c611872553f7457642aff3cdfe4d2bfd7a63012f5b60a58c978b6bc`)
+    - Eliminates `"Predicted values must be in range [0, 1]"` and exterior mismatch simultaneously: single `float32` band, `EPSG:32611`, `3730 × 3292`, `NaN` outside template bounds matching `sample_submission.tif`, `0` interior `NaN`/`Inf`, all `5,167,373` in-bounds cells strictly in `[0.0, 1.0]`, `39,747` emitted binary dots (`1,713` beyond `1.5 km`), `0` on mapped catalogue.
+  - **Shared-writer `0.0`-exterior artifact (`15/15 PASS` on `scripts/validate_submission.py`):**
+    - GeoTIFF: [`archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif`](archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif) (`SHA-256: e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789`)
+  - **Unique submission name & note (`98 / 140` chars, records only):** `g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT` · `"GEMSDOE79 G79-CSHD: 98ch deconv-geophys+2m-probe+3DEP+Okada dual-regime CC (39747 px; 1713 >1.5km)"`
+- **All-time #1 two-seed `HOLDOUT-DTI` progression (`gems57-pooled-hide-v2`, `1,000` `20-km` block bootstrap draws — measured `HOLDOUT-DTI`, never a projected leaderboard score):**
+  - **`EXP-CSHD-3` (`G79-CSHD` 98-ch Dual-Regime CC):** **Seed 20 = `0.1924` `[0.1760, 0.2078]`** (`n = 11,321`) · **Seed 30 = `0.2040` `[0.1852, 0.2209]`** (`n = 11,342`) · **2-Seed Mean = `0.1982`** — **first lane in repository history to beat canonical `G79-THVC` (`0.1905` / `0.1944`) on BOTH seeds AND beat `G79-CSKD` (`0.1963`) on 2-seed mean (`2.03x` `H33`)**.
+  - **`EXP-CSHD-2` (`CSHD` + uniform `d = 2.8 px`, `37,654` dots):** `0.1590` `[0.1419, 0.1763]` (Seed 20) · `0.1791` `[0.1622, 0.1970]` (Seed 30).
+  - **`EXP-CSHD-1` (Pure 80-ch Zero-Catalogue Multi-Physics + 3DEP):** **`0.0992` `[0.0809, 0.1176]`** (Seed 20) · **`0.1095` `[0.0921, 0.1256]`** (Seed 30) — **beats `H33` (`0.0961` / `0.0989`) on BOTH seeds without using a single fault catalogue pixel**.
+- **98-feature leakage canary & 1,213-raster cross-repo uniqueness scan (`93` GEMS repositories):**
+  - **Leakage canary (Rule 4):** **PASS** — `98 / 98` features `<= 0.90` (`max symmetric AUC = 0.8043`, [`evidence/g79_cshd_single_feature_auc.json`](evidence/g79_cshd_single_feature_auc.json)).
+  - **Uniqueness scan (Rule 1):** Pre-placement surface `max |Spearman| = 0.6065 <= 0.90` (**PASS**); post-placement `max |Spearman| = 0.2366 <= 0.90` (**PASS**); **clears `GEMSDOE83` under Amendment D-2 (`0.6591 <= 0.70`, PASS)**, `GEMSDOE77` (`0.6952`), `GEMSDOE80` (`0.6494`), and `GEMSDOE78` (`0.6237`), but flags `16 / 1,209` legacy dense corridor rasters (`max external D-2 = 0.8182`, `59GEMSDOE`) plus the `1.0000` universal coverage witness (`IR-79-240`).
+- **Live `origin/main` regression repaired (`IR-79-232`):** Registered `docs/tipstep-submission.html` and [`docs/g79-cshd.html`](docs/g79-cshd.html) cleanly inside `scripts/build_site.py` and `scripts/check_site.py`, restoring `100%` test pass across the entire repository. See [`reports/session_review_e8afe252.md`](reports/session_review_e8afe252.md), [`research/hypotheses_cshd.md`](research/hypotheses_cshd.md), and [`docs/executive-summary.html`](docs/executive-summary.html).
+
 ## Latest session — G79-TIPSTEP (2026-10-22, this branch)
 
 **A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
