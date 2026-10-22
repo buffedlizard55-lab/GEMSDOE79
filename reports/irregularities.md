@@ -128,3 +128,18 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 | IR-79-54 | **Sequencing deviation.** The X1 final placement ran while the pre-placement surface uniqueness scan was still in progress; protocol rule 1 says to check the surface before placement. | Placement used no information from the scan, and no decision depended on the order. The surface check alone would have stopped the lane (`evidence/nhr/surface_topk_vs_flagged.json`), and the final verdict is the same stop. Future lanes should wait for the surface scan before placing dots. |
 | IR-79-55 | **H79-NHR stopped as a duplicate after beating the holdout best.** HOLDOUT-DTI was 0.1431 [0.1281, 0.1574] and 0.1522 [0.1335, 0.1696], against H33-control values of 0.0961 and 0.0989. But 26 ordinary registry dot fields each contain more than 70 % of the final dots within 3 px. | Verdict negative. The research GeoTIFF is published as DO-NOT-SUBMIT. The separate selector refused (`evidence/nhr/selector_decision.json`). There was no retuning, no overlap capping and no second lane; budget used: 1 of 3 experiments, about 70 min of 2 h. |
 | IR-79-56 | **Concurrent-lane merge.** PR #26 (G79-STEPCO, session 220dabc8) reached `main` while H79-NHR was running. Both lanes are negative. STEPCO S1 tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989). NHR beat it (0.1431 / 0.1522) but is a duplicate. | When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to `archive/g79_stepco_s1/downloads/`. `run_card_stepco.json`, `evidence/stepco/` and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at `archive/g79_fabric_offset_e1/`. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision. |
+
+## Review addendum — session 0c9f6bad (2026-10-22)
+
+- **IR-79-57:** Pinned clean install could not collect `test_g79b.py`: `skimage`
+  was imported by the archived lane's retained tests but absent from requirements.
+  Added scikit-image and its pinned dependency closure. Full suite now passes.
+- **IR-79-58:** README's routine verification commands reran the stopped NHR lane
+  and placed final dots before the surface uniqueness scan. Replaced with frozen
+  artifact checks. No stopped scientific entry point was executed in this review.
+- **IR-79-59:** Selector trusted a gate-summary PASS without invoking existing
+  evidence/card reconciliation. It now calls that adapter, requires all named
+  literal-boolean gates, and fails closed on malformed measurement evidence.
+  This is consistency verification, not a fresh holdout or organizer authentication.
+
+Details and evidence boundaries: [session review](session_review_0c9f6bad.md).
