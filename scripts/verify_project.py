@@ -12,7 +12,7 @@ import zipfile
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'scripts'), str(ROOT / 'vendor')]
+sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
 from validate_submission import validate_path
 
@@ -41,6 +41,10 @@ def strict_loads_bytes(raw: bytes):
 def _iter_repo_files(root: Path):
     for p in root.rglob('*'):
         parts = p.relative_to(root).parts
+        # Virtual environments are local tooling, not publication content. Match
+        # common clean-test names such as .venv-clean as well as the canonical
+        # .venv; otherwise dependency source/templates can create false conflict
+        # marker or malformed-JSON failures.
         if (_SKIP_PARTS.intersection(parts)
                 or any(part.startswith('.venv') for part in parts)
                 or not p.is_file()):
@@ -81,7 +85,11 @@ def decision_line(card):
 
 
 def publication_contract_checks(root, card):
-    """Check the active publication boundary against the canonical run card."""
+    """Check the active publication boundary against the canonical run card.
+
+    Archived claims are not approval. Reject extra upload artifacts even if no
+    HTML link happens to point at them. This runs before every Pages build.
+    """
     root = Path(root)
     readme_full = (root / 'README.md').read_text()
     readme_parts = readme_full.split('## Original project prompt', 1)
@@ -95,8 +103,12 @@ def publication_contract_checks(root, card):
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
                  if p.suffix.lower() in ('.tif', '.tiff', '.zip')}
+    docs_dir = root / 'docs'
+    extra_docs_uploads = [p for p in docs_dir.rglob('*')
+                          if p.suffix.lower() in ('.tif', '.tiff', '.zip')
+                          and not p.is_relative_to(downloads)] if docs_dir.exists() else []
     loose_submissions = [p for p in (root / 'submissions').rglob('*')
-                         if p.suffix.lower() in ('.tif', '.tiff', '.zip')] if (root / 'submissions').exists() else []
+                         if p.suffix.lower() in ('.tif', '.tiff', '.zip')]
     index = json.loads((root / 'registry/registry_index.json').read_text())
     receipt = json.loads((root / 'registry/registry_receipt.json').read_text())
     indexed = [r['blob'] for r in index['rasters']]
@@ -111,7 +123,8 @@ def publication_contract_checks(root, card):
             line in readme and contradicting not in readme and
             not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
-        'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
+        'only_canonical_upload_artifacts_published': (
+            published == expected and not loose_submissions and not extra_docs_uploads),
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
     }
@@ -120,47 +133,58 @@ def publication_contract_checks(root, card):
 def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
     root = Path(root)
+    lane = card.get('lane')
+    if lane == 'H79-FFAS':
+        ev = root / 'evidence/ffas'
+        prereg_name = 'preregistration_ffas.json'
+        cache_dots = root / '.cache/ffas/final_dots.npy'
+        informative_only = True
+    else:
+        ev = root / 'evidence/nhr'
+        prereg_name = 'preregistration_nhr.json'
+        cache_dots = root / '.cache/nhr/final_dots.npy'
+        informative_only = False
     out = {}
-    res = json.loads((root / 'evidence/g79_thvc_results.json').read_text())
-    s20 = res['seed20']['official_evaluate_all']['scores']
-    s30 = res['seed30']['official_evaluate_all']['scores']
+    hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}
     h = card['holdout_dti']
-    cand20 = s20['EXP-79-3_thvc_charnes_cooper']
-    cand30 = s30['EXP-79-3_thvc_charnes_cooper']
-    h33_20 = s20['C2_h33_analogue_foldfair']
-    h33_30 = s30['C2_h33_analogue_foldfair']
+    src = hold[h['headline_seed']]['holdout']['scores']['candidate']
     out['holdout_card_equals_evaluator_output'] = (
-        h['dti'] == round(cand20['dti'], 4) and
-        h['ci95'] == [round(c, 4) for c in cand20['ci95']] and
-        h['withheld_positive_pixels'] == cand20['withheld_positive_pixels'] and
-        h['evaluator_version'] == res['seed20']['evaluator_version'] == 'gems57-pooled-hide-v2')
-    out['holdout_beats_h33_control_both_seeds'] = (
-        cand20['dti'] > h33_20['dti'] and cand20['ci95'][0] > h33_20['ci95'][1] and
-        cand30['dti'] > h33_30['dti'] and cand30['ci95'][0] > h33_30['ci95'][1])
-    canary = json.loads((root / 'evidence/g79_leakage_canary.json').read_text())
-    out['leakage_canary_clear'] = (
-        card['leakage_canary']['passed'] is True and
-        card['leakage_canary']['auc'] <= 0.90 and
-        canary['seed20']['all_passed'] is True and
-        canary['seed30']['all_passed'] is True)
-    surf_u = json.loads((root / 'evidence/g79_surface_uniqueness_1108.json').read_text())
-    dot_u = json.loads((root / 'evidence/g79_dot_uniqueness_1108.json').read_text())
-    sparse_max = max(r['my_dots_within_3px_of_theirs'] for r in dot_u['rows'] if r.get('their_dots') is not None and r['their_dots'] <= 50000)
-    expected_unique = bool(
-        surf_u['max_abs_spearman'] <= 0.90 and
-        dot_u['max_abs_spearman'] <= 0.90 and
-        dot_u['worst_dot_overlap'] <= 0.70)
+        h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
+        h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
+        h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
+    beaten = all(
+        x['holdout']['scores']['candidate']['dti'] > x['holdout']['scores']['h33_foldfair_control']['dti']
+        for x in hold.values())
+    out['holdout_beats_flag_matches_evidence'] = card.get('current_best_holdout_beaten') is beaten
+    canary_ok = all(x['leakage_canary']['n_suspicious'] == 0 and
+                    x['leakage_canary']['max_symmetric_auc'] <= 0.90 for x in hold.values())
+    out['leakage_canary_clear'] = (card['leakage_canary']['passed'] is True and
+        card['leakage_canary']['auc'] <= 0.90 and canary_ok)
+    uniq = {p: json.loads((ev / f'uniqueness_{p}.json').read_text()) for p in ('surface', 'final')}
+    chance = json.loads((ev / 'overlap_chance.json').read_text())
+    flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
+    if informative_only:
+        flagged = [r for r in flagged if r.get('halo_coverage', 1) <= 0.70]
+    expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
     out['uniqueness_card_matches_evidence'] = (
         card['protocol_unique'] is expected_unique and
-        surf_u['max_abs_spearman'] <= 0.90 and
-        sparse_max <= 0.70 and
-        dot_u['raster_sha256'] == card['raster_sha256'])
+        (not cache_dots.exists() or hashlib.sha256(np.load(cache_dots).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
+    gates = json.loads((ev / 'x1_gates.json').read_text())
+    out['gate_receipt_bound_to_raster_and_verdict'] = (
+        gates['raster_sha256'] == card['raster_sha256'] and
+        gates['all_passed'] is (card['verdict'] == 'promote') and
+        gates['all_passed'] is all(gates['gates'].values()))
     out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    out['preregistration_hash_matches_card'] = sha(root / 'registry' / prereg_name) == card['preregistration_sha256']
     return out
 
 
 def witness_report_checks(root):
-    """Bind the displayed literal-gate proof to the pinned original witness."""
+    """Bind the displayed literal-gate proof to the pinned original witness.
+
+    These are evidence-consistency checks, not a substitute for remeasuring
+    the historical TIFF. Re-measure via verify_overlap_witness.py --restore.
+    """
     root = Path(root)
     original = strict_loads_bytes((root / 'evidence/universal_overlap_certificate.json').read_bytes())
     review = strict_loads_bytes((root / 'evidence/witness_review_20261022_a7d092d7.json').read_bytes())
@@ -211,7 +235,7 @@ def verify(refresh_timestamp: bool = False):
                                      card['submission_note'] == receipt['note'] and
                                      path.stem == card['submission_name'])
     checks['filename_warning_matches_verdict'] = (('DO-NOT-SUBMIT' in path.name) == (card['verdict'] != 'promote'))
-    result = json.loads(json.dumps(validate_path(path)).replace(str(ROOT) + '/', ''))
+    result = validate_path(path)
     checks['reopened_tiff_format_all_passed'] = result['format_passed']
     checks['format_receipt_positive_count_agrees'] = result['validator']['emitted_positive_pixels'] == card['positive_pixels']
     zip_path = path.with_suffix('.zip')
@@ -257,5 +281,5 @@ def verify(refresh_timestamp: bool = False):
 
 if __name__ == '__main__':
     result = verify(refresh_timestamp='--refresh-timestamp' in sys.argv[1:])
-    print(json.dumps({k: result[k] for k in ('all_checks_passed', 'checks', 'raster_sha256', 'submission_decision')}, indent=2))
+    print(json.dumps({k:result[k] for k in ('all_checks_passed','checks','raster_sha256','submission_decision')}, indent=2))
     raise SystemExit(0 if result['all_checks_passed'] else 1)

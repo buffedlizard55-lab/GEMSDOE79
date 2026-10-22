@@ -1,0 +1,28 @@
+{
+  "selected": false,
+  "selector": "scripts/select_submission.py",
+  "raster_sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
+  "observed_utc": "2026-10-22T04:46:07.344983+00:00",
+  "blockers": [
+    "literal_novelty_not_cleared",
+    "matched_current_best_holdout_not_beaten",
+    "negative_scientific_verdict"
+  ],
+  "failed_gates": [
+    "beats_current_holdout_best_both_seeds",
+    "final_dot_uniqueness_passed",
+    "paired_ci_vs_uniform_excludes_zero_both_seeds",
+    "surface_uniqueness_passed"
+  ],
+  "card_left_unchanged": true,
+  "evidence_checks": {
+    "holdout_card_equals_evaluator_output": true,
+    "holdout_beats_flag_matches_evidence": true,
+    "leakage_canary_clear": true,
+    "uniqueness_card_matches_evidence": true,
+    "gate_receipt_bound_to_raster_and_verdict": true,
+    "promotion_requires_uniqueness": true,
+    "preregistration_hash_matches_card": true,
+    "complete_literal_gate_receipt": false
+  }
+}

@@ -1119,17 +1119,6 @@
         "Not preregistered in registry/ and did not evaluate HOLDOUT-DTI (gems57-pooled-hide-v2).",
         "Failed duplicate gate (1.0000 vs 17GEMSDOE E-proba, GEMSDOE48 unassigned-mass, and 5GEMSDOE density-probe; 0.9976 vs 13GEMSDOE lattice; 0.8802 vs GEMSDOE3 coverage-v3-wide)."
       ]
-    },
-    "H79-NHR": {
-      "artifact": "archive/concurrent_downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-      "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
-      "canonical_literal_uniqueness": {
-        "worst_forward_overlap_3px": 1.0
-      },
-      "canonical_readiness_decision": {
-        "ok_to_submit": false,
-        "verdict": "negative"
-      }
     }
   },
   "cross_lane_comparison": {
@@ -1254,8 +1243,11 @@
     }
   },
   "active_deliverable_unchanged": {
-    "lane": "G79-THVC",
-    "submission_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-    "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2"
+    "lane": "H79-FFAS",
+    "submission_file": "docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif",
+    "raster_sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "verdict": "negative"
   }
 }
