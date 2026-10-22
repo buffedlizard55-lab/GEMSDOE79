@@ -305,6 +305,24 @@ below is for the user to choose from.
 
 Concurrent negative artifacts from PRs merged to `main` while this lane ran are archived byte-for-byte: H79-STEP in [`archive/h79_step_21642326/`](archive/h79_step_21642326/), G79-THVC in [`archive/g79_thvc_33e1f8ec/`](archive/g79_thvc_33e1f8ec/), H79-NHR in [`archive/h79_nhr/`](archive/h79_nhr/) and [`archive/h79_nhr_337ac1e9/`](archive/h79_nhr_337ac1e9/README.md). None of them is the canonical download.
 
+## Concurrent lane H79-FF1 (session `226cfe5c`): also negative, archived
+
+Far-field 1–3 km band placement on the reused NHR surface
+([hypotheses](research/hypotheses_farfield.md),
+[preregistration](registry/preregistration_ff1.json),
+[run card](run_card_ff1.json), [analysis](reports/ff1_analysis.md)), archived
+under [`archive/g79_ff1/`](archive/g79_ff1/README.md) — **not** the canonical
+download; **DO NOT SUBMIT**. HOLDOUT-DTI (gems57-pooled-hide-v2) was
+0.0944 [0.0803, 0.1074] / 0.0931 [0.0802, 0.1065] (seeds 20/30) vs the H33
+fold-fair control 0.0961 / 0.0989 — the band costs ~0.05 against the
+unrestricted NHR reference (0.1431 / 0.1522), so it never beat the holdout
+best. Canaries passed (max AUC 0.851 / 0.859 ≤ 0.90). Surface Spearman passed
+(worst 0.633), but 78.2 % of final dots fall within 3 px of the GEMSDOE3
+`pindrop-v4-nodes` dot field (8 informative dot fields > 70 %): duplicate per
+protocol, verdict **negative**, 0 slots used. Same conclusion as the other
+lanes, from the opposite side: near-field credit is already dotted, and
+far-field placement loses the recoverable signal the holdout can measure.
+
 ## Limitations and next steps
 
 - HOLDOUT-DTI withholds *catalogue* faults; the organizer scores *expert* faults absent from the catalogue.

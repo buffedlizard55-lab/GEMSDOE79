@@ -783,5 +783,21 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Added <code>"src"</code>, <code>"vendor"</code>, and <code>"scripts"</code> to <code>pythonpath</code> in <code>pyproject.toml</code> and explicit <code>sys.path</code> insertion in <code>tests/conftest.py</code>, verified in a clean <code>/tmp</code> runner directory without <code>.cache/</code>.</td>
 </tr>
 </tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-110</td>
+<td><strong>H79-FF1 stopped negative on both gates.</strong> HOLDOUT-DTI (gems57-pooled-hide-v2) 0.0944/0.0931 vs H33 fold-fair control 0.0961/0.0989 (seeds 20/30); final dots 78.2% within 3 px of <code>GEMSDOE3 pindrop-v4-nodes</code> (155,021 dots), 8 informative dot fields &gt;70% (<code>evidence/ff1/informative_overlap.json</code>). Surface Spearman worst 0.633 passed.</td>
+<td>Lane stopped after X1, no retuning/band widening. Artifact archived DO-NOT-SUBMIT under <code>archive/g79_ff1/</code>; card <code>run_card_ff1.json</code>; 0 slots used. Remaining limitation: hide-and-recover cannot measure expert-only far-field truth.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

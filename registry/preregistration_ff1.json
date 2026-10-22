@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "lane": "H79-FF1",
+  "title": "Far-field band (1-3 km) ranking of the nested hide-to-recover surface",
+  "registered_utc": "2026-10-22T04:00:00Z",
+  "branch": "arena/226cfe5c-gemsdoe79",
+  "registered_before_any_holdout_result": true,
+  "lane_paragraph": "Reuse H79-NHR nested hide-to-recover HGB surface unchanged (shared gems57 evaluator/writer, gems79.nhr stack). The single new mechanism is a hard placement band: dots may only be placed 10-30 px (1-3 km) from the visible catalogue (holdout) or full catalogue (final), off masked/catalogue pixels, 3 px Poisson spacing, budget 37654 scaled by region area. Surface uniqueness is checked BEFORE final placement; final dots re-checked.",
+  "hypothesis": "Subsidiary antithetic/synthetic strands 1-3 km from mapped traces carry unmapped-fault kernel credit; restricting a learned discovery surface to that band beats the H33 fold-fair control on hide-and-recover holdout while vacating the near-field dot fields that made H79-NHR a duplicate.",
+  "mechanism": "Basin-and-Range multi-strand fault zones: subsidiary strands/step-overs within ~1-3 km share strike and offset Quaternary surfaces (lidar scarps in stack).",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline/terrace risers and incised channel banks produce contour-parallel steps near range fronts.",
+  "fixed_parameters": {
+    "band_px": [
+      10,
+      30
+    ],
+    "budget": 37654,
+    "spacing_px": 3,
+    "model": "identical to registry/preregistration_nhr.json (HGB 250 iters, lr0.08, leaves63, minleaf200, l2 1.0)",
+    "training": "identical nested hide-to-recover as scripts/run_nhr.py, imported not forked"
+  },
+  "holdout": {
+    "split": "shared gems57 buffered_component_draw seeds 20,30 buffer3 boundary12",
+    "evaluator": "gems57-pooled-hide-v2",
+    "controls": [
+      "h33_foldfair_control",
+      "uniform_control",
+      "ablation_no_geometry (unrestricted NHR placement, for band cost accounting)"
+    ]
+  },
+  "promotion_gate": [
+    "canary <=0.90 both seeds",
+    "candidate HOLDOUT-DTI > h33 control both seeds",
+    "paired CI vs uniform excludes 0",
+    "surface uniqueness before placement: spearman<=0.90 all registry",
+    "final dots: spearman<=0.90 and <=70% within 3px of any registry raster (budget-matched-v3)",
+    "shared writer PASS: 1-band float32 EPSG:32611 3730x3292 sample transform, finite, [0,1], no NaN in footprint"
+  ],
+  "budget": {
+    "max_experiments": 3,
+    "max_hours": 2
+  },
+  "experiments": [
+    "X1: band-restricted placement as above"
+  ],
+  "score_policy": "HOLDOUT-DTI labelled with evaluator/n/CI only; ORGANIZER-CONFIRMED only from submission-page receipt."
+}
