@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "reviewed_date_utc": "2026-10-21",
-  "retrieval_method": "Research fetch_page tool; direct sandbox egress to these non-GitHub domains is restricted. Extracts below are reviewed claims, not archived complete page bytes.",
+  "reviewed_date_utc": "2026-10-22",
+  "retrieval_method": "Research fetch_page tool on 2026-10-22 across DrivenData problem/metric/data pages, public leaderboard pages 1-4 (ranks #1-#200), DOE/NLR official rules PDF, USGS GeoDAWN, OpenEI GDR 1391, GBCGE INGENIOUS, EPSG:32611, and drivendataorg/gems-prize-reference-solution; direct sandbox HTTP egress to non-GitHub hosts is restricted.",
   "sources": [
     {
       "id": "DD-PROBLEM",
@@ -112,19 +112,31 @@
       "id": "DD-LEADERBOARD",
       "authority": "DrivenData public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "access": "all three chunks read",
+      "access": "pages 1-4 read in full on 2026-10-22 (ranks #1-#200)",
       "observation": {
         "first_place_participant": "xiaofanhu",
         "public_dti": 0.4413,
-        "rank_48_participant": "extradr19",
-        "rank_48_public_dti": 0.2778
+        "second_place_participant": "cfld__",
+        "second_place_public_dti": 0.3904,
+        "third_place_participant": "Batik Shirt Brothers",
+        "third_place_public_dti": 0.3894,
+        "rank_21_public_dti": 0.3261,
+        "rank_22_public_dti": 0.3183,
+        "rank_52_participant": "extradr19",
+        "rank_52_public_dti": 0.2778,
+        "rank_57_participant": "wbg1",
+        "rank_57_public_dti": 0.275,
+        "rank_103_official_benchmark_account": "doegemsDrivendata",
+        "rank_103_public_dti": 0.1847
       },
       "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
       "limits": [
-        "A matching numeric value does not prove the H33 filename, raster hash, or submitting identity.",
+        "A matching numeric value (e.g. rank #52 extradr19 = 0.2778, down from #48 on 2026-10-21; or rank #69 SDCF9 = 0.2600) does not prove artifact SHA-256 identity or submitting entity.",
+        "Prompt figure 0.3195 does not appear anywhere in ranks #1-#200 on 2026-10-22 (nearest rows are #21 = 0.3261 and #22 = 0.3183).",
+        "DOE/NLR Official Rules Section 3.4 permits strictly one final submission per participating entity (team, organization, or solo individual) across both prize rounds.",
         "No submission in this repository has an ORGANIZER-CONFIRMED submission-page receipt."
       ],
-      "observed_date_utc": "2026-10-21"
+      "observed_date_utc": "2026-10-22"
     },
     {
       "id": "DD-AUTH",

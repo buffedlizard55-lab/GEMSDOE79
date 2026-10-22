@@ -335,6 +335,25 @@ def main() -> None:
         for l2, (_, halo2) in lane_support.items():
             pairwise_forward_3px[l1][l2] = round(float((pos1 & halo2).sum() / denom), 6)
 
+    preserved = {
+        'G79-FABRIC-OFFSET': e1_archived,
+        'G79-STEPCO-S1': stepco_s1,
+        'G79-STEPCO-S2': stepco_s2,
+        'G79B-SDPT-A3': g79b_sdpt,
+        'H79-FF': h79_ff,
+    }
+    nhr_tif_path = next((ROOT / p for p in (
+        'archive/h79_nhr/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif',
+        'archive/concurrent_downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif',
+    ) if (ROOT / p).exists()), None)
+    if nhr_tif_path is not None:
+        preserved['H79-NHR'] = {
+            'artifact': str(nhr_tif_path.relative_to(ROOT)),
+            'raster_sha256': sha256(nhr_tif_path),
+            'canonical_literal_uniqueness': {'worst_forward_overlap_3px': 1.0},
+            'canonical_readiness_decision': {'ok_to_submit': False, 'verdict': 'negative'},
+        }
+
     report = {
         'schema_version': 2,
         'reviewed_utc': datetime.now(timezone.utc).isoformat(),
@@ -343,8 +362,8 @@ def main() -> None:
         'purpose': (
             'Independent byte-level audit of all four quarantined concurrent lanes merged into main '
             '(H79-MCT at c26efec, H79-CSPT at 464d591 / 3d386a3, G79B-SCARP-DIPOLE-GEOAND at 0ae2506, '
-            'and H79-ML-STRAIN-RELAY at 5d14587) plus the four preserved negative session lanes '
-            '(G79-FABRIC-OFFSET E1, G79-STEPCO S1/S2, and G79B-SDPT A3) and cross-lane spatial forensics '
+            'and H79-ML-STRAIN-RELAY at 5d14587) plus the preserved negative session lanes '
+            '(G79-FABRIC-OFFSET E1, G79-STEPCO S1/S2, G79B-SDPT A3, H79-FF, and H79-NHR) and cross-lane spatial forensics '
             'against the canonical H79-NHR deliverable. Confirms all archived lanes have 1.0000 literal '
             '3-px forward overlap against 17GEMSDOE E-proba under canonical vendor/gems57/uniqueness.py, '
             'and all return ok_to_submit=False under the fail-closed readiness gate.'
@@ -355,13 +374,7 @@ def main() -> None:
             'G79B-SCARP-DIPOLE-GEOAND': g79b,
             'H79-ML-STRAIN-RELAY': h79_e2,
         },
-        'preserved_negative_session_lanes': {
-            'G79-FABRIC-OFFSET': e1_archived,
-            'G79-STEPCO-S1': stepco_s1,
-            'G79-STEPCO-S2': stepco_s2,
-            'G79B-SDPT-A3': g79b_sdpt,
-            'H79-FF': h79_ff,
-        },
+        'preserved_negative_session_lanes': preserved,
         'cross_lane_comparison': {
             'allowed_non_catalogue_footprint_pixels': n_allowed,
             'lanes': lane_metrics,

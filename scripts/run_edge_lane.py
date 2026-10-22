@@ -145,11 +145,20 @@ def evaluate_seed(grid, surface, seed):
 
 
 def main():
+    state_path = ROOT / 'evidence/experiment_state_edge.json'
+    if state_path.exists():
+        prior_state = json.loads(state_path.read_text())
+        if prior_state.get('stopped') is True:
+            print(json.dumps({
+                'lane': prior_state.get('lane', 'H79-STEP'),
+                'refused': True,
+                'reason': 'H79-STEP is a stopped negative historical lane (archived in archive/h79_step_21642326/). Do not re-run or overwrite canonical G79-THVC artifacts.',
+            }, indent=2))
+            raise SystemExit(2)
     prereg = json.loads((ROOT / 'registry/preregistration_edge.json').read_text())
     registered = datetime.fromisoformat(prereg['registered_utc'].replace('Z', '+00:00'))
     if datetime.now(timezone.utc) > registered + timedelta(hours=2):
         raise TimeoutError('Two-hour budget exhausted')
-    state_path = ROOT / 'evidence/experiment_state_edge.json'
     state = {'lane': prereg['lane'], 'started_utc': datetime.now(timezone.utc).isoformat(),
              'preregistration_sha256': digest(ROOT / 'registry/preregistration_edge.json')}
     write_json(state_path, state)

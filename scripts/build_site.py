@@ -255,6 +255,7 @@ def home_negative(card, index):
 <tr><td>G79B-SDPT (Archived 67557396, 49-ch scarp trace)</td><td>37,654</td><td>0.1114 [0.0943, 0.1287]</td><td>0.1211 [0.1029, 0.1402]</td><td>+0.0153 (+15.9%)</td></tr>
 <tr><td>H79-ML-STRAIN-RELAY (E2, archived 5d14587)</td><td>37,654</td><td>0.1022 [0.0865, 0.1183]</td><td>0.1065 [0.0908, 0.1228]</td><td>+0.0061 (+6.3%)</td></tr>
 <tr><td><strong>C2 · H33 Champion Control (GEMSDOE32, 0.2778 hist.)</strong></td><td>37,654</td><td>0.0961 [0.0831, 0.1090]</td><td>0.0989 [0.0854, 0.1128]</td><td>Baseline (0.0000)</td></tr>
+<tr><td>H79-STEP (Archived 21642326, PR #53 100 m–1 km annulus)</td><td>37,654</td><td>0.0949 [0.0735, 0.1161]</td><td>0.1087 [0.0858, 0.1293]</td><td>−0.0012 (−1.2%)</td></tr>
 <tr><td>G79-STEPCO (S1, archived 220dabc8)</td><td>37,654</td><td>0.0946 [0.0778, 0.1110]</td><td>0.0966 [0.0802, 0.1135]</td><td>−0.0015 (−1.6%)</td></tr>
 <tr><td>H79-MCT (Archived c26efec)</td><td>37,654</td><td>0.0944 [0.0792, 0.1095]</td><td>0.1095 [0.0931, 0.1264]</td><td>−0.0017 (−1.8%)</td></tr>
 <tr><td>EXP-79-1 · Pure Zero-Catalogue Geophysics + Hydrothermal</td><td>37,654</td><td>0.0784 [0.0661, 0.0898]</td><td>0.0648 [0.0550, 0.0757]</td><td>−0.0177 (−18.4%)</td></tr>
@@ -275,10 +276,16 @@ def home_negative(card, index):
 def executive_negative(card):
     h = card['holdout_dti']; s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
     conds = ''.join(f'<li>{E(c)}</li>' for c in card.get('account_side_conditions', []))
-    return f"""<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / DRIVENDATA SUBMISSION GUIDE</p><h1>G79-THVC Executive Summary &amp; Upload Guide</h1><p class="lead">Plain-language summary of G79-THVC, verified holdout evidence across all 9 GEMSDOE79 lanes, fail-closed slot status, and exact DrivenData upload instructions.</p></section>
+    return f"""<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / DRIVENDATA SUBMISSION GUIDE</p><h1>G79-THVC Executive Summary &amp; Upload Guide</h1><p class="lead">Plain-language summary of G79-THVC, verified holdout evidence across all 11 GEMSDOE79 lanes, fail-closed slot status, and exact DrivenData upload instructions.</p></section>
 <section class="section">{download_panel(card)}</section>
 <section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
 <section class="section">{md('reports/g79_thvc_scientific_report.md')}</section>
+<section class="section prose"><h2>Limitations, Cross-Repo Portfolio Cautions &amp; Rules Caveats</h2><ul>
+<li><strong>Outside-footprint convention conflict (IR-79-69):</strong> DrivenData's problem page lists “data outside the bounds is null or nan” while the official reference notebook (<code>drivendataorg/gems-prize-reference-solution</code>, commit <code>aebe92f</code>) and historical <code>H33</code> raster write finite <code>0.0</code> outside the 5,167,373-cell footprint. This file writes finite <code>0.0</code> across all 7,111,787 outside cells; verify portal acceptance if submitting manually.</li>
+<li><strong>Cross-repo post-index sibling collision (IR-79-89):</strong> Byte audit across <code>GEMSDOE76</code>–<code>GEMSDOE88</code> (<a href="evidence/post_index_sibling_audit_20261022.json">post_index_sibling_audit_20261022.json</a>) shows <code>71.39%</code> (<code>0.7139 &gt; 0.70</code>) of <code>G79-THVC</code>'s 35,093 dots fall within 3 px (300 m) of <code>GEMSDOE83</code>'s <code>gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif</code> (37,654 dots; self-reported dual-seed <code>HOLDOUT-DTI = 0.1999 / 0.2138</code>). Never spend two weekly DrivenData slots on both <code>G79-THVC</code> and <code>GEMSDOE83</code>; compare them as one portfolio slot candidate alongside orthogonal <code>GEMSDOE78</code> (<code>0.4041–0.5538 &lt;= 0.70</code> overlap).</li>
+<li><strong>Three-tier Pigeonhole duplicate-gate obstruction (IR-79-84, IR-79-90):</strong> Unchanged literal <code>vendor/gems57/uniqueness.py</code> is universally blocked by continuous surface <code>17GEMSDOE</code> (<code>halo = 1.0000</code>), four tied plateaus in <code>GEMSDOE48</code>/<code>5GEMSDOE</code>, and sparse-support lattice <code>13GEMSDOE r13-lattice-s5</code> (<code>206,895</code> dots = <code>4.00%</code> support, <code>6,514</code> uncovered boundary cells, forcing <code>overlap &gt;= 0.8144 &gt; 0.70</code> for every 35,093-dot map).</li>
+<li><strong>DOE / NLR Official Rules §§ 3.2 &amp; 3.4 (<a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">96647.pdf</a>):</strong> Up to three submissions per week, mandatory narrative disclosure of generative AI usage, and strictly <strong>one final selected submission per participating entity</strong> across both prize rounds.</li>
+</ul></section>
 <section class="section prose"><h2>Account-side conditions for human DrivenData submission</h2><ul>{conds}</ul></section>"""
 
 
@@ -340,6 +347,8 @@ def main():
               'evidence/g79_surface_uniqueness_1108.json': 'g79_surface_uniqueness_1108.json',
               'evidence/g79_dot_uniqueness_1108.json': 'g79_dot_uniqueness_1108.json',
               'evidence/official_ingenious_receipt.json': 'official_ingenious_receipt.json',
+              'evidence/post_index_sibling_audit_20261022.json': 'post_index_sibling_audit_20261022.json',
+              'archive/h79_step_21642326/run_card_step.json': 'run_card_step.json',
               'registry/preregistration_g79_thvc.json': 'preregistration_g79_thvc.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
@@ -368,6 +377,9 @@ def main():
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
                                     'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
+                          + '<section class="section"><h2>Session 070af0b6 — five untried post-G79-THVC geological hypotheses (not executed, 2026-10-22)</h2>'
+                          + '<p>Audited all 11 GEMSDOE79 lanes and all 93 family repositories through GEMSDOE88 to specify five genuinely untried subsurface/tectonic mechanisms targeting the &gt;1.5–8 km non-LiDAR and blind-basin gap without spending any weekly slot. <a href="evidence/post_index_sibling_audit_20261022.json">Post-index GEMSDOE76–88 audit JSON</a> · <a href="evidence/run_card_step.json">Archived H79-STEP card</a>.</p>'
+                          + md('research/hypotheses_post_thvc_backlog.md') + '</section>'
                           + '<section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2>'
                           + '<p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p>'
                           + md('research/hypotheses_e846fc02.md') + '</section>'

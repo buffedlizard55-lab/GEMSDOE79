@@ -69,7 +69,7 @@ def test_failed_feed_preserves_old_observation_date(tmp_path, monkeypatch):
     refresh_feed.main()
     result = json.loads(path.read_text())
     assert result['leaderboard_observation'] == old
-    assert result['scientific_claims_reviewed_date'] == '2026-10-21'
+    assert result['scientific_claims_reviewed_date'] == ledger['reviewed_date_utc']
     assert result['submission_slots_used_by_this_refresh'] == 0
 
 
