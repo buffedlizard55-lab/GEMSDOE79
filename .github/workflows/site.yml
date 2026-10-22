@@ -10,7 +10,8 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: pages
+  # PR builds must not replace a pending main/scheduled publication.
+  group: pages-${{ github.event.pull_request.number || 'production' }}
   cancel-in-progress: false
 jobs:
   build:
