@@ -1,0 +1,150 @@
+{
+  "schema_version": 2,
+  "lane": "H80-FAR-BASIN",
+  "generated_utc": "2026-10-22T14:30:00Z",
+  "preregistration_path": "research/hypotheses_far_lane_20261022.md",
+  "preregistration_sha256": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8",
+  "hypothesis": "H80-FAR-BASIN: Blind-basin faults beneath Holocene playa/fan cover are identifiable via multi-scale Bouguer gravity HGM ridge prominence and basement-depth step asymmetry, allocating 35% of dot budget to >2 km far-field to target uncatalogued geothermal conduits masked from LiDAR scarps.",
+  "mechanism": "Stratified Poisson-disk emission: 65% near-field (d_cat <=2 km, Gaussian weight around 800 m tip relay) + 35% far-field (d_cat >2 km, weight = 0.38*exp(-(d-20)/28)*(0.55+0.45*edge_norm)), min_sep 2.2/2.8 px, budget 37,654, catalogue-excluded 200 m collar, uses only footprint + existing_faults.tif via vendor/gems57.",
+  "named_non_fault_mimic": "Pleistocene Lake Lahontan wave-cut benches, fluvial terrace risers, and evaporitic playa brine conductivity highs mimicking gravity steps; rejected via edge-distance weighting and topographic closure.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed": 20,
+    "dti": 0.0176,
+    "ci95": [0.0157, 0.0194],
+    "withheld_positive_pixels": 11321,
+    "tpw": 282.9,
+    "fpw": 34960.6,
+    "fnw": 11038.1,
+    "matched_h33_analogue_dti": 0.0961,
+    "matched_h33_analogue_ci95": [0.0831, 0.1090],
+    "delta_vs_h33": -0.0785,
+    "delta_vs_h33_ci95": [-0.092, -0.064],
+    "prob_beats_h33": 0.0,
+    "per_seed": {
+      "seed_20": {
+        "candidate": {"dti": 0.0176, "ci95": [0.0157, 0.0194]},
+        "withheld_positive_pixels": 11321,
+        "h33_foldfair_control": {"dti": 0.0961, "ci95": [0.0831, 0.1090]}
+      },
+      "seed_30": {
+        "candidate": {"dti": 0.0181, "ci95": [0.0160, 0.0201]},
+        "withheld_positive_pixels": 11342,
+        "h33_foldfair_control": {"dti": 0.0989, "ci95": [0.0854, 0.1128]}
+      }
+    }
+  },
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.8036,
+    "passed": true,
+    "features_cleared": 84,
+    "required_threshold": 0.9,
+    "n_features_tested": 84,
+    "n_suspicious_gt_0p90": 0,
+    "max_feature": "net_tip_fwd_35px",
+    "source": "evidence/g79_leakage_canary.json"
+  },
+  "correlation_overlap_vs_registry": {
+    "registry_rasters_expected": 1108,
+    "registry_rasters_checked_full_grid": 1088,
+    "repositories_scanned": 93,
+    "surface_before_placement": {
+      "checked_nonconstant": 1082,
+      "max_abs_spearman": 0.0,
+      "spearman_limit": 0.9,
+      "spearman_passed": true,
+      "note": "Surface not generated for this dot-only heuristic; no continuous surface to correlate"
+    },
+    "dots_comparable_sparse_budget_le_50k": {
+      "checked_sparse_rasters": 718,
+      "max_forward_overlap_3px": 0.658,
+      "forward_overlap_limit": 0.7,
+      "passed": true,
+      "closest_sparse_submission": "GEMSDOE79:docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "overlap_vs_h33_champion": 0.412,
+      "overlap_vs_gemsdoe73_mvh": 0.498
+    },
+    "dots_all_1088_literal_unchanged_uniqueness_py": {
+      "max_abs_spearman": 0.089,
+      "max_jaccard_dot_sets": 0.038,
+      "literal_max_forward_overlap_3px": 1.0,
+      "note": "Literal gate fires on space-filling witness 17GEMSDOE (5,167,373 px, halo=1.0) where oracle truth20=1.0; not evidence of duplication"
+    }
+  },
+  "sparse_comparable_unique": true,
+  "protocol_unique": false,
+  "current_best_holdout_beaten": false,
+  "scientific_verdict": "negative",
+  "verdict": "negative",
+  "stop_reason": "HOLDOUT-DTI 0.0176/0.0181 does not beat H33 0.0961/0.0989 on either seed; far-field gravity allocation alone underperforms proximal tip model. Negative result is deliverable per PARALLEL-RUN PROTOCOL; 0 weekly slots used.",
+  "artifact_kind": "validated_binary_dot_submission_candidate_held_for_selector",
+  "submission_file": "archive/g79_far_20261022/downloads/g79-far-basin-20261022-37654dots-zeros.tif",
+  "zip_file": "archive/g79_far_20261022/downloads/g79-far-basin-20261022-37654dots-zeros.zip",
+  "raster_sha256": "cc511546c92706b154076a2be155e27899ba9b186bd2eb2cd091b1b6c584f538",
+  "zip_sha256": "e8a2f1c9d4b5e6a7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7",
+  "positive_pixels": 37654,
+  "submission_name": "g79-far-basin-20261022-37654dots-zeros",
+  "submission_note": "G79-FAR: 65% tip +35% basin gravity-step far-field (37654 px) HOLDOUT 0.0176/0.0181 negative",
+  "validator": {
+    "file": "archive/g79_far_20261022/downloads/g79-far-basin-20261022-37654dots-zeros.tif",
+    "bytes": 824484,
+    "sha256": "cc511546c92706b154076a2be155e27899ba9b186bd2eb2cd091b1b6c584f538",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [3730, 3292],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+      "profile_compress": "lzw"
+    },
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "format_passed": true
+  },
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "remaining_weekly_slots": null,
+  "capacity_verified_from_submission_page": false,
+  "selector_receipt": null,
+  "experiment_count": 1,
+  "holdout_evaluations_performed": 2,
+  "final_dot_placements_performed": 1,
+  "named_non_fault_process": "Pleistocene Lake Lahontan wave-cut benches and evaporitic playa brine highs",
+  "validator_output": {
+    "file": "archive/g79_far_20261022/downloads/g79-far-basin-20261022-37654dots-zeros.tif",
+    "bytes": 824484,
+    "sha256": "cc511546c92706b154076a2be155e27899ba9b186bd2eb2cd091b1b6c584f538",
+    "format_passed": true
+  },
+  "max_experiments": 3
+}
