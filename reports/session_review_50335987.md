@@ -121,3 +121,9 @@ and corrected the writer-policy reference to 227. No gate thresholds changed.
 
 After the final gate integration and issue-reference fixes: **611 tests passed**;
 site build, link check and project verification passed again.
+
+The subsequent main follow-up 17e9049 independently closed its issue-number gap.
+Retained that published numbering and AGENTS reference (writer policy = 224);
+this review's three findings use session-scoped IR-50335987-01 through -03 to
+avoid further concurrent collisions. This supersedes the intermediate numbering
+repair described above; no executable code changed in this last reconciliation.
