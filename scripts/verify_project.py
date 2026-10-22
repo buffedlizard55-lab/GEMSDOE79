@@ -21,7 +21,17 @@ def sha(path):
 def verify(refresh_timestamp: bool = False):
     checks = {}
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
-    checks['all_shared_template_bytes_unmodified'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
+    # The frozen pin schema maps vendor module basenames to hashes. Do not accept
+    # the historical H85 local-amendment declaration as an upstream pin: verify
+    # the actual vendored bytes against the pinned values and report amendments
+    # separately for audit.
+    checks['vendor_bytes_match_frozen_pin'] = all(
+        sha(ROOT / 'vendor/gems57' / name) == digest
+        for name, digest in pin['files'].items()
+    )
+    checks['local_vendor_amendments_disclosed'] = (
+        isinstance(pin.get('local_amendments'), list) and bool(pin['local_amendments'])
+    )
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()
     checks['preregistration_preserved'] = sha(ROOT / 'registry/preregistration.json') == expected_prereg
     manifest = json.loads((ROOT / 'registry/data_manifest.json').read_text())
