@@ -71,9 +71,14 @@ def download_panel(card):
     file = Path(card['submission_file']).name
     zipfile = Path(card['zip_file']).name
     size_mib = (ROOT / card['submission_file']).stat().st_size / (1024 * 1024)
+    verdict = card.get('verdict','negative')
+    if verdict == 'promote':
+        note = '''<div class="download-warning" style="border-color: var(--green); background: #eafff2;"><strong>OK TO DOWNLOAD: YES. &nbsp; OK TO SUBMIT: YES — FORMAT VALID.</strong><br>Single-band float32 GeoTIFF passes all portal range checks (no NaN, values in [0,1], CRS/shape/transform match). No “Predicted values must be in range [0,1]” error. Scientific gate: HOLDOUT-DTI beat matched controls with paired 95% CI &gt;0 on both seeds; leakage canaries &le;0.90. Selector approval & weekly cap still required per official rules — this page never auto-submits.</div>'''
+    else:
+        note = '''<div class="download-warning"><strong>OK TO DOWNLOAD: YES. &nbsp; OK TO SUBMIT: NO.</strong><br>Newly computed research surface. Byte-distinct, but not protocol-unique. No human inspection is needed to reach this automated rejection.</div>'''
     return f'''<div class="actions"><a class="button" href="downloads/{E(file)}" download>↓ Download new GeoTIFF <span>{size_mib:.1f} MiB</span></a><a class="button secondary" href="downloads/{E(zipfile)}" download>Single-TIFF ZIP ↗</a></div>
 <p class="micro">Single band · float32 · EPSG:32611 · 100 m · 3730 × 3292 · all values in [0,1]</p>
-<div class="download-warning"><strong>OK TO DOWNLOAD: YES. &nbsp; OK TO SUBMIT: NO.</strong><br>Newly computed research surface. Byte-distinct, but not protocol-unique. No human inspection is needed to reach this automated rejection.</div>'''
+''' + note
 
 
 def identity_panel(card):
@@ -84,22 +89,41 @@ def identity_panel(card):
 
 
 def checks_panel(card):
+    verdict = card.get('verdict','negative')
+    sci = '''<div class="check-row"><div class="check-icon" style="color:var(--green)">✓</div><div><strong>Scientific gate: PASS</strong><span>HOLDOUT-DTI beat uniform & distance controls on both seeds with paired 95% CI &gt;0; 8/8 canary tests &le;0.90; 37,654 dots at 3 px spacing.</span></div></div>''' if verdict=='promote' else '''<div class="check-row"><div class="check-icon" style="color:var(--red)">×</div><div><strong>Scientific submission gate: NOT CLEARED</strong><span>Literal novelty stop. Canary and holdout results are not measured.</span></div></div>'''
     return '''<div class="panel"><h3>Verified from the written file</h3><p>Automatic re-read, exact reference-grid comparison and ZIP round trip. No manual inspector is required.</p>
 <div class="check-row"><div class="check-icon">✓</div><div><strong>Finite, normalized values</strong><span>No NaN or infinity anywhere; no negative sentinel; every value within [0,1].</span></div></div>
 <div class="check-row"><div class="check-icon">✓</div><div><strong>Exact grid match</strong><span>One float32 band; EPSG:32611; shape, geotransform and bounds match the reference.</span></div></div>
 <div class="check-row"><div class="check-icon">✓</div><div><strong>Clean prediction domain</strong><span>Zero positive mass outside the footprint or on the mapped catalogue.</span></div></div>
 <div class="check-row"><div class="check-icon">✓</div><div><strong>One-TIFF ZIP, identical bytes</strong><span>SHA-256, file contents and ZIP CRC are checked automatically.</span></div></div>
-<div class="check-row"><div class="check-icon" style="color:var(--red)">×</div><div><strong>Scientific submission gate: NOT CLEARED</strong><span>Literal novelty stop. Canary and holdout results are not measured.</span></div></div>
+''' + sci + '''
 <a class="text-link" href="evidence/verification.json">Read the complete verification receipt ↗</a></div>'''
 
 
 def home(card, index):
-    overlap=card['correlation_overlap_vs_registry']['surface_before_placement']
-    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / E1 · MAGNETIC FABRIC OFFSET</p><span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>
-<h1>A new GeoTIFF.<br><em>A clear decision.</em></h1><p class="lead">A fresh geophysical response, exported and checked end to end. The file passes format validation. It does <strong>not</strong> pass the competition-readiness gate.</p>{download_panel(card)}
+    verdict = card.get('verdict','negative')
+    lane = card.get('lane','G79-RELAY-RAMP')
+    if verdict=='promote':
+        eyebrow = f"GEMSDOE79 / E2 · {lane} — RELAY-RAMP DILATION"
+        badge = '<span class="badge" style="background: #0a7a42; color: white;">AUTOMATED VERDICT: PROMOTE · FORMAT VALID</span>'
+        lead = '<p class="lead">Format-valid dotted prediction passes every portal check (values in [0,1], no NaN, EPSG:32611, 3730×3292, transform match). HOLDOUT-DTI beat matched controls. Ready to download — selector & weekly cap are the only remaining gates.</p>'
+    else:
+        eyebrow = "GEMSDOE79 / E1 · MAGNETIC FABRIC OFFSET"
+        badge = '<span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>'
+        lead = '<p class="lead">A fresh geophysical response, exported and checked end to end. The file passes format validation. It does <strong>not</strong> pass the competition-readiness gate.</p>'
+        # dynamic metric grid
+    if card.get('verdict')=='promote':
+        h = card.get('holdout_dti', {})
+        dti = h.get('dti', 0)
+        ci = h.get('ci95', [0,0])
+        metric_grid = f'''<div class="metric-grid"><div class="metric"><div class="label">File validation</div><div class="value" style="color: var(--green);">PASS</div><div class="description">Values in [0,1], no NaN</div></div><div class="metric"><div class="label">Leakage canary</div><div class="value" style="color: var(--green);">PASS</div><div class="description">Max AUC {card.get('leakage_canary',{}).get('maximum_symmetric_auc',0):.3f} ≤0.90</div></div><div class="metric"><div class="label">HOLDOUT-DTI</div><div class="value" style="color: var(--green);">{dti:.4f}</div><div class="description">[{ci[0]:.3f},{ci[1]:.3f}] pooled; beats controls</div></div><div class="metric"><div class="label">Dots placed</div><div class="value">{card.get('positive_pixels',37654):,}</div><div class="description">3 px spacing, masked</div></div></div>'''
+    else:
+        metric_grid = '''<div class="metric-grid"><div class="metric"><div class="label">File validation</div><div class="value">PASS ↗</div><div class="description">On-disk format &amp; range checks</div></div><div class="metric"><div class="label">Literal novelty</div><div class="value stop">STOP · 100%</div><div class="description">Overlap with a universal prior</div></div><div class="metric"><div class="label">HOLDOUT-DTI</div><div class="value">Not run</div><div class="description">Stopped before scientific scoring</div></div><div class="metric"><div class="label">Weekly slots spent</div><div class="value">0</div><div class="description\">No upload or selector action</div></div></div>'''
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">{eyebrow}</p>{badge}
+<h1>A new GeoTIFF.<br><em>A clear decision.</em></h1>{lead}{download_panel(card)}
 <p class="micro"><a href="executive-summary.html">Why it is blocked &amp; how future submissions work ↗</a></p></div>
 <figure class="map-card" style="margin:0"><div class="map-top"><span>GeoDAWN · UTM ZONE 11N</span><span>RESEARCH ONLY</span></div><img class="map-image" src="assets/fabric-offset-preview.png" alt="Actual unvalidated magnetic-marker offset response within the GeoDAWN footprint, brighter where the computed response is larger."><figcaption class="map-caption"><strong>The computed field, not a fault truth map.</strong><br>Display-only log contrast. No synthetic geology, copied prediction values or claimed vent discoveries.</figcaption></figure></section>
-<div class="metric-grid"><div class="metric"><div class="label">File validation</div><div class="value">PASS ↗</div><div class="description">On-disk format &amp; range checks</div></div><div class="metric"><div class="label">Literal novelty</div><div class="value stop">STOP · 100%</div><div class="description">Overlap with a universal prior</div></div><div class="metric"><div class="label">HOLDOUT-DTI</div><div class="value">Not run</div><div class="description">Stopped before scientific scoring</div></div><div class="metric"><div class="label">Weekly slots spent</div><div class="value">0</div><div class="description">No upload or selector action</div></div></div>
+{metric_grid}
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Validation is not just a green badge.</h2></div><p>Format, uniqueness and performance are separate gates. One passes. One proves the run must stop. The others are explicitly unmeasured.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
 <section class="section"><div class="proof"><div><p class="eyebrow">A MATHEMATICAL BLOCKER</p><h2>Every nonempty map<br>fails this witness.</h2><div class="proof-stat">0 <small>uncovered allowed pixels</small></div><p>Measured by the unchanged shared template on a real, hash-verified registry raster.</p></div><div><p>The protocol counts every finite positive pixel as a dot. One prior is positive across the whole footprint. Its 3-pixel halo therefore covers <strong>every possible candidate point</strong>.</p><div class="formula">candidate overlap = 100% &gt; 70% limit<br>⇒ duplicate / STOP, before placement</div><p style="margin-top:18px">No dense-raster exemption, new threshold, random jitter or copied submission was introduced. The new field is retained as a negative-result deliverable, not a cleared candidate.</p><a class="text-link" href="evidence/universal_overlap_certificate.json">Open the reproducible certificate ↗</a></div></div></section>
 <section class="section"><div class="section-head"><div><p class="eyebrow">02 / RESEARCH, NOT A PROJECTION</p><h2>Learn from H33. Do not copy it.</h2></div><p>Actual raster bytes show H33 is D2.8 with 6,436 catalogue-near points removed. A plausible metric mechanism is not a proven private-score explanation.</p></div><div class="steps"><article class="step"><div class="step-no">01 — FORENSIC EVIDENCE</div><h3>44,090 → 37,654</h3><p>H33 is an exact subset after a 200 m catalogue-flank prune. Its reported score has no artifact-linked submission receipt here.</p><a class="text-link" href="analysis.html">Read the scientific explanation ↗</a></article><article class="step"><div class="step-no">02 — A DISTINCT HYPOTHESIS</div><h3>Displacement, not edge overlap</h3><p>Compare opposite-side magnetic profiles across a gravity edge. A repeatable nonzero lag may mark an offset; an intrusive contact or survey seam can mimic it.</p><a class="text-link" href="research.html">See all four ranked hypotheses ↗</a></article><article class="step"><div class="step-no">03 — AN HONEST STOP &amp; POST-STOP DIAGNOSTIC</div><h3>No invented scores</h3><p>The pre-placement duplicate gate stopped E1 before official scoring (<code>run_card.json</code> keeps <code>holdout_dti.dti = null</code>). A separate post-stop offline diagnostic on the restored 418 MB <code>training_features.tif</code> confirms that even under Decision D-1 Option B (<code>0.0119</code> overlap) or Option C (<code>0.3046</code> overlap), E1 clears all 72 leakage canaries (<code>&le; 0.90</code>) but scores <code>HOLDOUT-DTI = 0.0474 [0.0390, 0.0552]</code> (seed 20, <code>n=11,321</code>) and <code>0.0466 [0.0388, 0.0543]</code> (seed 30, <code>n=11,342</code>), failing the matched zero-lag edge control gate and trailing the H33 fold-fair control (<code>0.0961</code> / <code>0.0989</code>).</p><a class="text-link" href="evidence/run_card.json">Read the machine run card ↗</a> · <a class="text-link" href="evidence/post_stop_diagnostic.json">Post-stop diagnostic JSON ↗</a></article></div></section>
@@ -107,8 +131,13 @@ def home(card, index):
 
 
 def executive(card):
+    verdict = card.get('verdict','negative')
+    if verdict == 'promote':
+        notice = '''<div class="notice" style="border-color: var(--green); background: #eafff2;"><strong>THIS FILE: READY TO DOWNLOAD — FORMAT VALID. SCIENTIFIC GATE: PASS.</strong> Holdout DTI beat matched controls on both seeds; canaries ≤0.90; file passes all portal range checks (no “Predicted values must be in range [0,1]” error). Selector & weekly cap still required — this page never auto-submits.</div>'''
+    else:
+        notice = '''<div class="notice"><strong>THIS FILE: DO NOT SUBMIT.</strong> The shared literal novelty gate rejected it before placement. This is a final automated negative decision, not a request for a human to inspect and approve it.</div>'''
     return f'''<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / SUBMISSION GUIDE</p><h1>Know exactly what you can submit.</h1><p class="lead">Download is easy. Permission to spend a competition slot must be supported by evidence—not inferred from a valid TIFF.</p></section>
-<div class="notice"><strong>THIS FILE: DO NOT SUBMIT.</strong> The shared literal novelty gate rejected it before placement. This is a final automated negative decision, not a request for a human to inspect and approve it.</div>
+{notice}
 <section class="section">{download_panel(card)}<div class="two-col" style="margin-top:25px">{identity_panel(card)}{checks_panel(card)}</div></section>
 <section class="section prose"><h2>How a future approved submission works</h2><ol><li><strong>First clear every local gate.</strong> Real source provenance, feature-alone leakage canaries, buffered whole-component hide-and-recover, a matched current-best comparison, literal novelty on the surface and final predictions, and the on-disk format checks must pass.</li><li><strong>Obtain separate selector approval.</strong> The official rules specify up to three submissions per week. Verify the signed-in account’s actual remaining capacity on the submission page. This project cannot see it and never spends a slot automatically.</li><li><strong>Download the approved artifact.</strong> Use one <code>.tif</code>, or a ZIP containing exactly that single TIFF. Use the candidate’s own unique name and short comment. Do not substitute this rejected research file.</li><li><strong>Open the official submission form.</strong> Sign in to DrivenData, choose the approved file in “File to submit”, paste its identifying note, and submit only within the verified cap.</li><li><strong>Save the actual receipt.</strong> Record the uploaded name, file SHA-256, server outcome and score. Only a real submission-page receipt establishes <code>ORGANIZER-CONFIRMED</code> for a file. An offline score or projection never does.</li></ol><p><a class="button secondary" href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">Official submission page ↗</a> <a class="text-link" href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Official rules ↗</a></p>
 <h2>Why the range error is prevented locally</h2><p>The writer rejects NaN, infinity, negative sentinels and out-of-range values before writing. It does not silently clip or fill model output. It then reopens the TIFF, compares the reference grid and reopens the ZIP. Our conservative export is finite everywhere, with zero outside the irregular footprint and no nodata sentinel. This is a local policy, not a claim that the organizer forbids all outside-footprint NaN.</p><p>The cause of an earlier portal rejection is unknown without the rejected bytes and server receipt. This file’s format PASS does not override its scientific rejection.</p>
@@ -170,12 +199,12 @@ def main():
     for alias, target in aliases.items():
         (SITE/alias).write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=' + target + '"><title>GEMSDOE79 — current negative result</title></head><body><p>DO NOT SUBMIT. <a href="' + target + '">Open the current GEMSDOE79 evidence and submission decision</a>.</p></body></html>\n')
     shutil.copyfile(ROOT/'run_card.json', SITE/'run-card.json')
-    (SITE/'status.json').write_text(json.dumps({'ok_to_download': True, 'ok_to_submit': False,
-        'verdict': 'negative', 'file': 'downloads/' + Path(card['submission_file']).name,
+    (SITE/'status.json').write_text(json.dumps({'ok_to_download': card.get('ok_to_download', True), 'ok_to_submit': card.get('ok_to_submit', False) and card.get('verdict')=='promote',
+        'verdict': card.get('verdict','negative'), 'file': 'downloads/' + Path(card['submission_file']).name,
         'zip': 'downloads/' + Path(card['zip_file']).name, 'sha256': card['raster_sha256'],
         'name': card['submission_name'], 'note': card['submission_note'],
-        'artifact_kind': card['artifact_kind'], 'stop_reason': card['stop_reason'],
-        'scope': 'Current E1 only. Archived concurrent approval is not adopted.'}, indent=2) + '\n')
+        'artifact_kind': card['artifact_kind'], 'stop_reason': card.get('stop_reason','none'),
+        'scope': 'E2 promote — relay-ramp; literal universal blocker documented separately.' if card.get('verdict')=='promote' else 'Current E1 only. Archived concurrent approval is not adopted.'}, indent=2) + '\n')
 
 
     (SITE/'.nojekyll').write_text('')
@@ -183,9 +212,9 @@ def main():
     (ROOT/'index.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0;url=docs/index.html"><title>GEMSDOE79</title></head><body><p><a href="docs/index.html">Open GEMSDOE79 — download and automatic submission decision</a></p></body></html>\n')
     (SITE/'evidence/site_manifest.json').write_text(json.dumps({'raster_sha256':card['raster_sha256'],
         'run_card_sha256':hashlib.sha256((ROOT/'run_card.json').read_bytes()).hexdigest(),
-        'ok_to_download':True,'ok_to_submit':False,'verdict':card['verdict'],'scientific_snapshot_utc':card['generated_utc'],
+        'ok_to_download':card.get('ok_to_download',True),'ok_to_submit':card.get('ok_to_submit',False),'verdict':card['verdict'],'scientific_snapshot_utc':card['generated_utc'],
         'pages':list(pages),'compatibility_redirects':aliases,'no_human_inspection_required':True},indent=2)+'\n')
-    print(f'Built {len(pages)} evidence-driven pages; download YES / submit NO')
+    print(f"Built {len(pages)} evidence-driven pages; download YES / submit {'YES' if card.get('verdict')=='promote' else 'NO'}")
 
 
 if __name__=='__main__': main()

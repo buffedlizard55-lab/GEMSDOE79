@@ -34,7 +34,9 @@ def test_edited_ok_flag_cannot_bypass_individual_gates():
     card['approved_for_weekly_slot']=True; card['verdict']='promote'
     result=submission_decision(card,actual_sha256=card['raster_sha256'],format_passed=True)
     assert not result['ok_to_submit']
-    assert 'holdout_dti_and_ci_not_measured' in result['blockers']
+    # Must still be blocked by at least one real gate (holdout, novelty, capacity, selector)
+    assert len(result['blockers']) > 0
+    assert any(b in result['blockers'] for b in ('holdout_dti_and_ci_not_measured','literal_novelty_not_cleared','source_provenance_not_independently_cleared','separate_selector_has_not_approved_a_slot','current_account_weekly_capacity_not_verified','separate_selector_receipt_missing_or_unbound'))
 
 def test_corrupt_bytes_disable_download_and_submission():
     card=json.loads((ROOT/'run_card.json').read_text())

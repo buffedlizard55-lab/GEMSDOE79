@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "seed": 30,
+      "fold": "NW",
+      "feature": "relay_ramp_surface",
+      "positive_pixels": 1919,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.8339020505471597,
+      "symmetric_auc": 0.8339020505471597,
+      "suspicious": false
+    },
+    {
+      "seed": 30,
+      "fold": "NE",
+      "feature": "relay_ramp_surface",
+      "positive_pixels": 2356,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.7322272920203733,
+      "symmetric_auc": 0.7322272920203733,
+      "suspicious": false
+    },
+    {
+      "seed": 30,
+      "fold": "SW",
+      "feature": "relay_ramp_surface",
+      "positive_pixels": 3805,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.7660144901445465,
+      "symmetric_auc": 0.7660144901445465,
+      "suspicious": false
+    },
+    {
+      "seed": 30,
+      "fold": "SE",
+      "feature": "relay_ramp_surface",
+      "positive_pixels": 3262,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.8191228264868179,
+      "symmetric_auc": 0.8191228264868179,
+      "suspicious": false
+    }
+  ],
+  "diagnostic": "LEAKAGE-CANARY",
+  "threshold": 0.9,
+  "evaluator_version": "gems57-pooled-hide-v2"
+}

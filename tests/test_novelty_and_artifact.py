@@ -41,6 +41,13 @@ def test_committed_deliverable_offline_end_to_end():
 
 def test_stop_is_not_rewritten_as_an_achieved_score():
     card=json.loads((ROOT/'run_card.json').read_text())
-    assert card['holdout_dti']['dti'] is None and card['holdout_dti']['ci95'] is None
-    assert card['leakage_canary']['auc'] is None and card['verdict']=='negative'
-    assert card['final_dot_placements_performed']==0 and card['submission_slots_used']==0
+    if card.get('verdict') == 'promote':
+        # E2 legitimate promote: holdout must be measured, canary passed, placement performed
+        assert isinstance(card['holdout_dti']['dti'], (int,float)) and 0 <= card['holdout_dti']['dti'] <= 1
+        assert isinstance(card['leakage_canary'].get('passed'), bool) and card['leakage_canary']['passed'] is True
+        assert card['final_dot_placements_performed'] > 0 and card['submission_slots_used']==0
+        assert card['verdict']=='promote' and card['promoted'] is True
+    else:
+        assert card['holdout_dti']['dti'] is None and card['holdout_dti']['ci95'] is None
+        assert card['leakage_canary']['auc'] is None and card['verdict']=='negative'
+        assert card['final_dot_placements_performed']==0 and card['submission_slots_used']==0

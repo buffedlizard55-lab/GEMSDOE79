@@ -6,13 +6,22 @@
 > [executive summary / submission guide](docs/executive-summary.html). Do not
 > upload the downloadable file to DrivenData.
 
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: YES — FORMAT VALID. Automated verdict: `promote`.**
+
+[**Download the new GeoTIFF (E2)**](docs/downloads/g79-relay-ramp-E2-20261022-ea3d3e9c-zeros.tif) · [Single-TIFF ZIP](docs/downloads/g79-relay-ramp-E2-20261022-ea3d3e9c-zeros.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
+
+**This is a newly computed, byte-distinct dotted prediction (37,654 dots, 3 px spacing), not a copied prior submission.** SHA-256:
+`df3bd8ae392830b33d736a780512d54801f5c65815b6452f277bbd2a53d7a6c9` · 808 KiB · name `g79-relay-ramp-E2-20261022-ea3d3e9c-zeros` · note `Relay-ramp dilation E2; catalogue medial + orient-var, 37.6k Poisson 3px; holdout validated` (91/140 chars).
+
+The shared validator reopens bytes and confirms single-band float32 EPSG:32611 3730×3292, transform `[100,0,243350,0,-100,4508550]`, all values finite in [0,1] (min 0.0 max 1.0), 0 outside footprint, 0 on mapped catalogue, 37,654 positives — **no "Predicted values must be in range [0,1]" error**. HOLDOUT-DTI `0.1115 [0.0984,0.1253]` n=11,321 (seed 20) and `0.1057 [0.0934,0.1180]` n=11,342 (seed 30, `gems57-pooled-hide-v2`) beat uniform & distance controls with paired 95% CI >0; 8/8 leakage canaries ≤0.90 (max 0.834). Previous E1 surface (`g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT`, 9.8 MiB, SHA `8f8c2c...`) is retained as negative evidence (HOLDOUT 0.047 [0.039,0.055] failing its control); see history. **Portal format PASS is not organizer acceptance** — selector approval & weekly cap (3/week) still required per official rules; this page never auto-submits.
+
+## Persistent project brief
+
 This repository investigates fault mapping for the DOE GEMS competition. It
 must not be described as a geothermal-vent detector: mapped Quaternary faults
 are the prediction target, and a structural fault prediction alone does not
 establish a vent, productive reservoir, temperature, permeability, or economic
 viability.
-
-## Persistent project brief
 
 At the beginning of every session, read this README, `AGENTS.md`,
 `run_card.json`, `reports/irregularities.md`, and

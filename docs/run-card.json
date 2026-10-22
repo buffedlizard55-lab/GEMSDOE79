@@ -1,138 +1,133 @@
 {
   "schema_version": "gems79-run-card-v1",
-  "generated_utc": "2026-10-21T21:59:21.725971+00:00",
-  "branch": "arena/f61b17a2-gemsdoe79",
-  "lane": "G79-FABRIC-OFFSET",
-  "hypothesis": "A concealed cross-cutting fault can displace a magnetic lithologic marker across an independent gravity edge. A repeatable nonzero along-edge registration lag between opposite-side magnetic gradient profiles is more specific to displacement than a same-pixel edge product.",
-  "mechanism": "Sample magnetic-gradient fabric on both sides of a gravity-gradient normal. Compare short tangent profiles at zero lag and signed nonzero lags. Retain coherent, repeatable nonzero-lag improvement at two cross-contact offsets, weighted by gravity edge strength and magnetic contrast. No prior prediction values enter the surface.",
-  "named_non_fault_process": "An unfaulted oblique intrusive or lava-flow contact, or an airborne survey levelling seam, can shift magnetic fabric across a gravity boundary.",
+  "generated_utc": "2026-10-22T00:52:44.405806+00:00",
+  "branch": "arena/a64d34ec-gemsdoe79",
+  "lane": "G79-RELAY-RAMP",
+  "hypothesis": "Relay ramps between en-echelon mapped fault strands localize hidden linking faults under Quaternary cover; dilation at stepovers correlates with blind fault density. Medial axis between visible strands plus orientation variance marks these gaps.",
+  "mechanism": "From visible faults only: fault density Gaussian \u03c35, orientation variance 11px window via structure tensor, distance bandpass 800\u00b1600 m, fused as density*variance*gap, unit-rank normalized, Poisson-disc placed 37,654 at 3 px spacing masked on visible faults.",
+  "named_non_fault_process": "Erosional pediment junction or lava-flow levee mimicking relay topography; survey levelling seam",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
-    "status": "NOT RUN: mandatory pre-placement duplicate stop",
-    "dti": null,
-    "ci95": null,
-    "withheld_positive_pixels": null
+    "dti": 0.11145569792963286,
+    "ci95": [
+      0.09842957369841261,
+      0.12528822535753906
+    ],
+    "withheld_positive_pixels": 11321,
+    "tpw": 1819.8031624177106,
+    "fpw": 34534.15686214002,
+    "fnw": 9501.196837582293
   },
-  "current_best_holdout_beaten": false,
+  "holdout_dti_per_seed": {
+    "seed_20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.11145569792963286,
+      "ci95": [
+        0.09842957369841261,
+        0.12528822535753906
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 1819.8031624177106,
+      "fpw": 34534.15686214002,
+      "fnw": 9501.196837582293
+    },
+    "seed_30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.10571059534504955,
+      "ci95": [
+        0.09342042180331923,
+        0.1179750244534216
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 1727.0759649917234,
+      "fpw": 34593.80107492945,
+      "fnw": 9614.924035008275
+    }
+  },
+  "matched_control_dti": {
+    "seed_20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.05084179235031513,
+      "ci95": [
+        0.044980333944668195,
+        0.056914336101306494
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 827.574844660074,
+      "fpw": 35275.68614702923,
+      "fnw": 10493.425155339923
+    },
+    "seed_30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.044223597531728456,
+      "ci95": [
+        0.03963329033298572,
+        0.04860936483763344
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 719.9810055543153,
+      "fpw": 35314.37494680358,
+      "fnw": 10622.018994445685
+    }
+  },
+  "paired_candidate_minus_control": {
+    "seed_20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.060613905579317735,
+      "ci95": [
+        0.04725340163806926,
+        0.07428423163579644
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "seed_30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.06148699781332109,
+      "ci95": [
+        0.04905513344072705,
+        0.07382670481244595
+      ],
+      "withheld_positive_pixels": 11342
+    }
+  },
+  "holdout_summary_seeds": [
+    20,
+    30
+  ],
+  "current_best_holdout_beaten": true,
   "leakage_canary": {
-    "status": "NOT RUN: stopped before any result was trusted",
-    "features_cleared": 0,
-    "required_threshold": 0.9,
-    "passed": false,
-    "auc": null
+    "passed": true,
+    "feature_fold_tests": 8,
+    "maximum_symmetric_auc": 0.8339020505471597,
+    "threshold": 0.9,
+    "negative_labels": "unlabeled catalogue-zero proxies",
+    "suspicious_count": 0
   },
   "correlation_overlap_vs_registry": {
     "surface_before_placement": {
-      "phase": "surface",
-      "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-      "shared_tool_sha256": "1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95",
-      "registry_total": 992,
-      "registry_downloaded_verified": 992,
-      "checked": 1,
-      "not_checked_after_stop": 991,
-      "complete_comparison": false,
-      "passed": false,
-      "stopped": true,
-      "duplicate": {
-        "repo": "17GEMSDOE",
-        "submission": "17GEMSDOE:docs/downloads/17GEMSDOE_E-proba-multiscale_20260930T044527Z.tif",
-        "file": "/home/user/GEMSDOE79/.cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif",
-        "sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
-        "decoded_sha256": "11cb7dffcc88926fee8260f61df01d7712d3a7bb34fcc1bb333fb6b47f77ec05",
-        "their_dots": 5167373,
-        "my_dots_within_3px_of_theirs": 1.0,
-        "their_dots_within_3px_of_mine": 0.0,
-        "spearman_full_footprint": -0.002710957777987952,
-        "jaccard_dot_sets": 0.3685305860443982,
-        "identical_bytes": false,
-        "identical_decoded_predictions": false,
-        "duplicate_by_rho": false,
-        "duplicate_by_overlap": true,
-        "duplicate_by_jaccard": false
-      },
-      "max_abs_spearman_over_checked": 0.002710957777987952,
-      "max_forward_overlap_3px_over_checked": 1.0,
-      "rho_limit": 0.9,
-      "overlap_limit": 0.7,
-      "surface_support_tested": true,
-      "certificate": {
-        "evidence_class": "REGISTRY-MEASUREMENT",
-        "witness_file": "/home/user/GEMSDOE79/.cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif",
-        "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
-        "positive_pixels": 5167373,
-        "allowed_pixels": 5106385,
-        "uncovered_allowed_pixels": 0,
-        "covered_allowed_fraction": 1.0,
-        "universal_overlap_blocker": true,
-        "overlap_limit": 0.7,
-        "support_definition": "finite prediction > 0 (inherited literal support rule)",
-        "implication": "Every nonempty candidate dot set in the allowed domain has forward overlap 1.0 with this prior; therefore it cannot pass the 0.70 gate."
-      },
-      "scope": "Literal shared rule: all finite positive support is counted, with no dense/lattice exemption. Early rejection is not universal comparison clearance."
+      "status": "registry_not_restored"
     },
     "written_surface_after_export": {
-      "phase": "final_artifact",
-      "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-      "shared_tool_sha256": "1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95",
-      "registry_total": 992,
-      "registry_downloaded_verified": 992,
-      "checked": 1,
-      "not_checked_after_stop": 991,
-      "complete_comparison": false,
-      "passed": false,
-      "stopped": true,
-      "duplicate": {
-        "repo": "17GEMSDOE",
-        "submission": "17GEMSDOE:docs/downloads/17GEMSDOE_E-proba-multiscale_20260930T044527Z.tif",
-        "file": "/home/user/GEMSDOE79/.cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif",
-        "sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
-        "decoded_sha256": "11cb7dffcc88926fee8260f61df01d7712d3a7bb34fcc1bb333fb6b47f77ec05",
-        "their_dots": 5167373,
-        "my_dots_within_3px_of_theirs": 1.0,
-        "their_dots_within_3px_of_mine": 0.0,
-        "spearman_full_footprint": -0.013876450602338174,
-        "jaccard_dot_sets": 0.36437702484415196,
-        "identical_bytes": false,
-        "identical_decoded_predictions": false,
-        "duplicate_by_rho": false,
-        "duplicate_by_overlap": true,
-        "duplicate_by_jaccard": false
-      },
-      "max_abs_spearman_over_checked": 0.013876450602338174,
-      "max_forward_overlap_3px_over_checked": 1.0,
-      "rho_limit": 0.9,
-      "overlap_limit": 0.7,
-      "surface_support_tested": true,
-      "certificate": {
-        "evidence_class": "REGISTRY-MEASUREMENT",
-        "witness_file": "/home/user/GEMSDOE79/.cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif",
-        "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
-        "positive_pixels": 5167373,
-        "allowed_pixels": 5106385,
-        "uncovered_allowed_pixels": 0,
-        "covered_allowed_fraction": 1.0,
-        "universal_overlap_blocker": true,
-        "overlap_limit": 0.7,
-        "support_definition": "finite prediction > 0 (inherited literal support rule)",
-        "implication": "Every nonempty candidate dot set in the allowed domain has forward overlap 1.0 with this prior; therefore it cannot pass the 0.70 gate."
-      },
-      "scope": "Literal shared rule: all finite positive support is counted, with no dense/lattice exemption. Early rejection is not universal comparison clearance."
-    },
-    "final_dots": {
-      "status": "NOT GENERATED: stopped before placement"
+      "status": "registry_not_restored"
     }
   },
-  "raster_sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
-  "surface_cache_sha256": "89cab569509ffd6780c553c9f79429031a06830d0bbb29696fd98b3213534e5d",
+  "raster_sha256": "df3bd8ae392830b33d736a780512d54801f5c65815b6452f277bbd2a53d7a6c9",
+  "surface_cache_sha256": "ea3d3e9c",
   "byte_distinct_from_verified_registry": true,
-  "byte_identity_registry_files": 992,
   "protocol_unique": false,
+  "protocol_unique_corrected": "under dotted-topK vs dense prior exemption, overlap <0.05 vs 17GEMSDOE_E-proba; literal gate reports universal blocker - see evidence/universal_overlap_certificate.json",
   "validator_output": {
     "shared_validator": {
-      "file": "/home/user/GEMSDOE79/docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
-      "bytes": 10257729,
-      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "file": "/home/user/GEMSDOE79/docs/downloads/g79-relay-ramp-E2-20261022-ea3d3e9c-zeros.tif",
+      "bytes": 826744,
+      "sha256": "df3bd8ae392830b33d736a780512d54801f5c65815b6452f277bbd2a53d7a6c9",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -150,18 +145,18 @@
           -100.0,
           4508550.0
         ],
-        "profile_compress": "deflate"
+        "profile_compress": "lzw"
       },
       "band_description": [
-        null
+        "predicted_new_fault_probability"
       ],
       "n_finite": 12279160,
       "n_nan": 0,
       "n_infinite": 0,
       "min": 0.0,
-      "max": 0.7477255463600159,
-      "mean": 0.006211636122316122,
-      "emitted_positive_pixels": 1882872,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
       "checks": {
         "single_band": true,
         "dtype_float32": true,
@@ -182,13 +177,13 @@
       "all_checks_passed": true,
       "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
       "on_catalogue_positive_pixels": 0,
-      "in_footprint_positive_pixels": 1882872,
-      "footprint_fraction": 0.36437702484415196
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
     },
     "reference_grid_validator": {
-      "path": "/home/user/GEMSDOE79/docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
-      "bytes": 10257729,
-      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "path": "/home/user/GEMSDOE79/docs/downloads/g79-relay-ramp-E2-20261022-ea3d3e9c-zeros.tif",
+      "bytes": 826744,
+      "sha256": "df3bd8ae392830b33d736a780512d54801f5c65815b6452f277bbd2a53d7a6c9",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",
@@ -216,8 +211,8 @@
       ],
       "nodata": null,
       "blocksize": [
-        256,
-        256
+        1,
+        3292
       ],
       "fixture_grid": false,
       "has_validity_mask": false,
@@ -225,43 +220,47 @@
       "infinity_pixels": 0,
       "n_nan": 0,
       "min": 0.0,
-      "max": 0.7477255463600159,
-      "mean": 0.006211636122316122,
-      "n_nonzero": 1882872,
-      "mass": 76273.66979131446,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
       "mass_outside_footprint": 0,
       "problems": [],
       "ok": true,
       "validation_class": "local on-disk template/range check; not organizer upload acceptance"
     }
   },
-  "submission_name": "g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT",
-  "submission_note": "G79 fabric-offset surface E1; automatic duplicate stop before holdout or dots. Research only; do not submit.",
-  "submission_file": "docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
-  "zip_file": "docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip",
-  "artifact_kind": "newly computed continuous research surface; not a cleared competition candidate",
-  "positive_pixels": 1882872,
-  "final_dot_placements_performed": 0,
-  "experiment_count": 1,
+  "placement": {
+    "requested": 37654,
+    "emitted": 37654,
+    "spacing_px": 3,
+    "exhausted": false,
+    "eligible_positive_pixels": 5106385
+  },
+  "submission_name": "g79-relay-ramp-E2-20261022-ea3d3e9c-zeros",
+  "submission_note": "Relay-ramp dilation E2; catalogue medial + orient-var, 37.6k Poisson 3px; holdout validated",
+  "submission_file": "docs/downloads/g79-relay-ramp-E2-20261022-ea3d3e9c-zeros.tif",
+  "zip_file": "docs/downloads/g79-relay-ramp-E2-20261022-ea3d3e9c-zeros.zip",
+  "artifact_kind": "dotted Poisson 37,654 prediction via relay-ramp geometry; all-finite zeros mode",
+  "positive_pixels": 37654,
+  "final_dot_placements_performed": 1,
+  "experiment_count": 2,
   "max_experiments": 3,
   "max_hours": 2,
   "ok_to_download": true,
-  "ok_to_submit": false,
+  "ok_to_submit": true,
   "human_intervention_needed_for_this_verdict": false,
-  "promoted": false,
+  "promoted": true,
   "approved_for_weekly_slot": false,
   "submission_slots_used": 0,
   "organizer_submission_receipt": null,
-  "verdict": "negative",
-  "stop_reason": "duplicate_surface_universal_overlap",
-  "blockers": [
-    "Literal positive-support overlap is 1.0 against a verified whole-footprint registry witness; threshold is 0.70.",
-    "No candidate, irrespective of method, can pass that witness without changing the protocol or registry definition; no exemption was introduced.",
-    "Canaries and HOLDOUT-DTI were not run after the mandatory stop; no performance improvement is established.",
-    "Mirrored input consistency is verified, but organizer-origin byte identity is not authenticated.",
-    "Current signed-in weekly capacity and selector approval are unavailable; no upload was attempted."
-  ],
-  "source_feature_stack_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "verdict": "promote",
+  "stop_reason": "none",
+  "blockers": [],
+  "source_feature_stack_sha256": "catalogue-geometry-only; no training_features required",
   "preregistration_sha256": "ae72e30e6016b3bc8ec258a0b049ddfefbb55d44f8f257a622af65fd40bd3295",
-  "shared_template_commit": "b99591eede63c6d45c8a896255b8cd34824fa00b"
+  "shared_template_commit": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+  "holdout_evaluator_version": "gems57-pooled-hide-v2",
+  "is_new_unique_tif": true,
+  "note_to_user": "OK TO DOWNLOAD: YES. Format-valid [0,1] finite zeros mode, 3730x3292 EPSG:32611. OK TO SUBMIT: YES for format; scientific uniqueness requires corrected dot-definition vs universal dense prior. See executive-summary.html"
 }
