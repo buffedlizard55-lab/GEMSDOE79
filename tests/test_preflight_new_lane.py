@@ -74,3 +74,41 @@ def test_certificate_requires_typed_measurements_and_valid_hash():
         result = p.decision({'all_checks_passed': True, 'measured_certificate': measured})
         assert result['exit_code'] == 3
         assert result['start_new_lane'] is False
+
+
+# These are software fault-injection tests, not new scientific experiments.
+def test_manifest_shape_and_restore_errors_emit_unverified_json(monkeypatch, capsys):
+    import subprocess
+    for error in (TypeError('private path'), AttributeError('private path'),
+                  IndexError('private path'),
+                  subprocess.CalledProcessError(1, ['git', 'private path'])):
+        def fail(**kwargs):
+            raise error
+        monkeypatch.setattr(p, 'verify_witness', fail)
+        monkeypatch.setattr('sys.argv', ['preflight_new_lane.py'])
+        assert p.main() == 3
+        result = json.loads(capsys.readouterr().out)
+        assert result['state'] == 'unverified'
+        assert result['start_new_lane'] is False
+        assert result['error_type'] == type(error).__name__
+        assert 'private path' not in json.dumps(result)
+
+
+def test_inspection_failure_writes_refusal_report(monkeypatch, tmp_path, capsys):
+    path = tmp_path / 'refusal.json'
+    def fail(**kwargs):
+        raise TypeError('bad manifest')
+    monkeypatch.setattr(p, 'verify_witness', fail)
+    monkeypatch.setattr('sys.argv', ['preflight_new_lane.py', '--report', str(path)])
+    assert p.main() == 3
+    assert json.loads(path.read_text()) == json.loads(capsys.readouterr().out)
+
+
+def test_preflight_does_not_swallow_process_interrupts(monkeypatch):
+    import pytest
+    def interrupt(**kwargs):
+        raise KeyboardInterrupt()
+    monkeypatch.setattr(p, 'verify_witness', interrupt)
+    monkeypatch.setattr('sys.argv', ['preflight_new_lane.py'])
+    with pytest.raises(KeyboardInterrupt):
+        p.main()

@@ -8,9 +8,9 @@ repo. The canonical download is still the H79-NHR DO-NOT-SUBMIT file, which fail
 | Step | Result | Evidence |
 |---|---|---|
 | Environment and inputs | 13 hash-pinned inputs on disk; receipt of record lists 7 (IR-79-66); 992 registry rasters restored | `data/restore_receipt.json`, `.cache/registry/` |
-| Baseline tests | 186 passed, after the `scikit-image` pin (IR-79-74) | `requirements.lock` |
-| Official facts | Metric, submission format and leaderboard fetched and cited | `README.md`, IR-79-76 |
-| Metric bound arithmetic | 0.2778 needs c ≥ 23.5 %; 0.4413 needs c ≥ 38.7 % (corrected) | IR-79-75 |
+| Baseline tests | 186 passed, after the `scikit-image` pin (IR-79-75) | `requirements.lock` |
+| Official facts | Metric, submission format and leaderboard fetched and cited | `README.md`, IR-79-77 |
+| Metric bound arithmetic | 0.2778 needs c ≥ 23.5 %; 0.4413 needs c ≥ 38.7 % (corrected) | IR-79-76 |
 | H33 forensics | D2.8 minus 6,436 dots within 200 m, exact at 2 px | `evidence/h33_forensics.json` |
 | Preregistration (before results) | H79-ASYM, commit 365b727 | `registry/preregistration_asym.json` |
 | Surface build | Lidar decoding per product rule; 62.1 % of footprint valid; 1,320,612 positive cells | `evidence/asym/surface_build.json` |
@@ -30,11 +30,11 @@ repo. The canonical download is still the H79-NHR DO-NOT-SUBMIT file, which fail
 
 ## Corrections made during the session
 
-- `reports/nhr_analysis.md`, `README.md` and `docs/analysis.html`: the metric bounds changed to 23.5 % and 38.7 % (IR-79-75).
-- `requirements.lock` and `requirements.txt`: the missing `scikit-image` dependency was declared (IR-79-74).
+- `reports/nhr_analysis.md`, `README.md` and `docs/analysis.html`: the metric bounds changed to 23.5 % and 38.7 % (IR-79-76).
+- `requirements.lock` and `requirements.txt`: the missing `scikit-image` dependency was declared (IR-79-75).
 
 ## Unresolved
 
 - **IR-79-53** (space-filling registry rasters). Needs a user decision. Even the chance-corrected reading flags H79-ASYM, so the decision alone does not unblock this lane.
-- **IR-79-77** (6 registry rasters not comparable). Reported; does not change the verdict.
-- **IR-79-78** (NaN outside bounds in the organizer's wording versus zero-fill here). Flagged for organizer clarification.
+- **IR-79-78** (6 registry rasters not comparable). Reported; does not change the verdict.
+- **IR-79-79** (NaN outside bounds in the organizer's wording versus zero-fill here). Flagged for organizer clarification.
