@@ -2,10 +2,10 @@
 """Protocol rule 1 for H79-BQA: surface (pre-placement) and final-dot duplicate gates.
 
 All novelty arithmetic is the shared ``gems57.uniqueness.compare_array_to_registry``
-with ``dot_definition='chance-corrected-v4'`` (IR-79-110, recorded in-session as IR-79-68; registry/protocol_clarification_v4.json).
+with ``dot_definition='chance-corrected-v4'`` (IR-79-111, recorded in-session as IR-79-68; registry/protocol_clarification_v4.json).
 Thresholds unchanged: Spearman > 0.90 blocks; chance-corrected 3 px overlap
 kappa = (O - C)/(1 - C) > 0.70 blocks; byte / decoded-pixel identity blocks.
-The raw (v3) overlap reading is reported next to it for readers who reject IR-79-110.
+The raw (v3) overlap reading is reported next to it for readers who reject IR-79-111.
 
 Phases
 ------
@@ -197,7 +197,7 @@ def run(phase):
                 generated_utc=datetime.now(timezone.utc).isoformat(),
                 shared_tool="gems57.uniqueness.compare_array_to_registry",
                 shared_tool_sha256=hashlib.sha256(Path(shared.__file__).read_bytes()).hexdigest(),
-                dot_definition=DEF, protocol_clarification="IR-79-110 (in-session IR-79-68)",
+                dot_definition=DEF, protocol_clarification="IR-79-111 (in-session IR-79-68)",
                 rho_limit=shared.RHO_LIMIT, overlap_limit=shared.OVERLAP_LIMIT)
     x2 = phase.endswith("-x2")
     if x2:

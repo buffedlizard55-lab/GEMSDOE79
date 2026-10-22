@@ -148,7 +148,7 @@ def main():
                            "tests_per_seed": hold[30]["leakage_canary"]["tests"],
                            "features_cleared": len(hold[30]["leakage_canary"]["per_feature_max"])},
         "correlation_overlap_vs_registry": dict(shared_tool=usurf["shared_tool"], dot_definition=usurf["dot_definition"],
-                                                protocol_clarification="IR-79-110 (in-session IR-79-68)", surface_before_placement=g5,
+                                                protocol_clarification="IR-79-111 (in-session IR-79-68)", surface_before_placement=g5,
                                                 final_dots=None),
         "protocol_unique": False,
         "raster_sha256": None,

@@ -41,7 +41,7 @@ def test_chance_corrected_reduces_to_raw_overlap_for_sparse_priors():
 
 
 def test_frozen_nhr_remains_duplicate_and_uniform_passes_under_v4():
-    """IR-79-110 (in-session IR-79-68) must not rescue the stopped NHR lane and must be satisfiable."""
+    """IR-79-111 (in-session IR-79-68) must not rescue the stopped NHR lane and must be satisfiable."""
     rows = json.loads((ROOT / "evidence/nhr/overlap_chance.json").read_text())["rows"]
     k_nhr = [U.chance_corrected(r["overlap_candidate"], r["halo_coverage"]) for r in rows]
     k_uni = [U.chance_corrected(r["overlap_uniform"], r["halo_coverage"]) for r in rows]
@@ -125,7 +125,7 @@ def test_quota_placement_spacing_quota_and_fill():
 
 
 def test_bqa_uniqueness_inventory_snapshot_is_preserved():
-    """IR-79-112: BQA's receipts used 992 indexed + 215 delta rasters; the snapshot is kept as evidence."""
+    """IR-79-113: BQA's receipts used 992 indexed + 215 delta rasters; the snapshot is kept as evidence."""
     snap = json.loads((ROOT / "evidence/bqa/registry_delta_0bd0e0b2.json").read_text())
     index = json.loads((ROOT / "registry/registry_index.json").read_text())
     usurf = json.loads((ROOT / "evidence/bqa/x2_uniqueness_surface.json").read_text())

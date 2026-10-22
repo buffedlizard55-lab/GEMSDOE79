@@ -34,7 +34,7 @@
   produced BQA's evidence is frozen in `archive/h79_bqa/`, and a test checks its hash against the evidence. The X2
   duplicate also fires under main's `informative-halo-v4` (raw 0.950, halo coverage 0.129), so the verdict does not
   depend on which reading is used.
-- This session's in-session IR-79-67…70 were renumbered to IR-79-110…113, because main had reached IR-79-109.
+- This session's in-session IR-79-67…70 were renumbered to IR-79-111…114, because main had reached IR-79-110.
   Frozen preregistration files keep their original numbers; the mapping is in `reports/irregularities.md`.
 - Main's scanner found 5 blobs that this session's scan missed. BQA's verdict (duplicate) cannot change from extra
   rasters. This lane's 1,207-raster inventory is kept in `evidence/bqa/registry_delta_0bd0e0b2.json`.
