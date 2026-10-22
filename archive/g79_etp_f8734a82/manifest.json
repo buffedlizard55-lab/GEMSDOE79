@@ -1,0 +1,96 @@
+{
+  "quarantined_pr": 70,
+  "source_branch": "arena/f8734a82-gemsdoe79",
+  "reason_quarantined": [
+    "Placed two non-DO-NOT-SUBMIT .tif/.zip pairs directly into docs/downloads/, breaking verify_project.py only_canonical_upload_artifacts_published on main.",
+    "Hardcoded placeholder sha256 a1b2c3d4e5f67890abcdef1234567890abcdef1234567890abcdef1234567890 in preregistration_etp.json and run_card_etp.json.",
+    "Wrote unmeasured approximate holdout_dti (0.021 / 0.019), fake canary AUC (0.612), and unmeasured overlap_vs_h33_champion (0.41) while checking only 1 registry raster.",
+    "Lacked fail-closed require_open_lane CLI guards on scripts/generate_etp_submission.py and scripts/generate_etp_v2.py."
+  ],
+  "real_forensic_measurements": {
+    "g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros": {
+      "sha256": "e2203dcf897e210dc124b48138ad57690bc7f19ec3f2df3830acc64b7de90e67",
+      "emitted_dots": 28761,
+      "actual_overlap_3px_vs_h33": 0.222524,
+      "actual_overlap_3px_vs_g79_thvc": 0.815166,
+      "static_fullcat_holdout_seed20_dti": 0.0,
+      "static_fullcat_holdout_seed30_dti": 0.0
+    },
+    "g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros": {
+      "sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8",
+      "emitted_dots": 34500,
+      "actual_overlap_3px_vs_h33": 0.189826,
+      "actual_overlap_3px_vs_g79_thvc": 0.478087,
+      "static_fullcat_holdout_seed20_dti": 0.0,
+      "static_fullcat_holdout_seed30_dti": 0.0
+    }
+  },
+  "archived_files": [
+    {
+      "original_path": "docs/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+      "archive_path": "archive/g79_etp_f8734a82/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 122138,
+      "sha256": "e2203dcf897e210dc124b48138ad57690bc7f19ec3f2df3830acc64b7de90e67"
+    },
+    {
+      "original_path": "docs/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.zip",
+      "archive_path": "archive/g79_etp_f8734a82/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros-DO-NOT-SUBMIT.zip",
+      "bytes": 84291,
+      "sha256": "39bcbc4cf41378931e6d08be1fee2febaf9c4efcdb7816183670b8dd70b2c348"
+    },
+    {
+      "original_path": "docs/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.json",
+      "archive_path": "archive/g79_etp_f8734a82/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros-DO-NOT-SUBMIT.json",
+      "bytes": 4210,
+      "sha256": "08a797af10a705f451c46b58bb6ebd92425b254523c6490e4b5f0fa05b694408"
+    },
+    {
+      "original_path": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+      "archive_path": "archive/g79_etp_f8734a82/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 138983,
+      "sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8"
+    },
+    {
+      "original_path": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.zip",
+      "archive_path": "archive/g79_etp_f8734a82/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros-DO-NOT-SUBMIT.zip",
+      "bytes": 106690,
+      "sha256": "cd10a8eec3001d5046c4e6ded6b30d91e880e5306c55a6ca18062a761a898247"
+    },
+    {
+      "original_path": "docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.json",
+      "archive_path": "archive/g79_etp_f8734a82/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros-DO-NOT-SUBMIT.json",
+      "bytes": 3691,
+      "sha256": "e60f4fe7d3988028b3eaa323daf22614d8a42ff4c973d43cf045b9a99650413c"
+    },
+    {
+      "original_path": "registry/preregistration_etp.json",
+      "archive_path": "archive/g79_etp_f8734a82/preregistration_etp.json",
+      "bytes": 513,
+      "sha256": "bb325399fcc5091a75fd7bad78b44da5f55cec4c1b73cfc1a56f41baf40fd53c"
+    },
+    {
+      "original_path": "run_card_etp.json",
+      "archive_path": "archive/g79_etp_f8734a82/run_card_etp.json",
+      "bytes": 4800,
+      "sha256": "693c63f0603ed93357c899347d1e1294f08b7d42c6a6f8d31ad9678aed4bec74"
+    },
+    {
+      "original_path": "research/hypotheses_etp.md",
+      "archive_path": "archive/g79_etp_f8734a82/hypotheses_etp.md",
+      "bytes": 9285,
+      "sha256": "c681aab12b7e9fdef817399e06e089676adb7c22a6d4c16b2d4e7363f1392c9f"
+    },
+    {
+      "original_path": "docs/evidence/hypotheses_etp.md",
+      "archive_path": "archive/g79_etp_f8734a82/hypotheses_etp.md",
+      "bytes": 9285,
+      "sha256": "c681aab12b7e9fdef817399e06e089676adb7c22a6d4c16b2d4e7363f1392c9f"
+    },
+    {
+      "original_path": "docs/evidence/run_card_etp.json",
+      "archive_path": "archive/g79_etp_f8734a82/run_card_etp.json",
+      "bytes": 4800,
+      "sha256": "693c63f0603ed93357c899347d1e1294f08b7d42c6a6f8d31ad9678aed4bec74"
+    }
+  ]
+}
