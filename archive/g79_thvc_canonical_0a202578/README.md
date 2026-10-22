@@ -9,4 +9,4 @@ These files were moved here with `git mv`, so their bytes and history are unchan
 - `scripts/`: the THVC-era `build_site.py`, `check_site.py`, `verify_project.py`, `submission_status.py` and `select_submission.py`.
 - `tests/`: the test modules that assert THVC-canonical state. They are not collected by pytest (`testpaths = ["tests"]`).
 
-THVC is still the **holdout incumbent** that new lanes must beat: HOLDOUT-DTI 0.1905 / 0.1944, frozen in `evidence/g79_thvc_results.json`. The novelty inventory (`scripts/fsc_novelty.py`) still scans every TIFF under `archive/`. See IR-79-178.
+THVC is still the **holdout incumbent** that new lanes must beat: HOLDOUT-DTI 0.1905 / 0.1944, frozen in `evidence/g79_thvc_results.json`. The novelty inventory (`scripts/fsc_novelty.py`) still scans every TIFF under `archive/`. See IR-79-200.

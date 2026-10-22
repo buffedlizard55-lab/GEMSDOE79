@@ -1,4 +1,6 @@
-/* Optional browser QA. npm ci --prefix tools/browser-qa --ignore-scripts */
+/* Browser QA, driven by docs/evidence/site_manifest.json (pages + compatibility redirects).
+   npm ci --prefix tools/browser-qa --ignore-scripts. The THVC-era hard-coded version is archived in
+   archive/g79_thvc_canonical_0a202578/scripts/browser_review.cjs (session 0a202578). */
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -21,7 +23,8 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('response', (response) => { if (response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
-  const pages = ['index.html', 'executive-summary.html', 'research.html', 'analysis.html', 'sources.html', 'history.html', 'irregularities.html'];
+  const manifest = JSON.parse(fs.readFileSync(path.join(root, 'docs/evidence/site_manifest.json')));
+  const pages = manifest.pages;
   const cases = [];
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({width, height: width > 680 ? 1050 : 900});
@@ -37,7 +40,8 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
     fs.mkdirSync(path.join(root, '.cache/screenshots'), {recursive: true});
     await page.screenshot({path: path.join(root, '.cache/screenshots/home-' + width + '.png'), fullPage: true});
   }
-  for (const [alias, target] of [['EXECUTIVE_SUMMARY.html', 'executive-summary.html'], ['PROJECT_BRIEF.html', 'research.html']]) {
+  const redirects = Object.entries(manifest.compatibility_redirects || {});
+  for (const [alias, target] of redirects) {
     await page.goto(base + '/' + alias);
     await page.waitForURL('**/' + target);
   }
@@ -47,7 +51,7 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   const expectedVerdictBanner = card.ok_to_submit === true && card.verdict === 'promote'
     ? /OK TO SUBMIT: YES/
     : /OK TO SUBMIT: NO/;
-  assert.match(await page.locator('.download-warning, .download-ready, main').first().innerText(), expectedVerdictBanner);
+  assert.match(await page.locator('.banner, .download-warning, .download-ready, main').first().innerText(), expectedVerdictBanner);
   await page.locator('[data-copy="submission-note"]').click();
   await page.waitForFunction(() => document.getElementById('toast').textContent.startsWith('Copied.'));
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), card.submission_note);
@@ -57,21 +61,48 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   const dest = path.join(root, '.cache/browser-downloaded.tif');
   await download.saveAs(dest);
   assert.equal(sha(fs.readFileSync(dest)), card.raster_sha256);
+  await page.goto(base + '/executive-summary.html', {waitUntil: 'networkidle'});
+  const identityRequests = [];
+  const recordIdentityRequest = request => identityRequests.push(request.url());
+  page.on('request', recordIdentityRequest);
+  const input = page.locator('#download-file');
+  const result = page.locator('[data-download-result]');
+  for (const field of ['submission_file', 'zip_file']) {
+    await input.setInputFiles(path.join(root, card[field]));
+    await page.waitForFunction(() => document.querySelector('[data-download-result]').dataset.state === 'match');
+    assert.match(await result.innerText(), /grants no submission permission/);
+    assert.match(await page.locator('.banner, .download-warning').first().innerText(), expectedVerdictBanner);
+  }
+  const altered = Buffer.from(fs.readFileSync(path.join(root, card.submission_file)));
+  altered[500] ^= 1;
+  await input.setInputFiles({name: 'altered.tif', mimeType: 'image/tiff', buffer: altered});
+  await page.waitForFunction(() => document.querySelector('[data-download-result]').dataset.state === 'unknown');
+  assert.match(await result.innerText(), /No format or submission approval/);
+  await input.setInputFiles([]);
+  await page.waitForFunction(() => document.querySelector('[data-download-result]').dataset.state === 'idle');
+  assert.equal(await page.locator('[data-download-manifest]').getAttribute('aria-busy'), 'false');
+  page.off('request', recordIdentityRequest);
+  assert.deepEqual(identityRequests, [], 'Local identity checking must not upload or fetch data');
   await page.goto(base + '/sources.html', {waitUntil: 'networkidle'});
   await page.waitForFunction(() => document.querySelectorAll('#health-rows tr').length > 0);
   assert.match(await page.locator('#feed-observation').innerText(), /Not this candidate/);
   assert.match(await page.locator('#feed-status').innerText(), /Scientific claims last reviewed/);
-  await page.goto(base + '/history.html', {waitUntil: 'networkidle'});
-  const all = await page.locator('[data-search-row]:visible').count();
-  await page.locator('#history-search').fill('h33');
-  const filtered = await page.locator('[data-search-row]:visible').count();
-  assert(filtered > 0 && filtered < all);
-  await page.locator('#history-search').fill('not-a-real-candidate-name-g79');
-  assert.equal(await page.locator('[data-search-row]:visible').count(), 0);
+  let historyFilterVerified = 'not_present';
+  for (const filename of pages) {
+    await page.goto(base + '/' + filename, {waitUntil: 'networkidle'});
+    if (await page.locator('#history-search').count() === 0) continue;
+    const all = await page.locator('[data-search-row]:visible').count();
+    await page.locator('#history-search').fill('h33');
+    const filtered = await page.locator('[data-search-row]:visible').count();
+    assert(filtered > 0 && filtered < all);
+    await page.locator('#history-search').fill('not-a-real-candidate-name-g79');
+    assert.equal(await page.locator('[data-search-row]:visible').count(), 0);
+    historyFilterVerified = true;
+  }
   assert.deepEqual(errors, [], 'Browser or HTTP errors');
   const report = {reviewed_utc: new Date().toISOString(), browser: await browser.version(), cases,
-    downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, feed_rendered: true, legacy_redirects_verified: 2,
-    history_filter_verified: true, browser_errors: errors, passed: true,
+    downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, download_identity_verified: {tiff: true, zip: true, altered_bytes_refused: true, reset: true, network_requests: 0}, feed_rendered: true, legacy_redirects_verified: redirects.length,
+    history_filter_verified: historyFilterVerified, browser_errors: errors, passed: true,
     scope: 'Local HTTP/static website QA only; not organizer acceptance or geological evaluation.'};
   fs.writeFileSync(path.join(root, 'evidence/browser_review.json'), JSON.stringify(report, null, 2) + '\n');
   await browser.close();

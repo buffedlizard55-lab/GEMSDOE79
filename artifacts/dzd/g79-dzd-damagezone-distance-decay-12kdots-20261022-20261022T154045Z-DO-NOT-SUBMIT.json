@@ -1,0 +1,143 @@
+{
+  "file": "g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif",
+  "sha256": "42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab",
+  "bytes": 172278,
+  "submission_name": "g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT",
+  "note": "G79-DZD: fault damage-zone distance decay from USGS/INGENIOUS catalogue, zero on mapped faults, 12k sparse dots",
+  "note_chars": 111,
+  "validator": {
+    "file": "/home/user/GEMSDOE79/docs/downloads/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z.tif",
+    "bytes": 172278,
+    "sha256": "42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0009336663642898202,
+    "emitted_positive_pixels": 12000,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 12000,
+    "footprint_fraction": 0.0023222631693125308
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOE79/docs/downloads/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z.tif",
+    "bytes": 172278,
+    "sha256": "42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0009336663642898202,
+    "n_nonzero": 12000,
+    "mass": 11464.639295399189,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "4f88a616634778e3f1df85866e7000f32cca1bcd429fa9a1d70d211ffe8c4811",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "method": "G79-DZD damage-zone distance decay",
+    "geological_target": "fault damage-zone permeability adjacent to mapped catalogue faults",
+    "distinct_from": "G79-THVC multi-physics ML ensemble (no gravity/magnetics/temperature/sinter/ML)",
+    "top_k": 12000,
+    "damage_zone_optimal_px": 2.0,
+    "damage_zone_sigma_px": 1.5,
+    "along_strike_lambda_px": 4.0,
+    "generated_utc": "2026-10-22T15:40:45Z",
+    "evidence_class": "LOCALLY_GENERATED_UNVERIFIED",
+    "holdout_dti": null,
+    "leakage_canary": null,
+    "uniqueness_vs_registry": "registry rasters not cached locally; full gate not run offline"
+  },
+  "raster_sha256": "42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "submit_blockers": [
+    "holdout_dti_not_measured_training_data_login_gated",
+    "leakage_canary_not_run_training_data_login_gated",
+    "uniqueness_vs_registry_not_complete_offline_registry_rasters_not_cached",
+    "separate_selector_has_not_approved_a_slot"
+  ],
+  "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Locally format-valid unique raster; holdout-DTI, leakage canary and full registry uniqueness require DrivenData training data (login-gated) and the 992-raster registry (not cached locally). A separate selector must approve a weekly slot before any upload."
+}

@@ -52,7 +52,7 @@ Paired differences on the same folds:
 - At 45k dots it pays FP mass 41.6k for TP 2.5k. THVC pays 34.7k for 3.2k (seed 20).
 - **Novelty** (amendment D-2, 1,216 comparable registry rasters, 0 invalid; this repository's own archived TIFFs included):
   - The *surface before placement* is a duplicate of 33 prior dot fields: chance-corrected overlap > 0.70, max 0.887.
-  - The *final dots* clear every informative raster: max chance-corrected overlap 0.590, max ρ 0.110. They are still flagged against 4 rasters that are positive on every cell. Under D-2's saturated branch, *any* non-empty file fails against those 4 (IR-79-173).
+  - The *final dots* clear every informative raster: max chance-corrected overlap 0.590, max ρ 0.110. They are still flagged against 4 rasters that are positive on every cell. Under D-2's saturated branch, *any* non-empty file fails against those 4 (IR-79-195).
 - The published GeoTIFF is therefore research-only and labelled DO-NOT-SUBMIT. It fails gate G1 (holdout), gate G4 (surface novelty) and gate G5 (saturated-branch novelty).
 
 ## 3. What this teaches
@@ -67,4 +67,6 @@ Paired differences on the same folds:
 - The two seeds share geography and catalogue, so they are not independent datasets.
 - No paired CI against THVC is possible because THVC's fold predictions were not cached.
 - Novelty uses amendment D-2. The literal overlap rule is 1.0 for every non-empty file (`evidence/universal_overlap_certificate.json`), so it carries no information. The literal reading is still printed.
-- **Structural blocker:** D-2's saturated branch has the same flaw (IR-79-173). Until the owner makes a prospective decision ("D-3") about rasters that are positive everywhere, no file from any lane can pass every gate.
+- **Structural blocker:** D-2's saturated branch has the same flaw (IR-79-195). Until the owner makes a prospective decision ("D-3") about rasters that are positive everywhere, no file from any lane can pass every gate.
+
+**Supplementary novelty (post-merge).** The completed scans could not include the parallel CJX and DZD TIFFs, which reached main later. The same shared D-2 tool finds 0 duplicates against both. The worst chance-corrected overlap is 0.369 on the surface and 0.241 on the dots, both against CJX (`evidence/fsc/novelty_supplement_artifacts.json`).

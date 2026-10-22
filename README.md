@@ -4,7 +4,7 @@
 >
 > **File:** [`g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.tif`](docs/downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.tif) · [ZIP](docs/downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.zip) · SHA-256 `031b133524871de96857dc46a5c7e864181016b777667f17f8e5343b3fd837d7`
 >
-> **Site:** https://buffedlizard55-lab.github.io/GEMSDOE79/docs/index.html · **How to submit:** [executive summary](https://buffedlizard55-lab.github.io/GEMSDOE79/docs/executive-summary.html)
+> **Site:** https://buffedlizard55-lab.github.io/GEMSDOE79/ · **How to submit:** [executive summary](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html)
 >
 > Blocked by the automated selector — do NOT upload. Failed gates: G1_holdout_beats_incumbent_both_seeds, G4_surface_novelty_D2, G5_final_dot_novelty_D2.
 

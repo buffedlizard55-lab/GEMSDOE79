@@ -21,15 +21,33 @@ from gems79.novelty import UNIVERSAL_WITNESS_BLOB
 from restore_registry import restore_blob
 
 
+def require_unique_rows(rows, key, required, label):
+    """Reject missing/duplicate trust anchors before inspecting scientific bytes."""
+    if not isinstance(rows, list) or any(not isinstance(row, dict) for row in rows):
+        raise ValueError(f'{label} must be a list of objects')
+    for identity in required:
+        if sum(row.get(key) == identity for row in rows) != 1:
+            raise ValueError(f'{label} requires exactly one {identity}')
+
+
 def verify_witness(root=ROOT, *, restore=False):
     root = Path(root)
     pins = json.loads((root / 'registry/template_pin.json').read_text())
+    require_unique_rows(pins['files'], 'path',
+                        ('vendor/gems57/grid.py', 'vendor/gems57/uniqueness.py'),
+                        'Shared template pins')
     for row in pins['files']:
         if hashlib.sha256((root / row['path']).read_bytes()).hexdigest() != row['sha256']:
             raise ValueError('Shared template pin mismatch')
     inputs = json.loads((root / 'registry/data_manifest.json').read_text())
+    require_unique_rows(inputs['files'], 'id',
+                        ('existing_faults', 'sample_submission'), 'Reference grid pins')
     for row in inputs['files']:
         if row['id'] in ('existing_faults', 'sample_submission'):
+            # Pin the files load_grid actually reads, not an arbitrary alternate
+            # file supplied by a malformed manifest (including path traversal).
+            if row.get('dest') != row['id'] + '.tif':
+                raise ValueError('Reference grid pin destination mismatch')
             path = root / 'data/reference' / row['dest']
             if hashlib.sha256(path.read_bytes()).hexdigest() != row['sha256']:
                 raise ValueError('Reference grid pin mismatch')

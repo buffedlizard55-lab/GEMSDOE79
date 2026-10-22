@@ -1,0 +1,59 @@
+{
+  "scope": "Supplementary D-2 novelty check of the G79-FSC candidate against repository TIFFs that\narrived on main after the complete scans finished (artifacts/: parallel lanes CJX and DZD).\n\nSame shared tool, same candidate representations (surface top-k and final dots) as\nscripts/fsc_novelty.py. Write-once. The gate decision is not changed by this file:\nG4/G5 already fail on the complete scans; this only closes the inventory gap.",
+  "files": [
+    "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+    "artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif"
+  ],
+  "surface": {
+    "unique_under_D2": true,
+    "duplicate_count_d2": 0,
+    "rows": [
+      {
+        "submission": "GEMSDOE79:artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+        "spearman_full_footprint": 0.09319579411774703,
+        "representation": "dot_field",
+        "my_dots_within_3px_of_dot_equivalent": 0.4371777777777778,
+        "halo_coverage_allowed": 0.10737126166554226,
+        "chance_corrected_overlap": 0.36947781529823526,
+        "d2_duplicate": null,
+        "error": null
+      },
+      {
+        "submission": "GEMSDOE79:artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif",
+        "spearman_full_footprint": 0.029233040260233798,
+        "representation": "dot_field",
+        "my_dots_within_3px_of_dot_equivalent": 0.05884444444444444,
+        "halo_coverage_allowed": 0.024046952981414446,
+        "chance_corrected_overlap": 0.03565488275212827,
+        "d2_duplicate": null,
+        "error": null
+      }
+    ]
+  },
+  "dots": {
+    "unique_under_D2": true,
+    "duplicate_count_d2": 0,
+    "rows": [
+      {
+        "submission": "GEMSDOE79:artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+        "spearman_full_footprint": 0.02074462021517466,
+        "representation": "dot_field",
+        "my_dots_within_3px_of_dot_equivalent": 0.3226222222222222,
+        "halo_coverage_allowed": 0.10737126166554226,
+        "chance_corrected_overlap": 0.2411427632929603,
+        "d2_duplicate": null,
+        "error": null
+      },
+      {
+        "submission": "GEMSDOE79:artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif",
+        "spearman_full_footprint": -0.00452200296191229,
+        "representation": "dot_field",
+        "my_dots_within_3px_of_dot_equivalent": 0.05662222222222222,
+        "halo_coverage_allowed": 0.024046952981414446,
+        "chance_corrected_overlap": 0.033377906181369224,
+        "d2_duplicate": null,
+        "error": null
+      }
+    ]
+  }
+}

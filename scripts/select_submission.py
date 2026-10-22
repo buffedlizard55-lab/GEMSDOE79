@@ -33,7 +33,7 @@ DL = ROOT / 'docs/downloads'
 PREREG = 'registry/preregistration_g79_fsc.json'
 AMEND = 'registry/preregistration_g79_fsc_amendment_A1.json'
 REPO_URL = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
-PAGES_URL = 'https://buffedlizard55-lab.github.io/GEMSDOE79/docs/index.html'
+PAGES_URL = 'https://buffedlizard55-lab.github.io/GEMSDOE79/'
 ZIP_TIME = (2026, 10, 22, 0, 0, 0)
 
 
@@ -214,7 +214,7 @@ def main() -> int:
                                    'submission_note', 'raster_sha256', 'zip_sha256', 'failed_gates',
                                    'account_side_conditions')}
     status.update(file=f'downloads/{tif.name}', zip=f'downloads/{zpath.name}', receipt=f'downloads/{receipt.name}',
-                  lane='G79-FSC', generated_utc=now)
+                  lane='G79-FSC', generated_utc=now, sha256=card['raster_sha256'])  # sha256: key read by verify_public_site.py
     (ROOT / 'docs/status.json').write_text(json.dumps(status, indent=2) + '\n')
     print(json.dumps({'decision_line': decision_line, 'failed_gates': decision['failed_gates'],
                       'file': card['submission_file'], 'sha256': raster_sha}, indent=2))

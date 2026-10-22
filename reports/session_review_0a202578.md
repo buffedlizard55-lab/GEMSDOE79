@@ -4,7 +4,7 @@
 
 - **G1, holdout:** it is below the THVC incumbent on both seeds.
 - **G4, surface novelty:** 33 informative duplicates.
-- **G5, dot novelty:** it fails only against 4 registry rasters that are positive everywhere; see IR-79-173.
+- **G5, dot novelty:** it fails only against 4 registry rasters that are positive everywhere; see IR-79-195.
 
 ## Pass 1: implement and verify
 
@@ -23,7 +23,7 @@
 
 | Finding | Fix |
 |---|---|
-| Pages is in legacy mode (`main:/`), so the site lives under `/docs/`. The README and card linked the repository root | `PAGES_URL` now points to `/GEMSDOE79/docs/…` |
+| The Pages API reports legacy mode (`main:/`), which raised the question of whether the site URL needs `/docs/` | Checked the live site. `…/GEMSDOE79/evidence/site_manifest.json` is served and `…/GEMSDOE79/docs/…` returns 404, so the Actions artifact (`docs/` as root) is what is live. The root URL is kept, and the repository-root `index.html` redirect still covers legacy builds |
 | The README blockquote ran four status lines together into one paragraph | Added separator lines |
 | Gate details printed 16-digit floats | Formatted to 4 decimals |
 | Executive summary said "unique" while novelty gates fail, and quoted the THVC gap as 0.045–0.05 | Now says "bytes match no registry file". Gap corrected to 0.036–0.050 (A1 seed 30 is 0.036 below) |
@@ -31,6 +31,17 @@
 | Markdown links rendered on Pages pointed at repository-relative paths (101 broken) | Rewritten to GitHub source URLs. `check_site` verifies that every such target file exists |
 | Archiving 12 test modules dropped 245 still-valid generic tests | 6 generic modules restored to `tests/` (lifecycle, sibling audit, THVC pipeline, FNHR, novelty/artifact, site feed). 3 assertions re-pointed at the new card, site and checker |
 | The submissions URL was unverified | Fetched: it redirects to the DrivenData login, as expected for an account page. The page says so |
+
+### Merge with a moving main (IR-79-202)
+
+Seven parallel PRs reached `main` during this session. The merge kept their work:
+
+- **Lane pages:** the CJX and DZD pages are generated from those lanes' own cards.
+- **Download checker:** the browser download-identity checker was ported into this builder.
+- **Hypotheses:** session `0d90d81b`'s hypotheses are on the research page.
+- **Renumbering:** this session's irregularities are renumbered to IR-79-194..201.
+- **Novelty supplement:** the FSC candidate was compared with the two new TIFFs. Neither is a duplicate.
+- **Deploy contract:** `verify_public_site.py`, which runs after every deploy, passes against the local preview. Its manifest and status keys were added.
 
 ## Pass 3: recheck against the request
 
@@ -45,13 +56,13 @@
 | Validate on a blocked holdout before using a slot; do not spend a slot on an idea that has not beaten the best | Done. No slot used |
 | Protocol: lane, shared tools, labels, canary, run card, ≤ 3 experiments, no self-selection | All followed. Budget 3/3. The selector is a separate script |
 | Prompt kept in the README; executive-summary subpage; download link at the top; clean site with verified links | Done; `check_site` and the tests enforce it |
-| Irregularities flagged | IR-79-172 … IR-79-179 |
+| Irregularities flagged | IR-79-194 … IR-79-201 |
 | PR merged to main | See the PR in the session summary |
 
 ## Limitations and next work
 
 1. **Owner decision D-3 (blocking).** Decide prospectively how D-2 treats registry rasters that are positive on every cell. Until then no lane can reach OK TO SUBMIT, whatever its science.
-2. After D-3, run a new preregistered lane with THVC as the frozen control. The cheapest is G79-FGC (the fabric prior inside kernel-cover placement); the best fully new mechanism is G79-CJX.
+2. After D-3, run a new preregistered lane with THVC as the frozen control. The cheapest is G79-FGC (the fabric prior inside kernel-cover placement); G79-CJX, the rank-3 idea, was tested by a parallel session at the same time and came out negative (0.1041 / 0.1063), so ranks 4 and 5 are the remaining new mechanisms.
 3. Reserve an untouched spatial validation partition. Repeated looks at the shared holdout inflate apparent gains.
 4. Holdout ≠ leaderboard: the organizer labels new faults. Only an organizer receipt can show transfer.
 5. Ranks 4 and 5 (3DEP 1 m DEM, heat-flow residuals) need network access beyond this sandbox.

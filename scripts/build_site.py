@@ -8,6 +8,7 @@ sources.html, irregularities.html, run-card.json, evidence/site_manifest.json.
 """
 from __future__ import annotations
 
+import hashlib
 import html
 import json
 import sys
@@ -25,7 +26,7 @@ SUBMIT_URL = COMPETITION + 'submissions/'
 LEADERBOARD = COMPETITION + 'leaderboard/'
 PROBLEM = COMPETITION + 'page/967/'
 REPO = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
-PAGES_URL = 'https://buffedlizard55-lab.github.io/GEMSDOE79/docs/'  # legacy Pages: main branch, repository root
+PAGES_URL = 'https://buffedlizard55-lab.github.io/GEMSDOE79/'  # served from the Actions artifact (docs/ is the site root); verified by fetching evidence/site_manifest.json
 PAGES = [('index.html', 'Download'), ('executive-summary.html', 'Executive summary'),
          ('research.html', 'Research'), ('sources.html', 'Sources'), ('irregularities.html', 'Irregularities')]
 REDIRECTS = {'EXECUTIVE_SUMMARY.html': 'executive-summary.html', 'analysis.html': 'research.html',
@@ -48,6 +49,11 @@ th{background:#eef3f1}.pass{color:var(--ok);font-weight:700}.fail{color:var(--no
 .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:14px 0}
 .small{color:var(--muted);font-size:.88rem}h1{font-size:1.9rem;margin:.3em 0}h2{margin-top:1.6em}
 footer{max-width:1060px;margin:0 auto;padding:20px;color:var(--muted);font-size:.85rem}
+.copy{margin-left:6px;font:inherit;font-size:.8rem;padding:2px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;cursor:pointer}
+.toast{position:fixed;bottom:12px;right:12px;margin:0;background:var(--ink);color:#fff;border-radius:6px;padding:0 10px}.toast:empty{display:none}
+table{display:block;max-width:100%;overflow-x:auto}main{overflow-wrap:break-word}td,th{min-width:5.5em}img,svg{max-width:100%}pre{overflow-x:auto;max-width:100%}
+header.top nav{display:flex;flex-wrap:wrap;gap:4px 14px;max-width:100%}header.top nav a{margin-right:0;white-space:nowrap}
+.panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:18px 0}
 """
 
 
@@ -60,10 +66,10 @@ def page(filename: str, title: str, body: str) -> str:
             f'<link rel="stylesheet" href="assets/g79.css"></head><body>'
             f'<a class="skip" href="#main">Skip to content</a>'
             f'<header class="top"><b>GEMSDOE79</b><nav>{nav}</nav></header>'
-            f'<main id="main">{body}</main>'
+            f'<main id="main">{body}</main><p id="toast" class="toast" role="status" aria-live="polite"></p>'
             f'<footer>Generated from <a href="run-card.json">run-card.json</a> by scripts/build_site.py. '
             f'Source: <a href="{REPO}">GitHub repository</a>. No number on this site is an organizer score unless labelled ORGANIZER-CONFIRMED.</footer>'
-            f'</body></html>\n')
+            f'<script src="assets/site.js" defer></script></body></html>\n')
 
 
 def ci(r):
@@ -139,14 +145,56 @@ def novelty_rows(card: dict) -> str:
     return ''.join(out) + '</table>'
 
 
+PARALLEL_LANES = [('cjx-submission.html', 'run_card_cjx.json'), ('dzd-submission.html', 'run_card_g79_dzd.json')]
+
+
+def _lane_holdout(c: dict) -> str:
+    h = c.get('holdout_dti')
+    if isinstance(h, dict) and h.get('dti') is not None:
+        return f"{h['dti']} ({h.get('evidence_class', 'HOLDOUT-DTI')})"
+    if isinstance(h, dict):
+        return str(h.get('evidence_class', 'not recorded'))
+    g = c.get('gates') or {}
+    for k, v in g.items():
+        if 'holdout' in k.lower() and isinstance(v, dict):
+            return E(json.dumps({x: v[x] for x in v if x in ('passed', 'seed20', 'seed30', 'candidate', 'detail', 'result')})[:300])
+    return 'see the lane run card'
+
+
+def lane_page(filename: str, card_path: str) -> str:
+    """Render a parallel session's lane card. These lanes are never canonical and never submittable here."""
+    c = json.loads((ROOT / card_path).read_text())
+    tif = c.get('submission_file') or (f"{c['artifact_dir']}/{c['tif']}" if c.get('tif') else None)
+    z = (f"{c['artifact_dir']}/{c['zip']}" if c.get('zip') else (tif[:-4] + '.zip' if tif and (ROOT / (tif[:-4] + '.zip')).exists() else None))
+    links = ''.join(f'<a href="{REPO}/blob/main/{E(x)}">{lab}</a>' for x, lab in ((tif, 'TIFF on GitHub'), (z, 'ZIP on GitHub'),
+                                                                                  (card_path, 'Lane run card')) if x)
+    note = c.get('submission_note') or c.get('note') or ''
+    rows = [('Lane', c.get('lane')), ('Verdict', c.get('verdict')), ('OK to submit', 'NO' if c.get('ok_to_submit') is not True else 'see card'),
+            ('Hypothesis', c.get('hypothesis')), ('Mechanism', c.get('mechanism')),
+            ('Named non-fault mimic', c.get('named_non_fault_mimic') or c.get('named_non_fault_process')),
+            ('HOLDOUT-DTI', _lane_holdout(c)), ('Blockers', ', '.join(c.get('blockers') or []) or None),
+            ('Name', c.get('submission_name')), ('Note', note), ('SHA-256', c.get('raster_sha256'))]
+    table = '<table>' + ''.join(f'<tr><th>{E(k)}</th><td>{E(str(v))}</td></tr>' for k, v in rows if v not in (None, '')) + '</table>'
+    body = ('<section class="banner no" aria-label="Submission decision"><p class="line">PARALLEL LANE — OK TO SUBMIT: NO.</p>'
+            f'<p>A concurrent session produced this lane on 2026-10-22, and its own card records verdict <b>{E(str(c.get("verdict")))}</b>. '
+            'It is a research artifact, not this project\'s canonical file. Do NOT upload it.</p>'
+            f'<div class="dl">{links}</div></section>'
+            f'<h1>{E(str(c.get("lane")))} — parallel lane record</h1>' + table +
+            '<p class="small">This page is generated by scripts/build_site.py from the lane\'s own run card, with no re-measurement. '
+            'The canonical decision is on the <a href="index.html">Download</a> page.</p>')
+    return page(filename, f"{c.get('lane')} parallel lane", body)
+
+
 def index(card: dict, health: dict) -> str:
     board = (health or {}).get('leaderboard_observation') or {}
     body = [banner(card),
             '<h1>GEMSDOE79 — G79-FSC fault-prediction GeoTIFF</h1>',
             f'<p>Competition: <a href="{COMPETITION}">DrivenData × DOE GEMS fault mapping</a>. '
             f'Read the <a href="executive-summary.html">executive summary</a> for what to do with this file and how a submission works.</p>',
-            '<div class="card"><b>Name</b> (≤140): <span class="mono">' + E(card['submission_name']) + '</span><br>'
-            '<b>Note</b> (≤140): <span class="mono">' + E(card['submission_note']) + '</span><br>'
+            '<div class="card"><b>Name</b> (≤140): <span class="mono" id="submission-name">' + E(card['submission_name']) + '</span> '
+            '<button type="button" class="copy" data-copy="submission-name">Copy name</button><br>'
+            '<b>Note</b> (≤140): <span class="mono" id="submission-note">' + E(card['submission_note']) + '</span> '
+            '<button type="button" class="copy" data-copy="submission-note">Copy note</button><br>'
             f'<span class="small">{len(card["submission_name"])} / {len(card["submission_note"])} characters. '
             'Values: float32 in [0, 1] (0 or 1), single band, EPSG:32611, 3730×3292, zero outside the footprint and on mapped faults.</span></div>',
             '<h2>Automated gates</h2>', gate_rows(card),
@@ -156,7 +204,7 @@ def index(card: dict, health: dict) -> str:
             'The literal one-sided overlap is printed for transparency. It is 1.0 for every non-empty file because the measured '
             'witness raster has halo coverage = 100% of allowed cells (<a href="evidence/universal_overlap_certificate.json">certificate</a>). '
             'High halo coverage alone (say 0.8) does not prove every map fails; exact 100% coverage does. D-2 has the same problem '
-            'in its saturated branch: 4 registry rasters are positive on every cell (IR-79-173).</p>',
+            'in its saturated branch: 4 registry rasters are positive on every cell (IR-79-195).</p>',
             '<h2>Leaderboard context</h2>',
             '<ul><li>Public leaderboard #1, observed 2026-10-22: <b>0.4413</b> (PUBLIC LEADERBOARD OBSERVATION; '
             f'<a href="{LEADERBOARD}">leaderboard</a>).</li>'
@@ -166,7 +214,39 @@ def index(card: dict, health: dict) -> str:
     if board.get('public_dti') is not None:
         when = board.get('observed_utc') or board.get('observed_date') or 'unknown date'
         body.append(f'<p class="small">Latest recorded #1 in docs/evidence/source_health.json: {board["public_dti"]} ({E(str(when))}).</p>')
+    body.append('<h2>Parallel lanes from the same day (all DO-NOT-SUBMIT)</h2><ul>' + ''.join(
+        f'<li><a href="{fn}">{E(json.loads((ROOT / cp).read_text()).get("lane", fn))}</a>: verdict '
+        f'{E(str(json.loads((ROOT / cp).read_text()).get("verdict")))}</li>' for fn, cp in PARALLEL_LANES if (ROOT / cp).exists()) +
+        '<li>Archived G79-THVC incumbent (holdout best 0.1905 / 0.1944): '
+        f'<a href="{REPO}/tree/main/archive/g79_thvc_canonical_0a202578">archive</a></li></ul>')
     return page('index.html', 'Download and decision', ''.join(body))
+
+
+def download_check_panel(card: dict) -> str:
+    """Browser-side SHA-256 + size identity check (ported from the archived THVC builder, session 3ca6c6a6).
+
+    The builder refuses to publish a manifest that disagrees with the card. A match is never permission to submit.
+    """
+    manifest = []
+    for kind, field, digest_field in (('TIFF', 'submission_file', 'raster_sha256'), ('ZIP', 'zip_file', 'zip_sha256')):
+        path = ROOT / card[field]
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if digest != card[digest_field]:
+            raise ValueError('Download checker identity disagrees with canonical card')
+        manifest.append({'kind': kind, 'bytes': path.stat().st_size, 'sha256': digest})
+    attr = E(json.dumps(manifest, separators=(',', ':'), allow_nan=False), quote=True)
+    return (f'<section id="check-download"><div class="panel" data-download-manifest="{attr}" aria-busy="false">'
+            '<h2>Check your downloaded file privately</h2>'
+            '<p>Choose your downloaded TIFF or ZIP to compare its exact bytes with the file published here. No upload, account access, '
+            'raster decoding or submission slot is involved. A match is <strong>not permission to submit</strong>; the decision banner is.</p>'
+            '<label for="download-file"><strong>Downloaded TIFF or ZIP</strong></label>'
+            '<p><input id="download-file" type="file" accept=".tif,.tiff,.zip" aria-describedby="download-check-help download-check-result"></p>'
+            '<p id="download-check-help" class="small">SHA-256 + byte-size identity only, computed in your browser. Renaming does not change bytes. '
+            'For a format diagnosis run <code>scripts/validate_submission.py</code>.</p>'
+            '<p id="download-check-result" data-download-result role="status" aria-live="polite" aria-atomic="true">'
+            'Choose a file. No identity or submission approval has been granted.</p>'
+            '<noscript>JavaScript is disabled; identity was not checked. Use the project CLI. No submission approval.</noscript>'
+            '</div></section><script src="assets/download-check.js" defer></script>')
 
 
 def executive(card: dict) -> str:
@@ -186,7 +266,7 @@ def executive(card: dict) -> str:
              'not beaten the holdout best, so the automated selector refused it. No human judgement was involved.</p>'
              '<p>It also fails the novelty gates. Its pre-placement surface overlaps 33 earlier dot maps. Its final dots overlap only four '
              'registry rasters, but those four are positive on <i>every</i> cell, so under the pinned rule <b>no</b> non-empty file can pass. '
-             'That needs a forward-looking owner decision before any file from any lane can show a green banner (IR-79-173).</p>'),
+             'That needs a forward-looking owner decision before any file from any lane can show a green banner (IR-79-195).</p>'),
             '<h2>What was tried in this session</h2>',
             '<p>Hypothesis G79-FSC: hidden Basin-and-Range faults run parallel to the mapped regional fault fabric, so physical edges '
             '(topography, gravity, magnetics, LiDAR scarps) whose strike agrees with that fabric should be faults more often than '
@@ -205,7 +285,7 @@ def executive(card: dict) -> str:
             '<li>Seeds 20 and 30 reuse one region and one catalogue; they are not independent datasets.</li>'
             '<li>No paired interval against THVC is possible because THVC&#39;s fold predictions were not cached.</li>'
             '<li>A1 was added after EXP-1 was seen on seed 20 (disclosed selection, one extra look at the holdout).</li>'
-            '<li>Under the pinned novelty rule, 4 positive-everywhere registry rasters block every non-empty file (IR-79-173).</li></ul>'
+            '<li>Under the pinned novelty rule, 4 positive-everywhere registry rasters block every non-empty file (IR-79-195).</li></ul>'
             '<h2>Recommended next steps</h2><ol>'
             '<li>Owner decision, made prospectively, on the saturated-branch rule (“D-3”). Without it no lane can ever be approved.</li>'
             '<li>Then a new preregistered lane with THVC frozen as the control. The cheapest is fabric-gated kernel cover (see the research page).</li>'
@@ -215,6 +295,7 @@ def executive(card: dict) -> str:
             f'<a href="evidence/fsc/seed20_a1.json">A1 seed 20</a>, <a href="evidence/fsc/seed30_a1.json">A1 seed 30</a>, '
             f'<a href="evidence/fsc/novelty_surface.json">surface novelty</a>, <a href="evidence/fsc/novelty_dots.json">dot novelty</a>. Research detail: <a href="research.html">research page</a>. '
             f'Decision file currently published: <span class="mono">{E(Path(f).name)}</span>.</p>']
+    body.append(download_check_panel(card))
     return page('executive-summary.html', 'Executive summary', ''.join(body))
 
 
@@ -254,7 +335,11 @@ def sources_page(health: dict) -> str:
     rows.append('</table>')
     body = ('<h1>Official sources</h1><p>Reachability is an automated HTTP probe, not a fresh review of claims. '
             'Competition facts used on this site were re-read on 2026-10-22 from the '
-            f'<a href="{PROBLEM}">problem description</a> and the <a href="{LEADERBOARD}">leaderboard</a>.</p>' + ''.join(rows))
+            f'<a href="{PROBLEM}">problem description</a> and the <a href="{LEADERBOARD}">leaderboard</a>.</p>' + ''.join(rows) +
+            '<h2>Live source-health feed (refreshed at each deploy)</h2>'
+            '<p id="feed-status">Loading evidence/source_health.json… (it needs JavaScript; the static table above does not).</p>'
+            '<p id="feed-observation" class="small"></p>'
+            '<table><thead><tr><th>ID</th><th>State</th><th>HTTP</th></tr></thead><tbody id="health-rows"></tbody></table>')
     return page('sources.html', 'Sources', body)
 
 
@@ -294,7 +379,7 @@ def readme(card: dict) -> str:
 >
 > **File:** [`{Path(f).name}`]({f}) · [ZIP]({card['zip_file']}) · SHA-256 `{card['raster_sha256']}`
 >
-> **Site:** {PAGES_URL}index.html · **How to submit:** [executive summary]({PAGES_URL}executive-summary.html)
+> **Site:** {PAGES_URL} · **How to submit:** [executive summary]({PAGES_URL}executive-summary.html)
 >
 > {'Every automated gate passed; you still need a free weekly slot.' if ok else 'Blocked by the automated selector — do NOT upload. Failed gates: ' + ', '.join(card['failed_gates']) + '.'}
 
@@ -381,10 +466,14 @@ def build() -> dict:
         'index.html': index(card, health),
         'executive-summary.html': executive(card),
         'research.html': md_page('research.html', 'Research', [ROOT / 'knowledge/fsc_findings_0a202578.md',
-                                                               ROOT / 'research/hypotheses_0a202578.md']),
+                                                               ROOT / 'research/hypotheses_0a202578.md',
+                                                               ROOT / 'research/hypotheses_0d90d81b.md']),
         'sources.html': sources_page(health),
         'irregularities.html': md_page('irregularities.html', 'Irregularities', [ROOT / 'reports/irregularities.md']),
     }
+    for fn, cp in PARALLEL_LANES:
+        if (ROOT / cp).exists():
+            out[fn] = lane_page(fn, cp)
     for name, text in out.items():
         (DOCS / name).write_text(text)
     for alias, target in REDIRECTS.items():
@@ -396,7 +485,11 @@ def build() -> dict:
             (pub / src.name).write_bytes(src.read_bytes())
     (ROOT / 'README.md').write_text(readme(card))
     (DOCS / 'run-card.json').write_text(json.dumps(card, indent=2, allow_nan=False) + '\n')
-    manifest = {'pages': list(out), 'compatibility_redirects': REDIRECTS, 'card_sha256_source': 'run_card.json'}
+    manifest = {'raster_sha256': card['raster_sha256'],
+                'run_card_sha256': hashlib.sha256((ROOT / 'run_card.json').read_bytes()).hexdigest(),
+                'ok_to_download': card['ok_to_download'], 'ok_to_submit': card['ok_to_submit'], 'verdict': card['verdict'],
+                'pages': list(out), 'compatibility_redirects': REDIRECTS, 'card_sha256_source': 'run_card.json',
+                'no_human_inspection_required': True}
     (DOCS / 'evidence/site_manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     return manifest
 

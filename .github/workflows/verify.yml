@@ -49,6 +49,7 @@ jobs:
           python -m http.server 8080 --bind 0.0.0.0 --directory docs > /tmp/g79-http.log 2>&1 &
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
+          node --test tools/browser-qa/download-check.test.cjs
           node scripts/browser_review.cjs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()

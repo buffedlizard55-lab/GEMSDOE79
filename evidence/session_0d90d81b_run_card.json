@@ -1,0 +1,87 @@
+{
+  "schema_version": "gems79.session_run_card.v1",
+  "session_id": "arena/0d90d81b-gemsdoe79",
+  "timestamp_utc": "2026-10-22T09:15:00Z",
+  "lane_id": "G79-REVIEW-0D90D81B (canonical artifact retained: G79-THVC)",
+  "hypothesis": "Cross-repository post-04:31Z forensic audit and preflight verification: test whether any post-delta sibling lane (GEMSDOE78 H78-MGHD / H78-GFV, GEMSDOE83 H83-GVCD) or restored local lane clears both strict 3-quadrant LOQO holdout benchmarks and the shared SHA-256-pinned 1,201-raster uniqueness gate without private gate exemptions, and formulate 5 untried geological hypotheses for post-owner-decision execution.",
+  "mechanism": "Autonomous 13/13 SHA-256 data restoration + 8/8 E1 normal reproduction; 93-repo Git object delta scan (+2 GEMSDOE78 blobs -> 1,201 non-self rasters); exact 5,106,385 off-catalogue 3-px halo measurement; strict LOQO vs global-4-quadrant leakage decomposition; and preflight witness check (scripts/preflight_new_lane.py --restore -> STOP).",
+  "named_non_fault_mimic": "Alluvial-fan lateral geothermal outflow plumes (where conductive silica re-equilibration lags cation geothermometry down-gradient of blind range-front feeders) and Pleistocene Lake Lahontan wave-cut shorelines (down-slope contour-parallel scarps lacking signed hangwall-basin gravity steps).",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "canonical_g79_thvc_seed20": {
+      "dti": 0.1905,
+      "ci95": [
+        0.1741,
+        0.2069
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "canonical_g79_thvc_seed30": {
+      "dti": 0.1944,
+      "ci95": [
+        0.1774,
+        0.2126
+      ],
+      "withheld_positive_pixels": 11342
+    },
+    "organizer_confirmed_scores": null
+  },
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.8036,
+    "passed": true,
+    "features_cleared": 84,
+    "required_threshold": 0.9,
+    "n_features_tested": 84,
+    "n_suspicious_gt_0p90": 0,
+    "max_feature": "net_tip_fwd_35px",
+    "source": "evidence/g79_leakage_canary.json"
+  },
+  "registry_uniqueness": {
+    "preflight_status": "STOP (exit 2: impossible_under_literal_gate)",
+    "verified_non_self_blobs_total": 1201,
+    "canonical_g79_thvc_literal_gate_passed": false,
+    "canonical_g79_thvc_max_forward_overlap_literal": 1.0,
+    "canonical_g79_thvc_vs_H78_GSC_forward_overlap_3px": 0.681788,
+    "canonical_g79_thvc_vs_H78_MGHD_forward_overlap_3px": 0.670333,
+    "canonical_g79_thvc_vs_H78_GFV_forward_overlap_3px": 0.587012,
+    "canonical_g79_thvc_vs_H78_GFV_spearman_rho": 0.043061
+  },
+  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "zip_sha256": "dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9",
+  "validator_output": {
+    "all_checks_passed": true,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "emitted_positive_pixels": 35093,
+    "min": 0.0,
+    "max": 1.0,
+    "n_nan": 0,
+    "n_finite": 12279160
+  },
+  "submission_name": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT",
+  "submission_name_length": 55,
+  "submission_note": "GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)",
+  "submission_note_length": 98,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "submission_slots_used": 0,
+  "experiments_used_this_session": 0,
+  "verdict": "negative"
+}
