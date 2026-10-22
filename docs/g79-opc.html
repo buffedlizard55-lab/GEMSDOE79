@@ -27,7 +27,7 @@ Leakage canary max symmetric AUC 0.8036 / 0.7998 (gate ≤ 0.90).</p></section>
 <section class="section"><h2>Novelty (D-3, full family)</h2><div class="table-scroll"><table><thead><tr><th>Phase</th><th>Rasters compared</th><th>Unique (D-3)</th><th>Worst |ρ|</th><th>Worst chance-corrected</th><th>Worst literal 3-px overlap</th></tr></thead><tbody><tr><td>pre_placement_surface</td><td>1222/1232</td><td>FAIL</td><td>0.6932</td><td>0.8264</td><td>1.0000</td></tr><tr><td>final_dots</td><td>1222/1232</td><td>FAIL</td><td>0.1348</td><td>0.8264</td><td>1.0000</td></tr></tbody></table></div></section>
 <section class="section prose"><h2>Automated gates</h2><ul>
 <li>G1 local shared validator (grid, CRS, finite, values in [0, 1], ZIP identical): <strong>PASS</strong></li>
-<li>G1b official R1–R8 portal rules: <strong>FAIL</strong> — failed R6 (R6: the outside-footprint area must be NaN; this file zero-fills it, see IR-79-227)</li>
+<li>G1b official R1–R8 portal rules: <strong>FAIL</strong> — failed R6 (R6: the outside-footprint area must be NaN; this file zero-fills it, see IR-79-212 and IR-79-224)</li>
 <li>G2 leakage canary: <strong>PASS</strong></li>
 <li>G3 beats G79-THVC on both seeds and the best 2-seed mean (0.1963): <strong>FAIL</strong> (2-seed mean 0.1357)</li>
 <li>G4 novelty, D-3, both phases: <strong>FAIL</strong></li></ul>

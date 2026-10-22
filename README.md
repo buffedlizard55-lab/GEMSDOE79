@@ -1,5 +1,55 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Current review — session `a26add66` (2026-10-22)
+
+**OK TO DOWNLOAD: YES (inherited research file). OK TO SUBMIT: NO.**
+**No new unique submission TIFF was generated:** the freshly measured
+[preflight](evidence/preflight_a26add66.json) blocks every nonempty candidate
+under the requested literal overlap rule. The absent lane paragraph was not
+invented, no stopped lane was restarted, and no competition slot was used.
+
+- Fixed an automated validation defect: ZIP checks had discarded the inner TIFF's
+  single-band failure. The shared project [official-format validator](src/gems79/portal_spec.py)
+  now checks archive and raster, the actual GeoTIFF driver, and returns complete
+  failed-rule reports for malformed/missing inputs rather than crashing.
+- The [landing page](docs/index.html) now labels **Official format: FAIL R6**,
+  not an unqualified PASS. The official template passes; inherited TIFF/ZIP
+  still fail the NaN-exterior rule. This does not diagnose the prior portal error.
+- Restored **13/13** SHA-pinned owner-mirror inputs locally and reproduced the
+  historical feature-cache hashes without changing its receipt. This resolves
+  local data placement, not organizer authentication or scientific eligibility.
+  Ignored runtime/cache files may need restoring again in a fresh workspace.
+- Re-read the official format/metric description, USGS GeoDAWN release and public
+  leader observation; kept reported H33 scores separate from organizer receipts.
+  See the [source ledger](evidence/source_review_a26add66.json),
+  [three conditional hypotheses](research/hypotheses_a26add66.md),
+  [three-pass review](reports/session_review_a26add66.md), and
+  [terminal negative card](evidence/run_card_a26add66.json).
+
+**Next allowed research step:** a prospective shared comparator-definition
+resolution and explicit new lane assignment, then preregistration and matched
+holdout validation. Do not delete registry witnesses, jitter dots, rename an old
+TIFF, or spend a slot to bypass failed gates. Historical reports below are not
+experiments or scores from this review. The original full prompt remains below.
+
+
+## Latest review — session `50335987`, 2026-10-22
+
+**OK TO DOWNLOAD: YES (inherited research only). OK TO SUBMIT: NO.**
+No new unique TIFF was generated: the independently restored registry witness
+makes every nonempty candidate fail the literal overlap rule. The requested new
+submission remains blocked; no human inspection or manual upload overrides this.
+See the [three-pass review](reports/session_review_50335987.md) and
+[three ranked deferred hypotheses](research/hypotheses_50335987.md).
+
+Fixed a real automated-validation defect: ZIP validation previously discarded a
+multi-band TIFF's failed single-band check. It now preserves that failure and
+rejects unreadable TIFF members without crashing. Targeted regression tests and
+the full software suite pass. The canonical TIFF/ZIP remain unchanged and fail
+the separate official-text exterior convention check (R6); their in-footprint
+values are finite and within [0,1]. Historical “unique” claims below do not mean
+full-protocol novelty or upload approval. No new HOLDOUT-DTI is claimed.
+
 ## Current session — 2026-10-22, `a201fa92`: automatic stop, no new TIFF
 
 **OK TO DOWNLOAD: YES (inherited research file only). OK TO SUBMIT: NO.**
@@ -141,7 +191,7 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 > Name: `g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT` · Note (76/140): `RESEARCH ONLY: G79-OPC aniso pair-corr prior, 45204 dots; holdout below THVC`
 > Decision page: [docs/g79-opc.html](docs/g79-opc.html) · Run card: [`run_card_opc.json`](run_card_opc.json) · Independent re-check: `.venv/bin/python scripts/opc_gate.py` (exit 2 = NO; exit 1 = card/evidence disagree). No human inspection is involved. Session review, limitations and next work: [reports/session_review_ff2e4413.md](reports/session_review_ff2e4413.md).
 
-**Hypothesis.** This was the top-ranked of five untried ideas ([research/hypotheses_ff2e4413.md](research/hypotheses_ff2e4413.md)). Faults come in populations with anisotropic second-order structure: relay steps along strike and sub-parallel splays at a characteristic spacing across strike ([Soliva et al. 2006](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2004JB003507); [Faulds & Hinz 2015](https://pangea.stanford.edu/ERE/db/WGC/papers/WGC/2015/11100.pdf)). The strike-rotated pair-correlation between components of the *visible* catalogue was learned and convolved back onto the map, then combined with LiDAR-strike concordance and the pinned geophysics stack in LightGBM. **Named mimic:** Lake Lahontan shorelines and terrace risers. Preregistered in [`registry/preregistration_g79_opc.json`](registry/preregistration_g79_opc.json), with two disclosed deviations (D-OPC-1 pre-result sign fix; D-OPC-2 post-result holdout-mask bug fix, see `IR-79-229`).
+**Hypothesis.** This was the top-ranked of five untried ideas ([research/hypotheses_ff2e4413.md](research/hypotheses_ff2e4413.md)). Faults come in populations with anisotropic second-order structure: relay steps along strike and sub-parallel splays at a characteristic spacing across strike ([Soliva et al. 2006](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2004JB003507); [Faulds & Hinz 2015](https://pangea.stanford.edu/ERE/db/WGC/papers/WGC/2015/11100.pdf)). The strike-rotated pair-correlation between components of the *visible* catalogue was learned and convolved back onto the map, then combined with LiDAR-strike concordance and the pinned geophysics stack in LightGBM. **Named mimic:** Lake Lahontan shorelines and terrace risers. Preregistered in [`registry/preregistration_g79_opc.json`](registry/preregistration_g79_opc.json), with two disclosed deviations (D-OPC-1 pre-result sign fix; D-OPC-2 post-result holdout-mask bug fix, see `IR-79-230`).
 
 | Arm (HOLDOUT-DTI, `gems57-pooled-hide-v2`, α 0.2, β 0.8, 300 m) | Seed 20 (n = 11,321) | Seed 30 (n = 11,342) |
 |---|---|---|
@@ -154,7 +204,7 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 | Gate | Result |
 |---|---|
 | G1 local shared validator (single band, EPSG:32611, 3730 × 3292, sample transform, finite, values in [0, 1], ZIP identical) | **PASS** |
-| G1b official R1–R8 portal rules (`scripts/validate_portal_spec.py`, merged from main afterwards) | **FAIL R6:** zeros outside the footprint, where the official rule requires null/NaN (IR-79-212/224/227). The file was not repackaged because the lane is closed. |
+| G1b official R1–R8 portal rules (`scripts/validate_portal_spec.py`, merged from main afterwards) | **FAIL R6:** zeros outside the footprint, where the official rule requires null/NaN (IR-79-212, IR-79-224). The file was not repackaged because the lane is closed. |
 | G2 leakage canary (max single-feature symmetric AUC ≤ 0.90) | **PASS:** 0.8036 / 0.7998 |
 | G3 beats current holdout best on both seeds and the best 2-seed mean (0.1963) | **FAIL:** 2-seed mean 0.1357 |
 | G4 novelty, D-3, surface and final dots, 1,222/1,232 comparable rasters | **FAIL:** 14 chance-corrected halo firings (worst 0.8264); worst rank correlation 0.6932 (surface) / 0.1348 (dots); literal one-sided 3-px rule fires on 119 rasters |

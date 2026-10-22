@@ -5,13 +5,13 @@
 - The project-wide decision is unchanged (`scripts/select_submission.py` exit 2). Slots used: 0.
 
 ## What was done (budget: 3 experiments in about 2 h, all used)
-1. **Shared-tool fix, made once in the template.** Amendment D-3 (`vendor/gems57/uniqueness.py`, `IR-79-228`) chance-corrects the saturated exact-cell branch of D-2.
+1. **Shared-tool fix, made once in the template.** Amendment D-3 (`vendor/gems57/uniqueness.py`, `IR-79-229`) chance-corrects the saturated exact-cell branch of D-2.
    - It was committed before any lane result.
    - The default behaviour is unchanged.
    - The pin chain was updated in `registry/template_pin.json`, `scripts/verify_project.py` and two tests.
 2. **Preregistration:** `registry/preregistration_g79_opc.json` (sha in `registry/preregistration_g79_opc.sha256`).
    - Deviation D-OPC-1 (pre-result): the concordance sign/convention was fixed.
-   - Deviation D-OPC-2 (post-result, disclosed): the holdout mask had used the full catalogue. The bug was fixed and the invalid run was preserved (`IR-79-229`).
+   - Deviation D-OPC-2 (post-result, disclosed): the holdout mask had used the full catalogue. The bug was fixed and the invalid run was preserved (`IR-79-230`).
 3. **EXP-OPC-1/2 on seeds 20 and 30.** Each arm used the shared buffered holdout, shared evaluator, shared greedy placement and a leakage canary.
 4. **EXP-OPC-3:**
    - live fit with 45,204 dots;
@@ -32,7 +32,7 @@
 - **G4 fails:** D-3 fired on 14 rows, covering 13 distinct dense dot-field paths. The worst chance-corrected overlap is 0.8264, against `GEMSDOE53` thin_bin. The literal 3-px rule fires on 119 rasters.
 - **G2 passes:** the maximum single-feature AUC is 0.8036.
 - **G1 (local shared validator) passes:** single band, EPSG:32611, 3730 × 3292, sample transform, finite values in [0, 1], and the ZIP holds identical bytes.
-- **G1b (official R1–R8 validator, merged from `main` after the lane ran) FAILS R6.** The shared writer zero-fills outside the footprint, but the official text requires null/NaN there (IR-79-212/224/227). The file was not repackaged because the lane is closed and the writer policy needs an owner decision.
+- **G1b (official R1–R8 validator, merged from `main` after the lane ran) FAILS R6.** The shared writer zero-fills outside the footprint, but the official text requires null/NaN there (IR-79-212, IR-79-224). The file was not repackaged because the lane is closed and the writer policy needs an owner decision.
 
 ## Why H33 scored well and whether we can beat it (unchanged conclusion)
 See [`knowledge/h33_review_e4a4422d.md`](../knowledge/h33_review_e4a4422d.md).
@@ -43,8 +43,8 @@ See [`knowledge/h33_review_e4a4422d.md`](../knowledge/h33_review_e4a4422d.md).
 - No lane has beaten the leaderboard's 0.4413. HOLDOUT-DTI is not comparable to the leaderboard scale.
 
 ## Merge notes
-- Concurrent `main` sessions used IR-79-207..220, so this session's IDs were renumbered to IR-79-228..230. Two sha-pinned files (`vendor/gems57/uniqueness.py` and the OPC preregistration) keep the original `IR-79-207` text, which is disclosed in IR-79-228.
-- `main` had a gap at IR-79-221..223 left by a concurrent renumbering, which broke 3 tests. Pointer rows were added, and the full suite now passes (619 tests).
+- Concurrent `main` sessions used IR-79-207..228, so this session's IDs were renumbered twice during merges and are now IR-79-229..231. Two sha-pinned files (`vendor/gems57/uniqueness.py` and the OPC preregistration) keep the original `IR-79-207` text, which is disclosed in IR-79-229.
+- A gap at IR-79-221..223 on `main` was repaired concurrently by `main` itself (commit `7e9502e`), so this branch's temporary pointer rows were dropped in favour of `main`'s ledger.
 
 ## Limitations
 - Every TIFF in the repo, including this one, zero-fills outside the footprint and so fails official R6. A compliant future candidate needs a NaN-exterior writer mode, which is an owner decision.

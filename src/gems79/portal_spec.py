@@ -22,6 +22,7 @@ from __future__ import annotations
 import hashlib
 import tempfile
 import zipfile
+import zlib
 from pathlib import Path
 
 import numpy as np
@@ -31,6 +32,7 @@ ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_TEMPLATE = ROOT / 'data' / 'reference' / 'sample_submission.tif'
 OFFICIAL_CRS = 'EPSG:32611'
 OFFICIAL_RES = 100.0
+VALIDATOR_VERSION = 'gems79-portal-format-v2'
 OFFICIAL_PAGE = 'https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/'
 
 RULES = {
@@ -123,69 +125,63 @@ def _validate_tif(path: Path, template: Path, out: dict) -> None:
     }
 
 
-def _inspect_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
+def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
     """Validate a .tif or a single-TIFF .zip against the official rules."""
     path, template = Path(path), Path(template)
-    out = {'file': _rel(path), 'sha256': _sha256(path), 'bytes': path.stat().st_size,
-           'template': _rel(template), 'template_sha256': _sha256(template),
-           'official_source': OFFICIAL_PAGE, 'rules': [], 'cells': {'compared': False}}
-    if path.suffix.lower() == '.zip':
-        try:
+    out = {'validator_version': VALIDATOR_VERSION,
+           'file': _rel(path), 'sha256': None, 'bytes': None,
+           'template': _rel(template), 'template_sha256': None,
+           'official_source': OFFICIAL_PAGE, 'does_not_approve_submission': True,
+           'rules': [], 'cells': {'compared': False}}
+    try:
+        out['sha256'] = _sha256(path)
+        out['bytes'] = path.stat().st_size
+        out['template_sha256'] = _sha256(template)
+        if path.suffix.lower() == '.zip':
             with zipfile.ZipFile(path) as z:
                 bad = z.testzip()
                 members = [i for i in z.infolist() if not i.is_dir()]
                 names = [i.filename for i in members]
                 tifs = [n for n in names if n.lower().endswith(('.tif', '.tiff'))]
+                zip_detail = f'zip members {names}; CRC error {bad!r}'
                 _check(out['rules'], 'R1', bad is None and len(names) == 1 and len(tifs) == 1,
-                       f'zip members {names}; CRC error {bad!r}')
-                if bad is None and len(names) == 1 and len(tifs) == 1:
+                       zip_detail)
+                if out['rules'][0]['pass']:
+                    # Keep the container and raster checks separate until both
+                    # finish. Dropping the inner R1 would approve multi-band ZIPs.
+                    inner = {'rules': [], 'cells': {'compared': False}}
                     with tempfile.TemporaryDirectory() as tmp:
                         extracted = Path(tmp) / Path(tifs[0]).name
                         extracted.write_bytes(z.read(tifs[0]))
-                        _validate_tif(extracted, template, out)
-                        # R1 requires BOTH a single archive member and a single
-                        # GeoTIFF band. Never discard the inner raster failure.
-                        outer, inner = out['rules'][0], out['rules'][1]
-                        outer['pass'] = outer['pass'] and inner['pass']
-                        outer['detail'] += '; ' + inner['detail']
-                        del out['rules'][1]
+                        _validate_tif(extracted, template, inner)
+                    inner_r1 = inner['rules'][0]
+                    out['rules'][0]['pass'] = inner_r1['pass']
+                    out['rules'][0]['detail'] = zip_detail + '; ' + inner_r1['detail']
+                    out['rules'].extend(inner['rules'][1:])
+                    out['cells'] = inner['cells']
                     out['inner_tif'] = tifs[0]
-                else:
-                    for rule in ('R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8'):
-                        _check(out['rules'], rule, False, 'not evaluated: zip is not a single TIFF')
-        except zipfile.BadZipFile as exc:
-            _check(out['rules'], 'R1', False, f'not a valid zip: {exc}')
-    else:
-        try:
+        else:
             _validate_tif(path, template, out)
-        except rasterio.errors.RasterioIOError as exc:
-            _check(out['rules'], 'R1', False, f'not readable as GeoTIFF: {exc}')
+    except (OSError, zipfile.BadZipFile, rasterio.errors.RasterioError, ValueError,
+            NotImplementedError, RuntimeError, EOFError, zlib.error) as exc:
+        # Invalid/missing inputs and unsupported/encrypted ZIPs are refusals,
+        # not tracebacks or partial PASS results. Never authorize a submission.
+        out['error'] = {'type': type(exc).__name__}
+        out['inspection_error'] = {'type': type(exc).__name__}
+        existing_r1 = next((r for r in out['rules'] if r['rule'] == 'R1'), None)
+        if existing_r1 is None:
+            _check(out['rules'], 'R1', False, 'cannot inspect input/template; see inspection_error type')
+        else:
+            existing_r1.update({'pass': False, 'detail': 'cannot inspect archive/raster; see inspection_error type'})
+    # Every outcome has exactly one result per rule. Uninspected rules fail
+    # closed, including malformed ZIPs and mismatched/absent input files.
+    checked = {r['rule'] for r in out['rules']}
+    for rule in RULES:
+        if rule not in checked:
+            _check(out['rules'], rule, False, 'not evaluated: input/template could not be inspected')
+    out['rules'].sort(key=lambda r: r['rule'])
     out['failed_rules'] = [r['rule'] for r in out['rules'] if not r['pass']]
     out['ok'] = bool(out['rules']) and not out['failed_rules'] and len(out['rules']) == len(RULES)
-    return out
-
-
-def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
-    """Return a fail-closed report, including for absent or corrupt inputs.
-
-    Inspection errors are not measured rule failures: all rules are marked
-    unverified/failed and the exception type is reported without private paths.
-    This never grants scientific or competition approval.
-    """
-    try:
-        out = _inspect_portal_file(path, template)
-    except (OSError, ValueError, RuntimeError, zipfile.BadZipFile,
-            rasterio.errors.RasterioError) as exc:
-        out = {'file': _rel(path), 'template': _rel(template),
-               'sha256': None, 'template_sha256': None, 'bytes': None,
-               'official_source': OFFICIAL_PAGE, 'rules': [],
-               'cells': {'compared': False},
-               'inspection_error': {'type': type(exc).__name__}}
-        for rule in RULES:
-            _check(out['rules'], rule, False, 'not verified: input or template inspection failed')
-        out['failed_rules'] = list(RULES)
-        out['ok'] = False
-    out['does_not_approve_submission'] = True
     return out
 
 

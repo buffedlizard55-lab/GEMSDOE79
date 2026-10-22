@@ -1,6 +1,6 @@
 # Protocol amendment D-3: chance-corrected saturated-halo branch
 
-**Date:** 2026-10-22 · **Session:** `arena/ff2e4413-gemsdoe79` · **IR:** IR-79-228 ·
+**Date:** 2026-10-22 · **Session:** `arena/ff2e4413-gemsdoe79` · **IR:** IR-79-229 ·
 **Status:** adopted prospectively for new lanes, starting with `G79-OPC`. It was committed
 **before** any G79-OPC surface, holdout score or placement existed. No historical verdict changes.
 Every lane closed before this date keeps its frozen verdict. The default

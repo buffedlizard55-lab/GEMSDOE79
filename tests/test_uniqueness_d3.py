@@ -1,4 +1,4 @@
-"""Amendment D-3 (IR-79-228): chance-corrected saturated-halo branch.
+"""Amendment D-3 (IR-79-229): chance-corrected saturated-halo branch.
 
 D-3 changes ONLY the branch of D-2 that applies when a prior's 3 px halo
 saturates the allowed domain. The default ('exact-d2') must reproduce D-2

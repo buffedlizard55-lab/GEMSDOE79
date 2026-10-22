@@ -82,7 +82,7 @@ def test_post_snapshot_sibling_audit_and_binary_pigeonhole_certificate() -> None
     # appended functions without changing audit-used behaviour).
     _entry = next(e for e in json.loads((ROOT / 'registry/template_pin.json').read_text())['files']
                   if e['path'] == 'vendor/gems57/uniqueness.py')
-    # IR-79-228: D-3 added a third amendment; recorded historical pins also count.
+    # IR-79-229: D-3 added a third amendment; recorded historical pins also count.
     assert pins['uniqueness_py_sha256'] in (
         _sha256(ROOT / 'vendor/gems57/uniqueness.py'), _entry['previous_sha256'],
         *_entry.get('historical_sha256', []))
