@@ -1567,5 +1567,42 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Archived <code>g79-dfsd-ccsubmod-20261022-947eff42-zeros-DO-NOT-SUBMIT.{tif,zip,json}</code> (<code>SHA-256: 9df6c871…</code>) under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_dfsd_d7da950d/README.md"><code>archive/g79_dfsd_d7da950d/</code></a> with <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_dfsd.json"><code>run_card_dfsd.json</code></a>, guarded <code>scripts/run_g79_dfsd.py</code> (<code>exit 2</code>, <code>No files changed.</code>), and preserved canonical <code>G79-THVC</code> in <code>docs/downloads/</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>a92a0164</code> — source/score refresh, H33 correction, and ranked backlog (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-207</td>
+<td>The stored public leaderboard snapshot had become stale: its #50 <code>sam35 = 0.2804</code> was superseded by a later official-page read showing #50 <code>arnofault = 0.2817</code>; rank 1 remained <code>xiaofanhu = 0.4413</code>. The old observation remains valid only as a historical same-day snapshot.</td>
+<td>Updated the official-source ledger and feed with the later observed ranks, preserved the earlier values as historical evidence, and clarified that both are public observations—not local artifact scores or submission receipts. Direct shell probes remain failed reachability checks; the later content read used the separate research fetch path.</td>
+</tr>
+<tr>
+<td>IR-79-208</td>
+<td><code>research/h33_analysis.md</code> and <code>knowledge/why_h33.md</code> contained causal/metric language that exceeded the byte and score evidence for H33. The <code>0.2778</code> value is not linked to the raster by an organizer receipt; exact thinning geometry does not reveal hidden truth.</td>
+<td>Replaced the stale analysis with a conditional metric explanation and exact geometry; marked the old <code>why_h33</code> account superseded. Distinguish H33 <code>0.2778</code> (unverified historical report), public leader <code>0.4413</code> (public observation), and older user-reported <code>0.3195</code> (not the latest leader).</td>
+</tr>
+<tr>
+<td>IR-79-209</td>
+<td>Backlog files repeated related ComCat, potential-field, heat-flow, and InSAR ideas under different names; several older notes included unverified score projections or data-readiness statements. No executable lane/holdout receipt was found for the exact four signatures selected this review.</td>
+<td>Added a ranked, deduplicated shortlist with layer/signature, missing-catalogue rationale, repo-difference, non-fault mimic, qualitative value/cost, and evidence crosswalk. The shortlist does not claim global novelty; all four remain unrun proposals, not candidate scores.</td>
+</tr>
+<tr>
+<td>IR-79-210</td>
+<td>External-source metadata/query responses were at risk of being described as locally acquired data. ComCat returned event counts and a small sample; Copernicus STAC returned five SLC metadata items; ScienceBase listed a heat-flow ZIP; UNR MIDAS returned text samples. None is a locally acquired/hash-verified model input. The full competition training stack is absent from the current <code>data/</code> directory.</td>
+<td>Added an explicit source/availability receipt. No new external binary, candidate surface, holdout, placement, TIFF, submission, or weekly slot resulted. The current preflight still exits 2 with <code>start_new_lane:false</code>; no candidate was generated to test novelty or format.</td>
+</tr>
+<tr>
+<td>IR-79-211</td>
+<td>A closer read of the official ScienceBase item JSON resolves the heat-flow source's obtainability at the listing level: it exposes a public <code>downloadUri</code> and exact listed size <code>130154244</code> bytes (124.12 MiB), plus an advertised MD5. The earlier prose's “124.12 MB” used the binary-unit value with a decimal-unit label.</td>
+<td>Corrected to bytes/MiB, recorded the exact official URI and advertised-but-unverified MD5, and kept the source classified as not locally acquired or validated. Public link listing is not evidence that the 130 MB archive transferred successfully or that its fields/coverage are suitable.</td>
+</tr>
+</tbody>
 </table></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (archived TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Current review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Prior review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

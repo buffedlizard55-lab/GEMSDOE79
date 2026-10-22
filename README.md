@@ -1,12 +1,22 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Current review — session `a92a0164` (2026-10-22)
+
+> **No new experiment, holdout, placement, candidate TIFF, or submission was made in this session. No weekly slot was used.** The pinned preflight witness covers `1.0000` of allowed cells; every non-empty candidate has literal 3-pixel forward overlap `1.0000 > 0.70`. Do not bypass or locally redefine this stop.
+
+- **Current preflight:** [receipt](evidence/preflight_a92a0164.json) · **run card:** [JSON](evidence/run_card_a92a0164.json) · **three-pass review:** [report](reports/session_review_a92a0164.md).
+- **Ranked, untried geological backlog:** [four reconciled hypotheses](research/hypotheses_a92a0164.md). They are qualitative priorities, not predicted DTI scores; official source availability and limitations are recorded in the [source review](evidence/source_review_a92a0164.json).
+- **H33 `0.2778`:** unverified historical user report, not tied to the file by an organizer receipt. **`0.4413`:** the separate 2026-10-22 public-leaderboard observation for rank 1 (`xiaofanhu`), not this project's score. **`0.3195`:** an older user-reported benchmark, not the current public leader. No higher leaderboard result is promised.
+- **Latest fetched public leaderboard:** rank 1 `0.4413`; rank 50 `0.2817` (`arnofault`). Earlier same-day rank-50 `0.2804` (`sam35`) remains a historical observation, not the latest snapshot. See the [official-source ledger](knowledge/official_sources.json) and [source-health feed](docs/evidence/source_health.json).
+- **New TIFF status:** none exists for this session. The inherited G79-THVC file and prior archived research TIFFs remain separately labelled; none is a newly generated candidate or approved submission. Local format validity is never organizer approval.
+
 ## Download and automated decision
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
 > **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
 
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_0d90d81b.md)** · **[Five untried hypotheses](research/hypotheses_0d90d81b.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download inherited research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Current three-pass review](reports/session_review_a92a0164.md)** · **[Current ranked hypotheses](research/hypotheses_a92a0164.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
@@ -25,7 +35,7 @@ The historical “Charnes-Cooper” identifier is not an exact-optimization clai
 | Historical H33-control comparison | Candidate exceeds its H33 fold-fair control on both seeds, with positive paired 95% intervals. See the labelled evidence below. Not a new result beating today's incumbent. |
 | Slot selection | **NOT APPROVED.** No organizer receipt or remaining-account-capacity measurement. Sparse-prior diagnostics cannot substitute for the full novelty gate. |
 
-The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
+The current [new-lane preflight](evidence/preflight_a92a0164.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
 
 ## New this session: G79-CJX — a unique TIF was generated, and the automated gate says NO
 
@@ -84,8 +94,10 @@ catalogue. G5 partial-inventory novelty PASS vs the 36 locally cached rasters
 **G3 holdout and G4 full-registry novelty are NOT MEASURED**: `data/raw/training_features.tif`
 and `labels.tif` are login-gated and absent from this checkout, and the 992-raster
 registry is not cached locally (GitHub TLS unavailable). No holdout number is
-claimed, no leaderboard score is claimed, and 0.2778/0.4413 remain unverified
-historical reports. Verdict: **negative** — a deliverable, not an upload.
+claimed, and no leaderboard score is claimed. The H33 `0.2778` value is an
+unverified historical report; `0.4413` is a separate public-leaderboard
+observation, not this artifact's score or an organizer receipt. Verdict:
+**negative** — a deliverable, not an upload.
 
 Recheck: `python scripts/generate_unique_submission.py --help` (regeneration
 refuses to overwrite existing bytes), `python scripts/validate_submission.py
@@ -144,7 +156,7 @@ The [decision guide now checks downloaded TIFF/ZIP identity in your browser](doc
 
 ## What changed in this review
 
-**Latest replay & post-`04:31Z` forensic audit, session `0d90d81b`:** [three-pass repository review](reports/session_review_0d90d81b.md) and [pinned forensic receipt](evidence/session_0d90d81b_audit.json) verify autonomous restoration of all `13/13` SHA-256 inputs plus `8/8` E1 normal bands, audit the `2` newly merged post-`04:31Z` `GEMSDOE78` GeoTIFFs (`1,201` total non-self family rasters; demonstrating `H78-GFV`'s `0.2149/0.2198` global in-sample training vs `0.1700/0.1778` strict 3-quadrant LOQO), reconcile the `5,106,385` off-catalogue `6,514`-cell halo bound, refresh the live `2026-10-22` leaderboard (`#1` `0.4413`, `#50` `0.2804`), and synthesize [five untried geological hypotheses](research/hypotheses_0d90d81b.md) (`IR-79-173`..`IR-79-177`). Prior review: [session f6a01061](reports/session_review_f6a01061.md).
+**Prior replay & post-`04:31Z` forensic audit, session `0d90d81b`:** [three-pass repository review](reports/session_review_0d90d81b.md) and [pinned forensic receipt](evidence/session_0d90d81b_audit.json) verify the earlier `13/13` SHA-256 input restoration plus `8/8` E1 normal bands, audit `2` then-new `GEMSDOE78` GeoTIFFs (`1,201` total non-self family rasters; `H78-GFV` global in-sample `0.2149/0.2198` versus strict 3-quadrant LOQO `0.1700/0.1778`), and preserve that review's earlier same-day public leaderboard snapshot (`#1` `0.4413`, `#50` `0.2804`). The later session `a92a0164` public-board read has `#50` `0.2817`; do not use the old snapshot as current. The five earlier backlog proposals remain in [hypotheses_0d90d81b.md](research/hypotheses_0d90d81b.md) and are reconciled in the [current shortlist](research/hypotheses_a92a0164.md) (`IR-79-173`..`IR-79-177`). Prior review: [session f6a01061](reports/session_review_f6a01061.md).
 
 - Reconciled every canonical holdout view, both seeds, paired intervals and ablations with shared evaluator output; preserved original metadata and all scientific receipts.
 - Added a read-only evidence summary, type/interval/algebra/accounting checks, adversarial tests and receipt-derived website tables. Failed full novelty gates are red, not disguised by green sparse-only checks.
@@ -207,7 +219,7 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 ### Navigation and preserved history
 
-Latest review: [session d7da950d](reports/session_review_d7da950d.md) executed and archived preregistered lane **`G79-DFSD`** ([run_card_dfsd.json](run_card_dfsd.json), [preregistration_g79_dfsd.json](registry/preregistration_g79_dfsd.json), [archive/g79_dfsd_d7da950d](archive/g79_dfsd_d7da950d/README.md), [dfsd_analysis.md](reports/dfsd_analysis.md), [hypotheses_g79_dfsd.md](research/hypotheses_g79_dfsd.md), `IR-79-204`..`IR-79-206`): (1) 90-channel split-sensor (`LiDAR` vs `Blind-10m`) zero-catalogue ensemble (`EXP-DFSD-1`) scored **`0.0960` / `0.1001` `HOLDOUT-DTI`** (`> H33 = 0.0989` on untouched `Seed 30`, `0.342–0.561 <= 0.70` 3-px overlap across all 6 champion peers including `0.3421` vs `G79-THVC` and `0.3939` vs `GEMSDOE83`); (2) full 107-channel uniform `d=2.8 px` placement (`EXP-DFSD-2`) scored **`0.1724` / `0.1751`** (`> G79-THVC EXP-79-2 = 0.1697 / 0.1686`, peaking at **`0.2245`** in `Seed 30` NW Fold 0) with a controlled `2 × 2` proof of `+0.0268` importance-weighting gain and opposite-sign flank masking (`856 / 856` canaries `<= 0.8634`); and (3) archived newly generated GeoTIFF [`g79-dfsd-ccsubmod-20261022-947eff42-zeros-DO-NOT-SUBMIT.tif`](archive/g79_dfsd_d7da950d/g79-dfsd-ccsubmod-20261022-947eff42-zeros-DO-NOT-SUBMIT.tif) (`20,611` binary pixels, `SHA-256: 9df6c871…`, `15 / 15` format PASS, `1,221`-raster `compare_array_to_registry_d2` scan, `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`, `0` slots used).
+Prior lane review: [session d7da950d](reports/session_review_d7da950d.md) executed and archived preregistered lane **`G79-DFSD`** ([run_card_dfsd.json](run_card_dfsd.json), [preregistration_g79_dfsd.json](registry/preregistration_g79_dfsd.json), [archive/g79_dfsd_d7da950d](archive/g79_dfsd_d7da950d/README.md), [dfsd_analysis.md](reports/dfsd_analysis.md), [hypotheses_g79_dfsd.md](research/hypotheses_g79_dfsd.md), `IR-79-204`..`IR-79-206`): (1) 90-channel split-sensor (`LiDAR` vs `Blind-10m`) zero-catalogue ensemble (`EXP-DFSD-1`) scored **`0.0960` / `0.1001` `HOLDOUT-DTI`** (`> H33 = 0.0989` on untouched `Seed 30`, `0.342–0.561 <= 0.70` 3-px overlap across all 6 champion peers including `0.3421` vs `G79-THVC` and `0.3939` vs `GEMSDOE83`); (2) full 107-channel uniform `d=2.8 px` placement (`EXP-DFSD-2`) scored **`0.1724` / `0.1751`** (`> G79-THVC EXP-79-2 = 0.1697 / 0.1686`, peaking at **`0.2245`** in `Seed 30` NW Fold 0) with a controlled `2 × 2` proof of `+0.0268` importance-weighting gain and opposite-sign flank masking (`856 / 856` canaries `<= 0.8634`); and (3) archived newly generated GeoTIFF [`g79-dfsd-ccsubmod-20261022-947eff42-zeros-DO-NOT-SUBMIT.tif`](archive/g79_dfsd_d7da950d/g79-dfsd-ccsubmod-20261022-947eff42-zeros-DO-NOT-SUBMIT.tif) (`20,611` binary pixels, `SHA-256: 9df6c871…`, `15 / 15` format PASS, `1,221`-raster `compare_array_to_registry_d2` scan, `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`, `0` slots used).
 
 Prior review: [session 1dc8cff0](reports/session_review_1dc8cff0.md) executed and archived prospective lane **`G79-CSMD`** ([run_card_csmd.json](run_card_csmd.json), [preregistration_csmd.json](registry/preregistration_csmd.json), [archive/g79_csmd_1dc8cff0](archive/g79_csmd_1dc8cff0/README.md), [hypotheses_csmd_1dc8cff0.md](research/hypotheses_csmd_1dc8cff0.md), `IR-79-201`..`IR-79-203`): (1) 74-channel 100%-visible flank-decontaminated zero-catalogue pure-physics head (`EXP-CSMD-1`) scored **`0.0996` / `0.1119` `HOLDOUT-DTI`**, surpassing `G79-THVC EXP-79-1` (`0.0784 / 0.0648`), `H79-FNHR` (`0.0906 / 0.0966`), and **beating `H33` (`0.0961 / 0.0989`) on both holdout seeds with zero catalogue geometry** (Seed 30 paired $\Delta = +0.0130$, $95\%$ CI $[+0.0011, +0.0247]$); (2) unconstrained 90-channel Charnes-Cooper (`EXP-CSMD-3a`) reached **`0.1817` / `0.1967`**, and multi-regime Charnes-Cooper (`EXP-CSMD-3`, `35,600` dots, `48.8% > 1 km`) achieved **`0.1629` / `0.1749`** (`+0.0668 / +0.0760` over `H33`, `720` canary tests `<= 0.8611`); and (3) `EXP-CSMD-3` achieved **`0 / 939` duplicates (`max = 0.6961 <= 0.70`) across all comparable sparse competition dot submissions (`<= 75,308` dots)**, clearing live `GEMSDOE83` (`0.5921 <= 0.70`), `G79-THVC` (`0.6893 <= 0.70`), `H79-FNHR` (`0.5237 <= 0.70`), and `H33` (`0.4473 <= 0.70`), while stopping negative (`OK TO SUBMIT: NO`, `0` slots used) against `26` wide density sweeps (`> 75,308` dots).
 

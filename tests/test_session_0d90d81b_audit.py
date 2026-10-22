@@ -102,17 +102,33 @@ def test_untried_hypotheses_sources_and_irregularities_177():
     assert not any(line.startswith("# ") for line in hyp_text.splitlines()), "Must not emit extra <h1> in research.html"
     for hid in ("G79-SFGC", "G79-UGBP", "G79-MDSC", "G79-PSDC", "G79-MCST"):
         assert hid in hyp_text
-        assert hid in (ROOT / "docs" / "research.html").read_text(encoding="utf-8")
+    site_research = (ROOT / "docs" / "research.html").read_text(encoding="utf-8")
+    assert "Current ranked geological backlog" in site_research
+    assert "speculative score projections" in site_research
+    assert "blob/main/research/hypotheses_0d90d81b.md" in site_research
+    # Old idea files are available as provenance links, not rendered as current ranked advice.
+    assert "G79-SFGC" not in site_research
 
     sources = _load_strict(ROOT / "knowledge" / "official_sources.json")
     by_id = {s["id"]: s for s in sources["sources"]}
     assert {"USGS-QFAULTS", "UNR-NGL-MIDAS"}.issubset(by_id)
-    lb = by_id["DD-LEADERBOARD"]["observation"]
-    assert lb["rank_48_participant"] == "moongrega" and lb["rank_48_public_dti"] == 0.2818
-    assert lb["rank_50_participant"] == "sam35" and lb["rank_50_public_dti"] == 0.2804
+    leaderboard_source = by_id["DD-LEADERBOARD"]
+    lb = leaderboard_source["observation"]
+    assert lb["first_place_participant"] == "xiaofanhu"
+    assert lb["rank_48_participant"] == "jgaines" and lb["rank_48_public_dti"] == 0.2820
+    assert lb["rank_50_participant"] == "arnofault" and lb["rank_50_public_dti"] == 0.2817
+
+    audit = _load_strict(ROOT / "evidence" / "session_0d90d81b_audit.json")
+    prior = next(x for x in leaderboard_source["historical_observations"] if x.get("source_evidence") == "evidence/session_0d90d81b_audit.json#/live_public_leaderboard_20261022")
+    assert prior["rank_48_participant"] == "moongrega" and prior["rank_48_public_dti"] == 0.2818
+    assert prior["rank_50_participant"] == "sam35" and prior["rank_50_public_dti"] == 0.2804
+    audit_board = audit["live_public_leaderboard_20261022"]
+    assert audit_board["rank_50"]["team"] == prior["rank_50_participant"]
+    assert audit_board["rank_50"]["dti"] == prior["rank_50_public_dti"]
 
     feed = _load_strict(ROOT / "docs" / "evidence" / "source_health.json")
-    assert feed["leaderboard_observation"]["rank_50_participant"] == "sam35"
+    assert feed["leaderboard_observation"]["rank_50_participant"] == "arnofault"
+    assert feed["leaderboard_observation"]["rank_50_public_dti"] == 0.2817
 
     ir_lines = (ROOT / "reports" / "irregularities.md").read_text(encoding="utf-8").splitlines()
     nums = [

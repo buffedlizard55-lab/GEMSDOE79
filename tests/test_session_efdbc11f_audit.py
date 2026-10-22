@@ -78,8 +78,11 @@ def test_post_delta_sibling_check_and_leaderboard_refresh():
     health = json.loads((ROOT / "docs/evidence/source_health.json").read_text(encoding="utf-8"))
     dd_lb = next(s for s in sources["sources"] if s["id"] == "DD-LEADERBOARD")
     assert dd_lb["observation"]["public_dti"] == health["leaderboard_observation"]["public_dti"] == 0.4413
-    assert dd_lb["observation"]["rank_50_participant"] == health["leaderboard_observation"]["rank_50_participant"] == "sam35"
-    assert dd_lb["observation"]["rank_50_public_dti"] == health["leaderboard_observation"]["rank_50_public_dti"] == 0.2804
+    assert dd_lb["observation"]["first_place_participant"] == health["leaderboard_observation"]["first_place_participant"] == "xiaofanhu"
+    assert dd_lb["observation"]["rank_50_participant"] == health["leaderboard_observation"]["rank_50_participant"] == "arnofault"
+    assert dd_lb["observation"]["rank_50_public_dti"] == health["leaderboard_observation"]["rank_50_public_dti"] == 0.2817
+    earlier = next(x for x in dd_lb["historical_observations"] if x.get("source_evidence") == "evidence/session_0d90d81b_audit.json#/live_public_leaderboard_20261022")
+    assert earlier["rank_50_participant"] == "sam35" and earlier["rank_50_public_dti"] == 0.2804
 
 
 def test_hypotheses_and_irregularities_efdbc11f_documented():

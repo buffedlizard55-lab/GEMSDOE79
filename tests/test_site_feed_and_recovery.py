@@ -43,6 +43,30 @@ def test_parser_accepts_only_unambiguous_public_first_place():
             refresh_feed.parse_leaderboard(bad)
 
 
+def test_parser_records_public_top50_floor_and_participant():
+    page = '''<table><tr><th>Rank</th><th>Participant</th><th>Public DTI</th></tr>
+    <tr><td>#1</td><td>leader</td><td>0.4413</td></tr>
+    <tr><td>50</td><td>floor</td><td>0.2817</td></tr></table>'''
+    got = refresh_feed.parse_leaderboard(page)
+    assert got['public_dti'] == got['rank_1_public_dti'] == .4413
+    assert got['first_place_participant'] == 'leader'
+    assert got['rank_50_participant'] == 'floor'
+    assert got['rank_50_public_dti'] == .2817
+
+
+def test_current_session_remains_fail_closed_and_has_no_candidate():
+    preflight = json.loads((ROOT / 'evidence/preflight_a92a0164.json').read_text())
+    card = json.loads((ROOT / 'evidence/run_card_a92a0164.json').read_text())
+    assert preflight['start_new_lane'] is False
+    assert preflight['state'] == 'impossible_under_literal_gate'
+    assert preflight['covered_allowed_fraction'] == 1.0
+    assert card['verdict'] == 'blocked_no_candidate'
+    assert card['raster_path'] is card['raster_sha256'] is None
+    assert card['validator_output']['status'].startswith('NOT RUN')
+    assert card['download_submit_decision']['ok_to_submit'] is False
+    assert card['download_submit_decision']['submission_slots_used'] == 0
+
+
 def test_probe_network_failure_is_not_verified(monkeypatch):
     def fail(*a, **k):
         raise requests.exceptions.SSLError('No sandbox egress')
