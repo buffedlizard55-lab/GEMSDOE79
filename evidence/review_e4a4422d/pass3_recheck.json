@@ -1,0 +1,85 @@
+{
+  "evidence_class": "SOFTWARE-AND-PUBLICATION-QA, NOT A SCIENTIFIC EXPERIMENT",
+  "pass": 3,
+  "started_utc": "2026-10-22T14:40:20.215863+00:00",
+  "commands": [
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/verify_project.py"
+      ],
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "elapsed_seconds": 2.2,
+      "stdout": "{\n  \"all_checks_passed\": true,\n  \"checks\": {\n    \"witness_review_matches_frozen_certificate\": true,\n    \"new_lane_preflight_stops_on_exact_witness\": true,\n    \"registry_delta_verified\": true,\n    \"post_snapshot_sibling_audit_verified\": true,\n    \"all_shared_template_bytes_match_pins\": true,\n    \"e1_preregistration_preserved\": true,\n    \"reference_input_hashes_match_pins\": true,\n    \"restore_receipt_matches_data_manifest\": true,\n    \"no_git_conflict_markers\": true,\n    \"all_repo_json_strictly_valid\": true,\n    \"irregularities_table_rows_single_line\": true,\n    \"readme_matches_card_decision\": true,\n    \"only_canonical_upload_artifacts_published\": true,\n    \"active_inventory_matches_frozen_verified_blobs\": true,\n    \"card_copies_equal\": true,\n    \"raster_hash_card_receipt_agree\": true,\n    \"name_and_note_valid\": true,\n    \"filename_warning_matches_verdict\": true,\n    \"reopened_tiff_format_all_passed\": true,\n    \"format_receipt_positive_count_agrees\": true,\n    \"zip_exactly_one_identical_tiff\": true,\n    \"zip_crc_valid\": true,\n    \"zip_hash_matches_receipt\": true,\n    \"new_bytes_not_copied_from_registry\": true,\n    \"holdout_card_equals_evaluator_output\": true,\n    \"holdout_beats_h33_control_both_seeds\": true,\n    \"holdout_beats_flag_matches_evidence\": true,\n    \"all_feature_canaries_reconciled\": true,\n    \"registry_metadata_aliases_reconciled\": true,\n    \"leakage_canary_clear\": true,\n    \"uniqueness_card_matches_evidence\": true,\n    \"promotion_requires_uniqueness\": true,\n    \"preregistration_hash_matches_card\": true,\n    \"e1_scientific_stop_honored\": true,\n    \"status_tool_and_card_agree\": true\n  },\n  \"raster_sha256\": \"d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2\",\n  \"submission_decision\": {\n    \"ok_to_download\": true,\n    \"ok_to_submit\": false,\n    \"human_inspection_required_for_this_decision\": false,\n    \"verdict\": \"negative\",\n    \"blockers\": [\n      \"literal_novelty_not_cleared\",\n      \"negative_scientific_verdict\",\n      \"separate_selector_has_not_approved_a_slot\",\n      \"separate_selector_receipt_missing_or_unbound\",\n      \"explicit_submission_approval_absent\"\n    ],\n    \"account_side_conditions\": [\n      \"A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).\",\n      \"You must be a registered, eligible participant who accepted the competition rules.\"\n    ],\n    \"message\": \"OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.\",\n    \"organizer_acceptance_established\": false\n  }\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/submission_status.py"
+      ],
+      "expected_exit_code": 2,
+      "actual_exit_code": 2,
+      "elapsed_seconds": 1.54,
+      "stdout": "{\n  \"ok_to_download\": true,\n  \"ok_to_submit\": false,\n  \"human_inspection_required_for_this_decision\": false,\n  \"verdict\": \"negative\",\n  \"blockers\": [\n    \"literal_novelty_not_cleared\",\n    \"negative_scientific_verdict\",\n    \"separate_selector_has_not_approved_a_slot\",\n    \"separate_selector_receipt_missing_or_unbound\",\n    \"explicit_submission_approval_absent\"\n  ],\n  \"account_side_conditions\": [\n    \"A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).\",\n    \"You must be a registered, eligible participant who accepted the competition rules.\"\n  ],\n  \"message\": \"OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.\",\n  \"organizer_acceptance_established\": false\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/preflight_new_lane.py"
+      ],
+      "expected_exit_code": 2,
+      "actual_exit_code": 2,
+      "elapsed_seconds": 1.4,
+      "stdout": "{\n  \"start_new_lane\": false,\n  \"state\": \"impossible_under_literal_gate\",\n  \"exit_code\": 2,\n  \"reason\": \"One hash-verified registry raster covers every allowed cell with its positive support. Any nonempty candidate has 3-px overlap 1.0 > 0.70; stop before experiments.\",\n  \"witness_sha256\": \"ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be\",\n  \"covered_allowed_fraction\": 1.0,\n  \"limit\": 0.7,\n  \"scope\": \"Literal dot definition only. A protocol amendment is not silently assumed.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/build_site.py"
+      ],
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "elapsed_seconds": 3.09,
+      "stdout": "Built 7 pages; OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "scripts/check_site.py"
+      ],
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "elapsed_seconds": 1.18,
+      "stdout": "{\n  \"passed\": true,\n  \"pages\": 7,\n  \"local_links_checked\": 128,\n  \"all_pages_reachable_from_home\": true,\n  \"compatibility_redirects\": 2,\n  \"external_assets\": 0,\n  \"scientific_tables_and_full_gates_match_receipts\": true,\n  \"source_health_is_not_claimed_as_receipt\": true,\n  \"submit\": false\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "elapsed_seconds": 52.96,
+      "stdout": "........................................................................ [ 16%]\n........................................................................ [ 32%]\n........................................................................ [ 48%]\n........................................................................ [ 65%]\n........................................................................ [ 81%]\n........................................................................ [ 97%]\n...........                                                              [100%]\n443 passed in 52.34s\n",
+      "stderr": ""
+    }
+  ],
+  "passed": true,
+  "finished_utc": "2026-10-22T14:41:22.596804+00:00",
+  "frozen_scientific_sources_and_tools_unchanged": true,
+  "artifact_sha256": {
+    "submission_file": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "zip_file": "dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9"
+  },
+  "new_experiments_performed_by_this_review": 0,
+  "new_submission_placements_performed_by_this_review": 0,
+  "competition_slots_spent_by_this_review": 0
+}
