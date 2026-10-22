@@ -51,3 +51,19 @@ seeds with paired CI above zero; candidate ≥ H33 control on the far-field (> 1
 arm on both seeds; chance-corrected uniqueness (IR-79-68) on the surface before
 placement and on the final dots; format validator; separate selector. A failure at
 any gate is a negative result and is published as such.
+
+## Outcome (added after the run; the text above is unchanged)
+
+Full tables: [`reports/bqa_analysis.md`](../reports/bqa_analysis.md); machine state:
+[`evidence/bqa/state.json`](../evidence/bqa/state.json); run card: [`run_card_bqa.json`](../run_card_bqa.json).
+
+- **X1 (hypothesis 1 as preregistered) is negative.** It beat the H33 control on the standard holdout, but on the
+  far-field sub-holdout it fell slightly below H33 on seeds 20 and 30 (G3).
+- **X2 (amendment A1, [IR-79-70](../reports/irregularities.md)):** the same band-weighted model with free placement passed
+  every holdout gate on the confirmatory seeds 30 and 40. It then failed the surface-uniqueness gate before placement
+  (chance-corrected overlap 0.943 with this repository's own stopped NHR file; 81 registry rasters over 0.70).
+  It was stopped; no file was written.
+- **What this means for the ranking.** Band weighting is a different way of using the same proximity-dominated
+  stack, so it lands where NHR did. Hypotheses 2–5 add *physical* evidence that is not proximity. Hypothesis 2
+  (antislope asymmetry, inputs present) is now the cheapest untested candidate. Hypothesis 3 (shoreline
+  suppression) has the largest expected gain but needs the absolute 3DEP DEM.

@@ -41,15 +41,21 @@ def scan(repo: str, known: set[str]) -> dict:
         git(gitdir, "fetch", "-q", "--filter=blob:none", "origin",
             "+refs/heads/*:refs/heads/*", "+refs/tags/*:refs/tags/*", "+refs/pull/*:refs/pull/*")
         heads = git(gitdir, "for-each-ref", "--format=%(refname) %(objectname)").split("\n")
-        out = git(gitdir, "rev-list", "--all", "--objects", "--missing=allow-promisor")
+        # IR-79-69: ``rev-list --objects --missing=allow-promisor`` silently OMITS
+        # missing blobs in a blobless clone, so it never listed any raster. Trees
+        # are present locally; ``log --raw`` reads (blob id, path) from them.
+        out = git(gitdir, "log", "--all", "--raw", "--no-abbrev", "--no-renames", "--format=")
     except subprocess.CalledProcessError as e:
         return {"repo": repo, "status": "error", "error": (e.stderr or b"").decode()[-300:], "new": []}
     seen, new = set(), []
     for line in out.splitlines():
-        parts = line.split(" ", 1)
-        if len(parts) != 2 or not is_prediction(parts[1]):
+        if not line.startswith(":") or "\t" not in line:
             continue
-        sha, path = parts
+        meta, path = line.split("\t", 1)
+        fields = meta.split()
+        if len(fields) < 5 or set(fields[3]) == {"0"} or not is_prediction(path):
+            continue
+        sha = fields[3]
         if sha in known or sha in seen:
             continue
         seen.add(sha)
@@ -82,7 +88,7 @@ def main():
             dedup[r["blob"]] = r
     delta = {"built_utc": datetime.now(timezone.utc).isoformat(),
              "base_index_built_utc": index["built_utc"],
-             "method": "blobless git clones incl. refs/heads, refs/tags, refs/pull; rev-list --all --objects; same is_prediction() filter",
+             "method": "blobless git clones incl. refs/heads, refs/tags, refs/pull; git log --all --raw --no-abbrev --no-renames (IR-79-69: rev-list --missing=allow-promisor omitted missing blobs); same is_prediction() filter",
              "repositories": statuses, "n_new_rasters": len(dedup),
              "rasters": sorted(dedup.values(), key=lambda r: (r["repo"], r["path"]))}
     (ROOT / "registry/registry_delta.json").write_text(json.dumps(delta, indent=2) + "\n")

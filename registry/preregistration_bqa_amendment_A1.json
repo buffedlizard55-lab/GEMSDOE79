@@ -2,13 +2,18 @@
   "schema_version": 1,
   "lane": "H79-BQA",
   "amendment": "A1",
-  "registered_utc": "2026-10-22T04:49:00Z",
+  "registered_utc": "2026-10-22T04:46:00Z",
   "session": "0bd0e0b2",
   "base_preregistration_sha256": "5a09a8b7d4e4973ba60a4336136c9fb656677d558bb51220b947868b5adeed0c",
-  "base_preregistration_note": "sha256 of registry/preregistration_bqa.json as committed in 69430a6; the sample_weight wording was clarified before any run and the file is unchanged since the run started",
+  "base_preregistration_note": "sha256 of registry/preregistration_bqa.json as committed in 69430a6; the file is byte-identical to that commit",
   "x1_outcome_observed_before_this_amendment": {
-    "seeds_observed": [20],
-    "seeds_not_observed": [30, 40],
+    "seeds_observed": [
+      20
+    ],
+    "seeds_not_observed": [
+      30,
+      40
+    ],
     "x1_candidate_band_quota": "HOLDOUT-DTI seed 20 standard 0.1139 [0.0990, 0.1275] vs H33 control 0.0961 (paired +0.0178 [0.0047, 0.0299], G2 pass); far-field (> 1 km, n = 5,150) 0.0771 vs H33 control 0.0775 (paired -0.0003 [-0.0146, 0.0136]) -> G3 FAILS on seed 20",
     "x1_verdict": "negative (G3 failed on a required seed). The seed-30 X1 run was stopped at the canary step before any score was produced; no seed-30 or seed-40 number has been seen by anyone.",
     "lesson": "Forcing H33's distance profile (49% of dots > 2 km) does not beat H33 even on the far-field sub-holdout; the quota is not where the gain is."
@@ -21,7 +26,10 @@
     "placement": "gems79.placement.place: global descending surface, 3 px Euclidean spacing, budget 37654 (holdout: scaled by region area); allowed = footprint & not catalogue (identical to the holdout arm; no distance quota)",
     "final_map": "model trained on nested hides of the full catalogue (seed 794000), geometry from the full catalogue, surface on footprint & not catalogue, 37654 binary dots, zeros elsewhere (all finite)"
   },
-  "confirmatory_seeds": [30, 40],
+  "confirmatory_seeds": [
+    30,
+    40
+  ],
   "x2_promotion_gate": [
     "G1 all canaries <= 0.90 on seeds 30 and 40",
     "G2 standard holdout: weights_only > h33_foldfair_control on seeds 30 AND 40 with paired 95% CI of the difference above 0 on both",
@@ -35,5 +43,10 @@
   "seed_20_status": "exploratory selection seed; reported, never counted toward X2 promotion",
   "reported_not_gating": "weights_only vs nhr_repro on both arms; X1 candidate numbers on seeds 30/40",
   "runner_change": "scripts/run_bqa.py saves per-arm spatial-block terms and writes pooled summaries for both 'candidate' and 'weights_only' as the reference arm; arms and fitted models are unchanged",
-  "budget": {"experiments_used_including_x2": 2, "max_experiments": 3, "hard_stop_utc": "2026-10-22T06:30:00Z"}
+  "budget": {
+    "experiments_used_including_x2": 2,
+    "max_experiments": 3,
+    "hard_stop_utc": "2026-10-22T06:30:00Z"
+  },
+  "post_commit_edits": "Two descriptive fields were edited after commit 70b9962 (git shows the diff): registered_utc corrected from 04:49 to 04:46 to match the commit time 2026-10-22T04:46:12Z, and base_preregistration_note reduced to the verifiable statement. The file was also re-indented by json.dumps (whitespace only). No definition, gate, seed or budget changed."
 }

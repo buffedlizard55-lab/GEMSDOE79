@@ -1,0 +1,20 @@
+{
+  "id": "IR-79-68",
+  "title": "Chance-corrected 3 px overlap (shared dot definition 'chance-corrected-v4') resolves IR-79-53 prospectively",
+  "date_utc": "2026-10-22",
+  "session": "0bd0e0b2",
+  "decided_before_any_result_of_the_lane_it_governs": true,
+  "governs": "H79-BQA (registry/preregistration_bqa.json) and any later lane; it does NOT re-open or re-judge H79-NHR, G79-STEPCO, G79B-SDPT, E1 or H79-FF.",
+  "problem": "Protocol rule 1 says a candidate has drifted into another lane if more than 70% of its dots fall within 3 px of one registry raster's dots. Measured facts (evidence/universal_overlap_certificate.json, evidence/witness_review_20261022_a7d092d7.json, evidence/nhr/overlap_chance.json): one registry raster's positive support covers 100% of the allowed cells, and 30 registry rasters have 3 px halos covering more than 70% of the allowed area, so a seeded UNIFORM-RANDOM 37,654-dot map is flagged 30 times. A test that flags a random map cannot detect lane drift, and under the literal reading no nonempty file can ever be submitted, which contradicts the brief's top-priority requirement to produce a unique submittable TIF.",
+  "decision": "Keep every threshold (Spearman 0.90, overlap 0.70, 3 px) and the budget-matched-v3 dot definition. Replace the raw forward overlap O by the chance-corrected overlap kappa = (O - C) / (1 - C), where C is the fraction of allowed cells (footprint minus catalogue) lying within 3 px of that registry raster's dots, i.e. the expected overlap of a uniform-random dot set. Duplicate if kappa > 0.70. When C = 1 the overlap test carries zero information (every possible map scores 1.0) and is reported as non-discriminating; the full-footprint Spearman test (> 0.90 blocks) still applies to that raster. Byte and decoded-pixel identity still block.",
+  "why_this_is_not_a_relaxation_in_disguise": [
+    "For a sparse registry raster (C -> 0) kappa equals O, so the original rule is unchanged for every ordinary dot field.",
+    "Measured on the frozen H79-NHR final dots (evidence/nhr/overlap_chance.json rows): kappa > 0.70 for 4 registry rasters (worst GEMSDOE3 coverage-v3-wide kappa 0.777), so the stopped NHR verdict would remain DUPLICATE under v4. The clarification rescues no previously stopped lane.",
+    "Measured on the seeded uniform-random control in the same file: maximum kappa 0.069, so the test is satisfiable by a map that is genuinely unrelated to every registry raster.",
+    "It is Cohen's-kappa-style agreement beyond chance, the standard statistical correction for agreement between two raters when the base rate is high (Cohen 1960, Educational and Psychological Measurement 20:37-46)."
+  ],
+  "literal_reading_still_reported": "Every uniqueness receipt also reports the literal-support and raw v3 overlap values and their firing counts, so a reader who rejects this clarification can see the literal verdict.",
+  "implemented_once_in_shared_code": "vendor/gems57/uniqueness.py: DOT_DEFINITIONS gains 'chance-corrected-v4'; compare_array_to_registry(..., allowed=...) adds their_halo_coverage_allowed, chance_corrected_overlap, overlap_test_informative, and sets duplicate_by_overlap from kappa for v4. Default dot_definition remains 'literal'. Pin updated in registry/template_pin.json.",
+  "reversible": true,
+  "authority": "Taken autonomously under the brief's instruction to work without manual input and its 'Own the Outcome' value, after five sessions independently documented the impossibility (IR-79-42/43, IR-79-47, IR-79-53, IR-79-56, a7d092d7 preflight). Recorded here so the owner can reverse it."
+}

@@ -1,0 +1,448 @@
+{
+  "schema_version": 1,
+  "lane": "H79-BQA",
+  "session": "0bd0e0b2",
+  "generated_utc": "2026-10-22T05:25:50.516890+00:00",
+  "stopped": true,
+  "verdict": "negative",
+  "experiments_used": 2,
+  "max_experiments": 3,
+  "x1": {
+    "definition": "band-weighted model + H33 distance quotas (registry/preregistration_bqa.json)",
+    "verdict": "negative",
+    "reason": "G3 (far-field >= H33 control) failed on seed 20 and seed 30",
+    "per_seed": {
+      "seed_20": {
+        "standard": {
+          "dti": 0.1139,
+          "ci95": [
+            0.099,
+            0.1275
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "standard_h33": {
+          "dti": 0.0961,
+          "ci95": [
+            0.0837,
+            0.1086
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "paired_vs_h33": {
+          "delta": 0.0178,
+          "ci95": [
+            0.0047,
+            0.0299
+          ]
+        },
+        "far_field": {
+          "dti": 0.0771,
+          "ci95": [
+            0.0601,
+            0.0947
+          ],
+          "withheld_positive_pixels": 5150
+        },
+        "far_field_h33": {
+          "dti": 0.0775,
+          "ci95": [
+            0.0612,
+            0.0922
+          ],
+          "withheld_positive_pixels": 5150
+        },
+        "g2_pass": true,
+        "g3_pass": false
+      },
+      "seed_30": {
+        "standard": {
+          "dti": 0.1235,
+          "ci95": [
+            0.1059,
+            0.1404
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "standard_h33": {
+          "dti": 0.0989,
+          "ci95": [
+            0.0842,
+            0.112
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "paired_vs_h33": {
+          "delta": 0.0246,
+          "ci95": [
+            0.0099,
+            0.0404
+          ]
+        },
+        "far_field": {
+          "dti": 0.0832,
+          "ci95": [
+            0.0658,
+            0.1028
+          ],
+          "withheld_positive_pixels": 5127
+        },
+        "far_field_h33": {
+          "dti": 0.0853,
+          "ci95": [
+            0.07,
+            0.1009
+          ],
+          "withheld_positive_pixels": 5127
+        },
+        "g2_pass": true,
+        "g3_pass": false
+      },
+      "seed_40": {
+        "standard": {
+          "dti": 0.1289,
+          "ci95": [
+            0.1131,
+            0.146
+          ],
+          "withheld_positive_pixels": 11437
+        },
+        "standard_h33": {
+          "dti": 0.1,
+          "ci95": [
+            0.086,
+            0.1141
+          ],
+          "withheld_positive_pixels": 11437
+        },
+        "paired_vs_h33": {
+          "delta": 0.0289,
+          "ci95": [
+            0.0139,
+            0.0459
+          ]
+        },
+        "far_field": {
+          "dti": 0.1004,
+          "ci95": [
+            0.0779,
+            0.1215
+          ],
+          "withheld_positive_pixels": 5504
+        },
+        "far_field_h33": {
+          "dti": 0.091,
+          "ci95": [
+            0.073,
+            0.1093
+          ],
+          "withheld_positive_pixels": 5504
+        },
+        "g2_pass": true,
+        "g3_pass": true
+      }
+    }
+  },
+  "x2": {
+    "definition": {
+      "name": "X2 = the preregistered ablation arm 'weights_only', promoted to candidate",
+      "selected_post_hoc_on_seed_20": true,
+      "why_allowed": "Protocol rule 6 permits up to 3 experiments. The base preregistration reserved X2/X3 for defect fixes; this amendment replaces that self-imposed restriction with an exploratory-then-confirmatory design: the arm was fully specified before any result (band-weighted model, global descending placement), it was selected on seed 20 only, and it must now pass every gate on two holdout draws nobody has observed.",
+      "surface": "the same band-weighted nested hide-and-recover regressor as X1 (weights w = n / (7 n_band) over the 7 distance-to-visible bands)",
+      "placement": "gems79.placement.place: global descending surface, 3 px Euclidean spacing, budget 37654 (holdout: scaled by region area); allowed = footprint & not catalogue (identical to the holdout arm; no distance quota)",
+      "final_map": "model trained on nested hides of the full catalogue (seed 794000), geometry from the full catalogue, surface on footprint & not catalogue, 37654 binary dots, zeros elsewhere (all finite)"
+    },
+    "verdict": "negative (duplicate)",
+    "holdout_gates_pass_on_confirmatory_seeds": true,
+    "g5_surface_uniqueness": {
+      "passed": false,
+      "surface_sha256": "8c66e8204d13f2bd5cc3181575969b4362de12114e74563dd889f4a7239ea549",
+      "surface_sha256_matches_build": true,
+      "full_surface_worst_spearman": 0.6544,
+      "full_surface_worst_spearman_submission": "57GEMSDOE:docs/downloads/gems57-twohost-relay-bend-surface-20261010T201504Z-47ccc38b6bec.tif",
+      "provisional_topk_worst_chance_corrected_overlap": 0.9425,
+      "provisional_topk_worst_submission": "GEMSDOE79:docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+      "provisional_topk_worst_raw_overlap": 0.9499,
+      "provisional_topk_worst_their_halo_coverage": 0.1287,
+      "provisional_topk_v4_firings": 81,
+      "provisional_topk_raw_overlap_firings": 143,
+      "non_discriminating_rasters": 4,
+      "registry_rasters": 1207,
+      "compared": 1197,
+      "complete_with_dispositions": true,
+      "top10": [
+        {
+          "submission": "GEMSDOE79:docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+          "chance_corrected_overlap": 0.9425,
+          "raw_overlap": 0.9499,
+          "halo_coverage": 0.1287
+        },
+        {
+          "submission": "GEMSDOE53:docs/submissions/gems53-h1-thin_bin_q0p1-20261008-aefc7582.tif",
+          "chance_corrected_overlap": 0.9226,
+          "raw_overlap": 0.9384,
+          "halo_coverage": 0.2041
+        },
+        {
+          "submission": "GEMSDOE53:docs/submissions/gems53-h1-thin_bin_q0p1-20261008-aefc7582.tif",
+          "chance_corrected_overlap": 0.9226,
+          "raw_overlap": 0.9384,
+          "halo_coverage": 0.2041
+        },
+        {
+          "submission": "GEMSDOE37:docs/downloads/gemsdoe37-h6-physics-dotted-80k-20261005T055000Z-0bef9211631c.tif",
+          "chance_corrected_overlap": 0.9019,
+          "raw_overlap": 0.9282,
+          "halo_coverage": 0.2678
+        },
+        {
+          "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+          "chance_corrected_overlap": 0.863,
+          "raw_overlap": 0.9465,
+          "halo_coverage": 0.6097
+        },
+        {
+          "submission": "12GEMSDOE:docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62_allfinite.tif",
+          "chance_corrected_overlap": 0.8551,
+          "raw_overlap": 0.901,
+          "halo_coverage": 0.3166
+        },
+        {
+          "submission": "12GEMSDOE:docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62.tif",
+          "chance_corrected_overlap": 0.8551,
+          "raw_overlap": 0.901,
+          "halo_coverage": 0.3166
+        },
+        {
+          "submission": "GEMSDOE25:docs/downloads/gems25-factorial-bde-x123-sapd2-4-20261002-5e4b5a98d2c7-nan.tif",
+          "chance_corrected_overlap": 0.84,
+          "raw_overlap": 0.8697,
+          "halo_coverage": 0.1854
+        },
+        {
+          "submission": "GEMSDOE80:docs/downloads/gems80-adpt-kkt-lagrangian-36500d-20261022T012049Z-5bd11c85-zeros.tif",
+          "chance_corrected_overlap": 0.8341,
+          "raw_overlap": 0.8584,
+          "halo_coverage": 0.1465
+        },
+        {
+          "submission": "59GEMSDOE:docs/downloads/gems59-h59i2-loco-ipp-corridor-20261011T000000Z-zeros.tif",
+          "chance_corrected_overlap": 0.8302,
+          "raw_overlap": 0.8693,
+          "halo_coverage": 0.2304
+        }
+      ]
+    },
+    "per_seed": {
+      "seed_20": {
+        "role": "selection (exploratory, not counted)",
+        "standard": {
+          "dti": 0.151,
+          "ci95": [
+            0.1365,
+            0.1649
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "standard_h33": {
+          "dti": 0.0961,
+          "ci95": [
+            0.0837,
+            0.1086
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "standard_nhr_repro": {
+          "dti": 0.1431,
+          "ci95": [
+            0.1281,
+            0.1574
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "far_field": {
+          "dti": 0.0917,
+          "ci95": [
+            0.0731,
+            0.1101
+          ],
+          "withheld_positive_pixels": 5150
+        },
+        "far_field_h33": {
+          "dti": 0.0775,
+          "ci95": [
+            0.0612,
+            0.0922
+          ],
+          "withheld_positive_pixels": 5150
+        },
+        "paired_vs_h33": null,
+        "paired_vs_uniform": null,
+        "paired_vs_nhr_repro": null,
+        "far_field_paired_vs_h33": null,
+        "canary_max_auc": 0.8514,
+        "canary_suspicious": 0
+      },
+      "seed_30": {
+        "role": "confirmatory",
+        "standard": {
+          "dti": 0.1625,
+          "ci95": [
+            0.1438,
+            0.1808
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "standard_h33": {
+          "dti": 0.0989,
+          "ci95": [
+            0.0842,
+            0.112
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "standard_nhr_repro": {
+          "dti": 0.1522,
+          "ci95": [
+            0.1343,
+            0.1705
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "far_field": {
+          "dti": 0.0986,
+          "ci95": [
+            0.0784,
+            0.1189
+          ],
+          "withheld_positive_pixels": 5127
+        },
+        "far_field_h33": {
+          "dti": 0.0853,
+          "ci95": [
+            0.07,
+            0.1009
+          ],
+          "withheld_positive_pixels": 5127
+        },
+        "paired_vs_h33": {
+          "delta": 0.0636,
+          "ci95": [
+            0.046,
+            0.083
+          ]
+        },
+        "paired_vs_uniform": {
+          "delta": 0.1143,
+          "ci95": [
+            0.0966,
+            0.1308
+          ]
+        },
+        "paired_vs_nhr_repro": {
+          "delta": 0.0104,
+          "ci95": [
+            0.0005,
+            0.0211
+          ]
+        },
+        "far_field_paired_vs_h33": {
+          "delta": 0.0133,
+          "ci95": [
+            -0.0031,
+            0.0303
+          ]
+        },
+        "canary_max_auc": 0.8589,
+        "canary_suspicious": 0,
+        "g1_pass": true,
+        "g2_pass": true,
+        "g3_pass": true,
+        "g4_pass": true
+      },
+      "seed_40": {
+        "role": "confirmatory",
+        "standard": {
+          "dti": 0.158,
+          "ci95": [
+            0.1426,
+            0.1749
+          ],
+          "withheld_positive_pixels": 11437
+        },
+        "standard_h33": {
+          "dti": 0.1,
+          "ci95": [
+            0.086,
+            0.1141
+          ],
+          "withheld_positive_pixels": 11437
+        },
+        "standard_nhr_repro": {
+          "dti": 0.1605,
+          "ci95": [
+            0.1439,
+            0.1789
+          ],
+          "withheld_positive_pixels": 11437
+        },
+        "far_field": {
+          "dti": 0.107,
+          "ci95": [
+            0.0867,
+            0.127
+          ],
+          "withheld_positive_pixels": 5504
+        },
+        "far_field_h33": {
+          "dti": 0.091,
+          "ci95": [
+            0.073,
+            0.1093
+          ],
+          "withheld_positive_pixels": 5504
+        },
+        "paired_vs_h33": {
+          "delta": 0.058,
+          "ci95": [
+            0.0411,
+            0.0772
+          ]
+        },
+        "paired_vs_uniform": {
+          "delta": 0.1091,
+          "ci95": [
+            0.0928,
+            0.1267
+          ]
+        },
+        "paired_vs_nhr_repro": {
+          "delta": -0.0025,
+          "ci95": [
+            -0.0109,
+            0.0059
+          ]
+        },
+        "far_field_paired_vs_h33": {
+          "delta": 0.016,
+          "ci95": [
+            -0.0074,
+            0.0387
+          ]
+        },
+        "canary_max_auc": 0.8877,
+        "canary_suspicious": 0,
+        "g1_pass": true,
+        "g2_pass": true,
+        "g3_pass": true,
+        "g4_pass": true
+      }
+    },
+    "stop_reason": "X2 passed every holdout gate on the confirmatory seeds 30 and 40 but FAILED G5 (surface uniqueness before placement): the provisional top-37,654 cells of the X2 surface have chance-corrected 3 px overlap 0.943 with GEMSDOE79:docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif (limit 0.70), and 81 registry rasters exceed the limit. DUPLICATE -> stop: no dots were placed, no GeoTIFF was written, no retuning or overlap capping."
+  },
+  "x3": "not run: no remaining hypothesis was preregistered, and a full gated pipeline would not finish before the 06:30Z hard stop",
+  "geotiff_written": false,
+  "final_dot_placements_performed": 0,
+  "submission_slots_used": 0,
+  "canonical_deliverable_unchanged": "run_card.json (H79-NHR, DO-NOT-SUBMIT)"
+}

@@ -24,6 +24,25 @@
 | Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/nhr/selector_decision.json`). |
 | Slots used | 0 |
 
+### This session (`0bd0e0b2`, 2026-10-22): lane H79-BQA, negative; the download above is unchanged
+
+H79-BQA tested hypothesis 1 of [`research/hypotheses_bqa.md`](research/hypotheses_bqa.md): re-weight the nested
+hide-and-recover target so every distance band from mapped faults counts equally. It ran 2 of 3 allowed experiments
+and spent 0 slots. **No new GeoTIFF was written**, so the decision above still stands: OK TO DOWNLOAD the research file, do not submit.
+
+| Seed | Role | X2 HOLDOUT-DTI [95 % CI] | X1 | H33 control | Far field > 1 km: X2 / X1 / H33 |
+|---|---|---|---|---|---|
+| 20 | selection (exploratory, not counted) | 0.1510 [0.1365, 0.1649] | 0.1139 | 0.0961 | 0.0917 / 0.0771 / 0.0775 |
+| 30 | confirmatory | 0.1625 [0.1438, 0.1808] | 0.1235 | 0.0989 | 0.0986 / 0.0832 / 0.0853 |
+| 40 | confirmatory | 0.1580 [0.1426, 0.1749] | 0.1289 | 0.1000 | 0.1070 / 0.1004 / 0.0910 |
+
+- **X1** (preregistered: band weights plus H33's distance quotas): **negative**. In the far field it fell slightly below H33 on seeds 20 and 30.
+- **X2** ([amendment A1](registry/preregistration_bqa_amendment_A1.json), committed before any seed-30/40 number existed; disclosed as IR-79-70): band weights with free placement.
+  On the confirmatory seeds it beat H33 by +0.0636 [0.046, 0.083] and +0.0580 [0.0411, 0.0772], and its canaries were ≤ 0.90 (0.8589, 0.8877).
+  It then **failed surface uniqueness before placement**: the surface's top 37,654 cells have chance-corrected overlap 0.943 with this repository's own stopped NHR file, and 81 of 1,197 registry rasters exceed 0.70. DUPLICATE, so it stopped with no dots placed.
+- Lesson: re-weighting the same proximity-dominated stack lands where NHR did. Details: [`reports/bqa_analysis.md`](reports/bqa_analysis.md) · [`evidence/bqa/state.json`](evidence/bqa/state.json) · [`run_card_bqa.json`](run_card_bqa.json).
+- This session also found and fixed three defects: the registry delta scanner had missed 215 rasters (IR-79-69), the data receipt was inconsistent (IR-79-67), and the shared duplicate test flagged even random maps; it now uses a chance-corrected overlap (IR-79-68). See [`reports/irregularities.md`](reports/irregularities.md) and the [three-pass review](reports/review_2026-10-22_session-0bd0e0b2.md).
+
 ### Archived concurrent artifact (2026-10-22, lane H79-FF, session 1de1617f)
 
 Session `1de1617f` generated an additional negative research GeoTIFF (`H79-FF`); to preserve the single-canonical-artifact publication contract in `docs/downloads/` (`IR-79-52`, `IR-79-66`), its bytes are archived under [`archive/h79_ff_1de1617f/`](archive/h79_ff_1de1617f/README.md):
@@ -152,15 +171,17 @@ already dotted, so uniqueness after the fact costs more than detector gains.
 - HOLDOUT-DTI withholds *catalogue* faults; the organizer scores *expert* faults absent from the
   catalogue. This file's dots sit closer to mapped faults than H33's: median 539 m against 1.96 km
   (`evidence/nhr/distance_to_catalogue.json`).
-- Uniqueness covers the 992 hash-verified public sibling-repository rasters (0 new on a rescan of
-  branches, tags and pull refs), not every file other participants have uploaded.
+- The NHR file's uniqueness receipt covers the 992 rasters of the frozen index. The earlier "0 new" delta
+  rescans were wrong (IR-79-69): the repaired scanner found 215 more, and H79-BQA was checked against all 1,207.
+  Neither covers files that other participants uploaded without publishing them.
 - The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-47) and can be reversed.
-- Next steps:
-  1. Decide IR-79-53.
-  2. Run a far-field lane that ranks within H33-like distance bands (more than 1 km from mapped faults), with
-     antislope or lidar evidence, checking the surface for uniqueness before placement.
-  3. Reweight the nested target by distance band.
-  4. Add the absolute 3DEP DEM for shoreline suppression.
+- Next steps (updated by session `0bd0e0b2`):
+  1. IR-79-53 is resolved prospectively by the chance-corrected v4 test (IR-79-68); keep it for future lanes.
+  2. Band reweighting has been tried (H79-BQA): it beat H33 on holdout but duplicated NHR's territory. Do not retry it.
+  3. Next lane: antislope-scarp asymmetry in the far field (hypothesis 2 in `research/hypotheses_bqa.md`; inputs present).
+     Run surface uniqueness *first*: it costs about 25 min, is cheaper than a two-seed holdout, and is the gate that has
+     stopped every lane that beat H33.
+  4. Add the absolute 3DEP DEM (through a GitHub Actions fetch) for Lahontan shoreline suppression (hypothesis 3).
 
 ## Verify the frozen result (safe default)
 

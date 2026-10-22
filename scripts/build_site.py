@@ -166,7 +166,46 @@ def home_promoted(card, index):
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Everything you need to submit.</h2></div><p>Copy the name and comment, upload the TIFF (or the ZIP), and keep the SHA-256 for your records. Each gate is listed, with its evidence.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
 <section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHAT WE LEARNED FROM H33</p><h2>Dots, pruning, budget.</h2></div><p>H33 (user-reported 0.2778) is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. The metric rewards sparse, well-placed dots.</p></div><div class="steps"><article class="step"><div class="step-no">01 — MAX VS SUM</div><h3>2.33 TP per dot</h3><p>On an ideal straight grid-aligned trace, dots spaced 3 pixels apart average ~2.33 TP units per dot. This is illustrative, not a measured score. Redundant positives can add FP without extra TP.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article><article class="step"><div class="step-no">02 — NEAR-CATALOGUE PRUNING</div><h3>44,090 → 37,654</h3><p>Known fault pixels are masked, but predictions nearby could still credit unknown faults. Pruning those 6,436 dots coincided with user-reported 0.2600 → 0.2778; no organizer receipt links either value to these bytes.</p><a class="text-link" href="evidence/h33_forensics.json">Byte forensics ↗</a></article><article class="step"><div class="step-no">03 — OUR ANSWER</div><h3>Learn the hidden-fault target</h3><p>Hide 20 % of mapped faults inside training, then fit the metric's own kernel credit. +{s20['paired_delta_vs_h33']['delta']:.3f} / +{s30['paired_delta_vs_h33']['delta']:.3f} HOLDOUT-DTI over the H33 control.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article></div></section>
 <section class="section"><div class="notice"><strong>Main risk, stated plainly:</strong> the gain comes mainly from distance-to-mapped-fault features. The median NHR dot is 539 m from a mapped fault; the median H33 dot is 1.96 km away. If the organizer's expert-found faults lie far from known fault systems, this file can score below H33. Only an organizer score can tell. <a href="analysis.html">Details ↗</a></div></section>
-<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, rescanned this session (0 new)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
+<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, plus {delta_count()} found by the repaired delta scan (IR-79-69)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
+
+
+def delta_count():
+    path = ROOT / 'registry/registry_delta.json'
+    return f"{json.loads(path.read_text()).get('n_new_rasters', 0):,}" if path.exists() else '0'
+
+
+def bqa_state():
+    path = ROOT / 'evidence/bqa/state.json'
+    return json.loads(path.read_text()) if path.exists() else None
+
+
+def bqa_section():
+    """This session's lane (H79-BQA), read from evidence/bqa/state.json; empty if absent."""
+    st = bqa_state()
+    if st is None:
+        return ''
+    x1, x2 = st['x1']['per_seed'], st['x2']['per_seed']
+    g5 = st['x2']['g5_surface_uniqueness']
+    rows = ''.join(
+        f"<tr><td>{s[-2:]}</td><td>{E(x2[s]['role'])}</td><td>{x2[s]['standard']['dti']}</td><td>{x1[s]['standard']['dti']}</td>"
+        f"<td>{x2[s]['standard_h33']['dti']}</td><td>{x2[s]['far_field']['dti']}</td><td>{x1[s]['far_field']['dti']}</td>"
+        f"<td>{x2[s]['far_field_h33']['dti']}</td></tr>" for s in ('seed_20', 'seed_30', 'seed_40'))
+    return f'''<section class="section"><div class="section-head"><div><p class="eyebrow">THIS SESSION / H79-BQA · NEGATIVE</p><h2>Beat H33 on holdout.<br>Still a duplicate.</h2></div><p>Two experiments (X2 added by a disclosed amendment, IR-79-70), zero slots. X1 forced H33's distance profile and tied H33 far from mapped faults. X2 re-weighted the training data by distance band. It beat H33 on two unseen holdout draws, but the surface-uniqueness check stopped it before any dot was placed. No GeoTIFF was written.</p></div>
+<div class="table-scroll"><table><thead><tr><th>Seed</th><th>Role</th><th>X2 HOLDOUT-DTI</th><th>X1</th><th>H33 control</th><th>X2 far field</th><th>X1 far field</th><th>H33 far field</th></tr></thead><tbody>{rows}</tbody></table></div>
+<div class="notice"><strong>Automated stop:</strong> {g5['provisional_topk_v4_firings']} registry rasters exceed the chance-corrected overlap limit 0.70 for the X2 surface's top 37,654 cells. The worst is <code>{E(g5['provisional_topk_worst_submission'])}</code> at {g5['provisional_topk_worst_chance_corrected_overlap']:.3f}, which is this repository's own stopped NHR file. The full-surface ρ is {g5['full_surface_worst_spearman']:.3f}, below the 0.90 limit. Far field = withheld fault pixels more than 1 km from the fold's visible faults. <a href="evidence/bqa_state.json">Machine state ↗</a> · <a href="evidence/run_card_bqa.json">BQA run card ↗</a> · <a href="analysis.html">Full tables ↗</a></div></section>'''
+
+
+def bqa_bullet():
+    st = bqa_state()
+    if st is None:
+        return ''
+    x2 = st['x2']['per_seed']; g5 = st['x2']['g5_surface_uniqueness']
+    return (f"<li><strong>Follow-up lane H79-BQA (this session):</strong> band-weighted hide-and-recover scored HOLDOUT-DTI "
+            f"<code>{x2['seed_30']['standard']['dti']}</code> / <code>{x2['seed_40']['standard']['dti']}</code> on the confirmatory "
+            f"seeds 30 / 40, against <code>{x2['seed_30']['standard_h33']['dti']}</code> / <code>{x2['seed_40']['standard_h33']['dti']}</code> "
+            f"for H33. It was stopped before placement by the surface-uniqueness gate: {g5['provisional_topk_v4_firings']} registry rasters, "
+            f"worst chance-corrected overlap {g5['provisional_topk_worst_chance_corrected_overlap']:.3f}. No file was written, "
+            "so the download above is unchanged.</li>")
 
 
 def u_count(card):
@@ -248,8 +287,9 @@ def home_negative(card, index):
 <div class="metric-grid">{metric('HOLDOUT-DTI · candidate', f"{s20['candidate']['dti']:.3f} / {s30['candidate']['dti']:.3f}", 'Seeds 20 / 30, gems57-pooled-hide-v2')}{metric('HOLDOUT-DTI · H33 control', f"{s20['h33_foldfair_control']['dti']:.3f} / {s30['h33_foldfair_control']['dti']:.3f}", 'Same folds; legacy control budget')}{metric('Worst ordinary overlap', f"STOP · {wi['overlap_candidate']*100:.0f} %", 'Dots within 3 px; limit 70 %', stop=True)}{metric('Weekly slots spent', str(card['submission_slots_used']), 'Nothing uploaded')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Every gate, with its evidence.</h2></div><p>Holdout, canaries and format pass. The duplicate gate fails before and after placement, so the separate selector refused.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
 {NEG_SPACE.format(sf=a['of_which_space_filling_halo_gt_0_70'], n=a['compared'], uf=a['uniform_random_control_flagged_by'], inf=a['of_which_informative_halo_le_0_70'])}
+{bqa_section()}
 <section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHAT WE LEARNED FROM H33</p><h2>Dots, pruning, budget.</h2></div><p>H33 (user-reported 0.2778) is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. The metric rewards sparse, well-placed dots.</p></div><div class="steps"><article class="step"><div class="step-no">01 — MAX VS SUM</div><h3>2.33 TP per dot</h3><p>On an ideal straight grid-aligned trace, dots spaced 3 pixels apart average ~2.33 TP units per dot. This is illustrative, not a measured score. Redundant positives can add FP without extra TP.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article><article class="step"><div class="step-no">02 — NEAR-CATALOGUE PRUNING</div><h3>44,090 → 37,654</h3><p>Known fault pixels are masked, but predictions nearby could still credit unknown faults. Pruning those 6,436 dots coincided with user-reported 0.2600 → 0.2778; no organizer receipt links either value to these bytes.</p><a class="text-link" href="evidence/h33_forensics.json">Byte forensics ↗</a></article><article class="step"><div class="step-no">03 — WHAT NHR SHOWED</div><h3>Near-fault ≠ new</h3><p>NHR learned that hidden catalogue faults sit 300 m–2 km from visible ones. Earlier near-fault dot fields already occupy that band, and their unverified historical scores are 0.016–0.143.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article></div></section>
-<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, rescanned this session (0 new)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
+<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, plus {delta_count()} found by the repaired delta scan (IR-79-69)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
 
 
 def executive_negative(card):
@@ -263,7 +303,7 @@ def executive_negative(card):
 <li><strong>Result:</strong> H79-NHR scored HOLDOUT-DTI <code>{s20['candidate']['dti']}</code> {s20['candidate']['ci95']} on seed 20 (n = {s20['withheld_positive_pixels']:,}) and <code>{s30['candidate']['dti']}</code> {s30['candidate']['ci95']} on seed 30 (n = {s30['withheld_positive_pixels']:,}). The H33 fold-fair control scored <code>{s20['h33_foldfair_control']['dti']}</code> / <code>{s30['h33_foldfair_control']['dti']}</code>. The paired 95 % CIs exclude zero.</li>
 <li><strong>Stop:</strong> {a['of_which_informative_halo_le_0_70']} ordinary registry dot fields each contain more than 70 % of the dots within 3 px. The worst is <code>{E(wi['submission'])}</code> at {wi['overlap_candidate']:.3f}, against {wi['halo_coverage']:.3f} expected by chance. The surface check fails the same way before placement. The protocol says to log a duplicate and stop, so the lane stopped with no retuning or overlap capping.</li>
 <li><strong>Systemic blocker:</strong> {a['of_which_space_filling_halo_gt_0_70']} space-filling registry rasters flag even a uniformly random map. A future lane needs an explicit decision on them.</li>
-<li><strong>Slots:</strong> none used; nothing uploaded.</li></ul>
+{bqa_bullet()}<li><strong>Slots:</strong> none used; nothing uploaded.</li></ul>
 <h2>How to submit a future promoted file</h2><ol>
 <li>Run <code>.venv/bin/python scripts/submission_status.py</code>. Upload only if it prints <code>OK TO SUBMIT: YES</code> and exits with code 0.</li>
 <li>Check that your <a href="{COMP}/submissions/">submissions page</a> shows a free weekly slot. The <a href="{COMP}/rules/">official rules</a> allow up to three per week.</li>
@@ -338,7 +378,17 @@ def main():
               'evidence/artifact_reproduction.json': 'artifact_reproduction.json',
               'evidence/ff/ff_run_card.json': 'ff_run_card.json',
               'run_card_stepco.json': 'run_card_stepco.json',
-              'run_card_g79b.json': 'run_card_g79b.json'}
+              'run_card_g79b.json': 'run_card_g79b.json',
+              'run_card_bqa.json': 'run_card_bqa.json',
+              'evidence/bqa/state.json': 'bqa_state.json',
+              'registry/preregistration_bqa.json': 'bqa_preregistration.json',
+              'registry/preregistration_bqa_amendment_A1.json': 'bqa_preregistration_amendment_A1.json',
+              'registry/protocol_clarification_v4.json': 'protocol_clarification_v4.json',
+              'evidence/bqa/holdout_seed20.json': 'bqa_holdout_seed20.json',
+              'evidence/bqa/holdout_seed30.json': 'bqa_holdout_seed30.json',
+              'evidence/bqa/holdout_seed40.json': 'bqa_holdout_seed40.json',
+              'evidence/bqa/x2_surface_build.json': 'bqa_x2_surface_build.json',
+              'evidence/bqa/x2_uniqueness_surface.json': 'bqa_x2_uniqueness_surface.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
     for stale in (SITE / 'evidence').iterdir():
@@ -358,7 +408,8 @@ def main():
         'executive-summary.html': ('Executive summary & how to submit', executive(card)),
         'analysis.html': ('Why H33 scored highest, and what can beat it',
                           page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
-                                    'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
+                                    'Metric algebra, byte forensics of H33, the H79-BQA and H79-NHR holdout results and the main risk.')
+                          + '<section class="section">' + md('reports/bqa_analysis.md') + '</section>'
                           + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
@@ -367,6 +418,7 @@ def main():
                           + '<section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2>'
                           + '<p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p>'
                           + md('research/hypotheses_preflight_a7d092d7.md') + '</section>'
+                          + '<section class="section"><h2>This session: H79-BQA (negative)</h2>' + md('research/hypotheses_bqa.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_nhr.md') + '</section>'
                           + '<section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2>'
                           + '<p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p>'
