@@ -19,11 +19,21 @@ from gems57.validate import validate as shared_validate
 from gems79.preflight import validate, compare_registry
 
 
+def _repo_rel(path: Path) -> str:
+    try:
+        return path.resolve().relative_to(ROOT.resolve()).as_posix()
+    except ValueError:
+        return str(path)
+
+
 def validate_path(path):
     path = Path(path)
     grid = load_grid(ROOT / 'data/reference')
     report = shared_validate(path, grid.footprint, grid.catalogue)
     reference = format_report(path, ROOT / 'data/reference/sample_submission.tif', footprint=grid.footprint)
+    rel = _repo_rel(path)
+    report['file'] = rel
+    reference['path'] = rel
     return {'format_passed': report['all_checks_passed'] and reference['ok'],
             'does_not_approve_submission': True, 'validator': report, 'reference_grid': reference}
 

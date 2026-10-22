@@ -9,8 +9,12 @@
    the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
    and the lane is stopped. Do not retune or overlap-cap X1.
    A new idea needs a new preregistered lane, with three experiments or two hours at most.
+   Follow-up review a7d092d7 re-measured the universal literal-overlap witness:
+   `scripts/preflight_new_lane.py --restore` exits 2, forbidding any nonempty new
+   candidate under that reading. Do not bypass it or restart the stopped lane.
+
    Session 2026-10-22 also ran **H79-ASYM** (antislope excess, `registry/preregistration_asym.json`).
-   It stopped at the surface duplicate gate before any placement (IR-79-57). Its card is
+   It stopped at the surface duplicate gate before any placement (IR-79-68). Its card is
    `run_card_asym.json`, which is archival. The canonical card is still `run_card.json`.
    Do not reopen H79-ASYM by retuning. Note that the lidar-scarp and geodetic-strain channels
    are already saturated in the registry (16 strain-named rasters; 32 informative scarp-channel overlaps).

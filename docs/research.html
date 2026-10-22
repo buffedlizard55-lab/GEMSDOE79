@@ -1,12 +1,148 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
 <title>Five ranked hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2><p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p><div class="prose table-scroll"><h2>Candidate hypotheses — session e846fc02 (2026-10-22, not executed)</h2>
+<p><strong>Pre-experiment shortlist, not measured performance.</strong> No new scientific lane was started this session. The active H79-NHR lane remains stopped negative (IR-79-55) and the universal literal witness still blocks any nonempty map (IR-79-53, <code>evidence/universal_overlap_certificate.json</code>). A future lane must re-measure the witness, pass the surface and final uniqueness gates, leakage canaries and the matched HOLDOUT-DTI before any weekly-slot decision. Priority and cost are qualitative research judgements, <strong>not DTI scores or leaderboard projections</strong>. "Not tried" is verified only against <code>src/gems79/</code>, <code>vendor/gems57/</code>, <code>src/gems79b/</code> and the archived lanes <code>G79-FABRIC-OFFSET</code>, <code>G79-STEPCO</code>, <code>G79B-SDPT</code>, <code>H79-FF</code>, <code>H79-NHR</code>; a claim that no sibling GEMSDOE repo ever tried a similar idea globally is not made — the registry gate is the arbiter.</p>
+<h3>How H33 achieved 0.2778 (best verified family score) and what must beat it</h3>
+<p>RASTER-MEASUREMENT (<code>evidence/h33_forensics.json</code>, <code>knowledge/why_h33.md</code>): H33 is <strong>exactly</strong> the D2.8 dot set (44,090 dots) minus the 6,436 dots within 200 m of mapped faults — 37,654 isolated binary dots, 0 disagreement with <code>D2.8 &amp; (distance&gt;2 px)</code>. USER-REPORTED pair 0.2600→0.2778 is consistent with removing near-catalogue FP mass, but no organizer receipt links those numbers to those bytes, and only exact catalogue pixels (not the 200 m collar) are masked in scoring. H33's median dot is 19.6 px (~1.96 km) from the catalogue; 69.8% are &gt;1 km away. It is a broad field, not a halo.</p>
+<p>The organizer's metric is <code>k(d)=max(1−d/300 m,0)</code> with <code>TP = Σ_truth max_x p·k(d)</code> (max over neighbours) and <code>FP = Σ_x p·(1−max_truth k)</code> (sum) — DTI = TP / (TP + 0.2·FP + 0.8·FN), pooled over chunks (metric § and clarifications in <code>knowledge/official_sources.json</code>). Sparse dotted emission wins because one correctly placed dot credits ≈2.33 truth pixels (k=1, 0.667, 0.333 at 0,100,200 m along strike) while a continuous map pays FP on every positive pixel. H79-NHR's measured HOLDOUT-DTI 0.1431/0.1522 beat its H33 control 0.0961/0.0989 on both seeds, but its dots fell inside 26 earlier dot fields (worst 0.913 vs 0.610 chance) — duplicate → stop.</p>
+<p>Beating 0.2778 (and the public leader 0.4413 observed on the leaderboard page) therefore requires <strong>better ranking of unmapped truth</strong>, not denser emission or format tricks. The current blocker is not detector skill alone but <strong>crowding</strong>: every good near-fault detector's top terrain is already dotted by the family.</p>
+<h3>Ranked candidates for a future preregistered lane</h3>
+<table>
+<thead>
+<tr>
+<th>Rank / expected gain × P(real) ÷ cost</th>
+<th>Hypothesis, exact layers</th>
+<th>Physical signature / transform</th>
+<th>Why it should catch a fault <em>missing</em> from the USGS/INGENIOUS catalogue rather than one already in it</th>
+<th>Difference from anything already implemented in this repo</th>
+<th style="text-align: right;">Implementation cost / data viability</th>
+<th>Named non-fault mimic that could produce the same signature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — High expected, medium cost</strong></td>
+<td><strong>Tip-pair stepover linkage.</strong> <code>training_features.tif</code> bands <code>det_elev</code>, <code>iso_grav_anom</code>, <code>rtp</code>; lidar <code>step_max</code>, <code>lapneg_max</code>/<code>lappos_max</code>, <code>cross_max</code>, <code>coh100</code>; visible-catalogue tip-pair geometry (nearest opposite-polarity tip pairs with along-strike overlap &gt;0 and across-strike separation 0.3–2 km, buffered by strike)</td>
+<td>Relay-ramp score: normalized along-strike overlap × across-strike proximity × mean lidar step in the relay rectangle, filtered by strike coherence <code>coh100</code></td>
+<td>Stepovers and relay ramps are the classic location of unmapped linking faults and distributed fracturing; compilers often draw the two bounding segments but leave the relay as a gap, especially under Quaternary cover. A 300 m kernel still credits a dot in the gap</td>
+<td>NHR used <code>log_dist_visible_tip</code> as a single distance, not a tip-pair overlap/proximity product; E1 used single-trace magnetic lag, not tip-pair geometry; no prior lane constructed an explicit relay rectangle</td>
+<td style="text-align: right;">Medium (CPU, tip-pair search on ~few k catalogue segments). All inputs SHA-256 pinned (<code>registry/data_manifest.json</code>); no new external data</td>
+<td>En échelon fluvial channel confluences and shutter ridges that happen to sit between two mapped tips</td>
+</tr>
+<tr>
+<td><strong>2 — Medium-high expected, low-medium cost</strong></td>
+<td><strong>Drainage-deflection scarps in basin fill.</strong> <code>det_elev</code>, lidar <code>step_max</code> + 5×5 max, <code>downface_max</code>, SGMC-derived <code>depth_to_base_surf</code> or <code>cond_surf</code> as cover proxy</td>
+<td>Deflected-drainage index: curvature of flow-accumulation ridges (derived from <code>det_elev</code> via D8) orthogonal to regional downslope, scored only where lidar step is present but amplitude is below the NHR threshold and inside thick cover</td>
+<td>Low-relief (&lt;2 m) antithetic/synthetic strands in piedmont fans and basin fill rarely produce a mappable bedrock scarp and are systematically omitted from regional compilations; they do deflect ephemeral channels (measurable even at 100 m)</td>
+<td>No prior lane used flow-routing or drainage curvature; NHR and SDPT use scarp amplitude/curvature and trace objects, not fluvial geomorphology</td>
+<td style="text-align: right;">Low-medium (flow routing on 3730×3292 grid is CPU-heavy but one-shot). <code>det_elev</code> is detrended; true flow needs hydrologically corrected DEM. Free official source for absolute heights and hydro-conditioning: USGS 3DEP 1 m (via The National Map, https://www.usgs.gov/3d-elevation-program) and NHDPlus flow. Not fetched in sandbox; obtainable via Actions (as <code>7GEMSDOE</code> did for lidar) — <strong>not viable this session without fetching</strong></td>
+<td>Abandoned channel avulsion bends, irrigation ditches, and Lahontan recessional berms</td>
+</tr>
+<tr>
+<td><strong>3 — Medium expected, low cost</strong></td>
+<td><strong>Antislope-scarp polarity asymmetry.</strong> Lidar <code>upface_max</code>, <code>downface_max</code>, <code>coh100</code>, <code>step_max</code>; <code>iso_grav_anom_hg</code> as independent structural trend</td>
+<td><code>asymmetry = (upface − downface)/(upface+downface)</code> (or rank difference), coherent along strike (<code>coh100</code> &gt; threshold) and parallel to <code>iso_grav_anom_hg</code> lineament within ±20°</td>
+<td>Uphill-facing (antithetic) scarps inside piedmonts are disproportionately unmapped — mappers favor the dominant range-front synthetic scarps and often omit the antithetic companion; shorelines, fan toes and channel banks face downslope and are suppressed by the ratio</td>
+<td>SDPT-A built dipole channels but did not form the explicit uphill/downhill ratio as a standalone surface; NHR included both facings as independent features, not their ratio; G79B used dipole minima</td>
+<td style="text-align: right;">Low (all bands cached and u8-pinned). Fully viable</td>
+<td>Ridge-top sackung and landslide head scarps (also uphill-facing)</td>
+</tr>
+<tr>
+<td><strong>4 — Medium expected, medium cost</strong></td>
+<td><strong>Persistent basement-edge worms.</strong> <code>rtp</code>, <code>tmi</code>, <code>TMI_up150</code>, <code>iso_grav_anom</code> at scales s=2,5,20 (gradient magnitudes <code>*_gradmag_s*</code> and worms via <code>ex_max</code>)</td>
+<td>Cross-scale worm persistence: <code>persist = min(rank(ex_max_s2), rank(ex_max_s5), rank(ex_max_s20))</code> or <code>geomean</code>; keep only segments present at ≥2 scales and &gt;1 km length, then score lidar step in a 300 m band around the worm</td>
+<td>Buried faults offsetting magnetic/gravity basement under cover have no lidar scarp at 10 m but leave a scale-persistent potential-field edge; these are invisible to the lidar-only family lenders and hence uncatalogued</td>
+<td>E1 measured a single-scale magnetic-gravity profile lag across a gravity edge; H19-5/H79 used single-scale worm/TMI features; no lane computed cross-scale persistence as the primary ranking</td>
+<td style="text-align: right;">Medium (multi-scale gradients already cached for s=2,5; s=20 needs recomputation). All inputs cached; no new download</td>
+<td>Dykes, intrusive margins, and survey levelling seams that are also persistent</td>
+</tr>
+<tr>
+<td><strong>5 — Lower expected, low cost</strong></td>
+<td><strong>Along-strike radiometric alteration lineament.</strong> <code>geodawn_rad_u8</code> K, Th, U, TC; lidar <code>step_max</code>, <code>coh100</code>; mapped strike field</td>
+<td>Along-strike <code>Th/K</code> or <code>U/K</code> ratio anomaly (ranked, not calibrated concentration) searched in ±15° cones beyond mapped tips, integrated over 0.5–1 km aperture, masked where cover is thick (<code>depth_to_base_surf</code> high)</td>
+<td>Phyllic/argillic alteration along fault damage zones can produce K/Th/U contrasts even where the structure is buried under a few metres of alluvium and leaves no topographic step; regional geology maps record lithology, not alteration halos</td>
+<td>No prior lane used radiometric ratios along strike; sibling H79 used K/Th as generic inputs, not a tip-cone lineament detector; SDPT excluded geophysics entirely</td>
+<td style="text-align: right;">Low (4 radiometric u8 bands restored). Ratios are rank-only — no calibrated units without the original USGS GeoDAWN grids. Fully viable for pattern search, not for geochemical quantification</td>
+<td>Pedogenic caliche and saline playa crusts that also fractionate K/Th</td>
+</tr>
+</tbody>
+</table>
+<h3>Gate before any test (must be re-measured)</h3>
+<p><code>scripts/preflight_new_lane.py --restore</code> currently exits 2: the pinned witness <code>374c88b1da2b803e2ed160de467fd71ae114010d.tif</code> covers 100% of allowed cells with finite <code>&gt;0</code> support, so any nonempty candidate has 3 px overlap 1.0 &gt; 0.70. A future lane must either (a) obtain an explicit protocol clarification that defines "dots" for continuous priors as <code>top-K</code> or <code>p ≥ 0.5</code> thresholded support (then re-audit with <code>budget-matched-v3</code> vs thresholded comparisons) or (b) be constructed to be unique even under the literal rule — which the audit shows is impossible for any nonempty map until the witness is excluded. Do not silently exempt a prior.</p>
+<p>Only after that decision: preregister the single chosen hypothesis above, run the surface novelty gate <strong>before</strong> placement, clear final novelty, leakage canaries (single-feature AUC ≤0.90) and the spatially blocked HOLDOUT-DTI — and beat the H33 control on both seeds — before the separate selector may consider a weekly slot. All numbers must be labelled HOLDOUT-DTI (evaluator version, withheld positives, 95% CI) or ORGANIZER-CONFIRMED (receipt); a projection is never a score.</p></div></section><section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
+<p><strong>Pre-experiment shortlist, not measured performance.</strong> The current request does not
+contain a delimited single-method lane paragraph. No new scientific lane was
+implicitly assigned. The inherited H79-NHR lane already stopped as a duplicate;
+we will not retune it. Priority and cost below are qualitative research judgments,
+<strong>not DTI scores or leaderboard projections</strong>. "Not tried" means not implemented
+as a stand-alone <em>surface</em> in the active <code>src/gems79/</code> pipeline; some inputs and
+related hypotheses have appeared in archived/sibling experiments. In particular,
+SDPT already computed a facing-polarity feature, so that alone is not novel.</p>
+<table>
+<thead>
+<tr>
+<th>Priority / cost</th>
+<th>Layers and physical test</th>
+<th>Why an unlisted fault, not only a mapped one?</th>
+<th>Difference and named non-fault mimic</th>
+<th>Inputs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 / medium-high</td>
+<td><strong>Far-field conditional fault recovery:</strong> <code>training_features.tif</code> (<code>det_elev</code>, <code>rtp</code>, <code>iso_grav_anom</code>) + lidar scarp descriptors + <em>visible-only</em> catalogue distance. Learn separate hide-and-recover rankings in distance bands, with a preregistered far-field &gt;1 km validation arm rather than applying NHR's near-catalogue target everywhere.</td>
+<td>The organizer's expert test faults are <strong>not</strong> in the catalogue; NHR's 300 m–2 km near-fault concentration is already occupied by older dot fields. An independent geomorphic/geophysical lineament far from the map could be a missed short piedmont fault.</td>
+<td>NHR fits one pooled target, not distance-band-specific selection; unlike a dot jitter, this changes the geological conditional model. <strong>Mimic:</strong> Pluvial Lahontan shorelines and alluvial fan margins. Input mirrors are SHA-pinned; no new external data.</td>
+<td></td>
+</tr>
+<tr>
+<td>2 / medium</td>
+<td><strong>Cross-scale crest migration:</strong> lidar <code>lapneg/lappos</code>, <code>step_max</code>, <code>coh100</code> + <code>det_elev</code> multiscale curvature; require a coherent scarp crest stable under 100–500 m smoothing while local signed curvature moves minimally along strike.</td>
+<td>Short, degraded scarps omitted from compiled regional linework may persist at multiple scales where amplitude thresholds fail.</td>
+<td>SDPT used crest-base dipoles and <code>step_max3</code>, but not displacement of a crest <em>between scales</em> as a continuity discriminator. <strong>Mimic:</strong> long terrace risers and abandoned shorelines. Cached lidar available through pinned public mirror; original USGS derivative provenance cannot be independently certified here.</td>
+<td></td>
+</tr>
+<tr>
+<td>3 / medium</td>
+<td><strong>Magnetic-marker break with an independent scarp:</strong> <code>rtp</code>, <code>tmi_hg</code>, lidar <code>cross_max</code>, <code>upface/downface</code>; compare across-trace <em>termination</em> of magnetic marker and the existence of a narrow morphologic step, without fitting the gravity-edge registration lag used by E1.</td>
+<td>Covered strands may disrupt basement fabric despite weak surface expression and therefore escape map digitizing.</td>
+<td>Not E1's across-gravity <em>nonzero lag</em>, nor NHR's generic HGB feature stack; explicit marker termination and scarp coincidence. <strong>Mimic:</strong> intrusive contact or airborne levelling seam. GeoDAWN flight-line spacing is coarser than the grid; avoid claiming 100 m independent magnetic observations.</td>
+<td></td>
+</tr>
+<tr>
+<td>4 / low</td>
+<td><strong>Clay-cap/permeability discordance:</strong> <code>cond_surf</code>, <code>depth_to_base_surf</code>, <code>iso_grav_anom</code>, lidar scarp; find local conductivity-edge departures crossing a gravity structural boundary, not a conductivity maximum.</td>
+<td>Unmapped faults may change fluid pathways beneath cover even if map-visible stratigraphic contacts are absent.</td>
+<td>STEPCO proposed cap <em>breaches</em>, not a cross-boundary discordance; conductivity resolution makes this speculative. <strong>Mimic:</strong> saline playa or lithologic conductor. Existing provided bands only, but no direct permeability observation.</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Gate before any test:</strong> Re-measured SHA-256-pinned public registry witness
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/witness_review_20261022_a7d092d7.json"><code>evidence/witness_review_20261022_a7d092d7.json</code></a>
+shows all 5,106,385 allowed cells covered by the literal positive support of a
+prior raster. Therefore <em>any nonempty candidate</em> would have 3-pixel overlap
+1.0 &gt; 0.70, regardless of hypothesis. This is the mathematical reason we
+<strong>stopped before implementation / placement / holdout</strong>: testing the top idea
+would break the requested stop rule, and no winner can be selected. If the
+protocol owner prospectively defines what counts as "dots" in continuous
+surfaces, preregister a <em>new</em> single-method lane, run the surface and final
+registry checks, individual-feature leakage canaries and shared buffered
+hide-and-recover DTI on both seeds. Do not silently exempt a prior raster.</p>
+<p>Sources (claims, not candidate scores):
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">organizer problem, data and metric</a>,
+<a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a>,
+<a href="https://github.com/drivendataorg/gems-prize-reference-solution">organizer reference implementation</a>,
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/data_manifest.json">local input provenance limits</a>,
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/nhr_analysis.md">existing experimental findings</a>.
+These are fault-detection proposals, <strong>not</strong> claims of geothermal-vent or reservoir discovery.</p></div></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
 <p>Written before any H79-NHR holdout result existed (preregistration:
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_nhr.json"><code>registry/preregistration_nhr.json</code></a>).
 Ranks are qualitative judgements of expected DTI improvement and cost, <strong>not
@@ -15,7 +151,7 @@ scores</strong>. Only hypothesis 1 was executed; its measured result is in
 <p><strong>Outcome, added after the results.</strong> Hypothesis 1 beat the H33 holdout control on both
 seeds, but its dots duplicate 26 earlier near-fault registry dot fields (IR-79-55), so
 the lane stopped with a negative verdict. Hypotheses 2–5 remain untested.</p>
-<p><strong>Outcome of hypothesis 2, added after its result (session 2026-10-22, lane H79-ASYM).</strong> Preregistered in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_asym.json"><code>registry/preregistration_asym.json</code></a> (commit 365b727). Its surface stopped the lane before any holdout placement: a continuous registry surface (<code>GEMSDOE48</code>) covers the whole footprint, and 32 informative dot fields exceed 0.70 overlap (14 after chance correction). The lidar-scarp channel is therefore saturated in the registry. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/asym"><code>evidence/asym/</code></a> and IR-79-57. Hypotheses 3–5 remain untested. Hypothesis 3 needs an absolute elevation source (see below).</p>
+<p><strong>Outcome of hypothesis 2, added after its result (session 2026-10-22, lane H79-ASYM).</strong> Preregistered in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_asym.json"><code>registry/preregistration_asym.json</code></a> (commit 365b727). Its surface stopped the lane before any holdout placement: a continuous registry surface (<code>GEMSDOE48</code>) covers the whole footprint, and 32 informative dot fields exceed 0.70 overlap (14 after chance correction). The lidar-scarp channel is therefore saturated in the registry. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/asym"><code>evidence/asym/</code></a> and IR-79-68. Hypotheses 3–5 remain untested. Hypothesis 3 needs an absolute elevation source (see below).</p>
 <p>"Not implemented in this repo" was checked against <code>src/</code>, <code>scripts/</code>,
 <code>vendor/gems57/</code> and both archived lanes in <code>archive/</code>. A claim that nobody in
 the wider GEMSDOE family ever tried something similar is <strong>not</strong> made; the
@@ -261,7 +397,185 @@ almost nothing with the prior's own top-ranked cells (measured for E1:
 matched-budget overlap 0.0119, <code>p ≥ 0.5</code> overlap 0.3046, Spearman −0.014 —
 <code>evidence/post_stop_diagnostic.json</code>). Duplication remains detectable;
 non-duplication becomes provable. That is the minimum change that makes the
-protocol's own uniqueness requirement satisfiable at all.</p></div></section><section class="section"><h2>Previous lane (E1, negative, archived)</h2><div class="prose table-scroll"><h2>Preregistered hypotheses — G79-FABRIC-OFFSET</h2>
+protocol's own uniqueness requirement satisfiable at all.</p></div></section><section class="section"><h2>Concurrent lane G79B-SDPT (session 67557396, negative, archived) &amp; H79-FF (session 1de1617f, negative, archived)</h2><p><strong>G79B-SDPT</strong> (archived in <code>archive/g79b_sdpt_67557396/</code>): Unconstrained A3 scored HOLDOUT-DTI 0.1211 [0.1029, 0.1402] (seed 30) and 0.1114 [0.0943, 0.1287] (seed 20) vs its A1 control 0.1143 / 0.1087 (paired 95% CIs vs control span zero), and failed the duplicate gate against 99 dot-field priors. Post-duplicate Amendments B1/B2 overlap-capped 52 priors (E2), reducing HOLDOUT-DTI to 0.1036 / 0.0910 (below control on both seeds). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/run_card_g79b.json">G79B run card</a> · <a href="evidence/concurrent_lanes_audit.json">9-lane &amp; cross-lane audit</a>.</p><p><strong>H79-FF</strong> (archived in <code>archive/h79_ff_1de1617f/</code>): Placed 37,654 binary dots strictly 2–8 km off the mapped catalogue ranked by USGS 3DEP lidar <code>step_max</code>. Not preregistered and not evaluated on <code>HOLDOUT-DTI</code>; failed the duplicate gate (1.0000 vs space-filling priors, 0.9976 vs 13GEMSDOE lattice, 0.8802 vs GEMSDOE3 coverage-v3-wide). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/ff_run_card.json">H79-FF run card</a>.</p><div class="prose table-scroll"><h2>G79B hypothesis register — written BEFORE any G79B experiment (2026-10-22)</h2>
+<p>Session lane (declared by this session; the prompt again contains no explicit
+single method paragraph — same absence recorded as IR-79-02 in the prior run):</p>
+<p><strong>G79B-SDPT — Scarp Dipole-Persistence + Trace-object reranking.</strong>
+Terrain-only fault-scarp detection. No geophysics channel, no catalogue-derived
+feature, no prior-submission raster as a feature. Prior lanes in this repo:
+<code>G79-FABRIC-OFFSET</code> (geophysics marker-offset; post-stop diagnostic HOLDOUT-DTI
+0.0474/0.0466 — <em>below</em> its own uniform control, verdict negative) and the
+archived <code>H79-MCT</code> (30-channel terrain HGB × Sato(pixel likelihood); HOLDOUT-DTI
+unconstrained 0.1152 seed 30 / 0.1095 seed 20, archived because its authors
+applied an unauthorised dense-prior exemption and a post-hoc amendment).
+G79B reuses the H79-MCT 30-channel stack and training recipe <strong>as the control
+arm</strong> and tests whether explicit scarp-physics interaction channels and
+object-level trace scoring beat it on the identical holdout. Reusing a control
+is "learning from a previous submission", which the brief permits; copying its
+dots would not be, and is gated against (see uniqueness gate).</p>
+<h3>Why this direction at all (evidence, not preference)</h3>
+<ul>
+<li>Organizer (problem page, read 2026-10-22): hidden labels are faults
+  <em>manually identified by fault experts</em>, not in USGS/INGENIOUS; metric is
+  distance-weighted Tversky, α=0.2, β=0.8, 300 m triangular kernel.</li>
+<li>Byte-level forensics already in this repo (<code>knowledge/why_h33.md</code>,
+  <code>evidence/h33_forensics.json</code>): the family's best reported file
+  (<code>h33-…-zeros</code>, 0.2778 <em>unverified historical report — the GEMSDOE32 site
+  itself states no organizer score exists for its artifacts</em>) is exactly
+  37,654 binary dots = the D2.8 dotted H19-5 lidar-scarp line set minus every
+  dot ≤2 px from the catalogue. Its score comes from (a) the H19-5 scarp
+  detector's support and (b) metric-optimal sparse emission, not from a
+  geophysics model.</li>
+<li>Every geophysics-only family lane scored ≤ ~0.10 live (family ledger in the
+  prompt), and this repo's own geophysics lane failed its holdout against a
+  uniform control. Geophysics is therefore <em>excluded</em> from G79B.</li>
+<li>Public leaderboard read 2026-10-22: #1 = 0.4413, then 0.3904 / 0.3894 /
+  0.3713 / 0.3539 and a dense 0.326–0.342 cluster. Beating 0.2778 requires a
+  <em>better scarp detector</em> (more true scarps ranked top, fewer mimics), because
+  the emitter (37,654 dots, ~2.8 px spacing, &gt;2 px off catalogue) is already
+  at the family's measured live optimum and is kept fixed here.</li>
+</ul>
+<h3>Ranked candidate hypotheses</h3>
+<p>Ranking criterion: expected live-DTI gain × P(mechanism real) ÷ cost.
+"Expected gain" is qualitative; no leaderboard number is predicted anywhere.</p>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Hypothesis</th>
+<th>Layers / exact transform</th>
+<th>Physical signature</th>
+<th>Why it catches <em>uncatalogued</em> faults</th>
+<th>Difference from everything in this repo / family lanes inspected</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>SDPT-A Crest–base curvature dipole with consistent facing</strong></td>
+<td>1 m lidar cache bands <code>lapneg_max</code>, <code>lappos_max</code>, <code>downface_max</code>, <code>upface_max</code>, <code>cross_max</code>, <code>step_max</code>, <code>coh100</code>. New channels: <code>dip_min=min(rank lapneg, rank lappos)</code>, <code>dip_geo=√(rank·rank)</code>, <code>dip_balance=1−|Δrank|</code>, <code>face_polarity=(up−down)/(up+down)</code>, <code>step_vs_cross=rank(step)−rank(cross)</code>, <code>coh_step=rank(step)·coh100</code></td>
+<td>A degraded fault scarp is a one-sided step: convex crest + concave base (curvature <em>dipole</em>) with one facing direction. Channel banks are two-sided (<code>cross</code> dominant, both facings); hilltops are monopoles. Amplitude rankers cannot express "both curvatures present, balanced, one facing"</td>
+<td>Subtle piedmont scarps have low amplitude but keep the dipole/polarity structure; they are buried by high-relief non-fault steps in any amplitude ranking, which is exactly why they were never mapped</td>
+<td>H79-MCT/H19-5 use the raw bands as independent amplitudes (HGB splits or fixed weights). No inspected lane constructs the <em>paired-curvature / polarity</em> interaction. Antislope (uphill-facing) scarps — near-diagnostic of faulting in piedmonts — become directly visible via <code>face_polarity</code></td>
+<td>Low: all bands cached &amp; hash-pinned</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>SDPT-B Cross-scale &amp; cross-sensor step persistence</strong></td>
+<td><code>ex_max</code> (2 m vs 30 m), <code>step_max</code> (10–50 m), DEM10 <code>hgm20/hgm50</code>, <code>det_elev_slope</code> (100 m). New: <code>persist_min</code>, <code>persist_geo</code> over the four scale ranks; <code>xsensor_min=min(rank lidar step, rank DEM10 hgm20)</code></td>
+<td>A tectonic step has power at every scale from 2 m to 100 m and appears in <em>both</em> independent DEMs (1 m lidar tiles vs 10 m 3DEP seamless). Road cuts/mine benches are fine-scale only; range fronts coarse only; processing seams exist in one product only</td>
+<td>Unmapped scarps in the 24.7 % lidar gap and subdued scarps elsewhere survive as weak-but-persistent signals; single-scale detectors rank them below strong narrow mimics</td>
+<td>Prior lanes used per-scale amplitudes or a Sato filter at 1–2 px on one surface. None computed min/geometric-mean rank persistence across 2 m→100 m, and none required cross-DEM agreement</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>SDPT-C Trace-object (segment) acceptance</strong></td>
+<td>Stage-2 reranking of the pixel likelihood: 8-connected components of the top-2 % likelihood ∩ step support; per-component PCA elongation <code>1−λ₂/λ₁</code>, size factor, mean likelihood; pixel score <code>√(rank(p)·segment_score)</code></td>
+<td>Experts accept/reject <em>traces</em>, not pixels. A real trace is a long, straight, continuous object; the dominant mimics (terrace corners, benches, road segments) are short or blobby at the 0.5–5 km object scale</td>
+<td>The hidden labels were drawn as traces by experts; object geometry is the closest available proxy for "would an expert draw this line?", and it is scale-free enough to promote long faint traces over short loud ones</td>
+<td>H79-MCT applied a <em>local</em> (σ=1–2 px) Sato tubularity to pixels; measured effect ≈ 0 (Δ −0.0009). SDPT-C is object-scale (5–50 px components) — a different operator, listed as untried future work in the archived H79 analysis itself</td>
+<td>Low–medium</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>SDPT-E Road-cut suppression</strong></td>
+<td><code>external/tiger_road_distance_m.tif</code> (hash-pinned in <code>registry/data_manifest.json</code>), channel <code>road_logdist=log1p(d)</code></td>
+<td>Roads/canals/rail grades are the most fault-like artificial steps in lidar; distance-to-road lets the model discount steps that hug infrastructure</td>
+<td>Experts tracing new faults already discount road cuts, so the hidden set is depleted near roads relative to raw scarp density</td>
+<td>The road-distance raster exists in the family as an <em>audit</em> source; it is not among H79-MCT's 30 training channels. Risk: catalogue mapping itself is road-access-biased, so the holdout may understate or reverse the live benefit — flagged, not hidden</td>
+<td>Low</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>SDPT-D Lidar-gap completion with the full DEM10 set</strong></td>
+<td>DEM10 channels H79-MCT dropped: <code>slope_mean</code>, <code>hgm200_mean</code>, <code>resid_range</code>, <code>onesided</code>, <code>valid_frac</code> (+ <code>lid_valid</code> already present)</td>
+<td>In the lidar gap only 10 m evidence exists; the dropped channels carry the gap's step/residual structure</td>
+<td>Gap faults are the cheapest recall: every prior raster is weakest exactly there</td>
+<td>H79-MCT used 8 of 13 DEM10 channels; H19-5 quantile-matched a lidar model into the gap instead of learning gap-native behaviour</td>
+<td>Low (all 13 restored &amp; sha256-verified this session)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Named non-fault mimics the lane must be judged against:</strong> pluvial Lake
+Lahontan shorelines, fluvial terrace risers, road/canal/railway grades,
+lithologic benches, mine benches, landslide head-scarps, DEM tile seams.</p>
+<p><strong>Not viable without new external data (recorded, not proposed):</strong> absolute-
+elevation shoreline de-confounding needs the raw USGS 3DEP 1/3″ DEM heights
+(free/official: ScienceBase 4f70aa9fe4b058caae3f8de5; only derived slope/
+gradient vectors are mirrored on GitHub, and sciencebase.gov is outside this
+sandbox's egress allowlist). Drainage-deflection analysis needs a raw DEM for
+flow routing for the same reason.</p>
+<h3>Decision</h3>
+<p>Test SDPT-A+B+D+E as added channels (arm A2) against the exact H79-MCT pixel
+recipe (arm A1) on the shared hide-and-recover holdout, then SDPT-C trace
+reranking of A2 (arm A3). Promotion gates, budgets and the uniqueness rule are
+fixed in <code>registry/preregistration_g79b.json</code> before any score is read.</p>
+<hr />
+<h3>Results addendum (2026-10-22, after E1+E2; original text above untouched)</h3>
+<p>All numbers HOLDOUT-DTI (<code>gems57-pooled-hide-v2</code>, whole fault components
+hidden + buffer; seed 30 n=11,342 / seed 20 n=11,321 withheld positives):</p>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th>seed 30</th>
+<th>seed 20</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A0 random</td>
+<td>0.0509</td>
+<td>0.0491</td>
+</tr>
+<tr>
+<td>A1 control (H79 recipe)</td>
+<td>0.1143</td>
+<td>0.1087</td>
+</tr>
+<tr>
+<td>archived best (H79-MCT C2)</td>
+<td>0.1152</td>
+<td>0.1095</td>
+</tr>
+<tr>
+<td>A2 = SDPT pixel</td>
+<td>0.1203</td>
+<td>0.1113</td>
+</tr>
+<tr>
+<td>A3 = A2 + SDPT-C trace</td>
+<td><strong>0.1211 [0.1029, 0.1402]</strong></td>
+<td><strong>0.1114 [0.0943, 0.1287]</strong></td>
+</tr>
+<tr>
+<td>A3 capped for registry uniqueness (E2)</td>
+<td>0.1036</td>
+<td>0.0910</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Leakage canary: worst single-channel symmetric AUC 0.571 (seed 30) /
+  0.600 (seed 20), far below the 0.90 stop line.</li>
+<li>A3 beat A1 and the archived best on both seeds (preregistered G3 point
+  criterion), but paired A3−A1 CIs include 0 (+0.0068 [−0.0004, +0.0151];
+  +0.0027 [−0.0029, +0.0084]): direction consistent, size not proven.</li>
+<li>Unconstrained A3 dots fired the duplicate rule vs 99 dot-field priors
+  (63 unique supports). 11 are halo-saturating/non-discriminating
+  (Amendment B1); capping the 52 discriminating priors at 0.68 produced a
+  registry-unique artifact (worst Spearman 0.093; capped shares ≤0.680;
+  non-discriminating exact overlaps ≤0.089) — but E2 measured the cap cost
+  at −0.0176/−0.0203, landing below the control on both seeds.</li>
+<li><strong>Verdict: negative / DO NOT SUBMIT</strong> (<code>run_card_g79b.json</code>). Lesson for
+  the next lane: in this family the binding constraint is no longer
+  detector skill but <em>crowding</em> — every good scarp detector's top terrain
+  is already dotted. A future lane must be born unique (top terrain ≠
+  family's top terrain), e.g. rank within strata the family ignores,
+  rather than capped into uniqueness afterwards.</li>
+</ul></div></section><section class="section"><h2>Previous lane (E1, negative, archived)</h2><div class="prose table-scroll"><h2>Preregistered hypotheses — G79-FABRIC-OFFSET</h2>
 <p>Recorded before implementing or scoring the new method. Read alongside
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration.json"><code>registry/preregistration.json</code></a>. No predicted
 leaderboard scores are assigned to these ideas.</p>

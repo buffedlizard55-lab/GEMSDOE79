@@ -53,21 +53,24 @@ H33 is **exactly** the D2.8 dot set (44,090 dots) minus the 6,436 dots within 20
 
 USER-REPORTED: D2.8 0.2600 and H33 0.2778.
 
-Under the assumption that the 6,436 removed dots had zero TP (they sat beside masked
-catalogue pixels), only FP changed. Then the ESTIMATE is
+Under the **unverified** assumption that the 6,436 removed dots had zero marginal TP,
+only FP changed. Adjacency to masked catalogue pixels does not establish this: nearby
+unmapped strands can still earn TP, and the 200 m collar itself is not masked. Then the ESTIMATE is
 `TP·(1/0.2600 − 1/0.2778) = 0.2·6,436`. That gives TP ≈ 5.2 k truth-pixel units in the public set and
 `N_truth ≈ 12.8–13.3 k`. H33 therefore captures **c ≈ 39–41 %** of public truth
 credit with ≈35–37 k FP units.
 
 H33 led the family for three reasons, ranked by our confidence:
 
-1. **It deleted pure false positives.** Mapped pixels are masked, and an expert
-   is unlikely to digitise a "new" fault within 200 m of a mapped one. So dots
-   in that collar pay FP and earn almost no TP. Removing 14.6 % of the dots raised the score by 6.8 %.
-   This is the only change between D2.8 and H33, so it is the best-supported explanation.
-2. **Its dots are already sparse and roughly at budget.** About 37.7 k dots puts the
-   marginal dot near the break-even probability above. Adding more dots dilutes the
-   score, and removing more starts to lose coverage.
+1. **It deleted near-catalogue dots, plausibly reducing redundant FP.** This is
+   the measured raster change, not proof that every deleted dot was a false positive.
+   Exact mapped pixels are masked; the surrounding 200 m collar is not. Nearby
+   unmapped splays could lose TP when those dots are removed. The reported score
+   pair is consistent with a net gain, but artifact-linked organizer receipts and
+   hidden labels are absent, so the causal explanation remains conditional.
+2. **Its dots are already sparse and roughly at budget.** The measured budget is about 37.7 k dots. Whether its marginal dot is near
+   break-even is unknown without hidden truth. Additional dots can either help or
+   hurt according to their incremental TP and FP, not their count alone.
 3. **Its ranking came from distance-to-fault structure plus scarps**, inherited from
    D2.x. RASTER-MEASUREMENT (`evidence/nhr/distance_to_catalogue.json`):
    - The median H33 dot lies 19.6 px (≈1.96 km) from the catalogue.
@@ -170,10 +173,11 @@ This is consistent with the shift being real.
 
 ## 6. What would most raise P(win) next
 
-1. **Decide how to treat the 30 space-filling registry rasters.** A uniformly
-   random map is flagged by 30 registry rasters, because their 3 px halos cover more
-   than 70 % of the allowed area. Taken literally, the duplicate rule therefore rejects
-   every possible submission (IR-79-53). This needs an explicit user decision. One
+1. **Decide how to treat the 30 space-filling registry rasters.** The seeded uniformly
+   random control is flagged by 30 registry rasters whose halos cover more than
+   70 % of the allowed area. That statistic does not prove universal failure.
+   The separate literal-support witness covers **every** allowed cell, which does
+   prove every nonempty map has overlap 1.0 under that reading (IR-79-53). This needs an explicit user decision. One
    option: for those rasters, use overlap beyond chance, `(ov − halo)/(1 − halo)`,
    and keep the literal rule for all others.
 2. **Target the far field explicitly.** H33's dots are mostly more than 1 km from the

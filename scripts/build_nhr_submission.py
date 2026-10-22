@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Gate-checked packaging of the H79-NHR final map.
 
-Re-derives every preregistered gate from evidence/nhr/:
+Refuses to repackage a terminal canonical lane. For an open run,
+re-derives every preregistered gate from evidence/nhr/:
 - two-seed HOLDOUT-DTI beats the current holdout best (h33_foldfair_control);
 - the paired CI vs uniform excludes 0;
 - all leakage canaries are <= 0.90;
@@ -27,6 +28,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
+from gems79.lifecycle import LaneClosedError, require_open_lane
 from gems57 import evaluate_holdout as evaluator      # noqa: E402
 from gems57.grid import load_grid                      # noqa: E402
 from gems57.submission_writer import write_submission  # noqa: E402
@@ -66,6 +68,7 @@ def gates():
 
 
 def main():
+    require_open_lane(ROOT, "H79-NHR")
     g, hold, uniq, build, dots = gates()
     passed = all(g.values())
     if not passed:
@@ -101,4 +104,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)
