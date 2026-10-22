@@ -1,0 +1,112 @@
+{
+  "submission_name": "gems79-h80-farfield-37654dots-20261022T050931Z-78e22caf",
+  "note": "H80-FARFIELD far-field antislope+wrm; HOLDOUT-DTI 0.151/0.159 vs H33 0.096/0.099; far-field >1km; 37654 dots",
+  "sha256": "fa1f056bbe32179862e6f867cc4fcdc6ad0fa4583cc9cb577316d17af17da35a",
+  "zip_sha256": "30eb201d07d4e785175e36011ca3e0865a310f4742334b341c815d81703ed491",
+  "bytes": 826442,
+  "validator": {
+    "file": "/home/user/GEMSDOE79/docs/downloads/gems79-h80-farfield-37654dots-20261022T050931Z-78e22caf.tif",
+    "bytes": 826442,
+    "sha256": "fa1f056bbe32179862e6f867cc4fcdc6ad0fa4583cc9cb577316d17af17da35a",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "lzw"
+    },
+    "band_description": [
+      "predicted_new_fault_probability"
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "format_report": {
+    "path": "/home/user/GEMSDOE79/docs/downloads/gems79-h80-farfield-37654dots-20261022T050931Z-78e22caf.tif",
+    "bytes": 826442,
+    "sha256": "fa1f056bbe32179862e6f867cc4fcdc6ad0fa4583cc9cb577316d17af17da35a",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      1,
+      3292
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "n_nonzero": 37654,
+    "mass": 37654.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  }
+}

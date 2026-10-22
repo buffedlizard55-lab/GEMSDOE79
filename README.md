@@ -45,6 +45,23 @@ Session `1de1617f` generated an additional negative research GeoTIFF (`H79-FF`);
 | Verdict | **negative.** Unique by construction (new bytes, not copied) but not unique under the protocol gate and not evaluated on `HOLDOUT-DTI`; **do not upload**. See [`evidence/ff/ff_run_card.json`](evidence/ff/ff_run_card.json). |
 | Slots used | 0 |
 
+### Archived concurrent artifact — H80-FARFIELD (2026-10-22, this session `98573bb6`)
+
+New far-field lane with antislope + magnetic/gravity worm persistence (3 extra features, 55 total). Valid format, stronger holdout than NHR but still duplicate under protocol.
+
+| | |
+|---|---|
+| File | [`archive/h80_farfield_78e22caf/gems79-h80-farfield-37654dots-20261022T050931Z-78e22caf.tif`](archive/h80_farfield_78e22caf/gems79-h80-farfield-37654dots-20261022T050931Z-78e22caf.tif) · ZIP [`archive/h80_farfield_78e22caf/gems79-h80-farfield-37654dots-20261022T050931Z-78e22caf.zip`](archive/h80_farfield_78e22caf/gems79-h80-farfield-37654dots-20261022T050931Z-78e22caf.zip) |
+| Unique name | `gems79-h80-farfield-37654dots-20261022T050931Z-78e22caf` |
+| Note (118/140) | `H80-FARFIELD far-field antislope+worm 37654 dots; HOLDOUT-DTI 0.151/0.159 vs H33 0.096/0.099; far-field >10px median 1.4km 100%>1km; format PASS` |
+| SHA-256 | `fa1f056bbe32179862e6f867cc4fcdc6ad0fa4583cc9cb577316d17af17da35a` |
+| Format | single band float32, EPSG:32611, 3730×3292, transform [100,0,243350,0,-100,4508550], values 0/1, no NaN: **PASS** |
+| HOLDOUT-DTI | seed 20: **0.151** [0.1344,0.1658] vs H33 0.0961 Δ+0.0549 [0.0391,0.0707] · seed 30: **0.159** [0.1396,0.1781] vs H33 0.0989 Δ+0.0601 [0.0422,0.0794] (HOLDOUT-DTI, pooled hide-v2, 4 folds, 11321/11342 withheld) |
+| Leakage canary | max 0.8589 ≤0.90 (geom_log_dist_visible_tip), 0 suspicious of 488 tests: **PASS** |
+| Uniqueness | **FAIL.** 0.86 within 3 px of `coverage-v3-wide` (halo 0.61) and 26 informative rasters >0.70; ρ 0.02 vs H33 passes but overlap fails. Under D-1 like-for-like still duplicate (0.86>0.70). Worm-only variant 0.58 passes uniqueness but HOLDOUT-DTI 0.037 < H33. |
+| Placement | far-field only (>10 px / >1 km from catalogue), 37654 dots, Poisson 3 px, median 14.1 px (1414 m) 100%>1 km |
+| Verdict | **negative — research only, DO NOT SUBMIT.** New bytes distinct from prior NHR, holdout beats H33 both seeds, but protocol duplicate gate fails; no weekly slot spent. See `evidence/farfield/` and `registry/preregistration_farfield.json`. |
+
 Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.

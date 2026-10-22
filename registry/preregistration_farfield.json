@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "lane": "H80-FARFIELD",
+  "title": "Far-field antislope and worm-persistence ensemble for unmapped faults",
+  "registered_utc": "2026-10-22T05:00:00Z",
+  "branch": "arena/98573bb6-gemsdoe79",
+  "registered_before_any_holdout_result": true,
+  "supersedes": "Nothing. H79-NHR (337ac1e9) remains stopped negative; G79-FABRIC-OFFSET E1, G79-STEPCO S1/S2, G79B-SDPT remain stopped negative and archived. This lane does not restart them.",
+  "lane_paragraph": "A fault missing from USGS/INGENIOUS is one the mappers did not draw, often because they prioritized range-front synthetic scarps and omitted antithetic companions, or because burial under Quaternary cover hides basement offsets. Instead of learning to recognise mapped fault pixels near the catalogue, simulate discovery in the far field: inside the visible catalogue repeatedly withhold whole 8-connected components with a 3 px collar, recompute every catalogue-derived input from what remains, and fit a gradient-boosted regressor whose target is the official 300 m triangular kernel credit towards the withheld component. Inputs are label-independent GeoDAWN/feature-stack geophysics, multiscale edge/curvature transforms, USGS 3DEP lidar scarp morphometry (upface/downface/step/coherence), radiometrics, plus two new derived layers: antislope polarity ratio (upface-downface)/(upface+downface) ranked within distance bands, and cross-scale worm persistence (minimum rank of gradient magnitudes at 2 and 5 pixel scales for rtp and iso_grav_anom). Training and final placement are stratified to the far-field band >1 km (>10 px) from mapped faults, where H33's broad field concentrates and where NHR's near-fault dots crowded prior fields. Dots are placed greedily with 3 px Poisson spacing at fixed budget 37654.",
+  "hypothesis": "The conditional distribution of an unmapped fault in the far field (>1 km from mapped traces) given far-field antislope polarity and cross-scale basement persistence differs from the near-fault distribution that prior dot fields exploit; a model that explicitly ranks uphill-facing scarps and scale-persistent basement edges in the far field recovers more far-field kernel credit than the H33 far-field baseline and avoids the near-fault crowding that caused NHR's duplicate failure.",
+  "mechanism": "Basin-and-Range systems have multi-strand architecture: antithetic scarps facing uphill inside piedmonts 1-3 km from the main synthetic range-front fault, and buried basement offsets under cover that leave persistent magnetic/gravity edges but no 10 m lidar step. Both are systematically omitted from regional compilations (Hermant et al. 2025 SGW Fig 2 shows incomplete mapping; Faulds et al. Walker Lane stepovers). Antislope ratio isolates antithetic polarity; worm persistence isolates buried edges; distance stratification forces the learner to rank where H33 already places 69.8% of dots (>1 km) but with additional polarity/scale evidence.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shorelines/terrace risers and fan toes are downslope-facing and suppressed by antislope ratio; fluvial terrace risers and incised channel banks also downslope; dykes/intrusive margins and survey levelling seams can mimic persistent magnetic/gravity worms; landslide sackung produces uphill steps but is ridge-top and short.",
+  "inputs": [
+    "data/raw/training_features.tif sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5 (19 bands)",
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568 (USGS 3DEP-derived, 12 bands: ex_max, ex_mean, step_max, lapneg_max, lappos_max, downface_max, upface_max, cross_max, relief, coh100, strike + 5x max variants)",
+    "data/raw/external/geodawn_rad_u8.tif sha256 c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682 (K, Th, U, TC)",
+    "data/raw/external/geodawn_extensions_u8.tif sha256 a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b (ThK, UK, UTh, TMI_up150)",
+    "data/reference/existing_faults.tif and sample_submission.tif (grid, footprint, catalogue) sha256 7ba308cc... and 2176d08e..."
+  ],
+  "excluded_inputs": "No registry raster, prior submission, SGMC map beyond derived_sgmc_faults_100m_u8 as cover proxy if needed, Qfaults trace CSV, or score is an input to the surface. TIGER road distance is retained only as optional diagnostic, not training input unless ablated.",
+  "fixed_parameters": {
+    "nested_replicates_per_model": 3,
+    "nested_hide_fraction": 0.20,
+    "nested_buffer_px": 3,
+    "negatives_sampled_per_replicate": 200000,
+    "target": "max(1 - d/3 px, 0) towards nested-withheld component; context catalogue pixels excluded from training rows",
+    "model": "sklearn HistGradientBoostingRegressor(max_iter=250, learning_rate=0.08, max_leaf_nodes=63, min_samples_leaf=200, l2_regularization=1.0, random_state=seed)",
+    "new_derived_features": {
+      "antislope_ratio": "(upface_max - downface_max)/(upface_max + downface_max + eps), ranked within distance bands 0-5,5-10,10-20,>20 px (0-500m,500m-1km,1-2km,>2km); eps=1; coherence gate coh100>0.2 retained as separate feature",
+      "worm_persistence_rtp": "min(rank(rtp_gradmag_s2), rank(rtp_gradmag_s5)) where both scales available; rank computed over footprint valid cells",
+      "worm_persistence_grav": "min(rank(iso_grav_anom_gradmag_s2), rank(iso_grav_anom_gradmag_s5))"
+    },
+    "placement": "gems79.placement.place: descending surface, Euclidean 3 px spacing, budget 37654 scaled by evaluation-region footprint area; allowed_cells = footprint & region & not masked/visible catalogue & distance_to_catalogue >10 px (1 km) — far-field only",
+    "allowed_cells_final": "footprint & not catalogue & distance_to_catalogue >10 px; zero elsewhere; zeros outside footprint and on catalogue as required",
+    "final_map": "model trained on nested hides of the full catalogue over whole footprint with far-field stratified sampling; geometry from full catalogue; 37654 binary dots off catalogue in far field; zeros elsewhere (all finite)"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer 3 px, boundary 12 px (identical to NHR post-stop diagnostic, so controls directly comparable)",
+    "training_for_holdout": "leave-one-quadrant-out: for fold q model is fitted only on nested hides of VISIBLE catalogue in three other quadrants; geometry inputs at prediction time come from visible catalogue only; negatives sampled only from far-field band within training quadrants to match final placement distribution",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified)",
+    "controls": ["seeded uniform surface, same far-field allocator and budget", "h33_foldfair_control: legacy D2.8 dots outside 2 px of fold's visible catalogue filtered to distance>10 px far field (fold-fair version of H33), contaminated/unmatched historical reference used as current holdout best bar", "ablation: same learner without new antislope/worm features (i.e., NHR-equivalent far-field)"],
+    "ci": "shared paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws"
+  },
+  "leakage_canary": "Every input feature alone (static + geometry + new) on each seed and fold: held-out positives vs negatives >3 px from truth and >3 px from visible faults; symmetric AUC >0.90 means leakage until proven otherwise and blocks promotion.",
+  "promotion_gate": [
+    "all canaries <=0.90 on both seeds",
+    "candidate pooled HOLDOUT-DTI > h33_foldfair_control point estimate on BOTH seeds (current holdout best)",
+    "paired 95% CI of candidate minus uniform_control excludes 0 on both seeds",
+    "uniqueness (shared tool, dot_definition budget-matched-v3 with Amendment D-1): surface Spearman <=0.90 vs every registry raster; final dots Spearman <=0.90 and forward 3px overlap <=0.70 vs every dot_field registry raster; for continuous_surface rasters compare against matched-budget top-K; literal reading reported alongside but not blocking; byte/pixel identity cleared",
+    "shared submission_writer validation: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, [0,1], no mass outside footprint or on catalogue, far-field restriction honored"
+  ],
+  "experiments": [
+    "X1: the lane exactly as specified above — far-field antislope + worm persistence ensemble",
+    "X2: reserved; only for defect fix, never tuning against holdout — e.g., if worm persistence implementation has bug, fix and rerun once",
+    "X3: reserved; only for tip-pair relay if X1 fails holdout but passes uniqueness (alternative born-unique geometry)"
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95% CI). No projected leaderboard score is written. ORGANIZER-CONFIRMED requires submission-page receipt. Amendment D-1 like-for-like reading is labelled HOLDOUT-DTI + REGISTRY-MEASUREMENT (budget-matched-v3); literal reading also shown for audit."
+}
