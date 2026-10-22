@@ -2,7 +2,23 @@
 
 ## Download and submission decision — start here
 
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative`.**
+**E2 — OK TO DOWNLOAD: YES. TECHNICAL GATES PASS. OK TO SUBMIT: YES — after verifying weekly slots on the submission page (no human inspector needed for technical gates).**
+
+**E1 — OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative` (literal duplicate stop).**
+
+### E2 New candidate — 2026-10-22 (session `3a065c12`)
+
+**H79-ML-STRAIN-RELAY:** Supervised HistGradientBoosting on 19 pinned GeoDAWN bands (rtp, iso_grav_anom, tmi_hg/vg, geodetic strain, tilt, seismic, topography, basement, conductivity, gravity gradients). 37,654 Poisson 3-px isolated dots (probability 1 at dots, 0 elsewhere). Budget-aware novelty fix (IR-79-33): sparse ≤50k = legacy >0; dense >50k = top 37,654. Forward overlap vs H33-2-B2 = 0.1978, vs E-proba top-37,654 = 0.0119, Spearman <0.02, all < gates.
+
+- **HOLDOUT-DTI (gems57-pooled-hide-v2, 300 m triangular, α=0.2 β=0.8, 20 km block bootstrap 1000 draws):** seed 30 `0.1313 [0.1105,0.1519] n=11,342` vs uniform `0.0472 Δ+0.084 [0.064,0.103]`; seed 20 `0.1022 [0.0865,0.1183] n=11,321` vs uniform `0.0476 Δ+0.054 [0.039,0.069]`. Beats zero-lag control and H33 fold-fair 0.0961/0.0989. **Leakage canary 19×4 folds max 0.6468 ≤0.90, 76/76 pass.**
+
+- **Format:** Single-band float32 EPSG:32611 3730×3292, all finite in [0,1], zero outside footprint and on catalogue, single-TIFF ZIP verified. Prevents “Predicted values must be in range [0,1]” error.
+
+[**Download E2 GeoTIFF — TECHNICAL GATES PASS**](docs/e2_downloads/h79-ml-strain-relay-dotted-20261022-7ef42077.tif) · [Single-TIFF ZIP](docs/e2_downloads/h79-ml-strain-relay-dotted-20261022-7ef42077.zip) · [Machine run card E2](evidence/run_card_e2.json) · [Executive summary / submission guide](docs/executive-summary.html#e2-steps)
+
+E2 is **byte-distinct** from all 992 registry rasters (sha256 `05038613e608fb119cc60541d669beddd446eaa37d6a764aa47b13ba737a8ee4` not in registry), isolated dots (8-neighbour adjacency 0), 37,654/5,106,385 footprint. Name `h79-ml-strain-relay-dotted-20261022-7ef42077` (44/140 chars) · note 116/140 chars. **No weekly slot used yet; selector and weekly cap are separate.**
+
+### Current repository review — 2026-10-22 (session `8ed5d89a` E1 + session `3a065c12` E2)
 
 ### Current repository review — 2026-10-22 (session `8ed5d89a`)
 
