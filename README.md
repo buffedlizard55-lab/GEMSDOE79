@@ -49,6 +49,8 @@ Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard5
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
 
+Current independent three-pass review for this branch: [`reports/repository_review_2026-10-22_session-14aaf1c8.md`](reports/repository_review_2026-10-22_session-14aaf1c8.md). It records no new experiment, TIFF, upload, or slot use.
+
 ## Follow-up preflight (2026-10-22, branch `arena/a7d092d7-gemsdoe79`)
 
 Concurrent [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md)
