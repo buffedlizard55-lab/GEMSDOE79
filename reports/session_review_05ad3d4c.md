@@ -114,3 +114,26 @@ ORGANIZER-CONFIRMED artifact score is asserted.
 The final request is **partially satisfied**, not declared complete: review,
 software hardening, download and automated decision are verified; a promotable
 unique competition TIFF is blocked. Negative results remain deliverables.
+
+## Actual release outcome and concurrent-main conflict
+
+Opened [PR #15](https://github.com/buffedlizard55-lab/GEMSDOE79/pull/15) from this
+session branch. While review ran, PR #13 merged at 00:48:20 UTC and PR #12 at
+00:49:31 UTC on 2026-10-22. Main advanced to
+`3d386a3f0c6f89c31e33a656dee8851cee64753d`.
+The earlier statement that those PRs were visible describes the initial audit;
+it is not their final state.
+
+Fetched main and attempted integration on this branch. It conflicted in README
+and AGENTS. The concurrent main also changes `vendor/gems57/uniqueness.py` and
+replaces the main README with a different H79-CSPT lane and a promotion claim.
+Those changes were **not audited or adopted** here. Aborted the merge, preserving
+this review's tested lane and receipts rather than overwriting concurrent work
+or silently using different shared-tool bytes.
+
+Explicit `gh pr merge 15 --merge` returned exit 1: GitHub cannot create a clean
+merge commit. No auto-merge or force overwrite was used. No checks were reported
+for PR #15 at that observation. Local test results apply to this branch's commit,
+not to concurrent main or a deployed site. The PR remains open; reconciliation
+of scientific lane/status/shared-tool conflicts is required before a safe merge.
+The local preview serves this reviewed branch's `docs/`, not the new main site.
