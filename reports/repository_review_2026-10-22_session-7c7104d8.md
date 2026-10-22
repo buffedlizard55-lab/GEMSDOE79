@@ -2,14 +2,17 @@
 
 ## Executive decision
 
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** The current canonical H79-NHR TIFF
-already existed at the start of this review. It is byte-distinct from checked-in
-registry hashes and passes the local GeoTIFF/range validator, but it failed the
-registered duplicate gate. It is a negative research artifact, not an approved
-competition submission. No new candidate TIFF, model, holdout, final-dot placement, slot
-selection, or DrivenData upload was performed in this session. The pinned
-registry witness was restored and verified only in the ignored `.cache`; it is
-not a submission artifact.
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** At this session's branch baseline
+(`9640ed3`), the canonical artifact was H79-NHR and already had a local
+format-pass / duplicate-fail verdict. During PR preparation, the latest `main`
+was integrated and changed the canonical card to G79-THVC. Its TIFF
+(`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`,
+SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`)
+was produced by an upstream parallel lane, not this review; the updated card
+still has a negative verdict and no submission approval. No new candidate TIFF,
+model, holdout, final-dot placement, slot selection, or DrivenData upload was
+performed in this session. The pinned registry witness was restored and
+verified only in the ignored `.cache`; it is not a submission artifact.
 
 The literal new-lane preflight was actually rerun with the pinned witness:
 
@@ -26,9 +29,9 @@ witness SHA-256: ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872b
 This is a **REGISTRY-MEASUREMENT**, not a score. Under the literal protocol,
 there is no permitted nonempty submission to score or place in a weekly slot.
 The separate matched-budget interpretation in archived work is not silently
-adopted here. The existing H79-NHR file also exceeds the overlap threshold
-against ordinary, non-space-filling registry dot fields, so resolving only the
-universal-support witness would not promote it.
+adopted here. The historical H79-NHR file also exceeded the overlap threshold against
+ordinary, non-space-filling registry dot fields, so resolving only the
+universal-support witness would not promote that archived candidate.
 
 ## Answer to the H33 question
 
@@ -61,11 +64,35 @@ project can beat the public leader or the organizer's hidden test set. This
 session did not refetch the leaderboard; the date and evidence source are
 preserved in `reports/irregularities.md` and `reports/session_review_b79882e0.md`.
 
-## Current holdout evidence — historical H79-NHR run, not rerun here
+## Holdout evidence from checked-in run cards — not rerun this session
 
-The prior run card reports the following **HOLDOUT-DTI** values. Each is from
-evaluator `gems57-pooled-hide-v2`, a whole-component buffered catalogue
-hide-and-recover split, and includes the withheld-positive count and 95% CI:
+The latest-main canonical run card (`G79-THVC`; `evidence/g79_thvc_results.json`)
+reports these **HOLDOUT-DTI** results from evaluator
+`gems57-pooled-hide-v2`, using the buffered whole-component hide-and-recover
+split. These are inherited, not rerun by session 7c, not public leaderboard
+scores, and not organizer-confirmed:
+
+| Seed | G79-THVC HOLDOUT-DTI | Matched fold-fair H33-control HOLDOUT-DTI |
+|---|---|---|
+| 20 | 0.1905; 11,321 withheld positives; 95% CI [0.1741, 0.2069] | 0.0961; 11,321 withheld positives; 95% CI [0.0831, 0.1090] |
+| 30 | 0.1944; 11,342 withheld positives; 95% CI [0.1774, 0.2126] | 0.0989; 11,342 withheld positives; 95% CI [0.0854, 0.1128] |
+
+G79-THVC improves this catalogue hide-and-recover proxy over the matched H33
+control, but it still has a **negative** promotion verdict. Its pre-placement
+maximum absolute Spearman correlation is 0.7712 (below 0.90), while the literal
+forward 3-px overlap is 1.0000 due to a space-filling registry raster. After
+placement, the maximum absolute Spearman correlation is 0.1210 and maximum
+Jaccard is 0.0417; a sparse-only subset of 718 maps has maximum overlap 0.6844.
+Those partial metrics do not override the literal all-registry gate or the
+blanket/space-filling overlaps. No selector receipt or weekly slot approval
+exists. Format validation passes, but **OK TO SUBMIT remains NO**.
+
+### Historical H79-NHR run — superseded as current canonical card
+
+The earlier H79-NHR run card reports the following **HOLDOUT-DTI** values. Each
+is from evaluator `gems57-pooled-hide-v2`, the same whole-component buffered
+catalogue hide-and-recover split, and includes the withheld-positive count and
+95% CI:
 
 | Seed | Candidate HOLDOUT-DTI | Fold-fair H33-control HOLDOUT-DTI |
 |---|---|---|
@@ -92,11 +119,14 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
   `scripts/preflight_new_lane.py --restore`. It independently restored and
   verified the existing witness and returned exit 2. No experimental feature
   or candidate surface was built.
-- Inspected current storage: only `data/reference/existing_faults.tif`,
-  `data/reference/sample_submission.tif`, and the restoration receipt are
-  present; the large training raster, `.cache` feature stack, raw GeoDAWN line
-  products, raw MT tensors, and raw 1 m DEM are absent. The owner's hash pins
-  verify mirror consistency, not organizer-origin authentication.
+- Inspected current storage: `data/reference/existing_faults.tif`,
+  `data/reference/sample_submission.tif`, and `data/restore_receipt.json` are
+  present. The large training raster, reusable `.cache` feature stack,
+  `data/external` files named in the merged GDR receipt, raw GeoDAWN line
+  products, raw MT tensors, and raw 1 m DEM are absent from this checkout. The
+  merged official-data receipt documents source hashes from the upstream run,
+  but is not a substitute for bytes available here. The owner's hash pins verify
+  mirror consistency, not organizer-origin authentication.
 - During PR preparation, integrated the newer `origin/main` rather than leave a
   stale review branch. Its inherited IR-79-80/81 evidence adds a prompt-named
   sibling-raster audit and README publication-boundary tests; those are upstream
@@ -112,7 +142,7 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
   the file to one `>=0.25,<1` line (the lock pins `0.26.0`); the merge preserves
   that upstream bound. This PR adds a regression test rejecting duplicate
   normalized package names in either manifest and records the branch-baseline
-  finding as IR-79-82 after integrating newer main updates. No locked package version or scientific artifact changed.
+  finding as IR-79-86 after integrating newer main updates. No locked package version or scientific artifact changed.
 - The previous shortlist in
   `research/hypotheses_preflight_a7d092d7.md` was checked against the archives.
   Its far-field idea is adjacent to archived H79-FF; its cross-scale scarp idea
@@ -129,30 +159,32 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
 - No new official website was fetched. The source links and descriptions are
   inherited from `knowledge/official_sources.json` and earlier source reviews;
   direct DrivenData, USGS and GDR requests are outside this sandbox's host
-  allowlist. The local source-health feed's last attempt remains dated
-  2026-10-21; the daily GitHub Actions workflow is the configured refresh
-  mechanism, but no current fetch result is claimed here.
+  allowlist. The merged source-health feed's latest reachability attempt is
+  2026-10-22T04:35Z and reports SSL failures; reachability checks do not refresh
+  scientific claims. The public-leaderboard observation cited above came from
+  an earlier research fetch recorded in the merged report, not a fetch by this
+  session.
 
 ### Pass 3 — acceptance re-check
 
 - Rebuilt the static site from the canonical run card and current research files.
   It continues to display **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO** and makes
   the automated rejection explicit without asking for a human inspection.
-- Reopened the canonical TIFF through the shared local validator. It remains
-  single-band float32, EPSG:32611, shape 3730 × 3292, with the sample's exact
-  100 m transform, finite values in [0,1], and no NaN inside the footprint.
-  Its file SHA-256 remains
-  `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`.
-  These are **RASTER/FORMAT-MEASUREMENTS**, not organizer acceptance.
+- Reopened the latest-main canonical G79-THVC TIFF through the shared local
+  validator. It is single-band float32, EPSG:32611, shape 3730 × 3292, with the
+  sample's exact 100 m transform, finite values in [0,1], and 35,093 binary
+  positive pixels. The file SHA-256 is
+  `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
+  All 15 local format/range checks pass with zero human inspection required;
+  this is **RASTER/FORMAT-MEASUREMENT**, not uniqueness clearance or organizer
+  acceptance.
 - Reconfirmed the card, status CLI and Pages agree on a negative verdict;
   the status CLI's exit code 2 is expected. No account slot, upload, or
   ORGANIZER-CONFIRMED receipt is present.
-- Verification after the final doc/test edits: `pip check` passed; `verify_project.py`
-  passed all checks; `check_site.py` passed all seven pages, 120 local links and
-  two compatibility redirects; After merging the latest `origin/main` into this fixed Arena branch and
+- After integrating the latest `origin/main` into this fixed Arena branch and
   regenerating the site, `pip check` passed; `verify_project.py` passed all
-  checks; `check_site.py` passed all seven pages, 120 local links and two
-  compatibility redirects; and `pytest -q` passed 252 tests (two upstream
+  checks; `check_site.py` passed all seven pages, 121 local links and two
+  compatibility redirects; and `pytest -q` passed 255 tests (three upstream
   Rasterio deprecation warnings only). `git diff --check` passed after removing
   two inherited trailing-space issues in a merged report. These are
   software/format checks, not a new scientific holdout or organizer acceptance result.
