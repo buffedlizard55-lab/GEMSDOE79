@@ -85,4 +85,4 @@ def test_delta_filter_excludes_raw_inputs_and_catches_archived_predictions() -> 
     assert not is_prediction("data/raw/existing_faults.tif")
     assert not is_prediction("data/sample_submission.tif")
     assert is_prediction("docs/downloads/cand.tif")
-    assert is_prediction("docs/archive/cand.tif")
+    assert is_prediction("submissions/cand.tif")
