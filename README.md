@@ -1,5 +1,37 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Current review — session `a26add66` (2026-10-22)
+
+**OK TO DOWNLOAD: YES (inherited research file). OK TO SUBMIT: NO.**
+**No new unique submission TIFF was generated:** the freshly measured
+[preflight](evidence/preflight_a26add66.json) blocks every nonempty candidate
+under the requested literal overlap rule. The absent lane paragraph was not
+invented, no stopped lane was restarted, and no competition slot was used.
+
+- Fixed an automated validation defect: ZIP checks had discarded the inner TIFF's
+  single-band failure. The shared project [official-format validator](src/gems79/portal_spec.py)
+  now checks archive and raster, the actual GeoTIFF driver, and returns complete
+  failed-rule reports for malformed/missing inputs rather than crashing.
+- The [landing page](docs/index.html) now labels **Official format: FAIL R6**,
+  not an unqualified PASS. The official template passes; inherited TIFF/ZIP
+  still fail the NaN-exterior rule. This does not diagnose the prior portal error.
+- Restored **13/13** SHA-pinned owner-mirror inputs locally and reproduced the
+  historical feature-cache hashes without changing its receipt. This resolves
+  local data placement, not organizer authentication or scientific eligibility.
+  Ignored runtime/cache files may need restoring again in a fresh workspace.
+- Re-read the official format/metric description, USGS GeoDAWN release and public
+  leader observation; kept reported H33 scores separate from organizer receipts.
+  See the [source ledger](evidence/source_review_a26add66.json),
+  [three conditional hypotheses](research/hypotheses_a26add66.md),
+  [three-pass review](reports/session_review_a26add66.md), and
+  [terminal negative card](evidence/run_card_a26add66.json).
+
+**Next allowed research step:** a prospective shared comparator-definition
+resolution and explicit new lane assignment, then preregistration and matched
+holdout validation. Do not delete registry witnesses, jitter dots, rename an old
+TIFF, or spend a slot to bypass failed gates. Historical reports below are not
+experiments or scores from this review. The original full prompt remains below.
+
 ## Latest review — 2026-10-22, session `1f9d2dc9`
 
 **No new candidate TIFF was generated; no submission is approved.** The
