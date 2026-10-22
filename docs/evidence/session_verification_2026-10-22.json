@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "session_branch": "arena/e2f3892f-gemsdoe79",
+  "verified_utc": "2026-10-22",
+  "purpose": "Line-by-line verification for lane G79B-SCARP-DIPOLE-GEOAND: official competition text, live leaderboard, H33 raster forensics, input restoration, uniqueness, canaries, holdout, final artifact. Every number carries its evidence class; no leaderboard projection is made.",
+  "evidence_classes": {
+    "OFFICIAL-SOURCE": "Read from an official DrivenData competition page in this session.",
+    "PUBLIC-OBSERVATION": "Read from the public leaderboard in this session; not an artifact-linked receipt.",
+    "RASTER-MEASUREMENT": "Computed from hash-verified bytes in this session.",
+    "HOLDOUT-DTI": "Pooled hide-and-recover on the visible catalogue, evaluator gems57-pooled-hide-v2; not organizer truth and not a leaderboard score.",
+    "ORGANIZER-CONFIRMED": "Not claimed for any artifact: no submission-page receipt exists."
+  },
+  "official_claims": [
+    {"id": "OFF-22-1", "class": "OFFICIAL-SOURCE", "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/", "quote": "DTI(alpha,beta) with alpha=0.2 and beta=0.8; triangular kernel k(d)=max(1-d/R,0), R=300 meters (3 pixels at 100m resolution); TPw uses max over predictions within R; FPw sums p(x)*(1-max k).", "quote_type": "condensed transcription of the rendered formulae on the page", "meaning": "Metric matches vendor/gems57/metric.py and the shared evaluator used for all HOLDOUT-DTI here."},
+    {"id": "OFF-22-2", "class": "OFFICIAL-SOURCE", "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/", "quote": "Your submission contains a single layer with datatype of 32-bit float (float32) with values between 0 and 1", "meaning": "Format rule enforced by the shared submission_writer and re-verified on disk for the G79B artifact (min 0.0, max 1.0, no NaN/Inf/sentinels)."},
+    {"id": "OFF-22-3", "class": "OFFICIAL-SOURCE", "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/", "quote": "we have consulted with fault experts who have manually identified faults that are not contained within the current public USGS database. These new faults will comprise the test dataset", "meaning": "Test truth is newly mapped faults absent from the visible catalogue; catalogue hide-and-recover is only a proxy instrument."},
+    {"id": "OFF-22-4", "class": "OFFICIAL-SOURCE", "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/", "quote": "Competitors must choose a single submission for scoring across both rounds before the deadline", "meaning": "Final-round rescoring uses one selected submission against expanded labels; slot selection remains the account holder's separate step."}
+  ],
+  "public_observations": [
+    {"id": "PO-22-1", "class": "PUBLIC-OBSERVATION", "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/", "observed_utc": "2026-10-22", "rows": [{"rank": 1, "participant": "xiaofanhu", "best_public_dw_tversky": 0.4413}, {"rank": 2, "participant": "cfld__", "best_public_dw_tversky": 0.3904}, {"rank": 3, "participant": "Batik Shirt Brothers", "best_public_dw_tversky": 0.3894}], "meaning": "The prompt's 0.4413 leader figure is current; its repeated 0.3195 'highest score' statement is stale (would rank about 22nd today). Neither identifies any artifact bytes."}
+  ],
+  "raster_measurements": [
+    {"id": "RM-22-1", "class": "RASTER-MEASUREMENT", "claim": "H33 (37,654 dots) is exactly D2.8 (44,090 dots) minus the 6,436 dots within 2 px of the catalogue; 0 disagreements; 0 eight-neighbour adjacencies.", "reproduce": "scripts/analyze_h33.py re-run 2026-10-22 on registry blobs 17a76895 (H33) and bfb7e86d (D2.8); see evidence/h33_forensics.json.", "meaning": "H33's family-best reported score (0.2778, UNVERIFIED HISTORICAL REPORT) is an emission-pruning result on a pre-existing surface, not a new geological model."},
+    {"id": "RM-22-2", "class": "RASTER-MEASUREMENT", "claim": "The two restored D2.8 copies (GEMSDOE30 blob de952dfa used as the holdout control; GEMSDOE25 blob bfb7e86d) have identical decoded dot sets (44,090).", "meaning": "Fold-fair H33 control integrity in this session's holdout."},
+    {"id": "RM-22-3", "class": "RASTER-MEASUREMENT", "claim": "G79B final artifact: 37,654 dots, minimum pairwise distance 3.0 px, 0 dots on the catalogue, 0 mass outside the footprint, values in {0,1}, sha256 16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795.", "meaning": "Format-valid unique research artifact; not a score."},
+    {"id": "RM-22-4", "class": "RASTER-MEASUREMENT", "claim": "All 13 pinned inputs restored and SHA-256-verified (training_features.tif 418,912,844 bytes, sha256 4371c82e...); mirrors prove consistency across owner GitHub mirrors, not organizer authentication.", "meaning": "Input provenance boundary retained from IR-79-06."}
+  ],
+  "uniqueness": {
+    "class": "RASTER-MEASUREMENT",
+    "comparators_checked": 18,
+    "scope": "Restored registry blobs for all ledger submissions scoring >= 0.19 plus the 17GEMSDOE E-proba witness; the full 992-raster registry was not re-scanned this session.",
+    "surface_before_placement": {"max_abs_spearman": 0.1092582498691235, "max_forward_overlap_3px_optionB_proxy": 0.3580230519997875, "limits": {"rho": 0.90, "overlap": 0.70}, "passed": true},
+    "final_dots": {"max_forward_overlap_3px_optionB": 0.4147, "max_forward_overlap_3px_optionC": 0.4147, "max_abs_spearman_final_raster": 0.0192, "passed": true},
+    "literal_rule_disclosure": "Under the literal >0-support definition the E-proba witness forces overlap 1.0 for every nonempty candidate (IR-79-24, Decision D-1). Operative definitions this run: actual dot support for sparse priors; equal-budget top-37,654 (Option B) and p>=0.5 (Option C) for continuous priors. protocol_unique remains False in the run card."
+  },
+  "holdout": {
+    "class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed_20": {"candidate": 0.0530, "lidar_only": 0.0568, "geo_only": 0.0340, "uniform_control": 0.0538, "h33_foldfair_control": 0.0961, "withheld_positive_pixels": 11321},
+    "seed_30": {"candidate": 0.0449, "lidar_only": 0.0456, "geo_only": 0.0366, "uniform_control": 0.0504, "h33_foldfair_control": 0.0989, "withheld_positive_pixels": 11342},
+    "paired_candidate_minus_h33": {"seed_20": [-0.0431, [-0.0603, -0.0244]], "seed_30": [-0.0540, [-0.0698, -0.0380]]},
+    "canaries": {"tests": 72, "max_symmetric_auc": 0.6553, "threshold": 0.90, "passed": true},
+    "verdict": "negative: preregistered promotion gate failed on both seeds; Experiment-2 contingency condition (candidate loses to lidar_only with paired CI upper < 0 on both seeds) not met, so no second experiment was run."
+  },
+  "irregularities_flagged": ["IR-79-30", "IR-79-31", "IR-79-32", "IR-79-33"]
+}

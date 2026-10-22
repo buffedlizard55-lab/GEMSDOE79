@@ -2,22 +2,54 @@
 
 ## Download and submission decision — start here
 
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative`.**
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative` (lane G79B, measured 2026-10-22).**
 
-[**Download the newly generated GeoTIFF**](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
+[**Download the newly generated GeoTIFF**](docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
 
-This is a **newly computed, byte-distinct research surface**, not a copied prior
-submission and **not protocol-unique**. Its name deliberately includes
-`DO-NOT-SUBMIT`. SHA-256:
-`8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca`.
+This is a **newly computed, unique 37,654-dot artifact** (surface Spearman ≤ 0.11 and
+equal-budget 3 px dot overlap ≤ 0.41 against the 18 highest-scoring family rasters;
+limits 0.90 / 0.70), not a copied prior submission. SHA-256:
+`16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795`. Its name deliberately
+includes `DO-NOT-SUBMIT` because it **failed its preregistered holdout gate**:
+pooled HOLDOUT-DTI (`gems57-pooled-hide-v2`) **0.0530** (seed 20, n=11,321) / **0.0449**
+(seed 30, n=11,342) — at/below the uniform-random control (0.0538 / 0.0504) and far below
+the fold-fair H33 control (0.0961 / 0.0989). HOLDOUT-DTI is a catalogue hide-and-recover
+proxy, never a leaderboard score or projection. Zero weekly slots were used.
 
-The unmodified shared validator reopens the written bytes and confirms a
-single-band float32 GeoTIFF, EPSG:32611, shape 3730 × 3292, exact sample
-transform/bounds, all values finite and in [0,1], zero positive mass outside the
-footprint and on the mapped catalogue. This prevents the reported numerical
-range hazard; **local format validity is not organizer acceptance**. The earlier
-portal rejection cannot be diagnosed without the rejected file and server
-receipt.
+Unique artifact name (also the file stem): `g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT`
+Short comment (107/140 chars): `G79B scarp-dipole AND gravity/magnetic edge, 37654 dots; HOLDOUT-NEGATIVE research artifact. DO NOT SUBMIT.`
+These identify the file for reproducibility; they are **not** an instruction to upload it.
+
+The unmodified shared validator reopens the written bytes and confirms a single-band
+float32 GeoTIFF, EPSG:32611, shape 3730 × 3292, exact sample transform/bounds, every
+value finite and in [0,1] (min 0.0, max 1.0; no NaN, infinity or negative sentinel),
+zero positive mass outside the footprint and on the mapped catalogue. That is exactly
+the class of defect behind the portal error “Predicted values must be in range [0, 1]”;
+the writer rejects such output before writing and never silently clips or fills.
+**Local format validity is not organizer acceptance**, and the earlier rejected file
+still cannot be diagnosed without its bytes and server receipt.
+
+**Why H33 leads the family (re-verified from bytes on 2026-10-22):** H33 is not a new
+model — it is exactly the earlier D2.8 dot field with the 6,436 dots within 200 m of
+the known catalogue deleted (44,090 → 37,654 isolated binary dots; 0 disagreements;
+`scripts/analyze_h33.py`). Under the official max-over-kernel metric, sparse isolated
+dots avoid redundant false-positive mass and catalogue-echo dots earn little marginal
+credit. Its 0.2778 remains an **unverified historical report** (no artifact-linked
+receipt); the public leaderboard leader read on 2026-10-22 is **0.4413**
+(PUBLIC-OBSERVATION, not an artifact score). Beating 0.2778 requires a better
+**ranking surface**, and this repo's evidence says that means lineament-level
+corroboration, not per-pixel ranks: G79B's lidar dipole bands have pixel AUC ≈ 0.58
+yet recover hidden faults at chance when dotted per-pixel. See
+[`research/hypotheses_g79b.md`](research/hypotheses_g79b.md),
+[`registry/preregistration_g79b.json`](registry/preregistration_g79b.json),
+[`evidence/session_verification_2026-10-22.json`](evidence/session_verification_2026-10-22.json)
+and irregularities IR-79-30…33.
+
+Prior lane **G79-FABRIC-OFFSET (E1)** remains negative and untouched scientifically;
+its run card is preserved byte-identically at
+[`evidence/run_card_g79_e1.json`](evidence/run_card_g79_e1.json) and its artifact moved to
+[`archive/g79_e1_fabric_offset/`](archive/g79_e1_fabric_offset/) so this page and the site expose exactly
+one current artifact. The historical record below (2026-10-21) is retained unchanged.
 
 ### Concurrent session re-verification and post-stop diagnostic, 2026-10-21
 

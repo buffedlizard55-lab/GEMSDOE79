@@ -265,3 +265,38 @@ Pages/API verification were not rerun in this checkpoint. Public verification it
   Rebuilt `docs/` via `scripts/build_site.py`, verified all unit/integration tests (`pytest -q`),
   `scripts/verify_project.py`, `scripts/check_site.py`, `scripts/submission_status.py` (exit 2), and headless
   Chromium QA (`node scripts/browser_review.cjs`) across all pages at 1440, 390, and 320 px viewports.
+
+## Session 2026-10-22 — lane G79B-SCARP-DIPOLE-GEOAND (branch `arena/e2f3892f-gemsdoe79`)
+
+- **Pass 1 (Implement completely and verify):** Restored all 13 SHA-256-pinned inputs
+  (`scripts/restore_data.py --preserve-receipt`); read the official problem page and
+  live leaderboard (leader 0.4413, PUBLIC-OBSERVATION); reproduced H33/D2.8 forensics
+  byte-for-byte; wrote five ranked hypotheses and a hash-pinned preregistration
+  (`registry/preregistration_g79b.json`) before computing anything; implemented the
+  rank-only surface in `src/gems79/features_g79b.py`; ran pre-placement surface
+  uniqueness vs 18 restored top family rasters (max |rho| 0.1093, max equal-budget
+  3 px overlap 0.3580 proxy), 72 leakage canaries (max symmetric AUC 0.6553), and the
+  pooled holdout on seeds 20/30. Candidate HOLDOUT-DTI 0.0530/0.0449 vs uniform
+  0.0538/0.0504 and fold-fair H33 0.0961/0.0989 → preregistered promotion gate failed.
+  Serialized the unique 37,654-dot artifact through the shared fail-closed writer
+  (validator PASS; final-dot max overlap 0.4147, max |rho| 0.0192), issued the run
+  card with verdict `negative`, archived the E1 artifact/card byte-identically, and
+  rebuilt the site around the G79B download + decision.
+- **Pass 2 (Bugs, assumptions, edge cases):** (1) Verified the two restored D2.8
+  copies have identical decoded dot sets (44,090) so the fold-fair control is the
+  genuine artifact; (2) confirmed the holdout instrument reproduces the prior
+  session's H33/uniform numbers exactly, ruling out an instrument change; (3) checked
+  per-band canary AUCs and on-catalogue rank means to exclude a band-index or sign
+  error (lidar AUC ~0.58, gravity HG ~0.49 — weak physics, not a bug); (4) verified
+  final-dot minimum spacing 3.0 px by KD-tree and zero catalogue/out-of-footprint
+  mass by the shared validator; (5) fixed a finalize-script guard so the artifact can
+  be regenerated deterministically (identical SHA-256 across reruns) and added the
+  final-raster Spearman check required by the protocol; (6) fixed two test-only
+  assertion errors in the new G79B tests (geometric-mean invariant, pytest.approx on
+  arrays) without touching science code; (7) confirmed the preregistered
+  Experiment-2 contingency condition is not met, so no second experiment was run.
+- **Pass 3 (Re-check against the original request):** Requirements re-audited in the
+  2026-10-22 addendum to `reports/requirements_review.md`. `pytest -q` = 110 passed;
+  `scripts/verify_project.py` all 24 checks pass; `scripts/check_site.py` passes
+  (109 local links); `scripts/submission_status.py` returns download YES / submit NO
+  (exit 2). No leaderboard score is claimed or projected; zero slots used.

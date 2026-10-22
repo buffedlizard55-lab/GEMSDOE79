@@ -264,5 +264,5 @@ def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
         assert 0.0 < cand['dti'] < 0.06 and len(cand['ci95']) == 2
         assert holdout['paired_differences']['zero_lag_edge_control']['ci95'][0] < 0.0
         assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
-    card = json.loads((ROOT / 'run_card.json').read_text())
+    card = json.loads((ROOT / 'evidence/run_card_g79_e1.json').read_text())
     assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False

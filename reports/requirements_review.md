@@ -41,3 +41,16 @@ Official claims are attributed to the specific pages/sections actually read;
 HTTP reachability does not count as scientific re-verification. Inaccessible
 account state, hidden truth, unrun performance and scientific impossibility are
 left explicit rather than guessed.
+
+## Addendum — session 2026-10-22 (lane G79B), reviewed against the same prompt
+
+| Requirement | Status | Evidence / unresolved boundary |
+|---|---|---|
+| Study why H33 (0.2778) leads; can we beat it? | Done analytically; **improvement NOT established** | H33 ≡ D2.8 pruned ≤2 px from catalogue (re-verified byte-for-byte). G79B candidate trails the fold-fair H33 holdout control by −0.043/−0.054 DTI, CIs exclude 0. No >0.2778 claim is made. |
+| 3–5 ranked new hypotheses before implementation | Done | Five in `research/hypotheses_g79b.md` with layers, signatures, uncatalogued-fault rationale, differences, cost ranking and named mimics. Top candidate preregistered (`registry/preregistration_g79b.json`) before compute. |
+| Validate top candidate on spatially blocked holdout before any slot | Done — **gate failed** | HOLDOUT-DTI 0.0530 [seed 20, n=11,321] / 0.0449 [seed 30, n=11,342] vs uniform 0.0538/0.0504 and H33 control 0.0961/0.0989; canaries 72/72 ≤ 0.90. No slot spent. |
+| Generate a unique TIF; obvious download/submit verdict without human inspection | Done | Site hero + README: download YES / submit NO, machine-decided (`scripts/submission_status.py`, exit 2). Uniqueness scoped/operative (18 comparators; surface ρ ≤ 0.1093, final overlap ≤ 0.4147); literal full-registry rule still uncleared (D-1) and `protocol_unique=false`. |
+| Fix "values must be in range [0,1]"; unique name + ≤140-char note; executive-summary subpage | Done locally | Shared writer rejects NaN/Inf/sentinels/out-of-range pre-write and revalidates on disk (min 0, max 1). Name `g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT`, 107-char note, copy buttons; executive page documents the DrivenData form fields and receipt discipline. Original rejected file still undiagnosable without its bytes. |
+| Stay in lane; ≤3 experiments | Done | Exactly one experiment; Experiment-2 contingency condition not met and therefore not run. Prior lanes preserved, not revived. |
+| One JSON run card | Done | `run_card.json` (= `run_card_g79b.json` = `evidence/run_card.json`): hypothesis, mechanism, mimic, HOLDOUT-DTI + CIs per seed, correlation/overlap vs registry, raster SHA-256, validator output, name + note, verdict `negative`. |
+| PR + merge; next steps + limitations | Done at end of session | See `reports/session_review_2026-10-22_g79b.md` (recommended next lane: strike-coherent lineament aggregation; limitations: no organizer receipts, login-walled capacity, D-1 open, scoped uniqueness scan, 75% lidar coverage). |
