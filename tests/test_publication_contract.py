@@ -47,7 +47,7 @@ def test_unlinked_or_nested_upload_artifact_blocks_release(publication, path):
 def test_false_readme_promotion_blocks_release(publication):
     root, card = publication
     (root / 'README.md').write_text('PROMOTED — VALIDATED & OK TO DOWNLOAD AND SUBMIT')
-    assert not publication_contract_checks(root, card)['readme_matches_negative_decision']
+    assert not publication_contract_checks(root, card)['readme_matches_card_decision']
 
 
 @pytest.mark.parametrize('rasters', [[{'blob': 'other'}], [{'blob': 'a'}, {'blob': 'a'}]])
@@ -73,7 +73,16 @@ def test_cspt_archive_preserves_original_bytes_without_executing_them():
     assert not (ROOT / 'tests/test_h79_pipeline.py').exists()
 
 
-def test_actual_publication_matches_canonical_negative_run():
+def test_promoted_fixture_requires_matching_yes_line(publication):
+    root, card = publication
+    card = dict(card, verdict='promote', ok_to_submit=True)
+    assert not publication_contract_checks(root, card)['readme_matches_card_decision']
+    (root / 'README.md').write_text('OK TO DOWNLOAD: YES. OK TO SUBMIT: YES. fixture-hash\n'
+                                    '## Original project prompt\nold OK TO SUBMIT: NO. text\n')
+    assert publication_contract_checks(root, card)['readme_matches_card_decision']
+
+
+def test_actual_publication_matches_canonical_run():
     card = json.loads((ROOT / 'run_card.json').read_text())
     assert all(publication_contract_checks(ROOT, card).values())
 

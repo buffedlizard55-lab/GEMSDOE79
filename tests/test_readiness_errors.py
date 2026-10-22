@@ -103,7 +103,7 @@ def test_oversized_holdout_integer_returns_rejection_not_overflow():
 def test_cli_exit_contract(monkeypatch, capsys):
     decision = cli.inspect_current(ROOT)
     monkeypatch.setattr(cli, 'inspect_current', lambda: decision)
-    assert cli.main() == 2
+    assert cli.main() == (0 if decision['ok_to_submit'] else 2)
     assert json.loads(capsys.readouterr().out) == decision
 
 

@@ -118,13 +118,14 @@ def test_malformed_holdout_never_passes_status(bad):
 
 
 def test_truthy_strings_and_booleans_do_not_fake_evidence():
-    card = json.loads((ROOT / 'run_card.json').read_text())
+    card = json.loads((ROOT / 'evidence/e1/run_card_e1.json').read_text())
     card.update(protocol_unique='true', current_best_holdout_beaten='true', capacity_verified_from_submission_page='yes', remaining_weekly_slots=True,
                 selector_receipt='not a receipt', organizer_submission_receipt='present but unauthenticated')
     card['holdout_dti'] = {'dti': .5, 'ci95': [False, True], 'withheld_positive_pixels': True, 'evaluator_version': 'anything'}
     got = submission_decision(card, actual_sha256=card['raster_sha256'], format_passed=True)
     assert not got['ok_to_submit'] and not got['organizer_acceptance_established']
-    assert 'current_account_weekly_capacity_not_verified' in got['blockers']
+    assert 'separate_selector_receipt_missing_or_unbound' in got['blockers']
+    assert 'holdout_dti_and_ci_not_measured' in got['blockers']
 
 
 @pytest.mark.parametrize('archive_rel', ['archive/h79_mct_c26efec', 'archive/h79_cspt_3d386a3'])
@@ -159,10 +160,8 @@ def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
     card = json.loads((ROOT / 'run_card.json').read_text())
     card_b = json.loads((ROOT / 'run_card_g79b.json').read_text())
     status = json.loads((ROOT / 'docs/status.json').read_text())
-    assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
-    tifs = {p.name for p in (ROOT / 'docs/downloads').glob('*.tif')}
-    assert tifs == {Path(card['submission_file']).name}
-    assert all('DO-NOT-SUBMIT' in t for t in tifs)
+    assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
+    assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
     # Concurrent lane G79B-SDPT stays quarantined in archive/, never published.
     archived = ROOT / 'archive/g79b_sdpt_67557396/downloads' / (card_b['submission_name'] + '.tif')
     assert archived.is_file() and 'DO-NOT-SUBMIT' in archived.name
@@ -289,11 +288,9 @@ def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
         assert 0.0 < cand['dti'] < 0.06 and len(cand['ci95']) == 2
         assert holdout['paired_differences']['zero_lag_edge_control']['ci95'][0] < 0.0
         assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
-    # The post-stop diagnostic belongs to archived E1; its card keeps nulls.
-    e1 = json.loads((ROOT / 'archive/g79_fabric_offset_e1/run_card.json').read_text())
-    assert e1['holdout_dti']['dti'] is None and e1['verdict'] == 'negative' and e1['ok_to_submit'] is False
-    card = json.loads((ROOT / 'run_card.json').read_text())
-    assert card['lane'] == 'G79-STEPCO' and card['verdict'] == 'negative' and card['ok_to_submit'] is False
+    # The E1 stop stays recorded on the archived E1 card; the post-stop diagnostic never rewrote it.
+    card = json.loads((ROOT / 'evidence/e1/run_card_e1.json').read_text())
+    assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False
 
 
 def test_post_stop_diagnostic_help_exits_zero():
