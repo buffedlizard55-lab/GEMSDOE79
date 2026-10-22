@@ -1,0 +1,16 @@
+{
+  "lane": "TIPRELAY-E1 (this session; distinct from H79-CSPT and G79-FABRIC-OFFSET)",
+  "hypothesis": "Withheld/unmapped Quaternary strands are tip propagations and en-echelon stepover relays of visible catalogue strands; a catalogue-geometry-only ray-cone + collinear bridge surface recovers them.",
+  "mechanism": "Endpoint strike from local tip neighbourhood, 3-25px decaying ray cone, plus bridges between facing collinear tips of different components (5-30px); >2px catalogue collar; 3px-spacing greedy placement (src/gems79/placement.place, shared vendor evaluator).",
+  "named_non_fault_process": "Coincidentally collinear unrelated mapped strands; palaeo-shoreline scarps already in catalogue propagate false rays.",
+  "holdout_dti": {"evidence_class":"HOLDOUT-DTI","evaluator_version":"gems57-pooled-hide-v2","dti":0.1633549611709156,"ci95":[0.15121150688472737,0.1758632693838536],"withheld_positive_pixels":22663,"seeds":[20,30],"random_control_dti":0.04761986986153971,"current_holdout_best_h79_pooled_dti":0.182700,"beaten":false},
+  "leakage_canary": {"surface_sym_auc_seed20":0.6484,"surface_sym_auc_seed30":0.7023,"threshold":0.90,"passed":true},
+  "correlation_overlap_vs_registry": {"local_only":true,"note":"Full 992-raster registry cache (.cache/registry) absent in sandbox - global uniqueness NOT certified here. Local check vs this repo's H79 submission: forward overlap within 3px = 0.396 (<0.70), exact dot overlap 1077/35963. Spearman on binary sparse dots not computed (binary phi would be <<0.90 given 3.0% exact overlap) - labelled as not-computed, not as pass.","overlap_vs_h79_3px":0.3957},
+  "raster_sha256": "5414d86e60c03169d981c0e889f1967ea760e4fb632f4b85e093a98adf5ed350",
+  "validator_output": {"format_passed":true,"values":"{0,1} float32","nan":0,"crs":"EPSG:32611","shape":[3730,3292],"dots":35963,"on_catalogue":0},
+  "submission_name": "gemsdoe79-tiprelay-e1-35963-20261022-zeros.tif",
+  "submission_note": "TIPRELAY-E1 catalogue-only tip+stepover; HOLDOUT-DTI 0.1634 < H79 best 0.1827 - research only",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "reason": "Did not beat current holdout best (H79-CSPT pooled 0.1827). Do not spend a weekly slot. The promoted submission remains gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif (sha256 388d8678...)."
+}

@@ -71,3 +71,10 @@ Session 2026-10-21 post-stop diagnostic and code-integrity audit (branch `arena/
 GeoTIFF is available. It is **not protocol-unique** and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
 inspector. Negative results and the impossible-gate certificate are deliverables.
+
+## 2026-10-22 session flags
+- Root `run_card.json` = G79-FABRIC-OFFSET negative lane, while README/site promote H79-CSPT (`evidence/h79_cspt/run_card.json`). Dual-lane confusion risk; both verdicts now stated at top of README.
+- `.cache/` (feature stack + 992-raster registry) absent in sandbox snapshot: H79 pipeline and global uniqueness scan CANNOT be re-run here; H79 receipts are prior-session evidence, re-validated only at file-format level today. TIPRELAY uniqueness checked only vs local H79 raster (0.396 < 0.70) — global uniqueness NOT certified.
+- DrivenData URL mismatch: README/site link competitions/300/... vs prompt leaderboard 306/competition-doe-gems. Unresolved; flagged, not guessed.
+- `data/bridge/labels.tif` is byte-identical to `existing_faults.tif` (sha 7ba308cc…) — it is NOT hidden ground truth; no leaderboard inference may use it.
+- TIPRELAY-E1 canary used fold-0 region only for neg sampling (n_pos≈1.9k/seed); AUC 0.65/0.70 passes ≤0.90 but is a weaker audit than H79's 130ch canary.
