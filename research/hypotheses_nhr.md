@@ -10,6 +10,8 @@ scores**. Only hypothesis 1 was executed; its measured result is in
 seeds, but its dots duplicate 26 earlier near-fault registry dot fields (IR-79-55), so
 the lane stopped with a negative verdict. Hypotheses 2–5 remain untested.
 
+**Outcome of hypothesis 2, added after its result (session 2026-10-22, lane H79-ASYM).** Preregistered in [`registry/preregistration_asym.json`](../registry/preregistration_asym.json) (commit 365b727). Its surface stopped the lane before any holdout placement: a continuous registry surface (`GEMSDOE48`) covers the whole footprint, and 32 informative dot fields exceed 0.70 overlap (14 after chance correction). The lidar-scarp channel is therefore saturated in the registry. See [`evidence/asym/`](../evidence/asym/) and IR-79-74. Hypotheses 3–5 remain untested. Hypothesis 3 needs an absolute elevation source (see below).
+
 "Not implemented in this repo" was checked against `src/`, `scripts/`,
 `vendor/gems57/` and both archived lanes in `archive/`. A claim that nobody in
 the wider GEMSDOE family ever tried something similar is **not** made; the

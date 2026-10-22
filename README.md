@@ -97,12 +97,58 @@ hash-pinned registry preflight still refuses any new lane under the literal
 positive-support overlap rule. No new scientific raster or competition slot was
 used. The selector CLI now emits a structured refusal for missing/malformed
 inputs rather than a traceback; ten regression cases protect that path.
-All 240 software tests, format/evidence verification and site link checks passed.
+All 249 software tests (measured on the merged tree), format/evidence verification and site link checks passed.
 The original request for a newly generated **protocol-unique submittable** TIFF
 remains blocked, not silently marked complete. Official GitHub reference material
 was freshly reviewed; non-GitHub scientific sites were not freshly verified here.
 
 ## What the previous session found (2026-10-22, session `337ac1e9`)
+
+## Session 2026-10-22 (lane H79-ASYM): answers, evidence and what is blocked
+
+**Plain answer.** No file in this repo is protocol-unique. The downloadable GeoTIFF is still
+`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` The new lane (H79-ASYM) stopped at its surface duplicate
+gate before any placement, so it produced no file. Its run card is [`run_card_asym.json`](run_card_asym.json),
+and its evidence is in [`evidence/asym/`](evidence/asym/).
+
+| Question | Answer | Evidence (line-checked) |
+|---|---|---|
+| Why did H33 (user-reported 0.2778) score highest in the GEMSDOE family? | Sparse dots and mapped-pixel masking. H33 is exactly the D2.8 dot set (44,090) minus 6,436 dots within 200 m of mapped faults, which were pure false positives. Its dots are sparse (37,654). TP is a per-truth max and FP is a per-pixel sum, so sparse dots win. | [`evidence/h33_forensics.json`](evidence/h33_forensics.json) (`h33_equals_d28_pruned_distance_le_2px: true`); [official metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) |
+| How much truth credit does a score need? | Exact bound from the official DTI: c ≥ 0.8s/(1−0.2s), where c is the share of truth credit. 0.2778 needs c ≥ 23.5 %. The public leader 0.4413 needs c ≥ 38.7 %. (Corrected from 23.6 % and 38.4 %, IR-79-76.) | [`reports/nhr_analysis.md`](reports/nhr_analysis.md) §1; the bound follows because FN_w = N_truth − TP_w |
+| Can we beat 0.2778 on our own proxy? | Yes, on the holdout. H79-NHR beat the H33 fold-fair control on both seeds (HOLDOUT-DTI 0.1431 and 0.1522, against 0.0961 and 0.0989). That result is a proxy, not a leaderboard score. | Canonical card [`run_card.json`](run_card.json) |
+| Is that file submittable? | No. Its dots duplicate 26 earlier families (worst 0.913 against a chance level of 0.610). | Canonical card, `correlation_overlap_vs_registry` |
+| Did the new lane (H79-ASYM) produce a unique file? | No. It stopped at the surface gate. A continuous registry surface (`GEMSDOE48`) covers all 5,167,373 footprint cells, so its top-k overlap is 1.0. Separately, 32 informative fields exceed 0.70 overlap and 14 still do after chance correction. | [`evidence/asym/uniqueness_surface.json`](evidence/asym/uniqueness_surface.json), [`evidence/asym/surface_diagnostic.json`](evidence/asym/surface_diagnostic.json) (reporting only) |
+| Is the strain-rate channel an unexplored signal? | No. 16 registry rasters are strain- or geodesy-named (for example GEMSDOE37, GEMSDOE39, GEMSDOE51, GEMSDOE69, 5GEMSDOE). It is not a free route to a unique file. | Registry names in `registry/registry_index.json` |
+| Does the 0.3195 figure match the official leaderboard? | No. The official board shows #1 0.4413 and #5 0.3539. No row shows 0.3195 (IR-79-77). | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) (fetched 2026-10-22) |
+
+**What blocks a unique submission (needs a user decision, IR-79-53).** The literal rule flags any dot set
+whenever a space-filling registry raster exists. There are 30 such rasters, and a seeded uniform random map is flagged by
+all 30. Even with those removed, the lidar-scarp channel is saturated: 32 informative fields exceed 0.70, and 14 still
+do after chance correction (several are scarp families, for example GEMSDOE50, GEMSDOE62 and GEMSDOE66). So the decision
+on IR-79-53 alone would not clear H79-ASYM. A future lane needs a channel the registry has not used. The option table
+below is for the user to choose from.
+
+**Options for the user (not decided by an agent):**
+1. Keep the literal rule. Then no file in this repo can pass, and the next lanes need new channels.
+2. Apply chance-corrected overlap, (ov − halo)/(1 − halo), to space-filling rasters only. That is the option the NHR analysis proposed. It is documented, not adopted.
+3. Ask the organizer whether a near-uniform surface is a valid "same" submission, and get a ruling.
+
+**Verification of this session (each item was checked against bytes or a fetched page):**
+- Environment restored from the hash-pinned mirrors: 13 inputs on disk, each SHA-256 checked during restore. The tracked receipt of record lists 7 (IR-79-66, `data/restore_receipt.json`). All 992 registry rasters are in `.cache/registry`, each SHA-256 checked.
+- `pytest`: 249 passed on the merged tree (186 before merging `main`); dependency fix in IR-79-75.
+- `scripts/verify_project.py`: all checks passed, with the canonical H79-NHR card unchanged.
+- Lidar decoding follows the product's own quantisation rule, and `upface_max` and `downface_max` match their metadata descriptions (`data/raw/external/lidar_scarp_features.json`).
+- The antislope mechanism is documented as ambiguous in the literature, and the named mimic is preregistered: [Saint Elias, GSA Bulletin](https://pubs.geoscienceworld.org/gsa/gsabulletin/article-abstract/122/9-10/1585/125613/Origin-of-sackung-uphill-facing-scarps-in-the?redirectedFrom=fulltext), [Pyrenees, Geomorphology](https://www.sciencedirect.com/science/article/abs/pii/S0169555X0500036X), [USGS SIM 3430 (antithetic uphill-facing scarp)](https://pubs.usgs.gov/sim/3430/sim3430_pamphlet.pdf).
+
+**Limits and irregularities (all logged):** IR-79-53 (decision needed); IR-79-74 (H79-ASYM stop); IR-79-75 (missing dependency fixed); IR-79-76 (bound corrected); IR-79-77 (0.3195 not on the official board); IR-79-78 (6 of 992 rasters not comparable); IR-79-79 (organizer's NaN-outside-bounds wording versus this repo's zero-fill, which matches the user-reported H33 file).
+
+**Next steps (ranked by expected value and cost, not yet run):**
+1. Get the IR-79-53 decision from the user (option table above). Cost: none. Value: unblocks everything else.
+2. Hypothesis 3 (Lahontan shoreline suppression) needs an absolute elevation source. Candidate: the USGS 3DEP DEM from The National Map (<https://www.usgs.gov/3d-elevation-program>). Not yet checked for obtainability from this sandbox (a GitHub Actions route is the documented option). Cost: medium. Value: removes the dominant false-positive population in the basin.
+3. Hypothesis 5 (survey-seam-aware magnetic lineaments) needs the GeoDAWN flight-line shapefiles from the [USGS release](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and). They are not mirrored here. Obtainability not checked.
+4. Ask the organizer for a receipt that binds H33's 0.2778 to a specific file. Without it, the H33 explanation stays a hypothesis.
+
+## What this session found (2026-10-22, session `337ac1e9`)
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
    Sparse placements can reduce redundant FP: on an ideal straight grid-aligned trace, dots
@@ -111,8 +157,8 @@ was freshly reviewed; non-GitHub scientific sites were not freshly verified here
    H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
    masked; nearby dots can still credit hidden traces, so the pruning is not proved to remove only
    false positives. The reported 0.2600 and 0.2778 values have no artifact-bound organizer receipts or
-   causal demonstration. Algebra shows 0.2778 needs at least 23.6 % of truth credit, and
-   0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
+   causal demonstration. Algebra shows 0.2778 needs at least 23.5 % of truth credit, and
+   0.4413 (the public leader) needs at least 38.7 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
 2. **Can we beat it?** Five untried hypotheses were ranked in
    [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
    learning, was preregistered in [`registry/preregistration_nhr.json`](registry/preregistration_nhr.json)
