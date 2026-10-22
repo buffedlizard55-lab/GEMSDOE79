@@ -48,7 +48,12 @@ def main() -> int:
     args = parser.parse_args()
     try:
         result = decision(verify_witness(restore=args.restore))
-    except (OSError, ValueError, KeyError, RuntimeError) as exc:
+    except Exception as exc:
+        # This is the CLI's inspection boundary, not a scientific fallback.
+        # Malformed manifest containers can raise TypeError/AttributeError;
+        # failed restore subprocesses can raise CalledProcessError. All ordinary
+        # inspection failures must emit an unverified refusal, never a traceback
+        # in place of the machine-readable decision. Interrupts still propagate.
         result = {'start_new_lane': False, 'state': 'unverified', 'exit_code': 3,
                   'reason': 'Cannot verify pinned witness; fail closed.', 'error_type': type(exc).__name__}
     if args.report:
