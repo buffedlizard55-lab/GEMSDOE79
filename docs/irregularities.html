@@ -489,5 +489,22 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>Confirms IR-79-23 and IR-79-45. “0.3195 highest” and “0.2778” stay UNVERIFIED reports. Ranks beyond 50 were not read.</td>
 </tr>
 </tbody>
+</table>
+<h3>Review addendum — session b79882e0 (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-73</td>
+<td>New-lane preflight handled malformed returned certificates but its inspection boundary could leak <code>TypeError</code>/<code>AttributeError</code> from malformed manifest containers or <code>CalledProcessError</code> from restore, replacing the promised JSON refusal with a traceback.</td>
+<td>Catch ordinary inspection exceptions at the CLI boundary, emit unverified exit 3 with only the error class, and preserve process interrupts and exclusive report creation. Regression cases cover container/restore errors, report/stdout agreement and interrupts. Fresh pinned-witness preflight still returns exit 2; no lane or scientific gate changed. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_b79882e0.md">review</a>.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
