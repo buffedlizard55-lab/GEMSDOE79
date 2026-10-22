@@ -1243,6 +1243,83 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 <tr>
 <td>IR-79-172</td>
+<td>Session d52085f3 was asked for a unique submittable TIF. The new-lane preflight fails closed without the pinned witness (exit 3) and exits 2 with it, because the literal gate blocks every candidate. The witness is a continuous 17GEMSDOE surface positive on all 5,167,373 footprint cells, values 0.00046–0.98412. No lane method paragraph is in the record, so no lane was assigned.</td>
+<td>Reproduced both preflight exits and the full test/verify run (477 passed; verify exit 0). Measured the witness directly and, using the shared <code>budget_matched_dots</code> and <code>_near</code>, its top-37,654 footprint coverage is 0.0185 (top-38,000: 0.0186). That is a chance-level feasibility measurement, not a candidate score. No gate was changed, no lane started, no placement or submission made. The decision on literal versus top-k (D-1) and a lane paragraph are the owner's (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_d52085f3.md">review d52085f3</a> §7). Public leaderboard page confirms #1 at 0.4413, not 0.3195 (IR-79-05).</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 84124ba0 — witness provenance hardening (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-173</td>
+<td>Witness verification could skip missing reference/module pins; a reference destination could differ from the filename loaded by <code>load_grid</code>.</td>
+<td>Require exactly one pin for both references and grid/uniqueness modules and exact reference destinations. Added omission, duplication, malformed-row and destination regression tests. No scientific module or threshold changed. Fresh witness remeasurement still blocks every nonempty candidate under the literal gate.</td>
+</tr>
+<tr>
+<td>IR-79-174</td>
+<td>Preflight help claimed an exit-0 path, but the rejection-only implementation returns only 2 or 3.</td>
+<td>Corrected help text. An unverified witness is not permission to begin a lane. Official reference README also supports CPU-only execution; the historical GPU-required prompt statement is not a verified limitation of that baseline.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>7fdf94b3</code> addendum (2026-10-22) — Halo-saturation path/catalogue remediation, 3 remaining closed-lane CLI guards, <code>requirements.txt</code> deduplication, and 3-tier obstruction &amp; data-restore verification (<code>arena/7fdf94b3-gemsdoe79</code>)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_7fdf94b3.md"><code>reports/session_review_7fdf94b3.md</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-175</td>
+<td><strong>Machine-specific <code>/home/user/GEMSDOE79/</code> checkout paths in <code>evidence/halo_saturation_*_1db538e6.json</code> and missing off-catalogue (<code>5,167,373 - 60,988 = 5,106,385</code>) reconciliation in <code>scripts/measure_registry_halo.py</code>.</strong> <code>PR #95</code> (<code>cd0be90</code>) committed <code>"footprint_path": "/home/user/GEMSDOE79/data/reference/sample_submission.tif"</code> in <code>evidence/halo_saturation_13GEMSDOE_1db538e6.json</code> and <code>evidence/halo_saturation_17GEMSDOE_Eproba_1db538e6.json</code> (violating <code>IR-79-63</code>/<code>IR-79-129</code>/<code>IR-79-131</code>), and <code>reports/session_review_1db538e6.md</code> (§6.1) described <code>5,167,373</code> vs <code>5,106,385</code> allowed cells (<code>6,649</code> vs <code>6,514</code> uncovered cells for <code>13GEMSDOE r13-lattice-s5</code>) as an undocumented mismatch. Direct raster verification proves that <code>5,167,373</code> (finite footprint in <code>sample_submission.tif</code>) minus <code>60,988</code> (mapped catalogue fault cells in <code>existing_faults.tif</code>) equals <code>5,106,385</code> off-catalogue allowed cells, and <code>6,649</code> full-footprint uncovered cells minus <code>135</code> uncovered cells on mapped catalogue traces equals <code>6,514</code> (<code>5,099,871 / 5,106,385 = 0.9987243422</code>).</td>
+<td>Updated <code>scripts/measure_registry_halo.py</code> to normalize paths inside <code>ROOT</code> to repo-relative POSIX paths and report off-catalogue (<code>existing_faults.tif</code>) coverage alongside full-footprint coverage, regenerated <code>evidence/halo_saturation_*_1db538e6.json</code>, added unit tests in <code>tests/test_measure_registry_halo.py</code>, and added both JSON files to <code>test_verification_and_evidence_json_have_no_machine_checkout_paths</code>.</td>
+</tr>
+<tr>
+<td>IR-79-176</td>
+<td><strong>Three remaining closed-lane CLI scripts (<code>scripts/run_experiment.py</code>, <code>scripts/finalize_negative.py</code>, <code>scripts/build_site_g79b.py</code>) lacked fail-closed <code>enforce_open_lane</code> (<code>exit 2</code>, <code>"No files changed."</code>) guards, and <code>scripts/build_site_g79b.py</code> / <code>scripts/submission_status_g79b.py</code> carried stale <code>H79-NHR</code> canonical comments.</strong> CLI invocation of <code>run_experiment.py</code>, <code>finalize_negative.py</code>, or <code>build_site_g79b.py</code> exited with code <code>1</code> instead of the repository-wide <code>exit 2</code> / <code>"No files changed."</code> lifecycle contract (<code>src/gems79/lifecycle.py</code>).</td>
+<td>Added <code>enforce_open_lane</code> to <code>scripts/run_experiment.py</code> (under <code>__main__</code>, preserving <code>run_experiment.main()</code>'s Python-level <code>FileExistsError</code> tested in <code>tests/test_site_feed_and_recovery.py</code>), <code>scripts/finalize_negative.py</code>, and <code>scripts/build_site_g79b.py</code>, updated stale <code>(H79-NHR)</code> comments to <code>(G79-THVC)</code>, and registered all 3 scripts in <code>tests/test_lane_lifecycle.py</code> (<code>79</code> lifecycle tests passing).</td>
+</tr>
+<tr>
+<td>IR-79-177</td>
+<td><strong>Duplicate <code>scikit-image</code> specifiers in <code>requirements.txt</code>, and incomplete data-restoration / <code>budget-matched-v3</code> claims in concurrent review reports (<code>b40c0d45</code>, <code>d52085f3</code>).</strong> <code>requirements.txt</code> listed both <code>scikit-image&gt;=0.24,&lt;1</code> and <code>scikit-image&gt;=0.25,&lt;1</code>. Meanwhile, <code>reports/session_review_b40c0d45.md</code> and <code>evidence/review_b40c0d45/run_card.json</code> stated <code>data/raw/</code> has "no route" to be restored in this sandbox, overlooking <code>scripts/restore_data.py --preserve-receipt</code> (<code>13/13</code> SHA-256-pinned inputs restored from <code>buffedlizard55-lab</code> GitHub mirrors), and <code>reports/session_review_d52085f3.md</code> suggested <code>budget-matched-v3</code> (<code>Decision D-1</code> top-<code>k</code>) alone would clear the novelty gate, overlooking Tier-2 continuous plateaus (<code>5GEMSDOE</code>/<code>GEMSDOE48</code>, <code>uncovered = 0</code>) and Tier-3 sparse binary <code>dot_field</code> <code>13GEMSDOE r13-lattice-s5</code> (<code>206,895</code> dots = <code>4.00% &lt; 0.20</code>, <code>uncovered = 6,514</code>, minimum 3-px overlap <code>0.8270 &gt; 0.70</code> at <code>37,654</code> dots and <code>0.8144 &gt; 0.70</code> at <code>35,093</code> dots).</td>
+<td>Consolidated <code>requirements.txt</code> to a single <code>scikit-image&gt;=0.26,&lt;1</code> line with a duplicate-package test in <code>tests/test_session_070af0b6_audit.py</code>, verified all <code>13/13</code> pinned inputs live via <code>scripts/restore_data.py --preserve-receipt</code>, and documented the complete 3-tier Pigeonhole obstruction in <code>reports/session_review_7fdf94b3.md</code> and <code>evidence/review_7fdf94b3/summary.json</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 3ca6c6a6 — downloaded-file identity and publishing permissions</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-178</td>
+<td>The site had no local way to bind a user's chosen downloaded file to its published format-checked bytes. An old, altered or repacked file cannot inherit another file's range validation, and the prior portal rejection cannot be diagnosed without its bytes and receipt.</td>
+<td>Added SHA-256 plus size checking for the exact TIFF and ZIP in the executive summary, with no upload or raster-decoding claim. Unknown bytes, crypto/read errors and stale async results cannot authorize submission. Python, Node and real-browser tests cover both matching files, same-size tampering, error paths and zero network requests. The canonical novelty STOP and all scientific receipts remain unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-179</td>
+<td>GitHub Pages API reported legacy main-root publishing and errored status; the public site was still readable. Attempting to select workflow publishing returned HTTP 403, Resource not accessible by integration.</td>
+<td>Kept the existing workflow's explicit permission warning and public-byte verification. Local preview passed, but neither local success nor an attempted API update proves deployment. Settings permission remains unavailable to this integration; no credential was requested or stored. See session review 3ca6c6a6 for the precise scope.</td>
+</tr>
+<tr>
+<td>IR-79-180</td>
 <td><strong>G79-CJX session (2026-10-22): no separate timestamped preregistration file was written before Exp 1; three experiments were run and all three are reported including two below-random negatives; the final TIF lives in <code>artifacts/cjx/</code> not <code>docs/downloads/</code> because the publication contract reserves that directory for the canonical artifact; novelty Spearman is a fixed 250k-pixel sample (SE ~0.002), not the full-footprint rank, while 3-px overlap is exact.</strong></td>
 <td>Recorded retrospectively in <code>registry/preregistration_cjx.json</code>; CJX was nominated in the prior session's backlog before any CJX score existed and its arms/parameters were frozen in code before scoring. <code>verify_project.py</code> is unchanged. Sampled-rho limitation is stated wherever the number appears; the verdict is negative on the holdout gate regardless of G4.</td>
 </tr>

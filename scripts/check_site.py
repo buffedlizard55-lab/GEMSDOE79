@@ -54,7 +54,8 @@ def check_site():
                     if parsed.fragment:
                         assert pages[path.name].find(id=unquote(parsed.fragment)), (filename, value)
         for script in soup.find_all('script'):
-            assert script.get('src') == 'assets/site.js' and not script.string
+            assert script.get('src') in {'assets/site.js', 'assets/download-check.js'} and not script.string
+            assert script.has_attr('defer')
         assert 'localhost' not in str(soup) and '127.0.0.1' not in str(soup)
     reachable = {'index.html'}
     while True:

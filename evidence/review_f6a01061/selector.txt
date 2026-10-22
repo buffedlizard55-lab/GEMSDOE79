@@ -1,0 +1,18 @@
+{
+  "selected": false,
+  "ok_to_submit": false,
+  "selector": "scripts/select_submission.py",
+  "lane": "G79-THVC",
+  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "blockers": [
+    "literal_novelty_not_cleared",
+    "negative_scientific_verdict"
+  ],
+  "failed_gates": [
+    "final_forward_overlap_le_0_70",
+    "protocol_unique",
+    "surface_forward_overlap_le_0_70"
+  ],
+  "reason": "Canonical evidence was re-derived; literal registry uniqueness did not clear.",
+  "card_left_unchanged": true
+}
