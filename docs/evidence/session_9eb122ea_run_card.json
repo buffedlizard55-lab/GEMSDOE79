@@ -2,11 +2,16 @@
   "schema_version": 1,
   "session_id": "9eb122ea",
   "branch": "arena/9eb122ea-gemsdoe79",
-  "reviewed_utc": "2026-10-22T19:23:59Z",
+  "reviewed_utc": "2026-10-22T19:38:09Z",
   "review_type": "three-pass repository and evidence review; no scientific experiment",
   "assigned_method_paragraph": null,
   "hypotheses_document": "research/hypotheses_9eb122ea.md",
-  "ranked_untried_hypotheses": ["G79-RSS", "G79-SRX", "G79-BLC", "G79-HFR"],
+  "ranked_untried_hypotheses": [
+    "G79-RSS",
+    "G79-SRX",
+    "G79-BLC",
+    "G79-HFR"
+  ],
   "top_research_candidate": "G79-RSS",
   "top_candidate_status": "UNTESTED; DEFERRED; NOT AUTHORIZED UNDER CURRENT PREFLIGHT",
   "experiment_count": 0,
@@ -65,7 +70,10 @@
       "seed": 20,
       "value": 0.1905,
       "withheld_positive_count": 11321,
-      "ci95": [0.1741, 0.2069],
+      "ci95": [
+        0.1741,
+        0.2069
+      ],
       "evidence_file": "evidence/g79_thvc_results.json"
     },
     {
@@ -75,7 +83,10 @@
       "seed": 30,
       "value": 0.194393256940719,
       "withheld_positive_count": 11342,
-      "ci95": [0.17737153457292731, 0.21255176939122447],
+      "ci95": [
+        0.17737153457292731,
+        0.21255176939122447
+      ],
       "evidence_file": "evidence/g79_thvc_results.json"
     },
     {
@@ -85,7 +96,10 @@
       "seed": 20,
       "value": 0.178129,
       "withheld_positive_count": 11321,
-      "ci95": [0.161835, 0.194433],
+      "ci95": [
+        0.161835,
+        0.194433
+      ],
       "evidence_file": "evidence/g79_cskd_results.json"
     },
     {
@@ -95,7 +109,10 @@
       "seed": 30,
       "value": 0.214488,
       "withheld_positive_count": 11342,
-      "ci95": [0.196592, 0.232188],
+      "ci95": [
+        0.196592,
+        0.232188
+      ],
       "evidence_file": "evidence/g79_cskd_results.json"
     }
   ],
@@ -129,5 +146,27 @@
     },
     "public_site_verification": "NOT PERFORMED; sandbox outbound policy excludes the Pages host"
   },
-  "decision": "STOP before any new surface, leakage canary, holdout, placement, TIFF generation, or submission. Record the negative feasibility result and request prospective protocol-owner clarification before any future lane."
+  "decision": "STOP before any new surface, leakage canary, holdout, placement, TIFF generation, or submission. Record the negative feasibility result and request prospective protocol-owner clarification before any future lane.",
+  "post_integration_regression": {
+    "merged_main_commit": "5ff677c290b5c0c6712dabd012e9e5e83dea7fe5",
+    "integration_scope": "Merged concurrent main documentation and site changes on the assigned branch; no scientific lane or artifact was changed by this integration.",
+    "verify_project": "PASS",
+    "pytest": "595 passed in 91.65 seconds",
+    "check_site": {
+      "passed": true,
+      "pages": 13,
+      "local_links_checked": 334,
+      "all_pages_reachable_from_home": true,
+      "compatibility_redirects": 2,
+      "external_assets": 0,
+      "submit": false
+    },
+    "runtime_data_status": {
+      "state": "blocked_missing_inputs",
+      "verified": 0,
+      "expected": 13,
+      "expected_exit_code": 2
+    },
+    "public_site_verification": "NOT PERFORMED; sandbox outbound policy excludes the Pages host"
+  }
 }

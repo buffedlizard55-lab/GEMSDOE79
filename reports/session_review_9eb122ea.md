@@ -81,11 +81,20 @@ No new score exists. No value is imputed for a missing holdout.
 
 Added `src/gems79/data_status.py`, a read-only check of current runtime input presence, optional byte-size pins, and SHA-256 pins; added `scripts/data_status.py` for machine-readable CLI output; added unit tests for verified inputs, missing inputs despite a matching historical receipt, byte/hash mismatches, and path traversal. Updated the site generator so its Sources page reports the data state at publication build time and distinguishes it from the historical restore receipt. The latest review and hypothesis slate are now linked from the decision/research pages. The README's original prompt remains preserved.
 
-Local checks completed after the changes:
+### Checks on the session branch before main integration
 
-- `scripts/verify_project.py`: passed; the canonical TIFF and historic scientific records remain unchanged.
+- `scripts/verify_project.py`: passed; the canonical TIFF and historical scientific records remained unchanged.
 - `pytest`: **571 passed** in 80.48 seconds.
 - `scripts/check_site.py`: passed; 11 pages, 267 local links, all reachable from home, 2 compatibility redirects, no external assets, scientific tables and gates match receipts, and `submit: false`.
+
+### Post-integration regression verification
+
+To resolve concurrent main changes while keeping the assigned branch fixed, merged `origin/main` at `5ff677c` into this branch and retained its separate archived research lanes. This was documentation/site integration only; it did not start a lane, consume an experiment, evaluate a holdout, place dots, or emit a TIFF.
+
+- `scripts/verify_project.py`: passed all checks.
+- `pytest`: **595 passed** in 91.65 seconds.
+- `scripts/check_site.py`: passed; 13 pages, 334 local links, all reachable from home, 2 compatibility redirects, no external assets, scientific tables/gates match receipts, and `submit: false`.
+- `scripts/data_status.py`: expected exit `2`; a fresh check still found **0/13** manifest files verified under `data/raw`.
 - Public Pages verification: not performed, because the public site host is outside this sandbox's allowed outbound hosts. This is not a claim of deployment or remote reachability.
 
 ### Limitations and next actions
