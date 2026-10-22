@@ -22,6 +22,16 @@ def test_current_review_records_three_passes_and_negative_submission_decision():
     assert 'not generate a new TIFF' in review
 
 
+def test_readme_retains_the_complete_original_prompt():
+    readme = (ROOT / 'README.md').read_text()
+    marker = '## Original project prompt'
+    assert marker in readme
+    prompt = readme.split(marker, 1)[1]
+    for required in ('Pass 1:', 'Pass 2:', 'Pass 3:', 'create a pull request', 'Verify no hallucinations'):
+        assert required in prompt
+    assert len(prompt) > 5000
+
+
 @pytest.mark.parametrize('contents', [
     '# instructions\n<<<<<<< HEAD\nold\n=======\nnew\n>>>>>>> main\n',
     '# instructions\nUse arena/12345678-old-session\n',

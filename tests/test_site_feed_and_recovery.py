@@ -44,7 +44,7 @@ def test_prominent_download_is_unambiguously_research_only():
     assert archive and 'DO NOT SUBMIT' in archive.get_text(' ', strip=True)
     text = page.get_text(' ', strip=True)
     assert 'OK TO DOWNLOAD: YES.' in text and 'OK TO SUBMIT: NO.' in text
-    assert 'not protocol-unique' in text
+    assert 'protocol_unique=false' in text and 'literal rule unresolved' in text
 
 
 def test_parser_accepts_only_unambiguous_public_first_place():
@@ -294,7 +294,7 @@ def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
         assert 0.0 < cand['dti'] < 0.06 and len(cand['ci95']) == 2
         assert holdout['paired_differences']['zero_lag_edge_control']['ci95'][0] < 0.0
         assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
-    card = json.loads((ROOT / 'run_card.json').read_text())
+    card = json.loads((ROOT / 'evidence/run_card_g79_e1.json').read_text())
     assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False
 
 

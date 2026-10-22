@@ -1,8 +1,9 @@
 """Fail-closed local readiness. No upload, account lookup or slot selection.
 
 A future positive decision would require corroborated scientific and selector
-receipts; the current E1 card is final and negative. This is not a receipt
-signature/authentication service and does not establish organizer acceptance.
+receipts; the active run card is evaluated fail-closed and is currently negative.
+This is not a receipt signature/authentication service and does not establish
+organizer acceptance.
 """
 from __future__ import annotations
 import math
