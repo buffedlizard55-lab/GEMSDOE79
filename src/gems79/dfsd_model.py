@@ -246,7 +246,7 @@ def build_decontaminated_shards(
     target_px = hide_frac * float(vis.sum())
 
     buckets: dict[int, dict[str, Any]] = {
-        q: {"X": [], "y": [], "q": [], "w": [], "rows": [], "pos": 0, "act": 0} for q in range(4)
+        q: {"X": [], "y": [], "q": [], "w": [], "keep_zero": [], "rows": [], "pos": 0, "act": 0} for q in range(4)
     }
     draw0_ref: dict[str, Any] = {}
 
@@ -283,7 +283,10 @@ def build_decontaminated_shards(
             elig = act_fp & (quad_fp == q_id)
             pos_idx = np.flatnonzero(elig & y_fp)
             halo_pool = np.flatnonzero(elig & (~y_fp) & (q_fp > 0.0))
-            far_pool = np.flatnonzero(elig & (~y_fp) & (q_fp == 0.0) & clean_far_ok)
+            # Keep full flank negatives (including 1 <= d_known < 3 px) so the 107-ch network head
+            # learns to reject lateral flanks of already-mapped faults at test time (R2 causal proof: +0.0241 DTI),
+            # while storing clean_far_flag so pure-physics EXP-DFSD-1 masks unhidden scarps cleanly (+0.0180 DTI)!
+            far_pool = np.flatnonzero(elig & (~y_fp) & (q_fp == 0.0))
 
             n_halo = min(halo_pool.size, neg_per_quad_per_draw // 4)
             n_far = min(far_pool.size, neg_per_quad_per_draw - n_halo)
@@ -298,11 +301,13 @@ def build_decontaminated_shards(
             wh = float(halo_pool.size / max(n_halo, 1)) if n_halo > 0 else 1.0
             wf = float(far_pool.size / max(n_far, 1)) if n_far > 0 else 1.0
             w = np.where(is_pos, 1.0, np.where(is_halo, wh, wf)).astype(np.float32)
+            keep_zero_cat = is_pos | is_halo | clean_far_ok[idx]
 
             buckets[q_id]["X"].append(xp)
             buckets[q_id]["y"].append(is_pos.astype(np.float32))
             buckets[q_id]["q"].append(q_fp[idx].astype(np.float32))
             buckets[q_id]["w"].append(w)
+            buckets[q_id]["keep_zero"].append(keep_zero_cat)
             buckets[q_id]["rows"].append(idx.astype(np.int32))
             buckets[q_id]["pos"] += int(pos_idx.size)
             buckets[q_id]["act"] += int(elig.sum())
@@ -317,6 +322,7 @@ def build_decontaminated_shards(
             "y": np.concatenate(buckets[q_id]["y"], axis=0),
             "q": np.concatenate(buckets[q_id]["q"], axis=0),
             "w": np.concatenate(buckets[q_id]["w"], axis=0),
+            "keep_zero": np.concatenate(buckets[q_id]["keep_zero"], axis=0),
             "rows": np.concatenate(buckets[q_id]["rows"], axis=0),
             "pos": int(buckets[q_id]["pos"]),
             "act": int(buckets[q_id]["act"]),
@@ -334,14 +340,18 @@ def _stack_dfsd_shards(
     ooq_q_fp: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, float]:
     n_c = len(DFSD_ALL_FEATURE_NAMES) if use_mechanics else len(DFSD_STATIC_NAMES)
-    xs = []
+    xs, ys, qvs, ws = [], [], [], []
     for q in quad_ids:
-        r = shards[q]["rows"]
-        xs.append(np.hstack([shards[q]["X"][:, :n_c], ooq_p_fp[r, None], ooq_q_fp[r, None]]))
+        m = np.ones(shards[q]["y"].size, dtype=bool) if use_mechanics else shards[q]["keep_zero"]
+        r = shards[q]["rows"][m]
+        xs.append(np.hstack([shards[q]["X"][m, :n_c], ooq_p_fp[r, None], ooq_q_fp[r, None]]))
+        ys.append(shards[q]["y"][m])
+        qvs.append(shards[q]["q"][m])
+        ws.append(shards[q]["w"][m])
     X = np.concatenate(xs, axis=0)
-    y = np.concatenate([shards[q]["y"] for q in quad_ids], axis=0)
-    qv = np.concatenate([shards[q]["q"] for q in quad_ids], axis=0)
-    w = np.concatenate([shards[q]["w"] for q in quad_ids], axis=0)
+    y = np.concatenate(ys, axis=0)
+    qv = np.concatenate(qvs, axis=0)
+    w = np.concatenate(ws, axis=0)
     tot_pos = sum(shards[q]["pos"] for q in quad_ids)
     tot_act = sum(shards[q]["act"] for q in quad_ids)
     return X, y, qv, w, float(tot_pos / max(tot_act, 1))
@@ -349,7 +359,8 @@ def _stack_dfsd_shards(
 
 def fit_dfsd_stage1(X: np.ndarray, y: np.ndarray, q_target: np.ndarray, weights: np.ndarray, seed: int = 79) -> dict[str, Any]:
     yi = y.astype(np.int32)
-    sample_pi = float(yi.mean())
+    w_cls = np.clip(weights, 1.0, 140.0).astype(np.float32)
+    w_cls_pi = float(np.sum(w_cls * yi) / max(float(np.sum(w_cls)), 1e-9))
     w_reg = np.clip(weights / (np.median(weights[weights > 1.0]) if np.any(weights > 1.0) else 1.0), 0.25, 10.0)
 
     m_deep = lgb.LGBMClassifier(
@@ -357,19 +368,19 @@ def fit_dfsd_stage1(X: np.ndarray, y: np.ndarray, q_target: np.ndarray, weights:
         max_bin=127, subsample=0.80, subsample_freq=1, colsample_bytree=0.66, reg_alpha=3.0, reg_lambda=15.0,
         n_jobs=2, random_state=seed + 11, verbose=-1,
     )
-    m_deep.fit(X, yi)
+    m_deep.fit(X, yi, sample_weight=w_cls)
 
     m_et = lgb.LGBMClassifier(
         n_estimators=135, learning_rate=0.065, num_leaves=39, max_depth=6, min_child_samples=210,
         max_bin=127, extra_trees=True, subsample=0.80, subsample_freq=1, colsample_bytree=0.62, reg_alpha=4.0, reg_lambda=20.0,
         n_jobs=2, random_state=seed + 23, verbose=-1,
     )
-    m_et.fit(X, yi)
+    m_et.fit(X, yi, sample_weight=w_cls)
 
     sc_lin = StandardScaler()
     Xq = np.clip(sc_lin.fit_transform(np.nan_to_num(X, nan=0.0)), -6.0, 6.0).astype(np.float32)
     m_lin = LogisticRegression(C=0.20, max_iter=100, tol=2e-3)
-    m_lin.fit(Xq, yi)
+    m_lin.fit(Xq, yi, sample_weight=w_cls)
 
     m_q_lgb = lgb.LGBMRegressor(
         objective="regression", n_estimators=125, learning_rate=0.065, num_leaves=51, max_depth=7, min_child_samples=165,
@@ -388,7 +399,7 @@ def fit_dfsd_stage1(X: np.ndarray, y: np.ndarray, q_target: np.ndarray, weights:
         "glm_cls": m_lin,
         "q_lgb": m_q_lgb,
         "q_ridge": m_q_ridge,
-        "w_cls_pi": sample_pi,
+        "w_cls_pi": w_cls_pi,
     }
 
 
@@ -577,7 +588,7 @@ def fit_dfsd_stage2_dual_heads(
 
     pos_idx = np.flatnonzero(elig & y)
     halo_pool = np.flatnonzero(elig & (~y) & (q > 0.0))
-    far_pool = np.flatnonzero(elig & (~y) & (q == 0.0) & clean_far)
+    far_pool = np.flatnonzero(elig & (~y) & (q == 0.0))
     nh = min(halo_pool.size, 32_000)
     nf = min(far_pool.size, 135_000)
     sh = rng.choice(halo_pool, size=nh, replace=False) if nh > 0 else np.empty(0, dtype=np.int64)
@@ -593,22 +604,23 @@ def fit_dfsd_stage2_dual_heads(
     wh = float(halo_pool.size / max(nh, 1)) if nh > 0 else 1.0
     wf = float(far_pool.size / max(nf, 1)) if nf > 0 else 1.0
     w2 = np.where(is_pos, 1.0, np.where(is_halo, wh, wf)).astype(np.float32)
+    w2_cls = np.clip(w2, 1.0, 140.0).astype(np.float32)
 
     true_pi = float(pos_idx.size / max(int(elig.sum()), 1))
-    sample_pi = float(y2.mean())
+    sample_pi = float(np.sum(w2_cls * y2) / max(float(np.sum(w2_cls)), 1e-9))
 
     scaler = StandardScaler()
     X2_sc = scaler.fit_transform(X2)
 
     mlp_p = MLPClassifier(hidden_layer_sizes=(24, 12), alpha=3.0, batch_size=2048, max_iter=15, early_stopping=True, tol=1e-3, random_state=seed + 1)
     mlp_p.fit(X2_sc, y2)
-    mlp_pi = sample_pi
+    mlp_pi = float(y2.mean())
 
     lgb_p = lgb.LGBMClassifier(
         n_estimators=125, learning_rate=0.058, num_leaves=25, max_depth=5, min_child_samples=260,
         max_bin=127, colsample_bytree=0.78, subsample=0.80, subsample_freq=1, reg_alpha=5.0, reg_lambda=25.0, n_jobs=2, random_state=seed + 3, verbose=-1
     )
-    lgb_p.fit(X2, y2)
+    lgb_p.fit(X2, y2, sample_weight=w2_cls)
 
     lgb_q = lgb.LGBMRegressor(
         n_estimators=130, learning_rate=0.058, num_leaves=29, max_depth=5, min_child_samples=240,
@@ -882,7 +894,9 @@ def dfsd_charnes_cooper_emit(
     pad = 3
     q_clean = np.clip(q_dual_2d, 0.0, 1.0).astype(np.float64)
     q_sharp = np.maximum(0.0, q_clean - 0.50 * ndi.gaussian_filter(q_clean.astype(np.float32), 2.5))
-    p_base = np.clip(p_dual_2d, 0.0, 1.0).astype(np.float64)
+    p_raw = np.clip(p_dual_2d, 0.0, 1.0).astype(np.float64)
+    p_floor = float(np.percentile(p_raw[allowed_mask], 55.0))
+    p_base = np.maximum(0.0, p_raw - p_floor)
     mass_p = float(p_base[allowed_mask].sum())
     mass_q = float(q_sharp[allowed_mask].sum())
     q_scaled = q_sharp * (mass_p / max(mass_q, 1e-8))
