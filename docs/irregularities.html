@@ -1352,7 +1352,67 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
-<h3>Session d36b74f0 — G79-CJX-DIR unique TIF, falsified (2026-10-22)</h3>
+<h3>Session 0d90d81b — post-04:31Z sibling in-quadrant leakage forensics, tracked-raster role classification, and 5 untried hypotheses (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-184</td>
+<td><code>scripts/scan_tracked_rasters.py</code> (PR #92) conflated reference input masks (<code>existing_faults.tif</code>, <code>labels.tif</code>, <code>-1.0</code> nodata) with candidate prediction GeoTIFFs under <code>flagged_outside_0_1_or_error</code>, and <code>reports/review_20261022.md</code> omitted the reproducible E1 feature-stack verification (<code>scripts/prepare_data.py --reproduce</code>).</td>
+<td>Updated <code>scripts/scan_tracked_rasters.py</code> and <code>evidence/review_b40c0d45/tracked_raster_scan.json</code> (<code>v2</code>) to separate <code>30</code> tracked prediction GeoTIFFs (<code>0</code> <code>[0,1]</code>/NaN/Inf violations) from <code>7</code> reference inputs while retaining <code>single_band</code>/<code>nodata_is_nan</code> flags, and verified both <code>13/13</code> SHA-256 inputs (<code>restore_data.py --preserve-receipt</code>) and <code>8/8</code> E1 normal bands (<code>prepare_data.py --reproduce</code>) with <code>0</code> tracked files dirtied.</td>
+</tr>
+<tr>
+<td>IR-79-185</td>
+<td>Post-<code>04:31:19Z</code> Git object delta scan across all <code>93</code> accessible non-self <code>GEMS*</code> repos (including <code>refs/pull/*</code>) identified both newly merged <code>GEMSDOE78</code> GeoTIFF blobs (<code>H78-MGHD</code> <code>d6adb232c8...</code>, SHA-256 <code>44429c439118...</code>, <code>44,090</code> dots; <code>H78-GFV</code> <code>2016b3dce3...</code>, SHA-256 <code>0338383df9c3...</code>, <code>37,654</code> dots -&gt; <code>992 + 207 + 2 = 1,201</code> non-self blobs) and exposed an evaluation-scope inflation in <code>GEMSDOE78</code> <code>H78-GFV</code>: its headline <code>0.2149 / 0.2198</code> (<code>run_card_h78_gfv.json</code>) was trained globally across all 4 quadrants (<code>h78gfv_matched_global_seed{20,30}.json</code>), whereas its own strict 3-quadrant LOQO holdout (<code>h78gfv_holdout_seed{20,30}.json</code>) is <code>0.1700 [0.1548, 0.1847] / 0.1778 [0.1615, 0.1934]</code> (<code>-0.0205 / -0.0166</code> below canonical <code>G79-THVC</code> <code>0.1905 / 0.1944</code>) and modifies shared <code>emit.py</code>/<code>uniqueness.py</code> (<code>IR-79-122</code>).</td>
+<td>Published SHA-256-pinned byte forensics and overlap matrices (<code>G79-THVC</code> vs <code>H78-MGHD</code> <code>0.6703</code>, vs <code>H78-GFV</code> <code>0.5870</code>, <code>rho = 0.0431</code>) in <code>evidence/session_0d90d81b_audit.json</code> via <code>scripts/audit_session_0d90d81b.py</code>; kept <code>registry/registry_delta.json</code> (<code>207</code>) frozen for <code>verify_project.py</code> stability; canonical <code>G79-THVC</code> remains distinct (<code>&lt; 0.70</code>) from all new <code>GEMSDOE78</code> maps and retains <code>OK TO DOWNLOAD: YES / OK TO SUBMIT: NO</code>.</td>
+</tr>
+<tr>
+<td>IR-79-186</td>
+<td>Code audit of <code>src/gems79/thvc_model.py</code>, <code>src/gems79/thvc_features.py</code>, and sibling <code>GEMSDOE83</code> (<code>H83-GVCD</code>: <code>0.1999 / 0.2138</code> strict 3-quadrant LOQO, blocked by <code>0.8514</code> <code>coverage-v3-wide</code> overlap under its local <code>OVERLAP_CAP = 0.650</code> exemption) isolated three loss/feature bottlenecks in <code>G79-THVC</code>: (1) <code>sim_active = footprint &amp; ~sim_known</code> (<code>thvc_model.py</code> line 92) samples <code>y=0, q=0</code> training negatives inside <code>0 &lt; d_vis &lt;= 3.0 px</code> (<code>100-300 m</code>) visible-fault scarp flanks; (2) <code>charnes_cooper_submodular_emit</code> fixes <code>lambda_fp = 0.0022</code> instead of iterating exact Dinkelbach fractional updates <code>lambda(theta) = 0.2*theta / (1 - 0.2*theta)</code>; and (3) <code>thvc_features.py</code> line 589 (<code>np.abs(lid_up - lid_down)</code>) discards signed scarp-facing polarity and Band 11 <code>strike</code>.</td>
+<td>Left stopped <code>G79-THVC</code> code and frozen receipts untouched (no post-stop retuning) and formalized all three repairs inside Rank-1 deferred hypothesis <code>G79-SFGC</code> (<code>research/hypotheses_0d90d81b.md</code>) alongside four orthogonal untried hypotheses (<code>G79-UGBP</code>, <code>G79-MDSC</code>, <code>G79-PSDC</code>, <code>G79-MCST</code>), gated on prospective owner resolution of <code>IR-79-116</code>.</td>
+</tr>
+<tr>
+<td>IR-79-187</td>
+<td>Re-reading all three DrivenData public leaderboard chunks on <code>2026-10-22</code> confirmed <code>#1 xiaofanhu 0.4413</code>, <code>#2 cfld__ 0.3904</code>, <code>#3 Batik Shirt Brothers 0.3894</code>, <code>#21 kinghorton42 0.3261</code>, <code>#48 moongrega 0.2818</code>, <code>#49 arnofault 0.2817</code>, and <code>#50 sam35 0.2804</code>, while the user prompt again omits the delimited lane method paragraph (<code>IR-79-02</code> / <code>IR-79-172</code>).</td>
+<td>Refreshed <code>knowledge/official_sources.json</code>, <code>knowledge/review_e4a4422d_sources.json</code>, and <code>docs/evidence/source_health.json</code> (adding live-verified <code>USGS-QFAULTS</code> DOI <code>10.5066/P9BCVRCK</code> and <code>UNR-NGL-MIDAS</code> DOI <code>10.1029/2018EO104623</code>), executed zero post-STOP placements (<code>submission_slots_used = 0</code>), and published <code>reports/session_review_0d90d81b.md</code> plus <code>evidence/session_0d90d81b_run_card.json</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>b80aa866</code> — <code>AGENTS.md</code> path/IR integrity, remaining closed-lane CLI guards (<code>audit_g79b.py</code> &amp; <code>build_cjx_page.py</code>), and <code>G79-CJX</code> sibling-audit &amp; denominator reconciliation (2026-10-22)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_b80aa866.md"><code>reports/session_review_b80aa866.md</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-188</td>
+<td><strong>Stale/non-existent archive paths and mismatched IR citations in <code>AGENTS.md</code>.</strong> <code>AGENTS.md</code> cited root <code>run_card_etp.json</code> (moved in <code>IR-79-158</code> to <code>archive/g79_etp_incoming_45998a01/run_card_etp_root.json</code> and <code>archive/g79_etp_incoming_45998a01/evidence/run_card_etp.json</code>) and <code>IR-79-151</code> (<code>H80-RADIO-PILOT is negative</code>) instead of <code>IR-79-158</code>, cited <code>IR-79-152</code> instead of <code>IR-79-155 / IR-79-162</code> for <code>G79-CFSKD</code>, cited non-existent <code>archive/h79_ff/</code> and <code>archive/g79b_sdpt_a3/</code> instead of <code>archive/h79_ff_1de1617f/</code> (<code>evidence/ff/</code>) and <code>archive/g79b_sdpt_67557396/</code> (<code>run_card_g79b.json</code>), and omitted closed lanes <code>H80-PILOTS</code>, <code>H79-FF1</code>, and <code>H79-BQA</code>.</td>
+<td>Updated <code>AGENTS.md</code> so every cited <code>archive/</code>, <code>artifacts/</code>, and <code>run_card*.json</code> path and every <code>IR-79-*</code> identifier resolves on disk and in <code>reports/irregularities.md</code>, and added automated regression assertions in <code>tests/test_session_b80aa866_audit.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-189</td>
+<td><strong>Two closed-lane CLI scripts (<code>scripts/audit_g79b.py</code> and <code>scripts/build_cjx_page.py</code>) lacked fail-closed <code>enforce_open_lane</code> (<code>exit 2</code>, <code>"No files changed."</code>) lifecycle guards.</strong> <code>scripts/audit_g79b.py</code> (<code>G79B-SDPT</code>) and <code>scripts/build_cjx_page.py</code> (<code>G79-CJX</code>, added in <code>PR #102</code> without a lane guard) were not protected by <code>enforce_open_lane</code>.</td>
+<td>Added <code>enforce_open_lane</code> (<code>src/gems79/lifecycle.py</code>) to both scripts so CLI invocations fail closed with exit code <code>2</code> and <code>"No files changed."</code>, and registered both in <code>tests/test_lane_lifecycle.py</code> (<code>69</code> parametrized CLI script invocations / <code>87</code> lifecycle tests passing).</td>
+</tr>
+<tr>
+<td>IR-79-190</td>
+<td><strong>Forensic audit of <code>G79-CJX</code> (<code>PR #102</code>, <code>095c9f0</code>, <code>artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif</code>) in <code>local_gems79_concurrent_lanes_audit</code> and full-footprint denominator (<code>5,167,373</code> vs <code>5,106,385</code>) / unclamped negative chance-corrected overlap (<code>-7.4829</code>) in <code>evidence/cjx/novelty_sparse_diagnostic.json</code>.</strong> Direct byte verification confirms <code>G79-CJX</code> (<code>37,654</code> dots, SHA-256 <code>a422d9a0...</code>) has <code>0.511871</code> Euclidean 3-px overlap with canonical <code>G79-THVC</code>, <code>0.989085 &gt; 0.70</code> overlap with <code>13GEMSDOE</code> <code>r13-lattice-s5</code>, and <code>0.834201 &gt; 0.70</code> literal overlap with sparse prior <code>GEMSDOE67</code> <code>ovtr-ml-cover-tau3p0</code> (<code>3.24%</code> footprint support). In addition, <code>evidence/cjx/novelty_sparse_diagnostic.json</code> divided <code>13GEMSDOE</code>'s halo by full finite footprint (<code>5,160,724 / 5,167,373 = 0.998713</code>) rather than off-catalogue allowed cells (<code>5,099,871 / 5,106,385 = 0.998724</code>) and left <code>(obs - c) / (1 - c)</code> unclamped at <code>-7.482897</code>.</td>
+<td>Added <code>G79-CJX_archived</code> to <code>LOCAL_GEMS79_LANE_SPECS</code> in <code>scripts/audit_post_snapshot_siblings.py</code>, synchronized <code>evidence/post_snapshot_sibling_audit.json</code> and <code>docs/evidence/post_snapshot_sibling_audit.json</code>, and recorded the complete reconciliation in <code>evidence/review_b80aa866/halo_domain_reconciliation.json</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session d36b74f0 — G79-CJX-DIR unique TIF, falsified (2026-10-22; merged after IR-79-190)</h3>
 <table>
 <thead>
 <tr>
@@ -1363,10 +1423,10 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-184</td>
+<td>IR-79-191</td>
 <td>Session 2026-10-22 (branch arena/d36b74f0-gemsdoe79) ran the previously nominated G79-CJX lane under <code>registry/preregistration_cjxdir.json (registered as G79-CJX, renamed G79-CJX-DIR at merge after the parallel G79-CJX lane in IR-79-180/181 landed first; measured non-duplicate, final-dot overlap 0.3474)</code> despite the literal-gate preflight exit 2, because the user instruction required generating and machine-validating a unique TIF; the literal novelty failure is reported in <code>run_card_cjx.json</code>, never bypassed. First novelty scan compared the candidate to itself (<code>archive/g79_cjx/</code> inside the scan root, spurious 1.0); fixed by excluding the lane's own directory and re-running (final-dot vs H33 = 0.2503). CJX is falsified on holdout (candidate 0.0256/0.0319 below EDGE/UNIFORM) and by its phase-randomized null (0.0338/0.0324 vs real 0.0225/0.0230).</td>
 <td>Lane closed negative with 0 slots used; artifact archived as research-only with OK TO SUBMIT: NO. Canonical G79-THVC card, registry and shared <code>vendor/</code> code untouched. The binding program-level blocker remains the unsatisfiable literal novelty gate, which needs a prospective owner protocol decision (D-3), not per-lane exceptions.</td>
 </tr>
 </tbody>
 </table></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

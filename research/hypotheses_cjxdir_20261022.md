@@ -32,7 +32,7 @@ seed 20 and nearly on seed 30). Interpretation: in this stack, multi-strike
 potential-field junctions are dominated by the named mimics (pluton/caldera
 contacts, survey seams) and withheld catalogue strands are predominantly
 single-strike, where junction-ness is low by construction. **Do not retune,
-re-place or restart this lane** (`run_card_cjxdir.json`, IR-79-184).
+re-place or restart this lane** (`run_card_cjxdir.json`, IR-79-191).
 
 ## Remaining ranked candidates (not run; each needs its own preregistration and a protocol decision on the literal novelty gate first)
 

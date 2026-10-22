@@ -3,8 +3,9 @@
 
 Purpose: check the official submission rule ("values between 0 and 1"; "data outside
 the bounds is null or nan", DrivenData problem page) against each tracked raster, and
-flag files whose values or fill conventions would be questioned by the organizer portal.
-This script never writes a submission and never changes a run card.
+separate reference input masks (existing_faults.tif / labels.tif / sample_submission.tif)
+from candidate prediction artifacts. This script never writes a submission and never
+changes a run card.
 
 Usage:  .venv/bin/python scripts/scan_tracked_rasters.py [--out evidence/review_b40c0d45/tracked_raster_scan.json]
 """
@@ -20,6 +21,7 @@ import numpy as np
 import rasterio
 
 ROOT = Path(__file__).resolve().parents[1]
+REFERENCE_BASENAMES = frozenset({"existing_faults.tif", "labels.tif", "sample_submission.tif"})
 
 
 def tracked_tifs() -> list[str]:
@@ -28,9 +30,23 @@ def tracked_tifs() -> list[str]:
     return [f for f in files if f.lower().endswith((".tif", ".tiff"))]
 
 
+def classify_role(rel: str) -> str:
+    if (
+        rel.startswith("data/reference/")
+        or "/data/bridge/" in rel
+        or Path(rel).name in REFERENCE_BASENAMES
+    ):
+        return "reference_input"
+    return "prediction_artifact"
+
+
 def scan_one(rel: str) -> dict:
     p = ROOT / rel
-    rec: dict = {"path": rel, "sha256": hashlib.sha256(p.read_bytes()).hexdigest()}
+    rec: dict = {
+        "path": rel,
+        "role": classify_role(rel),
+        "sha256": hashlib.sha256(p.read_bytes()).hexdigest(),
+    }
     try:
         with rasterio.open(p) as s:
             a = s.read(1).astype("float64")
@@ -64,26 +80,44 @@ def scan_one(rel: str) -> dict:
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default="evidence/review_b40c0d45/tracked_raster_scan.json")
     args = ap.parse_args()
     records = [scan_one(f) for f in tracked_tifs()]
     flagged = [r["path"] for r in records
                if r.get("error") or r.get("n_outside_0_1") or r.get("n_inf")]
+    flagged_predictions = [
+        r["path"] for r in records
+        if r["role"] == "prediction_artifact"
+        and (r.get("error") or r.get("n_outside_0_1") or r.get("n_inf"))
+    ]
+    reference_outside = [
+        r["path"] for r in records
+        if r["role"] == "reference_input"
+        and (r.get("error") or r.get("n_outside_0_1") or r.get("n_inf"))
+    ]
     out = {
-        "schema": "tracked_raster_scan.v1",
+        "schema": "tracked_raster_scan.v2",
         "rule_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
         "n_tracked_rasters": len(records),
+        "n_prediction_artifacts": sum(1 for r in records if r["role"] == "prediction_artifact"),
+        "n_reference_inputs": sum(1 for r in records if r["role"] == "reference_input"),
+        "flagged_prediction_artifacts": flagged_predictions,
+        "reference_inputs_outside_0_1": reference_outside,
         "flagged_outside_0_1_or_error": flagged,
         "records": records,
     }
     dest = ROOT / args.out
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(json.dumps(out, indent=1, allow_nan=False) + "\n", encoding="utf-8")
-    print(f"scanned {len(records)} tracked rasters; flagged {len(flagged)} -> {dest.relative_to(ROOT)}")
+    print(
+        f"scanned {len(records)} tracked rasters ({out['n_prediction_artifacts']} predictions, "
+        f"{out['n_reference_inputs']} reference inputs); "
+        f"flagged_predictions={len(flagged_predictions)} -> {dest.relative_to(ROOT)}"
+    )
     for r in records:
-        if r["path"] in flagged:
-            print(f"  FLAG {r['path']}: min={r.get('min')} max={r.get('max')} "
+        if r["path"] in flagged_predictions:
+            print(f"  FLAG_PREDICTION {r['path']}: min={r.get('min')} max={r.get('max')} "
                   f"outside[0,1]={r.get('n_outside_0_1')} error={r.get('error')}")
     return 0
 
