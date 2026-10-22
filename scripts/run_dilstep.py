@@ -445,7 +445,7 @@ def stage_uniqueness() -> None:
 
 
 def main() -> int:
-    from gems79.lifecycle import require_open_lane
+    from gems79.lifecycle import LaneClosedError, require_open_lane
     require_open_lane(ROOT, "H79-DILSTEP")
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("stage", choices=["holdout", "surface", "final", "uniqueness"])
@@ -465,8 +465,12 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    from gems79.lifecycle import LaneClosedError
     try:
         raise SystemExit(main())
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)
     except SystemExit:
         raise
     except Exception as exc:

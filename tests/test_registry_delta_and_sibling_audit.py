@@ -108,8 +108,11 @@ def test_post_snapshot_sibling_audit_and_binary_pigeonhole_certificate() -> None
     assert u79['passes_non_space_filling_0_70_gate'] is False
     assert u79['passes_sparse_le_60k_0_70_gate'] is False
 
+    dilstep_card = json.loads((ROOT / 'archive/h79_dilstep_6444be2d/run_card_dilstep.json').read_text())
     local_lanes = audit['local_gems79_concurrent_lanes_audit']
-    assert local_lanes['H79-DILSTEP_active']['sha256'] == active_card['raster_sha256']
+    assert local_lanes['H79-DILSTEP_active']['sha256'] == dilstep_card['raster_sha256']
+    if 'G79-THVC' in local_lanes:
+        assert local_lanes['G79-THVC']['sha256'] == active_card['raster_sha256']
     assert local_lanes['H79-NHR_archived']['sha256'] == nhr_card['raster_sha256']
     assert local_lanes['G79-MAG_quarantined']['overlap_vs_13gemsdoe_r13_lattice_s5'] > 0.99
 

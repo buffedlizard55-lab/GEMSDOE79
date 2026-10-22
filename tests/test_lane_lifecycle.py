@@ -83,6 +83,15 @@ def test_absent_card_fails_closed(tmp_path):
     ('finalize_ffas.py', []),
     ('ffas_uniqueness.py', ['surface']),
     ('ffas_overlap_chance.py', []),
+    ('run_cov.py', ['holdout', '--seed', '20']),
+    ('build_cov_submission.py', []),
+    ('finalize_cov.py', []),
+    ('cov_uniqueness.py', ['surface']),
+    ('run_dilstep.py', []),
+    ('dilstep_scan.py', []),
+    ('emit_dilstep_research.py', []),
+    ('run_fgr.py', ['holdout', '--seed', '20']),
+    ('finalize_fgr.py', []),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (

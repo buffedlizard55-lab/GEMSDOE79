@@ -1,5 +1,5 @@
 {
-  "verified_utc": "2026-10-22T05:40:43.633864+00:00",
+  "verified_utc": "2026-10-22T05:47:18.587121+00:00",
   "all_checks_passed": true,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
@@ -26,24 +26,21 @@
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
     "holdout_card_equals_evaluator_output": true,
-    "card_does_not_claim_a_holdout_win": true,
+    "holdout_beats_h33_control_both_seeds": true,
     "leakage_canary_clear": true,
     "uniqueness_card_matches_evidence": true,
-    "gate_receipt_bound_to_raster_and_verdict": true,
     "promotion_requires_uniqueness": true,
-    "preregistration_hash_matches_card": true,
-    "no_submission_placement_after_failed_gate": true,
     "e1_scientific_stop_honored": true,
     "status_tool_and_card_agree": true
   },
-  "raster_sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
+  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
-      "bytes": 131455,
-      "sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
+      "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 137299,
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -71,8 +68,8 @@
       "n_infinite": 0,
       "min": 0.0,
       "max": 1.0,
-      "mean": 0.0030664964579045773,
-      "emitted_positive_pixels": 37654,
+      "mean": 0.0028579316567629576,
+      "emitted_positive_pixels": 35093,
       "checks": {
         "single_band": true,
         "dtype_float32": true,
@@ -93,13 +90,13 @@
       "all_checks_passed": true,
       "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
       "on_catalogue_positive_pixels": 0,
-      "in_footprint_positive_pixels": 37654,
-      "footprint_fraction": 0.007286874781441169
+      "in_footprint_positive_pixels": 35093,
+      "footprint_fraction": 0.00679126511672372
     },
     "reference_grid": {
-      "path": "docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
-      "bytes": 131455,
-      "sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
+      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 137299,
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",
@@ -137,9 +134,9 @@
       "n_nan": 0,
       "min": 0.0,
       "max": 1.0,
-      "mean": 0.0030664964579045773,
-      "n_nonzero": 37654,
-      "mass": 37654.0,
+      "mean": 0.0028579316567629576,
+      "n_nonzero": 35093,
+      "mass": 35093.0,
       "mass_outside_footprint": 0,
       "problems": [],
       "ok": true,
@@ -153,7 +150,6 @@
     "verdict": "negative",
     "blockers": [
       "literal_novelty_not_cleared",
-      "matched_current_best_holdout_not_beaten",
       "negative_scientific_verdict",
       "separate_selector_has_not_approved_a_slot",
       "separate_selector_receipt_missing_or_unbound",

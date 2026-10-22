@@ -1,9 +1,9 @@
 {
   "schema_version": 2,
-  "reviewed_utc": "2026-10-22T04:13:26.794275+00:00",
-  "session_branch": "arena/18e94cdc-gemsdoe79",
-  "shared_uniqueness_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
-  "purpose": "Independent byte-level audit of all four quarantined concurrent lanes merged into main (H79-MCT at c26efec, H79-CSPT at 464d591 / 3d386a3, G79B-SCARP-DIPOLE-GEOAND at 0ae2506, and H79-ML-STRAIN-RELAY at 5d14587) plus the four preserved negative session lanes (G79-FABRIC-OFFSET E1, G79-STEPCO S1/S2, and G79B-SDPT A3) and cross-lane spatial forensics against the canonical H79-NHR deliverable. Confirms all archived lanes have 1.0000 literal 3-px forward overlap against 17GEMSDOE E-proba under canonical vendor/gems57/uniqueness.py, and all return ok_to_submit=False under the fail-closed readiness gate.",
+  "reviewed_utc": "2026-10-22T05:36:25.875664+00:00",
+  "session_branch": "arena/070af0b6-gemsdoe79",
+  "shared_uniqueness_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
+  "purpose": "Independent byte-level audit of all four quarantined concurrent lanes merged into main (H79-MCT at c26efec, H79-CSPT at 464d591 / 3d386a3, G79B-SCARP-DIPOLE-GEOAND at 0ae2506, and H79-ML-STRAIN-RELAY at 5d14587) plus the preserved negative session lanes (G79-FABRIC-OFFSET E1, G79-STEPCO S1/S2, G79B-SDPT A3, H79-FF, and H79-NHR) and cross-lane spatial forensics against the canonical H79-NHR deliverable. Confirms all archived lanes have 1.0000 literal 3-px forward overlap against 17GEMSDOE E-proba under canonical vendor/gems57/uniqueness.py, and all return ok_to_submit=False under the fail-closed readiness gate.",
   "archived_lanes": {
     "H79-MCT": {
       "lane_id": "H79-MCT",
@@ -22,7 +22,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.062403524057228106,
@@ -148,7 +148,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.05465696772610623,
@@ -275,7 +275,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.02267175142653651,
@@ -398,7 +398,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.12275373820696177,
@@ -522,7 +522,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.014722241281786565,
@@ -645,7 +645,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.0855041763761864,
@@ -766,7 +766,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.08188954176652058,
@@ -888,7 +888,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.0602365678398239,
@@ -1012,7 +1012,7 @@
       "canonical_literal_uniqueness": {
         "evidence_class": "REGISTRY-MEASUREMENT",
         "shared_tool": "gems57.uniqueness.compare_array_to_registry",
-        "shared_tool_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+        "shared_tool_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
         "passed_literal_gate": false,
         "worst_forward_overlap_3px": 1.0,
         "worst_abs_spearman": 0.027273404605102906,
@@ -1125,15 +1125,15 @@
     "allowed_non_catalogue_footprint_pixels": 5106385,
     "lanes": {
       "H79-NHR": {
-        "file": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-        "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
-        "positive_pixels": 37654,
-        "halo3_allowed_pixels": 657275,
-        "halo3_allowed_fraction": 0.128716,
-        "median_distance_to_catalogue_px": 5.3852,
-        "median_distance_to_catalogue_m": 538.5,
-        "p90_distance_to_catalogue_px": 12.6491,
-        "p90_distance_to_catalogue_m": 1264.9
+        "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+        "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+        "positive_pixels": 35093,
+        "halo3_allowed_pixels": 649117,
+        "halo3_allowed_fraction": 0.127119,
+        "median_distance_to_catalogue_px": 5.6569,
+        "median_distance_to_catalogue_m": 565.7,
+        "p90_distance_to_catalogue_px": 13.1529,
+        "p90_distance_to_catalogue_m": 1315.3
       },
       "G79-STEPCO-S1": {
         "file": "archive/g79_stepco_s1/downloads/gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT.tif",
@@ -1194,14 +1194,14 @@
     "pairwise_forward_overlap_3px": {
       "H79-NHR": {
         "H79-NHR": 1.0,
-        "G79-STEPCO-S1": 0.301721,
-        "G79-STEPCO-S2": 0.295905,
-        "G79B-SDPT-A3": 0.272693,
-        "H79-FF": 0.013783,
-        "G79-FABRIC-OFFSET-E1": 0.887741
+        "G79-STEPCO-S1": 0.292138,
+        "G79-STEPCO-S2": 0.298721,
+        "G79B-SDPT-A3": 0.289573,
+        "H79-FF": 0.017183,
+        "G79-FABRIC-OFFSET-E1": 0.880574
       },
       "G79-STEPCO-S1": {
-        "H79-NHR": 0.35234,
+        "H79-NHR": 0.341186,
         "G79-STEPCO-S1": 1.0,
         "G79-STEPCO-S2": 0.920274,
         "G79B-SDPT-A3": 0.333484,
@@ -1209,7 +1209,7 @@
         "G79-FABRIC-OFFSET-E1": 0.901153
       },
       "G79-STEPCO-S2": {
-        "H79-NHR": 0.338981,
+        "H79-NHR": 0.342195,
         "G79-STEPCO-S1": 0.874356,
         "G79-STEPCO-S2": 1.0,
         "G79B-SDPT-A3": 0.345408,
@@ -1217,7 +1217,7 @@
         "G79-FABRIC-OFFSET-E1": 0.903968
       },
       "G79B-SDPT-A3": {
-        "H79-NHR": 0.250199,
+        "H79-NHR": 0.258246,
         "G79-STEPCO-S1": 0.235938,
         "G79-STEPCO-S2": 0.267621,
         "G79B-SDPT-A3": 1.0,
@@ -1225,7 +1225,7 @@
         "G79-FABRIC-OFFSET-E1": 0.861821
       },
       "H79-FF": {
-        "H79-NHR": 0.015297,
+        "H79-NHR": 0.017501,
         "G79-STEPCO-S1": 0.168163,
         "G79-STEPCO-S2": 0.19071,
         "G79B-SDPT-A3": 0.156026,
@@ -1233,7 +1233,7 @@
         "G79-FABRIC-OFFSET-E1": 0.905216
       },
       "G79-FABRIC-OFFSET-E1": {
-        "H79-NHR": 0.125677,
+        "H79-NHR": 0.123131,
         "G79-STEPCO-S1": 0.105989,
         "G79-STEPCO-S2": 0.104921,
         "G79B-SDPT-A3": 0.148517,
@@ -1243,12 +1243,11 @@
     }
   },
   "active_deliverable_unchanged": {
-    "lane": "H79-DILSTEP",
-    "submission_file": "docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
-    "raster_sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
+    "lane": "G79-THVC",
+    "submission_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
     "ok_to_download": true,
     "ok_to_submit": false,
-    "verdict": "negative",
-    "note": "Updated when H79-DILSTEP replaced H79-NHR as the single published research file. H79-NHR bytes are in archive/h79_nhr/."
+    "verdict": "negative"
   }
 }

@@ -176,6 +176,12 @@ def run(phase):
 
 
 if __name__ == "__main__":
+    from gems79.lifecycle import LaneClosedError, require_open_lane
+    try:
+        require_open_lane(ROOT, 'H79-COV')
+    except LaneClosedError as _exc:
+        print(str(_exc), file=sys.stderr)
+        raise SystemExit(2)
     ap = argparse.ArgumentParser()
     ap.add_argument("phase", choices=["surface", "final"])
     run(ap.parse_args().phase)

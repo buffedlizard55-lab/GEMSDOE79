@@ -2,7 +2,7 @@
 
 **Branch:** `arena/3cfa694f-gemsdoe79`  
 **Canonical Active Lane:** `H79-DILSTEP` ([`run_card.json`](../run_card.json), `verdict: "negative"`, `ok_to_download: true`, `ok_to_submit: false`, `HOLDOUT-DTI = 0.0721 / 0.0650`)  
-**Canonical Research GeoTIFF:** [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif`](../docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif) (`sha256: 8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b`)  
+**Canonical Research GeoTIFF:** [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif`](../archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif) (`sha256: 8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b`)  
 **Automated Submission Readiness:** `scripts/submission_status.py` exits with code `2` (`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`)  
 **New-Lane Preflight:** `scripts/preflight_new_lane.py --restore` exits with code `2` (`start_new_lane: false`, `state: "impossible_under_literal_gate"`, `covered_allowed_fraction: 1.0`)
 

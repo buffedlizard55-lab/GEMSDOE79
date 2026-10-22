@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a format-valid research GeoTIFF that lost its holdout and failed the duplicate gate. Download for audit. Do not submit.">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Analysis</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
 <table>
@@ -855,6 +855,53 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-119</td>
 <td><strong>Lingering NaN-outside sibling GeoTIFFs (<code>GEMSDOE80</code>, <code>GEMSDOE82</code>, <code>GEMSDOE83</code>).</strong> <code>GEMSDOE80</code> (<code>3</code>), <code>GEMSDOE82</code> (<code>2</code>), and <code>GEMSDOE83</code> (<code>4</code>) still publish <code>-nan.tif</code> files alongside <code>-zeros.tif</code> despite live portal <code>NaN</code> rejection.</td>
 <td>Documented across review artifacts; <code>GEMSDOE79</code> publishes strictly one all-finite <code>[0.0, 1.0]</code> canonical negative file (<code>H79-DILSTEP</code>, <code>0</code> NaNs).</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>070af0b6</code> (2026-10-22) — full 17-lane reconciliation, canonical <code>G79-THVC</code> restoration, closed-lane CLI hardening, and 92-repo forensic audit (<code>arena/070af0b6-gemsdoe79</code>, report <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_070af0b6.md"><code>reports/session_review_070af0b6.md</code></a>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-120</td>
+<td><strong>Concurrent merges (<code>PR #52</code> <code>H79-FFAS</code>, <code>PR #53</code> <code>H79-STEP</code>, <code>PR #55</code> <code>H79-DILSTEP</code>) repeatedly displaced the repository's highest-scoring candidate (<code>G79-THVC</code>, <code>0.1905 / 0.1944 HOLDOUT-DTI</code>) with lower-scoring negative files (<code>0.0949</code>, <code>0.0422</code>, <code>0.0721</code>).</strong> In particular, <code>PR #53</code> (<code>H79-STEP</code>, session <code>21642326</code>) emitted a uniform <code>1.0</code> annulus on <code>[100 m, 1 km]</code> while discarding its <code>complexity</code> term (<code>0.0949 &lt; H33</code> on Seed 20), and <code>PR #55</code> (<code>H79-DILSTEP</code>, session <code>6444be2d</code>) branched before <code>G79-THVC</code> merged, recording <code>recorded_best_not_remeasured: H79-NHR (0.1431/0.1522)</code> and overwriting <code>G79-THVC</code> (<code>0.1905 / 0.1944</code>) with a <code>0.0721 / 0.0689</code> check-dot map.</td>
+<td>Archived <code>H79-STEP</code> byte-for-byte under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_step_21642326/README.md"><code>archive/h79_step_21642326/</code></a> (<code>0c678295...</code>) and <code>H79-DILSTEP</code> byte-for-byte under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_dilstep_6444be2d/README.md"><code>archive/h79_dilstep_6444be2d/</code></a> (<code>8497da98...</code>), restored canonical <code>G79-THVC</code> (<code>d3db2e95...</code>, <code>0.1905 / 0.1944 HOLDOUT-DTI</code>, #1 across all 17 <code>GEMSDOE79</code> lanes, verdict <code>negative</code>, <code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code>, <code>0</code> slots spent) across all four <code>run_card.json</code> locations and <code>docs/downloads/</code>, and extended <code>scripts/verify_project.py</code> + <code>tests/test_current_run_integrity.py</code> to verify both <code>G79-THVC</code> and archived <code>H79-DILSTEP</code>.</td>
+</tr>
+<tr>
+<td>IR-79-121</td>
+<td><strong>Eight newly merged closed-lane scripts (<code>H79-COV</code>, <code>H79-DILSTEP</code>, <code>H79-FGR</code>) lacked fail-closed <code>require_open_lane</code> guards.</strong> While <code>IR-79-97</code> (<code>3cfa694f</code>) added <code>require_open_lane</code> to 22 earlier entry points, concurrent merges <code>PR #55</code>–<code>#57</code> introduced <code>run_cov.py</code>, <code>build_cov_submission.py</code>, <code>finalize_cov.py</code>, <code>cov_uniqueness.py</code>, <code>dilstep_scan.py</code>, <code>emit_dilstep_research.py</code>, <code>run_fgr.py</code>, and <code>finalize_fgr.py</code> without <code>require_open_lane</code> guards (running <code>finalize_cov.py</code> immediately overwrote <code>run_card.json</code>).</td>
+<td>Added fail-closed <code>require_open_lane</code> (<code>SystemExit(2)</code>, <code>no files changed</code>) to all 8 newly merged scripts and added all 9 CLI invocations (<code>run_dilstep.py</code> included) to <code>tests/test_lane_lifecycle.py</code> (36 total closed-lane CLI checks).</td>
+</tr>
+<tr>
+<td>IR-79-122</td>
+<td><strong>Prompt filename discrepancies, live sibling collision (<code>G79-THVC</code> vs <code>GEMSDOE83</code> = <code>0.7139</code>), and empty post-snapshot siblings (<code>GEMSDOE84</code>..<code>GEMSDOE92</code>).</strong> Direct byte audit (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/post_index_sibling_audit_20261022.json"><code>evidence/post_index_sibling_audit_20261022.json</code></a>) shows: (1) prompt lists <code>gems83-h83-gvcd-dink300-37654dots-20261022T023027Z-zeros</code> whereas <code>GEMSDOE83</code> (<code>da9ec5a3b4</code>) actually publishes <code>gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif</code> (<code>79f14dc8...</code>, <code>0.1999 / 0.2138</code> shared <code>HOLDOUT-DTI</code>); (2) <code>G79-THVC</code> has <strong><code>0.7139 &gt; 0.70</code> forward 3-px overlap against live <code>GEMSDOE83</code></strong>, so even aside from pinned registry blankets, <code>G79-THVC</code> and <code>GEMSDOE83</code> must never both be submitted; (3) <code>GEMSDOE81</code> (<code>9798fe7f...</code>) places <code>100.0%</code> of its <code>44,090</code> dots in <code>224–412 m</code> and has <code>15</code> sparse duplicates (<code>max = 0.9203</code> vs <code>58GEMSDOE</code>); and (4) <code>GEMSDOE84</code>..<code>GEMSDOE92</code> (<code>9</code> repos) contain only empty <code>README.md</code> stubs with <code>0</code> <code>.tif</code> files.</td>
+<td>Recorded all exact SHA-256 digests, shared <code>gems57-pooled-hide-v2</code> scores, and full <code>10 × 10</code> pairwise forward/reverse overlap matrix in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/post_index_sibling_audit_20261022.json"><code>evidence/post_index_sibling_audit_20261022.json</code></a>. <code>G79-THVC</code> remains <code>OK TO SUBMIT: NO</code>.</td>
+</tr>
+<tr>
+<td>IR-79-123</td>
+<td><strong>Live 200-row DrivenData public leaderboard audit (<code>2026-10-22</code>) shows <code>0.3195</code> is absent and DOE Rules §3.4 caps each participating entity to one final submission.</strong> Fetching all 4 leaderboard pages (<code>#1</code>–<code>#200</code>, <code>PUBLIC-OBSERVATION</code>) shows <code>#1 xiaofanhu = 0.4413</code>, <code>#2 cfld__ = 0.3904</code>, <code>#3 Batik Shirt Brothers = 0.3894</code>, <code>#21 kinghorton42 = 0.3261</code>, <code>#22 li002666 = 0.3183</code> (no <code>0.3195</code> row anywhere on the board), <code>#52 extradr19 = 0.2778</code> (matching <code>H33</code>'s reported <code>0.2778</code>), <code>#57 wbg1 = 0.2750</code> (matching <code>H61</code>), <code>#69 SDCF9 = 0.2600</code> (matching <code>H66</code>), and <code>#103 doegemsDrivendata = 0.1847</code> (official Lipor U-Net benchmark). Furthermore, DOE Official Rules (<code>docs.nlr.gov/docs/fy26osti/96647.pdf</code>) §3.2 mandates AI-tool disclosure on every submission and §3.4 states <em>"Multiple submissions by the same entity will not be accepted"</em> for final judging.</td>
+<td>Updated <code>knowledge/official_sources.json</code> (<code>reviewed_date_utc: 2026-10-22</code>), <code>docs/evidence/source_health.json</code>, <code>AGENTS.md</code>, <code>README.md</code>, and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_070af0b6.md"><code>reports/session_review_070af0b6.md</code></a>; kept every score class strictly separated (<code>PUBLIC-OBSERVATION</code> vs <code>UNVERIFIED HISTORICAL REPORT</code> vs <code>HOLDOUT-DTI</code> vs <code>ORGANIZER-CONFIRMED: None</code>).</td>
+</tr>
+<tr>
+<td>IR-79-124</td>
+<td><strong>Prompt regression in <code>PR #51</code> (<code>f66f90d</code>) and ZIP byte-size typo (<code>101,852 B</code> vs actual <code>102,628 B</code>).</strong> <code>PR #51</code> branched before <code>PR #49</code> (<code>931256d</code>) and restored an older <code>## Original project prompt</code> missing <code>GEMSDOE78</code> and <code>GEMSDOE80</code>..<code>GEMSDOE88</code>, while quoting <code>101,852 B</code> instead of the actual <code>102,628 B</code> size of <code>g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip</code>.</td>
+<td>Spliced the exact verbatim <code>931256d</code> updated <code>## Original project prompt</code> into <code>README.md</code> ending cleanly with <code>&lt;/details&gt;</code>, corrected the ZIP size to <code>102,628 B</code>, and added regression assertions in <code>tests/test_session_070af0b6_audit.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-125</td>
+<td><strong>Corrupted inline-code merge splice on <code>origin/main:README.md</code> lines 408–425.</strong> During concurrent conflict resolution in <code>e23d5371</code> (<code>PR #56</code>), the <code>## Concurrent lane H79-COV</code> section was spliced inside the inline backtick span <code>`## Original project prompt`</code> on line 408 of <code>README.md</code>, breaking markdown code formatting across 18 lines.</td>
+<td>Replaced the corrupted splice cleanly while preserving all <code>H79-COV</code> metadata and links in the unified 17-lane <code>README.md</code> table (<code>IR-79-120</code>..<code>IR-79-125</code>).</td>
+</tr>
+<tr>
+<td>IR-79-126</td>
+<td><strong>Duplicate shadowed test functions in <code>tests/test_publication_contract.py</code> (<code>f1350fe</code>).</strong> Commit <code>f1350fe</code> defined <code>test_three_tier_pigeonhole_obstruction_and_sibling_audit_certificates</code> and <code>test_official_sources_and_health_synced_on_2026_10_22</code> twice in <code>tests/test_publication_contract.py</code>, causing Python to silently shadow the stricter first definitions (<code>4</code> witness assertions and <code>11</code> required source IDs).</td>
+<td>Removed the duplicate trailing definitions so the full assertions execute, and included archived <code>H79-DILSTEP</code> SHA-256 digests alongside canonical <code>G79-THVC</code> in <code>test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts</code>.</td>
 </tr>
 </tbody>
 </table></div></section></main>

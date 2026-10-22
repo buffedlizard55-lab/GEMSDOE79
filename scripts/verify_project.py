@@ -176,6 +176,49 @@ def sibling_audit_and_delta_checks(root):
     }
 
 
+def thvc_evidence_checks(root, card):
+    """Every G79-THVC card number must equal the evaluator / uniqueness / gate evidence."""
+    root = Path(root)
+    out = {}
+    res = json.loads((root / 'evidence/g79_thvc_results.json').read_text())
+    s20 = res['seed20']['official_evaluate_all']['scores']
+    s30 = res['seed30']['official_evaluate_all']['scores']
+    h = card['holdout_dti']
+    cand20 = s20['EXP-79-3_thvc_charnes_cooper']
+    cand30 = s30['EXP-79-3_thvc_charnes_cooper']
+    h33_20 = s20['C2_h33_analogue_foldfair']
+    h33_30 = s30['C2_h33_analogue_foldfair']
+    out['holdout_card_equals_evaluator_output'] = (
+        h['dti'] == round(cand20['dti'], 4) and
+        h['ci95'] == [round(c, 4) for c in cand20['ci95']] and
+        h['withheld_positive_pixels'] == cand20['withheld_positive_pixels'] and
+        h['evaluator_version'] == res['seed20']['evaluator_version'] == 'gems57-pooled-hide-v2')
+    out['holdout_beats_h33_control_both_seeds'] = (
+        cand20['dti'] > h33_20['dti'] and cand20['ci95'][0] > h33_20['ci95'][1] and
+        cand30['dti'] > h33_30['dti'] and cand30['ci95'][0] > h33_30['ci95'][1])
+    canary = json.loads((root / 'evidence/g79_leakage_canary.json').read_text())
+    out['leakage_canary_clear'] = (
+        card['leakage_canary']['passed'] is True and
+        card['leakage_canary']['auc'] <= 0.90 and
+        canary['seed20']['all_passed'] is True and
+        canary['seed30']['all_passed'] is True)
+    surf_u = json.loads((root / 'evidence/g79_surface_uniqueness_1108.json').read_text())
+    dot_u = json.loads((root / 'evidence/g79_dot_uniqueness_1108.json').read_text())
+    sparse_max = max(r['my_dots_within_3px_of_theirs'] for r in dot_u['rows']
+                     if r.get('their_dots') is not None and r['their_dots'] <= 50000)
+    expected_unique = bool(
+        surf_u['max_abs_spearman'] <= 0.90 and
+        dot_u['max_abs_spearman'] <= 0.90 and
+        dot_u['worst_dot_overlap'] <= 0.70)
+    out['uniqueness_card_matches_evidence'] = (
+        card['protocol_unique'] is expected_unique and
+        surf_u['max_abs_spearman'] <= 0.90 and
+        sparse_max <= 0.70 and
+        dot_u['raster_sha256'] == card['raster_sha256'])
+    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    return out
+
+
 def dilstep_evidence_checks(root, card):
     """Honesty checks for the stopped H79-DILSTEP card. A failed gate must stay failed."""
     root = Path(root)
@@ -217,6 +260,8 @@ def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
     root = Path(root)
     lane = card.get('lane')
+    if lane == 'G79-THVC':
+        return thvc_evidence_checks(root, card)
     if lane == 'H79-DILSTEP':
         return dilstep_evidence_checks(root, card)
     if lane == 'H79-FFAS':
