@@ -34,10 +34,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
 from gems57 import uniqueness as shared        # noqa: E402
 from gems57.grid import load_grid              # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 from nhr_uniqueness import inventory, BUDGET   # noqa: E402
 
 
 def main():
+    require_open_lane(ROOT, "H79-NHR")
     g = load_grid(ROOT / "data/reference")
     fp = g.footprint
     allowed = fp & ~g.catalogue
@@ -123,4 +125,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

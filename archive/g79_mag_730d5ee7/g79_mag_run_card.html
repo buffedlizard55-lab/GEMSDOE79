@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>G79-MAG Run Card · GEMSDOE79</title><link rel="stylesheet" href="../assets/site.css"></head><body>
+<div class="wrap" style="padding:20px">
+<h1>G79-MAG Run Card</h1>
+<p><strong>Lane:</strong> G79-MAG · Magnetic-gravity co-located step, far-field emission</p>
+<p><strong>File:</strong> <a href="gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif">gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif</a> · <a href="gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip">ZIP</a></p>
+<p><strong>SHA256:</strong> e48a9293bae098bee570160e44aeffc511347080876ecb96bd7688946b82e40e</p>
+<p><strong>Submission name:</strong> gems79-g79-mag-37654dots-20261022T060000Z-e48a9293</p>
+<p><strong>Note (116/140):</strong> G79-MAG mag-grav 0.5/0.5+lidar coh, 37654 dots, HOLDOUT 0.004/0.007 vs H33 0.096, UNIQUE 0.64&lt;0.70, PASS</p>
+<h2>Automated gates</h2>
+<ul>
+<li>Format: PASS — single band float32, EPSG:32611, 3730×3292, transform identical to sample, values 0/1, no NaN, zero outside footprint and on catalogue.</li>
+<li>Unique before placement: PASS — worst Spearman 0.214 <0.90, top-k overlap 0.38 <0.70</li>
+<li>Unique after placement: PASS (preliminary 952/992) — worst overlap 0.644 <0.70 vs GEMSDOE3 coverage-v3-wide, Spearman 0.182 <0.90. Under literal definition 30 space-filling rasters would flag any nonempty map, but D-1 budget-matched-v3 throttles them to top-k.</li>
+<li>Leakage canary: PASS — 24 tests, max 0.6835 <0.90 (det_elev_gradmag_s3)</li>
+<li>Beats holdout best: FAIL — 0.0045/0.0067 vs H33 0.0961/0.0989 (pooled). Far-field stratified 0.021/0.024 vs H33 far 0.018/0.019 (preliminary).</li>
+<li>Selector: REFUSED — negative scientific verdict, no slot.</li>
+</ul>
+<p><strong>Verdict:</strong> negative · <strong>OK TO DOWNLOAD: YES · OK TO SUBMIT: NO</strong> (research preview, no slot spent)</p>
+<h2>How to submit a future promoted file</h2>
+<ol>
+<li>Run <code>.venv/bin/python scripts/submission_status.py</code> — upload only if it prints OK TO SUBMIT: YES and exits 0.</li>
+<li>Check DrivenData submission page shows ≥1 free weekly slot (rules allow 3/week).</li>
+<li>Download the promoted .tif or ZIP from top of home page, verify SHA256.</li>
+<li>Choose file in “File to submit”, paste card’s comment, submit.</li>
+<li>Record organizer score — only that makes a number ORGANIZER-CONFIRMED.</li>
+</ol>
+<p>Portal range check: This file has values exactly 0 or 1, no NaN, so it passes “Predicted values must be in range [0,1]”.</p>
+<p><a href="../index.html">Back to home</a> · <a href="../executive-summary.html">Executive summary</a></p>
+</div>
+</body></html>

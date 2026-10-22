@@ -31,6 +31,7 @@ from gems57.grid import load_grid
 from gems57.holdout import buffered_component_draw
 from gems57.submission_writer import write_submission
 from gems79 import stepco
+from gems79.lifecycle import LaneClosedError, require_open_lane
 from gems79.placement import place
 import run_experiment  # reuse the exact canary implementation from the E1 lane
 
@@ -300,6 +301,7 @@ def main():
                     help="S2 canary ablation only: comma-separated feature names to drop")
     ap.add_argument("--experiment", default="s1")
     args = ap.parse_args()
+    require_open_lane(ROOT, "G79-STEPCO")
     exclude = set(filter(None, args.exclude_features.split(",")))
     started = datetime.now(timezone.utc)
     grid = load_grid(ROOT / "data/reference")
@@ -404,4 +406,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

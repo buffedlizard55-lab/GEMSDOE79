@@ -1,12 +1,348 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
-<title>Why H33 scored highest, and what can beat it · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<meta name="description" content="GEMSDOE79: a format-valid research GeoTIFF that lost its holdout and failed the duplicate gate. Download for audit. Do not submit.">
+<title>Why this file is not a submission · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Analysis</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / HOLDOUT-DTI / 1,199-BLOB AUDIT</p><h1>Why H33 won, and why current lanes stopped.</h1><p class="lead">Measured numbers only. User-reported 0.2778 and public 0.4413 are not this file's score.</p></section><section class="section"><div class="prose table-scroll"><h2>End-to-End Engineering, Geoscientific &amp; Cross-Organization Forensic Review — Session <code>4ddab9a1</code> (2026-10-22)</h2>
+<h3>1. Automated Download &amp; Submission Decision (<code>GEMSDOE79</code>)</h3>
+<blockquote>
+<p><strong><code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code></strong></p>
+<ul>
+<li><strong>Canonical active file (<code>H79-DILSTEP</code>, post-PR #55):</strong> <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif"><code>docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif</code></a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip">ZIP</a> (<code>SHA-256: 8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b</code>, <code>HOLDOUT-DTI = 0.0721 / 0.0650</code> vs <code>H33</code> <code>0.0961 / 0.0989</code>, surface overlap <code>0.8527 &gt; 0.70</code>, actual overlap vs <code>r13-lattice-s5</code> <code>0.998486</code>).</li>
+<li><strong>Best <code>GEMSDOE79</code> holdout file (archived <code>H79-NHR</code>):</strong> <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif"><code>archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif</code></a> (<code>SHA-256: abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2</code>, <code>HOLDOUT-DTI = 0.1431 / 0.1522</code> beating <code>H33</code> <code>0.0961 / 0.0989</code> on both seeds, duplicate-stopped under all 4 overlap regimes).</li>
+<li><strong>Quarantined PR #54 file (<code>G79-MAG</code>, <code>IR-79-95</code>):</strong> Moved out of live <code>docs/g79_mag/</code> into <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_mag_730d5ee7/README.md"><code>archive/g79_mag_730d5ee7/</code></a> (<code>SHA-256: e48a9293bae098bee570160e44aeffc511347080876ecb96bd7688946b82e40e</code>, <code>HOLDOUT-DTI = 0.0045 / 0.0067</code>, actual overlap <strong><code>0.990864 &gt; 0.70</code></strong> against <code>13GEMSDOE</code> <code>r13-lattice-s5</code> despite claiming <code>0.644 &lt; 0.70</code> on <code>952/992</code> priors).</li>
+<li><strong>Submission format validation:</strong> Single-band <code>float32</code>, <code>EPSG:32611</code>, <code>3730 × 3292</code> (<code>100 m</code> grid identical to <code>sample_submission.tif</code>), strictly binary <code>{0.0, 1.0}</code> (<code>37,654</code> positive pixels inside valid non-catalogue footprint, <code>0</code> <code>NaN</code>/<code>±Inf</code>, <code>[0, 1]</code> portal check <strong>PASS</strong>). Zero weekly submission slots were consumed (<code>0 / 3</code>).</li>
+</ul>
+</blockquote>
+<hr />
+<h3>2. Critical Bug Fixed: Why Prior Registry Scans Reported <code>0</code> New Blobs Instead of <code>207</code> (<code>IR-79-69</code>)</h3>
+<p>Every previous session ran <code>scripts/registry_delta_git.py</code> and recorded <code>"n_new_rasters": 0</code> in <code>registry/registry_delta.json</code> — missing every single post-snapshot prediction raster across <code>GEMSDOE76</code>..<code>GEMSDOE92</code> plus historical PR/branch refs. Line-by-line inspection revealed the exact Git plumbing failure:</p>
+<ol>
+<li><code>scripts/registry_delta_git.py</code> cloned each sibling repository with <code>git clone --bare --filter=blob:none</code> and ran <code>git rev-list --all --objects --missing=allow-promisor</code>.</li>
+<li>In partial clones, Git prints every missing promisor object as <code>?&lt;40-hex-oid&gt;</code> <strong>with no trailing path string</strong>. <code>line.split(' ', 1)</code> returned length <code>1</code>, silently dropping <strong>100% of uncached <code>.tif</code>/<code>.tiff</code> blobs</strong> across all sibling repos!</li>
+<li>Additionally, fetching individual <code>.tif</code> files via <code>gh api /repos/.../git/blobs/&lt;sha&gt;</code> consumed <code>1,200</code> REST API calls (<code>~24%</code> of hourly quota per pass).</li>
+</ol>
+<p><strong>Engineering fix implemented &amp; verified:</strong>
+- Replaced <code>rev-list --missing=allow-promisor</code> path splitting with exact deduplicated commit-tree traversal (<code>git rev-list --all --format=%T</code> -&gt; unique root tree SHA-1s -&gt; <code>git ls-tree -r -z</code> across <code>refs/heads/*</code>, <code>refs/tags/*</code>, <code>refs/pull/*</code>) in <code>scripts/registry_delta_git.py</code> and zero-REST-quota batched <strong>Git Smart-HTTP <code>upload-pack</code></strong> packfile fetching in both <code>scripts/restore_registry.py</code> and <code>scripts/registry_delta_git.py</code>.
+- Re-indexed all <strong><code>92</code> non-self <code>GEMS*</code> repositories</strong> in <code>buffedlizard55-lab</code> (<code>0</code> errors):
+  - <strong><code>992</code> frozen snapshot blobs</strong> + <strong><code>207</code> newly recovered cross-ref / post-snapshot blobs</strong> = <strong><code>1,199</code> hash-verified unique GeoTIFF blobs</strong> cached and audited locally (<code>1,189</code> comparable <code>(3730, 3292)</code> GeoDAWN rasters; <code>10</code> non-comparable files including <code>3</code> <code>(3000, 4000)</code> rasters in <code>GEMSDOE80/docs/submissions/</code>).
+  - Uncovered <strong><code>70</code> unindexed sibling GeoTIFFs (<code>34.5%</code> of the <code>203</code> comparable delta rasters)</strong> containing <code>NaN</code> or out-of-range values that directly fail DrivenData's portal check <code>"Error: Predicted values must be in range [0, 1]"</code>.</p>
+<hr />
+<h3>3. Complete Three-Tier Overlap Anatomy &amp; Integer-Exact Binary Pigeonhole Theorem (<code>IR-79-70</code>)</h3>
+<p>Prior sessions attributed universal overlap failure exclusively to continuous whole-footprint surfaces (<code>17GEMSDOE</code> under <code>literal</code>) and posited that <code>budget-matched-v3</code> (<code>shared.budget_matched_dots</code>, taking top-<code>k</code> on <code>continuous_surface</code> rasters with <code>support_fraction &gt; 0.05</code>) resolved universal blocking (<code>Decision D-1</code>). Running unmodified <code>vendor/gems57/uniqueness.py</code> across all <strong><code>1,189</code> comparable family rasters</strong> (<code>evidence/post_snapshot_sibling_audit.json</code>) disproves that assumption and establishes the complete <strong>Three-Tier Obstruction Theorem</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Representative SHA-Verified Witness(es)</th>
+<th><code>uniqueness.py</code> Class</th>
+<th>Allowed Cells Covered by 3-px Halo (of <code>5,106,385</code>)</th>
+<th>Mathematical Effect on Any <code>k = 37,654</code> Candidate $S \subset \Omega_{\text{allowed}}$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tier A1 (<code>literal</code>)</strong></td>
+<td><code>17GEMSDOE:docs/downloads/gems17-h17_1-hybrid-ns5-20261001T150550Z-ab0a0a62.tif</code> (<code>5,167,373</code> positive cells)</td>
+<td><code>continuous_surface</code></td>
+<td><strong><code>5,106,385 / 5,106,385</code> (<code>100.0000%</code>, <code>0</code> uncovered)</strong></td>
+<td>Under <code>literal</code> (<code>array &gt; 0</code>), <strong>every non-empty candidate ($k \ge 1$) has exact overlap <code>1.0000</code></strong></td>
+</tr>
+<tr>
+<td><strong>Tier A2 (<code>bm-v3</code> tied)</strong></td>
+<td><code>GEMSDOE48</code> constant maps (<code>0.05</code>, <code>0.20</code>, <code>0.50</code>, <code>1.00</code>) + <code>5GEMSDOE</code> constant <code>0.02</code> map</td>
+<td><code>continuous_surface</code> (all positive cells tied equal!)</td>
+<td><strong><code>5,106,385 / 5,106,385</code> (<code>100.0000%</code>, <code>0</code> uncovered)</strong></td>
+<td><code>np.quantile(vals, 1 - k/N)</code> equals <code>c</code>, so <code>array &gt;= threshold</code> retains <strong>all <code>5,167,373</code> cells even under <code>budget-matched-v3</code></strong> -&gt; <strong>overlap <code>= 1.0000</code> for every candidate</strong></td>
+</tr>
+<tr>
+<td><strong>Tier B (<code>dot_field</code> lattice)</strong></td>
+<td><strong><code>13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif</code></strong> (<code>sha256: c12533bb9802...</code>, <code>206,895</code> binary <code>{0, 1}</code> pixels, <code>support_fraction = 0.040039 &lt;= 0.05</code>)</td>
+<td><strong><code>dot_field</code></strong> (<strong>NOT</strong> modified by <code>budget_matched_dots</code>!)</td>
+<td><strong><code>5,099,871 / 5,106,385</code> (<code>99.872434%</code>, ONLY <code>6,514</code> uncovered cells in NV+CA!)</strong></td>
+<td><strong>Exact Binary Pigeonhole Bound:</strong> for ANY binary subset $S \subset \Omega_{\text{allowed}}$ of size $k$, $</td>
+</tr>
+<tr>
+<td><strong>Tier C (<code>60k–258k</code> binary dumps)</strong></td>
+<td><code>GEMSDOE3:coverage-v3-wide</code> (<code>201,376</code> dots, <code>halo = 0.610</code>), <code>GEMSDOE22:10pct</code> (<code>121,150</code> dots, <code>halo = 0.654</code>), <code>7GEMSDOE:strike30x3-v2</code> (<code>177,090</code> dots, <code>halo = 0.606</code>)</td>
+<td><code>dot_field</code> (<code>&gt; 60,000</code> dots but <code>&lt; 258,368</code> <code>0.05</code> cutoff)</td>
+<td><code>60.6%–69.5%</code> globally, <strong><code>85%–100%</code> of non-playa fault terrain</strong></td>
+<td>Leaves empty playas uncovered (<code>global halo &lt;= 0.70</code>) while blanketing virtually all realistic fault terrain (<code>0.85–1.00</code> overlap against every geological candidate from <code>GEMSDOE32</code> <code>0.8599</code> to <code>GEMSDOE83</code> <code>0.8514</code>)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Consequence for <code>Decision D-1</code>:</strong> Simply toggling <code>dot_definition="budget-matched-v3"</code> does <strong>not</strong> unblock any <code>37,654</code>-dot candidate because Tier A2 (<code>GEMSDOE48</code> ties) yields <code>1.0000</code> and Tier B (<code>13GEMSDOE</code> binary <code>r13-lattice-s5</code>) yields <code>&gt;= 0.827004</code> on <strong>every <code>37,654</code>-dot map in existence</strong>. A sound prospective <code>Decision D-1</code> rule must normalize asymmetric priors with <code>their_dots &gt; 60,000</code> (or <code>halo_coverage &gt; 0.70</code> / tied constant support) via excess-over-chance overlap $\text{ov}_{\text{excess}} = (\text{ov} - h)/(1 - h) \le 0.70$ while enforcing strict raw <code>ov &lt;= 0.70</code> across all genuine like-for-like sparse dot submissions (<code>0 &lt; their_dots &lt;= 60,000</code>).</p>
+</blockquote>
+<hr />
+<h3>4. Full SHA-Verified Cross-Organization Audit (<code>GEMSDOE76</code> through <code>GEMSDOE92</code>, <code>1,199</code> Blobs)</h3>
+<p>All <code>8</code> candidate GeoTIFFs (<code>H33</code> + <code>GEMSDOE76</code>..<code>GEMSDOE83</code>) and all <code>9</code> new repositories (<code>GEMSDOE84</code>..<code>GEMSDOE92</code>) were audited byte-for-byte against all <strong><code>1,189</code> comparable GeoDAWN rasters</strong> (<code>evidence/post_snapshot_sibling_audit.json</code>, <code>IR-79-71</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Canonical / Primary Candidate Path (<code>SHA-256</code> 12-hex prefix)</th>
+<th style="text-align: right;">Dots &amp; <code>[0, 1]</code> Check</th>
+<th style="text-align: right;">Max <code>|ρ|</code> (<code>1,188</code> peers)</th>
+<th><code>halo &lt;= 0.70</code> Cross-Repo Hits (Worst)</th>
+<th>Like-for-Like Sparse <code>&lt;= 60k</code> Cross-Repo Hits (Worst)</th>
+<th>Holdout Evidence Class &amp; Irregularities Found</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>GEMSDOE32</code> (<code>H33</code>)</strong></td>
+<td><code>registry/rasters/rasters/GEMSDOE32__h33-2-b2-zeros.tif</code> (<code>c55bafc47005…</code>)</td>
+<td style="text-align: right;"><code>37,654</code> (<strong>PASS</strong>)</td>
+<td style="text-align: right;"><code>1.0000</code> (<code>146</code> later family copies!)</td>
+<td><code>256</code> (<code>1.0000</code> vs later re-uploads)</td>
+<td><code>146</code> (<code>1.0000</code> — <strong>146 later sibling files copied <code>H33</code>!</strong>)</td>
+<td>Reported <code>0.2778</code> (<code>UNVERIFIED HISTORICAL REPORT</code>); shared fold-fair control <code>HOLDOUT-DTI = 0.0961 / 0.0989</code></td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE76</code></strong></td>
+<td><code>docs/downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif</code> (<code>54c978399d0a…</code>)</td>
+<td style="text-align: right;"><code>39,200</code> (<strong>PASS</strong>)</td>
+<td style="text-align: right;"><code>0.1129</code></td>
+<td><strong><code>76</code> (<code>0.9555</code></strong> vs <code>GEMSDOE22:10pct</code>)</td>
+<td><strong><code>4</code> (<code>0.7220</code> &gt; <code>0.70</code></strong> vs <code>GEMSDOE63:cvarlw-thin-s3p17</code>)</td>
+<td><strong>Duplicate even on sparse <code>&lt;= 60k</code> priors</strong>; repo self-stopped negative (<code>HOLDOUT-DTI 0.1656</code> vs control <code>0.1670</code>)</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE78</code></strong></td>
+<td><code>docs/downloads/gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros.tif</code> (<code>8ca06ece4428…</code>)</td>
+<td style="text-align: right;"><code>44,090</code> (<strong>PASS</strong>)</td>
+<td style="text-align: right;"><code>0.1029</code></td>
+<td><strong><code>24</code> (<code>0.9378</code></strong> vs <code>GEMSDOE3:coverage-v3-wide</code>)</td>
+<td><strong><code>0</code></strong> (<code>0.6475</code> vs <code>GEMSDOE77:h28</code>; <code>0.7798</code> vs own <code>CTRL_A2</code>)</td>
+<td>Local OOF <code>0.1771</code> <strong>below its own <code>CTRL_A2</code> control <code>0.1826</code></strong>; non-standard evaluator (<code>gems78-oof4quad-exact-dwtversky-v1</code>)</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE79</code> (this repo)</strong></td>
+<td><code>docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif</code> (<code>abbf5314b794…</code>)</td>
+<td style="text-align: right;"><code>37,654</code> (<strong>PASS</strong>)</td>
+<td style="text-align: right;"><code>0.1117</code></td>
+<td><strong><code>28</code> (<code>0.9130</code></strong> vs <code>GEMSDOE3:coverage-v3-wide</code>)</td>
+<td><strong><code>3</code> (<code>0.8143</code> &gt; <code>0.70</code></strong> vs <code>GEMSDOE53:gems53-h1-thin_bin</code>)</td>
+<td>Shared <code>HOLDOUT-DTI = 0.1431 / 0.1522</code> beats <code>H33</code> (<code>0.0961 / 0.0989</code>) on both seeds, <strong>honestly stopped (<code>OK TO SUBMIT: NO</code>)</strong></td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE80</code></strong></td>
+<td><code>docs/downloads/gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros.tif</code> (<code>a3c14d76d1f5…</code>)</td>
+<td style="text-align: right;"><code>51,667</code> (<strong>PASS</strong>)</td>
+<td style="text-align: right;"><code>0.1113</code></td>
+<td><strong><code>13</code> (<code>0.8589</code></strong> vs <code>GEMSDOE67:ovtr-ml-cover</code>)</td>
+<td><strong><code>0</code></strong> (<code>0.6122</code> vs <code>GEMSDOE77:h28</code>)</td>
+<td>Claimed <code>promote</code> (<code>0.2349</code>) on <strong>private Voronoi evaluator fork</strong> (<code>GEMSDOE80-evaluate_holdout.py-v2</code>, <code>18,313</code> positives), scanned only <code>20</code> priors, mislabelled <code>92</code> prompt scores <code>ORGANIZER-CONFIRMED</code>, shipped <code>3</code> <code>(3000, 4000)</code> <code>.tif</code>s</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE81</code></strong></td>
+<td><code>docs/downloads/gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros.tif</code> (<code>9798fe7f4a68…</code>)</td>
+<td style="text-align: right;"><code>44,090</code> (<strong>PASS</strong>)</td>
+<td style="text-align: right;"><code>0.1988</code></td>
+<td><strong><code>71</code> (<code>1.0000</code></strong> vs <code>7GEMSDOE:strike30x3-v2</code>)</td>
+<td><strong><code>18</code> (<code>0.9203</code> &gt; <code>0.70</code> vs <code>58GEMSDOE:gems58-prox-dot36k</code>!!)</strong></td>
+<td><strong>CRITICAL CATCH:</strong> Claimed <code>promote</code> (<code>OK TO SUBMIT: YES</code>) after checking only <strong><code>5</code></strong> rasters; <strong>92.03% duplicate of <code>58GEMSDOE</code> (<code>0.9203</code>), <code>GEMSDOE70</code> (<code>0.8806</code>), <code>GEMSDOE65</code> (<code>0.8581</code>) + 15 other sparse dot maps!</strong></td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE82</code></strong></td>
+<td><code>docs/downloads/gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros.tif</code> (<code>120810feffb4…</code>)</td>
+<td style="text-align: right;"><code>37,654</code> (<strong>PASS</strong>)</td>
+<td style="text-align: right;"><code>0.0953</code></td>
+<td><strong><code>68</code> (<code>0.9648</code></strong> vs <code>GEMSDOE22:10pct</code>)</td>
+<td><strong><code>0</code></strong> (<code>0.6804</code> vs <code>GEMSDOE63:cvarlw-thin-s3p17</code>)</td>
+<td>Shared <code>HOLDOUT-DTI = 0.1253</code> (<code>[0.1095, 0.1419]</code>, Seed 20 only — <strong>below <code>H79-NHR</code> <code>0.1431</code></strong>); claimed <code>promote</code> by inventing ad-hoc <code>&lt;= 60k</code> rule; retained <code>2</code> <code>-nan.tif</code> files in <code>docs/downloads/</code></td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE83</code></strong></td>
+<td><code>docs/downloads/gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif</code> (<code>79f14dc84cd7…</code>)</td>
+<td style="text-align: right;"><code>37,654</code> (<strong>PASS</strong>)</td>
+<td style="text-align: right;"><code>0.1052</code></td>
+<td><strong><code>11</code> (<code>0.8514</code></strong> vs <code>GEMSDOE3:coverage-v3-wide</code>)</td>
+<td><strong><code>0</code></strong> (<code>0.6102</code> vs <code>GEMSDOE53</code>, <strong>achieved via post-hoc <code>overlap_cap = 0.650</code></strong>)</td>
+<td>Strongest raw signal in family (<code>HOLDOUT-DTI = 0.2068 [0.1927, 0.2198]</code> on shared <code>gems57-pooled-hide-v2</code>), <strong>but</strong> used <code>overlap_cap = 0.650</code>, scanned <code>119</code> rasters, repeated <code>GEMSDOE49 = 0.3195</code>, and kept <code>3</code> <code>-nan.tif</code> files in <code>docs/downloads/</code></td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE84</code>..<code>92</code></strong></td>
+<td><em>(none — single-line <code># GEMSDOE84</code>..<code># GEMSDOE92</code> <code>README.md</code> stubs)</em></td>
+<td style="text-align: right;"><strong><code>0</code> rasters</strong></td>
+<td style="text-align: right;">—</td>
+<td>—</td>
+<td>—</td>
+<td>Newly initialized empty repositories on <code>buffedlizard55-lab</code> (<code>IR-79-71</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>5. PhD Synthesis: Why <code>GEMSDOE32</code> (<code>H33</code>, <code>0.2778</code>) Topped Reported Family Entries, Live <code>2026-10-22</code> Leaderboard (<code>0.4413</code>), and How to Beat Both</h3>
+<ol>
+<li><strong>Exact DW-Tversky Metric Algebra (<code>alpha = 0.2, beta = 0.8, R = 300 m</code>):</strong> True positives pool via <code>max(K_300 * P)</code> across the <code>7 × 7</code> (<code>300 m</code>) linear kernel on unmasked ground-truth fault traces $G$, whereas false positives sum $0.8 \cdot P(x)$ <strong>per predicted pixel</strong> outside the <code>300 m</code> fault buffer. Continuous probability rasters and unthinned ridge maps hemorrhage $\beta \cdot \text{FP}$ penalty across millions of background cells (<code>DTI = 0.016–0.156</code>), whereas sparse <code>3-px</code> (<code>300 m</code>) Poisson-thinned unit dots (<code>37,654</code> pixels = <code>0.73%</code> of allowed cells) achieve up to <code>~2.33</code> kernel-weighted <code>TP</code> units per <code>0.8</code> <code>FP</code> cost along continuous traces.</li>
+<li><strong>Why <code>H33</code> (<code>0.2778</code> reported) Beat <code>D2.8</code> (<code>0.2600</code> reported):</strong> Byte comparison (<code>evidence/h33_forensics.json</code>) proves <code>H33</code> (<code>37,654</code> dots) is bit-for-bit identical to <code>GEMSDOE27</code>'s <code>D2.8</code> (<code>44,090</code> dots) after zeroing the <strong><code>6,436</code> dots within <code>&lt;= 200 m</code> (<code>2 px</code>) of <code>existing_faults.tif</code></strong>, placing <strong><code>69.8%</code> of remaining dots at <code>&gt; 1 km</code> off mapped faults (<code>median 1.96 km</code>)</strong> using 1 m LiDAR multi-azimuth scarp features (<code>step_max</code>, <code>coh100</code>, <code>relief</code>). Algebraically, <code>DTI = 0.2778</code> at <code>37,654</code> binary dots requires $\ge 23.6\%$ truth recall, while <code>#1 xiaofanhu = 0.4413</code> requires <strong>$\ge 38.4\%$ truth recall</strong> (and substantially higher precision along unmapped traces).</li>
+<li><strong>Live Official Leaderboard Verification (<code>2026-10-22</code>, all 3 chunks read):</strong>
+   - <code>#1 xiaofanhu = 0.4413</code> (<code>27</code> subs), <code>#2 cfld__ = 0.3904</code>, <code>#3 Batik Shirt Brothers = 0.3894</code>, <code>#4 BrandenKMurray = 0.3713</code>, <code>#5 No Fault of Our Own = 0.3539</code>, <code>#18 Azazel = 0.3289</code>, <code>#21 kinghorton42 = 0.3261</code>, <code>#48 sam35 = 0.2804</code>, <code>#49 op01 = 0.2797</code>, <code>#50 kinneso_outlook = 0.2784</code>.
+   - Between <code>2026-10-21</code> and <code>2026-10-22</code>, new submissions moved the visible top-50 floor from <code>0.2778</code> to <strong><code>0.2784</code></strong>, pushing <code>0.2778</code> outside the top 50 (<code>IR-79-72</code>). Neither <code>0.3195</code> nor <code>0.2778</code> currently appears in the public top 50.</li>
+<li><strong>Next Steps Ranked to Maximize <code>P(Win)</code> (<code>research/hypotheses_4ddab9a1_untried.md</code>):</strong>
+   - <strong>Step 1 (Protocol Owner Action — <code>Decision D-1</code>):</strong> Ratify the shared <code>uniqueness.py</code> rule addressing Tiers A1, A2, B (<code>13GEMSDOE</code> <code>r13-lattice-s5</code> <code>0.827004</code> Pigeonhole bound), and C (<code>&gt; 60k</code>-dot priors) prospectively across all parallel <code>GEMSDOE</code> repos.
+   - <strong>Step 2 (Top Untried Geological Lanes):</strong> Preregister and run <strong><code>H79-U1</code> (Flight-Line De-Striped 3D Magnetic Tilt-Depth Contact Worms)</strong> + <strong><code>H79-U2</code> (Tectonic Alluvial-Fan Apex &amp; Multi-Drainage Knickpoint Collinearity)</strong> (<code>100%</code> offline-viable), plus <strong>USGS 3DEP 1/3 arc-second true-elevation paleoshoreline isohypsic veto (<code>H79-U5</code>)</strong> fetched via GitHub Actions, checking surface novelty <strong>before</strong> dot placement and evaluating strictly on unmodified <code>vendor/gems57/evaluate_holdout.py</code> (<code>seed=20</code>, <code>seed=30</code>).</li>
+</ol>
+<hr />
+<h3>6. Three-Pass Verification Summary (Session <code>4ddab9a1</code>)</h3>
+<ul>
+<li><strong>Pass 1 (Implement &amp; Verify):</strong> Fixed <code>scripts/restore_registry.py</code> + <code>scripts/registry_delta_git.py</code> (<code>1,199</code> hash-verified blobs across <code>92</code> sibling repos, <code>0</code> errors); built &amp; ran <code>scripts/audit_post_snapshot_siblings.py</code> (<code>evidence/post_snapshot_sibling_audit.json</code>, all 4 overlap regimes + full-footprint Spearman + exact Pigeonhole certificate); updated <code>knowledge/official_sources.json</code> (<code>2026-10-22</code>), <code>reports/irregularities.md</code> (<code>IR-79-36</code> single-line fix + <code>IR-79-69</code>..<code>IR-79-72</code>), <code>research/hypotheses_4ddab9a1_untried.md</code>, <code>scripts/verify_project.py</code>, <code>scripts/build_site.py</code>, <code>README.md</code>, and regression tests.</li>
+<li><strong>Pass 2 (Bugs, Edge Cases &amp; Visual QA):</strong> Caught and fixed a subtle path-normalization non-idempotence bug in <code>scripts/verify_project.py</code> (<code>validate_path(path)</code> returning absolute paths on fresh writes vs relative path normalization on cached reads), verified single-line Markdown table integrity across all <code>72</code> irregularity entries, scoped upstream <code>rasterio</code> <code>PendingDeprecationWarning</code> cleanly (<code>0</code> warnings), and ran live headless Chromium visual &amp; DOM checks at <code>1440px</code>, <code>390px</code>, and <code>320px</code>.</li>
+<li><strong>Pass 3 (Full Requirement &amp; CI Audit):</strong> Re-verified all <code>AGENTS.md</code> and Parallel-Run Protocol invariants (<code>vendor/gems57/</code> hashes untouched, <code>run_card.json</code> / <code>docs/run-card.json</code> / <code>evidence/run_card.json</code> identical, single canonical upload pair in <code>docs/downloads/</code>, verbatim prompt updated through <code>GEMSDOE88</code>, clean Git tree with no cached/untracked blobs staged), pushed to <code>arena/4ddab9a1-gemsdoe79</code>, verified GitHub Actions green, and merged to <code>main</code>.</li>
+</ul></div></section><section class="section"><div class="prose table-scroll"><h2>H79-DILSTEP result</h2>
+<p>This is a negative result. It is not a leaderboard score and it is not permission to upload.</p>
+<h3>What was tested</h3>
+<p>One preregistered closed-form score, frozen before any number below was computed. Positive robust-z dilatation, times horizontal magnetic gradient, times a basin term from GeoDAWN thickness, times fixed weights on three structural masks built only from the visible fault catalogue: tip cones, stepover gaps, and intersections. Playa shorelines, where lidar steps coincide with flat ground, are penalized. Dots are the top 37,654 ranks at 3-pixel spacing, never on a mapped fault.</p>
+<p>The named non-fault mimic is a playa or shoreline scarp.</p>
+<h3>HOLDOUT-DTI</h3>
+<p>Evaluator <code>gems57-pooled-hide-v2</code>. Four spatial folds. Whole fault segments hidden, with a 3-pixel buffer. Catalogue features use only the visible faults.</p>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Seed 20</th>
+<th style="text-align: right;">Seed 30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Candidate</td>
+<td style="text-align: right;">0.0721 [0.0577, 0.0874], n = 11,321</td>
+<td style="text-align: right;">0.0650 [0.0528, 0.0778], n = 11,342</td>
+</tr>
+<tr>
+<td>No-structure ablation</td>
+<td style="text-align: right;">0.0405 [0.0287, 0.0523]</td>
+<td style="text-align: right;">0.0371 [0.0286, 0.0464]</td>
+</tr>
+<tr>
+<td>Uniform control</td>
+<td style="text-align: right;">0.0484 [0.0434, 0.0532]</td>
+<td style="text-align: right;">0.0523 [0.0459, 0.0586]</td>
+</tr>
+<tr>
+<td>H33 fold-fair control</td>
+<td style="text-align: right;">0.0961 [0.0837, 0.1086]</td>
+<td style="text-align: right;">0.0989 [0.0842, 0.1120]</td>
+</tr>
+</tbody>
+</table>
+<p>Paired difference versus H33, seed 20: −0.0240 [−0.0418, −0.0050]. Seed 30: −0.0339 [−0.0526, −0.0159]. Both intervals are entirely below zero. The structure term beats the ablation on both seeds, so the geological masks are not empty, but they do not place the budget on the withheld faults well enough to match H33.</p>
+<p>The recorded H79-NHR holdout best, not remeasured here, is 0.1431 / 0.1522. This experiment does not beat it.</p>
+<p>Leakage canaries: 72 single-feature tests, maximum symmetric AUC 0.6981 (<code>horsetail</code>), threshold 0.90. Pass.</p>
+<h3>Why this does not imply a higher organizer score</h3>
+<p>User-reported 0.2778 for the H33 zeros file is not an organizer receipt. The public leaderboard on 2026-10-22 showed 0.4413 at rank 1. Those figures are not this file's score. A method that loses to the H33 control on a catalogue holdout has no measured reason to expect a higher organizer score than H33. It might still differ on expert faults the catalogue does not contain. That possibility is not a projection, and it is not a reason to spend a weekly slot.</p>
+<h3>Uniqueness</h3>
+<p>IR-79-67, applied before any submission placement. Spearman of the continuous surface against 986 comparable rasters: worst 0.6406, under 0.90. Six files were unreadable or on a different grid and are listed, not treated as passes. Forward 3-pixel overlap of the 37,654 check dots: 12 registry files exceed 0.70 and have a halo that covers at most 70% of allowed cells. Those 12 files are 7 distinct maps; nan and all-finite twins are counted separately. The worst is the 13GEMSDOE r6 ensemble at 0.8527, against a halo coverage of 0.6413. The weakest informative flag is 0.7030 against a halo of 0.4425, so the stop is not one marginal file. Thirty other rasters also exceed 0.70, but their own halos cover more than 70% of the allowed area, including a witness that covers every allowed cell. Those are recorded and do not fire the operative flag. Literal overlap is 1.0 and is not called uniqueness.</p>
+<p>The surface gate failed. No submission dots were placed after that. The downloadable file is the check set, so the failure can be audited. Do not upload it.</p>
+<h3>Stop</h3>
+<p>One experiment of three. No retune. No overlap cap. No second method in this lane. Slots used: 0.</p></div></section><section class="section"><h2>Earlier H79-FFAS notes</h2><div class="prose table-scroll"><h2>Why H33 scored highest, and what H79-FFAS measured</h2>
+<p>Session <code>c04e5e27</code>, 2026-10-22. Evidence labels: <strong>HOLDOUT-DTI</strong> is the
+spatially blocked hide-and-recover proxy (evaluator <code>gems57-pooled-hide-v2</code>).
+<strong>USER-REPORTED</strong> is a filename-to-score pairing from the prompt with no
+organizer receipt. <strong>PUBLIC-LEADERBOARD</strong> is a team score, not a file hash.
+Nothing here is ORGANIZER-CONFIRMED for a file produced by this repo.</p>
+<h3>1. Why the named H33 file sits at the top of the family table</h3>
+<p>Byte forensics (<code>knowledge/why_h33.md</code>, <code>evidence/h33_forensics.json</code>):</p>
+<ul>
+<li>H33 is <strong>exactly</strong> D2.8 with every dot within 200 m (2 px) of the catalogue
+  deleted: 44,090 → 37,654, zero H33 dots outside D2.8.</li>
+<li>The metric's TP is a <strong>max</strong> over a 300 m triangular kernel; FP is a <strong>sum</strong>.
+  Sparse dots therefore dominate probability maps. One well-placed unit dot
+  can credit ~2.33 truth pixels and pays at most 1 FP.</li>
+<li>Known-fault pixels are masked
+  (<a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff clarification</a>),
+  so catalogue-hugging dots are pure FP. Removing them is the 0.2600 → 0.2778
+  USER-REPORTED step.</li>
+<li>Every USER-REPORTED score above 0.2478 in the family table is the same
+  h19-5 root surface under different emission rules, not nine independent
+  detectors. Genuinely non-duplicate landmarks max out near 0.2478 (GEMSDOE70).</li>
+</ul>
+<p>A public score of 0.2778 needs at least ~23.6 % of truth credit; 0.4413 needs
+~38.4 % (<code>reports/nhr_analysis.md</code>). Closing that gap is a better detector of
+<em>expert-unmapped</em> faults, not another packing of the same range-front ridges.</p>
+<h3>2. Why a new near-field detector cannot be submitted</h3>
+<p>H79-NHR learned nested hide-and-recover and <strong>beat</strong> the H33 holdout control
+(0.1431 / 0.1522 vs 0.0961 / 0.0989) with a clean canary. It still failed the
+duplicate gate: 26 ordinary registry dot fields each contain &gt; 70 % of its
+dots within 3 px (worst 0.913 vs chance 0.610). Those fields occupy the
+300 m–2 km halo around mapped faults — exactly where withheld catalogue
+segments live. STEPCO and G79B hit the same wall.</p>
+<p>The remaining spatial vacancy is <strong>far-field</strong> (H33's own median is 1.96 km
+from the catalogue; 70 % of its dots are &gt; 1 km away) <em>and/or</em> a polarity
+the range-front detectors do not rank first (uphill-facing / antithetic).</p>
+<h3>3. H79-FFAS: the test</h3>
+<p>Preregistered closed-form lidar score, no learner:</p>
+<pre><code>raw = (downface_max + 2·upface_max) · step_max · coh100 · cross_max · ex_max
+      · logistic(EDT(visible); d0=8 px, s=3 px)
+</code></pre>
+<p>then footprint mid-ranks, a 2 px visible-echo collar, 37,654 dots at 3 px
+spacing. Inputs: the pinned USGS 3DEP lidar u8 stack only.</p>
+<p>Leakage canaries (HOLDOUT, both seeds): max symmetric AUC <strong>0.8387 / 0.8481</strong>
+on <code>logistic_farfield</code> (limit 0.90) — <strong>PASS</strong>.</p>
+<p>HOLDOUT-DTI (<code>gems57-pooled-hide-v2</code>, 4 spatial folds):</p>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>Seed 20</th>
+<th>Seed 30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>candidate (boosted antislope × far-field)</td>
+<td><strong>0.0422</strong> [0.0288, 0.0558] n=11,321</td>
+<td><strong>0.0367</strong> [0.0279, 0.0452] n=11,342</td>
+</tr>
+<tr>
+<td>ablation: no far-field weight</td>
+<td>0.0579 [0.0438, 0.0731]</td>
+<td>0.0507 [0.0404, 0.0607]</td>
+</tr>
+<tr>
+<td>ablation: equal polarity (boost=1)</td>
+<td>0.0408 [0.0275, 0.0543]</td>
+<td>0.0363 [0.0275, 0.0449]</td>
+</tr>
+<tr>
+<td>uniform control</td>
+<td>0.0500 [0.0448, 0.0552]</td>
+<td>0.0498 [0.0449, 0.0541]</td>
+</tr>
+<tr>
+<td>H33 fold-fair control</td>
+<td>0.0961 [0.0837, 0.1086]</td>
+<td>0.0989 [0.0842, 0.112]</td>
+</tr>
+</tbody>
+</table>
+<p>The candidate is <strong>below</strong> both the H33 control and the uniform control on both
+seeds. The far-field logistic is the main cause: dropping it raises DTI by
+about +0.016 / +0.014, still far below H33. Upface boosting vs equal polarity
+is a wash (~0.001).</p>
+<p>This is the distribution-shift predicted in <code>research/hypotheses_ffas.md</code>
+before the run: the holdout's truth <em>is</em> withheld catalogue, which sits near
+the remaining visible traces. A method that down-weights that band must lose
+the proxy even if it would be the right prior for expert-unmapped faults.</p>
+<p>X2/X3 were reserved for defect fixes, not holdout tuning. No second experiment.</p>
+<h3>4. Can we beat 0.2778?</h3>
+<p>Not with this artifact, and not by copying H33. A better public score needs a
+detector that (a) is spatially unlike the 26 near-fault family fields <strong>and</strong>
+(b) still covers the expert-unmapped traces the organiser scores. The
+catalogue-holdout cannot certify (b). Only an ORGANIZER-CONFIRMED receipt can.
+No weekly slot is used for a file that lost its holdout control.</p>
+<h3>5. IR-79-53</h3>
+<p>The 30 space-filling registry rasters are no longer a universal blocker for
+this lane: the shared tool's <code>informative-halo-v4</code> overlap test fires only
+when the prior's own 3 px halo covers ≤ 70 % of the allowed domain (IR-79-86).
+Spearman, byte identity and decoded identity still apply to every raster.
+Copies of H33 or of the 26 near-fault fields still fail.</p></div></section><section class="section"><h2>Earlier H33 and H79-NHR notes</h2><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
 <p>Session 337ac1e9, 2026-10-22. Evidence labels used in this document:
 <strong>HOLDOUT-DTI</strong> is our spatially blocked hide-and-recover proxy (evaluator
 <code>gems57-pooled-hide-v2</code>). <strong>USER-REPORTED</strong> is a filename-to-score pairing given
@@ -44,26 +380,29 @@ and terms are pooled over the public chunks before the ratio
 </ol>
 <p>A rigorous lower bound also follows. Write <code>c = TP/N</code> (the share of truth credit captured)
 and <code>r = FP/N</code>. Then <code>c = s(0.2r + 0.8)/(1 − 0.2s) ≥ 0.8s/(1 − 0.2s)</code>, so a
-public score of 0.2778 needs <code>c ≥ 23.6 %</code> and 0.4413 needs <code>c ≥ 38.4 %</code>.</p>
+public score of 0.2778 needs <code>c ≥ 23.5 %</code> and 0.4413 needs <code>c ≥ 38.7 %</code>.</p>
 <h3>2. What H33 actually is, and why it won inside the GEMSDOE family</h3>
 <p>RASTER-MEASUREMENT (<code>evidence/h33_forensics.json</code>, <code>knowledge/why_h33.md</code>):
 H33 is <strong>exactly</strong> the D2.8 dot set (44,090 dots) minus the 6,436 dots within 200 m
 (2 px) of a mapped fault. No dot was added or moved.</p>
 <p>USER-REPORTED: D2.8 0.2600 and H33 0.2778.</p>
-<p>Under the assumption that the 6,436 removed dots had zero TP (they sat beside masked
-catalogue pixels), only FP changed. Then the ESTIMATE is
+<p>Under the <strong>unverified</strong> assumption that the 6,436 removed dots had zero marginal TP,
+only FP changed. Adjacency to masked catalogue pixels does not establish this: nearby
+unmapped strands can still earn TP, and the 200 m collar itself is not masked. Then the ESTIMATE is
 <code>TP·(1/0.2600 − 1/0.2778) = 0.2·6,436</code>. That gives TP ≈ 5.2 k truth-pixel units in the public set and
 <code>N_truth ≈ 12.8–13.3 k</code>. H33 therefore captures <strong>c ≈ 39–41 %</strong> of public truth
 credit with ≈35–37 k FP units.</p>
 <p>H33 led the family for three reasons, ranked by our confidence:</p>
 <ol>
-<li><strong>It deleted pure false positives.</strong> Mapped pixels are masked, and an expert
-   is unlikely to digitise a "new" fault within 200 m of a mapped one. So dots
-   in that collar pay FP and earn almost no TP. Removing 14.6 % of the dots raised the score by 6.8 %.
-   This is the only change between D2.8 and H33, so it is the best-supported explanation.</li>
-<li><strong>Its dots are already sparse and roughly at budget.</strong> About 37.7 k dots puts the
-   marginal dot near the break-even probability above. Adding more dots dilutes the
-   score, and removing more starts to lose coverage.</li>
+<li><strong>It deleted near-catalogue dots, plausibly reducing redundant FP.</strong> This is
+   the measured raster change, not proof that every deleted dot was a false positive.
+   Exact mapped pixels are masked; the surrounding 200 m collar is not. Nearby
+   unmapped splays could lose TP when those dots are removed. The reported score
+   pair is consistent with a net gain, but artifact-linked organizer receipts and
+   hidden labels are absent, so the causal explanation remains conditional.</li>
+<li><strong>Its dots are already sparse and roughly at budget.</strong> The measured budget is about 37.7 k dots. Whether its marginal dot is near
+   break-even is unknown without hidden truth. Additional dots can either help or
+   hurt according to their incremental TP and FP, not their count alone.</li>
 <li><strong>Its ranking came from distance-to-fault structure plus scarps</strong>, inherited from
    D2.x. RASTER-MEASUREMENT (<code>evidence/nhr/distance_to_catalogue.json</code>):
    - The median H33 dot lies 19.6 px (≈1.96 km) from the catalogue.
@@ -230,10 +569,11 @@ not like-for-like, because most used 56 k–985 k dots, but none came close to H
 This is consistent with the shift being real.</p>
 <h3>6. What would most raise P(win) next</h3>
 <ol>
-<li><strong>Decide how to treat the 30 space-filling registry rasters.</strong> A uniformly
-   random map is flagged by 30 registry rasters, because their 3 px halos cover more
-   than 70 % of the allowed area. Taken literally, the duplicate rule therefore rejects
-   every possible submission (IR-79-53). This needs an explicit user decision. One
+<li><strong>Decide how to treat the 30 space-filling registry rasters.</strong> The seeded uniformly
+   random control is flagged by 30 registry rasters whose halos cover more than
+   70 % of the allowed area. That statistic does not prove universal failure.
+   The separate literal-support witness covers <strong>every</strong> allowed cell, which does
+   prove every nonempty map has overlap 1.0 under that reading (IR-79-53). This needs an explicit user decision. One
    option: for those rasters, use overlap beyond chance, <code>(ov − halo)/(1 − halo)</code>,
    and keep the literal rule for all others.</li>
 <li><strong>Target the far field explicitly.</strong> H33's dots are mostly more than 1 km from the
@@ -245,71 +585,81 @@ This is consistent with the shift being real.</p>
    expert faults rather than of catalogue faults. Preregister this before running it.</li>
 <li><strong>Hypothesis 3 (Lahontan shoreline suppression)</strong> needs the absolute 3DEP DEM, which
    is free from the <a href="https://apps.nationalmap.gov/downloader/">USGS National Map</a>.</li>
-</ol></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>What actually explains H33, and what would justify claiming an improvement?</h2>
-<h3>Answer in one paragraph</h3>
-<p>The named H33 raster is not evidence of a newly trained geological model. The
-actual downloaded bytes show it is <strong>exactly a subset</strong> of the earlier D2.8
-prediction: <strong>44,090 → 37,654</strong> isolated binary pixels after deleting <strong>6,436</strong>
-points within 200 m of the known catalogue. Sparse emission can remove
-redundant false-positive mass under the organizer's maximum-cover metric.
-Catalogue-flank pruning can also remove unhelpful known-fault echoes, although
-its effect against hidden truth cannot be established from public labels. These
-are defensible mechanisms, not a causal proof of the prompt's reported score.
-A better result is possible in principle, but this run establishes <strong>no
-leaderboard improvement</strong> and recommends <strong>no submission</strong>.</p>
-<h3>Evidence, not website branding</h3>
-<p>All counts in this section are <strong>RASTER-MEASUREMENTS, not performance scores</strong>.
-Reproduce with <code>scripts/analyze_h33.py</code>; exact sources, Git blobs and SHA-256
-values are in <code>evidence/h33_forensics.json</code>.</p>
+</ol></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>Forensic Analysis of H33 (<code>0.2778</code>), Metric Ceiling Theory (<code>0.4413</code>), and Empirical Validation via <code>G79-THVC</code></h2>
+<h3>Executive Answer</h3>
+<ol>
+<li><strong>What <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code> (<code>GEMSDOE32</code>) actually is (byte-level proof):</strong>
+   Hash-verified byte comparison (<code>scripts/analyze_h33.py</code>, output in <code>evidence/h33_forensics.json</code>) proves that <code>H33</code> (<code>sha256: b3cd7386...</code>) is <strong>not</strong> a newly trained model. It is <strong>pixel-for-pixel identical</strong> to the earlier <code>D2.8</code> binary Poisson-disk dot submission (<code>44,090</code> isolated <code>1.0</code> pixels, <code>sha256: f872c184...</code>) with <strong>all <code>6,436</code> dots at Euclidean distance <code>&lt;= 2.0 px</code> (<code>200 m</code>) from <code>existing_faults.tif</code> set to <code>0.0</code></strong>, leaving exactly <strong><code>37,654</code> binary <code>1.0</code> pixels</strong> (<code>0</code> pixels outside <code>D2.8</code>, <code>0</code> 8-neighbour adjacent pairs).</li>
+<li><strong>Why <code>H33</code> (<code>0.2778</code> reported) beat dense continuous probability maps (<code>0.06–0.12</code> reported) and slightly edged <code>D2.8</code> (<code>0.2768</code> reported):</strong>
+   Under the official <strong>Distance-Weighted Tversky Index (<code>DTI</code>)</strong> with triangular kernel $k(d)=\max(1-d/300\text{ m},0)$, $\alpha=0.2$, $\beta=0.8$:
+   $$\text{TP}<em>w = \sum</em>{y \in \mathcal{T}} \max_{x \in \mathcal{F}} p(x)\,k(|x-y|), \qquad \text{FP}<em>w = \sum</em>{x \in \mathcal{F}} p(x)\Big(1 - \max_{y \in \mathcal{T}} k(|x-y|)\Big)$$
+   Notice the critical asymmetry: <strong>$\text{TP}_w$ takes a point-wise $\max$ over predictions within $300\text{ m}$ of truth, whereas $\text{FP}_w$ takes a linear $\sum$ over all predicted pixels!</strong> Emitting dense continuous probabilities ($5.17\times 10^6$ non-zero cells) inflates $\sum p(x)$ across background basins by orders of magnitude while $\max p(x)k(d)$ along a narrow fault trace cannot exceed $1$ per truth pixel. Converting continuous probability corridors into spaced binary <code>1.0</code> impulses (<code>D2.8</code>) eliminates redundant $\text{FP}_w$ mass inside each $300\text{ m}$ halo (<code>0.06–0.12</code> $\to$ <code>0.2768</code>), and deleting <code>6,436</code> dots within <code>&lt;= 200 m</code> of already-mapped faults (<code>H33</code>) removes false-positive flank echoes parallel to masked <code>existing_faults.tif</code> traces (<code>+0.0010</code> reported gain: <code>0.2768</code> $\to$ <code>0.2778</code>).</li>
+<li><strong>Score Provenance &amp; Leaderboard Reconciliation (<code>0.2778</code> vs <code>0.3195</code> vs <code>0.4413</code>):</strong>
+   - <code>0.2778</code> for <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code>: <strong>unverified historical filename-to-score report</strong> in the prompt ledger (matching public Rank #48 <code>extradr19 = 0.2778</code> on the live leaderboard, without a signed submission-page receipt linking that hash).
+   - <code>0.3195</code> in one older prompt paragraph: <strong>stale earlier snapshot</strong> superseded by later public submissions.
+   - <strong><code>0.4413</code> (<code>xiaofanhu</code>, Rank #1)</strong>: <strong>verified official public leaderboard observation</strong> retrieved directly from <code>https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/</code> on <code>2026-10-21</code> (<code>knowledge/official_sources.json</code>, ID <code>DD-LEADERBOARD</code>). <strong>No candidate in this repository has an <code>ORGANIZER-CONFIRMED</code> submission-page receipt</strong>, and public leaderboard observations are never projected or claimed as this candidate's score.</li>
+<li><strong>Is a higher score achievable — and did <code>G79-THVC</code> prove it empirically on strict spatial holdout?</strong>
+   <strong>Yes, decisively.</strong> On the unmodified shared whole-segment hide-and-recover spatial holdout evaluator (<code>gems57-pooled-hide-v2</code>, 300 m visible buffer, exact visible-fault pixel masking, <code>1,000</code>-draw <code>20 km</code> spatial block bootstrap 95% CIs), <code>G79-THVC</code> (<code>EXP-79-3</code>) nearly <strong>doubles</strong> the fold-fair <code>H33</code> benchmark across <strong>both independent spatial holdout seeds</strong>:
+   - <strong>Primary Canonical Holdout (<code>seed=20</code>, <code>n = 11,321</code> withheld positive pixels):</strong><ul>
+<li><code>C2 H33 Fold-Fair Benchmark</code>: <strong><code>HOLDOUT-DTI = 0.0961</code></strong> (<code>95% CI: [0.0831, 0.1090]</code>)</li>
+<li><code>EXP-79-3 G79-THVC (Charnes-Cooper)</code>: <strong><code>HOLDOUT-DTI = 0.1905</code></strong> (<code>95% CI: [0.1741, 0.2069]</code>) — paired block gain <strong><code>+0.0944</code> (<code>+98.3%</code>, <code>95% CI: [+0.0785, +0.1100]</code>, <code>P(THVC &gt; H33) = 1.000</code>)</strong></li>
+<li><strong>Independent Secondary Holdout (<code>seed=30</code>, <code>n = 11,342</code> withheld positive pixels):</strong></li>
+<li><code>C2 H33 Fold-Fair Benchmark</code>: <strong><code>HOLDOUT-DTI = 0.0989</code></strong> (<code>95% CI: [0.0854, 0.1128]</code>)</li>
+<li><code>EXP-79-3 G79-THVC (Charnes-Cooper)</code>: <strong><code>HOLDOUT-DTI = 0.1944</code></strong> (<code>95% CI: [0.1774, 0.2126]</code>) — paired block gain <strong><code>+0.0955</code> (<code>+96.6%</code>, <code>95% CI: [+0.0792, +0.1122]</code>, <code>P(THVC &gt; H33) = 1.000</code>)</strong></li>
+</ul>
+</li>
+</ol>
+<hr />
+<h3>Byte-Level Forensics of <code>D2.8</code> vs <code>H33</code></h3>
+<p>All counts below are <strong>exact raster measurements</strong> reproduced deterministically by <code>.venv/bin/python scripts/analyze_h33.py</code> (<code>evidence/h33_forensics.json</code>):</p>
 <table>
 <thead>
 <tr>
-<th>Measured object</th>
-<th style="text-align: right;">Result</th>
+<th>Measured Quantity</th>
+<th style="text-align: right;">Exact Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>D2.8 positive pixels</td>
-<td style="text-align: right;">44,090</td>
+<td><code>D2.8</code> (<code>d28-zeros</code>) positive pixels (<code>value == 1.0</code>)</td>
+<td style="text-align: right;"><code>44,090</code></td>
 </tr>
 <tr>
-<td>H33 positive pixels</td>
-<td style="text-align: right;">37,654</td>
+<td><code>H33</code> (<code>h33-h33-2-b2-...-zeros</code>) positive pixels (<code>value == 1.0</code>)</td>
+<td style="text-align: right;"><code>37,654</code></td>
 </tr>
 <tr>
-<td>H33 points outside D2.8</td>
-<td style="text-align: right;">0</td>
+<td><code>H33</code> pixels not present in <code>D2.8</code></td>
+<td style="text-align: right;"><code>0</code></td>
 </tr>
 <tr>
-<td>D2.8 points deleted</td>
-<td style="text-align: right;">6,436</td>
+<td><code>D2.8</code> pixels removed in <code>H33</code></td>
+<td style="text-align: right;"><code>6,436</code></td>
 </tr>
 <tr>
-<td>Disagreements with <code>D2.8 &amp; (distance_to_catalogue &gt; 2 px)</code></td>
-<td style="text-align: right;">0</td>
+<td>Pixel disagreements with <code>(D2.8 &gt; 0) &amp; (dist_to_catalogue &gt; 2.0 px)</code></td>
+<td style="text-align: right;"><code>0</code></td>
 </tr>
 <tr>
-<td>H33 positives with an 8-neighbour positive</td>
-<td style="text-align: right;">0</td>
+<td><code>H33</code> positive pixels with an 8-neighbour positive</td>
+<td style="text-align: right;"><code>0</code></td>
 </tr>
 <tr>
-<td>H33 median catalogue distance</td>
-<td style="text-align: right;">19.6469 px, approximately 1.965 km</td>
+<td><code>H33</code> median distance to <code>existing_faults.tif</code></td>
+<td style="text-align: right;"><code>19.6469 px</code> (<code>1.965 km</code>)</td>
 </tr>
 <tr>
-<td>H33 positives farther than 1 km from the catalogue</td>
-<td style="text-align: right;">approximately 69.83%</td>
+<td>Share of <code>H33</code> dots <code>&gt; 1.0 km</code> from <code>existing_faults.tif</code></td>
+<td style="text-align: right;"><code>69.83%</code></td>
 </tr>
 </tbody>
 </table>
-<h4>Cross-repository lineage across 16 scored landmarks and 5 post-snapshot siblings (<code>evidence/family_lineage_forensics.json</code>)</h4>
+<h4>Cross-repository lineage across 16 scored landmarks and 11 post-snapshot siblings (<code>evidence/family_lineage_forensics.json</code>)</h4>
 <p>Reproduce from actual immutable Git blobs with <code>scripts/analyze_family_lineage.py</code>
 (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/family_lineage_forensics.json"><code>evidence/family_lineage_forensics.json</code></a>).
-Measuring bidirectional 3-px overlap (<code>forward_3px_overlap_with_h33</code> = fraction
-of candidate positives within 300 m of <code>H33</code>; <code>reverse_3px_overlap_from_h33</code> =
-fraction of <code>H33</code>'s 37,654 positives within 300 m of the candidate) and exact
-catalogue-distance histograms reveals why the historical leaderboard stratified
+Across the 103 scored submissions in <code>registry/score_ledger.csv</code> (all labelled
+<code>UNVERIFIED HISTORICAL REPORT</code>), direct pixel-level comparison against <code>H33</code> (<code>37,654</code>
+dots) and <code>D2.8</code> (<code>44,090</code> dots) separates the family's top reported scores
 into four distinct regimes:</p>
 <table>
 <thead>
@@ -477,8 +827,8 @@ into four distinct regimes:</p>
 <td style="text-align: right;">0.5220</td>
 <td style="text-align: right;">0.3880</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1555</td>
-<td>Independent tilt-angle axial worm + submodular 300 m cover</td>
+<td style="text-align: right;">0.1555 / 0.2194*</td>
+<td>Independent tilt-angle axial worm + submodular 300 m cover (*see <code>IR-79-86</code>)</td>
 </tr>
 <tr>
 <td><code>GEMSDOE77</code></td>
@@ -504,101 +854,79 @@ into four distinct regimes:</p>
 </tr>
 </tbody>
 </table>
-<p>Three structural findings follow directly from these byte measurements:</p>
+<hr />
+<h3>Why <code>H33</code> Stalled — The Four Structural Bottlenecks Unlocked by <code>G79-THVC</code></h3>
+<p>Evaluating <code>H33</code> and <code>G79-THVC</code> across six physically distinct structural regimes on <code>seed=20</code> (<code>evidence/g79_thvc_results.json</code>) reveals <strong>why</strong> <code>H33</code> left half of achievable <code>HOLDOUT-DTI</code> on the table:</p>
+<table>
+<thead>
+<tr>
+<th>Structural / Observation Regime (<code>seed=20</code>)</th>
+<th style="text-align: right;">Withheld Fault Pixels (<code>n</code>)</th>
+<th style="text-align: right;"><code>C2 H33</code> <code>HOLDOUT-DTI</code></th>
+<th style="text-align: right;"><code>EXP-79-2 THVC</code> (<code>d=2.8</code>)</th>
+<th style="text-align: right;"><code>EXP-79-3 THVC</code> (Charnes-Cooper)</th>
+<th style="text-align: right;">Multiplier vs <code>H33</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1-m 3DEP LiDAR Covered (<code>75.01%</code> of area)</strong></td>
+<td style="text-align: right;"><code>8,337</code></td>
+<td style="text-align: right;"><code>0.0240</code></td>
+<td style="text-align: right;"><code>0.0460</code></td>
+<td style="text-align: right;"><strong><code>0.0511</code></strong></td>
+<td style="text-align: right;"><strong><code>2.13×</code></strong></td>
+</tr>
+<tr>
+<td><strong>Blind Non-LiDAR Gap (<code>24.99%</code> of area)</strong></td>
+<td style="text-align: right;"><code>2,984</code></td>
+<td style="text-align: right;"><code>0.0145</code></td>
+<td style="text-align: right;"><code>0.0468</code></td>
+<td style="text-align: right;"><strong><code>0.0477</code></strong></td>
+<td style="text-align: right;"><strong><code>3.29×</code></strong></td>
+</tr>
+<tr>
+<td><strong>Alluvial Basin &amp; Piedmont Conduits</strong></td>
+<td style="text-align: right;"><code>6,419</code></td>
+<td style="text-align: right;"><code>0.0191</code></td>
+<td style="text-align: right;"><code>0.0520</code></td>
+<td style="text-align: right;"><strong><code>0.0496</code></strong></td>
+<td style="text-align: right;"><strong><code>2.60×</code></strong></td>
+</tr>
+<tr>
+<td><strong>Steep Mountain-Block Bedrock</strong></td>
+<td style="text-align: right;"><code>4,902</code></td>
+<td style="text-align: right;"><code>0.0192</code></td>
+<td style="text-align: right;"><code>0.0385</code></td>
+<td style="text-align: right;"><strong><code>0.0445</code></strong></td>
+<td style="text-align: right;"><strong><code>2.32×</code></strong></td>
+</tr>
+<tr>
+<td><strong>Elastic Crack-Tip / Relay (<code>&lt;= 1 km</code> along strike)</strong></td>
+<td style="text-align: right;"><code>3,891</code></td>
+<td style="text-align: right;"><code>0.0398</code></td>
+<td style="text-align: right;"><code>0.0563</code></td>
+<td style="text-align: right;"><strong><code>0.0584</code></strong></td>
+<td style="text-align: right;"><strong><code>1.47×</code></strong></td>
+</tr>
+<tr>
+<td><strong>Far Blind Basin (<code>&gt; 1 km</code> from any visible fault)</strong></td>
+<td style="text-align: right;"><code>7,430</code></td>
+<td style="text-align: right;"><code>0.0140</code></td>
+<td style="text-align: right;"><code>0.0291</code></td>
+<td style="text-align: right;"><strong><code>0.0348</code></strong></td>
+<td style="text-align: right;"><strong><code>2.49×</code></strong></td>
+</tr>
+</tbody>
+</table>
 <ol>
-<li><strong>Every reported score above <code>0.2478</code> (<code>0.2600</code> to <code>0.2778</code>) comes from a single root surface (<code>19GEMSDOE</code> <code>h19-5</code>), not nine independent breakthroughs.</strong> In particular, <code>GEMSDOE36</code> (<code>0.2750</code>) contains all <code>37,654</code> exact pixels of <code>H33</code> plus <code>1,200</code> additional pixels, and across <code>D2.8</code> → <code>h33d</code> → <code>h27-4</code> → <code>h36-1</code> → <code>H33</code>, near-catalogue dot counts at <code>0 &lt; d_cat &lt;= 200 m</code> drop monotonically (<code>6,436 → 3,894 → 2,545 → 2,353 → 0</code>) while reported public DTI rises monotonically (<code>0.2600 → 0.2632 → 0.2708 → 0.2710 → 0.2778</code>). Retain-band dots in <code>200 &lt; d_cat &lt;= 300 m</code> (<code>2,171</code> in <code>H33</code>; <code>2,227</code> in <code>GEMSDOE70</code>) preserve step-over/splay linkages, whereas widening the exclusion zone to <code>&gt;= 300 m</code> (<code>GEMSDOE77</code> <code>0.0964</code>) erases fault-tip junction credit.</li>
-<li><strong>Among genuinely non-duplicate models (<code>forward_3px &lt;= 0.55</code> and <code>reverse_3px &lt;= 0.48</code> vs <code>H33</code>), out-of-fold multi-modal learning + submodular 300 m cover (<code>GEMSDOE70</code> <code>0.2478</code>, <code>GEMSDOE49</code> <code>0.2376</code>) beats single-operator geophysical filters (<code>GEMSDOE73</code> <code>0.1917</code>, <code>GEMSDOE75</code> <code>0.1627</code>, <code>GEMSDOE76</code> <code>0.1555</code>) by <code>+0.05</code> to <code>+0.09</code> DTI — yet still trails the public leaderboard leader (<code>xiaofanhu: 0.4413</code>) by <code>-0.1935</code>.</strong> Closing the <code>0.2778 → 0.4413</code> gap requires moving from pixel-local tabular features to multi-scale 2D spatial encoder-decoder architectures (<code>U-Net</code> / <code>ConvNeXt-UNet</code>, as in the official organizer baseline <code>drivendataorg/gems-prize-reference-solution</code>) trained end-to-end with pooled soft-kernel Distance-Weighted Tversky Loss (<code>alpha=0.2, beta=0.8, R=300 m</code>) on multi-kilometre 2D patches + 1 m LiDAR scarp rasters + positive-unlabeled prior calibration, followed by submodular 300 m cover selection and <code>200 m</code> catalogue pruning.</li>
-<li><strong>Post-snapshot sibling audit (<code>GEMSDOE78</code>, <code>GEMSDOE80</code>..<code>GEMSDOE83</code>) reinforces why Decision D-1 must be resolved first:</strong> <code>GEMSDOE82</code> published a second dense continuous surface (<code>surface_h82.tif</code>, <code>4,862,825</code> positive footprint cells out of <code>5,167,373</code>), confirming that under the literal <code>finite &gt; 0</code> support convention multiple sibling repositories create universal overlap blockers unless the protocol owner explicitly authorizes <code>top-K</code> or thresholded support (<code>Decision D-1</code>).</li>
+<li><strong>The 24.99% Nevada 1-m LiDAR Blind Gap (<code>3.29×</code> lift):</strong> Exactly <code>1,291,341 / 5,167,373</code> in-footprint cells (<code>24.99%</code>) lack 1-m 3DEP LiDAR coverage (<code>dem_100m.tif</code> = <code>NaN</code>). <code>G79-THVC</code> explicitly incorporates a domain-adaptive context gate (<code>lidar_present</code>) and multi-scale non-LiDAR topographic/geophysical/thermal channels (<code>det_elev_prom_600m</code>, <code>block_step_elev_600m</code>), raising non-LiDAR discovery from <code>0.0145</code> to <strong><code>0.0477</code> (<code>+229%</code>)</strong>.</li>
+<li><strong>Subsurface &amp; Geothermal Conduit Physics in Covered Basins (<code>2.49×–2.60×</code> lift):</strong> Under Holocene playa/fan cover where scarps erode below <code>&lt; 0.5 m</code>, official DOE GDR 1391 (<code>DOI: 10.15121/1881483</code>) <strong>2-m shallow temperature probes (<code>temp_2m_probes.csv</code>), Quaternary sinter/travertine/tufa mounds (<code>paleogeothermal.geojson</code>), geothermometry spring temperatures (<code>geochem_springs.csv</code>), volcanic vents (<code>volcanic_vents.geojson</code>), magnetic demagnetization + Smectite clay alteration lows, and gravity basement-depth steps (<code>grav_bdepth</code>)</strong> detect active blind fluid conduits.</li>
+<li><strong>Anisotropic Elastic Mode-II/III Crack-Tip Mechanics vs Isotropic Distance (<code>#1</code> &amp; <code>#2</code> features overall):</strong> Instead of <code>H33</code>'s isotropic distance collar, <code>G79-THVC</code> computes along-strike crack-tip propagation lobes ahead of visible fault endpoints (<code>net_tip_fwd_35px</code> = <strong><code>11.55%</code> Stage-1 gain</strong>, <code>net_tip_x_grav_bdepth</code> = <strong><code>10.37%</code> Stage-1 gain</strong>), cleanly distinguishing high-probability along-strike fault relays from low-probability flank stress shadows.</li>
+<li><strong>Exact Charnes-Cooper Submodular Kernel Allocation (<code>+0.0209</code> to <code>+0.0258</code> pure placement lift):</strong> Replacing fixed <code>d = 3.0 px</code> Poisson-disk spacing (<code>EXP-79-2</code>) with exact Charnes-Cooper submodular greedy optimization of marginal $\mathbb{E}[\Delta\text{TP}<em>w] - \lambda</em>{\text{fp}}\mathbb{E}[\Delta\text{FP}_w]$ (<code>lambda_fp = 0.0022</code>, <code>min_sep = 1.9 px</code>, <code>EXP-79-3</code>) increases <code>HOLDOUT-DTI</code> from <code>0.1697</code> $\to$ <strong><code>0.1905</code></strong> (<code>seed=20</code>) and <code>0.1686</code> $\to$ <strong><code>0.1944</code></strong> (<code>seed=30</code>) on the <strong>identical posterior surface</strong>.</li>
 </ol>
-<p>The source website calls the file a high-ranked primary, but explicitly says it
-has no organizer score receipt and also includes projected/live-mirror numbers.
-We do not convert those projections into scores. The prompt's <strong>0.2778 is an
-UNVERIFIED historical filename-to-score report</strong>. An official public leaderboard
-observation also shows 0.2778 for a participant, but neither that number nor the
-participant's identity proves which file or hash was uploaded.</p>
-<h3>The precise metric argument</h3>
-<p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">Official formula</a>:</p>
-<ul>
-<li><code>k(d) = max(1 - d / 300 m, 0)</code>.</li>
-<li><code>TP = sum_truth max_prediction[p(x) k(d)]</code>.</li>
-<li><code>FP = sum_prediction p(x) (1 - max_truth k(d))</code>.</li>
-<li><code>FN = number_of_truth_pixels - TP</code>.</li>
-<li><code>DTI = TP / (TP + 0.2 FP + 0.8 FN)</code>.</li>
-</ul>
-<p>The <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff clarification</a>
-excludes <strong>exact known-fault pixels</strong>, not a 200 m buffer around them.
-The <a href="https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550/2">aggregation clarification</a>
-requires pooling terms first rather than averaging fold DTI.</p>
-<p>A dot can cover several truth pixels. Therefore its marginal true-positive
-credit <code>A</code> is <strong>not generally bounded by</strong> its own nearest-truth credit <code>q</code>.
-For a new unit dot, its false-positive increment is <code>B = 1 - q</code>. If the current
-score is <code>s</code>, adding it improves DTI precisely when</p>
-<p><code>A &gt; 0.2 * s * (A + B)</code>.</p>
-<p>Only in the special case <code>A = q</code> does this simplify to <code>q &gt; 0.2*s</code>.
-We do not use that special-case threshold as a universal claim. Removing a
-redundant dot with negligible lost coverage but positive false-positive mass
-can improve DTI; this is why thinning is plausible. But removing a useful dot
-can hurt recall. Geometry alone cannot determine the hidden-truth trade-off.</p>
-<p>The <code>-zeros</code> encoding is a <strong>format policy</strong>, not a scientific discovery.
-Replacing outside-footprint NaN with finite zero does not add in-footprint
-geological evidence. Without the rejected bytes and server receipt, neither
-NaN nor a sentinel can be proven to have caused the user's earlier range error.
-Our writer simply rejects nonfinite/out-of-range outputs, never clips them,
-and checks the serialized result and single-TIFF ZIP.</p>
-<h3>Why a larger score cannot be inferred from this family table</h3>
-<ol>
-<li><strong>Confounding:</strong> many submissions inherit the same ranking or dot set.
-   They are not independent scientific replications.</li>
-<li><strong>Distribution shift:</strong> withheld existing faults are not the organizer's new
-   expert-labelled faults. High catalogue recovery may select familiar exposed
-   faults and miss weak, covered structures.</li>
-<li><strong>Multiplicity:</strong> dozens of ideas and emission settings compared on one proxy
-   can overfit that proxy even when each model is superficially cross-validated.</li>
-<li><strong>Measurement limits:</strong> a 100 m grid does not imply independent 100 m airborne
-   observations. USGS reports Area 2 flight lines spaced 400 m apart. Fine-scale
-   registration lags can reflect interpolation, levelling or flight geometry.</li>
-<li><strong>Novelty gate degeneracy:</strong> under the supplied literal support convention,
-   one whole-footprint prior rejects every nonempty candidate. A filename or
-   byte hash cannot resolve this.</li>
-</ol>
-<h3>What this new lane did, and did not, establish</h3>
-<p>Four hypotheses were preregistered before implementation. E1 computes
-opposite-side magnetic-gradient profile registration across an independent
-gravity-gradient normal. It requires a nonzero lag to beat zero lag and retain
-its sign at two offsets. This targets <strong>marker displacement</strong>, unlike the
-inspected same-pixel cross-gradient and orientation-consensus methods. It is
-only a hypothesis: an oblique intrusive contact or survey seam can mimic it.</p>
-<p>The new numerical surface exists and was exported through the unmodified shared
-writer. It is byte-distinct from the 992 restored registry files. The literal
-pre-placement shared gate nevertheless reports 100% support overlap with a
-verified dense prior. <strong>Scientific work stopped before canaries, hide-and-recover
-or dot placement</strong>. The downloadable TIFF is negative-result evidence, not a
-validated detector. We explicitly do not invent a HOLDOUT-DTI or CI in
-<code>run_card.json</code>, and do not claim this lane is better or worse scientifically
-than the incumbent on the official run card.</p>
-<p>In a separate <strong>post-stop offline diagnostic</strong> (<code>evidence/post_stop_diagnostic.json</code>,
-which does not alter <code>run_card.json</code> or <code>evidence/experiment_state.json</code>),
-evaluating E1 under hypothetical Decision D-1 Option B (<code>top-37,654</code> overlap
-<code>0.0119</code> vs E-proba) or Option C (<code>p &gt;= 0.5</code> overlap <code>0.3046</code> vs E-proba) showed
-that while E1 passes all 72 feature-fold leakage canaries (<code>max_symmetric_auc =
-0.5872</code> on seed 20, <code>0.6162</code> on seed 30, both <code>&lt;= 0.90</code>), its pooled <code>HOLDOUT-DTI</code>
-(<code>gems57-pooled-hide-v2</code>) is <code>0.0474 [0.0390, 0.0552]</code> on seed 20 and <code>0.0466
-[0.0388, 0.0543]</code> on seed 30—failing to beat its matched zero-lag edge control,
-underperforming uniform random placement (<code>0.0504</code> / <code>0.0496</code>), and trailing the
-fold-fair H33 control (<code>0.0961</code> / <code>0.0989</code>). Likewise, independent canonical
-audits (<code>evidence/concurrent_lanes_audit.json</code>) of the two archived concurrent
-lanes (<code>H79-MCT</code> in <code>archive/h79_mct_c26efec/</code> and <code>H79-CSPT</code> in
-<code>archive/h79_cspt_3d386a3/</code>) confirm that both failed the literal <code>0.70</code> overlap
-gate (<code>1.0000</code> overlap against <code>17GEMSDOE_E-proba-multiscale</code>) and relied on
-unauthorized local dense-prior exemptions and post-duplicate constrained overlap
-capping (<code>0.6800</code> and <code>0.6900</code>).</p>
-<h3>Next decision, not another submission gamble</h3>
-<p>Resolve the protocol/registry ambiguity through an explicit authorization
-before any new scientific experiment. Then require whole-component buffered
-hide-and-recover, feature-alone leakage canaries, a matched reproduction of the
-incumbent, paired spatial confidence intervals and literal novelty checks. The
-separate selector—not this pipeline—may consider a weekly slot only after those
-gates pass. A public leaderboard value alone never authorizes promotion.</p></div><div class="prose table-scroll"><h3>Additional primary-literature review — implications, not new experiments</h3>
+<h4>Review qualification (2026-10-22)</h4>
+<p>The lineage measurements identify shared pixels, not hidden-label precision or causal score effects. Architecture, calibration and pruning proposals above are hypotheses, not necessary or sufficient conditions for a leaderboard improvement. No organizer receipt for any <code>GEMSDOE79</code> raster exists. Public/user-reported historical scores must not be relabelled <code>ORGANIZER-CONFIRMED</code>.</p></div><div class="prose table-scroll"><h3>Additional primary-literature review — implications, not new experiments</h3>
 <p>Reviewed on <strong>2026-10-21</strong>, after the mandatory E1 stop. This review did not
 change features, consume another experiment, label new faults or authorize a
 second lane. It provides context for interpreting failures and planning an

@@ -1,0 +1,92 @@
+{
+  "schema_version": "gems79-run-card-v2",
+  "generated_utc": "2026-10-22T06:30:00+00:00",
+  "branch": "arena/730d5ee7-gemsdoe79",
+  "lane": "G79-MAG",
+  "hypothesis": "Buried normal faults offsetting magnetic basement and density structure leave co-located steps in RTP magnetics and isostatic gravity, corroborated by lidar scarp where Quaternary cover is thin; a far-field (>1 km) emission isolates a population not covered by 26 near-fault dot fields.",
+  "mechanism": "Potential-field step coincidence: gradient magnitude of RTP (sigma 5 px) and isostatic gravity anomaly (sigma 5 px) from training_features.tif, rank-normalized and combined 0.5*mag+0.5*grav with lidar step_max*coh100 corroboration; emission masked to >200 m from mapped catalogue with 3 px Poisson spacing at fixed budget 37654.",
+  "named_non_fault_process": "Intrusive dike contacts and paleochannel facies boundaries step magnetics and gravity together without a fault; E-W airborne levelling seams (GeoDAWN Area 2: 400 m flight lines at 90°, 4000 m ties at 180°) can mimic a step if not cross-checked with lidar.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "headline_seed": 20,
+    "dti": 0.0045,
+    "ci95": [0.0021, 0.0078],
+    "withheld_positive_pixels": 11321,
+    "per_seed": {
+      "seed_20": {
+        "withheld_positive_pixels": 11321,
+        "candidate": {"dti": 0.0045, "ci95": [0.0021, 0.0078]},
+        "h33_foldfair_control": {"dti": 0.0961, "ci95": [0.0837, 0.1086]},
+        "uniform_control": {"dti": 0.0484, "ci95": [0.0432, 0.0537]},
+        "paired_delta_vs_h33": {"delta": -0.0916, "ci95": [-0.105, -0.078]},
+        "paired_delta_vs_uniform": {"delta": -0.0439, "ci95": [-0.049, -0.038]}
+      },
+      "seed_30": {
+        "withheld_positive_pixels": 11342,
+        "candidate": {"dti": 0.0067, "ci95": [0.0039, 0.0098]},
+        "h33_foldfair_control": {"dti": 0.0989, "ci95": [0.0842, 0.112]},
+        "uniform_control": {"dti": 0.0482, "ci95": [0.0433, 0.0522]},
+        "paired_delta_vs_h33": {"delta": -0.0922, "ci95": [-0.107, -0.078]},
+        "paired_delta_vs_uniform": {"delta": -0.0415, "ci95": [-0.047, -0.036]}
+      }
+    },
+    "caveat": "Hide-and-recover of withheld catalogue components; not a leaderboard score or projection."
+  },
+  "current_best_holdout_beaten": false,
+  "current_best_holdout_reference": "h33_foldfair_control (0.0961/0.0989)",
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "passed": true,
+    "auc": 0.6835,
+    "required_threshold": 0.90,
+    "features_cleared": 6,
+    "tests_per_seed": 12,
+    "tests": 24,
+    "worst_feature": "det_elev_gradmag_s3"
+  },
+  "correlation_overlap_vs_registry": {
+    "shared_tool": "gems57.uniqueness.compare_array_to_registry",
+    "dot_definition": "budget-matched-v3",
+    "registry_rasters": 992,
+    "final_dots": {"worst_spearman": 0.182, "worst_forward_overlap_3px": 0.644, "worst_overlap_submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif", "passed": true},
+    "limits": {"rho": 0.9, "forward_overlap_3px": 0.7}
+  },
+  "protocol_unique": true,
+  "raster_sha256": "e48a9293bae098bee570160e44aeffc511347080876ecb96bd7688946b82e40e",
+  "validator_output": {
+    "format_passed": true,
+    "no_nan_inside_footprint": true,
+    "crs_shape_transform_match": true,
+    "summary": {
+      "file": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
+      "bytes": 827102,
+      "sha256": "e48a9293bae098bee570160e44aeffc511347080876ecb96bd7688946b82e40e",
+      "meta": {"crs": "EPSG:32611", "shape": [3730, 3292], "dtype": "float32", "count": 1, "nodata": null, "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0], "profile_compress": "lzw"},
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {"single_band": true, "dtype_float32": true, "dimensions_3730x3292": true, "crs_epsg_32611": true, "transform_matches_sample_submission": true, "no_nan_anywhere": true, "no_inf_anywhere": true, "no_sentinel_values": true, "range_0_1_guaranteed": true, "min_ge_0": true, "max_le_1": true, "in_footprint_all_finite": true, "in_footprint_range_0_1": true, "outside_footprint_zero": true, "zero_dots_on_mapped_catalogue": true},
+      "all_checks_passed": true
+    }
+  },
+  "submission_name": "gems79-g79-mag-37654dots-20261022T060000Z-e48a9293",
+  "submission_note": "G79-MAG mag-grav 0.5/0.5+lidar coh, 37654 dots, HOLDOUT 0.004/0.007 vs H33 0.096, UNIQUE 0.64<0.70, PASS",
+  "submission_file": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
+  "zip_file": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip",
+  "zip_sha256": "72a76c797ba85f149980b2a74930312ea15b050bac2f91f6ef5aaa989e0d72d8",
+  "artifact_kind": "binary dot map (1.0 at 37,654 placed cells, 0.0 elsewhere, all finite)",
+  "positive_pixels": 37654,
+  "experiment_count": 1,
+  "max_experiments": 3,
+  "source_provenance_verified": true,
+  "verdict": "negative",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "selector_receipt": null,
+  "submission_slots_used": 0
+}

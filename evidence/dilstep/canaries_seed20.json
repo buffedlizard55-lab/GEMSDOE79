@@ -1,0 +1,381 @@
+{
+  "evidence_class": "LEAKAGE-CANARY",
+  "seed": 20,
+  "tests": 36,
+  "threshold": 0.9,
+  "max_symmetric_auc": 0.655422509100364,
+  "worst": {
+    "seed": 20,
+    "fold": "NW",
+    "feature": "horsetail",
+    "positive_pixels": 1923,
+    "unlabeled_negative_proxies": 100000,
+    "auc": 0.655422509100364,
+    "symmetric_auc": 0.655422509100364,
+    "suspicious": false
+  },
+  "n_suspicious": 0,
+  "passed": true,
+  "rows": [
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "z_tmi_hg",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.559283159126365,
+      "symmetric_auc": 0.559283159126365,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "z_grav_hg",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47554135725429014,
+      "symmetric_auc": 0.5244586427457099,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "z_dilate",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5242465002600103,
+      "symmetric_auc": 0.5242465002600103,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "z_thk",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5782108814352573,
+      "symmetric_auc": 0.5782108814352573,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "horsetail",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.655422509100364,
+      "symmetric_auc": 0.655422509100364,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "stepover",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.571453151326053,
+      "symmetric_auc": 0.571453151326053,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "intersection",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5450373088923558,
+      "symmetric_auc": 0.5450373088923558,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "shoreline_flag",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5151461128445138,
+      "symmetric_auc": 0.5151461128445138,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "candidate_surface",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6124477717108684,
+      "symmetric_auc": 0.6124477717108684,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "z_tmi_hg",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4712028580481622,
+      "symmetric_auc": 0.5287971419518378,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "z_grav_hg",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5376359357836924,
+      "symmetric_auc": 0.5376359357836924,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "z_dilate",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5222396324461344,
+      "symmetric_auc": 0.5222396324461344,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "z_thk",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4808888677651034,
+      "symmetric_auc": 0.5191111322348966,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "horsetail",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6310670553443178,
+      "symmetric_auc": 0.6310670553443178,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "stepover",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5538139776087876,
+      "symmetric_auc": 0.5538139776087876,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "intersection",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5179111639205746,
+      "symmetric_auc": 0.5179111639205746,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "shoreline_flag",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.504453979721166,
+      "symmetric_auc": 0.504453979721166,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "candidate_surface",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5659816751161808,
+      "symmetric_auc": 0.5659816751161808,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "z_tmi_hg",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5325639248875959,
+      "symmetric_auc": 0.5325639248875959,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "z_grav_hg",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.46457105263157894,
+      "symmetric_auc": 0.5354289473684211,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "z_dilate",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5336596574980165,
+      "symmetric_auc": 0.5336596574980165,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "z_thk",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5246167032531076,
+      "symmetric_auc": 0.5246167032531076,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "horsetail",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6512585017191219,
+      "symmetric_auc": 0.6512585017191219,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "stepover",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6103248968526844,
+      "symmetric_auc": 0.6103248968526844,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "intersection",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5577003795292251,
+      "symmetric_auc": 0.5577003795292251,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "shoreline_flag",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5101369902142291,
+      "symmetric_auc": 0.5101369902142291,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "candidate_surface",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5962974993387993,
+      "symmetric_auc": 0.5962974993387993,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "z_tmi_hg",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4944219707692308,
+      "symmetric_auc": 0.5055780292307692,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "z_grav_hg",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49442671538461536,
+      "symmetric_auc": 0.5055732846153846,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "z_dilate",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5103978046153846,
+      "symmetric_auc": 0.5103978046153846,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "z_thk",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.44922043230769226,
+      "symmetric_auc": 0.5507795676923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "horsetail",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.611495,
+      "symmetric_auc": 0.611495,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "stepover",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5560738461538461,
+      "symmetric_auc": 0.5560738461538461,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "intersection",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.531308076923077,
+      "symmetric_auc": 0.531308076923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "shoreline_flag",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5065238461538463,
+      "symmetric_auc": 0.5065238461538463,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "candidate_surface",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5315304338461538,
+      "symmetric_auc": 0.5315304338461538,
+      "suspicious": false
+    }
+  ]
+}
