@@ -508,6 +508,14 @@ Review: [`reports/session_review_9340b31a.md`](session_review_9340b31a.md). Evid
 | IR-79-219 | The official ScienceBase item JSON exposes a public heat-flow ZIP `downloadUri`, listing `130154244` bytes (124.12 MiB) and an advertised MD5; the earlier note incorrectly labeled the binary-unit size as MB. | Corrected the unit and recorded the exact URL and advertised-but-unverified MD5. Public listing is not proof of archive transfer, a local hash, suitable schema, or target-area coverage. |
 | IR-79-220 | The strict portal validator discarded the inner TIFF R1 result for ZIP inputs, so a two-band TIFF could pass as a single archive member. It also trusted raster readability without checking GTiff driver, and missing inputs or corrupt archived TIFFs could escape as tracebacks. | Fixed once in `src/gems79/portal_spec.py`: combine inner/outer R1, require GTiff, emit structured fail-closed inspection reports. Six new software-fixture cases; full suite 603 passed. No scientific raster or selector state changed. See `reports/session_review_148fa8f5.md`. |
 
+## Session `50335987` — ZIP inspector correction
+
+| ID | Finding | Resolution |
+|---|---|---|
+| IR-50335987-01 | ZIP format inspector dropped the inner TIFF single-band failure, allowing a multi-band member to pass R1. | Combine container and inner R1; regression tests require rejection for direct and zipped multi-band TIFFs. Central validator fixed, scientific template unchanged. |
+| IR-50335987-02 | A non-raster member named `.tif` in a valid ZIP raised RasterioIOError instead of a machine-readable refusal. | Return negative R1; paired direct/ZIP regression tests. |
+| IR-50335987-03 | Homepage conflated byte-distinct historical artifacts with protocol uniqueness; executive summary generalized a three-file calibration to every research TIFF. | Hero explicitly says no approved submission; narrowed calibration scope. No historical receipts or raster bytes altered. |
+
 ## Session `a201fa92` — official-format promotion gate and current input restore (2026-10-22)
 
 | ID | Verified finding | Resolution / remaining limitation |

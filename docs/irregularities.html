@@ -1676,6 +1676,33 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
+<h3>Session <code>50335987</code> — ZIP inspector correction</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-50335987-01</td>
+<td>ZIP format inspector dropped the inner TIFF single-band failure, allowing a multi-band member to pass R1.</td>
+<td>Combine container and inner R1; regression tests require rejection for direct and zipped multi-band TIFFs. Central validator fixed, scientific template unchanged.</td>
+</tr>
+<tr>
+<td>IR-50335987-02</td>
+<td>A non-raster member named <code>.tif</code> in a valid ZIP raised RasterioIOError instead of a machine-readable refusal.</td>
+<td>Return negative R1; paired direct/ZIP regression tests.</td>
+</tr>
+<tr>
+<td>IR-50335987-03</td>
+<td>Homepage conflated byte-distinct historical artifacts with protocol uniqueness; executive summary generalized a three-file calibration to every research TIFF.</td>
+<td>Hero explicitly says no approved submission; narrowed calibration scope. No historical receipts or raster bytes altered.</td>
+</tr>
+</tbody>
+</table>
 <h3>Session <code>a201fa92</code> — official-format promotion gate and current input restore (2026-10-22)</h3>
 <table>
 <thead>
