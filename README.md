@@ -105,6 +105,10 @@ already dotted, so uniqueness after the fact costs more than detector gains.
   3. Reweight the nested target by distance band.
   4. Add the absolute 3DEP DEM for shoreline suppression.
 
+## Latest repository review — 2026-10-22
+
+The current-session three-pass review and test/dependency correction are documented in [`reports/repository_review_2026-10-22_session-6302cccd.md`](reports/repository_review_2026-10-22_session-6302cccd.md). No scientific run was restarted: H79-NHR remains stopped negative under the duplicate gate, and the current TIFF remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
+
 ## Reproduce and verify
 
 ```bash
