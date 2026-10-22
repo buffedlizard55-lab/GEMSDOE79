@@ -29,8 +29,7 @@ submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summa
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
 
 Latest software review: [three-pass review, session `0c9f6bad`](reports/session_review_0c9f6bad.md).
-It hardens selector evidence checks and fixes the clean-install test dependencies;
-no new scientific experiment or submission slot was used.
+This session adds a separate [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md), records a clean-install dependency fix and confirms that no scientific experiment or submission slot was used.
 
 ## What this session found (2026-10-22, session `337ac1e9`)
 
