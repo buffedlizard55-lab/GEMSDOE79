@@ -44,6 +44,8 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 ## What changed in this review
 
+**Independent replay, session f6a01061:** [three-pass repository review](reports/session_review_f6a01061.md) reconfirms the universal novelty blocker, local TIFF format PASS, 477 passing tests, and selector refusal. No new unique TIFF or organizer score was generated.
+
 - Reconciled every canonical holdout view, both seeds, paired intervals and ablations with shared evaluator output; preserved original metadata and all scientific receipts.
 - Added a read-only evidence summary, type/interval/algebra/accounting checks, adversarial tests and receipt-derived website tables. Failed full novelty gates are red, not disguised by green sparse-only checks.
 - Restored and SHA-verified [all 13 manifest inputs](evidence/review_e4a4422d/input_restoration.json), and independently [remeasured H33](evidence/review_e4a4422d/h33_remeasurement.json). Restoration is not a scientific experiment or independent organizer authentication.
@@ -73,7 +75,7 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 ### Navigation and preserved history
 
-Latest review: [session 7d96e79d](reports/session_review_7d96e79d.md) remeasured the universal novelty blocker and local TIFF format; 477 tests passed. No new candidate or competition slot was used.
+Latest review: [session 43963905](reports/session_review_43963905.md) independently rechecked the universal novelty blocker, local TIFF format, project verifier, and site; 477 tests passed. No new candidate or competition slot was used. The preceding [session 7d96e79d review](reports/session_review_7d96e79d.md) and [session f652f0b3 review](reports/repository_review_2026-10-22_arena-f652f0b3.md) are preserved as separate session reports.
 
 [Three-pass review](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
 
