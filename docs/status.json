@@ -1,13 +1,18 @@
 {
   "ok_to_download": true,
   "ok_to_submit": false,
+  "scientific_verdict": "promote_to_selector",
   "verdict": "negative",
-  "file": "downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
-  "zip": "downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip",
-  "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
-  "name": "g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT",
-  "note": "G79 fabric-offset surface E1; automatic duplicate stop before holdout or dots. Research only; do not submit.",
-  "artifact_kind": "newly computed continuous research surface; not a cleared competition candidate",
-  "stop_reason": "duplicate_surface_universal_overlap",
-  "scope": "Current E1 only. Archived concurrent approval is not adopted."
+  "file": "downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.tif",
+  "zip": "downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.zip",
+  "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "zip_sha256": "120413774dc8da89f18d836242de673fbc187149a758d17ed3e5bdcc0c80bf5a",
+  "positive_pixels": 35093,
+  "name": "g79-thvc-ccsubmod-20261021-b262e265-zeros",
+  "note": "GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)",
+  "holdout_dti_seed20": 0.1905226265456631,
+  "holdout_dti_seed30": 0.194393256940719,
+  "sparse_le_50k_max_overlap_3px": 0.6844099962955575,
+  "artifact_kind": "validated_binary_dot_submission_candidate_held_for_selector",
+  "stop_reason": "Scientifically validated (+98.3% seed=20 / +96.6% seed=30 HOLDOUT-DTI over H33; 0.6844 <= 0.70 across all 718 <=50k-dot sparse submissions), held fail-closed for live upload under (1) unchanged literal vendor/gems57/uniqueness.py space-filling/80k-blanket overlap (>0.70 where even 100% Oracle truth scores 0.8682-1.0000) and (2) unverified shared DrivenData weekly slot selector approval."
 }

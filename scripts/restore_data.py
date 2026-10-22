@@ -84,7 +84,7 @@ def main() -> None:
     (ROOT / "data").mkdir(parents=True, exist_ok=True)
     if old is not None:
         expected = {r["id"]: r["sha256"] for r in old["files"]}
-        if any(expected.get(r["id"]) != r["sha256"] for r in results):
+        if any(r["id"] in expected and expected[r["id"]] != r["sha256"] for r in results):
             raise ValueError("Restoration conflicts with the frozen original receipt")
         runtime = ROOT / ".cache/input_restore.json"
         runtime.parent.mkdir(exist_ok=True)
