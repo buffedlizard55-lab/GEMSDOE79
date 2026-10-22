@@ -1242,5 +1242,53 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Separate PR-number groups from the production group. Keep production serialized and PR deployments disabled; retain exact public-byte verification. Added a workflow regression test. Observed cancellation alone does not authenticate a successful deployment.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>a30a4118</code> addendum (2026-10-22) — prospective <code>G79-DCMS</code> lane (<code>0.2341 / 0.2508 HOLDOUT-DTI</code>), <code>candidate_pool</code> + median-scale Dinkelbach fix, 1,201-blob audit, and 3-pass verification (<code>arena/a30a4118-gemsdoe79</code>)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a30a4118.md"><code>reports/session_review_a30a4118.md</code></a>. Ranked hypotheses &amp; PhD forensics: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_a30a4118.md"><code>research/hypotheses_a30a4118.md</code></a>. Preregistration: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_g79_dcms.json"><code>registry/preregistration_g79_dcms.json</code></a>. Canonical Run Card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card.json"><code>run_card.json</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-172</td>
+<td>Prior session <code>e4a4422d</code> produced <code>0</code> new experimental surfaces or TIFFs (<code>G79-THVC</code> <code>0.1905 / 0.1944</code>), while <code>G79-THVC</code> collided with sparse sibling <code>GEMSDOE83</code> (<code>0.7139 &gt; 0.70</code>) and suffered severe recall drop across Nevada's <code>25.5%</code> 1-m LiDAR gap (<code>0.1640</code>) and far-blind <code>&gt;1 km</code> regime (<code>0.1239</code>).</td>
+<td>Executed preregistered 3-experiment lane <code>G79-DCMS</code> (<code>EXP-DCMS-1</code>, <code>EXP-DCMS-2</code>, <code>EXP-DCMS-3</code>) on shared <code>gems57-pooled-hide-v2</code>, achieving <code>HOLDOUT-DTI = 0.2341 [0.2110, 0.2571]</code> on Seed 20 (<code>n=11,321</code>, <code>+0.0515 [+0.0341, +0.0710]</code> over <code>G79-THVC</code>, <code>+0.1380 [+0.1187, +0.1572]</code> over <code>H33</code>) and <code>0.2508 [0.2314, 0.2713]</code> on Seed 30 (<code>n=11,342</code>, <code>+0.0562 [+0.0407, +0.0731]</code> over <code>G79-THVC</code>, <code>+0.1519 [+0.1339, +0.1736]</code> over <code>H33</code>), clearing all <code>236</code> single-feature canaries (<code>max AUC = 0.8110 &lt;= 0.90</code>), pre/post rank correlation (<code>0.7302 / 0.1163 &lt;= 0.90</code>), and every <code>&lt;=45,000</code>-dot sparse sibling across all <code>92</code> repositories (<code>max = 0.6535 &lt;= 0.70</code>, reducing <code>GEMSDOE83</code> from <code>0.7139</code> to <code>0.6502 &lt;= 0.70</code>).</td>
+</tr>
+<tr>
+<td>IR-79-173</td>
+<td>Literal 3-px forward overlap (<code>&lt;= 0.70</code>) remains blocked on <code>G79-DCMS</code> (<code>36,404</code> dots, <code>d281189e…</code>) by universal/dense covers (<code>17GEMSDOE = 1.0000</code>, <code>5GEMSDOE = 1.0000</code>, <code>13GEMSDOE = 0.8380</code>), two <code>&gt;48,600</code>-dot rasters (<code>GEMSDOE53 = 0.7479</code> at <code>56,605</code> dots; <code>GEMSDOE25 = 0.7210</code> at <code>48,664</code> dots), local ancestor <code>G79-THVC</code> (<code>0.8066</code>), and <code>10</code> non-comparable entries out of <code>1,201</code>.</td>
+<td>Refused post-hoc <code>min_sep</code>/<code>damp</code> retuning or local/dense exemptions; published <code>g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif</code> (<code>140,260 B</code>, <code>d281189e…</code>) as canonical research artifact with <code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code> and <code>0</code> slots spent.</td>
+</tr>
+<tr>
+<td>IR-79-174</td>
+<td>Initial 4-quadrant live emission stopped at <code>18,497</code> pixels (<code>min_budget</code> floor) despite <code>3,305,884</code> positive-utility cells, and <code>sub_name</code> omitted <code>-DO-NOT-SUBMIT</code> relative to <code>path.stem</code> (<code>verify_project.py:392</code>).</td>
+<td>Proved <code>candidate_pool = 420_000</code> exhausted its priority heap along <code>~22.7</code>-px-wide 4-quadrant fault ribbons at <code>min_sep_px = 1.95</code> while <code>float16</code> isotonic lower-tail calibration shifted <code>q99.2</code> relative to background <code>init_tp</code>; fixed with <code>candidate_pool = 1_250_000</code>, <code>scale_ref = median(init_tp)</code>, and <code>sub_name = stem</code>, re-running <code>seed20</code>, <code>seed30</code>, and <code>live_and_audit</code> identically to emit <code>36,404</code> natural-equilibrium dots.</td>
+</tr>
+<tr>
+<td>IR-79-175</td>
+<td>Direct visual inspection of rendered PNG plots caught three inherited plotting defects: <code>20-km Block Bootstrap CI</code> wording instead of physical spatial-cluster bootstrap, a hardcoded footprint label instead of <code>int(footprint.sum())</code> (<code>5,167,373</code>), and dark <code>0.94</code> <code>Greys</code> background obscuring mapped fault lines.</td>
+<td>Fixed all three in <code>make_dcms_figures()</code> (<code>docs/figures/fig{1..4}_dcms_*.png</code>), visually re-inspected all four figures, and preserved <code>HEAD</code>'s four historical <code>G79-THVC</code> figures unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-176</td>
+<td>Promoting <code>G79-DCMS</code> to canonical required preserving superseded <code>G79-THVC</code> byte-for-byte without leaving dual upload files in <code>docs/downloads/</code> or unguarded CLI runners in <code>scripts/</code>.</td>
+<td>Archived <code>G79-THVC</code> card at <code>archive/g79_thvc_33e1f8ec/run_card_thvc.json</code> alongside its <code>.tif</code>/<code>.zip</code>/<code>.json</code>, added <code>archive_fallback</code> + <code>G79-DCMS_canonical</code> to <code>scripts/audit_post_snapshot_siblings.py</code>, supported both <code>G79-DCMS</code> and <code>G79-THVC</code> in <code>evidence_summary.py</code>, <code>verify_project.py</code>, <code>select_submission.py</code>, and <code>reproduce_artifact.py</code>, and guarded <code>scripts/run_g79_dcms.py</code> with <code>enforce_open_lane</code> (<code>exit 2</code>, <code>"No files changed."</code>).</td>
+</tr>
+<tr>
+<td>IR-79-177</td>
+<td>Two distinct Git blobs across commits in <code>GEMSDOE53</code> shared the same relative path (<code>docs/submissions/gems53-h1-thin_bin_q0p1-20261008-aefc7582.tif</code>), producing duplicate <code>submission</code> display strings in raw <code>compare_to_registry</code> output (<code>1,201</code> blobs, <code>1,200</code> distinct <code>repo:path</code> strings) and triggering <code>evidence_summary.py</code>'s strict unique-identity check.</td>
+<td>Disambiguated multi-commit path collisions as <code>repo:path@blob[:8]</code> in <code>build_combined_registry_index()</code> and both <code>1,201</code>-row uniqueness receipts without dropping any blob measurement.</td>
+</tr>
+<tr>
+<td>IR-79-178</td>
+<td>Automated test sweep (<code>pytest</code>) caught <code>0600</code> non-world-readable permissions on staged <code>docs/downloads/g79-dcms-*</code> files (<code>tempfile</code> default mask, breaking public static web serving) plus stale <code>docs/downloads/g79-thvc-*</code> relative links in historical reports after archiving <code>G79-THVC</code>.</td>
+<td>Set <code>0644</code> permissions on all <code>docs/downloads/*</code> and <code>archive/g79_thvc_33e1f8ec/downloads/*</code> artifacts (<code>0o444</code> regression-checked), updated historical report links to <code>archive/g79_thvc_33e1f8ec/downloads/*</code>, and verified every markdown link across <code>README.md</code>, <code>reports/</code>, <code>knowledge/</code>, and <code>research/</code>.</td>
+</tr>
+</tbody>
 </table></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a30a4118.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

@@ -74,6 +74,7 @@ def test_absent_card_fails_closed(tmp_path):
     ('cap_cost_g79b.py', []),
     ('build_ff_candidate.py', []),
     ('run_g79_thvc.py', ['--stage', 'seed20']),
+    ('run_g79_dcms.py', ['--stage', 'eval']),
     ('run_asym.py', ['surface']),
     ('finalize_asym.py', []),
     ('asym_surface_diagnostic.py', []),

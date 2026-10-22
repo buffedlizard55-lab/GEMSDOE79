@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "lane": "G79-DCMS",
+  "title": "Dip-Coupled Multi-Scale Scarp-to-Basement Reactivation, Pluvial/Fluvial Mimic Suppression & Calibrated Dinkelbach Submodular Kernel Allocation",
+  "created_utc": "2026-10-22T15:52:00Z",
+  "session_branch": "arena/a30a4118-gemsdoe79",
+  "status": "preregistered",
+  "supersedes_closed_lanes": [
+    "G79-FABRIC-OFFSET",
+    "G79B-SCARP-DIPOLE-GEOAND",
+    "G79-MAG",
+    "H79-MCT",
+    "H79-CSPT",
+    "H79-ASYM",
+    "H79-FGR",
+    "G79B-SDPT",
+    "G79-BER",
+    "H79-FFAS",
+    "G79-STEPCO",
+    "H79-ML-STRAIN-RELAY",
+    "H79-FF",
+    "H79-COV",
+    "G79-CFSKD",
+    "H79-DILSTEP",
+    "H79-STEP",
+    "G79-ETP",
+    "H79-MRND",
+    "H79-FNHR",
+    "H79-NHR",
+    "H80-PILOTS",
+    "G79-THVC"
+  ],
+  "incumbent_bar_to_beat_on_both_seeds": {
+    "lane": "G79-THVC",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed_20_dti": 0.190505,
+    "seed_30_dti": 0.194437,
+    "h33_foldfair_seed_20_dti": 0.096116,
+    "h33_foldfair_seed_30_dti": 0.098939
+  },
+  "protocol_constraints": {
+    "max_experiments": 3,
+    "max_wall_clock_hours": 2.0,
+    "max_rss_mb": 2200,
+    "shared_evaluator": "vendor/gems57/evaluate_holdout.py (gems57-pooled-hide-v2)",
+    "shared_writer": "vendor/gems57/submission_writer.py",
+    "shared_uniqueness": "vendor/gems57/uniqueness.py",
+    "leakage_canary_max_symmetric_auc": 0.90,
+    "spearman_full_footprint_limit": 0.90,
+    "forward_3px_overlap_limit": 0.70,
+    "post_hoc_overlap_capping_allowed": false,
+    "outer_holdout_tuning_allowed": false,
+    "private_evaluator_or_uniqueness_fork_allowed": false
+  },
+  "feature_architecture": {
+    "n_static_channels": 98,
+    "n_fold_strict_mechanics_channels": 20,
+    "total_channels": 118,
+    "groups": {
+      "A_competition_and_crustal_dip_coupling": "19 official GeoDAWN/INGENIOUS bands + 17 Fourier Laplace upward-continuation tilt/crest/Euler channels + 6 downslope dip-projected hanging-wall gravity/MT/RTP coupling & cross-depth structure-tensor strike alignment channels (42 channels)",
+      "B_hydrothermal_probes_sinter_chalcedony_radiometrics": "2-m temperature probe survey (2,782 stations), Quaternary paleogeothermal vents & strike bridges (281 vents), GDR thermal wells + chalcedony & quartz silica geothermometers, full K/Th/U/TC & Th/K, U/K, U/Th alteration channels (20 channels)",
+      "C_multiscale_1m_lidar_10m_float32_3dep_and_mimic_suppressors": "Quantile-bridged 1-m LiDAR + 10-m 3DEP morphology, all 8 float32 10-m one-sided scarp step & multi-scale HGM channels, 1-m LiDAR cross-slope alluvial channel suppressor, Pleistocene Lake Lahontan shoreline bench suppressor, TIGER road confound, bedrock chi/ksn, and 8-azimuth trace/step integrals (30 channels)",
+      "S_prequaternary_usgs_ds1052_bedrock_reactivation": "Public-domain USGS DS-1052 SGMC bedrock fault corridor proximity, GPS strain reactivation index, and 2.5-km range-front-to-basin forward strike projection (6 channels; pre-screened symmetric AUC <= 0.67 << 0.90)",
+      "D_fold_strict_multiscale_network_mechanics": "Computed strictly from fold visible_mask with zero test access: multi-scale distances (3.2, 6, 18, 45 px), densities, narrow & broad elastic crack-tip lobes, wing cracks, colinear wash bridges, long-range 6.5-km bridges, relay ramps, local visible strand azimuth alignment with topo/geophysical strike, and tip-x-scarp/gravity/hydro/bedrock interactions (20 channels)"
+    },
+    "forbidden_columns": [
+      "dist_known_fault_px",
+      "known_fault",
+      "label"
+    ]
+  },
+  "experiments": [
+    {
+      "id": "EXP-DCMS-1_pure_physics_d28",
+      "description": "Zero-catalogue 98-channel static physics & mimic-suppression ensemble (zero Quaternary fault network features) + Poisson-disk d=2.8 emission at matched 37,654-dot H33 budget"
+    },
+    {
+      "id": "EXP-DCMS-2_full_network_d28",
+      "description": "Full 118-channel ensemble trained on 5 complementary whole-component inner partitions (100% visible fault coverage + Horvitz-Thompson sample weights + 5-fold Stage-2 spatial trace/tubularity stack) + Poisson-disk d=2.8 emission at matched 37,654-dot H33 budget"
+    },
+    {
+      "id": "EXP-DCMS-3_calibrated_dinkelbach",
+      "description": "Isotonic-calibrated dual posterior heads (p_trace, q_300m) + inner-fold validated Dinkelbach fixed-point submodular kernel allocator on EXP-DCMS-2 posteriors (zero outer-fold access)"
+    }
+  ],
+  "controls": [
+    "C3_g79_thvc_incumbent",
+    "C2_h33_analogue_foldfair",
+    "C1_fabric_offset_E1_placed",
+    "C0_random_B37654"
+  ],
+  "decision_rules": {
+    "replace_canonical_research_artifact_iff": "All 118 x 2 feature-seed leakage canaries <= 0.90 AND pre/post Spearman |rho| <= 0.90 AND all sparse/informative family overlaps <= 0.70 AND EXP-DCMS-3 beats BOTH C2_h33_analogue_foldfair AND C3_g79_thvc_incumbent on BOTH seed=20 and seed=30 with strictly positive 95% paired spatial-cluster bootstrap delta CI.",
+    "weekly_slot_promotion_iff": "All automated gates in scripts/select_submission.py pass INCLUDING unmodified literal positive-support 3-px overlap <= 0.70 across all 1,201 family blobs (note: under the pinned universal witness certificate 17GEMSDOE:E-proba-multiscale covering 100.0% of allowed cells, literal overlap equals 1.0000 so ok_to_submit remains fail-closed False unless the shared family protocol changes)."
+  }
+}

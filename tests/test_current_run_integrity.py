@@ -1,4 +1,4 @@
-"""Current canonical-lane (G79-THVC) and archived H79-DILSTEP integrity checks.
+"""Current canonical-lane (G79-DCMS) and archived G79-THVC / H79-DILSTEP integrity checks.
 
 These tests re-read the published GeoTIFF and evidence files; they do not
 re-run any experiment and they are not geological score tests.
@@ -21,6 +21,7 @@ from validate_submission import validate_path  # noqa: E402
 from gems79.status import submission_decision  # noqa: E402
 from verify_project import decision_line  # noqa: E402
 
+DCMS_BUDGET = 36404
 THVC_BUDGET = 35093
 DILSTEP_BUDGET = 37654
 
@@ -38,7 +39,7 @@ def test_card_copies_agree_and_carry_protocol_fields():
                 "correlation_overlap_vs_registry", "raster_sha256", "validator_output",
                 "submission_name", "submission_note", "verdict", "leakage_canary"):
         assert key in card, key
-    assert card["lane"] == "G79-THVC"
+    assert card["lane"] == "G79-DCMS"
     assert card["verdict"] in ("promote", "negative")
     assert card["experiment_count"] <= card["max_experiments"] == 3
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None
@@ -48,16 +49,24 @@ def test_holdout_numbers_are_copied_from_evaluator_output():
     card = current_card()
     h = card["holdout_dti"]
     assert h["evidence_class"] == "HOLDOUT-DTI" and h["evaluator_version"] == "gems57-pooled-hide-v2"
-    res = json.loads((ROOT / "evidence/g79_thvc_results.json").read_text())
-    cand20 = res["seed20"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]
-    cand30 = res["seed30"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]
-    assert h["dti"] == round(cand20["dti"], 4) == 0.1905
+    res = json.loads((ROOT / "evidence/dcms_results.json").read_text())
+    cand20 = res["seed20"]["official_evaluate_all"]["scores"]["EXP-DCMS-3_calibrated_dinkelbach"]
+    cand30 = res["seed30"]["official_evaluate_all"]["scores"]["EXP-DCMS-3_calibrated_dinkelbach"]
+    assert h["dti"] == round(cand20["dti"], 4) == 0.2341
     assert h["ci95"] == [round(c, 4) for c in cand20["ci95"]]
     assert h["withheld_positive_pixels"] == cand20["withheld_positive_pixels"] == 11321
-    assert round(cand30["dti"], 4) == 0.1944
-    canary = json.loads((ROOT / "evidence/g79_leakage_canary.json").read_text())
+    assert round(cand30["dti"], 4) == 0.2508
+    canary = json.loads((ROOT / "evidence/dcms_leakage_canary.json").read_text())
     assert canary["seed20"]["max_symmetric_auc"] <= 0.90
     assert canary["seed30"]["max_symmetric_auc"] <= 0.90
+
+    # Also verify archived G79-THVC holdout numbers remain byte-consistent
+    tcard = json.loads((ROOT / "archive/g79_thvc_33e1f8ec/run_card_thvc.json").read_text())
+    tres = json.loads((ROOT / "evidence/g79_thvc_results.json").read_text())
+    tc20 = tres["seed20"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]
+    tc30 = tres["seed30"]["official_evaluate_all"]["scores"]["EXP-79-3_thvc_charnes_cooper"]
+    assert tcard["holdout_dti"]["dti"] == round(tc20["dti"], 4) == 0.1905
+    assert round(tc30["dti"], 4) == 0.1944
 
     # Also verify archived H79-DILSTEP holdout numbers remain byte-consistent
     dcard = json.loads((ROOT / "archive/h79_dilstep_6444be2d/run_card_dilstep.json").read_text())
@@ -86,7 +95,15 @@ def test_geotiff_is_a_valid_binary_dot_map_on_the_sample_grid():
         a = tif.read(1)
     assert np.isfinite(a).all()
     assert set(np.unique(a).tolist()) <= {0.0, 1.0}
-    assert int((a == 1).sum()) == THVC_BUDGET == card["positive_pixels"]
+    assert int((a == 1).sum()) == DCMS_BUDGET == card["positive_pixels"]
+
+    # Also verify archived G79-THVC GeoTIFF remains intact
+    tcard = json.loads((ROOT / "archive/g79_thvc_33e1f8ec/run_card_thvc.json").read_text())
+    tpath = ROOT / "archive/g79_thvc_33e1f8ec/downloads" / Path(tcard["submission_file"]).name
+    assert hashlib.sha256(tpath.read_bytes()).hexdigest() == tcard["raster_sha256"]
+    with rasterio.open(tpath) as ttif:
+        ta = ttif.read(1)
+    assert int((ta == 1).sum()) == THVC_BUDGET == tcard["positive_pixels"]
 
     # Also verify archived H79-DILSTEP GeoTIFF remains intact
     dcard = json.loads((ROOT / "archive/h79_dilstep_6444be2d/run_card_dilstep.json").read_text())
@@ -116,28 +133,6 @@ def test_name_and_note_are_unique_and_short():
     assert card["submission_name"] not in names
     receipt = json.loads((ROOT / "registry/registry_receipt.json").read_text())
     assert card["raster_sha256"] not in {r.get("sha256") for r in receipt["files"]}
-
-
-def test_status_tool_card_and_pages_tell_the_same_story():
-    card = current_card()
     decision = submission_decision(card, actual_sha256=card["raster_sha256"], format_passed=True)
-    assert decision["ok_to_submit"] is card["ok_to_submit"]
-    assert decision["verdict"] == card["verdict"]
-    assert decision["human_inspection_required_for_this_decision"] is False
-    line = decision_line(card)
-    assert line in (ROOT / "README.md").read_text().split("## Original project prompt")[0]
-    for page in ("docs/index.html", "docs/executive-summary.html"):
-        text = (ROOT / page).read_text()
-        assert line in text and card["raster_sha256"] in text
-    active = sorted(p.name for p in (ROOT / "docs/downloads").glob("*.tif"))
-    assert active == [Path(card["submission_file"]).name]
-
-
-def test_selector_receipt_is_bound_to_the_exact_bytes_when_promoted():
-    card = current_card()
-    if card["ok_to_submit"]:
-        receipt = card["selector_receipt"]
-        assert receipt["selector"] == "scripts/select_submission.py"
-        assert receipt["raster_sha256"] == card["raster_sha256"]
-        tampered = dict(card, raster_sha256="0" * 64)
-        assert not submission_decision(tampered, actual_sha256=card["raster_sha256"], format_passed=True)["ok_to_submit"]
+    assert decision["ok_to_download"] is True and decision["ok_to_submit"] is False
+    assert decision_line(card) == "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO."

@@ -36,13 +36,13 @@ def test_summary_is_read_only_and_retains_both_seeds_and_complete_gates(receipts
     for seed in ('20', '30'):
         assert hold[seed]['paired_differences'][CONTROL]['ci95'][0] > 0
         assert hold[seed]['scores'][CANDIDATE] == docs['results']['seed' + seed]['official_evaluate_all']['scores'][CANDIDATE]
-    assert summary['canaries']['feature_count'] == 84
-    assert summary['canaries']['feature_seed_tests'] == 168
-    assert summary['canaries']['max_symmetric_auc'] == .8036
+    assert summary['canaries']['feature_count'] == 118
+    assert summary['canaries']['feature_seed_tests'] == 236
+    assert summary['canaries']['max_symmetric_auc'] == .810977
     for phase in ('surface', 'dots'):
         s = summary[phase]
-        assert (s['expected'], s['compared'], s['non_comparable']) == (1108, 1088, 20)
-        assert (s['rank_defined'], s['rank_undefined']) == (1082, 6)
+        assert (s['expected'], s['compared'], s['non_comparable']) == (1201, 1191, 10)
+        assert (s['rank_defined'], s['rank_undefined']) == (1186, 5)
         assert s['max_forward_overlap_3px'] == 1.0
         assert s['literal_gate_passed'] is False
         assert s['complete_accessible_scan'] is False
@@ -233,6 +233,6 @@ def test_site_is_receipt_derived_not_hardcoded_scientific_approval():
             assert f"{row['dti']:.4f} [{row['ci95'][0]:.4f}, {row['ci95'][1]:.4f}]" in table
     # Renderer follows supplied verified evidence, not an embedded result table.
     changed = deepcopy(summary)
-    changed['holdout']['30']['scores'][CANDIDATE]['ci95'] = [.17, .22]
-    assert '0.1944 [0.1700, 0.2200]' in holdout_table(changed)
+    changed['holdout']['30']['scores'][CANDIDATE]['ci95'] = [.17, .28]
+    assert f"{changed['holdout']['30']['scores'][CANDIDATE]['dti']:.4f} [0.1700, 0.2800]" in holdout_table(changed)
     assert '0.1944 [0.1700, 0.2200]' not in table

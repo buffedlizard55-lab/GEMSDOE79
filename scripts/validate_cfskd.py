@@ -21,7 +21,7 @@ def main():
       "crs_epsg32611":meta["crs"]=="EPSG:32611","transform_matches":meta["transform"]==[100.0,0.0,243350.0,0.0,-100.0,4508550.0],
       "no_nan_inf":bool(np.isfinite(a).all()),"range_0_1":bool(a.min()>=0 and a.max()<=1),"binary":set(np.unique(a).tolist())<={0.0,1.0},
       "outside_footprint_zero":int((a[~fp]!=0).sum())==0,"zero_on_catalogue":int((cand&cat).sum())==0}
-    refs={"G79-THVC":ROOT/"docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    refs={"G79-THVC":ROOT/"archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
           "H79-FNHR":ROOT/"archive/h79_fnhr_a57e2a7f/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",
           "H79-NHR":ROOT/"archive/h79_nhr_337ac1e9/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
           "G79-MAG":ROOT/"archive/g79_mag_730d5ee7/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif"}

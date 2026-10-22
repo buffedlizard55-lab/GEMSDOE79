@@ -2,7 +2,7 @@
 
 ## Outcome
 
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** The repository already contains a newly generated, byte-unique research GeoTIFF at [`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`](../docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif), SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`. The automated decision is negative because literal registry novelty fails, the selector has not approved a slot, and no organizer receipt is bound to this artifact. This review did not upload a file or spend a weekly slot.
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** The repository already contains a newly generated, byte-unique research GeoTIFF at [`archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`](../archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif), SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`. The automated decision is negative because literal registry novelty fails, the selector has not approved a slot, and no organizer receipt is bound to this artifact. This review did not upload a file or spend a weekly slot.
 
 This is not a contradiction: the bytes are absent from the pinned registry, but the required spatial novelty gate is stricter than byte uniqueness. The machine-readable final card remains [`run_card.json`](../run_card.json); no second run card was created.
 

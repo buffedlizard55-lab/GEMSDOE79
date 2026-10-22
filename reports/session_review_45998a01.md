@@ -4,7 +4,7 @@
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 
-[Existing research TIFF](../docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)
+[Existing research TIFF](../archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)
 · [Submission guide](../docs/executive-summary.html)
 · [Fresh validator result](../evidence/validator_45998a01.json)
 · [Fresh gate preflight](../evidence/preflight_45998a01.json)

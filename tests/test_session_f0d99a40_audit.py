@@ -33,8 +33,8 @@ def test_readme_single_prompt_heading_and_verbatim_prompt_restored(tmp_path):
     for d in ("docs/downloads", "submissions", "registry", "reports"):
         (tmp_path / d).mkdir(parents=True, exist_ok=True)
     for rel in (
-        "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-        "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip",
+        card["submission_file"],
+        card["zip_file"],
         "registry/registry_index.json",
         "registry/registry_receipt.json",
         "reports/irregularities.md",

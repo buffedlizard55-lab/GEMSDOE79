@@ -204,9 +204,14 @@ def thvc_evidence_checks(root, card):
         'passed': canary['passed'], 'features_cleared': canary['feature_count'],
         'required_threshold': canary['threshold'], 'n_features_tested': canary['feature_count'],
         'n_suspicious_gt_0p90': 0, 'max_feature': canary['max_feature'],
-        'source': 'evidence/g79_leakage_canary.json',
+        'source': 'evidence/dcms_leakage_canary.json' if card.get('lane') == 'G79-DCMS' else 'evidence/g79_leakage_canary.json',
     }
-    # These legacy card aliases use six-digit rho rounding. The full-precision
+    dots_all_key = (
+        'dots_all_1191_literal_unchanged_uniqueness_py'
+        if card.get('lane') == 'G79-DCMS'
+        else 'dots_all_1088_literal_unchanged_uniqueness_py'
+    )
+    # These card aliases use six-digit rho rounding. The full-precision
     # derived summary is used for the site; diagnostic subsets never approve.
     registry_aliases = (
         (u['registry_rasters_expected'], dots['expected']),
@@ -217,14 +222,19 @@ def thvc_evidence_checks(root, card):
         (u['surface_before_placement']['literal_max_forward_overlap_3px'], surface['max_forward_overlap_3px']),
         (u['dots_comparable_sparse_budget_le_50k']['checked_sparse_rasters'], dots['sparse_diagnostic']['compared']),
         (u['dots_comparable_sparse_budget_le_50k']['max_forward_overlap_3px'], dots['sparse_diagnostic']['max_forward_overlap_3px']),
-        (u['dots_all_1088_literal_unchanged_uniqueness_py']['max_abs_spearman'], round(dots['max_abs_spearman'], 6)),
-        (u['dots_all_1088_literal_unchanged_uniqueness_py']['literal_max_forward_overlap_3px'], dots['max_forward_overlap_3px']),
-        (u['dots_all_1088_literal_unchanged_uniqueness_py']['max_jaccard_dot_sets'], dots['max_jaccard_diagnostic']),
+        (u[dots_all_key]['max_abs_spearman'], round(dots['max_abs_spearman'], 6)),
+        (u[dots_all_key]['literal_max_forward_overlap_3px'], dots['max_forward_overlap_3px']),
+        (u[dots_all_key]['max_jaccard_dot_sets'], dots['max_jaccard_diagnostic']),
+    )
+    beats_target = (
+        summary['thvc_incumbent_beaten_both_seeds'] and summary['h33_control_beaten_both_seeds']
+        if card.get('lane') == 'G79-DCMS'
+        else summary['h33_control_beaten_both_seeds']
     )
     out = {
         'holdout_card_equals_evaluator_output': all(same_json(card.get(k), v) for k, v in expected.items()),
         'holdout_beats_h33_control_both_seeds': summary['h33_control_beaten_both_seeds'],
-        'holdout_beats_flag_matches_evidence': card.get('current_best_holdout_beaten') is summary['h33_control_beaten_both_seeds'],
+        'holdout_beats_flag_matches_evidence': card.get('current_best_holdout_beaten') is beats_target,
         'all_feature_canaries_reconciled': same_json(card['leakage_canary'], expected_canary),
         'registry_metadata_aliases_reconciled': all(same_json(a, b) for a, b in registry_aliases),
         'leakage_canary_clear': canary['passed'],
@@ -232,6 +242,8 @@ def thvc_evidence_checks(root, card):
         'promotion_requires_uniqueness': card['verdict'] != 'promote' or literal_unique,
         'preregistration_hash_matches_card': sha(root / card['preregistration_path']) == card['preregistration_sha256'],
     }
+    if card.get('lane') == 'G79-DCMS':
+        out['holdout_beats_thvc_incumbent_both_seeds'] = summary['thvc_incumbent_beaten_both_seeds']
     return out
 
 
@@ -276,7 +288,7 @@ def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
     root = Path(root)
     lane = card.get('lane')
-    if lane == 'G79-THVC':
+    if lane in ('G79-DCMS', 'G79-THVC'):
         return thvc_evidence_checks(root, card)
     if lane == 'H79-DILSTEP':
         return dilstep_evidence_checks(root, card)

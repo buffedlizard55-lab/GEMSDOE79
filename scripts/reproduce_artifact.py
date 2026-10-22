@@ -33,13 +33,12 @@ NHR_ARCHIVE = Path('archive/h79_nhr_337ac1e9/downloads/gems79-h79-nhr-research-3
 NHR_RASTER_SHA256 = 'abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2'
 
 
-def reproduce_thvc(root: Path = ROOT) -> dict:
-    card = json.loads((root / 'run_card.json').read_text())
-    if card.get('lane') != 'G79-THVC':
-        raise ValueError('run_card.json is not G79-THVC')
+THVC_ARCHIVE = Path('archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif')
+
+
+def _reproduce_binary_card(root: Path, card: dict, original: Path, label: str) -> dict:
     if card['verdict'] != 'negative' or card['ok_to_submit']:
         raise ValueError('This command only recovers the existing stopped negative artifact')
-    original = root / card['submission_file']
     original_receipt = json.loads(original.with_suffix('.json').read_text())
     grid = load_grid(root / 'data/reference')
     with rasterio.open(original) as ds:
@@ -47,7 +46,7 @@ def reproduce_thvc(root: Path = ROOT) -> dict:
     dots = (decoded > 0) & grid.footprint & (~grid.catalogue)
     dots_sha256 = hashlib.sha256(dots.tobytes()).hexdigest()
     prediction = np.where(dots, np.float32(1.0), np.float32(0.0))
-    with tempfile.TemporaryDirectory(prefix='g79-thvc-byte-recovery-') as tmp:
+    with tempfile.TemporaryDirectory(prefix=f'g79-{label.lower()}-byte-recovery-') as tmp:
         receipt = write_submission(
             Path(tmp) / original.name,
             prediction,
@@ -59,7 +58,7 @@ def reproduce_thvc(root: Path = ROOT) -> dict:
             metadata=original_receipt['metadata'],
         )
         if receipt['sha256'] != card['raster_sha256'] or receipt['zip_sha256'] != original_receipt['zip_sha256']:
-            raise ValueError('Recovered THVC TIFF/ZIP bytes differ; originals remain unchanged')
+            raise ValueError(f'Recovered {label} TIFF/ZIP bytes differ; originals remain unchanged')
     return {
         'verified_utc': datetime.now(timezone.utc).isoformat(),
         'lane': card['lane'],
@@ -77,10 +76,27 @@ def reproduce_thvc(root: Path = ROOT) -> dict:
         'original_artifacts_and_run_card_not_overwritten': True,
         'archived_e1_reproduction': ARCHIVED_E1_REPRODUCTION,
         'scope': (
-            'Private deterministic reserialization of the canonical stopped G79-THVC field '
+            f'Private deterministic reserialization of the stopped {card["lane"]} field '
             '(with archived E1 reserialization preserved); not a new candidate or scientific evaluation.'
         ),
     }
+
+
+def reproduce_dcms(root: Path = ROOT) -> dict:
+    card = json.loads((root / 'run_card.json').read_text())
+    if card.get('lane') != 'G79-DCMS':
+        raise ValueError('run_card.json is not G79-DCMS')
+    return _reproduce_binary_card(root, card, root / card['submission_file'], 'dcms')
+
+
+def reproduce_thvc(root: Path = ROOT) -> dict:
+    live = json.loads((root / 'run_card.json').read_text())
+    if live.get('lane') == 'G79-THVC':
+        card, original = live, root / live['submission_file']
+    else:
+        card = json.loads((root / 'archive/g79_thvc_33e1f8ec/run_card_thvc.json').read_text())
+        original = root / THVC_ARCHIVE
+    return _reproduce_binary_card(root, card, original, 'thvc')
 
 
 def _nhr_original(root: Path) -> tuple[dict, Path]:
@@ -210,7 +226,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         '--lane',
-        choices=('canonical', 'thvc', 'nhr', 'e1'),
+        choices=('canonical', 'dcms', 'thvc', 'nhr', 'e1'),
         default='canonical',
         help='Which stopped artifact to reserialize in a temporary directory (default: canonical).',
     )
@@ -220,13 +236,18 @@ def main(argv: list[str] | None = None) -> int:
         help='Print verification JSON without updating evidence/artifact_reproduction.json.',
     )
     args = parser.parse_args(argv)
-    if args.lane in ('canonical', 'thvc'):
+    if args.lane == 'canonical':
+        live_lane = json.loads((ROOT / 'run_card.json').read_text()).get('lane')
+        report = reproduce_dcms(ROOT) if live_lane == 'G79-DCMS' else reproduce_thvc(ROOT)
+    elif args.lane == 'dcms':
+        report = reproduce_dcms(ROOT)
+    elif args.lane == 'thvc':
         report = reproduce_thvc(ROOT)
     elif args.lane == 'nhr':
         report = reproduce_nhr(ROOT)
     else:
         report = reproduce_e1(ROOT)
-    if args.lane in ('canonical', 'thvc') and not args.no_write_evidence:
+    if args.lane in ('canonical', 'dcms', 'thvc') and not args.no_write_evidence:
         (ROOT / 'evidence/artifact_reproduction.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
     return 0

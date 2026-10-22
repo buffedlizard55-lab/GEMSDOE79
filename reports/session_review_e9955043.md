@@ -4,7 +4,7 @@
 
 - **Active Branch**: `arena/e9955043-gemsdoe79`
 - **Session Timestamp**: 2026-10-22 UTC
-- **Current Canonical Artifact**: `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif` (SHA-256: `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`)
+- **Current Canonical Artifact**: `archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif` (SHA-256: `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`)
 - **Automated Verification Decision**: **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**
 - **Human Intervention Required**: **NO** (decision derived automatically by `scripts/submission_status.py` and `scripts/verify_project.py` exiting with strict automated exit codes).
 - **Core Values Upheld**: Maximize P(Win) and Own the Outcome.

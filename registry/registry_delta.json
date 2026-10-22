@@ -1,5 +1,5 @@
 {
-  "built_utc": "2026-10-22T04:31:19.441380+00:00",
+  "built_utc": "2026-10-22T15:35:58.821940+00:00",
   "base_index_built_utc": "2026-10-21T21:46:59.059053+00:00",
   "method": "blobless git clones across all accessible non-self GEMS* owner repositories incl. refs/heads, refs/tags, refs/pull; unique root-tree ls-tree -r -z traversal (fixing promisor ?<oid> path omission in rev-list --missing=allow-promisor); batched Git Smart-HTTP blob verification; same is_prediction() filter",
   "repositories": [
@@ -386,7 +386,7 @@
     {
       "repo": "GEMSDOE78",
       "status": "ok",
-      "refs": 48
+      "refs": 52
     },
     {
       "repo": "GEMSDOE80",
@@ -465,7 +465,7 @@
     }
   ],
   "n_repositories_scanned": 92,
-  "n_new_rasters": 207,
+  "n_new_rasters": 209,
   "rasters": [
     {
       "repo": "16GEMSDOE",
@@ -2003,6 +2003,17 @@
     },
     {
       "repo": "GEMSDOE78",
+      "path": "docs/downloads/gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif",
+      "blob": "2016b3dce36d3e25e2630a569434e7d1db08b615",
+      "size": 147086,
+      "sha256": "0338383df9c36c0a2581ddc584e6aafa5ce364ba52cd9e56749628bc4301dd07",
+      "aliases": [
+        "GEMSDOE78:docs/downloads/gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif",
+        "GEMSDOE78:submissions/gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif"
+      ]
+    },
+    {
+      "repo": "GEMSDOE78",
       "path": "docs/downloads/gems78-h78a-strike-steered-44090dots-20261021T223126Z-cefe8ce1-zeros.tif",
       "blob": "9cf4e1cadd7dfabe6adfef8c6adcc14e57006bd6",
       "size": 154181,
@@ -2059,6 +2070,16 @@
       "sha256": "e2f21d496925fb1bd2f36c5b28a0e2356286eca719132545474456f81bc5a8eb",
       "aliases": [
         "GEMSDOE78:docs/downloads/gems78-h78gsc-oof-submod40k-20261021T033000Z-zeros.tif"
+      ]
+    },
+    {
+      "repo": "GEMSDOE78",
+      "path": "docs/downloads/gems78-h78mghd-dualcover-44090dots-20261022T032500Z-1045873e-DO-NOT-SUBMIT.tif",
+      "blob": "d6adb232c81ab8f609f391f9741edb3432210f45",
+      "size": 158254,
+      "sha256": "44429c439118a6e20f77f6da821ecd4e46697da0545314d20b65e81766d8b698",
+      "aliases": [
+        "GEMSDOE78:docs/downloads/gems78-h78mghd-dualcover-44090dots-20261022T032500Z-1045873e-DO-NOT-SUBMIT.tif"
       ]
     },
     {

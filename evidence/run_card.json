@@ -1,30 +1,32 @@
 {
   "schema_version": 2,
-  "lane": "G79-THVC",
-  "generated_utc": "2026-10-22T03:57:42Z",
-  "preregistration_path": "registry/preregistration_g79_thvc.json",
-  "preregistration_sha256": "134b97e2cd70b0f20a92117f00dcf55ed067e5caaf0c4803887216fa8cede88c",
+  "lane": "G79-DCMS",
+  "generated_utc": "2026-10-22T21:04:14Z",
+  "preregistration_path": "registry/preregistration_g79_dcms.json",
+  "preregistration_sha256": "97b85a03b4e5b1ffbdbfcdb0d967b6365d8af353bbe36af95655e9ed63264550",
   "prior_archived_lanes": [
-    "archive/g79_fabric_offset_f61b17a2/run_card_f61b17a2.json",
-    "archive/h79_mct_c26efec/run_card_c26efec.json",
+    "archive/g79_thvc_33e1f8ec/run_card_thvc.json",
+    "archive/h79_dilstep_6444be2d/run_card_dilstep.json",
+    "archive/h79_step_21642326/run_card_step.json",
     "archive/h79_nhr/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.json",
-    "archive/h79_step_21642326/run_card_step.json"
+    "archive/g79_fabric_offset_f61b17a2/run_card_f61b17a2.json",
+    "archive/h79_mct_c26efec/run_card_c26efec.json"
   ],
-  "hypothesis": "H79-H1 (G79-THVC): Unmapped Quaternary geothermal conduit and relay faults in the Great Basin produce a coupled multi-physics signature combining (i) multi-scale detrended 1-m 3DEP LiDAR scarp steps where available and multi-scale TPI/slope breaks across the 24.99% Nevada LiDAR gap, (ii) basement-depth-steered Bouguer/isostatic gravity gradients and magnetic hydrothermal demagnetization + Smectite clay alteration lows, (iii) DOE GDR 1391 (DOI: 10.15121/1881483) 2-m shallow temperature probe positive residuals, Quaternary sinter/travertine/tufa deposits, geothermometry spring clusters, and volcanic vent conduits, and (iv) fold-fair Mode-II/III crack-tip stress propagation lobes ahead of visible fault terminations.",
-  "mechanism": "Two-stage nested spatial ensemble estimates exact-pixel and 300-m kernel-credit surrogate surfaces on 84 physical and visible-catalogue channels. A fixed-penalty lazy-greedy kernel-cover allocator uses lambda_fp=0.0022, min_sep_px=1.9 and a budget cap chosen on inner simulated data. The historical Charnes-Cooper name is an identifier, not a proof of exact fractional-programming optimality.",
-  "named_non_fault_mimic": "Pleistocene pluvial paleo-shoreline wave-cut benches (Lake Lahontan and Lake Bonneville), fluvial terrace risers along the Humboldt/Carson/Walker rivers, welded ash-flow caldera cooling joints, and down-gradient lateral thermal outflow plumes in permeable alluvial fans.",
+  "hypothesis": "H79-DCMS (Dip-Coupled Multi-Scale Scarp, Bedrock Reactivation & Hydrothermal Conduit Network): Unmapped Quaternary geothermal conduit, splay, and basin-bounding faults across the Great Basin produce a coupled structural signature combining (i) multi-scale 10-m USGS 3DEP DEM scarp steps (100 m, 300 m, 700 m, 1,500 m) closing the 25.5% Nevada 1-m LiDAR gap plus strike-steered scarp anisotropy, (ii) USGS DS-1052 State Geologic Map Compilation pre-Quaternary bedrock fault reactivation corridors, (iii) DOE GDR 1391 2-m shallow temperature residuals, Quaternary sinter/travertine/tufa upflow vents, spring clusters, and volcanic vent conduits, and (iv) fold-fair multi-scale crack-tip and colinear relay fields coupled multiplicatively with scarp prominence, SGMC bedrock structure, geodetic dilatation/shear rate, and hydrothermal alteration.",
+  "mechanism": "Two-stage nested spatially-blocked 4-quadrant OOF ensemble (Stage-1 LightGBM + Stage-2 LightGBM + standard-scaled MLP with pooled OOF isotonic probability calibration) estimates exact-pixel posterior p(x) and 300-m triangular-kernel credit q_300m(x) over 118 physical and fold-fair visible-catalogue channels (zero fold leakage). A median-scale Dinkelbach submodular 300-m kernel allocator selects non-overlapping fault pixels on inner simulated worlds (lambda_fp=0.235, min_sep_px=1.85, max_budget=37500), emitting 36,404 natural-equilibrium pixels across all 4 quadrants.",
+  "named_non_fault_mimic": "Pleistocene pluvial paleo-shoreline wave-cut benches (Lake Lahontan and Lake Bonneville), fluvial terrace risers along the Humboldt/Carson/Walker rivers, welded ash-flow caldera cooling joints, erosional range-front pediment breaks above non-faulted bedrock contacts, and down-gradient lateral thermal outflow plumes in permeable alluvial fans.",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
-    "dti": 0.1905,
+    "dti": 0.2341,
     "ci95": [
-      0.1741,
-      0.2069
+      0.211,
+      0.2571
     ],
     "withheld_positive_pixels": 11321,
-    "tpw": 3169.2555486038837,
-    "fpw": 34719.4259870535,
-    "fnw": 8151.744451396112,
+    "tpw": 3345.2751734382323,
+    "fpw": 22812.056229694917,
+    "fnw": 7975.724826561767,
     "seed": 20,
     "headline_seed": 20,
     "bootstrap_block_km": 20.0,
@@ -34,19 +36,19 @@
       0.08310859732830818,
       0.108974692419136
     ],
-    "delta_vs_h33": 0.09443643237762764,
+    "delta_vs_h33": 0.13804124353055147,
     "delta_vs_h33_ci95": [
-      0.0784041686960939,
-      0.10976638549307034
+      0.11865098322079758,
+      0.15724011031038898
     ],
-    "source_pointer": "evidence/g79_thvc_results.json#/seed20/official_evaluate_all",
+    "source_pointer": "evidence/dcms_results.json#/seed20/official_evaluate_all",
     "per_seed": {
       "seed_20": {
         "candidate": {
-          "dti": 0.1905,
+          "dti": 0.2341,
           "ci95": [
-            0.1741,
-            0.2069
+            0.211,
+            0.2571
           ]
         },
         "withheld_positive_pixels": 11321,
@@ -60,10 +62,10 @@
       },
       "seed_30": {
         "candidate": {
-          "dti": 0.1944,
+          "dti": 0.2508,
           "ci95": [
-            0.1774,
-            0.2126
+            0.2314,
+            0.2713
           ]
         },
         "withheld_positive_pixels": 11342,
@@ -80,67 +82,80 @@
   "secondary_holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
-    "dti": 0.194393256940719,
+    "dti": 0.2508266955356545,
     "ci95": [
-      0.17737153457292731,
-      0.21255176939122447
+      0.2313699597829554,
+      0.2712768085262344
     ],
     "withheld_positive_pixels": 11342,
-    "tpw": 3232.9798237854575,
-    "fpw": 34554.677802018094,
-    "fnw": 8109.020176214538,
+    "tpw": 4142.709500965242,
+    "fpw": 33070.402770961264,
+    "fnw": 7199.290499034755,
     "seed": 30,
     "matched_h33_analogue_dti": 0.09889767286222764,
     "matched_h33_analogue_ci95": [
       0.08541218338164393,
       0.11276233290508292
     ],
-    "delta_vs_h33": 0.09549558407849135,
+    "delta_vs_h33": 0.15192902267342687,
     "delta_vs_h33_ci95": [
-      0.07780498406744313,
-      0.1132771899425494
+      0.13388880543553255,
+      0.17356069197634866
     ],
-    "source_pointer": "evidence/g79_thvc_results.json#/seed30/official_evaluate_all"
+    "source_pointer": "evidence/dcms_results.json#/seed30/official_evaluate_all"
   },
   "ablation_ladder_seed20": {
-    "EXP-79-3_thvc_charnes_cooper": {
+    "EXP-DCMS-3_calibrated_dinkelbach": {
       "evidence_class": "HOLDOUT-DTI",
       "evaluator_version": "gems57-pooled-hide-v2",
-      "dti": 0.1905226265456631,
+      "dti": 0.23412743769858693,
       "ci95": [
-        0.1740976470216742,
-        0.2069448642000691
+        0.2109549337604297,
+        0.25705631717476063
       ],
       "withheld_positive_pixels": 11321,
-      "tpw": 3169.2555486038837,
-      "fpw": 34719.4259870535,
-      "fnw": 8151.744451396112
+      "tpw": 3345.2751734382323,
+      "fpw": 22812.056229694917,
+      "fnw": 7975.724826561767
     },
-    "EXP-79-2_thvc_uniform_d28": {
+    "EXP-DCMS-2_full_network_d28": {
       "evidence_class": "HOLDOUT-DTI",
       "evaluator_version": "gems57-pooled-hide-v2",
-      "dti": 0.16965457237174253,
+      "dti": 0.229261552647353,
       "ci95": [
-        0.15211873054477226,
-        0.18756268498599524
+        0.2071634888461023,
+        0.2520931974660768
       ],
       "withheld_positive_pixels": 11321,
-      "tpw": 2741.7833886669514,
-      "fpw": 32779.09414387692,
-      "fnw": 8579.216611333048
+      "tpw": 3750.8803354214488,
+      "fpw": 32768.63822468797,
+      "fnw": 7570.119664578547
     },
-    "EXP-79-1_pure_zero_catalogue": {
+    "EXP-DCMS-1_pure_physics_d28": {
       "evidence_class": "HOLDOUT-DTI",
       "evaluator_version": "gems57-pooled-hide-v2",
-      "dti": 0.07840230146692762,
+      "dti": 0.15248647478349686,
       "ci95": [
-        0.06612291900419255,
-        0.08983371883142646
+        0.131801809658663,
+        0.17425897419655337
       ],
       "withheld_positive_pixels": 11321,
-      "tpw": 1263.5882243531998,
-      "fpw": 34036.02990363109,
-      "fnw": 10057.4117756468
+      "tpw": 2459.5385433859506,
+      "fpw": 32904.222081877655,
+      "fnw": 8861.46145661405
+    },
+    "C3_g79_thvc_incumbent": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.18261895145297036,
+      "ci95": [
+        0.16701010445004272,
+        0.1989905072444717
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 3036.748551585436,
+      "fpw": 34823.64931687695,
+      "fnw": 8284.251448414558
     },
     "C2_h33_analogue_foldfair": {
       "evidence_class": "HOLDOUT-DTI",
@@ -182,89 +197,154 @@
       "fnw": 10510.155796152587
     }
   },
+  "incumbent_comparison_thvc": {
+    "seed_20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.051508486245616575,
+      "ci95": [
+        0.034134858697094386,
+        0.07100939317498225
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "seed_30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.05616506898145188,
+      "ci95": [
+        0.040719681549932406,
+        0.07308067169947052
+      ],
+      "withheld_positive_pixels": 11342
+    }
+  },
   "leakage_canary": {
     "evidence_class": "LEAKAGE-CANARY",
-    "auc": 0.8036,
+    "auc": 0.810977,
     "passed": true,
-    "features_cleared": 84,
+    "features_cleared": 118,
     "required_threshold": 0.9,
-    "n_features_tested": 84,
+    "n_features_tested": 118,
     "n_suspicious_gt_0p90": 0,
-    "max_feature": "net_tip_fwd_35px",
-    "source": "evidence/g79_leakage_canary.json"
+    "max_feature": "net_tip_long_65px",
+    "source": "evidence/dcms_leakage_canary.json"
   },
   "correlation_overlap_vs_registry": {
-    "registry_rasters_expected": 1108,
-    "registry_rasters_checked_full_grid": 1088,
-    "repositories_scanned": 93,
+    "registry_rasters_expected": 1201,
+    "registry_rasters_checked_full_grid": 1191,
+    "repositories_scanned": 92,
     "surface_before_placement": {
-      "checked_nonconstant": 1082,
-      "max_abs_spearman": 0.771236,
+      "checked_nonconstant": 1186,
+      "max_abs_spearman": 0.730243,
       "spearman_limit": 0.9,
       "spearman_passed": true,
       "literal_max_forward_overlap_3px": 1.0,
       "universal_dense_witness": "17GEMSDOE:E-proba-multiscale-20261001T000000Z-f2ef3065.tif (5,167,373 positive px = 100.0% footprint coverage)",
-      "receipt_path": "evidence/g79_surface_uniqueness_1108.json"
+      "receipt_path": "evidence/dcms_surface_uniqueness_1201.json"
+    },
+    "dots_comparable_sparse_budget_le_45k_diagnostic": {
+      "checked_sparse_rasters": 807,
+      "max_forward_overlap_3px": 0.653472,
+      "closest_sparse_submission": "GEMSDOE80:docs/downloads/gems80-adpt-kkt-lagrangian-36500d-20261022T012049Z-5bd11c85-zeros.tif",
+      "closest_sparse_their_dots": 36500,
+      "overlap_vs_gemsdoe83_gvcd": 0.650176,
+      "approval_gate": false
     },
     "dots_comparable_sparse_budget_le_50k": {
-      "checked_sparse_rasters": 718,
-      "max_forward_overlap_3px": 0.6844099962955575,
+      "checked_sparse_rasters": 842,
+      "max_forward_overlap_3px": 0.7210471376771783,
       "forward_overlap_limit": 0.7,
-      "passed": true,
-      "closest_sparse_submission": "GEMSDOE77:docs/downloads/gems77-h84-ramp-relay-37654dots-20261021-1b76b4b7-zeros.tif",
-      "closest_sparse_their_dots": 37654,
-      "overlap_vs_h33_champion": 0.342746416664292,
-      "overlap_vs_gemsdoe73_mvh": 0.5267147294332203
+      "passed": false,
+      "closest_sparse_submission": "GEMSDOE25:docs/downloads/gems25-factorial-bde-x123-sapd2-4-20261002-5e4b5a98d2c7-nan.tif",
+      "closest_sparse_their_dots": 48664,
+      "approval_gate": false
     },
-    "dots_all_1088_literal_unchanged_uniqueness_py": {
-      "max_abs_spearman": 0.121049,
-      "max_jaccard_dot_sets": 0.04168337247265021,
+    "dots_all_1191_literal_unchanged_uniqueness_py": {
+      "max_abs_spearman": 0.116272,
+      "max_jaccard_dot_sets": 0.04610193321616872,
       "literal_max_forward_overlap_3px": 1.0,
-      "oracle_ground_truth_saturation_proof": {
-        "17GEMSDOE_full_surface_5167373px": {
-          "footprint_3px_cov": 1.0,
-          "oracle_truth20_3px_cov": 1.0
+      "local_gems79_peer_overlaps": {
+        "G79-THVC": {
+          "path": "archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+          "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+          "their_dots": 35093,
+          "forward_overlap_3px": 0.806587,
+          "reverse_overlap_3px": 0.853902
         },
-        "13GEMSDOE_r13_lattice_s5_206895px": {
-          "footprint_3px_cov": 0.998724,
-          "uncovered_allowed_pixels": 6514,
-          "pigeonhole_min_overlap_any_35093_dots": 0.814379,
-          "oracle_truth20_3px_cov": 1.0
+        "H79-NHR": {
+          "path": "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+          "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+          "their_dots": 37654,
+          "forward_overlap_3px": 0.6218,
+          "reverse_overlap_3px": 0.671004
         },
-        "59GEMSDOE_loco_ipp_corridor_77727px": {
-          "footprint_3px_cov": 0.237705,
-          "g79_thvc_overlap": 0.822415,
-          "oracle_truth20_3px_cov": 0.86821
+        "H79-FNHR": {
+          "path": "archive/h79_fnhr_a57e2a7f/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",
+          "sha256": "d5f69d51e9f14b624cd5bca5f4207886d29d8aba05674f522d224bb2b7fb6fcc",
+          "their_dots": 37654,
+          "forward_overlap_3px": 0.463136,
+          "reverse_overlap_3px": 0.447018
         },
-        "GEMSDOE53_tiprelay_80000px": {
-          "footprint_3px_cov": 0.208421,
-          "g79_thvc_overlap": 0.829539,
-          "oracle_truth20_3px_cov": 0.540147
+        "H79-DILSTEP": {
+          "path": "archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+          "sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
+          "their_dots": 37654,
+          "forward_overlap_3px": 0.270492,
+          "reverse_overlap_3px": 0.29463
+        },
+        "G79-CFSKD": {
+          "path": "archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif",
+          "sha256": "418d1292e9d27314e94597185e8858ff4697ec161f7aa66864a078091a7bbe85",
+          "their_dots": 37654,
+          "forward_overlap_3px": 0.529722,
+          "reverse_overlap_3px": 0.545307
+        },
+        "G79-MAG": {
+          "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
+          "sha256": "e48a9293bae098bee570160e44aeffc511347080876ecb96bd7688946b82e40e",
+          "their_dots": 37654,
+          "forward_overlap_3px": 0.174486,
+          "reverse_overlap_3px": 0.214426
+        },
+        "G79-ETP-v1": {
+          "path": "archive/g79_etp_incoming_45998a01/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+          "sha256": "e2203dcf897e210dc124b48138ad57690bc7f19ec3f2df3830acc64b7de90e67",
+          "their_dots": 28761,
+          "forward_overlap_3px": 0.484617,
+          "reverse_overlap_3px": 0.792045
+        },
+        "G79-ETP-v2": {
+          "path": "archive/g79_etp_incoming_45998a01/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+          "sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8",
+          "their_dots": 34500,
+          "forward_overlap_3px": 0.459015,
+          "reverse_overlap_3px": 0.476116
         }
       },
-      "receipt_path": "evidence/g79_dot_uniqueness_1108.json"
+      "receipt_path": "evidence/dcms_dot_uniqueness_1201.json"
     },
-    "non_comparable_registry_entries": 20
+    "non_comparable_registry_entries": 10
   },
-  "sparse_comparable_unique": true,
+  "sparse_comparable_unique": false,
   "protocol_unique": false,
   "current_best_holdout_beaten": true,
   "source_provenance_verified": true,
-  "scientific_verdict": "historical_holdout_improves_h33_control_but_fails_protocol_uniqueness",
+  "scientific_verdict": "prospective_dcms_lane_beats_thvc_incumbent_and_h33_both_seeds_but_fails_literal_overlap_gate",
   "verdict": "negative",
-  "stop_reason": "The full literal novelty gate fails before and after placement (maximum 3-px overlap 1.0 > 0.70); 20 registry entries are non-comparable. A later sparse sibling also exceeds 0.70 (IR-79-122). The separate selector has not approved this artifact. Format PASS and improved historical HOLDOUT-DTI over H33 do not authorize upload or establish leaderboard improvement.",
+  "stop_reason": "Prospective G79-DCMS beats both H33 (0.2341 vs 0.0961 on Seed 20; 0.2508 vs 0.0989 on Seed 30) and the prior G79-THVC incumbent (0.1826 / 0.1947; paired 95% CIs [+0.0341, +0.0710] and [+0.0407, +0.0731] exclude zero on both seeds) and clears every <=45k-dot sibling across all 92 repositories (max 0.6535 <= 0.70, including GEMSDOE83 = 0.6502 <= 0.70), while passing all 236 leakage canaries (max AUC = 0.8110 <= 0.90) and pre/post Spearman gates (0.7302 / 0.1163 <= 0.90). However, literal 3-px overlap exceeds 0.70 against dense/universal covers (1.0000), two >48.6k-dot rasters (GEMSDOE25 = 0.7210, GEMSDOE53 = 0.7479), and local predecessor G79-THVC (0.8066), with 10 non-comparable registry entries. Stopped cleanly without post-hoc retuning; 0 weekly slots spent.",
   "artifact_kind": "negative_research_artifact_not_approved_for_submission",
-  "submission_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-  "zip_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip",
-  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
-  "zip_sha256": "dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9",
-  "positive_pixels": 35093,
-  "submission_name": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT",
-  "submission_note": "GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)",
+  "submission_file": "docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif",
+  "zip_file": "docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.zip",
+  "raster_sha256": "d281189e16ae24f344dfcd15c58a051ae6f57cd964c34808ff2eb6e65d85eba9",
+  "zip_sha256": "9875adb70a81a6a5d0b956b853e1c4f8d2dda6c78dda491a194918320e673c02",
+  "positive_pixels": 36404,
+  "submission_name": "g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT",
+  "submission_note": "GEMSDOE79 G79-DCMS DO-NOT-SUBMIT: dip-coupled+10m3DEP+SGMC+hydro 2-stage + Dinkelbach (36404 px)",
   "validator": {
-    "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-    "bytes": 137299,
-    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "file": "docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 140260,
+    "sha256": "d281189e16ae24f344dfcd15c58a051ae6f57cd964c34808ff2eb6e65d85eba9",
     "meta": {
       "crs": "EPSG:32611",
       "shape": [
@@ -292,8 +372,8 @@
     "n_infinite": 0,
     "min": 0.0,
     "max": 1.0,
-    "mean": 0.0028579316567629576,
-    "emitted_positive_pixels": 35093,
+    "mean": 0.0029646980110555887,
+    "emitted_positive_pixels": 36404,
     "checks": {
       "single_band": true,
       "dtype_float32": true,
@@ -314,8 +394,8 @@
     "all_checks_passed": true,
     "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
     "on_catalogue_positive_pixels": 0,
-    "in_footprint_positive_pixels": 35093,
-    "footprint_fraction": 0.00679126511672372,
+    "in_footprint_positive_pixels": 36404,
+    "footprint_fraction": 0.0070449723679711146,
     "format_passed": true
   },
   "ok_to_download": true,
@@ -329,11 +409,11 @@
   "experiment_count": 3,
   "holdout_evaluations_performed": 2,
   "final_dot_placements_performed": 1,
-  "named_non_fault_process": "Pleistocene pluvial paleo-shoreline wave-cut benches (Lake Lahontan and Lake Bonneville), fluvial terrace risers along the Humboldt/Carson/Walker rivers, welded ash-flow caldera cooling joints, and down-gradient lateral thermal outflow plumes in permeable alluvial fans.",
+  "named_non_fault_process": "Pleistocene pluvial paleo-shoreline wave-cut benches (Lake Lahontan and Lake Bonneville), fluvial terrace risers along the Humboldt/Carson/Walker rivers, welded ash-flow caldera cooling joints, erosional range-front pediment breaks above non-faulted bedrock contacts, and down-gradient lateral thermal outflow plumes in permeable alluvial fans.",
   "validator_output": {
-    "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-    "bytes": 137299,
-    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "file": "docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 140260,
+    "sha256": "d281189e16ae24f344dfcd15c58a051ae6f57cd964c34808ff2eb6e65d85eba9",
     "meta": {
       "crs": "EPSG:32611",
       "shape": [
@@ -361,8 +441,8 @@
     "n_infinite": 0,
     "min": 0.0,
     "max": 1.0,
-    "mean": 0.0028579316567629576,
-    "emitted_positive_pixels": 35093,
+    "mean": 0.0029646980110555887,
+    "emitted_positive_pixels": 36404,
     "checks": {
       "single_band": true,
       "dtype_float32": true,
@@ -383,15 +463,10 @@
     "all_checks_passed": true,
     "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
     "on_catalogue_positive_pixels": 0,
-    "in_footprint_positive_pixels": 35093,
-    "footprint_fraction": 0.00679126511672372,
+    "in_footprint_positive_pixels": 36404,
+    "footprint_fraction": 0.0070449723679711146,
     "format_passed": true
   },
   "max_experiments": 3,
-  "holdout_comparison_scope": "Historical H33 fold-fair control, not a new result beating the current G79-THVC incumbent. Seeds share the same region/catalogue and are not independent datasets.",
-  "metadata_reconciliation": {
-    "date_utc": "2026-10-22",
-    "report": "evidence/review_e4a4422d/metadata_reconciliation.json",
-    "scope": "Reporting correction only; frozen scientific receipts, TIFF/ZIP, and stop verdict unchanged."
-  }
+  "holdout_comparison_scope": "Prospective 3-experiment evaluation on shared gems57-pooled-hide-v2 comparing EXP-DCMS-3 directly against fold-fair C3_g79_thvc_incumbent and C2_h33_analogue_foldfair on Seeds 20 and 30. Seeds share the same region/catalogue and are not independent datasets; HOLDOUT-DTI is not an organizer score."
 }

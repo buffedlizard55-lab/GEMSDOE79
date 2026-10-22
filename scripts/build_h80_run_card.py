@@ -53,7 +53,7 @@ def main():
     drape = pilot_block("h80_drape_pilot", "H80-DRAPE-PILOT", "A_notch", "B_control_no_notch")
     radio = pilot_block("h80_radio_pilot", "H80-RADIO-PILOT", "A_th_normalised_K", "B_control_raw_K")
     overlap = load("evidence/h80_pilot_overlap_check.json")
-    canon = ROOT / "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"
+    canon = ROOT / "archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"
     canon_sha = hashlib.sha256(canon.read_bytes()).hexdigest()
     bar = {"seed20": 0.1905, "seed30": 0.1944}
     best = max(

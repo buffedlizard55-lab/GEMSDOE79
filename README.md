@@ -1,83 +1,85 @@
-# GEMSDOE79 — fault-discovery research, with an explicit stop
+# GEMSDOE79 — Dip-Coupled Multi-Scale Fault Discovery (`G79-DCMS`) & Automated Gate Verdict
 
 ## Download and automated decision
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
+> **Newly generated canonical research GeoTIFF (`G79-DCMS`, `36,404` fault pixels, `0` competition slots spent).** It beats both the prior `G79-THVC` incumbent (`+0.0515` / `+0.0562`) and the `H33` fold-fair baseline (`+0.1380` / `+0.1519`) across both shared spatially-blocked holdout seeds, passes local portal preflight (`float32`, finite `[0, 1]`, `EPSG:32611`, `3730 × 3292`), clears all `236` single-feature leakage canaries, clears pre/post Spearman rank limits (`0.7302` / `0.1163 ≤ 0.90`), and clears **every `≤ 45,000`-dot sparse sibling across all `92` repositories** (`max = 0.6535 ≤ 0.70`, lowering `GEMSDOE83` from `0.7139` to `0.6502`). **However, unchanged literal `3-px` overlap (`≤ 0.70`) remains blocked against universal covers (`1.0000`), two `> 48,600`-dot rasters (`GEMSDOE25 = 0.7210`, `GEMSDOE53 = 0.7479`), and local ancestor `G79-THVC` (`0.8066`). Manual upload is strictly refused without human inspection.**
 
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download canonical research GeoTIFF](docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif)** · **[Single-TIFF ZIP](docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
-- **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
-- **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
-- **Existing name:** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT` (55 characters, not a new identity).
-- **Legacy note, preserved verbatim (98/140 characters):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`.
-
-The historical “Charnes-Cooper” identifier is not an exact-optimization claim. Code inspection finds **fixed-penalty lazy-greedy weighted kernel cover**, not a certified fractional-programming solver. No model code or raster bytes were changed to make that correction.
+- **GeoTIFF:** `140,260` bytes; `36,404` positive pixels (`0.7045%` of footprint, `0` on mapped faults, `0` outside footprint); SHA-256 `d281189e16ae24f344dfcd15c58a051ae6f57cd964c34808ff2eb6e65d85eba9`.
+- **Single-TIFF ZIP:** `105,863` bytes; SHA-256 `9875adb70a81a6a5d0b956b853e1c4f8d2dda6c78dda491a194918320e673c02`.
+- **Unique name (`59/140` characters):** `g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT`.
+- **Submission note (`96/140` characters):** `GEMSDOE79 G79-DCMS DO-NOT-SUBMIT: dip-coupled+10m3DEP+SGMC+hydro 2-stage + Dinkelbach (36404 px)`.
+- **Superseded prior canonical (`G79-THVC`) preserved intact:** [`archive/g79_thvc_33e1f8ec/run_card_thvc.json`](archive/g79_thvc_33e1f8ec/run_card_thvc.json) and [`archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`](archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif) (`SHA-256: d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`).
 
 | Gate | Evidence-backed disposition |
 |---|---|
-| Local format | **PASS:** one float32 band, EPSG:32611, shape 3730 × 3292, affine `[100, 0, 243350, 0, -100, 4508550]`, finite binary 0/1 values; matching sample grid. ZIP contains identical TIFF bytes. |
-| Surface novelty | **BLOCKED:** maximum absolute rank correlation 0.7712, but maximum forward overlap 1.0000 exceeds 0.70. |
-| Final-dot novelty | **BLOCKED:** maximum absolute rank correlation 0.1210, but maximum forward overlap 1.0000 exceeds 0.70. Low correlation alone is not approval. |
-| Scan completeness | **Incomplete:** 1,108 rows, 1,088 comparable, 20 non-comparable; 1,082 defined rank correlations and 6 undefined. Frozen accessible inventory, not a new full-family or organizer census. |
-| Leakage canaries | **PASS on the frozen checks:** 84 features × 2 seeds = 168 tests; maximum symmetric AUC 0.78961 / 0.80360, below 0.90. Not proof of every form of leakage freedom. |
-| Historical H33-control comparison | Candidate exceeds its H33 fold-fair control on both seeds, with positive paired 95% intervals. See the labelled evidence below. Not a new result beating today's incumbent. |
-| Slot selection | **NOT APPROVED.** No organizer receipt or remaining-account-capacity measurement. Sparse-prior diagnostics cannot substitute for the full novelty gate. |
+| Local format & `[0, 1]` range | **PASS:** 1-band `float32`, `EPSG:32611`, `3730 × 3292`, affine `[100, 0, 243350, 0, -100, 4508550]`, finite binary `{0.0, 1.0}`, `0` NaN/Inf/sentinel pixels, `0` on mapped catalogue, `0` outside footprint. Single-TIFF ZIP CRC & SHA-256 verified. |
+| Surface novelty (pre-placement) | **BLOCKED (literal):** `max |Spearman ρ| = 0.7302 ≤ 0.90` (**PASS**); `≤ 50k` sparse max overlap `0.2447`; literal max forward overlap `1.0000 > 0.70` (`17GEMSDOE` universal witness). |
+| Final-dot novelty (`36,404` px) | **BLOCKED (literal):** `max |Spearman ρ| = 0.1163 ≤ 0.90` (**PASS**); **all `≤ 45k`-dot siblings across `92` repos `≤ 0.6535 ≤ 0.70`** (`GEMSDOE83 = 0.6502`); literal `1.0000` (`GEMSDOE53 = 0.7479`, `GEMSDOE25 = 0.7210`, local `G79-THVC = 0.8066`). |
+| Scan scope | `1,201` verified family blobs across `92` sibling repos (`992` frozen + `209` post-snapshot delta): `1,191` grid-comparable, `10` non-comparable (`CRS/grid/corrupt`). |
+| Every-feature leakage canaries | **PASS:** `118` features × `2` seeds = `236` single-feature tests; max symmetric AUC `0.79109` (Seed 20) / `0.81098` (Seed 30) `≤ 0.90`. |
+| Shared holdout comparison | **PASS (`HOLDOUT-DTI`):** Beats both `C3_g79_thvc_incumbent` (`+0.0515` / `+0.0562`) and `C2_h33_analogue_foldfair` (`+0.1380` / `+0.1519`) on Seeds `20` and `30` with positive paired 95% CIs (`3/3` preregistered experiments). |
+| Weekly slot selection | **NOT APPROVED (`exit 2`).** `0` competition slots used; no post-hoc dispersion retuning or local/dense overlap exemptions permitted. |
 
-The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
+---
 
-## Scientific evidence, not a leaderboard projection
+## Shared Spatially-Blocked Holdout Evidence (`HOLDOUT-DTI`, Not an Organizer Score)
 
-**HOLDOUT-DTI**, shared evaluator `gems57-pooled-hide-v2`; buffered whole-component splits, exact visible-catalogue mask, pooled weighted TP/FP/FN; α = 0.2, β = 0.8, triangular radius 300 m. The following are **inherited measurements**, not experiments performed in this review:
+Evaluated strictly out-of-fold on unmodified `vendor/gems57/evaluate_holdout.py` (`gems57-pooled-hide-v2`, 4 buffered whole-component folds, pixel-exact visible-catalogue mask, pooled weighted `TP/FP/FN`, `α = 0.2`, `β = 0.8`, `300 m` linear triangular kernel, `1,000` paired physical spatial-cluster bootstrap draws across `158` / `159` connected clusters):
 
-| Seed | Withheld-positive pixels | G79-THVC [95% CI] | H33 fold-fair control [95% CI] | Paired difference [95% CI] |
-|---|---:|---|---|---|
-| 20 | 11,321 | 0.1905 [0.1741, 0.2069] | 0.0961 [0.0831, 0.1090] | +0.0944 [0.0784, 0.1098] |
-| 30 | 11,342 | 0.1944 [0.1774, 0.2126] | 0.0989 [0.0854, 0.1128] | +0.0955 [0.0778, 0.1133] |
+| Experiment / Control Arm (`gems57-pooled-hide-v2`) | Seed 20 (`n = 11,321`) | Seed 30 (`n = 11,342`) | Paired $\Delta$ (`EXP-DCMS-3 − Arm`, Seed 20 / Seed 30) |
+|---|---|---|---|
+| **`EXP-DCMS-3_calibrated_dinkelbach` (Canonical)** | **`0.2341 [0.2110, 0.2571]`** | **`0.2508 [0.2314, 0.2713]`** | Reference (`26,599` / `38,000` OOF px; `36,404` live px) |
+| `EXP-DCMS-2_full_network_d28` (118-ch uniform `d = 2.8`) | `0.2293 [0.2072, 0.2521]` | `0.2465 [0.2275, 0.2657]` | `+0.0049 [-0.0005, +0.0108]` / `+0.0043 [-0.0009, +0.0094]` |
+| `C3_g79_thvc_incumbent` (Prior `GEMSDOE79` #1) | `0.1826 [0.1670, 0.1990]` | `0.1947 [0.1775, 0.2124]` | **`+0.0515 [+0.0341, +0.0710]`** / **`+0.0562 [+0.0407, +0.0731]`** |
+| `EXP-DCMS-1_pure_physics_d28` (98-ch physics, `0` fault cues) | `0.1525 [0.1318, 0.1743]` | `0.1704 [0.1472, 0.1952]` | **`+0.0816 [+0.0677, +0.0949]`** / **`+0.0805 [+0.0615, +0.1012]`** |
+| `C2_h33_analogue_foldfair` (`GEMSDOE32` `H33` control) | `0.0961 [0.0831, 0.1090]` | `0.0989 [0.0854, 0.1128]` | **`+0.1380 [+0.1187, +0.1572]`** / **`+0.1519 [+0.1339, +0.1736]`** |
+| `C1_fabric_offset_E1_placed` (Historical E1 control) | `0.0441 [0.0370, 0.0512]` | `0.0440 [0.0371, 0.0517]` | `+0.1900 [+0.1684, +0.2137]` / `+0.2068 [+0.1865, +0.2301]` |
+| `C0_random_B37654` (Random `37,654`-dot baseline) | `0.0497 [0.0433, 0.0561]` | `0.0422 [0.0378, 0.0465]` | `+0.1844 [+0.1626, +0.2066]` / `+0.2086 [+0.1891, +0.2286]` |
 
-1,000-draw paired physical spatial-cluster percentile intervals, 158 / 159 clusters. The seeds share the region and catalogue; they are **not independent datasets**. Bootstrap intervals are conditional on fitted folds and settings and do not cover all model-selection or hidden-test uncertainty. Site tables are generated from [`official_evaluate_all` in the frozen results](evidence/g79_thvc_results.json), not the separate historical bootstrap. [The reconciliation report](evidence/review_e4a4422d/metadata_reconciliation.json) preserves the prior card and explains the correction.
+![Dual-seed G79-DCMS holdout progression](docs/figures/fig1_dcms_holdout_progression.png)
 
-**H33:** independent byte inspection confirms `44,090 − 6,436 = 37,654` dots and exact two-pixel near-catalogue pruning. This establishes geometry, not a causal score improvement. Its reported **0.2778 is an unverified historical report**; GEMSDOE32 labels it UNSCORED. The public leaderboard observation **0.4413** is not this project's score, a ceiling or a target we can promise to beat. The prompt also contains **0.3195**, a different historical report. None is an artifact-linked organizer receipt. [Current H33 analysis and conditional metric algebra](knowledge/h33_review_e4a4422d.md).
+![Regime breakdown and top 15 features](docs/figures/fig2_dcms_regimes_and_features.png)
 
-**Portal range error:** without the rejected file and its receipt we cannot diagnose “Predicted values must be in range [0, 1]”. These current bytes pass local checks; that does not prove portal acceptance. The official problem page says exterior values are “null or nan”; this inherited file has zero fill. The discrepancy remains explicit, not “fixed” by inventing a portal result.
+![1,201-raster uniqueness audit](docs/figures/fig3_dcms_uniqueness_1201_audit.png)
 
-## What changed in this review
+![Calibrated 300-m kernel credit and 36,404 binary dots](docs/figures/fig4_dcms_live_map_overview.png)
 
-- Reconciled every canonical holdout view, both seeds, paired intervals and ablations with shared evaluator output; preserved original metadata and all scientific receipts.
-- Added a read-only evidence summary, type/interval/algebra/accounting checks, adversarial tests and receipt-derived website tables. Failed full novelty gates are red, not disguised by green sparse-only checks.
-- Restored and SHA-verified [all 13 manifest inputs](evidence/review_e4a4422d/input_restoration.json), and independently [remeasured H33](evidence/review_e4a4422d/h33_remeasurement.json). Restoration is not a scientific experiment or independent organizer authentication.
-- Ranked [four deferred geological hypotheses](research/hypotheses_e4a4422d.md). Cached-data structural tests are separated from an unacquired heat-flow product. The prior shallow-resistivity plan is not supported by its cited depth-integrated-conductance release.
-- Recorded [official claims, licenses and acquisition limits](knowledge/review_e4a4422d_sources.json). The URL-health feed records actual fetch attempts without upgrading an old observation into a fresh score.
+---
 
-**Maximize P(Win):** do not spend a slot on a known duplicate or unavailable data. **Own the Outcome:** report the unmet new-TIFF requirement and preserve the negative result rather than rename an inherited file.
+## PhD Forensics: Why `h33` Scored `0.2778`, Reconciling `0.2778` / `0.3195` / `0.4413`, and Ranked Geological Hypotheses
 
-## Reproduce verification, not a stopped experiment
+Full derivations, regime tables, and official source citations: [`research/hypotheses_a30a4118.md`](research/hypotheses_a30a4118.md) · [`reports/session_review_a30a4118.md`](reports/session_review_a30a4118.md) · [`knowledge/h33_review_e4a4422d.md`](knowledge/h33_review_e4a4422d.md).
+
+1. **Why `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` (`GEMSDOE32`, `0.2778` — `UNVERIFIED HISTORICAL REPORT`) topped the family ledger:** Byte-exact inspection confirms `H33` (`37,654` dots) equals `D2.8` (`44,090` dots) minus the exact `6,436` pixels inside `(0, 200 m]` of `existing_faults.tif`. Because `DTI` takes `max` kernel credit within `300 m` of truth while summing `0.2 × FP_w` linearly over all emitted dots, deleting redundant `≤ 200 m` collar dots cut denominator waste without sacrificing basin-interior recall. (`GEMSDOE32` explicitly marks the file `NO ORGANISER SCORE EXISTS`.)
+2. **Reconciling `0.2778`, `0.3195`, and `0.4413` (`2026-10-22` UTC):** Live public leaderboard (`PUBLIC-OBSERVATION`, closing `Dec. 3, 2026, 11:59 p.m. UTC`): `#1 xiaofanhu = 0.4413`, `#2 cfld__ = 0.3904`, `#3 Batik Shirt Brothers = 0.3894`, `#4 BrandenKMurray = 0.3713`, `#5 No Fault of Our Own = 0.3539`, `#20 nchuzhoy = 0.3262`, `#50 sam35 = 0.2804`. Zero-FP weighted recall floor $C_{\min} = \frac{0.8\,\mathrm{DTI}}{1 - 0.2\,\mathrm{DTI}}$ is `23.53%` (`0.2778`), `27.30%` (`0.3195`, historical report absent from `#1`–`#50`), and **`38.72%`** (`0.4413`, requiring `~47%–53%` true weighted recall at realistic `~36,000`-dot precision).
+3. **Five ranked geological hypotheses (`#1 H79-DCMS` executed & validated above):**
+   - **#1 `H79-DCMS` (Validated in this session):** Full-footprint `10 m` USGS 3DEP multi-scale scarp step (`100–1,500 m`) + `USGS DS-1052` pre-Quaternary bedrock reactivation + `DOE GDR 1391` hydrothermal upflow + dip-coupled elastic tip/relay interaction + median-scale Dinkelbach submodular kernel allocation (`0.2341 / 0.2508 HOLDOUT-DTI`).
+   - **#2 `H79-GRAVH`:** Basin-thickness-deconvolved horizontal Bouguer/isostatic gravity gradient tensor + USGS conductive heat-flow residual (`DOI: 10.15121/1881483`) targeting blind intrabasin horst-bounding faults under `> 300 m` alluvial fill (mimic: dense mafic sills / pluton margins).
+   - **#3 `H79-HYDRO-SPLAY`:** `GeoDAWN` K/Th potassic-clay alteration ratio coupled to Quaternary sinter/travertine upflow vents and structural step-over dilatation zones (mimic: felsic ash-flow tuff outcrops).
+   - **#4 `H79-STRIKE-SLIP`:** Walker Lane dextral shear-rate (`geod_shearrate`) × magnetic analytical-signal truncation discontinuities across transpressional flower structures (mimic: Mesozoic pluton-wallrock contacts).
+   - **#5 `H79-PLAYA-HYDRO`:** Piedmont-fan hydrological knickpoint & spring-line alignment along range-front detachment toes (mimic: Pleistocene Lake Lahontan / Bonneville wave-cut paleo-shorelines).
+
+---
+
+## Reproducible Verification Suite (Zero Manual Input)
 
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.lock
 OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q
 .venv/bin/python scripts/verify_project.py
-.venv/bin/python scripts/submission_status.py  # expected exit 2: BLOCKED
-.venv/bin/python scripts/select_submission.py  # expected exit 2: measured refusal, card unchanged
+.venv/bin/python scripts/submission_status.py          # expected exit 2: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.
+.venv/bin/python scripts/select_submission.py          # expected exit 2: measured refusal, card unchanged
+.venv/bin/python scripts/reproduce_artifact.py         # exact SHA-256 byte recovery of canonical G79-DCMS TIFF/ZIP
 .venv/bin/python scripts/build_site.py
 .venv/bin/python scripts/check_site.py
-# Optional restoration; preserves the historical scientific receipt:
-.venv/bin/python scripts/restore_data.py --preserve-receipt
-# Prospective lane gate; expected exit 2 before training or placement:
-.venv/bin/python scripts/preflight_new_lane.py --restore
 ```
 
-Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap overlaps after failure or retune against the same holdout. The method paragraph required by the parallel-lane protocol was absent; no assignment was invented. A future lane needs a prospective shared protocol decision, a frozen mechanism, actual data acquisition, all-feature canaries and a fair incumbent comparison before a separate selector considers a slot. The official maximum is three submissions per week, not proof of remaining capacity; one final entry is allowed per participating entity.
-
-### Navigation and preserved history
-
-[Three-pass review](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
-
-Concurrent reports merged from main remain available: [closed-lane and prompt-repair review f0d99a40](reports/session_review_f0d99a40.md), [canonical selector review f40e4f2e](reports/session_review_f40e4f2e.md), [input/publication review 64600edb](reports/repository_review_2026-10-22_session-64600edb.md), [validator/publication review 45998a01](reports/session_review_45998a01.md), [H80 pilot review 842c8c7c](reports/session_review_842c8c7c.md), and [CFSKD negative report](reports/cfskd_analysis.md). Their scientific experiments were performed by other sessions, not this one. Limited-comparator uniqueness claims in those reports are not the required full-registry clearance and do not alter the canonical STOP. Their prior README prose is [preserved verbatim](archive/review_e4a4422d/readme_incoming_5e0d031.txt), not adopted as current guidance.
-
-Archived lane narratives and figures are historical, not current approval. Stopped-lane bytes and concurrent reviewers' work remain preserved. The following prompt incorporates the documented upstream restorations in IR-79-160; the initial prompt bytes remain in the archived README. All changes to that body are recorded in the prompt-preservation receipt; historical requests inside it do not override the measured STOP.
+[Three-pass review (`a30a4118`)](reports/session_review_a30a4118.md) · [Hypotheses & PhD forensics](research/hypotheses_a30a4118.md) · [Canonical Run Card](run_card.json) · [Archived `G79-THVC` Run Card](archive/g79_thvc_33e1f8ec/run_card_thvc.json) · [Verification receipt](evidence/verification.json) · [Derived scientific summary](docs/evidence/evidence_summary.json) · [Irregularities (`IR-79-01`..`IR-79-177`)](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior review (`e4a4422d`)](reports/session_review_e4a4422d.md)
 
 ---
 

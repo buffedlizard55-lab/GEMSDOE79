@@ -22,7 +22,7 @@ This session verified the complete, already-committed **G79-THVC** research lane
 
 ## Artifact status (canonical G79-THVC)
 
-**File:** `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`
+**File:** `archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`
 
 | Property | Value |
 |----------|-------|

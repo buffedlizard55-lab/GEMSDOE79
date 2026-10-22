@@ -1,5 +1,5 @@
 {
-  "verified_utc": "2026-10-22T14:28:36.127590+00:00",
+  "verified_utc": "2026-10-22T21:25:25.972631+00:00",
   "all_checks_passed": true,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
@@ -35,17 +35,18 @@
     "uniqueness_card_matches_evidence": true,
     "promotion_requires_uniqueness": true,
     "preregistration_hash_matches_card": true,
+    "holdout_beats_thvc_incumbent_both_seeds": true,
     "e1_scientific_stop_honored": true,
     "status_tool_and_card_agree": true
   },
-  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "raster_sha256": "d281189e16ae24f344dfcd15c58a051ae6f57cd964c34808ff2eb6e65d85eba9",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-      "bytes": 137299,
-      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "file": "docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 140260,
+      "sha256": "d281189e16ae24f344dfcd15c58a051ae6f57cd964c34808ff2eb6e65d85eba9",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -73,8 +74,8 @@
       "n_infinite": 0,
       "min": 0.0,
       "max": 1.0,
-      "mean": 0.0028579316567629576,
-      "emitted_positive_pixels": 35093,
+      "mean": 0.0029646980110555887,
+      "emitted_positive_pixels": 36404,
       "checks": {
         "single_band": true,
         "dtype_float32": true,
@@ -95,13 +96,13 @@
       "all_checks_passed": true,
       "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
       "on_catalogue_positive_pixels": 0,
-      "in_footprint_positive_pixels": 35093,
-      "footprint_fraction": 0.00679126511672372
+      "in_footprint_positive_pixels": 36404,
+      "footprint_fraction": 0.0070449723679711146
     },
     "reference_grid": {
-      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
-      "bytes": 137299,
-      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "path": "docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 140260,
+      "sha256": "d281189e16ae24f344dfcd15c58a051ae6f57cd964c34808ff2eb6e65d85eba9",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",
@@ -139,9 +140,9 @@
       "n_nan": 0,
       "min": 0.0,
       "max": 1.0,
-      "mean": 0.0028579316567629576,
-      "n_nonzero": 35093,
-      "mass": 35093.0,
+      "mean": 0.0029646980110555887,
+      "n_nonzero": 36404,
+      "mass": 36404.0,
       "mass_outside_footprint": 0,
       "problems": [],
       "ok": true,

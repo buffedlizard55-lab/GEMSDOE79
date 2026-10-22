@@ -99,8 +99,13 @@ LOCAL_GEMS79_LANE_SPECS = {
     },
     "G79-THVC_canonical": {
         "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+        "archive_fallback": "archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
         "overlap_vs_13gemsdoe_r13_lattice_s5": 0.998461,
         "overlap_vs_gemsdoe3_coverage_v3_wide": 0.816516,
+    },
+    "G79-DCMS_canonical": {
+        "path": "docs/downloads/g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif",
+        "overlap_vs_g79_thvc_canonical": 0.806587,
     },
     "H79-FNHR_archived": {
         "path": "archive/h79_fnhr_a57e2a7f/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",

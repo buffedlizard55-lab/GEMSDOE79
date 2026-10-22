@@ -31,7 +31,7 @@ import run_h80_radio_pilot as R  # noqa: E402
 COMPARATORS = {
     "H33_GEMSDOE32": ROOT / ".cache/registry/17a76895f68174cc93f3cb1597d25686f6d6bc67.tif",
     "D2.8_GEMSDOE25": ROOT / ".cache/registry/bfb7e86d046dd178c3d6ab60522861b5464dd420.tif",
-    "G79-THVC_canonical": ROOT / "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "G79-THVC_canonical": ROOT / "archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
 }
 
 

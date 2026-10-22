@@ -28,7 +28,7 @@ def test_run_card_paths_are_repo_relative_across_all_copies():
     for p in copies[1:]:
         assert p.read_bytes() == raw
     card = json.loads(raw)
-    assert card["lane"] == "G79-THVC"
+    assert card["lane"] == "G79-DCMS"
     for key in ("validator", "validator_output"):
         fval = card[key]["file"]
         assert not fval.startswith("/"), f"Machine-specific absolute path in {key}.file: {fval}"
@@ -52,7 +52,9 @@ def test_h79_step_and_dilstep_archived_intact_and_runner_refuses_rerun():
     assert hashlib.sha256(dtif.read_bytes()).hexdigest() == json.loads(drc.read_text())["raster_sha256"]
 
     downloads_tifs = sorted(p.name for p in (ROOT / "docs/downloads").glob("*.tif"))
-    assert downloads_tifs == ["g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"]
+    assert downloads_tifs == ["g79-dcms-dipcoupled-20261022-59a36344-zeros-DO-NOT-SUBMIT.tif"]
+    thvc_arch = ROOT / "archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"
+    assert thvc_arch.is_file()
 
     proc = subprocess.run(
         [sys.executable, str(ROOT / "scripts/run_edge_lane.py")],

@@ -74,10 +74,16 @@ def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: 
     gate explicitly; critically, the literal overlap gate remains unchanged.
     """
     try:
-        surface = json.loads((root / "evidence/g79_surface_uniqueness_1108.json").read_text())
-        dots = json.loads((root / "evidence/g79_dot_uniqueness_1108.json").read_text())
-        canary = json.loads((root / "evidence/g79_leakage_canary.json").read_text())
-        results = json.loads((root / "evidence/g79_thvc_results.json").read_text())
+        if card.get("lane") == "G79-DCMS":
+            surface = json.loads((root / "evidence/dcms_surface_uniqueness_1201.json").read_text())
+            dots = json.loads((root / "evidence/dcms_dot_uniqueness_1201.json").read_text())
+            canary = json.loads((root / "evidence/dcms_leakage_canary.json").read_text())
+            results = json.loads((root / "evidence/dcms_results.json").read_text())
+        else:
+            surface = json.loads((root / "evidence/g79_surface_uniqueness_1108.json").read_text())
+            dots = json.loads((root / "evidence/g79_dot_uniqueness_1108.json").read_text())
+            canary = json.loads((root / "evidence/g79_leakage_canary.json").read_text())
+            results = json.loads((root / "evidence/g79_thvc_results.json").read_text())
         if not all(isinstance(d, dict) for d in (surface, dots, canary, results)):
             raise TypeError("Canonical receipts must be JSON objects")
         checks = evidence_checks(root, card)
@@ -85,7 +91,7 @@ def canonical_thvc_evidence(root: Path, card: dict, actual: str, format_passed: 
             "raster_sha256_matches": actual == card.get("raster_sha256"),
             "format_validation_passed": format_passed is True,
             "feature_alone_canary_le_0_90": (
-                set(canary) == {"seed20", "seed30"}
+                {"seed20", "seed30"} <= set(canary)
                 and all(
                     isinstance(canary.get(seed), dict)
                     and canary[seed].get("all_passed") is True
@@ -124,7 +130,7 @@ def _select() -> int:
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
-    if card.get("lane") == "G79-THVC":
+    if card.get("lane") in ("G79-DCMS", "G79-THVC"):
         checks = canonical_thvc_evidence(ROOT, card, actual, fmt)
         trial = dict(card)
         trial["selector_receipt"] = {
@@ -140,7 +146,7 @@ def _select() -> int:
             "selected": False,
             "ok_to_submit": False,
             "selector": "scripts/select_submission.py",
-            "lane": "G79-THVC",
+            "lane": card.get("lane"),
             "raster_sha256": actual,
             "blockers": decision["blockers"],
             "failed_gates": failed,

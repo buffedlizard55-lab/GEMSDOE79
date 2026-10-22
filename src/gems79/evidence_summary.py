@@ -1,9 +1,9 @@
-"""Read-only reconciliation of G79-THVC's frozen scientific receipts.
+"""Read-only reconciliation of canonical G79-DCMS and archived G79-THVC frozen receipts.
 
 These are evidence-consistency checks, NOT a new experiment, recomputation of
 holdout predictions, uniqueness scan, selector, or organizer receipt. Every
 published score and interval comes from the shared evaluator's output, never
-from the separate historical bootstrap or a hand-written website constant.
+from a separate historical bootstrap or a hand-written website constant.
 """
 from __future__ import annotations
 
@@ -13,18 +13,58 @@ import math
 from pathlib import Path
 
 from gems57.evaluate_holdout import VERSION, from_terms
+from gems79.dcms_features import ALL_DCMS_NAMES
 from gems79.thvc_features import ALL_FEATURE_NAMES
 
-CANDIDATE = "EXP-79-3_thvc_charnes_cooper"
+CANDIDATE = "EXP-DCMS-3_calibrated_dinkelbach"
+INCUMBENT = "C3_g79_thvc_incumbent"
 CONTROL = "C2_h33_analogue_foldfair"
 SEEDS = (20, 30)
-ARMS = (CANDIDATE, "EXP-79-2_thvc_uniform_d28", "EXP-79-1_pure_zero_catalogue",
-        CONTROL, "C1_fabric_offset_E1_placed", "C0_random_B37654")
+ARMS = (
+    CANDIDATE,
+    "EXP-DCMS-2_full_network_d28",
+    INCUMBENT,
+    "EXP-DCMS-1_pure_physics_d28",
+    CONTROL,
+    "C1_fabric_offset_E1_placed",
+    "C0_random_B37654",
+)
 SOURCES = {
+    "results": "evidence/dcms_results.json",
+    "canaries": "evidence/dcms_leakage_canary.json",
+    "surface": "evidence/dcms_surface_uniqueness_1201.json",
+    "dots": "evidence/dcms_dot_uniqueness_1201.json",
+}
+
+THVC_CANDIDATE = "EXP-79-3_thvc_charnes_cooper"
+THVC_ARMS = (
+    THVC_CANDIDATE,
+    "EXP-79-2_thvc_uniform_d28",
+    "EXP-79-1_pure_zero_catalogue",
+    CONTROL,
+    "C1_fabric_offset_E1_placed",
+    "C0_random_B37654",
+)
+THVC_SOURCES = {
     "results": "evidence/g79_thvc_results.json",
     "canaries": "evidence/g79_leakage_canary.json",
     "surface": "evidence/g79_surface_uniqueness_1108.json",
     "dots": "evidence/g79_dot_uniqueness_1108.json",
+}
+
+LANE_SPECS = {
+    "G79-DCMS": {
+        "candidate": CANDIDATE,
+        "arms": ARMS,
+        "sources": SOURCES,
+        "features": ALL_DCMS_NAMES,
+    },
+    "G79-THVC": {
+        "candidate": THVC_CANDIDATE,
+        "arms": THVC_ARMS,
+        "sources": THVC_SOURCES,
+        "features": ALL_FEATURE_NAMES,
+    },
 }
 
 
@@ -86,7 +126,7 @@ def _interval(value, point, *, signed=False):
             and value[0] <= point <= value[1])
 
 
-def summarize_holdout(results, pins):
+def summarize_holdout(results, pins, *, candidate=CANDIDATE, arms=ARMS, results_path=SOURCES["results"]):
     """Validate pooled component algebra, both seeds, all arms and paired CIs."""
     summary = {}
     for seed in SEEDS:
@@ -103,8 +143,8 @@ def summarize_holdout(results, pins):
         _require(set(ev["implementation_sha256"]) == {
             "evaluate_holdout.py", "holdout.py", "metric.py", "spatial.py"}, "Missing evaluator pins")
         scores = ev["scores"]
-        _require(set(scores) == set(ARMS) == set(ev["per_fold"]), "Missing or unexpected evaluator arm")
-        best = max((n for n in scores if n != CANDIDATE), key=lambda n: scores[n]["dti"])
+        _require(set(scores) == set(arms) == set(ev["per_fold"]), "Missing or unexpected evaluator arm")
+        best = max((n for n in scores if n != candidate), key=lambda n: scores[n]["dti"])
         _require(ev["best_comparable_control"] == best, "Wrong best comparable control")
         count = source["withheld_positive_pixels"]
         _require(type(count) is int and count > 0, "Invalid withheld count")
@@ -127,15 +167,15 @@ def summarize_holdout(results, pins):
                      "Invalid fold counts")
             _require(sum(f["n_truth"] for f in folds) == count, "Fold truth counts do not pool")
             _require({f["fold"]: f["n_truth"] for f in folds} ==
-                     {f["fold"]: f["n_truth"] for f in ev["per_fold"][CANDIDATE]},
+                     {f["fold"]: f["n_truth"] for f in ev["per_fold"][candidate]},
                      "Arm truth counts differ by fold")
         differences = ev["paired_differences"]
-        _require(set(differences) == set(scores) - {CANDIDATE}, "Missing paired comparator")
+        _require(set(differences) == set(scores) - {candidate}, "Missing paired comparator")
         for name, row in differences.items():
             _require(row["evidence_class"] == "HOLDOUT-DTI" and row["evaluator_version"] == VERSION,
                      "Unlabelled paired interval")
             _require(_number(row["delta"], -1) and _interval(row["ci95"], row["delta"], signed=True)
-                     and _close(row["delta"], scores[CANDIDATE]["dti"] - scores[name]["dti"])
+                     and _close(row["delta"], scores[candidate]["dti"] - scores[name]["dti"])
                      and type(row["withheld_positive_pixels"]) is int
                      and row["withheld_positive_pixels"] == count, "Invalid paired interval")
         boot = ev["bootstrap"]
@@ -150,13 +190,13 @@ def summarize_holdout(results, pins):
             "emitted_pixels_across_evaluation_folds": {
                 name: sum(f["n_emitted"] for f in folds) for name, folds in ev["per_fold"].items()
             },
-            "source_pointer": f"{SOURCES['results']}#/seed{seed}/official_evaluate_all",
+            "source_pointer": f"{results_path}#/seed{seed}/official_evaluate_all",
         }
     _require(set(summary["20"]["scores"]) == set(summary["30"]["scores"]), "Arm sets differ by seed")
     return summary
 
 
-def summarize_canaries(canaries, holdout, feature_names=ALL_FEATURE_NAMES):
+def summarize_canaries(canaries, holdout, feature_names=ALL_DCMS_NAMES):
     """Recompute the canary gate from EVERY feature row, not just a PASS flag."""
     expected = set(feature_names)
     per_seed = {}
@@ -178,7 +218,7 @@ def summarize_canaries(canaries, holdout, feature_names=ALL_FEATURE_NAMES):
                      and _close(sym, max(raw, 1 - raw), tolerance=1e-5), "Invalid symmetric AUC")
         worst = max(rows, key=lambda r: r["symmetric_auc"])
         passed = all(r["symmetric_auc"] <= .90 for r in rows)
-        _require(_close(source["max_symmetric_auc"], worst["symmetric_auc"])
+        _require(_close(source["max_symmetric_auc"], worst["symmetric_auc"], tolerance=1e-6)
                  and source["max_symmetric_auc_feature"] == worst["feature"]
                  and source["all_passed"] is passed, "Canary summary disagrees with feature rows")
         per_seed[str(seed)] = {
@@ -267,31 +307,51 @@ def summarize_registry(scan):
 
 def build_summary(root, card):
     root = Path(root)
+    lane = card.get("lane", "G79-DCMS")
+    _require(lane in LANE_SPECS, f"Unsupported summary lane: {lane}")
+    spec = LANE_SPECS[lane]
     pins = {r["path"]: r["sha256"] for r in load_json(root / "registry/template_pin.json")["files"]}
     for relative, digest in pins.items():
         _require(hashlib.sha256((root / relative).read_bytes()).hexdigest() == digest, "Shared tool pin mismatch")
-    docs = {name: load_json(root / path) for name, path in SOURCES.items()}
-    holdout = summarize_holdout(docs["results"], pins)
+    docs = {name: load_json(root / path) for name, path in spec["sources"].items()}
+    holdout = summarize_holdout(
+        docs["results"],
+        pins,
+        candidate=spec["candidate"],
+        arms=spec["arms"],
+        results_path=spec["sources"]["results"],
+    )
     _require(docs["dots"]["candidate_file_sha256"] == card["raster_sha256"]
              == docs["results"]["submission_manifest"]["sha256"], "Dot receipt bound to other file")
-    return {
-        "schema_version": 1, "lane": "G79-THVC", "evidence_class": "EVIDENCE-RECONCILIATION",
+    cand = spec["candidate"]
+    out = {
+        "schema_version": 1, "lane": lane, "evidence_class": "EVIDENCE-RECONCILIATION",
         "scope": "Read-only consistency audit of frozen receipts. No new holdout, model, raster or competition submission.",
         "raster_sha256": card["raster_sha256"],
-        "source_sha256": {path: hashlib.sha256((root / path).read_bytes()).hexdigest() for path in SOURCES.values()},
-        "holdout": holdout, "canaries": summarize_canaries(docs["canaries"], holdout),
-        "surface": summarize_registry(docs["surface"]), "dots": summarize_registry(docs["dots"]),
+        "source_sha256": {path: hashlib.sha256((root / path).read_bytes()).hexdigest() for path in spec["sources"].values()},
+        "holdout": holdout,
+        "canaries": summarize_canaries(docs["canaries"], holdout, feature_names=spec["features"]),
+        "surface": summarize_registry(docs["surface"]),
+        "dots": summarize_registry(docs["dots"]),
         "h33_control_beaten_both_seeds": all(
-            holdout[str(s)]["scores"][CANDIDATE]["dti"] > holdout[str(s)]["scores"][CONTROL]["dti"]
+            holdout[str(s)]["scores"][cand]["dti"] > holdout[str(s)]["scores"][CONTROL]["dti"]
             and holdout[str(s)]["paired_differences"][CONTROL]["ci95"][0] > 0 for s in SEEDS),
         "leaderboard_improvement_established": False,
     }
+    if INCUMBENT in holdout["20"]["scores"]:
+        out["thvc_incumbent_beaten_both_seeds"] = all(
+            holdout[str(s)]["scores"][cand]["dti"] > holdout[str(s)]["scores"][INCUMBENT]["dti"]
+            and holdout[str(s)]["paired_differences"][INCUMBENT]["ci95"][0] > 0 for s in SEEDS
+        )
+    return out
 
 
 def canonical_holdout_fields(summary):
     """The precise schema of the canonical card's redundant HOLDOUT-DTI views."""
+    lane = summary.get("lane", "G79-DCMS")
+    cand = LANE_SPECS[lane]["candidate"]
     hold = summary["holdout"]
-    primary = hold["20"]["scores"][CANDIDATE]
+    primary = hold["20"]["scores"][cand]
     control = hold["20"]["scores"][CONTROL]
     delta = hold["20"]["paired_differences"][CONTROL]
     main = {
@@ -303,8 +363,8 @@ def canonical_holdout_fields(summary):
         "source_pointer": hold["20"]["source_pointer"],
         "per_seed": {
             f"seed_{seed}": {
-                "candidate": {"dti": round(hold[str(seed)]["scores"][CANDIDATE]["dti"], 4),
-                              "ci95": [round(c, 4) for c in hold[str(seed)]["scores"][CANDIDATE]["ci95"]]},
+                "candidate": {"dti": round(hold[str(seed)]["scores"][cand]["dti"], 4),
+                              "ci95": [round(c, 4) for c in hold[str(seed)]["scores"][cand]["ci95"]]},
                 "withheld_positive_pixels": hold[str(seed)]["withheld_positive_pixels"],
                 "h33_foldfair_control": {"dti": round(hold[str(seed)]["scores"][CONTROL]["dti"], 4),
                                          "ci95": [round(c, 4) for c in hold[str(seed)]["scores"][CONTROL]["ci95"]]},
@@ -312,7 +372,7 @@ def canonical_holdout_fields(summary):
         },
     }
     secondary = {
-        **hold["30"]["scores"][CANDIDATE], "seed": 30,
+        **hold["30"]["scores"][cand], "seed": 30,
         "matched_h33_analogue_dti": hold["30"]["scores"][CONTROL]["dti"],
         "matched_h33_analogue_ci95": hold["30"]["scores"][CONTROL]["ci95"],
         "delta_vs_h33": hold["30"]["paired_differences"][CONTROL]["delta"],

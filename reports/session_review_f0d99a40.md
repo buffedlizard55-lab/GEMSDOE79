@@ -4,8 +4,8 @@
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> - **Canonical Repository GeoTIFF:** [`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`](../docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif) (`137,299 B`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`, `35,093` binary `1.0` pixels strictly in `{0.0, 1.0}`)
-> - **Single-TIFF ZIP Package:** [`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip`](../docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip) (`102,628 B`, SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`)
+> - **Canonical Repository GeoTIFF:** [`archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`](../archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif) (`137,299 B`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`, `35,093` binary `1.0` pixels strictly in `{0.0, 1.0}`)
+> - **Single-TIFF ZIP Package:** [`archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip`](../archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip) (`102,628 B`, SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`)
 > - **Submission Name (`55 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
 > - **Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
 > - **Automated Verdict:** `verdict = "negative"`, `ok_to_download = true`, `ok_to_submit = false`, `human_inspection_required_for_this_decision = false`, `submission_slots_used = 0` (`scripts/submission_status.py` exits `2`).
