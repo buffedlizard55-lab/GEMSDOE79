@@ -1,5 +1,7 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+Latest assigned-branch review: [three-pass audit and terminal negative run card](reports/review_b0325dc8/README.md). Fresh literal-overlap preflight stops new generation; no new submission-ready TIFF is claimed.
+
 ## Download and automated decision
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
