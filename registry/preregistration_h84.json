@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "lane": "H84-FFA",
+  "title": "Far-field antislope-scarp asymmetry with >1 km catalogue exclusion",
+  "registered_utc": "2026-10-22T05:00:00Z",
+  "branch": "arena/84d1fb68-gemsdoe79",
+  "registered_before_any_holdout_result": true,
+  "supersedes": "H79-NHR (stopped duplicate) and H79-FF (archived far-field scarp). Neither is retuned. G79-FABRIC-OFFSET remains stopped.",
+  "lane_paragraph": "Hidden faults far from mapped traces are not offset parallel strands but independent short piedmont scarps whose uphill-facing (antithetic) step is systematically missed by downslope-biased compilers. Rank far-field cells (>1000 m from any mapped fault, 10 px) by uphill-vs-downhill lidar step asymmetry coherent along strike, combined with crest-base curvature balance and regional gravity/magnetic edge context. No catalogue-distance feature is an input. Dots are placed greedily with 3 px Poisson spacing at 37654 budget, zeros elsewhere, no positive overlap with the catalogue.",
+  "hypothesis": "The conditional distribution of an unmapped fault given the mapped network has a far-field mode that is not a splay of the visible network; a model that masks the near-fault band and ranks only by antislope asymmetry will place dots where the pooled hide-and-recover holdout for far-field withheld faults scores higher than a far-field-matched H33 control, and where prior registry dot-fields (whose median distances are <2 km) have low 3 px halo coverage.",
+  "mechanism": "Antithetic normal-fault scarps in Basin-and-Range piedmonts produce a one-sided uphill-facing step (upface_max > downface_max) with a paired convex crest (lappos) and concave base (lapneg) balanced across the trace, coherent over >500 m strike (coh100). Regional extension also steps basement density, visible as a weak iso_grav_anom_hg gradient. The signal is 2–10 m high, below the amplitude threshold of H19-5/H33 but persistent as an antislope ratio.",
+  "named_non_fault_mimic": "Ridge-top sackung and landslide head-scarps (also uphill-facing but on narrow ridges, not piedmonts); suppressed by low-position and elongation filters. Fluvial terrace risers and Lake Lahontan shorelines face downslope, so the antislope ratio suppresses the dominant mimic of any scarp detector.",
+  "inputs": [
+    "data/raw/training_features.tif sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5 (19 bands; uses iso_grav_anom, iso_grav_anom_hg, det_elev)",
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568 (12 bands; uses upface_max, downface_max, step_max, lapneg_max, lappos_max, coh100, strike, relief)",
+    "data/reference/existing_faults.tif and sample_submission.tif (grid, footprint, catalogue, far-field mask)"
+  ],
+  "excluded_inputs": "No registry raster, prior submission, SGMC map, Qfaults trace CSV, or score is an input. No catalogue-derived distance/density feature is an input (the >1 km mask is a hard exclusion, not a ranking feature).",
+  "fixed_parameters": {
+    "far_field_distance_m": 1000,
+    "far_field_distance_px": 10,
+    "target_budget": 37654,
+    "placement": "gems79.placement.place: descending surface, Euclidean 3 px spacing, budget 37654 scaled by evaluation-region footprint area; mask = footprint & far_field & not_catalogue",
+    "surface_X1": "antislope_rank = rank((upface - downface)/(upface+downface+1e-6)) blended with rank(step_max) and rank(coh100), multiplied by dip_balance = 1 - |rank(lapneg)-rank(lappos)| and coherence gate coh100 > 30/255; valid lidar cells only (valid>0), elsewhere step_max filtered; final surface = robust-scaled antislope_rank * coh_gate * far_field",
+    "surface_X2_if_needed": "HistGradientBoostingRegressor(max_iter=250, learning_rate=0.08, max_leaf_nodes=63, min_samples_leaf=200, l2=1.0) trained only on far-field withheld components (20% hide, 3 px buffer, 3 nested replicates, 200k negatives per replicate), target = max(1 - d/3px, 0) kernel credit toward withheld far-field component; inputs = static far-field features only (no catalogue geometry)",
+    "allowed_cells": "footprint & far_field_10px & not_catalogue",
+    "final_map": "37654 binary dots (1.0) off the catalogue, strictly far-field, 3 px spaced, zeros elsewhere including near-field, outside footprint, and on catalogue; all finite, [0,1]"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer 3 px, boundary 12 px (identical to NHR/H33 diagnostic, so controls are directly comparable)",
+    "training_for_holdout": "leave-one-quadrant-out; for fold q the surface is recomputed only from far-field withheld components visible in the other three quadrants; geometry-free",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified)",
+    "controls": [
+      "seeded uniform surface, same far-field mask and budget (uniform_far)",
+      "h33_far_control: legacy H33 dot set filtered to >10 px from the fold's visible catalogue and >10 px from full catalogue for final emission; same far-field mask and budget; contaminated/unmatched historical reference used as the 'current holdout best' bar for the far-field regime",
+      "ablation_no_antislope: same pipeline with antislope ratio removed (step_max + coh only)"
+    ],
+    "ci": "shared paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws",
+    "far_field_diagnostic": "Also report unconstrained (no far-field mask) DTI for calibration, but promotion uses the far-field-masked pooled DTI"
+  },
+  "leakage_canary": "Every input feature alone (static antislope components + step/coh) on each seed and fold: held-out positives vs negatives >3 px from truth and >3 px from far-field truth; symmetric AUC > 0.90 means leakage until proven otherwise and blocks promotion.",
+  "promotion_gate": [
+    "all canaries <= 0.90 on both seeds",
+    "candidate pooled HOLDOUT-DTI (far-field-masked) > h33_far_control point estimate on BOTH seeds",
+    "paired 95% CI of candidate minus uniform_far excludes 0 on both seeds",
+    "uniqueness (shared tool, dot_definition budget-matched-v3 for continuous surfaces, literal for dot_fields): surface Spearman <= 0.90 vs every registry raster; final dots Spearman <= 0.90 and forward 3 px overlap <= 0.70 vs every registry raster (continuous surfaces use budget-matched top-k, dot_fields literal)",
+    "shared submission_writer validation: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, [0,1], no mass outside footprint or on catalogue, far-field only"
+  ],
+  "experiments": [
+    "X1: far-field antislope fixed ranking as above (no learning). If X1 beats h33_far_control with CI, generate far-field dots and test uniqueness before any X2.",
+    "X2: only if X1 fails holdout; far-field HGB as above (reserved, not for tuning the ratio).",
+    "X3: reserved; only for a defect fix, never for tuning against the holdout"
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95% CI). No projected leaderboard score is written. ORGANIZER-CONFIRMED requires a submission-page receipt.",
+  "protocol_notes": "Budget-matched-v3 (IR-79-47) separates rank-correlation (full surface) from dot-overlap (dot_fields vs top-k of continuous surfaces). No dense/lattice exemption. The surface uniqueness gate is checked BEFORE placement; final dots gate after. No retuning after a duplicate. Weekly-slot promotion is via scripts/select_submission.py, not this lane."
+}

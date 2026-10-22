@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>H84-FFA results · GEMSDOE79</title><link rel="stylesheet" href="assets/site.css"></head><body><div class="wrap"><h1>H84-FFA — far-field diversification of the nested hide-and-recover learner</h1>
+<div class="download-warning"><strong>OK TO DOWNLOAD: YES — research artifact only — OK TO SUBMIT: NO — DO-NOT-SUBMIT, novelty gate not cleared</strong><br>Holdout beats H33 and uniform on both seeds, but full registry uniqueness has not been re-measured (only 3/992 blobs checked). The literal universal witness still covers 100% of allowed cells, so any nonempty dot set is a literal duplicate; the budget-matched-v3 audit is pending.</div>
+<p><strong>Preregistration:</strong> <code>registry/preregistration_h84.json</code> · <strong>Hypotheses:</strong> <a href="../research/hypotheses_h84.md">research/hypotheses_h84.md</a> · <strong>Evidence:</strong> <code>evidence/h84/</code></p>
+<h2>Holdout (gems57-pooled-hide-v2, 4 quadrants, 37,654-dot budget)</h2>
+<table><thead><tr><th>Experiment</th><th>Seed 20</th><th>Seed 30</th><th>Canary max</th><th>Verdict</th></tr></thead>
+<tbody>
+<tr><td>X1 far-field antislope-scarp (global surface)</td><td>0.0456 [0.0385,0.0529] vs uniform 0.0484 Δ -0.0029 [-0.0112,0.0042]</td><td>—</td><td>0.6775</td><td><strong>Negative</strong> — worse than uniform</td></tr>
+<tr><td>X2 nested hide HGB, far-field final (>1 km)</td><td><strong>0.1431</strong> [0.1281,0.1574] vs H33 0.0961 Δ +0.0470 [0.0321,0.0621], vs uniform 0.0484 Δ +0.0947 [0.0811,0.1077]</td><td><strong>0.1522</strong> [0.1335,0.1696] vs H33 0.0989 Δ +0.0533 [0.0369,0.0704], vs uniform 0.0482 Δ +0.1039 [0.0865,0.1218]</td><td>0.8514 / 0.8589</td><td><strong>Pass vs H33 & uniform</strong>, ablation 0.0739/0.0751</td></tr>
+</tbody></table>
+<h2>Final artifact (X2 far-field)</h2>
+<ul>
+<li><strong>File:</strong> <code>evidence/h84/downloads/gems79-h84-ffa-x2-nested-hide-far-37654dots-20261022T050200Z-15dd0fc4-DO-NOT-SUBMIT.tif</code> — <a href="../evidence/h84/downloads/gems79-h84-ffa-x2-nested-hide-far-37654dots-20261022T050200Z-15dd0fc4-DO-NOT-SUBMIT.tif" download>Download TIFF (0.13 MiB)</a> · <a href="../evidence/h84/downloads/gems79-h84-ffa-x2-nested-hide-far-37654dots-20261022T050200Z-15dd0fc4-DO-NOT-SUBMIT.zip" download>ZIP</a></li>
+<li>SHA256: <code>48a0ebdba5471841fe83b2f48674307102cc4a4e3223ce367d7518c0e706ad6c</code></li>
+<li>Format: float32, EPSG:32611, 3730×3292, values 0/1, single band, no NaN, zero on mapped catalogue — passes <code>gems57.submission_writer</code></li>
+<li>Dots: 37,654 off-catalogue, far-field only (>10 px = 1000 m). Allowed far pixels 3,858,215. Mean distance to catalogue 16.4 px (1.6 km) vs H79 median 539 m, H33 median 1.96 km.</li>
+<li>Surface SHA256: <code>f9f4e7c9f3d0d65d7ddd44ef436f18b5132b7ec991a101a027626b825de30816</code></li>
+</ul>
+<h2>Uniqueness (partial)</h2>
+<ul>
+<li>vs H33 (GEMSDOE32 h33-2-b2-e5eb6e7e-zeros, 17a76895): overlap 0.3415 (<0.70) — pass</li>
+<li>vs D2.8 (bfb7e86d): 0.3415 — pass</li>
+<li>vs H33 9e3a320: 0.3432 — pass</li>
+<li>Spearman surface vs H33 binary: 0.0566 (<0.90) — pass</li>
+<li><strong>Full 992 check not done</strong> — only 3 blobs restored. Literal gate universal witness (1.0 halo) still blocks every nonempty candidate under IR-79-53; budget-matched-v3 pending. Therefore <strong>not cleared</strong>.</li>
+</ul>
+<h2>Decision</h2>
+<p>X2 demonstrates holdout-beats-H33 with far-field diversification, but without a full registry re-measurement and a protocol decision on space-filling rasters, the lane is <strong>NEGATIVE, DO-NOT-SUBMIT</strong>. Only an organizer score can tell whether far-field geography helps on expert faults, since catalogue holdout truth is near-fault clustered.</p>
+<p><a href="index.html">← Back to download &amp; automatic decision</a></p>
+</div></body></html>
