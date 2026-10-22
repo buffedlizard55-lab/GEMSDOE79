@@ -1,3 +1,5 @@
+> **Historical analysis, not current score evidence.** For the newly remeasured H33 lineage, conditional metric algebra, corrected optimizer description and limits on causal claims, read the [current review](h33_review_e4a4422d.md). The original body below is retained for audit; local holdout results never establish a higher organizer score.
+
 # Forensic Analysis of H33 (`0.2778`), Metric Ceiling Theory (`0.4413`), and Empirical Validation via `G79-THVC`
 
 ## Executive Answer
@@ -13,7 +15,7 @@
    - `0.3195` in one older prompt paragraph: **stale earlier snapshot** superseded by later public submissions.
    - **`0.4413` (`xiaofanhu`, Rank #1)**: **verified official public leaderboard observation** retrieved directly from `https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/` on `2026-10-21` (`knowledge/official_sources.json`, ID `DD-LEADERBOARD`). **No candidate in this repository has an `ORGANIZER-CONFIRMED` submission-page receipt**, and public leaderboard observations are never projected or claimed as this candidate's score.
 4. **Is a higher score achievable — and did `G79-THVC` prove it empirically on strict spatial holdout?**
-   **Yes, decisively.** On the unmodified shared whole-segment hide-and-recover spatial holdout evaluator (`gems57-pooled-hide-v2`, 300 m visible buffer, exact visible-fault pixel masking, `1,000`-draw `20 km` spatial block bootstrap 95% CIs), `G79-THVC` (`EXP-79-3`) nearly **doubles** the fold-fair `H33` benchmark across **both independent spatial holdout seeds**:
+   **A higher organizer score has not been established.** The historical local holdout supports a narrower conclusion: on the unmodified shared whole-segment hide-and-recover spatial holdout evaluator (`gems57-pooled-hide-v2`, 300 m visible buffer, exact visible-fault pixel masking, `1,000`-draw `20 km` spatial block bootstrap 95% CIs), `G79-THVC` (`EXP-79-3`) nearly **doubles** the fold-fair `H33` benchmark across **both independent spatial holdout seeds**:
    - **Primary Canonical Holdout (`seed=20`, `n = 11,321` withheld positive pixels):**
      - `C2 H33 Fold-Fair Benchmark`: **`HOLDOUT-DTI = 0.0961`** (`95% CI: [0.0831, 0.1090]`)
      - `EXP-79-3 G79-THVC (Charnes-Cooper)`: **`HOLDOUT-DTI = 0.1905`** (`95% CI: [0.1741, 0.2069]`) — paired block gain **`+0.0944` (`+98.3%`, `95% CI: [+0.0785, +0.1100]`, `P(THVC > H33) = 1.000`)**

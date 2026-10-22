@@ -1,3 +1,5 @@
+> **Historical FNHR narrative — correction notice (2026-10-22).** Its H33 deletion/near-catalogue explanation does not match the pinned H33/D2.8 pair: the measured deletion is 6,436 pixels, none exactly on catalogue pixels. Sparse-only diagnostics are not approval under the literal gate. Read the [current H33 review](../knowledge/h33_review_e4a4422d.md); the stopped FNHR artifact and original evidence remain unchanged.
+
 # H79-FNHR Scientific & Forensic Analysis (`arena/a57e2a7f-gemsdoe79`)
 
 ## 1. Executive Scientific Verdict

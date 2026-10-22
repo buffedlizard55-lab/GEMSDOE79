@@ -242,7 +242,6 @@ def measure_obstructions(root: Path = ROOT, *, restore: bool = True) -> dict:
             'sha256': src_c['sha256'],
             'emitted_dots': n_pos_c,
             'static_fullcat_holdout_diagnostic': static_scores,
-            'emitted_dots': n_pos_c,
             'passes_unmodified_992_v3_gate': False,
             'informative_collisions_gt_0p70_among_26': n_raw_gt70,
             'passes_excess_overlap_le_0p70_on_26_informative_set': bool(

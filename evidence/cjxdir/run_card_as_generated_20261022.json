@@ -1,0 +1,426 @@
+{
+  "schema_version": 2,
+  "lane": "G79-CJX",
+  "generated_utc": "2026-10-22T15:59:19Z",
+  "preregistration_path": "registry/preregistration_cjx.json",
+  "preregistration_sha256": "d4abffa890698f977d7dae7f39393b844508cf637f0b75647f5e7cd43b91da38",
+  "hypothesis": "Buried fault intersections, terminations and stepovers that are missing from the USGS/INGENIOUS catalogue still juxtapose rocks of different density and magnetic susceptibility. At such a junction, potential-field edge directors are multi-modal (several strikes meet) persistently across smoothing scales in BOTH reduced-to-pole magnetics and isostatic gravity, whereas a single straight lithologic contact is uni-modal and a flat basin has no edge energy. A catalogue-free surface that requires persistent, edge-weighted director dispersion in both fields therefore targets unmapped structural junctions rather than continuations of mapped traces.",
+  "mechanism": "For each of band 2 (rtp) and band 13 (iso_grav_anom): median-fill invalid cells inside the footprint, Gaussian-smooth at sigma in {1,2,4} px, compute gradients, edge magnitude m and along-strike director theta. In a sigma=2 px Gaussian neighbourhood compute coherence C = |<m*exp(2i*theta)>| / <m>; junction statistic J = rank(<m>) * (1 - C). Per-field persistence = min over the three scales of the footprint percentile rank of J. EXP1 surface CJXJ = sqrt(rank_rtp_persistent * rank_grav_persistent). EXP2 (candidate) CJXFULL = CJXJ * sqrt(rank(<m_rtp>) * rank(<m_grav>)) at base scale sigma=2, requiring signed-contrast edge energy in both fields. EXP3 = CJXFULL placed at the H33-matched 37654-dot budget (sensitivity arm only; never the candidate). No catalogue-derived feature is used anywhere, so every fold surface is identical to the full-data surface by construction (fold-fair); the catalogue enters only through the fixed exclusion rule (no dot within 2 px) and through holdout masking.",
+  "named_non_fault_mimic": "Pluton margins and volcanic caldera ring contacts (multi-strike density/susceptibility junctions with no through-going fault), and airborne survey-block seams/levelling joins in the GeoDAWN grids. Falsification checks: a phase-randomized (power-spectrum-matched) field rebuild must collapse the junction surface's holdout skill toward the uniform control; skill confined to one smoothing scale or one field also falsifies the junction reading.",
+  "experiments_used": "3 of 3 preregistered arms (EXP1 CJXJ, EXP2 CJXFULL candidate, EXP3 budget sensitivity) + EDGE/UNIFORM controls, seeds 20/30",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "headline_seed": 20,
+    "dti": 0.02557179197396948,
+    "ci95": [
+      0.018125721234955365,
+      0.03375040404638055
+    ],
+    "withheld_positive_pixels": 11321,
+    "per_seed": {
+      "seed20": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "candidate_CJXFULL_20K": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.02557179197396948,
+          "ci95": [
+            0.018125721234955365,
+            0.03375040404638055
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 330.4110148338469,
+          "fpw": 18990.176565533016,
+          "fnw": 10990.588985166158
+        },
+        "EXP1_CJXJ": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.024786700602098168,
+          "ci95": [
+            0.018919905872924924,
+            0.03150054659177067
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 320.2779533942434,
+          "fpw": 19002.536510474383,
+          "fnw": 11000.722046605753
+        },
+        "EXP3_CJXFULL_37654_sensitivity": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.03351793408317541,
+          "ci95": [
+            0.025270373426278785,
+            0.04184416463183138
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 547.1169482593057,
+          "fpw": 35784.436519568415,
+          "fnw": 10773.883051740693
+        },
+        "control_EDGE": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.02585032408385473,
+          "ci95": [
+            0.017733381431506944,
+            0.03552086028078993
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 334.0153807008933,
+          "fpw": 18987.63126755687,
+          "fnw": 10986.984619299104
+        },
+        "control_UNIFORM": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.030997182698066464,
+          "ci95": [
+            0.027288272905120804,
+            0.03464459354746578
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 401.02970239918074,
+          "fpw": 19003.059261278773,
+          "fnw": 10919.970297600825
+        },
+        "paired_delta_vs_EDGE": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "delta": -0.0002785321098852482,
+          "ci95": [
+            -0.009304093904036543,
+            0.008696444564066454
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "paired_delta_vs_UNIFORM": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "delta": -0.0054253907240969824,
+          "ci95": [
+            -0.013763436724453331,
+            0.004257748038635779
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "better_control": "UNIFORM",
+        "beats_better_control_ci_excludes_zero": false,
+        "canonical_THVC_point_estimate_same_evaluator": 0.1905,
+        "beats_canonical_THVC_point_estimate": false,
+        "bootstrap": {
+          "method": "paired physical spatial-cluster percentile",
+          "clusters": 159,
+          "draws": 1000,
+          "seed": 520830,
+          "confidence": 0.95,
+          "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+        },
+        "canary_max_symmetric_auc": 0.5525972195845479,
+        "canary_worst_feature": "CJXFULL"
+      },
+      "seed30": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "candidate_CJXFULL_20K": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.03190258820328807,
+          "ci95": [
+            0.022388560157437308,
+            0.04178086457922097
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 412.9882549354394,
+          "fpw": 18945.461571614105,
+          "fnw": 10929.01174506456
+        },
+        "EXP1_CJXJ": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.021978155363301992,
+          "ci95": [
+            0.015183738589176151,
+            0.029086635065944704
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 284.2773254528022,
+          "fpw": 19020.42171449348,
+          "fnw": 11057.722674547194
+        },
+        "EXP3_CJXFULL_37654_sensitivity": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.03867631491167574,
+          "ci95": [
+            0.029344311602376664,
+            0.0479340235408125
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 632.1943987923514,
+          "fpw": 35728.68802396172,
+          "fnw": 10709.805601207654
+        },
+        "control_EDGE": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.03382888620857374,
+          "ci95": [
+            0.024975711260581915,
+            0.04356162671757118
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 438.08478545764535,
+          "fpw": 18944.020015009475,
+          "fnw": 10903.915214542356
+        },
+        "control_UNIFORM": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.03346118752405554,
+          "ci95": [
+            0.028951780899231304,
+            0.038080183315471486
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 433.62748875776924,
+          "fpw": 18993.96418682614,
+          "fnw": 10908.372511242234
+        },
+        "paired_delta_vs_EDGE": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "delta": -0.0019262980052856676,
+          "ci95": [
+            -0.01065899894330126,
+            0.0070481542819485635
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "paired_delta_vs_UNIFORM": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "delta": -0.001558599320767469,
+          "ci95": [
+            -0.011830592819518678,
+            0.009313286280550614
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "better_control": "EDGE",
+        "beats_better_control_ci_excludes_zero": false,
+        "canonical_THVC_point_estimate_same_evaluator": 0.1944,
+        "beats_canonical_THVC_point_estimate": false,
+        "bootstrap": {
+          "method": "paired physical spatial-cluster percentile",
+          "clusters": 159,
+          "draws": 1000,
+          "seed": 520840,
+          "confidence": 0.95,
+          "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+        },
+        "canary_max_symmetric_auc": 0.5709711525745018,
+        "canary_worst_feature": "edge_grav_s2"
+      }
+    },
+    "source_pointer": "evidence/cjx/holdout_results.json"
+  },
+  "phase_randomized_null_diagnostic": {
+    "evidence_class": "HOLDOUT-DTI diagnostic (falsification null, not a candidate)",
+    "per_seed": {
+      "seed20": {
+        "REAL_S2": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.02247687695199286,
+          "ci95": [
+            0.017139343609136826,
+            0.028012205001178195
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 290.36395026332366,
+          "fpw": 19017.33864336124,
+          "fnw": 11030.636049736682
+        },
+        "PHASE_NULL_S2": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.033815951739810154,
+          "ci95": [
+            0.029034623548219743,
+            0.038826607355353766
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 437.5700771231406,
+          "fpw": 18977.197015096084,
+          "fnw": 10883.42992287686
+        },
+        "paired_delta_REAL_minus_NULL": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "delta": -0.011339074787817295,
+          "ci95": [
+            -0.01810462914699808,
+            -0.004632492428792393
+          ],
+          "withheld_positive_pixels": 11321
+        }
+      },
+      "seed30": {
+        "REAL_S2": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.02302826061402983,
+          "ci95": [
+            0.01598698292015102,
+            0.0308372665868382
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 297.93188870573994,
+          "fpw": 19022.386021902483,
+          "fnw": 11044.068111294257
+        },
+        "PHASE_NULL_S2": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.03242941726245476,
+          "ci95": [
+            0.027482161089556516,
+            0.038029435355854874
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 420.12100929615985,
+          "fpw": 18986.556545973384,
+          "fnw": 10921.878990703837
+        },
+        "paired_delta_REAL_minus_NULL": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "delta": -0.009401156648424933,
+          "ci95": [
+            -0.018357836973219074,
+            -0.0001776687046892763
+          ],
+          "withheld_positive_pixels": 11342
+        }
+      }
+    },
+    "source_pointer": "evidence/cjx/phase_null.json"
+  },
+  "leakage_canary": {
+    "features_tested": [
+      "raw_rtp_rank",
+      "raw_grav_rank",
+      "j_rtp_s1",
+      "j_rtp_s2",
+      "j_rtp_s4",
+      "j_grav_s1",
+      "j_grav_s2",
+      "j_grav_s4",
+      "pers_rtp",
+      "pers_grav",
+      "edge_rtp_s2",
+      "edge_grav_s2",
+      "CJXJ",
+      "CJXFULL",
+      "abs_tmi_hg_rank",
+      "abs_grav_hg_rank",
+      "EDGE"
+    ],
+    "seed20_max_symmetric_auc": 0.5525972195845479,
+    "seed30_max_symmetric_auc": 0.5709711525745018,
+    "threshold": 0.9,
+    "passed": true
+  },
+  "registry_correlation_overlap": {
+    "evidence_class": "REGISTRY-MEASUREMENT (restored subset)",
+    "scope": "25 unique-by-sha256 candidate rasters whose bytes are present in this repo (docs/downloads + archive/**) plus H33 (sha256 c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9) and D2.8 (3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30) restored from GEMSDOE68 registry paths pinned in docs/evidence/h33_remeasurement.json. NOT the frozen 1108-raster inventory and NOT an organizer census; unfetched entries are a stated limitation.",
+    "reading_i_literal_positive_support": {
+      "worst_final_forward_overlap": {
+        "value": 0.82515,
+        "path": "archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif"
+      },
+      "worst_surface_forward_overlap": {
+        "value": 0.7593,
+        "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif"
+      },
+      "note": "Known a priori to fail for every nonempty candidate in the full inventory (preflight witness covers 100% of allowed cells); reported, never hidden."
+    },
+    "reading_ii_dotfield_like_for_like": {
+      "dot_field_rasters": 24,
+      "worst_final_forward_overlap": {
+        "value": 0.5219,
+        "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif"
+      },
+      "worst_surface_forward_overlap": {
+        "value": 0.7593,
+        "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif"
+      },
+      "worst_abs_spearman_surface": {
+        "value": 0.08323987374632019,
+        "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif"
+      },
+      "worst_abs_spearman_finaldots": {
+        "value": 0.02133180383878483,
+        "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif"
+      },
+      "passes_on_restored_subset": false
+    },
+    "reading_iii_d2_chance_corrected": {
+      "defined_rows": 25,
+      "worst": {
+        "value": 0.4651494696277974,
+        "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif"
+      },
+      "saturated_rows_halo_ge_0_999999": 0
+    },
+    "shared_tool_cross_check": {
+      "vendor_dot_overlap_h33": 0.2503,
+      "in_loop_edt_h33": 0.2503,
+      "agree_abs_tol_1e-9": true
+    },
+    "source_pointer": "evidence/cjx/uniqueness_restored_subset.json"
+  },
+  "submission_file": "archive/g79_cjx/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.tif",
+  "zip_file": "archive/g79_cjx/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.zip",
+  "raster_sha256": "5bdebaafc7c15bd6f9de6092398c86618986d19d4d06075acf92386948563e47",
+  "zip_sha256": "64eea65a8913c27cd266080f0519d631e0f5bf44283de00831b38a882e9f1435",
+  "bytes": 96603,
+  "positive_pixels": 20000,
+  "submission_name": "gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros",
+  "note": "GEMSDOE79 G79-CJX: RTP x gravity persistent director junctions, catalogue-free, 20k dots s3",
+  "note_chars": 91,
+  "validator": {
+    "format_passed": true,
+    "does_not_approve_submission": true,
+    "summary": "Single-band float32 GeoTIFF; CRS/shape/transform match the sample; all values finite and in [0,1] (binary 0/1, zeros outside the footprint); no positive pixel on the mapped catalogue. Local format PASS is portal-format evidence only, never scientific or selector approval.",
+    "detail_pointer": "evidence/cjx/final_receipt.json + archive/g79_cjx/*.json writer receipt"
+  },
+  "gates": {
+    "canaries_all_le_0_90_both_seeds": true,
+    "beats_controls_both_seeds_ci_excludes_zero": false,
+    "beats_current_holdout_best_both_seeds": false,
+    "local_format_validator_passed": true,
+    "raster_sha256_matches_writer_receipt": true,
+    "literal_novelty_passed": false,
+    "literal_novelty_note": "Impossible for every nonempty candidate under the literal positive-support reading: pinned witness ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be covers 100% of allowed cells (preflight exit 2). On the restored subset alone the worst literal forward overlap is 0.82515. This gate cannot be repaired by any pixel change; it needs a prospective protocol decision (amendment D-3 question), not a lane-local bypass.",
+    "dotfield_like_for_like_passed_on_restored_subset": false,
+    "vendor_overlap_cross_check_agrees": true
+  },
+  "blockers": [
+    "beats_controls_both_seeds_ci_excludes_zero",
+    "beats_current_holdout_best_both_seeds",
+    "literal_novelty_passed"
+  ],
+  "verdict": "negative",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "ok_to_submit_note": "This lane never selects itself (protocol rule 6). select_submission.py has no G79-CJX evidence adapter and the literal novelty gate fails, so ok_to_submit stays false regardless of the verdict field. Manual upload is not an exception.",
+  "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+  "submission_slots_used": 0,
+  "organizer_confirmed_score": null,
+  "organizer_confirmed_note": "No submission was made; there is no ORGANIZER-CONFIRMED score for this artifact. Any number above is HOLDOUT-DTI only."
+}

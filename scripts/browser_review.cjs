@@ -21,7 +21,8 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('response', (response) => { if (response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
-  const pages = ['index.html', 'executive-summary.html', 'research.html', 'analysis.html', 'sources.html', 'history.html', 'irregularities.html'];
+  const siteManifest = JSON.parse(fs.readFileSync(path.join(root, 'docs/evidence/site_manifest.json'), 'utf8'));
+  const pages = siteManifest.pages;
   const cases = [];
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({width, height: width > 680 ? 1050 : 900});
@@ -57,6 +58,28 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   const dest = path.join(root, '.cache/browser-downloaded.tif');
   await download.saveAs(dest);
   assert.equal(sha(fs.readFileSync(dest)), card.raster_sha256);
+  await page.goto(base + '/executive-summary.html', {waitUntil: 'networkidle'});
+  const identityRequests = [];
+  const recordIdentityRequest = request => identityRequests.push(request.url());
+  page.on('request', recordIdentityRequest);
+  const input = page.locator('#download-file');
+  const result = page.locator('[data-download-result]');
+  for (const field of ['submission_file', 'zip_file']) {
+    await input.setInputFiles(path.join(root, card[field]));
+    await page.waitForFunction(() => document.querySelector('[data-download-result]').dataset.state === 'match');
+    assert.match(await result.innerText(), /grants no submission permission/);
+    assert.match(await page.locator('.download-warning').first().innerText(), expectedVerdictBanner);
+  }
+  const altered = Buffer.from(fs.readFileSync(path.join(root, card.submission_file)));
+  altered[500] ^= 1;
+  await input.setInputFiles({name: 'altered.tif', mimeType: 'image/tiff', buffer: altered});
+  await page.waitForFunction(() => document.querySelector('[data-download-result]').dataset.state === 'unknown');
+  assert.match(await result.innerText(), /No format or submission approval/);
+  await input.setInputFiles([]);
+  await page.waitForFunction(() => document.querySelector('[data-download-result]').dataset.state === 'idle');
+  assert.equal(await page.locator('[data-download-manifest]').getAttribute('aria-busy'), 'false');
+  page.off('request', recordIdentityRequest);
+  assert.deepEqual(identityRequests, [], 'Local identity checking must not upload or fetch data');
   await page.goto(base + '/sources.html', {waitUntil: 'networkidle'});
   await page.waitForFunction(() => document.querySelectorAll('#health-rows tr').length > 0);
   assert.match(await page.locator('#feed-observation').innerText(), /Not this candidate/);
@@ -70,10 +93,13 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   assert.equal(await page.locator('[data-search-row]:visible').count(), 0);
   assert.deepEqual(errors, [], 'Browser or HTTP errors');
   const report = {reviewed_utc: new Date().toISOString(), browser: await browser.version(), cases,
-    downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, feed_rendered: true, legacy_redirects_verified: 2,
+    downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, download_identity_verified: {tiff: true, zip: true, altered_bytes_refused: true, reset: true, network_requests: 0}, feed_rendered: true, legacy_redirects_verified: 2,
     history_filter_verified: true, browser_errors: errors, passed: true,
     scope: 'Local HTTP/static website QA only; not organizer acceptance or geological evaluation.'};
-  fs.writeFileSync(path.join(root, 'evidence/browser_review.json'), JSON.stringify(report, null, 2) + '\n');
+  const reportRel = process.env.QA_REPORT_PATH || 'evidence/browser_review.json';
+  const reportPath = path.isAbsolute(reportRel) ? reportRel : path.join(root, reportRel);
+  fs.mkdirSync(path.dirname(reportPath), {recursive: true});
+  fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   await browser.close();
   console.log(JSON.stringify({passed: true, rendered_cases: cases.length, download_sha256: card.raster_sha256}, null, 2));
 })().catch((error) => {console.error(error); process.exit(1);});

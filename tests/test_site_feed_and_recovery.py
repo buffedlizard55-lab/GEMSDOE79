@@ -308,3 +308,11 @@ def test_download_competition_data_script_executable_and_syntax():
     assert script.exists()
     res = subprocess.run(['bash', '-n', str(script)], capture_output=True, text=True)
     assert res.returncode == 0
+
+
+def test_pages_pr_builds_cannot_replace_pending_production_deployment():
+    workflow = (ROOT / '.github/workflows/site.yml').read_text()
+    assert "group: ${{ github.event.pull_request.number && format('pages-pr-{0}', github.event.pull_request.number) || 'pages' }}" in workflow
+    assert 'cancel-in-progress: false' in workflow
+    assert "if: github.event_name != 'pull_request'" in workflow
+    assert 'scripts/verify_public_site.py' in workflow

@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "evidence_class": "REVIEW-DISPOSITION; INHERITED HOLDOUT-DTI AND RASTER-MEASUREMENTS",
+  "session": "e4a4422d",
+  "new_unique_tiff_generated": false,
+  "new_experiments": 0,
+  "new_placements": 0,
+  "competition_slots_spent": 0,
+  "hypothesis": "Review of inherited G79-THVC: combine scarp, geophysical, shallow-thermal and visible-catalogue evidence for omitted faults. No new hypothesis was tested.",
+  "mechanism": "Historical two-stage ensemble with fixed-penalty lazy-greedy kernel cover; not certified exact Charnes-Cooper optimization.",
+  "named_non_fault_mimic": "Paleo-shoreline benches and fluvial terrace risers.",
+  "deferred_top_hypothesis": "G79-CJX; no surface, holdout or placement generated because preflight STOP.",
+  "holdout_dti": {
+    "scope": "Inherited G79-THVC results only; not validation of the deferred hypothesis. Not a leaderboard score.",
+    "evaluator": "gems57-pooled-hide-v2",
+    "source": "evidence/g79_thvc_results.json#/seed*/official_evaluate_all",
+    "per_seed": {
+      "20": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.1905226265456631,
+        "ci95": [
+          0.1740976470216742,
+          0.2069448642000691
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 3169.2555486038837,
+        "fpw": 34719.4259870535,
+        "fnw": 8151.744451396112
+      },
+      "30": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.194393256940719,
+        "ci95": [
+          0.17737153457292731,
+          0.21255176939122447
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 3232.9798237854575,
+        "fpw": 34554.677802018094,
+        "fnw": 8109.020176214538
+      }
+    },
+    "ci_method": "1000-draw paired physical spatial-cluster percentile, conditional on fitted folds and settings; seeds share region/catalogue."
+  },
+  "registry": {
+    "surface": {
+      "evidence_class": "REGISTRY-MEASUREMENT",
+      "expected": 1108,
+      "compared": 1088,
+      "non_comparable": 20,
+      "rank_defined": 1082,
+      "rank_undefined": 6,
+      "complete_accessible_scan": false,
+      "max_abs_spearman": 0.7712363105429477,
+      "rank_threshold_exceeded": false,
+      "max_forward_overlap_3px": 1.0,
+      "duplicate_rows": 81,
+      "literal_gate_passed": false,
+      "max_jaccard_diagnostic": 1.0,
+      "jaccard_diagnostic_limit": 0.5,
+      "sparse_diagnostic": {
+        "maximum_prior_dot_count": 50000,
+        "compared": 718,
+        "max_forward_overlap_3px": 0.21984456714485884,
+        "approval_gate": false
+      },
+      "scope": "Frozen accessible family inventory, not all organizer submissions; not a fresh registry scan."
+    },
+    "dots": {
+      "evidence_class": "REGISTRY-MEASUREMENT",
+      "expected": 1108,
+      "compared": 1088,
+      "non_comparable": 20,
+      "rank_defined": 1082,
+      "rank_undefined": 6,
+      "complete_accessible_scan": false,
+      "max_abs_spearman": 0.12104930785285763,
+      "rank_threshold_exceeded": false,
+      "max_forward_overlap_3px": 1.0,
+      "duplicate_rows": 115,
+      "literal_gate_passed": false,
+      "max_jaccard_diagnostic": 0.04168337247265021,
+      "jaccard_diagnostic_limit": 0.5,
+      "sparse_diagnostic": {
+        "maximum_prior_dot_count": 50000,
+        "compared": 718,
+        "max_forward_overlap_3px": 0.6844099962955575,
+        "approval_gate": false
+      },
+      "scope": "Frozen accessible family inventory, not all organizer submissions; not a fresh registry scan."
+    }
+  },
+  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "artifact_status": "Inherited research artifact; unchanged, not a new submission.",
+  "validator": {
+    "scope": "Local format validation, not portal acceptance",
+    "single_band": true,
+    "dtype": "float32",
+    "finite_inside": true,
+    "finite_everywhere": true,
+    "minimum": 0.0,
+    "maximum": 1.0,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "matches_sample_grid": true
+  },
+  "submission_name": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT",
+  "submission_note": "GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)",
+  "submission_note_chars": 98,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "reason": "Literal overlap 1.0 exceeds 0.70 at both stages; independently restored witness blocks every nonempty candidate. No selector approval."
+}

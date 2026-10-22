@@ -881,6 +881,9 @@ def main() -> None:
         note=sub_note,
         catalogue=cat,
     )
+    val_summary = json.loads(
+        json.dumps(val_summary).replace(str(ROOT) + "/", "")
+    )
     tif_sha256 = hashlib.sha256(tif_path.read_bytes()).hexdigest()
     zip_path = arch_dir / f"{sub_name}.zip"
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:

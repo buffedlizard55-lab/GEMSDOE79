@@ -1,0 +1,76 @@
+# Three-Pass Scientific, Algorithmic, and Gate Review (`session 2669a0a3`, 2026-10-22)
+
+## Top-Line Automated Decision (Zero Human Inspection Required)
+
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
+>
+> - **Canonical downloadable research artifact:** [`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`](../docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif) (`137,299` bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`; `35,093` positive off-catalogue binary `{0,1}` pixels) and ZIP [`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip`](../docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip).
+> - **Automated machine decisions:** `scripts/verify_project.py` exits `0` (`35/35` integrity checks PASS); `scripts/validate_submission.py` exits `0` (`format_passed: true`); `scripts/submission_status.py` exits `2` (`ok_to_download: true`, `ok_to_submit: false`); `scripts/select_submission.py` exits `2` (`selected: false`, `card_left_unchanged: true`); `scripts/preflight_new_lane.py --restore` exits `2` (`impossible_under_literal_gate`).
+> - **Why no new GeoTIFF candidate was generated or submitted:** No single delimited method paragraph was assigned in the prompt, and the mandatory fail-closed literal novelty gate (`scripts/preflight_new_lane.py --restore`) blocks **every** nonempty candidate before training (`1.0000 > 0.70` forward 3-px overlap against SHA-256-pinned `17GEMSDOE:E-proba-multiscale`, `ab0a0a62…`, which covers `5,106,385 / 5,106,385` = `100.0%` of off-catalogue allowed cells). Even if continuous surfaces (`> 20%` support) were prospectively exempted, sparse binary lattice `13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif` (`c12533bb…`, `206,895` dots = `4.00%` support) covers `5,099,871 / 5,106,385` (`99.8724%`) off-catalogue allowed cells (`6,514` uncovered), forcing `>= 0.814379` 3-px overlap at `35,093` dots and `>= 0.827004` at `37,654` dots (`K_max(0.70) = 21,713` dots). Furthermore, canonical `G79-THVC` has `0.713932 > 0.70` forward 3-px overlap with live sparse sibling `GEMSDOE83` (`79f14dc8…`). **Zero new experiments and zero weekly submission slots were used.**
+
+---
+
+## 1. PhD-Level Analysis of `GEMSDOE32` `H33` (`h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros`)
+
+### 1.1 Evidence Classification of Prompt-Cited Numbers (Strict Non-Hallucination Audit)
+
+Every score referenced in the prompt and family repositories was verified against live official sources on `2026-10-22` ([remeasurement & live audit receipt](../evidence/review_2669a0a3/remeasurement_and_live_audit.json)):
+
+| Quantity | Value | Verified Evidence Class | Primary-Source Verification (`2026-10-22`) |
+|---|---:|---|---|
+| Live public `#1` (`xiaofanhu`) | `0.4413` | `PUBLIC-OBSERVATION` (not an artifact receipt for this repo) | Verified across all 3 chunks of [DrivenData Leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/): `#1 xiaofanhu = 0.4413` (`27` subs), `#2 cfld__ = 0.3904`, `#3 Batik Shirt Brothers = 0.3894`, `#49 arnofault = 0.2817`, `#50 sam35 = 0.2804`. |
+| Prompt-cited `"current #1 0.3195"` | `0.3195` | `UNVERIFIED HISTORICAL REPORT` (superseded) | Strictly absent on live leaderboard between `#21 kinghorton42 = 0.3261` and `#22 li002666 = 0.3183` (`21` teams now exceed `0.3195`). |
+| Prompt-cited `H33` (`GEMSDOE32`) | `0.2778` | `UNVERIFIED HISTORICAL REPORT` (no organizer receipt) | Below the live top-50 floor (`#50 sam35 = 0.2804`). Live [`GEMSDOE32` Pages](https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html) explicitly marks `H33-2-B2` `UNSCORED` (`0.2747` is a projection; `"NO ORGANISER SCORE EXISTS"`). |
+| Local `ORGANIZER-CONFIRMED` scores | *None* | `NONE` | DrivenData `/submissions/` is login-gated; zero organizer submission-page receipts exist in `GEMSDOE79`. |
+| `G79-THVC` vs `H33` fold-fair control | `0.1905` vs `0.0961` (Seed 20); `0.1944` vs `0.0989` (Seed 30) | `HOLDOUT-DTI` (`gems57-pooled-hide-v2`, offline proxy) | Seed 20 (`n = 11,321` withheld positives): `0.1905 [0.1741, 0.2069]` vs `0.0961 [0.0831, 0.1090]` (`delta = +0.0944 [0.0784, 0.1098]`). Seed 30 (`n = 11,342`): `0.1944 [0.1774, 0.2126]` vs `0.0989 [0.0854, 0.1128]` (`delta = +0.0955 [0.0778, 0.1133]`). |
+
+### 1.2 Exact Byte Lineage & Pooled DW-Tversky Mechanism of `H33`
+
+Direct remeasurement of restored `H33` (`c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9`, `219,065` B) against its parent `D2.8` (`3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30`, `836,982` B) and `existing_faults.tif` (`7ba308cc…`, `60,988` in-footprint catalogue pixels) proves the deterministic pixel identity:
+
+$$\text{H33}(x) = \mathbb{I}\!\left[\text{D2.8}(x) > 0 \;\wedge\; d_{\text{cat}}(x) > 2\text{ px }(200\text{ m})\right] \quad (\text{0 pixel disagreements across all } 12{,}279{,}160 \text{ cells}).$$
+
+Specifically, `H33` deletes **exact count `6,436` off-catalogue dots** at `0 < d_cat <= 2 px` (`44,090 -> 37,654` dots; `0` deleted dots lie on `existing_faults.tif > 0`), enforces minimum inter-dot spacing `>= 2.8 px` (`0` 8-neighbor adjacencies), and places binary `{0.0, 1.0}` impulses (`p10 / p50 / p90` of `d_cat = 400.0 m / 1,964.7 m / 6,800.7 m`).
+
+Under the official pooled Distance-Weighted Tversky metric ([DrivenData Problem Page](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/), $\alpha = 0.2$, $\beta = 0.8$, $R = 300\text{ m}$ triangular kernel $k(d) = \max(1 - d/R, 0)$):
+- **Max-credit vs. summed-cost asymmetry:** Each hidden truth pixel $g \in G$ takes a **pointwise maximum** $\text{TP}_w(g) = \max_{x: d(x,g) \le R} p(x) k(d(x,g))$ (`FN_w = |G| - TP_w`), whereas false-positive penalty **sums** over every emitted pixel: $\text{FP}_w = \sum_{x: p(x)>0} p(x)[1 - \max_{g \in G} k(d(x,g))]$. Continuous diffuse halos and tight 1-px clusters add linear $\text{FP}_w$ mass without increasing $\max$-pooled $\text{TP}_w$; spacing unit-amplitude `{0,1}` dots at `~2.8 px` (`280 m <= 300 m`) eliminates self-redundant $\text{FP}_w$.
+- **Exact condition under which `H33`'s `200 m` catalogue-collar prune raises pooled `DTI`:** Writing $\text{DTI} = \frac{T}{0.2 T + 0.2 F + 0.8 |G| + \varepsilon}$ (using $\text{FN}_w = |G| - T$), removing a pixel subset $\Delta S$ that sacrifices truth coverage $a = \Delta T \ge 0$ while shedding false-positive mass $b = \Delta F \ge 0$ strictly increases pooled `DTI` if and only if:
+  $$0.2\, T\, b \;>\; a\,\bigl(0.2\, F + 0.8\, |G| + \varepsilon\bigr) \iff \frac{a}{b} \;<\; \frac{0.2\, T}{0.2\, F + 0.8\, |G| + \varepsilon}.$$
+  Because known USGS/INGENIOUS faults are masked at `d_cat == 0` (`DD-MASK`) and expert-mapped new faults rarely parallel mapped traces within `100–200 m`, those `6,436` near-catalogue flank dots have small $a/b$ on off-catalogue expert labels — explaining why pruning them can raise public `DTI` **if** $a/b$ falls below the threshold above (a conditional algebraic mechanism, not an authenticated causal proof without the private truth $G$).
+
+### 1.3 Can a Submission Score Higher Than `0.2778`, and What Blocks Generating One Today?
+
+1. **Mathematical & Empirical Feasibility (`YES` in principle):** Live leaderboard observations (`21` teams above `0.3195`; `#1 xiaofanhu = 0.4413`) prove the hidden test set supports `> 0.44` pooled `DTI`. At `DTI = 0.4413` even with zero false positives ($F = 0$), recall must satisfy $T/|G| \ge \frac{0.8 \times 0.4413}{1 - 0.2 \times 0.4413} = 38.72\%$. On buffered spatial holdout (`gems57-pooled-hide-v2`), `G79-THVC` already nearly doubles the `H33` fold-fair control (`0.1905` vs `0.0961` on Seed 20; `0.1944` vs `0.0989` on Seed 30), yet `G79-THVC` places `97.58%` of its dots at `d_cat <= 2 km` while its zero-catalogue physics ablation drops to `0.0784 / 0.0772`. Closing the gap toward `0.35–0.44` requires **far-field (`1.5–8 km` off-catalogue) subsurface and geomorphic fault localization** (see [research/hypotheses_2669a0a3.md](../research/hypotheses_2669a0a3.md)).
+2. **Protocol Reality Today (`BLOCKED` under literal novelty gate):** Under the literal `theirs > 0` uniqueness rule, `17GEMSDOE:E-proba-multiscale` (`100.0%` halo coverage) and sparse lattice `13GEMSDOE` (`99.8724%` off-catalogue halo coverage) block every `>= 21,714`-dot map (`preflight_new_lane.py --restore` exit `2`). Thus no honest session can output `OK TO SUBMIT: YES` until the project owner prospectively ratifies a dense/lattice prior amendment (`Amendment D-2` / `informative-halo-v4`) and assigns a single preregistered lane.
+
+---
+
+## 2. Automated Prevention of `"Predicted values must be in range [0, 1]"`
+
+Remeasurement of restored competition inputs ([audit receipt](../evidence/review_2669a0a3/remeasurement_and_live_audit.json)) confirms the two dominant data-pipeline traps that trigger portal range rejections when unvalidated rasters are exported:
+1. **Float32 nodata sentinel bleed (`-3.4028235e+38`):** `data/raw/training_features.tif` encodes `nodata = -3.4028234663852886e+38` across `7,113,308` band-1 cells, **including `3,061` cells inside the valid `sample_submission.tif` footprint** (`5,167,373` cells). Any feature/inference pipeline that does not sanitize non-finite and `<= -1e30` values before prediction propagates negative float32 sentinels outside `[0, 1]`.
+2. **Unmasked `NaN` / `Inf` / uncalibrated logits:** `sample_submission.tif` contains `7,111,787` exterior `NaN` cells (`12,279,160` total grid cells). While the official problem text states outside-bounds cells are `"null or nan"`, the official reference notebook (`unet-mc-cv-reference-solution.ipynb` export cell) writes `y_final` without applying an exterior `NaN` mask, and family portals rejected NaN-bearing rasters (`IR-79-69`). Note: without the user's rejected file bytes and server receipt, the historical upload rejection cannot be attributed retrospectively to one specific cause, so **both** hazards are gated proactively.
+
+Our automated offline gates (`vendor/gems57/validate.py`, `src/gems79/preflight.py`, `scripts/validate_submission.py`, `scripts/verify_project.py`, `scripts/submission_status.py`) verify without human intervention:
+- `count == 1`, `dtype == float32`, `CRS == EPSG:32611`, `shape == (3730, 3292)`, exact 100 m affine `transform`,
+- `0` `NaN` inside footprint (`0` `NaN` and `0` `Inf` across all `12,279,160` cells in canonical zero-fill `G79-THVC`),
+- `min >= 0.0` and `max <= 1.0` (`[0.0, 1.0]` exact), `0` positive cells outside footprint, `0` positive cells on known `existing_faults.tif` catalogue pixels, valid single-TIFF ZIP CRC/SHA-256 match, unique submission name, and `<= 140`-character note (`102/140` chars).
+
+---
+
+## 3. Three-Pass Execution Log (`session 2669a0a3`)
+
+- **Pass 1 (Restore, Remeasure & Verify):** Merged `origin/main` (`9469cf1`); built `.venv` from `requirements.lock`; restored and SHA-256-verified all `13` manifest files (`scripts/restore_data.py --preserve-receipt`); ran `scripts/preflight_new_lane.py --restore` (`exit 2`); remeasured `H33`, `D2.8`, `17GEMSDOE`, `13GEMSDOE`, `GEMSDOE83`, and `G79-THVC` from raw bytes; verified live official sources across 16 primary pages (including all 3 leaderboard chunks and DOE Rules `96647.pdf`).
+- **Pass 2 (Bug, Assumption & Edge-Case Audit + Fixes):**
+  1. **Closed-Lane Lifecycle Protection for `G79-CJX` (`IR-79-181`):** Newly merged `PR #102` (`G79-CJX`, closed negative at `0.1041 / 0.1063` `HOLDOUT-DTI` and `0.9891` sparse overlap on `13GEMSDOE`) left five mutating CLI scripts (`run_cjx_experiment.py`, `run_cjx_exp3.py`, `build_cjx_submission.py`, `cjx_gate.py`, `cjx_sparse_novelty_diagnostic.py`) without `enforce_open_lane` guards and created `evidence/cjx` at module-import time. Added `enforce_open_lane(ROOT, "G79-CJX", ...)` to all five scripts, deferred directory creation past the guard, and registered all five scripts plus `run_card_cjx.json`, `evidence/cjx/*.json`, and `artifacts/cjx/*` in `tests/test_lane_lifecycle.py`.
+  2. **Exterior-Dot Halo Masking & Single-Band Guards (`IR-79-182`):** `scripts/measure_registry_halo.py` dilated exterior positive cells before footprint masking (disagreeing with `vendor/gems57/uniqueness.py`) and lacked a single-band `count == 1` check, while `scripts/scan_tracked_rasters.py` omitted `single_band` and `nodata_is_nan` flags. Fixed both scripts, added regression tests in `tests/test_measure_registry_halo.py`, and wrote fresh off-catalogue receipts in [`evidence/review_2669a0a3/`](../evidence/review_2669a0a3/).
+  3. **Tier-3 Sparse-Lattice Alias Reconciliation & Live Family/Leaderboard Audit (`IR-79-183`):** Verified that `evidence/post_index_sibling_audit_20261022.json` cited non-existent path string `"13GEMSDOE:docs/downloads/13GEMSDOE_r13-lattice-s5_allfinite.tif"` instead of actual indexed `13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif` (`blob 5c1a159439735522659ee78969df3f34efddcdde`, SHA-256 `c12533bb…`); caught post-`04:55Z` `GEMSDOE78` `main` (`30f1ab94`) artifact `gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif` (`SHA-256 0338383d…`, `37,654` dots; `0.5870` forward overlap with `G79-THVC`, `0.3257` with `H33`) and live top-50 leaderboard floor rise (`0.2784 -> 0.2804`); and formulated four genuinely untried post-`G79-CJX` hypotheses ([research/hypotheses_2669a0a3.md](../research/hypotheses_2669a0a3.md)).
+- **Pass 3 (End-to-End Contract Replay & Browser QA):** Rebuilt `docs/` (`scripts/build_site.py`), verified all pages + redirects (`scripts/check_site.py`, `node --test tools/browser-qa/download-check.test.cjs`, and headless Chromium `scripts/browser_review.cjs` across `1440px`, `390px`, `320px`), re-ran `scripts/verify_project.py` (`exit 0`), `scripts/submission_status.py` (`exit 2`), `scripts/select_submission.py` (`exit 2`), and full `pytest` (`512 passed`).
+
+---
+
+## 4. Remaining Limitations & Prioritized Next-Session Recommendations
+
+1. **Prospective Shared Novelty Ruling (Blocker #1):** Ratify `Amendment D-2` / `informative-halo-v4` across the shared template (`vendor/gems57/uniqueness.py` + `scripts/preflight_new_lane.py`) **prospectively** before opening a new lane, AND include live post-index siblings (`GEMSDOE76`–`GEMSDOE92`, including `GEMSDOE83` and `GEMSDOE78` `H78-GFV`) in the active registry gate.
+2. **Single Preregistered Far-Field Lane (`G79-RFTD` then `G79-MTHD`):** Once unblocked, preregister and commit `G79-RFTD` ([research/hypotheses_2669a0a3.md](../research/hypotheses_2669a0a3.md)), run all single-feature leakage canaries (`AUC <= 0.90`), and require paired `HOLDOUT-DTI` superiority over `G79-THVC` (`0.1905 / 0.1944`) with 95% CIs excluding zero on both Seeds 20 and 30 before touching a weekly slot.
+3. **External Data Mirroring & Portal Exterior Convention:** Stage official CC0 ZIPs for `doi:10.5066/P9YL58W6` (slip/dilation tendency) and `doi:10.5066/P9BZPVUC` (convective heat-flow residuals) into `registry/data_manifest.json`, and verify on DrivenData whether exterior `0.0` vs exterior `NaN` (`IR-79-69`) is required before any future promoted upload, respecting DOE Rules §§3.2–3.4 (`<= 3` submissions/week, **one** final submission per entity across both prize rounds, and mandatory narrative GenAI disclosure).

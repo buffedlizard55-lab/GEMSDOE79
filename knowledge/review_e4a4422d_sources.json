@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "reviewed_date_utc": "2026-10-22",
+  "method": "Primary pages read through the research fetch tool in this session; this is a claim ledger, not a byte-authenticated copy of a remote website.",
+  "sources": [
+    {
+      "id": "DD-PROBLEM-REVIEW",
+      "authority": "DrivenData competition organizers",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "access": "Both content chunks read successfully",
+      "verified_claims": [
+        "The task is fault mapping, not direct verification of geothermal vents or productive reservoirs.",
+        "Experts labeled faults absent from the public USGS catalogue for testing; final-round labels will also include expert-reviewed discoveries.",
+        "The metric uses alpha 0.2, beta 0.8 and a triangular kernel with 300 m support.",
+        "The required output is one float32 prediction band with values in [0,1], EPSG:32611, 100 m resolution and matching bounds.",
+        "The format paragraph says data outside the bounds is null or nan; local all-finite zero fill is a project convention, not proof of portal acceptance.",
+        "The provided-feature list names surface conductivity and depth to conductive base surface. The owner-mirrored band 15 tag instead describes sedimentary basement depth; the meanings must not be assumed equivalent."
+      ],
+      "limits": [
+        "No access to private labels, authenticated account capacity, or artifact-linked organizer receipts."
+      ],
+      "source_type": "OFFICIAL PRIMARY SOURCE"
+    },
+    {
+      "id": "DD-LEADERBOARD-REVIEW",
+      "authority": "DrivenData public leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "access": "All three content chunks read successfully on 2026-10-22",
+      "evidence_class": "PUBLIC-OBSERVATION, NOT ORGANIZER-CONFIRMED FOR A LOCAL ARTIFACT",
+      "observation": {
+        "rank": 1,
+        "participant": "xiaofanhu",
+        "public_dti": 0.4413,
+        "rank_2_participant": "cfld__",
+        "rank_2_public_dti": 0.3904,
+        "rank_3_participant": "Batik Shirt Brothers",
+        "rank_3_public_dti": 0.3894,
+        "rank_21_participant": "kinghorton42",
+        "rank_21_public_dti": 0.3261,
+        "rank_48_participant": "moongrega",
+        "rank_48_public_dti": 0.2818,
+        "rank_49_participant": "arnofault",
+        "rank_49_public_dti": 0.2817,
+        "rank_50_participant": "sam35",
+        "rank_50_public_dti": 0.2804
+      },
+      "limits": [
+        "The observation does not authenticate H33's reported score (0.2778, now below the #50 visible floor 0.2804) or imply any new file will achieve it.",
+        "Public leaderboard scores do not substitute for authenticated submission-page receipts."
+      ],
+      "source_type": "PUBLIC-OBSERVATION",
+      "verified_claims": [
+        "PUBLIC-OBSERVATION across all three leaderboard pages on 2026-10-22: #1 xiaofanhu 0.4413 (27 subs), #2 cfld__ 0.3904 (15 subs), #3 Batik Shirt Brothers 0.3894 (45 subs), #21 kinghorton42 0.3261 (21 teams > 0.3195), and visible top-50 floor #48 moongrega 0.2818, #49 arnofault 0.2817, #50 sam35 0.2804."
+      ]
+    },
+    {
+      "id": "DOE-RULES-REVIEW",
+      "authority": "DOE / National Laboratory of the Rockies, September 2026 official rules",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+      "access": "Title and sections 3.1 through 3.6 read successfully",
+      "verified_claims": [
+        "Section 3.2 permits generative AI with narrative disclosure and makes the competitor responsible for accuracy and authenticity.",
+        "Sections 3.2 and 3.4 specify up to three scoring submissions per week.",
+        "Section 3.4 allows one finalized submission per participating entity and prohibits a team member from submitting a separate final entry.",
+        "Finalists must provide code and documentation sufficient to reproduce the solution."
+      ],
+      "limits": [
+        "The rules' weekly maximum is not a measurement of remaining account slots."
+      ],
+      "source_type": "OFFICIAL PRIMARY SOURCE"
+    },
+    {
+      "id": "USGS-GEODAWN-REVIEW",
+      "authority": "USGS, Glen and Earney, 2024",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "doi": "10.5066/P93LGLVQ",
+      "access": "Data-release description read successfully",
+      "verified_claims": [
+        "Airborne magnetics and radiometrics support subsurface and surface geological interpretation, respectively.",
+        "Area 1 flight-line spacing is 200 m; Area 2 spacing is 400 m; both use flight-line azimuth 90 degrees.",
+        "Actual terrain clearance varies with aircraft climb/descent limitations and should be considered during interpretation.",
+        "The release includes magnetic and radiometric grids, flight-line CSV data and flight-path shapefiles.",
+        "The USGS page marks the release CC0 1.0 Universal."
+      ],
+      "limits": [
+        "No new original flight-line binary was downloaded in this session; existing uint8 derivatives are not calibrated concentration measurements."
+      ],
+      "source_type": "OFFICIAL PRIMARY SOURCE"
+    },
+    {
+      "id": "GDR-1391-REVIEW",
+      "authority": "DOE Geothermal Data Repository / INGENIOUS",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "doi": "10.15121/1881483",
+      "access": "Resource listing and license read successfully",
+      "verified_claims": [
+        "The regional compilation lists shallow temperature probes, magnetics, gravity, geodetics, conductance, paleogeothermal features, volcanic features, wells and springs.",
+        "The landing page states public access and CC BY 4.0; redistribution requires attribution.",
+        "The linked MT resource describes conductance integrated over depth ranges, not sub-kilometre resistivity slices."
+      ],
+      "limits": [
+        "Mirrored derived files were hash-restored separately. This page does not independently authenticate those derivatives or their column transformations."
+      ],
+      "source_type": "OFFICIAL PRIMARY SOURCE"
+    },
+    {
+      "id": "USGS-MT-DEPTH-CORRECTION",
+      "authority": "USGS, Peacock and Bedrosian, 2022",
+      "url": "https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b",
+      "doi": "10.5066/P9TWT2LU",
+      "access": "Official release description and file listing read successfully via DOI redirect",
+      "verified_claims": [
+        "Electrical conductance is the integration of electrical conductivity over a depth range.",
+        "gb_conductance_surface_tp.tif integrates 2–12 km depth; the other four ranges extend from 12 to 200 km.",
+        "This listed product does not provide the 500 m and 1500 m resistivity slices asserted by the previous H80-MT-PHASE plan."
+      ],
+      "limits": [
+        "A new source or reconstruction with justified resolution would be needed for that shallow-slice hypothesis. Metadata access is not successful binary acquisition."
+      ],
+      "source_type": "OFFICIAL PRIMARY SOURCE"
+    },
+    {
+      "id": "USGS-HEAT-RESIDUALS",
+      "authority": "USGS, DeAngelo and coauthors, 2022",
+      "url": "https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28",
+      "doi": "10.5066/P9BZPVUC",
+      "access": "Official description and ZIP listing read successfully via DOI redirect",
+      "verified_claims": [
+        "Background conductive heat-flow maps deliberately de-emphasize convectively influenced outliers using iterative weighted LOESS.",
+        "The release also provides well-point residuals; the authors say these may help identify hydrothermal or groundwater influence.",
+        "A supporting-data ZIP is publicly listed on the release page."
+      ],
+      "limits": [
+        "ZIP bytes, coordinate/field coverage and redistribution metadata were not acquired and validated here. The residual hypothesis remains data-blocked, not execution-ready."
+      ],
+      "source_type": "OFFICIAL PRIMARY SOURCE"
+    },
+    {
+      "id": "H33-SIBLING-REVIEW",
+      "authority": "GEMSDOE32 project site (not a competition authority)",
+      "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+      "access": "First content chunk read successfully",
+      "verified_claims": [
+        "The site identifies H33-2-B2 and explicitly labels it UNSCORED.",
+        "The site calls 0.2747 a projection and says no organizer score exists for its artifacts."
+      ],
+      "limits": [
+        "The user-reported H33 score 0.2778 remains unverified. Neither the site's projections nor its causal explanations are adopted as measured results."
+      ],
+      "source_type": "PROJECT SITE / NOT AN AUTHORITY"
+    },
+    {
+      "id": "DD-REFERENCE-CODE-REVIEW",
+      "source_type": "OFFICIAL REFERENCE CODE",
+      "authority": "DrivenData reference solution, John Lipor",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution/blob/aebe92f7c8a990f0e3443451b7a825d9afd6336b/unet-mc-cv-reference-solution.ipynb",
+      "access": "Pinned repository cloned; README and relevant notebook input/export cells inspected locally",
+      "verified_claims": [
+        "The input cell reads band descriptions and categories from per-band tags.",
+        "The export cell uses one band and the fault raster CRS/transform. It writes y_final without explicitly adding an outside-footprint NaN mask."
+      ],
+      "limits": [
+        "The notebook was not executed. Its source is not evidence that the competition portal accepts this project's all-finite exterior.",
+        "Local hashes and inspected cell index are recorded in evidence/review_e4a4422d/band_and_reference_metadata.json."
+      ]
+    },
+    {
+      "id": "USGS-QFAULTS-REVIEW",
+      "source_type": "OFFICIAL PRIMARY SOURCE",
+      "authority": "USGS Earthquake Hazards Program (DOI: 10.5066/P9BCVRCK)",
+      "url": "https://www.usgs.gov/programs/earthquake-hazards/faults",
+      "access": "Read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "Database compiles Quaternary faults demonstrating geological evidence of coseismic surface deformation in M>6 earthquakes, and notes hazard-map traces are simplified geometry representations.",
+        "Public-domain GIS archive URL: https://earthquake.usgs.gov/static/lfs/nshm/qfaults/Qfaults_GIS.zip."
+      ],
+      "limits": [
+        "Explains catalogue omission of sub-M6 accommodation faults, alluvial/playa-buried blind geothermal feeders, and simplified outboard piedmont splays."
+      ]
+    },
+    {
+      "id": "UNR-NGL-MIDAS-REVIEW",
+      "source_type": "OFFICIAL PRIMARY SOURCE",
+      "authority": "Nevada Geodetic Laboratory, UNR (Blewitt, Hammond & Kreemer 2018, DOI: 10.1029/2018EO104623)",
+      "url": "https://geodesy.unr.edu/",
+      "access": "Read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "Publishes open-access MAGNET/global GPS horizontal and vertical velocity tables via MIDAS, including IGS20 North America plate velocities (midas.NA.txt)."
+      ],
+      "limits": [
+        "URL and metadata verified; direct shell download from geodesy.unr.edu is blocked in the restricted sandbox, requiring owner mirror placement before model execution."
+      ]
+    }
+  ]
+}

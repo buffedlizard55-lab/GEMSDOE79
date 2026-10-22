@@ -1,0 +1,218 @@
+{
+  "lane": "G79-CJX",
+  "submission_file": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+  "submission_name": "g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros",
+  "note": "G79-CJX tip-steered coincident mag+grav contact junctions, 37654 dots sep2.8px >2px off catalogue",
+  "raster_sha256": "a422d9a08a07a089f304a0ce7f76eca35bcfeff82877af7ee5034e3f94c294e1",
+  "dots": 37654,
+  "gates": {
+    "G1_format": {
+      "passed": true,
+      "validator": {
+        "file": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+        "bytes": 827272,
+        "sha256": "a422d9a08a07a089f304a0ce7f76eca35bcfeff82877af7ee5034e3f94c294e1",
+        "meta": {
+          "crs": "EPSG:32611",
+          "shape": [
+            3730,
+            3292
+          ],
+          "dtype": "float32",
+          "count": 1,
+          "nodata": null,
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "profile_compress": "lzw"
+        },
+        "band_description": [
+          "predicted_new_fault_probability"
+        ],
+        "n_finite": 12279160,
+        "n_nan": 0,
+        "n_infinite": 0,
+        "min": 0.0,
+        "max": 1.0,
+        "mean": 0.0030664964579045773,
+        "emitted_positive_pixels": 37654,
+        "checks": {
+          "single_band": true,
+          "dtype_float32": true,
+          "dimensions_3730x3292": true,
+          "crs_epsg_32611": true,
+          "transform_matches_sample_submission": true,
+          "no_nan_anywhere": true,
+          "no_inf_anywhere": true,
+          "no_sentinel_values": true,
+          "range_0_1_guaranteed": true,
+          "min_ge_0": true,
+          "max_le_1": true,
+          "in_footprint_all_finite": true,
+          "in_footprint_range_0_1": true,
+          "outside_footprint_zero": true,
+          "zero_dots_on_mapped_catalogue": true
+        },
+        "all_checks_passed": true,
+        "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+        "on_catalogue_positive_pixels": 0,
+        "in_footprint_positive_pixels": 37654,
+        "footprint_fraction": 0.007286874781441169
+      },
+      "reference_grid_ok": true
+    },
+    "G2_canary": {
+      "passed": true,
+      "max_symmetric_auc": 0.5673891722506319,
+      "threshold": 0.9,
+      "evidence_class": "LEAKAGE-CANARY"
+    },
+    "G3_holdout": {
+      "passed": false,
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "seeds": {
+        "20": {
+          "dti": 0.10412616322174773,
+          "ci95": [
+            0.08695164810391919,
+            0.12202621207577183
+          ],
+          "withheld_positive_pixels": 11321,
+          "h33_foldfair_control_frozen": 0.09608619416803546,
+          "incumbent_g79_thvc_frozen": 0.1905226265456631,
+          "beats_both": false
+        },
+        "30": {
+          "dti": 0.10627040757027897,
+          "ci95": [
+            0.09096209907598128,
+            0.12070237056855213
+          ],
+          "withheld_positive_pixels": 11342,
+          "h33_foldfair_control_frozen": 0.09889767286222764,
+          "incumbent_g79_thvc_frozen": 0.194393256940719,
+          "beats_both": false
+        }
+      }
+    },
+    "G4_novelty": {
+      "passed": false,
+      "registry_rasters_checked": 990,
+      "registry_rasters_expected": 992,
+      "worst_abs_spearman_surface_sampled250k": [
+        0.7164040903708745,
+        "94106cce41eb878e3744818a71d99affde67028d"
+      ],
+      "worst_abs_spearman_dots_sampled250k": [
+        0.11009245142759418,
+        "06c2e93680efb5106acd46aad60fca571ea33975"
+      ],
+      "worst_literal_overlap_dots_exact": [
+        1.0,
+        "0c42fc03b2c1830b4bbbd09e3a58a7f31c310118"
+      ],
+      "limits": {
+        "rho": 0.9,
+        "overlap": 0.7
+      },
+      "note": "Spearman on fixed 250k-pixel footprint sample (SE~0.002); overlap is exact Euclidean 3-px on all my dots.",
+      "worst_literal_overlap_submission": "GEMSDOE48 docs/downloads/diagnostics/gemsdoe48-h50-plausibility-20261007-5b59e106.tif (positive support = 100% of footprint; the documented non-informative universal blocker)",
+      "worst_rho_surface_submission": "h57-continuous-anatomy-20261009T201252Z-f44b207a70f0.tif (98.8% footprint support, continuous surface)",
+      "sparse_diagnostic": {
+        "scope": "DIAGNOSTIC ONLY - sparse dot-fields (support<=5% footprint); cannot override literal G4",
+        "n_sparse_checked": 870,
+        "skipped_unreadable_or_wrong_shape": 2,
+        "worst_overlap": 0.9890848249853933,
+        "worst_submission": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif",
+        "top5": [
+          {
+            "blob": "5c1a159439735522659ee78969df3f34efddcdde",
+            "path": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif",
+            "support_fraction": 0.04003871986790967,
+            "overlap": 0.9890848249853933
+          },
+          {
+            "blob": "81c802618e6d46c6d62289d856ae74439439bbc6",
+            "path": "registry/rasters/calib_r13lattice_00904.tif",
+            "support_fraction": 0.04003871986790967,
+            "overlap": 0.9890848249853933
+          },
+          {
+            "blob": "221a40c120365a42e36371e0c89a0a2ca21fe5c4",
+            "path": "docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif",
+            "support_fraction": 0.03243369503227268,
+            "overlap": 0.8342008817124342
+          },
+          {
+            "blob": "3e93916f747c6e512467590be42b46a064860d39",
+            "path": "docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
+            "support_fraction": 0.03243369503227268,
+            "overlap": 0.8342008817124342
+          },
+          {
+            "blob": "2f15909f6c2e60ce41d849af5085ee8fe79dd221",
+            "path": "docs/downloads/13gems_20261001_r14-union-tips10-lat6_zerofill.tif",
+            "support_fraction": 0.03720091427500976,
+            "overlap": 0.8190896053540129
+          }
+        ],
+        "top5_chance_corrected": [
+          {
+            "blob": "5c1a159439735522659ee78969df3f34efddcdde",
+            "path": "docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif",
+            "support_fraction": 0.04003871986790967,
+            "overlap": 0.9890848249853933,
+            "halo_coverage_allowed": 0.9987132726822701,
+            "chance_corrected_overlap": -7.482896775568098
+          },
+          {
+            "blob": "81c802618e6d46c6d62289d856ae74439439bbc6",
+            "path": "registry/rasters/calib_r13lattice_00904.tif",
+            "support_fraction": 0.04003871986790967,
+            "overlap": 0.9890848249853933,
+            "halo_coverage_allowed": 0.9987132726822701,
+            "chance_corrected_overlap": -7.482896775568098
+          },
+          {
+            "blob": "221a40c120365a42e36371e0c89a0a2ca21fe5c4",
+            "path": "docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif",
+            "support_fraction": 0.03243369503227268,
+            "overlap": 0.8342008817124342,
+            "halo_coverage_allowed": 0.5481466114406682,
+            "chance_corrected_overlap": 0.6330687730013668
+          },
+          {
+            "blob": "3e93916f747c6e512467590be42b46a064860d39",
+            "path": "docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
+            "support_fraction": 0.03243369503227268,
+            "overlap": 0.8342008817124342,
+            "halo_coverage_allowed": 0.5481466114406682,
+            "chance_corrected_overlap": 0.6330687730013668
+          },
+          {
+            "blob": "2f15909f6c2e60ce41d849af5085ee8fe79dd221",
+            "path": "docs/downloads/13gems_20261001_r14-union-tips10-lat6_zerofill.tif",
+            "support_fraction": 0.03720091427500976,
+            "overlap": 0.8190896053540129,
+            "halo_coverage_allowed": 0.7619734437595274,
+            "chance_corrected_overlap": 0.23995709763066267
+          }
+        ]
+      }
+    }
+  },
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "organizer_confirmed_score": null,
+  "evidence_note": "No organizer receipt exists for this artifact; no leaderboard score is claimed or projected.",
+  "hypothesis": "Coincident multi-scale RTP-magnetic + isostatic-gravity contact junctions, steered to visible fault terminations, recover unmapped fault continuations.",
+  "mechanism": "CJX v3 tip: sqrt(pers_mag*pers_grav)*(0.35+0.65*orientation concordance), weighted exp(-dist_to_visible_endpoint/12px)+0.05, dotted 37,654 @2.8px, >2px off catalogue. Exp1=v1 edges, Exp2=v2 junction (both negative).",
+  "named_non_fault_process": "Pluton/caldera margins and survey-block seams produce coincident potential-field edges and orientation junctions; terrace risers mimic scarps.",
+  "experiments_used": 3
+}

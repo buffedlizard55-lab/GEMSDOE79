@@ -54,13 +54,22 @@ def log(*a):
 
 def require_open():
     """Fail closed if the lane is terminal or the 2 h budget is exhausted."""
+    from gems79.lifecycle import enforce_open_lane
     if STATE.exists():
         st = json.loads(STATE.read_text())
         if st.get("verdict") not in (None, "pending", "in_progress"):
-            raise SystemExit(f"H79-BQA is closed ({st.get('verdict')}); no files changed")
+            enforce_open_lane(
+                ROOT,
+                "H79-BQA",
+                reason=f"H79-BQA is closed ({st.get('verdict')}).",
+            )
     reg = datetime.fromisoformat(PREREG["registered_utc"].replace("Z", "+00:00"))
     if (datetime.now(timezone.utc) - reg).total_seconds() > 2 * 3600 + 15 * 60:
-        raise SystemExit("H79-BQA two-hour budget exhausted (15 min grace for packaging only)")
+        enforce_open_lane(
+            ROOT,
+            "H79-BQA",
+            reason="H79-BQA two-hour budget exhausted (15 min grace for packaging only).",
+        )
 
 
 def weighted_fit(X, y, seed, n_static):
@@ -305,6 +314,7 @@ def stage_place():
 
 
 if __name__ == "__main__":
+    require_open()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("stage", choices=["holdout", "surface", "place", "surface-x2", "place-x2"])
     ap.add_argument("--seed", type=int, default=20)
