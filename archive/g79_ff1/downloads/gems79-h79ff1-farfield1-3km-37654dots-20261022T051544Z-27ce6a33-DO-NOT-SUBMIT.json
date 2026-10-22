@@ -1,14 +1,14 @@
 {
-  "file": "gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-  "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
-  "bytes": 136481,
-  "submission_name": "gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT",
-  "note": "H79-NHR research only; HOLDOUT-DTI 0.143/0.152 vs H33 0.096/0.099; DUPLICATE: 0.91 of dots within 3px of a registry raster",
-  "note_chars": 122,
+  "file": "gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.tif",
+  "sha256": "db87c3fc47360f6d7bcd2a0de174d0626a379f4af3f14ddbd3de527d323e1770",
+  "bytes": 140046,
+  "submission_name": "gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT",
+  "note": "H79-FF1 far-field 1-3km band; HOLDOUT-DTI 0.0944/0.0931 vs H33 0.0961/0.0989; verdict negative",
+  "note_chars": 94,
   "validator": {
-    "file": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-    "bytes": 136481,
-    "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+    "file": "/home/user/GEMSDOE79/archive/g79_ff1/downloads/gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.tif",
+    "bytes": 140046,
+    "sha256": "db87c3fc47360f6d7bcd2a0de174d0626a379f4af3f14ddbd3de527d323e1770",
     "meta": {
       "crs": "EPSG:32611",
       "shape": [
@@ -62,9 +62,9 @@
     "footprint_fraction": 0.007286874781441169
   },
   "template_report": {
-    "path": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-    "bytes": 136481,
-    "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+    "path": "/home/user/GEMSDOE79/archive/g79_ff1/downloads/gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.tif",
+    "bytes": 140046,
+    "sha256": "db87c3fc47360f6d7bcd2a0de174d0626a379f4af3f14ddbd3de527d323e1770",
     "bands": 1,
     "dtype": "float32",
     "crs": "EPSG:32611",
@@ -110,16 +110,22 @@
     "ok": true,
     "validation_class": "local on-disk template/range check; not organizer upload acceptance"
   },
-  "zip_file": "gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip",
-  "zip_sha256": "b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7",
+  "zip_file": "gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "8c65f707adebde3115acfc34d6fdedc78751424a540314ea82e923140d96aa2a",
   "approved_for_weekly_slot": false,
   "promoted": false,
   "submission_slots_used": 0,
   "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
   "metadata": {
-    "lane": "H79-NHR",
-    "experiment": "X1",
-    "dots_sha256": "2a7ef64ed4866fc421e0e822588c277740f66f4865665be82eafe5e75708e8f8",
-    "surface_sha256": "f9f4e7c9f3d0d65d7ddd44ef436f18b5132b7ec991a101a027626b825de30816"
+    "lane": "H79-FF1",
+    "gates": {
+      "canary_le_0_90_both_seeds": true,
+      "beats_h33_control_both_seeds": false,
+      "surface_spearman_le_0_90": true,
+      "informative_dotfield_overlap_le_0_70": false,
+      "literal_gate_note": "literal shared gate flags space-filling plateau rasters (IR-79-53); recorded, not waived",
+      "exact_budget": true
+    },
+    "ok_to_submit": false
   }
 }

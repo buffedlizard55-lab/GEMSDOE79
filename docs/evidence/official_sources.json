@@ -1,24 +1,198 @@
 {
   "schema_version": 1,
   "reviewed_date_utc": "2026-10-22",
-  "retrieval_method": "Research fetch_page tool on 2026-10-22 across all official competition pages, rules PDF, community staff rulings, USGS/DOE releases, EPSG registry, and mathematical references; direct sandbox HTTP egress is restricted to package/GitHub hosts. Extracts below are line-by-line verified claims, not archived complete page bytes.",
+  "retrieval_method": "Research fetch_page tool across official sources on 2026-10-21 and re-verified on 2026-10-22; direct sandbox egress to non-GitHub domains is restricted. Extracts below are reviewed claims, not archived complete page bytes.",
   "sources": [
     {
       "id": "DD-PROBLEM",
       "authority": "DrivenData competition organizer",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
-      "access": "all chunks read in full on 2026-10-22",
+      "access": "read both chunks in full",
       "verified_claims": [
-        "Task: fault detection indicative of geothermal resources across the GeoDAWN NW Great Basin footprint, not direct vent/reservoir discovery.",
-        "Initial test labels are expert-identified faults absent from the current public USGS/INGENIOUS database.",
-        "Provided numerical feature GeoTIFF is EPSG:32611 at 100 m resolution; shape 3730 x 3292 matches sample_submission.tif.",
-        "Distance-weighted TP is a sum over ground-truth fault pixels of max_{x in B_R(g)} p(x) * k(||x - g||); FP sums p(x) * (1 - max_{g in B_R(x)} k(||x - g||)) over off-truth cells; FN is |G| - TP_w (verified against worked example TP_w=3.00, FP_w=1.89, FN_w=2.00 -> DTI=0.60).",
-        "Triangular kernel radius is R = 300 m (3 px at 100 m); asymmetric Tversky weights are alpha = 0.2 (FP) and beta = 0.8 (FN).",
-        "Submission specification: single-layer float32 GeoTIFF, confidence values between 0 and 1, identical CRS, resolution, and bounds; note live portal validator rejects NaN outside-footprint pixels ('Predicted values must be in range [0, 1]'), so all-finite 0.0 outside footprint is required."
+        "Task: fault detection indicative of geothermal resources, not direct vent/reservoir discovery.",
+        "Initial test labels are expert-identified faults absent from the current public USGS database.",
+        "Provided numerical feature GeoTIFF is EPSG:32611 at 100 m resolution.",
+        "Distance-weighted TP is a maximum of p(x) times a triangular kernel over predictions around each truth pixel; FP uses distance to the truth; FN is truth mass minus weighted TP.",
+        "Triangular radius is 300 m; alpha is 0.2 and beta is 0.8.",
+        "Submission: single-layer float32 GeoTIFF, confidence values between 0 and 1, same CRS, resolution and bounds. Text says data outside bounds is null or NaN."
       ],
       "limits": [
-        "Page access does not authenticate owner-mirrored feature bytes.",
-        "A local validator cannot prove remote portal acceptance without an upload receipt."
+        "Page access does not authenticate the owner-mirrored data bytes.",
+        "A local validator cannot prove remote portal acceptance."
+      ]
+    },
+    {
+      "id": "DD-MASK",
+      "authority": "DrivenData Staff chrisk-dd, September 16 response",
+      "url": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2",
+      "access": "staff response read",
+      "verified_claims": [
+        "Pixels corresponding to known USGS/INGENIOUS faults are masked/excluded from evaluation and do not count toward penalty terms.",
+        "Re-evaluation also masks/excludes existing USGS/INGENIOUS faults."
+      ],
+      "limits": [
+        "The quoted response does not authorize masking a 200 m collar around visible faults. Our holdout only masks their exact pixels."
+      ]
+    },
+    {
+      "id": "DD-POOL",
+      "authority": "DrivenData Staff chrisk-dd, October 1 response",
+      "url": "https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550/2",
+      "access": "staff response read",
+      "verified_claims": [
+        "Public leaderboard pools over all pixels in the public subset and computes one Tversky index.",
+        "Private scoring is computed the same way; final re-evaluation covers the entire GeoDAWN area.",
+        "Organizers do not provide chunking/subset information."
+      ]
+    },
+    {
+      "id": "DOE-RULES",
+      "authority": "DOE / National Laboratory of the Rockies, September 2026 official rules",
+      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+      "access": "all seven parsed chunks read, including end of document",
+      "verified_claims": [
+        "Sections 3.2 and 3.4 specify up to three submissions per week, subject to competition website limits.",
+        "One final submission must be selected for both prize rounds without private-test performance knowledge.",
+        "Generative AI use is allowed but its extent must be disclosed in the narrative; competitors remain responsible for accuracy, authenticity and authorship.",
+        "Finalists must provide reproducible code assets, documentation and resource requirements."
+      ],
+      "limits": [
+        "The signed-in account's current remaining weekly slots are not visible.",
+        "The agent cannot certify participant citizenship, eligibility, rights or account consent."
+      ]
+    },
+    {
+      "id": "USGS-GEODAWN",
+      "authority": "U.S. Geological Survey data release",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "doi": "10.5066/P93LGLVQ",
+      "access": "full scientific description and citation read",
+      "license_as_published": "CC0 1.0 Universal",
+      "verified_claims": [
+        "Aeroradiometric data inform surface geology and soil composition; aeromagnetic data inform subsurface structure and geology.",
+        "Area 2 nominal flight-line spacing is 400 m and tie-line spacing is 4000 m; grids at 100 m do not imply independent 100 m observations.",
+        "Magnetic processing includes tie-line levelling and micro-levelling; variable terrain clearance should be considered in interpretation.",
+        "GeoTIFF grids, CSV line data, flight-path shapefiles and processing reports are listed as release products."
+      ],
+      "limits": [
+        "Newly estimated magnetic-marker lags do not prove displacement or fault permeability.",
+        "USGS release access is not independent confirmation that each mirrored derivative matches an original product."
+      ]
+    },
+    {
+      "id": "GDR-1391",
+      "authority": "DOE Geothermal Data Repository / INGENIOUS contributors",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "doi": "10.15121/1881483",
+      "access": "dataset description and resource links read",
+      "license_as_published": "Creative Commons Attribution 4.0",
+      "verified_claims": [
+        "The compilation includes 2 m temperature probes, gravity/magnetics, heat flow, MT, faults, volcanic features, paleogeothermal features and well/spring chemistry.",
+        "Datasets are provided as is and may be redistributed with attribution; users are responsible for fitness for purpose.",
+        "Quaternary Faults v2 supersedes v1; that source is not automatically independent of the competition catalogue."
+      ],
+      "limits": [
+        "No new GDR data are required by this lane; no new direct binary download from this host is claimed."
+      ]
+    },
+    {
+      "id": "DD-REFERENCE",
+      "authority": "drivendataorg official GitHub organization",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "access": "README and notebook retrieved through GitHub API",
+      "verified_claims": [
+        "Reference solution uses a U-Net with Monte Carlo cross-validation and Tversky loss.",
+        "CPU-only environment is supported; a GPU speeds training but is not required for this lane's CPU transforms and holdout."
+      ],
+      "limits": [
+        "The reference notebook is a baseline, not evidence of this project's performance."
+      ]
+    },
+    {
+      "id": "DD-LEADERBOARD",
+      "authority": "DrivenData public leaderboard",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "access": "all three chunks read on 2026-10-22",
+      "observation": {
+        "first_place_participant": "xiaofanhu",
+        "public_dti": 0.4413,
+        "second_place_participant": "cfld__",
+        "second_place_public_dti": 0.3904,
+        "third_place_participant": "Batik Shirt Brothers",
+        "third_place_public_dti": 0.3894,
+        "rank_21_participant": "kinghorton42",
+        "rank_21_public_dti": 0.3261,
+        "rank_48_participant": "sam35",
+        "rank_48_public_dti": 0.2804,
+        "rank_49_participant": "op01",
+        "rank_49_public_dti": 0.2797,
+        "rank_50_participant": "kinneso_outlook",
+        "rank_50_public_dti": 0.2784,
+        "prior_2026_10_21_rank_48_participant": "extradr19",
+        "prior_2026_10_21_rank_48_public_dti": 0.2778,
+        "first_place_submissions": 27
+      },
+      "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
+      "limits": [
+        "Between 2026-10-21 and 2026-10-22 new higher entries (including Azazel 0.3289 and kinneso_outlook 0.2784) moved the visible top-50 floor from 0.2778 to 0.2784; 21 teams exceed 0.3195.",
+        "A matching numeric value does not prove the H33 filename, raster hash, or submitting identity.",
+        "No submission in this repository has an ORGANIZER-CONFIRMED submission-page receipt."
+      ],
+      "observed_date_utc": "2026-10-22"
+    },
+    {
+      "id": "DD-AUTH",
+      "authority": "DrivenData",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/",
+      "access": "redirected to accounts/login; data page also redirects to login",
+      "verified_claims": [
+        "Submission receipts and current account weekly capacity are inaccessible without an authorized DrivenData session."
+      ],
+      "limits": [
+        "Do not request passwords or bypass login. No upload or slot selection was attempted."
+      ]
+    },
+    {
+      "id": "PRIMARY-HERMANT-2025",
+      "source_type": "PRIMARY LITERATURE",
+      "authority": "Hermant, Kiersnowski & Bellanger; Stanford Geothermal Workshop 2025",
+      "url": "https://pangea.stanford.edu/ERE/db/GeoConf/papers/SGW/2025/Hermant.pdf",
+      "access": "all eight parsed chunks read, including references",
+      "verified_claims": [
+        "Authors use elevation, slope and Sentinel-2 B8A for fault mapping; their procedure is distinct from E1 magnetic-marker registration.",
+        "They report overfitting and fault-like paleo-shorelines, canyon margins and streams. Faults may conduct or impede fluid flow.",
+        "Their metrics are PR-AUC and weighted focal IoU; these are not competition DTI."
+      ],
+      "limits": [
+        "Industry-author primary paper hosted by Stanford; not a government or organizer endorsement.",
+        "No proprietary weights, model reproduction, new data acquisition or performance transfer is claimed."
+      ]
+    },
+    {
+      "id": "USGS-REGIONAL-2022",
+      "authority": "U.S. Geological Survey, Glen and colleagues (2022)",
+      "url": "https://doi.org/10.5066/P9Z6SA1Z",
+      "access": "release description and attached-file listing read",
+      "verified_claims": [
+        "Lists regional gravity, magnetic and depth-to-basement grids assembled from multiple earlier sources.",
+        "Public listing includes metadata, readme and a 6.5 MB grid ZIP."
+      ],
+      "limits": [
+        "No new binary download or byte identity with a mirrored band was verified.",
+        "Availability of a release does not establish uniform independent 100 m measurement resolution."
+      ]
+    },
+    {
+      "id": "GBCGE-INGENIOUS",
+      "authority": "Great Basin Center for Geothermal Energy / University of Nevada, Reno",
+      "url": "https://gbcge.org/current-projects/ingenious/",
+      "access": "project description and primary publication listing reviewed; not every linked publication read",
+      "verified_claims": [
+        "Project integrates geophysical, geological, thermal and exploration analyses for hidden geothermal systems.",
+        "Lists the INGENIOUS compilation and regional USGS geophysical release as related publications."
+      ],
+      "limits": [
+        "Project description is not a discovery claim or hidden-label receipt for this candidate."
       ]
     },
     {
@@ -32,20 +206,6 @@
       ],
       "limits": [
         "Does not expose private-split boundaries or per-account remaining submission slots."
-      ]
-    },
-    {
-      "id": "DD-MASK",
-      "authority": "DrivenData Staff chrisk-dd, September 16 & September 21 responses (posts #2 & #4)",
-      "url": "https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2",
-      "access": "full thread (all 4 posts across both chunks) read on 2026-10-22",
-      "verified_claims": [
-        "Post #2 (Sep 16): Pixels corresponding to known USGS/INGENIOUS faults are masked/excluded from evaluation in both Phase 1 and Phase 2 re-evaluation.",
-        "Post #4 (Sep 21): The exclusion mask is strictly pixel-exact (identical to the provided training fault raster); predicted pixels 1-3 px from a known fault trace with no nearby new-fault pixel are fully penalized in FP_w.",
-        "Post #4 (Sep 21): New-fault ground-truth pixels CAN lie within 300 m of a known fault trace (e.g., trace corrections/modifications in both Phase 1 and Phase 2)."
-      ],
-      "limits": [
-        "Does not authorize deleting predictions inside a wide collar (e.g. 500 m) without losing real near-fault splay/correction TP_w."
       ]
     },
     {
@@ -63,157 +223,6 @@
         "Thread 11527/7 (Sep 23): Organizers do not disclose the exact mix of surface vs subsurface data sources behind Phase 1 test labels, and note Phase 2 ($250k) uses a test set updated by expert review of all Phase 1 submissions.",
         "Thread 11543/2 (Oct 1): Reproducible human geological hand-labeling / accept-reject curation on public data inside the GeoDAWN region IS permitted for training/hard-negative filtering provided all saved labels are retained and produced reproducibly on organizer request.",
         "Thread 11556/3 (Oct 7): Phase 2 revision can add, remove, or change evaluation faults; the excluded USGS/INGENIOUS mask raster stays identical; no extra per-fault weights exist beyond the published DW-Tversky formula."
-      ]
-    },
-    {
-      "id": "DD-POOL",
-      "authority": "DrivenData Staff chrisk-dd, October 1 response",
-      "url": "https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550/2",
-      "access": "full thread read on 2026-10-22",
-      "verified_claims": [
-        "Public leaderboard pools TP_w, FP_w, and FN_w over all pixels in the public subset and computes a single Tversky index.",
-        "Private leaderboard uses the identical pooled formula; final Phase 2 re-evaluation covers the entire GeoDAWN area.",
-        "Organizers do not disclose public/private chunking geometry."
-      ]
-    },
-    {
-      "id": "DOE-RULES",
-      "authority": "DOE / National Laboratory of the Rockies, September 2026 official rules",
-      "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
-      "access": "read in full through document end",
-      "verified_claims": [
-        "Statutory authority 15 U.S.C. 3719; $300,000 total prize pool; U.S. eligibility requirements.",
-        "Sections 3.2 and 3.4 specify up to three submissions per week, subject to competition website limits.",
-        "One final submission must be selected for both prize rounds without private-test performance knowledge.",
-        "Generative AI use is permitted provided its extent is disclosed in the narrative; participants remain responsible for accuracy, authenticity, and authorship.",
-        "Finalists must provide reproducible code assets, documentation, saved hand-labels if any, and resource requirements."
-      ],
-      "limits": [
-        "The signed-in account's remaining weekly slots cannot be inspected without credentials.",
-        "The agent cannot certify participant citizenship, eligibility, rights, or account consent."
-      ]
-    },
-    {
-      "id": "USGS-GEODAWN",
-      "authority": "U.S. Geological Survey data release",
-      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
-      "doi": "10.5066/P93LGLVQ",
-      "access": "full scientific description and citation read on 2026-10-22",
-      "license_as_published": "CC0 1.0 Universal",
-      "verified_claims": [
-        "Covers 51,857 km^2 (149,030 line-km) across NW Nevada and SE Oregon: Area 1 flight/tie spacing 200 m / 2000 m, Area 2 spacing 400 m / 4000 m; 100 m grids do not imply independent 100 m measurements.",
-        "Aeroradiometric channels (K, eU, eTh, Total Count) sense top ~30-50 cm surface regolith/alteration; aeromagnetics sense subsurface magnetization contrasts.",
-        "Processing includes tie-line levelling and micro-levelling; variable drape clearance affects short-wavelength amplitudes."
-      ],
-      "limits": [
-        "Magnetic-marker lags alone do not prove Quaternary slip or active permeability.",
-        "USGS release access does not independently verify owner-mirrored raster bytes."
-      ]
-    },
-    {
-      "id": "GDR-1391",
-      "authority": "DOE Geothermal Data Repository / INGENIOUS contributors",
-      "url": "https://gdr.openei.org/submissions/1391",
-      "doi": "10.15121/1881483",
-      "access": "dataset description and resource links read on 2026-10-22",
-      "license_as_published": "Creative Commons Attribution 4.0",
-      "verified_claims": [
-        "9 resource files (116.98 MB total) compiling 2 m temperature probes, gravity/magnetics, heat flow, MT, Quaternary faults (v2 superseding v1), volcanic vents, paleogeothermal sinter/travertine, and spring/well geothermometry.",
-        "Quaternary Faults v2 overlaps the competition training catalogue and is NOT independent ground truth."
-      ],
-      "limits": [
-        "No new GDR files were downloaded in this session."
-      ]
-    },
-    {
-      "id": "DD-REFERENCE",
-      "authority": "drivendataorg official GitHub organization",
-      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
-      "access": "README and notebook retrieved through GitHub",
-      "verified_claims": [
-        "Reference baseline trains a 2D U-Net with Monte Carlo cross-validation and soft Tversky loss.",
-        "CPU execution is supported; GPU accelerates deep training."
-      ],
-      "limits": [
-        "Baseline architecture only; does not establish leaderboard score."
-      ]
-    },
-    {
-      "id": "DD-LEADERBOARD",
-      "authority": "DrivenData public leaderboard",
-      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "access": "all three chunks (ranks #1-#50) read in full on 2026-10-22",
-      "observation": {
-        "first_place_participant": "xiaofanhu",
-        "public_dti": 0.4413,
-        "first_place_submissions": 27,
-        "second_place_participant": "cfld__",
-        "second_place_public_dti": 0.3904,
-        "third_place_participant": "Batik Shirt Brothers",
-        "third_place_public_dti": 0.3894,
-        "rank_50_participant": "kinneso_outlook",
-        "rank_50_public_dti": 0.2784,
-        "prior_2026_10_21_rank_48_participant": "extradr19",
-        "prior_2026_10_21_rank_48_public_dti": 0.2778
-      },
-      "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
-      "limits": [
-        "Public leaderboard displays only the Top 50 participants (#50 = 0.2784 on 2026-10-22 after #48 sam35 = 0.2804 and #49 op01 = 0.2797 displaced 2026-10-21 #48 extradr19 = 0.2778 below row 50).",
-        "A matching numeric score on 2026-10-21 does not prove the H33 filename, raster hash, or account ownership without an authenticated submission-page receipt."
-      ],
-      "observed_date_utc": "2026-10-22"
-    },
-    {
-      "id": "DD-AUTH",
-      "authority": "DrivenData",
-      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/",
-      "related_urls": [
-        "https://www.drivendata.org/competitions/306/competition-doe-gems/data/"
-      ],
-      "access": "both /submissions/ and /data/ verified login-gated on 2026-10-22",
-      "verified_claims": [
-        "Submission receipts, data downloads, and remaining weekly upload slots require an authenticated DrivenData session."
-      ],
-      "limits": [
-        "Credentials are never requested or stored; 0 weekly slots were used."
-      ]
-    },
-    {
-      "id": "PRIMARY-HERMANT-2025",
-      "source_type": "PRIMARY LITERATURE",
-      "authority": "Hermant, Kiersnowski & Bellanger; Stanford Geothermal Workshop 2025 (plus Matteo et al. 2021 cited on page/967/)",
-      "url": "https://pangea.stanford.edu/ERE/db/GeoConf/papers/SGW/2025/Hermant.pdf",
-      "access": "all eight parsed chunks read in full",
-      "verified_claims": [
-        "Identifies overfitting on elevation/slope/Sentinel-2 inputs and explicit false-positive mimics: Pleistocene paleoshorelines, canyon walls, and incised streams.",
-        "Evaluates PR-AUC and focal IoU rather than 300 m DW-Tversky."
-      ],
-      "limits": [
-        "Industry conference paper; not an organizer ground-truth specification."
-      ]
-    },
-    {
-      "id": "USGS-REGIONAL-2022",
-      "authority": "U.S. Geological Survey, Glen and colleagues (2022)",
-      "url": "https://doi.org/10.5066/P9Z6SA1Z",
-      "access": "release description and attached-file listing read",
-      "verified_claims": [
-        "Compiles regional gravity, magnetic, and depth-to-basement grids for the INGENIOUS Great Basin domain."
-      ],
-      "limits": [
-        "Coarse station spacing across basins cannot resolve 100 m fault position without surface/tilt constraints."
-      ]
-    },
-    {
-      "id": "GBCGE-INGENIOUS",
-      "authority": "Great Basin Center for Geothermal Energy / University of Nevada, Reno (DOE award DE-EE0009254)",
-      "url": "https://gbcge.org/current-projects/ingenious/",
-      "access": "project page read in full on 2026-10-22",
-      "verified_claims": [
-        "DOE-funded $10M hidden geothermal play-fairway workflow across the Great Basin integrating structural settings (step-overs, fault intersections, terminations, accommodation zones), MT, gravity/magnetics, and geothermometry."
-      ],
-      "limits": [
-        "Project overview does not certify competition test labels."
       ]
     },
     {

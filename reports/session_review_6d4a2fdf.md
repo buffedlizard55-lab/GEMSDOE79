@@ -8,7 +8,7 @@
   - **Canonical TIFF SHA-256:** `8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b` (`37,654` binary `{0.0, 1.0}` dots; `0` NaNs across all `12,279,160` cells; `EPSG:32611`; `3730 x 3292`; exact affine match)
   - **Canonical ZIP SHA-256:** `712ab28316d9465354ff1adadf87993f57e0f392b55f0d0af437edbea89d1948`
   - **Archived `GEMSDOE79` Reference Lanes Preserved Byte-for-Byte:** `H79-NHR` (`archive/h79_nhr/downloads/...`, TIFF `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`, ZIP `b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7`), `G79-THVC` (`archive/g79_thvc_33e1f8ec/`, `d3db2e95…`, `0.1905 / 0.1944`), `H79-FFAS`, `H79-STEP`, `G79-MAG`, `H79-COV`, `H79-ASYM`, `H79-FGR`, `G79-STEPCO`, `G79B-SDPT`, `H79-FF`.
-  - **Weekly DrivenData Upload Slots Consumed:** `0` (`0` new scientific experiments executed in session `6d4a2fdf`; all closed lanes kept strictly sealed; Irregularities `IR-79-105`..`IR-79-109` recorded in [`reports/irregularities.md`](irregularities.md)).
+  - **Weekly DrivenData Upload Slots Consumed:** `0` (`0` new scientific experiments executed in session `6d4a2fdf`; all closed lanes kept strictly sealed; Irregularities `IR-79-115`..`IR-79-119` recorded in [`reports/irregularities.md`](irregularities.md)).
 
 ---
 
