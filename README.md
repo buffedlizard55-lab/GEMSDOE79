@@ -1,12 +1,22 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Latest review — 2026-10-22, session 4fe5a2f6
+
+**No new TIFF was generated; no submission is approved.** The independently rerun
+[preflight](evidence/preflight_4fe5a2f6.json) proves that the unchanged literal
+novelty gate blocks every nonempty candidate. See the
+[three-pass review and next steps](reports/session_review_4fe5a2f6.md).
+Historical sections below are inherited evidence, not work performed in this session.
+The full original project prompt remains archived below and is the starting contract.
+Related concurrent review: [three-pass audit and terminal negative run card](reports/review_b0325dc8/README.md). Fresh literal-overlap preflight stops new generation; no new submission-ready TIFF is claimed.
+
 ## Download and automated decision
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
 > **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
 
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_0d90d81b.md)** · **[Five untried hypotheses](research/hypotheses_0d90d81b.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_022a6324.md)** · **[Prior five-hypothesis research](research/hypotheses_0d90d81b.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
@@ -29,16 +39,16 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 ## Session 2026-10-22 (format and gate audit) — read first
 
-- **Still OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** No new TIFF was generated: every nonempty candidate fails the literal novelty gate by construction, and the DZD lane guard refuses under the closed canonical card. Full reasons: [reports/session_review_20261022_format_audit.md](reports/session_review_20261022_format_audit.md).
+- **Still OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** No new TIFF was generated in this session. Main also contains an undocumented G79-STPO TIFF (`artifacts/stepover/g79-stepover-tip-dilation-11500dots-20261022T190822Z.tif`) whose receipt records local format PASS and `approved_for_weekly_slot: false` but **no novelty or holdout measurement** (IR-S7). Every nonempty candidate fails the literal novelty gate by construction, and the DZD lane guard refuses under the closed canonical card. Full reasons: [reports/session_review_20261022_format_audit.md](reports/session_review_20261022_format_audit.md).
 - **Official format, re-measured:** the official sample uses **NaN outside the footprint**; every local artifact uses **0.0** (`zero_outside`). Both are within [0, 1]. Evidence: [evidence/official_format_audit_20261022.json](evidence/official_format_audit_20261022.json) (`scripts/audit_submission_format.py`).
 - **Witness gate:** the pinned novelty witness has positive support on **100 %** of the footprint, so the literal overlap rule is degenerate. This needs an owner decision (protocol D-3), not a silent change.
 - **Leaderboard (fetched 2026-10-22, [official page](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)):** #1 0.4413; #50 0.2817. **0.2778 and 0.3195 do not appear in the top 50** and remain user-reported.
 - Official references: [problem and metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) · [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/).
 
-## New this session: G79-CJX — a unique TIF was generated, and the automated gate says NO
+## Historical G79-CJX artifact — automated gates say NO
 
 > **G79-CJX: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
-> Unique file, not a copy or rename of any registry submission:
+> Historical byte-distinct file; full protocol uniqueness fails:
 > `artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif`
 > (SHA-256 in `run_card_cjx.json`), with a ZIP containing the identical TIFF beside it.
 > Decision page: [docs/cjx-submission.html](docs/cjx-submission.html) ·
@@ -60,10 +70,10 @@ report and 0.4413 is a public leaderboard observation (`#1 xiaofanhu`), not an
 organizer receipt for this artifact, and beating them is not demonstrated.
 Verdict: **negative** — a deliverable, per the parallel-run protocol.
 
-## New this session: G79-DZD — a second unique TIF, gates say NO
+## Historical G79-DZD artifact — full uniqueness not established, gates say NO
 
 > **G79-DZD: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
-> Unique file, generated this session by `scripts/generate_unique_submission.py`,
+> Byte-distinct historical file generated by `scripts/generate_unique_submission.py`,
 > not a copy or rename of any registry submission:
 > `artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif`
 > (SHA-256 `42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab`), with a
@@ -99,7 +109,7 @@ Recheck: `python scripts/generate_unique_submission.py --help` (regeneration
 refuses to overwrite existing bytes), `python scripts/validate_submission.py
 artifacts/dzd/<tif>` (local format only), `python scripts/verify_project.py`.
 
-## New this session: `G79-CSKD` (`arena/6da2620c-gemsdoe79`) — all-time `GEMSDOE79` Seed-30 (`0.2145`) & 2-seed mean (`0.1963`) `HOLDOUT-DTI` record + `GEMSDOE83` de-collision (`0.6137 <= 0.70`), archived (`OK TO SUBMIT: NO`)
+## Historical `G79-CSKD` (`arena/6da2620c-gemsdoe79`) — all-time `GEMSDOE79` Seed-30 (`0.2145`) & 2-seed mean (`0.1963`) `HOLDOUT-DTI` record + `GEMSDOE83` de-collision (`0.6137 <= 0.70`), archived (`OK TO SUBMIT: NO`)
 
 > **`G79-CSKD`: `OK TO DOWNLOAD (research archive): YES. OK TO SUBMIT: NO.`**
 > Unique GeoTIFF (`42,000` binary `{0.0, 1.0}` dots, `0` NaN/Inf anywhere, `0` mapped-catalogue overlap):

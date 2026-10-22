@@ -120,3 +120,4 @@ Unresolved, needing an owner decision or external action:
 | IR-S4 | Official sample 1-pixels = catalogue, though page says "absence" | same | Ask organizers |
 | IR-S5 | Witness covers 100 % of footprint → literal gate degenerate | same; `preflight` exit 2 | Owner decision D-3 |
 | IR-S6 | DZD generator refused by its own lane guard under the current card | `require_open_lane` output | Frozen; new registration needed for any new lane |
+| IR-S7 | `main` contains `artifacts/stepover/g79-stepover-tip-dilation-11500dots-20261022T190822Z.tif` (commit 66ae38a) with local format PASS and `approved_for_weekly_slot: false`, but no novelty or holdout measurement and no README/report section. Its receipt says 'research only; not submitted' | `artifacts/stepover/*.json` on main | Flag: needs a novelty measurement and a README entry before anyone treats it as a candidate. Not audited here |
