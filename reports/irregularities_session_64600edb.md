@@ -1,8 +1,0 @@
-# Addendum — review findings for `arena/64600edb-gemsdoe79` (2026-10-22)
-
-| ID | Finding | Disposition |
-|---|---|---|
-| IR-79-144 | The merged `G79-ETP-v2` change published two extra TIFFs under `docs/downloads/`, replacing the canonical download links on generated Pages and making the active publication contract fail (`only_canonical_upload_artifacts_published=false`). Its preregistration embeds the literal non-SHA256 placeholder `a1b2c3d4...`; its run card calls its own evaluator “approximate pooled truth” and says the official hide-and-recover pipeline was not used; its novelty receipt checked one raster despite 1,108 expected. | Preserved the TIFF/ZIP/metadata bytes under `archive/g79_etp_20261022/downloads/`; recorded the audit and limitations in that archive README; regenerated Pages from canonical `run_card.json`. No ETP score is accepted as protocol-compliant HOLDOUT-DTI, no ETP candidate is selected, and no slot is approved. |
-| IR-79-145 | Before merging the latest `origin/main`, the review branch's tests passed; after incorporating main commit `845b51e`, eight tests failed because those extra TIFFs violated the one-canonical-download publication contract. | Resolved the publication regression by administratively archiving the negative research artifacts and rebuilding the site. Root cause and exact pre-fix counts are recorded in `reports/repository_review_2026-10-22_session-64600edb.md`; regression tests remain unchanged and must pass before merge. |
-
-These are repository/process findings, not new geology experiments. The underlying ETP method, registration, and historic run cards are retained for review, not silently repaired after results.
