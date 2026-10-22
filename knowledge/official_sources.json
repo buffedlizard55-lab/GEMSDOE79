@@ -129,7 +129,8 @@
         "rank_50_participant": "kinneso_outlook",
         "rank_50_public_dti": 0.2784,
         "prior_2026_10_21_rank_48_participant": "extradr19",
-        "prior_2026_10_21_rank_48_public_dti": 0.2778
+        "prior_2026_10_21_rank_48_public_dti": 0.2778,
+        "first_place_submissions": 27
       },
       "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
       "limits": [
@@ -192,6 +193,64 @@
       ],
       "limits": [
         "Project description is not a discovery claim or hidden-label receipt for this candidate."
+      ]
+    },
+    {
+      "id": "DD-TIMELINE-PRIZES",
+      "authority": "DrivenData competition organizer",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
+      "access": "read in full on 2026-10-22",
+      "verified_claims": [
+        "Two-phase prize pool totals $300,000 ($50,000 Initial Round + $250,000 Final Round).",
+        "Phase 2 evaluation incorporates expert geological review of candidate faults surfaced during Phase 1 across the full GeoDAWN area."
+      ],
+      "limits": [
+        "Does not expose private-split boundaries or per-account remaining submission slots."
+      ]
+    },
+    {
+      "id": "DD-NEW-FAULT-DEF",
+      "authority": "DrivenData Staff chrisk-dd, September 23 & October 1 & October 7 responses",
+      "url": "https://community.drivendata.org/t/where-do-you-draw-the-line/11536/2",
+      "related_urls": [
+        "https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527/7",
+        "https://community.drivendata.org/t/using-a-teammates-geological-interpretation-as-training-labels/11543/2",
+        "https://community.drivendata.org/t/questions-about-the-final-round-rules/11556/3"
+      ],
+      "access": "all four threads read in full on 2026-10-22",
+      "verified_claims": [
+        "Thread 11536/2 (Sep 23): 'New fault' means any fault pixel not already captured by USGS/INGENIOUS, explicitly including newly mapped along-strike continuations, splays, and parallel strands of existing fault systems.",
+        "Thread 11527/7 (Sep 23): Organizers do not disclose the exact mix of surface vs subsurface data sources behind Phase 1 test labels, and note Phase 2 ($250k) uses a test set updated by expert review of all Phase 1 submissions.",
+        "Thread 11543/2 (Oct 1): Reproducible human geological hand-labeling / accept-reject curation on public data inside the GeoDAWN region IS permitted for training/hard-negative filtering provided all saved labels are retained and produced reproducibly on organizer request.",
+        "Thread 11556/3 (Oct 7): Phase 2 revision can add, remove, or change evaluation faults; the excluded USGS/INGENIOUS mask raster stays identical; no extra per-fault weights exist beyond the published DW-Tversky formula."
+      ]
+    },
+    {
+      "id": "EPSG-32611",
+      "authority": "EPSG Geodetic Parameter Dataset (via epsg.io)",
+      "url": "https://epsg.io/32611",
+      "access": "read in full on 2026-10-22",
+      "verified_claims": [
+        "WGS 84 / UTM zone 11N (120W to 114W, Northern Hemisphere), Cartesian 2D metric axes (Easting, Northing in meters), scale factor 0.9996, false easting 500,000 m."
+      ]
+    },
+    {
+      "id": "PRIMARY-TVERSKY-1977",
+      "source_type": "PRIMARY LITERATURE & ENCYCLOPEDIC REFERENCE",
+      "authority": "Tversky, A. (1977), Psychological Review 84(4), 327-352; summary via Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Tversky_index",
+      "access": "read in full on 2026-10-22",
+      "verified_claims": [
+        "Defines asymmetric set similarity S(X, Y) = |X cap Y| / (|X cap Y| + alpha |X \\ Y| + beta |Y \\ X|); for alpha = 0.2, beta = 0.8, false negatives carry 4x the per-unit penalty of false positives."
+      ]
+    },
+    {
+      "id": "SIBLING-GEMSDOE32-PAGES",
+      "authority": "buffedlizard55-lab/GEMSDOE32 public GitHub Pages",
+      "url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+      "access": "read in full on 2026-10-22",
+      "verified_claims": [
+        "Confirms published H33 file h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif (SHA-256 c55bafc470054e82...) is self-labelled UNSCORED on GEMSDOE32's own public page without an uploaded portal receipt."
       ]
     }
   ]
