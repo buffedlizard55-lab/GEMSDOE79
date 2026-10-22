@@ -90,7 +90,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (new, NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
@@ -222,7 +222,7 @@ def novelty_explanation(summary, preflight):
 def home(card, summary, preflight, h33):
     dots = card['positive_pixels']
     c = summary['canaries']
-    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>Later lanes generated new unique research GeoTIFFs — including <a href="g79-cskd.html">G79-CSKD</a> (all-time GEMSDOE79 Seed-30 HOLDOUT-DTI record <code>0.2145</code> &amp; 2-seed mean <code>0.1963</code>, resolving <code>GEMSDOE83</code> overlap to <code>0.6137 &le; 0.70</code>), <a href="cjx-submission.html">G79-CJX</a>, <a href="g79-cjxdir.html">G79-CJX-DIR</a>, and <a href="dzd-submission.html">G79-DZD</a> — each archived as research-only (<code>OK TO SUBMIT: NO</code>).</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="g79-cskd.html">Open G79-CSKD (0.2145 Seed-30 record) ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>Later lanes generated new unique research GeoTIFFs — including <a href="g79-cskd.html">G79-CSKD</a> (all-time GEMSDOE79 Seed-30 HOLDOUT-DTI record <code>0.2145</code> &amp; 2-seed mean <code>0.1963</code>, resolving <code>GEMSDOE83</code> overlap to <code>0.6137 &le; 0.70</code>), <a href="cjx-submission.html">G79-CJX</a>, <a href="g79-cjxdir.html">G79-CJX-DIR</a>, and <a href="dzd-submission.html">G79-DZD</a>, plus new session-0be4d7bb <a href="tdw-submission.html">G79-TDW</a> (new unique 37,654-dot TIF, format PASS but HOLDOUT-DTI 0.0395/0.0413 below random — DO NOT SUBMIT) — each archived as research-only (<code>OK TO SUBMIT: NO</code>).</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="g79-cskd.html">Open G79-CSKD (0.2145 Seed-30 record) ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
 <div class="metric-grid">{metric('Local format', 'PASS', 'Finite [0, 1] · matching sample grid')}{metric('Full novelty', 'BLOCKED', f"{summary['dots']['max_forward_overlap_3px']:.4f} overlap; limit 0.70", stop=True)}{metric('Feature canaries', f"{c['feature_seed_tests']} tests", f"{c['feature_count']} features × 2 seeds; max AUC {c['max_symmetric_auc']:.5f}")}{metric('This review', '0 experiments', '0 new placements · 0 slots spent')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / CLEAR PERMISSION BOUNDARIES</p><h2>Downloadable does not mean submittable.</h2></div><p>Automated local verification binds the card to the exact bytes. Scientific gates, organizer acceptance and weekly slot capacity are separate checks.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 {holdout_table(summary)}
@@ -487,6 +487,37 @@ holdout were not runnable offline, so this page does not claim them.</p>
 The \u201cPredicted values must be in range [0, 1]\u201d error cannot come from this writer: zeros mode
 rejects non-finite or out-of-range values at build time and G1 re-verifies the bytes.</li></ol></section>'''
 
+def tdw_page():
+    """G79-TDW unique-TIF page, generated solely from run_card_tdw.json."""
+    tdw_path = ROOT / 'run_card_tdw.json'
+    if not tdw_path.exists():
+        return page_head('G79-TDW', 'No TDW candidate built.', 'Run scripts/run_tdw.py.')
+    c = json.loads(tdw_path.read_text())
+    h = c['holdout']; n = c['novelty_local_partial']; v = c['validator']
+    return f"""{page_head('G79-TDW / NEW UNIQUE TIF / AUTOMATED GATE',
+        'A new unique TIF. The gate says no.',
+        'Generated session 0be4d7bb and validated with no human inspection. Downloading for research is fine; submitting is not approved.')}
+<section class="section"><div class="notice"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO \u2014 DO NOT SUBMIT.</strong><br>
+Format PASS and sparse-novelty PASS do not override the failed holdout gate. No slot was spent.</div>
+<h2>Download (research only)</h2>
+<p><a href="{REPO}/blob/main/artifacts/tdw/gems79-tdw-tiltworm-37654dots-20261022.tif">gems79-tdw-tiltworm-37654dots-20261022.tif</a> \u00b7
+<a href="{REPO}/blob/main/artifacts/tdw/gems79-tdw-tiltworm-37654dots-20261022.zip">ZIP containing exactly that TIFF</a> \u00b7
+SHA-256 <code>{c['raster_sha256']}</code> \u00b7 37,654 dots</p>
+<p><strong>Submission name:</strong> <code>{c['submission_name']}</code><br>
+<strong>Note ({len(c['submission_note'])}/140 chars):</strong> {c['submission_note']}</p>
+<h2>Automated gates</h2>
+<table><thead><tr><th>Gate</th><th>Result</th><th>Detail</th></tr></thead><tbody>
+<tr><td>G1 format/range</td><td>PASS</td><td>Single float32 band, EPSG:32611, 3730x3292, pinned transform, all finite in [0,1], zero outside footprint/catalogue (validator all_checks_passed={v['all_checks_passed']}). Zeros-mode writer rejects NaN/out-of-range at build time.</td></tr>
+<tr><td>G2 leakage canary</td><td>PASS</td><td>Max symmetric AUC seed20={c['leakage_canary']['seed20_max_symmetric_auc']:.4f}, seed30={c['leakage_canary']['seed30_max_symmetric_auc']:.4f} (limit 0.90).</td></tr>
+<tr><td>G3 holdout beats incumbent</td><td>FAIL</td><td>HOLDOUT-DTI (gems57-pooled-hide-v2) TDW {h['seed20']['dti']:.4f} (seed 20, n=11,321) / {h['seed30']['dti']:.4f} (seed 30, n=11,342), below uniform control and THVC incumbent 0.1905/0.1944.</td></tr>
+<tr><td>G4 novelty (partial local inventory)</td><td>PASS sparse / literal blocked</td><td>Max |rho|={n['max_abs_spearman_sample200k']:.4f} (limit 0.90); sparse &lt;=100k max overlap={n['sparse_le100k']['max_forward_overlap']:.4f} (limit 0.70). Full census not re-run; saturated continuous priors block the literal gate non-informatively.</td></tr>
+<tr><td>G5 selector approval</td><td>NOT APPROVED</td><td>No selector receipt; 0 slots spent. Only scripts/select_submission.py may approve after every gate passes.</td></tr>
+</tbody></table>
+<h2>Why H33 reportedly scored 0.2778</h2>
+<p>H33 is D2.8 thinned by deleting every dot within 200 m of mapped faults (44,090 to 37,654 dots). DTI takes a max for true-positive credit but sums false-positive mass, so removing redundant/near-catalogue dots cuts cost almost free. Beating 0.2778 needs a better surface plus DTI-efficient emission; no GEMSDOE79 raster has an organizer receipt proving it, and TDW falsified its hypothesis on holdout. See analysis.html and run_card_tdw.json.</p>
+<h2>If a future banner ever says YES</h2>
+<ol><li>Download the .tif or the .zip containing exactly it.</li><li>Confirm scripts/verify_project.py and scripts/submission_status.py agree and a selector receipt binds the SHA-256.</li><li>Confirm a free weekly slot on the DrivenData submission page, choose the file, paste the name/note above, submit, keep the receipt. Only that receipt is ORGANIZER-CONFIRMED.</li></ol></section>"""
+
 
 def mdsc_page():
     """G79-MDSC unique-TIF page, generated solely from run_card_mdsc.json (session 8e58a8d0)."""
@@ -722,6 +753,7 @@ def main():
         'history.html': ('Historical reports, not receipts', history_page()),
         'g79-cskd.html': ('G79-CSKD unique TIF — Seed-30 record (0.2145) & automated gate verdict', cskd_page()),
         'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
+        'tdw-submission.html': ('G79-TDW new unique TIF \u2014 automated gate verdict', tdw_page()),
         'dzd-submission.html': ('G79-DZD unique TIF \u2014 automated gate verdict', dzd_page()),
         'mdsc-submission.html': ('G79-MDSC unique TIF \u2014 automated gate verdict', mdsc_page()),
         'irregularities.html': ('Irregularities & stop reasons',
