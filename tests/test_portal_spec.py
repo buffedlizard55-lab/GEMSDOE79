@@ -120,7 +120,8 @@ def test_wrong_crs_fails_r3(tmp_path):
     assert failed == {'R3'}
 
 
-def test_two_bands_fail_r1(tmp_path):
+@pytest.mark.parametrize('zipped', [False, True])
+def test_two_bands_fail_r1(tmp_path, zipped):
     with rasterio.open(DEFAULT_TEMPLATE) as ref:
         profile = ref.profile.copy()
         arr = ref.read(1)
@@ -129,8 +130,15 @@ def test_two_bands_fail_r1(tmp_path):
     with rasterio.open(path, 'w', **profile) as dst:
         dst.write(arr, 1)
         dst.write(arr, 2)
-    _, failed = _failed(path)
-    assert 'R1' in failed
+    if zipped:
+        archive = tmp_path / 'two_bands.zip'
+        with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_DEFLATED) as z:
+            z.write(path, arcname='nested/two.tif')
+        path = archive
+    rep, failed = _failed(path)
+    assert rep['ok'] is False
+    assert failed == {'R1'}
+    assert [r['rule'] for r in rep['rules']] == sorted(RULES)
 
 
 def test_numeric_nodata_fails_r5(tmp_path):
@@ -176,9 +184,15 @@ def test_single_tif_zip_is_checked_and_two_member_zip_fails(tmp_path):
     assert 'R1' in failed
 
 
-def test_not_a_raster_is_rejected(tmp_path):
+@pytest.mark.parametrize('zipped', [False, True])
+def test_not_a_raster_is_rejected(tmp_path, zipped):
     path = tmp_path / 'junk.tif'
     path.write_bytes(b'not a tiff')
+    if zipped:
+        archive = tmp_path / 'junk.zip'
+        with zipfile.ZipFile(archive, 'w') as z:
+            z.write(path, arcname='junk.tif')
+        path = archive
     rep, failed = _failed(path)
     assert rep['ok'] is False and 'R1' in failed
 

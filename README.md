@@ -32,6 +32,24 @@ holdout validation. Do not delete registry witnesses, jitter dots, rename an old
 TIFF, or spend a slot to bypass failed gates. Historical reports below are not
 experiments or scores from this review. The original full prompt remains below.
 
+
+## Latest review — session `50335987`, 2026-10-22
+
+**OK TO DOWNLOAD: YES (inherited research only). OK TO SUBMIT: NO.**
+No new unique TIFF was generated: the independently restored registry witness
+makes every nonempty candidate fail the literal overlap rule. The requested new
+submission remains blocked; no human inspection or manual upload overrides this.
+See the [three-pass review](reports/session_review_50335987.md) and
+[three ranked deferred hypotheses](research/hypotheses_50335987.md).
+
+Fixed a real automated-validation defect: ZIP validation previously discarded a
+multi-band TIFF's failed single-band check. It now preserves that failure and
+rejects unreadable TIFF members without crashing. Targeted regression tests and
+the full software suite pass. The canonical TIFF/ZIP remain unchanged and fail
+the separate official-text exterior convention check (R6); their in-footprint
+values are finite and within [0,1]. Historical “unique” claims below do not mean
+full-protocol novelty or upload approval. No new HOLDOUT-DTI is claimed.
+
 ## Current session — 2026-10-22, `a201fa92`: automatic stop, no new TIFF
 
 **OK TO DOWNLOAD: YES (inherited research file only). OK TO SUBMIT: NO.**

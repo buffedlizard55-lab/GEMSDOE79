@@ -1,0 +1,55 @@
+{
+  "session": "50335987",
+  "lane": null,
+  "hypothesis": "Deferred terrain-saddle / independent gravity-crossing hypothesis; no assigned method paragraph and no experiment authorized.",
+  "mechanism": "Persistent terrain Hessian saddles crossed by gravity gradients could indicate low-relief transfer structures; untested proposal only.",
+  "named_non_fault_process": "Wind-gap formation by stream capture; lithologic contrasts at resistant-bedrock passes.",
+  "holdout_dti": {
+    "evidence_class": "NOT_MEASURED",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "dti": null,
+    "ci95": null,
+    "withheld_positive_pixels": null
+  },
+  "correlation_overlap_vs_registry": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "scope": "Single pinned universal witness, not a new candidate scan",
+    "rank_correlation": null,
+    "candidate_surface_measured": false,
+    "final_dots_measured": false,
+    "unavoidable_forward_overlap_for_nonempty_candidate": 1.0,
+    "limit": 0.7,
+    "receipt": "evidence/preflight_50335987.json"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_candidate": "NOT_GENERATED",
+    "no_nan_inside_footprint": null,
+    "values_in_0_1": null,
+    "crs_shape_transform_match": null,
+    "inherited_artifact_receipt": "evidence/portal_spec_50335987.json",
+    "inherited_artifact_result": "FAIL R6; in-footprint finite/range and grid checks PASS"
+  },
+  "submission_name": null,
+  "submission_note": "No new candidate: literal registry overlap blocks every nonempty raster. Research download only; do not submit.",
+  "verdict": "negative",
+  "ok_to_submit": false,
+  "experiments_performed": 0,
+  "submission_slots_used": 0,
+  "software_verification": {
+    "targeted_tests_passed": 16,
+    "full_suite_tests_passed": 599,
+    "build_site": "PASS",
+    "check_site": "PASS",
+    "verify_project": "PASS",
+    "submission_status_exit": 2,
+    "final_integrated_suite_tests_passed": 611,
+    "concurrent_shared_fix": "Adopted 148fa8f5 central validator implementation; retained direct/ZIP regression tests."
+  },
+  "limitations": [
+    "No new TIFF delivered under the mandatory stop rule",
+    "No freshly verified organizer receipt or leaderboard",
+    "Raw feature stack absent; no new data restoration",
+    "Assigned lane paragraph missing"
+  ]
+}

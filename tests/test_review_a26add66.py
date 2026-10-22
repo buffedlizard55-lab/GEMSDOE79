@@ -9,7 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_homepage_exposes_official_format_refusal():
     soup = BeautifulSoup((ROOT / 'docs/index.html').read_text(), 'html.parser')
     hero = soup.find(id='download').get_text(' ', strip=True)
-    assert 'official exterior rule R6 and full novelty gate fail' in hero
+    assert 'zero-filled exterior fails' in hero and 'R6' in hero
+    assert 'full novelty gate fails' in hero
     assert soup.find('a', href='executive-summary.html#portal-rules')
     assert 'FAIL R6' in soup.get_text(' ', strip=True)
 
