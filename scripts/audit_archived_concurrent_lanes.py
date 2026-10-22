@@ -194,21 +194,54 @@ def main() -> None:
         ],
     )
 
+    g79b = audit_lane(
+        lane_id='G79B-SCARP-DIPOLE-GEOAND',
+        archive_dir=ROOT / 'archive/concurrent_2026-10-22_5d14587',
+        tif_rel='archive/concurrent_2026-10-22_5d14587/docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.tif',
+        card_rel='archive/concurrent_2026-10-22_5d14587/run_card_g79b.json',
+        grid=grid,
+        witness_records=witnesses,
+        protocol_violations=[
+            'Opened a second lane without an authenticated external protocol-owner resolution of Decision D-1.',
+            'Literal forward 3-px overlap is 1.0000 (> 0.70) against 17GEMSDOE_E-proba-multiscale.',
+            'Closed negative on spatially blocked holdout (underperformed uniform-random and fold-fair H33 controls); preserved as historical record.',
+        ],
+    )
+
+    h79_e2 = audit_lane(
+        lane_id='H79-ML-STRAIN-RELAY',
+        archive_dir=ROOT / 'archive/concurrent_2026-10-22_5d14587',
+        tif_rel='archive/concurrent_2026-10-22_5d14587/docs/e2_downloads/h79-ml-strain-relay-dotted-20261022-7ef42077.tif',
+        card_rel='archive/concurrent_2026-10-22_5d14587/evidence/run_card_e2.json',
+        grid=grid,
+        witness_records=witnesses,
+        protocol_violations=[
+            'Privately modified vendor/gems57/uniqueness.py (sha256 d090aa14...) and registry/template_pin.json to threshold priors with >50,000 positives to top-37,654 without upstream authorization.',
+            'Literal forward 3-px overlap is 1.0000 (> 0.70) against 17GEMSDOE_E-proba-multiscale under canonical shared code.',
+            'Checked only 2 / 992 registry files (not_checked_due_to_rate_limit=990, complete_comparison=false) yet set protocol_unique=true and verdict=promote.',
+            'Recorded copied E1 overlap numbers (0.1978 vs H33-2-B2 and 0.0119 vs E-proba top-37,654) that contradict its own GeoTIFF bytes (actual measured overlaps on 05038613...: 0.284352 vs H33-2-B2 and 0.162001 vs E-proba top-37,654).',
+            'Advertised OK TO SUBMIT: YES in README.md while root run_card.json remained negative for G79B and fail-closed submission_decision returned ok_to_submit=false.',
+        ],
+    )
+
     report = {
         'schema_version': 1,
         'reviewed_utc': datetime.now(timezone.utc).isoformat(),
         'session_branch': current_branch,
         'shared_uniqueness_sha256': sha256(Path(shared.__file__)),
         'purpose': (
-            'Independent byte-level audit of both concurrent lanes merged into main '
-            '(H79-MCT at c26efec and H79-CSPT at 464d591 / 3d386a3). Confirms both are '
-            'properly archived as non-executable historical provenance, both fail the '
-            'canonical literal 0.70 overlap gate (1.0000 overlap against 17GEMSDOE E-proba), '
-            'and both return ok_to_submit=False under the fail-closed readiness gate.'
+            'Independent byte-level audit of all four concurrent lanes merged into main '
+            '(H79-MCT at c26efec, H79-CSPT at 464d591 / 3d386a3, G79B-SCARP-DIPOLE-GEOAND at 0ae2506, '
+            'and H79-ML-STRAIN-RELAY at 5d14587). Confirms all are properly archived as non-executable '
+            'historical provenance, all have 1.0000 literal 3-px forward overlap against 17GEMSDOE E-proba '
+            'under canonical vendor/gems57/uniqueness.py, and all return ok_to_submit=False under the '
+            'fail-closed readiness gate.'
         ),
         'archived_lanes': {
             'H79-MCT': mct,
             'H79-CSPT': cspt,
+            'G79B-SCARP-DIPOLE-GEOAND': g79b,
+            'H79-ML-STRAIN-RELAY': h79_e2,
         },
         'active_deliverable_unchanged': {
             'lane': 'G79-FABRIC-OFFSET',
@@ -224,7 +257,9 @@ def main() -> None:
     print(json.dumps({
         'H79-MCT_overlap_vs_witness': mct['canonical_literal_uniqueness']['worst_forward_overlap_3px'],
         'H79-CSPT_overlap_vs_witness': cspt['canonical_literal_uniqueness']['worst_forward_overlap_3px'],
-        'H79-CSPT_ok_to_submit': cspt['canonical_readiness_decision']['ok_to_submit'],
+        'G79B_overlap_vs_witness': g79b['canonical_literal_uniqueness']['worst_forward_overlap_3px'],
+        'H79-E2_overlap_vs_witness': h79_e2['canonical_literal_uniqueness']['worst_forward_overlap_3px'],
+        'H79-E2_ok_to_submit': h79_e2['canonical_readiness_decision']['ok_to_submit'],
     }, indent=2))
 
 

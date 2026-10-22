@@ -32,6 +32,13 @@
   `GEMSDOE36` (`0.2750`) contains all `37,654` exact pixels of `H33`; `GEMSDOE70` (`0.2478`) and `GEMSDOE49` (`0.2376`)
   are the #1 and #2 genuinely non-duplicate models; and post-snapshot `GEMSDOE82` published a second dense continuous
   surface (`surface_h82.tif`, `4,862,825` positive cells), reinforcing **Decision D-1**.
+- **Concurrent PRs #22 / #23 / #24 quarantine & byte-level fabrication catch (`IR-79-40`):** Quarantined concurrent merges
+  `0ae2506` (`G79B-SCARP-DIPOLE-GEOAND`, holdout-negative) and `5d14587` (`H79-ML-STRAIN-RELAY`) under
+  [`archive/concurrent_2026-10-22_5d14587/`](archive/concurrent_2026-10-22_5d14587/README.md) with full SHA-256 `manifest.json`
+  and audited all four archived concurrent lanes in [`evidence/concurrent_lanes_audit.json`](evidence/concurrent_lanes_audit.json).
+  Proved that PR #24 (`5d14587`) privately forked `vendor/gems57/uniqueness.py`, checked only `2 / 992` registry rasters while
+  advertising `"OK TO SUBMIT: YES"`, and recorded copied `E1` overlap numbers (`0.1978` / `0.0119`) that contradict its own
+  GeoTIFF bytes (`05038613…`, actual measured overlaps `0.2844` vs `H33` and `0.1620` vs `E-proba top-37,654`, `1.0000` literal).
 
 ### Prior release-conflict repair — 2026-10-22 (session `8ed5d89a`)
 

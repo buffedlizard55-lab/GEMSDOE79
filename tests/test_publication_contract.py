@@ -242,3 +242,23 @@ def test_forensic_scripts_support_clean_help(script_name):
         check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
     )
     assert 'usage:' in proc.stdout.lower()
+
+
+def test_concurrent_5d14587_archive_and_four_lane_audit():
+    archive = ROOT / 'archive/concurrent_2026-10-22_5d14587'
+    manifest = json.loads((archive / 'manifest.json').read_text(encoding='utf-8'))
+    assert len(manifest['files']) == 94
+    for row in manifest['files']:
+        if row['archive_path'] is None:
+            continue
+        p = ROOT / row['archive_path']
+        assert p.resolve().is_relative_to(archive.resolve())
+        assert hashlib.sha256(p.read_bytes()).hexdigest() == row['source_sha256']
+        assert p.suffix not in ('.py', '.c', '.html', '.sh')
+    audit = json.loads((ROOT / 'evidence/concurrent_lanes_audit.json').read_text(encoding='utf-8'))
+    assert set(audit['archived_lanes']) == {
+        'H79-MCT', 'H79-CSPT', 'G79B-SCARP-DIPOLE-GEOAND', 'H79-ML-STRAIN-RELAY',
+    }
+    for lane_id, entry in audit['archived_lanes'].items():
+        assert entry['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
+        assert entry['canonical_readiness_decision']['ok_to_submit'] is False
