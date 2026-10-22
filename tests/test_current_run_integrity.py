@@ -1,4 +1,4 @@
-"""Current H79-NHR artifact integrity checks (bytes, format, card agreement).
+"""Current canonical-lane artifact integrity checks (bytes, format, card agreement).
 
 These tests re-read the published GeoTIFF and evidence files; they do not
 re-run the experiment and they are not geological score tests.

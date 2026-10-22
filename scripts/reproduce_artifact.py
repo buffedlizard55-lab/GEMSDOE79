@@ -30,16 +30,37 @@ ARCHIVED_E1_REPRODUCTION = {
 }
 
 
+NHR_ARCHIVE = Path('archive/h79_nhr_337ac1e9/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif')
+NHR_RASTER_SHA256 = 'abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2'
+
+
+def _nhr_original(root: Path) -> tuple[dict, Path]:
+    """Locate the frozen H79-NHR bytes even after a later lane became canonical."""
+    live = json.loads((root / 'run_card.json').read_text())
+    if live.get('lane') == 'H79-NHR':
+        original = root / live['submission_file']
+        card = live
+    else:
+        original = root / NHR_ARCHIVE
+        receipt = json.loads(original.with_suffix('.json').read_text())
+        card = {
+            'lane': 'H79-NHR',
+            'verdict': 'negative',
+            'ok_to_submit': False,
+            'submission_name': receipt['submission_name'],
+            'submission_note': receipt['note'],
+            'raster_sha256': receipt['sha256'],
+            'zip_sha256': receipt['zip_sha256'],
+            'positive_pixels': 37654,
+        }
+    return card, original
+
+
 def reproduce_nhr(root: Path = ROOT) -> dict:
-    card = json.loads((root / 'run_card.json').read_text())
-    if card.get('lane') != 'H79-NHR':
-        card = json.loads((root / 'archive/h79_nhr/run_card.json').read_text())
-        if card.get('lane') != 'H79-NHR':
-            raise ValueError('archived H79-NHR card is missing')
+    card, original = _nhr_original(root)
     build = json.loads((root / 'evidence/nhr/x1_final_build.json').read_text())
     if card['verdict'] != 'negative' or card['ok_to_submit']:
         raise ValueError('This command only recovers the existing stopped negative artifact')
-    original = root / card['submission_file']
     original_receipt = json.loads(original.with_suffix('.json').read_text())
     grid = load_grid(root / 'data/reference')
     with rasterio.open(original) as ds:

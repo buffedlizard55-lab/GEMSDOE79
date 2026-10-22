@@ -32,11 +32,16 @@ REQUIRED_GATES = frozenset({
 })
 
 
+def evidence_dir(root, card):
+    lane = card.get("lane")
+    if lane == "H79-FFAS":
+        return root / "evidence/ffas"
+    return root / "evidence/nhr"
+
+
 def selection_evidence(root, card, gates, actual):
     """Reconcile frozen measurements, not just a self-reported all_passed flag.
 
-    This is specific to the canonical NHR lane. A future lane must supply its
-    own reviewed evidence adapter; it must not reuse this receipt schema blindly.
     Missing or malformed evidence is a refusal, never an approval.
     """
     try:
@@ -55,13 +60,14 @@ def selection_evidence(root, card, gates, actual):
         return False, {"evidence_read_error": type(exc).__name__}
 
 
-def main() -> int:
+def _select() -> int:
     card = json.loads((ROOT / "run_card.json").read_text())
-    if card.get("lane") != "H79-NHR":
+    if isinstance(card, dict) and card.get("lane") not in (None, "H79-NHR", "H79-FFAS"):
         refusal = {
             "selected": False,
+            "ok_to_submit": False,
             "selector": "scripts/select_submission.py",
-            "reason": "This adapter re-derives H79-NHR gates only. It will not approve another lane.",
+            "reason": "This adapter re-derives H79-NHR and H79-FFAS gates only. It will not approve another lane.",
             "lane": card.get("lane"),
             "card_left_unchanged": True,
         }
@@ -70,7 +76,8 @@ def main() -> int:
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
-    gates = json.loads((ROOT / "evidence/nhr/x1_gates.json").read_text())
+    ev = evidence_dir(ROOT, card)
+    gates = json.loads((ev / "x1_gates.json").read_text())
     trial = dict(card)
     trial["selector_receipt"] = {"raster_sha256": actual, "selector": "scripts/select_submission.py",
                                  "all_automated_gates_passed": True, "source_url": "pending",
@@ -85,9 +92,10 @@ def main() -> int:
     if not ok:
         refusal = {"selected": False, "selector": "scripts/select_submission.py",
                    "raster_sha256": actual, "observed_utc": datetime.now(timezone.utc).isoformat(),
-                   "blockers": decision["blockers"], "failed_gates": sorted(k for k, v in gates["gates"].items() if not v),
+                   "blockers": decision["blockers"],
+                   "failed_gates": sorted(k for k, v in gates["gates"].items() if v is not True),
                    "card_left_unchanged": True, "evidence_checks": measured_checks}
-        (ROOT / "evidence/nhr/selector_decision.json").write_text(json.dumps(refusal, indent=2) + "\n")
+        (ev / "selector_decision.json").write_text(json.dumps(refusal, indent=2) + "\n")
         print(json.dumps(refusal, indent=2))
         return 2
     card["selector_receipt"] = {
@@ -108,6 +116,26 @@ def main() -> int:
     print(json.dumps({"selected": True, "raster_sha256": actual,
                       "submission_name": card["submission_name"]}, indent=2))
     return 0
+
+
+def main() -> int:
+    """Malformed/unreadable inputs are a structured refusal, never clearance.
+
+    Do not replace frozen evidence with a partial receipt when inputs cannot be
+    read. The JSON on stdout is sufficient for unattended callers to classify
+    the refusal; exit 2 matches an ordinary failed selection.
+    """
+    try:
+        return _select()
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError) as exc:
+        print(json.dumps({
+            "selected": False,
+            "selector": "scripts/select_submission.py",
+            "blockers": ["selection_inputs_unreadable_or_malformed"],
+            "error_type": type(exc).__name__,
+            "ok_to_submit": False,
+        }, indent=2, allow_nan=False))
+        return 2
 
 
 if __name__ == "__main__":

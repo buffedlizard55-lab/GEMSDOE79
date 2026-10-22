@@ -43,7 +43,7 @@ Two asymmetries follow directly:
 
 A rigorous lower bound also follows. Write `c = TP/N` (the share of truth credit captured)
 and `r = FP/N`. Then `c = s(0.2r + 0.8)/(1 − 0.2s) ≥ 0.8s/(1 − 0.2s)`, so a
-public score of 0.2778 needs `c ≥ 23.6 %` and 0.4413 needs `c ≥ 38.4 %`.
+public score of 0.2778 needs `c ≥ 23.5 %` and 0.4413 needs `c ≥ 38.7 %`.
 
 ## 2. What H33 actually is, and why it won inside the GEMSDOE family
 
