@@ -55,7 +55,7 @@ def selection_evidence(root, card, gates, actual):
         return False, {"evidence_read_error": type(exc).__name__}
 
 
-def main() -> int:
+def _select() -> int:
     card = json.loads((ROOT / "run_card.json").read_text())
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
@@ -75,7 +75,7 @@ def main() -> int:
     if not ok:
         refusal = {"selected": False, "selector": "scripts/select_submission.py",
                    "raster_sha256": actual, "observed_utc": datetime.now(timezone.utc).isoformat(),
-                   "blockers": decision["blockers"], "failed_gates": sorted(k for k, v in gates["gates"].items() if not v),
+                   "blockers": decision["blockers"], "failed_gates": sorted(k for k, v in gates["gates"].items() if v is not True),
                    "card_left_unchanged": True, "evidence_checks": measured_checks}
         (ROOT / "evidence/nhr/selector_decision.json").write_text(json.dumps(refusal, indent=2) + "\n")
         print(json.dumps(refusal, indent=2))
@@ -98,6 +98,26 @@ def main() -> int:
     print(json.dumps({"selected": True, "raster_sha256": actual,
                       "submission_name": card["submission_name"]}, indent=2))
     return 0
+
+
+def main() -> int:
+    """Malformed/unreadable inputs are a structured refusal, never clearance.
+
+    Do not replace frozen evidence with a partial receipt when inputs cannot be
+    read. The JSON on stdout is sufficient for unattended callers to classify
+    the refusal; exit 2 matches an ordinary failed selection.
+    """
+    try:
+        return _select()
+    except (OSError, ValueError, KeyError, TypeError, IndexError, AttributeError) as exc:
+        print(json.dumps({
+            "selected": False,
+            "selector": "scripts/select_submission.py",
+            "blockers": ["selection_inputs_unreadable_or_malformed"],
+            "error_type": type(exc).__name__,
+            "ok_to_submit": False,
+        }, indent=2, allow_nan=False))
+        return 2
 
 
 if __name__ == "__main__":
