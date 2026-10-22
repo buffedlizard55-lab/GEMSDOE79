@@ -106,6 +106,16 @@ witness remeasurement is
 These records describe software/source/registry checks, not a new experiment.
 The final publication is rebuilt and checked after these fixes.
 
+## Concurrent main updates integrated before PR
+
+Main advanced through PRs #29/#30 during this review. Their changes independently
+fixed the same dependency issue and safe README commands; they also hardened
+selector evidence reconciliation and excluded `.venv*` directories from publication
+scans. All were retained. Merge conflicts were resolved in source, then generated
+HTML was rebuilt. New local irregularity IDs are 61/62; the dependency finding is
+an independent rediscovery of IR-79-57, not a second issue. Final verification below
+is rerun against the combined tree, not just the pre-merge test suite.
+
 ## Next session, in priority order
 
 1. Resolve the registry-support policy prospectively with the protocol owner;

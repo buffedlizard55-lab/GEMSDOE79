@@ -31,7 +31,9 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
 ## What this session found (2026-10-22, session `337ac1e9`)
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
-   So sparse dots win: one dot on a trace earns up to about 2.33 truth units of TP and pays at most 1 unit of FP.
+   Sparse placements can reduce redundant FP: on an ideal straight grid-aligned trace, dots
+   spaced three pixels apart average about 2.33 TP units per dot. This is an illustrative calculation,
+   not a measured performance bound or proof that all sparse maps win.
    H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Only exact mapped pixels are
    masked; a 200 m collar is NOT masked. Removing those dots could reduce FP but could also lose
    credit for nearby unmapped strands. The user-reported pair is 0.2600 → 0.2778; without artifact-linked
@@ -106,7 +108,7 @@ already dotted, so uniqueness after the fact costs more than detector gains.
   3. Reweight the nested target by distance band.
   4. Add the absolute 3DEP DEM for shoreline suppression.
 
-## Reproduce and verify
+## Verify the frozen result (safe default)
 
 The NHR lane is **closed**. Do not rerun its models, placement or packaging. These commands
 perform read-only scientific-evidence checks and rebuild the presentation, not a new experiment:
@@ -125,6 +127,11 @@ Historical experimental commands remain in source for audit, but `run_nhr.py hol
 loading bulk data or changing evidence. Reproduction of frozen outputs is not permission
 to restart a stopped scientific lane. Any future runner must separate surface generation,
 completed uniqueness clearance, and placement; the archived runner's sequencing is not a template.
+
+Concurrent completed software reviews: [0c9f6bad](reports/session_review_0c9f6bad.md)
+and [0a460648](reports/session_review_0a460648.md) independently fixed dependencies,
+hardened selector evidence checks and excluded local virtual environments from scans.
+Those changes were merged into this branch without changing scientific evidence.
 
 ## Latest repository review — session `2203b2cc` (2026-10-22)
 
