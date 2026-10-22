@@ -26,7 +26,8 @@ A separate unresolved input irregularity remains relevant to the lower-ranked ra
 
 Created an isolated `.venv` and installed the repository's pinned `requirements.lock` so the project commands could be executed reproducibly; the environment is ignored and no dependency file changed.
 
-- `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q` — **477 passed**.
+- Before upstream reconciliation, `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q` — **477 passed**.
+- After merging the latest `origin/main` changes into this fixed branch, the same suite — **480 passed**; the added upstream tests were included.
 - `.venv/bin/python scripts/verify_project.py` — all repository, frozen-evidence, status, TIFF/ZIP, and publication checks passed; current canonical decision remains negative.
 - `.venv/bin/python scripts/check_site.py` — passed: 7 pages, 128 local links, all pages reachable, evidence-derived tables match receipts.
 - `.venv/bin/python scripts/submission_status.py` — **exit 2**, correctly refused: literal novelty, negative scientific verdict, and missing selector approval/receipt/explicit approval.
