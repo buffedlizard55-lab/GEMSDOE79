@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "rows": [
+    {
+      "fold": "NW",
+      "feature": "step_surface",
+      "positive_pixels": 1919,
+      "unlabeled_negative_proxies": 200000,
+      "auc": 0.4195975,
+      "symmetric_auc": 0.5804024999999999,
+      "suspicious": false
+    },
+    {
+      "fold": "NE",
+      "feature": "step_surface",
+      "positive_pixels": 2356,
+      "unlabeled_negative_proxies": 200000,
+      "auc": 0.415625,
+      "symmetric_auc": 0.584375,
+      "suspicious": false
+    },
+    {
+      "fold": "SW",
+      "feature": "step_surface",
+      "positive_pixels": 3805,
+      "unlabeled_negative_proxies": 200000,
+      "auc": 0.38548499999999997,
+      "symmetric_auc": 0.614515,
+      "suspicious": false
+    },
+    {
+      "fold": "SE",
+      "feature": "step_surface",
+      "positive_pixels": 3262,
+      "unlabeled_negative_proxies": 200000,
+      "auc": 0.38887,
+      "symmetric_auc": 0.61113,
+      "suspicious": false
+    }
+  ],
+  "threshold": 0.9,
+  "evaluator_version": "gems57-pooled-hide-v2"
+}

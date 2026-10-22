@@ -1,6 +1,6 @@
 {
-  "verified_utc": "2026-10-22T04:24:57.332496+00:00",
-  "all_checks_passed": true,
+  "verified_utc": "2026-10-22T04:40:48.554608+00:00",
+  "all_checks_passed": false,
   "checks": {
     "witness_review_matches_frozen_certificate": true,
     "new_lane_preflight_stops_on_exact_witness": true,
@@ -22,24 +22,24 @@
     "zip_crc_valid": true,
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
-    "holdout_card_equals_evaluator_output": true,
+    "holdout_card_equals_evaluator_output": false,
     "holdout_beats_h33_control_both_seeds": true,
     "leakage_canary_clear": true,
     "uniqueness_card_matches_evidence": true,
-    "gate_receipt_bound_to_raster_and_verdict": true,
+    "gate_receipt_bound_to_raster_and_verdict": false,
     "promotion_requires_uniqueness": true,
-    "preregistration_hash_matches_card": true,
+    "preregistration_hash_matches_card": false,
     "e1_scientific_stop_honored": true,
     "status_tool_and_card_agree": true
   },
-  "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+  "raster_sha256": "0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-      "bytes": 136481,
-      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "file": "docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif",
+      "bytes": 100037,
+      "sha256": "0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -93,9 +93,9 @@
       "footprint_fraction": 0.007286874781441169
     },
     "reference_grid": {
-      "path": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-      "bytes": 136481,
-      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "path": "docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif",
+      "bytes": 100037,
+      "sha256": "0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",
@@ -149,6 +149,7 @@
     "verdict": "negative",
     "blockers": [
       "literal_novelty_not_cleared",
+      "matched_current_best_holdout_not_beaten",
       "negative_scientific_verdict",
       "separate_selector_has_not_approved_a_slot",
       "separate_selector_receipt_missing_or_unbound",

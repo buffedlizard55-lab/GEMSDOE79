@@ -15,19 +15,33 @@ Latest independent repository review and three-pass verification: [2026-10-22 se
 
 | | |
 |---|---|
-| File | [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip) |
-| Unique name | `gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT` |
-| Note (122/140) | `H79-NHR research only; HOLDOUT-DTI 0.143/0.152 vs H33 0.096/0.099; DUPLICATE: 0.91 of dots within 3px of a registry raster` |
-| SHA-256 | `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2` |
+| File | [`docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.zip) |
+| Unique name | `gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT` |
+| Note (137/140) | `H79-STEP catalogue-distance annulus x fault-zone complexity; research only; not uniqueness-cleared (registry cache absent); do not submit` |
+| SHA-256 | `0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c` |
 | Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
-| Lane / experiment | H79-NHR / X1 (1 of 3 allowed; about 70 min of 2 h) |
-| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.1431** [0.1281, 0.1574], n = 11,321 · seed 30: **0.1522** [0.1335, 0.1696], n = 11,342 |
-| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.112] |
-| Paired Δ vs H33 control | +0.047 [0.0321, 0.0621] · +0.0533 [0.0369, 0.0704] |
-| Leakage canary | 464 single-feature AUC tests, max 0.8589 ≤ 0.90 (`geom_log_dist_visible_tip`): **PASS** |
-| Duplicate gate | **FAIL.** 26 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif` at 0.913, against 0.610 expected by chance. Rank correlation is clear: worst ρ 0.112. |
-| Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/nhr/selector_decision.json`). |
+| Lane / experiment | H79-STEP / E1 (1 of 3 allowed; about 45 min of 2 h) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0949** [0.0735, 0.1161], n = 11,321 · seed 30: **0.1087** [0.0858, 0.1293], n = 11,342 |
+| HOLDOUT-DTI, uniform control | seed 20: **0.0315** · seed 30: **0.0389** |
+| Paired Δ vs uniform control | +0.063 [0.043, 0.084] · +0.070 [0.046, 0.091]; 95% CIs exclude zero on both seeds |
+| Leakage canary | 8 single-feature AUC tests, max 0.6149 ≤ 0.90: **PASS** |
+| Uniqueness gate | **NOT CHECKED locally** — registry raster cache not restored; the literal reading is blocked by a universal-support witness. Not cleared for submission. |
+| Beat H33 holdout control | Seed 20: 0.0949 vs H33 0.0961 (not beaten) · seed 30: 0.1087 vs H33 0.0989 (beaten) — not beaten on both seeds |
+| Verdict | **negative.** Not uniqueness-cleared; **do not upload**. The separate selector has not approved a slot. |
 | Slots used | 0 |
+
+
+### Honest score assessment (this session, lane H79-STEP)
+
+This artifact does **not** beat the 0.2778 / 0.3195 reference levels, and it is **not cleared for submission**.
+
+* HOLDOUT-DTI is 0.0949 / 0.1087 (seeds 20 / 30) against a uniform control of 0.0315 / 0.0389 — a real, measured holdout gain with paired 95% CIs excluding zero, but well below 0.2778.
+* It did not beat the H33 holdout control on seed 20 (0.0949 vs 0.0961), so it is not a promoted candidate.
+* It is **not uniqueness-cleared**: the registry raster cache is not restored locally, and the protocol's literal reading is blocked by a universal-support witness, so no nonempty map can pass the 0.70 overlap gate as the rule currently stands.
+* No organizer score exists: only a DrivenData submission-page receipt makes a number ORGANIZER-CONFIRMED, and no slot was used.
+
+To exceed 0.2778 this project would need (a) the login-walled training data restored and a model trained on it, (b) the universal-witness / dot-definition question resolved prospectively, and (c) a separate selector approval plus a free weekly slot. None of those preconditions is met in this session. The negative result is the deliverable.
+
 
 ### Archived concurrent artifact (2026-10-22, lane H79-FF, session 1de1617f)
 
