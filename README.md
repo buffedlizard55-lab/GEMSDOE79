@@ -42,6 +42,21 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 **Portal range error:** without the rejected file and its receipt we cannot diagnose “Predicted values must be in range [0, 1]”. These current bytes pass local checks; that does not prove portal acceptance. The official problem page says exterior values are “null or nan”; this inherited file has zero fill. The discrepancy remains explicit, not “fixed” by inventing a portal result.
 
+## Latest follow-up — session 84124ba0
+
+[Three-pass audit](reports/session_review_84124ba0.md): independently remeasured the
+universal overlap blocker, verified the inherited TIFF, and hardened witness
+manifest checks against missing/duplicate pins and wrong reference filenames.
+No scientific lane restarted and no new TIFF was generated. The new-file request
+remains unmet under the literal uniqueness rule. The automated refusal is unchanged.
+
+Current prompt addendum (verbatim):
+> I think it makes sense that in order for a submission to be validated that it needs to pass certain high scoring validation gates before confirming whether a file is unique and can be submitted for scoring.
+
+Performance, novelty and format are separate required gates; a known impossibility
+is checked before spending compute or a slot. A local score cannot guarantee a
+leaderboard result. The original full project prompt remains below.
+
 ## What changed in this review
 
 - Reconciled every canonical holdout view, both seeds, paired intervals and ablations with shared evaluator output; preserved original metadata and all scientific receipts.
