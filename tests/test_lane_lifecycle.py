@@ -97,12 +97,15 @@ def test_absent_card_fails_closed(tmp_path):
     ('finalize_mrnd.py', []),
     ('run_fnhr.py', ['holdout', '--seed', '20']),
     ('audit_and_select_fnhr.py', []),
+    ('run_pfsd.py', ['--stage', 'seed20']),
+    ('run_pfsd.py', []),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (
         [ROOT / 'run_card.json', ROOT / 'run_card_stepco.json', ROOT / 'run_card_g79b.json', ROOT / 'run_card_asym.json']
         + list((ROOT / 'evidence/nhr').glob('*.json'))
         + list((ROOT / 'evidence/ffas').glob('*.json'))
+        + list((ROOT / 'evidence/pfsd').glob('*.json'))
         + list((ROOT / 'docs/downloads').glob('*'))
     )
     frozen = {p: p.read_bytes() for p in paths if p.is_file()}
