@@ -34,7 +34,7 @@ def sha(p: Path) -> str:
 
 def main() -> None:
     cand = None
-    for p in (ROOT / "docs/downloads").glob("gems79-h79-ff-farfield-scarp-*.tif"):
+    for p in (ROOT / "archive/h79_ff_1de1617f/downloads").glob("gems79-h79-ff-farfield-scarp-*.tif"):
         cand = p
     assert cand is not None
     with rasterio.open(cand) as src:

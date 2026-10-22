@@ -236,7 +236,15 @@ def verify(refresh_timestamp: bool = False):
     if not refresh_timestamp and out_path.exists():
         try:
             existing = json.loads(out_path.read_text())
-            if {k: v for k, v in existing.items() if k != 'verified_utc'} == payload and isinstance(existing.get('verified_utc'), str):
+            existing_cmp = json.loads(json.dumps({k: v for k, v in existing.items() if k != 'verified_utc'}))
+            fmt = existing_cmp.get('format_report', {})
+            if isinstance(fmt.get('validator'), dict) and isinstance(fmt['validator'].get('file'), str):
+                if fmt['validator']['file'].endswith(card['submission_file']):
+                    fmt['validator']['file'] = card['submission_file']
+            if isinstance(fmt.get('reference_grid'), dict) and isinstance(fmt['reference_grid'].get('path'), str):
+                if fmt['reference_grid']['path'].endswith(card['submission_file']):
+                    fmt['reference_grid']['path'] = card['submission_file']
+            if existing_cmp == payload and isinstance(existing.get('verified_utc'), str):
                 verified_utc = existing['verified_utc']
         except Exception:
             pass
