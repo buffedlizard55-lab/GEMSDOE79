@@ -93,7 +93,76 @@ availability is not established by a landing-page link.</p>
 <li><a href="https://gdr.openei.org/submissions/1391">DOE GDR submission 1391 / INGENIOUS</a></li>
 <li><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a></li>
 <li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Competition reference implementation</a></li>
-</ul></div></section><section class="section"><h2>Prior preflight hypotheses — not run</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
+</ul></div></section><section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2><p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p><div class="prose table-scroll"><h2>Candidate hypotheses — session e846fc02 (2026-10-22, not executed)</h2>
+<p><strong>Pre-experiment shortlist, not measured performance.</strong> No new scientific lane was started this session. The active H79-NHR lane remains stopped negative (IR-79-55) and the universal literal witness still blocks any nonempty map (IR-79-53, <code>evidence/universal_overlap_certificate.json</code>). A future lane must re-measure the witness, pass the surface and final uniqueness gates, leakage canaries and the matched HOLDOUT-DTI before any weekly-slot decision. Priority and cost are qualitative research judgements, <strong>not DTI scores or leaderboard projections</strong>. "Not tried" is verified only against <code>src/gems79/</code>, <code>vendor/gems57/</code>, <code>src/gems79b/</code> and the archived lanes <code>G79-FABRIC-OFFSET</code>, <code>G79-STEPCO</code>, <code>G79B-SDPT</code>, <code>H79-FF</code>, <code>H79-NHR</code>; a claim that no sibling GEMSDOE repo ever tried a similar idea globally is not made — the registry gate is the arbiter.</p>
+<h3>How H33 achieved 0.2778 (best verified family score) and what must beat it</h3>
+<p>RASTER-MEASUREMENT (<code>evidence/h33_forensics.json</code>, <code>knowledge/why_h33.md</code>): H33 is <strong>exactly</strong> the D2.8 dot set (44,090 dots) minus the 6,436 dots within 200 m of mapped faults — 37,654 isolated binary dots, 0 disagreement with <code>D2.8 &amp; (distance&gt;2 px)</code>. USER-REPORTED pair 0.2600→0.2778 is consistent with removing near-catalogue FP mass, but no organizer receipt links those numbers to those bytes, and only exact catalogue pixels (not the 200 m collar) are masked in scoring. H33's median dot is 19.6 px (~1.96 km) from the catalogue; 69.8% are &gt;1 km away. It is a broad field, not a halo.</p>
+<p>The organizer's metric is <code>k(d)=max(1−d/300 m,0)</code> with <code>TP = Σ_truth max_x p·k(d)</code> (max over neighbours) and <code>FP = Σ_x p·(1−max_truth k)</code> (sum) — DTI = TP / (TP + 0.2·FP + 0.8·FN), pooled over chunks (metric § and clarifications in <code>knowledge/official_sources.json</code>). Sparse dotted emission wins because one correctly placed dot credits ≈2.33 truth pixels (k=1, 0.667, 0.333 at 0,100,200 m along strike) while a continuous map pays FP on every positive pixel. H79-NHR's measured HOLDOUT-DTI 0.1431/0.1522 beat its H33 control 0.0961/0.0989 on both seeds, but its dots fell inside 26 earlier dot fields (worst 0.913 vs 0.610 chance) — duplicate → stop.</p>
+<p>Beating 0.2778 (and the public leader 0.4413 observed on the leaderboard page) therefore requires <strong>better ranking of unmapped truth</strong>, not denser emission or format tricks. The current blocker is not detector skill alone but <strong>crowding</strong>: every good near-fault detector's top terrain is already dotted by the family.</p>
+<h3>Ranked candidates for a future preregistered lane</h3>
+<table>
+<thead>
+<tr>
+<th>Rank / expected gain × P(real) ÷ cost</th>
+<th>Hypothesis, exact layers</th>
+<th>Physical signature / transform</th>
+<th>Why it should catch a fault <em>missing</em> from the USGS/INGENIOUS catalogue rather than one already in it</th>
+<th>Difference from anything already implemented in this repo</th>
+<th style="text-align: right;">Implementation cost / data viability</th>
+<th>Named non-fault mimic that could produce the same signature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — High expected, medium cost</strong></td>
+<td><strong>Tip-pair stepover linkage.</strong> <code>training_features.tif</code> bands <code>det_elev</code>, <code>iso_grav_anom</code>, <code>rtp</code>; lidar <code>step_max</code>, <code>lapneg_max</code>/<code>lappos_max</code>, <code>cross_max</code>, <code>coh100</code>; visible-catalogue tip-pair geometry (nearest opposite-polarity tip pairs with along-strike overlap &gt;0 and across-strike separation 0.3–2 km, buffered by strike)</td>
+<td>Relay-ramp score: normalized along-strike overlap × across-strike proximity × mean lidar step in the relay rectangle, filtered by strike coherence <code>coh100</code></td>
+<td>Stepovers and relay ramps are the classic location of unmapped linking faults and distributed fracturing; compilers often draw the two bounding segments but leave the relay as a gap, especially under Quaternary cover. A 300 m kernel still credits a dot in the gap</td>
+<td>NHR used <code>log_dist_visible_tip</code> as a single distance, not a tip-pair overlap/proximity product; E1 used single-trace magnetic lag, not tip-pair geometry; no prior lane constructed an explicit relay rectangle</td>
+<td style="text-align: right;">Medium (CPU, tip-pair search on ~few k catalogue segments). All inputs SHA-256 pinned (<code>registry/data_manifest.json</code>); no new external data</td>
+<td>En échelon fluvial channel confluences and shutter ridges that happen to sit between two mapped tips</td>
+</tr>
+<tr>
+<td><strong>2 — Medium-high expected, low-medium cost</strong></td>
+<td><strong>Drainage-deflection scarps in basin fill.</strong> <code>det_elev</code>, lidar <code>step_max</code> + 5×5 max, <code>downface_max</code>, SGMC-derived <code>depth_to_base_surf</code> or <code>cond_surf</code> as cover proxy</td>
+<td>Deflected-drainage index: curvature of flow-accumulation ridges (derived from <code>det_elev</code> via D8) orthogonal to regional downslope, scored only where lidar step is present but amplitude is below the NHR threshold and inside thick cover</td>
+<td>Low-relief (&lt;2 m) antithetic/synthetic strands in piedmont fans and basin fill rarely produce a mappable bedrock scarp and are systematically omitted from regional compilations; they do deflect ephemeral channels (measurable even at 100 m)</td>
+<td>No prior lane used flow-routing or drainage curvature; NHR and SDPT use scarp amplitude/curvature and trace objects, not fluvial geomorphology</td>
+<td style="text-align: right;">Low-medium (flow routing on 3730×3292 grid is CPU-heavy but one-shot). <code>det_elev</code> is detrended; true flow needs hydrologically corrected DEM. Free official source for absolute heights and hydro-conditioning: USGS 3DEP 1 m (via The National Map, https://www.usgs.gov/3d-elevation-program) and NHDPlus flow. Not fetched in sandbox; obtainable via Actions (as <code>7GEMSDOE</code> did for lidar) — <strong>not viable this session without fetching</strong></td>
+<td>Abandoned channel avulsion bends, irrigation ditches, and Lahontan recessional berms</td>
+</tr>
+<tr>
+<td><strong>3 — Medium expected, low cost</strong></td>
+<td><strong>Antislope-scarp polarity asymmetry.</strong> Lidar <code>upface_max</code>, <code>downface_max</code>, <code>coh100</code>, <code>step_max</code>; <code>iso_grav_anom_hg</code> as independent structural trend</td>
+<td><code>asymmetry = (upface − downface)/(upface+downface)</code> (or rank difference), coherent along strike (<code>coh100</code> &gt; threshold) and parallel to <code>iso_grav_anom_hg</code> lineament within ±20°</td>
+<td>Uphill-facing (antithetic) scarps inside piedmonts are disproportionately unmapped — mappers favor the dominant range-front synthetic scarps and often omit the antithetic companion; shorelines, fan toes and channel banks face downslope and are suppressed by the ratio</td>
+<td>SDPT-A built dipole channels but did not form the explicit uphill/downhill ratio as a standalone surface; NHR included both facings as independent features, not their ratio; G79B used dipole minima</td>
+<td style="text-align: right;">Low (all bands cached and u8-pinned). Fully viable</td>
+<td>Ridge-top sackung and landslide head scarps (also uphill-facing)</td>
+</tr>
+<tr>
+<td><strong>4 — Medium expected, medium cost</strong></td>
+<td><strong>Persistent basement-edge worms.</strong> <code>rtp</code>, <code>tmi</code>, <code>TMI_up150</code>, <code>iso_grav_anom</code> at scales s=2,5,20 (gradient magnitudes <code>*_gradmag_s*</code> and worms via <code>ex_max</code>)</td>
+<td>Cross-scale worm persistence: <code>persist = min(rank(ex_max_s2), rank(ex_max_s5), rank(ex_max_s20))</code> or <code>geomean</code>; keep only segments present at ≥2 scales and &gt;1 km length, then score lidar step in a 300 m band around the worm</td>
+<td>Buried faults offsetting magnetic/gravity basement under cover have no lidar scarp at 10 m but leave a scale-persistent potential-field edge; these are invisible to the lidar-only family lenders and hence uncatalogued</td>
+<td>E1 measured a single-scale magnetic-gravity profile lag across a gravity edge; H19-5/H79 used single-scale worm/TMI features; no lane computed cross-scale persistence as the primary ranking</td>
+<td style="text-align: right;">Medium (multi-scale gradients already cached for s=2,5; s=20 needs recomputation). All inputs cached; no new download</td>
+<td>Dykes, intrusive margins, and survey levelling seams that are also persistent</td>
+</tr>
+<tr>
+<td><strong>5 — Lower expected, low cost</strong></td>
+<td><strong>Along-strike radiometric alteration lineament.</strong> <code>geodawn_rad_u8</code> K, Th, U, TC; lidar <code>step_max</code>, <code>coh100</code>; mapped strike field</td>
+<td>Along-strike <code>Th/K</code> or <code>U/K</code> ratio anomaly (ranked, not calibrated concentration) searched in ±15° cones beyond mapped tips, integrated over 0.5–1 km aperture, masked where cover is thick (<code>depth_to_base_surf</code> high)</td>
+<td>Phyllic/argillic alteration along fault damage zones can produce K/Th/U contrasts even where the structure is buried under a few metres of alluvium and leaves no topographic step; regional geology maps record lithology, not alteration halos</td>
+<td>No prior lane used radiometric ratios along strike; sibling H79 used K/Th as generic inputs, not a tip-cone lineament detector; SDPT excluded geophysics entirely</td>
+<td style="text-align: right;">Low (4 radiometric u8 bands restored). Ratios are rank-only — no calibrated units without the original USGS GeoDAWN grids. Fully viable for pattern search, not for geochemical quantification</td>
+<td>Pedogenic caliche and saline playa crusts that also fractionate K/Th</td>
+</tr>
+</tbody>
+</table>
+<h3>Gate before any test (must be re-measured)</h3>
+<p><code>scripts/preflight_new_lane.py --restore</code> currently exits 2: the pinned witness <code>374c88b1da2b803e2ed160de467fd71ae114010d.tif</code> covers 100% of allowed cells with finite <code>&gt;0</code> support, so any nonempty candidate has 3 px overlap 1.0 &gt; 0.70. A future lane must either (a) obtain an explicit protocol clarification that defines "dots" for continuous priors as <code>top-K</code> or <code>p ≥ 0.5</code> thresholded support (then re-audit with <code>budget-matched-v3</code> vs thresholded comparisons) or (b) be constructed to be unique even under the literal rule — which the audit shows is impossible for any nonempty map until the witness is excluded. Do not silently exempt a prior.</p>
+<p>Only after that decision: preregister the single chosen hypothesis above, run the surface novelty gate <strong>before</strong> placement, clear final novelty, leakage canaries (single-feature AUC ≤0.90) and the spatially blocked HOLDOUT-DTI — and beat the H33 control on both seeds — before the separate selector may consider a weekly slot. All numbers must be labelled HOLDOUT-DTI (evaluator version, withheld positives, 95% CI) or ORGANIZER-CONFIRMED (receipt); a projection is never a score.</p></div></section><section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
 <p><strong>Pre-experiment shortlist, not measured performance.</strong> The current request does not
 contain a delimited single-method lane paragraph. No new scientific lane was
 implicitly assigned. The inherited H79-NHR lane already stopped as a duplicate;
@@ -169,6 +238,7 @@ scores</strong>. Only hypothesis 1 was executed; its measured result is in
 <p><strong>Outcome, added after the results.</strong> Hypothesis 1 beat the H33 holdout control on both
 seeds, but its dots duplicate 26 earlier near-fault registry dot fields (IR-79-55), so
 the lane stopped with a negative verdict. Hypotheses 2–5 remain untested.</p>
+<p><strong>Outcome of hypothesis 2, added after its result (session 2026-10-22, lane H79-ASYM).</strong> Preregistered in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_asym.json"><code>registry/preregistration_asym.json</code></a> (commit 365b727). Its surface stopped the lane before any holdout placement: a continuous registry surface (<code>GEMSDOE48</code>) covers the whole footprint, and 32 informative dot fields exceed 0.70 overlap (14 after chance correction). The lidar-scarp channel is therefore saturated in the registry. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/asym"><code>evidence/asym/</code></a> and IR-79-74. Hypotheses 3–5 remain untested. Hypothesis 3 needs an absolute elevation source (see below).</p>
 <p>"Not implemented in this repo" was checked against <code>src/</code>, <code>scripts/</code>,
 <code>vendor/gems57/</code> and both archived lanes in <code>archive/</code>. A claim that nobody in
 the wider GEMSDOE family ever tried something similar is <strong>not</strong> made; the

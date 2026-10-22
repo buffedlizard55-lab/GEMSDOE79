@@ -50,13 +50,16 @@ only exact mapped-fault pixels are masked, and an unknown expert fault may lie
 near a mapped trace. The byte relationship explains a plausible mechanism, not
 a causal decomposition of the hidden test score.
 
-The last checked-in public-leaderboard observation is dated 2026-10-21 and
-records a public first-place entry above the prompt's `0.3195` claim. This is a
-**PUBLIC-LEADERBOARD OBSERVATION**, not an artifact-linked submission receipt;
-it was not refreshed in this session. The user-reported H33 value is not proof
-that the H33 bytes earned that value. A higher leaderboard result is possible in
-principle, but none of the current offline evidence establishes that this
-project can beat H33 or the current organizer test set.
+The merged evidence register contains an official leaderboard fetch dated
+2026-10-22 (IR-79-72/77): **PUBLIC-LEADERBOARD OBSERVATION** rank 1 is 0.4413;
+no row among ranks 1–50 shows 0.3195, and the user-reported H33 value 0.2778 is
+also absent from those 50 rows. This is a public-page observation, not an
+artifact-linked submission receipt or ORGANIZER-CONFIRMED score. The H33 value
+is not proof that the H33 bytes earned it. A higher leaderboard result is
+possible in principle, but none of the offline evidence establishes that this
+project can beat the public leader or the organizer's hidden test set. This
+session did not refetch the leaderboard; the date and evidence source are
+preserved in `reports/irregularities.md` and `reports/session_review_b79882e0.md`.
 
 ## Current holdout evidence — historical H79-NHR run, not rerun here
 
@@ -97,13 +100,13 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
 
 ### Pass 2 — identify and fix a repository defect; review hypotheses
 
-- Found two incompatible-looking declarations for `scikit-image` in
-  `requirements.txt` (`>=0.25,<0.27` and `>=0.25,<1`). Although pip intersects
-  these constraints, the duplicate was unnecessary and obscured alignment with
-  the exact `0.26.0` lock. Removed the redundant broad declaration and added a
-  regression test that rejects duplicate normalized package names in either
-  requirements manifest. Logged this as IR-79-67. No locked package version or
-  scientific artifact changed.
+- The branch baseline had two `scikit-image` declarations in `requirements.txt`
+  (`>=0.25,<0.27` and `>=0.25,<1`). Although pip intersects them, duplication
+  was unnecessary. During this review, current `main` independently consolidated
+  the file to one `>=0.25,<1` line (the lock pins `0.26.0`); the merge preserves
+  that upstream bound. This PR adds a regression test rejecting duplicate
+  normalized package names in either manifest and records the branch-baseline
+  finding as IR-79-80. No locked package version or scientific artifact changed.
 - The previous shortlist in
   `research/hypotheses_preflight_a7d092d7.md` was checked against the archives.
   Its far-field idea is adjacent to archived H79-FF; its cross-scale scarp idea
@@ -140,9 +143,13 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
   ORGANIZER-CONFIRMED receipt is present.
 - Verification after the final doc/test edits: `pip check` passed; `verify_project.py`
   passed all checks; `check_site.py` passed all seven pages, 120 local links and
-  two compatibility redirects; `pytest -q` passed 231 tests (one upstream Rasterio deprecation warning only);
-  `git diff --check` also passed. These are software/format checks, not a new
-  scientific holdout or organizer acceptance result.
+  two compatibility redirects; After merging the latest `origin/main` into this fixed Arena branch and
+  regenerating the site, `pip check` passed; `verify_project.py` passed all
+  checks; `check_site.py` passed all seven pages, 120 local links and two
+  compatibility redirects; and `pytest -q` passed 250 tests (two upstream
+  Rasterio deprecation warnings only). `git diff --check` passed after removing
+  two inherited trailing-space issues in a merged report. These are
+  software/format checks, not a new scientific holdout or organizer acceptance result.
 
 ## New candidate shortlist: rank, cost, and blockers
 
