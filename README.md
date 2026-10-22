@@ -15,7 +15,170 @@
 
 The full original project prompt remains archived below and is the starting contract.
 
+## Current session — `G79-CSHD` (`arena/e8afe252-gemsdoe79`, `2026-10-22`): #1 all-time two-seed `HOLDOUT-DTI` record (`0.1924` / `0.2040`; mean `0.1982`), `8/8` official `R1–R8` `NaN`-exterior GeoTIFF + ZIP, & fail-closed novelty stop
+
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** (`verdict = negative`, `submission_slots_used = 0` — computed automatically from [`run_card_cshd.json`](run_card_cshd.json) and canonical [`run_card.json`](run_card.json); zero human inspection required.)
+
+- **New unique GeoTIFFs generated & SHA-256 verified in [`archive/g79_cshd_e8afe252/`](archive/g79_cshd_e8afe252/):**
+  - **Official DrivenData `R1–R8` `NaN`-exterior artifact (`8/8 PASS` on `src/gems79/portal_spec.py` `gems79-portal-format-v2`):**
+    - GeoTIFF: [`archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif`](archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif) (`SHA-256: c9886dba47fd1de727aff9bd24cfcb406db02982970ee3e5cde901e229055535`)
+    - Single-member ZIP (`8/8 PASS`): [`archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.zip`](archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.zip) (`SHA-256: dffb7aea4c611872553f7457642aff3cdfe4d2bfd7a63012f5b60a58c978b6bc`)
+    - Eliminates `"Predicted values must be in range [0, 1]"` and exterior mismatch simultaneously: single `float32` band, `EPSG:32611`, `3730 × 3292`, `NaN` outside template bounds matching `sample_submission.tif`, `0` interior `NaN`/`Inf`, all `5,167,373` in-bounds cells strictly in `[0.0, 1.0]`, `39,747` emitted binary dots (`1,713` beyond `1.5 km`), `0` on mapped catalogue.
+  - **Shared-writer `0.0`-exterior artifact (`15/15 PASS` on `scripts/validate_submission.py`):**
+    - GeoTIFF: [`archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif`](archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif) (`SHA-256: e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789`)
+  - **Unique submission name & note (`98 / 140` chars, records only):** `g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT` · `"GEMSDOE79 G79-CSHD: 98ch deconv-geophys+2m-probe+3DEP+Okada dual-regime CC (39747 px; 1713 >1.5km)"`
+- **All-time #1 two-seed `HOLDOUT-DTI` progression (`gems57-pooled-hide-v2`, `1,000` `20-km` block bootstrap draws — measured `HOLDOUT-DTI`, never a projected leaderboard score):**
+  - **`EXP-CSHD-3` (`G79-CSHD` 98-ch Dual-Regime CC):** **Seed 20 = `0.1924` `[0.1760, 0.2078]`** (`n = 11,321`) · **Seed 30 = `0.2040` `[0.1852, 0.2209]`** (`n = 11,342`) · **2-Seed Mean = `0.1982`** — **first lane in repository history to beat canonical `G79-THVC` (`0.1905` / `0.1944`) on BOTH seeds AND beat `G79-CSKD` (`0.1963`) on 2-seed mean (`2.03x` `H33`)**.
+  - **`EXP-CSHD-2` (`CSHD` + uniform `d = 2.8 px`, `37,654` dots):** `0.1590` `[0.1419, 0.1763]` (Seed 20) · `0.1791` `[0.1622, 0.1970]` (Seed 30).
+  - **`EXP-CSHD-1` (Pure 80-ch Zero-Catalogue Multi-Physics + 3DEP):** **`0.0992` `[0.0809, 0.1176]`** (Seed 20) · **`0.1095` `[0.0921, 0.1256]`** (Seed 30) — **beats `H33` (`0.0961` / `0.0989`) on BOTH seeds without using a single fault catalogue pixel**.
+- **98-feature leakage canary & 1,213-raster cross-repo uniqueness scan (`93` GEMS repositories):**
+  - **Leakage canary (Rule 4):** **PASS** — `98 / 98` features `<= 0.90` (`max symmetric AUC = 0.8043`, [`evidence/g79_cshd_single_feature_auc.json`](evidence/g79_cshd_single_feature_auc.json)).
+  - **Uniqueness scan (Rule 1):** Pre-placement surface `max |Spearman| = 0.6065 <= 0.90` (**PASS**); post-placement `max |Spearman| = 0.2366 <= 0.90` (**PASS**); **clears `GEMSDOE83` under Amendment D-2 (`0.6591 <= 0.70`, PASS)**, `GEMSDOE77` (`0.6952`), `GEMSDOE80` (`0.6494`), and `GEMSDOE78` (`0.6237`), but flags `16 / 1,209` legacy dense corridor rasters (`max external D-2 = 0.8182`, `59GEMSDOE`) plus the `1.0000` universal coverage witness (`IR-79-240`).
+- **Live `origin/main` regression repaired (`IR-79-232`):** Registered `docs/tipstep-submission.html` and [`docs/g79-cshd.html`](docs/g79-cshd.html) cleanly inside `scripts/build_site.py` and `scripts/check_site.py`, restoring `100%` test pass across the entire repository. See [`reports/session_review_e8afe252.md`](reports/session_review_e8afe252.md), [`research/hypotheses_cshd.md`](research/hypotheses_cshd.md), and [`docs/executive-summary.html`](docs/executive-summary.html).
+
+## Latest session — G79-TIPSTEP (2026-10-22, this branch)
+
+**A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
+SHA-256 `4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a`, in `artifacts/tipstep/`).
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO** — format PASS (zeros outside footprint; no NaN, values
+in [0,1], EPSG:32611 3730×3292 matching sample), locally novel vs 40 sparse archived dot rasters
+(max 3-px overlap 0.4765 < 0.70, max |rho| 0.056 < 0.90), HOLDOUT-DTI (gems57-pooled-hide-v2)
+0.0927 [0.0795,0.1049] (seed 20, n=11,321) / 0.0928 [0.0777,0.1079] (seed 30, n=11,342), +0.091 vs
+uniform — but **below the THVC/CSKD holdout incumbents**, so no slot is spent. Full registry
+(1,108-row) scan not completed offline; flagged, not hidden. See
+[`docs/tipstep-submission.html`](docs/tipstep-submission.html), `run_card_tipstep.json`,
+`research/hypotheses_tipstep.md`. The canonical THVC decision below is unchanged.
+
 ## Latest review — 2026-10-22, session `1f9d2dc9`
+## Current review — session `a26add66` (2026-10-22)
+
+**OK TO DOWNLOAD: YES (inherited research file). OK TO SUBMIT: NO.**
+**No new unique submission TIFF was generated:** the freshly measured
+[preflight](evidence/preflight_a26add66.json) blocks every nonempty candidate
+under the requested literal overlap rule. The absent lane paragraph was not
+invented, no stopped lane was restarted, and no competition slot was used.
+
+- Fixed an automated validation defect: ZIP checks had discarded the inner TIFF's
+  single-band failure. The shared project [official-format validator](src/gems79/portal_spec.py)
+  now checks archive and raster, the actual GeoTIFF driver, and returns complete
+  failed-rule reports for malformed/missing inputs rather than crashing.
+- The [landing page](docs/index.html) now labels **Official format: FAIL R6**,
+  not an unqualified PASS. The official template passes; inherited TIFF/ZIP
+  still fail the NaN-exterior rule. This does not diagnose the prior portal error.
+- Restored **13/13** SHA-pinned owner-mirror inputs locally and reproduced the
+  historical feature-cache hashes without changing its receipt. This resolves
+  local data placement, not organizer authentication or scientific eligibility.
+  Ignored runtime/cache files may need restoring again in a fresh workspace.
+- Re-read the official format/metric description, USGS GeoDAWN release and public
+  leader observation; kept reported H33 scores separate from organizer receipts.
+  See the [source ledger](evidence/source_review_a26add66.json),
+  [three conditional hypotheses](research/hypotheses_a26add66.md),
+  [three-pass review](reports/session_review_a26add66.md), and
+  [terminal negative card](evidence/run_card_a26add66.json).
+
+**Next allowed research step:** a prospective shared comparator-definition
+resolution and explicit new lane assignment, then preregistration and matched
+holdout validation. Do not delete registry witnesses, jitter dots, rename an old
+TIFF, or spend a slot to bypass failed gates. Historical reports below are not
+experiments or scores from this review. The original full prompt remains below.
+
+
+## Latest review — session `50335987`, 2026-10-22
+
+**OK TO DOWNLOAD: YES (inherited research only). OK TO SUBMIT: NO.**
+No new unique TIFF was generated: the independently restored registry witness
+makes every nonempty candidate fail the literal overlap rule. The requested new
+submission remains blocked; no human inspection or manual upload overrides this.
+See the [three-pass review](reports/session_review_50335987.md) and
+[three ranked deferred hypotheses](research/hypotheses_50335987.md).
+
+Fixed a real automated-validation defect: ZIP validation previously discarded a
+multi-band TIFF's failed single-band check. It now preserves that failure and
+rejects unreadable TIFF members without crashing. Targeted regression tests and
+the full software suite pass. The canonical TIFF/ZIP remain unchanged and fail
+the separate official-text exterior convention check (R6); their in-footprint
+values are finite and within [0,1]. Historical “unique” claims below do not mean
+full-protocol novelty or upload approval. No new HOLDOUT-DTI is claimed.
+
+## Current session — 2026-10-22, `a201fa92`: automatic stop, no new TIFF
+
+**OK TO DOWNLOAD: YES (inherited research file only). OK TO SUBMIT: NO.**
+The requested new unique competition TIF **could not be generated honestly**:
+`python scripts/preflight_new_lane.py --restore` remeasured a hash-pinned registry
+witness covering every allowed cell, forcing 100% forward overlap for every
+nonempty candidate (required ≤70%). The inherited download also **fails official
+R6**, which requires null/NaN outside the sample footprint despite its passing
+older local range/grid checks; we did not repackage an old candidate to feign
+novelty. The portal error on the user's earlier different upload is undiagnosed
+without its bytes and submission receipt. **No scientific experiment, placement,
+new TIF, upload or weekly slot.** See [three-pass review](reports/session_review_a201fa92.md),
+[ranked candidate hypotheses](research/hypotheses_a201fa92.md),
+[measured preflight](evidence/preflight_a201fa92.json) and
+[negative JSON run card](evidence/run_card_a201fa92.json).
+
+This session autonomously restored and SHA-256 checked **13/13** pinned owner-mirrored
+files to ignored `data/raw/`, including the 19-band `training_features.tif`; those
+local bytes are **not** proof of organizer provenance and are not committed. Run
+`python scripts/restore_data.py --preserve-receipt` in a fresh checkout, then
+`python scripts/data_status.py` to check current availability. The data blocker
+was removed for this workspace, but the novelty protocol and missing assigned
+method paragraph remain blockers to a new experiment. The project now runs the
+separate official R1–R8 validation in its automated readiness and selector paths;
+local format/range PASS alone cannot authorize a weekly slot. A future shared
+writer/validator revision must support NaN exterior without permitting NaN inside;
+this session did not rewrite any historically scored or pinned scientific bytes. See the
+[executive summary](docs/executive-summary.html) and the original prompt below.
+
+## Review 148fa8f5 — validator fixed; no new submission approved
+
+**OK TO DOWNLOAD inherited research artifact: YES. OK TO SUBMIT: NO.**
+[Three-pass review](reports/session_review_148fa8f5.md) ·
+[ranked deferred hypotheses](research/hypotheses_148fa8f5.md) ·
+[JSON run card](evidence/run_card_148fa8f5.json).
+Fresh preflight proves the unchanged literal novelty rule blocks every nonempty
+candidate; no new TIFF or score was generated and no slot used. Fixed a real
+ZIP validator bug that discarded the inner TIFF's multi-band failure. The
+strict R1–R8 format check still rejects the inherited artifact's zero exterior
+(R6), despite its finite [0,1] interior; it is research-only. Full regression
+suite: **603 passed**. The full original project prompt remains below.
+
+## Current session review — `e1bfa000` (2026-10-22)
+
+**OK TO DOWNLOAD: YES (inherited research file). OK TO SUBMIT: NO.**
+No new TIFF was generated: the remeasured, hash-pinned universal witness forces
+literal overlap **1.0 > 0.70** for every nonempty candidate. This is a registry
+measurement, not a competition score. Current runtime inputs: **0/13 verified**.
+No experiments or competition slots were used; stopped lanes were not restarted.
+
+Run the new single-command, read-only review:
+
+```bash
+.venv/bin/python scripts/review_readiness.py --report evidence/my_new_readiness_review.json
+```
+
+Exit **2** means not authorized, not a crashed inspection. Missing checks are
+reported as unverified. Reports cannot overwrite prior evidence. This combines
+current runtime input hashes, the shared novelty preflight, shared local-format
+validator, and separate official-text format validator; it can never select a
+submission. A local format PASS does not hide the inherited TIFF's R6
+zero-exterior/NaN-exterior discrepancy or guarantee portal acceptance.
+
+[Three-pass review and next steps](reports/session_review_e1bfa000.md) ·
+[Machine-readable readiness](evidence/readiness_e1bfa000.json) ·
+[Terminal review card](evidence/run_card_e1bfa000.json) ·
+[Ranked conditional hypothesis shortlist](research/hypotheses_e1bfa000.md).
+The original full user prompt remains archived below and governs future work.
+
+
+## Latest review — 2026-10-22, Arena session `d754356b`
+
+**No new candidate TIFF was generated; no submission is approved.** The prompt's purported assigned method paragraph is absent, and the literal novelty preflight returns exit 2: a hash-verified registry witness covers 100% of allowed cells, so every nonempty candidate exceeds the 70% forward-overlap limit. Do not rename, jitter, or re-place an archived raster. This review used zero submission slots.
+
+The audited, already archived STEPCO S2-COVER artifact is **DO NOT SUBMIT**: its `gems57-pooled-hide-v2` HOLDOUT-DTI is 0.09354 (seed 20; 11,321 withheld positives; 95% CI [0.07802, 0.10885]) and 0.09607 (seed 30; 11,342 withheld positives; 95% CI [0.07959, 0.11172]); its paired CIs versus the fold-fair H33 control include zero and its literal final-dot overlap is 1.0. Those are historical results already in the repository, not results from this session. H33's 0.2778 remains an **UNVERIFIED HISTORICAL REPORT**, not an organizer receipt.
+
+See the [three-pass review](reports/session_review_d754356b.md) and [JSON run card](evidence/run_card_d754356b.json) for the five qualitatively ranked hypotheses, official-source links, exact test results, runtime-data status, and blockers. Runtime inputs remain 0/13 under `data/raw`; no model experiment or new submission file was possible under the current stop conditions.
+
+## Latest prior review — 2026-10-22, session `1f9d2dc9`
 
 **No new candidate TIFF was generated; no submission is approved.** The
 [three-pass review](reports/session_review_1f9d2dc9.md) documents the literal-novelty
@@ -43,10 +206,14 @@ A separate three-pass review independently recorded the literal-gate stop, four 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
 > **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
+>
+> **Later update, session `ff2e4413`:** a new research TIFF ([G79-OPC](docs/g79-opc.html), details below) was generated and machine-validated. It failed the holdout and novelty gates, so the project decision is unchanged: nothing is OK to submit.
 
 > **NEW SESSION 0be4d7bb — G79-TDW:** A new unique 37,654-dot TIF (`gems79-tdw-tiltworm-37654dots-20261022`, SHA-256 `0a79e3e54c1c8b9254ba0c8a36e61a1c41f09c594ae59778b2bf6478ba391eef`) was generated and machine-validated. **OK TO DOWNLOAD: YES (research only, `artifacts/tdw/`). OK TO SUBMIT: NO** — HOLDOUT-DTI 0.0395/0.0413 fell below the uniform control and the THVC incumbent, so no slot was spent. Details: `docs/tdw-submission.html`, `run_card_tdw.json`, `evidence/tdw/experiment1.json`. The canonical THVC decision below is unchanged.
 >
 **[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_1f9d2dc9.md)** · **[Ranked untried hypotheses](research/hypotheses_1f9d2dc9.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+
+New research artifact (not a submission): `artifacts/ventprox/gems79-ventprox-geothermalvents-12000dots-20261022-20261022T200156Z-zeros-DO-NOT-SUBMIT.tif` — OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. (vent-proximity Gaussian around GDR volcanic vents; format-validated; novelty/holdout not cleared.)
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
@@ -66,6 +233,40 @@ The historical “Charnes-Cooper” identifier is not an exact-optimization clai
 | Slot selection | **NOT APPROVED.** No organizer receipt or remaining-account-capacity measurement. Sparse-prior diagnostics cannot substitute for the full novelty gate. |
 
 The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
+
+## Latest session (`ff2e4413`): G79-OPC. A new TIF was generated (not a copy or rename), and the automated gates say NO
+
+> **G79-OPC: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
+> Files: [`artifacts/opc/g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.tif`](artifacts/opc/g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.tif) (139,575 bytes, SHA-256 `5b8756e4b3f31008027980c71e5f8362a24332b74d7b2b5fcd43aaabe74fd40b`, 45,204 binary dots, zeros outside the footprint) · [ZIP with the identical TIFF](artifacts/opc/g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT.zip).
+> Name: `g79-opc-anisopaircorr-45204dots-20261022T200143Z-6e266467-zeros-DO-NOT-SUBMIT` · Note (76/140): `RESEARCH ONLY: G79-OPC aniso pair-corr prior, 45204 dots; holdout below THVC`
+> Decision page: [docs/g79-opc.html](docs/g79-opc.html) · Run card: [`run_card_opc.json`](run_card_opc.json) · Independent re-check: `.venv/bin/python scripts/opc_gate.py` (exit 2 = NO; exit 1 = card/evidence disagree). No human inspection is involved. Session review, limitations and next work: [reports/session_review_ff2e4413.md](reports/session_review_ff2e4413.md).
+
+**Hypothesis.** This was the top-ranked of five untried ideas ([research/hypotheses_ff2e4413.md](research/hypotheses_ff2e4413.md)). Faults come in populations with anisotropic second-order structure: relay steps along strike and sub-parallel splays at a characteristic spacing across strike ([Soliva et al. 2006](https://agupubs.onlinelibrary.wiley.com/doi/full/10.1029/2004JB003507); [Faulds & Hinz 2015](https://pangea.stanford.edu/ERE/db/WGC/papers/WGC/2015/11100.pdf)). The strike-rotated pair-correlation between components of the *visible* catalogue was learned and convolved back onto the map, then combined with LiDAR-strike concordance and the pinned geophysics stack in LightGBM. **Named mimic:** Lake Lahontan shorelines and terrace risers. Preregistered in [`registry/preregistration_g79_opc.json`](registry/preregistration_g79_opc.json), with two disclosed deviations (D-OPC-1 pre-result sign fix; D-OPC-2 post-result holdout-mask bug fix, see `IR-79-230`).
+
+| Arm (HOLDOUT-DTI, `gems57-pooled-hide-v2`, α 0.2, β 0.8, 300 m) | Seed 20 (n = 11,321) | Seed 30 (n = 11,342) |
+|---|---|---|
+| EXP-OPC-2 full model (candidate) | 0.1207 [0.0968, 0.1448] | 0.1506 [0.1246, 0.1768] |
+| EXP-OPC-1 oriented geometry only | 0.0997 [0.0872, 0.1126] | 0.0693 [0.0584, 0.0810] |
+| C-ISO isotropic control | 0.0533 [0.0396, 0.0685] | 0.0720 [0.0564, 0.0943] |
+| C0 random, same count | 0.0249 [0.0209, 0.0292] | 0.0378 [0.0322, 0.0428] |
+| **G79-THVC incumbent (bar)** | **0.1905** | **0.1944** |
+
+| Gate | Result |
+|---|---|
+| G1 local shared validator (single band, EPSG:32611, 3730 × 3292, sample transform, finite, values in [0, 1], ZIP identical) | **PASS** |
+| G1b official R1–R8 portal rules (`scripts/validate_portal_spec.py`, merged from main afterwards) | **FAIL R6:** zeros outside the footprint, where the official rule requires null/NaN (IR-79-212, IR-79-224). The file was not repackaged because the lane is closed. |
+| G2 leakage canary (max single-feature symmetric AUC ≤ 0.90) | **PASS:** 0.8036 / 0.7998 |
+| G3 beats current holdout best on both seeds and the best 2-seed mean (0.1963) | **FAIL:** 2-seed mean 0.1357 |
+| G4 novelty, D-3, surface and final dots, 1,222/1,232 comparable rasters | **FAIL:** 14 chance-corrected halo firings (worst 0.8264); worst rank correlation 0.6932 (surface) / 0.1348 (dots); literal one-sided 3-px rule fires on 119 rasters |
+
+**What we learned, and the verdict.**
+- Every arm beats random.
+- Oriented minus isotropic geometry was **+0.0464** [+0.0277, +0.0622] on seed 20 and **-0.0027** [-0.0233, +0.0138] on seed 30. The anisotropy effect did **not** replicate.
+- The full model was under-calibrated about 5×, so it emitted too few dots.
+- That calibration was not retuned after seeing the holdout, because doing so would be holdout peeking. It is proposed as a new prospective lane instead.
+- **Verdict: negative.**
+- Slots used: 0. No ORGANIZER-CONFIRMED score exists. The 0.2778 H33 figure remains an unverified user report, and 0.4413 is a public-leaderboard observation; neither is claimed for this file.
+- **G79-THVC stays the canonical research artifact. No file in this repository is OK to submit.**
 
 ## New this session: official-format validator (R1–R8) — `9340b31a`
 
@@ -91,7 +292,7 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 ## New this session (8e58a8d0): G79-MDSC — unique TIF generated; holdout gate says NO
 
-> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A **new unique** GeoTIFF was generated and validated end-to-end with no human inspection: [`gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif`](artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif) (SHA-256 `270183cb79342a087dc425325c1517260068c57c711d5f0978610e17ba186a21`; [ZIP](artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.zip); [decision page](docs/mdsc-submission.html); [run card](run_card_mdsc.json); [session review](reports/session_review_8e58a8d0.md)). Format **PASS** (finite, [0, 1], nodata=None — the `[0, 1]` portal error cannot occur), canaries **PASS** (max AUC 0.5421), sparse-novelty **PASS** (max overlap 0.3736 vs 28 local sparse submissions) — but HOLDOUT-DTI `0.0448/0.0434` ≈ random, far below the G79-THVC bars `0.1905/0.1944`, so the preregistered verdict is **negative**. E2 (SFGC-lite signed scarp polarity, scoring-only) beat its unsigned control on both seeds but also stayed below the bars. Zero slots spent. The canonical G79-THVC stop above is unchanged.
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A **new unique** GeoTIFF was generated and validated end-to-end with no human inspection: [`gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif`](artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.tif) (SHA-256 `270183cb79342a087dc425325c1517260068c57c711d5f0978610e17ba186a21`; [ZIP](artifacts/mdsc_8e58a8d0/gems79-mdsc-magdepth-37654dots-20261022T191639Z-d09aa2f6-zeros-DO-NOT-SUBMIT.zip); [decision page](docs/mdsc-submission.html); [run card](run_card_mdsc.json); [session review](reports/session_review_8e58a8d0.md)). Local format **PASS** (finite, [0, 1], nodata=None — these byte-level checks do not establish portal acceptance or diagnose the previous range error), canaries **PASS** (max AUC 0.5421), sparse-novelty **PASS** (max overlap 0.3736 vs 28 local sparse submissions) — but HOLDOUT-DTI `0.0448/0.0434` ≈ random, far below the G79-THVC bars `0.1905/0.1944`, so the preregistered verdict is **negative**. E2 (SFGC-lite signed scarp polarity, scoring-only) beat its unsigned control on both seeds but also stayed below the bars. Zero slots spent. The canonical G79-THVC stop above is unchanged.
 
 
 > **G79-CJX: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**

@@ -18,6 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 from gems79.status import submission_decision   # noqa: E402
+from gems79.portal_spec import validate_portal_file   # noqa: E402
 from validate_submission import validate_path   # noqa: E402
 from verify_project import evidence_checks   # noqa: E402
 
@@ -124,8 +125,13 @@ def _select() -> int:
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
+    # The older local validator accepts finite zero outside the sample footprint;
+    # the organizer's R6 requires null/NaN there. Never select on the older check alone.
+    portal = validate_portal_file(path, ROOT / "data/reference/sample_submission.tif")
+    portal_ok = portal["ok"]
     if card.get("lane") == "G79-THVC":
         checks = canonical_thvc_evidence(ROOT, card, actual, fmt)
+        checks["official_format_R1_R8"] = portal_ok
         trial = dict(card)
         trial["selector_receipt"] = {
             "raster_sha256": actual, "selector": "scripts/select_submission.py",
@@ -134,7 +140,8 @@ def _select() -> int:
         }
         trial["approved_for_weekly_slot"] = True
         trial["ok_to_submit"] = True
-        decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt)
+        decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt,
+                                       portal_passed=portal_ok)
         failed = sorted(k for k, value in checks.items() if value is not True)
         refusal = {
             "selected": False,
@@ -169,9 +176,10 @@ def _select() -> int:
     # The two fields only this selector may grant; every other gate must already pass.
     trial["approved_for_weekly_slot"] = True
     trial["ok_to_submit"] = True
-    decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt)
+    decision = submission_decision(trial, actual_sha256=actual, format_passed=fmt,
+                                       portal_passed=portal_ok)
     evidence_ok, measured_checks = selection_evidence(ROOT, card, gates, actual)
-    ok = (evidence_ok and decision["blockers"] == [] and gates.get("all_passed") is True
+    ok = (portal_ok and evidence_ok and decision["blockers"] == [] and gates.get("all_passed") is True
           and gates.get("raster_sha256") == actual and card.get("verdict") == "promote")
     if not ok:
         refusal = {"selected": False, "selector": "scripts/select_submission.py",
