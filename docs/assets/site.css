@@ -11,3 +11,8 @@ html, body { max-width: 100%; overflow-x: clip; }
 @media(max-width:680px){ .hero, .two-col, .proof, .steps { grid-template-columns: minmax(0, 1fr); } .metric-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 nav a, .button { white-space: nowrap; word-break: normal; overflow-wrap: normal; }
 @media(max-width:680px){ nav { flex-wrap: wrap; justify-content: flex-start; gap: 8px 14px; } }
+/* Keep the native accessible file chooser inside narrow/mobile panels. */
+#download-file { max-width: 100%; }
+#download-check-result { overflow-wrap: anywhere; }
+#download-check-result[data-state="unknown"],
+#download-check-result[data-state="unverified"] { color: var(--red); }

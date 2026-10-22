@@ -59,6 +59,12 @@ Performance, novelty and format are separate required gates; a known impossibili
 is checked before spending compute or a slot. A local score cannot guarantee a
 leaderboard result. The original full project prompt remains below.
 
+## Current review: private downloaded-file check (session 3ca6c6a6)
+
+The [decision guide now checks downloaded TIFF/ZIP identity in your browser](docs/executive-summary.html#check-download), without uploading the file. It compares SHA-256 and byte size with the published, locally format-checked research files. **A match never approves a competition submission.** Unknown files remain unverified, not falsely diagnosed as invalid rasters.
+
+[Three-pass review and next steps](reports/session_review_3ca6c6a6.md) · [Fresh preflight refusal](evidence/preflight_3ca6c6a6.json) · [Fresh format check](evidence/validator_3ca6c6a6.json) · [H33 remeasurement](evidence/h33_remeasurement_3ca6c6a6.json). Restored all 13 pinned inputs and the exact historical cache without reopening a stopped lane. No new candidate TIFF, holdout score or competition slot was generated. The unique-submission requirement remains **unmet**, not bypassed. The GitHub Pages settings update was refused with HTTP 403; local verification is not a claim that this revision is deployed.
+
 ## What changed in this review
 
 **Independent replay, session f6a01061:** [three-pass repository review](reports/session_review_f6a01061.md) reconfirms the universal novelty blocker, local TIFF format PASS, 477 passing tests, and selector refusal. No new unique TIFF or organizer score was generated.
@@ -82,6 +88,7 @@ OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q
 .venv/bin/python scripts/select_submission.py  # expected exit 2: measured refusal, card unchanged
 .venv/bin/python scripts/build_site.py
 .venv/bin/python scripts/check_site.py
+node --test tools/browser-qa/download-check.test.cjs
 # Optional restoration; preserves the historical scientific receipt:
 .venv/bin/python scripts/restore_data.py --preserve-receipt
 # Prospective lane gate; expected exit 2 before training or placement:
@@ -92,9 +99,11 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 ### Navigation and preserved history
 
-[Latest assigned-branch review](reports/session_review_4d7aa82a.md) · [Latest merged-main review](reports/session_review_7fdf94b3.md) · [Prior evidence-reconciliation review](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
+[Latest assigned-branch review](reports/session_review_4d7aa82a.md) · [Latest merged-main review](reports/session_review_3ca6c6a6.md) · [Prior merged-main review](reports/session_review_7fdf94b3.md) · [Prior evidence-reconciliation review](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
 
-Latest merged-main review: [session 7fdf94b3](reports/session_review_7fdf94b3.md) remediated `IR-79-175`..`IR-79-177` (repo-relative paths and exact `5,167,373 - 60,988 = 5,106,385` off-catalogue accounting in `scripts/measure_registry_halo.py`, fail-closed `enforce_open_lane` guards on 3 remaining archived CLI scripts, `requirements.txt` deduplication, live `13/13` data restoration via `scripts/restore_data.py --preserve-receipt`, and 3-tier Pigeonhole obstruction reconciliation); 499 tests passed and no new candidate or competition slot was used.
+Prior merged-main review: [session 7fdf94b3](reports/session_review_7fdf94b3.md) remediated `IR-79-175`..`IR-79-177` (repo-relative paths and exact `5,167,373 - 60,988 = 5,106,385` off-catalogue accounting in `scripts/measure_registry_halo.py`, fail-closed `enforce_open_lane` guards on 3 remaining archived CLI scripts, `requirements.txt` deduplication, live `13/13` data restoration via `scripts/restore_data.py --preserve-receipt`, and 3-tier Pigeonhole obstruction reconciliation); 499 tests passed and no new candidate or competition slot was used.
+
+Latest merged-main review: [session 3ca6c6a6](reports/session_review_3ca6c6a6.md) added exact SHA-256/size verification for chosen download files and documented the Pages settings permission limit; no upload or new scientific experiment occurred.
 
 Concurrent reviews remain recorded separately: [session 43963905](reports/session_review_43963905.md) independently rechecked the universal novelty blocker, local TIFF format, project verifier, and site; 477 tests passed. No new candidate or competition slot was used. The preceding [session 7d96e79d review](reports/session_review_7d96e79d.md), [session f652f0b3 review](reports/repository_review_2026-10-22_arena-f652f0b3.md), and [repository/gate audit d52085f3](reports/session_review_d52085f3.md) are preserved as separate session reports. Concurrent reports merged from main remain available: [closed-lane and prompt-repair review f0d99a40](reports/session_review_f0d99a40.md), [canonical selector review f40e4f2e](reports/session_review_f40e4f2e.md), [input/publication review 64600edb](reports/repository_review_2026-10-22_session-64600edb.md), [validator/publication review 45998a01](reports/session_review_45998a01.md), [H80 pilot review 842c8c7c](reports/session_review_842c8c7c.md), and [CFSKD negative report](reports/cfskd_analysis.md). Their scientific experiments were performed by other sessions, not this one. Limited-comparator uniqueness claims in those reports are not the required full-registry clearance and do not alter the canonical STOP. Their prior README prose is [preserved verbatim](archive/review_e4a4422d/readme_incoming_5e0d031.txt), not adopted as current guidance.
 

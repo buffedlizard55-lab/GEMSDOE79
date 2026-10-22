@@ -1298,6 +1298,28 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
+<h3>Session 3ca6c6a6 — downloaded-file identity and publishing permissions</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-178</td>
+<td>The site had no local way to bind a user's chosen downloaded file to its published format-checked bytes. An old, altered or repacked file cannot inherit another file's range validation, and the prior portal rejection cannot be diagnosed without its bytes and receipt.</td>
+<td>Added SHA-256 plus size checking for the exact TIFF and ZIP in the executive summary, with no upload or raster-decoding claim. Unknown bytes, crypto/read errors and stale async results cannot authorize submission. Python, Node and real-browser tests cover both matching files, same-size tampering, error paths and zero network requests. The canonical novelty STOP and all scientific receipts remain unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-179</td>
+<td>GitHub Pages API reported legacy main-root publishing and errored status; the public site was still readable. Attempting to select workflow publishing returned HTTP 403, Resource not accessible by integration.</td>
+<td>Kept the existing workflow's explicit permission warning and public-byte verification. Local preview passed, but neither local success nor an attempted API update proves deployment. Settings permission remains unavailable to this integration; no credential was requested or stored. See session review 3ca6c6a6 for the precise scope.</td>
+</tr>
+</tbody>
+</table>
 <h3>Session <code>4d7aa82a</code> addendum — current-checkout review and input restoration</h3>
 <p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_4d7aa82a.md"><code>reports/session_review_4d7aa82a.md</code></a>. Current literal novelty stop: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/preflight_4d7aa82a.json"><code>evidence/preflight_4d7aa82a.json</code></a>.</p>
 <table>
@@ -1310,7 +1332,7 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-178</td>
+<td>IR-79-180</td>
 <td>The fresh assigned-branch workspace did not contain <code>data/raw/</code> or the derived <code>.cache/g79/</code> feature arrays; only the small tracked reference rasters were present. Prior sessions' restored inputs were local ignored data, not a portable tracked cache.</td>
 <td>Ran <code>scripts/restore_data.py --preserve-receipt</code>: all 13 manifest entries restored from the pinned owner-maintained GitHub mirrors with matching SHA-256 values; receipt recorded at <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/input_restoration_4d7aa82a.json"><code>evidence/input_restoration_4d7aa82a.json</code></a> and the frozen <code>data/restore_receipt.json</code> preserved. This proves mirror-byte consistency, not independent organizer authentication. The official DrivenData data tab remains login-gated. Derived arrays were not rebuilt: the shared literal novelty preflight re-measured the universal witness and stopped before any experiment, and the required single-method lane paragraph was absent. No TIFF, holdout, or submission slot was generated.</td>
 </tr>
