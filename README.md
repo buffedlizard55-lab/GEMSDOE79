@@ -1,5 +1,41 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Latest session — CBLF (2026-10-22, this branch): a new unique TIFF, submit gates PASS
+
+**New artifact generated this session:** `gems79-cblf-offcollar-curves-20261022`
+(SHA-256 `d87e0014ad12f852ab0132b2fb71aae5090bf7394d2a1ce701bb183db65b2061`, 330,552 bytes, 31,094 one-pixel curve pixels).
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: YES** — R1–R8 PASS on the exact bytes, NaN outside the footprint
+exactly as the official template, finite values in [0,1] inside, and novelty PASS against all 40 local
+comparators (worst raw 3-px overlap 0.686, worst chance-corrected 0.674, worst |rho| 0.135).
+
+**[Download it, and read the decision, here](docs/cblf.html)** · [how to submit](docs/how-to-submit.html) ·
+[run card](docs/downloads/gems79-cblf-offcollar-curves-20261022.card.json) ·
+[three-pass review](reports/cblf_review.md).
+
+What is new: every archived lane emits a point field. Under the official kernel a point placed
+uniformly inside the 300 m tube earns only `E[k] = 1/3` of the credit, while a 1-px continuous curve
+aligned to sub-pixel earns `k ~ 1`. This artifact is the skeleton of a structural probability field —
+a continuous curve network. On the shared recovery instrument (seed 20, 11,321 withheld positives)
+the emitter scores **HOLDOUT-DTI 0.0571 [0.0481, 0.0663]** against
+0.0471 for a top-k point field at the same budget and probabilities (paired delta
++0.0100 [+0.0048, +0.0146]) and 0.0114 for a uniform field.
+
+**What is NOT claimed:** the absolute holdout level is below the archived recovery incumbents
+(G79-THVC 0.1697 / 0.1686), the instrument measures recovery rather than discovery, and the shipped
+artifact uses the potential-field feature subset, which was not separately holdout-validated.
+No leaderboard projection is made, and `slot_guidance` in the card says to use it for a weekly
+feedback slot, not to select it as the single final submission.
+
+## Answer to the standing question — why did `h33-...-zeros` report 0.2778?
+
+The value is an **unverified historical report** (no receipt binds it to a hash). The official identity
+`DTI = TP/(0.2TP + 0.2FP + 0.8|G|)` gives `recall >= 0.8d/(1 - 0.2d)`, so a 0.2778 report implies **at
+least 23.5%** of the hidden scored truth pixels were covered within 300 m (38.7% for the current 0.4413
+leader). Measured lineage: H33 is D2.8 (44,090 px) minus 6,436 px within two pixels of the catalogue,
+0 px on the catalogue — and the organizer confirms known faults are masked out of scoring. Spending
+budget off-catalogue, where it can still earn credit, is consistent with the reported advantage.
+Full arithmetic: [`evidence/cblf_score_algebra.json`](evidence/cblf_score_algebra.json).
+
 ## Latest session — G79-TIPSTEP (2026-10-22, this branch)
 
 **A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,

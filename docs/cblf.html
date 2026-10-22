@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CBLF submission · GEMSDOE79</title>
+<style>
+:root{--bg:#0f1513;--panel:#16201d;--line:#27352f;--ink:#e8f0ec;--dim:#9db0a8;--ok:#7fdc9a;--stop:#ef8080;--accent:#d4f580}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.6 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:980px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:34px;line-height:1.15;margin:8px 0 12px}
+h2{font-size:22px;margin:36px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin:18px 0 6px}
+.banner{border:1px solid var(--line);border-left:6px solid var(--ok);background:var(--panel);padding:18px 20px;border-radius:10px;margin:18px 0}
+.banner.stop{border-left-color:var(--stop)}
+.badge{display:inline-block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;border:1px solid var(--line);color:var(--dim)}
+.btn{display:inline-block;background:var(--accent);color:#0f1513;font-weight:700;padding:14px 22px;border-radius:10px;text-decoration:none;margin:6px 10px 6px 0}
+.btn.secondary{background:transparent;color:var(--ink);border:1px solid var(--line);font-weight:600}
+.mono,.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+.code{background:#0b100e;border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow-wrap:anywhere;margin:6px 0 14px}
+table{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:13.5px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.card .k{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.card .v{font-size:22px;font-weight:700;margin-top:4px}
+.cav{ border-left:4px solid #d8b45a;padding:10px 14px;background:#1b1a12;border-radius:8px;margin:14px 0}
+a{color:var(--accent)}
+small{color:var(--dim)}
+</style></head><body><div class="wrap">
+<p><a href="index.html">← GEMSDOE79</a> · <a href="how-to-submit.html">How to submit</a></p>
+<span class="badge">Competition 306 · DOE GEMS Prize</span>
+<h1>New submission artifact: gems79-cblf-offcollar-curves-20261022</h1>
+
+<div class="banner ">
+<strong style="font-size:19px">OK TO DOWNLOAD: YES · OK TO SUBMIT: YES</strong><br>Every automated gate below passes on the exact bytes offered here.<br>
+<small>Generated 2026-10-22T21:35:42+00:00 · every number on this page is read from the JSON artifacts linked at the bottom.</small>
+</div>
+
+<h2>1. Download</h2>
+<p>Single-band float32 GeoTIFF on the official grid. Upload the <code>.tif</code> directly, or the <code>.zip</code> that contains exactly that one file.</p>
+<a class="btn" href="downloads/gems79-cblf-offcollar-curves-20261022.tif" download>↓ Download the GeoTIFF</a>
+<a class="btn secondary" href="downloads/gems79-cblf-offcollar-curves-20261022.zip" download>↓ Download the ZIP</a>
+<div class="code">file: gems79-cblf-offcollar-curves-20261022.tif<br>
+sha256: d87e0014ad12f852ab0132b2fb71aae5090bf7394d2a1ce701bb183db65b2061<br>
+bytes: 330,552</div>
+
+<h3>Submission form fields</h3>
+<div class="code">Submission name: gems79-cblf-offcollar-curves-20261022<br>
+Note (90/140): Off-catalogue potential-field curves: 1-px skeleton, no mass within 300 m of mapped traces</div>
+
+<h2>2. Why this file is different from every earlier one</h2>
+<p>All archived lanes in this repository emit a <em>point field</em>. The official metric awards a truth
+pixel <code>max_x p(x)·k(d(x,g))</code> with a triangular kernel of 300 m support. A point placed
+uniformly inside that 3-pixel tube earns only <code>E[k]=1/3</code> of the available credit and pays
+false-positive cost on the remaining 2/3. A one-pixel <em>continuous curve</em> whose alignment error is
+sub-pixel along its length earns <code>k≈1</code> and pays ≈0. This artifact is the skeleton of a
+structural probability field: a thin, continuous curve network, not dots.</p>
+<div class="grid">
+<div class="card"><div class="k">Emitted pixels</div><div class="v">31,094</div><div><small>1-px curves; budget 40,000</small></div></div>
+<div class="card"><div class="k">NaN outside footprint</div><div class="v">7,111,787</div><div><small>exactly the template's null mask</small></div></div>
+<div class="card"><div class="k">NaN inside footprint</div><div class="v">0</div><div><small>R7 requires finite in-bounds cells</small></div></div>
+<div class="card"><div class="k">Value range inside</div><div class="v">0.0–1.0</div><div><small>R8: [0,1]</small></div></div>
+</div>
+
+<h2>3. Official format validation (R1–R8)</h2>
+<table><tr><th>Rule</th><th>Result</th></tr><tr><td>R1</td><td>PASS</td></tr><tr><td>R2</td><td>PASS</td></tr><tr><td>R3</td><td>PASS</td></tr><tr><td>R4</td><td>PASS</td></tr><tr><td>R5</td><td>PASS</td></tr><tr><td>R6</td><td>PASS</td></tr><tr><td>R7</td><td>PASS</td></tr><tr><td>R8</td><td>PASS</td></tr></table>
+<p><small>Validator: <span class="mono">gems79-portal-format-v2</span>, run on the exact bytes offered here. A local PASS is not organizer acceptance.</small></p>
+
+<h2>4. Local novelty measurement</h2>
+<p><strong>Comparator definition (prospective):</strong> informative comparator = 3-px halo covers &lt;= 30% of the scored footprint; limit forward overlap &lt;= 0.70 and |rho| &lt;= 0.90. For every comparator the chance-corrected overlap (observed - halo)/(1 - halo) is also required &lt;= 0.70, because raw containment against a broad comparator is bounded below by its halo coverage.</p>
+<div class="grid">
+<div class="card"><div class="k">Byte-identical copies</div><div class="v">0</div><div><small>SHA-256 equality against every local raster</small></div></div>
+<div class="card"><div class="k">Informative comparators</div><div class="v">39</div><div><small>≤50% footprint coverage</small></div></div>
+<div class="card"><div class="k">Worst forward overlap</div><div class="v">0.6861</div><div><small>limit 0.7</small></div></div>
+<div class="card"><div class="k">Worst chance-corrected overlap</div><div class="v">0.6736</div><div><small>limit 0.7</small></div></div>
+<div class="card"><div class="k">Worst |Spearman ρ|</div><div class="v">0.135</div><div><small>limit 0.9</small></div></div>
+</div>
+<table><tr><th>Comparator (top overlap)</th><th>Coverage</th><th>3-px forward overlap</th><th>ρ</th></tr><tr><td class=mono>gems79-cblf-potfield-curves-20261022.tif</td><td>0.68%</td><td>0.6861</td><td>0.135</td></tr><tr><td class=mono>h79-ml-strain-relay-dotted-20261022-7ef42077.tif</td><td>0.73%</td><td>0.5269</td><td>0.024</td></tr><tr><td class=mono>g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif</td><td>0.81%</td><td>0.5182</td><td>0.028</td></tr><tr><td class=mono>g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif</td><td>0.68%</td><td>0.4794</td><td>0.038</td></tr><tr><td class=mono>g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif</td><td>0.73%</td><td>0.4768</td><td>0.011</td></tr><tr><td class=mono>gems79-g79-csmd-ccmulti-35600dots-20261022-8b37cfd2-zeros-DO-NOT-SUBMIT.tif</td><td>0.69%</td><td>0.4759</td><td>0.024</td></tr><tr><td class=mono>h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif</td><td>0.76%</td><td>0.4741</td><td>0.028</td></tr><tr><td class=mono>gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif</td><td>0.73%</td><td>0.3912</td><td>0.021</td></tr><tr><td class=mono>gems79-h79-cov-research-37654dots-20261022T044820Z-eee84d40-DO-NOT-SUBMIT.tif</td><td>0.73%</td><td>0.3627</td><td>0.013</td></tr><tr><td class=mono>g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif</td><td>0.67%</td><td>0.3624</td><td>0.013</td></tr><tr><td class=mono>g79-dfsd-ccsubmod-20261022-947eff42-zeros-DO-NOT-SUBMIT.tif</td><td>0.40%</td><td>0.3602</td><td>0.032</td></tr><tr><td class=mono>g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif</td><td>0.73%</td><td>0.3586</td><td>0.013</td></tr></table>
+<div class="cav"><strong>Saturated comparators are reported, not used as a decision rule.</strong>
+1 local raster(s) are positive on more than half of the scored footprint (one archived prior is positive on
+<em>every</em> eligible cell). A comparator that covers every cell contains the 3-pixel halo of <em>any</em>
+nonempty candidate, so its containment is 1.0 for every possible map and carries no information about
+duplication. They are listed in the card JSON for audit; see irregularity IR-79-232.</div>
+
+<h2>5. Held-out evidence — HOLDOUT-DTI, not a leaderboard score</h2>
+<p>Instrument <span class="mono">gems57-pooled-hide-v2</span>: buffered whole-component
+leave-one-quadrant-out hide-and-recover, seed 20, 20% of each
+quadrant's components withheld, 3-px feature buffer, shared evaluator, α=0.2, β=0.8, 300 m triangular kernel.</p>
+<table>
+<tr><th>Arm</th><th>HOLDOUT-DTI</th><th>95% CI</th><th>Withheld positives</th></tr>
+<tr><td>Curves (this artifact's emitter)</td><td><strong>0.0571</strong></td><td>[0.0481, 0.0663]</td><td>11,321</td></tr>
+<tr><td>Top-k dots, identical budget and probabilities</td><td>0.0471</td><td>[0.0367, 0.0575]</td><td>11,321</td></tr>
+<tr><td>Median-probability uniform field</td><td>0.0114</td><td>[0.0097, 0.0132]</td><td>11,321</td></tr>
+</table>
+<table>
+<tr><th>Paired difference (spatial-block bootstrap)</th><th>Δ DTI</th><th>95% CI</th></tr>
+<tr><td>curves − dots</td><td>0.0100</td><td>[0.0048, 0.0146]</td></tr>
+<tr><td>curves − uniform</td><td>0.0456</td><td>[0.0374, 0.0542]</td></tr>
+</table>
+<div class="cav"><strong>What this instrument cannot say.</strong> It withholds <em>already mapped</em> components.
+The organizer scores expert faults that are <em>absent</em> from that catalogue, and masks the known faults from
+scoring. A method can be strong at recovery and weak at discovery. The absolute holdout value above is therefore
+<em>not</em> an expectation for the leaderboard, and it is below the archived recovery incumbents recorded in this
+repository (G79-THVC 0.1697 / 0.1686 on the same evaluator). <strong>No projected leaderboard gain over the 0.2778
+report is claimed.</strong></div>
+
+<h3>Feature-family diagnostic (one fold, same split)</h3>
+<table><tr><th>Feature family</th><th>AUC (held-out tube)</th><th>Curves DTI</th><th>Dots DTI</th></tr>
+<tr><td>all</td><td>0.513</td><td>0.0155</td><td>0.0173</td></tr><tr><td>geophys</td><td>0.655</td><td>0.0425</td><td>0.0375</td></tr><tr><td>combined</td><td>0.655</td><td>0.0425</td><td>0.0375</td></tr>
+</table>
+<p><small>The catalogue-context features (distance/density to visible traces) <em>reduce</em> held-out skill,
+because the split's 3-px context buffer deletes exactly the band they encode. The shipped model therefore uses
+the geophysical family only.</small></p>
+
+<h2>6. Why the archived best scored what it scored</h2>
+<p>The reported 0.2778 is an <strong>unverified historical report</strong>; no submission-page receipt links that
+number to a file hash. What can be stated exactly follows from the official identity
+<code>DTI = TP/(0.2·TP + 0.2·FP + 0.8·|G|)</code>, because <code>FN = |G| − TP</code>:</p>
+<div class="code">TP = d·(0.2·FP + 0.8·|G|)/(1 − 0.2·d)
+recall = TP/|G| ≥ 0.8·d/(1 − 0.2·d)   (the FP = 0 case)
+
+d = 0.2778  →  recall ≥ 0.2353
+d = 0.4413  →  recall ≥ 0.3872</div>
+<p>So the archived file covered at least <strong>23.5%</strong> of the
+hidden scored truth pixels within 300 m, and the current public leader at least
+<strong>38.7%</strong>. Measured lineage: H33 is exactly D2.8
+(44,090 px) minus
+6,436 px within two pixels of the catalogue, with
+<strong>0</strong> pixels on the catalogue. Because the
+organizer confirmed that known USGS/INGENIOUS fault pixels are masked out of scoring, deleting near-catalogue mass
+is free, and its advantage is consistent with spending the same budget on strictly more useful cells.
+That is a metric mechanism, not proof of a causal leaderboard gain.</p>
+
+<h2>7. Limits and irregularities</h2>
+<ul>
+<li>No organizer receipt exists for any artifact here; 0.2778 and 0.4413 stay in their original evidence classes.</li>
+<li>The raw competition data was restored from SHA-256-pinned owner mirrors, not from the login-walled organizer page.</li>
+<li>The holdout instrument measures recovery, not discovery (section 5).</li>
+<li>Rules §3.4 allows one final submission per entity. Choosing this file as that final submission is a separate decision from its format and novelty gates.</li>
+</ul>
+
+<h2>8. Artifacts</h2>
+<p><a href="../artifacts/cblf/gems79-cblf-offcollar-curves-20261022.tif.card.json">run card (JSON)</a> ·
+<a href="../evidence/cblf_holdout_seed20.json">holdout receipt</a> ·
+<a href="../evidence/cblf_fold_diagnostic.json">feature diagnostic</a> ·
+<a href="../evidence/cblf_score_algebra.json">score algebra</a> ·
+<a href="../reports/cblf_review.md">three-pass review</a></p>
+</div></body></html>

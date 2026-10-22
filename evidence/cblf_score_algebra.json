@@ -1,0 +1,165 @@
+{
+  "evidence_class": "ARITHMETIC (official metric equations; no hidden truth)",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "triangular_radius_px": 3.0,
+  "triangular_radius_m": 300.0,
+  "identity": "DTI = TP/(0.2*TP + 0.2*FP + 0.8*|G|) because FN = |G| - TP",
+  "sources": {
+    "metric": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "leaderboard": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+    "known_fault_masking": "https://community.drivendata.org/t/11516 (DrivenData staff, 2026-09-16)",
+    "h33_measurement": "evidence/h33_remeasurement_3ca6c6a6.json"
+  },
+  "reported_scores": {
+    "h33_zeros": {
+      "value": 0.2778,
+      "evidence_class": "UNVERIFIED HISTORICAL REPORT",
+      "note": "no submission-page receipt links this value to the file hash"
+    },
+    "public_leader": {
+      "value": 0.4413,
+      "evidence_class": "PUBLIC-OBSERVATION",
+      "note": "leaderboard row #1 read 2026-10-22; not our score"
+    }
+  },
+  "measured_raster_facts": {
+    "h33_positive_pixels": 37654,
+    "d28_positive_pixels": 44090,
+    "h33_pixels_removed_from_d28": 6436,
+    "h33_pixels_on_catalogue": 0,
+    "scope": "two hash-pinned historical blobs; not a new experiment"
+  },
+  "lower_bounds": {
+    "h33_recall_floor": 0.235314048536699,
+    "leader_recall_floor": 0.387215653585452,
+    "interpretation": "a dot field can only report DTI d if it covers at least 0.8d/(1-0.2d) of the scored truth pixels within 300 m"
+  },
+  "conditional_table": [
+    {
+      "score": 0.2778,
+      "fp_w": 0.0,
+      "truth_pixels": 20000.0,
+      "implied_tp_w": 4706.28097073398,
+      "implied_recall": 0.23531404853669902,
+      "reconstructed_dti": 0.2778,
+      "label": "H33 lower bound (FP=0)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.2778,
+      "fp_w": 37654.0,
+      "truth_pixels": 20000.0,
+      "implied_tp_w": 6921.409766634196,
+      "implied_recall": 0.3460704883317098,
+      "reconstructed_dti": 0.2778,
+      "label": "H33 worst case (all dots FP)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.4413,
+      "fp_w": 0.0,
+      "truth_pixels": 20000.0,
+      "implied_tp_w": 7744.31307170904,
+      "implied_recall": 0.387215653585452,
+      "reconstructed_dti": 0.4413,
+      "label": "leader lower bound (FP=0)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.2778,
+      "fp_w": 0.0,
+      "truth_pixels": 40000.0,
+      "implied_tp_w": 9412.56194146796,
+      "implied_recall": 0.23531404853669902,
+      "reconstructed_dti": 0.2778,
+      "label": "H33 lower bound (FP=0)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.2778,
+      "fp_w": 37654.0,
+      "truth_pixels": 40000.0,
+      "implied_tp_w": 11627.690737368177,
+      "implied_recall": 0.2906922684342044,
+      "reconstructed_dti": 0.2778,
+      "label": "H33 worst case (all dots FP)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.4413,
+      "fp_w": 0.0,
+      "truth_pixels": 40000.0,
+      "implied_tp_w": 15488.62614341808,
+      "implied_recall": 0.387215653585452,
+      "reconstructed_dti": 0.4413,
+      "label": "leader lower bound (FP=0)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.2778,
+      "fp_w": 0.0,
+      "truth_pixels": 60988.0,
+      "implied_tp_w": 14351.3331921562,
+      "implied_recall": 0.23531404853669902,
+      "reconstructed_dti": 0.27780000000000005,
+      "label": "H33 lower bound (FP=0)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.2778,
+      "fp_w": 37654.0,
+      "truth_pixels": 60988.0,
+      "implied_tp_w": 16566.461988056417,
+      "implied_recall": 0.27163478041674455,
+      "reconstructed_dti": 0.27780000000000005,
+      "label": "H33 worst case (all dots FP)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.4413,
+      "fp_w": 0.0,
+      "truth_pixels": 60988.0,
+      "implied_tp_w": 23615.508280869548,
+      "implied_recall": 0.387215653585452,
+      "reconstructed_dti": 0.44129999999999997,
+      "label": "leader lower bound (FP=0)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.2778,
+      "fp_w": 0.0,
+      "truth_pixels": 120000.0,
+      "implied_tp_w": 28237.68582440388,
+      "implied_recall": 0.23531404853669902,
+      "reconstructed_dti": 0.2778,
+      "label": "H33 lower bound (FP=0)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.2778,
+      "fp_w": 37654.0,
+      "truth_pixels": 120000.0,
+      "implied_tp_w": 30452.8146203041,
+      "implied_recall": 0.25377345516920086,
+      "reconstructed_dti": 0.2778,
+      "label": "H33 worst case (all dots FP)",
+      "emitted_dots": 37654
+    },
+    {
+      "score": 0.4413,
+      "fp_w": 0.0,
+      "truth_pixels": 120000.0,
+      "implied_tp_w": 46465.87843025424,
+      "implied_recall": 0.387215653585452,
+      "reconstructed_dti": 0.4413,
+      "label": "leader lower bound (FP=0)",
+      "emitted_dots": 37654
+    }
+  ],
+  "what_this_does_not_say": [
+    "It does not identify the hidden truth set, its size, or the composition of the organizer's private labels.",
+    "It does not convert a public score into our own score.",
+    "It does not validate any archived submission file."
+  ]
+}

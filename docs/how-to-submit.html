@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to submit · GEMSDOE79</title>
+<style>
+:root{--bg:#0f1513;--panel:#16201d;--line:#27352f;--ink:#e8f0ec;--dim:#9db0a8;--ok:#7fdc9a;--accent:#d4f580}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 80px}
+h1{font-size:32px;line-height:1.15;margin:8px 0 14px}
+h2{font-size:21px;margin:34px 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+h3{font-size:16px;margin:18px 0 6px}
+.mono,.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+.code{background:#0b100e;border:1px solid var(--line);border-radius:8px;padding:11px 13px;overflow-wrap:anywhere;margin:8px 0 16px}
+.btn{display:inline-block;background:var(--accent);color:#0f1513;font-weight:700;padding:13px 20px;border-radius:10px;text-decoration:none;margin:6px 10px 6px 0}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+table{width:100%;border-collapse:collapse;margin:10px 0 18px;font-size:13.5px}
+th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:600}
+a{color:var(--accent)} small{color:var(--dim)}
+ol,ul{padding-left:22px}
+li{margin:6px 0}
+</style></head><body><div class="wrap">
+<p><a href="index.html">← GEMSDOE79</a> · <a href="cblf.html">Current artifact &amp; decision</a></p>
+<h1>How to make a submission</h1>
+
+<div class="panel">
+<strong>The short version</strong>
+<ol>
+<li>Open <a href="cblf.html">cblf.html</a> and read the decision banner: it says, in plain words, whether the file is OK to submit.</li>
+<li>Download the <code>.tif</code> (or the <code>.zip</code> that contains exactly that one file).</li>
+<li>Go to <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">the competition submission page</a>, choose the file, paste the name and note shown on the artifact page, and press Submit.</li>
+<li>Copy the score the page returns into <code>registry/score_ledger.csv</code> as an <code>ORGANIZER-CONFIRMED</code> row. Until then the value is only a report.</li>
+</ol>
+</div>
+
+<h2>What the portal requires (verbatim requirements, with sources)</h2>
+<table>
+<tr><th>Requirement</th><th>Official wording (page 967)</th><th>How this repository checks it</th></tr>
+<tr><td>CRS</td><td>"same projected coordinate reference system as the training data (… UTM zone 11N, EPSG 32611)"</td><td>R3 in <span class="mono">src/gems79/portal_spec.py</span></td></tr>
+<tr><td>Resolution</td><td>"same resolution as the training data (100 m)"</td><td>R4 (transform equality)</td></tr>
+<tr><td>Bounds</td><td>"same bounds as the training data, and data outside the bounds is null or nan"</td><td>R4 + R6 (NaN mask equal to the template's)</td></tr>
+<tr><td>Layer and dtype</td><td>"a single layer with datatype of 32-bit float (float32)"</td><td>R1, R2</td></tr>
+<tr><td>Values</td><td>"values between 0 and 1 indicating the confidence or probability of fault presence"</td><td>R7 (finite) + R8 ([0,1])</td></tr>
+</table>
+<p><small>Source: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">problem description, “Submission format”</a>.
+The “Predicted values must be in range [0, 1]” portal error occurs when any in-bounds cell is outside that
+range or is not a number the portal accepts. The file offered here is finite and inside [0,1] on every
+in-bounds cell and NaN only outside the footprint, which is exactly the template's pattern.</small></p>
+
+<h2>Which pixels are free, and which are scored</h2>
+<p>DrivenData staff answered this directly on the competition forum: pixels corresponding to known
+USGS/INGENIOUS faults are masked out of evaluation, so they do not count toward the penalty terms
+(<a href="https://community.drivendata.org/t/11516">thread 11516</a>, 2026-09-16). The metric is the
+distance-weighted Tversky index with α = 0.2 and β = 0.8 over a 300 m triangular kernel
+(<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">metric section</a>).</p>
+
+<h2>Rules that limit how many files you may submit</h2>
+<ul>
+<li>The problem statement says competitors must choose a <strong>single</strong> submission for scoring across both prize rounds
+(<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">competition structure section</a>).</li>
+<li>The weekly cap and remaining slot count are properties of the account, not of this repository; check them on the submission page.</li>
+<li>One final submission per participating entity is the rule this repository assumes (DOE Rules §3.4, as read by the project).
+Confirm it in the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/">official rules</a> before spending a slot.</li>
+</ul>
+
+<h2>Verify a downloaded file yourself</h2>
+<p>Every artifact page publishes the SHA-256 of the exact bytes offered. On Linux or macOS:</p>
+<div class="code">shasum -a 256 gems79-cblf-curvefield-20261022.tif</div>
+<p>Compare the result with the SHA-256 printed on the artifact page. A mismatch means the download is not the file that was validated.</p>
+
+<h2>What “OK TO SUBMIT” means here — and what it does not</h2>
+<div class="panel">
+<p><strong>It means</strong> the file passes every automated check this project can run without the organizer:
+R1–R8 on the exact bytes, byte-level and placement novelty against the local prior-raster inventory, and a
+matched-control holdout comparison.</p>
+<p><strong>It does not mean</strong> the file is expected to beat a particular leaderboard number, that it is
+the best available choice for the single final submission, or that the organizer will accept it. Those are
+separate decisions and the artifact page states them separately.</p>
+</div>
+
+<h2>Documentation map</h2>
+<table>
+<tr><td><a href="cblf.html">Current artifact</a></td><td>decision banner, download, format rules, novelty, holdout</td></tr>
+<tr><td><a href="executive-summary.html">Executive summary</a></td><td>the decision framework used across sessions</td></tr>
+<tr><td><a href="research.html">Research</a></td><td>ranked hypotheses and source links</td></tr>
+<tr><td><a href="sources.html">Sources</a></td><td>every external claim with its URL</td></tr>
+<tr><td><a href="irregularities.html">Irregularities</a></td><td>known defects and how they were handled</td></tr>
+</table>
+</div></body></html>
