@@ -62,9 +62,9 @@ def _count_sentinels(vals_f32: np.ndarray) -> int:
     return int(hit.sum())
 
 
-def scan_one(rel: str | Path) -> dict:
-    p = Path(rel) if Path(rel).is_absolute() else (ROOT / rel)
-    label = _rel_path(p)
+def scan_one(rel: str | Path, root: Path = ROOT) -> dict:
+    p = Path(rel) if Path(rel).is_absolute() else (root / rel)
+    label = _rel_path(p) if root == ROOT else str(rel)
     rec: dict = {
         "path": label,
         "role": classify_role(label),
@@ -75,6 +75,8 @@ def scan_one(rel: str | Path) -> dict:
             arr = s.read()
             a = arr.astype("float64", copy=False)
             raw_nodata = s.nodata
+            nodata_finite = None if raw_nodata is None or not np.isfinite(raw_nodata) else float(raw_nodata)
+            nodata_outside_0_1 = bool(nodata_finite is not None and (nodata_finite < 0.0 or nodata_finite > 1.0))
             rec.update(
                 crs=str(s.crs),
                 shape=[s.height, s.width],
@@ -83,8 +85,9 @@ def scan_one(rel: str | Path) -> dict:
                 count=s.count,
                 single_band=bool(s.count == 1),
                 bands_checked=int(arr.shape[0]),
-                nodata=None if raw_nodata is None or not np.isfinite(raw_nodata) else float(raw_nodata),
+                nodata=nodata_finite,
                 nodata_is_nan=bool(raw_nodata is not None and np.isnan(raw_nodata)),
+                nodata_outside_0_1=nodata_outside_0_1,
                 transform=[float(v) for v in tuple(s.transform)[:6]],
             )
         finite = np.isfinite(a)
@@ -115,14 +118,19 @@ def _is_flagged(r: dict) -> bool:
         or r.get("n_outside_0_1")
         or r.get("n_inf")
         or r.get("n_sentinel")
+        or r.get("nodata_outside_0_1")
+        or (r.get("count") is not None and r.get("count") != 1)
         or r.get("n_finite", 0) == 0
     )
+
+
+is_flagged = _is_flagged
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default="evidence/review_b40c0d45/tracked_raster_scan.json")
-    ap.add_argument("--force", action="store_true", help="allow overwriting an existing --out file")
+    ap.add_argument("--force", "--overwrite", dest="force", action="store_true", help="allow overwriting an existing --out file")
     args = ap.parse_args(argv)
     dest = Path(args.out) if Path(args.out).is_absolute() else (ROOT / args.out)
     if dest.exists() and not args.force:

@@ -21,7 +21,8 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('response', (response) => { if (response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
-  const pages = ['index.html', 'executive-summary.html', 'research.html', 'analysis.html', 'sources.html', 'history.html', 'irregularities.html'];
+  const siteManifest = JSON.parse(fs.readFileSync(path.join(root, 'docs/evidence/site_manifest.json'), 'utf8'));
+  const pages = siteManifest.pages;
   const cases = [];
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({width, height: width > 680 ? 1050 : 900});
@@ -95,7 +96,10 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
     downloaded_tiff_sha256: card.raster_sha256, clipboard_verified: true, download_identity_verified: {tiff: true, zip: true, altered_bytes_refused: true, reset: true, network_requests: 0}, feed_rendered: true, legacy_redirects_verified: 2,
     history_filter_verified: true, browser_errors: errors, passed: true,
     scope: 'Local HTTP/static website QA only; not organizer acceptance or geological evaluation.'};
-  fs.writeFileSync(path.join(root, 'evidence/browser_review.json'), JSON.stringify(report, null, 2) + '\n');
+  const reportRel = process.env.QA_REPORT_PATH || 'evidence/browser_review.json';
+  const reportPath = path.isAbsolute(reportRel) ? reportRel : path.join(root, reportRel);
+  fs.mkdirSync(path.dirname(reportPath), {recursive: true});
+  fs.writeFileSync(reportPath, JSON.stringify(report, null, 2) + '\n');
   await browser.close();
   console.log(JSON.stringify({passed: true, rendered_cases: cases.length, download_sha256: card.raster_sha256}, null, 2));
 })().catch((error) => {console.error(error); process.exit(1);});

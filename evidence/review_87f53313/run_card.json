@@ -1,0 +1,104 @@
+{
+  "schema_version": 2,
+  "session_id": "87f53313",
+  "branch": "arena/87f53313-gemsdoe79",
+  "reviewed_utc": "2026-10-22T15:46:00Z",
+  "role": "session_audit_and_engineering_hardening_card_not_a_new_submission",
+  "canonical_artifact_preserved": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+  "hypothesis": "No new scientific experiment lane was opened in session 87f53313: (1) README.md retains the literal '[PASTE THE ONE METHOD PARAGRAPH FOR THIS SESSION HERE]' placeholder without an assigned session lane; and (2) scripts/preflight_new_lane.py --restore fails closed (exit 2, state=impossible_under_literal_gate) on universal positive-support witness 17GEMSDOE_E-proba-multiscale_20260930T044527Z.tif (covered_allowed_fraction = 1.0 > 0.70), while Tier-2 plateau priors (4 rasters, overlap = 1.0000) and Tier-3 sparse binary lattice 13GEMSDOE r13-lattice-s5 (6,514 uncovered off-catalogue cells; Pigeonhole minimum overlap 15,570/18,827 = 0.8270 > 0.70 at K = 37,654) also block D-1 budget-matched-v3.",
+  "mechanism": "Inherited canonical G79-THVC research artifact: fold-fair visible-catalogue tip/corridor + zero-catalogue geophysical/thermal-hydro-volcanic concordance ranked via fixed-penalty lazy-greedy 300 m kernel coverage (not re-run, retuned, or relabelled in this session).",
+  "named_non_fault_process": "Playa evaporite/brine basins, paleoshorelines, alluvial fan/drainage channels, pluton/caldera margins, and 400 m E-W airborne survey line-levelling corrugations.",
+  "holdout_dti": {
+    "score_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "source_receipt": "evidence/g79_thvc_results.json",
+    "new_experiments_in_this_session": 0,
+    "seed_20": {
+      "withheld_positives": 11321,
+      "candidate_dti": 0.1905,
+      "candidate_ci95": [
+        0.1741,
+        0.2069
+      ],
+      "h33_control_dti": 0.0961,
+      "h33_control_ci95": [
+        0.0831,
+        0.109
+      ],
+      "paired_diff_vs_h33": 0.0944,
+      "paired_diff_ci95": [
+        0.0784,
+        0.1098
+      ]
+    },
+    "seed_30": {
+      "withheld_positives": 11342,
+      "candidate_dti": 0.1944,
+      "candidate_ci95": [
+        0.1774,
+        0.2126
+      ],
+      "h33_control_dti": 0.0989,
+      "h33_control_ci95": [
+        0.0854,
+        0.1128
+      ],
+      "paired_diff_vs_h33": 0.0955,
+      "paired_diff_ci95": [
+        0.0778,
+        0.1133
+      ]
+    },
+    "organizer_confirmed_score": null
+  },
+  "leakage_canary": {
+    "source_receipt": "evidence/g79_leakage_canary.json",
+    "features_tested": 19,
+    "seeds_tested": [
+      20,
+      30
+    ],
+    "max_symmetric_auc": 0.80359,
+    "auc_limit": 0.9,
+    "passed": true
+  },
+  "registry_correlation_and_overlap": {
+    "preflight_exit_code": 2,
+    "preflight_state": "impossible_under_literal_gate",
+    "literal_witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "surface_max_abs_spearman": 0.4533,
+    "surface_max_forward_overlap_3px": 1.0,
+    "surface_literal_gate_passed": false,
+    "final_dots_max_abs_spearman": 0.0772,
+    "final_dots_max_forward_overlap_3px": 1.0,
+    "final_dots_literal_gate_passed": false,
+    "tier2_v3_plateau_min_overlap": 1.0,
+    "tier3_binary_lattice_pigeonhole_min_overlap_at_37654": 0.827004
+  },
+  "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "zip_sha256": "dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9",
+  "validator": {
+    "source_receipt": "evidence/review_87f53313/format_validation.json",
+    "format_passed": true,
+    "does_not_approve_submission": true,
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform_matches_sample_submission": true,
+    "nan_inside_footprint": 0,
+    "values_in_0_1": true,
+    "positive_pixels": 35093,
+    "on_catalogue_positive_pixels": 0
+  },
+  "submission_name": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT",
+  "submission_note": "RESEARCH ONLY DO NOT SUBMIT | G79-THVC holdout 0.1905/0.1944 | literal overlap 1.0000 FAIL",
+  "submission_note_length": 90,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "experiments_run_this_session": 0,
+  "experiment_budget_cap": 3,
+  "submission_slots_used_this_session": 0,
+  "verdict": "negative"
+}

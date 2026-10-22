@@ -51,6 +51,7 @@ from gems57.grid import load_grid, EPSG, HEIGHT, WIDTH, TRANSFORM
 from gems57.submission_writer import write_submission
 from gems57.validate import validate as validate_tiff
 from gems57 import gates
+from gems79.lifecycle import enforce_open_lane
 
 # ---------------------------------------------------------------------------
 # Method constants (prospectively fixed for this lane, not retuned on holdout)
@@ -150,6 +151,7 @@ def build_damage_zone_prediction(grid, k=TOP_K_DOTS):
 
 
 def main() -> int:
+    enforce_open_lane(ROOT, "G79-DZD", reason="generate_unique_submission.py")
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("name", help="Submission name (1..140 chars, unique identity)")
     ap.add_argument("note", help="Submission note (1..140 chars)")
