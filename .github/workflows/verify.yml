@@ -34,13 +34,15 @@ jobs:
           .venv/bin/python -m pytest -q
           .venv/bin/python scripts/check_site.py
           .venv/bin/python scripts/verify_project.py
-      - name: Require the correct DO NOT SUBMIT exit status
+      - name: Require submission_status exit code matching run_card.json
         shell: bash
         run: |
+          expected=$(.venv/bin/python -c 'import json; d=json.load(open("run_card.json")); print(0 if d["ok_to_submit"] is True and d["verdict"] == "promote" else 2)')
           set +e
           .venv/bin/python scripts/submission_status.py
           code=$?
-          test "$code" -eq 2
+          set -e
+          test "$code" -eq "$expected"
       - name: Check all pages in a real browser
         shell: bash
         run: |

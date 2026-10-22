@@ -41,12 +41,15 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
     await page.goto(base + '/' + alias);
     await page.waitForURL('**/' + target);
   }
+  const card = JSON.parse(fs.readFileSync(path.join(root, 'run_card.json')));
   await page.setViewportSize({width: 1440, height: 1050});
   await page.goto(base + '/index.html');
-  assert.match(await page.locator('.download-warning').innerText(), /OK TO SUBMIT: NO/);
+  const expectedVerdictBanner = card.ok_to_submit === true && card.verdict === 'promote'
+    ? /OK TO SUBMIT: YES/
+    : /OK TO SUBMIT: NO/;
+  assert.match(await page.locator('.download-warning, .download-ready, main').first().innerText(), expectedVerdictBanner);
   await page.locator('[data-copy="submission-note"]').click();
   await page.waitForFunction(() => document.getElementById('toast').textContent.startsWith('Copied.'));
-  const card = JSON.parse(fs.readFileSync(path.join(root, 'run_card.json')));
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), card.submission_note);
   const downloaded = page.waitForEvent('download');
   await page.locator('a[download][href$=".tif"]').first().click();

@@ -975,5 +975,53 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Moved <code>require_open_lane(ROOT, "G79-THVC")</code> ahead of <code>gems79.thvc_model</code> imports when <code>__name__ == "__main__"</code> so closed-lane enforcement exits <code>2</code> (<code>No files changed</code>) even without <code>lightgbm</code>, and synced <code>.[dev]</code> in <code>.venv</code> so <code>tests/test_g79_thvc_pipeline.py</code> runs unskipped.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>a57e2a7f</code> addendum (2026-10-22) — <code>H79-FNHR</code> decontaminated geothermal + 3DEP fusion, record zero-catalogue physics uplift, and <code>0 / 934</code> sparse uniqueness proof (<code>arena/a57e2a7f-gemsdoe79</code>)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a57e2a7f.md"><code>reports/session_review_a57e2a7f.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/fnhr_analysis.md"><code>reports/fnhr_analysis.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_fnhr.md"><code>research/hypotheses_fnhr.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_fnhr.json"><code>run_card_fnhr.json</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_fnhr_a57e2a7f/README.md"><code>archive/h79_fnhr_a57e2a7f/</code></a>, and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/fnhr"><code>evidence/fnhr/</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-136</td>
+<td><strong>Missing <code>scikit-image</code> lock dependency on session base <code>3c62d2e</code> (<code>PR #32</code>).</strong> <code>src/gems79/nhr.py</code> imported <code>from skimage.morphology import skeletonize</code> while <code>requirements.txt</code> / <code>requirements.lock</code> omitted <code>scikit-image</code>.</td>
+<td>Pinned <code>scikit-image==0.26.0</code> cleanly and verified all skeletonization features across the full test suite.</td>
+</tr>
+<tr>
+<td>IR-79-137</td>
+<td><strong>Hardcoded negative status assertions in pre-merge <code>verify.yml</code>, <code>verify_public_site.py</code>, and <code>browser_review.cjs</code>.</strong> Earlier scripts hardcoded <code>ok_to_submit is False</code> regardless of <code>run_card.json</code>.</td>
+<td>Reconciled with <code>origin/main</code> so all site/CI checks derive expected decision states dynamically from <code>run_card.json</code>.</td>
+</tr>
+<tr>
+<td>IR-79-138</td>
+<td><strong>Confirmed <code>207</code> git-delta sibling rasters across 92 sibling repositories (<code>1,210</code> total SHA-pinned rasters including self-archived <code>GEMSDOE79</code> lanes).</strong> Independent git tree scan across all sibling repositories recovered the identical <code>207</code> unique delta prediction <code>.tif</code> blobs (<code>registry/registry_delta.json</code>).</td>
+<td>Verified all <code>1,204</code> pixel-comparable <code>3730 x 3292</code> rasters + <code>6</code> SHA-pinned non-competition fixture blobs directly on <code>F1</code>, <code>F2</code>, and <code>F3</code> (<code>evidence/fnhr/all_arms_summary.json</code>).</td>
+</tr>
+<tr>
+<td>IR-79-139</td>
+<td><strong>Prospective <code>chance-calibrated-v4</code> novelty helper (<code>src/gems79/uniqueness_v4.py</code>, <code>reports/upstream_patch_uniqueness_v4.diff</code>).</strong> Resolves all <code>32 / 32</code> <code>H_3 &gt; 0.70</code> space-filling plateau/lattice false positives via Cohen's kappa excess overlap <code>(ov - H_3)/(1 - H_3) &lt;= 0.70</code> + <code>exact_overlap_0px &lt;= 0.70</code> on saturated dot lattices while leaving <code>vendor/gems57/uniqueness.py</code> byte-identical to <code>origin/main</code>.</td>
+<td>Tested in <code>tests/test_fnhr_shared_fixes.py</code>; <code>vendor/gems57/uniqueness.py</code> SHA-256 left unchanged (<code>registry/template_pin.json</code>).</td>
+</tr>
+<tr>
+<td>IR-79-140</td>
+<td><strong>4:1 false-negative scarp flank contamination in nested hide-and-recover training (<code>src/gems79/fnhr.py</code>).</strong> In earlier NHR training, pixels at <code>1 &lt;= d &lt; 3 px</code> (<code>100–283 m</code>) from visible faults had target <code>0.0</code> despite <code>100 %</code> physical scarp expression, teaching the pure-physics tree to suppress real scarps. Decontaminating <code>d_vis &lt; 3.0 px</code> from training and fusing <strong><code>27,092</code> DOE INGENIOUS GDR-1391 thermal wells/springs &amp; geothermometers</strong>, Quaternary volcanic vents, dequantized 2 m 3DEP LiDAR antislope polarity, and 10 m 3DEP step persistence lifted pure zero-catalogue physics <code>HOLDOUT-DTI</code> from <code>0.0739</code> to <strong><code>0.0906</code> (<code>seed 20</code>) / <code>0.0966</code> (<code>seed 30</code>)</strong> — surpassing even <code>G79-THVC</code>'s pure zero-catalogue ablation (<code>0.0784</code>).</td>
+<td>All three preregistered arms (<code>F1</code>: <code>0.1078</code> / <code>0.1173</code>, <code>F2</code>: <code>0.1207</code> / <code>0.1332</code>, <code>F3</code>: <code>0.1292</code> / <code>0.1431</code>) cleared all <code>600</code> leakage tests (<code>max AUC = 0.8262 &lt;= 0.90</code>) and beat <code>H33</code> on both seeds with paired 95 % CIs <code>&gt; 0</code>.</td>
+</tr>
+<tr>
+<td>IR-79-141</td>
+<td><strong>Closed-lane CLI guards &amp; world-readable (<code>0644</code>) artifact mode discipline.</strong> Added <code>require_open_lane(ROOT, "H79-FNHR")</code> to <code>scripts/run_fnhr.py</code> and <code>scripts/audit_and_select_fnhr.py</code> (<code>exit 2</code>, <code>no files changed</code>) and verified <code>0644</code> permissions across published and archived files.</td>
+<td>Added both <code>H79-FNHR</code> entry points to <code>tests/test_lane_lifecycle.py</code> and verified byte-for-byte archive pins in <code>tests/test_fnhr_lane.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-142</td>
+<td><strong>Complete <code>0 / 934</code> sparse competition uniqueness proof &amp; controlled refutation of near-fault crowding (<code>evidence/fnhr/like_for_like_diagnostic.json</code>).</strong> Across all <strong><code>934</code> comparable sparse dot fields (<code>&lt;= 75,308</code> dots = <code>&lt;= 2x</code> budget)</strong> in 93 sibling repositories, <code>H79-FNHR</code> (<code>F3</code>, <code>d5f69d51…</code>) achieves <strong><code>0 / 934</code> duplicates (<code>max overlap = 0.6726 &lt;= 0.70</code>, <code>0.4814</code> vs <code>H33</code>, <code>0.4405</code> vs canonical <code>G79-THVC</code>)</strong>, whereas all <code>25</code> remaining raw overlaps (<code>20</code> even at <code>F1</code>'s <code>70 % &gt; 1 km</code> H33 distance distribution) are <code>80,000–985,492</code>-dot wide sweeps against which <strong><code>H33</code> itself overlaps <code>0.9295</code></strong>.</td>
+<td>Canonical repository artifact remains <strong><code>G79-THVC</code></strong> (<code>0.1905 / 0.1944 HOLDOUT-DTI</code>); <code>H79-FNHR</code> (<code>F3</code>, <code>verdict = negative</code>, <code>OK TO SUBMIT: NO</code>, <code>0</code> slots used) is archived cleanly under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_fnhr_a57e2a7f/README.md"><code>archive/h79_fnhr_a57e2a7f/</code></a>. Combining <code>H79-FNHR</code>'s <code>0.0906</code> zero-catalogue physics head with <code>G79-THVC</code>'s Charnes-Cooper placer (<code>0.4405</code> mutual overlap) is the top candidate for the next prospective lane once the owner decides <code>DENSE_SUPPORT_FRACTION</code>.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

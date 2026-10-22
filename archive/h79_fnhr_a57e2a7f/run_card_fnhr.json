@@ -1,0 +1,268 @@
+{
+  "schema_version": "gems79-run-card-v2",
+  "generated_utc": "2026-10-22T06:53:07.125111+00:00",
+  "branch": "arena/a57e2a7f-gemsdoe79",
+  "lane": "H79-FNHR",
+  "experiment": "F3",
+  "evidence_dir": "evidence/fnhr",
+  "holdout_prefix": "f3",
+  "preregistration_file": "registry/preregistration_fnhr.json",
+  "gates_file": "evidence/fnhr/fnhr_gates.json",
+  "dots_cache_file": ".cache/fnhr/final_dots.npy",
+  "hypothesis": "Fusing decontaminated nested hide-and-recover features with DOE INGENIOUS GDR-1391 thermal wells/springs & geothermometers, Quaternary volcanic vents, dequantized 2 m 3DEP LiDAR antislope polarity, 10 m 3DEP scarp step persistence, shallow-minus-upward-continued magnetics, and TIGER road/rail masks across distance-regime arms beats H33 on both holdout seeds while eliminating all sparse-submission duplicates.",
+  "mechanism": "Unmapped Great Basin normal and geothermal fault strands accommodate regional extension across step-over relays, along-strike tip continuations, and intrabasin synthetic/antithetic half-grabens expressing antislope scarps, shallow magnetic/gravity steps, and upflow thermal anomalies.",
+  "named_non_fault_process": "Pluvial Lake Lahontan/Bonneville shoreline risers, incised alluvial fan channel banks, and highway/railroad embankments create non-tectonic 2-10 m topographic steps.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "headline_seed": 20,
+    "dti": 0.1292,
+    "ci95": [
+      0.1139,
+      0.1462
+    ],
+    "withheld_positive_pixels": 11321,
+    "per_seed": {
+      "seed_20": {
+        "withheld_positive_pixels": 11321,
+        "candidate": {
+          "dti": 0.1292,
+          "ci95": [
+            0.1139,
+            0.1462
+          ]
+        },
+        "h33_foldfair_control": {
+          "dti": 0.0961,
+          "ci95": [
+            0.0837,
+            0.1086
+          ]
+        },
+        "uniform_control": {
+          "dti": 0.0484,
+          "ci95": [
+            0.0432,
+            0.0537
+          ]
+        },
+        "ablation_no_geometry": {
+          "dti": 0.0906,
+          "ci95": [
+            0.0738,
+            0.1077
+          ]
+        },
+        "paired_delta_vs_h33": {
+          "delta": 0.0331,
+          "ci95": [
+            0.0219,
+            0.0447
+          ]
+        },
+        "paired_delta_vs_uniform": {
+          "delta": 0.0808,
+          "ci95": [
+            0.065,
+            0.0971
+          ]
+        }
+      },
+      "seed_30": {
+        "withheld_positive_pixels": 11342,
+        "candidate": {
+          "dti": 0.1431,
+          "ci95": [
+            0.1242,
+            0.161
+          ]
+        },
+        "h33_foldfair_control": {
+          "dti": 0.0989,
+          "ci95": [
+            0.0842,
+            0.112
+          ]
+        },
+        "uniform_control": {
+          "dti": 0.0482,
+          "ci95": [
+            0.0433,
+            0.0522
+          ]
+        },
+        "ablation_no_geometry": {
+          "dti": 0.0966,
+          "ci95": [
+            0.0793,
+            0.1126
+          ]
+        },
+        "paired_delta_vs_h33": {
+          "delta": 0.0442,
+          "ci95": [
+            0.0281,
+            0.0602
+          ]
+        },
+        "paired_delta_vs_uniform": {
+          "delta": 0.0949,
+          "ci95": [
+            0.0765,
+            0.1127
+          ]
+        }
+      }
+    },
+    "caveat": "Hide-and-recover of withheld catalogue components; not a leaderboard score or projection."
+  },
+  "current_best_holdout_beaten": true,
+  "current_best_holdout_reference": "h33_foldfair_control (legacy D2.8 dots, >2 px from the fold's visible faults) - best non-duplicate competition control (0.0961 / 0.0989)",
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "passed": true,
+    "auc": 0.8262,
+    "required_threshold": 0.9,
+    "features_cleared": 75,
+    "tests_per_seed": 300,
+    "tests": 600,
+    "worst_feature": "geom_log_dist_visible_tip"
+  },
+  "correlation_overlap_vs_registry": {
+    "shared_tool": "gems57.uniqueness.compare_array_to_registry",
+    "dot_definition": "chance-calibrated-v4",
+    "registry_rasters": 1210,
+    "comparable_sparse_dot_fields_count": 934,
+    "comparable_sparse_duplicates_over_0p70": 0,
+    "worst_comparable_sparse_overlap_3px": 0.6726,
+    "overlap_vs_h33_3px": 0.4814,
+    "overlap_vs_h79_nhr_3px": 0.4946,
+    "h33_own_overlap_vs_coverage_v3_wide_3px": 0.9295,
+    "surface_before_placement": {
+      "worst_spearman": 0.662802,
+      "worst_forward_overlap_3px_provisional_topk": 0.96521,
+      "passed": false
+    },
+    "final_dots": {
+      "worst_spearman": 0.09176,
+      "worst_forward_overlap_3px": 0.914909,
+      "worst_overlap_submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+      "passed": false
+    },
+    "all_comparable_rasters_audit": {
+      "source": "evidence/fnhr/overlap_chance.json",
+      "compared": 1204,
+      "not_comparable_verified_fixtures": 6,
+      "rasters_with_candidate_overlap_gt_0_70": 57,
+      "of_which_space_filling_halo_gt_0_70": 32,
+      "of_which_informative_halo_le_0_70": 25,
+      "of_which_comparable_sparse_le_75308_dots": 0,
+      "uniform_random_control_flagged_by": 32,
+      "worst_informative": {
+        "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+        "overlap_candidate": 0.914909,
+        "halo_coverage": 0.609668,
+        "their_dots": 624025,
+        "overlap_beyond_chance": 0.305242
+      },
+      "surface_topk_would_have_stopped_before_placement": true
+    },
+    "limits": {
+      "rho": 0.9,
+      "forward_overlap_3px": 0.7
+    }
+  },
+  "protocol_unique": false,
+  "raster_sha256": "d5f69d51e9f14b624cd5bca5f4207886d29d8aba05674f522d224bb2b7fb6fcc",
+  "validator_output": {
+    "format_passed": true,
+    "no_nan_inside_footprint": true,
+    "crs_shape_transform_match": true,
+    "summary": {
+      "file": "docs/downloads/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",
+      "bytes": 139270,
+      "sha256": "d5f69d51e9f14b624cd5bca5f4207886d29d8aba05674f522d224bb2b7fb6fcc",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    }
+  },
+  "submission_name": "gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT",
+  "submission_note": "DO NOT SUBMIT (IR-79-63: 25 wide sweeps >0.70; 0/934 <=75k-dot dups, max 0.6726); H79-FNHR F3 HOLDOUT-DTI 0.1292/0.1431 vs H33 0.0961/0.0989",
+  "submission_file": "docs/downloads/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",
+  "zip_file": "docs/downloads/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "262fdbaf2d9bd715211e549e05c283b3cfea42db32c682690f23f399158a9ec1",
+  "artifact_kind": "binary dot map (1.0 at 37,654 placed cells, 0.0 elsewhere, all finite) from the H79-FNHR F3 surface",
+  "positive_pixels": 37654,
+  "experiment_count": 3,
+  "max_experiments": 3,
+  "max_hours": 2,
+  "source_provenance_verified": true,
+  "source_provenance_definition": "Every input byte matches the SHA-256 pins in registry/data_manifest.json and the grid equals sample_submission.tif. Mirrors are owner GitHub copies; organizer-origin authentication is not possible without a DrivenData login.",
+  "source_feature_stack_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "preregistration_sha256": "7436f552598d6fc555bd89cc8d512cb8292b2968023a0cb92058f2dd7667cd8a",
+  "verdict": "negative",
+  "promoted": false,
+  "stop_reason": "Cleared 0 / 934 duplicates across all comparable sparse dot submissions (<= 75,308 dots, max overlap 0.6726; vs H33 0.4814, vs H79-NHR 0.4946) and 0 / 32 space-filling artifacts under chance-calibrated-v4 (IR-79-60), but stopped negative under preregistered un-budget-matched overlap on 25 wide density sweeps (80,000-985,492 dots, worst 0.9149 vs coverage-v3-wide 624,025 dots, where H33 itself overlaps 0.9295; IR-79-63). Zero retroactive threshold changes, zero overlap capping, zero coordinate jitter.",
+  "failed_gates": [
+    "surface_uniqueness_passed",
+    "final_uniqueness_passed",
+    "informative_raw_duplicates_zero"
+  ],
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "selector_receipt": null,
+  "human_intervention_needed_for_this_verdict": false,
+  "submission_slots_used": 0,
+  "organizer_submission_receipt": null,
+  "leaderboard_claim": "None. HOLDOUT-DTI is a proxy; no organizer score exists for this file until it is uploaded."
+}

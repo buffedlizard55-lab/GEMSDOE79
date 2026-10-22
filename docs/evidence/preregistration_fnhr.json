@@ -1,0 +1,68 @@
+{
+  "lane_id": "H79-FNHR",
+  "lane_title": "Far-Field Geothermal, Basement-Dipole & Road-Deconfounded Antislope Nested Hide-and-Recover with Basin-and-Range Regime Allocation",
+  "session_branch": "arena/a57e2a7f-gemsdoe79",
+  "preregistered_utc": "2026-10-22T04:08:00Z",
+  "preregistered_before_holdout_execution": true,
+  "hypotheses_document": "research/hypotheses_fnhr.md",
+  "prior_lanes_kept_stopped_and_archived": [
+    "G79-FABRIC-OFFSET (E1, negative, 0.0474)",
+    "G79-STEPCO (S1/S2, negative, 0.0948)",
+    "H79-MCT (negative)",
+    "H79-CSPT (negative)",
+    "H79-ML-STRAIN-RELAY (negative)",
+    "G79B-SDPT (A3/E2, negative, duplicated 52 range-front priors)",
+    "H79-NHR (X1, negative, 0.1431/0.1522 holdout but duplicated 26 near-trace priors at 0.913)"
+  ],
+  "budget": {
+    "max_experiments": 3,
+    "max_wall_clock_minutes": 120,
+    "experiment_ids": ["F1", "F2", "F3"]
+  },
+  "shared_modules": {
+    "evaluator": "vendor/gems57/evaluate_holdout.py (gems57-pooled-hide-v2)",
+    "holdout_split": "vendor/gems57/holdout.py::buffered_component_draw (seeds 20 and 30, buffer_px=3, boundary_px=12, hide_frac=0.20)",
+    "submission_writer": "vendor/gems57/submission_writer.py::write_submission",
+    "uniqueness": "vendor/gems57/uniqueness.py::compare_array_to_registry (dot_definition='chance-calibrated-v4', IR-79-60 resolving IR-79-53; raw 'budget-matched-v3' and 'literal' reported side by side)"
+  },
+  "anti_leakage_contract": {
+    "excluded_files": [
+      "data/raw/external/derived_sgmc_faults_100m_u8.tif",
+      "data/raw/external/gdr_qfaults_traces.csv"
+    ],
+    "excluded_columns": [
+      "gdr_wellspring_in_footprint.csv:dist_known_fault_px",
+      "gdr_volcanic_vents_in_footprint.csv:dist_known_fault_px"
+    ],
+    "registry_access_during_training_scoring_placement": "FORBIDDEN (enforced by static AST test)",
+    "post_hoc_overlap_capping_or_jitter": "FORBIDDEN",
+    "max_allowed_single_feature_symmetric_auc": 0.90
+  },
+  "model_architecture": {
+    "head_phys": "Out-of-quadrant HistGradientBoostingRegressor fitted strictly on train_region physical/geothermal/scarp features X_phys against true kernel target k(d(x, visible)) across 100% of visible faults in train_region (zero catalogue geometry features; zero false negatives).",
+    "head_nest": "Decontaminated nested component hide-and-recover HistGradientBoostingRegressor (3 nested replicates per fold, 20% component hide, buffer_px=3) with pixels at d(x, remaining) < 3.0 px excluded from negative pool (IR-79-61 fix) and X_full = [X_phys, fold-strict network continuation features].",
+    "blend_rule": "Smooth physical crossover S(x) = (1 - lambda(d(x))) * rank_norm(s_nest(x)) + lambda(d(x)) * rank_norm(s_phys(x)), where lambda(d) = d^2 / (d^2 + d0^2), d0 = 12.0 px (1.2 km).",
+    "placement_rule": "Greedy 3.0 px minimum-spacing non-maximum suppression emitting exact budget B = 37,654 binary 1.0 dots across preregistered fold-strict distance bands R0=(2,5], R1=(5,10], R2=(10,20], R3=(20,50], R4=(50,inf) px (zero dots wasted on existing_faults.tif or outside footprint; residual backfill from full ranked allowed pool if any band exhausts non-overlapping slots)."
+  },
+  "experiments": {
+    "F1": {
+      "label": "H33-Matched Far-Field Geothermal & Scarp Regime (30% <=1km / 70% >1km)",
+      "band_quotas": [0.13, 0.17, 0.21, 0.29, 0.20]
+    },
+    "F2": {
+      "label": "Balanced Relay, Step-Over & Geothermal Basin Regime (40% <=1km / 60% >1km)",
+      "band_quotas": [0.16, 0.24, 0.24, 0.22, 0.14]
+    },
+    "F3": {
+      "label": "Near-Tip + Relay + Intrabasin Hybrid Regime (48% <=1km / 52% >1km)",
+      "band_quotas": [0.20, 0.28, 0.24, 0.18, 0.10]
+    }
+  },
+  "automatic_gate_and_selection_protocol": {
+    "step_1_surface_novelty_pre_placement": "Before placing final dots for an arm, scan its continuous full-catalogue score surface against all accessible registry + sibling git-delta + prior GEMSDOE79 rasters under dot_definition='chance-calibrated-v4'. Require max |Spearman rho| <= 0.90 across ALL rasters, zero raw > 0.70 overlaps on ALL informative rasters (halo_coverage <= 0.70), and zero chance-calibrated duplicates across ALL rasters. Any arm failing pre-placement surface scan is immediately disqualified.",
+    "step_2_final_binary_novelty": "After placement via greedy 3.0 px NMS (B = 37,654), scan final binary GeoTIFF against all accessible rasters under literal, budget-matched-v3, and chance-calibrated-v4. Require unique == True under chance-calibrated-v4 (0 duplicates across ALL 1,205 rasters, including 0 raw > 0.70 overlaps across ALL 1,167 informative rasters).",
+    "step_3_leakage_canary": "Require single-feature symmetric AUC <= 0.90 across all features and all 4 folds on both seed 20 and seed 30.",
+    "step_4_holdout_dominance": "On BOTH seed 20 and seed 30 under gems57-pooled-hide-v2 (1,000 paired 20 km spatial-block bootstrap draws), require candidate DTI > control DTI AND paired difference 95% CI lower bound > 0 against H33 fold-fair control, uniform random control, and pure-physics control.",
+    "step_5_deterministic_winner_choice": "Among arms in {F1, F2, F3} passing Steps 1-4 with fraction_gt_10px >= 0.50, select the unique arm maximizing mean pooled HOLDOUT-DTI across seed 20 and seed 30 and emit verdict='promote' to separate selector scripts/select_submission.py. If zero arms pass Steps 1-4, emit verdict='negative' and ok_to_submit=false."
+  }
+}

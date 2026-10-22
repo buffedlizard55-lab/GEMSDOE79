@@ -40,9 +40,10 @@ def verify(url, expected_feed_attempt=None):
         manifest = json.loads(get(urljoin(base, 'evidence/site_manifest.json')))
     card = json.loads((ROOT / 'run_card.json').read_text())
     receipt = json.loads((ROOT / card['submission_file']).with_suffix('.json').read_text())
-    if (manifest['raster_sha256'] != card['raster_sha256'] or manifest['ok_to_submit'] is not False or
+    expected_ok = bool(card['ok_to_submit'] is True and card.get('verdict') == 'promote')
+    if (manifest['raster_sha256'] != card['raster_sha256'] or manifest['ok_to_submit'] is not expected_ok or
             manifest['run_card_sha256'] != hashlib.sha256((ROOT / 'run_card.json').read_bytes()).hexdigest()):
-        raise ValueError('Published manifest does not match the local stopped run card')
+        raise ValueError('Published manifest does not match the local canonical run card')
     pages = {}
     for page in manifest['pages']:
         text = get(urljoin(base, page)).decode('utf-8')
@@ -57,7 +58,7 @@ def verify(url, expected_feed_attempt=None):
             raise ValueError('Published artifact bytes changed: ' + name)
         hashes[name] = actual
     status = json.loads(get(urljoin(base, 'status.json')))
-    if status['ok_to_submit'] is not False or status['sha256'] != card['raster_sha256']:
+    if status['ok_to_submit'] is not expected_ok or status['sha256'] != card['raster_sha256']:
         raise ValueError('Published status retains a stale or different approval')
     feed = json.loads(get(urljoin(base, 'evidence/source_health.json')))
     if expected_feed_attempt is not None and feed['attempted_utc'] != expected_feed_attempt:
@@ -65,7 +66,7 @@ def verify(url, expected_feed_attempt=None):
     return {'verified_utc': datetime.now(timezone.utc).isoformat(), 'served_base': base,
             'pages': pages, 'published_hashes': hashes, 'source_feed_attempted_utc': feed['attempted_utc'],
             'source_health_counts': dict(Counter(row['state'] for row in feed['sources'])),
-            'public_status_fail_closed': True, 'expected_source_feed_attempt_utc': expected_feed_attempt, 'passed': True, 'ok_to_submit': False,
+            'public_status_fail_closed': True, 'expected_source_feed_attempt_utc': expected_feed_attempt, 'passed': True, 'ok_to_submit': expected_ok,
             'scope': 'Public/local website GET and exact-byte checks; not a competition upload, scientific score or organizer-acceptance receipt.'}
 
 

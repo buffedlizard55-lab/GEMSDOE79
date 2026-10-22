@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "lane": "H79-FNHR",
+  "experiment": "F3",
+  "phase": "surface",
+  "evidence_class": "REGISTRY-MEASUREMENT",
+  "generated_utc": "2026-10-22T06:38:16.944260+00:00",
+  "shared_tool": "gems57.uniqueness.compare_array_to_registry",
+  "shared_tool_sha256": "4996690a4d732aec2179e34bc849e0fd2ca2889043cf0fbb6af066dcd9f7545b",
+  "dot_definition": "chance-calibrated-v4",
+  "rho_limit": 0.9,
+  "overlap_limit": 0.7,
+  "inventory_counts": {
+    "frozen_index": 992,
+    "sibling_git_delta_unique": 207,
+    "self_archived_prior_lanes": 11,
+    "total_expected": 1210
+  },
+  "registry_rasters_expected": 1210,
+  "surface_rank_check": {
+    "worst_spearman_full_footprint": {
+      "value": 0.6628022115048159,
+      "submission": "17GEMSDOE:docs/downloads/17GEMSDOE_E-proba-multiscale_20260930T044527Z.tif",
+      "representation": "continuous_surface",
+      "their_dots": 5106385,
+      "their_halo_coverage": 0.9966389138304299
+    },
+    "worst_informative_overlap_3px": {
+      "value": 0.6759617615984693,
+      "submission": "13GEMSDOE:docs/downloads/archive/13gems-toporef-holdoutref.tif",
+      "representation": "dot_field",
+      "their_dots": 246469,
+      "their_halo_coverage": 0.6759617615984693
+    },
+    "checked": 1204,
+    "non_competition_verified_blobs": 6,
+    "errors": [],
+    "complete": true,
+    "duplicate_count": 0,
+    "unique": true
+  },
+  "provisional_topk_check": {
+    "worst_my_dots_within_3px_of_theirs": {
+      "value": 1.0,
+      "submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
+      "representation": "continuous_surface",
+      "their_dots": 5167373,
+      "their_halo_coverage": 1.0
+    },
+    "worst_spearman_full_footprint": {
+      "value": 0.1297678436477342,
+      "submission": "GEMSDOE48:docs/downloads/gemsdoe48-h50-ds-b2xh36rung30-20261007-5b59e106-nan.tif",
+      "representation": "dot_field",
+      "their_dots": 767043,
+      "their_halo_coverage": 0.3195616860068326
+    },
+    "worst_informative_overlap_3px": {
+      "value": 0.9652095394911563,
+      "submission": "12GEMSDOE:docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62_allfinite.tif",
+      "representation": "dot_field",
+      "their_dots": 103347,
+      "their_halo_coverage": 0.31657797052122
+    },
+    "checked": 1204,
+    "non_competition_verified_blobs": 6,
+    "errors": [],
+    "complete": true,
+    "duplicate_count": 151,
+    "unique": false
+  },
+  "provisional_cells": 37654,
+  "surface_sha256": "93b47b2be74f0f327f58f9918cb9a4d9ac42c4c683e702c88987ef9a8198440f",
+  "worst_spearman": 0.6628022115048159,
+  "worst_informative_forward_overlap_3px": 0.9652095394911563,
+  "worst_forward_overlap_3px": 1.0,
+  "complete_comparison": true,
+  "duplicate": true,
+  "passed": false
+}
