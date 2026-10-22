@@ -457,5 +457,37 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>Added a structured exit-2 refusal boundary and ten regression cases requiring unchanged scientific bytes. No evaluator, writer, novelty rule or scientific evidence changed. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2747f26f.md">three-pass review</a>.</td>
 </tr>
 </tbody>
+</table>
+<p>Session 2026-10-22 review (branch <code>arena/52bfa965-gemsdoe79</code>, report <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_52bfa965.md"><code>reports/session_review_52bfa965.md</code></a>):</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-69</td>
+<td><strong>Official sources disagree on the outside-footprint convention.</strong> The competition page's “Submission format” list says “data outside the bounds is null or nan” among the requirements (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/, fetched 2026-10-22). The official sample writes NaN outside its 5,167,373-cell footprint. The official reference notebook (https://github.com/drivendataorg/gems-prize-reference-solution, commit <code>aebe92f</code>, <code>unet-mc-cv-reference-solution.ipynb</code>) writes <code>y_final</code> with no nodata and no NaN masking, so its output is finite. The canonical file has finite zeros on 7,111,787 cells that the sample leaves NaN (measured 2026-10-22). IR-79-25 read the official text as permitting NaN; the requirement list supports a stricter reading.</td>
+<td>Not changed. Regenerating the canonical file would change its sha256 and cascade through pins, and the file is DO-NOT-SUBMIT. The public Format line and limitations now state the conflict (<code>scripts/build_site.py</code>). The shared all-finite policy in <code>vendor/gems57/gates.py</code> is unchanged. <strong>Protocol-owner decision needed</strong> on the convention for any future candidate.</td>
+</tr>
+<tr>
+<td>IR-79-70</td>
+<td><strong>Preflight exit code depends on <code>--restore</code>.</strong> Run without it, <code>scripts/preflight_new_lane.py</code> exits 3 (<code>FileNotFoundError</code>, witness absent, fail closed). With <code>--restore</code> it exits 2 (<code>impossible_under_literal_gate</code>), witness sha256 <code>ab0a0a62…</code>, identical to IR-79-04. The stop was reproduced, not inherited.</td>
+<td>No code change. Use <code>--restore</code> for the frozen check.</td>
+</tr>
+<tr>
+<td>IR-79-71</td>
+<td><strong>Registry count wording.</strong> <code>registry/registry_index.json</code> lists 92 entries in its <code>repositories</code> field, but its 992 rasters come from 71 distinct <code>repo</code> values. IR-79-10 says “92 repository scopes”; the public site says “71 sibling repositories”. Both are correct under their definitions.</td>
+<td>Clarified here. No data changed.</td>
+</tr>
+<tr>
+<td>IR-79-72</td>
+<td><strong>Public leaderboard re-read, ranks 1–50</strong> (https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/, fetched 2026-10-22). Rank 1 = 0.4413 (xiaofanhu); rank 21 = 0.3261; rank 22 = 0.3183; rank 50 = 0.2784. No row shows 0.3195. The user-reported H33 figure 0.2778 is also not among these 50 rows. These are PUBLIC-OBSERVATION values, not organizer confirmation of any artifact.</td>
+<td>Confirms IR-79-23 and IR-79-45. “0.3195 highest” and “0.2778” stay UNVERIFIED reports. Ranks beyond 50 were not read.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

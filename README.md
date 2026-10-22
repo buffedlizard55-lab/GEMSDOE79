@@ -236,6 +236,19 @@ Those changes were merged into this branch without changing scientific evidence.
 - **No protocol exemption was added.** The universal literal witness and its implications (IR-79-53) still require an explicit prospective decision before any nonempty map can pass the 0.70 gate; the site's `research.html` now surfaces this with the new backlog.
 - Three-pass review: [`reports/session_review_e846fc02.md`](reports/session_review_e846fc02.md).
 
+## Latest review — session `52bfa965` (2026-10-22)
+
+- Full review with three passes, a verification ledger and a no-experiment card:
+  [`reports/session_review_52bfa965.md`](reports/session_review_52bfa965.md).
+- Reproduced: `verify_project.py` exit 0; `submission_status.py` exit 2 (OK TO DOWNLOAD: YES, OK TO SUBMIT: NO);
+  `preflight_new_lane.py --restore` exit 2; 230 tests pass; independent GeoTIFF re-read matches the card sha256.
+- Checked against official sources (fetched 2026-10-22): the metric (α 0.2, β 0.8, R 300 m), the three-per-week
+  limit, and the leaderboard (leader 0.4413; no 0.3195 row in ranks 1–50).
+- **No experiment, no new candidate and no slot were used.** The blocker is a protocol decision (IR-79-53).
+- Irregularities added: IR-79-69 (the official page's "null or nan" outside-bounds text conflicts with the
+  team's all-finite policy and the sample's NaN; the public Format line now states this conflict), IR-79-70 (preflight
+  exit 3 vs 2 depends on `--restore`), IR-79-71 (92 index scopes vs 71 repositories), IR-79-72 (leaderboard re-read).
+
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
 Generative AI assisted research, code, tests and prose. No source measurements or organizer receipts
