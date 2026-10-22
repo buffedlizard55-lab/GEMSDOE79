@@ -103,6 +103,10 @@ def publication_contract_checks(root, card):
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
                  if p.suffix.lower() in ('.tif', '.tiff', '.zip')}
+    docs_dir = root / 'docs'
+    extra_docs_uploads = [p for p in docs_dir.rglob('*')
+                          if p.suffix.lower() in ('.tif', '.tiff', '.zip')
+                          and not p.is_relative_to(downloads)] if docs_dir.exists() else []
     loose_submissions = [p for p in (root / 'submissions').rglob('*')
                          if p.suffix.lower() in ('.tif', '.tiff', '.zip')]
     index = json.loads((root / 'registry/registry_index.json').read_text())
@@ -119,7 +123,8 @@ def publication_contract_checks(root, card):
             line in readme and contradicting not in readme and
             not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
-        'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
+        'only_canonical_upload_artifacts_published': (
+            published == expected and not loose_submissions and not extra_docs_uploads),
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
     }

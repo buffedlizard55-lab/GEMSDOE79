@@ -11,6 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "scripts")]
 from validate_submission import validate_path   # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 
 EV = ROOT / "evidence/ffas"
 
@@ -20,6 +21,7 @@ def sha(p):
 
 
 def main():
+    require_open_lane(ROOT, "H79-FFAS")
     prereg = json.loads((ROOT / "registry/preregistration_ffas.json").read_text())
     gates = json.loads((EV / "x1_gates.json").read_text())
     hold = {s: json.loads((EV / f"x1_holdout_seed{s}.json").read_text()) for s in (20, 30)}
@@ -204,4 +206,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

@@ -38,6 +38,34 @@ All counts below are **exact raster measurements** reproduced deterministically 
 | `H33` median distance to `existing_faults.tif` | `19.6469 px` (`1.965 km`) |
 | Share of `H33` dots `> 1.0 km` from `existing_faults.tif` | `69.83%` |
 
+### Cross-repository lineage across 16 scored landmarks and 11 post-snapshot siblings (`evidence/family_lineage_forensics.json`)
+
+Reproduce from actual immutable Git blobs with `scripts/analyze_family_lineage.py`
+([`evidence/family_lineage_forensics.json`](../evidence/family_lineage_forensics.json)).
+Across the 103 scored submissions in `registry/score_ledger.csv` (all labelled
+`UNVERIFIED HISTORICAL REPORT`), direct pixel-level comparison against `H33` (`37,654`
+dots) and `D2.8` (`44,090` dots) separates the family's top reported scores
+into four distinct regimes:
+
+| Repo | Submission artifact | Positive px | Exact shared w/ `H33` | Fwd 3-px vs `H33` | Rev 3-px from `H33` | `0 < d_cat <= 200 m` | Reported public DTI (unverified report) | Structural lineage class |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| `19GEMSDOE` | `h19-5-powerlaw-budget-multiline-corroborated…` | 121,131 | **37,654 (100%)** | 0.8925 | **1.0000** | **17,326** | 0.1922 | Contiguous ridge ancestor (`3.22x` over-emission penalizes `0.2 * FP`) |
+| `GEMSDOE25` | `dotted-h19-5-d2-8…` (`D2.8`) | 44,090 | **37,654 (100%)** | 0.8817 | **1.0000** | **6,436** | 0.2600 | `d ≈ 2.8 px` Poisson pin thinning (`-77,041` redundant ridge pixels -> `+0.0678`) |
+| `GEMSDOE33` | `h33d-analog-tip-stepover-r30…` | 41,865 | 31,614 | 0.9264 | **0.9998** | **3,894** | 0.2632 | Partial near-catalogue halo prune of `D2.8` (`ov_d28 = 0.9970`) |
+| `GEMSDOE31` | `h27-4-solo-d28…` | 40,199 | **37,654 (100%)** | 0.9539 | **1.0000** | **2,545** | 0.2708 | Exact intermediate subset `H33 ⊂ h27-4 ⊂ D2.8` (`-3,891` near-catalogue pins -> `+0.0108`) |
+| `GEMSDOE28` | `h36-1-rung30-blind-r1…` | 37,660 | 26,248 | 0.9547 | **0.9988** | **2,353** | 0.2710 | `D2.8` clone (`ov_d28 = 1.0000`) with `2,353` near-catalogue pins |
+| **`GEMSDOE32`** | **`h33-h33-2-b2…-zeros` (`H33`)** | **37,654** | **37,654 (100%)** | **1.0000** | **1.0000** | **0** | **0.2778** | **Complete `d_cat <= 200 m` prune of `D2.8` (`2,171` pins retained in `200 < d_cat <= 300 m`)** |
+| `GEMSDOE36` | `anderson-geothermal-pinn-38854…-zeros` | 38,854 | **37,654 (100%)** | 0.9740 | **1.0000** | 0 | 0.2750 | **Exact superset of `H33` (`H33 + 1,200` extra dots -> `-0.0028` dilution)** |
+| `GEMSDOE63` | `cvarlw-thin-s3p17-54864…-zeros` | 54,864 | 14,600 | 0.5504 | **0.9589** | 0 | 0.2303 | Superset-halo covering `95.89%` of `H33` within 3 px plus `17,210` extra pins |
+| `GEMSDOE48` | `h59-cover-ds-belief-b2xh33d…` | 37,723 | 2,706 | 0.9150 | **0.9998** | 2,870 | 0.2296 | Re-weighted/jittered `D2.8`/`H33` derivative (`ov_d28 = 0.9885`) |
+| **`GEMSDOE70`** | **`gems70-p5-dual-submod300-oof38k…`** | **37,654** | **1,797 (4.8%)** | **0.5484** | **0.4432** | **0** | **0.2478** | **#1 genuinely non-duplicate lane: dual OOF supervised ML + 300 m submodular cover + `200 m` prune** |
+| **`GEMSDOE49`** | **`gate_ortho_w0.25-40k…-nan`** | **40,000** | **1,174 (3.1%)** | **0.4339** | **0.4239** | **0** | **0.2376** | **#2 genuinely non-duplicate lane: orthogonal gated supervised model + `300 m` prune** |
+| **`GEMSDOE73`** | **`gems73-h73-mcsc-seamfree-blakely-37654dots…`** | **37,654** | **1,743 (4.6%)** | **0.4860** | **0.4633** | **0** | **0.1917** | **#1 pure unsupervised geophysical derivative: seam-free multi-scale Blakely potential ridges** |
+| `GEMSDOE75` | `gems75-trlt-radon-loco-ridge…-zeros` | 36,800 | 1,739 (4.6%) | 0.4561 | 0.4729 | 0 | 0.1627 | Independent LOCO localized Radon ridge detector |
+| `GEMSDOE76` | `gems76_h76_3_geotherm_tilt_axial_submod…` | 37,654 | 1,503 (4.0%) | 0.5220 | 0.3880 | 0 | 0.1555 / 0.2194* | Independent tilt-angle axial worm + submodular 300 m cover (*see `IR-79-86`) |
+| `GEMSDOE77` | `gems85-h85-edti-collar35-skel-r33…-zeros` | 201,260 | 3,012 (8.0%) | 0.2108 | 0.7861 | 0 | 0.0964 | Over-emitted (`201,260` positives) + over-pruned (`0` dots at `d_cat <= 300 m`) |
+| `GEMSDOE74` | `gemsdoe74-triregime-radon-piedmont-37654…` | 37,654 | 695 (1.8%) | 0.2450 | 0.3194 | 0 | 0.0669 | Domain-restricted piedmont Radon subset loses range-interior / basin recall |
+
 ---
 
 ## Why `H33` Stalled — The Four Structural Bottlenecks Unlocked by `G79-THVC`
@@ -57,3 +85,7 @@ Evaluating `H33` and `G79-THVC` across six physically distinct structural regime
 2. **Subsurface & Geothermal Conduit Physics in Covered Basins (`2.49×–2.60×` lift):** Under Holocene playa/fan cover where scarps erode below `< 0.5 m`, official DOE GDR 1391 (`DOI: 10.15121/1881483`) **2-m shallow temperature probes (`temp_2m_probes.csv`), Quaternary sinter/travertine/tufa mounds (`paleogeothermal.geojson`), geothermometry spring temperatures (`geochem_springs.csv`), volcanic vents (`volcanic_vents.geojson`), magnetic demagnetization + Smectite clay alteration lows, and gravity basement-depth steps (`grav_bdepth`)** detect active blind fluid conduits.
 3. **Anisotropic Elastic Mode-II/III Crack-Tip Mechanics vs Isotropic Distance (`#1` & `#2` features overall):** Instead of `H33`'s isotropic distance collar, `G79-THVC` computes along-strike crack-tip propagation lobes ahead of visible fault endpoints (`net_tip_fwd_35px` = **`11.55%` Stage-1 gain**, `net_tip_x_grav_bdepth` = **`10.37%` Stage-1 gain**), cleanly distinguishing high-probability along-strike fault relays from low-probability flank stress shadows.
 4. **Exact Charnes-Cooper Submodular Kernel Allocation (`+0.0209` to `+0.0258` pure placement lift):** Replacing fixed `d = 3.0 px` Poisson-disk spacing (`EXP-79-2`) with exact Charnes-Cooper submodular greedy optimization of marginal $\mathbb{E}[\Delta\text{TP}_w] - \lambda_{\text{fp}}\mathbb{E}[\Delta\text{FP}_w]$ (`lambda_fp = 0.0022`, `min_sep = 1.9 px`, `EXP-79-3`) increases `HOLDOUT-DTI` from `0.1697` $\to$ **`0.1905`** (`seed=20`) and `0.1686` $\to$ **`0.1944`** (`seed=30`) on the **identical posterior surface**.
+
+### Review qualification (2026-10-22)
+
+The lineage measurements identify shared pixels, not hidden-label precision or causal score effects. Architecture, calibration and pruning proposals above are hypotheses, not necessary or sufficient conditions for a leaderboard improvement. No organizer receipt for any `GEMSDOE79` raster exists. Public/user-reported historical scores must not be relabelled `ORGANIZER-CONFIRMED`.
