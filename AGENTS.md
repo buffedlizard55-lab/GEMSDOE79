@@ -5,7 +5,7 @@
    `registry/preregistration_nhr.json` (archived NHR) before work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
 3. Active lane: **H79-FFAS** (session `c04e5e27`), opened because the prompt again
-   contains no assigned method paragraph (IR-79-83) and previous lanes are stopped.
+   contains no assigned method paragraph (IR-79-87) and previous lanes are stopped.
    Preregistered before any holdout result. X1 (closed-form far-field antislope
    scarp) is the only experiment and is **stopped negative**. Do not retune it
    against the holdout; X2/X3 are for shared-tool defects only.
@@ -14,11 +14,11 @@
    dense priors for them.
    Follow-up reviews on `main` re-measured the universal literal-overlap witness:
    `scripts/preflight_new_lane.py --restore` exits 2 under the *literal* reading.
-   H79-FFAS used shared `informative-halo-v4` (IR-79-82) declared in its
+   H79-FFAS used shared `informative-halo-v4` (IR-79-86) declared in its
    preregistration; that does not reopen stopped lanes.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
-   version note and an IR entry. Example: `informative-halo-v4` overlap mode, IR-79-82.
+   version note and an IR entry. Example: `informative-halo-v4` overlap mode, IR-79-86.
    Use the shared evaluator, writer and novelty gate; never invent scientific metrics or receipts.
 5. Do not replace missing measurements with zero. Only a submission-page receipt
    establishes ORGANIZER-CONFIRMED for an artifact. Public leaderboard observations

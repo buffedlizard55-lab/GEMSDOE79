@@ -113,7 +113,7 @@
       "sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
       "previous_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
       "previous_git_blob": "931c153f104540879d09a7605d525569ca2659d1",
-      "version_note": "v4 shared fix (session c04e5e27, IR-79-82): adds OVERLAP_MODES and overlap_mode/allowed kwargs to compare_array_to_registry. Default overlap_mode stays 'literal-threshold' so historical NHR/STEPCO/G79B evidence is unchanged. With 'informative-halo-v4', duplicate_by_overlap fires only when O>0.70 AND the prior's 3 px halo covers <=70% of the allowed domain (vacuous space-filling priors no longer auto-reject every map). Spearman, byte identity and decoded-pixel identity still apply to every raster. IR-79-47 v3 budget-matched dots is unchanged."
+      "version_note": "v4 shared fix (session c04e5e27, IR-79-86): adds OVERLAP_MODES and overlap_mode/allowed kwargs to compare_array_to_registry. Default overlap_mode stays 'literal-threshold' so historical NHR/STEPCO/G79B evidence is unchanged. With 'informative-halo-v4', duplicate_by_overlap fires only when O>0.70 AND the prior's 3 px halo covers <=70% of the allowed domain (vacuous space-filling priors no longer auto-reject every map). Spearman, byte identity and decoded-pixel identity still apply to every raster. IR-79-47 v3 budget-matched dots is unchanged."
     },
     {
       "path": "vendor/gems57/validate.py",

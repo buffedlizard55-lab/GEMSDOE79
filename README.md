@@ -29,7 +29,7 @@ Latest independent repository review and three-pass verification: [2026-10-22 se
 | HOLDOUT-DTI, uniform control | 0.0500 [0.0448, 0.0552] · 0.0498 [0.0449, 0.0541] |
 | Ablation, no far-field weight | 0.0579 [0.0438, 0.0731] · 0.0507 [0.0404, 0.0607] |
 | Leakage canary | 72 single-feature AUC tests, max 0.8481 ≤ 0.90 (`logistic_farfield`): **PASS** |
-| Duplicate gate (`informative-halo-v4`) | **FAIL.** 31 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `62GEMSDOE:docs/downloads/gems62-h62i-scarpcrosscut-hardcore-zeros.tif` at 0.986, against 0.231 expected by chance. Rank correlation is clear: worst ρ 0.309. Space-filling priors (halo > 0.70) are reported but do not fire (IR-79-82). |
+| Duplicate gate (`informative-halo-v4`) | **FAIL.** 31 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `62GEMSDOE:docs/downloads/gems62-h62i-scarpcrosscut-hardcore-zeros.tif` at 0.986, against 0.231 expected by chance. Rank correlation is clear: worst ρ 0.309. Space-filling priors (halo > 0.70) are reported but do not fire (IR-79-86). |
 | Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/ffas/selector_decision.json`). |
 | Slots used | 0 |
 
@@ -59,7 +59,7 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
    Sparse dots win. H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults.
    Mapped pixels are masked, so those dots were pure false positives. Full derivation:
    [`reports/ffas_analysis.md`](reports/ffas_analysis.md), [`knowledge/why_h33.md`](knowledge/why_h33.md).
-2. **IR-79-53 is resolved in the shared tool (IR-79-82).** `overlap_mode='informative-halo-v4'`
+2. **IR-79-53 is resolved in the shared tool (IR-79-86).** `overlap_mode='informative-halo-v4'`
    fires the 70 % / 3 px test only when the prior's own halo covers ≤ 70 % of the allowed domain.
    Spearman, byte identity and decoded identity still apply to every raster. Default remains
    `literal-threshold`, so historical NHR/STEPCO/G79B evidence is unchanged.
@@ -206,12 +206,15 @@ below is for the user to choose from.
 | G79B-SDPT | 0.1211 / 0.1114 unconstrained | above then cap below | 99 fields; cap cost −0.02 | negative |
 | G79-FABRIC-OFFSET | ~0.047 | below uniform | literal overlap 1.0 | negative |
 
+
+Concurrent negative artifacts from PRs merged to `main` while this lane ran are archived byte-for-byte: H79-STEP in [`archive/h79_step_21642326/`](archive/h79_step_21642326/), G79-THVC in [`archive/g79_thvc_33e1f8ec/`](archive/g79_thvc_33e1f8ec/), H79-NHR in [`archive/h79_nhr/`](archive/h79_nhr/) and [`archive/h79_nhr_337ac1e9/`](archive/h79_nhr_337ac1e9/README.md). None of them is the canonical download.
+
 ## Limitations and next steps
 
 - HOLDOUT-DTI withholds *catalogue* faults; the organizer scores *expert* faults absent from the catalogue.
   This file's dots sit **farther** from mapped faults than H33's: median 2.71 km against 1.96 km.
 - Uniqueness covers the 992 hash-verified public sibling-repository rasters, not every file other participants have uploaded. Six registry files are invalid/wrong-CRS and were fail-closed as errors.
-- `informative-halo-v4` is a recorded interpretation of an ambiguous rule (IR-79-82) and can be reversed.
+- `informative-halo-v4` is a recorded interpretation of an ambiguous rule (IR-79-86) and can be reversed.
 - Next steps that still need **new free official data** or a new preregistered lane:
   1. Lahontan shoreline suppression using USGS 3DEP absolute elevation (hypothesis 4; not on this sandbox allowlist).
   2. A non-scarp modality that is not already dotted (radiometric Th/K lineaments, hypothesis 3) — only if uniqueness is checked on the surface *before* placement.
