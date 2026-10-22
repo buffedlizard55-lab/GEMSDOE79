@@ -173,5 +173,15 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 <p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A newly computed, byte-distinct
 GeoTIFF is available. It is <strong>not protocol-unique</strong> and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
-inspector. Negative results and the impossible-gate certificate are deliverables.</p></div></section></main>
+inspector. Negative results and the impossible-gate certificate are deliverables.</p>
+<h3>Readiness review — 2026-10-22</h3>
+<p><strong>IR-79-30:</strong> <code>submission_decision</code> trusted the canary's boolean <code>passed</code> without
+checking its numerical evidence. A contradictory or absent AUC could therefore
+clear that individual gate (other gates still blocked the current file). Fixed
+with numeric symmetric-AUC/threshold/count checks and rejection/boundary tests.
+No scientific receipt or shared template changed. See
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_05ad3d4c.md">three-pass review</a>.</p>
+<p>The H33 explanation also previously omitted the later diagnostic while asserting
+no scientific comparison existed. It now distinguishes the frozen card from
+historical HOLDOUT-DTI evidence; no new score was produced in this review.</p></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

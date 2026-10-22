@@ -102,8 +102,26 @@ writer. It is byte-distinct from the 992 restored registry files. The literal
 pre-placement shared gate nevertheless reports 100% support overlap with a
 verified dense prior. **Scientific work stopped before canaries, hide-and-recover
 or dot placement**. The downloadable TIFF is negative-result evidence, not a
-validated detector. We explicitly do not invent a HOLDOUT-DTI or CI, and do not
-claim this lane is better or worse scientifically than the incumbent.
+validated detector. The frozen E1 run card correctly keeps its unperformed
+holdout and CI null; that is distinct from the later recorded post-stop diagnostic.
+
+### Later diagnostic, not a promotion or a new experiment in this review
+
+The historical [post-stop diagnostic](../evidence/post_stop_diagnostic.json)
+records **HOLDOUT-DTI**, evaluator `gems57-pooled-hide-v2`:
+
+| Seed | Withheld positive pixels | Candidate DTI (95% CI) | Fold-fair H33 control DTI (95% CI) |
+|---|---:|---|---|
+| 20 | 11,321 | 0.0474 [0.0390, 0.0552] | 0.0961 [0.0827, 0.1091] |
+| 30 | 11,342 | 0.0466 [0.0388, 0.0543] | 0.0989 [0.0835, 0.1122] |
+
+These are previously recorded proxy measurements, **not freshly recomputed in
+this review**, not organizer-confirmed scores, and not evidence of leaderboard
+improvement. They underperform the fold-fair H33 control. The paired improvement
+over the zero-lag control also has a 95% interval spanning zero in both seeds.
+Even resolving the dense-support novelty ambiguity therefore would not justify
+promoting E1. The official stopped-run card and negative download status remain
+unchanged. Do not silently pool these seeds: the hidden sets may overlap.
 
 ## Next decision, not another submission gamble
 

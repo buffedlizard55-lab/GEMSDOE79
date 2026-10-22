@@ -71,3 +71,16 @@ Session 2026-10-21 post-stop diagnostic and code-integrity audit (branch `arena/
 GeoTIFF is available. It is **not protocol-unique** and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
 inspector. Negative results and the impossible-gate certificate are deliverables.
+
+## Readiness review — 2026-10-22
+
+**IR-79-30:** `submission_decision` trusted the canary's boolean `passed` without
+checking its numerical evidence. A contradictory or absent AUC could therefore
+clear that individual gate (other gates still blocked the current file). Fixed
+with numeric symmetric-AUC/threshold/count checks and rejection/boundary tests.
+No scientific receipt or shared template changed. See
+[three-pass review](session_review_05ad3d4c.md).
+
+The H33 explanation also previously omitted the later diagnostic while asserting
+no scientific comparison existed. It now distinguishes the frozen card from
+historical HOLDOUT-DTI evidence; no new score was produced in this review.

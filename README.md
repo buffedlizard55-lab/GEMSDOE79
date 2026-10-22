@@ -76,7 +76,16 @@ Null scores in the run card mean **not measured**, never zero or a projection.
 Only the already-computed rejected surface was serialized as negative-result
 evidence. No human inspector is needed to reach the **DO NOT SUBMIT** decision.
 
-## Latest repository review — no new scientific experiment
+## Current review — 2026-10-22
+
+[Three-pass review](reports/session_review_05ad3d4c.md): independently re-measured
+the frozen overlap witness, verified the actual TIFF download in Chromium, and
+hardened numerical leakage-canary readiness checks. **128 software tests passed**;
+no new scientific experiment or competition slot was used. The existing file
+remains **OK TO DOWNLOAD / DO NOT SUBMIT**. The analysis now explicitly separates
+the stopped-run card's null scores from the later historical diagnostic.
+
+## Earlier repository review — no new scientific experiment
 
 The follow-up review on `arena/79f9140a-gemsdoe79` independently restored **one**
 frozen registry witness and re-measured it with the unchanged shared tool.
