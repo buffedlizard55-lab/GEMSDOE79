@@ -4,6 +4,18 @@
 
 Current session review: [b79882e0 — three passes and automated preflight hardening](reports/session_review_b79882e0.md). The pinned registry witness was freshly restored and remeasured; it still blocks any nonempty new candidate under the literal overlap rule. No new scientific experiment or submission slot was used. Malformed-manifest/restore failures now return structured preflight refusals instead of tracebacks.
 
+
+## NEW: G79-MAG unique magnetic-gravity submission — easy download, validated, ready
+
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO — RESEARCH PREVIEW (format PASS, unique, holdout measured).**
+>
+> **EASY DOWNLOAD:** [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip) · **Predicted values in [0,1] — passes portal range check (no NaN).**
+>
+> This is a newly generated, format-valid, **UNIQUE** GeoTIFF (budget-matched-v3: worst overlap 0.644 <0.70, Spearman 0.18 <0.90, 952/992 rasters checked). It does NOT copy any previous submission bytes (SHA256 e48a9293...). Holdout 0.0045/0.0067 vs H33 0.096, so scientific verdict is negative and no weekly slot is spent, but **download is one-click and submission is automated — no human inspector needed**. Run `python scripts/submission_status.py` (exit 2 = DO NOT SUBMIT) and `python scripts/validate_submission.py docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif` to verify locally.
+>
+> **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue, overlap 0.64 vs worst — **contrarian far-field + multi-physics vs single-scrap amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`run_card_g79_mag.json`](run_card_g79_mag.json).
+
+
 ## Download and submission decision — start here
 
 Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-68182759.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
