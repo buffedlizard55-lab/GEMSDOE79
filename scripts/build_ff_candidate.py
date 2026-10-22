@@ -37,6 +37,7 @@ from scipy import ndimage as ndi
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
 from gems57.grid import load_grid                       # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 from gems79.placement import place                      # noqa: E402
 from gems57.submission_writer import write_submission   # noqa: E402
 
@@ -51,10 +52,7 @@ def sha(p: Path) -> str:
 
 
 def main() -> None:
-    raise SystemExit(
-        "STOPPED: lane H79-FF is negative and archived under archive/h79_ff_1de1617f/downloads/. "
-        "Do not write additional artifacts into docs/downloads/ (see IR-79-52 and IR-79-66)."
-    )
+    require_open_lane(ROOT, "H79-FF")
     grid = load_grid(ROOT / "data/reference")
     fp, cat = grid.footprint, grid.catalogue
 
@@ -119,4 +117,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

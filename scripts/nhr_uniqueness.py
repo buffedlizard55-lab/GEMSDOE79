@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 from gems57 import uniqueness as shared        # noqa: E402
 from gems57.grid import load_grid              # noqa: E402
+from gems79.lifecycle import LaneClosedError, require_open_lane  # noqa: E402
 
 BUDGET = 37654
 
@@ -76,6 +77,7 @@ def run(phase, lane="H79-NHR", cache=None, out_dir=None):
     ``cache`` holds final_surface.npy and final_dots.npy; ``out_dir`` receives
     uniqueness_<phase>.json. The shared comparison is unchanged.
     """
+    require_open_lane(ROOT, lane)
     grid = load_grid(ROOT / "data/reference")
     inv, expected = inventory()
     eg = (grid.shape, grid.crs, grid.transform)
@@ -134,4 +136,8 @@ def run(phase, lane="H79-NHR", cache=None, out_dir=None):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("phase", choices=["surface", "final"])
-    run(ap.parse_args().phase)
+    try:
+        run(ap.parse_args().phase)
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

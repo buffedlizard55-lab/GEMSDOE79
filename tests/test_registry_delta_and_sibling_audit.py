@@ -141,7 +141,7 @@ def test_irregularities_markdown_rows_and_prompt_sync() -> None:
             assert m is not None
             ids.append(int(m.group(1)))
     assert len(ids) == len(set(ids))
-    assert max(ids) >= 95
+    assert max(ids) >= 109
 
     readme = (ROOT / 'README.md').read_text()
     for repo_num in range(84, 89):

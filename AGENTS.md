@@ -11,7 +11,7 @@
    it, or place submission dots from it.
    **H79-FFAS** (session `c04e5e27`) is archived under `archive/h79_ffas_c04e5e27/` and
    stays stopped negative. Do not retune it.
-   H79-NHR, H79-ASYM, H79-FF, H79-STEP, G79-THVC, G79-STEPCO, G79B-SDPT and
+   H79-NHR, H79-ASYM, H79-FF, H79-STEP, H79-COV (session e23d5371, IR-79-93), G79-THVC, G79-STEPCO, G79B-SDPT and
    G79-FABRIC-OFFSET stay **stopped negative** and archived; do not restart them,
    add jitter, or exempt dense priors for them.
    `scripts/preflight_new_lane.py --restore` exits 2 under the literal reading.

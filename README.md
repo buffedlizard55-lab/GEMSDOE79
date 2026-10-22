@@ -1,6 +1,17 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22, session `4ddab9a1`):** [end-to-end 1,199-blob cross-organization review](reports/session_review_4ddab9a1.md) · [five ranked genuinely untried hypotheses (`H79-U1`..`H79-U5`)](research/hypotheses_4ddab9a1_untried.md) · [machine-readable 92-repo sibling audit](evidence/post_snapshot_sibling_audit.json). Current outcome remains **`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`** (`0` weekly competition slots used; all `1,199` family GeoTIFFs across `92` sibling repos hash-verified; rogue non-canonical `G79-MAG` `.tif`/`.zip` quarantined under [`archive/g79_mag_730d5ee7/`](archive/g79_mag_730d5ee7/README.md) per `IR-79-95`). Prior reviews ([`91a8c516`](reports/repository_review_2026-10-22_session-91a8c516.md), [`b79882e0`](reports/session_review_b79882e0.md)) are retained in full.
+**Latest repository audit (2026-10-22, session `4ddab9a1`):** [end-to-end 1,199-blob cross-organization review](reports/session_review_4ddab9a1.md) · [five ranked genuinely untried hypotheses (`H79-U1`..`H79-U5`)](research/hypotheses_4ddab9a1_untried.md) · [machine-readable 92-repo sibling audit](evidence/post_snapshot_sibling_audit.json) · [session 3cfa694f](reports/session_review_3cfa694f.md) · [session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md) · [session b79882e0](reports/session_review_b79882e0.md). Current outcome remains **`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`** (`0` weekly competition slots used; all `1,199` family GeoTIFFs across `92` sibling repos hash-verified; rogue non-canonical `G79-MAG` upload pair archived under [`archive/g79_mag_730d5ee7/`](archive/g79_mag_730d5ee7/README.md)).
+
+
+## Not the canonical file: G79-MAG (archived research preview, do not submit)
+
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** This is not the file in the decision table below.
+>
+> Archived preview: [`archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip). Values are in [0, 1] with no NaN.
+>
+> Byte-level re-measurement (`IR-79-96`, `IR-79-106`): `HOLDOUT-DTI = 0.0045 / 0.0067` versus the `H33` control `0.0961 / 0.0989`, and actual forward `3-px` overlap against binary dot raster `13GEMSDOE` `r13-lattice-s5` is **`0.990864 > 0.70`**. Do not upload it. The canonical download is the `H79-DILSTEP` file in the next section.
+>
+> **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue — **contrarian far-field + multi-physics vs single-scarp amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`archive/g79_mag_730d5ee7/run_card_g79_mag.json`](archive/g79_mag_730d5ee7/run_card_g79_mag.json).
 
 ## Download and submission decision — start here
 
@@ -77,6 +88,92 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
    The catalogue-holdout cannot certify that. No weekly slot is used.
 
 Current independent three-pass review for this branch: [`reports/repository_review_2026-10-22_session-14aaf1c8.md`](reports/repository_review_2026-10-22_session-14aaf1c8.md). It records no new experiment, TIFF, upload, or slot use.
+
+## Latest session — `cb54ff09` (2026-10-22): why H33 won, and the refutation of far-field relocation
+
+Full analysis: [`reports/fgr_farfield_refutation.md`](reports/fgr_farfield_refutation.md).
+**The automated decision is unchanged: OK TO DOWNLOAD: YES / OK TO SUBMIT: NO.**
+The canonical deliverable remains the H79-DILSTEP GeoTIFF in the decision table
+above; nothing was published to `docs/downloads/`, no stopped lane was restarted,
+`vendor/gems57` was not edited, and **0** weekly submission slots were used.
+
+This session made three new measurements and ran one new preregistered
+experiment, which stopped negative. All results are reported, including the two
+that refuted this session's own hypothesis.
+
+1. **The family's scores live inside one dot field.** RASTER-MEASUREMENT +
+   UNVERIFIED HISTORICAL REPORT: all 103 rows of the canonical
+   [`registry/score_ledger.csv`](registry/score_ledger.csv) were resolved against
+   the frozen registry and **97** matched to SHA-256-verified bytes
+   ([`evidence/score_geometry_study.json`](evidence/score_geometry_study.json)).
+   Reported score correlates with Jaccard similarity to the D2.8 dot set at
+   **ρ = +0.750** (p = 8.9e-19) — more strongly than with any geological property
+   measured. Mean score is 0.2407 for the 21 artifacts at ≥ 0.90 D2.8 overlap
+   against 0.0708 for the 65 below 0.50, and **all six top artifacts sit at
+   ≥ 0.975**. The family never found a better habitat than D2.8; it found small
+   edits to it.
+2. **Inside that habitat the gradient is monotone.** Over the 20 artifacts at
+   ≥ 0.95 D2.8 overlap: median distance to the catalogue **ρ = +0.908**, fraction
+   within 500 m **ρ = −0.915**, dot count **ρ = −0.835** (all p < 0.001). This is
+   the quantitative form of the H33 forensics, and the canonical match reproduces
+   them exactly: 37,654 dots at D2.8 overlap 1.000, so 44,090 − 37,654 =
+   **6,436** deleted near-catalogue dots. An ESTIMATE places H33's average dot
+   essentially at the metric's break-even (`M/n ≈ 0.057` against a bar of
+   `α·s = 0.0556`).
+3. **Following that gradient by relocation is refuted.** Lane **H79-FGR**
+   (preregistered in [`registry/preregistration_fgr.json`](registry/preregistration_fgr.json)
+   before any result; 1 of 3 experiments, ~55 min of 2 h) ranked the domain by
+   lidar `step_max`/`ex_max`, |LoG(`det_elev`)| at σ = 2 and 5 px,
+   `iso_grav_anom_hg` and `tmi_hg`, weighted to rise from 300 m to 5 km of
+   catalogue distance. HOLDOUT-DTI (`gems57-pooled-hide-v2`): **0.0058**
+   [0.0012, 0.0112] seed 20 and **0.0056** [0.0025, 0.0095] seed 30 — **below the
+   uniform random control's 0.0456** on both seeds, paired Δ −0.0399
+   [−0.0458, −0.0330] and −0.0400 [−0.0462, −0.0334]. Inverting the same weight
+   recovers 0.0846 / 0.0686 against the H33 control's 0.0961 / 0.0989. Canaries
+   clear (max AUC 0.6480 / 0.5985 ≤ 0.90), so this is genuine uninformative­ness,
+   not leakage. **The +0.908 correlation is a pruning effect, not a relocation
+   target.** Bytes archived under
+   [`archive/fgr_cb54ff09/`](archive/fgr_cb54ff09/README.md) with
+   `-DO-NOT-SUBMIT` in the file name (sha256 `ff7c2ee6…`, 38,000 dots, format
+   **PASS**), following the H79-FF precedent.
+4. **The literal overlap gate is unsatisfiable for dot fields too.**
+   [`evidence/gate_satisfiability_certificate.json`](evidence/gate_satisfiability_certificate.json)
+   re-measures from restored bytes that **20 registry rasters classified
+   `dot_field`** — not continuous surfaces — have 3 px halos covering more than
+   70 % of the 5,106,385 allowed cells. The worst, a spacing-5 lattice at only
+   **4.0 %** support (206,895 cells), covers **0.998724** and flags a uniform
+   random field at **0.998677**. `budget-matched-v3` never reaches them because
+   they sit below `DENSE_SUPPORT_FRACTION = 0.20`, so no nonempty candidate can
+   clear the inherited gate in **either** representation class. This complements
+   and strengthens the channel-saturation measurement already recorded at
+   IR-79-74 (32 informative dot fields above 0.70, 14 after chance correction) by
+   proving the blocker is a property of the registry, not of any candidate.
+5. **No offline proxy for the organiser's score validates.**
+   [`evidence/proxy_validation.json`](evidence/proxy_validation.json) reports all
+   five proxies fixed up front. SGMC off-catalogue (61,532 scored truth px) is
+   **anti-correlated** with reported score in the competitive regime (−0.0470), as
+   is SGMC-all (−0.4056); Qfaults centroids reach +0.5794 on only 299 truth
+   pixels; "the catalogue as truth" leaves **0** scored pixels, independently
+   proving the scored truth is not the catalogue. The cross-compilation holdout
+   idea was **rejected by its own canary**.
+
+New irregularities **IR-79-98 … IR-79-104** are recorded in
+[`reports/irregularities.md`](reports/irregularities.md), including a pinned-input
+conflict between `registry/data_manifest.json` and the frozen
+`data/restore_receipt.json` for `ext_geodawn_rad_u8` (band not used), and the fact
+that this session briefly overwrote the canonical `registry/score_ledger.csv` with
+an incompatible schema, which broke `build_site.py`'s `history.html`; it was
+restored from Git byte-for-byte and the study now reads only the canonical ledger.
+
+**Where the headroom is (ESTIMATE, never a projection).** With `c = TP/N` and
+`r = FP/N`, `s = c / (0.2c + 0.2r + 0.8)`. Holding H33's estimated FP budget
+fixed, reaching the PUBLIC-LEADERBOARD top score 0.4413 needs truth credit
+`c ≈ 0.39 → 0.65`, about **+63 %**. Holding its estimated TP fixed, the same score
+is reached by cutting FP from ≈ 35.5 k to ≈ 1.7 k units — a **far smaller, far
+more precise** emission. That second route needs a calibrated per-dot probability
+and the metric's own marginal-inclusion rule to choose the budget instead of a
+fixed 37–44 k. It is the recommended next lane, and it requires calibration
+evidence this repository does not yet have.
 
 ## Follow-up preflight (2026-10-22, branch `arena/a7d092d7-gemsdoe79`)
 
@@ -300,7 +397,24 @@ presented as protocol-unique.
 - Full three-pass repository, lineage, and software review: [`reports/session_review_4b4b1214.md`](reports/session_review_4b4b1214.md).
 - **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — no new scientific experiment, retuning, or competition slot was used (`0` slots used).
 - Fixed a blobless-clone hang in `scripts/analyze_family_lineage.py` (`git ls-tree -r -l` lazily fetched every missing blob from the promisor remote) and extended `evidence/family_lineage_forensics.json` (and `docs/evidence/family_lineage_forensics.json`) with pixel-byte measurements of all 6 newly listed prompt-named unscored candidates (`GEMSDOE76` `gems76-ptcf-tiltworm-submod39k`, `GEMSDOE78` `gems78-h78sigx-fuse-b5`, `GEMSDOE80` `gemsdoe80-h80g-choquet-tworegime`, `GEMSDOE81` `gems81-cont-poisson44090-buf2`, `GEMSDOE82` `gemsdoe82-h82-submodular-punoisyor`, `GEMSDOE83` `gems83-h83-gvcd-dink300`) and verified that `GEMSDOE84`..`GEMSDOE88` currently have `0` published `.tif` files (`IR-79-80`).
-- Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Original project prompt` (`IR-79-81`).
+- Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Concurrent lane H79-COV (session `e23d5371`): also negative, archived
+
+Catalogue-free antithetic-scarp + covered basement-step detector
+([hypotheses](research/hypotheses_g79cov.md),
+[preregistration](registry/preregistration_g79cov_20261022.json),
+[run card](run_card_cov.json)), archived under
+[`archive/h79_cov_e23d5371/`](archive/h79_cov_e23d5371/README.md) —
+**not** the canonical download; **DO NOT SUBMIT**. HOLDOUT-DTI
+(`gems57-pooled-hide-v2`) 0.0610 [0.0477, 0.0740] (n = 11,321) /
+0.0581 [0.0465, 0.0700] (n = 11,342) vs the H33 fold-fair control
+0.0961 / 0.0989; canaries pass (max AUC 0.676); 36 discriminating
+registry priors > 0.70 forward overlap (worst 0.927). It independently
+corroborates this README's canonical H79-FFAS result: antislope/far-field
+signal at 100 m does not beat H33. Full record: `evidence/cov/`,
+[`reports/session_e23d5371_h79cov.md`](reports/session_e23d5371_h79cov.md),
+IR-79-91/92/93. Slots used: 0.
+
+## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 
 ## Latest repository review — session `e9955043` (2026-10-22)
