@@ -79,3 +79,14 @@ problem. A new lane must be preregistered rather than retuning NHR.
    the surface uniqueness test before placement.
 3. The sandbox cannot authenticate to DrivenData, inspect the account's current
    weekly capacity, upload a submission, or create an organizer receipt.
+
+## Concurrent-main integration
+
+While PR #30 checks were running, PR #29 merged the independently reviewed
+selector hardening and the same missing scikit-image dependency fix. Main was
+merged into this fixed Arena branch without switching branches. The duplicate
+dependency declaration was collapsed to main's `scikit-image>=0.25,<1`; the
+irregularity IDs were reconciled so the virtual-environment scanner defect is
+IR-79-60. Post-integration verification: **203 passed**, `pip check` passed,
+all project checks passed, and all seven site pages / 114 local links passed.
+The canonical negative verdict and raster bytes remain unchanged.
