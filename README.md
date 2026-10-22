@@ -43,7 +43,7 @@ yet recover hidden faults at chance when dotted per-pixel. See
 [`research/hypotheses_g79b.md`](research/hypotheses_g79b.md),
 [`registry/preregistration_g79b.json`](registry/preregistration_g79b.json),
 [`evidence/session_verification_2026-10-22.json`](evidence/session_verification_2026-10-22.json)
-and irregularities IR-79-30…33.
+and irregularities IR-79-36…39.
 
 Prior lane **G79-FABRIC-OFFSET (E1)** remains negative and untouched scientifically;
 its run card is preserved byte-identically at

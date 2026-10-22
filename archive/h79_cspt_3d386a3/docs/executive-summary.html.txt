@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executive Summary — GEMSDOE79 Lane H79-CSPT</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --panel: #111827;
+      --panel-alt: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --green: #10b981;
+      --code-bg: #090d16;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px 20px 64px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 18px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+    nav .brand {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    nav .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    nav .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 13px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    nav .nav-links a.active, nav .nav-links a:hover {
+      color: #fff;
+      border-color: var(--accent);
+      background: rgba(56, 189, 248, 0.15);
+    }
+    .status-banner {
+      border: 2px solid var(--green);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(15, 23, 42, 0.96));
+      border-radius: 12px;
+      padding: 22px 24px;
+      margin-bottom: 26px;
+    }
+    .status-pill {
+      display: inline-block;
+      background: var(--green);
+      color: #042f2e;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--green); color: #052e16; }
+    .btn-secondary { background: var(--accent); color: #082f49; }
+    .btn-outline { background: var(--panel-alt); color: var(--text); border: 1px solid var(--border); }
+    .copy-box {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.88rem;
+      color: #e2e8f0;
+      overflow-x: auto;
+    }
+    section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    h1 { margin: 4px 0 10px; font-size: 1.6rem; }
+    h2 { margin-top: 0; font-size: 1.3rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 0.88rem; }
+    th, td { border: 1px solid var(--border); padding: 9px 11px; text-align: left; }
+    th { background: var(--panel-alt); color: #fff; }
+    .highlight-row td { background: rgba(16, 185, 129, 0.14) !important; font-weight: 600; }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      overflow-x: auto;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+    }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a class="brand" href="index.html">GEMSDOE79 · Lane H79-CSPT</a>
+      <div class="nav-links">
+        <a href="index.html">Main Technical Dashboard</a>
+        <a class="active" href="executive-summary.html">Executive Summary Subpage</a>
+        <a href="downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif" download>Download .tif</a>
+        <a href="downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.zip" download>Download .zip</a>
+      </div>
+    </nav>
+
+    <!-- PROMINENT EXECUTIVE STATUS & DOWNLOAD INSTRUCTIONS -->
+    <div class="status-banner">
+      <span class="status-pill">PROMOTED — VALIDATED &amp; OK TO DOWNLOAD AND SUBMIT (NO HUMAN INTERVENTION REQUIRED)</span>
+      <h1>Executive Summary &amp; Quick-Submit Guide — <code>GEMSDOE79</code> Lane <code>H79-CSPT</code></h1>
+      <p style="margin: 6px 0 12px; color: var(--muted);">
+        <strong>Is the generated <code>.tif</code> validated and OK to download and submit right now? YES.</strong><br/>
+        Both <code>gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif</code> and <code>.zip</code> passed all programmatic format, CRS (<code>EPSG:32611</code>), dimension (<code>3730 &times; 3292</code>), dtype (<code>float32</code>), strict value range (<code>[0.0, 1.0]</code>, <code>0</code> NaNs/Infs anywhere), footprint hygiene (<code>36,500</code> positive dots inside footprint, <code>0</code> outside, <code>0</code> on catalogue), 130-channel leakage canary (<code>0 / 130</code> firings &gt; 0.90), and 1,016-raster uniqueness gates (<code>0 / 949</code> informative 3-px overlap firings &gt; 0.70).
+      </p>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif" download>
+          &#11015; Step 1a: Download Validated GeoTIFF (.tif · 138,386 bytes)
+        </a>
+        <a class="btn btn-secondary" href="downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.zip" download>
+          &#11015; Step 1b: Or Download Single-TIFF Archive (.zip · 103,557 bytes)
+        </a>
+        <a class="btn btn-outline" href="https://www.drivendata.org/competitions/300/competition-gem-fault-detection/" target="_blank" rel="noopener">
+          Step 2: Upload to DrivenData DOE GEMS Portal &nearr;
+        </a>
+      </div>
+
+      <div class="copy-box">
+        <div><strong>Unique Submission Name (<code>60 &le; 140</code> chars):</strong> <code>gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif</code></div>
+        <div><strong>Recommended Short Note (<code>120 &le; 140</code> chars):</strong> <code>H79-CSPT: 130ch Stress-Perm+GMNS+Stage2 Filament+KKT 1-Swap B=36500 (HOLDOUT-DTI 0.1936 S30 / 0.1718 S20, 0/949 ov&gt;0.70)</code></div>
+        <div><strong>GeoTIFF SHA-256:</strong> <code>388d86783e743a7f1a466e5f2cc58e5a694da12908a3ffe14bb8e55409cf75fc</code></div>
+        <div><strong>ZIP SHA-256:</strong> <code>14f73fa1c3d6864e19be1563e827555fd68c87ed6e71aaa9ca93f41107356d0d</code></div>
+      </div>
+    </div>
+
+    <section>
+      <h2>1. Executive Takeaways Across Our Four Core Objectives</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Core Question / Gate</th>
+            <th>Executive Finding &amp; Verified Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Why did <code>H33-2-b2</code> (<code>GEMSDOE32</code>) achieve <code>0.2778</code> (<code>ORGANIZER-CONFIRMED</code>)?</strong></td>
+            <td><code>H33-2-b2</code> (<code>37,654</code> binary dots) is a 100% subset of the <code>121,131</code>-pixel <code>H19-5</code> ridge skeleton (<code>0.1922</code> OWNER-REPORTED). Decimating solid ridges to <code>d_min = 2.8 px</code> (median <code>3.00 px</code>) eliminated <code>300 m</code> tent-kernel self-overlap (<code>0.1922 &rarr; 0.2600</code>, <code>+678 bps</code>), and removing dots within <code>&le; 200 m</code> of mapped faults eliminated near-catalogue false positives (<code>0.2600 &rarr; 0.2778</code>, <code>+178 bps</code>).</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>Can we score higher than <code>0.2778</code> and prior lanes on <code>HOLDOUT-DTI</code>?</strong></td>
+            <td><strong>Yes.</strong> Evaluated fold-fairly on <code>gems57-pooled-hide-v2</code>, <code>H33-2-b2</code> (<code>A0</code>) scores <code>0.099498</code> (Seed 30) and <code>0.093994</code> (Seed 20). Our shipped <code>H79-CSPT</code> constrained arm achieves <strong><code>0.193576 [0.170858, 0.215375]</code></strong> on Seed 30 (<code>+941 bps</code> over Fold-Fair <code>H33</code>, and beating <code>H82-GMNS</code> <code>0.190001</code> by <code>+35.8 bps</code>), <strong><code>0.171780 [0.150882, 0.192745]</code></strong> on Seed 20, and <strong><code>0.182700 [0.163948, 0.201007]</code></strong> on Dual-Seed Pooled (<code>22,663</code> withheld positives). Unconstrained <code>h79_pure_submodular</code> reaches <strong><code>0.218083 [0.195406, 0.239985]</code></strong> on Seed 30 (<code>2.19&times;</code> Fold-Fair <code>H33</code>).</td>
+          </tr>
+          <tr>
+            <td><strong>Did every feature pass the Single-Feature Leakage Canary?</strong></td>
+            <td><strong>Yes (<code>0 / 130</code> firings &gt; 0.90).</strong> Across all <code>130</code> features tested individually on Seed 20 holdout, maximum symmetric ROC AUC is <code>0.780932</code> (and <code>0.602302</code> across the <code>116</code> static physical channels). Zero SGMC lithology channels are used.</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>Is the packaged GeoTIFF unique across all 1,016 portfolio rasters?</strong></td>
+            <td><strong>Yes (<code>OVERALL UNIQUENESS PASS = True</code>).</strong> Pre-placement continuous surface max |Spearman &rho;| = <code>0.642335 &le; 0.90</code> (<code>0 / 1,016</code> firings); final binary dots max 3-px overlap across all <code>949</code> informative (<code>&lt;70%</code> halo) rasters = <code>0.689973 &le; 0.70</code> (<code>0 / 949</code> firings); final binary dots max |Spearman &rho;| = <code>0.195574 &le; 0.90</code> (<code>0 / 1,016</code> firings).</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>2. Machine-Readable Final JSON Run Card</h2>
+      <p>Verbatim contents of <code>evidence/h79_cspt/run_card.json</code>:</p>
+      <pre>{
+  "lane_id": "H79-CSPT",
+  "repository": "buffedlizard55-lab/GEMSDOE79",
+  "branch": "arena/d6ab5cbf-gemsdoe79",
+  "date_utc": "2026-10-21",
+  "hypothesis": "Multi-Scale Crustal Stress-Permeability Tensor Concordance, Blind Intrabasin Upflow-Scarp Coupling &amp; Tip-Gated Filament-Lagrangian Submodular Allocation (`H79-CSPT`)",
+  "leakage_canary": {
+    "n_features_tested": 130,
+    "threshold_auc": 0.9,
+    "max_symmetric_auc_all_130": 0.780932,
+    "max_symmetric_auc_static_116": 0.602302,
+    "n_leakage_firings_gt_0p90": 0,
+    "pass": true
+  },
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed30_h79_lagrangian_kkt_1swap": { "dti": 0.193576, "ci95": [0.170858, 0.215375], "withheld_positive_pixels": 11342 },
+    "seed30_h79_stage1_kkt_1swap":     { "dti": 0.193650, "ci95": [0.171920, 0.214662], "withheld_positive_pixels": 11342 },
+    "seed30_h79_pure_submodular":      { "dti": 0.218083, "ci95": [0.195406, 0.239985], "withheld_positive_pixels": 11342 },
+    "seed30_h79_pure_physics_blind":   { "dti": 0.115082, "ci95": [0.096231, 0.133731], "withheld_positive_pixels": 11342 },
+    "seed20_h79_lagrangian_kkt_1swap": { "dti": 0.171780, "ci95": [0.150882, 0.192745], "withheld_positive_pixels": 11321 },
+    "seed20_h79_pure_submodular":      { "dti": 0.192318, "ci95": [0.170758, 0.213451], "withheld_positive_pixels": 11321 },
+    "dual_seed_pooled_h79_lagrangian_kkt_1swap": { "dti": 0.182700, "ci95": [0.163948, 0.201007], "withheld_positive_pixels": 22663 },
+    "dual_seed_pooled_h79_pure_submodular":      { "dti": 0.205221, "ci95": [0.186123, 0.223192], "withheld_positive_pixels": 22663 }
+  },
+  "correlation_and_overlap_vs_registry": {
+    "total_unique_rasters_audited": 1016,
+    "n_informative_rasters_lt_0p70": 949,
+    "n_dot_field_rasters_le_0p20_support": 942,
+    "phase1_surface_max_abs_spearman_rho": 0.642335,
+    "phase1_surface_firings_gt_0p90": 0,
+    "phase2_dots_max_informative_overlap_3px": 0.689973,
+    "phase2_dots_max_dot_field_overlap_3px": 0.689973,
+    "phase2_dots_informative_overlap_firings_gt_0p70": 0,
+    "phase2_dots_max_abs_spearman_rho": 0.195574,
+    "phase2_dots_rho_firings_gt_0p90": 0,
+    "overall_uniqueness_pass": true
+  },
+  "raster_sha256": "388d86783e743a7f1a466e5f2cc58e5a694da12908a3ffe14bb8e55409cf75fc",
+  "zip_sha256": "14f73fa1c3d6864e19be1563e827555fd68c87ed6e71aaa9ca93f41107356d0d",
+  "validator_output": {
+    "valid": true,
+    "status": "PROMOTED — VALIDATED &amp; OK TO DOWNLOAD AND SUBMIT",
+    "human_intervention_required": false,
+    "crs": "EPSG:32611",
+    "shape": [3730, 3292],
+    "dtype": "float32",
+    "nan_anywhere": 0,
+    "inf_anywhere": 0,
+    "min_value": 0.0,
+    "max_value": 1.0,
+    "values_strictly_in_0_1": true,
+    "positive_pixels": 36500,
+    "outside_footprint_positive": 0,
+    "catalogue_collision_pixels": 0
+  },
+  "submission_name": "gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif",
+  "submission_zip": "gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.zip",
+  "submission_note": "H79-CSPT: 130ch Stress-Perm+GMNS+Stage2 Filament+KKT 1-Swap B=36500 (HOLDOUT-DTI 0.1936 S30 / 0.1718 S20, 0/949 ov&gt;0.70)",
+  "submission_note_length": 120,
+  "experiments_used": 3,
+  "verdict": "promote"
+}</pre>
+    </section>
+  </div>
+</body>
+</html>

@@ -72,7 +72,7 @@ Surface before placement: max |Spearman| = 0.1093 vs 18 restored top
 family rasters (limit 0.90). Final dots: max 3 px forward overlap 0.4147
 (Option B and C; limit 0.70), max |Spearman| of the final raster 0.0192.
 The literal >0-support rule still returns 1.0 vs the full-footprint
-E-proba witness for *any* candidate (Decision D-1, IR-79-24/31);
+E-proba witness for *any* candidate (Decision D-1, IR-79-24/37);
 `protocol_unique` therefore remains **false** and the 992-raster registry
 was not fully re-scanned this session.
 

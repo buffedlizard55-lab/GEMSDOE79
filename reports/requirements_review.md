@@ -6,7 +6,7 @@ scientifically validated competition submission. We do not hide that distinction
 
 | Requirement | Status | Evidence / unresolved boundary |
 |---|---|---|
-| Review repository and continue previous work | Done | Initial checkout had only an 11-byte README. Reused accessible sibling data/code/history; integrated concurrently merged main preflight code/tests/briefs without a scientific lane switch. |
+| Review repository and continue previous work | Done | Initial checkout had only an 11-byte README. Reused accessible sibling data/code/history; integrated concurrently merged main preflight code/tests/briefs and quarantined concurrent lanes `H79-MCT` (`archive/h79_mct_c26efec/`) and `H79-CSPT` (`archive/h79_cspt_464d591/`) without a scientific lane switch (`evidence/concurrent_lanes_audit.json`). |
 | Keep original prompt in README and read each session | Done | Complete brief under expandable section; only trailing whitespace normalized. `AGENTS.md` requires the read. |
 | Propose 3–5 ranked geological hypotheses before implementation | Done | Four in `research/hypotheses.md` / immutable `registry/preregistration.json`; exact layers, physical signatures, catalogue-missing rationale, differences, qualitative priority/cost and named mimics. No projected scores. |
 | Stay in one lane, ≤3 experiments / ≤2 h | Done for science | One fixed fabric-offset surface. Stopped on literal duplicate; zero canaries/holdouts/placements. Subsequent software/reporting/cold-byte recovery is not more geological experimentation. |

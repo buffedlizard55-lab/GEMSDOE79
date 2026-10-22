@@ -3,8 +3,9 @@
 1. Read **all of README.md**, including the original prompt, then `run_card.json`,
    `reports/irregularities.md`, `registry/preregistration.json` (E1, frozen) and
    `registry/preregistration_g79b.json` (G79B, frozen) before work.
-2. Work only on the Arena-assigned session branch reported in the current session
-   metadata. Never rename or switch branches. Historical branch names in immutable
+2. Work only on the Arena-assigned active session branch reported in the current
+   session metadata. Do not hardcode a previous session's branch here. Never
+   rename or switch branches. Historical branch names in immutable
    cards, reports or prior prompts are provenance, not instructions for a new session.
 3. Both scientific lanes in this repo are **closed negative**:
    - G79-FABRIC-OFFSET (E1): literal pre-placement duplicate stop; post-stop
@@ -31,8 +32,9 @@
 8. Run tests, offline byte/format verification, site link checking and a final
    requirements review. Record all three review passes and unresolved limitations.
 
-- Concurrent H79-MCT material is historical text/data under `archive/`; do not
-  reactivate its dense-prior exemptions, placement amendments or positive flags.
+- Concurrent H79-MCT and H79-CSPT material is historical text/data under
+  `archive/` (see `evidence/concurrent_lanes_audit.json`); do not reactivate
+  their dense-prior exemptions, overlap-capping solvers or positive flags.
   Decision D-1 (literal vs operative dot definition for continuous registry
   rasters) is still open; G79B's disclosed scoped/operative result does not
   resolve it and `protocol_unique` remains false.

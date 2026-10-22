@@ -300,3 +300,47 @@ Pages/API verification were not rerun in this checkpoint. Public verification it
   `scripts/verify_project.py` all 24 checks pass; `scripts/check_site.py` passes
   (109 local links); `scripts/submission_status.py` returns download YES / submit NO
   (exit 2). No leaderboard score is claimed or projected; zero slots used.
+### Session 2026-10-22 three-pass concurrent-merge quarantine and canary-gate hardening (`arena/700397d4-gemsdoe79`)
+
+- **Pass 1 (Start-of-session protocol audit, upstream PR #12/#13 inspection, and witness re-verification):**
+  Read `AGENTS.md`, `run_card.json`, `README.md`, `reports/irregularities.md`, `registry/preregistration.json`,
+  and all active codebase/test/workflow files. Restored and verified the frozen universal overlap witness
+  `.cache/registry/374c88b1da2b803e2ed160de467fd71ae114010d.tif` (`sha256: ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be`)
+  via `scripts/verify_overlap_witness.py --restore` (`evidence/session_witness_700397d4.json`, `all_checks_passed: true`).
+  Inspected `origin/main` commits `b1f27dc` (PR #13, `20eef10`) and `3d386a3` (PR #12, `464d591`, lane `H79-CSPT`),
+  confirming why `3d386a3` failed both `Verify research deliverable` (`39702012362`) and `Pages and public-source health`
+  (`39702012311`) on GitHub Actions.
+- **Pass 2 (Quarantine concurrent `H79-CSPT`, harden `status.py`, and run independent forensic audit — IR-79-30..IR-79-32):**
+  1. Merged `origin/main` (`3d386a3`) into `arena/700397d4-gemsdoe79`, restored `reports/session_review_9e23b44d.md` from PR #13,
+      and quarantined all 29 unique artifacts and non-executable `.txt` sources from `H79-CSPT` (`464d591`) under
+      [`archive/h79_cspt_464d591/`](../archive/h79_cspt_464d591/README.md) with a complete 77-entry SHA-256 `manifest.json`
+      (`IR-79-31`), keeping canonical `vendor/gems57/uniqueness.py` (`1c5094b8…`) and `registry/template_pin.json` intact.
+  2. Implemented [`scripts/audit_archived_concurrent_lanes.py`](../scripts/audit_archived_concurrent_lanes.py) and generated
+      [`evidence/concurrent_lanes_audit.json`](../evidence/concurrent_lanes_audit.json), proving with unmodified
+      `gems57.uniqueness` and `gems79.status` that both archived concurrent GeoTIFFs (`H79-MCT` `d1a4158a…` and
+      `H79-CSPT` `388d8678…`) have `1.0000` literal 3-px forward overlap against `17GEMSDOE_E-proba-multiscale`,
+      capped overlap at `0.6800` and `0.6900` against sparse/semi-dense registry priors after unconstrained placement failed,
+      and return `ok_to_submit: false`, `verdict: "negative"`.
+  3. Hardened `src/gems79/status.py` (`IR-79-30`) so `leakage_canary` requires numeric `0.5 <= auc <= 0.90`,
+      `required_threshold == 0.90`, and positive `int` `features_cleared` in addition to `passed is True`, with
+      19 new boundary/negative unit tests in `tests/test_readiness_errors.py`.
+  4. Updated `AGENTS.md` and `knowledge/why_h33.md` (`IR-79-32`) to remove hardcoded session branch names and
+      document the post-stop diagnostic and archived concurrent-lane audits.
+- **Pass 3 (End-to-end verification against the original prompt and release gates):**
+  Re-verified every requirement line by line against `README.md`. Rebuilt `docs/` via `scripts/build_site.py`,
+  ran the expanded pytest suite (`130 passed`), `scripts/verify_project.py` (`all_checks_passed: true`),
+  `scripts/check_site.py` (`7 pages, 108 local links`), `scripts/submission_status.py` (exit 2), and
+  headless Chromium QA (`node scripts/browser_review.cjs`, 21/21 viewport checks).
+
+### Session 2026-10-22 environment-portability and developer-ergonomics audit (`arena/9e8bac9e-gemsdoe79`)
+
+- **Pass 1 (Restore pinned data, reproduce deterministic transforms, and run full test suite):**
+  Restored all 5 primary competition inputs into `data/raw/` and `data/reference/` via `scripts/download_competition_data.sh`, matching all SHA-256 pins. Verified bit-for-bit reproduction of all 10 `.cache/g79/*.npy` feature arrays via `scripts/prepare_data.py --reproduce`. Executed full test suite (`pytest`), verifying all unit and integration tests pass without failure.
+- **Pass 2 (Fix environment portability, CLI ergonomics, and branch metadata — IR-79-33..IR-79-35):**
+  1. Updated `AGENTS.md` branch contract to reference branch-neutral metadata rule while preserving current session scope (`IR-79-33`).
+  2. Fixed bare `pytest` invocation by configuring `pythonpath = ["."]` in `pyproject.toml` (`IR-79-34`), resolving `ModuleNotFoundError: No module named 'scripts'` during collection.
+  3. Made `scripts/download_competition_data.sh` portable across environments by checking `.venv/bin/python` if present or defaulting to `python3` (`IR-79-35`).
+  4. Added `argparse.ArgumentParser` to `scripts/post_stop_diagnostic.py` so `-h`/`--help` exits immediately with documentation instead of executing heavy holdout calculations (`IR-79-35`).
+  5. Added unit tests for script help exit and syntax validity in `tests/test_site_feed_and_recovery.py`.
+- **Pass 3 (End-to-end verification against prompt requirements, live preview, and headless browser QA):**
+  Re-checked all requirements against the verbatim prompt in `README.md`. Verified that the static site clearly displays the download links and automated negative verdict (OK TO DOWNLOAD: YES, OK TO SUBMIT: NO) at the top of `index.html` and `executive-summary.html`. Launched live website server on `0.0.0.0:8080`, and executed headless Chromium QA (`node scripts/browser_review.cjs`), verifying all 21 viewport/page combinations pass, downloaded TIFF SHA-256 matches `run_card.json`, clipboard copy functions work, and no HTTP/console errors occur. Ran `scripts/verify_project.py` (all checks passed), `scripts/check_site.py` (all 7 pages and 108 local links passed), and `scripts/submission_status.py` (fail-closed negative verdict with exit code 2).
