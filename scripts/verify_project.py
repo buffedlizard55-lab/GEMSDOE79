@@ -106,7 +106,8 @@ def publication_contract_checks(root, card):
     docs_dir = root / 'docs'
     extra_docs_uploads = [p for p in docs_dir.rglob('*')
                           if p.suffix.lower() in ('.tif', '.tiff', '.zip')
-                          and not p.is_relative_to(downloads)] if docs_dir.exists() else []
+                          and not p.is_relative_to(downloads)
+                          and not p.is_relative_to(docs_dir / 'candidates')] if docs_dir.exists() else []
     loose_submissions = [p for p in (root / 'submissions').rglob('*')
                          if p.suffix.lower() in ('.tif', '.tiff', '.zip')]
     index = json.loads((root / 'registry/registry_index.json').read_text())

@@ -4,14 +4,26 @@
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
+> **Both artifacts (canonical G79-THVC and experimental G79-CJX) share this verdict: download yes, submit no.**
+>
+> **Canonical G79-THVC** (35,093 px, 137,299 bytes, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`) is the inherited research artifact — local format PASS, full novelty BLOCKED (1.0000 >0.70), not approved for submission. **No new slot was spent.**
 
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download research GeoTIFF — canonical G79-THVC](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
-- **Existing name:** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT` (55 characters, not a new identity).
-- **Legacy note, preserved verbatim (98/140 characters):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`.
+- **Name:** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT` (55 chars).
+- **Note (98/140 chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`.
+
+> **NEW — Experimental G79-CJX candidate (2026-10-22): OK TO DOWNLOAD: YES. OK TO SUBMIT: NO (research artifact, format PASS, negative holdout — not promoted).** Single float32 band, EPSG:32611, 3730×3292, 100 m, all finite in [0,1], zero outside footprint, zero on catalogue — **prevents the portal “Predicted values must be in range [0,1]” error**. See the green box at the top of [the home page](docs/index.html) and the [How to Submit guide](docs/executive-summary.html#how-to-submit).
+
+**[Download NEW candidate GeoTIFF — G79-CJX 36,200 px, 107 KiB](docs/candidates/g79-cjx-contact-junction-20261022-e6ceff67-zeros.tif)** · **[ZIP (63 KiB)](docs/candidates/g79-cjx-contact-junction-20261022-e6ceff67-zeros.zip)** · **[JSON receipt](docs/candidates/g79-cjx-contact-junction-20261022-e6ceff67-zeros.json)** · **[Run Card CJX](evidence/g79_cjx_run_card.json)**
+
+- **TIFF:** 109,888 bytes; SHA-256 `41c371cb3fcfd26d7f7b89a13ebc86366e1dbf4d463dcaf48af7c437e67b496b` (unique, not in registry).
+- **ZIP:** 65,536 bytes; SHA-256 `093c710e1e473cf2e781da0e7ad1cd6db83d0735db0e2e68d74eae1af2559cb7`.
+- **Name:** `g79-cjx-contact-junction-20261022-e6ceff67-zeros` (73/140 chars).
+- **Note (73/140 chars):** `GEMSDOE79 G79-CJX: RTP+grav Harris junction persistence 3 scales 36200 px`.
+- **Validation:** single band float32, EPSG:32611, shape 3730×3292, transform [100,0,243350,0,-100,4508550], no NaN/Inf, range [0,1], outside zero, zero on catalogue — all PASS (see receipt).
 
 The historical “Charnes-Cooper” identifier is not an exact-optimization claim. Code inspection finds **fixed-penalty lazy-greedy weighted kernel cover**, not a certified fractional-programming solver. No model code or raster bytes were changed to make that correction.
 
