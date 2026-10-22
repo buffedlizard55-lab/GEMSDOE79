@@ -27,6 +27,14 @@ The historical “Charnes-Cooper” identifier is not an exact-optimization clai
 
 The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
 
+## Session 2026-10-22 (format and gate audit) — read first
+
+- **Still OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** No new TIFF was generated: every nonempty candidate fails the literal novelty gate by construction, and the DZD lane guard refuses under the closed canonical card. Full reasons: [reports/session_review_20261022_format_audit.md](reports/session_review_20261022_format_audit.md).
+- **Official format, re-measured:** the official sample uses **NaN outside the footprint**; every local artifact uses **0.0** (`zero_outside`). Both are within [0, 1]. Evidence: [evidence/official_format_audit_20261022.json](evidence/official_format_audit_20261022.json) (`scripts/audit_submission_format.py`).
+- **Witness gate:** the pinned novelty witness has positive support on **100 %** of the footprint, so the literal overlap rule is degenerate. This needs an owner decision (protocol D-3), not a silent change.
+- **Leaderboard (fetched 2026-10-22, [official page](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)):** #1 0.4413; #50 0.2817. **0.2778 and 0.3195 do not appear in the top 50** and remain user-reported.
+- Official references: [problem and metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) · [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/).
+
 ## New this session: G79-CJX — a unique TIF was generated, and the automated gate says NO
 
 > **G79-CJX: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
