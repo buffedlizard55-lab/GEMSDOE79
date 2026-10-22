@@ -105,3 +105,37 @@ def test_cli_exit_contract(monkeypatch, capsys):
     monkeypatch.setattr(cli, 'inspect_current', lambda: decision)
     assert cli.main() == 2
     assert json.loads(capsys.readouterr().out) == decision
+
+
+@pytest.mark.parametrize('auc', [None, True, '0.6', -1, 0.49, 0.90001, 1,
+                                  float('nan'), float('inf'), 10**1000])
+def test_canary_boolean_pass_cannot_override_bad_measurement(auc):
+    card = {'leakage_canary': {'passed': True, 'auc': auc,
+                             'features_cleared': 9, 'required_threshold': 0.90}}
+    result = submission_decision(card, actual_sha256=None, format_passed=False)
+    assert 'feature_alone_canaries_not_cleared' in result['blockers']
+
+
+@pytest.mark.parametrize('field,value', [
+    ('features_cleared', 0), ('features_cleared', True),
+    ('features_cleared', '9'), ('required_threshold', 1),
+    ('required_threshold', None), ('required_threshold', '0.9'),
+    ('passed', False),
+])
+def test_canary_requires_numeric_contract(field, value):
+    canary = {'passed': True, 'auc': 0.6, 'features_cleared': 9,
+              'required_threshold': 0.90}
+    canary[field] = value
+    result = submission_decision({'leakage_canary': canary},
+                                 actual_sha256=None, format_passed=False)
+    assert 'feature_alone_canaries_not_cleared' in result['blockers']
+
+
+@pytest.mark.parametrize('auc', [0.5, 0.6, 0.90])
+def test_canary_boundary_clears_only_canary_gate(auc):
+    # Software fixture, not a measured geological AUC or promotion receipt.
+    card = {'leakage_canary': {'passed': True, 'auc': auc,
+                             'features_cleared': 9, 'required_threshold': 0.90}}
+    result = submission_decision(card, actual_sha256=None, format_passed=False)
+    assert 'feature_alone_canaries_not_cleared' not in result['blockers']
+    assert not result['ok_to_submit']

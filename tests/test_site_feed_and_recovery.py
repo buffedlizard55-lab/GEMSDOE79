@@ -127,15 +127,32 @@ def test_truthy_strings_and_booleans_do_not_fake_evidence():
     assert 'current_account_weekly_capacity_not_verified' in got['blockers']
 
 
-def test_incoming_mct_archive_preserves_provenance_without_executable_fork():
-    archive = ROOT / 'archive/h79_mct_c26efec'
+@pytest.mark.parametrize('archive_rel', ['archive/h79_mct_c26efec', 'archive/h79_cspt_3d386a3'])
+def test_incoming_concurrent_archives_preserve_provenance_without_executable_fork(archive_rel):
+    archive = ROOT / archive_rel
     manifest = json.loads((archive / 'manifest.json').read_text())
     for row in manifest['files']:
-        if 'archive_path' in row:
-            assert hashlib.sha256((ROOT / row['archive_path']).read_bytes()).hexdigest() == row['archived_sha256']
+        if row.get('archive_path'):
+            expected_sha = row.get('archived_sha256') or row['source_sha256']
+            assert hashlib.sha256((ROOT / row['archive_path']).read_bytes()).hexdigest() == expected_sha
     assert not list(archive.rglob('*.py')) and not list(archive.rglob('*.html'))
     assert not list(archive.rglob('vendor/gems57/uniqueness.py'))
     assert 'DO NOT SUBMIT' in (archive / 'README.md').read_text()
+
+
+def test_concurrent_lanes_audit_verifies_literal_duplicate_and_negative_readiness():
+    audit_path = ROOT / 'evidence/concurrent_lanes_audit.json'
+    site_audit_path = ROOT / 'docs/evidence/concurrent_lanes_audit.json'
+    assert audit_path.exists() and site_audit_path.exists()
+    assert audit_path.read_bytes() == site_audit_path.read_bytes()
+    audit = json.loads(audit_path.read_text())
+    for lane_id in ('H79-MCT', 'H79-CSPT'):
+        lane = audit['archived_lanes'][lane_id]
+        assert lane['manifest_verification']['no_executable_py_or_html'] is True
+        assert lane['manifest_verification']['no_private_uniqueness_fork'] is True
+        assert lane['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
+        assert lane['canonical_readiness_decision']['ok_to_submit'] is False
+        assert lane['canonical_readiness_decision']['verdict'] == 'negative'
 
 
 def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():

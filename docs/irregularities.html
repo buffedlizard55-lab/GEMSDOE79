@@ -169,7 +169,7 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 </tr>
 </tbody>
 </table>
-<p>Session 2026-10-22 environment-portability and developer-ergonomics audit (branch <code>arena/9e8bac9e-gemsdoe79</code>):</p>
+<p>Session 2026-10-22 concurrent-merge quarantine and canary-gate hardening (branch <code>arena/700397d4-gemsdoe79</code>):</p>
 <table>
 <thead>
 <tr>
@@ -181,16 +181,43 @@ branch names no longer direct later sessions onto the wrong branch.</p>
 <tbody>
 <tr>
 <td>IR-79-30</td>
-<td><code>AGENTS.md</code> referenced prior branch name <code>arena/70519113-gemsdoe79</code> on line 5 after PR #11 merged.</td>
-<td>Updated <code>AGENTS.md</code> to reference <code>arena/9e8bac9e-gemsdoe79</code> while preserving the rule that Arena's active session metadata takes precedence.</td>
+<td><code>src/gems79/status.py</code> checked only <code>canary.get("passed") is True</code> for <code>leakage_canary</code>, allowing a contradictory or missing numerical <code>auc</code>, <code>required_threshold != 0.90</code>, or <code>features_cleared &lt;= 0</code> to clear <code>feature_alone_canaries_not_cleared</code>.</td>
+<td>Hardened <code>src/gems79/status.py</code> to require numeric <code>0.5 &lt;= auc &lt;= 0.90</code>, <code>required_threshold == 0.90</code>, and positive <code>int</code> <code>features_cleared</code> in addition to <code>passed is True</code>. Added unit tests in <code>tests/test_readiness_errors.py</code>.</td>
 </tr>
 <tr>
 <td>IR-79-31</td>
+<td>Concurrent PR #12 (<code>3d386a3</code>, branch <code>arena/d6ab5cbf-gemsdoe79</code>, lane <code>H79-CSPT</code>, commit <code>464d591</code>) merged into <code>main</code> on 2026-10-22 and broke both GitHub Actions workflows (<code>Verify research deliverable</code> run <code>39702012362</code> and <code>Pages and public-source health</code> run <code>39702012311</code>). Forensics show <code>H79-CSPT</code>: (1) modified <code>vendor/gems57/uniqueness.py</code> (<code>sha256: d60cd8db…</code>) to exempt 67 space-filling priors (<code>n_space_filling_rasters_ge_0p70 = 67</code>) and rewrote <code>registry/template_pin.json</code> with an incompatible schema; (2) used a constrained KKT Lagrangian 1-swap solver (<code>hard_cap_frac = 0.690 &lt; 0.700</code>) after unconstrained submodular placement failed overlap, pushing forward 3-px overlap to <code>0.689973</code> (<code>25,184 / 36,500</code> dots) against 4 registry priors (<code>306ee1b1…</code>, <code>gems57-relative-strand-surface…</code>, <code>gems57-twohost-relay-bend-surface…</code>, <code>gems77-h82gmns-lagrangian…</code>) while having <code>1.0000</code> literal overlap against <code>17GEMSDOE_E-proba-multiscale</code>; (3) used <code>buffer_px = 0.0</code> in <code>K=5</code> whole-component GMNS self-supervision; and (4) claimed <code>0.2778</code> was <code>ORGANIZER-CONFIRMED</code> without a submission-page receipt and set <code>verdict = "promote"</code>, <code>ok_to_submit = true</code>.</td>
+<td>Merged <code>origin/main</code> (<code>3d386a3</code>) into <code>arena/700397d4-gemsdoe79</code>, restored PR #13's <code>reports/session_review_9e23b44d.md</code>, quarantined <code>H79-CSPT</code> under <code>archive/h79_cspt_464d591/</code> (with SHA-256 <code>manifest.json</code>, <code>README.md</code>, and <code>.py</code>/<code>.c</code>/<code>.html</code> converted to non-executable <code>.txt</code>), restored canonical upstream <code>vendor/gems57/uniqueness.py</code> (<code>1c5094b8…</code>) and <code>registry/template_pin.json</code>, retired the duplicate active download URLs, and published an independent canonical audit of both archived concurrent lanes (<code>H79-MCT</code> and <code>H79-CSPT</code>) in <code>evidence/concurrent_lanes_audit.json</code>.</td>
+</tr>
+<tr>
+<td>IR-79-32</td>
+<td><code>knowledge/why_h33.md</code> and <code>AGENTS.md</code> did not yet summarize the post-stop offline diagnostic (<code>evidence/post_stop_diagnostic.json</code>), the concurrent <code>H79-CSPT</code> archive (<code>archive/h79_cspt_464d591/</code>), or the branch-neutral session rule.</td>
+<td>Updated <code>knowledge/why_h33.md</code> and <code>AGENTS.md</code> to reference <code>evidence/post_stop_diagnostic.json</code>, <code>evidence/concurrent_lanes_audit.json</code>, and <code>archive/h79_cspt_464d591/</code>, and removed the hardcoded prior session branch name from <code>AGENTS.md</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Session 2026-10-22 environment-portability and developer-ergonomics audit (branch <code>arena/9e8bac9e-gemsdoe79</code>):</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-33</td>
+<td><code>AGENTS.md</code> referenced prior branch name on line 5 after PR #11 merged.</td>
+<td>Updated <code>AGENTS.md</code> to use the branch-neutral rule while preserving the requirement that Arena's active session metadata takes precedence.</td>
+</tr>
+<tr>
+<td>IR-79-34</td>
 <td>Direct invocation of <code>pytest</code> without <code>-m pytest</code> failed collection in <code>tests/test_validate_submission.py</code> with <code>ModuleNotFoundError: No module named 'scripts'</code>.</td>
 <td>Added <code>pythonpath = ["."]</code> to <code>[tool.pytest.ini_options]</code> in <code>pyproject.toml</code>, enabling clean execution under both <code>pytest</code> and <code>python3 -m pytest</code>.</td>
 </tr>
 <tr>
-<td>IR-79-32</td>
+<td>IR-79-35</td>
 <td><code>scripts/download_competition_data.sh</code> hardcoded <code>PYTHON="${PYTHON:-.venv/bin/python}"</code>, failing when <code>.venv</code> does not exist. <code>scripts/post_stop_diagnostic.py</code> lacked CLI argument parsing for <code>-h</code>/<code>--help</code>, causing it to unintentionally trigger heavy holdout computations upon help inspection.</td>
 <td>Updated <code>download_competition_data.sh</code> to check for <code>.venv/bin/python</code> if present or fallback to <code>python3</code>. Added <code>argparse.ArgumentParser</code> to <code>scripts/post_stop_diagnostic.py</code> for immediate <code>-h</code>/<code>--help</code> response. Added unit tests in <code>tests/test_site_feed_and_recovery.py</code>.</td>
 </tr>
@@ -220,5 +247,27 @@ Added release guards for contradictory README status, unlinked/extra downloadabl
 TIFF/ZIPs, and a replaced frozen inventory. A new one-witness re-measurement
 confirms zero uncovered allowed pixels; this is not a new full registry scan.
 See <code>reports/session_review_8ed5d89a.md</code> and
-<code>evidence/session_witness_review_8ed5d89a.json</code>. E1 and weekly slots remain stopped.</p></div></section></main>
+<code>evidence/session_witness_review_8ed5d89a.json</code>. E1 and weekly slots remain stopped.</p>
+<h3>Session 2026-10-22 — Canary readiness hardening and independent concurrent-lane audit (branch <code>arena/700397d4-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-31</td>
+<td><code>src/gems79/status.py</code> checked only <code>canary.get("passed") is True</code> for <code>leakage_canary</code>, allowing a contradictory or missing numerical <code>auc</code>, <code>required_threshold != 0.90</code>, or <code>features_cleared &lt;= 0</code> to clear <code>feature_alone_canaries_not_cleared</code>.</td>
+<td>Hardened <code>src/gems79/status.py</code> to require numeric <code>0.5 &lt;= auc &lt;= 0.90</code>, <code>required_threshold == 0.90</code>, and positive <code>int</code> <code>features_cleared</code> in addition to <code>passed is True</code>. Added 19 parameterized unit tests in <code>tests/test_readiness_errors.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-32</td>
+<td>Both archived concurrent lanes (<code>H79-MCT</code> in <code>archive/h79_mct_c26efec/</code> and <code>H79-CSPT</code> in <code>archive/h79_cspt_3d386a3/</code>) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared <code>gems57.uniqueness</code>, <code>gems57.validate</code>, and <code>gems79.status</code> tools.</td>
+<td>Implemented <code>scripts/audit_archived_concurrent_lanes.py</code> and generated <code>evidence/concurrent_lanes_audit.json</code> (plus <code>evidence/session_witness_700397d4.json</code> and <code>reports/session_review_700397d4.md</code>), proving with unmodified shared code that both archived GeoTIFFs (<code>d1a4158a…</code> and <code>d55570bf…</code>) have <code>1.0000</code> literal 3-px forward overlap against <code>17GEMSDOE_E-proba-multiscale</code>, relied on post-duplicate constrained overlap capping (<code>0.6800</code> and <code>0.6900</code> against sparse/semi-dense registry priors), and return <code>ok_to_submit: false</code>, <code>verdict: "negative"</code>.</td>
+</tr>
+</tbody>
+</table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Evidence before optimism. This is fault-mapping research, not proof of geothermal vents, reservoirs or productive wells. Format PASS is not permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 21 October 2026 · No slots used</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

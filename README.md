@@ -103,10 +103,13 @@ zero allowed cells escape its positive-support halo. This confirms the stop;
 it does **not** create a new, protocol-unique submission or repeat the historical
 992-file restoration. The existing TIFF and scientific run card remain unchanged.
 
-- [Three-pass review and limitations](reports/session_review_79f9140a.md)
-- [Actual witness re-measurement](evidence/session_witness_review.json)
+- [Three-pass review and limitations (session `79f9140a`)](reports/session_review_79f9140a.md) · [Session `9e23b44d`](reports/session_review_9e23b44d.md) · [Session `8ed5d89a`](reports/session_review_8ed5d89a.md) · [Session `700397d4` (canary gate hardening & concurrent-lane audit)](reports/session_review_700397d4.md)
+- [Actual witness re-measurement](evidence/session_witness_review.json) · [Session `8ed5d89a` witness receipt](evidence/session_witness_review_8ed5d89a.json) · [Session `700397d4` witness receipt](evidence/session_witness_700397d4.json)
+- [Independent canonical audit of archived concurrent lanes (`H79-MCT` & `H79-CSPT`)](evidence/concurrent_lanes_audit.json)
 - `scripts/submission_status.py` now emits a JSON **negative** verdict (exit 2)
-  even for missing/corrupt files or malformed run cards; no stale PASS is reused.
+  even for missing/corrupt files or malformed run cards; no stale PASS is reused,
+  and `src/gems79/status.py` requires numerical `auc in [0.5, 0.90]` in addition
+  to `passed == True` for `leakage_canary` (`IR-79-31`).
 - For an offline witness re-check, run
   `.venv/bin/python scripts/verify_overlap_witness.py`. On a fresh checkout add
   `--restore` to fetch just the immutable rejection witness from GitHub. This

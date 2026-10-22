@@ -31,7 +31,19 @@ def submission_decision(card, *, actual_sha256, format_passed):
     if card.get('protocol_unique') is not True:
         blockers.append('literal_novelty_not_cleared')
     canary = card.get('leakage_canary')
-    if not isinstance(canary, dict) or canary.get('passed') is not True:
+    # A boolean PASS must not override missing or contradictory measurements.
+    # auc is the maximum symmetric feature-alone AUC across required folds.
+    canary_valid = isinstance(canary, dict) and canary.get('passed') is True
+    if canary_valid:
+        auc = canary.get('auc')
+        count = canary.get('features_cleared')
+        threshold = canary.get('required_threshold')
+        canary_valid = (
+            _unit_number(auc) and 0.5 <= auc <= 0.90 and
+            _unit_number(threshold) and threshold == 0.90 and
+            type(count) is int and count > 0
+        )
+    if not canary_valid:
         blockers.append('feature_alone_canaries_not_cleared')
     if card.get('current_best_holdout_beaten') is not True:
         blockers.append('matched_current_best_holdout_not_beaten')
