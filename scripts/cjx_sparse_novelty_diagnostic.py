@@ -10,6 +10,7 @@ from scipy.spatial import cKDTree
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 from gems57.grid import load_grid
+from gems79.lifecycle import enforce_open_lane
 
 
 def main():
@@ -53,4 +54,5 @@ def main():
 
 
 if __name__ == "__main__":
+    enforce_open_lane(ROOT, "G79-CJX", reason="terminal negative CJX diagnostic write")
     main()

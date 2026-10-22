@@ -47,9 +47,10 @@ above random and the frozen H33 fold-fair control (0.0961/0.0989) but
 slot may be spent. Max leakage-canary symmetric AUC 0.5674 (≤ 0.90, PASS).
 Gate G4 (literal novelty vs all 992 restored registry rasters, surface and
 final dots) and G1 (format) are reported in `run_card_cjx.json`. No
-leaderboard score is claimed: 0.2778/0.4413 remain unverified historical
-reports, and beating them is not demonstrated. Verdict: **negative** —
-a deliverable, per the parallel-run protocol.
+leaderboard score is claimed: 0.2778 remains an unverified historical user
+report and 0.4413 is a public leaderboard observation (`#1 xiaofanhu`), not an
+organizer receipt for this artifact, and beating them is not demonstrated.
+Verdict: **negative** — a deliverable, per the parallel-run protocol.
 
 ## Scientific evidence, not a leaderboard projection
 
@@ -121,7 +122,7 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 ### Navigation and preserved history
 
-Latest review: [session 7fdf94b3](reports/session_review_7fdf94b3.md) remediated `IR-79-175`..`IR-79-177` (repo-relative paths and exact `5,167,373 - 60,988 = 5,106,385` off-catalogue accounting in `scripts/measure_registry_halo.py`, fail-closed `enforce_open_lane` guards on 3 remaining archived CLI scripts, `requirements.txt` deduplication, live `13/13` data restoration via `scripts/restore_data.py --preserve-receipt`, and 3-tier Pigeonhole obstruction reconciliation); 499 tests passed and no new candidate or competition slot was used. Concurrent review: [session 43963905](reports/session_review_43963905.md) independently rechecked the universal novelty blocker, local TIFF format, project verifier, and site; 477 tests passed. No new candidate or competition slot was used. The preceding [session 7d96e79d review](reports/session_review_7d96e79d.md) and [session f652f0b3 review](reports/repository_review_2026-10-22_arena-f652f0b3.md) are preserved as separate session reports.
+Latest review: [session efdbc11f](reports/session_review_efdbc11f.md) remediated `IR-79-181`..`IR-79-185` (multi-band and `float32` sentinel hardening in `scripts/scan_tracked_rasters.py`, fail-closed catalogue grid/path checks in `scripts/measure_registry_halo.py`, 92-repo post-delta sibling byte forensics in [post_delta_sibling_check.json](evidence/review_efdbc11f/post_delta_sibling_check.json), live `2026-10-22` leaderboard floor refresh to `#50 = 0.2804`, five untried source-grounded geological hypotheses in [hypotheses_efdbc11f.md](research/hypotheses_efdbc11f.md), and `G79-CJX` clean-checkout/fail-closed gate + closed-lane lifecycle hardening); no new candidate or competition slot was used. Prior review: [session 7fdf94b3](reports/session_review_7fdf94b3.md) remediated `IR-79-175`..`IR-79-177`; concurrent reviews [session 3ca6c6a6](reports/session_review_3ca6c6a6.md), [session 43963905](reports/session_review_43963905.md), [session 7d96e79d](reports/session_review_7d96e79d.md), and [session f652f0b3](reports/repository_review_2026-10-22_arena-f652f0b3.md) are preserved as separate session reports.
 
 [Three-pass review](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
 

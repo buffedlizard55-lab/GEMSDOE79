@@ -1,0 +1,50 @@
+{
+  "schema": "post_delta_sibling_check.v1",
+  "session": "efdbc11f",
+  "checked_date_utc": "2026-10-22",
+  "evidence_class": "REGISTRY-MEASUREMENT",
+  "repositories_scanned": 92,
+  "repositories_ok": 92,
+  "base_frozen_blobs": 992,
+  "base_delta_blobs": 207,
+  "new_unique_prediction_blobs_on_default_branches": 2,
+  "verified_new_blobs": [
+    {
+      "repo": "GEMSDOE78",
+      "blob": "2016b3dce36d3e25e2630a569434e7d1db08b615",
+      "size": 147086,
+      "paths": [
+        "docs/downloads/gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif",
+        "submissions/gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif"
+      ],
+      "sha256": "0338383df9c36c0a2581ddc584e6aafa5ce364ba52cd9e56749628bc4301dd07",
+      "git_blob_sha1_verified": true,
+      "positive_pixels": 37654,
+      "all_format_checks_passed": true,
+      "min": 0.0,
+      "max": 1.0,
+      "n_nan": 0,
+      "thvc_forward_overlap_3px_onto_sibling": 0.587012,
+      "sibling_forward_overlap_3px_onto_thvc": 0.432013,
+      "sibling_forward_overlap_3px_onto_13gemsdoe_lattice": 0.997344
+    },
+    {
+      "repo": "GEMSDOE78",
+      "blob": "d6adb232c81ab8f609f391f9741edb3432210f45",
+      "size": 158254,
+      "paths": [
+        "docs/downloads/gems78-h78mghd-dualcover-44090dots-20261022T032500Z-1045873e-DO-NOT-SUBMIT.tif"
+      ],
+      "sha256": "44429c439118a6e20f77f6da821ecd4e46697da0545314d20b65e81766d8b698",
+      "git_blob_sha1_verified": true,
+      "positive_pixels": 44090,
+      "all_format_checks_passed": true,
+      "min": 0.0,
+      "max": 1.0,
+      "n_nan": 0,
+      "thvc_forward_overlap_3px_onto_sibling": 0.670333,
+      "sibling_forward_overlap_3px_onto_thvc": 0.516149,
+      "sibling_forward_overlap_3px_onto_13gemsdoe_lattice": 0.996961
+    }
+  ]
+}

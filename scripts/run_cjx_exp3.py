@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 from gems57.grid import load_grid
 from gems57 import evaluate_holdout, holdout
+from gems79.lifecycle import enforce_open_lane
 from gems79.thvc_model import poisson_disk_emit
 
 OUT = ROOT / "evidence" / "cjx"
@@ -84,4 +85,5 @@ def main():
 
 
 if __name__ == "__main__":
+    enforce_open_lane(ROOT, "G79-CJX", reason="3-experiment CJX budget exhausted")
     main()

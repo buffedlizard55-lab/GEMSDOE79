@@ -306,7 +306,7 @@ Produced by scripts/cjx_gate.py. A format PASS alone never approves submission.<
 </tbody></table>
 <h2>Holdout \u2014 HOLDOUT-DTI (gems57-pooled-hide-v2, \u03b1=0.2 \u03b2=0.8, 300 m)</h2>
 <table><thead><tr><th>Seed</th><th>CJX v3 tip [95% CI]</th><th>Withheld</th><th>H33 control (frozen)</th><th>THVC incumbent (frozen)</th><th>Gate</th></tr></thead><tbody>{rows}</tbody></table>
-<p>Exp 1\u20132 (catalogue-free coincident edges/junctions) scored below random; Exp 3 (tip-steered) is above. No organizer-confirmed score exists for this artifact; historical reports 0.2778 / 0.4413 are not receipts and are not claimed. Full record: research/cjx_hypotheses.md and evidence/cjx/.</p>
+<p>Exp 1\u20132 (catalogue-free coincident edges/junctions) scored below random; Exp 3 (tip-steered) is above. No organizer-confirmed score exists for this artifact; 0.2778 is an unverified historical report and 0.4413 is a public leaderboard observation (#1 xiaofanhu), neither claimed for this candidate. Full record: research/cjx_hypotheses.md and evidence/cjx/.</p>
 <h2>If a future banner ever says YES</h2><ol><li>Download the .tif or the .zip containing exactly it.</li><li>Choose it on the DrivenData submission page, paste the name/note above, submit. The \u201cPredicted values must be in range [0, 1]\u201d error cannot come from this writer: zeros mode rejects non-finite/out-of-range values at build time and G1 re-verifies the bytes.</li></ol></section>'''
 
 

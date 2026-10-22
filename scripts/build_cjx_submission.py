@@ -18,6 +18,7 @@ from scipy import ndimage as ndi
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 from gems57.grid import load_grid, write_submission
+from gems79.lifecycle import enforce_open_lane
 from gems79.thvc_model import poisson_disk_emit
 from gems79.cjx import catalogue_endpoints as endpoints
 
@@ -64,4 +65,5 @@ def main():
 
 
 if __name__ == "__main__":
+    enforce_open_lane(ROOT, "G79-CJX", reason="terminal negative CJX submission build")
     main()
