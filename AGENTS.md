@@ -9,9 +9,12 @@
    `src/gems79/evidence_summary.py` derives current site tables from both seeds of the frozen shared evaluator (`official_evaluate_all`). Do not mix that output with the separate historical bootstrap, add seed counts as independent observations, or claim all-lane/leaderboard superiority from it. The original card and explicit metadata correction are preserved under `evidence/review_e4a4422d/`; TIFF/ZIP and scientific receipts are unchanged. Read `knowledge/h33_review_e4a4422d.md` and `research/hypotheses_e4a4422d.md` for corrected interpretation and data-source limits. Historical numeric summaries below are archival context, not a new matched benchmark.
    All concurrent/historical `GEMSDOE79` lanes stay **stopped negative** and byte-archived under `archive/`:
    - `H79-NHR` (`0.1431 / 0.1522`, `archive/h79_nhr/` & `archive/h79_nhr_337ac1e9/`)
+   - `H79-FNHR` (`0.1292 / 0.1431` `F3`, `0.0906 / 0.0966` pure zero-catalogue physics, `archive/h79_fnhr_a57e2a7f/` & `run_card_fnhr.json`, `IR-79-140`..`IR-79-142`)
    - `H79-MRND` (`0.1044 / 0.1236`, session `800321e2`, `run_card_mrnd.json` & `evidence/mrnd/`) — multi-regime nested discovery (`77` features, `max AUC = 0.8589 <= 0.90`); beats `H33` control on both seeds (`+0.0247`, 95% CI `[+0.0095, +0.0389]` on Seed 30) and clears all `982` informative comparable priors on chance-corrected overlap (`worst = 0.5486 <= 0.70`, `0` normal-budget `<=167k` flags), stopped pre-placement under literal one-sided overlap (`IR-79-132`); do not retune quotas or re-place dots
+   - `G79-ETP` / `G79-ETP-v2` (`0.0968 / 0.1061` fold-fair `gems57-pooled-hide-v2`, `0.0000` static full-catalogue, `archive/g79_etp_incoming_45998a01/` & `run_card_etp.json`, `IR-79-147` / `IR-79-151`)
    - `H79-STEP` (`0.0949 / 0.1087`, `archive/h79_step_21642326/`)
    - `H79-DILSTEP` (`0.0721 / 0.0689`, `archive/h79_dilstep_6444be2d/`)
+   - `G79-CFSKD` (`0.0654 / 0.0678`, `archive/g79_cfskd_bda00cff/` & `run_card_cfskd.json`, `IR-79-152`)
    - `H79-COV` (`0.0610 / 0.0581`, `archive/h79_cov_e23d5371/`)
    - `H79-FF` (`0.0510 / 0.0488`, `archive/h79_ff/` & `archive/h79_ff_1de1617f/`)
    - `H79-ML-STRAIN-RELAY` (`0.0472 / 0.0442`, `archive/concurrent_2026-10-22_5d14587/`)

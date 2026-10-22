@@ -123,7 +123,7 @@ def publication_contract_checks(root, card):
             if ln.lstrip().startswith('| IR-79-')
         ]
         irreg_single_line_ok = bool(irreg_lines) and all(
-            ln.strip().startswith('|') and ln.strip().endswith('|') and ln.count('|') >= 4
+            ln.strip().startswith('|') and ln.strip().endswith('|') and ln.count('|') == 4
             for ln in irreg_lines
         )
     else:
@@ -133,6 +133,7 @@ def publication_contract_checks(root, card):
         'all_repo_json_strictly_valid': json_strict_ok,
         'irregularities_table_rows_single_line': irreg_single_line_ok,
         'readme_matches_card_decision': (
+            readme_full.count('## Original project prompt') <= 1 and
             line in readme and contradicting not in readme and
             not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
@@ -432,21 +433,25 @@ def verify(refresh_timestamp: bool = False):
                'raster_sha256': actual_sha, 'format_report': result,
                'submission_decision': decision,
                'scope': 'Offline byte/format/evidence/status verification. Does not recreate holdout results or authenticate organizer acceptance.'}
-    if not refresh_timestamp and out_path.exists():
-        try:
-            existing = json.loads(out_path.read_text())
-            existing_cmp = json.loads(json.dumps({k: v for k, v in existing.items() if k != 'verified_utc'}))
-            fmt = existing_cmp.get('format_report', {})
-            if isinstance(fmt.get('validator'), dict) and isinstance(fmt['validator'].get('file'), str):
-                if fmt['validator']['file'].endswith(card['submission_file']):
-                    fmt['validator']['file'] = card['submission_file']
-            if isinstance(fmt.get('reference_grid'), dict) and isinstance(fmt['reference_grid'].get('path'), str):
-                if fmt['reference_grid']['path'].endswith(card['submission_file']):
-                    fmt['reference_grid']['path'] = card['submission_file']
-            if existing_cmp == payload and isinstance(existing.get('verified_utc'), str):
-                verified_utc = existing['verified_utc']
-        except Exception:
-            pass
+    if not refresh_timestamp:
+        for cand_path in (out_path, ROOT / 'docs/evidence/verification.json'):
+            if not cand_path.exists():
+                continue
+            try:
+                existing = json.loads(cand_path.read_text())
+                existing_cmp = json.loads(json.dumps({k: v for k, v in existing.items() if k != 'verified_utc'}))
+                fmt = existing_cmp.get('format_report', {})
+                if isinstance(fmt.get('validator'), dict) and isinstance(fmt['validator'].get('file'), str):
+                    if fmt['validator'].get('file', '').endswith(card['submission_file']):
+                        fmt['validator']['file'] = card['submission_file']
+                if isinstance(fmt.get('reference_grid'), dict) and isinstance(fmt['reference_grid'].get('path'), str):
+                    if fmt['reference_grid'].get('path', '').endswith(card['submission_file']):
+                        fmt['reference_grid']['path'] = card['submission_file']
+                if existing_cmp == payload and isinstance(existing.get('verified_utc'), str):
+                    verified_utc = existing['verified_utc']
+                    break
+            except Exception:
+                pass
     report = {'verified_utc': verified_utc, **payload}
     out_path.write_text(json.dumps(report, indent=2, allow_nan=False) + '\n')
     return report

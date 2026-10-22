@@ -1153,6 +1153,49 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
+<h3>Session <code>f0d99a40</code> addendum (2026-10-22) — <code>README.md</code> merge-splice &amp; verbatim prompt remediation, 19 closed-lane CLI guards, <code>G79-CFSKD</code> Euclidean 3-px fix, and <code>IR-79-130</code> resolution (<code>arena/f0d99a40-gemsdoe79</code>)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_f0d99a40.md"><code>reports/session_review_f0d99a40.md</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-159</td>
+<td><strong>Corrupted <code>## Original project prompt</code> merge splice in <code>README.md</code> bypassed <code>verify_project.py</code>'s split boundary, and transient failure dirtied <code>evidence/verification.json</code>.</strong> <code>PR #68</code> (<code>8055053</code>) left a 2-line fragment (<code>## Original project prompt</code> <code>(</code>IR-79-81<code>).</code> / <code>- Re-verified the frozen universal overlap witness...</code>) above the real <code>## Original project prompt — read at the start of every session</code> heading, causing <code>readme_full.split('## Original project prompt', 1)[0]</code> in <code>scripts/verify_project.py</code> to stop scanning before the real prompt heading. In addition, running <code>verify_project.py</code> during a transient failure overwrote <code>evidence/verification.json</code>'s <code>verified_utc</code> without falling back to <code>docs/evidence/verification.json</code>.</td>
+<td>Removed the stray 2-line splice from <code>README.md</code>, added <code>readme_full.count('## Original project prompt') &lt;= 1</code> enforcement to <code>readme_matches_card_decision</code> in <code>scripts/verify_project.py</code>, tightened <code>irregularities_table_rows_single_line</code> to require exactly 4 pipe delimiters per row, and added <code>docs/evidence/verification.json</code> timestamp fallback in <code>verify()</code>.</td>
+</tr>
+<tr>
+<td>IR-79-160</td>
+<td><strong>Three verbatim prompt discrepancies in <code>README.md</code>'s <code>## Original project prompt</code> block.</strong> Line-by-line comparison against the verbatim user prompt found: (1) <code>GEMSDOE41/</code> was missing <code>docs/index.html</code>, (2) <code>GEMSDOE74</code>..<code>GEMSDOE88</code> had lost their <code>GEMSDOE74:</code>..<code>GEMSDOE88:</code> prefixes (<code>74</code>–<code>77</code> without space after colon, <code>78</code>–<code>88</code> with space after colon), and (3) the sentence <code>I want to have a validation gates in place so I never get the "Predicted values must be in range [0, 1]" error again when I submit my TIF file to the competition.</code> after <code>GEMSDOE88</code> had been dropped.</td>
+<td>Restored all three verbatim lines in <code>README.md</code> and added regression checks in <code>tests/test_session_f0d99a40_audit.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-161</td>
+<td><strong>19 closed-lane CLI scripts in <code>scripts/</code> lacked fail-closed <code>enforce_open_lane</code> (<code>exit 2</code>, <code>"No files changed."</code>) lifecycle guards.</strong> Specifically: <code>H79-FF1</code>/<code>H79-FF</code> (<code>run_ff.py</code>, <code>build_ff_submission.py</code>, <code>ff_uniqueness.py</code>, <code>ff_informative_overlap.py</code>, <code>measure_ff_vs_blockers.py</code>), <code>H79-BQA</code> (<code>run_bqa.py</code>, <code>bqa_uniqueness.py</code>, <code>close_bqa.py</code>, <code>report_bqa.py</code>), <code>G79-BER</code> (<code>run_ber.py</code>, <code>finalize_ber.py</code>), <code>H79-FGR</code> (<code>fgr_uniqueness.py</code>), <code>G79-CFSKD</code> (<code>run_cfskd.py</code>, <code>build_cfskd_submission.py</code>, <code>validate_cfskd.py</code>), and <code>H80-PILOTS</code> (<code>run_h80_drape_pilot.py</code>, <code>run_h80_radio_pilot.py</code>, <code>h80_pilot_overlap_check.py</code>, <code>build_h80_run_card.py</code>).</td>
+<td>Added <code>enforce_open_lane</code> (<code>src/gems79/lifecycle.py</code>) to all 19 scripts so CLI invocations fail closed with exit code <code>2</code> and <code>"No files changed."</code>, and registered all 19 in <code>tests/test_lane_lifecycle.py</code> (<code>76</code> parametrized lifecycle tests passing).</td>
+</tr>
+<tr>
+<td>IR-79-162</td>
+<td><strong>Manhattan vs Euclidean 3-px dilation discrepancy in <code>G79-CFSKD</code> (<code>PR #79</code>, <code>a182501</code>, <code>scripts/validate_cfskd.py</code>) and Euclidean 3-px duplicate proof for <code>G79-ETP-v1</code> vs <code>G79-THVC</code>.</strong> <code>scripts/validate_cfskd.py</code> computed 3-px dot overlap using <code>ndi.binary_dilation(rd, iterations=3)</code> (4-connected Manhattan diamond <code>abs(dy) + abs(dx) &lt;= 3</code>, 25 pixels, omitting the 4 diagonal offsets $(\pm 2, \pm 2)$ where $\sqrt{8} \approx 2.828 \le 3.0$), understating Euclidean 3-px overlap by <code>2.9–3.7 percentage points</code> (e.g., <code>G79-CFSKD</code> vs <code>G79-THVC</code> is <code>0.5419</code> Euclidean vs <code>0.5047</code> Manhattan; vs <code>H79-NHR</code> is <code>0.5475</code> Euclidean vs <code>0.5240</code> Manhattan). Furthermore, <code>G79-ETP-v1</code> (<code>28,761</code> dots, <code>e2203dcf…</code>) has <strong><code>0.8152 &gt; 0.70</code> Euclidean 3-px overlap with canonical <code>G79-THVC</code></strong>.</td>
+<td>Updated <code>scripts/validate_cfskd.py</code> to use <code>ndi.distance_transform_edt(~rd) &lt;= 3.0</code> matching <code>vendor/gems57/uniqueness.py</code>, guarded all 3 <code>cfskd</code> scripts with <code>enforce_open_lane</code>, and recorded both Euclidean 3-px overlap measurements in <code>evidence/post_snapshot_sibling_audit.json</code>.</td>
+</tr>
+<tr>
+<td>IR-79-163</td>
+<td><strong>Resolved <code>IR-79-130</code> (<code>local_gems79_concurrent_lanes_audit</code> generator missing from <code>scripts/audit_post_snapshot_siblings.py</code>).</strong> <code>scripts/audit_post_snapshot_siblings.py</code> previously omitted the <code>local_gems79_concurrent_lanes_audit</code> section of <code>evidence/post_snapshot_sibling_audit.json</code>.</td>
+<td>Implemented <code>build_local_gems79_concurrent_lanes_audit()</code> in <code>scripts/audit_post_snapshot_siblings.py</code> covering <code>H79-DILSTEP</code>, <code>H79-NHR</code>, <code>G79-MAG</code>, <code>G79-THVC</code>, <code>H79-FNHR</code>, <code>G79-ETP-v1</code>, <code>G79-ETP-v2</code>, and <code>G79-CFSKD</code>, and synchronized <code>evidence/post_snapshot_sibling_audit.json</code> and <code>docs/evidence/post_snapshot_sibling_audit.json</code>.</td>
+</tr>
+<tr>
+<td>IR-79-164</td>
+<td><strong>Forensic audit of open PRs (<code>PR #67</code> <code>H79-ARC</code>, <code>PR #63</code> <code>H79-DCE</code>).</strong> Open <code>PR #67</code> (<code>H79-ARC</code>, <code>arena/167a60a6-gemsdoe79</code>, <code>sha256: 92e95f84...</code>) claims <code>"verdict": "promote"</code> and <code>"ok_to_submit": true</code> with <code>HOLDOUT-DTI = 0.1020 / 0.1005</code> (<code>-0.0885 / -0.0939</code> below canonical <code>G79-THVC = 0.1905 / 0.1944</code>), paired $\Delta$ vs <code>H33</code> 95% CIs spanning zero on both seeds (<code>[-0.0063, +0.0193]</code> and <code>[-0.0110, +0.0155]</code>), and an X1 uniqueness failure (<code>0.7539 &gt; 0.70</code> vs <code>GEMSDOE37:gemsdoe37-h6-physics-dotted-80k</code>) bypassed in X2 by modifying <code>vendor/gems57/uniqueness.py</code> (<code>Amendment D-3</code>) on identical X1 bytes. Open <code>PR #63</code> (<code>H79-DCE</code>, <code>0.1019 / 0.1048</code>) is negative.</td>
+<td>Documented in <code>reports/session_review_f0d99a40.md</code> and <code>AGENTS.md</code>: <code>PR #67</code> must never overwrite canonical <code>G79-THVC</code> (<code>0.1905 / 0.1944</code>) or flip <code>ok_to_submit</code> to <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
 <h3>Session e4a4422d — receipt reconciliation and scientific reporting (2026-10-22)</h3>
 <table>
 <thead>
@@ -1164,37 +1207,37 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-159</td>
+<td>IR-79-165</td>
 <td>Canonical THVC card aliases mixed shared-evaluator intervals with a separate historical bootstrap; seed-30, paired-difference and ablation aliases were not fully reconciled by the old verifier.</td>
 <td>Preserved the original card and before/after metadata in <code>evidence/review_e4a4422d/</code>. All four canonical cards now use <code>official_evaluate_all</code>; read-only checks cover both seeds, pooled algebra, all arms, paired intervals, evaluator pins, type-strict aliases and every canary row. No prediction, bootstrap, TIFF or frozen scientific receipt changed.</td>
 </tr>
 <tr>
-<td>IR-79-160</td>
+<td>IR-79-166</td>
 <td>Site hardcoded green uniqueness, sparse-only clearance, a complete 1,108-raster scan and incorrect confidence intervals/counts. The frozen receipts actually have 20 non-comparable entries and full overlap failures.</td>
 <td>Receipt-derived tables separate full gates from diagnostics. Surface and dot novelty remain BLOCKED. Both stages and table content are checked during site QA. Concurrent review's manual-upload refusal is preserved; no new unique file is claimed.</td>
 </tr>
 <tr>
-<td>IR-79-161</td>
+<td>IR-79-167</td>
 <td><code>charnes_cooper_submodular_emit</code> uses fixed-penalty lazy-greedy weighted coverage, not an exact Charnes-Cooper transform or Dinkelbach ratio solver. Catalogue endpoint cones do not solve 3D elasticity.</td>
 <td>Corrected active mechanism prose without changing historical function names, note, model or results. Older report is explicitly superseded. No optimality, stress-field, permeability or geothermal-production proof is claimed.</td>
 </tr>
 <tr>
-<td>IR-79-162</td>
+<td>IR-79-168</td>
 <td>Earlier H80-MT-PHASE plan calls its source shallow resistivity slices; official DOI 10.5066/P9TWT2LU lists depth-integrated conductance, with its surface layer spanning 2–12 km. Cached band-15 basement interpretation also differs from the organizer's conductive-base wording.</td>
 <td>Marked the old plan unsupported as written, excluded ambiguous bands from the new nominated mechanism, and recorded official claims in <code>knowledge/review_e4a4422d_sources.json</code>. Heat-flow residual ZIP is listed but not acquired; it is data-blocked, not execution-ready.</td>
 </tr>
 <tr>
-<td>IR-79-163</td>
+<td>IR-79-169</td>
 <td>Historical FNHR/H33 prose misstated deleted-dot lineage and implied causal leaderboard gains; some THVC text called two regional catalogue seeds independent.</td>
 <td>Independently restored pinned H33/D2.8 blobs: 44,090 minus 6,436 equals 37,654; zero pruning disagreements; no deleted pixel exactly on catalogue. Geometry is not causal score evidence. Seeds share geography, intervals are conditional, and no local artifact has an organizer receipt.</td>
 </tr>
 <tr>
-<td>IR-79-164</td>
+<td>IR-79-170</td>
 <td>Vendor README claimed every shared file was unchanged upstream despite documented uniqueness amendments; the main README recommended rerunning a stopped lane and mixed old reports with current guidance.</td>
-<td>Corrected shared-tool provenance without editing pinned modules. Replaced active overview, preserved the full original prompt byte-for-byte and archived the previous README. Restored 13 pinned inputs and remeasured the universal witness, but opened no scientific lane; no delimited method assignment was supplied. Three-pass review is recorded separately.</td>
+<td>Corrected shared-tool provenance without editing pinned modules. Replaced active overview, archived the initial prompt bytes and adopted the documented upstream restorations in IR-79-160. Restored 13 pinned inputs and remeasured the universal witness, but opened no scientific lane; no delimited method assignment was supplied. Three-pass review is recorded separately.</td>
 </tr>
 <tr>
-<td>IR-79-165</td>
+<td>IR-79-171</td>
 <td>PR builds and production deployments used the same Pages concurrency group. The review PR's Pages run was cancelled while its two verification workflows completed successfully; a later pending PR run can displace a pending production run under the shared group.</td>
 <td>Separate PR-number groups from the production group. Keep production serialized and PR deployments disabled; retain exact public-byte verification. Added a workflow regression test. Observed cancellation alone does not authenticate a successful deployment.</td>
 </tr>

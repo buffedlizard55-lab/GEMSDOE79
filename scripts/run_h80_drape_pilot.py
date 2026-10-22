@@ -210,4 +210,11 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    sys.path[:0] = [str(ROOT / "src")]
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H80-DRAPE-PILOT",
+        reason="H80-DRAPE-PILOT is stopped negative (-0.0002 / -0.0018 vs control; IR-79-150).",
+    )
     main()
