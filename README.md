@@ -10,6 +10,10 @@ Historical sections below are inherited evidence, not work performed in this ses
 The full original project prompt remains archived below and is the starting contract.
 Related concurrent review: [three-pass audit and terminal negative run card](reports/review_b0325dc8/README.md). Fresh literal-overlap preflight stops new generation; no new submission-ready TIFF is claimed.
 
+## Parallel session 9eb122ea — runtime-data availability audit
+
+A separate three-pass review independently recorded the literal-gate stop, four untried geological hypotheses, and a **current 0/13 runtime-input check** under `data/raw`. The historical restore receipt remains metadata evidence only; it does not prove those files are present now. No experiment, holdout, placement, new TIFF, selector action, upload, or slot use occurred. See the [session review](reports/session_review_9eb122ea.md), [ranked hypotheses](research/hypotheses_9eb122ea.md), [run card](evidence/session_9eb122ea_run_card.json), and [machine-readable runtime status](evidence/runtime_data_status_9eb122ea.json). Recheck present availability with `python scripts/data_status.py`.
+
 ## Download and automated decision
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**

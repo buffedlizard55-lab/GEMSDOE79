@@ -50,6 +50,9 @@
    Weekly-slot availability stays an account-side condition that the user checks, and DOE Rules §3.4 restricts each participating entity to **one final submission**.
 7. Keep large input/cache files ignored. Serve only `docs/` in previews and artifact deployments; legacy Pages also has a root redirect. Never publish credentials,
    invented source data, synthetic scientific scores, or a quarantined file as ready.
+   Before claiming modeling readiness, run `python scripts/data_status.py` and
+   inspect current files under `data/raw`; `verify_project.py` checks historical
+   receipt/manifest consistency, not present-day input availability.
 8. Run tests, offline byte/format verification, site link checking and a final
    requirements review. Record all three review passes and unresolved limitations.
 

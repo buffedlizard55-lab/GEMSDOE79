@@ -24,6 +24,7 @@ sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'scripts'), str(ROOT / 'vendor')]
 from verify_project import verify, decision_line   # noqa: E402
 
 from gems79.evidence_summary import build_summary, load_json, same_json, CANDIDATE, CONTROL, SEEDS
+from gems79.data_status import inspect_runtime_inputs
 
 SITE = ROOT / 'docs'
 REPO = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
@@ -92,7 +93,7 @@ def shell(title, content, card):
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (new, NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_9eb122ea.md">Parallel review · 9eb122ea</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
     line = decision_line(card)
     if promoted(card):
@@ -219,10 +220,23 @@ def novelty_explanation(summary, preflight):
     return f'''<section class="section"><div class="proof"><div><p class="eyebrow">WHY THE CANONICAL REVIEW GENERATED NO NEW TIFF — AND WHY THE LATER G79-CJX-DIR TIFF IS STILL BLOCKED</p><h2>The literal novelty gate<br>blocks every nonempty candidate.</h2><div class="proof-stat">{100 * preflight['covered_allowed_fraction']:.0f}% <small>of allowed cells covered</small></div></div><div><p>A SHA-256-pinned registry witness was independently restored and remeasured in this review. Its positive-support halo covers every allowed cell. Every nonempty candidate therefore exceeds the {preflight['limit']:.0%} overlap limit, regardless of geology.</p><div class="formula">halo coverage = {100 * preflight["covered_allowed_fraction"]:.0f}% of allowed cells ⇒ 1.0000 forward overlap ⇒ STOP</div><p style="margin-top:18px">Partial halo coverage above 70% alone does not prove every map fails. This witness is stronger: it covers every allowed cell. No cosmetic pixel change, copied file, new filename or sparse-prior exclusion repairs that failure. The current artifact remains blocked for manual as well as automated submission. A prospective shared protocol decision is needed before a new lane, not a post-hoc exception for this candidate.</p><p>The {sparse['compared']} prior maps with ≤ {sparse['maximum_prior_dot_count']:,} dots have maximum overlap {sparse['max_forward_overlap_3px']:.4f} in the frozen scan. This subset is <strong>diagnostic only, not a passed novelty gate</strong>; later sibling evidence also found an above-limit sparse collision. Neither scan covers private organizer submissions.</p><a href="evidence/preflight_e4a4422d.json">This review's preflight ↗</a> · <a href="evidence/post_index_sibling_audit_20261022.json">Later sibling audit ↗</a> · <a href="evidence/g79_dot_uniqueness_1108.json">Frozen full scan ↗</a></div></div></section>'''
 
 
-def home(card, summary, preflight, h33):
+def latest_review_notice(preflight, runtime_data):
+    """Report this branch review without conflating it with separate archived lanes."""
+    coverage = float(preflight['covered_allowed_fraction'])
+    limit = float(preflight['limit'])
+    verified = int(runtime_data['verified_count'])
+    expected = int(runtime_data['expected_count'])
+    checked = E(runtime_data['checked_utc'])
+    return f'''<section class="section"><div class="notice"><strong>Latest review · session 9eb122ea: no new candidate GeoTIFF in this review.</strong>
+The pinned witness covers {coverage:.0%} of allowed cells against the literal {limit:.0%} overlap limit, so this review stopped before candidate testing. It produced no experiment, holdout evaluation, dot placement, selector action, upload, or slot use. The runtime-data check for this build found <strong>{verified}/{expected}</strong> manifest inputs present and SHA-256 verified under <code>data/raw</code> (checked {checked} UTC). This session result is separate from the archived verdicts of other lanes.
+<a href="evidence/preflight_9eb122ea.json">Preflight receipt ↗</a> · <a href="evidence/runtime_data_status.json">Current build-time data status ↗</a> · <a href="{REPO}/blob/main/reports/session_review_9eb122ea.md">Three-pass review ↗</a> · <a href="research.html">Four ranked hypotheses ↗</a> · <a href="evidence/session_9eb122ea_run_card.json">Run card ↗</a></div></section>'''
+
+
+def home(card, summary, preflight, h33, latest_preflight, runtime_data):
     dots = card['positive_pixels']
     c = summary['canaries']
     return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>Later lanes generated new unique research GeoTIFFs — including <a href="g79-cskd.html">G79-CSKD</a> (all-time GEMSDOE79 Seed-30 HOLDOUT-DTI record <code>0.2145</code> &amp; 2-seed mean <code>0.1963</code>, resolving <code>GEMSDOE83</code> overlap to <code>0.6137 &le; 0.70</code>), <a href="cjx-submission.html">G79-CJX</a>, <a href="g79-cjxdir.html">G79-CJX-DIR</a>, and <a href="dzd-submission.html">G79-DZD</a>, plus new session-0be4d7bb <a href="tdw-submission.html">G79-TDW</a> (new unique 37,654-dot TIF, format PASS but HOLDOUT-DTI 0.0395/0.0413 below random — DO NOT SUBMIT) — each archived as research-only (<code>OK TO SUBMIT: NO</code>).</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="g79-cskd.html">Open G79-CSKD (0.2145 Seed-30 record) ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
+{latest_review_notice(latest_preflight, runtime_data)}
 <div class="metric-grid">{metric('Local format', 'PASS', 'Finite [0, 1] · matching sample grid')}{metric('Full novelty', 'BLOCKED', f"{summary['dots']['max_forward_overlap_3px']:.4f} overlap; limit 0.70", stop=True)}{metric('Feature canaries', f"{c['feature_seed_tests']} tests", f"{c['feature_count']} features × 2 seeds; max AUC {c['max_symmetric_auc']:.5f}")}{metric('This review', '0 experiments', '0 new placements · 0 slots spent')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / CLEAR PERMISSION BOUNDARIES</p><h2>Downloadable does not mean submittable.</h2></div><p>Automated local verification binds the card to the exact bytes. Scientific gates, organizer acceptance and weekly slot capacity are separate checks.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 {holdout_table(summary)}
@@ -263,8 +277,9 @@ def portal_rules_panel():
     )
 
 
-def executive(card, summary):
+def executive(card, summary, latest_preflight, runtime_data):
     return f'''{page_head('EXECUTIVE SUMMARY / NO UPLOAD AUTHORIZED', 'Download for research. Do not submit.', 'This review improves evidence consistency and reporting. It does not deliver a newly unique candidate or establish a leaderboard gain.')}
+{latest_review_notice(latest_preflight, runtime_data)}
 <section class="section">{download_panel(card)}</section>{download_check_panel(card)}<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 {portal_rules_panel()}
 <section class="section prose"><h2>The decision in plain language</h2><ul><li><strong>Research download: yes.</strong> The single-band raster is finite and in [0, 1], with sample-matching CRS, shape and transform. ZIP and TIFF hashes are checked.</li><li><strong>Competition submission: no.</strong> Both frozen novelty stages fail. The separate selector has not approved a slot. A person must not bypass these failures by uploading manually.</li><li><strong>Scientific evidence: limited.</strong> Historical buffered HOLDOUT-DTI exceeds its H33 control, but this is not a new experiment beating the incumbent and not an organizer score.</li><li><strong>New deliverable requested: not achieved.</strong> A universal-overlap witness made any nonempty new candidate impossible under the stipulated literal rule. We stopped rather than disguise an inherited map as new.</li></ul>
@@ -273,6 +288,7 @@ def executive(card, summary):
 <h2>How a future candidate could become eligible</h2><ol><li>Resolve the prospective shared novelty protocol; do not change a finished lane's definition to pass it.</li><li>Pre-register one new mechanism, confirm actual input availability, run all feature canaries, and validate with the shared buffered holdout. Beat the current incumbent under the declared comparison, not merely H33.</li><li>Pass the complete pre-placement surface and final-dot novelty gates, format checks and evidence binding. Let the separate selector decide whether to promote.</li><li>Only for a genuinely promoted file, confirm remaining capacity on the signed-in <a href="{COMP}/submissions/">official submissions page</a>, download its exact file, use its name and ≤140-character note, and keep the submission-page receipt with the file hash.</li></ol><p>The <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">official rules, §§3.2–3.4</a>, allow up to three submissions per week and one final selected entry per participating entity. This maximum is not proof of remaining capacity. Generative-AI use must be disclosed in the narrative; competitors remain responsible for accuracy and authorship.</p>
 <h2>Recheck automatically</h2><pre><code>.venv/bin/python scripts/validate_portal_spec.py FILE.tif  # official R1-R8 format rules
 .venv/bin/python scripts/verify_project.py
+.venv/bin/python scripts/data_status.py       # exits 2 while pinned inputs are missing
 .venv/bin/python scripts/submission_status.py  # exit 2 is the expected BLOCKED decision
 .venv/bin/python scripts/check_site.py</code></pre><p>Integrity verification can exit 0 while submission status correctly exits 2. No human inspector is needed to distinguish these decisions.</p></section>
 {holdout_table(summary)}<section class="section prose"><h2>Limitations and next session</h2><p>Catalogue holdout labels differ from expert-discovered faults; seed splits share geography; model-selection uncertainty is not fully represented by the bootstrap. Fault evidence alone does not certify geothermal temperature, permeability or production. Radiometric derivatives are ordinal and some feature metadata needs source reconciliation.</p><p><a href="analysis.html">H33 and algorithm review ↗</a> · <a href="research.html">Four deferred hypotheses ↗</a> · <a href="sources.html">Official claims and availability ledger ↗</a></p></section>'''
@@ -292,16 +308,28 @@ def page_head(eyebrow, title, lead=''):
     return f'<section class="page-head"><p class="eyebrow">{eyebrow}</p><h1>{title}</h1>{lead}</section>'
 
 
-def sources_page(sources):
+def sources_page(sources, runtime_data):
     items=[]
     for row in sources['sources']:
         source_type = row.get('source_type', 'OFFICIAL SOURCE')
         claims=''.join('<li>'+E(c)+'</li>' for c in row.get('verified_claims',[]))
         limits=' '.join(row.get('limits',[]))
         items.append(f'''<article class="source-item"><div><div class="source-id">{E(row['id'])}</div><span class="badge neutral">{E(source_type)}</span></div><div><h3>{E(row['authority'])}</h3><a href="{E(row['url'])}">{E(row['url'])} ↗</a><p>Review: {E(row['access'])} · {E(sources.get('reviewed_date_utc', ''))}</p><ul>{claims}</ul><p><strong>Limits:</strong> {E(limits)}</p></div></article>''')
+    verified = int(runtime_data['verified_count'])
+    expected = int(runtime_data['expected_count'])
+    unverified_ids = ', '.join(row['id'] for row in runtime_data['files'] if row['status'] != 'verified') or 'none'
+    receipt = runtime_data.get('historical_restore_receipt', {})
+    if not receipt.get('available'):
+        receipt_text = 'No readable historical restore receipt is available. Current file checks above are independent.'
+    elif receipt.get('matches_manifest_metadata'):
+        receipt_text = (f"Historical receipt records {receipt.get('entry_count')} entries and matches pinned manifest metadata; "
+                        'that does not prove the files are present in this build workspace now.')
+    else:
+        receipt_text = 'Historical restore receipt metadata does not match the current manifest; it is not current availability proof.'
+    runtime_panel = f'''<section class="section"><div class="panel"><h3>Runtime input availability at this build</h3><p><strong>{verified}/{expected} manifest inputs are currently present and SHA-256 verified under <code>data/raw</code>.</strong> This build checks actual file availability, separately from any historical restore receipt.</p><ul><li>Training supervision inputs ready: <strong>{'yes' if runtime_data['training_supervision_ready'] else 'no'}</strong></li><li>Core pipeline rasters ready: <strong>{'yes' if runtime_data['core_pipeline_inputs_ready'] else 'no'}</strong></li><li>Unverified manifest IDs: <code>{E(unverified_ids)}</code></li><li>Checker state: <code>{E(runtime_data['state'])}</code> · checked <code>{E(runtime_data['checked_utc'])}</code> UTC</li></ul><p>{E(receipt_text)}</p><p class="micro"><a href="evidence/runtime_data_status.json">Machine-readable build-time input status ↗</a> · <a href="evidence/runtime_data_status_9eb122ea.json">Session snapshot ↗</a> · <a href="evidence/data_manifest.json">Pinned data manifest ↗</a> · <a href="evidence/restore_receipt.json">Historical restore receipt ↗</a></p></div></section>'''
     return '''<section class="page-head"><p class="eyebrow">PROVENANCE / FRESHNESS / LIMITS</p><h1>Sources you can audit.</h1><p class="lead">Official scientific claims, mirrored byte integrity, live URL reachability and submission receipts are different kinds of evidence. We never interchange them.</p></section>
 <section class="section"><div class="panel"><h3>Public-source health feed</h3><p id="feed-status">Loading the last recorded fetch attempt…</p><div id="feed-observation" class="micro"></div><div class="table-scroll"><table><thead><tr><th>Source</th><th>Last fetch state</th><th>HTTP</th></tr></thead><tbody id="health-rows"></tbody></table></div><p class="micro">A successful request checks reachability only. A failed refresh does not update an old leaderboard observation. Daily checks never access private receipts, allocate slots or run experiments. <a href="evidence/source_health.json">Raw feed JSON ↗</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/actions/workflows/site.yml">Latest scheduled workflow and deployment state ↗</a></p></div></section>
-<section class="section"><div class="notice">No candidate here has an ORGANIZER-CONFIRMED submission-page receipt. The public leaderboard observation is not this file’s score. Direct requests to non-allowlisted domains can fail in the sandbox even when the research browser can read them.</div>'''+''.join(items)+'''</section><section class="section prose"><h2>Accessible datasets, not invented new measurements</h2><p>The numerical feature stack, sample and mapped faults were restored from immutable owner GitHub mirrors and hash-checked. This verifies consistency, not independent organizer authentication. All 13 existing manifest inputs were restored and hash-verified in this review. No new external flight-line, MT or heat-flow binary was acquired; availability claims below distinguish metadata access from actual ingestion. No new paid, private or fabricated observations were introduced.</p><p><a href="evidence/data_manifest.json">Data sources and SHA-256 pins ↗</a> · <a href="evidence/input_restoration_e4a4422d.json">This review’s restoration receipt ↗</a> · <a href="evidence/review_e4a4422d_sources.json">Current claim-by-claim source ledger ↗</a></p></section>'''
+'''+runtime_panel+'''<section class="section"><div class="notice">No candidate here has an ORGANIZER-CONFIRMED submission-page receipt. The public leaderboard observation is not this file’s score. Direct requests to non-allowlisted domains can fail in the sandbox even when the research browser can read them.</div>'''+''.join(items)+'''</section><section class="section prose"><h2>Accessible datasets, not invented new measurements</h2><p>Historical restoration receipts document prior restoration attempts and hash checks, but do not establish present-day file availability. The runtime status above is refreshed at site-build time under <code>data/raw</code>. No new external flight-line, MT or heat-flow binary was acquired in this review; metadata access is not acquisition. No new paid, private or fabricated observations were introduced.</p><p><a href="evidence/data_manifest.json">Data sources and SHA-256 pins ↗</a> · <a href="evidence/input_restoration_e4a4422d.json">Historical restoration report ↗</a> · <a href="evidence/review_e4a4422d_sources.json">Prior claim-by-claim source ledger ↗</a></p></section>'''
 
 
 def history_page():
@@ -579,6 +607,8 @@ def main():
             'blockers': decision['blockers']}
     index = json.loads((ROOT / 'registry/registry_index.json').read_text())
     sources = load_json(ROOT / 'knowledge/review_e4a4422d_sources.json')
+    latest_preflight = load_json(ROOT / 'evidence/preflight_9eb122ea.json')
+    runtime_data = inspect_runtime_inputs(ROOT)
     for d in ('assets', 'evidence'):
         (SITE / d).mkdir(parents=True, exist_ok=True)
     map_preview(card)
@@ -590,6 +620,9 @@ def main():
               'knowledge/official_sources.json': 'official_sources.json',
               'knowledge/review_e4a4422d_sources.json': 'review_e4a4422d_sources.json',
               'evidence/preflight_e4a4422d.json': 'preflight_e4a4422d.json',
+              'evidence/preflight_9eb122ea.json': 'preflight_9eb122ea.json',
+              'evidence/runtime_data_status_9eb122ea.json': 'runtime_data_status_9eb122ea.json',
+              'evidence/session_9eb122ea_run_card.json': 'session_9eb122ea_run_card.json',
               'evidence/review_e4a4422d/h33_remeasurement.json': 'h33_remeasurement.json',
               'evidence/review_e4a4422d/input_restoration.json': 'input_restoration_e4a4422d.json',
               'evidence/review_e4a4422d/metadata_reconciliation.json': 'metadata_reconciliation_e4a4422d.json',
@@ -697,7 +730,7 @@ def main():
               'run_card_dfsd.json': 'run_card_dfsd.json',
               'evidence/g79_dfsd_results.json': 'g79_dfsd_results.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
-    keep = set(copies.values()) | {'source_health.json', 'site_manifest.json', 'evidence_summary.json'}
+    keep = set(copies.values()) | {'source_health.json', 'site_manifest.json', 'evidence_summary.json', 'runtime_data_status.json'}
     for stale in (SITE / 'evidence').iterdir():
         if stale.is_file() and stale.name not in keep:
             stale.unlink()
@@ -723,10 +756,13 @@ def main():
         if stale.name != Path(PREVIEW).name:
             stale.unlink()
     (SITE / 'evidence/evidence_summary.json').write_text(json.dumps(summary, indent=2, allow_nan=False) + '\n')
+    (SITE / 'evidence/runtime_data_status.json').write_text(
+        json.dumps(runtime_data, indent=2, allow_nan=False) + '\n'
+    )
 
     pages = {
-        'index.html': ('Research download & automated decision', home(card, summary, preflight, h33)),
-        'executive-summary.html': ('Decision guide & future submission prerequisites', executive(card, summary)),
+        'index.html': ('Research download & automated decision', home(card, summary, preflight, h33, latest_preflight, runtime_data)),
+        'executive-summary.html': ('Decision guide & future submission prerequisites', executive(card, summary, latest_preflight, runtime_data)),
         'analysis.html': ('What H33 teaches us, without score promises',
                           page_head('ANALYSIS / EXACT METRIC / MEASURED LINEAGE', 'Understand H33. Do not copy it.',
                                     'Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.')
@@ -742,6 +778,7 @@ def main():
         'research.html': ('Deferred geological hypotheses',
                           page_head('HYPOTHESES / PREREGISTERED LANES', 'Test a mechanism. Name its mimic.',
                                     'Source-grounded ideas, qualitative ranking, executed preregistered lanes and explicit data gates.')
+                          + '<section class="section">' + md('research/hypotheses_9eb122ea.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_g79_dfsd.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_csmd_1dc8cff0.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_6da2620c.md') + '</section>'
@@ -749,7 +786,7 @@ def main():
                           + '<section class="section">' + md('research/hypotheses_e4a4422d.md') + '</section>'
                           + '<section class="section">' + md('research/candidate_hypotheses.md') + '</section>'
                           + novelty_explanation(summary, preflight) + archive_links()),
-        'sources.html': ('Official sources, availability & source health', sources_page(sources)),
+        'sources.html': ('Official sources, availability & source health', sources_page(sources, runtime_data)),
         'history.html': ('Historical reports, not receipts', history_page()),
         'g79-cskd.html': ('G79-CSKD unique TIF — Seed-30 record (0.2145) & automated gate verdict', cskd_page()),
         'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
@@ -787,6 +824,10 @@ def main():
         'ok_to_download': decision['ok_to_download'], 'ok_to_submit': decision['ok_to_submit'],
         'verdict': card['verdict'], 'scientific_snapshot_utc': card['generated_utc'],
         'scientific_summary_sha256': hashlib.sha256((SITE / 'evidence/evidence_summary.json').read_bytes()).hexdigest(),
+        'runtime_data_status_sha256': hashlib.sha256((SITE / 'evidence/runtime_data_status.json').read_bytes()).hexdigest(),
+        'runtime_data_all_manifest_inputs_ready': runtime_data['all_manifest_inputs_ready'],
+        'latest_preflight_sha256': hashlib.sha256((SITE / 'evidence/preflight_9eb122ea.json').read_bytes()).hexdigest(),
+        'latest_review_card_sha256': hashlib.sha256((SITE / 'evidence/session_9eb122ea_run_card.json').read_bytes()).hexdigest(),
         'pages': list(pages), 'compatibility_redirects': aliases, 'no_human_inspection_required': True}, indent=2) + '\n')
     print(f"Built {len(pages)} pages; {decision_line(card)}")
 

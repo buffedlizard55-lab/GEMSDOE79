@@ -1,6 +1,6 @@
 # Irregularities and disposition
 
-All entries are dated 2026-10-21. No entry authorizes a threshold exemption.
+Entries retain their original dates and are ordered by review sequence. No entry authorizes a threshold exemption.
 
 | ID | Finding and evidence | Resolution / remaining limitation |
 |---|---|---|
@@ -495,3 +495,4 @@ Review: [`reports/session_review_9340b31a.md`](session_review_9340b31a.md). Evid
 |---|---|---|
 | IR-79-212 | **Measured conflict with the official outside-bounds rule.** The official Submission-format section says “data outside the bounds is null or nan” (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/, fetched 2026-10-22); the official `sample_submission.tif` writes NaN in all `7,111,787` outside cells. All three project TIFFs (THVC, CJX, DZD) write `0` in all `7,111,787` outside cells and FAIL rule R6 in `src/gems79/portal_spec.py` (R1–R5, R7, R8 PASS). The shared writer's all-finite policy (`vendor/gems57/grid.py`) prevents NaN exterior output. | Owner decision: adopt the official convention (NaN exterior, `nodata=NaN`) or keep zeros with a documented justification. No file was regenerated. Validator and tests pin the measured behavior. |
 | IR-79-213 | **Portal range error still not diagnosable.** The project's files have all in-footprint values in [0, 1] (R8 PASS), so no local range check reproduces “Predicted values must be in range [0, 1]”. The earlier rejected upload and its receipt are not in the repository. | Unverified; no cause is claimed. Future rejections need the exact message, file name and receipt saved. R6 is a plausible but unproven contributor. |
+| IR-79-214 | **Current runtime input status in this review workspace is 0/13 verified under `data/raw` despite matching historical restore-receipt metadata.** The checker found 13 missing paths and no hash mismatch; `verify_project.py` checks receipt/manifest consistency, not present-day file availability. | Added read-only `scripts/data_status.py`, `src/gems79/data_status.py`, unit tests, and a build-time Sources-page panel. Captured [`evidence/runtime_data_status_9eb122ea.json`](../evidence/runtime_data_status_9eb122ea.json). No manifest data restore or scientific experiment was performed. This time- and workspace-scoped check does not authenticate source, license, or scientific semantics. |
