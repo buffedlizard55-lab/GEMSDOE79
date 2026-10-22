@@ -14,7 +14,7 @@
    candidate under that reading. Do not bypass it or restart the stopped lane.
 
    Session 2026-10-22 also ran **H79-ASYM** (antislope excess, `registry/preregistration_asym.json`).
-   It stopped at the surface duplicate gate before any placement (IR-79-69). Its card is
+   It stopped at the surface duplicate gate before any placement (IR-79-73). Its card is
    `run_card_asym.json`, which is archival. The canonical card is still `run_card.json`.
    Do not reopen H79-ASYM by retuning. Note that the lidar-scarp and geodetic-strain channels
    are already saturated in the registry (16 strain-named rasters; 32 informative scarp-channel overlaps).

@@ -441,13 +441,69 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 </tbody>
 </table>
 <p>| IR-79-67 | Preflight helper accepted truthy non-boolean blocker flags and boolean coverage, and could crash on null certificate/missing hash. | Session 566bec0c requires typed certificate fields and a valid SHA-256, returns unverified for malformed evidence, and adds regression coverage. No novelty or scientific gate changed. |
-| IR-79-68 | Selector evidence adapter refused malformed inputs, but CLI dereferences outside that adapter could still raise a traceback on missing files, invalid JSON, null/list cards or malformed gate receipts. | Added a structured exit-2 refusal boundary and ten regression cases requiring unchanged scientific bytes. No evaluator, writer, novelty rule or scientific evidence changed. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2747f26f.md">three-pass review</a>. |
-| IR-79-69 | <strong>H79-ASYM stopped at the surface gate (1 of 3 experiments).</strong> Hypothesis 2 of <code>research/hypotheses_nhr.md</code> (antislope excess from the USGS 3DEP lidar bands <code>upface_max</code>, <code>downface_max</code>, <code>coh100</code>) was preregistered in <code>registry/preregistration_asym.json</code> (commit 365b727) before any result. The surface duplicate gate (protocol rule 1) failed before placement. Two causes. (a) Space-filling: continuous registry surface <code>GEMSDOE48:...gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif</code> has positive support on all 5,167,373 footprint cells, so its top-k overlap is 1.0. (b) Channel saturation, measured separately: 32 informative dot fields exceed 0.70 overlap, and 14 still exceed 0.70 after chance correction. Several are scarp families (GEMSDOE50, GEMSDOE62, GEMSDOE66). | Verdict negative. No holdout placement and no final dots, because a duplicate stops the lane (protocol rule 1). No artifact was written. Evidence: <code>evidence/asym/uniqueness_surface.json</code>, <code>evidence/asym/surface_diagnostic.json</code> (reporting only), <code>run_card_asym.json</code>. Literature caveat, preregistered: uphill-facing scarps are often sackung or toppling features rather than tectonic faults (https://www.tandfonline.com/doi/pdf/10.3166/ga.21.187-202, https://pubs.geoscienceworld.org/gsa/gsabulletin/article-abstract/122/9-10/1585/125613/Origin-of-sackung-uphill-facing-scarps-in-the?redirectedFrom=fulltext). |
-| IR-79-70 | <strong>Undeclared dependency.</strong> <code>src/gems79b/features.py</code> (archived G79B lane) imports <code>skimage</code>, but it was in neither <code>requirements.txt</code> nor <code>requirements.lock</code>. Test collection failed on a clean install (<code>tests/test_g79b.py</code>). | Fixed by pinning <code>scikit-image==0.26.0</code> and its transitive pins (<code>imageio</code>, <code>lazy-loader</code>, <code>networkx</code>, <code>tifffile</code>) in <code>requirements.lock</code>, and adding <code>scikit-image&gt;=0.26,&lt;1</code> to <code>requirements.txt</code>. After the change, <code>pytest</code> gives 186 passed. |
-| IR-79-71 | <strong>Arithmetic correction in the metric bounds.</strong> The bounds <code>c &gt;= 0.8s/(1-0.2s)</code> were stated as 23.6 % for 0.2778 and 38.4 % for 0.4413. Recomputed exactly: 23.5 % and 38.7 %. The derivation is exact because FN_w = N_truth - TP_w (by the official definition). | Corrected in <code>README.md</code>, <code>reports/nhr_analysis.md</code> and the generated <code>docs/analysis.html</code>. The conclusion does not change. |
-| IR-79-72 | <strong>Score claim not matched by the official leaderboard.</strong> The prompt says 0.3195 is "the highest score right now". The official leaderboard (fetched 2026-10-22, https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) shows #1 0.4413, #5 0.3539, #21 0.3261, #22 0.3183. No row shows 0.3195. The highest score in the user's GEMSDOE site list is 0.2778 (GEMSDOE32). | Treated as an unverified user claim. The public leader is 0.4413, so this lane's benchmark is the public leader, with 0.2778 (H33, user-reported) as the reference control. Not an ORGANIZER-CONFIRMED score. |
-| IR-79-73 | <strong>Incomplete surface comparison.</strong> 986 of 992 registry rasters were comparable. Six could not be read or compared under the shared reference-grid check: four same-shape rasters with another georeference (GEMSDOE75 x2, 14GEMSDOE, 60GEMSDOE), one invalid TIFF with no StripOffsets (GEMSDOE63 smoke.tif), and one 32x48 format test (GEMSDOE36). The shared comparison's <code>complete</code> flag is therefore false. | Reported, not hidden. The gate already failed on GEMSDOE48, so the verdict does not depend on this. The six files are listed in <code>evidence/asym/uniqueness_surface.json</code>. |
-| IR-79-74 | <strong>Format question for the organizer.</strong> The problem page says data outside the bounds must be "null or nan" (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). Every raster this repo writes is finite, with 0 outside the footprint. The user-reported H33 raster (score 0.2778, not organizer-confirmed) is also all-finite, with 0 outside the footprint and 7,111,787 zeros there, so the zero-fill follows a file that was reported as scored (<code>evidence/h33_forensics.json</code>). Zeros add no FP or TP under the metric. | Kept as the repo's shared writer convention, which matches the H33 precedent. Flagged for organizer clarification. Not a proven cause of any rejection. |</p>
+| IR-79-68 | Selector evidence adapter refused malformed inputs, but CLI dereferences outside that adapter could still raise a traceback on missing files, invalid JSON, null/list cards or malformed gate receipts. | Added a structured exit-2 refusal boundary and ten regression cases requiring unchanged scientific bytes. No evaluator, writer, novelty rule or scientific evidence changed. See <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2747f26f.md">three-pass review</a>. |</p>
 <h3>Review addendum — session 2747f26f (2026-10-22)</h3>
-<p>IR-79-68 (selector evidence adapter hardening) is listed in the table above, in sequence.</p></div></section></main>
+<p>IR-79-68 (selector evidence adapter hardening) is listed in the table above, in sequence.</p>
+<p>Session 2026-10-22 review (branch <code>arena/52bfa965-gemsdoe79</code>, report <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_52bfa965.md"><code>reports/session_review_52bfa965.md</code></a>):</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-69</td>
+<td><strong>Official sources disagree on the outside-footprint convention.</strong> The competition page's “Submission format” list says “data outside the bounds is null or nan” among the requirements (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/, fetched 2026-10-22). The official sample writes NaN outside its 5,167,373-cell footprint. The official reference notebook (https://github.com/drivendataorg/gems-prize-reference-solution, commit <code>aebe92f</code>, <code>unet-mc-cv-reference-solution.ipynb</code>) writes <code>y_final</code> with no nodata and no NaN masking, so its output is finite. The canonical file has finite zeros on 7,111,787 cells that the sample leaves NaN (measured 2026-10-22). IR-79-25 read the official text as permitting NaN; the requirement list supports a stricter reading.</td>
+<td>Not changed. Regenerating the canonical file would change its sha256 and cascade through pins, and the file is DO-NOT-SUBMIT. The public Format line and limitations now state the conflict (<code>scripts/build_site.py</code>). The shared all-finite policy in <code>vendor/gems57/gates.py</code> is unchanged. <strong>Protocol-owner decision needed</strong> on the convention for any future candidate.</td>
+</tr>
+<tr>
+<td>IR-79-70</td>
+<td><strong>Preflight exit code depends on <code>--restore</code>.</strong> Run without it, <code>scripts/preflight_new_lane.py</code> exits 3 (<code>FileNotFoundError</code>, witness absent, fail closed). With <code>--restore</code> it exits 2 (<code>impossible_under_literal_gate</code>), witness sha256 <code>ab0a0a62…</code>, identical to IR-79-04. The stop was reproduced, not inherited.</td>
+<td>No code change. Use <code>--restore</code> for the frozen check.</td>
+</tr>
+<tr>
+<td>IR-79-71</td>
+<td><strong>Registry count wording.</strong> <code>registry/registry_index.json</code> lists 92 entries in its <code>repositories</code> field, but its 992 rasters come from 71 distinct <code>repo</code> values. IR-79-10 says “92 repository scopes”; the public site says “71 sibling repositories”. Both are correct under their definitions.</td>
+<td>Clarified here. No data changed.</td>
+</tr>
+<tr>
+<td>IR-79-72</td>
+<td><strong>Public leaderboard re-read, ranks 1–50</strong> (https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/, fetched 2026-10-22). Rank 1 = 0.4413 (xiaofanhu); rank 21 = 0.3261; rank 22 = 0.3183; rank 50 = 0.2784. No row shows 0.3195. The user-reported H33 figure 0.2778 is also not among these 50 rows. These are PUBLIC-OBSERVATION values, not organizer confirmation of any artifact.</td>
+<td>Confirms IR-79-23 and IR-79-45. “0.3195 highest” and “0.2778” stay UNVERIFIED reports. Ranks beyond 50 were not read.</td>
+</tr>
+<tr>
+<td>IR-79-73</td>
+<td><strong>H79-ASYM stopped at the surface gate (1 of 3 experiments).</strong> Hypothesis 2 of <code>research/hypotheses_nhr.md</code> (antislope excess from the USGS 3DEP lidar bands <code>upface_max</code>, <code>downface_max</code>, <code>coh100</code>) was preregistered in <code>registry/preregistration_asym.json</code> (commit 365b727) before any result. The surface duplicate gate (protocol rule 1) failed before placement. Two causes. (a) Space-filling: continuous registry surface <code>GEMSDOE48:...gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif</code> has positive support on all 5,167,373 footprint cells, so its top-k overlap is 1.0. (b) Channel saturation, measured separately: 32 informative dot fields exceed 0.70 overlap, and 14 still exceed 0.70 after chance correction. Several are scarp families (GEMSDOE50, GEMSDOE62, GEMSDOE66).</td>
+<td>Verdict negative. No holdout placement and no final dots, because a duplicate stops the lane (protocol rule 1). No artifact was written. Evidence: <code>evidence/asym/uniqueness_surface.json</code>, <code>evidence/asym/surface_diagnostic.json</code> (reporting only), <code>run_card_asym.json</code>. Literature caveat, preregistered: uphill-facing scarps are often sackung or toppling features rather than tectonic faults (https://www.tandfonline.com/doi/pdf/10.3166/ga.21.187-202, https://pubs.geoscienceworld.org/gsa/gsabulletin/article-abstract/122/9-10/1585/125613/Origin-of-sackung-uphill-facing-scarps-in-the?redirectedFrom=fulltext).</td>
+</tr>
+<tr>
+<td>IR-79-74</td>
+<td><strong>Undeclared dependency.</strong> <code>src/gems79b/features.py</code> (archived G79B lane) imports <code>skimage</code>, but it was in neither <code>requirements.txt</code> nor <code>requirements.lock</code>. Test collection failed on a clean install (<code>tests/test_g79b.py</code>).</td>
+<td>Fixed by pinning <code>scikit-image==0.26.0</code> and its transitive pins (<code>imageio</code>, <code>lazy-loader</code>, <code>networkx</code>, <code>tifffile</code>) in <code>requirements.lock</code>, and adding <code>scikit-image&gt;=0.26,&lt;1</code> to <code>requirements.txt</code>. After the change, <code>pytest</code> gives 186 passed.</td>
+</tr>
+<tr>
+<td>IR-79-75</td>
+<td><strong>Arithmetic correction in the metric bounds.</strong> The bounds <code>c &gt;= 0.8s/(1-0.2s)</code> were stated as 23.6 % for 0.2778 and 38.4 % for 0.4413. Recomputed exactly: 23.5 % and 38.7 %. The derivation is exact because FN_w = N_truth - TP_w (by the official definition).</td>
+<td>Corrected in <code>README.md</code>, <code>reports/nhr_analysis.md</code> and the generated <code>docs/analysis.html</code>. The conclusion does not change.</td>
+</tr>
+<tr>
+<td>IR-79-76</td>
+<td><strong>Score claim not matched by the official leaderboard.</strong> The prompt says 0.3195 is "the highest score right now". The official leaderboard (fetched 2026-10-22, https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) shows #1 0.4413, #5 0.3539, #21 0.3261, #22 0.3183. No row shows 0.3195. The highest score in the user's GEMSDOE site list is 0.2778 (GEMSDOE32).</td>
+<td>Treated as an unverified user claim. The public leader is 0.4413, so this lane's benchmark is the public leader, with 0.2778 (H33, user-reported) as the reference control. Not an ORGANIZER-CONFIRMED score.</td>
+</tr>
+<tr>
+<td>IR-79-77</td>
+<td><strong>Incomplete surface comparison.</strong> 986 of 992 registry rasters were comparable. Six could not be read or compared under the shared reference-grid check: four same-shape rasters with another georeference (GEMSDOE75 x2, 14GEMSDOE, 60GEMSDOE), one invalid TIFF with no StripOffsets (GEMSDOE63 smoke.tif), and one 32x48 format test (GEMSDOE36). The shared comparison's <code>complete</code> flag is therefore false.</td>
+<td>Reported, not hidden. The gate already failed on GEMSDOE48, so the verdict does not depend on this. The six files are listed in <code>evidence/asym/uniqueness_surface.json</code>.</td>
+</tr>
+<tr>
+<td>IR-79-78</td>
+<td><strong>Format question for the organizer.</strong> The problem page says data outside the bounds must be "null or nan" (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). Every raster this repo writes is finite, with 0 outside the footprint. The user-reported H33 raster (score 0.2778, not organizer-confirmed) is also all-finite, with 0 outside the footprint and 7,111,787 zeros there, so the zero-fill follows a file that was reported as scored (<code>evidence/h33_forensics.json</code>). Zeros add no FP or TP under the metric.</td>
+<td>Kept as the repo's shared writer convention, which matches the H33 precedent. Flagged for organizer clarification. Not a proven cause of any rejection.</td>
+</tr>
+</tbody>
+</table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

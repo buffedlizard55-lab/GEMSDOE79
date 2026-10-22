@@ -1,6 +1,6 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22):** [three-pass active-branch review](reports/repository_review_2026-10-22_active-branch.md). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used.
+**Latest repository audit (2026-10-22):** [three-pass review, session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md). Independently checked 242 tests, 29 integrity gates and the pinned universal-overlap witness. Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used. [Prior active-branch audit](reports/repository_review_2026-10-22_active-branch.md) is retained as history.
 
 ## Download and submission decision — start here
 
@@ -112,12 +112,12 @@ and its evidence is in [`evidence/asym/`](evidence/asym/).
 | Question | Answer | Evidence (line-checked) |
 |---|---|---|
 | Why did H33 (user-reported 0.2778) score highest in the GEMSDOE family? | Sparse dots and mapped-pixel masking. H33 is exactly the D2.8 dot set (44,090) minus 6,436 dots within 200 m of mapped faults, which were pure false positives. Its dots are sparse (37,654). TP is a per-truth max and FP is a per-pixel sum, so sparse dots win. | [`evidence/h33_forensics.json`](evidence/h33_forensics.json) (`h33_equals_d28_pruned_distance_le_2px: true`); [official metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) |
-| How much truth credit does a score need? | Exact bound from the official DTI: c ≥ 0.8s/(1−0.2s), where c is the share of truth credit. 0.2778 needs c ≥ 23.5 %. The public leader 0.4413 needs c ≥ 38.7 %. (Corrected from 23.6 % and 38.4 %, IR-79-71.) | [`reports/nhr_analysis.md`](reports/nhr_analysis.md) §1; the bound follows because FN_w = N_truth − TP_w |
+| How much truth credit does a score need? | Exact bound from the official DTI: c ≥ 0.8s/(1−0.2s), where c is the share of truth credit. 0.2778 needs c ≥ 23.5 %. The public leader 0.4413 needs c ≥ 38.7 %. (Corrected from 23.6 % and 38.4 %, IR-79-75.) | [`reports/nhr_analysis.md`](reports/nhr_analysis.md) §1; the bound follows because FN_w = N_truth − TP_w |
 | Can we beat 0.2778 on our own proxy? | Yes, on the holdout. H79-NHR beat the H33 fold-fair control on both seeds (HOLDOUT-DTI 0.1431 and 0.1522, against 0.0961 and 0.0989). That result is a proxy, not a leaderboard score. | Canonical card [`run_card.json`](run_card.json) |
 | Is that file submittable? | No. Its dots duplicate 26 earlier families (worst 0.913 against a chance level of 0.610). | Canonical card, `correlation_overlap_vs_registry` |
 | Did the new lane (H79-ASYM) produce a unique file? | No. It stopped at the surface gate. A continuous registry surface (`GEMSDOE48`) covers all 5,167,373 footprint cells, so its top-k overlap is 1.0. Separately, 32 informative fields exceed 0.70 overlap and 14 still do after chance correction. | [`evidence/asym/uniqueness_surface.json`](evidence/asym/uniqueness_surface.json), [`evidence/asym/surface_diagnostic.json`](evidence/asym/surface_diagnostic.json) (reporting only) |
 | Is the strain-rate channel an unexplored signal? | No. 16 registry rasters are strain- or geodesy-named (for example GEMSDOE37, GEMSDOE39, GEMSDOE51, GEMSDOE69, 5GEMSDOE). It is not a free route to a unique file. | Registry names in `registry/registry_index.json` |
-| Does the 0.3195 figure match the official leaderboard? | No. The official board shows #1 0.4413 and #5 0.3539. No row shows 0.3195 (IR-79-72). | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) (fetched 2026-10-22) |
+| Does the 0.3195 figure match the official leaderboard? | No. The official board shows #1 0.4413 and #5 0.3539. No row shows 0.3195 (IR-79-76). | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) (fetched 2026-10-22) |
 
 **What blocks a unique submission (needs a user decision, IR-79-53).** The literal rule flags any dot set
 whenever a space-filling registry raster exists. There are 30 such rasters, and a seeded uniform random map is flagged by
@@ -133,12 +133,12 @@ below is for the user to choose from.
 
 **Verification of this session (each item was checked against bytes or a fetched page):**
 - Environment restored from the hash-pinned mirrors: 13 inputs on disk, each SHA-256 checked during restore. The tracked receipt of record lists 7 (IR-79-66, `data/restore_receipt.json`). All 992 registry rasters are in `.cache/registry`, each SHA-256 checked.
-- `pytest`: 246 passed on the merged tree (186 before merging `main`); dependency fix in IR-79-70.
+- `pytest`: 246 passed on the merged tree (186 before merging `main`); dependency fix in IR-79-74.
 - `scripts/verify_project.py`: all checks passed, with the canonical H79-NHR card unchanged.
 - Lidar decoding follows the product's own quantisation rule, and `upface_max` and `downface_max` match their metadata descriptions (`data/raw/external/lidar_scarp_features.json`).
 - The antislope mechanism is documented as ambiguous in the literature, and the named mimic is preregistered: [Saint Elias, GSA Bulletin](https://pubs.geoscienceworld.org/gsa/gsabulletin/article-abstract/122/9-10/1585/125613/Origin-of-sackung-uphill-facing-scarps-in-the?redirectedFrom=fulltext), [Pyrenees, Geomorphology](https://www.sciencedirect.com/science/article/abs/pii/S0169555X0500036X), [USGS SIM 3430 (antithetic uphill-facing scarp)](https://pubs.usgs.gov/sim/3430/sim3430_pamphlet.pdf).
 
-**Limits and irregularities (all logged):** IR-79-53 (decision needed); IR-79-69 (H79-ASYM stop); IR-79-70 (missing dependency fixed); IR-79-71 (bound corrected); IR-79-72 (0.3195 not on the official board); IR-79-73 (6 of 992 rasters not comparable); IR-79-74 (organizer's NaN-outside-bounds wording versus this repo's zero-fill, which matches the user-reported H33 file).
+**Limits and irregularities (all logged):** IR-79-53 (decision needed); IR-79-73 (H79-ASYM stop); IR-79-74 (missing dependency fixed); IR-79-75 (bound corrected); IR-79-76 (0.3195 not on the official board); IR-79-77 (6 of 992 rasters not comparable); IR-79-78 (organizer's NaN-outside-bounds wording versus this repo's zero-fill, which matches the user-reported H33 file).
 
 **Next steps (ranked by expected value and cost, not yet run):**
 1. Get the IR-79-53 decision from the user (option table above). Cost: none. Value: unblocks everything else.
@@ -281,6 +281,19 @@ Those changes were merged into this branch without changing scientific evidence.
 - **New research inputs for a future preregistered lane:** five newly ranked, not-yet-tested hypotheses (`research/hypotheses_e846fc02.md`) — tip-pair stepover linkage, drainage-deflection scarps, antislope polarity, persistent basement-edge worms, radiometric alteration lineament — each with layers, transform, why it targets *uncatalogued* faults, difference from repo, cost/mimic/viability; ranked so a future lane can pick one, preregister, and validate on the spatially blocked HOLDOUT-DTI before touching a slot. A separate geothermal-vent synthesis (`knowledge/geothermal_vent_discovery.md`) consolidates all official sources line-by-line for reuse.
 - **No protocol exemption was added.** The universal literal witness and its implications (IR-79-53) still require an explicit prospective decision before any nonempty map can pass the 0.70 gate; the site's `research.html` now surfaces this with the new backlog.
 - Three-pass review: [`reports/session_review_e846fc02.md`](reports/session_review_e846fc02.md).
+
+## Latest review — session `52bfa965` (2026-10-22)
+
+- Full review with three passes, a verification ledger and a no-experiment card:
+  [`reports/session_review_52bfa965.md`](reports/session_review_52bfa965.md).
+- Reproduced: `verify_project.py` exit 0; `submission_status.py` exit 2 (OK TO DOWNLOAD: YES, OK TO SUBMIT: NO);
+  `preflight_new_lane.py --restore` exit 2; 230 tests pass; independent GeoTIFF re-read matches the card sha256.
+- Checked against official sources (fetched 2026-10-22): the metric (α 0.2, β 0.8, R 300 m), the three-per-week
+  limit, and the leaderboard (leader 0.4413; no 0.3195 row in ranks 1–50).
+- **No experiment, no new candidate and no slot were used.** The blocker is a protocol decision (IR-79-53).
+- Irregularities added: IR-79-69 (the official page's "null or nan" outside-bounds text conflicts with the
+  team's all-finite policy and the sample's NaN; the public Format line now states this conflict), IR-79-70 (preflight
+  exit 3 vs 2 depends on `--restore`), IR-79-71 (92 index scopes vs 71 repositories), IR-79-72 (leaderboard re-read).
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
