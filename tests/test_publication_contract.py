@@ -364,6 +364,14 @@ def test_three_tier_pigeonhole_obstruction_and_sibling_audit_certificates():
             'GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88'} == set(sib_repos)
     for empty_repo in ('GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88'):
         assert sib_repos[empty_repo]['unique_published_tif_blobs'] == 0
+    delta = json.loads((ROOT / 'registry/registry_delta.json').read_text(encoding='utf-8'))
+    pub_delta = json.loads((ROOT / 'docs/evidence/registry_delta.json').read_text(encoding='utf-8'))
+    assert delta == pub_delta
+    assert delta['n_new_rasters'] >= 207
+    delta_repos = {r['repo'] for r in delta['repositories']}
+    assert {'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83',
+            'GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88'} <= delta_repos
+    assert 'GEMSDOE79' not in delta_repos
 
 
 def test_official_sources_and_health_synced_on_2026_10_22():

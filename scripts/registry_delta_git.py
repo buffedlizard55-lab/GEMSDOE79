@@ -41,33 +41,60 @@ def scan(repo: str, known: set[str]) -> dict:
         git(gitdir, "fetch", "-q", "--filter=blob:none", "origin",
             "+refs/heads/*:refs/heads/*", "+refs/tags/*:refs/tags/*", "+refs/pull/*:refs/pull/*")
         heads = git(gitdir, "for-each-ref", "--format=%(refname) %(objectname)").split("\n")
-        out = git(gitdir, "rev-list", "--all", "--objects", "--missing=allow-promisor")
+        # NOTE (IR-79-75): `git rev-list --all --objects --missing=allow-promisor` on a
+        # `--filter=blob:none` clone silently omits ALL unfetched promisor blobs (returning 0 new
+        # rasters even when newly added .tif files exist on branches/PRs!). Tree objects ARE
+        # local in blobless clones, so inspect every unique root tree across all reachable commits.
+        root_trees = sorted({
+            t.strip() for t in git(gitdir, "rev-list", "--all", "--format=%T").splitlines()
+            if len(t.strip()) == 40 and not t.startswith("commit ")
+        })
     except subprocess.CalledProcessError as e:
         return {"repo": repo, "status": "error", "error": (e.stderr or b"").decode()[-300:], "new": []}
     seen, new = set(), []
-    for line in out.splitlines():
-        parts = line.split(" ", 1)
-        if len(parts) != 2 or not is_prediction(parts[1]):
-            continue
-        sha, path = parts
-        if sha in known or sha in seen:
-            continue
-        seen.add(sha)
-        data = git(gitdir, "cat-file", "blob", sha, binary=True)
-        blob = hashlib.sha1(f"blob {len(data)}\0".encode() + data).hexdigest()
-        if blob != sha:
-            return {"repo": repo, "status": "error", "error": f"blob id mismatch {sha}", "new": []}
-        dest = ROOT / ".cache/registry" / (sha + ".tif")
-        dest.write_bytes(data)
-        new.append({"repo": repo, "path": path, "blob": sha, "size": len(data),
-                    "sha256": hashlib.sha256(data).hexdigest(), "aliases": [repo + ":" + path]})
+    for tree_sha in root_trees:
+        tree_out = git(gitdir, "ls-tree", "-r", tree_sha)
+        for line in tree_out.splitlines():
+            meta, sep, path = line.partition("\t")
+            if not sep or not is_prediction(path):
+                continue
+            parts = meta.split()
+            if len(parts) < 3 or parts[1] != "blob":
+                continue
+            sha = parts[2]
+            if sha in known or sha in seen:
+                continue
+            seen.add(sha)
+            data = git(gitdir, "cat-file", "blob", sha, binary=True)
+            blob = hashlib.sha1(f"blob {len(data)}\0".encode() + data).hexdigest()
+            if blob != sha:
+                return {"repo": repo, "status": "error", "error": f"blob id mismatch {sha}", "new": []}
+            dest = ROOT / ".cache/registry" / (sha + ".tif")
+            dest.write_bytes(data)
+            new.append({"repo": repo, "path": path, "blob": sha, "size": len(data),
+                        "sha256": hashlib.sha256(data).hexdigest(), "aliases": [repo + ":" + path]})
     return {"repo": repo, "status": "ok", "refs": len([h for h in heads if h]), "new": new}
+
+
+def discover_owner_repos() -> set[str]:
+    """Discover newly created sibling repositories via gh CLI when available."""
+    try:
+        r = subprocess.run(
+            ["gh", "api", "--paginate", f"/users/{OWNER}/repos?per_page=100", "--jq", ".[].name"],
+            check=True, capture_output=True, text=True, timeout=30,
+        )
+        return {
+            name.strip() for name in r.stdout.splitlines()
+            if name.strip() and name.strip() != "GEMSDOE79" and "GEMSDOE" in name.upper()
+        }
+    except Exception:
+        return {f"GEMSDOE{i}" for i in (78, *range(80, 91))}
 
 
 def main():
     index = json.loads((ROOT / "registry/registry_index.json").read_text())
     known = {r["blob"] for r in index["rasters"]}
-    repos = sorted({r["repo"] for r in index["repositories"]} | set(sys.argv[1:]))
+    repos = sorted({r["repo"] for r in index["repositories"]} | discover_owner_repos() | set(sys.argv[1:]))
     rows, statuses = [], []
     with cf.ThreadPoolExecutor(4) as pool:
         for res in pool.map(lambda r: scan(r, known), repos):
