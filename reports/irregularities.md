@@ -129,47 +129,19 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 | IR-79-55 | **H79-NHR stopped as a duplicate after beating the holdout best.** HOLDOUT-DTI was 0.1431 [0.1281, 0.1574] and 0.1522 [0.1335, 0.1696], against H33-control values of 0.0961 and 0.0989. But 26 ordinary registry dot fields each contain more than 70 % of the final dots within 3 px. | Verdict negative. The research GeoTIFF is published as DO-NOT-SUBMIT. The separate selector refused (`evidence/nhr/selector_decision.json`). There was no retuning, no overlap capping and no second lane; budget used: 1 of 3 experiments, about 70 min of 2 h. |
 | IR-79-56 | **Concurrent-lane merge.** PR #26 (G79-STEPCO, session 220dabc8) reached `main` while H79-NHR was running. Both lanes are negative. STEPCO S1 tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989). NHR beat it (0.1431 / 0.1522) but is a duplicate. | When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to `archive/g79_stepco_s1/downloads/`. `run_card_stepco.json`, `evidence/stepco/` and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at `archive/g79_fabric_offset_e1/`. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision. |
 
-## Concurrent review ID index (details in the addenda below)
+## Concurrent review addenda — sessions 0c9f6bad, 0a460648, 2203b2cc, 6302cccd, a7d092d7, and 18e94cdc (2026-10-22)
 
-| ID | Finding | Resolution |
-|---|---|---|
-| IR-79-57 | Missing scikit-image dependency. | Pinned dependency closure; independently rediscovered by multiple sessions. |
-| IR-79-58 | Unsafe routine README rerun commands. | Replaced with frozen artifact checks; terminal enforcement added in IR-79-61. |
-| IR-79-59 | Selector trusted gate summary without evidence reconciliation. | Adapter and strict named-gate validation added by session 0c9f6bad. |
-| IR-79-60 | Publication scan entered `.venv-clean` dependency templates. | Ignore local `.venv*` tooling directories, with regression coverage. |
-
-## Review addendum — session 0c9f6bad (2026-10-22)
-
-- **IR-79-57:** Pinned clean install could not collect `test_g79b.py`: `skimage`
-  was imported by the archived lane's retained tests but absent from requirements.
-  Added scikit-image and its pinned dependency closure. Full suite now passes.
-- **IR-79-58:** README's routine verification commands reran the stopped NHR lane
-  and placed final dots before the surface uniqueness scan. Replaced with frozen
-  artifact checks. No stopped scientific entry point was executed in this review.
-- **IR-79-59:** Selector trusted a gate-summary PASS without invoking existing
-  evidence/card reconciliation. It now calls that adapter, requires all named
-  literal-boolean gates, and fails closed on malformed measurement evidence.
-  This is consistency verification, not a fresh holdout or organizer authentication.
-
-Details and evidence boundaries: [session review](session_review_0c9f6bad.md).
-
-## Review addendum — session 0a460648 (2026-10-22)
-
-- **IR-79-60:** A clean-environment verification run used `.venv-clean/`. The
-  publication scanner recursively treated dependency templates inside that local
-  environment as repository files and falsely detected merge markers. It now
-  ignores `.venv*` tooling directories, with regression coverage; actual repository
-  markers remain fail-closed. The same session independently found IR-79-57 before
-  main advanced, so only the non-duplicative scanner fix is assigned a new ID.
-
-Details and evidence boundaries: [session review](session_review_0a460648.md).
-
-## Session 2026-10-22 — software review (branch `arena/2203b2cc-gemsdoe79`)
+Details and evidence boundaries: [session 0c9f6bad](session_review_0c9f6bad.md), [session 0a460648](session_review_0a460648.md), [session 2203b2cc](session_review_2203b2cc.md), [session 6302cccd](repository_review_2026-10-22_session-6302cccd.md), [session a7d092d7](session_review_a7d092d7.md), and [session 18e94cdc](session_review_18e94cdc.md).
 
 | ID | Finding and evidence | Resolution / remaining limitation |
 |---|---|---|
-| IR-79-57 (independent rediscovery) | Clean lockfile install could not collect the merged G79B tests: missing `skimage`, despite `src/gems79b/features.py` importing `sato`. | Added scikit-image to requirements and pinned its dependencies; full suite rerun. This was also a Pages/CI blocker, not a scientific result. |
-| IR-79-61 | README invited rerunning/packaging stopped H79-NHR; runner entry points did not enforce its negative terminal state. | Added fail-closed terminal-lane guards before bulk reads/writes; regression tests require exit 2 and unchanged scientific files. No force flag, rerun or retune. |
-| IR-79-62 | Current home-page prose and README treated dots in a 200 m catalogue collar as pure FP, although only exact catalogue pixels are masked. Metadata also called the negative artifact unique; control tiles claimed equal budgets. | Corrected the conditional causal explanation, metadata, idealized straight-trace example and inherited-control budget disclosure. Artifact-linked organizer score receipts remain absent. |
-
-Full three-pass review: [session_review_2203b2cc.md](session_review_2203b2cc.md).
+| IR-79-57 | Pinned clean install could not collect `test_g79b.py`: `skimage` was imported by `src/gems79b/features.py` but absent from `requirements.txt` and `requirements.lock`. | Added `scikit-image` and its pinned dependency closure (`imageio`, `lazy-loader`, `networkx`, `tifffile`). Independently rediscovered by sessions 0c9f6bad, 0a460648, 6302cccd, a7d092d7, 2203b2cc, and 18e94cdc. |
+| IR-79-58 | `README.md`'s routine verification commands reran the stopped NHR lane and placed final dots before the surface uniqueness scan. | Replaced with read-only frozen artifact checks. No stopped scientific entry point was executed in review. |
+| IR-79-59 | `scripts/select_submission.py` trusted a gate-summary `all_passed` flag without invoking existing evidence/card reconciliation. | `select_submission.py` now calls `evidence_checks`, requires all 10 named literal-boolean gates, and fails closed on missing or malformed measurement evidence (`tests/test_selector_evidence.py`). |
+| IR-79-60 | A clean-environment verification run used `.venv-clean/`. `scripts/verify_project.py` recursively treated dependency templates inside `.venv-clean/` as repository files and falsely detected merge markers. | `_iter_repo_files` now ignores `.venv*` tooling directories, with regression coverage; actual repository conflict markers remain fail-closed. |
+| IR-79-61 | Runner entry points (`scripts/run_nhr.py`, `scripts/build_nhr_submission.py`) did not enforce the stopped negative terminal state of `H79-NHR` before bulk reads/writes. | Added fail-closed terminal-lane guards (`src/gems79/lifecycle.py`); regression tests (`tests/test_lane_lifecycle.py`) require exit 2 and unchanged scientific files. |
+| IR-79-62 | Home-page prose and `README.md` treated dots in a 200 m catalogue collar as pure FP, although only exact catalogue pixels are masked; metadata also called the negative artifact unique and control tiles claimed equal budgets. | Corrected the conditional causal explanation, metadata, idealized straight-trace example, and inherited-control budget disclosure (`reports/session_review_2203b2cc.md`). |
+| IR-79-63 | `scripts/validate_submission.py` and `evidence/verification.json` recorded machine-specific absolute paths (`/home/user/GEMSDOE79/docs/downloads/...`) in `format_report.validator.file` and `format_report.reference_grid.path`, causing `verify_project.py` to rewrite `evidence/verification.json` whenever invoked from a different checkout root. | `validate_path()` now normalizes paths inside `ROOT` to repo-relative POSIX paths (`docs/downloads/...`), and `verify_project.py` preserves `verified_utc` across equivalent repo-relative payloads. Hardcoded `/home/user/GEMSDOE79/` prefixes were also stripped from `run_card_g79b.json`, `run_card_stepco.json`, `evidence/uniqueness_surface.json`, and `evidence/*g79b*.json`. |
+| IR-79-64 | `scripts/reproduce_artifact.py` crashed with `KeyError: 'surface_cache_sha256'` against the current canonical `run_card.json` (`H79-NHR`), lacked `--help`, and left `evidence/artifact_reproduction.json` pointing only at archived `E1` (`8f8c2cd1...`). | Updated `scripts/reproduce_artifact.py` with `--help` and `--lane {nhr,e1}` (default `nhr`). Verified deterministic private reserialization of canonical `H79-NHR` (`abbf5314...`, ZIP `b882f55d...`, decoded `dots_sha256` `2a7ef64e...`) while preserving the archived `E1` recovery receipt. |
+| IR-79-65 | `scripts/audit_archived_concurrent_lanes.py` and `evidence/concurrent_lanes_audit.json` hardcoded `G79-FABRIC-OFFSET` as `active_deliverable_unchanged` paired with `H79-NHR`'s SHA-256, and omitted the preserved negative session lanes (`G79-FABRIC-OFFSET` E1, `G79-STEPCO` S1/S2, `G79B-SDPT` A3, `H79-FF`). Additionally, `archive/g79b_sdpt_67557396/README.md`, `scripts/submission_status_g79b.py`, and `scripts/build_site_g79b.py` still referred to `G79-STEPCO` as the canonical deliverable. | Fixed `active_deliverable_unchanged` to read directly from `run_card.json` (`H79-NHR`), added byte/uniqueness/status verification for all five preserved negative session lanes under `preserved_negative_session_lanes`, added read-only cross-lane spatial/overlap forensics (`cross_lane_comparison`) across all six `GEMSDOE79` lanes, and updated the `G79B-SDPT` provenance notes to name `H79-NHR`. |
+| IR-79-66 | **PR #34 (`d9dfb85`, session `1de1617f`, lane `H79-FF`) broke `main` CI (`Verify research deliverable` `39719939692` and `Pages and public-source health` `39719939693`).** It placed a second `.tif`/`.zip` (`gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.{tif,zip}`, `sha256: b4dd75e0...`) directly in `docs/downloads/` without `-DO-NOT-SUBMIT` in the filename, without preregistration, and without `HOLDOUT-DTI` evaluation; manually edited `docs/index.html` and `docs/executive-summary.html` with a broken link (`reports/irregularities.html`); and overwrote `data/restore_receipt.json` with a 4-file subset. | Quarantined `H79-FF`'s `.tif`, `.zip`, and `.json` byte-for-byte to `archive/h79_ff_1de1617f/downloads/` (see [`archive/h79_ff_1de1617f/README.md`](../archive/h79_ff_1de1617f/README.md) and [`evidence/ff/ff_run_card.json`](../evidence/ff/ff_run_card.json)), restored `data/restore_receipt.json` to all 7 verified files, added a stopped-lane guard to `scripts/build_ff_candidate.py`, and rebuilt `docs/` cleanly via `scripts/build_site.py`. |

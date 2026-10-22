@@ -372,63 +372,8 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 </tr>
 </tbody>
 </table>
-<h3>Concurrent review ID index (details in the addenda below)</h3>
-<table>
-<thead>
-<tr>
-<th>ID</th>
-<th>Finding</th>
-<th>Resolution</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>IR-79-57</td>
-<td>Missing scikit-image dependency.</td>
-<td>Pinned dependency closure; independently rediscovered by multiple sessions.</td>
-</tr>
-<tr>
-<td>IR-79-58</td>
-<td>Unsafe routine README rerun commands.</td>
-<td>Replaced with frozen artifact checks; terminal enforcement added in IR-79-61.</td>
-</tr>
-<tr>
-<td>IR-79-59</td>
-<td>Selector trusted gate summary without evidence reconciliation.</td>
-<td>Adapter and strict named-gate validation added by session 0c9f6bad.</td>
-</tr>
-<tr>
-<td>IR-79-60</td>
-<td>Publication scan entered <code>.venv-clean</code> dependency templates.</td>
-<td>Ignore local <code>.venv*</code> tooling directories, with regression coverage.</td>
-</tr>
-</tbody>
-</table>
-<h3>Review addendum — session 0c9f6bad (2026-10-22)</h3>
-<ul>
-<li><strong>IR-79-57:</strong> Pinned clean install could not collect <code>test_g79b.py</code>: <code>skimage</code>
-  was imported by the archived lane's retained tests but absent from requirements.
-  Added scikit-image and its pinned dependency closure. Full suite now passes.</li>
-<li><strong>IR-79-58:</strong> README's routine verification commands reran the stopped NHR lane
-  and placed final dots before the surface uniqueness scan. Replaced with frozen
-  artifact checks. No stopped scientific entry point was executed in this review.</li>
-<li><strong>IR-79-59:</strong> Selector trusted a gate-summary PASS without invoking existing
-  evidence/card reconciliation. It now calls that adapter, requires all named
-  literal-boolean gates, and fails closed on malformed measurement evidence.
-  This is consistency verification, not a fresh holdout or organizer authentication.</li>
-</ul>
-<p>Details and evidence boundaries: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0c9f6bad.md">session review</a>.</p>
-<h3>Review addendum — session 0a460648 (2026-10-22)</h3>
-<ul>
-<li><strong>IR-79-60:</strong> A clean-environment verification run used <code>.venv-clean/</code>. The
-  publication scanner recursively treated dependency templates inside that local
-  environment as repository files and falsely detected merge markers. It now
-  ignores <code>.venv*</code> tooling directories, with regression coverage; actual repository
-  markers remain fail-closed. The same session independently found IR-79-57 before
-  main advanced, so only the non-duplicative scanner fix is assigned a new ID.</li>
-</ul>
-<p>Details and evidence boundaries: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0a460648.md">session review</a>.</p>
-<h3>Session 2026-10-22 — software review (branch <code>arena/2203b2cc-gemsdoe79</code>)</h3>
+<h3>Concurrent review addenda — sessions 0c9f6bad, 0a460648, 2203b2cc, 6302cccd, a7d092d7, and 18e94cdc (2026-10-22)</h3>
+<p>Details and evidence boundaries: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0c9f6bad.md">session 0c9f6bad</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0a460648.md">session 0a460648</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2203b2cc.md">session 2203b2cc</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_session-6302cccd.md">session 6302cccd</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a7d092d7.md">session a7d092d7</a>, and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_18e94cdc.md">session 18e94cdc</a>.</p>
 <table>
 <thead>
 <tr>
@@ -439,21 +384,55 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 </thead>
 <tbody>
 <tr>
-<td>IR-79-57 (independent rediscovery)</td>
-<td>Clean lockfile install could not collect the merged G79B tests: missing <code>skimage</code>, despite <code>src/gems79b/features.py</code> importing <code>sato</code>.</td>
-<td>Added scikit-image to requirements and pinned its dependencies; full suite rerun. This was also a Pages/CI blocker, not a scientific result.</td>
+<td>IR-79-57</td>
+<td>Pinned clean install could not collect <code>test_g79b.py</code>: <code>skimage</code> was imported by <code>src/gems79b/features.py</code> but absent from <code>requirements.txt</code> and <code>requirements.lock</code>.</td>
+<td>Added <code>scikit-image</code> and its pinned dependency closure (<code>imageio</code>, <code>lazy-loader</code>, <code>networkx</code>, <code>tifffile</code>). Independently rediscovered by sessions 0c9f6bad, 0a460648, 6302cccd, a7d092d7, 2203b2cc, and 18e94cdc.</td>
+</tr>
+<tr>
+<td>IR-79-58</td>
+<td><code>README.md</code>'s routine verification commands reran the stopped NHR lane and placed final dots before the surface uniqueness scan.</td>
+<td>Replaced with read-only frozen artifact checks. No stopped scientific entry point was executed in review.</td>
+</tr>
+<tr>
+<td>IR-79-59</td>
+<td><code>scripts/select_submission.py</code> trusted a gate-summary <code>all_passed</code> flag without invoking existing evidence/card reconciliation.</td>
+<td><code>select_submission.py</code> now calls <code>evidence_checks</code>, requires all 10 named literal-boolean gates, and fails closed on missing or malformed measurement evidence (<code>tests/test_selector_evidence.py</code>).</td>
+</tr>
+<tr>
+<td>IR-79-60</td>
+<td>A clean-environment verification run used <code>.venv-clean/</code>. <code>scripts/verify_project.py</code> recursively treated dependency templates inside <code>.venv-clean/</code> as repository files and falsely detected merge markers.</td>
+<td><code>_iter_repo_files</code> now ignores <code>.venv*</code> tooling directories, with regression coverage; actual repository conflict markers remain fail-closed.</td>
 </tr>
 <tr>
 <td>IR-79-61</td>
-<td>README invited rerunning/packaging stopped H79-NHR; runner entry points did not enforce its negative terminal state.</td>
-<td>Added fail-closed terminal-lane guards before bulk reads/writes; regression tests require exit 2 and unchanged scientific files. No force flag, rerun or retune.</td>
+<td>Runner entry points (<code>scripts/run_nhr.py</code>, <code>scripts/build_nhr_submission.py</code>) did not enforce the stopped negative terminal state of <code>H79-NHR</code> before bulk reads/writes.</td>
+<td>Added fail-closed terminal-lane guards (<code>src/gems79/lifecycle.py</code>); regression tests (<code>tests/test_lane_lifecycle.py</code>) require exit 2 and unchanged scientific files.</td>
 </tr>
 <tr>
 <td>IR-79-62</td>
-<td>Current home-page prose and README treated dots in a 200 m catalogue collar as pure FP, although only exact catalogue pixels are masked. Metadata also called the negative artifact unique; control tiles claimed equal budgets.</td>
-<td>Corrected the conditional causal explanation, metadata, idealized straight-trace example and inherited-control budget disclosure. Artifact-linked organizer score receipts remain absent.</td>
+<td>Home-page prose and <code>README.md</code> treated dots in a 200 m catalogue collar as pure FP, although only exact catalogue pixels are masked; metadata also called the negative artifact unique and control tiles claimed equal budgets.</td>
+<td>Corrected the conditional causal explanation, metadata, idealized straight-trace example, and inherited-control budget disclosure (<code>reports/session_review_2203b2cc.md</code>).</td>
+</tr>
+<tr>
+<td>IR-79-63</td>
+<td><code>scripts/validate_submission.py</code> and <code>evidence/verification.json</code> recorded machine-specific absolute paths (<code>/home/user/GEMSDOE79/docs/downloads/...</code>) in <code>format_report.validator.file</code> and <code>format_report.reference_grid.path</code>, causing <code>verify_project.py</code> to rewrite <code>evidence/verification.json</code> whenever invoked from a different checkout root.</td>
+<td><code>validate_path()</code> now normalizes paths inside <code>ROOT</code> to repo-relative POSIX paths (<code>docs/downloads/...</code>), and <code>verify_project.py</code> preserves <code>verified_utc</code> across equivalent repo-relative payloads. Hardcoded <code>/home/user/GEMSDOE79/</code> prefixes were also stripped from <code>run_card_g79b.json</code>, <code>run_card_stepco.json</code>, <code>evidence/uniqueness_surface.json</code>, and <code>evidence/*g79b*.json</code>.</td>
+</tr>
+<tr>
+<td>IR-79-64</td>
+<td><code>scripts/reproduce_artifact.py</code> crashed with <code>KeyError: 'surface_cache_sha256'</code> against the current canonical <code>run_card.json</code> (<code>H79-NHR</code>), lacked <code>--help</code>, and left <code>evidence/artifact_reproduction.json</code> pointing only at archived <code>E1</code> (<code>8f8c2cd1...</code>).</td>
+<td>Updated <code>scripts/reproduce_artifact.py</code> with <code>--help</code> and <code>--lane {nhr,e1}</code> (default <code>nhr</code>). Verified deterministic private reserialization of canonical <code>H79-NHR</code> (<code>abbf5314...</code>, ZIP <code>b882f55d...</code>, decoded <code>dots_sha256</code> <code>2a7ef64e...</code>) while preserving the archived <code>E1</code> recovery receipt.</td>
+</tr>
+<tr>
+<td>IR-79-65</td>
+<td><code>scripts/audit_archived_concurrent_lanes.py</code> and <code>evidence/concurrent_lanes_audit.json</code> hardcoded <code>G79-FABRIC-OFFSET</code> as <code>active_deliverable_unchanged</code> paired with <code>H79-NHR</code>'s SHA-256, and omitted the preserved negative session lanes (<code>G79-FABRIC-OFFSET</code> E1, <code>G79-STEPCO</code> S1/S2, <code>G79B-SDPT</code> A3, <code>H79-FF</code>). Additionally, <code>archive/g79b_sdpt_67557396/README.md</code>, <code>scripts/submission_status_g79b.py</code>, and <code>scripts/build_site_g79b.py</code> still referred to <code>G79-STEPCO</code> as the canonical deliverable.</td>
+<td>Fixed <code>active_deliverable_unchanged</code> to read directly from <code>run_card.json</code> (<code>H79-NHR</code>), added byte/uniqueness/status verification for all five preserved negative session lanes under <code>preserved_negative_session_lanes</code>, added read-only cross-lane spatial/overlap forensics (<code>cross_lane_comparison</code>) across all six <code>GEMSDOE79</code> lanes, and updated the <code>G79B-SDPT</code> provenance notes to name <code>H79-NHR</code>.</td>
+</tr>
+<tr>
+<td>IR-79-66</td>
+<td><strong>PR #34 (<code>d9dfb85</code>, session <code>1de1617f</code>, lane <code>H79-FF</code>) broke <code>main</code> CI (<code>Verify research deliverable</code> <code>39719939692</code> and <code>Pages and public-source health</code> <code>39719939693</code>).</strong> It placed a second <code>.tif</code>/<code>.zip</code> (<code>gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.{tif,zip}</code>, <code>sha256: b4dd75e0...</code>) directly in <code>docs/downloads/</code> without <code>-DO-NOT-SUBMIT</code> in the filename, without preregistration, and without <code>HOLDOUT-DTI</code> evaluation; manually edited <code>docs/index.html</code> and <code>docs/executive-summary.html</code> with a broken link (<code>reports/irregularities.html</code>); and overwrote <code>data/restore_receipt.json</code> with a 4-file subset.</td>
+<td>Quarantined <code>H79-FF</code>'s <code>.tif</code>, <code>.zip</code>, and <code>.json</code> byte-for-byte to <code>archive/h79_ff_1de1617f/downloads/</code> (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_ff_1de1617f/README.md"><code>archive/h79_ff_1de1617f/README.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/ff/ff_run_card.json"><code>evidence/ff/ff_run_card.json</code></a>), restored <code>data/restore_receipt.json</code> to all 7 verified files, added a stopped-lane guard to <code>scripts/build_ff_candidate.py</code>, and rebuilt <code>docs/</code> cleanly via <code>scripts/build_site.py</code>.</td>
 </tr>
 </tbody>
-</table>
-<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_2203b2cc.md">session_review_2203b2cc.md</a>.</p></div></section></main>
+</table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

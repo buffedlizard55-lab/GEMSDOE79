@@ -1,8 +1,8 @@
 # G79B-SDPT (Arena session 67557396) — archived negative lane. DO NOT SUBMIT.
 
-This lane ran concurrently with G79-STEPCO (the canonical download on the
-live site) and is archived under the repository's concurrent-lane quarantine
-pattern. **Nothing in this directory is cleared for competition submission.**
+This lane ran concurrently with G79-STEPCO and H79-NHR (H79-NHR is the canonical
+download on the live site) and is archived under the repository's concurrent-lane
+quarantine pattern. **Nothing in this directory is cleared for competition submission.**
 
 ## What was tested
 Scarp dipole-persistence + trace-object detector (SDPT): crest–base curvature

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "verified_files_count": 5,
-  "storage_root": "/home/user/GEMSDOE79/data/raw",
+  "verified_files_count": 7,
+  "storage_root": "data/raw",
   "files": [
     {
       "id": "training_features",
@@ -25,18 +25,32 @@
       "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
     },
     {
+      "id": "ext_lidar_scarp_features_u8",
+      "dest": "external/lidar_scarp_features_u8.tif",
+      "status": "restored",
+      "bytes": 36943606,
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568"
+    },
+    {
       "id": "ext_geodawn_rad_u8",
       "dest": "external/geodawn_rad_u8.tif",
       "status": "restored",
-      "bytes": 26612970,
-      "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682"
+      "bytes": 27687166,
+      "sha256": "e8086c43e33d8278caae9966f98377c523c95f0df102d13d8242e887212cb1b4"
     },
     {
-      "id": "ext_geodawn_extensions_u8",
-      "dest": "external/geodawn_extensions_u8.tif",
+      "id": "ext_geodawn_mag_u8",
+      "dest": "external/geodawn_mag_u8.tif",
       "status": "restored",
       "bytes": 27132925,
       "sha256": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b"
+    },
+    {
+      "id": "ext_derived_sgmc_faults_100m_u8",
+      "dest": "external/derived_sgmc_faults_100m_u8.tif",
+      "status": "restored",
+      "bytes": 198602,
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0"
     }
   ]
 }
