@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: a format-valid research GeoTIFF that lost its holdout and failed the duplicate gate. Download for audit. Do not submit.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Analysis</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
 <table>
@@ -635,6 +635,23 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>IR-79-89</td>
 <td><strong>Concurrent-lane merge.</strong> While H79-FFAS ran, <code>main</code> received G79-THVC (PR #51) and H79-STEP (PR #53). Both are negative research GeoTIFFs. Publication policy allows one pair in <code>docs/downloads/</code>.</td>
 <td>Canonical card stays H79-FFAS (this session's unique generated TIF). H79-NHR bytes exist at both <code>archive/h79_nhr/</code> and <code>archive/h79_nhr_337ac1e9/downloads/</code> (identical SHA-256 <code>abbf5314…</code>). H79-STEP archived to <code>archive/h79_step_21642326/</code>. G79-THVC archived to <code>archive/g79_thvc_33e1f8ec/</code>. No retuning of any stopped lane.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 2026-10-22 — H79-DILSTEP (branch <code>arena/6444be2d-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-90</td>
+<td>2026-10-22. This session's preregistration cited IR-79-67 before that id was taken by a concurrent merge (session 566bec0c). The rule actually used is the same as shared <code>informative-halo-v4</code> (IR-79-86): Spearman &gt; 0.90 always stops; forward overlap &gt; 0.70 stops only when that prior's 3 px halo covers at most 70% of allowed cells. Thresholds were not changed. No named raster was exempted. The preregistration file was not edited after the score, so its hash still matches the card.</td>
+<td>H79-DILSTEP E1 lost the holdout to the H33 control on both seeds and failed this gate against 12 registry files (7 distinct maps). No retune, no overlap cap, no submission placement, no slot. H79-FFAS, which was canonical on main, is archived so <code>docs/downloads/</code> keeps one pair.</td>
 </tr>
 </tbody>
 </table></div></section></main>
