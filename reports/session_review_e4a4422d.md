@@ -90,7 +90,7 @@ Additional checks:
 - [Prompt preservation](../evidence/review_e4a4422d/prompt_preservation.json): full original prompt retained byte-for-byte. Prior README prose is preserved under `archive/review_e4a4422d/`.
 - Actual direct feed refresh at `2026-10-22T14:32:02Z` recorded six network/TLS failures. It preserved the dated leaderboard observation instead of inventing fresh values. Successful research-page reads are recorded separately.
 
-The original instruction to rerun a stopped THVC experiment was removed from the active README. New receipt/provenance and publication findings occupy **IR-79-157 through IR-79-163**; concurrent IR-79-148 through IR-79-156 remain intact.
+The original instruction to rerun a stopped THVC experiment was removed from the active README. New receipt/provenance and publication findings occupy **IR-79-159 through IR-79-165**; concurrent IR-79-148 through IR-79-158 remain intact.
 
 ## Remaining limitations and the next session
 
@@ -107,4 +107,4 @@ The original instruction to rerun a stopped THVC experiment was removed from the
 
 PR #86's initial scientific/software verification workflows completed successfully for `1a30eab`; its Pages build was cancelled while PR and production work shared one concurrency group. The workflow now uses a separate PR-number group while retaining the original production key, so existing production runs stay serialized and review builds cannot replace pending production deployments. PR deployments remain disabled and exact-byte post-deployment checks remain required. One additional regression test covers this isolation. Workflow-log download was unavailable through this sandbox's restricted egress; workflow API conclusions, not invented log contents, were used.
 
-All changes are on the assigned branch. Concurrent main snapshots through `592e472` were integrated without adopting other lanes' limited-comparator uniqueness as full approval. The active site serves one canonical research TIFF only. PR/merge status and public deployment verification are reported separately when completed; no public deployment success is inferred from local QA.
+All changes are on the assigned branch. Concurrent main snapshots through `c9cd155` were integrated without adopting other lanes' limited-comparator uniqueness as full approval. The concurrent canonical selector adapter from PR #71 is retained and uses this review’s strengthened evidence checks; its measured refusal is replayed without changing the card. The active site serves one canonical research TIFF only. PR/merge status and public deployment verification are reported separately when completed; no public deployment success is inferred from local QA.

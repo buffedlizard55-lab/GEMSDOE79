@@ -1131,6 +1131,28 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
+<h3>Session <code>f40e4f2e</code> addendum (2026-10-22) — canonical selector evidence adapter, exact ETP forensic measurement &amp; autonomous data/cache verification</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-157</td>
+<td><strong>The only selector authorized to set <code>ok_to_submit</code> rejected canonical <code>G79-THVC</code> as an unsupported lane before reading its frozen evidence.</strong> Consequently, unattended selection reported adapter scope instead of the actual scientific blocker, while the README inaccurately described cross-repo selection as pending.</td>
+<td>Added a fail-closed canonical adapter in <code>scripts/select_submission.py</code> with strict finite/range/type checks. It re-derives hash, format, two-seed canary, holdout, rank-correlation, and literal surface/final overlap checks from frozen receipts, refusing (<code>exit 2</code>, card unchanged) because both literal overlaps are <code>1.0 &gt; 0.70</code> and <code>protocol_unique=false</code>. Added adversarial software-fixture tests (<code>tests/test_selector_evidence.py</code>).</td>
+</tr>
+<tr>
+<td>IR-79-158</td>
+<td><strong>Leftover root <code>run_card_etp.json</code>, <code>registry/preregistration_etp.json</code>, and <code>2.02 MB</code> duplicate <code>data/bridge/*.tif</code> remained outside <code>archive/</code> after PR #78.</strong> <code>run_card_etp.json</code> carried a fabricated hex digest (<code>a1b2c3d4e5f67890abcdef…</code>, actual file SHA-256 <code>bb325399fcc5091a…</code>), a dangling <code>docs/downloads/…</code> path, and unmeasured <code>"dti": 0.021 / 0.019</code> (<code>withheld_positive_pixels: 20010 / 19949</code>) claims, while static ETP rasters excluded <code>&lt;=2 px</code> around the full <code>existing_faults.tif</code> (scoring <code>0.0000</code> on withheld truth).</td>
+<td>Evaluated fold-fair <code>G79-ETP-v2</code> on unmodified <code>gems57-pooled-hide-v2</code> (<code>HOLDOUT-DTI = 0.0968</code> <code>[0.0838, 0.1112]</code> on Seed 20 <code>n=11,321</code>; <code>0.1061</code> <code>[0.0911, 0.1217]</code> on Seed 30 <code>n=11,342</code>, nearly <code>2x</code> below canonical <code>G79-THVC</code> <code>0.1905 / 0.1944</code>), recorded <code>evidence/etp_forensic_audit_f40e4f2e.json</code> and <code>evidence/data_and_pipeline_verification_f40e4f2e.json</code> (<code>13/13</code> manifest inputs + <code>8/8</code> reproduced E1 <code>.npy</code> transforms), relocated <code>run_card_etp.json</code> and <code>registry/preregistration_etp.json</code> into <code>archive/g79_etp_incoming_45998a01/</code>, and removed duplicate <code>data/bridge/*.tif</code>.</td>
+</tr>
+</tbody>
+</table>
 <h3>Session e4a4422d — receipt reconciliation and scientific reporting (2026-10-22)</h3>
 <table>
 <thead>
@@ -1142,37 +1164,37 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-157</td>
+<td>IR-79-159</td>
 <td>Canonical THVC card aliases mixed shared-evaluator intervals with a separate historical bootstrap; seed-30, paired-difference and ablation aliases were not fully reconciled by the old verifier.</td>
 <td>Preserved the original card and before/after metadata in <code>evidence/review_e4a4422d/</code>. All four canonical cards now use <code>official_evaluate_all</code>; read-only checks cover both seeds, pooled algebra, all arms, paired intervals, evaluator pins, type-strict aliases and every canary row. No prediction, bootstrap, TIFF or frozen scientific receipt changed.</td>
 </tr>
 <tr>
-<td>IR-79-158</td>
+<td>IR-79-160</td>
 <td>Site hardcoded green uniqueness, sparse-only clearance, a complete 1,108-raster scan and incorrect confidence intervals/counts. The frozen receipts actually have 20 non-comparable entries and full overlap failures.</td>
 <td>Receipt-derived tables separate full gates from diagnostics. Surface and dot novelty remain BLOCKED. Both stages and table content are checked during site QA. Concurrent review's manual-upload refusal is preserved; no new unique file is claimed.</td>
 </tr>
 <tr>
-<td>IR-79-159</td>
+<td>IR-79-161</td>
 <td><code>charnes_cooper_submodular_emit</code> uses fixed-penalty lazy-greedy weighted coverage, not an exact Charnes-Cooper transform or Dinkelbach ratio solver. Catalogue endpoint cones do not solve 3D elasticity.</td>
 <td>Corrected active mechanism prose without changing historical function names, note, model or results. Older report is explicitly superseded. No optimality, stress-field, permeability or geothermal-production proof is claimed.</td>
 </tr>
 <tr>
-<td>IR-79-160</td>
+<td>IR-79-162</td>
 <td>Earlier H80-MT-PHASE plan calls its source shallow resistivity slices; official DOI 10.5066/P9TWT2LU lists depth-integrated conductance, with its surface layer spanning 2–12 km. Cached band-15 basement interpretation also differs from the organizer's conductive-base wording.</td>
 <td>Marked the old plan unsupported as written, excluded ambiguous bands from the new nominated mechanism, and recorded official claims in <code>knowledge/review_e4a4422d_sources.json</code>. Heat-flow residual ZIP is listed but not acquired; it is data-blocked, not execution-ready.</td>
 </tr>
 <tr>
-<td>IR-79-161</td>
+<td>IR-79-163</td>
 <td>Historical FNHR/H33 prose misstated deleted-dot lineage and implied causal leaderboard gains; some THVC text called two regional catalogue seeds independent.</td>
 <td>Independently restored pinned H33/D2.8 blobs: 44,090 minus 6,436 equals 37,654; zero pruning disagreements; no deleted pixel exactly on catalogue. Geometry is not causal score evidence. Seeds share geography, intervals are conditional, and no local artifact has an organizer receipt.</td>
 </tr>
 <tr>
-<td>IR-79-162</td>
+<td>IR-79-164</td>
 <td>Vendor README claimed every shared file was unchanged upstream despite documented uniqueness amendments; the main README recommended rerunning a stopped lane and mixed old reports with current guidance.</td>
 <td>Corrected shared-tool provenance without editing pinned modules. Replaced active overview, preserved the full original prompt byte-for-byte and archived the previous README. Restored 13 pinned inputs and remeasured the universal witness, but opened no scientific lane; no delimited method assignment was supplied. Three-pass review is recorded separately.</td>
 </tr>
 <tr>
-<td>IR-79-163</td>
+<td>IR-79-165</td>
 <td>PR builds and production deployments used the same Pages concurrency group. The review PR's Pages run was cancelled while its two verification workflows completed successfully; a later pending PR run can displace a pending production run under the shared group.</td>
 <td>Separate PR-number groups from the production group. Keep production serialized and PR deployments disabled; retain exact public-byte verification. Added a workflow regression test. Observed cancellation alone does not authenticate a successful deployment.</td>
 </tr>
