@@ -13,8 +13,15 @@ strict R1–R8 format check still rejects the inherited artifact's zero exterior
 (R6), despite its finite [0,1] interior; it is research-only. Full regression
 suite: **603 passed**. The full original project prompt remains below.
 
+## Latest review — 2026-10-22, Arena session `d754356b`
 
-## Latest review — 2026-10-22, session `1f9d2dc9`
+**No new candidate TIFF was generated; no submission is approved.** The prompt's purported assigned method paragraph is absent, and the literal novelty preflight returns exit 2: a hash-verified registry witness covers 100% of allowed cells, so every nonempty candidate exceeds the 70% forward-overlap limit. Do not rename, jitter, or re-place an archived raster. This review used zero submission slots.
+
+The audited, already archived STEPCO S2-COVER artifact is **DO NOT SUBMIT**: its `gems57-pooled-hide-v2` HOLDOUT-DTI is 0.09354 (seed 20; 11,321 withheld positives; 95% CI [0.07802, 0.10885]) and 0.09607 (seed 30; 11,342 withheld positives; 95% CI [0.07959, 0.11172]); its paired CIs versus the fold-fair H33 control include zero and its literal final-dot overlap is 1.0. Those are historical results already in the repository, not results from this session. H33's 0.2778 remains an **UNVERIFIED HISTORICAL REPORT**, not an organizer receipt.
+
+See the [three-pass review](reports/session_review_d754356b.md) and [JSON run card](evidence/run_card_d754356b.json) for the five qualitatively ranked hypotheses, official-source links, exact test results, runtime-data status, and blockers. Runtime inputs remain 0/13 under `data/raw`; no model experiment or new submission file was possible under the current stop conditions.
+
+## Latest prior review — 2026-10-22, session `1f9d2dc9`
 
 **No new candidate TIFF was generated; no submission is approved.** The
 [three-pass review](reports/session_review_1f9d2dc9.md) documents the literal-novelty

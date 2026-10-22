@@ -122,3 +122,7 @@ and its generator were produced by a different session, not this review; their
 existence does not change this review's no-new-TIFF outcome or grant submission
 approval. The generator's filename describes it as DO-NOT-SUBMIT. Rechecked the
 merged tree before merge; no scientific claim is inferred from those new bytes.
+
+Main advanced once more through documentation-only PR #130 during merge. Retained
+its separate d754356b review and resolved the README header conflict by keeping
+both session summaries. No executable code changed in that upstream update.
