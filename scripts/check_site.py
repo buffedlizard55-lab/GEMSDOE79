@@ -3,6 +3,7 @@
 from __future__ import annotations
 import json
 from pathlib import Path
+import re
 from urllib.parse import unquote, urlsplit
 from bs4 import BeautifulSoup
 
@@ -62,6 +63,21 @@ def check_site():
             break
         reachable = expanded
     assert reachable == set(pages), 'Orphaned page'
+    home_text = pages['index.html'].get_text(' ', strip=True)
+    executive_text = pages['executive-summary.html'].get_text(' ', strip=True)
+    research_text = pages['research.html'].get_text(' ', strip=True)
+    assert 'selected historical comparisons' in home_text.lower()
+    assert 'not a complete lane roster' in home_text
+    assert 'Active Candidate' not in (home_text + executive_text + research_text)
+    assert not re.search(r'\b(?:all|all-time)\s+(?:9|11|16|17|19)\s+GEMSDOE79\s+lanes\b',
+                         home_text + executive_text + research_text, flags=re.IGNORECASE)
+    assert 'no submission is authorized' in home_text.lower()
+    assert 'Do not upload this artifact' in executive_text
+    assert 'unvalidated planning estimates, not measured scores' in research_text
+    analysis_ids = {tag.get('id') for tag in pages['analysis.html'].select('[id]')}
+    assert 'session-review-0607bf35' in analysis_ids
+    assert any(tag.get('href') == 'analysis.html#session-review-0607bf35'
+               for tag in pages['research.html'].select('a[href]'))
     card = json.loads((site / 'evidence/run_card.json').read_text())
     line = decision_line(card)
     other = 'OK TO SUBMIT: NO.' if 'SUBMIT: YES' in line else 'OK TO SUBMIT: YES.'
@@ -87,7 +103,8 @@ def check_site():
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()
     return {'passed': True, 'pages': len(pages), 'local_links_checked': local_links,
             'all_pages_reachable_from_home': True, 'compatibility_redirects': len(aliases), 'external_assets': 0,
-            'source_health_is_not_claimed_as_receipt': True, 'submit': card['ok_to_submit']}
+            'source_health_is_not_claimed_as_receipt': True, 'submission_copy_is_fail_closed': True,
+            'lane_comparison_scope_is_explicit': True, 'submit': card['ok_to_submit']}
 
 
 if __name__ == '__main__':

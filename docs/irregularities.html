@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: research-only GeoTIFF; literal registry-uniqueness gate blocks submission.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Status & limits ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
 <table>
@@ -1021,6 +1021,29 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-142</td>
 <td><strong>Complete <code>0 / 934</code> sparse competition uniqueness proof &amp; controlled refutation of near-fault crowding (<code>evidence/fnhr/like_for_like_diagnostic.json</code>).</strong> Across all <strong><code>934</code> comparable sparse dot fields (<code>&lt;= 75,308</code> dots = <code>&lt;= 2x</code> budget)</strong> in 93 sibling repositories, <code>H79-FNHR</code> (<code>F3</code>, <code>d5f69d51…</code>) achieves <strong><code>0 / 934</code> duplicates (<code>max overlap = 0.6726 &lt;= 0.70</code>, <code>0.4814</code> vs <code>H33</code>, <code>0.4405</code> vs canonical <code>G79-THVC</code>)</strong>, whereas all <code>25</code> remaining raw overlaps (<code>20</code> even at <code>F1</code>'s <code>70 % &gt; 1 km</code> H33 distance distribution) are <code>80,000–985,492</code>-dot wide sweeps against which <strong><code>H33</code> itself overlaps <code>0.9295</code></strong>.</td>
 <td>Canonical repository artifact remains <strong><code>G79-THVC</code></strong> (<code>0.1905 / 0.1944 HOLDOUT-DTI</code>); <code>H79-FNHR</code> (<code>F3</code>, <code>verdict = negative</code>, <code>OK TO SUBMIT: NO</code>, <code>0</code> slots used) is archived cleanly under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_fnhr_a57e2a7f/README.md"><code>archive/h79_fnhr_a57e2a7f/</code></a>. Combining <code>H79-FNHR</code>'s <code>0.0906</code> zero-catalogue physics head with <code>G79-THVC</code>'s Charnes-Cooper placer (<code>0.4405</code> mutual overlap) is the top candidate for the next prospective lane once the owner decides <code>DENSE_SUPPORT_FRACTION</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>0607bf35</code> (2026-10-22) — official MT-source and site-status reconciliation (<code>arena/0607bf35-gemsdoe79</code>)</h3>
+<p>Three-pass review record: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0607bf35.md"><code>reports/session_review_0607bf35.md</code></a>. No scientific lane was restarted and no submission slot was used.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-143</td>
+<td><strong>The first post-THVC MT hypothesis misidentified its official input.</strong> <code>research/hypotheses_post_thvc_backlog.md</code> described phase-tensor / resistivity slices at <code>500 m</code>, <code>1.5 km</code>, and <code>3 km</code>, but the official USGS ScienceBase release <code>10.5066/P9TWT2LU</code> lists five GeoTIFFs of depth-integrated electrical conductance over <code>2–12</code>, <code>12–20</code>, <code>20–50</code>, <code>50–90</code>, and <code>90–200 km</code> (<code>EPSG:4269</code>). The metadata/item listing was reviewed; raster bytes were not retrieved.</td>
+<td>Reframed the proposal as a coarse regional conductance-contrast hypothesis, renamed it <code>H80-MT-CONDUCTANCE</code>, added the official metadata to <code>knowledge/official_sources.json</code>, and explicitly disclaimed 100 m fault-trace resolution. Numerical gain ranges remain speculative planning estimates, not <code>HOLDOUT-DTI</code>, public DTI, or organizer score evidence. No experiment or raster download occurred.</td>
+</tr>
+<tr>
+<td>IR-79-144</td>
+<td><strong>Generated-site lane totals and approval wording mixed incompatible historical scopes.</strong> <code>scripts/build_site.py</code> hardcoded <code>All 9</code>, <code>all 19</code>, and <code>all 11</code> claims, but the comparison table was only a subset; it also called canonical <code>G79-THVC</code> an “Active Candidate” despite <code>verdict: negative</code>, <code>ok_to_submit: false</code>, and the literal witness stop. The frozen audit key <code>gemsdoe79_16_lanes_summary</code> contains 17 rows; README’s 19-record through-PR-62 scope and the earlier 11-formulation research review are dated, differently filtered inventories, with later addenda beyond them.</td>
+<td>The generated site now labels its table as selected/non-exhaustive, reports the measured HOLDOUT-DTI comparison against H33 rather than a lane-wide ranking, removes “Active Candidate” and upload-clearance language, and states that a weekly slot cannot bypass the literal gate. README/AGENTS and the backlog now distinguish snapshot scopes. <code>scripts/check_site.py</code> asserts fail-closed wording and rejects the stale counts. No lane total is asserted as a current exhaustive count.</td>
 </tr>
 </tbody>
 </table></div></section></main>

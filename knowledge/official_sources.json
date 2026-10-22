@@ -96,6 +96,24 @@
       ]
     },
     {
+      "id": "USGS-MT-CONDUCTANCE-2022",
+      "source_type": "OFFICIAL DATA RELEASE",
+      "authority": "U.S. Geological Survey; Peacock & Bedrosian (2022)",
+      "url": "https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b?format=json",
+      "doi": "10.5066/P9TWT2LU",
+      "access": "ScienceBase metadata and item/file listing reviewed 2026-10-22; attachment bytes were not retrieved",
+      "verified_claims": [
+        "The release, “Electrical Conductance Maps of the Great Basin, USA,” provides five conductance GeoTIFFs integrated over 2–12, 12–20, 20–50, 50–90, and 90–200 km depth intervals.",
+        "The metadata describes conductance as depth-integrated electrical conductivity estimated from a 3D inverse model using more than 800 publicly available magnetotelluric transfer functions.",
+        "The ScienceBase metadata lists the raster products in native CRS EPSG:4269."
+      ],
+      "limits": [
+        "These are depth-integrated conductance maps, not discrete-depth resistivity slices or phase-tensor products.",
+        "The release does not substantiate proposed 500 m, 1.5 km, or 3 km resistivity layers or 100 m fault-trace resolution.",
+        "The public item/file listing establishes metadata and listed availability only; no raster bytes, raster-level resampling, or project-ready availability were verified in this workspace."
+      ]
+    },
+    {
       "id": "DD-REFERENCE",
       "authority": "drivendataorg official GitHub organization",
       "url": "https://github.com/drivendataorg/gems-prize-reference-solution",

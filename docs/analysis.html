@@ -1,12 +1,46 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: research-only GeoTIFF; literal registry-uniqueness gate blocks submission.">
 <title>Why H33 scored highest, and what can beat it · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Three-Pass Comprehensive Review &amp; Cross-Repository Audit — Session <code>070af0b6</code> (<code>2026-10-22</code>)</h2>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Status & limits ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section" id="session-review-0607bf35"><h2>Current source and lane-count reconciliation</h2><div class="prose table-scroll"><h2>Session review <code>0607bf35</code> — source and publication reconciliation</h2>
+<ul>
+<li><strong>Date:</strong> 2026-10-22 (UTC)</li>
+<li><strong>Branch:</strong> <code>arena/0607bf35-gemsdoe79</code></li>
+<li><strong>Base:</strong> <code>847a4a0fb16b9173507b89cbb5a532d40fcea966</code></li>
+<li><strong>Scope:</strong> Documentation/source-ledger corrections, public-site copy, and verification guards only. No scientific experiment, lane restart, dot placement, TIFF/ZIP generation, upload, score query, or slot use.</li>
+</ul>
+<h3>Decision state</h3>
+<p>The canonical research artifact remains <code>G79-THVC</code>, SHA-256 <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>. <strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> The exact literal-uniqueness obstruction is unchanged; no numerical score or submission clearance was produced.</p>
+<h3>Review pass 1 — official source and frozen-evidence review</h3>
+<ul>
+<li>Re-read the working-tree <code>README.md</code>, <code>AGENTS.md</code>, canonical run card, current irregularities ledger, and the named preregistration records before editing.</li>
+<li>Inspected the official USGS ScienceBase metadata for DOI <code>10.5066/P9TWT2LU</code>, <em>Electrical Conductance Maps of the Great Basin, USA</em> (Peacock &amp; Bedrosian, 2022). It lists conductance products integrated over <code>2–12</code>, <code>12–20</code>, <code>20–50</code>, <code>50–90</code>, and <code>90–200 km</code>; metadata reports native CRS <code>EPSG:4269</code>. These are depth-integrated conductance products, not phase-tensor measurements or fixed-depth resistivity slices. The file listing is not proof that raster bytes were downloaded; none were.</li>
+<li>Read all seven parsed chunks of the official DOE/NLR rules PDF. Sections 3.2–3.5 confirm one single-layer 100 m GeoTIFF, up to three weekly feedback submissions subject to the site limit, one final selection across both prize rounds, and required generative-AI narrative disclosure; this is not evidence of account eligibility, a free slot, or organizer acceptance.</li>
+<li>Corrected the MT backlog to treat the data only as possible coarse regional context after future grid/coverage/unit QA. It makes no 100 m fault-trace resolution claim. All gain/runtime ranges in the backlog are explicitly labeled unvalidated planning estimates, not <code>HOLDOUT-DTI</code>, public DTI, or organizer-confirmed scores.</li>
+<li>Reconciled historical lane-count scope without inventing a current total: the key <code>gemsdoe79_16_lanes_summary</code> in the frozen JSON contains 17 rows; the separate README through-PR-62 summary describes 19 records, and the earlier backlog enumerates 11 formulations. These are different dates and inclusion rules; later records extend them. The previous generated homepage’s “All 9” table was not exhaustive.</li>
+<li>Logged the findings as <code>IR-79-143</code> (source correction) and <code>IR-79-144</code> (site/status and count scope).</li>
+</ul>
+<h3>Review pass 2 — implementation, negative checks, and tests</h3>
+<ul>
+<li>Updated <code>knowledge/official_sources.json</code>, <code>research/hypotheses_post_thvc_backlog.md</code>, README, AGENTS guidance, the site generator, and its site-check assertions. The site calls the historical table selected/non-exhaustive, labels <code>G79-THVC</code> a negative canonical research artifact, compares measured holdout output only with the H33 fold-fair control, and states that a weekly slot cannot bypass the literal gate.</li>
+<li><code>scripts/preflight_new_lane.py --restore</code> was run and returned the expected fail-closed exit <code>2</code>: the pinned witness covers <code>1.0</code> of allowed cells, above the <code>0.70</code> limit. It did not run an experiment or write a new run card.</li>
+<li>The first new metadata test used case-sensitive display text for a lowercase hostname and expected “not retrieved” while the ledger said “no raster bytes.” The assertions were corrected to test the hostname and the actual limitation semantically; the focused test then passed before the full-suite rerun.</li>
+</ul>
+<h3>Review pass 3 — final verification, build, and limitations</h3>
+<ul>
+<li><code>.venv/bin/python scripts/preflight_new_lane.py --restore</code> returned exit <code>2</code> as required: witness SHA-256 <code>ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be</code>, allowed-cell coverage <code>1.0</code>, gate limit <code>0.70</code>. No experiment or run card was created.</li>
+<li><code>.venv/bin/python scripts/verify_project.py</code>: <code>all_checks_passed: true</code> (<strong>31 / 31</strong> checks). Canonical raster SHA-256 remains <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>.</li>
+<li><code>.venv/bin/python scripts/build_site.py</code>: <strong>7 pages</strong>, decision line <code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code></li>
+<li><code>.venv/bin/python scripts/check_site.py</code>: <strong>passed</strong>, 7 pages, <strong>146 local links</strong>, 2 compatibility redirects, no third-party assets; fail-closed submission copy and explicit non-exhaustive comparison scope both pass.</li>
+<li><code>.venv/bin/python -m pytest -q</code>: <strong>356 passed</strong>.</li>
+<li><code>.venv/bin/python scripts/submission_status.py</code>: exit <code>2</code> (expected); <code>ok_to_download: true</code>, <code>ok_to_submit: false</code>, verdict <code>negative</code>, organizer acceptance false. Blockers include literal novelty not cleared, negative scientific verdict, missing selector approval/receipt, and absent explicit approval.</li>
+<li>The source-health feed was not refreshed. Its recorded attempt remains <code>2026-10-22T05:40:41.522520+00:00</code>; the source-ledger update is a metadata review, not a feed-reachability result.</li>
+<li>No ScienceBase TIFF bytes were downloaded, no new leaderboard check was made, and no DrivenData account receipt or weekly-slot status was accessible. No relationship between the user-reported H33 score and a specific raster was verified here.</li>
+</ul></div></section><section class="section"><div class="prose table-scroll"><h2>Three-Pass Comprehensive Review &amp; Cross-Repository Audit — Session <code>070af0b6</code> (<code>2026-10-22</code>)</h2>
 <ul>
 <li><strong>Branch:</strong> <code>arena/070af0b6-gemsdoe79</code> (<code>status: active</code>)</li>
 <li><strong>Canonical Artifact (<code>docs/downloads/</code>):</strong> <code>g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif</code> (<code>137,299 B</code>, SHA-256 <code>d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2</code>) · Single-TIFF <code>.zip</code> (<code>102,628 B</code>, SHA-256 <code>dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9</code>)</li>
