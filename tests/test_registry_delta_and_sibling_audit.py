@@ -97,15 +97,21 @@ def test_post_snapshot_sibling_audit_and_binary_pigeonhole_certificate() -> None
     assert pigeon['guaranteed_min_overlap_at_37654_dots'] > 0.70
 
     by_repo = {row['repo']: row for row in audit['prompt_sibling_candidates_audit']}
-    card = json.loads((ROOT / 'run_card.json').read_text())
+    active_card = json.loads((ROOT / 'run_card.json').read_text())
+    nhr_card = json.loads((ROOT / 'archive/h79_nhr/run_card.json').read_text())
     g79 = by_repo['GEMSDOE79']
-    assert g79['sha256'] == card['raster_sha256']
+    assert g79['sha256'] == nhr_card['raster_sha256']
     assert g79['format_validation']['all_checks_passed'] is True
     u79 = g79['uniqueness_cross_repo_priors_only']
     assert u79['literal_rasters_gt_0_70'] > 0
     assert u79['budget_matched_v3_rasters_gt_0_70'] > 0
     assert u79['passes_non_space_filling_0_70_gate'] is False
     assert u79['passes_sparse_le_60k_0_70_gate'] is False
+
+    local_lanes = audit['local_gems79_concurrent_lanes_audit']
+    assert local_lanes['H79-DILSTEP_active']['sha256'] == active_card['raster_sha256']
+    assert local_lanes['H79-NHR_archived']['sha256'] == nhr_card['raster_sha256']
+    assert local_lanes['G79-MAG_quarantined']['overlap_vs_13gemsdoe_r13_lattice_s5'] > 0.99
 
     g81 = by_repo['GEMSDOE81']
     assert g81['uniqueness_cross_repo_priors_only']['worst_sparse_le_60k_match']['overlap_3px'] > 0.90
@@ -135,7 +141,7 @@ def test_irregularities_markdown_rows_and_prompt_sync() -> None:
             assert m is not None
             ids.append(int(m.group(1)))
     assert len(ids) == len(set(ids))
-    assert max(ids) >= 72
+    assert max(ids) >= 95
 
     readme = (ROOT / 'README.md').read_text()
     for repo_num in range(84, 89):

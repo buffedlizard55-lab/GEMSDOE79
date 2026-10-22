@@ -3,7 +3,7 @@
   "generated_utc": "2026-10-22T04:49:05.369431+00:00",
   "session_branch": "arena/4ddab9a1-gemsdoe79",
   "shared_tools_pinned": {
-    "uniqueness_py_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+    "uniqueness_py_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
     "validate_py_sha256": "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd",
     "evaluate_holdout_py_sha256": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
     "disk3_exactness_self_test": {
@@ -1253,7 +1253,8 @@
           "chance_halo_coverage": 0.609668,
           "excess_overlap_ratio": 0.777038
         }
-      }
+      },
+      "archived_path_after_pr55": "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif"
     },
     {
       "repo": "GEMSDOE80",
@@ -2376,6 +2377,32 @@
       "GEMSDOE82:gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros": 0.433181,
       "GEMSDOE83:gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros": 0.329421,
       "GEMSDOE32:h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros": 1.0
+    }
+  },
+  "local_gems79_concurrent_lanes_audit": {
+    "H79-DILSTEP_active": {
+      "path": "docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+      "sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
+      "emitted_positive_pixels": 37654,
+      "format_all_checks_passed": true,
+      "overlap_vs_13gemsdoe_r13_lattice_s5": 0.998486,
+      "overlap_vs_gemsdoe3_coverage_v3_wide": 0.802013
+    },
+    "H79-NHR_archived": {
+      "path": "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "emitted_positive_pixels": 37654,
+      "format_all_checks_passed": true,
+      "overlap_vs_13gemsdoe_r13_lattice_s5": 0.995485,
+      "overlap_vs_gemsdoe3_coverage_v3_wide": 0.912971
+    },
+    "G79-MAG_quarantined": {
+      "path": "archive/g79_mag_730d5ee7/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
+      "sha256": "e48a9293bae098bee570160e44aeffc511347080876ecb96bd7688946b82e40e",
+      "emitted_positive_pixels": 37654,
+      "format_all_checks_passed": true,
+      "overlap_vs_13gemsdoe_r13_lattice_s5": 0.990864,
+      "overlap_vs_gemsdoe3_coverage_v3_wide": 0.673766
     }
   }
 }

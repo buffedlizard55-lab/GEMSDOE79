@@ -1,0 +1,43 @@
+{
+  "lane": "H79-STEP",
+  "title": "Catalogue-distance annulus weighted by fault-zone complexity (analytic, terrain-free)",
+  "registered_utc": "2026-10-22T04:30:00Z",
+  "registered_before": "building the surface or reading any HOLDOUT-DTI",
+  "session_branch": "arena/21642326-gemsdoe79",
+  "lane_assignment_note": "This session declares H79-STEP as its one lane and stays inside it. The active H79-NHR lane is stopped negative (duplicate gate) and is NOT restarted or retuned. H79-STEP uses only the pinned grid (existing_faults.tif + sample_submission.tif); no login-walled organizer training data is required.",
+  "hypothesis": "Unmapped normal-fault strands (splays, step-over ramps, relay terminations) concentrate at the EDGES of mapped fault zones where the catalogue-distance field changes rapidly and the mapped network is locally complex, rather than immediately adjacent to single traces. An analytic surface that is high in the 200 m-2 km off-fault annulus AND in locally complex fault zones should rank hidden catalogue segments above uniform or single-distance surfaces, while occupying a different part of prediction space than the dense near-trace dot fields already in the registry.",
+  "mechanism": "1) D = Euclidean distance to the nearest mapped fault pixel (100 m grid). 2) Local fault-zone complexity = count of catalogue pixels in a 900 m (9 px) window. 3) Surface = annulus_window(D, 200 m-2 km) * complexity, rank-normalised to [0,1] over the footprint. 4) Dots emitted by fixed-budget 3 px Poisson spacing on surface > 0, zero on mapped faults and outside the footprint. Values exactly {0,1}. No DEM, no geophysics, no fitted model, no hidden labels enter the surface.",
+  "named_non_fault_process": "Pluvial Lake Lahontan shoreline/terrace risers, incised channel banks, roads and mine benches can produce linear steps in the piedmont; these are not faults and are not in the catalogue, so they can mimic the surface but are scored as false positives by the holdout.",
+  "inputs": [
+    "Pinned data/reference/existing_faults.tif (sha256 7ba308cc...): mapped USGS/INGENIOUS fault catalogue",
+    "Pinned data/reference/sample_submission.tif (sha256 2176d08e...): footprint, CRS EPSG:32611, 100 m transform"
+  ],
+  "holdout": {
+    "split": "vendor/gems57 holdout.buffered_component_draw (whole components, buffer_px=3, boundary_px=12), seeds 20 and 30",
+    "masking": "visible catalogue masked pixel-exactly; dots placed strictly off the mapped catalogue; surface analytic (no fitted model)",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "kernel": "300 m triangular (3 px)",
+    "ci": "paired percentile bootstrap over 20 km (200 px) blocks, 1000 draws",
+    "budget_dots": 37654,
+    "spacing_px": 3,
+    "evaluator": "vendor/gems57 evaluate_holdout.py VERSION gems57-pooled-hide-v2 (unmodified, shared)"
+  },
+  "leakage_canary": "Surface alone vs withheld positives (200k sampled negatives > 3 px from visible catalogue): symmetric AUC must be <= 0.90 on BOTH seeds, else STOP (protocol rule 4).",
+  "uniqueness_protocol": {
+    "shared_tool": "vendor/gems57/uniqueness.py compare_array_to_registry + two_phase_summary (unmodified)",
+    "registry": "992-raster inventory in registry/registry_index.json + registry_receipt.json",
+    "gates": "Spearman <= 0.90 vs all registry rasters on the surface; forward 3 px overlap <= 0.70 vs every dot-field prior on the final dots; no byte/decoded identity with any prior",
+    "caveat": "Registry rasters are not restored in this checkout (.cache/registry is empty), so the shared uniqueness gate cannot be executed locally; reported as NOT_CHECKED with reason, not cleared."
+  },
+  "gates_to_promote_all_required": [
+    "G1 canary: no symmetric AUC > 0.90 on either seed",
+    "G2 uniqueness attempted and honestly reported (NOT_CHECKED if registry unavailable)",
+    "G3 format: shared writer + on-disk validator PASS (single-band float32, EPSG:32611, 3730x3292, exact sample transform, all finite in [0,1], zero off-footprint and on catalogue)",
+    "G4 holdout measured: HOLDOUT-DTI + withheld count + paired 95% CI on both seeds",
+    "If any gate fails the verdict is negative / DO-NOT-SUBMIT; the negative result is the deliverable. No human inspection at any gate."
+  ],
+  "experiment_budget": "max 3 experiments / 2 h. E1 = holdout seeds 20+30 + canary + format + uniqueness attempt. No hyper-parameter search.",
+  "score_labelling": "Every number is HOLDOUT-DTI (evaluator gems57-pooled-hide-v2, withheld positives, 95% CI), REGISTRY-MEASUREMENT, or ORGANIZER-CONFIRMED (only a submission-page receipt; this repo has none). No projection is written as a score.",
+  "no_slot_selection": "This pipeline never uploads and never chooses a weekly slot; verdict 'promote' means only that the separate selector may consider the file."
+}

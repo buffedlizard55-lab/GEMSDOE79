@@ -1,0 +1,23 @@
+{
+  "lane": "H79-FFAS",
+  "experiment": "X1",
+  "phase": "surface",
+  "generated_utc": "2026-10-22T03:54:34.052494+00:00",
+  "surface_sha256": "f353be5f71ffa084b7d4a869fdd5feb5f28d7142c4d9e49ef7f8fa06a31565ff",
+  "lidar": {
+    "path": "data/raw/external/lidar_scarp_features_u8.tif",
+    "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "bands": [
+      "upface_max",
+      "downface_max",
+      "step_max",
+      "ex_max",
+      "coh100",
+      "cross_max",
+      "valid"
+    ]
+  },
+  "formula": "raw = (downface_max + 2.0 * upface_max) * step_max * (coh100/255) * (cross_max/255) * (ex_max/255) * logistic(EDT(visible), d0=8 px, s=3 px); invalid lidar -> 0; then footprint mid-ranks to [0,1]; catalogue pixels set to 0",
+  "positive_surface_pixels": 3845995,
+  "surface_max": 1.0
+}

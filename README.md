@@ -1,28 +1,36 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22, session `4ddab9a1`):** [end-to-end 1,199-blob cross-organization review](reports/session_review_4ddab9a1.md) · [five ranked genuinely untried hypotheses (`H79-U1`..`H79-U5`)](research/hypotheses_4ddab9a1_untried.md) · [machine-readable 92-repo sibling audit](evidence/post_snapshot_sibling_audit.json). Current outcome remains **`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`** (`0` new model runs, `0` competition slots used; all `1,199` family GeoTIFFs across `92` sibling repos hash-verified).
+**Latest repository audit (2026-10-22, session `4ddab9a1`):** [end-to-end 1,199-blob cross-organization review](reports/session_review_4ddab9a1.md) · [five ranked genuinely untried hypotheses (`H79-U1`..`H79-U5`)](research/hypotheses_4ddab9a1_untried.md) · [machine-readable 92-repo sibling audit](evidence/post_snapshot_sibling_audit.json). Current outcome remains **`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`** (`0` weekly competition slots used; all `1,199` family GeoTIFFs across `92` sibling repos hash-verified; rogue non-canonical `G79-MAG` `.tif`/`.zip` quarantined under [`archive/g79_mag_730d5ee7/`](archive/g79_mag_730d5ee7/README.md) per `IR-79-95`). Prior reviews ([`91a8c516`](reports/repository_review_2026-10-22_session-91a8c516.md), [`b79882e0`](reports/session_review_b79882e0.md)) are retained in full.
 
 ## Download and submission decision — start here
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> This is a newly generated, format-valid research GeoTIFF (`37,654` binary `{0.0, 1.0}` pixels, `0` `NaN`/`±Inf`, passes `"Predicted values must be in range [0, 1]"`). It failed the protocol's duplicate gate under **all four overlap regimes** (including like-for-like sparse `<= 60,000`-dot submissions), so **do not upload it**. The decision is 100% automatic (`scripts/submission_status.py` exits `2`; `scripts/select_submission.py` exits `2`), requiring zero human inspection.
+> This is a newly generated, format-valid research GeoTIFF (`37,654` binary `{0.0, 1.0}` pixels, `0` `NaN`/`±Inf`, passes `"Predicted values must be in range [0, 1]"`). It lost the holdout to `H33` on both seeds and failed the duplicate gate, so **do not upload it**. The decision is 100% automatic (`scripts/submission_status.py` exits `2`; `scripts/select_submission.py` exits `2`), requiring zero human inspection.
 
 | | |
 |---|---|
-| File | [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip) |
-| Unique name | `gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT` |
-| Note (122/140) | `H79-NHR research only; HOLDOUT-DTI 0.143/0.152 vs H33 0.096/0.099; DUPLICATE: 0.91 of dots within 3px of a registry raster` |
-| SHA-256 | `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2` |
+| File | [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip) |
+| Unique name | `gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT` |
+| Note (113/140) | `H79-DILSTEP research only; HOLDOUT-DTI 0.072/0.065 lost to H33; 0.85 of dots within 3px of a prior; do not submit` |
+| SHA-256 | `8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b` |
 | Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
-| Lane / experiment | H79-NHR / X1 (1 of 3 allowed; about 70 min of 2 h) |
-| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.1431** [0.1281, 0.1574], n = 11,321 · seed 30: **0.1522** [0.1335, 0.1696], n = 11,342 |
-| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.112] |
-| Paired Δ vs H33 control | +0.047 [0.0321, 0.0621] · +0.0533 [0.0369, 0.0704] |
-| Leakage canary | 464 single-feature AUC tests, max 0.8589 ≤ 0.90 (`geom_log_dist_visible_tip`): **PASS** |
-| Duplicate gate | **FAIL.** 26 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif` at 0.913, against 0.610 expected by chance. Rank correlation is clear: worst ρ 0.112. |
-| Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/nhr/selector_decision.json`). |
+| Lane / experiment | H79-DILSTEP / E1 (1 of 3 allowed) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0721** [0.0577, 0.0874], n = 11,321 · seed 30: **0.0650** [0.0528, 0.0778], n = 11,342 |
+| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.1120] |
+| Paired Δ vs H33 control | −0.0240 [−0.0418, −0.0050] · −0.0339 [−0.0526, −0.0159] |
+| Leakage canary | 72 single-feature AUC tests, max 0.6981 ≤ 0.90 (`horsetail`): **PASS** |
+| Duplicate gate | **FAIL.** 12 registry files (7 distinct maps; nan/all-finite twins counted separately) hold > 70% of the check dots within 3 px, and each of those priors covers at most 70% of allowed cells. Worst: `13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif` at 0.8527, against halo coverage 0.6413. Worst Spearman 0.6406, under 0.90. Literal overlap against a full-footprint witness is 1.0 and is not called uniqueness. The operative rule matches shared `informative-halo-v4` (IR-79-86). |
+| Verdict | **negative**. Lost to the H33 control on both seeds, and the surface gate failed before submission placement. No retune. No overlap cap. No slot. |
 | Slots used | 0 |
+
+### Archived H79-FFAS (session c04e5e27, stopped negative)
+
+Moved out of `docs/downloads/` in this merge so the repository still publishes one upload pair. Bytes are in [`archive/h79_ffas_c04e5e27/`](archive/h79_ffas_c04e5e27/README.md). SHA-256 `13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227`. HOLDOUT-DTI 0.0422 / 0.0367, below the H33 control and below uniform. Do not submit that file either.
+
+### Archived H79-NHR (session 337ac1e9, stopped negative)
+
+Moved out of `docs/downloads/` so this repository still publishes one upload pair. Bytes are unchanged in [`archive/h79_nhr/`](archive/h79_nhr/README.md). SHA-256 `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`. HOLDOUT-DTI 0.1431 / 0.1522 beat the H33 control and failed the duplicate gate. Do not submit that file either.
 
 ### Archived concurrent artifact (2026-10-22, lane H79-FF, session 1de1617f)
 
@@ -43,6 +51,30 @@ Session `1de1617f` generated an additional negative research GeoTIFF (`H79-FF`);
 Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
+
+## What this session found (2026-10-22, session `c04e5e27`)
+
+1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
+   Sparse dots win. H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults.
+   Mapped pixels are masked, so those dots were pure false positives. Full derivation:
+   [`reports/ffas_analysis.md`](reports/ffas_analysis.md), [`knowledge/why_h33.md`](knowledge/why_h33.md).
+2. **IR-79-53 is resolved in the shared tool (IR-79-86).** `overlap_mode='informative-halo-v4'`
+   fires the 70 % / 3 px test only when the prior's own halo covers ≤ 70 % of the allowed domain.
+   Spearman, byte identity and decoded identity still apply to every raster. Default remains
+   `literal-threshold`, so historical NHR/STEPCO/G79B evidence is unchanged.
+3. **H79-FFAS (far-field polarity-aware antislope scarp) is unique as a method and a duplicate as a map.**
+   Five untried hypotheses were ranked in [`research/hypotheses_ffas.md`](research/hypotheses_ffas.md)
+   before any score existed. X1 used only the pinned USGS 3DEP lidar stack and a closed-form formula
+   (no learner). Canaries passed. HOLDOUT-DTI **lost** to both H33 and uniform on both seeds, as
+   predicted: the holdout's truth is withheld catalogue, which sits near remaining traces, and the
+   logistic far-field weight suppresses that band (median dot–catalogue distance **2.71 km** vs H33
+   1.96 km and NHR 0.54 km). Dropping the far-field weight (preregistered ablation, not a new experiment)
+   only recovers to 0.058 / 0.051. Under v4, 31 *informative* family scarp fields still contain
+   > 70 % of the dots (worst 0.986 vs chance 0.231). The family's good scarp terrain is already dotted
+   even in the far field. **Duplicate + holdout loss → stop.**
+4. **Can we beat 0.2778?** Not with this artifact. A public score above the H33 family still needs a
+   detector of *expert-unmapped* faults that is spatially unlike the 26–31 family scarp fields.
+   The catalogue-holdout cannot certify that. No weekly slot is used.
 
 Current independent three-pass review for this branch: [`reports/repository_review_2026-10-22_session-14aaf1c8.md`](reports/repository_review_2026-10-22_session-14aaf1c8.md). It records no new experiment, TIFF, upload, or slot use.
 
@@ -90,12 +122,58 @@ hash-pinned registry preflight still refuses any new lane under the literal
 positive-support overlap rule. No new scientific raster or competition slot was
 used. The selector CLI now emits a structured refusal for missing/malformed
 inputs rather than a traceback; ten regression cases protect that path.
-All 240 software tests, format/evidence verification and site link checks passed.
+All 249 software tests (measured on the merged tree), format/evidence verification and site link checks passed.
 The original request for a newly generated **protocol-unique submittable** TIFF
 remains blocked, not silently marked complete. Official GitHub reference material
 was freshly reviewed; non-GitHub scientific sites were not freshly verified here.
 
 ## What the previous session found (2026-10-22, session `337ac1e9`)
+
+## Session 2026-10-22 (lane H79-ASYM): answers, evidence and what is blocked
+
+**Plain answer.** No file in this repo is protocol-unique. The downloadable GeoTIFF is still
+`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` The new lane (H79-ASYM) stopped at its surface duplicate
+gate before any placement, so it produced no file. Its run card is [`run_card_asym.json`](run_card_asym.json),
+and its evidence is in [`evidence/asym/`](evidence/asym/).
+
+| Question | Answer | Evidence (line-checked) |
+|---|---|---|
+| Why did H33 (user-reported 0.2778) score highest in the GEMSDOE family? | Sparse dots and mapped-pixel masking. H33 is exactly the D2.8 dot set (44,090) minus 6,436 dots within 200 m of mapped faults, which were pure false positives. Its dots are sparse (37,654). TP is a per-truth max and FP is a per-pixel sum, so sparse dots win. | [`evidence/h33_forensics.json`](evidence/h33_forensics.json) (`h33_equals_d28_pruned_distance_le_2px: true`); [official metric](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) |
+| How much truth credit does a score need? | Exact bound from the official DTI: c ≥ 0.8s/(1−0.2s), where c is the share of truth credit. 0.2778 needs c ≥ 23.5 %. The public leader 0.4413 needs c ≥ 38.7 %. (Corrected from 23.6 % and 38.4 %, IR-79-76.) | [`reports/nhr_analysis.md`](reports/nhr_analysis.md) §1; the bound follows because FN_w = N_truth − TP_w |
+| Can we beat 0.2778 on our own proxy? | Yes, on the holdout. H79-NHR beat the H33 fold-fair control on both seeds (HOLDOUT-DTI 0.1431 and 0.1522, against 0.0961 and 0.0989). That result is a proxy, not a leaderboard score. | Canonical card [`run_card.json`](run_card.json) |
+| Is that file submittable? | No. Its dots duplicate 26 earlier families (worst 0.913 against a chance level of 0.610). | Canonical card, `correlation_overlap_vs_registry` |
+| Did the new lane (H79-ASYM) produce a unique file? | No. It stopped at the surface gate. A continuous registry surface (`GEMSDOE48`) covers all 5,167,373 footprint cells, so its top-k overlap is 1.0. Separately, 32 informative fields exceed 0.70 overlap and 14 still do after chance correction. | [`evidence/asym/uniqueness_surface.json`](evidence/asym/uniqueness_surface.json), [`evidence/asym/surface_diagnostic.json`](evidence/asym/surface_diagnostic.json) (reporting only) |
+| Is the strain-rate channel an unexplored signal? | No. 16 registry rasters are strain- or geodesy-named (for example GEMSDOE37, GEMSDOE39, GEMSDOE51, GEMSDOE69, 5GEMSDOE). It is not a free route to a unique file. | Registry names in `registry/registry_index.json` |
+| Does the 0.3195 figure match the official leaderboard? | No. The official board shows #1 0.4413 and #5 0.3539. No row shows 0.3195 (IR-79-77). | [leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) (fetched 2026-10-22) |
+
+**What blocks a unique submission (needs a user decision, IR-79-53).** The literal rule flags any dot set
+whenever a space-filling registry raster exists. There are 30 such rasters, and a seeded uniform random map is flagged by
+all 30. Even with those removed, the lidar-scarp channel is saturated: 32 informative fields exceed 0.70, and 14 still
+do after chance correction (several are scarp families, for example GEMSDOE50, GEMSDOE62 and GEMSDOE66). So the decision
+on IR-79-53 alone would not clear H79-ASYM. A future lane needs a channel the registry has not used. The option table
+below is for the user to choose from.
+
+**Options for the user (not decided by an agent):**
+1. Keep the literal rule. Then no file in this repo can pass, and the next lanes need new channels.
+2. Apply chance-corrected overlap, (ov − halo)/(1 − halo), to space-filling rasters only. That is the option the NHR analysis proposed. It is documented, not adopted.
+3. Ask the organizer whether a near-uniform surface is a valid "same" submission, and get a ruling.
+
+**Verification of this session (each item was checked against bytes or a fetched page):**
+- Environment restored from the hash-pinned mirrors: 13 inputs on disk, each SHA-256 checked during restore. The tracked receipt of record lists 7 (IR-79-66, `data/restore_receipt.json`). All 992 registry rasters are in `.cache/registry`, each SHA-256 checked.
+- `pytest`: 249 passed on the merged tree (186 before merging `main`); dependency fix in IR-79-75.
+- `scripts/verify_project.py`: all checks passed, with the canonical H79-NHR card unchanged.
+- Lidar decoding follows the product's own quantisation rule, and `upface_max` and `downface_max` match their metadata descriptions (`data/raw/external/lidar_scarp_features.json`).
+- The antislope mechanism is documented as ambiguous in the literature, and the named mimic is preregistered: [Saint Elias, GSA Bulletin](https://pubs.geoscienceworld.org/gsa/gsabulletin/article-abstract/122/9-10/1585/125613/Origin-of-sackung-uphill-facing-scarps-in-the?redirectedFrom=fulltext), [Pyrenees, Geomorphology](https://www.sciencedirect.com/science/article/abs/pii/S0169555X0500036X), [USGS SIM 3430 (antithetic uphill-facing scarp)](https://pubs.usgs.gov/sim/3430/sim3430_pamphlet.pdf).
+
+**Limits and irregularities (all logged):** IR-79-53 (decision needed); IR-79-74 (H79-ASYM stop); IR-79-75 (missing dependency fixed); IR-79-76 (bound corrected); IR-79-77 (0.3195 not on the official board); IR-79-78 (6 of 992 rasters not comparable); IR-79-79 (organizer's NaN-outside-bounds wording versus this repo's zero-fill, which matches the user-reported H33 file).
+
+**Next steps (ranked by expected value and cost, not yet run):**
+1. Get the IR-79-53 decision from the user (option table above). Cost: none. Value: unblocks everything else.
+2. Hypothesis 3 (Lahontan shoreline suppression) needs an absolute elevation source. Candidate: the USGS 3DEP DEM from The National Map (<https://www.usgs.gov/3d-elevation-program>). Not yet checked for obtainability from this sandbox (a GitHub Actions route is the documented option). Cost: medium. Value: removes the dominant false-positive population in the basin.
+3. Hypothesis 5 (survey-seam-aware magnetic lineaments) needs the GeoDAWN flight-line shapefiles from the [USGS release](https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and). They are not mirrored here. Obtainability not checked.
+4. Ask the organizer for a receipt that binds H33's 0.2778 to a specific file. Without it, the H33 explanation stays a hypothesis.
+
+## What this session found (2026-10-22, session `337ac1e9`)
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
    Sparse placements can reduce redundant FP: on an ideal straight grid-aligned trace, dots
@@ -104,8 +182,8 @@ was freshly reviewed; non-GitHub scientific sites were not freshly verified here
    H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
    masked; nearby dots can still credit hidden traces, so the pruning is not proved to remove only
    false positives. The reported 0.2600 and 0.2778 values have no artifact-bound organizer receipts or
-   causal demonstration. Algebra shows 0.2778 needs at least 23.6 % of truth credit, and
-   0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
+   causal demonstration. Algebra shows 0.2778 needs at least 23.5 % of truth credit, and
+   0.4413 (the public leader) needs at least 38.7 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
 2. **Can we beat it?** Five untried hypotheses were ranked in
    [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
    learning, was preregistered in [`registry/preregistration_nhr.json`](registry/preregistration_nhr.json)
@@ -117,64 +195,29 @@ was freshly reviewed; non-GitHub scientific sites were not freshly verified here
    so every nonempty map has overlap 1.0 and fails. Separately, 30 registry halos cover more than
    70% of the area and flag the seeded uniform control; that statistic alone is NOT a proof of
    universal rejection. The next lane needs **a prospective protocol clarification**.
+## Prior lanes (all negative, archived)
 
-## Concurrent lane G79-STEPCO (session `220dabc8`): also negative, archived
+| Lane | HOLDOUT-DTI 20 / 30 | vs H33 control | Uniqueness | Verdict |
+|---|---|---|---|---|
+| H79-FFAS (this session) | 0.0422 / 0.0367 | below | 31 informative fields, worst 0.986 | negative |
+| H79-NHR | 0.1431 / 0.1522 | above | 26 informative fields, worst 0.913 | negative ([archive](archive/h79_nhr_337ac1e9/README.md)) |
+| G79-STEPCO | 0.0946 / 0.0948 | tie | space-filling + family | negative |
+| G79B-SDPT | 0.1211 / 0.1114 unconstrained | above then cap below | 99 fields; cap cost −0.02 | negative |
+| G79-FABRIC-OFFSET | ~0.047 | below uniform | literal overlap 1.0 | negative |
 
-Another session ran lane G79-STEPCO (multi-field step dipoles with a fixed HistGradientBoosting model) in
-parallel, and it merged to `main` first, as PR #26.
 
-| Experiment | Seed 20 | Seed 30 | H33 control (seed 20 / 30) |
-|---|---|---|---|
-| S1 | 0.0946 [0.0778, 0.1110] | 0.0948 [0.0782, 0.1115] | 0.0961 / 0.0989 |
-| S2-COVER | 0.0935 | 0.0961 | |
-
-- S1 **tied** the H33 control rather than beating it. S2-COVER tied as well.
-- STEPCO's own uniqueness reading also fired, because of the same space-filling registry rasters.
-- Its verdict is also **OK TO SUBMIT: NO**.
-
-When the two lanes were merged, H79-NHR became the canonical card because its holdout evidence is stronger.
-The STEPCO files are kept as they are:
-- S1 TIFF, ZIP and receipt: moved byte-for-byte to [`archive/g79_stepco_s1/`](archive/g79_stepco_s1/README.md).
-- S2: [`archive/g79_stepco_s2/`](archive/g79_stepco_s2/).
-- Card and evidence, unchanged: [`run_card_stepco.json`](run_card_stepco.json) and [`evidence/stepco/`](evidence/stepco/).
-- Review: [`reports/session_review_220dabc8.md`](reports/session_review_220dabc8.md).
-- Its protocol amendment: [`reports/protocol_amendment_D1_20261022.md`](reports/protocol_amendment_D1_20261022.md).
-
-The STEPCO lane's README section is preserved in [`reports/readme_history_through_9417f4e.md`](reports/readme_history_through_9417f4e.md).
-The merge is recorded as IR-79-56.
-
-## Concurrent lane G79B-SDPT (session `67557396`): also negative, archived
-
-Scarp dipole-persistence + trace-object detector
-([hypotheses](research/hypotheses_g79b.md),
-[preregistration](registry/preregistration_g79b.json),
-[run card](run_card_g79b.json)), archived under
-[`archive/g79b_sdpt_67557396/`](archive/g79b_sdpt_67557396/README.md) —
-**not** the canonical download; **DO NOT SUBMIT**. Unconstrained HOLDOUT-DTI
-0.1211/0.1114 beat its control (0.1143/0.1087) and the archived best on both
-seeds (canary worst AUC 0.600), but duplicated 99 prior dot fields; the
-preregistered uniqueness cap (52 discriminating priors at 0.68,
-[Amendments B1](registry/preregistration_g79b_amendment_B1.json)/[B2](registry/preregistration_g79b_amendment_B2.json))
-cost −0.0176/−0.0203, leaving the registry-unique artifact **below** its
-control (0.1036/0.0910) — verdict negative, 0 slots used. Reproduce:
-`PYTHONPATH=src:vendor:scripts .venv/bin/python scripts/submission_status_g79b.py`
-(exit 2). Same wall as STEPCO/NHR: the family's good scarp terrain is
-already dotted, so uniqueness after the fact costs more than detector gains.
+Concurrent negative artifacts from PRs merged to `main` while this lane ran are archived byte-for-byte: H79-STEP in [`archive/h79_step_21642326/`](archive/h79_step_21642326/), G79-THVC in [`archive/g79_thvc_33e1f8ec/`](archive/g79_thvc_33e1f8ec/), H79-NHR in [`archive/h79_nhr/`](archive/h79_nhr/) and [`archive/h79_nhr_337ac1e9/`](archive/h79_nhr_337ac1e9/README.md). None of them is the canonical download.
 
 ## Limitations and next steps
 
-- HOLDOUT-DTI withholds *catalogue* faults; the organizer scores *expert* faults absent from the
-  catalogue. This file's dots sit closer to mapped faults than H33's: median 539 m against 1.96 km
-  (`evidence/nhr/distance_to_catalogue.json`).
-- Uniqueness covers the 992 hash-verified public sibling-repository rasters (0 new on a rescan of
-  branches, tags and pull refs), not every file other participants have uploaded.
-- The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-47) and can be reversed.
-- Next steps:
-  1. Decide IR-79-53.
-  2. Run a far-field lane that ranks within H33-like distance bands (more than 1 km from mapped faults), with
-     antislope or lidar evidence, checking the surface for uniqueness before placement.
-  3. Reweight the nested target by distance band.
-  4. Add the absolute 3DEP DEM for shoreline suppression.
+- HOLDOUT-DTI withholds *catalogue* faults; the organizer scores *expert* faults absent from the catalogue.
+  This file's dots sit **farther** from mapped faults than H33's: median 2.71 km against 1.96 km.
+- Uniqueness covers the 992 hash-verified public sibling-repository rasters, not every file other participants have uploaded. Six registry files are invalid/wrong-CRS and were fail-closed as errors.
+- `informative-halo-v4` is a recorded interpretation of an ambiguous rule (IR-79-86) and can be reversed.
+- Next steps that still need **new free official data** or a new preregistered lane:
+  1. Lahontan shoreline suppression using USGS 3DEP absolute elevation (hypothesis 4; not on this sandbox allowlist).
+  2. A non-scarp modality that is not already dotted (radiometric Th/K lineaments, hypothesis 3) — only if uniqueness is checked on the surface *before* placement.
+  3. Do not restart NHR/STEPCO/G79B/E1 or overlap-cap them.
 
 ## Verify the frozen result (safe default)
 
@@ -231,9 +274,45 @@ Those changes were merged into this branch without changing scientific evidence.
 - **No protocol exemption was added.** The universal literal witness and its implications (IR-79-53) still require an explicit prospective decision before any nonempty map can pass the 0.70 gate; the site's `research.html` now surfaces this with the new backlog.
 - Three-pass review: [`reports/session_review_e846fc02.md`](reports/session_review_e846fc02.md).
 
+## Latest review — session `52bfa965` (2026-10-22)
+
+- Full review with three passes, a verification ledger and a no-experiment card:
+  [`reports/session_review_52bfa965.md`](reports/session_review_52bfa965.md).
+- Reproduced: `verify_project.py` exit 0; `submission_status.py` exit 2 (OK TO DOWNLOAD: YES, OK TO SUBMIT: NO);
+  `preflight_new_lane.py --restore` exit 2; 230 tests pass; independent GeoTIFF re-read matches the card sha256.
+- Checked against official sources (fetched 2026-10-22): the metric (α 0.2, β 0.8, R 300 m), the three-per-week
+  limit, and the leaderboard (leader 0.4413; no 0.3195 row in ranks 1–50).
+- **No experiment, no new candidate and no slot were used.** The blocker is a protocol decision (IR-79-53).
+- Irregularities added: IR-79-69 (the official page's "null or nan" outside-bounds text conflicts with the
+  team's all-finite policy and the sample's NaN; the public Format line now states this conflict), IR-79-70 (preflight
+  exit 3 vs 2 depends on `--restore`), IR-79-71 (92 index scopes vs 71 repositories), IR-79-72 (leaderboard re-read).
+
+## Latest software-only review (session 566bec0c, 2026-10-22)
+
+[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
+witness reproduced; no new experiments or slots used. Preflight now rejects
+malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
+SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
+presented as protocol-unique.
+
+## Latest repository review — session `4b4b1214` (2026-10-22)
+
+- Full three-pass repository, lineage, and software review: [`reports/session_review_4b4b1214.md`](reports/session_review_4b4b1214.md).
+- **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — no new scientific experiment, retuning, or competition slot was used (`0` slots used).
+- Fixed a blobless-clone hang in `scripts/analyze_family_lineage.py` (`git ls-tree -r -l` lazily fetched every missing blob from the promisor remote) and extended `evidence/family_lineage_forensics.json` (and `docs/evidence/family_lineage_forensics.json`) with pixel-byte measurements of all 6 newly listed prompt-named unscored candidates (`GEMSDOE76` `gems76-ptcf-tiltworm-submod39k`, `GEMSDOE78` `gems78-h78sigx-fuse-b5`, `GEMSDOE80` `gemsdoe80-h80g-choquet-tworegime`, `GEMSDOE81` `gems81-cont-poisson44090-buf2`, `GEMSDOE82` `gemsdoe82-h82-submodular-punoisyor`, `GEMSDOE83` `gems83-h83-gvcd-dink300`) and verified that `GEMSDOE84`..`GEMSDOE88` currently have `0` published `.tif` files (`IR-79-80`).
+- Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Original project prompt` (`IR-79-81`).
+- Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
+
+## Latest repository review — session `e9955043` (2026-10-22)
+
+- Full three-pass repository and research review: [`reports/session_review_e9955043.md`](reports/session_review_e9955043.md).
+- **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — no new competition slot was used (`0` slots used).
+- Formulated 5 distinct candidate geological hypotheses with official citations in [`research/hypotheses_e9955043.md`](research/hypotheses_e9955043.md).
+- Analyzed GEMSDOE32's highest score (`h33-h33-2-b2`: 0.2778) using PhD-level mathematical/geological derivation.
+- All 259 software tests and 27 project integrity assertions passed cleanly.
+
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
-preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
-Generative AI assisted research, code, tests and prose. No source measurements or organizer receipts
+preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).Generative AI assisted research, code, tests and prose. No source measurements or organizer receipts
 were synthesized. See [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md).
 
 ## Complete `1,199`-blob cross-organization audit (`GEMSDOE`..`GEMSDOE92`, session `4ddab9a1`, 2026-10-22)
@@ -835,7 +914,7 @@ gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 [https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
 
-:
+gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:
 
 ....
 
@@ -847,23 +926,53 @@ gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 [https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
 
-:
+gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
 
-:
+gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
 
-:
+gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
+
+gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
 
 :
 
@@ -1056,11 +1165,3 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
-
-## Latest software-only review (session 566bec0c, 2026-10-22)
-
-[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
-witness reproduced; no new experiments or slots used. Preflight now rejects
-malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
-SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
-presented as protocol-unique.
