@@ -434,5 +434,22 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>Quarantined <code>H79-FF</code>'s <code>.tif</code>, <code>.zip</code>, and <code>.json</code> byte-for-byte to <code>archive/h79_ff_1de1617f/downloads/</code> (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_ff_1de1617f/README.md"><code>archive/h79_ff_1de1617f/README.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/ff/ff_run_card.json"><code>evidence/ff/ff_run_card.json</code></a>), restored <code>data/restore_receipt.json</code> to all 7 verified files, added a stopped-lane guard to <code>scripts/build_ff_candidate.py</code>, and rebuilt <code>docs/</code> cleanly via <code>scripts/build_site.py</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session 2026-10-22 — research and dependency-manifest review (<code>arena/7c7104d8-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-67</td>
+<td><code>requirements.txt</code> declared <code>scikit-image</code> twice (<code>&gt;=0.25,&lt;0.27</code> and <code>&gt;=0.25,&lt;1</code>). The constraints intersect rather than breaking installation, but the duplicate is confusing and permits manifest drift relative to the lock.</td>
+<td>Removed the redundant broad declaration, retained <code>scikit-image&gt;=0.25,&lt;0.27</code> matching the pinned <code>0.26.0</code> lock, and added a regression test that rejects duplicate normalized package names in either manifest. No scientific code, input, model, run card, or TIFF changed.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

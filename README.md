@@ -217,6 +217,21 @@ were synthesized. See [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md)
 
 ---
 
+## Latest repository review — Arena session `7c7104d8` (2026-10-22)
+
+**Decision remains: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** The existing H79-NHR
+GeoTIFF is a byte-distinct research artifact but failed the registered duplicate
+gate; it is not cleared for competition upload. This review re-verified the
+literal registry witness with `scripts/preflight_new_lane.py --restore`, which
+returned `impossible_under_literal_gate` (exit 2). No new model, holdout, final
+dot placement, candidate TIFF, slot selection, or upload was performed. The
+pinned witness was restored into ignored cache for verification only. The current-session
+[three-pass review](reports/repository_review_2026-10-22_session-7c7104d8.md)
+and [prospective research shortlist](research/hypotheses_session_7c7104d8.md)
+record the reasons, source limitations, and next gates. Candidate ideas remain
+unvalidated; no score is projected. A redundant `scikit-image` requirement was
+removed without changing the lock or scientific artifacts.
+
 ## Original project prompt — read at the start of every session
 
 The following is preserved as the project brief (only trailing whitespace is normalized). Historical scores, availability

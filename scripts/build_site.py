@@ -361,10 +361,12 @@ def main():
                                     'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
                           + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
-        'research.html': ('Five ranked hypotheses',
-                          page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
-                                    'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
-                          + '<section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2>'
+        'research.html': ('Research hypotheses & constraints',
+                          page_head('RESEARCH REGISTER / HISTORICAL RESULTS / STOP RULES', 'Ideas, evidence, and blockers.',
+                                    'Current candidate hypotheses are qualitative and unvalidated; the active download decision remains negative.')
+                          + '<section class="section"><h2>Current-session shortlist — not run</h2>'
+                          + md('research/hypotheses_session_7c7104d8.md') + '</section>'
+                          + '<section class="section"><h2>Prior preflight hypotheses — not run</h2>'
                           + '<p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p>'
                           + md('research/hypotheses_preflight_a7d092d7.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_nhr.md') + '</section>'

@@ -2,11 +2,98 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
 <meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
-<title>Five ranked hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<title>Research hypotheses &amp; constraints · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">RESEARCH REGISTER / HISTORICAL RESULTS / STOP RULES</p><h1>Ideas, evidence, and blockers.</h1><p class="lead">Current candidate hypotheses are qualitative and unvalidated; the active download decision remains negative.</p></section><section class="section"><h2>Current-session shortlist — not run</h2><div class="prose table-scroll"><h2>Research shortlist — Arena session <code>7c7104d8</code> (not executed)</h2>
+<p><strong>Status:</strong> no new scientific lane was opened. This is a prospective shortlist,
+not a preregistration, score, or promotion recommendation. “Expected DTI
+improvement” is a qualitative research prior only; no number is projected.
+The current request still does not delimit a single method paragraph. More
+importantly, the pinned literal-overlap witness rejects every nonempty candidate
+before feature construction, holdout, or placement. See
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/new_lane_preflight_a7d092d7.json"><code>evidence/new_lane_preflight_a7d092d7.json</code></a>
+and the session review.</p>
+<p>The candidate comparisons below are deliberately scoped to <strong>method-level
+novelty in this checkout and its archived code</strong>, not a claim that nobody in the
+GEMSDOE family or scientific literature has tried similar work. Related prior
+art is named in each row. Every candidate needs a fresh, complete surface
+novelty preflight before any holdout under an authorized protocol.</p>
+<table>
+<thead>
+<tr>
+<th>Rank / expected DTI potential / cost</th>
+<th>Exact layers and physical signature</th>
+<th>Why it could locate a fault absent from the USGS/INGENIOUS catalogue</th>
+<th>Difference from this repository and nearest prior art</th>
+<th>Named non-fault mimic</th>
+<th>Official source and availability check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 · medium-high potential · high cost</strong></td>
+<td><strong>Flight-line-resolved GeoDAWN anomaly coherence.</strong> Original magnetic/radiometric line observations, flight-path geometry, aircraft-height and tie-line metadata, with the existing gravity/RTP grids as context. Remove regional and line/tie-line levelling components, then require a signed cross-line anomaly to persist on adjacent flight lines and at independent crossovers.</td>
+<td>A basement fault under basin cover may have no mapped scarp; a subsurface magnetic/contact offset can persist across several flight lines even where the gridded product smooths it. This targets structural evidence, not geothermal temperature directly.</td>
+<td>The active E1 used <em>gridded</em> magnetic/gravity profile registration; prior family work includes grid-level seam correction (for example the <code>GEMSDOE73</code> seam-free potential-field result). The proposed distinction is the line-level observation/height/tie-line residual model, not another raster edge or a new name for E1. Family-wide novelty is unproven.</td>
+<td>Tie-line or microlevelling residual, flight-height variation, an intrusive contact or dyke.</td>
+<td><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a>, DOI <code>10.5066/P93LGLVQ</code>. The checked-in source ledger previously records line data and flight paths as release products. This checkout has gridded/uint8 derivatives only: no raw line observations or flight-path files in <code>registry/data_manifest.json</code>, <code>data/raw/</code>, or <code>.cache/</code>. The USGS host is outside this session's egress allowlist, so exact file coverage and direct download were <strong>not</strong> verified now. <strong>Not viable for this session.</strong> The recorded 400 m flight-line spacing also makes a 300 m scoring kernel a serious localization constraint; a 100 m grid is not 100 m independent measurement spacing.</td>
+</tr>
+<tr>
+<td><strong>2 · medium potential · high cost</strong></td>
+<td><strong>Station-level magnetotelluric phase-tensor anisotropy.</strong> Raw complex MT impedance tensors and frequencies from the DOE GDR compilation, with <code>cond_surf</code>, <code>depth_to_base_surf</code>, and gravity only as contextual rasters. Extract phase-tensor strike, skew/ellipticity, and cross-station directional coherence; test a coherent conductive corridor rather than a scalar conductivity maximum.</td>
+<td>A fault-controlled fluid/alteration pathway can be structurally important without a surface lineament, and its directional electrical response could mark a fault not represented in the public fault map. The prediction target remains a fault, not a geothermal reservoir.</td>
+<td>The supplied stack contains a smooth scalar <code>cond_surf</code> band; archived family methods include scalar conductivity, clay-cap and hydrothermal-proxy surfaces. No active/archived runner in this checkout was found using the <strong>raw frequency-dependent impedance/phase tensor</strong> as its feature. This is a method-level distinction, not evidence of family-wide novelty.</td>
+<td>Conductive clay cap, saline basin fill, graphite-bearing lithology, or hydrothermal alteration without a discrete fault trace.</td>
+<td><a href="https://gdr.openei.org/submissions/1391">DOE Geothermal Data Repository submission 1391</a>. The previously reviewed official source description includes MT among the compilation products. The local manifest has selected derivative well/spring/vent files but no MT station tensor or impedance file; no direct GDR binary was obtained here, and the host is outside the allowlist. Coverage, station spacing, and downloadability for this footprint are <strong>unverified</strong>. <strong>Not viable for this session.</strong></td>
+</tr>
+<tr>
+<td><strong>3 · low-medium potential · medium-high cost</strong></td>
+<td><strong>Process-based lidar scarp-profile inversion.</strong> Raw 1 m DEM elevations, with the existing lidar <code>step_max</code>, <code>lapneg/lappos</code>, <code>upface/downface</code>, <code>cross_max</code>, and <code>coh100</code> channels for transect proposals. Fit a fixed linear-diffusion scarp-profile family across perpendicular transects and score profile-shape consistency along strike, rather than ranking amplitude alone.</td>
+<td>Subdued or degraded Quaternary fault scarps can retain a characteristic cross-scarp shape after their peak slope falls below a hand-mapping threshold. A spatially coherent profile family may recover short traces missing from the catalogue.</td>
+<td>NHR and SDPT tested multiscale scarp amplitudes, curvature dipoles, facing and persistence; the proposed statistic is an explicit process-profile fit. This is adjacent to existing terrain work, and its incremental value is uncertain.</td>
+<td>Lahontan shoreline/terrace riser, alluvial-fan lobe boundary, landslide headscarp, or channel bank.</td>
+<td><a href="https://www.usgs.gov/3d-elevation-program">USGS 3D Elevation Program</a>. The project has only the derived uint8 lidar-scarp stack in its manifest, not raw 1 m elevations; no <code>1m_DEM_links.csv</code> or raw DEM is present in the current checkout. The USGS host is outside the allowlist and tile coverage was not verified in this session. <strong>Not viable for this session.</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>Decision and required gates</h3>
+<ol>
+<li>The strongest <em>scientific</em> candidate in this qualitative ranking is the
+   flight-line-resolved GeoDAWN method, but its raw source files are not in the
+   checkout and were not verified downloadable. It is <strong>not</strong> an authorized or
+   executable top candidate here. The other ideas also lack the named raw data.</li>
+<li>Before attempting any candidate, resolve the missing method-paragraph
+   assignment and the literal continuous-raster definition through a
+   prospective protocol clarification. The verified whole-footprint witness
+   gives every nonempty candidate overlap <code>1.0 &gt; 0.70</code>; changing a method,
+   filename, or data source cannot make that gate pass. Do not silently adopt a
+   top-k interpretation or exclude a prior.</li>
+<li>If those blockers are resolved, preregister one exact method, then use the
+   pinned feature stack, shared <code>evaluate_holdout.py</code>, and shared submission
+   writer. Complete the surface novelty check <strong>before placement</strong>, run every
+   single-feature leakage canary, and compare buffered whole-component
+   HOLDOUT-DTI against the matched incumbent with paired spatial CIs. A new
+   HOLDOUT-DTI must include evaluator version, withheld-positive count, and 95%
+   CI. A weekly slot remains a separate selector/account decision.</li>
+</ol>
+<p>No holdout was run for these hypotheses, no score is inferred, no TIFF was
+created from them, and no submission slot was used. Negative feasibility is the
+current result, not a reason to bypass a gate.</p>
+<h3>Manual-review sources</h3>
+<p>These URLs are official source leads already recorded in
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json"><code>knowledge/official_sources.json</code></a> or the
+prior hypothesis register. They were <strong>not</strong> refetched during this session;
+source-claim freshness is limited to the dated ledger, and exact new product
+availability is not established by a landing-page link.</p>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem description and scoring rules</a></li>
+<li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN release</a></li>
+<li><a href="https://gdr.openei.org/submissions/1391">DOE GDR submission 1391 / INGENIOUS</a></li>
+<li><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP</a></li>
+<li><a href="https://github.com/drivendataorg/gems-prize-reference-solution">Competition reference implementation</a></li>
+</ul></div></section><section class="section"><h2>Prior preflight hypotheses — not run</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
 <p><strong>Pre-experiment shortlist, not measured performance.</strong> The current request does not
 contain a delimited single-method lane paragraph. No new scientific lane was
 implicitly assigned. The inherited H79-NHR lane already stopped as a duplicate;

@@ -166,6 +166,20 @@ def test_irregularity_ids_unique_and_sequential():
     assert 'h79_cspt_464d591' not in prior_rows
 
 
+def test_requirements_manifests_have_unique_package_constraints():
+    import re
+    for relative in ('requirements.txt', 'requirements.lock'):
+        names = []
+        for raw in (ROOT / relative).read_text(encoding='utf-8').splitlines():
+            line = raw.split('#', 1)[0].strip()
+            if not line:
+                continue
+            match = re.match(r'([A-Za-z0-9_.-]+)', line)
+            assert match, f'Unparsed requirement in {relative}: {raw!r}'
+            names.append(re.sub(r'[-_.]+', '-', match.group(1)).lower())
+        assert len(names) == len(set(names)), f'Duplicate package constraints in {relative}'
+
+
 def test_score_ledger_complete_and_lineage_forensics_published():
     import csv
     raw = (ROOT / 'registry/score_ledger.csv').read_bytes()
