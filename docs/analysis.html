@@ -6,7 +6,117 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored 0.2778, whether &gt;0.2778 is reachable, and the H79-COV test</h2>
+<p>Session <code>e23d5371</code>, 2026-10-22. Labels: <strong>HOLDOUT-DTI</strong> (evaluator
+<code>gems57-pooled-hide-v2</code>, spatially blocked hide-and-recover), <strong>USER-REPORTED</strong>
+(prompt filename→score pairs; no organizer receipt in this repo),
+<strong>RASTER-MEASUREMENT</strong> (counts from actual bytes), <strong>ESTIMATE</strong> (algebra under
+stated assumptions). No file in this repo has an ORGANIZER-CONFIRMED score.</p>
+<h3>1. Why H33 got the family's highest score (verified from bytes, not websites)</h3>
+<p>Full prior derivation: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/nhr_analysis.md"><code>reports/nhr_analysis.md</code></a> and
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/why_h33.md"><code>knowledge/why_h33.md</code></a>; byte forensics in
+<code>evidence/h33_forensics.json</code> (re-derived from the restored registry rasters).</p>
+<ol>
+<li><strong>The metric pays for sparse dots.</strong> Officially
+   (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">problem description, Performance metric</a>,
+   re-read line-by-line this session and matched against
+   <code>vendor/gems57/metric.py</code>): TP is a per-truth-pixel <strong>max</strong> over a 300 m
+   triangular kernel; FP is a per-prediction <strong>sum</strong>; DTI = TP/(TP+0.2·FP+0.8·FN).
+   One binary dot on a trace, spaced 3 px from its neighbours, earns ≈2.33
+   truth units of TP and pays ≤1 unit of FP. Continuous probability maps pay
+   FP on every positive cell for the same TP. Every top family entry is a
+   binary dot field for this reason alone.</li>
+<li><strong>H33 = D2.8 minus pure false positives</strong> (RASTER-MEASUREMENT): H33's
+   37,654 dots are <em>exactly</em> D2.8's 44,090 dots with the 6,436 dots within
+   200 m of a mapped fault removed (0 added, 0 moved, 0 rule disagreements).
+   Mapped pixels are masked from scoring, so collar dots could only pay FP.
+   USER-REPORTED effect: 0.2600 → 0.2778 (+6.8% from deleting 14.6% of dots).
+   ESTIMATE under zero-TP for removed dots: H33 captures ≈39–41% of public
+   truth credit; a score of 0.2778 mathematically requires ≥23.6%, and the
+   public leader's 0.4413 (USER-REPORTED) requires ≥38.4%.</li>
+<li><strong>Its geography is broad, not a halo:</strong> median dot 1.96 km from the
+   catalogue; 69.8% of dots &gt;1 km away. That matches a test set of
+   expert-identified faults <em>absent</em> from the USGS database — by construction
+   not re-traced catalogue strands.</li>
+</ol>
+<h3>2. Can a new submission beat 0.2778? What the evidence now says</h3>
+<p>Beating 0.2778 needs a ranking whose top ~37.7k dots capture <strong>more than
+~40% of expert-truth credit</strong> at no worse FP cost, from structures the
+catalogue missed. This repo has now tested four independent ways to rank,
+all on identical folds/evaluator/budget:</p>
+<table>
+<thead>
+<tr>
+<th>Lane (all HOLDOUT-DTI, seeds 20/30, n≈11,321/11,342)</th>
+<th>Candidate</th>
+<th>H33 control</th>
+<th>Registry-unique?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H79-NHR — catalogue-geometry nested-hide HGB</td>
+<td>0.1431 / 0.1522</td>
+<td>0.0961 / 0.0989</td>
+<td><strong>No</strong> — 26 ordinary dot fields &gt;0.70 overlap (median dot 0.54 km from catalogue)</td>
+</tr>
+<tr>
+<td>G79B-SDPT — terrain-only dipole/trace</td>
+<td>0.111 / 0.121</td>
+<td>(A1 control 0.109/0.114)</td>
+<td>No unconstrained (99 priors &gt;0.70); unique-capped version fell below its control</td>
+</tr>
+<tr>
+<td>G79-STEPCO — multi-field step dipoles</td>
+<td>0.0946 / 0.0948</td>
+<td>0.0961 / 0.0989</td>
+<td>Fired on space-filling priors</td>
+</tr>
+<tr>
+<td><strong>H79-COV (this session)</strong> — antithetic polarity + covered basement-step persistence, catalogue-free</td>
+<td><strong>0.0610 / 0.0581</strong></td>
+<td>0.0961 / 0.0989</td>
+<td>(measured in <code>evidence/cov/</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>PhD-level judgement, with the confound stated plainly:</p>
+<ul>
+<li><strong>Hide-and-recover rewards proximity.</strong> Withheld catalogue components
+  cluster in mapped fault systems, so catalogue-geometry features win the
+  proxy (NHR) — but those same dots duplicate 26 prior fields and, worse,
+  target exactly the population the organizer's experts already mapped.
+  Optimising the proxy harder moves <em>away</em> from the test population.</li>
+<li><strong>The genuinely off-catalogue signal tested here is weak.</strong> H79-COV's
+  paired Δ vs uniform is +0.0126 [0.0002, 0.0249] / +0.0099 [−0.0018, 0.0219):
+  antithetic scarps and covered basement steps, as encoded in the pinned
+  100 m stack + u8 lidar derivatives, carry little recoverable information
+  about catalogue-like faults, and the seed-30 interval includes zero.
+  Either the blind-fault population is largely invisible in these layers at
+  100 m, or it needs the 1–10 m data (DEM drainage/scarp morphometry) that
+  this sandbox cannot fetch.</li>
+<li><strong>Therefore: no lane in this repo has demonstrated a registry-unique
+  surface plausibly above 0.2778, and this session does not claim one.</strong>
+  The honest paths that remain are (a) new <em>data</em> (USGS 3DEP 10 m DEM +
+  1 m DEM links drainage-deflection and true scarp morphometry; USGS ComCat
+  seismicity lineations; GDR wellspring/vent alignments — the CSVs are
+  already pinned), and (b) a user decision on whether the selector may spend
+  a slot on a Final-Round-oriented map (expert-expanded labels reward
+  verifiable new structures even at modest Initial-Round DTI). Both are
+  stated as next steps, not executed here: the lane budget for this session
+  was one preregistered hypothesis, and C2/C3 were reserved for defect fixes.
+  The H33/uniform controls reproduced the previous session to 4 decimals,
+  so there is no defect to fix.</li>
+</ul>
+<h3>3. This session's artifact</h3>
+<p>A newly generated, format-valid, registry-measured GeoTIFF (see
+<code>run_card_cov.json</code>). It <strong>failed the preregistered holdout gate on both
+seeds</strong>, so the automated decision is <strong>OK TO DOWNLOAD: YES — OK TO SUBMIT:
+NO</strong>. The file name carries <code>DO-NOT-SUBMIT</code>; <code>scripts/submission_status.py</code>
+exits 2; no human inspection is involved in the decision. Negative results
+are deliverables: H79-COV eliminates "facing polarity + covered-step
+persistence at 100 m" as a route past H33, which redirects effort to the
+data-limited hypotheses ranked in <code>research/hypotheses_g79cov.md</code>.</p></div><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
 <p>Session 337ac1e9, 2026-10-22. Evidence labels used in this document:
 <strong>HOLDOUT-DTI</strong> is our spatially blocked hide-and-recover proxy (evaluator
 <code>gems57-pooled-hide-v2</code>). <strong>USER-REPORTED</strong> is a filename-to-score pairing given

@@ -6,7 +6,138 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session e23d5371 (lane H79-COV)</h2>
+<p>Written before any H79-COV result existed. Preregistration:
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_g79cov_20261022.json"><code>registry/preregistration_g79cov_20261022.json</code></a>.
+Ranks are qualitative judgements, not scores. Only hypothesis 1 is executed.</p>
+<h3>Why previous lanes cannot simply be repeated (verified from this repo)</h3>
+<table>
+<thead>
+<tr>
+<th>Lane</th>
+<th>HOLDOUT-DTI (gems57-pooled-hide-v2, seeds 20/30)</th>
+<th>Why it stopped</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H79-NHR (catalogue-geometry nested-hide HGB)</td>
+<td>0.1431 / 0.1522 vs H33 control 0.0961 / 0.0989</td>
+<td>Duplicate: 26 ordinary registry dot fields each contain &gt;70% of its dots within 3 px (IR-79-55). Dots sit at median 5.4 px from the catalogue (<code>evidence/nhr/distance_to_catalogue.json</code>).</td>
+</tr>
+<tr>
+<td>G79B-SDPT (terrain-only dipole/trace)</td>
+<td>0.111 / 0.121 unconstrained</td>
+<td>99 dot-field priors &gt;0.70 forward overlap; the registry-unique capped emission fell below its A1 control on both seeds.</td>
+</tr>
+<tr>
+<td>G79-STEPCO (multi-field step dipoles + HGB)</td>
+<td>0.0946 / 0.0948</td>
+<td>Tied the H33 control; uniqueness fired on space-filling priors.</td>
+</tr>
+<tr>
+<td>G79-FABRIC-OFFSET E1 (magnetic marker lag)</td>
+<td>0.047 / 0.047 (post-stop diagnostic)</td>
+<td>Below uniform random; stopped at the literal gate.</td>
+</tr>
+</tbody>
+</table>
+<p>Lesson, measured not assumed: any detector whose ranking is dominated by
+catalogue proximity or by downhill-facing range-front scarp amplitude lands on
+the same cells as 26–99 earlier family dot fields. A lane that is both
+registry-unique <strong>and</strong> holdout-competitive must rank a fault population those
+fields systematically underweight.</p>
+<h3>Ranked candidate hypotheses (untried in this repo)</h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Hypothesis and exact layers</th>
+<th>Physical signature / transform</th>
+<th>Why it should catch a fault <em>missing</em> from USGS/INGENIOUS</th>
+<th>Difference from everything in <code>src/</code>, <code>scripts/</code>, <code>vendor/</code>, <code>archive/</code></th>
+<th>Expected gain / cost</th>
+<th>Named non-fault mimic</th>
+<th>Data viability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 (executed)</strong></td>
+<td><strong>H79-COV — antithetic scarps + buried basement steps under cover.</strong> Lidar <code>upface_max</code>, <code>downface_max</code>, <code>step_max</code>, <code>coh100</code>, <code>relief</code>; potential fields <code>depth_to_base_surf</code> (b15), <code>iso_grav_anom</code> (b13), <code>rtp</code> (b2), <code>cond_surf</code> (b17), plus <code>tmi_hg</code>, <code>iso_grav_anom_hg</code>, strain/earthquake bands</td>
+<td>(a) Facing-polarity asymmetry <code>up/(up+down)</code> × step rank × coherence; (b) two-scale step-dipole <strong>persistence</strong> <code>min(rank(step σ1.5), rank(step σ6))</code> per potential field, interacted with cover thickness rank; fixed HGB on the nested-hide 300 m kernel-credit target, <strong>no catalogue-geometry inputs</strong></td>
+<td>Catalogue mappers draw downhill-facing range-front scarps. Antithetic (uphill-facing) graben strands and graben margins buried under basin fill have weak/no conventional scarp but still step basement depth, gravity and magnetics. Expert test faults were specifically identified as absent from the public USGS database (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">official problem description</a>)</td>
+<td>NHR used catalogue geometry (proximity) — excluded here by construction. STEPCO used single-scale dipoles of all fields including topography amplitudes with a classifier on mapped pixels. G79B was terrain-only with trace objects. Nobody here used facing-polarity asymmetry as the primary signal (it was hypothesis 2, untested, in <code>research/hypotheses_nhr.md</code>) or cover-interacted two-scale potential-step persistence, and nobody combined them in one catalogue-free population</td>
+<td>Highest / medium (reuses NHR stack/evaluator)</td>
+<td>Sackung/landslide head scarps (also uphill-facing); unfaulted sedimentary pinch-outs step basement+gravity; paleochannel margins</td>
+<td>All inputs already SHA-256-pinned in <code>registry/data_manifest.json</code>; viable now</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Wellspring/vent alignment corridors.</strong> <code>external/gdr_wellspring_in_footprint.csv</code>, <code>gdr_volcanic_vents_in_footprint.csv</code> (pinned in the data manifest) + lidar step</td>
+<td>Collinearity density of thermal springs/vents along candidate lineaments (Hough-style accumulation)</td>
+<td>Geothermal upflow localises on permeable fault intersections that may lack scarps; alignments of springs are a classic blind-fault indicator</td>
+<td>No module in this repo uses point-feature collinearity; the CSVs are restored but unused</td>
+<td>Medium / low–medium</td>
+<td>Spring lines along lithologic contacts or range-front water tables without through-going faults</td>
+<td>Viable (pinned CSVs); point counts are small, so power is uncertain</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Drainage-deflection lineaments.</strong> 10 m DEM flow routing</td>
+<td>Systematic same-sense deflection/knickpoint alignment of channels crossing a line</td>
+<td>Strike-slip/oblique components offset drainages even where scarps are eroded</td>
+<td>No flow-routing anywhere in this repo</td>
+<td>Medium / high</td>
+<td>Lithologic strike ridges deflect drainage without faulting</td>
+<td><strong>Not viable this session</strong>: needs USGS 3DEP 10 m DEM tiles (free, official: <a href="https://www.usgs.gov/3d-elevation-program">https://www.usgs.gov/3d-elevation-program</a>), unreachable from this sandbox allowlist; obtainable via a GitHub Actions workflow as sibling repos did</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Seismicity lineation anisotropy.</strong> Earthquake point catalogue</td>
+<td>Anisotropic (lineated) clustering of hypocentres vs isotropic background</td>
+<td>Active blind faults generate microseismic lineations before/without surface rupture</td>
+<td>The stack's <code>deq/ieq</code> bands are pre-smoothed densities; no point-pattern anisotropy exists here</td>
+<td>Low–medium / medium</td>
+<td>Mining blasts and geothermal production seismicity cluster isotropically around fields</td>
+<td><strong>Not viable this session</strong>: needs the USGS ComCat event catalogue (free, official: <a href="https://earthquake.usgs.gov/earthquakes/search/">https://earthquake.usgs.gov/earthquakes/search/</a>), not mirrored here and unreachable</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Radiometric K-depletion lineaments.</strong> GeoDAWN K/Th/U bands</td>
+<td>Linear K/Th lows (hydrothermal leaching) parallel to structures</td>
+<td>Fault-hosted alteration can mark covered faults</td>
+<td>Family-wide radiometric fusions exist (GEMSDOE46, user-reported 0.1589); in-repo the bands are inputs but never an alteration-lineament surface</td>
+<td>Low / low</td>
+<td>Playa evaporites and lithologic K variation</td>
+<td>Viable, but ranked last: high duplicate-gate risk vs radiometric family fields</td>
+</tr>
+</tbody>
+</table>
+<h3>Why hypothesis 1 maximises P(win)</h3>
+<ol>
+<li><strong>Uniqueness by population, not by capping.</strong> Its top-ranked cells are
+   antithetic piedmont scarps and covered basement steps — terrain that
+   amplitude-ranked scarp fields and proximity-ranked fields place low. No
+   post-hoc overlap cap is used or needed; the registry gate is a check, not
+   an input.</li>
+<li><strong>Holdout-honest training.</strong> Same nested whole-component hide-and-recover
+   and metric-native kernel target as NHR, but with catalogue geometry removed,
+   so any holdout gain cannot be proximity memorisation (the failure mode that
+   made NHR both strong and duplicated).</li>
+<li><strong>Final-round value.</strong> The Final Prize Round rescores against expert-expanded
+   labels (<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#competition-structure">official structure</a>):
+   a map of genuinely unmapped antithetic/buried structures is exactly what an
+   expert panel can verify and add, whereas near-catalogue strand duplicates
+   add little new geology.</li>
+</ol>
+<h3>Stated-before-results limitation</h3>
+<p>Withheld catalogue components are catalogue-like (mostly mappable scarps), so
+the holdout is <em>biased against</em> a covered/antithetic detector: it may score
+only modestly even if it finds real blind faults. The preregistered bar
+(beat the H33 fold-fair control on both seeds) is kept anyway; if it is not
+met, the verdict is negative and the file is labelled DO-NOT-SUBMIT. No
+leaderboard score is projected from holdout numbers.</p></div><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
 <p>Written before any H79-NHR holdout result existed (preregistration:
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_nhr.json"><code>registry/preregistration_nhr.json</code></a>).
 Ranks are qualitative judgements of expected DTI improvement and cost, <strong>not

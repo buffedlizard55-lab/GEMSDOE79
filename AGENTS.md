@@ -1,13 +1,14 @@
 # Start-of-session contract
 
 1. Read **all of README.md**, including the original prompt, then `run_card.json`,
-   `reports/irregularities.md`, `registry/preregistration_nhr.json` (active lane) and
-   `registry/preregistration.json` (archived E1) before work.
+   `reports/irregularities.md`, `registry/preregistration_g79cov_20261022.json` (active lane),
+   `registry/preregistration_nhr.json` and `registry/preregistration.json` (archived lanes) before work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-3. Active lane: **H79-NHR** (session 337ac1e9), opened at the user's explicit
-   request and preregistered before any result. One experiment (X1) was used. It beat
-   the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
-   and the lane is stopped. Do not retune or overlap-cap X1.
+3. Active lane: **H79-COV** (session e23d5371), preregistered before any result. One
+   experiment (C1) was used. It **failed the holdout gate and the duplicate gate**
+   (IR-79-59), so the verdict is `negative` and the lane is stopped. Do not retune C1;
+   C2/C3 were reserved for defect fixes only. H79-NHR (session 337ac1e9) remains stopped
+   negative (IR-79-55); its card is `run_card_nhr.json`. Do not retune or overlap-cap X1.
    A new idea needs a new preregistered lane, with three experiments or two hours at most.
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.

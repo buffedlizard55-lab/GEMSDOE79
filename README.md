@@ -4,48 +4,59 @@
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> This is a newly generated, format-valid research GeoTIFF. It failed the protocol's duplicate gate,
-> so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
-> exits with code 2, and no human inspection is needed.
+> This session generated a brand-new, format-valid GeoTIFF (lane H79-COV). It **failed two preregistered
+> gates** — it did not beat the H33 holdout control, and its dots duplicate 36 discriminating registry dot
+> fields — so **do not upload it**. The decision is fully automatic: `scripts/submission_status.py` exits
+> with code 2; no human inspection is needed or used.
 
 | | |
 |---|---|
-| File | [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip) |
-| Unique name | `gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT` |
-| Note (122/140) | `H79-NHR research only; HOLDOUT-DTI 0.143/0.152 vs H33 0.096/0.099; DUPLICATE: 0.91 of dots within 3px of a registry raster` |
-| SHA-256 | `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2` |
-| Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
-| Lane / experiment | H79-NHR / X1 (1 of 3 allowed; about 70 min of 2 h) |
-| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.1431** [0.1281, 0.1574], n = 11,321 · seed 30: **0.1522** [0.1335, 0.1696], n = 11,342 |
-| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.112] |
-| Paired Δ vs H33 control | +0.047 [0.0321, 0.0621] · +0.0533 [0.0369, 0.0704] |
-| Leakage canary | 464 single-feature AUC tests, max 0.8589 ≤ 0.90 (`geom_log_dist_visible_tip`): **PASS** |
-| Duplicate gate | **FAIL.** 26 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif` at 0.913, against 0.610 expected by chance. Rank correlation is clear: worst ρ 0.112. |
-| Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/nhr/selector_decision.json`). |
+| File | [`docs/downloads/gems79-h79-cov-research-37654dots-20261022T044820Z-eee84d40-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-cov-research-37654dots-20261022T044820Z-eee84d40-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-cov-research-37654dots-20261022T044820Z-eee84d40-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-cov-research-37654dots-20261022T044820Z-eee84d40-DO-NOT-SUBMIT.zip) |
+| Unique name | `gems79-h79-cov-research-37654dots-20261022T044820Z-eee84d40-DO-NOT-SUBMIT` |
+| Note (115/140) | `H79-COV research only; HOLDOUT-DTI 0.061/0.058 vs H33 0.096/0.099; FAILED: beats_current_holdout_best_both_seeds,pa` |
+| SHA-256 | `77d66736a59fe84f54a1474c2198745c1ae94fe56546eacbd1fe3084b6a6d14a` |
+| Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, finite everywhere (portal-safe: min 0, max 1): **PASS** |
+| Lane / experiment | H79-COV / C1 (1 of 3 allowed; C2–C3 preregistered for defect fixes only and not spent) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.061** [0.0477, 0.074], n = 11,321 · seed 30: **0.0581** [0.0465, 0.07], n = 11,342 |
+| HOLDOUT-DTI, H33 fold-fair control | 0.0961 · 0.0989 |
+| Paired Δ vs H33 control | -0.0351 [-0.0502, -0.02] · -0.0408 [-0.056, -0.0263] (**significantly worse**) |
+| Paired Δ vs uniform | +0.0126 [0.0002, 0.0249] · +0.0099 [-0.0018, 0.0219] (seed 30 includes 0) |
+| Leakage canary | 200 single-feature AUC tests, max 0.6763 ≤ 0.90 (`relief_rank`): **PASS** |
+| Duplicate gate | **FAIL.** Worst Spearman ρ 0.127 ≤ 0.90, but 36 discriminating registry dot fields each contain > 70 % of the dots within 3 px. Worst: `GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif` at 0.927 against 0.610 expected by chance. |
+| Verdict | **negative**. Lane stopped after C1 with no retuning. Separate selector refused (`evidence/cov/selector_decision.json`). |
 | Slots used | 0 |
 
 Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
-The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
+The canonical card is [`run_card.json`](run_card.json) (copy: [`run_card_cov.json`](run_card_cov.json)); every number above is copied from it.
 
-## What this session found (2026-10-22, session `337ac1e9`)
+## What this session found (2026-10-22, session `e23d5371`, lane H79-COV)
 
-1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
-   So sparse dots win: one dot on a trace earns up to about 2.33 truth units of TP and pays at most 1 unit of FP.
-   H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
-   masked, so those dots were pure false positives. Removing them lifted the user-reported score from 0.2600
-   to 0.2778. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
-   0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
-2. **Can we beat it?** Five untried hypotheses were ranked in
-   [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
-   learning, was preregistered in [`registry/preregistration_nhr.json`](registry/preregistration_nhr.json)
-   and run once. It **beat the H33 control on the holdout** on both seeds, with paired CIs above zero and no
-   leakage. However, its dots fall in the 300 m–2 km band around mapped faults, which 26 earlier family
-   dot fields already occupy. Those fields have unverified historical scores of 0.016–0.143. Under the protocol, that is a
-   **duplicate lane → stop**.
-3. **Systemic blocker (IR-79-53).** 30 registry rasters are space-filling: their 3 px halos cover more than 70 % of
-   the area, so even a uniformly random map is flagged by them. Taken literally, the duplicate rule rejects every
-   possible submission. The next lane needs **an explicit user decision** on these rasters.
+1. **Why H33 (USER-REPORTED 0.2778) scored highest — re-verified line by line.** The official metric's TP is a
+   per-truth max over a 300 m kernel while FP is a per-prediction sum, so sparse binary dots dominate
+   probability maps (≈2.33 TP per dot vs ≤1 FP). H33 is exactly D2.8 minus 6,436 dots within 200 m of mapped
+   faults — masked pixels, pure FP. A public 0.2778 requires ≥23.6 % of truth credit (0.4413 requires
+   ≥38.4 %). Full analysis: [`reports/session_e23d5371_h79cov.md`](reports/session_e23d5371_h79cov.md).
+2. **The previous README's suggested next lane was run and it failed.** Five hypotheses were ranked in
+   [`research/hypotheses_g79cov.md`](research/hypotheses_g79cov.md); the top one — catalogue-free antithetic
+   (uphill-facing) scarps + buried basement-step persistence under cover — was preregistered in
+   [`registry/preregistration_g79cov_20261022.json`](registry/preregistration_g79cov_20261022.json) and run
+   once on identical folds/evaluator/budget (controls reproduced the prior session to 4 decimals). It scored
+   HOLDOUT-DTI 0.061/0.058 vs the H33 control's 0.096/0.099 and duplicated 36 discriminating registry fields.
+   **Conclusion: at 100 m this population carries too little signal to beat H33; no registry-unique route past
+   0.2778 has been demonstrated in this repo.** Remaining ranked options need new data (USGS 3DEP DEM drainage
+   morphometry; USGS ComCat lineations) or use the already-pinned GDR wellspring/vent CSVs.
+3. **Protocol decisions taken and flagged (IR-79-57/58).** The Amendment-B1 discriminating-prior rule
+   (halo coverage < 0.70) was preregistered as the automated duplicate test, with literal readings published;
+   H79-COV fails under both readings, so the verdict does not depend on it. The 30 space-filling rasters
+   (IR-79-53) remain a systemic issue for any future lane.
+
+## Previous lane H79-NHR (session `337ac1e9`): negative, archived
+
+Beat the H33 control on the holdout (0.1431/0.1522 vs 0.0961/0.0989, canaries pass) but duplicated 26 ordinary
+registry dot fields → **DO NOT SUBMIT**. Card preserved byte-for-byte at [`run_card_nhr.json`](run_card_nhr.json);
+TIFF/ZIP/receipt at [`archive/h79_nhr_337ac1e9/`](archive/h79_nhr_337ac1e9/README.md); evidence in
+[`evidence/nhr/`](evidence/nhr/); analysis in [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
 
 ## Concurrent lane G79-STEPCO (session `220dabc8`): also negative, archived
 
@@ -99,11 +110,10 @@ already dotted, so uniqueness after the fact costs more than detector gains.
   branches, tags and pull refs), not every file other participants have uploaded.
 - The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-47) and can be reversed.
 - Next steps:
-  1. Decide IR-79-53.
-  2. Run a far-field lane that ranks within H33-like distance bands (more than 1 km from mapped faults), with
-     antislope or lidar evidence, checking the surface for uniqueness before placement.
-  3. Reweight the nested target by distance band.
-  4. Add the absolute 3DEP DEM for shoreline suppression.
+  1. Decide IR-79-53 (space-filling priors) and confirm or reverse the IR-79-57 B1 adoption.
+  2. (Done by H79-COV, negative) Far-field/antislope lane — do not re-run at 100 m.
+  3. Obtain USGS 3DEP 10 m / 1 m DEM tiles (GitHub Actions fetch) for drainage-deflection + shoreline suppression.
+  4. Test GDR wellspring/vent alignment corridors (CSVs already pinned in the data manifest) as a new preregistered lane.
 
 ## Reproduce and verify
 
@@ -111,12 +121,11 @@ already dotted, so uniqueness after the fact costs more than detector gains.
 python3 -m venv .venv && .venv/bin/pip install -r requirements.lock
 .venv/bin/python scripts/restore_data.py              # hash-pinned inputs (see registry/data_manifest.json)
 .venv/bin/python scripts/restore_registry_git.py      # 992 registry rasters via git (no REST quota)
-.venv/bin/python scripts/run_nhr.py holdout --seed 20 # X1 holdout (also --seed 30), about 12 min each
-.venv/bin/python scripts/run_nhr.py final             # final surface + dots
-.venv/bin/python scripts/nhr_uniqueness.py surface && .venv/bin/python scripts/nhr_uniqueness.py final
-.venv/bin/python scripts/nhr_overlap_chance.py        # per-raster overlap vs chance
-.venv/bin/python scripts/build_nhr_submission.py      # gate check + shared writer
-.venv/bin/python scripts/finalize_nhr.py              # run card from evidence
+.venv/bin/python scripts/run_cov.py holdout --seed 20 # C1 holdout (also --seed 30), about 2 min each
+.venv/bin/python scripts/run_cov.py final             # final surface + dots
+.venv/bin/python scripts/cov_uniqueness.py surface && .venv/bin/python scripts/cov_uniqueness.py final
+.venv/bin/python scripts/build_cov_submission.py      # gate check + shared writer
+.venv/bin/python scripts/finalize_cov.py              # run card from evidence (preserves run_card_nhr.json)
 .venv/bin/python scripts/select_submission.py         # separate selector (refuses here)
 .venv/bin/python scripts/verify_project.py && .venv/bin/python scripts/submission_status.py
 .venv/bin/python scripts/build_site.py && .venv/bin/python scripts/check_site.py && .venv/bin/python -m pytest -q

@@ -111,38 +111,59 @@ def publication_contract_checks(root, card):
 
 
 def evidence_checks(root, card):
-    """Every card number must equal the evaluator / uniqueness / gate evidence."""
-    root = Path(root); ev = root / 'evidence/nhr'
+    """Every card number must equal the evaluator / uniqueness / gate evidence.
+
+    Lane-aware: the evidence directory, file prefix, preregistration and the
+    uniqueness expectation are derived from the canonical card itself
+    (``gates_file``), so a negative lane is verified against *its* evidence
+    rather than failing for not being the previous lane. A check failing
+    because a scientific gate failed is reported through the card's own
+    ``current_best_holdout_beaten`` / ``protocol_unique`` booleans, which this
+    function cross-checks against the evidence instead of requiring success.
+    """
+    root = Path(root)
+    gates_rel = card.get('gates_file', 'evidence/nhr/x1_gates.json')
+    ev = (root / gates_rel).parent
+    prefix = Path(gates_rel).name.split('_gates.json')[0]          # x1 / c1
+    lane_dir = ev.name                                             # nhr / cov
     out = {}
-    hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    hold = {s: json.loads((ev / f'{prefix}_holdout_seed{s}.json').read_text()) for s in (20, 30)}
     h = card['holdout_dti']
     src = hold[h['headline_seed']]['holdout']['scores']['candidate']
     out['holdout_card_equals_evaluator_output'] = (
         h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
         h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
         h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
-    out['holdout_beats_h33_control_both_seeds'] = all(
-        x['holdout']['paired_differences']['h33_foldfair_control']['ci95'][0] > 0 and
+    beats = all(
         x['holdout']['scores']['candidate']['dti'] > x['holdout']['scores']['h33_foldfair_control']['dti']
         for x in hold.values())
+    out['holdout_gate_card_matches_evidence'] = card['current_best_holdout_beaten'] is beats
     out['leakage_canary_clear'] = (card['leakage_canary']['passed'] is True and
         card['leakage_canary']['auc'] <= 0.90 and
         all(x['leakage_canary']['n_suspicious'] == 0 for x in hold.values()))
     uniq = {p: json.loads((ev / f'uniqueness_{p}.json').read_text()) for p in ('surface', 'final')}
-    dots_path = root / '.cache/nhr/final_dots.npy'   # ignored cache; checked when present
-    chance = json.loads((ev / 'overlap_chance.json').read_text())
-    flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
-    expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
+    dots_path = root / f'.cache/{lane_dir}/final_dots.npy'   # ignored cache; checked when present
+    if 'amendment_B1' in uniq['final']:
+        b1 = uniq['final']['amendment_B1']
+        disc_flag = [m for m in b1['b1_firings'] if (m.get('halo_coverage') or 0) < 0.70]
+        expected_unique = bool(uniq['final']['passed'] and uniq['surface']['worst_spearman'] <= 0.90
+                               and not disc_flag and not b1['rho_firings'])
+    else:
+        chance = json.loads((ev / 'overlap_chance.json').read_text())
+        flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
+        expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
     out['uniqueness_card_matches_evidence'] = (
         card['protocol_unique'] is expected_unique and
         (not dots_path.exists() or hashlib.sha256(np.load(dots_path).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
-    gates = json.loads((ev / 'x1_gates.json').read_text())
+    gates = json.loads((root / gates_rel).read_text())
     out['gate_receipt_bound_to_raster_and_verdict'] = (
         gates['raster_sha256'] == card['raster_sha256'] and
         gates['all_passed'] is (card['verdict'] == 'promote') and
         gates['all_passed'] is all(gates['gates'].values()))
     out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
-    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_nhr.json') == card['preregistration_sha256']
+    prereg_files = [p for p in (root / 'registry').glob('preregistration*.json')
+                    if sha(p) == card['preregistration_sha256']]
+    out['preregistration_hash_matches_card'] = len(prereg_files) == 1
     return out
 
 

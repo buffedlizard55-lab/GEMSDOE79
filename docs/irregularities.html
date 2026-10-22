@@ -370,6 +370,21 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td><strong>Concurrent-lane merge.</strong> PR #26 (G79-STEPCO, session 220dabc8) reached <code>main</code> while H79-NHR was running. Both lanes are negative. STEPCO S1 tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989). NHR beat it (0.1431 / 0.1522) but is a duplicate.</td>
 <td>When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to <code>archive/g79_stepco_s1/downloads/</code>. <code>run_card_stepco.json</code>, <code>evidence/stepco/</code> and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at <code>archive/g79_fabric_offset_e1/</code>. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision.</td>
 </tr>
+<tr>
+<td>IR-79-57</td>
+<td><strong>Amendment-B1 discriminating-prior rule adopted as the automated duplicate test for lane H79-COV</strong> (session e23d5371), preregistered in <code>registry/preregistration_g79cov_20261022.json</code> before any result. The user required submission validation without human intervention; IR-79-53 proves the literal test rejects every nonempty map, and B1 (already used by G79B-SDPT) is the repo's recorded interpretation.</td>
+<td>No threshold value changed. Literal readings published in <code>evidence/cov/uniqueness_final.json</code>. H79-COV fails under BOTH readings (36 discriminating firings, worst 0.927 vs 0.610 chance; 66 literal firings), so this session's negative verdict does not depend on the interpretation. Flagged for user confirmation/reversal.</td>
+</tr>
+<tr>
+<td>IR-79-58</td>
+<td><strong>Sequencing (repeat of IR-79-54 pattern).</strong> The C1 final-stage cache placement ran before the pre-placement surface uniqueness scan completed, because surface and dots are produced by the same stage.</td>
+<td>Placement used no scan information; packaging (<code>build_cov_submission.py</code>) waited for both scans and re-derived every gate. The surface scan alone (worst provisional overlap 1.0 vs space-filling priors; ρ 0.644) would not have changed the outcome: the lane is negative on the holdout gate regardless.</td>
+</tr>
+<tr>
+<td>IR-79-59</td>
+<td><strong>H79-COV negative on both scientific gates.</strong> HOLDOUT-DTI 0.0610/0.0581 vs H33 control 0.0961/0.0989 (paired Δ −0.035/−0.041, CIs exclude 0); paired Δ vs uniform includes 0 on seed 30; 36 discriminating duplicate firings. Controls reproduced session 337ac1e9 to 4 decimals, so no defect fix (C2/C3) was justified; experiments used 1 of 3.</td>
+<td>Verdict negative; selector refused (<code>evidence/cov/selector_decision.json</code>); file published as DO-NOT-SUBMIT. Eliminates facing-polarity + covered-step persistence at 100 m as a route past H33 (see <code>reports/session_e23d5371_h79cov.md</code>).</td>
+</tr>
 </tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

@@ -336,3 +336,22 @@ Pages/API verification were not rerun in this checkpoint. Public verification it
   `scripts/submission_status.py` (exit code 2), live preview server + `node scripts/browser_review.cjs` across
   all 21 responsive cases and downloaded GeoTIFF SHA-256 check, pushed `arena/79e8e13e-gemsdoe79`, verified GitHub Actions
   checks, merged the PR cleanly onto `main`, and verified public GitHub Pages consistency (`scripts/verify_public_site.py`).
+
+## Session e23d5371 (2026-10-22, lane H79-COV)
+
+- **Pass 1 — implement and verify.** Restored 13 pinned inputs + 992 registry rasters (SHA-256 verified).
+  Preregistered H79-COV (`registry/preregistration_g79cov_20261022.json`) from five ranked hypotheses
+  (`research/hypotheses_g79cov.md`). Ran C1 on the shared folds/evaluator: canaries pass (max AUC
+  0.676/0.663, 200 tests); HOLDOUT-DTI 0.0610/0.0581 vs H33 control 0.0961/0.0989; uniqueness ρ ≤ 0.644
+  (surface) / 0.127 (final) but 36 discriminating duplicate firings (worst 0.927). Shared writer produced the
+  format-valid DO-NOT-SUBMIT TIFF/ZIP; selector refused; `submission_status.py` exit 2.
+- **Pass 2 — bugs, assumptions, edge cases.** Controls reproduced session 337ac1e9 to 4 decimals (no defect;
+  C2/C3 not spent). Caught and fixed: a lost parallel edit in `scripts/select_submission.py` (gates path);
+  NHR-hardcoded `evidence_checks` in `scripts/verify_project.py` made lane-generic via the card's
+  `gates_file`; NHR-specific negative site prose made card-driven; lane-specific integrity tests made
+  card-driven; README history snapshot moved out of the link-scanned tree. Independent portal-style rasterio
+  check: 1 band float32, EPSG:32611, sample transform, finite everywhere, values exactly {0,1}, 37,654 positives.
+- **Pass 3 — full re-check.** `verify_project.py` 27/27 checks pass; `check_site.py` pass (7 pages, 113 links);
+  `pytest` 190 passed; live preview shows OK TO DOWNLOAD: YES / OK TO SUBMIT: NO at the top with the download.
+  Every number labelled HOLDOUT-DTI / USER-REPORTED / RASTER- or REGISTRY-MEASUREMENT; no projection written
+  as a score. Remaining limitations in `reports/session_e23d5371_h79cov.md` §2 and IR-79-53/57/58/59.
