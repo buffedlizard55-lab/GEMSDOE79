@@ -68,7 +68,7 @@ The repo already holds four ranked, prospective hypotheses in `research/hypothes
 
 1. **Gate reading for continuous surfaces.** Options: (a) keep literal, which blocks every candidate and makes a unique TIF impossible; (b) adopt D-1 top-k (`budget-matched-v3`) prospectively, as the shared tool already implements, which the measurement above suggests is non-blocking for random placement but still needs a full registry rerun; (c) another reading. Choose before any lane runs. Without a choice, the outcome is a stop.
 2. **Lane assignment.** Provide the single method paragraph, or authorise G79-CJX from the ranked list. Without one, I will not start a lane.
-3. **Merge to `main`.** The prompt requests a PR and merge. The repo's verification passes on this branch, and the change is docs-only. Confirm before I merge.
+3. **Merge to `main`.** The prompt requests a PR and merge. This change is docs-only and passed `verify_project.py` and the full test suite on this branch, so the merge is carried out as requested.
 
 ## 8. Irregularities and limitations
 
