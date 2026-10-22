@@ -43,6 +43,20 @@ Moved out of `docs/downloads/` in this merge so the repository still publishes o
 
 Moved out of `docs/downloads/` so this repository still publishes one upload pair. Bytes are unchanged in [`archive/h79_nhr/`](archive/h79_nhr/README.md). SHA-256 `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`. HOLDOUT-DTI 0.1431 / 0.1522 beat the H33 control and failed the duplicate gate. Do not submit that file either.
 
+### H79-BQA (session `0bd0e0b2`, stopped negative, no file written)
+
+H79-BQA asked whether re-weighting the nested hide-and-recover target, so every distance band from mapped faults counts equally, beats H33 *and* stays unique ([hypotheses](research/hypotheses_bqa.md), [preregistration](registry/preregistration_bqa.json)). It ran 2 of 3 experiments and used 0 slots. **No GeoTIFF was written**; the decision table above is unaffected.
+
+| Seed | Role | X2 HOLDOUT-DTI [95 % CI] | X1 | H33 control | Far field > 1 km: X2 / X1 / H33 |
+|---|---|---|---|---|---|
+| 20 | selection (exploratory, not counted) | 0.1510 [0.1365, 0.1649] | 0.1139 | 0.0961 | 0.0917 / 0.0771 / 0.0775 |
+| 30 | confirmatory | 0.1625 [0.1438, 0.1808] | 0.1235 | 0.0989 | 0.0986 / 0.0832 / 0.0853 |
+| 40 | confirmatory | 0.1580 [0.1426, 0.1749] | 0.1289 | 0.1000 | 0.1070 / 0.1004 / 0.0910 |
+
+- **X1** (preregistered: band weights plus H33's distance quotas): **negative**. In the far field it fell slightly below H33 on seeds 20 and 30.
+- **X2** ([amendment A1](registry/preregistration_bqa_amendment_A1.json), committed before any seed-30/40 number existed; disclosed as IR-79-112): band weights with free placement. On the confirmatory seeds it beat H33 by +0.0636 [0.046, 0.083] and +0.0580 [0.0411, 0.0772], with canaries at 0.8589 and 0.8877 (limit 0.90). It then **failed surface uniqueness before placement**: chance-corrected overlap 0.943 with this repository's own NHR file, and 81 of 1,197 registry rasters over 0.70. That is a duplicate, so the lane stopped.
+- Lesson: re-weighting the same proximity-dominated stack lands where NHR did. [Analysis](reports/bqa_analysis.md) · [state](evidence/bqa/state.json) · [run card](run_card_bqa.json) · [three-pass review](reports/review_2026-10-22_session-0bd0e0b2.md) · IR-79-111…114.
+
 ### Archived concurrent artifact (2026-10-22, lane H79-FF, session 1de1617f)
 
 Session `1de1617f` generated an additional negative research GeoTIFF (`H79-FF`); to preserve the single-canonical-artifact publication contract in `docs/downloads/` (`IR-79-52`, `IR-79-66`), its bytes are archived under [`archive/h79_ff_1de1617f/`](archive/h79_ff_1de1617f/README.md):
@@ -329,6 +343,7 @@ far-field placement loses the recoverable signal the holdout can measure.
   This file's dots sit **farther** from mapped faults than H33's: median 2.71 km against 1.96 km.
 - Uniqueness covers the 992 hash-verified public sibling-repository rasters, not every file other participants have uploaded. Six registry files are invalid/wrong-CRS and were fail-closed as errors.
 - `informative-halo-v4` is a recorded interpretation of an ambiguous rule (IR-79-86) and can be reversed.
+- Band reweighting of the NHR target has been tried (H79-BQA, IR-79-112). It beat H33 on holdout but duplicated NHR's cells, so do not retry it. Whatever lane runs next should check surface uniqueness *before* spending holdout time: that gate has stopped every lane in this repository that beat H33.
 - Next steps that still need **new free official data** or a new preregistered lane:
   1. Lahontan shoreline suppression using USGS 3DEP absolute elevation (hypothesis 4; not on this sandbox allowlist).
   2. A non-scarp modality that is not already dotted (radiometric Th/K lineaments, hypothesis 3) — only if uniqueness is checked on the surface *before* placement.

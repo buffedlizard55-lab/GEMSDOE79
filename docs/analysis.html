@@ -241,7 +241,272 @@
 <p>IR-79-67, applied before any submission placement. Spearman of the continuous surface against 986 comparable rasters: worst 0.6406, under 0.90. Six files were unreadable or on a different grid and are listed, not treated as passes. Forward 3-pixel overlap of the 37,654 check dots: 12 registry files exceed 0.70 and have a halo that covers at most 70% of allowed cells. Those 12 files are 7 distinct maps; nan and all-finite twins are counted separately. The worst is the 13GEMSDOE r6 ensemble at 0.8527, against a halo coverage of 0.6413. The weakest informative flag is 0.7030 against a halo of 0.4425, so the stop is not one marginal file. Thirty other rasters also exceed 0.70, but their own halos cover more than 70% of the allowed area, including a witness that covers every allowed cell. Those are recorded and do not fire the operative flag. Literal overlap is 1.0 and is not called uniqueness.</p>
 <p>The surface gate failed. No submission dots were placed after that. The downloadable file is the check set, so the failure can be audited. Do not upload it.</p>
 <h3>Stop</h3>
-<p>One experiment of three. No retune. No overlap cap. No second method in this lane. Slots used: 0.</p></div></section><section class="section"><h2>Earlier H79-FFAS notes</h2><div class="prose table-scroll"><h2>Why H33 scored highest, and what H79-FFAS measured</h2>
+<p>One experiment of three. No retune. No overlap cap. No second method in this lane. Slots used: 0.</p></div></section><section class="section"><h2>Concurrent lane H79-BQA (session 0bd0e0b2, negative, no file)</h2><div class="prose table-scroll"><h2>H79-BQA: band-weighted hide-and-recover (session 0bd0e0b2)</h2>
+<p>All numbers below are <strong>HOLDOUT-DTI</strong> (evaluator <code>gems57-pooled-hide-v2</code>, 4 spatial quadrant folds, 37,654-dot budget scaled by fold area), copied by <code>scripts/report_bqa.py</code> from <code>evidence/bqa/holdout_seed*.json</code>. None is a leaderboard score. Seed 20 chose X2 among the preregistered arms (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_bqa_amendment_A1.json">amendment A1</a>); seeds 30 and 40 are confirmatory.</p>
+<h3>Standard holdout (all withheld fault pixels)</h3>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>seed 20</th>
+<th>seed 30</th>
+<th>seed 40</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X2: band-weighted model, global placement</td>
+<td>0.1510 [0.1365, 0.1649]</td>
+<td>0.1625 [0.1438, 0.1808]</td>
+<td>0.1580 [0.1426, 0.1749]</td>
+</tr>
+<tr>
+<td>X1: band-weighted model + H33 distance quotas</td>
+<td>0.1139 [0.0990, 0.1275]</td>
+<td>0.1235 [0.1059, 0.1404]</td>
+<td>0.1289 [0.1131, 0.1460]</td>
+</tr>
+<tr>
+<td>Ablation: unweighted model + quotas</td>
+<td>0.1138 [0.0994, 0.1280]</td>
+<td>0.1133 [0.0949, 0.1324]</td>
+<td>0.1324 [0.1160, 0.1510]</td>
+</tr>
+<tr>
+<td>NHR reproduction (unweighted, global placement)</td>
+<td>0.1431 [0.1281, 0.1574]</td>
+<td>0.1522 [0.1343, 0.1705]</td>
+<td>0.1605 [0.1439, 0.1789]</td>
+</tr>
+<tr>
+<td>H33 fold-fair control (holdout best, non-duplicate)</td>
+<td>0.0961 [0.0837, 0.1086]</td>
+<td>0.0989 [0.0842, 0.1120]</td>
+<td>0.1000 [0.0860, 0.1141]</td>
+</tr>
+<tr>
+<td>Uniform random control</td>
+<td>0.0484 [0.0432, 0.0537]</td>
+<td>0.0482 [0.0433, 0.0522]</td>
+<td>0.0489 [0.0434, 0.0544]</td>
+</tr>
+<tr>
+<td>Withheld fault pixels</td>
+<td>11,321</td>
+<td>11,342</td>
+<td>11,437</td>
+</tr>
+</tbody>
+</table>
+<p>Paired difference X2 − H33 control (95 % spatial-block bootstrap CI): seed 30: +0.0636 [+0.0460, +0.0830]; seed 40: +0.0580 [+0.0411, +0.0772].</p>
+<h3>Far-field sub-holdout (withheld pixels &gt; 1 km from fold-visible faults)</h3>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>seed 20</th>
+<th>seed 30</th>
+<th>seed 40</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X2: band-weighted model, global placement</td>
+<td>0.0917 [0.0731, 0.1101]</td>
+<td>0.0986 [0.0784, 0.1189]</td>
+<td>0.1070 [0.0867, 0.1270]</td>
+</tr>
+<tr>
+<td>X1: band-weighted model + H33 distance quotas</td>
+<td>0.0771 [0.0601, 0.0947]</td>
+<td>0.0832 [0.0658, 0.1028]</td>
+<td>0.1004 [0.0779, 0.1215]</td>
+</tr>
+<tr>
+<td>Ablation: unweighted model + quotas</td>
+<td>0.0748 [0.0589, 0.0909]</td>
+<td>0.0771 [0.0576, 0.0983]</td>
+<td>0.1040 [0.0797, 0.1291]</td>
+</tr>
+<tr>
+<td>NHR reproduction (unweighted, global placement)</td>
+<td>0.0787 [0.0620, 0.0966]</td>
+<td>0.0910 [0.0685, 0.1129]</td>
+<td>0.1105 [0.0867, 0.1369]</td>
+</tr>
+<tr>
+<td>H33 fold-fair control (holdout best, non-duplicate)</td>
+<td>0.0775 [0.0612, 0.0922]</td>
+<td>0.0853 [0.0700, 0.1009]</td>
+<td>0.0910 [0.0730, 0.1093]</td>
+</tr>
+<tr>
+<td>Uniform random control</td>
+<td>0.0346 [0.0283, 0.0415]</td>
+<td>0.0356 [0.0301, 0.0412]</td>
+<td>0.0349 [0.0276, 0.0419]</td>
+</tr>
+<tr>
+<td>Withheld fault pixels</td>
+<td>5,150</td>
+<td>5,127</td>
+<td>5,504</td>
+</tr>
+</tbody>
+</table>
+<p>Paired difference X2 − H33 control (95 % spatial-block bootstrap CI): seed 30: +0.0133 [-0.0031, +0.0303]; seed 40: +0.0160 [-0.0074, +0.0387].</p>
+<h3>Where each arm puts its dots (distance to fold-visible faults, px = 100 m; all folds, seed 20)</h3>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>(2,3]</th>
+<th>(3,5]</th>
+<th>(5,10]</th>
+<th>(10,20]</th>
+<th>(20,50]</th>
+<th>&gt;50</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X2: band-weighted model, global placement</td>
+<td>6.7 %</td>
+<td>13.9 %</td>
+<td>39.0 %</td>
+<td>25.8 %</td>
+<td>12.1 %</td>
+<td>2.6 %</td>
+</tr>
+<tr>
+<td>X1: band-weighted model + H33 distance quotas</td>
+<td>4.3 %</td>
+<td>8.6 %</td>
+<td>16.7 %</td>
+<td>21.0 %</td>
+<td>29.4 %</td>
+<td>20.0 %</td>
+</tr>
+<tr>
+<td>Ablation: unweighted model + quotas</td>
+<td>4.3 %</td>
+<td>8.6 %</td>
+<td>16.7 %</td>
+<td>21.0 %</td>
+<td>29.4 %</td>
+<td>20.0 %</td>
+</tr>
+<tr>
+<td>NHR reproduction (unweighted, global placement)</td>
+<td>7.1 %</td>
+<td>17.1 %</td>
+<td>33.0 %</td>
+<td>23.3 %</td>
+<td>14.9 %</td>
+<td>4.6 %</td>
+</tr>
+<tr>
+<td>H33 fold-fair control (holdout best, non-duplicate)</td>
+<td>4.8 %</td>
+<td>7.7 %</td>
+<td>14.6 %</td>
+<td>21.1 %</td>
+<td>30.7 %</td>
+<td>21.3 %</td>
+</tr>
+<tr>
+<td>Uniform random control</td>
+<td>2.6 %</td>
+<td>4.5 %</td>
+<td>11.2 %</td>
+<td>20.1 %</td>
+<td>37.8 %</td>
+<td>23.8 %</td>
+</tr>
+</tbody>
+</table>
+<h3>Verdict: negative (no GeoTIFF)</h3>
+<ul>
+<li><strong>X1</strong> (band-weighted model + H33 distance quotas (registry/preregistration_bqa.json)): negative; G3 (far-field &gt;= H33 control) failed on seed 20 and seed 30.</li>
+<li><strong>X2</strong>: passed G1–G4 on the confirmatory seeds 30 and 40, then failed <strong>G5 (surface uniqueness before placement)</strong>. The provisional top-37,654 cells of the final X2 surface have chance-corrected 3 px overlap 0.943 with <code>GEMSDOE79:docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif</code> (raw 0.950, chance 0.129). 81 of 1,197 compared registry rasters exceed 0.70. The full-surface Spearman ρ is only 0.654, so the <em>ranking</em> is new, but the cells it would fill are already occupied.</li>
+<li><code>run_bqa.py place-x2</code> refuses to place dots for a surface that failed G5, so no dots were placed and no file was written. There was no retuning and no overlap capping. X3 was not run.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Worst registry rasters for the X2 provisional top-k</th>
+<th>chance-corrected</th>
+<th>raw</th>
+<th>chance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GEMSDOE79:docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif</code></td>
+<td>0.943</td>
+<td>0.950</td>
+<td>0.129</td>
+</tr>
+<tr>
+<td><code>GEMSDOE53:docs/submissions/gems53-h1-thin_bin_q0p1-20261008-aefc7582.tif</code></td>
+<td>0.923</td>
+<td>0.938</td>
+<td>0.204</td>
+</tr>
+<tr>
+<td><code>GEMSDOE37:docs/downloads/gemsdoe37-h6-physics-dotted-80k-20261005T055000Z-0bef9211631c.tif</code></td>
+<td>0.902</td>
+<td>0.928</td>
+<td>0.268</td>
+</tr>
+<tr>
+<td><code>GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif</code></td>
+<td>0.863</td>
+<td>0.947</td>
+<td>0.610</td>
+</tr>
+<tr>
+<td><code>12GEMSDOE:docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62_allfinite.tif</code></td>
+<td>0.855</td>
+<td>0.901</td>
+<td>0.317</td>
+</tr>
+<tr>
+<td><code>12GEMSDOE:docs/downloads/12GEMSDOE_r7-nms3-dem10-scarp_0c9199f14e62.tif</code></td>
+<td>0.855</td>
+<td>0.901</td>
+<td>0.317</td>
+</tr>
+<tr>
+<td><code>GEMSDOE25:docs/downloads/gems25-factorial-bde-x123-sapd2-4-20261002-5e4b5a98d2c7-nan.tif</code></td>
+<td>0.840</td>
+<td>0.870</td>
+<td>0.185</td>
+</tr>
+<tr>
+<td><code>GEMSDOE80:docs/downloads/gems80-adpt-kkt-lagrangian-36500d-20261022T012049Z-5bd11c85-zeros.tif</code></td>
+<td>0.834</td>
+<td>0.858</td>
+<td>0.146</td>
+</tr>
+<tr>
+<td><code>59GEMSDOE:docs/downloads/gems59-h59i2-loco-ipp-corridor-20261011T000000Z-zeros.tif</code></td>
+<td>0.830</td>
+<td>0.869</td>
+<td>0.230</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Uniqueness (surface): worst Spearman ρ 0.654, worst chance-corrected 3 px overlap 0.943, complete True, passed <strong>False</strong>.</li>
+</ul>
+<h3>Reading</h3>
+<ul>
+<li><strong>The distance quota was the wrong lever.</strong> Forcing H33's distance profile (X1 and the quota-only ablation) tied H33 in the far field instead of beating it (X1 far field below H33 on seeds 20 and 30).</li>
+<li><strong>Band weighting helps the holdout, but not novelty.</strong> Giving every distance band equal training weight put X2 above the unweighted NHR reproduction on seeds 20 and 30 (point estimates; the paired CI excludes zero only on seed 30, +0.0104 [+0.0005, +0.0211]) and level with it on seed 40. About 65 % of its holdout dots still sit 0.5–2 km from visible faults, the band that NHR and many earlier family maps already fill.</li>
+<li><strong>What the data say about winning.</strong> No surface in this repository has yet both beaten H33 on the holdout and passed the duplicate gate. NHR and X2 beat it, but they concentrate within about 2 km of mapped faults, where registry dot fields already sit. X1 and STEPCO S1 spread out like H33 and tied it. A unique file that beats H33 probably needs evidence other than proximity: new physical layers, not a new weighting of the same stack.</li>
+<li><strong>Caveat.</strong> The holdout hides mapped catalogue faults; the organizer scores expert-found faults that are not in the catalogue. Holdout rank may not transfer.</li>
+</ul></div></section><section class="section"><h2>Earlier H79-FFAS notes</h2><div class="prose table-scroll"><h2>Why H33 scored highest, and what H79-FFAS measured</h2>
 <p>Session <code>c04e5e27</code>, 2026-10-22. Evidence labels: <strong>HOLDOUT-DTI</strong> is the
 spatially blocked hide-and-recover proxy (evaluator <code>gems57-pooled-hide-v2</code>).
 <strong>USER-REPORTED</strong> is a filename-to-score pairing from the prompt with no
