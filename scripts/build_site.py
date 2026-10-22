@@ -25,7 +25,7 @@ SUBMIT_URL = COMPETITION + 'submissions/'
 LEADERBOARD = COMPETITION + 'leaderboard/'
 PROBLEM = COMPETITION + 'page/967/'
 REPO = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
-PAGES_URL = 'https://buffedlizard55-lab.github.io/GEMSDOE79/'
+PAGES_URL = 'https://buffedlizard55-lab.github.io/GEMSDOE79/docs/'  # legacy Pages: main branch, repository root
 PAGES = [('index.html', 'Download'), ('executive-summary.html', 'Executive summary'),
          ('research.html', 'Research'), ('sources.html', 'Sources'), ('irregularities.html', 'Irregularities')]
 REDIRECTS = {'EXECUTIVE_SUMMARY.html': 'executive-summary.html', 'analysis.html': 'research.html',
@@ -164,14 +164,15 @@ def index(card: dict, health: dict) -> str:
             'no organizer receipt in this repository).</li>'
             '<li>HOLDOUT-DTI numbers hide already-mapped faults and are not comparable to leaderboard scores.</li></ul>']
     if board.get('public_dti') is not None:
-        body.append(f'<p class="small">Last automated refresh of #1: {board["public_dti"]} at {E(str(board.get("observed_utc")))}.</p>')
+        when = board.get('observed_utc') or board.get('observed_date') or 'unknown date'
+        body.append(f'<p class="small">Latest recorded #1 in docs/evidence/source_health.json: {board["public_dti"]} ({E(str(when))}).</p>')
     return page('index.html', 'Download and decision', ''.join(body))
 
 
 def executive(card: dict) -> str:
     ok = card['ok_to_submit']
     f = card['submission_file'].removeprefix('docs/')
-    steps = ('<ol><li>Check your <a href="' + SUBMIT_URL + '">DrivenData submissions page</a> shows a free weekly slot.</li>'
+    steps = ('<ol><li>Check your <a href="' + SUBMIT_URL + '">DrivenData submissions page</a> shows a free weekly slot (login required).</li>'
              '<li>Download the TIFF from the <a href="index.html">download page</a> and confirm its SHA-256 matches the one shown.</li>'
              '<li>Upload the <code>.tif</code> (or the one-file ZIP if the page asks for an archive).</li>'
              '<li>Paste the name and the note exactly as shown on the download page.</li>'
@@ -180,7 +181,7 @@ def executive(card: dict) -> str:
     body = [banner(card), '<h1>Executive summary</h1>',
             '<h2>Bottom line</h2>',
             ('<p><b>Submit it.</b> Every automated gate passed.</p>' if ok else
-             '<p><b>Do not submit this file.</b> It is a new, unique, format-valid GeoTIFF, but it scored <i>lower</i> than the project&#39;s '
+             '<p><b>Do not submit this file.</b> It is a newly generated, format-valid GeoTIFF (its bytes match no registry file), but it scored <i>lower</i> than the project&#39;s '
              'existing holdout best (G79-THVC) on the spatially blocked holdout. The user rule is to never spend a slot on an idea that has '
              'not beaten the holdout best, so the automated selector refused it. No human judgement was involved.</p>'
              '<p>It also fails the novelty gates. Its pre-placement surface overlaps 33 earlier dot maps. Its final dots overlap only four '
@@ -191,7 +192,7 @@ def executive(card: dict) -> str:
             '(topography, gravity, magnetics, LiDAR scarps) whose strike agrees with that fabric should be faults more often than '
             'other edges. We ran three preregistered experiments on the shared hide-and-recover holdout:</p>', holdout_rows(card),
             '<p>The fabric family adds a little (EXP-1 minus EXP-2 on seed 30 is significant, on seed 20 it is not), and every arm beats random by a wide margin. '
-            'But all arms are about 0.045–0.05 below THVC. The model mostly learned <i>where fault-rich regions are</i>, not <i>where a strand is</i>; '
+            'But every arm is 0.036–0.050 below THVC. The model mostly learned <i>where fault-rich regions are</i>, not <i>where a strand is</i>; '
             'THVC&#39;s placement (crack-tip continuation plus a kernel-cover optimiser) is more efficient per dot.</p>',
             '<h2>How submission would work (when the banner is green)</h2>', steps,
             '<h2>Why the portal said “Predicted values must be in range [0, 1]”</h2>',
@@ -249,7 +250,7 @@ def sources_page(health: dict) -> str:
             claims = claims + [f"Observed {s.get('observed_date_utc', '')}: #1 {s['observation'].get('public_dti')}"]
         use = '; '.join(claims)
         rows.append(f'<tr><td>{E(s["id"])}</td><td><a href="{E(s["url"])}">{E(str(title))}</a></td>'
-                    f'<td>{E(str(use))[:400]}</td><td>{reach}</td></tr>')
+                    f'<td>{E(str(use))}</td><td>{reach}</td></tr>')
     rows.append('</table>')
     body = ('<h1>Official sources</h1><p>Reachability is an automated HTTP probe, not a fresh review of claims. '
             'Competition facts used on this site were re-read on 2026-10-22 from the '
@@ -290,8 +291,11 @@ def readme(card: dict) -> str:
     return f"""# GEMSDOE79 — DOE GEMS fault-prediction GeoTIFF
 
 > ## {line}
+>
 > **File:** [`{Path(f).name}`]({f}) · [ZIP]({card['zip_file']}) · SHA-256 `{card['raster_sha256']}`
-> **Site:** {PAGES_URL} · **How to submit:** [executive summary]({PAGES_URL}executive-summary.html)
+>
+> **Site:** {PAGES_URL}index.html · **How to submit:** [executive summary]({PAGES_URL}executive-summary.html)
+>
 > {'Every automated gate passed; you still need a free weekly slot.' if ok else 'Blocked by the automated selector — do NOT upload. Failed gates: ' + ', '.join(card['failed_gates']) + '.'}
 
 Competition: [DrivenData × DOE GEMS]({COMPETITION}). Lane this session: **{card['lane']}** — {card['lane_title']}.

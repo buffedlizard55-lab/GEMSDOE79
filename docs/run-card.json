@@ -3,7 +3,7 @@
   "lane": "G79-FSC",
   "lane_title": "Fabric-Steered Concordance: multi-physics edges whose strike agrees with the visible regional fault fabric, placed by fabric-normal non-maximum suppression",
   "session": "arena/0a202578-gemsdoe79",
-  "generated_utc": "2026-10-22T16:18:05Z",
+  "generated_utc": "2026-10-22T16:23:27Z",
   "preregistration_path": "registry/preregistration_g79_fsc.json",
   "preregistration_sha256": "f0e97de71ba4e1efbbd7650ac69fd45804c07ed85e430df93bef70e5113df29c",
   "amendment_path": "registry/preregistration_g79_fsc_amendment_A1.json",
@@ -401,11 +401,11 @@
     },
     "G4_surface_novelty_D2": {
       "passed": false,
-      "detail": "checked 1216, invalid 0, max rho 0.7346044822167301, max overlap 1.0, max chance-corrected 0.8869983960643988, D-2 duplicates 37, literal max overlap 1.0; duplicates by test {'chance_corrected_halo': 33, 'exact_cell_halo_saturated': 4}"
+      "detail": "checked 1216, invalid 0, max rho 0.7346, max 3-px overlap 1.0000, max chance-corrected 0.8870, D-2 duplicates 37, literal max overlap 1.0000; duplicates by test {'chance_corrected_halo': 33, 'exact_cell_halo_saturated': 4}"
     },
     "G5_final_dot_novelty_D2": {
       "passed": false,
-      "detail": "checked 1216, invalid 0, max rho 0.10993892777244416, max overlap 1.0, max chance-corrected 0.5895804673620688, D-2 duplicates 4, literal max overlap 1.0; duplicates by test {'exact_cell_halo_saturated': 4} (only registry rasters positive on every footprint cell; under the pinned D-2 saturated branch every non-empty file is such a duplicate - owner decision D-3 required)"
+      "detail": "checked 1216, invalid 0, max rho 0.1099, max 3-px overlap 1.0000, max chance-corrected 0.5896, D-2 duplicates 4, literal max overlap 1.0000; duplicates by test {'exact_cell_halo_saturated': 4} (only registry rasters positive on every footprint cell; under the pinned D-2 saturated branch every non-empty file is such a duplicate - owner decision D-3 required)"
     },
     "G6_format_validator": {
       "passed": true,
@@ -486,11 +486,11 @@
   ],
   "selector": {
     "script": "scripts/select_submission.py",
-    "run_utc": "2026-10-22T16:18:05Z",
+    "run_utc": "2026-10-22T16:23:27Z",
     "rule": "OK TO SUBMIT only if every gate G1..G7 passes; missing evidence fails"
   },
   "links": {
     "repository": "https://github.com/buffedlizard55-lab/GEMSDOE79",
-    "pages": "https://buffedlizard55-lab.github.io/GEMSDOE79/"
+    "pages": "https://buffedlizard55-lab.github.io/GEMSDOE79/docs/index.html"
   }
 }

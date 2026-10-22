@@ -33,7 +33,7 @@ DL = ROOT / 'docs/downloads'
 PREREG = 'registry/preregistration_g79_fsc.json'
 AMEND = 'registry/preregistration_g79_fsc_amendment_A1.json'
 REPO_URL = 'https://github.com/buffedlizard55-lab/GEMSDOE79'
-PAGES_URL = 'https://buffedlizard55-lab.github.io/GEMSDOE79/'
+PAGES_URL = 'https://buffedlizard55-lab.github.io/GEMSDOE79/docs/index.html'
 ZIP_TIME = (2026, 10, 22, 0, 0, 0)
 
 

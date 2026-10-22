@@ -64,12 +64,14 @@ def novelty_gate(report: dict | None) -> dict:
     if not report:
         return _gate(False, 'scan not run')
     ok = bool(report.get('unique_under_D2')) and bool(report.get('complete_accessible_scan'))
+    def f(x):
+        return f'{x:.4f}' if isinstance(x, float) else str(x)
     detail = (f"checked {report.get('registry_rasters_checked')}, invalid {report.get('missing_or_invalid')}, "
-              f"max rho {report.get('worst_spearman_full_footprint')}, "
-              f"max overlap {report.get('worst_forward_overlap_dot_equivalent')}, "
-              f"max chance-corrected {report.get('worst_chance_corrected_overlap')}, "
+              f"max rho {f(report.get('worst_spearman_full_footprint'))}, "
+              f"max 3-px overlap {f(report.get('worst_forward_overlap_dot_equivalent'))}, "
+              f"max chance-corrected {f(report.get('worst_chance_corrected_overlap'))}, "
               f"D-2 duplicates {report.get('duplicate_count_d2')}, "
-              f"literal max overlap {report.get('worst_literal_forward_overlap')}")
+              f"literal max overlap {f(report.get('worst_literal_forward_overlap'))}")
     if report.get('duplicates_by_test'):
         detail += f"; duplicates by test {report['duplicates_by_test']}"
         if set(report['duplicates_by_test']) == {'exact_cell_halo_saturated'}:

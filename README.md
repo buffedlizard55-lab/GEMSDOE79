@@ -1,8 +1,11 @@
 # GEMSDOE79 — DOE GEMS fault-prediction GeoTIFF
 
 > ## OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.
+>
 > **File:** [`g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.tif`](docs/downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.tif) · [ZIP](docs/downloads/g79-fsc-exp1-45k-20261022-6febd9a3-zeros-DO-NOT-SUBMIT.zip) · SHA-256 `031b133524871de96857dc46a5c7e864181016b777667f17f8e5343b3fd837d7`
-> **Site:** https://buffedlizard55-lab.github.io/GEMSDOE79/ · **How to submit:** [executive summary](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html)
+>
+> **Site:** https://buffedlizard55-lab.github.io/GEMSDOE79/docs/index.html · **How to submit:** [executive summary](https://buffedlizard55-lab.github.io/GEMSDOE79/docs/executive-summary.html)
+>
 > Blocked by the automated selector — do NOT upload. Failed gates: G1_holdout_beats_incumbent_both_seeds, G4_surface_novelty_D2, G5_final_dot_novelty_D2.
 
 Competition: [DrivenData × DOE GEMS](https://www.drivendata.org/competitions/306/competition-doe-gems/). Lane this session: **G79-FSC** — Fabric-Steered Concordance: multi-physics edges whose strike agrees with the visible regional fault fabric, placed by fabric-normal non-maximum suppression.
@@ -21,8 +24,8 @@ Competition: [DrivenData × DOE GEMS](https://www.drivendata.org/competitions/30
 | G1_holdout_beats_incumbent_both_seeds | **FAIL** | seed 20: 0.1406 vs 0.1905; seed 30: 0.1472 vs 0.1944 |
 | G2_paired_ci_vs_random_excludes_zero | PASS | seed 20: [+0.0791, +0.1076]; seed 30: [+0.0821, +0.1112] |
 | G3_leakage_canary_le_0_90 | PASS | seed 20: 0.7784; seed 30: 0.7764 |
-| G4_surface_novelty_D2 | **FAIL** | checked 1216, invalid 0, max rho 0.7346044822167301, max overlap 1.0, max chance-corrected 0.8869983960643988, D-2 duplicates 37, literal max overlap 1.0; duplicates by test {'chance_corrected_halo': 33, 'exact_cell_halo_saturated': 4} |
-| G5_final_dot_novelty_D2 | **FAIL** | checked 1216, invalid 0, max rho 0.10993892777244416, max overlap 1.0, max chance-corrected 0.5895804673620688, D-2 duplicates 4, literal max overlap 1.0; duplicates by test {'exact_cell_halo_saturated': 4} (only registry rasters positive on every footprint cell; under the pinned D-2 saturated branch every non-empty file is such a duplicate - owner decision D-3 required) |
+| G4_surface_novelty_D2 | **FAIL** | checked 1216, invalid 0, max rho 0.7346, max 3-px overlap 1.0000, max chance-corrected 0.8870, D-2 duplicates 37, literal max overlap 1.0000; duplicates by test {'chance_corrected_halo': 33, 'exact_cell_halo_saturated': 4} |
+| G5_final_dot_novelty_D2 | **FAIL** | checked 1216, invalid 0, max rho 0.1099, max 3-px overlap 1.0000, max chance-corrected 0.5896, D-2 duplicates 4, literal max overlap 1.0000; duplicates by test {'exact_cell_halo_saturated': 4} (only registry rasters positive on every footprint cell; under the pinned D-2 saturated branch every non-empty file is such a duplicate - owner decision D-3 required) |
 | G6_format_validator | PASS | all checks passed |
 | G7_name_and_note_le_140 | PASS | name 54/140, note 115/140 |
 

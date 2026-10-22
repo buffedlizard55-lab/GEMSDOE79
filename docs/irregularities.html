@@ -1278,7 +1278,7 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 <tr>
 <td>IR-79-178</td>
-<td><strong>The canonical layer moved from G79-THVC to G79-FSC.</strong> THVC's DO-NOT-SUBMIT TIFF/ZIP/JSON, card, README (with its preserved prompt), Pages, <code>build_site</code>/<code>check_site</code>/<code>verify_project</code>/<code>submission_status</code>/<code>select_submission</code> and 12 THVC-state test modules were moved byte-for-byte to <code>archive/g79_thvc_canonical_0a202578/</code>. <code>pytest</code> collects only <code>tests/</code>.</td>
+<td><strong>The canonical layer moved from G79-THVC to G79-FSC.</strong> THVC's DO-NOT-SUBMIT TIFF/ZIP/JSON, card, README (with its preserved prompt), Pages, <code>build_site</code>/<code>check_site</code>/<code>verify_project</code>/<code>submission_status</code>/<code>select_submission</code> and the 6 test modules that assert THVC-canonical state were moved byte-for-byte to <code>archive/g79_thvc_canonical_0a202578/</code>. <code>pytest</code> collects only <code>tests/</code>. The 6 generic modules were kept in <code>tests/</code>; 3 of their assertions were re-pointed at the new card, site and checker.</td>
 <td>New <code>scripts/{select_submission,submission_status,verify_project,build_site,check_site}.py</code> derive everything from <code>run_card.json</code> and frozen evidence (<code>src/gems79/fsc_gates.py</code>, <code>fsc_card.py</code>). New <code>tests/test_fsc_lane.py</code>. THVC remains the frozen incumbent bar (<code>evidence/g79_thvc_results.json</code>). The novelty inventory still includes every TIFF under <code>archive/</code>.</td>
 </tr>
 <tr>

@@ -46,7 +46,7 @@ Paired differences on the same folds:
 
 **Verdict: NEGATIVE.**
 
-- Every FSC arm is about 0.04–0.05 below THVC on both seeds. The preregistered promotion gate requires beating THVC on both seeds.
+- Every FSC arm is 0.036–0.050 below THVC on both seeds. The preregistered promotion gate requires beating THVC on both seeds.
 - The fabric idea carries some real but small signal: it is significant on one of the two seeds.
 - The model's gain is dominated by smooth regional fields: surface conductance, earthquake density, geodetic strain. In other words, it learns *where fault-rich regions are* more than *where a missing strand lies*.
 - At 45k dots it pays FP mass 41.6k for TP 2.5k. THVC pays 34.7k for 3.2k (seed 20).

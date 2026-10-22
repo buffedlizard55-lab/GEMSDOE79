@@ -84,7 +84,7 @@
 <p><strong>Leakage canary:</strong> the maximum single-feature symmetric AUC was 0.778 (EXP-1, <code>log_d_end</code>) and 0.781 (A1, <code>end_across</code>). Both are below 0.90, so the canary passes.</p>
 <p><strong>Verdict: NEGATIVE.</strong></p>
 <ul>
-<li>Every FSC arm is about 0.04–0.05 below THVC on both seeds. The preregistered promotion gate requires beating THVC on both seeds.</li>
+<li>Every FSC arm is 0.036–0.050 below THVC on both seeds. The preregistered promotion gate requires beating THVC on both seeds.</li>
 <li>The fabric idea carries some real but small signal: it is significant on one of the two seeds.</li>
 <li>The model's gain is dominated by smooth regional fields: surface conductance, earthquake density, geodetic strain. In other words, it learns <em>where fault-rich regions are</em> more than <em>where a missing strand lies</em>.</li>
 <li>At 45k dots it pays FP mass 41.6k for TP 2.5k. THVC pays 34.7k for 3.2k (seed 20).</li>
