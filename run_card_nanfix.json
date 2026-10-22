@@ -1,0 +1,81 @@
+{
+  "schema_version": 2,
+  "lane": "G79-NANFIX",
+  "generated_utc": "20261022T202706Z",
+  "hypothesis": "Blind alluvium-covered faults coincide with iso_grav HGM basement steps + det_elev prominence + RTP demag troughs; heuristic NaN-exterior fix for R6 portal bug.",
+  "mechanism": "Heuristic surface: iso_HGM(17) * det_prom8 * (1+0.3*demag) max fallback, z-scored, [0,1] scaled, 37654 dots Poisson 3px >2px cat, NaN exterior via grid.write_geotiff(mode='nan').",
+  "named_non_fault_mimic": "Lake Lahontan shorelines, Humboldt/Carson terraces, fan sheetflood lineaments, mining disturbance (scarp without gravity step).",
+  "holdout_dti_seed20": {
+    "dti": 0.009300819758312442,
+    "tpw": 465.5618029290796,
+    "fpw": 204542.42158938572,
+    "fnw": 10852.43819707092,
+    "n_truth": 11318,
+    "withheld_positive_pixels": 11318,
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed": 20
+  },
+  "holdout_dti_seed30": {
+    "dti": 0.009869522341542999,
+    "tpw": 493.9237285841117,
+    "fpw": 204472.84079530163,
+    "fnw": 10821.076271415888,
+    "n_truth": 11315,
+    "withheld_positive_pixels": 11315,
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed": 30
+  },
+  "leakage_canary": {
+    "max_symmetric_auc": 0.5471790163109196,
+    "max_feature": "surface_seed20",
+    "passed": true,
+    "threshold": 0.9
+  },
+  "placement": {
+    "requested": 37654,
+    "emitted": 37654,
+    "spacing_px": 3,
+    "exhausted": false,
+    "eligible_positive_pixels": 1797599
+  },
+  "budget": 37654,
+  "allowed_pixels": 4862825,
+  "submission_file": "artifacts/nanfix/g79-nanfix-heuristic-37654dots-20261022T202705Z-b492ada8-nan.tif",
+  "zip_file": "artifacts/nanfix/g79-nanfix-heuristic-37654dots-20261022T202705Z-b492ada8-nan.zip",
+  "submission_name": "g79-nanfix-heuristic-37654dots-20261022T202705Z-b492ada8-nan",
+  "submission_note": "G79-NANFIX: iso_HGM+det_prom+RTP demag heuristic, NaN exterior R6 PASS, 37654 dots",
+  "raster_sha256": "0811329239489fb9d407082ce9e04abc860fa6b3d352a26b1ae44dbf07f693de",
+  "raster_bytes": 1588678,
+  "zip_sha256": "cbcbd1dc276433d48a494cc6c4eea6ce48bdd127bb6b80b8ba287c10c2d9d784",
+  "zip_bytes": 270387,
+  "validator": {
+    "path": "artifacts/nanfix/g79-nanfix-heuristic-37654dots-20261022T202705Z-b492ada8-nan.tif",
+    "mode": "nan",
+    "nodata": null,
+    "sha256": "0811329239489fb9d407082ce9e04abc860fa6b3d352a26b1ae44dbf07f693de",
+    "bytes": 1588678
+  },
+  "portal_r1_r8_all_pass": true,
+  "format_gates_passed": true,
+  "elapsed_seconds": 64.14010238647461,
+  "holdout_beats_h33": false,
+  "holdout_beats_thvc": false,
+  "comparison": {
+    "h33_s20": 0.09608619416803546,
+    "h33_s30": 0.09889767286222764,
+    "thvc_s20": 0.1905,
+    "thvc_s30": 0.194393256940719,
+    "self_s20": 0.009300819758312442,
+    "self_s30": 0.009869522341542999,
+    "beats_h33_s20": false,
+    "beats_h33_s30": false,
+    "beats_thvc_s20": false,
+    "beats_thvc_s30": false
+  },
+  "verdict": "negative",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "note_on_ok_to_submit": "Format R1-R8 PASS but holdout below THVC incumbent and literal novelty still blocked; this is a FORMAT-FIX research artifact demonstrating NaN-exterior correctness."
+}
