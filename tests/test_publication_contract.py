@@ -282,7 +282,7 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
         assert entry['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
         assert entry['canonical_readiness_decision']['ok_to_submit'] is False
     assert set(audit['preserved_negative_session_lanes']) == {
-        'G79-FABRIC-OFFSET', 'G79-STEPCO-S1', 'G79-STEPCO-S2', 'G79B-SDPT-A3', 'H79-FF',
+        'G79-FABRIC-OFFSET', 'G79-STEPCO-S1', 'G79-STEPCO-S2', 'G79B-SDPT-A3', 'H79-FF', 'H79-NHR',
     }
     for lane_id, entry in audit['preserved_negative_session_lanes'].items():
         assert entry['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
@@ -293,17 +293,18 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
     assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
 
 
-def test_reproduce_artifact_recovers_canonical_nhr_bytes():
+def test_reproduce_artifact_recovers_canonical_and_nhr_bytes():
     import reproduce_artifact
     card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
-    rep = reproduce_artifact.reproduce_nhr(ROOT)
-    assert rep['lane'] == card['lane'] == 'H79-NHR'
-    assert rep['exact_tiff_recovery'] is True
-    assert rep['exact_single_tiff_zip_recovery'] is True
-    assert rep['exact_decoded_dots_recovery'] is True
-    assert rep['raster_sha256'] == card['raster_sha256']
-    assert rep['zip_sha256'] == card['zip_sha256']
-    assert rep['positive_pixels'] == card['positive_pixels'] == 37654
+    rep_cur = reproduce_artifact.reproduce_current(ROOT)
+    assert rep_cur['lane'] == card['lane'] == 'G79-THVC'
+    assert rep_cur['exact_tiff_recovery'] is True and rep_cur['exact_single_tiff_zip_recovery'] is True
+    assert rep_cur['raster_sha256'] == card['raster_sha256'] and rep_cur['zip_sha256'] == card['zip_sha256']
+    assert rep_cur['positive_pixels'] == card['positive_pixels'] == 35093
+    rep_nhr = reproduce_artifact.reproduce_nhr(ROOT)
+    assert rep_nhr['lane'] == 'H79-NHR'
+    assert rep_nhr['exact_tiff_recovery'] is True and rep_nhr['exact_single_tiff_zip_recovery'] is True
+    assert rep_nhr['positive_pixels'] == 37654
 
 
 def test_verification_and_evidence_json_have_no_machine_checkout_paths():

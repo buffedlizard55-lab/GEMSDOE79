@@ -572,5 +572,37 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>Relocated the section above <code>## Original project prompt</code> and updated <code>publication_contract_checks</code> (<code>readme_matches_card_decision</code>) to reject any non-whitespace content after <code>&lt;/details&gt;</code> in <code>README.md</code>, with regression coverage in <code>tests/test_publication_contract.py</code>.</td>
 </tr>
 </tbody>
+</table>
+<p>Session 2026-10-22 <code>G79-THVC</code> multi-sensor hydrothermal + elastic crack-tip + Charnes-Cooper DTI optimization and 10-lane reconciliation (<code>arena/33e1f8ec-gemsdoe79</code>):</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-82</td>
+<td>Auxiliary point CSVs (<code>nevada_hot_springs_merged.csv</code>, <code>ing_fault_cusps.csv</code>) include a precomputed <code>dist_known_fault_px</code> column that would leak withheld fault positions on hide-and-recover holdout splits if ingested.</td>
+<td>Enforced <code>FORBIDDEN_POINT_COLUMNS = frozenset({'dist_known_fault_px', 'fault_dist', 'nearest_fault'})</code> in <code>src/gems79/thvc_features.py</code>, verified by unit tests and 84-feature single-channel holdout leakage canaries (<code>max symmetric AUC = 0.8036 &lt;= 0.90</code> across both Seeds 20 and 30).</td>
+</tr>
+<tr>
+<td>IR-79-83</td>
+<td>Sandbox RAM (<code>3,939 MB</code> physical, <code>0 MB</code> swap) OOM-kills naive full-Nevada <code>[84, 3730, 3292]</code> float32 tensor assembly (<code>4.13 GB</code>), and <code>submission_writer.write_submission</code> leaves <code>tempfile.mkstemp</code> <code>0600</code> file permissions on <code>docs/downloads/*</code>.</td>
+<td>Implemented mmap-backed <code>[70, 3730, 3292]</code> static feature storage with <code>POSIX_FADV_DONTNEED</code>, fold-local <code>float16</code> feature extraction (<code>1.04 GB</code> peak RSS), separate <code>--stage</code> subprocess invocations, and world-readable <code>0644</code> file mode verified by unit tests.</td>
+</tr>
+<tr>
+<td>IR-79-84</td>
+<td>Beyond <code>17GEMSDOE E-proba-multiscale</code> (<code>halo coverage = 100% of allowed cells</code>), sparse-support registry entry <code>13GEMSDOE r13-lattice-s5</code> (<code>206,895</code> positive pixels = <code>4.00% &lt; DENSE_SUPPORT_FRACTION = 0.20</code>) covers <code>5,099,871 / 5,106,385</code> (<code>99.8724%</code>) of allowed Nevada pixels within <code>3 px</code> (<code>uncovered = 6,514</code>), forcing every <code>35,093</code>-dot map in Nevada to overlap <code>&gt;= 0.8144</code> by Pigeonhole Principle (<code>Oracle truth20 = 1.0000</code>).</td>
+<td>Audited all <code>1,108</code> unique rasters across 93 family repositories (<code>evidence/g79_surface_uniqueness_1108.json</code>, <code>evidence/g79_dot_uniqueness_1108.json</code>): <code>G79-THVC</code> passes pre-placement surface Spearman (<code>0.7712 &lt;= 0.90</code>), post-placement Spearman (<code>0.1210 &lt;= 0.90</code>), Jaccard (<code>0.0417 &lt;= 0.55</code>), and all <code>718</code> comparable <code>&lt;= 50,000</code>-dot submissions (<code>max 3-px overlap = 0.6844 &lt;= 0.70</code>), while keeping <code>ok_to_submit: false</code> and <code>DO-NOT-SUBMIT</code> filename safety under fail-closed selector rules.</td>
+</tr>
+<tr>
+<td>IR-79-85</td>
+<td>Concurrent merges on <code>main</code> (<code>PRs #8..#49</code>) introduced 9 sibling <code>GEMSDOE79</code> lanes (<code>E1</code>, <code>H79-MCT</code>, <code>H79-CSPT</code>, <code>G79-STEPCO</code>, <code>G79B-SDPT</code>, <code>E2</code>, <code>H79-NHR</code>, <code>H79-FF</code>, <code>H79-ASYM</code>) plus comprehensive publication/preflight integrity test suites.</td>
+<td>Reconciled all concurrent lanes onto <code>arena/33e1f8ec-gemsdoe79</code>, archived concurrent <code>docs/downloads/gems79-h79-*</code> artifacts cleanly, preserved all upstream pins and archives, and published the complete multi-lane <code>gems57-pooled-hide-v2</code> benchmark table showing <code>G79-THVC</code> achieving the highest holdout DTI in <code>GEMSDOE79</code> across both seeds (<code>0.1905</code> on Seed 20 and <code>0.1944</code> on Seed 30 vs <code>H33 = 0.0961 / 0.0989</code>).</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
