@@ -40,7 +40,14 @@ def strict_loads_bytes(raw: bytes):
 
 def _iter_repo_files(root: Path):
     for p in root.rglob('*'):
-        if _SKIP_PARTS.intersection(p.relative_to(root).parts) or not p.is_file():
+        parts = p.relative_to(root).parts
+        # Virtual environments are local tooling, not publication content. Match
+        # common clean-test names such as .venv-clean as well as the canonical
+        # .venv; otherwise dependency source/templates can create false conflict
+        # marker or malformed-JSON failures.
+        if (_SKIP_PARTS.intersection(parts)
+                or any(part.startswith('.venv') for part in parts)
+                or not p.is_file()):
             continue
         yield p
 
@@ -84,7 +91,14 @@ def publication_contract_checks(root, card):
     HTML link happens to point at them. This runs before every Pages build.
     """
     root = Path(root)
-    readme = (root / 'README.md').read_text().split('## Original project prompt', 1)[0]
+    readme_full = (root / 'README.md').read_text()
+    readme_parts = readme_full.split('## Original project prompt', 1)
+    readme = readme_parts[0]
+    after_details = (
+        readme_parts[1].split('</details>', 1)[1]
+        if len(readme_parts) > 1 and '</details>' in readme_parts[1]
+        else ''
+    )
     downloads = root / 'docs/downloads'
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
@@ -103,6 +117,7 @@ def publication_contract_checks(root, card):
         'all_repo_json_strictly_valid': json_strict_ok,
         'readme_matches_card_decision': (
             line in readme and contradicting not in readme and
+            not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
         'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
         'active_inventory_matches_frozen_verified_blobs': (
@@ -111,64 +126,88 @@ def publication_contract_checks(root, card):
 
 
 def evidence_checks(root, card):
-    """Every card number must equal the evaluator / uniqueness / gate evidence.
-
-    Lane-aware: the evidence directory, file prefix, preregistration and the
-    uniqueness expectation are derived from the canonical card itself
-    (``gates_file``), so a negative lane is verified against *its* evidence
-    rather than failing for not being the previous lane. A check failing
-    because a scientific gate failed is reported through the card's own
-    ``current_best_holdout_beaten`` / ``protocol_unique`` booleans, which this
-    function cross-checks against the evidence instead of requiring success.
-    """
+    """Every card number must equal the evaluator / uniqueness / gate evidence."""
     root = Path(root)
-    gates_rel = card.get('gates_file', 'evidence/nhr/x1_gates.json')
-    ev = (root / gates_rel).parent
-    prefix = Path(gates_rel).name.split('_gates.json')[0]          # x1 / c1
-    lane_dir = ev.name                                             # nhr / cov
+    lane = card.get('lane')
+    if lane == 'H79-FFAS':
+        ev = root / 'evidence/ffas'
+        prereg_name = 'preregistration_ffas.json'
+        cache_dots = root / '.cache/ffas/final_dots.npy'
+        informative_only = True
+    else:
+        ev = root / 'evidence/nhr'
+        prereg_name = 'preregistration_nhr.json'
+        cache_dots = root / '.cache/nhr/final_dots.npy'
+        informative_only = False
     out = {}
-    hold = {s: json.loads((ev / f'{prefix}_holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}
     h = card['holdout_dti']
     src = hold[h['headline_seed']]['holdout']['scores']['candidate']
     out['holdout_card_equals_evaluator_output'] = (
         h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
         h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
         h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
-    beats = all(
+    beaten = all(
         x['holdout']['scores']['candidate']['dti'] > x['holdout']['scores']['h33_foldfair_control']['dti']
         for x in hold.values())
-    out['holdout_gate_card_matches_evidence'] = card['current_best_holdout_beaten'] is beats
+    out['holdout_beats_flag_matches_evidence'] = card.get('current_best_holdout_beaten') is beaten
+    canary_ok = all(x['leakage_canary']['n_suspicious'] == 0 and
+                    x['leakage_canary']['max_symmetric_auc'] <= 0.90 for x in hold.values())
     out['leakage_canary_clear'] = (card['leakage_canary']['passed'] is True and
-        card['leakage_canary']['auc'] <= 0.90 and
-        all(x['leakage_canary']['n_suspicious'] == 0 for x in hold.values()))
+        card['leakage_canary']['auc'] <= 0.90 and canary_ok)
     uniq = {p: json.loads((ev / f'uniqueness_{p}.json').read_text()) for p in ('surface', 'final')}
-    dots_path = root / f'.cache/{lane_dir}/final_dots.npy'   # ignored cache; checked when present
-    if 'amendment_B1' in uniq['final']:
-        b1 = uniq['final']['amendment_B1']
-        disc_flag = [m for m in b1['b1_firings'] if (m.get('halo_coverage') or 0) < 0.70]
-        expected_unique = bool(uniq['final']['passed'] and uniq['surface']['worst_spearman'] <= 0.90
-                               and not disc_flag and not b1['rho_firings'])
-    else:
-        chance = json.loads((ev / 'overlap_chance.json').read_text())
-        flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
-        expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
+    chance = json.loads((ev / 'overlap_chance.json').read_text())
+    flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
+    if informative_only:
+        flagged = [r for r in flagged if r.get('halo_coverage', 1) <= 0.70]
+    expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
     out['uniqueness_card_matches_evidence'] = (
         card['protocol_unique'] is expected_unique and
-        (not dots_path.exists() or hashlib.sha256(np.load(dots_path).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
-    gates = json.loads((root / gates_rel).read_text())
+        (not cache_dots.exists() or hashlib.sha256(np.load(cache_dots).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
+    gates = json.loads((ev / 'x1_gates.json').read_text())
     out['gate_receipt_bound_to_raster_and_verdict'] = (
         gates['raster_sha256'] == card['raster_sha256'] and
         gates['all_passed'] is (card['verdict'] == 'promote') and
         gates['all_passed'] is all(gates['gates'].values()))
     out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
-    prereg_files = [p for p in (root / 'registry').glob('preregistration*.json')
-                    if sha(p) == card['preregistration_sha256']]
-    out['preregistration_hash_matches_card'] = len(prereg_files) == 1
+    out['preregistration_hash_matches_card'] = sha(root / 'registry' / prereg_name) == card['preregistration_sha256']
     return out
+
+
+def witness_report_checks(root):
+    """Bind the displayed literal-gate proof to the pinned original witness.
+
+    These are evidence-consistency checks, not a substitute for remeasuring
+    the historical TIFF. Re-measure via verify_overlap_witness.py --restore.
+    """
+    root = Path(root)
+    original = strict_loads_bytes((root / 'evidence/universal_overlap_certificate.json').read_bytes())
+    review = strict_loads_bytes((root / 'evidence/witness_review_20261022_a7d092d7.json').read_bytes())
+    preflight = strict_loads_bytes((root / 'evidence/new_lane_preflight_a7d092d7.json').read_bytes())
+    measured = review.get('measured_certificate', {})
+    return {
+        'witness_review_matches_frozen_certificate': (
+            review.get('all_checks_passed') is True and
+            bool(review.get('checks')) and all(v is True for v in review['checks'].values()) and
+            all(measured.get(k) == v for k, v in original.items() if k not in ('witness_file', 'witness_source')) and
+            measured.get('witness_sha256') == original.get('witness_sha256') and
+            measured.get('allowed_pixels') == 5106385 and
+            measured.get('uncovered_allowed_pixels') == 0 and
+            measured.get('covered_allowed_fraction') == 1.0 and
+            measured.get('overlap_limit') == .70),
+        'new_lane_preflight_stops_on_exact_witness': (
+            preflight.get('start_new_lane') is False and
+            preflight.get('state') == 'impossible_under_literal_gate' and
+            preflight.get('exit_code') == 2 and
+            preflight.get('witness_sha256') == measured.get('witness_sha256') and
+            preflight.get('covered_allowed_fraction') == 1.0 and
+            preflight.get('limit') == .70),
+    }
 
 
 def verify(refresh_timestamp: bool = False):
     checks = {}
+    checks.update(witness_report_checks(ROOT))
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
     checks['all_shared_template_bytes_match_pins'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()
@@ -218,7 +257,15 @@ def verify(refresh_timestamp: bool = False):
     if not refresh_timestamp and out_path.exists():
         try:
             existing = json.loads(out_path.read_text())
-            if {k: v for k, v in existing.items() if k != 'verified_utc'} == payload and isinstance(existing.get('verified_utc'), str):
+            existing_cmp = json.loads(json.dumps({k: v for k, v in existing.items() if k != 'verified_utc'}))
+            fmt = existing_cmp.get('format_report', {})
+            if isinstance(fmt.get('validator'), dict) and isinstance(fmt['validator'].get('file'), str):
+                if fmt['validator']['file'].endswith(card['submission_file']):
+                    fmt['validator']['file'] = card['submission_file']
+            if isinstance(fmt.get('reference_grid'), dict) and isinstance(fmt['reference_grid'].get('path'), str):
+                if fmt['reference_grid']['path'].endswith(card['submission_file']):
+                    fmt['reference_grid']['path'] = card['submission_file']
+            if existing_cmp == payload and isinstance(existing.get('verified_utc'), str):
                 verified_utc = existing['verified_utc']
         except Exception:
             pass

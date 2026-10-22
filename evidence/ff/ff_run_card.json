@@ -1,0 +1,82 @@
+{
+  "schema_version": "gems79-ff-run-card-v1",
+  "generated_utc": "2026-10-22T03:50:20.000000+00:00",
+  "branch": "arena/1de1617f-gemsdoe79",
+  "lane": "H79-FF",
+  "artifact_kind": "unique research GeoTIFF (format-valid, not organizer-accepted)",
+  "hypothesis": "Expert test faults missing from the USGS/INGENIOUS catalogue are most likely to be discovered in the distal piedmont (2-8 km from any mapped trace), where regional compilations are least complete and USGS 3DEP lidar still resolves low-relief fault-scarp slope excess. A binary dot map ranked by lidar step_max over that distal domain is therefore a distinct, label-independent discovery surface.",
+  "mechanism": "Quaternary normal faults that offset the surface leave a scarp: a short-wavelength slope excess (crest convexity / base concavity) measurable in lidar. step_max is the maximum band-passed step response in a 500 m neighbourhood, so it fires on scarp-like steps wherever they occur. Restricting to 2-8 km off the mapped catalogue targets the completeness gap of regional fault maps rather than re-mapping known traces.",
+  "named_non_fault_process": "Pluvial Lake Lahontan shoreline / terrace risers and incised channel banks produce contour-parallel steps of similar 2-10 m scale near range fronts; roads, fan toes and mine benches also create steps. step_max responds to any step, so it is not fault-specific.",
+  "how_it_differs_from_repo": "H79-NHR (canonical lane) trains a gradient booster on nested catalogue hides with a kernel-credit target and places dots near mapped faults. H33 prunes dots near mapped faults but still occupies the 200 m-2 km near-fault band. H79-FF uses no learned model, no catalogue-hide target, and places dots exclusively 2-8 km from mapped faults — a different domain, a single physical transform (lidar step_max), and no training on any fault labels.",
+  "data_inputs": [
+    "data/reference/sample_submission.tif (grid, footprint, EPSG:32611, 3730x3292, 100 m)",
+    "data/reference/existing_faults.tif (mapped catalogue, sha256 7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093)",
+    "data/raw/external/lidar_scarp_features_u8.tif, band step_max (USGS 3DEP-derived, sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568)"
+  ],
+  "domain_m": [2000, 8000],
+  "budget": 37654,
+  "placement": "greedy descending rank, Euclidean 3 px Poisson spacing, fixed budget, off-catalogue, zeros elsewhere",
+  "format_validation": {
+    "evidence_class": "LOCAL-FORMAT",
+    "validator": "gems57.validate + gems57.submission_writer (shared, unmodified)",
+    "all_checks_passed": true,
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "transform_matches_sample_submission": true,
+    "no_nan_anywhere": true,
+    "no_inf_anywhere": true,
+    "range_0_1_guaranteed": true,
+    "min_ge_0": true,
+    "max_le_1": true,
+    "no_mass_outside_footprint": true,
+    "zero_dots_on_mapped_catalogue": true,
+    "emitted_positive_pixels": 37654,
+    "exact_budget": true,
+    "file": "archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif",
+    "bytes": 134390,
+    "sha256": "b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9",
+    "zip_sha256": "224f211cb2dbabff0a8b1ee1c525c124575e97984fae6e8e080618cd4cbac955"
+  },
+  "leakage_canary": {
+    "evidence_class": "NOT-APPLICABLE",
+    "note": "H79-FF is a fixed, non-learned surface (one physical transform, no training). There is no held-out label to leak from, so the learned-feature leakage canary does not apply. No projected leaderboard score is claimed."
+  },
+  "holdout_dti": {
+    "evidence_class": "NOT-APPLICABLE",
+    "note": "H79-FF is not trained on simulated discoveries, so the hide-and-recover holdout (gems57-pooled-hide-v2) does not produce a score for it. No HOLDOUT-DTI is written. This is a research artifact, not a promoted submission candidate."
+  },
+  "uniqueness_vs_registry": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "shared_tool": "gems57.uniqueness primitives (_dots, _near, rank correlation); literals RHO_LIMIT=0.90, OVERLAP_LIMIT=0.70",
+    "registry_rasters_expected": 992,
+    "registry_rasters_verified_present": 992,
+    "dot_definition": "budget-matched-v3 (literal positive-support dots for binary maps)",
+    "gate": "FAILS. Duplicate under the protocol's literal rule: > 70 % of FF dots fall within 3 px of one registry raster's dots.",
+    "measured_against": [
+      {"raster": "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif", "representation": "dot_field", "their_dots": 206895, "forward_overlap_3px": 0.9976, "overlap_limit": 0.70, "result": "FAIL"},
+      {"raster": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif", "representation": "continuous_surface", "their_dots": 5167373, "forward_overlap_3px": 1.0, "overlap_limit": 0.70, "result": "FAIL"},
+      {"raster": "5GEMSDOE:docs/downloads/gems-density-probe-20260925T184215Z-9cdae9b4.tif", "representation": "continuous_surface", "their_dots": 5106385, "forward_overlap_3px": 1.0, "overlap_limit": 0.70, "result": "FAIL"},
+      {"raster": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif", "representation": "dot_field", "their_dots": 624025, "forward_overlap_3px": 0.8802, "overlap_limit": 0.70, "result": "FAIL"}
+    ],
+    "systemic_blocker": "IR-79-53: 30 space-filling registry rasters plus a dense spacing-5 lattice have 3 px halos covering essentially the whole footprint, so no 37,654-dot map can satisfy the literal 70 % / 3 px rule against all of them. Measured here: 1.0 overlap against two space-filling surfaces and 0.9976 against the lattice.",
+    "worst_spearman": "near zero (|rho| < 0.03) on all measured rasters -- rank correlation does not fire; overlap does."
+  },
+  "verdict": "negative",
+  "promoted": false,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "submission_name": "gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8",
+  "submission_note": "H79-FF far-field lidar-scarp discovery, 2000-8000m off catalogue, 37654 dots, step_max surface; research artifact",
+  "submission_file": "archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif",
+  "zip_file": "archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip",
+  "raster_sha256": "b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9",
+  "failed_gates": ["final_dot_uniqueness_passed"],
+  "stop_reason": "UNIQUE BY CONSTRUCTION (new bytes, not copied) BUT NOT UNIQUE UNDER THE PROTOCOL GATE: > 70 % of its dots fall within 3 px of the 13GEMSDOE spacing-5 lattice (0.9976), GEMSDOE48 space-filling surface (1.0), 5GEMSDOE density probe (1.0) and GEMSDOE3 coverage field (0.8802). IR-79-53: space-filling + dense-lattice registry priors block every 37,654-dot map. Format PASS. Not submitted; 0 slots used.",
+  "human_intervention_needed_for_this_verdict": false,
+  "submission_slots_used": 0,
+  "organizer_submission_receipt": null,
+  "leaderboard_claim": "None. No organizer score exists; HOLDOUT-DTI is not applicable to this non-learned artifact and is not written as a score."
+}
