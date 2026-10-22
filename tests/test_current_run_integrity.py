@@ -141,3 +141,43 @@ def test_selector_receipt_is_bound_to_the_exact_bytes_when_promoted():
         assert receipt["raster_sha256"] == card["raster_sha256"]
         tampered = dict(card, raster_sha256="0" * 64)
         assert not submission_decision(tampered, actual_sha256=card["raster_sha256"], format_passed=True)["ok_to_submit"]
+
+
+def test_current_review_and_h33_evidence_classes_are_published_honestly():
+    readme = (ROOT / "README.md").read_text()
+    current_readme = readme.split("## Original project prompt", 1)[0]
+    why_h33 = (ROOT / "knowledge/why_h33.md").read_text()
+    review = (ROOT / "reports/repository_review_2026-10-22_bab8f374.md").read_text()
+    slate = (ROOT / "research/hypotheses_bab8f374.md").read_text()
+    preflight = json.loads((ROOT / "evidence/preflight_bab8f374.json").read_text())
+    home = (ROOT / "docs/index.html").read_text()
+    analysis = (ROOT / "docs/analysis.html").read_text()
+    research = (ROOT / "docs/research.html").read_text()
+
+    assert "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO." in current_readme
+    assert "No new model, holdout run, candidate TIFF" in current_readme
+    assert "D2.8 `0.2600`" in current_readme and "0.2768" not in current_readme
+    assert "UNVERIFIED HISTORICAL REPORTS" in why_h33
+    assert "do **not** establish a competition leaderboard score" in why_h33
+    assert "0.2768" not in why_h33 and "Yes, decisively" not in why_h33
+    assert "documentation error" in review and "D2.8 `0.2600`" in review
+    assert "no new candidate" in review.lower()
+    assert "No DTI delta is estimated" in slate and "not a claim that they are new" in slate
+    assert preflight["start_new_lane"] is False and preflight["exit_code"] == 2
+    assert "Not submission-approved." in home and "no new candidate or holdout run" in home.lower()
+    assert "Do not read archived causal explanations as confirmed score mechanisms." in analysis
+    assert "CURRENT REVIEW / FOUR UNEXECUTED CONCEPTS" in research
+    assert json.loads((ROOT / "docs/evidence/preflight_bab8f374.json").read_text()) == preflight
+
+    review_card = json.loads(review.split("```json\n", 1)[1].split("\n```", 1)[0])
+    canonical = current_card()
+    assert review_card["raster_sha256"] == canonical["raster_sha256"]
+    assert review_card["raster_role"].startswith("pre-existing canonical G79-THVC")
+    assert review_card["holdout_dti"]["measured_in_this_review"] is False
+    assert review_card["holdout_dti"]["existing_canonical_card"]["seed_20"]["dti"] == 0.1905
+    assert review_card["holdout_dti"]["existing_canonical_card"]["seed_30"]["dti"] == 0.1944
+    assert review_card["submission_name"] == canonical["submission_name"]
+    assert review_card["submission_note"] == canonical["submission_note"]
+    assert review_card["ok_to_download"] is True and review_card["ok_to_submit"] is False
+    assert review_card["new_candidate_tiff_generated"] is False
+    assert review_card["weekly_slots_used_in_this_review"] == 0

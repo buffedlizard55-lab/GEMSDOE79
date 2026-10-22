@@ -2,11 +2,115 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
 <meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
-<title>Five ranked hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<title>Ranked future hypotheses and current stop · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>Session 070af0b6 — five untried post-G79-THVC geological hypotheses (not executed, 2026-10-22)</h2><p>Audited all 11 GEMSDOE79 lanes and all 93 family repositories through GEMSDOE88 to specify five genuinely untried subsurface/tectonic mechanisms targeting the &gt;1.5–8 km non-LiDAR and blind-basin gap without spending any weekly slot. <a href="evidence/post_index_sibling_audit_20261022.json">Post-index GEMSDOE76–88 audit JSON</a> · <a href="evidence/run_card_step.json">Archived H79-STEP card</a>.</p><div class="prose table-scroll"><h2>Five Genuinely Untried Post-<code>G79-THVC</code> Geological Hypotheses (<code>2026-10-22</code>)</h2>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision & limits ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">CURRENT REVIEW / FOUR UNEXECUTED CONCEPTS / NO EXPERIMENT</p><h1>Research slate, not submission approval.</h1><p class="lead">Qualitative ranking only. No candidate was built or evaluated; the literal novelty preflight stops before experiments.</p></section><section class="section" id="current-audit"><div class="notice"><strong>Current decision:</strong> no new TIFF, holdout result, or slot spend. The pinned literal witness covers all allowed cells, so any non-empty map fails the current 0.70 forward-overlap gate. <a href="evidence/preflight_bab8f374.json">Current machine preflight</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_bab8f374.md">Three-pass review</a>.</div><div class="prose table-scroll"><h2>Ranked future hypotheses — review <code>bab8f374</code> (2026-10-22)</h2>
+<p><strong>Disposition: research slate only; no lane was selected or run.</strong> The request did not
+supply a delimited single-method lane paragraph, and the required literal novelty
+preflight stops every non-empty map. This file is not a preregistration, not an
+experiment card, and not evidence of a score. The qualitative priority column is a
+judgment about potential to improve <strong>HOLDOUT-DTI</strong> relative to cost and data risk;
+it is not a numerical prediction. No DTI delta is estimated.</p>
+<p>“Untried” here means no matching implementation/holdout receipt was found in the
+active code and the reviewed local archives. Several ideas have appeared as prior
+research proposals; this is not a claim that they are new to all 93 repositories,
+the broader competition, or the literature. The raster registry audit can compare
+outputs but cannot establish method-level novelty from every sibling repository's
+source code.</p>
+<h3>Ranked, unexecuted candidates</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Rank</th>
+<th>Hypothesis; inputs and test</th>
+<th>Why it might find a missing fault</th>
+<th>Named non-fault mimic and rejection test</th>
+<th>Qualitative HOLDOUT-DTI potential / cost / availability</th>
+<th>Novelty and decision status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>1</strong></td>
+<td><strong>Depth-resolved magnetotelluric (MT) boundary, tested independently of the existing shallow-conductivity feature.</strong> First verify that DOE GDR submission 1391 actually supplies georeferenced, depth-resolved MT products over the competition footprint. If so, compute a spatially cross-validated lateral log-resistivity contrast and its persistence across verified depth slices; test each slice/derived feature alone, then require agreement with an independent gravity-basement edge. Do not treat <code>cond_surf</code> as a substitute for an unverified MT model.</td>
+<td>A buried damage zone or fluid pathway could juxtapose resistive host rock and conductive alteration beneath cover, where a surface scarp is absent. This is a hypothesis about some geothermal faults, not all Quaternary faults.</td>
+<td><strong>Saline playa brines and clay/evaporite-rich basin fill</strong> can make strong conductors without a fault. Reject isolated shallow conductors; require a depth-persistent boundary and an independent structural edge, with all thresholds selected inside training folds.</td>
+<td><strong>Potential: medium–high, conditional and uncertain. Cost: high</strong> because resource contents, CRS, spatial coverage, and usable resolution must first be verified. No raw MT layers are present in this checkout.</td>
+<td>Related to the existing <code>cond_surf</code> / <code>hydro_demag_clay_conj</code> channels and the archived CSPT conductivity work; a depth-resolved MT product is not in the active feature list, but was proposed in an earlier backlog. <strong>Not globally novel; not tested here.</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>2</strong></td>
+<td><strong>Multi-temporal Sentinel-1 InSAR displacement discontinuity with coherence and seasonal controls.</strong> Only after verifying public scene coverage and a reproducible velocity product, test persistent line-of-sight displacement gradients across candidate structures; separate seasonal deformation and decorrelation, and use static gravity/terrain only as independent corroboration.</td>
+<td>Persistent creep or interseismic deformation could reveal an active, covered fault lacking a mapped scarp. This will not detect most inactive or very slowly deforming Quaternary faults.</td>
+<td><strong>Groundwater-pumping subsidence, geothermal production/injection, and volcanic inflation</strong> can create deformation bowls or sharp gradients. Test temporal stability, hydrologic seasonality, and association with known production areas before treating a signal as tectonic.</td>
+<td><strong>Potential: medium for the active subset; low-to-medium overall recall expected. Cost: high</strong> (scene selection, time-series processing, atmospheric/topographic correction). No InSAR data or velocity grid is restored locally.</td>
+<td>No InSAR implementation or receipt was found in the reviewed active code. Similar ideas occur in prior research notes, so this is <strong>unexecuted, not a new global claim</strong>.</td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>3</strong></td>
+<td><strong>Three-dimensional relocated microseismicity-plane geometry, rather than another smoothed seismic-density band.</strong> Obtain an authoritative event catalogue with locations, depth, time, and quality metadata; fit robust local planes to persistent event clusters and project plausible fault planes to the surface, requiring independent geophysical boundary support. Recompute any catalogue-derived features using only visible faults within each holdout fold.</td>
+<td>A sufficiently active blind fault may organize hypocentres on a planar structure even without a surface expression. Sparse or dormant faults will be invisible to this test.</td>
+<td><strong>Mine blasts, geothermal-operation-induced sequences, and network-detection/relocation artifacts</strong> can resemble clusters or planes. Use event-time/site metadata, quality limits, temporal replication, and an independent structural check.</td>
+<td><strong>Potential: medium–low and coverage-limited. Cost: medium–high</strong> for catalog harmonization, quality control, and spatial clustering. Raw event points are not present; the supplied <code>deq_n100a15</code> / <code>ieq_n100a15</code> bands are not equivalent to event-plane geometry.</td>
+<td>Event-density and seismicity ideas exist in prior notes, but no matching raw-event plane model or holdout result was found in the reviewed active code. <strong>Method-level global novelty remains unverified.</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;"><strong>4</strong></td>
+<td><strong>Flight-line-aware re-leveling of GeoDAWN magnetic profiles using the original survey observations and navigation metadata.</strong> If the USGS release provides suitable line-level data for the footprint, estimate traverse/tie-line and terrain-clearance residuals from the original observations; compare corrected magnetic contacts to independent gravity and basement-depth structure. Do not apply a hand-picked notch to the final grid and call the result a recovered fault.</td>
+<td>Correcting survey artifacts may preserve real, covered basement discontinuities that are blurred or confused with line-direction striping in a gridded product.</td>
+<td><strong>Dike swarms, intrusive contacts, and residual micro-leveling seams</strong> can all produce linear magnetic responses. Require cross-line support and an independent gravity/depth signature; recognize that an artifact can be removed but a fault cannot be inferred from magnetic contrast alone.</td>
+<td><strong>Potential: low–medium; cost: medium–high</strong> because raw line observations, navigation, processing metadata, and coverage are prerequisites. Only gridded/derived GeoDAWN layers are represented in the local manifest; raw line data are not restored.</td>
+<td>Existing magnetic gradients and profile-registration experiments make this a related, not orthogonal, family. The flight-line correction itself was proposed previously but was not validated here. <strong>Not globally novel; not tested.</strong></td>
+</tr>
+</tbody>
+</table>
+<h4>Screened out as repeats or unsupported</h4>
+<ul>
+<li><strong>Radiometric K/Th residuals:</strong> the active feature code already computes <code>rad_k_th_alteration</code> and <code>hydro_demag_clay_conj</code>; a new ratio/residual without a separately justified measurement is not a distinct hypothesis.</li>
+<li><strong>Catalog-near relay, crack-tip, or Coulomb-stress variants:</strong> the active stack includes tip/relay interactions; archived G79-CSPT and sibling work already explore stress/strain and network geometry. Do not restart or rename a stopped lane.</li>
+<li><strong>Scarp crest, drainage/knickpoint, absolute-elevation shoreline, and far-field distance-band variants:</strong> these overlap active features or prior archived/sibling experiments and proposals, including explicit Lahontan/datum work. Their earlier failure to run, lack of absolute elevation, or weak holdout does not make them novel.</li>
+<li><strong>A 3DEP shoreline veto, by itself:</strong> a useful potential confounder control, but prior 62GEMSDOE work tested closely related datum/shoreline ideas. Do not present it as an untried new method.</li>
+</ul>
+<h3>Required gate before any future work</h3>
+<p>The latest restored-witness preflight is recorded at
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/preflight_bab8f374.json"><code>evidence/preflight_bab8f374.json</code></a>:
+<code>start_new_lane: false</code>, state <code>impossible_under_literal_gate</code>, exit code <code>2</code>.
+The SHA-256-pinned positive-support witness covers <strong>all allowed cells</strong> (fraction
+<code>1.0</code> against a <code>0.70</code> limit). Under the currently required literal definition,
+any non-empty candidate has <code>3 px</code> forward overlap <code>1.0</code>; this stops every item in
+the table before implementation, surface analysis, placement, or holdout. No
+candidate is exempted and no local overlap rule was changed.</p>
+<p>If and only if the protocol owner prospectively resolves that gate, the next
+candidate would still need a preregistration and verified data receipt, the shared
+feature stack/evaluator/writer, whole-segment buffered hide-and-recover with
+visible-only catalogue features and pixel-exact visible-fault masking, pooled
+DTI (<code>alpha = 0.2</code>, <code>beta = 0.8</code>, <code>300 m</code> triangular kernel), per-feature leakage
+canaries (<code>AUC &gt; 0.90</code> is leakage until explained), and registry checks on the
+continuous surface <strong>before placement</strong> and final dots <strong>after placement</strong>. A
+separate selector decision is required before any weekly slot. This review ran
+none of those scientific tests.</p>
+<h3>Official sources and provenance limits</h3>
+<p>These are links from the repository's claim-by-claim source ledger. They were not
+freshly fetched in this review; source access and specific claims must be checked
+again before a new method uses them.</p>
+<ul>
+<li><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem, data, submission format, and metric</a></li>
+<li><a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">DrivenData staff clarification on masking known mapped-fault pixels</a></li>
+<li><a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS GeoDAWN airborne magnetic and radiometric data release</a></li>
+<li><a href="https://gdr.openei.org/submissions/1391">DOE Geothermal Data Repository submission 1391</a></li>
+<li><a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP program</a></li>
+<li><a href="https://earthquake.usgs.gov/fdsnws/event/1/">USGS ComCat FDSN event API</a></li>
+<li><a href="https://aria-share.jpl.nasa.gov/">NASA/JPL ARIA</a> and <a href="https://asf.alaska.edu/">Alaska Satellite Facility</a></li>
+<li><a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">DOE / National Laboratory of the Rockies official competition rules</a></li>
+<li>Project source-access notes and evidence classes: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json"><code>knowledge/official_sources.json</code></a>; local input pins and missing files: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/data_manifest.json"><code>registry/data_manifest.json</code></a>.</li>
+</ul>
+<p>The current checkout does not contain <code>training_features.tif</code> or <code>data/raw/</code>;
+its manifests record owner-mirror hashes, not organizer authentication. A previous
+reported score, a local raster validator, and a public leaderboard observation
+are not a submission-page receipt. No leaderboard improvement is claimed for any
+candidate in this slate.</p></div></section><section class="section"><div class="notice"><strong>Historical backlog warning:</strong> sections below preserve earlier session notes. They may contain unvalidated numerical projections, outdated registry counts, or methods later found to overlap existing lanes. Do not treat those projections as measured HOLDOUT-DTI or public leaderboard scores; the current audited slate above supersedes their ranking.</div></section><section class="section"><h2>Historical session 070af0b6 — five post-G79-THVC concepts (not executed)</h2><p>Historical note and registry evidence: <a href="evidence/post_index_sibling_audit_20261022.json">post-index sibling audit</a> · <a href="evidence/run_card_step.json">archived H79-STEP card</a>. The current review does not adopt prior gain projections or a global-uniqueness claim.</p><div class="prose table-scroll"><h2>Five Genuinely Untried Post-<code>G79-THVC</code> Geological Hypotheses (<code>2026-10-22</code>)</h2>
 <blockquote>
 <p><strong>Protocol &amp; Budget Status:</strong> Zero experiments were executed on this branch (<code>arena/070af0b6-gemsdoe79</code>). Under <code>AGENTS.md</code> Rule #3 and <code>scripts/preflight_new_lane.py --restore</code> (<code>exit 2</code>, <code>IR-79-04</code> / <code>IR-79-90</code>), no new candidate may be generated or promoted without a fresh preregistered lane AND an explicit protocol-owner ruling on space-filling/lattice registry priors (<code>17GEMSDOE</code> <code>halo = 1.0000</code>, <code>GEMSDOE48</code> plateaus <code>halo = 1.0000</code>, and <code>13GEMSDOE r13-lattice-s5</code> <code>halo = 0.998724</code>, which forces $\text{ov}_{3\text{px}} \ge 0.8144 &gt; 0.70$ for every $\ge 35{,}093$-dot map in Nevada by the Pigeonhole Principle).</p>
 </blockquote>
