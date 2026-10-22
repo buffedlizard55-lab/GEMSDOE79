@@ -120,3 +120,11 @@ post hoc to rescue this or any prior file.
 **Maximize P(Win):** preserve scarce slots, not a known duplicate.
 **Own the Outcome:** deliver the measured negative result and fix the audit bug,
 while explicitly retaining the unmet new-TIFF requirement.
+
+## Concurrent-main reconciliation
+
+PR #97 initially conflicted with concurrently merged review notes. Merged
+`origin/main` at `7f5d6e3` into the assigned session branch, preserved incoming
+reports/tools, and assigned this session's irregularities the next unused IDs
+IR-79-173 and IR-79-174. Rebuilt the site; the combined suite passes **495 tests**.
+The canonical scientific files and refusal remain unchanged.

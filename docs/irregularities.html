@@ -1241,6 +1241,11 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>PR builds and production deployments used the same Pages concurrency group. The review PR's Pages run was cancelled while its two verification workflows completed successfully; a later pending PR run can displace a pending production run under the shared group.</td>
 <td>Separate PR-number groups from the production group. Keep production serialized and PR deployments disabled; retain exact public-byte verification. Added a workflow regression test. Observed cancellation alone does not authenticate a successful deployment.</td>
 </tr>
+<tr>
+<td>IR-79-172</td>
+<td>Session d52085f3 was asked for a unique submittable TIF. The new-lane preflight fails closed without the pinned witness (exit 3) and exits 2 with it, because the literal gate blocks every candidate. The witness is a continuous 17GEMSDOE surface positive on all 5,167,373 footprint cells, values 0.00046–0.98412. No lane method paragraph is in the record, so no lane was assigned.</td>
+<td>Reproduced both preflight exits and the full test/verify run (477 passed; verify exit 0). Measured the witness directly and, using the shared <code>budget_matched_dots</code> and <code>_near</code>, its top-37,654 footprint coverage is 0.0185 (top-38,000: 0.0186). That is a chance-level feasibility measurement, not a candidate score. No gate was changed, no lane started, no placement or submission made. The decision on literal versus top-k (D-1) and a lane paragraph are the owner's (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_d52085f3.md">review d52085f3</a> §7). Public leaderboard page confirms #1 at 0.4413, not 0.3195 (IR-79-05).</td>
+</tr>
 </tbody>
 </table>
 <h3>Session 84124ba0 — witness provenance hardening (2026-10-22)</h3>
@@ -1254,12 +1259,12 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-172</td>
+<td>IR-79-173</td>
 <td>Witness verification could skip missing reference/module pins; a reference destination could differ from the filename loaded by <code>load_grid</code>.</td>
 <td>Require exactly one pin for both references and grid/uniqueness modules and exact reference destinations. Added omission, duplication, malformed-row and destination regression tests. No scientific module or threshold changed. Fresh witness remeasurement still blocks every nonempty candidate under the literal gate.</td>
 </tr>
 <tr>
-<td>IR-79-173</td>
+<td>IR-79-174</td>
 <td>Preflight help claimed an exit-0 path, but the rejection-only implementation returns only 2 or 3.</td>
 <td>Corrected help text. An unverified witness is not permission to begin a lane. Official reference README also supports CPU-only execution; the historical GPU-required prompt statement is not a verified limitation of that baseline.</td>
 </tr>
