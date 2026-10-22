@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "lane": "H79-NHR",
+  "experiment": "X1",
+  "seed": 30,
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "generated_utc": "2026-10-22T01:52:53.905192+00:00",
+  "runtime_s": 728.7,
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "seed": 30,
+    "tests": 232,
+    "threshold": 0.9,
+    "max_symmetric_auc": 0.8588719723814486,
+    "worst": {
+      "seed": 30,
+      "fold": "NW",
+      "feature": "geom_log_dist_visible_tip",
+      "positive_pixels": 1919,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.14112802761855134,
+      "symmetric_auc": 0.8588719723814486,
+      "suspicious": false
+    },
+    "n_suspicious": 0,
+    "per_feature_max": {
+      "det_elev_log_s3": 0.6155157764460657,
+      "tf_ieq_n100a15": 0.5897891201716738,
+      "step_max": 0.5984708441896821,
+      "step_max_max5": 0.6188254325169358,
+      "ex_max": 0.5904508129233975,
+      "lappos_max": 0.6132069723814486,
+      "geom_visible_density_s5": 0.8120737806149037,
+      "rtp_gradmag_s5": 0.549407729303548,
+      "tf_tmi_hg": 0.5540509656196944,
+      "U": 0.5406099384550085,
+      "tf_iso_grav_anom_vg": 0.586979900990099,
+      "rtp_log_s2": 0.5220765177398161,
+      "det_elev_gradmag_s1": 0.6353481735278791,
+      "tf_depth_to_base_surf": 0.5789240818516248,
+      "iso_grav_anom_gradmag_s5": 0.6267875339558574,
+      "tf_tmi": 0.5576147628973424,
+      "cross_max": 0.6139259353830121,
+      "tf_geod_dilaterate": 0.5536828923973023,
+      "ex_max_max5": 0.6043436216779572,
+      "geom_strike_field_coherence": 0.601273085413929,
+      "tf_mag_anom": 0.5667860239708182,
+      "geom_visible_density_s20": 0.7944627201667535,
+      "UK": 0.5594962688900469,
+      "tf_tmi_vg": 0.509598884835852,
+      "tf_geod_2ndinv": 0.5429327123501824,
+      "tf_geod_shearrate": 0.5700115269382391,
+      "ex_mean": 0.5860034132360605,
+      "iso_grav_anom_log_s5": 0.5775740662139219,
+      "det_elev_gradmag_s3": 0.6606958910891089,
+      "rtp_log_s5": 0.525952340588596,
+      "iso_grav_anom_gradmag_s2": 0.6234341213921902,
+      "tf_cond_surf": 0.6036439499739448,
+      "TMI_up150": 0.5575939812402293,
+      "geom_log_dist_visible": 0.8481481318394998,
+      "rtp_gradmag_s2": 0.5519367232597623,
+      "coh100": 0.5441934523189161,
+      "K": 0.5887544736842105,
+      "tf_det_elev": 0.5692340853140916,
+      "TC": 0.5741320224957556,
+      "UTh": 0.5787387216431638,
+      "upface_max": 0.6137192183428869,
+      "downface_max_max5": 0.612959702970297,
+      "iso_grav_anom_log_s2": 0.5718754265704584,
+      "tf_iso_grav_anom_hg": 0.555625849172287,
+      "tf_det_elev_slope": 0.6120614330380407,
+      "det_elev_log_s1": 0.5682769397283531,
+      "tf_iso_grav_anom": 0.5425419592641261,
+      "geom_log_dist_visible_tip": 0.8588719723814486,
+      "tf_iso_grav_anom_slope": 0.6243921370967742,
+      "lapneg_max": 0.6090441036998437,
+      "tf_rtp": 0.5620769202709744,
+      "geom_lidar_strike_alignment": 0.5889813965607087,
+      "relief": 0.6331331031787389,
+      "Th": 0.5879828501697792,
+      "ThK": 0.5712990588595953,
+      "tf_deq_n100a15": 0.5599199384550084,
+      "tf_tc": 0.5741803183361631,
+      "downface_max": 0.6054573970818136
+    }
+  },
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.152169684541851,
+        "ci95": [
+          0.13352892938057562,
+          0.16956398834601
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 2502.8353628919795,
+        "fpw": 34367.46888369496,
+        "fnw": 8839.164637108015
+      },
+      "ablation_no_geometry": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0750514875401735,
+        "ci95": [
+          0.06115839095252939,
+          0.08978185602516958
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 1225.141544216703,
+        "fpw": 35026.929181290914,
+        "fnw": 10116.858455783296
+      },
+      "uniform_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.04824096393672869,
+        "ci95": [
+          0.04333640695834005,
+          0.05223424019583927
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 785.8489895196408,
+        "fpw": 35296.53315358338,
+        "fnw": 10556.151010480355
+      },
+      "h33_foldfair_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.09889767286222764,
+        "ci95": [
+          0.08417148325275596,
+          0.11199985048545542
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 1638.0162557476992,
+        "fpw": 35807.67431660717,
+        "fnw": 9703.983744252295
+      }
+    },
+    "best_comparable_control": "h33_foldfair_control",
+    "paired_differences": {
+      "ablation_no_geometry": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.0771181970016775,
+        "ci95": [
+          0.06117859565056185,
+          0.09431355620787085
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "uniform_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.10392872060512232,
+        "ci95": [
+          0.08645135349777015,
+          0.12178122044563323
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "h33_foldfair_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.053272011679623366,
+        "ci95": [
+          0.03688569361046412,
+          0.07035589174158467
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 159,
+      "draws": 1000,
+      "seed": 7930,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "folds": [
+    {
+      "fold": "NW",
+      "budget": 8000,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 8148,
+          "positive_rows": 48075,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 8112,
+          "positive_rows": 49794,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 8112,
+          "positive_rows": 48292,
+          "negative_rows": 200000
+        }
+      ],
+      "withheld_truth": 1919
+    },
+    {
+      "fold": "NE",
+      "budget": 9919,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 7727,
+          "positive_rows": 47495,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 7755,
+          "positive_rows": 46953,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 7723,
+          "positive_rows": 46441,
+          "negative_rows": 200000
+        }
+      ],
+      "withheld_truth": 2356
+    },
+    {
+      "fold": "SW",
+      "budget": 9793,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 6470,
+          "positive_rows": 38177,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 6462,
+          "positive_rows": 39301,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 6513,
+          "positive_rows": 39732,
+          "negative_rows": 200000
+        }
+      ],
+      "withheld_truth": 3805
+    },
+    {
+      "fold": "SE",
+      "budget": 7891,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 6886,
+          "positive_rows": 43037,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 6881,
+          "positive_rows": 43199,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 6892,
+          "positive_rows": 43598,
+          "negative_rows": 200000
+        }
+      ],
+      "withheld_truth": 3262
+    }
+  ],
+  "h33_control_source": {
+    "repo": "GEMSDOE68",
+    "path": "registry/rasters/rasters/GEMSDOE25__dotted-h19-5-d2-8.tif",
+    "blob": "bfb7e86d046dd178c3d6ab60522861b5464dd420",
+    "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30"
+  },
+  "feature_names": [
+    "tf_mag_anom",
+    "tf_rtp",
+    "rtp_gradmag_s2",
+    "rtp_log_s2",
+    "rtp_gradmag_s5",
+    "rtp_log_s5",
+    "tf_tmi_hg",
+    "tf_geod_2ndinv",
+    "tf_iso_grav_anom_slope",
+    "tf_tc",
+    "tf_geod_shearrate",
+    "tf_geod_dilaterate",
+    "tf_tmi_vg",
+    "tf_deq_n100a15",
+    "tf_iso_grav_anom_vg",
+    "tf_det_elev",
+    "det_elev_gradmag_s1",
+    "det_elev_log_s1",
+    "det_elev_gradmag_s3",
+    "det_elev_log_s3",
+    "tf_iso_grav_anom",
+    "iso_grav_anom_gradmag_s2",
+    "iso_grav_anom_log_s2",
+    "iso_grav_anom_gradmag_s5",
+    "iso_grav_anom_log_s5",
+    "tf_tmi",
+    "tf_depth_to_base_surf",
+    "tf_ieq_n100a15",
+    "tf_cond_surf",
+    "tf_iso_grav_anom_hg",
+    "tf_det_elev_slope",
+    "ex_max",
+    "ex_max_max5",
+    "ex_mean",
+    "step_max",
+    "step_max_max5",
+    "lapneg_max",
+    "lappos_max",
+    "downface_max",
+    "downface_max_max5",
+    "upface_max",
+    "cross_max",
+    "relief",
+    "coh100",
+    "K",
+    "Th",
+    "U",
+    "TC",
+    "ThK",
+    "UK",
+    "UTh",
+    "TMI_up150",
+    "log_dist_visible",
+    "visible_density_s5",
+    "visible_density_s20",
+    "log_dist_visible_tip",
+    "lidar_strike_alignment",
+    "strike_field_coherence"
+  ],
+  "static_stack_inputs": {
+    "training_features.tif": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "lidar_scarp_features_u8.tif": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "geodawn_rad_u8.tif": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "geodawn_extensions_u8.tif": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b"
+  }
+}

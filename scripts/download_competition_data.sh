@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# Autonomous SHA-256-pinned competition & official DOE GDR / USGS INGENIOUS restoration.
-# DrivenData downloads require logged-in portal cookies, so core competition rasters use
-# SHA-256-pinned public repository mirrors while INGENIOUS archives restore from verified blobs.
+# Real hash-pinned owner mirrors, not an organizer login bypass.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-PYTHON="${PYTHON:-.venv/bin/python}"
-if [ ! -x "$PYTHON" ]; then
-  PYTHON="python3"
+if [ -z "${PYTHON:-}" ]; then
+  if [ -x ".venv/bin/python" ]; then
+    PYTHON=".venv/bin/python"
+  else
+    PYTHON="python3"
+  fi
 fi
-"$PYTHON" scripts/restore_data.py --preserve-receipt --ids all
-"$PYTHON" scripts/restore_official_ingenious.py
+"$PYTHON" scripts/restore_data.py --preserve-receipt --ids training_features,existing_faults,sample_submission,ext_geodawn_rad_u8,ext_geodawn_extensions_u8
 mkdir -p data/reference
 cp data/raw/sample_submission.tif data/raw/existing_faults.tif data/reference/

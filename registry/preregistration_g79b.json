@@ -1,0 +1,61 @@
+{
+  "lane": "G79B-SDPT",
+  "title": "Scarp dipole-persistence channels + trace-object reranking (terrain-only)",
+  "registered_utc": "2026-10-22T00:57:00Z",
+  "registered_before": "building the G79B feature stack or reading any G79B HOLDOUT-DTI",
+  "session_branch": "arena/67557396-gemsdoe79",
+  "lane_assignment_note": "The prompt contains no explicit single method paragraph (same absence as IR-79-02). This session declares G79B-SDPT as its one lane and stays inside it. The prior G79-FABRIC-OFFSET lane is closed negative (post-stop diagnostic below its uniform control); the archived H79-MCT lane is reused only as the control recipe, never copied as dots.",
+  "hypothesis": "Explicit crest-base curvature-dipole, facing-polarity and cross-scale/cross-sensor step-persistence channels rank true fault scarps above their mimics (terraces, channel banks, road cuts, benches) better than the same terrain bands used as independent amplitudes; object-level trace scoring then promotes long continuous faint traces the way the expert labellers drew them.",
+  "mechanism": "Catalogue-free terrain stack: H79-MCT 30 channels (1 m lidar cache + 10 m 3DEP + 100 m det_elev/det_elev_slope + Sato line transforms) PLUS new interaction channels dip_min/dip_geo/dip_balance/face_polarity/face_dom/step_vs_cross/coh_step/persist_min/persist_geo/xsensor_min/strike_along/strike_across/step_max3/road_logdist and the 5 DEM10 channels H79 dropped. HistGradientBoosting with the H79 hyper-parameters and sampling, trained on the visible catalogue only. Optional stage 2: segment-object reranking sqrt(rank(p)*segment_score). Emission fixed at the family's live-validated operating point.",
+  "named_non_fault_processes": ["pluvial Lake Lahontan shorelines", "fluvial terrace risers", "roads, canals, railway grades", "lithologic benches", "mine benches", "landslide head-scarps", "DEM tile seams"],
+  "inputs_all_sha256_pinned": {
+    "training_features_tif_bands_12_19_only": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "lidar_scarp_features_u8": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "tiger_road_distance_m": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988",
+    "dem10_13_vectors": "GEMSDOE10 tag ext/dem10-36343078537, each vector sha256-verified against its manifest.json this session",
+    "labels_existing_faults": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "sample_submission_grid": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "provenance_caveat": "Owner GitHub mirrors of login-walled organizer files / owner CI derivatives of public-domain USGS data. Hash pins prove mirror consistency, NOT organizer authentication."
+  },
+  "holdout": {
+    "evaluator": "vendor/gems57 evaluate_holdout.py VERSION gems57-pooled-hide-v2 (unmodified; sha256 pinned in registry/template_pin.json)",
+    "split": "gems57.holdout.buffered_component_draw(hide_frac=0.20, buffer_px=3), seeds 30 (primary) and 20 (confirmation) - identical draws to the archived H79-MCT runs",
+    "masking": "visible catalogue masked pixel-exactly; every feature catalogue-free; models trained on visible catalogue only (LOQO by quadrant)",
+    "alpha": 0.2, "beta": 0.8, "kernel": "300 m triangular (3 px)",
+    "ci": "paired percentile bootstrap over 20 km (200 px) blocks, 1000 draws, seed 520810 (evaluate_holdout.pooled_summary)",
+    "arms": {
+      "A0_random": "uniform random surface, same emission (control)",
+      "A1_control_h79_pixel": "exact H79-MCT 30-channel single-HGB pixel likelihood, no continuity (reproduction of archived arm C1)",
+      "A2_sdpt_pixel": "A1 stack + G79B new channels, same HGB/sampling (PRIMARY feature test)",
+      "A3_sdpt_trace": "A2 surface + SDPT-C trace-object reranking (stage-2 test)",
+      "REF_h19_5_redot": "static H19-5 line set re-dotted fold-fair (label-aware reference only, never a gate)"
+    },
+    "emission_in_holdout": "37,654 dots per seed pooled across folds pro-rata by allowed area, greedy rank order, min separation 2.8 px, dots only >2 px from the VISIBLE catalogue"
+  },
+  "leakage_canary": "Every stack channel alone vs withheld positives (200k sampled negatives >3 px from visible catalogue): symmetric AUC must be <= 0.90 on BOTH seeds, else STOP before trusting any score (protocol rule 4).",
+  "emission_final": {
+    "budget_dots": 37654,
+    "min_separation_px": 2.8,
+    "catalogue_exclusion_px": 2.0,
+    "values": "binary {0,1} float32, zeros outside footprint, nodata None (all-finite policy; the writer rejects non-finite/out-of-range instead of clipping)",
+    "model": "single HGB fit on the FULL catalogue with the winning arm's feature set and identical sampling/hyper-parameters; if A3 wins its gate, stage-2 reranking applied with the identical formula"
+  },
+  "uniqueness_protocol": {
+    "shared_tool": "vendor/gems57/uniqueness.py compare_array_to_registry + two_phase_summary, unmodified (sha256 1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95)",
+    "registry": "the frozen 992-raster inventory in registry/registry_index.json + registry_receipt.json, restored byte-exact (sha256+git-blob+size) this session",
+    "decision_D1_resolution": "The literal positive-support reading is mathematically degenerate: the hash-verified 17GEMSDOE E-proba surface is positive on all 5,167,373 footprint cells (evidence/universal_overlap_certificate.json), so EVERY nonempty candidate - including every family submission scored after it - has forward overlap 1.0. The shared template itself therefore ships two_phase_summary/representation_class: the Spearman test applies to every raster, the 3 px dot-overlap test to dot fields (positive support <= 20% of footprint). G79B adopts that template-supplied reading, reports the literal reading alongside, and ADDITIONALLY requires, for every continuous-surface prior, forward overlap <= 0.70 against both its >=0.5 cells and its top-37,654 cells. No threshold is relaxed; the added tests are stricter than the template's.",
+    "gates": "on the probability SURFACE before placement and on the FINAL dots: Spearman <= 0.90 vs all 992; forward 3 px overlap <= 0.70 vs every dot-field prior; extra continuous-prior tests above; no byte/decoded identity",
+    "cap_contingency_preregistered": "If (and only if) the unconstrained final emission exceeds 0.70 forward overlap vs any dot-field prior, emission is re-run with a per-prior cap of 0.68 x budget inside that prior's 3 px halo (surface/model/budget unchanged), the holdout cost of the cap is measured on cached OOF surfaces (experiment 2), and the audit is re-run in full. This contingency is registered now, not after seeing a failure."
+  },
+  "gates_to_promote_all_required": [
+    "G1 canary: no channel symmetric AUC > 0.90 on either seed",
+    "G2 sanity: winning arm pooled HOLDOUT-DTI > A0_random with paired 95% CI excluding 0 on both seeds",
+    "G3 beat the current holdout best: winning arm point HOLDOUT-DTI > A1 control on BOTH seeds AND >= archived H79-MCT unconstrained (0.1152 seed30 / 0.1095 seed20) on both seeds; paired CIs vs A1 reported either way",
+    "G4 uniqueness: all uniqueness_protocol gates pass on surface and final dots vs all 992 restored registry rasters",
+    "G5 format: shared validator PASS - single-band float32, EPSG:32611, 3730x3292, exact sample transform, all values finite in [0,1], zero positive mass outside footprint and on/near (<=2 px) the catalogue, exactly 37,654 positive dots",
+    "If any gate fails the verdict is negative / DO NOT SUBMIT, the file (if written) is labelled DO-NOT-SUBMIT, and the negative result is the deliverable. No human inspection is used at any gate."
+  ],
+  "experiment_budget": "max 3 experiments / 2 h of experiment compute: E1 = holdout seeds 30+20 (arms A0-A3+REF); E2 = cap-cost re-emission on cached OOF surfaces ONLY if the cap contingency fires; E3 = reserved for one bug fix. No hyper-parameter search.",
+  "score_labelling": "Every number is labelled HOLDOUT-DTI (evaluator gems57-pooled-hide-v2, withheld-positive count, 95% CI), REGISTRY-MEASUREMENT, or ORGANIZER-CONFIRMED (only a submission-page receipt, of which this repo has none). Owner-reported family scores stay UNVERIFIED HISTORICAL REPORT. No projection is written as a score.",
+  "no_slot_selection": "This pipeline never uploads and never chooses a weekly slot; verdict 'promote' means only that the separate selector/owner may consider the file."
+}

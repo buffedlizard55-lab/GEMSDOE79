@@ -22,7 +22,7 @@ for (const button of document.querySelectorAll("[data-copy]")) {
         const ok = document.execCommand("copy"); helper.remove();
         if (!ok) throw new Error("Clipboard unavailable");
       }
-      toast("Copied. This file is still DO NOT SUBMIT.");
+      toast("Copied.");
     } catch (_) {
       toast("Clipboard unavailable. The complete text remains visible above.");
     }

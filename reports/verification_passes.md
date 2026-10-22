@@ -17,11 +17,11 @@ Every claim, byte hash, holdout metric, uniqueness statistic, figure, HTML page,
 ## Pass 2 — Artifact Byte, Format, Permissions & Reproducibility Audit
 
 1. **GeoTIFF Format & Value-Range Validation (`validate_submission.py` + `verify_project.py`):**
-   - File: `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.tif` (`137,299 B`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`)
+   - File: `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif` (`137,299 B`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`)
    - Band count: `1`, dtype: `float32`, CRS: `EPSG:32611`, shape: `3730 × 3292`, geotransform: `[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]`
    - Finite pixels: `12,279,160 / 12,279,160` (`n_nan = 0`, `n_infinite = 0`), min `0.0`, max `1.0`, positive pixels `35,093`, outside footprint `0`, on mapped catalogue `0`.
 2. **Single-TIFF ZIP & GitHub Pages File Permissions (`IR-79-23`):**
-   - File: `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.zip` (`102,600 B`, SHA-256 `120413774dc8da89f18d836242de673fbc187149a758d17ed3e5bdcc0c80bf5a`) — contains 1 exact byte-identical `.tif`, `CRC OK`, mode `0644` (`world_readable_download_permissions = true`).
+   - File: `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip` (`102,600 B`, SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`) — contains 1 exact byte-identical `.tif`, `CRC OK`, mode `0644` (`world_readable_download_permissions = true`).
 3. **Visual Inspection of All Generated Figures (`docs/figures/fig1..fig4.png`):**
    - Inspected rendered PNG pixels directly; caught and fixed error-bar label offset in `fig1_holdout_progression.png` and x-tick rotation in `fig2_regimes_and_features.png` so zero text elements touch or clip anywhere.
 

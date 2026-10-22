@@ -10,6 +10,9 @@ import argparse, hashlib, json, shutil, subprocess, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+_GH_API_BLOCKED = False
+_FETCHED_REFS: set[tuple[str, str]] = set()
+
 
 def sha256_file(p: Path) -> str:
     h = hashlib.sha256()
@@ -18,14 +21,67 @@ def sha256_file(p: Path) -> str:
             h.update(chunk)
     return h.hexdigest()
 
+
+def _repo_remote_url(repo: str) -> str:
+    return f"https://github.com/{repo}.git"
+
+
+def _git_mirror_dir(repo: str) -> Path:
+    safe = repo.replace("/", "__")
+    bare = ROOT / ".cache" / "git_mirrors" / f"{safe}.git"
+    if not (bare / "HEAD").exists():
+        bare.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(["git", "init", "--bare", "-q", str(bare)], check=True)
+        subprocess.run(
+            ["git", "-C", str(bare), "remote", "add", "origin", _repo_remote_url(repo)],
+            check=True,
+        )
+    return bare
+
+
+def _fetch_via_git_smart_http(repo: str, ref: str, path: str, out) -> None:
+    bare = _git_mirror_dir(repo)
+    key = (repo, ref)
+    if key not in _FETCHED_REFS:
+        subprocess.run(
+            ["git", "-C", str(bare), "-c", "gc.auto=0", "fetch", "-q", "--filter=blob:none", "--depth=1", "origin", ref],
+            check=True,
+        )
+        _FETCHED_REFS.add(key)
+    rev_res = subprocess.run(
+        ["git", "-C", str(bare), "rev-parse", "--verify", "-q", f"{ref}^{{tree}}"],
+        capture_output=True,
+        text=True,
+    )
+    tree_ref = ref if rev_res.returncode == 0 else "FETCH_HEAD"
+    subprocess.run(
+        ["git", "-C", str(bare), "show", f"{tree_ref}:{path}"],
+        stdout=out,
+        check=True,
+    )
+
+
 def fetch(repo: str, ref: str, path: str, dest: Path) -> None:
+    global _GH_API_BLOCKED
     dest.parent.mkdir(parents=True, exist_ok=True)
     tmp = dest.with_suffix(dest.suffix + ".partial")
     try:
-        with tmp.open("wb") as out:
-            subprocess.run(["gh", "api", f"repos/{repo}/contents/{path}?ref={ref}",
-                            "-H", "Accept: application/vnd.github.raw"],
-                           stdout=out, check=True)
+        used_api = False
+        if not _GH_API_BLOCKED:
+            with tmp.open("wb") as out:
+                res = subprocess.run(
+                    ["gh", "api", f"repos/{repo}/contents/{path}?ref={ref}",
+                     "-H", "Accept: application/vnd.github.raw"],
+                    stdout=out,
+                    stderr=subprocess.PIPE,
+                )
+            if res.returncode == 0:
+                used_api = True
+            else:
+                _GH_API_BLOCKED = True
+        if not used_api:
+            with tmp.open("wb") as out:
+                _fetch_via_git_smart_http(repo, ref, path, out)
         tmp.replace(dest)
     finally:
         tmp.unlink(missing_ok=True)
@@ -84,7 +140,12 @@ def main() -> None:
     (ROOT / "data").mkdir(parents=True, exist_ok=True)
     if old is not None:
         expected = {r["id"]: r["sha256"] for r in old["files"]}
-        if any(r["id"] in expected and expected[r["id"]] != r["sha256"] for r in results):
+        manifest_hashes = {e["id"]: e["sha256"] for e in man["files"]}
+        if any(
+            r["sha256"] != manifest_hashes.get(r["id"])
+            or (r["id"] in expected and expected[r["id"]] != r["sha256"])
+            for r in results
+        ):
             raise ValueError("Restoration conflicts with the frozen original receipt")
         runtime = ROOT / ".cache/input_restore.json"
         runtime.parent.mkdir(exist_ok=True)

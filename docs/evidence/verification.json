@@ -1,32 +1,41 @@
 {
-  "verified_utc": "2026-10-22T04:14:14.308384+00:00",
+  "verified_utc": "2026-10-22T04:26:26.123499+00:00",
   "all_checks_passed": true,
   "checks": {
-    "all_shared_template_bytes_unmodified": true,
-    "preregistrations_preserved": true,
+    "witness_review_matches_frozen_certificate": true,
+    "new_lane_preflight_stops_on_exact_witness": true,
+    "all_shared_template_bytes_match_pins": true,
+    "e1_preregistration_preserved": true,
     "reference_input_hashes_match_pins": true,
+    "no_git_conflict_markers": true,
+    "all_repo_json_strictly_valid": true,
+    "readme_matches_card_decision": true,
+    "only_canonical_upload_artifacts_published": true,
+    "active_inventory_matches_frozen_verified_blobs": true,
     "card_copies_equal": true,
     "raster_hash_card_receipt_agree": true,
-    "world_readable_download_permissions": true,
     "name_and_note_valid": true,
+    "filename_warning_matches_verdict": true,
     "reopened_tiff_format_all_passed": true,
     "format_receipt_positive_count_agrees": true,
     "zip_exactly_one_identical_tiff": true,
     "zip_crc_valid": true,
     "zip_hash_matches_receipt": true,
     "new_bytes_not_copied_from_registry": true,
-    "single_feature_leakage_canaries_passed": true,
-    "dual_seed_holdout_dti_beats_h33": true,
-    "complete_1108_uniqueness_and_blanket_certificate_consistent": true,
-    "budget_and_archive_honored": true,
-    "automatic_fail_closed_status": true
+    "holdout_card_equals_evaluator_output": true,
+    "holdout_beats_h33_control_both_seeds": true,
+    "leakage_canary_clear": true,
+    "uniqueness_card_matches_evidence": true,
+    "promotion_requires_uniqueness": true,
+    "e1_scientific_stop_honored": true,
+    "status_tool_and_card_agree": true
   },
   "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "/home/user/GEMSDOE79/docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.tif",
+      "file": "/home/user/GEMSDOE79/docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
       "bytes": 137299,
       "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
       "meta": {
@@ -82,7 +91,7 @@
       "footprint_fraction": 0.00679126511672372
     },
     "reference_grid": {
-      "path": "/home/user/GEMSDOE79/docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.tif",
+      "path": "/home/user/GEMSDOE79/docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
       "bytes": 137299,
       "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
       "bands": 1,
@@ -140,11 +149,15 @@
       "literal_novelty_not_cleared",
       "negative_scientific_verdict",
       "separate_selector_has_not_approved_a_slot",
-      "current_account_weekly_capacity_not_verified",
       "separate_selector_receipt_missing_or_unbound",
       "explicit_submission_approval_absent"
     ],
+    "account_side_conditions": [
+      "A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).",
+      "You must be a registered, eligible participant who accepted the competition rules."
+    ],
+    "message": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
     "organizer_acceptance_established": false
   },
-  "scope": "Offline byte, format, leakage-canary, dual-seed HOLDOUT-DTI receipt, 1,108-raster uniqueness, and fail-closed status verification. Never uploads or claims organizer acceptance."
+  "scope": "Offline byte/format/evidence/status verification. Does not recreate holdout results or authenticate organizer acceptance."
 }

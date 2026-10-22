@@ -710,7 +710,15 @@ def main() -> None:
     import argparse
     ap = argparse.ArgumentParser()
     ap.add_argument("--stage", default="all", choices=("seed20", "seed30", "live", "all"))
+    ap.add_argument("--allow-rerun", action="store_true", help="Explicitly re-run closed lane")
     args = ap.parse_args()
+    if not args.allow_rerun:
+        from gems79.lifecycle import LaneClosedError, require_open_lane
+        try:
+            require_open_lane(ROOT, "G79-THVC")
+        except LaneClosedError as exc:
+            sys.stderr.write(f"{exc} No files changed.\n")
+            raise SystemExit(2)
 
     t_all = time.time()
     cache_dir = ROOT / ".cache" / "g79_thvc"

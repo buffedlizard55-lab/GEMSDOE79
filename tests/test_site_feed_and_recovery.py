@@ -118,31 +118,55 @@ def test_malformed_holdout_never_passes_status(bad):
 
 
 def test_truthy_strings_and_booleans_do_not_fake_evidence():
-    card = json.loads((ROOT / 'run_card.json').read_text())
+    card = json.loads((ROOT / 'evidence/e1/run_card_e1.json').read_text())
     card.update(protocol_unique='true', current_best_holdout_beaten='true', capacity_verified_from_submission_page='yes', remaining_weekly_slots=True,
                 selector_receipt='not a receipt', organizer_submission_receipt='present but unauthenticated')
     card['holdout_dti'] = {'dti': .5, 'ci95': [False, True], 'withheld_positive_pixels': True, 'evaluator_version': 'anything'}
     got = submission_decision(card, actual_sha256=card['raster_sha256'], format_passed=True)
     assert not got['ok_to_submit'] and not got['organizer_acceptance_established']
-    assert 'current_account_weekly_capacity_not_verified' in got['blockers']
+    assert 'separate_selector_receipt_missing_or_unbound' in got['blockers']
+    assert 'holdout_dti_and_ci_not_measured' in got['blockers']
 
 
-def test_incoming_mct_archive_preserves_provenance_without_executable_fork():
-    archive = ROOT / 'archive/h79_mct_c26efec'
+@pytest.mark.parametrize('archive_rel', ['archive/h79_mct_c26efec', 'archive/h79_cspt_3d386a3'])
+def test_incoming_concurrent_archives_preserve_provenance_without_executable_fork(archive_rel):
+    archive = ROOT / archive_rel
     manifest = json.loads((archive / 'manifest.json').read_text())
     for row in manifest['files']:
-        if 'archive_path' in row:
-            assert hashlib.sha256((ROOT / row['archive_path']).read_bytes()).hexdigest() == row['archived_sha256']
+        if row.get('archive_path'):
+            expected_sha = row.get('archived_sha256') or row['source_sha256']
+            assert hashlib.sha256((ROOT / row['archive_path']).read_bytes()).hexdigest() == expected_sha
     assert not list(archive.rglob('*.py')) and not list(archive.rglob('*.html'))
     assert not list(archive.rglob('vendor/gems57/uniqueness.py'))
     assert 'DO NOT SUBMIT' in (archive / 'README.md').read_text()
 
 
+def test_concurrent_lanes_audit_verifies_literal_duplicate_and_negative_readiness():
+    audit_path = ROOT / 'evidence/concurrent_lanes_audit.json'
+    site_audit_path = ROOT / 'docs/evidence/concurrent_lanes_audit.json'
+    assert audit_path.exists() and site_audit_path.exists()
+    assert audit_path.read_bytes() == site_audit_path.read_bytes()
+    audit = json.loads(audit_path.read_text())
+    for lane_id in ('H79-MCT', 'H79-CSPT'):
+        lane = audit['archived_lanes'][lane_id]
+        assert lane['manifest_verification']['no_executable_py_or_html'] is True
+        assert lane['manifest_verification']['no_private_uniqueness_fork'] is True
+        assert lane['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
+        assert lane['canonical_readiness_decision']['ok_to_submit'] is False
+        assert lane['canonical_readiness_decision']['verdict'] == 'negative'
+
+
 def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
     card = json.loads((ROOT / 'run_card.json').read_text())
+    card_b = json.loads((ROOT / 'run_card_g79b.json').read_text())
     status = json.loads((ROOT / 'docs/status.json').read_text())
-    assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
+    assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
+    # Concurrent lane G79B-SDPT stays quarantined in archive/, never published.
+    archived = ROOT / 'archive/g79b_sdpt_67557396/downloads' / (card_b['submission_name'] + '.tif')
+    assert archived.is_file() and 'DO-NOT-SUBMIT' in archived.name
+    assert hashlib.sha256(archived.read_bytes()).hexdigest() == card_b['raster_sha256']
+    assert card_b['verdict'] == 'negative' and card_b['ok_to_submit'] is False
     assert not hasattr(__import__('gems57.uniqueness', fromlist=['uniqueness']), 'binding_duplicate_decision')
 
 
@@ -204,3 +228,83 @@ def test_public_get_bypasses_cdn_cache_without_disabling_tls(monkeypatch):
     monkeypatch.setattr(public, 'urlopen', open_url)
     assert public.get('https://example.invalid/file.json') == b'fixture bytes'
     assert urls[0].startswith('https://example.invalid/file.json?g79_verify=')
+
+
+def test_verify_project_is_idempotent_without_refresh_flag():
+    from verify_project import verify
+    before = (ROOT / 'evidence/verification.json').read_bytes()
+    report = verify()
+    after = (ROOT / 'evidence/verification.json').read_bytes()
+    assert report['all_checks_passed']
+    assert before == after
+    assert after == (ROOT / 'docs/evidence/verification.json').read_bytes()
+
+
+def test_restore_preserve_receipt_accepts_manifest_entries_not_in_subset_receipt(tmp_path, monkeypatch):
+    import sys
+    b1, b2 = b'first pinned file', b'second pinned file'
+    h1, h2 = hashlib.sha256(b1).hexdigest(), hashlib.sha256(b2).hexdigest()
+    raw = tmp_path / 'data/raw'
+    raw.mkdir(parents=True)
+    (raw / 'f1.tif').write_bytes(b1)
+    (raw / 'f2.tif').write_bytes(b2)
+    manifest = tmp_path / 'manifest.json'
+    manifest.write_text(json.dumps({
+        'files': [
+            {'id': 'f1', 'dest': 'f1.tif', 'sha256': h1},
+            {'id': 'f2', 'dest': 'f2.tif', 'sha256': h2},
+        ]
+    }))
+    receipt_dir = tmp_path / 'data'
+    receipt_path = receipt_dir / 'restore_receipt.json'
+    frozen_bytes = json.dumps({'schema_version': 1, 'files': [{'id': 'f1', 'sha256': h1}]}).encode()
+    receipt_path.write_bytes(frozen_bytes)
+    monkeypatch.setattr(restore_data, 'ROOT', tmp_path)
+    monkeypatch.setattr(sys, 'argv', [
+        'restore_data.py', '--ids', 'all', '--manifest', str(manifest),
+        '--target-dir', str(raw), '--preserve-receipt',
+    ])
+    restore_data.main()
+    assert receipt_path.read_bytes() == frozen_bytes
+    runtime = json.loads((tmp_path / '.cache/input_restore.json').read_text())
+    assert runtime['verified_files_count'] == 2
+
+
+def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
+    diag_path = ROOT / 'evidence/post_stop_diagnostic.json'
+    site_diag_path = ROOT / 'docs/evidence/post_stop_diagnostic.json'
+    assert diag_path.exists() and site_diag_path.exists()
+    assert diag_path.read_bytes() == site_diag_path.read_bytes()
+    diag = json.loads(diag_path.read_text())
+    assert diag['input_restoration_verified']['matches_preregistered_cache_receipt'] is True
+    for seed_key in ('seed_20', 'seed_30'):
+        canary = diag['post_stop_leakage_canary_diagnostic'][seed_key]
+        assert canary['evidence_class'] == 'LEAKAGE-CANARY'
+        assert canary['all_below_threshold'] is True and canary['max_symmetric_auc'] <= 0.90
+        holdout = diag['post_stop_holdout_dti_diagnostic'][seed_key]
+        assert holdout['evaluator_version'] == 'gems57-pooled-hide-v2'
+        cand = holdout['scores']['candidate']
+        assert cand['evidence_class'] == 'HOLDOUT-DTI'
+        assert 0.0 < cand['dti'] < 0.06 and len(cand['ci95']) == 2
+        assert holdout['paired_differences']['zero_lag_edge_control']['ci95'][0] < 0.0
+        assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
+    # The E1 stop stays recorded on the archived E1 card; the post-stop diagnostic never rewrote it.
+    card = json.loads((ROOT / 'evidence/e1/run_card_e1.json').read_text())
+    assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False
+
+
+def test_post_stop_diagnostic_help_exits_zero():
+    import subprocess
+    import sys
+    res = subprocess.run([sys.executable, str(ROOT / 'scripts/post_stop_diagnostic.py'), '--help'],
+                         capture_output=True, text=True)
+    assert res.returncode == 0
+    assert 'Compute post-stop offline diagnostics' in res.stdout
+
+
+def test_download_competition_data_script_executable_and_syntax():
+    import subprocess
+    script = ROOT / 'scripts/download_competition_data.sh'
+    assert script.exists()
+    res = subprocess.run(['bash', '-n', str(script)], capture_output=True, text=True)
+    assert res.returncode == 0

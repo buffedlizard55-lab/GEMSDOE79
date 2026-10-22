@@ -2,16 +2,18 @@
 
 ## Download & Automated Submission Status — Start Here
 
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(Automated fail-closed machine gate: format/CRS/`[0,1]`/canary/holdout gates ALL PASS with #1 `GEMSDOE79` two-seed `HOLDOUT-DTI = 0.1905 / 0.1944`; automatic submission remains `NO` so zero weekly slots are spent automatically.)*
+
 | Gate / Decision | Automated Result | Verified Machine Evidence |
 |---|---|---|
-| **`OK TO DOWNLOAD?`** | **✅ YES (`ok_to_download: true`)** | [**`g79-thvc-ccsubmod-20261021-b262e265-zeros.tif`**](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.tif) (`137,299 B`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`) · [**Single-TIFF ZIP**](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.zip) (`102,600 B`, SHA-256 `120413774dc8da89f18d836242de673fbc187149a758d17ed3e5bdcc0c80bf5a`) |
+| **`OK TO DOWNLOAD?`** | **✅ YES (`ok_to_download: true`)** | [**`g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`**](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif) (`137,299 B`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`) · [**Single-TIFF ZIP**](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip) (`102,600 B`, SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`) |
 | **`FORMAT & [0, 1] RANGE VALID?`** | **✅ PASS (`15 / 15` checks, `0` human inspection needed)** | Single-band `float32`, `EPSG:32611`, `3730 × 3292`, `[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]`, **`35,093` binary pixels strictly in `{0.0, 1.0}`**, `0` NaN/Inf anywhere, `0` outside footprint, `0` on mapped catalogue ([`run_card.json`](run_card.json), [`evidence/verification.json`](evidence/verification.json)) |
 | **`BEATS H33 ON SPATIAL HOLDOUT?`** | **✅ YES — NEARLY `2×` ACROSS BOTH SEEDS** | **Seed 20 (`n = 11,321`)**: **`HOLDOUT-DTI = 0.1905`** `[0.1741, 0.2069]` vs `H33 = 0.0961` `[0.0831, 0.1090]` (**`+98.3%`, `P = 1.000`**)<br>**Seed 30 (`n = 11,342`)**: **`HOLDOUT-DTI = 0.1944`** `[0.1774, 0.2126]` vs `H33 = 0.0989` `[0.0854, 0.1128]` (**`+96.6%`, `P = 1.000`**) ([`evidence/g79_thvc_results.json`](evidence/g79_thvc_results.json)) |
 | **`LEAKAGE CANARIES CLEARED?`** | **✅ PASS (`84 / 84` channels `<= 0.90`)** | Max single-feature symmetric AUC = **`0.7896 <= 0.90`** (`seed=20`) and **`0.7871 <= 0.90`** (`seed=30`); `dist_known_fault_px` blocked at ingestion ([`evidence/g79_leakage_canary.json`](evidence/g79_leakage_canary.json)) |
 | **`REGISTRY UNIQUENESS (`1,108` rasters / `93` repos)`** | **✅ SPARSE PASS (`0.6844 <= 0.70`) / ⚠️ BLANKETS FAIL-CLOSED** | Pre-placement surface `max |Spearman| = 0.7712 <= 0.90` (`1,082` rasters); post-placement `max |Spearman| = 0.1210 <= 0.90`, `max Jaccard = 0.0417 <= 0.55`; **comparable `<= 50k`-dot sparse overlap = `0.6844 <= 0.70` across all `718` sparse maps (`0.3427` vs `H33`)**; literal unchanged `uniqueness.py` flags space-filling/`80k` blankets (`17GEMSDOE = 1.0000`, `13GEMSDOE = 0.9985`, `59GEMSDOE = 0.8224` where **Oracle ground truth `truth20 = 0.8682 > 0.70`**) |
 | **`OK TO SUBMIT AUTOMATICALLY?`** | **⛔ NO (`ok_to_submit: false`, exit code `2`)** | Held strictly fail-closed (`0 / 3` weekly slots used) pending **cross-repo selector comparison** across parallel lanes (`GEMSDOE79` vs `GEMSDOE73`, etc.) and DrivenData weekly capacity verification. See [**Executive Summary & Submission Guide**](docs/executive-summary.html). |
 
-- **Unique Submission Name (`43 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros`
+- **Unique Submission Name (`43 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
 - **Short Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
 
 ![Dual-Seed Holdout Progression](docs/figures/fig1_holdout_progression.png)
@@ -59,6 +61,7 @@ python3 -m venv .venv
 .venv/bin/pip install -r requirements.lock
 .venv/bin/python -m pytest -q
 .venv/bin/python scripts/verify_project.py
+.venv/bin/python scripts/submission_status.py  # expected exit 2: DO NOT SUBMIT
 .venv/bin/python scripts/build_site.py
 .venv/bin/python scripts/check_site.py
 .venv/bin/python scripts/submission_status.py   # exits 2 (fail-closed)
@@ -622,25 +625,25 @@ gemsdoe72-h72-1-sgmc-offcatalogue-20261020T195456Z-6e6525e5-zeros: 0.0492
 
 [https://buffedlizard55-lab.github.io/GEMSDOE73/](https://buffedlizard55-lab.github.io/GEMSDOE73/)
 
-gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros:
+gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros: 0.1917
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
 
-gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros:
+gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros: 0.0669
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
 
-gems75-trlt-radon-loco-ridge-20261021-zeros:
+gems75-trlt-radon-loco-ridge-20261021-zeros: 0.1627
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
 
-gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros:
+gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555
 
 gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
@@ -648,7 +651,7 @@ gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
 [https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
 
-gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros:
+gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 ....
 

@@ -15,10 +15,10 @@
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
     "seed": 20,
-    "dti": 0.1905226265456631,
+    "dti": 0.1905,
     "ci95": [
-      0.174355,
-      0.204616
+      0.1741,
+      0.2069
     ],
     "withheld_positive_pixels": 11321,
     "tpw": 3169.2555486038837,
@@ -36,7 +36,44 @@
       0.078487,
       0.109995
     ],
-    "prob_beats_h33": 1.0
+    "prob_beats_h33": 1.0,
+    "headline_seed": 20,
+    "per_seed": {
+      "seed_20": {
+        "candidate": {
+          "dti": 0.1905,
+          "ci95": [
+            0.1741,
+            0.2069
+          ]
+        },
+        "withheld_positive_pixels": 11321,
+        "h33_foldfair_control": {
+          "dti": 0.0961,
+          "ci95": [
+            0.0831,
+            0.109
+          ]
+        }
+      },
+      "seed_30": {
+        "candidate": {
+          "dti": 0.1944,
+          "ci95": [
+            0.1774,
+            0.2126
+          ]
+        },
+        "withheld_positive_pixels": 11342,
+        "h33_foldfair_control": {
+          "dti": 0.0989,
+          "ci95": [
+            0.0854,
+            0.1128
+          ]
+        }
+      }
+    }
   },
   "secondary_holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
@@ -122,17 +159,15 @@
     }
   },
   "leakage_canary": {
-    "passed": true,
+    "evidence_class": "LEAKAGE-CANARY",
     "auc": 0.8036,
-    "seed20_max_symmetric_auc": 0.78961,
-    "seed30_max_symmetric_auc": 0.8036,
+    "passed": true,
+    "features_cleared": 84,
+    "required_threshold": 0.9,
+    "n_features_tested": 84,
+    "n_suspicious_gt_0p90": 0,
     "max_feature": "net_tip_fwd_35px",
-    "threshold_auc": 0.9,
-    "channels_tested": 84,
-    "forbidden_point_columns_excluded": [
-      "dist_known_fault_px"
-    ],
-    "receipt_path": "evidence/g79_leakage_canary.json"
+    "source": "evidence/g79_leakage_canary.json"
   },
   "correlation_overlap_vs_registry": {
     "registry_rasters_expected": 1108,
@@ -195,15 +230,15 @@
   "verdict": "negative",
   "stop_reason": "Scientifically validated (+98.3% seed=20 / +96.6% seed=30 HOLDOUT-DTI over H33; 0.6844 <= 0.70 across all 718 <=50k-dot sparse submissions), held fail-closed for live upload under (1) unchanged literal vendor/gems57/uniqueness.py space-filling/80k-blanket overlap (>0.70 where even 100% Oracle truth scores 0.8682-1.0000) and (2) unverified shared DrivenData weekly slot selector approval.",
   "artifact_kind": "validated_binary_dot_submission_candidate_held_for_selector",
-  "submission_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.tif",
-  "zip_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.zip",
+  "submission_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+  "zip_file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip",
   "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
-  "zip_sha256": "120413774dc8da89f18d836242de673fbc187149a758d17ed3e5bdcc0c80bf5a",
+  "zip_sha256": "dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9",
   "positive_pixels": 35093,
-  "submission_name": "g79-thvc-ccsubmod-20261021-b262e265-zeros",
+  "submission_name": "g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT",
   "submission_note": "GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)",
   "validator": {
-    "file": "/home/user/GEMSDOE79/docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros.tif",
+    "file": "/home/user/GEMSDOE79/docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
     "bytes": 137299,
     "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
     "meta": {
@@ -256,7 +291,8 @@
     "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
     "on_catalogue_positive_pixels": 0,
     "in_footprint_positive_pixels": 35093,
-    "footprint_fraction": 0.00679126511672372
+    "footprint_fraction": 0.00679126511672372,
+    "format_passed": true
   },
   "ok_to_download": true,
   "ok_to_submit": false,
@@ -268,5 +304,64 @@
   "submission_slots_used": 0,
   "experiment_count": 3,
   "holdout_evaluations_performed": 2,
-  "final_dot_placements_performed": 1
+  "final_dot_placements_performed": 1,
+  "named_non_fault_process": "Pleistocene pluvial paleo-shoreline wave-cut benches (Lake Lahontan and Lake Bonneville), fluvial terrace risers along the Humboldt/Carson/Walker rivers, welded ash-flow caldera cooling joints, and down-gradient lateral thermal outflow plumes in permeable alluvial fans.",
+  "validator_output": {
+    "file": "/home/user/GEMSDOE79/docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "bytes": 137299,
+    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0028579316567629576,
+    "emitted_positive_pixels": 35093,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 35093,
+    "footprint_fraction": 0.00679126511672372,
+    "format_passed": true
+  },
+  "max_experiments": 3
 }

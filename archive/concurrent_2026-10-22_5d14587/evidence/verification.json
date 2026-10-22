@@ -1,0 +1,164 @@
+{
+  "verified_utc": "2026-10-22T01:35:14.262004+00:00",
+  "all_checks_passed": true,
+  "checks": {
+    "startup_contract_exists": true,
+    "startup_contract_conflict_free": true,
+    "startup_contract_branch_neutral": true,
+    "all_shared_template_bytes_unmodified": true,
+    "preregistration_preserved": true,
+    "preregistration_g79b_preserved": true,
+    "reference_input_hashes_match_pins": true,
+    "readme_matches_negative_decision": true,
+    "only_canonical_upload_artifacts_published": true,
+    "active_inventory_matches_frozen_verified_blobs": true,
+    "card_copies_equal": true,
+    "card_lane_g79b": true,
+    "raster_hash_card_receipt_agree": true,
+    "name_and_note_valid": true,
+    "filename_warns_do_not_submit": true,
+    "reopened_tiff_format_all_passed": true,
+    "format_receipt_positive_count_agrees": true,
+    "zip_exactly_one_identical_tiff": true,
+    "zip_crc_valid": true,
+    "zip_hash_matches_receipt": true,
+    "new_bytes_not_copied_from_registry": true,
+    "holdout_evidence_matches_card_and_is_negative": true,
+    "canary_evidence_matches_card": true,
+    "uniqueness_evidence_matches_card": true,
+    "scientific_stop_honored": true,
+    "prior_lane_e1_bytes_preserved": true,
+    "decisive_overlap_certificate_consistent": true,
+    "no_fabricated_holdout_or_ci": true,
+    "no_fabricated_canary": true,
+    "automatic_negative_not_format_only_approval": true
+  },
+  "raster_sha256": "16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795",
+  "format_report": {
+    "format_passed": true,
+    "does_not_approve_submission": true,
+    "validator": {
+      "file": "/home/user/GEMSDOE79/docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.tif",
+      "bytes": 137049,
+      "sha256": "16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    },
+    "reference_grid": {
+      "path": "/home/user/GEMSDOE79/docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.tif",
+      "bytes": 137049,
+      "sha256": "16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    }
+  },
+  "submission_decision": {
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "human_inspection_required_for_this_decision": false,
+    "verdict": "negative",
+    "blockers": [
+      "literal_novelty_not_cleared",
+      "matched_current_best_holdout_not_beaten",
+      "source_provenance_not_independently_cleared",
+      "negative_scientific_verdict",
+      "separate_selector_has_not_approved_a_slot",
+      "current_account_weekly_capacity_not_verified",
+      "separate_selector_receipt_missing_or_unbound",
+      "explicit_submission_approval_absent"
+    ],
+    "organizer_acceptance_established": false
+  },
+  "scope": "Offline byte/format/status verification. Does not recreate holdout results or authenticate organizer acceptance."
+}

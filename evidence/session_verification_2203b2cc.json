@@ -1,0 +1,47 @@
+{
+  "reviewed_utc": "2026-10-22T03:55:49.895566+00:00",
+  "evidence_class": "SOFTWARE-VERIFICATION",
+  "session": "2203b2cc",
+  "passes_completed": 3,
+  "pytest": {
+    "passed": 227,
+    "failed": 0
+  },
+  "dependency_check": "pip check: No broken requirements found.",
+  "project_consistency_checks": {
+    "passed": 29,
+    "all_checks_passed": true
+  },
+  "site": {
+    "pages": 7,
+    "local_links_checked": 117,
+    "passed": true,
+    "browser_rendered_cases": 21,
+    "download_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+    "clipboard_verified": true,
+    "browser_errors": []
+  },
+  "tiff_and_zip_reopened_format_passed": true,
+  "submission_status_exit_code": 2,
+  "terminal_commands_refused": [
+    "run_nhr.py holdout --seed 20",
+    "run_nhr.py final",
+    "build_nhr_submission.py"
+  ],
+  "canonical_run_card_sha256": "ac81792843a1eb7080593018982a8ce0de23bfb49348eb895a3414f7811b25d1",
+  "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "scientific_experiments_performed_this_session": 0,
+  "submission_slots_used_this_session": 0,
+  "new_tif_generated_this_session": false,
+  "shared_evaluator_writer_novelty_bytes_changed": false,
+  "scope": "Fresh software, format, browser and one frozen literal-witness check. Historical holdout/uniqueness evidence was not regenerated. No organizer score or public deployment verification.",
+  "integrated_origin_main": "fd4d9c2",
+  "concurrent_prs_retained": [
+    29,
+    30,
+    31,
+    32
+  ]
+}
