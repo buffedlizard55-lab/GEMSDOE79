@@ -437,7 +437,35 @@ def test_official_sources_and_health_synced_on_2026_10_22():
     ids = {s['id'] for s in sources['sources']}
     assert {'DD-PROBLEM', 'DD-TIMELINE-PRIZES', 'DD-MASK', 'DD-NEW-FAULT-DEF',
             'DD-POOL', 'DOE-RULES', 'USGS-GEODAWN', 'GDR-1391',
-            'EPSG-32611', 'PRIMARY-TVERSKY-1977', 'SIBLING-GEMSDOE32-PAGES'} <= ids
+            'EPSG-32611', 'PRIMARY-TVERSKY-1977', 'SIBLING-GEMSDOE32-PAGES',
+            'USGS-MT-CONDUCTANCE-2022'} <= ids
+
+
+def test_mt_backlog_uses_official_depth_integrated_conductance_metadata():
+    sources = json.loads((ROOT / "knowledge/official_sources.json").read_text(encoding="utf-8"))
+    source = next(row for row in sources["sources"] if row["id"] == "USGS-MT-CONDUCTANCE-2022")
+    assert source["doi"] == "10.5066/P9TWT2LU"
+    assert "sciencebase.gov" in source["url"]
+    claims = " ".join(source["verified_claims"])
+    assert all(interval in claims for interval in ("2–12", "12–20", "20–50", "50–90", "90–200 km"))
+    assert "EPSG:4269" in claims
+    assert "depth-integrated electrical conductivity" in claims
+    assert "no raster bytes" in " ".join(source["limits"])
+
+    backlog = (ROOT / "research/hypotheses_post_thvc_backlog.md").read_text(encoding="utf-8")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "H80-MT-CONDUCTANCE" in readme
+    assert "H80-MT-PHASE" not in readme
+    assert "none is an exhaustive current total" in readme
+    assert "H80-MT-CONDUCTANCE" in backlog
+    assert "H80-MT-PHASE" not in backlog
+    assert "gb_conductance_surface_tp.tif" in backlog
+    assert "500 m`, `1.5 km`, or `3 km` resistivity slices" in backlog
+    assert "Unvalidated planning estimate" in backlog
+    assert "not a measured score" in backlog
+    assert "Later reduced DRAPE and RADIO pilots are separate, negative experiments" in backlog
+    assert "they do not validate the planning gain values" in backlog
+    assert "The MT conductance hypothesis was not tested" in backlog
 
 
 def test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts():

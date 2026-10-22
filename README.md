@@ -2,11 +2,11 @@
 
 ## Download & Automated Submission Status — Start Here
 
-**Current review (2026-10-22, session `f40e4f2e`):** [Session review, selector verification, ETP forensic audit, and autonomous data/cache verification](reports/session_review_f40e4f2e.md) · [prior review `45998a01`](reports/session_review_45998a01.md). No new TIFF was generated: the frozen literal novelty gate blocks every nonempty candidate, and no single-method lane was supplied. The download below is the existing research artifact, **not a newly unique or submission-approved file**. Historical holdout results do not prove a higher private leaderboard score.
+**Current review (2026-10-22, session `f40e4f2e`):** [Session review, selector verification, ETP forensic audit, and autonomous data/cache verification](reports/session_review_f40e4f2e.md) · [this branch’s three-pass review `0607bf35`](reports/session_review_0607bf35.md) · [prior review `45998a01`](reports/session_review_45998a01.md). No new TIFF was generated: the frozen literal novelty gate blocks every nonempty candidate, and no single-method lane was supplied. The download below is the existing research artifact, **not a newly unique or submission-approved file**. Historical holdout results do not prove a higher private leaderboard score.
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(The existing research TIFF passes local format/CRS/`[0,1]`, leakage-canary, and spatial-holdout checks with #1 `GEMSDOE79` two-seed `HOLDOUT-DTI = 0.1905 / 0.1944`, but **fails the literal registry-overlap gate**; `scripts/select_submission.py` re-derives the canonical receipts and refuses selection (`exit 2`). Do not upload this file; zero weekly slots were spent.)*
 >
-> **Current review (2026-10-22):** no new TIFF or holdout experiment was made. The fail-closed preflight proves a literal 3-pixel overlap of `1.0` for any nonempty candidate against a pinned full-footprint registry raster; see [the session review](reports/repository_review_2026-10-22_arena-63e67511.md), [the machine preflight result](evidence/new_lane_preflight_b79882e0.json), [autonomous input/cache verification](evidence/data_and_pipeline_verification_f40e4f2e.json), and [exact `gems57-pooled-hide-v2` audit of quarantined `G79-ETP`](evidence/etp_forensic_audit_f40e4f2e.json).
+> **Current review (2026-10-22):** no new TIFF or holdout experiment was made. The fail-closed preflight proves a literal 3-pixel overlap of `1.0` for any nonempty candidate against a pinned full-footprint registry raster; see [the session review](reports/repository_review_2026-10-22_arena-63e67511.md), [this branch’s three-pass review](reports/session_review_0607bf35.md), [the machine preflight result](evidence/new_lane_preflight_b79882e0.json), [autonomous input/cache verification](evidence/data_and_pipeline_verification_f40e4f2e.json), and [exact `gems57-pooled-hide-v2` audit of quarantined `G79-ETP`](evidence/etp_forensic_audit_f40e4f2e.json).
 
 | Gate / Decision | Automated Result | Verified Machine Evidence |
 |---|---|---|
@@ -19,7 +19,7 @@
 
 - **Unique Submission Name (`55 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
 - **Short Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
-- **Latest repository review (2026-10-22):** [three-pass audit, official source checks, untried hypothesis ranking, blockers, and validation evidence](reports/repository_review_2026-10-22_session-64600edb.md).
+- **Review reports:** [this branch’s three-pass source/site review](reports/session_review_0607bf35.md) · [main’s selector, ETP, and data/cache audit](reports/session_review_f40e4f2e.md) · [repository-wide review](reports/repository_review_2026-10-22_session-64600edb.md).
 
 ![Dual-Seed Holdout Progression](docs/figures/fig1_holdout_progression.png)
 
@@ -83,7 +83,7 @@ bash scripts/download_competition_data.sh
 
 ---
 
-## 4. Session `070af0b6` Audit Addendum — `H79-STEP` Reconciliation, `GEMSDOE76`–`GEMSDOE88` Scorecard & 5 Untried Hypotheses
+## 4. Session `070af0b6` Audit Addendum — `H79-STEP` Reconciliation, `GEMSDOE76`–`GEMSDOE88` Scorecard & 5 Ranked Hypotheses (Later Pilots Separate)
 
 Full line-by-line forensic receipts, three-pass verification records, and official source checks (`2026-10-22`) are published in [`reports/session_review_070af0b6.md`](reports/session_review_070af0b6.md), [`evidence/post_index_sibling_audit_20261022.json`](evidence/post_index_sibling_audit_20261022.json), and [`research/hypotheses_post_thvc_backlog.md`](research/hypotheses_post_thvc_backlog.md):
 
@@ -91,13 +91,13 @@ Full line-by-line forensic receipts, three-pass verification records, and offici
 2. **Cross-Repo Portfolio Audit Across `GEMSDOE76`–`GEMSDOE88` (`IR-79-89`):**
    - **Never spend two weekly DrivenData slots on both `G79-THVC` (`GEMSDOE79`) and `GEMSDOE83` (`h83-gvcd-dink300`, `0.1999 / 0.2138` shared `HOLDOUT-DTI`):** `71.39%` (`0.7139 > 0.70`) of `G79-THVC`'s `35,093` dots lie within `300 m` of `GEMSDOE83`'s `37,654` dots (`0.5749` reverse). Treat `{G79-THVC, GEMSDOE83}` as **one shared slot candidate** alongside orthogonal `GEMSDOE78` (`h78sigx-fuse-b5`, `0.1771` Seed 20, `0.4041–0.5538 <= 0.70` overlap, `24.5%` dots `> 2 km` off catalogue).
    - **Do NOT upload `GEMSDOE81` (`cont-poisson44090-buf2`):** `100.0%` of its `44,090` dots sit inside `223.6–412.3 m` of mapped faults (`0% > 2 km`) with `1.0000` (`100%`) overlap on 4 non-space-filling registry rasters and `0.9203 > 0.70` on sparse `58GEMSDOE`. `GEMSDOE76` `ptcf-tiltworm` also exceeds `0.70` on sparse `GEMSDOE28` (`0.7140`), `GEMSDOE80` (`0.2349`) used a private non-shared evaluator (`0.1172` on shared `gems57`), and `GEMSDOE84`–`GEMSDOE88` are 11-byte stub repos with `0` `.tif` files.
-3. **Five Untried Post-`G79-THVC` Geological Hypotheses ([`research/hypotheses_post_thvc_backlog.md`](research/hypotheses_post_thvc_backlog.md)):** Ranked backlog targeting the `> 1.5–8 km` blind-basin and non-LiDAR gap: **(1) `H80-MT-PHASE`** (3D GDR-1391 magnetotelluric sub-clay-cap resistivity gradient × gravity normal colinearity), **(2) `H80-DRAPE-DECONV`** (GeoDAWN `400 m` flight-line notch + drape-height magnetic source-depth deconvolution), **(3) `H80-RADIO-KD`** (cross-fitted lithology-normalized potassic adularia residual $K - \hat{f}(	ext{eTh}, 	ext{silica})$), **(4) `H80-SLIP-DEFICIT`** (along-range footwall relief vs missing mapped trace slip-deficit inversion), and **(5) `H80-COULOMB-CFS`** (Okada 3D dislocation Coulomb stress shadows $\Delta	ext{CFS} < 0$ suppressing lateral flank false positives).
+3. **Five Ranked Post-`G79-THVC` Geological Hypotheses ([`research/hypotheses_post_thvc_backlog.md`](research/hypotheses_post_thvc_backlog.md)):** The dated backlog targets blind-basin and non-LiDAR gaps: **(1) `H80-MT-CONDUCTANCE`** (five depth-integrated USGS conductance bands for possible coarse regional context; not tested), **(2) `H80-DRAPE-DECONV`** (GeoDAWN flight-line/drape correction), **(3) `H80-RADIO-KD`** (lithology-normalized radiometric residual), **(4) `H80-SLIP-DEFICIT`** (visible-only footwall relief and trace-gap hypothesis), and **(5) `H80-COULOMB-CFS`** (visible-fault stress context). Reduced DRAPE/RADIO pilots are separate negative experiments; planning gains/runtimes are unvalidated and are not score evidence.
 
 ---
 
-### Reconciled 17-lane `GEMSDOE79` benchmark & concurrent-session archive (`arena/070af0b6-gemsdoe79`)
+### Historical 17-row `GEMSDOE79` benchmark snapshot & concurrent-session archive (`arena/070af0b6-gemsdoe79`)
 
-All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `H79-BQA` `0.119/0.123` surface-stopped and `H79-FF1` `0.025/0.025` archived in [`archive/g79_ff1/`](archive/g79_ff1/README.md)) have been audited byte-for-byte on the shared `gems57-pooled-hide-v2` holdout evaluator and reconciled without deleting any historical evidence:
+The table below preserves a dated frozen-key snapshot: `gemsdoe79_16_lanes_summary` is labeled “16” but contains 17 rows. A separate through-PR-#62 review described 19 records, while the earlier research backlog compared 11 named formulations. These are different historical scopes and inclusion rules; later main-branch records (including `IR-79-157` and `IR-79-158`) extend them, so none is an exhaustive current total. This review records the correction in [`IR-79-159`](reports/irregularities.md).
 
 | Rank | Lane | PR / Session | Shared `HOLDOUT-DTI` (Seed 20 / Seed 30) | Dots | Archive / Location | Automated Verdict |
 |---:|---|---|---:|---:|---|---|
@@ -120,7 +120,7 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 - **Session `6d4a2fdf` cross-org review**: [`reports/session_review_6d4a2fdf.md`](reports/session_review_6d4a2fdf.md) · [`research/hypotheses_6d4a2fdf.md`](research/hypotheses_6d4a2fdf.md) · [`evidence/registry_obstructions_certificate.json`](evidence/registry_obstructions_certificate.json).
 - **Session review & 5 untried subsurface hypotheses**: [`reports/session_review_070af0b6.md`](reports/session_review_070af0b6.md), [`reports/session_review_3cfa694f.md`](reports/session_review_3cfa694f.md), [`reports/fgr_farfield_refutation.md`](reports/fgr_farfield_refutation.md), [`research/hypotheses_post_thvc_backlog.md`](research/hypotheses_post_thvc_backlog.md), [`reports/irregularities.md`](reports/irregularities.md) (`IR-79-01`..`IR-79-125`).
 
-### G79-BER addendum (session `4f80e0d0`, merged after the 17-lane snapshot above)
+### G79-BER addendum (session `4f80e0d0`, merged after the 17-row snapshot above)
 
 **Decision for the new file: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** Lane **G79-BER** (band-stratified evidence recovery) was run from base `9640ed3` in parallel with the lanes above, preregistered before any result ([`registry/preregistration_ber.json`](registry/preregistration_ber.json)), and merged afterwards without changing the canonical `G79-THVC` artifact or decision. It generated a new unique-by-construction GeoTIFF that **failed its preregistered holdout gate**, so it is archived as research evidence and no weekly slot was spent.
 
@@ -187,7 +187,7 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 > Verdict **negative**, 0 weekly slots used. Card: [`run_card_cfskd.json`](run_card_cfskd.json) ·
 > Summary: [`reports/cfskd_summary.html`](reports/cfskd_summary.html) · Analysis: [`reports/cfskd_analysis.md`](reports/cfskd_analysis.md).
 > Canonical artifact remains G79-THVC above. Limitations: full 1,108-raster registry uniqueness was not
-> re-restored this session (local 4-raster scope only); H80-MT-PHASE/H80-DRAPE-DECONV blocked (data not in pinned inputs).
+> re-restored this session (local 4-raster scope only). At that historical point neither the MT proposal nor the full DRAPE proposal was tested; the later reduced DRAPE/RADIO pilots are separate negative experiments, and the corrected MT conductance hypothesis remains untested.
 
 ---
 
