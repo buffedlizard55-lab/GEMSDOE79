@@ -145,6 +145,43 @@ slot); `docs/status.json` is the machine-readable verdict. Rebuild with
 slot is never spent on an unproven file. Own the Outcome — both STEPCO
 experiments are reported with their failures intact.
 
+### Prior repository review (same-day, main) — 2026-10-22 (session `79e8e13e`)
+
+- **Conflict markers, broken links, and false hash repaired (`IR-79-44`..`IR-79-45`):**
+  Resolved Git merge conflict markers left on `main` by PR #20 (`1ece8d9`) in `AGENTS.md`
+  and `evidence/browser_review.json` (`JSONDecodeError`), corrected stale `archive/h79_cspt_464d591/`
+  paths to [`archive/h79_cspt_3d386a3/`](archive/h79_cspt_3d386a3/README.md) and the `H79-CSPT`
+  GeoTIFF SHA-256 prefix from `d55570bf…` to `388d8678…`, deduplicated `IR-79-*` IDs (`IR-79-01`..`IR-79-39`),
+  fixed relative links in `knowledge/prior_work/README.md` and `docs/*.md`, and hardened
+  [`scripts/verify_project.py`](scripts/verify_project.py) and [`scripts/build_site.py`](scripts/build_site.py)
+  against future conflict markers, invalid JSON, or broken links.
+- **Zero-REST-quota Git Smart-HTTP recovery (`IR-79-46`):** Upgraded [`scripts/restore_data.py`](scripts/restore_data.py)
+  and [`scripts/restore_registry.py`](scripts/restore_registry.py) with bare-Git Smart-HTTP blob fetching
+  against `github.com` (bypassing GitHub REST `403` rate limits and blocked `raw.githubusercontent.com` redirects
+  while verifying SHA-1 + SHA-256 + byte length). Restored all 13/13 raw/external inputs, reproduced all 10
+  `.cache/g79/*.npy` features bit-for-bit, recovered exact GeoTIFF/ZIP hashes, and verified the universal witness
+  ([`evidence/session_witness_79e8e13e.json`](evidence/session_witness_79e8e13e.json)).
+- **103-row score ledger & cross-family pixel lineage audit (`IR-79-39`):** Added the 5 newly reported scores
+  (`GEMSDOE73`: `0.1917`, `GEMSDOE74`: `0.0669`, `GEMSDOE75`: `0.1627`, `GEMSDOE76`: `0.1555`, `GEMSDOE77`: `0.0964`)
+  to [`registry/score_ledger.csv`](registry/score_ledger.csv) (103 data rows, `UNVERIFIED HISTORICAL REPORT`) and
+  measured actual GeoTIFF bytes across 16 scored landmarks and 5 post-snapshot siblings (`GEMSDOE78`, `GEMSDOE80`..`GEMSDOE83`)
+  via [`scripts/analyze_family_lineage.py`](scripts/analyze_family_lineage.py) →
+  [`evidence/family_lineage_forensics.json`](evidence/family_lineage_forensics.json) (see [`knowledge/why_h33.md`](knowledge/why_h33.md)
+  and [`reports/session_review_79e8e13e.md`](reports/session_review_79e8e13e.md)). Every score `>= 0.2600` (`0.2600`..`0.2778`)
+  derives from `19GEMSDOE` (`h19-5`, `121,131` px, `0.1922`) via `300 m` pin thinning (`D2.8`, `44,090` px, `0.2600`)
+  and monotonic `0 < d_cat <= 200 m` halo pruning (`6,436 -> 3,894 -> 2,545 -> 2,353 -> 0` across `0.2600 -> 0.2778`);
+  `GEMSDOE36` (`0.2750`) contains all `37,654` exact pixels of `H33`; `GEMSDOE70` (`0.2478`) and `GEMSDOE49` (`0.2376`)
+  are the #1 and #2 genuinely non-duplicate models; and post-snapshot `GEMSDOE82` published a second dense continuous
+  surface (`surface_h82.tif`, `4,862,825` positive cells), reinforcing **Decision D-1**.
+- **Concurrent PRs #22 / #23 / #24 quarantine & byte-level fabrication catch (`IR-79-40`):** Quarantined concurrent merges
+  `0ae2506` (`G79B-SCARP-DIPOLE-GEOAND`, holdout-negative) and `5d14587` (`H79-ML-STRAIN-RELAY`) under
+  [`archive/concurrent_2026-10-22_5d14587/`](archive/concurrent_2026-10-22_5d14587/README.md) with full SHA-256 `manifest.json`
+  and audited all four archived concurrent lanes in [`evidence/concurrent_lanes_audit.json`](evidence/concurrent_lanes_audit.json).
+  Proved that PR #24 (`5d14587`) privately forked `vendor/gems57/uniqueness.py`, checked only `2 / 992` registry rasters while
+  advertising `"OK TO SUBMIT: YES"`, and recorded copied `E1` overlap numbers (`0.1978` / `0.0119`) that contradict its own
+  GeoTIFF bytes (`05038613…`, actual measured overlaps `0.2844` vs `H33` and `0.1620` vs `E-proba top-37,654`, `1.0000` literal).
+
+
 ## Original project prompt — read at the start of every session
 
 The following is preserved as the project brief (only trailing whitespace is normalized). Historical scores, availability
@@ -695,25 +732,25 @@ gemsdoe72-h72-1-sgmc-offcatalogue-20261020T195456Z-6e6525e5-zeros: 0.0492
 
 [https://buffedlizard55-lab.github.io/GEMSDOE73/](https://buffedlizard55-lab.github.io/GEMSDOE73/)
 
-gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros:
+gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros: 0.1917
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
 
-gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros:
+gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros: 0.0669
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
 
-gems75-trlt-radon-loco-ridge-20261021-zeros:
+gems75-trlt-radon-loco-ridge-20261021-zeros: 0.1627
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
 
-gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros:
+gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555
 
 gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
@@ -721,7 +758,7 @@ gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
 [https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
 
-gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros:
+gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 ....
 

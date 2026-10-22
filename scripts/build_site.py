@@ -31,9 +31,13 @@ def md(path):
         href = match.group(1)
         if href.startswith(('https:', 'http:', '#', 'mailto:')):
             return match.group(0)
-        target = (path.parent / href).resolve()
+        raw_path = href.split('#', 1)[0].split('?', 1)[0]
+        target = (path.parent / raw_path).resolve()
+        if not target.exists():
+            raise FileNotFoundError(f'Broken relative link {href!r} in {path.relative_to(ROOT)}')
         if target.is_relative_to(ROOT):
-            return 'href="' + REPO + '/blob/main/' + str(target.relative_to(ROOT)) + '"'
+            frag = ('#' + href.split('#', 1)[1]) if '#' in href else ''
+            return 'href="' + REPO + '/blob/main/' + str(target.relative_to(ROOT)) + frag + '"'
         return match.group(0)
     text = re.sub(r'href="([^"]+)"', link, text)
     return '<div class="prose table-scroll">' + text + '</div>'
@@ -157,6 +161,8 @@ def main():
             'evidence/universal_overlap_certificate.json':'universal_overlap_certificate.json',
             'evidence/session_witness_review.json':'session_witness_review.json',
             'evidence/session_witness_review_8ed5d89a.json':'session_witness_review_8ed5d89a.json',
+            'evidence/session_witness_79e8e13e.json':'session_witness_79e8e13e.json',
+            'evidence/family_lineage_forensics.json':'family_lineage_forensics.json',
             'evidence/uniqueness_surface.json':'uniqueness_surface.json',
             'evidence/uniqueness_final_artifact.json':'uniqueness_final_artifact.json',
             'evidence/h33_forensics.json':'h33_forensics.json',

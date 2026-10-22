@@ -13,7 +13,7 @@ footprint), and a post-stop diagnostic had already measured E1 below uniform
 placement. Re-running E1 variants would have been theatre.
 
 **Lane declared.** The request again contained no delimited method paragraph
-(IR-79-33), so one lane was self-declared and preregistered before scoring:
+(IR-79-41), so one lane was self-declared and preregistered before scoring:
 **G79-STEPCO** — faults as cross-trace *steps* corroborated in independent
 fields (detrended elevation, isostatic gravity, log depth-to-basement, RTP
 magnetics, conductivity), with fixed step-dipole/gradient/Laplacian
@@ -45,7 +45,7 @@ nodata=None, single-TIFF ZIP byte-identical).
 **Verdict:** `negative` for both experiments. The preregistered promotion
 gate required beating the incumbent with paired CI above 0 on both seeds; a
 tie does not clear it, and uniqueness cannot be certified while space-filling
-registry priors fire the like-for-like overlap reading (IR-79-35).
+registry priors fire the like-for-like overlap reading (IR-79-43).
 
 ## Why did "H33 = 0.2778" lead the family, and can this beat it?
 
@@ -87,7 +87,7 @@ PhD-level answer, with receipts separated from reports:
 
 - **Registry restore rate limit:** parallel `gh api` exhausted the REST
   budget instantly. Replaced with blobless sparse clones (git protocol),
-  then 3 single-blob fetches after reset; all pins verified (IR-79-36).
+  then 3 single-blob fetches after reset; all pins verified (IR-79-44).
 - **Missing registry files:** 3 indexed rasters had been renamed upstream;
   restored by blob SHA, completing 992/992 accounting. 6 files are
   grid-invalid (wrong/zero origin, format test, corrupt) — documented with

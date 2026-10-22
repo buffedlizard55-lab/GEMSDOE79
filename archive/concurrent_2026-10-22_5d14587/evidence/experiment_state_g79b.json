@@ -1,0 +1,28 @@
+{
+  "lane": "G79B-SCARP-DIPOLE-GEOAND",
+  "experiment": 1,
+  "phase": "finalized_negative",
+  "stopped": true,
+  "started_utc": "2026-10-22T01:04:01.208132+00:00",
+  "finished_utc": "2026-10-22T01:15:10.554823+00:00",
+  "canary_tests": 72,
+  "canary_max_symmetric_auc": 0.6552746723868954,
+  "pooled_scores": {
+    "seed_20": {
+      "candidate": 0.05302473785961033,
+      "lidar_only": 0.0567942662073293,
+      "geo_only": 0.03402100291707153,
+      "uniform_control": 0.05384063925613853,
+      "h33_foldfair_control": 0.09608619416803546
+    },
+    "seed_30": {
+      "candidate": 0.044923818465740326,
+      "lidar_only": 0.045586107501006494,
+      "geo_only": 0.03662001132561404,
+      "uniform_control": 0.0503909042151544,
+      "h33_foldfair_control": 0.09889767286222764
+    }
+  },
+  "raster_sha256": "16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795",
+  "verdict": "negative"
+}

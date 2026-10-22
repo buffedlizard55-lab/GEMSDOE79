@@ -7,7 +7,7 @@ Session branch: `arena/8ed5d89a-gemsdoe79`. Starting merge:
 
 **OK TO DOWNLOAD: YES, for research only. OK TO SUBMIT: NO. Verdict: negative.**
 
-[Existing E1 research TIFF](../docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif)
+[Existing E1 research TIFF](../archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif)
 · [Submission guide](../docs/executive-summary.html) · [Canonical run card](../run_card.json).
 
 No new TIFF, scientific experiment, holdout run, placement, selector action or

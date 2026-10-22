@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 import sys
 import zipfile
 
@@ -13,9 +14,36 @@ sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
 from validate_submission import validate_path
 
+_CONFLICT_MARKER_RE = re.compile(r'^(<{7}(?: .*)?|={7}|\|{7}(?: .*)?|>{7}(?: .*)?)$', re.M)
+_SKIP_PARTS = frozenset({'.git', '.venv', 'node_modules', '.cache', '__pycache__', '.pytest_cache', 'artifacts'})
+
+
+def _reject_dup_keys(pairs):
+    out = {}
+    for k, v in pairs:
+        if k in out:
+            raise ValueError(f'duplicate JSON key: {k!r}')
+        out[k] = v
+    return out
+
+
+def strict_loads_bytes(raw: bytes):
+    return json.loads(
+        raw.decode('utf-8'),
+        parse_constant=lambda c: (_ for _ in ()).throw(ValueError(f'nonfinite constant {c!r}')),
+        object_pairs_hook=_reject_dup_keys,
+    )
+
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def _iter_repo_files(root: Path):
+    for p in root.rglob('*'):
+        if _SKIP_PARTS.intersection(p.parts) or not p.is_file():
+            continue
+        yield p
 
 
 def publication_contract_checks(root, card):
@@ -36,6 +64,23 @@ def publication_contract_checks(root, card):
     receipt = json.loads((root / 'registry/registry_receipt.json').read_text())
     indexed = [r['blob'] for r in index['rasters']]
     verified = [r['blob'] for r in receipt['files'] if r['status'] == 'verified']
+    conflict_free = True
+    json_strict_ok = True
+    for fpath in _iter_repo_files(root):
+        if fpath.suffix.lower() in ('.tif', '.tiff', '.zip', '.png', '.jpg', '.jpeg', '.npy', '.pdf'):
+            continue
+        raw = fpath.read_bytes()
+        try:
+            txt = raw.decode('utf-8')
+        except UnicodeDecodeError:
+            continue
+        if _CONFLICT_MARKER_RE.search(txt):
+            conflict_free = False
+        if fpath.suffix.lower() == '.json':
+            try:
+                strict_loads_bytes(raw)
+            except Exception:
+                json_strict_ok = False
     return {
         'readme_matches_negative_decision': (
             'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.' in readme and
@@ -44,6 +89,8 @@ def publication_contract_checks(root, card):
         'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
+        'no_git_conflict_markers': conflict_free,
+        'all_repo_json_strictly_valid': json_strict_ok,
     }
 
 
