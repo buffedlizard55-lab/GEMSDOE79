@@ -1,7 +1,7 @@
 """Fail-closed local readiness. No upload or account lookup.
 
 ok_to_submit is True only when every automated project gate passes: byte
-integrity, on-disk format, uniqueness, leakage canaries, matched holdout beaten
+integrity, on-disk local and official format, uniqueness, leakage canaries, matched holdout beaten
 with a measured CI, positive scientific verdict, and a separate automated
 selector receipt bound to the exact raster SHA-256. Account-side conditions the
 project cannot observe (a free weekly slot on the DrivenData submission page,
@@ -24,7 +24,7 @@ def _unit_number(value):
     return type(value) in (int, float) and 0 <= value <= 1 and math.isfinite(value)
 
 
-def submission_decision(card, *, actual_sha256, format_passed):
+def submission_decision(card, *, actual_sha256, format_passed, portal_passed=False):
     blockers = []
     if not isinstance(card, dict):
         blockers.append('run_card_is_not_an_object')
@@ -36,6 +36,8 @@ def submission_decision(card, *, actual_sha256, format_passed):
         blockers.append('raster_bytes_do_not_match_run_card')
     if format_passed is not True:
         blockers.append('format_validation_failed')
+    if portal_passed is not True:
+        blockers.append('official_format_rules_not_cleared')
     if card.get('protocol_unique') is not True:
         blockers.append('literal_novelty_not_cleared')
     canary = card.get('leakage_canary')

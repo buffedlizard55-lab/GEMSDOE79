@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "session": "a201fa92",
+  "hypothesis": "Relief-screened multi-scale saddle crossed by an independent isostatic-gravity gradient may expose buried transfer faults omitted from mapped catalogue traces. Ranked conditional proposal, not an experiment.",
+  "mechanism": "Hessian saddle persistence on detrended elevation, crossed by gravity-gradient orientation; compare terrain-only, gravity-only and matched non-fault controls with visible-only catalogue derivations after prospective gate resolution.",
+  "named_non_fault_process_that_could_mimic_it": "Drainage divides or resistant-bedrock passes unrelated to active faulting.",
+  "holdout_dti": null,
+  "holdout_dti_status": "NOT RUN: the required pre-placement literal registry gate stops every nonempty candidate; there is no evaluator version, withheld-positive count, or 95% CI for this untested proposal.",
+  "correlation_overlap_vs_registry": {
+    "candidate_surface_rank_correlation": null,
+    "candidate_surface_overlap": null,
+    "candidate_final_dot_rank_correlation": null,
+    "candidate_final_dot_overlap": null,
+    "pinned_registry_witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "witness_covered_allowed_fraction": 1.0,
+    "provable_literal_forward_overlap_of_any_nonempty_candidate": 1.0,
+    "limit": 0.7,
+    "evidence": "evidence/preflight_a201fa92.json",
+    "result": "Stop before a candidate surface, placement or raster; no new candidate can clear the literal gate."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_candidate": "NOT APPLICABLE: no new TIFF was created.",
+    "inherited_research_tif": "NO NaN inside footprint; all values [0,1]; EPSG:32611, shape and transform match; official R6 FAIL: zero rather than null/NaN outside sample bounds. NOT approved.",
+    "inherited_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "new_tif_generated": false,
+  "ok_to_submit": false,
+  "submission_slots_used": 0,
+  "scientific_experiments": 0,
+  "runtime_inputs": "13/13 local SHA-256 pinned owner mirrors at time of this session; ignored under data/raw and not organizer-authenticated. Recheck with scripts/data_status.py in any new environment."
+}
