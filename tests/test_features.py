@@ -1,35 +1,30 @@
-"""Software fixtures only; none of these numbers are scientific scores."""
+"""Numerical software fixtures for the legacy H79 helper module only.
+
+These tests do not assert that H79-CSPT is the registered active lane or that
+any feature has geological skill. The active experiment is G79-FABRIC-OFFSET.
+"""
 import numpy as np
-import pytest
-from gems79.features import registration, unit_ranks
+from gems79.features import _blakely_simpson_normal_crest, _robust_z_pos
 
-@pytest.mark.parametrize('lag', [-3,-2,-1,1,2,3])
-def test_registration_recovers_known_shift(lag):
-    b = np.random.default_rng(79).normal(size=(100,15)).astype('float32')
-    a = b[:, 3+lag:12+lag]
-    gain, found, corr = registration(a,b)
-    assert np.all(found == lag)
-    np.testing.assert_allclose(corr,1,atol=1e-6)
-    assert np.all(gain > 0)
 
-def test_zero_shift_does_not_invent_displacement():
-    b = np.random.default_rng(12).normal(size=(100,15)).astype('float32')
-    gain, _, _ = registration(b[:,3:12], b)
-    np.testing.assert_allclose(gain,0,atol=1e-6)
+def test_normal_crest_is_finite_nonnegative_and_repeatable():
+    yy, xx = np.mgrid[-20:20, -20:20]
+    field = np.exp(-((xx - 3) ** 2) / 20).astype(np.float32)
+    first = _blakely_simpson_normal_crest(field)
+    second = _blakely_simpson_normal_crest(field)
+    assert np.isfinite(first).all()
+    assert (first >= 0).all()
+    np.testing.assert_array_equal(first, second)
+    assert np.count_nonzero(first) > 0
 
-def test_flat_profiles_abstain():
-    gain, _, corr = registration(np.zeros((20,9)),np.zeros((20,15)))
-    assert not gain.any() and np.isfinite(corr).all()
 
-def test_registration_shape_mismatch_rejected():
-    with pytest.raises(ValueError): registration(np.zeros((2,8)), np.zeros((2,15)))
+def test_robust_positive_transform_is_finite_and_bounded():
+    values = np.array([-3, 0, 1, 2, 100, np.nan, np.inf], dtype=np.float32)
+    transformed = _robust_z_pos(values)
+    assert np.isfinite(transformed).all()
+    assert transformed.min() >= -4
+    assert transformed.max() <= 8
 
-def test_constant_field_supplies_no_evidence():
-    a = np.ones((5,5),dtype='float32'); mask = np.ones_like(a,dtype=bool)
-    assert not unit_ranks(a,mask).any()
 
-def test_rank_ties_and_outside_mask():
-    a=np.array([[2,2,4],[8,0,0]],dtype='float32'); mask=a>0
-    p=unit_ranks(a,mask)
-    assert p[0,0]==p[0,1] and np.all(p[~mask]==0)
-    assert p.min()>=0 and p.max()<=1
+def test_constant_channel_has_zero_robust_deviation():
+    assert not _robust_z_pos(np.ones(16, dtype=np.float32)).any()

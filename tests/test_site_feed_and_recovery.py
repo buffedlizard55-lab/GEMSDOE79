@@ -27,6 +27,7 @@ def test_readme_project_links_exist_and_original_brief_is_present():
     text = (ROOT / 'README.md').read_text()
     assert 'PARALLEL-RUN PROTOCOL' in text and 'Pass 3:' in text
     assert 'Predicted values must be in range [0, 1]' in text
+    assert 'NOT OK TO SUBMIT' in text
     soup = BeautifulSoup(markdown.markdown(text), 'html.parser')
     for link in soup.find_all('a', href=True):
         href = urlsplit(link['href'])
@@ -104,9 +105,12 @@ def test_shared_inventory_only_complete_for_full_verified_scope():
     assert not shared_inventory(index, {'verified': 0, 'unavailable': 1}, records)['complete_accessible_scan']
 
 
-def test_finished_scientific_state_cannot_be_restarted():
-    import run_experiment
-    with pytest.raises(FileExistsError): run_experiment.main()
+def test_legacy_experiment_entrypoint_is_not_runnable_for_active_lane():
+    # The checked-in legacy runner targets a different feature API than the
+    # registered G79 lane. It must remain unavailable, not be mistaken for a
+    # valid route around the immutable stopped experiment.
+    with pytest.raises(ImportError, match='FEATURE_NAMES'):
+        import run_experiment
 
 
 @pytest.mark.parametrize('bad', [True, float('nan'), float('inf'), -.1, 1.1, '0.5'])
@@ -143,7 +147,11 @@ def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
     status = json.loads((ROOT / 'docs/status.json').read_text())
     assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
     assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
-    assert not hasattr(__import__('gems57.uniqueness', fromlist=['uniqueness']), 'binding_duplicate_decision')
+    uniqueness = __import__('gems57.uniqueness', fromlist=['uniqueness'])
+    pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
+    assert hashlib.sha256((ROOT / 'vendor/gems57/uniqueness.py').read_bytes()).hexdigest() == pin['files']['uniqueness.py']
+    assert hasattr(uniqueness, 'binding_duplicate_decision')
+    assert pin['local_amendments'], 'Local shared-module amendment must remain explicitly disclosed'
 
 
 def test_workflow_feed_output_is_line_terminated(tmp_path):
