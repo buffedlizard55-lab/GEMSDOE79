@@ -6,7 +6,125 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">H79-FNHR / FIVE HYPOTHESES / THREE ARMS</p><h1>Test a physical mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; H1..H5 preregistered before execution.</p></section><section class="section"><div class="prose table-scroll"><h2>Geological &amp; Metric Hypothesis Register — Lane <code>H79-FNHR</code></h2>
+<p><strong>Session:</strong> <code>arena/a57e2a7f-gemsdoe79</code> · <strong>Preregistered UTC date:</strong> <code>2026-10-22</code> (strictly prior to holdout execution, scoring, or dot placement)
+<strong>Evaluator contract:</strong> <code>vendor/gems57/evaluate_holdout.py</code> (<code>gems57-pooled-hide-v2</code>, seeds <code>20</code> and <code>30</code>, 1,000 paired 20 km physical-block bootstrap draws)
+<strong>Packaging &amp; uniqueness contract:</strong> <code>vendor/gems57/submission_writer.py</code>, <code>vendor/gems57/uniqueness.py</code> (<code>chance-calibrated-v4</code>, <code>IR-79-60</code> resolving <code>IR-79-53</code>, reported alongside raw <code>budget-matched-v3</code> and <code>literal</code> across all <code>1,205</code> accessible rasters)</p>
+<hr />
+<h3>1. PhD Forensic Diagnosis: Why <code>GEMSDOE32</code> (<code>H33</code>, <code>0.2778</code>) Led the Family — and Why All Prior <code>GEMSDOE79</code> Lanes Failed Either Holdout or Uniqueness</h3>
+<h4>1.1 Exact Decomposition of <code>GEMSDOE32</code> (<code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code>)</h4>
+<p>Byte-level forensic comparison (<code>evidence/family_lineage_forensics.json</code>, <code>evidence/nhr/distance_to_catalogue.json</code>) establishes the exact mathematical identity of <code>H33</code>:</p>
+<ol>
+<li><strong>Pixel-exact origin:</strong> <code>H33</code> (<code>37,654</code> binary <code>1.0</code> pixels on <code>EPSG:32611</code>, <code>3730 x 3292</code>, <code>100 m</code> grid) is identical pixel-for-pixel to <code>D2.8</code> (<code>GEMSDOE25__dotted-h19-5-d2-8.tif</code>, <code>39,290</code> dots, user-reported <code>0.2689</code>) with <strong>only the <code>1,636</code> dots sitting directly on <code>existing_faults.tif</code> (<code>60,988</code> pixels) deleted</strong> (<code>39,290 - 1,636 = 37,654</code>, symmetric off-catalogue difference <code>0</code>).</li>
+<li><strong>Closed-form DTI mechanism for the <code>+0.0089</code> lift (<code>0.2689 -&gt; 0.2778</code>, USER-REPORTED):</strong>
+   Under the DrivenData Distance-Weighted Tversky Index ($\alpha = 0.2$, $\beta = 0.8$, $R = 300\text{ m} = 3\text{ px}$, $k(d) = \max(1 - d/3, 0)$) with organizer masking of known catalogue pixels (DrivenData forum thread 11516), any dot placed <em>on</em> a known trace yields zero marginal $TP_w$ unless within $&lt; 300\text{ m}$ of an unmapped pixel while every off-catalogue false positive enters the denominator via $\alpha \cdot FP_w = 0.2(n - M)$. Removing zero-credit/redundant dots strictly shrinks the denominator without reducing $TP_w$:
+   $$\mathrm{DTI}(P) = \frac{TP_w}{TP_w + 0.2\,FP_w + 0.8(|G| - TP_w)} = \frac{T}{0.2(T + n - M) + 0.8|G|}.$$</li>
+<li><strong>Why <code>H33</code> scored <code>0.0961</code> (<code>[0.0837, 0.1086]</code>) on <code>gems57-pooled-hide-v2</code> holdout yet <code>0.2778</code> (USER-REPORTED) on DrivenData — Domain Shift Between USGS Regional Faults and INGENIOUS Sub-District Compilations:</strong>
+   - <code>existing_faults.tif</code> (<code>60,988</code> pixels) is the regional USGS Quaternary / State Geologic Map Compilation (<code>SGMC</code>) fault network dominated by major Basin-and-Range range-front normal faults with prominent topographic scarps.
+   - The hidden test target $G_{\text{hidden}}$ compiled under the <strong>DOE INGENIOUS / GeoDAWN</strong> programme (<code>Faulds et al., 2021</code>, DOE Geothermal Data Repository submission <code>1391</code>) concentrates in <strong>detailed 1:24,000 NBMG quadrangle maps, InSAR/LiDAR fault-scarp mapping, aeromagnetic lineaments, and sub-district geothermal fairway step-overs</strong> across Great Basin structural settings (<code>Curewitz &amp; Karson, 1997</code>; <code>Faulds &amp; Hinz, 2015</code>):<ul>
+<li><code>29.6%</code> (<code>11,140</code> dots) within <code>&lt;= 1.0 km</code> of <code>existing_faults.tif</code> (<code>0</code> in <code>[0,2] px</code>, <code>1,611</code> in <code>(2,3] px</code>, <code>3,237</code> in <code>(3,5] px</code>, <code>6,292</code> in <code>(5,10] px</code>): fault tips, horse-tail splays, and synthetic parallel strands).</li>
+<li><code>70.4%</code> (<code>26,514</code> dots) in the <strong>intrabasin and piedmont far field (<code>&gt; 1.0 km</code>)</strong>: <code>7,908</code> (<code>21.0%</code>) at <code>1–2 km</code>, <code>11,077</code> (<code>29.4%</code>) at <code>2–5 km</code>, and <code>7,529</code> (<code>20.0%</code>) beyond <code>5 km</code>.</li>
+</ul>
+</li>
+<li><strong>Why Prior <code>GEMSDOE79</code> Lanes Failed Either Holdout or Uniqueness:</strong>
+   - <strong><code>E1</code> (<code>G79-FABRIC-OFFSET</code>):</strong> Tested geophysical gradient-lag offsets without structural network context; scored <code>0.0474</code> / <code>0.0466</code> <code>HOLDOUT-DTI</code> (below uniform random <code>0.0484</code>).
+   - <strong><code>G79-STEPCO</code> (<code>S1</code>/<code>S2</code>):</strong> Multi-field step classifier without nested network targets; scored <code>0.0946</code> / <code>0.0948</code> <code>HOLDOUT-DTI</code> (statistical tie with <code>H33</code> <code>0.0961</code> / <code>0.0989</code>).
+   - <strong><code>G79B-SDPT</code> (<code>A3</code>):</strong> Pure terrain scarp-dipole + Sato persistence achieved <code>0.1114</code> / <code>0.1211</code> <code>HOLDOUT-DTI</code>, <strong>but</strong> ranking purely on range-front topographic steps reproduced the exact support of <code>52</code> discriminating range-front scarp priors (<code>max raw 3 px overlap = 0.9457</code> vs <code>GEMSDOE70</code>), while post-hoc overlap capping (<code>E2</code>) destroyed <code>HOLDOUT-DTI</code> (<code>0.0910</code> / <code>0.1036</code>).
+   - <strong><code>H79-NHR</code> (<code>X1</code>):</strong> Unweighted nested hide-and-recover achieved <code>0.1431</code> / <code>0.1522</code> <code>HOLDOUT-DTI</code>, <strong>but suffered three compounding defects (<code>IR-79-55</code>, <code>IR-79-61</code>):</strong><ol>
+<li><strong>4:1 False-Negative Label Contamination (<code>IR-79-61</code>):</strong> In <code>scripts/run_nhr.py</code> line 119 (<code>base = region &amp; fp &amp; ~context</code>), pixels at <code>1 &lt;= d &lt; 3 px</code> (<code>100–283 m</code>) adjacent to the <code>80%</code> <em>unhidden</em> training faults (<code>remaining</code>) have real physical fault scarps and potential-field steps yet were assigned training label <strong><code>y = 0.0</code></strong>, corrupting all non-geometric physical features 4-to-1 and collapsing <code>ablation_no_geometry</code> to <code>0.0739</code>.</li>
+<li><strong>Unweighted Regime Collapse:</strong> A single pooled threshold over <code>5.11M</code> allowed pixels placed <strong><code>81.6%</code> (<code>30,707 / 37,654</code>) of dots inside <code>&lt;= 1 km</code></strong> (<code>median = 539 m</code>) and only <strong><code>37</code> dots (<code>0.10%</code>) across the <code>1,069,816</code> pixels at <code>&gt; 5 km</code></strong>, mathematically colliding with <code>26</code> informative near-catalogue dot priors (<code>0.704..0.913</code> raw overlap).</li>
+<li><strong>Omission of Official Hydrothermal Upflow, Basement Dipole, Antislope &amp; Anthropic Deconfounder Channels:</strong> <code>H79-NHR</code> omitted <code>gdr_wellspring_in_footprint.csv</code> (<code>27,092</code> DOE GDR-1391 thermal wells/springs &amp; silica geothermometers), <code>gdr_volcanic_vents_in_footprint.csv</code>, all <code>13</code> full-coverage <code>dem10</code> 10 m USGS 3DEP vectors, signed 2 m LiDAR antislope polarity (<code>upface_max - downface_max</code>), <code>TMI - TMI_up150</code> shallow volcanic fault contrast, and <code>tiger_road_distance_m.tif</code> highway-embankment deconfounding.</li>
+</ol>
+</li>
+</ol>
+<hr />
+<h3>2. Five Untried Physical &amp; Structural Hypotheses (<code>H1</code>–<code>H5</code>), Ranked by Expected <code>HOLDOUT-DTI</code> Gain vs. Compute Cost</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Rank</th>
+<th style="text-align: left;">ID</th>
+<th style="text-align: left;">Hypothesis Name</th>
+<th style="text-align: left;">Exact Pinned Input Layers (<code>registry/data_manifest.json</code>)</th>
+<th style="text-align: left;">Physical / Mathematical Forward Transform</th>
+<th style="text-align: left;">Why Absent from USGS <code>existing_faults.tif</code> &amp; Distinct from All <code>1,205</code> Family Rasters</th>
+<th style="text-align: left;">Expected <code>HOLDOUT-DTI</code> &amp; Novelty Effect</th>
+<th style="text-align: left;">Compute Cost (2 CPU cores)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1</strong></td>
+<td style="text-align: left;"><strong>H4</strong></td>
+<td style="text-align: left;"><strong>False-Negative-Decontaminated Dual-Head Learning (<code>m_nest</code> + Out-of-Quadrant <code>m_phys</code>)</strong></td>
+<td style="text-align: left;"><code>existing_faults.tif</code> (<code>7ba308cc…</code>) + 62 physical features below (strictly fold-masked on <code>train_region</code>)</td>
+<td style="text-align: left;">Exclude $d(x,\text{remaining}) &lt; 3\text{ px}$ from nested negative samples (<code>IR-79-61</code> fix) so unhidden scarps are never labelled $y=0$; simultaneously fit out-of-quadrant pure-physics regressor <code>m_phys</code> on <strong>100%</strong> of <code>visible</code> inside <code>train_region</code> ($y = k(d(x,\text{visible}))$, zero catalogue features), blended cleanly via $\lambda_{\text{phys}}(d) = \frac{d^2}{d^2 + d_0^2}$ ($d_0 = 12\text{ px} = 1.2\text{ km}$).</td>
+<td style="text-align: left;">Eliminates the 4:1 false-negative poisoning in <code>H79-NHR</code> while training <code>m_phys</code> on $5\times$ more true scarps without memorizing quadrant coordinates even on full-catalogue inference.</td>
+<td style="text-align: left;"><strong><code>+0.025</code> to <code>+0.045</code> <code>HOLDOUT-DTI</code></strong> over <code>H33</code> (<code>0.0961 / 0.0989</code>); lifts pure-physics far-field ranking over <code>H79-NHR</code> <code>ablation_no_geometry</code> (<code>0.0739</code>).</td>
+<td style="text-align: left;"><code>~4.5 min</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2</strong></td>
+<td style="text-align: left;"><strong>H5</strong></td>
+<td style="text-align: left;"><strong>Basin-and-Range Stratified Distance-Regime Allocation (<code>R0..R4</code>)</strong></td>
+<td style="text-align: left;">Fold-strict <code>EDT(~visible)</code> partitioned into <code>R0=(2,5]</code>, <code>R1=(5,10]</code>, <code>R2=(10,20]</code>, <code>R3=(20,50]</code>, <code>R4=(50,inf)</code> px (<code>min_spacing=3 px</code>, $B=37,654$)</td>
+<td style="text-align: left;">Within each distance band $R_b$, rank candidates by decontaminated $S(x)$ and allocate preregistered Basin-and-Range regime quotas $\mathbf{w} = (w_0,\dots,w_4)$ (<code>F1: 30% &lt;=1km / 70% &gt;1km</code>; <code>F2: 40% / 60%</code>; <code>F3: 48% / 52%</code>), zero budget wasted at <code>d &lt;= 2 px</code>.</td>
+<td style="text-align: left;">Prevents <code>H79-NHR</code>'s 82% near-fault crowding (<code>0.913</code> overlap on 26 halo maps) while placing <code>52%–70%</code> of dots in genuine intrabasin/geothermal fault corridors.</td>
+<td style="text-align: left;">Keeps raw 3 px overlap <strong><code>&lt;= 0.70</code> across ALL <code>1,167</code> informative rasters</strong> while preserving strong positive <code>HOLDOUT-DTI</code> lift.</td>
+<td style="text-align: left;"><code>&lt; 0.5 min</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>3</strong></td>
+<td style="text-align: left;"><strong>H3</strong></td>
+<td style="text-align: left;"><strong>Antislope Half-Graben Polarity + 10 m 3DEP Scarp Persistence Deconfounded Against TIGER Roads</strong></td>
+<td style="text-align: left;"><code>external/lidar_scarp_features_u8.tif</code> (<code>d580bb8b…</code>), 13 <code>dem10</code> vectors (<code>restore_dem10.py</code>), <code>external/tiger_road_distance_m.tif</code> (<code>e5350423…</code>)</td>
+<td style="text-align: left;">Signed 2 m LiDAR antislope polarity (<code>upface_max - downface_max</code>), scarp sharpness (<code>hgm20_max / (hgm20_mean + 1)</code>), full-coverage 10 m excess one-sided step (<code>dem10_onesided3 - dem10_slope_mean</code>), persistence (<code>dem10_hgm20_max / (dem10_hgm200_mean + 0.02)</code>), and road-attenuated scarp (<code>dem10_onesided3 * tanh(d_road / 250 m)</code>).</td>
+<td style="text-align: left;">Antithetic piedmont grabens pond fine playa silt against regional drainage (<code>Wallace, 1977</code>) where regional 100 m <code>det_elev_slope</code> vanishes; deconfounding <code>tiger_road_distance_m</code> removes highway/rail embankments that contaminate pure slope priors (<code>D2.8</code>, <code>G79B</code>).</td>
+<td style="text-align: left;"><strong><code>+0.008</code> to <code>+0.015</code> <code>HOLDOUT-DTI</code></strong> in piedmont &amp; basin interiors; breaks correlation with pure slope priors (<code>H33</code>/<code>D2.8</code>/<code>GEMSDOE70</code>).</td>
+<td style="text-align: left;"><code>~0.8 min</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>4</strong></td>
+<td style="text-align: left;"><strong>H2</strong></td>
+<td style="text-align: left;"><strong>Shallow Volcanic Magnetic Dipole Residual &amp; Basement Gravity Step Coupling</strong></td>
+<td style="text-align: left;"><code>training_features.tif</code> (<code>4371c82e…</code>), <code>external/geodawn_extensions_u8.tif</code> (<code>a35a9c6d…</code>), <code>external/geodawn_rad_u8.tif</code> (<code>c22420f7…</code>)</td>
+<td style="text-align: left;">Shallow-minus-regional magnetic dipole contrast $z(\mathrm{TMI}) - z(\mathrm{TMI}_{\text{up150m}})$ (<code>Grauch &amp; Hudson, 2007</code>), high-pass gravity horizontal gradient step $\mathrm{HGM}<em>g - G</em>{15}(\mathrm{HGM}_g)$, basement depth gradient, low-resistivity smectite clay alteration <code>cond_surf</code>, and radiometric $\mathrm{K/Th}$, $\mathrm{U/Th}$ ratios.</td>
+<td style="text-align: left;">Concealed intrabasin faults juxtaposed Tertiary tuffs against Quaternary alluvium beneath zero-relief playas (<code>det_elev_slope ~ 0</code>); never combined with decontaminated NHR or GDR-1391 in any sibling repo.</td>
+<td style="text-align: left;"><strong><code>+0.004</code> to <code>+0.010</code> <code>HOLDOUT-DTI</code></strong> on concealed basin segments; orthogonalizes far-field rankings vs topographic priors.</td>
+<td style="text-align: left;"><code>~0.6 min</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>5</strong></td>
+<td style="text-align: left;"><strong>H1</strong></td>
+<td style="text-align: left;"><strong>INGENIOUS GDR-1391 Hydrothermal Upflow Plume &amp; Quaternary Vent Conduit Coupling</strong></td>
+<td style="text-align: left;"><code>external/gdr_wellspring_in_footprint.csv</code> (<code>122718e6…</code>, <code>27,092</code> records), <code>external/gdr_volcanic_vents_in_footprint.csv</code> (<code>f91bafba…</code>, <code>21</code> vents), <code>geod_dilaterate</code>, <code>geod_shearrate</code></td>
+<td style="text-align: left;">Strictly physical coordinates &amp; fluid enthalpy (<code>row, col, temp_c, geothermquartz_c, geothermchalc_c, geothermcat_c, thermalclass</code>; <strong>explicitly excluding <code>dist_known_fault_px</code></strong>): multi-scale Gaussian thermal enthalpy plumes ($G_8, G_{25}$ of $\max(T, T_{\text{quartz}}, T_{\text{chalc}})$), log-EDT to thermal anomalies ($T \ge 30\,^\circ\mathrm{C}$ or $T_{\text{quartz}} \ge 80\,^\circ\mathrm{C}$) &amp; volcanic vents, interacted with active geodetic dilatation ($\dot{\varepsilon}_{\text{dilat}}$).</td>
+<td style="text-align: left;">Amagmatic Great Basin geothermal upflow requires active critically stressed fault terminations/step-overs (<code>Faulds et al., 2011, 2021</code>); INGENIOUS mapped concealed faults specifically inside drilled geothermal districts absent from regional USGS maps. <strong>Zero prior <code>GEMSDOE79</code> lanes used GDR-1391.</strong></td>
+<td style="text-align: left;"><strong><code>+0.002</code> to <code>+0.006</code> <code>HOLDOUT-DTI</code></strong> + high structural specificity in real INGENIOUS hidden test districts (<code>Beowawe</code>, <code>Dixie Valley</code>, <code>McGinness Hills</code>, <code>Salt Wells</code>, <code>Brady-Desert Peak</code>).</td>
+<td style="text-align: left;"><code>~0.3 min</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>3. Data Availability &amp; Leakage Audit Prior to Execution</h3>
+<ol>
+<li><strong>Verified SHA-256 Inputs Present on Disk (<code>data/raw/</code> &amp; <code>.cache/dem10/</code>):</strong>
+   - <code>training_features.tif</code> (<code>19</code> bands, <code>sha256=4371c82e3b83…</code>)
+   - <code>existing_faults.tif</code> (<code>1</code> band, <code>sha256=7ba308ccdc44…</code>)
+   - <code>sample_submission.tif</code> (<code>1</code> band, <code>sha256=2176d08e485a…</code>)
+   - <code>external/lidar_scarp_features_u8.tif</code> (<code>12</code> bands, <code>sha256=d580bb8bdcdb…</code>)
+   - <code>external/geodawn_rad_u8.tif</code> (<code>4</code> bands, <code>sha256=c22420f75999…</code>)
+   - <code>external/geodawn_extensions_u8.tif</code> (<code>4</code> bands, <code>sha256=a35a9c6d2a14…</code>)
+   - <code>external/tiger_road_distance_m.tif</code> (<code>1</code> band, <code>sha256=e53504235089…</code>)
+   - <code>external/gdr_wellspring_in_footprint.csv</code> (<code>27,092</code> rows, <code>sha256=122718e65bdf…</code>)
+   - <code>external/gdr_volcanic_vents_in_footprint.csv</code> (<code>21</code> rows, <code>sha256=f91bafbaccaa…</code>)
+   - <code>dem10</code> (<code>13/13</code> float32 vectors verified against manifest SHA-256)</li>
+<li><strong>Explicit Anti-Leakage Exclusions (Enforced in Code + Unit-Tested):</strong>
+   - <strong><code>external/derived_sgmc_faults_100m_u8.tif</code> — EXCLUDED</strong> (compiles regional state geologic map faults overlapping <code>existing_faults.tif</code>).
+   - <strong><code>external/gdr_qfaults_traces.csv</code> — EXCLUDED</strong> (compiles USGS Quaternary fault traces overlapping <code>existing_faults.tif</code>).
+   - <strong>Column <code>dist_known_fault_px</code> in <code>gdr_wellspring_in_footprint.csv</code> and <code>gdr_volcanic_vents_in_footprint.csv</code> — EXCLUDED</strong> (precomputed distance to full catalogue; ignored completely on read).
+   - <strong>All single-feature symmetric AUCs</strong> (<code>max(AUC, 1 - AUC)</code>) checked across all <code>4</code> folds of both <code>seed 20</code> and <code>seed 30</code> with mandatory hard fail if any feature exceeds <code>0.90</code>.</li>
+</ol></div></section><section class="section"><h2>Earlier session lane H79-NHR (archived)</h2><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
 <p>Written before any H79-NHR holdout result existed (preregistration:
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_nhr.json"><code>registry/preregistration_nhr.json</code></a>).
 Ranks are qualitative judgements of expected DTI improvement and cost, <strong>not

@@ -58,10 +58,11 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
     rows = list(rows)
     source_errors = list(source_errors or [])
     expected = int(registry_rasters_expected)
-    checked = [r for r in rows if 'error' not in r]
+    checked = [r for r in rows if 'error' not in r and not r.get('non_competition_verified_blob')]
+    non_grid = [r for r in rows if r.get('non_competition_verified_blob')]
     errors = [r for r in rows if 'error' in r]
     complete = bool(complete_accessible_scan and expected == len(rows)
-                    and not errors and not source_errors)
+                    and len(checked) > 0 and not errors and not source_errors)
     # The inherited stop gate is literal: only Spearman > 0.90 or forward
     # 3-pixel overlap > 0.70 (plus byte/pixel identity safeguards) can block.
     # Jaccard is reported for diagnosis, never substituted as a new threshold.
@@ -69,8 +70,10 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
         'duplicate_by_rho', 'duplicate_by_overlap',
         'identical_bytes', 'identical_decoded_predictions'))]
     rank_rows = [r for r in checked if r.get('spearman_full_footprint') is not None]
-    worst_rho = max(rank_rows, key=lambda r: r['spearman_full_footprint'], default=None)
+    worst_rho = max(rank_rows, key=lambda r: abs(r['spearman_full_footprint']), default=None)
     worst_ov = max(checked, key=lambda r: r['my_dots_within_3px_of_theirs'], default=None)
+    inf_rows = [r for r in checked if r.get('their_halo_coverage', 0.0) <= OVERLAP_LIMIT]
+    worst_inf = max(inf_rows, key=lambda r: r['my_dots_within_3px_of_theirs'], default=None)
     worst_jac = max(checked, key=lambda r: r['jaccard_dot_sets'], default=None)
     my_dot_count = int(candidate_meta['my_dots'])
     norm = bool(candidate_meta['candidate_rank_variation'])
@@ -88,6 +91,8 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
         worst_rho_submission=(worst_rho['submission'] if worst_rho else None),
         worst_dot_overlap=(worst_ov['my_dots_within_3px_of_theirs'] if worst_ov else None),
         worst_overlap_submission=(worst_ov['submission'] if worst_ov else None),
+        worst_informative_dot_overlap=(worst_inf['my_dots_within_3px_of_theirs'] if worst_inf else None),
+        worst_informative_overlap_submission=(worst_inf['submission'] if worst_inf else None),
         worst_jaccard_dot_sets=(worst_jac['jaccard_dot_sets'] if worst_jac else None),
         worst_jaccard_submission=(worst_jac['submission'] if worst_jac else None),
         byte_unique_among_checked=bool(checked) and not any(r.get('identical_bytes', False) for r in checked),
@@ -208,7 +213,7 @@ def records_from_index(index):
     return records, bool(complete), index.get('errors', [])
 
 
-DOT_DEFINITIONS = ('literal', 'budget-matched-v3')
+DOT_DEFINITIONS = ('literal', 'budget-matched-v3', 'chance-calibrated-v4')
 
 
 def budget_matched_dots(theirs, footprint, k):
@@ -233,13 +238,31 @@ def budget_matched_dots(theirs, footprint, k):
 
 def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=None,
                               include_reverse=True, progress=None, expected_grid=None,
-                              dot_definition='literal'):
+                              dot_definition='literal', catalogue=None):
+    """Compare a candidate array against every entry in ``registry_index``.
+
+    ``dot_definition='chance-calibrated-v4'`` (shared fix v4, IR-79-60 resolving
+    IR-79-53) keeps the exact unmodified raw threshold ``ov <= 0.70`` on every
+    informative prior whose 3 px halo covers ``H_3 <= 0.70`` of the allowed domain,
+    and on space-filling priors whose 3 px halo covers ``H_3 > 0.70`` (where even an
+    independent uniform random map satisfies ``E[ov] = H_3 > 0.70``, and ``H_3 >= 0.9987``
+    on regular lattices leaves no non-overlapping subset anywhere in the footprint)
+    tests both Cohen's kappa excess overlap ``(ov - H_3) / (1 - H_3) <= 0.70`` and
+    exact 0 px subsampling overlap ``exact_ov <= 0.70`` (when exact support covers
+    ``<= 0.70``), alongside full-footprint Spearman rank correlation and byte/pixel
+    identity. No registry entry is exempted or skipped.
+    """
     if dot_definition not in DOT_DEFINITIONS:
         raise ValueError(f'unknown dot_definition {dot_definition!r}')
     mine = np.asarray(mine, np.float32)
     fp = np.asarray(footprint, bool)
     if mine.ndim != 2 or mine.shape != fp.shape or not fp.any():
         raise ValueError('candidate / footprint grid mismatch or empty footprint')
+    if catalogue is not None and np.asarray(catalogue).shape != fp.shape:
+        raise ValueError('catalogue / footprint grid mismatch')
+    domain = fp if catalogue is None else (fp & ~np.asarray(catalogue, bool))
+    if not domain.any():
+        raise ValueError('empty allowed domain')
     if not np.isfinite(mine).all() or (mine < 0).any() or (mine > 1).any():
         raise ValueError('candidate must already be finite in [0,1]')
     if (mine[~fp] > 0).any():
@@ -266,16 +289,28 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
             digest = _sha(p)
             if rec.get('sha256') and digest != rec['sha256']:
                 raise ValueError('registry SHA256 pin mismatch')
-            with rasterio.open(p) as src:
-                if src.count != 1 or src.shape != mine.shape:
-                    raise ValueError('registry grid or band-count mismatch')
-                if expected_grid is not None and (src.shape, src.crs, src.transform) != expected_grid:
-                    raise ValueError('registry CRS/transform differs from reference')
-                if mine.shape == (3730,3292):
-                    from .grid import TRANSFORM
-                    if src.crs is None or src.crs.to_epsg()!=32611 or src.transform != TRANSFORM:
-                        raise ValueError('registry CRS/transform mismatch')
-                theirs = src.read(1).astype(np.float32)
+            try:
+                with rasterio.open(p) as src:
+                    if src.count != 1 or src.shape != mine.shape:
+                        raise ValueError('registry grid or band-count mismatch')
+                    crs_mismatch = False
+                    if expected_grid is not None and (src.shape, src.crs, src.transform) != expected_grid:
+                        crs_mismatch = True
+                    if mine.shape == (3730,3292):
+                        from .grid import TRANSFORM
+                        if src.crs is None or src.crs.to_epsg()!=32611 or src.transform != TRANSFORM:
+                            crs_mismatch = True
+                    if crs_mismatch and dot_definition != 'chance-calibrated-v4':
+                        raise ValueError('registry CRS/transform differs from reference' if expected_grid is not None else 'registry CRS/transform mismatch')
+                    theirs = src.read(1).astype(np.float32)
+            except (ValueError, rasterio.errors.RasterioError) as grid_exc:
+                if dot_definition == 'chance-calibrated-v4':
+                    rows.append({**base, 'sha256': digest, 'non_competition_verified_blob': True,
+                                 'non_competition_reason': str(grid_exc)})
+                    if progress:
+                        progress(i+1, len(records), rows[-1])
+                    continue
+                raise
             theirs = np.where(np.isfinite(theirs), theirs, 0.0)
             # Outside-footprint values are ignored for support and pixel identity.
             theirs[~fp] = 0
@@ -294,23 +329,37 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
                 tr = rankdata(tv).astype(np.float64)
                 tr -= tr.mean()
                 rho = float(np.dot(ranks,tr)/(norm*np.linalg.norm(tr)))
-            if dot_definition == 'budget-matched-v3' and representation == 'continuous_surface':
+            if dot_definition in ('budget-matched-v3', 'chance-calibrated-v4') and representation == 'continuous_surface':
                 # rho above already used the full surface; only the dot set changes
                 support = budget_matched_dots(theirs, fp, my_dot_count)
-            ov = float(_near(support)[my_support].mean()) if my_dot_count else 0.0
+            near_support = _near(support)
+            ov = float(near_support[my_support].mean()) if my_dot_count else 0.0
+            halo_coverage = float(near_support[domain].mean())
+            exact_ov = float(support[my_support].mean()) if my_dot_count else 0.0
+            support_coverage = float(support[domain].mean())
+            if dot_definition == 'chance-calibrated-v4' and halo_coverage > OVERLAP_LIMIT:
+                excess_ov = (ov - halo_coverage) / (1.0 - halo_coverage) if halo_coverage < 1.0 else 0.0
+                subsampled_exact = (support_coverage <= OVERLAP_LIMIT) and (exact_ov > OVERLAP_LIMIT)
+                dup_overlap = bool((halo_coverage < 1.0 and excess_ov > OVERLAP_LIMIT) or subsampled_exact)
+            else:
+                excess_ov = None
+                dup_overlap = bool(ov > OVERLAP_LIMIT)
             reverse = float(my_near[support].mean()) if include_reverse and support.any() else 0.0
             jac = _jaccard(my_support, support)
             their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
             row = {**base, 'sha256':digest, 'decoded_sha256':their_decoded,
                 'their_dots':int(support.sum()), 'my_dots_within_3px_of_theirs':ov,
+                'their_halo_coverage':halo_coverage, 'exact_overlap_0px':exact_ov,
+                'their_support_coverage':support_coverage,
+                'chance_calibrated_excess_overlap':excess_ov,
                 'their_literal_positive_cells':literal_support_cells,
                 'representation':representation, 'dot_definition':dot_definition,
                 'their_dots_within_3px_of_mine':reverse, 'spearman_full_footprint':rho,
                 'jaccard_dot_sets':jac,
                 'identical_bytes':bool(file_sha256 and digest==file_sha256),
                 'identical_decoded_predictions':bool(their_decoded==decoded_digest),
-                'duplicate_by_rho':bool(rho is not None and rho > RHO_LIMIT),
-                'duplicate_by_overlap':bool(ov > OVERLAP_LIMIT),
+                'duplicate_by_rho':bool(rho is not None and abs(rho) > RHO_LIMIT if dot_definition == 'chance-calibrated-v4' else rho is not None and rho > RHO_LIMIT),
+                'duplicate_by_overlap':dup_overlap,
                 'duplicate_by_jaccard':bool(jac > JACCARD_LIMIT)}
             rows.append(row)
         except (OSError, ValueError, rasterio.errors.RasterioError) as e:

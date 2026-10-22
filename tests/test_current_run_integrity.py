@@ -36,18 +36,22 @@ def test_card_copies_agree_and_carry_protocol_fields():
                 "correlation_overlap_vs_registry", "raster_sha256", "validator_output",
                 "submission_name", "submission_note", "verdict", "leakage_canary"):
         assert key in card, key
-    assert card["lane"] == "H79-NHR"
+    assert card["lane"] == "H79-FNHR"
     assert card["verdict"] in ("promote", "negative")
     assert card["experiment_count"] <= card["max_experiments"] == 3
     assert card["submission_slots_used"] == 0 and card["organizer_submission_receipt"] is None
+    nhr_card = json.loads((ROOT / "run_card_nhr.json").read_text())
+    assert nhr_card["lane"] == "H79-NHR" and nhr_card["verdict"] == "negative"
 
 
 def test_holdout_numbers_are_copied_from_evaluator_output():
     card = current_card()
     h = card["holdout_dti"]
     assert h["evidence_class"] == "HOLDOUT-DTI" and h["evaluator_version"] == "gems57-pooled-hide-v2"
+    ev_dir = card.get("evidence_dir", "evidence/fnhr")
+    prefix = card.get("holdout_prefix", "f3")
     for seed in (20, 30):
-        ev = json.loads((ROOT / f"evidence/nhr/x1_holdout_seed{seed}.json").read_text())
+        ev = json.loads((ROOT / f"{ev_dir}/{prefix}_holdout_seed{seed}.json").read_text())
         sc = ev["holdout"]["scores"]
         row = h["per_seed"][f"seed_{seed}"]
         assert row["candidate"]["dti"] == round(sc["candidate"]["dti"], 4)

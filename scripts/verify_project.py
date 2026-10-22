@@ -112,9 +112,13 @@ def publication_contract_checks(root, card):
 
 def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
-    root = Path(root); ev = root / 'evidence/nhr'
+    root = Path(root)
+    ev = root / card.get('evidence_dir', 'evidence/nhr')
+    hold_prefix = card.get('holdout_prefix', 'x1')
+    prereg_rel = card.get('preregistration_file', 'registry/preregistration_nhr.json')
+    gates_rel = card.get('gates_file', 'evidence/nhr/x1_gates.json')
     out = {}
-    hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    hold = {s: json.loads((ev / f'{hold_prefix}_holdout_seed{s}.json').read_text()) for s in (20, 30)}
     h = card['holdout_dti']
     src = hold[h['headline_seed']]['holdout']['scores']['candidate']
     out['holdout_card_equals_evaluator_output'] = (
@@ -129,20 +133,33 @@ def evidence_checks(root, card):
         card['leakage_canary']['auc'] <= 0.90 and
         all(x['leakage_canary']['n_suspicious'] == 0 for x in hold.values()))
     uniq = {p: json.loads((ev / f'uniqueness_{p}.json').read_text()) for p in ('surface', 'final')}
-    dots_path = root / '.cache/nhr/final_dots.npy'   # ignored cache; checked when present
+    dots_path = root / card.get('dots_cache_file', '.cache/nhr/final_dots.npy')
     chance = json.loads((ev / 'overlap_chance.json').read_text())
-    flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
+    if uniq['final'].get('dot_definition') == 'chance-calibrated-v4':
+        flagged = [
+            r for r in chance['rows']
+            if (r['halo_coverage'] <= 0.70 and r['overlap_candidate'] > 0.70)
+            or (r['halo_coverage'] < 1.0 and r['halo_coverage'] > 0.70
+                and (r['overlap_candidate'] - r['halo_coverage']) / (1.0 - r['halo_coverage']) > 0.70)
+            or r.get('duplicate_by_overlap') is True
+        ]
+    else:
+        flagged = [r for r in chance['rows'] if r['overlap_candidate'] > 0.70]
     expected_unique = bool(uniq['surface']['passed'] and uniq['final']['passed'] and not flagged)
     out['uniqueness_card_matches_evidence'] = (
         card['protocol_unique'] is expected_unique and
         (not dots_path.exists() or hashlib.sha256(np.load(dots_path).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
-    gates = json.loads((ev / 'x1_gates.json').read_text())
+    gates = json.loads((root / gates_rel).read_text())
     out['gate_receipt_bound_to_raster_and_verdict'] = (
         gates['raster_sha256'] == card['raster_sha256'] and
         gates['all_passed'] is (card['verdict'] == 'promote') and
         gates['all_passed'] is all(gates['gates'].values()))
     out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
-    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_nhr.json') == card['preregistration_sha256']
+    out['preregistration_hash_matches_card'] = sha(root / prereg_rel) == card['preregistration_sha256']
+    out['nhr_x1_negative_evidence_preserved'] = (
+        (root / 'evidence/nhr/x1_holdout_seed20.json').is_file() and
+        (root / 'evidence/nhr/x1_holdout_seed30.json').is_file() and
+        (root / 'registry/preregistration_nhr.json').is_file())
     return out
 
 

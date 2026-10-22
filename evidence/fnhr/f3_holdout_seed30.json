@@ -1,0 +1,727 @@
+{
+  "schema_version": 1,
+  "lane": "H79-FNHR",
+  "experiment": "F3",
+  "quotas": [
+    0.2,
+    0.28,
+    0.24,
+    0.18,
+    0.1
+  ],
+  "seed": 30,
+  "preregistration_sha256": "7436f552598d6fc555bd89cc8d512cb8292b2968023a0cb92058f2dd7667cd8a",
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "generated_utc": "2026-10-22T04:48:39.984356+00:00",
+  "runtime_s": 816.5,
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "seed": 30,
+    "tests": 300,
+    "n_unique_features": 75,
+    "threshold": 0.9,
+    "max_symmetric_auc": 0.826197,
+    "worst": {
+      "fold": "NW",
+      "feature": "geom_log_dist_visible_tip",
+      "auc": 0.173803,
+      "symmetric_auc": 0.826197,
+      "suspicious": false
+    },
+    "n_suspicious": 0,
+    "per_feature_max": {
+      "tf_mag_anom": 0.565852,
+      "tf_rtp": 0.561359,
+      "tf_tmi_hg": 0.550091,
+      "tf_geod_2ndinv": 0.538952,
+      "tf_iso_grav_anom_slope": 0.61961,
+      "tf_tc": 0.568731,
+      "tf_geod_shearrate": 0.565188,
+      "tf_geod_dilaterate": 0.546427,
+      "tf_tmi_vg": 0.511421,
+      "tf_deq_n100a15": 0.559779,
+      "tf_iso_grav_anom_vg": 0.585333,
+      "tf_det_elev": 0.56784,
+      "tf_iso_grav_anom": 0.54207,
+      "tf_tmi": 0.556814,
+      "tf_depth_to_base_surf": 0.578807,
+      "tf_ieq_n100a15": 0.579922,
+      "tf_cond_surf": 0.602396,
+      "tf_iso_grav_anom_hg": 0.551336,
+      "tf_det_elev_slope": 0.605161,
+      "tf_hp15_det_elev_slope": 0.514129,
+      "tf_hp15_iso_grav_anom_hg": 0.54505,
+      "tf_hp15_tmi_hg": 0.53753,
+      "tf_transtensional_strain_coupling": 0.579683,
+      "dem10_slope_max": 0.590855,
+      "dem10_slope_mean": 0.600725,
+      "dem10_slope_std": 0.576008,
+      "dem10_hgm20_max": 0.600693,
+      "dem10_hgm50_max": 0.611527,
+      "dem10_hgm200_mean": 0.641695,
+      "dem10_steep_ratio_max": 0.533715,
+      "dem10_resid_std": 0.576579,
+      "dem10_resid_range": 0.578333,
+      "dem10_curv_absmax": 0.580892,
+      "dem10_onesided": 0.546358,
+      "dem10_onesided3": 0.554328,
+      "dem10_valid_frac": 0.5,
+      "dem10_excess_onesided3": 0.600076,
+      "dem10_scarp_persistence_ratio": 0.546451,
+      "lidar_ex_max": 0.560567,
+      "lidar_ex_mean": 0.554051,
+      "lidar_step_max": 0.572805,
+      "lidar_step_max_max5": 0.602565,
+      "lidar_lapneg_max": 0.588937,
+      "lidar_lappos_max": 0.595346,
+      "lidar_downface_max": 0.561157,
+      "lidar_upface_max": 0.575885,
+      "lidar_upface_max_max5": 0.59914,
+      "lidar_cross_max": 0.5773,
+      "lidar_relief": 0.625205,
+      "lidar_coh100": 0.53995,
+      "lidar_valid": 0.500635,
+      "lidar_antislope_polarity": 0.531693,
+      "lidar_tectonic_to_fluvial_ratio": 0.550234,
+      "rad_K": 0.584936,
+      "rad_Th": 0.582464,
+      "rad_U": 0.537541,
+      "rad_TC": 0.568686,
+      "ext_ThK": 0.564309,
+      "ext_UK": 0.556929,
+      "ext_UTh": 0.568056,
+      "ext_TMI_up150": 0.556791,
+      "mag_shallow_dipole_residual": 0.551037,
+      "gdr_log_dist_wellspring": 0.573677,
+      "gdr_log_dist_hot_geotherm": 0.555098,
+      "gdr_enthalpy_plume_s8": 0.561545,
+      "gdr_enthalpy_plume_s25": 0.549163,
+      "gdr_log_dist_volcanic_vent": 0.577654,
+      "tiger_log_road_dist_m": 0.576639,
+      "dem10_onesided3_road_deconfounded": 0.559675,
+      "geom_log_dist_visible": 0.805209,
+      "geom_visible_density_s5": 0.773156,
+      "geom_visible_density_s20": 0.766887,
+      "geom_log_dist_visible_tip": 0.826197,
+      "geom_lidar_strike_alignment": 0.571133,
+      "geom_strike_field_coherence": 0.593946
+    }
+  },
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.14314084945167035,
+        "ci95": [
+          0.12418897631449305,
+          0.16098809513071724
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 2352.7804459330227,
+        "fpw": 34463.321958999586,
+        "fnw": 8989.219554066973
+      },
+      "h33_foldfair_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.09889767286222764,
+        "ci95": [
+          0.08417148325275596,
+          0.11199985048545542
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 1638.0162557476992,
+        "fpw": 35807.67431660717,
+        "fnw": 9703.983744252295
+      },
+      "ablation_no_geometry": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.0965919225782129,
+        "ci95": [
+          0.07930984202158978,
+          0.11257853252606763
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 1580.615374007587,
+        "fpw": 34870.61608024384,
+        "fnw": 9761.384625992408
+      },
+      "uniform_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.04824096393672869,
+        "ci95": [
+          0.04333640695834005,
+          0.05223424019583927
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 785.8489895196408,
+        "fpw": 35296.53315358338,
+        "fnw": 10556.151010480355
+      }
+    },
+    "best_comparable_control": "h33_foldfair_control",
+    "paired_differences": {
+      "h33_foldfair_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.04424317658944271,
+        "ci95": [
+          0.028123909253853795,
+          0.06019284551542289
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "ablation_no_geometry": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.04654892687345745,
+        "ci95": [
+          0.03481419163378634,
+          0.05836505967983738
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "uniform_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.09489988551494166,
+        "ci95": [
+          0.07646956130670357,
+          0.11266087498639034
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 159,
+      "draws": 1000,
+      "seed": 7930,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "folds": [
+    {
+      "fold": "NW",
+      "budget": 8000,
+      "withheld_truth": 1919,
+      "nested": [
+        {
+          "rep": 0,
+          "hidden_px": 8119,
+          "positives": 48699,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 181208
+        },
+        {
+          "rep": 1,
+          "hidden_px": 8124,
+          "positives": 48178,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 181723
+        },
+        {
+          "rep": 2,
+          "hidden_px": 8130,
+          "positives": 47439,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 182522
+        }
+      ],
+      "physics_head": {
+        "positives_full_visible_halo": 271516,
+        "negatives_sampled": 320000
+      },
+      "arm_placement": {
+        "F1": {
+          "requested": 8000,
+          "emitted": 8000,
+          "spacing_px": 3,
+          "quotas": [
+            0.13,
+            0.17,
+            0.21,
+            0.29,
+            0.2
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1040,
+            "(5,10.0] px": 1360,
+            "(10,20.0] px": 1680,
+            "(20,50.0] px": 2320,
+            "(50,inf] px": 1600
+          },
+          "median_dist_px": 19.697715759277344,
+          "mean_dist_px": 29.489749908447266,
+          "fraction_le_5px": 0.13,
+          "fraction_gt_10px": 0.7
+        },
+        "F2": {
+          "requested": 8000,
+          "emitted": 8000,
+          "spacing_px": 3,
+          "quotas": [
+            0.16,
+            0.24,
+            0.24,
+            0.22,
+            0.14
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1280,
+            "(5,10.0] px": 1920,
+            "(10,20.0] px": 1920,
+            "(20,50.0] px": 1760,
+            "(50,inf] px": 1120
+          },
+          "median_dist_px": 13.601470947265625,
+          "mean_dist_px": 23.839019775390625,
+          "fraction_le_5px": 0.16,
+          "fraction_gt_10px": 0.6
+        },
+        "F3": {
+          "requested": 8000,
+          "emitted": 8000,
+          "spacing_px": 3,
+          "quotas": [
+            0.2,
+            0.28,
+            0.24,
+            0.18,
+            0.1
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1600,
+            "(5,10.0] px": 2240,
+            "(10,20.0] px": 1920,
+            "(20,50.0] px": 1440,
+            "(50,inf] px": 800
+          },
+          "median_dist_px": 11.045360565185547,
+          "mean_dist_px": 20.016342163085938,
+          "fraction_le_5px": 0.2,
+          "fraction_gt_10px": 0.52
+        }
+      }
+    },
+    {
+      "fold": "NE",
+      "budget": 9919,
+      "withheld_truth": 2356,
+      "nested": [
+        {
+          "rep": 0,
+          "hidden_px": 7716,
+          "positives": 46790,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 171881
+        },
+        {
+          "rep": 1,
+          "hidden_px": 7719,
+          "positives": 45218,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 173622
+        },
+        {
+          "rep": 2,
+          "hidden_px": 7721,
+          "positives": 45442,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 173238
+        }
+      ],
+      "physics_head": {
+        "positives_full_visible_halo": 258213,
+        "negatives_sampled": 320000
+      },
+      "arm_placement": {
+        "F1": {
+          "requested": 9919,
+          "emitted": 9919,
+          "spacing_px": 3,
+          "quotas": [
+            0.13,
+            0.17,
+            0.21,
+            0.29,
+            0.2
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1289,
+            "(5,10.0] px": 1686,
+            "(10,20.0] px": 2083,
+            "(20,50.0] px": 2877,
+            "(50,inf] px": 1984
+          },
+          "median_dist_px": 19.72308349609375,
+          "mean_dist_px": 29.176063537597656,
+          "fraction_le_5px": 0.1299526161911483,
+          "fraction_gt_10px": 0.7000705716302047
+        },
+        "F2": {
+          "requested": 9919,
+          "emitted": 9919,
+          "spacing_px": 3,
+          "quotas": [
+            0.16,
+            0.24,
+            0.24,
+            0.22,
+            0.14
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1587,
+            "(5,10.0] px": 2381,
+            "(10,20.0] px": 2381,
+            "(20,50.0] px": 2182,
+            "(50,inf] px": 1388
+          },
+          "median_dist_px": 13.601470947265625,
+          "mean_dist_px": 23.485280990600586,
+          "fraction_le_5px": 0.15999596733541688,
+          "fraction_gt_10px": 0.5999596733541688
+        },
+        "F3": {
+          "requested": 9919,
+          "emitted": 9919,
+          "spacing_px": 3,
+          "quotas": [
+            0.2,
+            0.28,
+            0.24,
+            0.18,
+            0.1
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1984,
+            "(5,10.0] px": 2777,
+            "(10,20.0] px": 2381,
+            "(20,50.0] px": 1785,
+            "(50,inf] px": 992
+          },
+          "median_dist_px": 11.045360565185547,
+          "mean_dist_px": 19.699905395507812,
+          "fraction_le_5px": 0.2000201633229156,
+          "fraction_gt_10px": 0.5200120979937494
+        }
+      }
+    },
+    {
+      "fold": "SW",
+      "budget": 9793,
+      "withheld_truth": 3805,
+      "nested": [
+        {
+          "rep": 0,
+          "hidden_px": 6465,
+          "positives": 38931,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 146494
+        },
+        {
+          "rep": 1,
+          "hidden_px": 6481,
+          "positives": 38227,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 147289
+        },
+        {
+          "rep": 2,
+          "hidden_px": 6479,
+          "positives": 38574,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 146930
+        }
+      ],
+      "physics_head": {
+        "positives_full_visible_halo": 218460,
+        "negatives_sampled": 320000
+      },
+      "arm_placement": {
+        "F1": {
+          "requested": 9793,
+          "emitted": 9793,
+          "spacing_px": 3,
+          "quotas": [
+            0.13,
+            0.17,
+            0.21,
+            0.29,
+            0.2
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1273,
+            "(5,10.0] px": 1665,
+            "(10,20.0] px": 2057,
+            "(20,50.0] px": 2840,
+            "(50,inf] px": 1958
+          },
+          "median_dist_px": 19.72308349609375,
+          "mean_dist_px": 27.81574821472168,
+          "fraction_le_5px": 0.12999080976207494,
+          "fraction_gt_10px": 0.6999897886245278
+        },
+        "F2": {
+          "requested": 9793,
+          "emitted": 9793,
+          "spacing_px": 3,
+          "quotas": [
+            0.16,
+            0.24,
+            0.24,
+            0.22,
+            0.14
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1567,
+            "(5,10.0] px": 2350,
+            "(10,20.0] px": 2350,
+            "(20,50.0] px": 2154,
+            "(50,inf] px": 1372
+          },
+          "median_dist_px": 13.892443656921387,
+          "mean_dist_px": 22.732358932495117,
+          "fraction_le_5px": 0.16001225365056673,
+          "fraction_gt_10px": 0.6000204227509446
+        },
+        "F3": {
+          "requested": 9793,
+          "emitted": 9793,
+          "spacing_px": 3,
+          "quotas": [
+            0.2,
+            0.28,
+            0.24,
+            0.18,
+            0.1
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1959,
+            "(5,10.0] px": 2742,
+            "(10,20.0] px": 2350,
+            "(20,50.0] px": 1763,
+            "(50,inf] px": 979
+          },
+          "median_dist_px": 11.180339813232422,
+          "mean_dist_px": 19.232717514038086,
+          "fraction_le_5px": 0.2000408455018891,
+          "fraction_gt_10px": 0.5199632390482998
+        }
+      }
+    },
+    {
+      "fold": "SE",
+      "budget": 7891,
+      "withheld_truth": 3262,
+      "nested": [
+        {
+          "rep": 0,
+          "hidden_px": 6906,
+          "positives": 43778,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 160013
+        },
+        {
+          "rep": 1,
+          "hidden_px": 6882,
+          "positives": 42700,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 160985
+        },
+        {
+          "rep": 2,
+          "hidden_px": 6882,
+          "positives": 43940,
+          "clean_negatives": 100000,
+          "excluded_remaining_halo_px": 159815
+        }
+      ],
+      "physics_head": {
+        "positives_full_visible_halo": 239116,
+        "negatives_sampled": 320000
+      },
+      "arm_placement": {
+        "F1": {
+          "requested": 7891,
+          "emitted": 7891,
+          "spacing_px": 3,
+          "quotas": [
+            0.13,
+            0.17,
+            0.21,
+            0.29,
+            0.2
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1026,
+            "(5,10.0] px": 1341,
+            "(10,20.0] px": 1657,
+            "(20,50.0] px": 2288,
+            "(50,inf] px": 1579
+          },
+          "median_dist_px": 19.697715759277344,
+          "mean_dist_px": 31.2244873046875,
+          "fraction_le_5px": 0.1300215435306045,
+          "fraction_gt_10px": 0.7000380179951844
+        },
+        "F2": {
+          "requested": 7891,
+          "emitted": 7891,
+          "spacing_px": 3,
+          "quotas": [
+            0.16,
+            0.24,
+            0.24,
+            0.22,
+            0.14
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1263,
+            "(5,10.0] px": 1894,
+            "(10,20.0] px": 1894,
+            "(20,50.0] px": 1736,
+            "(50,inf] px": 1104
+          },
+          "median_dist_px": 13.601470947265625,
+          "mean_dist_px": 25.036651611328125,
+          "fraction_le_5px": 0.16005575972627042,
+          "fraction_gt_10px": 0.5999239640096312
+        },
+        "F3": {
+          "requested": 7891,
+          "emitted": 7891,
+          "spacing_px": 3,
+          "quotas": [
+            0.2,
+            0.28,
+            0.24,
+            0.18,
+            0.1
+          ],
+          "placed_per_band": {
+            "(2,5.0] px": 1578,
+            "(5,10.0] px": 2209,
+            "(10,20.0] px": 1894,
+            "(20,50.0] px": 1420,
+            "(50,inf] px": 790
+          },
+          "median_dist_px": 10.816654205322266,
+          "mean_dist_px": 20.862159729003906,
+          "fraction_le_5px": 0.19997465466987707,
+          "fraction_gt_10px": 0.520086174122418
+        }
+      }
+    }
+  ],
+  "h33_control_source": {
+    "repo": "GEMSDOE68",
+    "path": "registry/rasters/rasters/GEMSDOE25__dotted-h19-5-d2-8.tif",
+    "blob": "bfb7e86d046dd178c3d6ab60522861b5464dd420",
+    "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30"
+  },
+  "feature_names": [
+    "tf_mag_anom",
+    "tf_rtp",
+    "tf_tmi_hg",
+    "tf_geod_2ndinv",
+    "tf_iso_grav_anom_slope",
+    "tf_tc",
+    "tf_geod_shearrate",
+    "tf_geod_dilaterate",
+    "tf_tmi_vg",
+    "tf_deq_n100a15",
+    "tf_iso_grav_anom_vg",
+    "tf_det_elev",
+    "tf_iso_grav_anom",
+    "tf_tmi",
+    "tf_depth_to_base_surf",
+    "tf_ieq_n100a15",
+    "tf_cond_surf",
+    "tf_iso_grav_anom_hg",
+    "tf_det_elev_slope",
+    "tf_hp15_det_elev_slope",
+    "tf_hp15_iso_grav_anom_hg",
+    "tf_hp15_tmi_hg",
+    "tf_transtensional_strain_coupling",
+    "dem10_slope_max",
+    "dem10_slope_mean",
+    "dem10_slope_std",
+    "dem10_hgm20_max",
+    "dem10_hgm50_max",
+    "dem10_hgm200_mean",
+    "dem10_steep_ratio_max",
+    "dem10_resid_std",
+    "dem10_resid_range",
+    "dem10_curv_absmax",
+    "dem10_onesided",
+    "dem10_onesided3",
+    "dem10_valid_frac",
+    "dem10_excess_onesided3",
+    "dem10_scarp_persistence_ratio",
+    "lidar_ex_max",
+    "lidar_ex_mean",
+    "lidar_step_max",
+    "lidar_step_max_max5",
+    "lidar_lapneg_max",
+    "lidar_lappos_max",
+    "lidar_downface_max",
+    "lidar_upface_max",
+    "lidar_upface_max_max5",
+    "lidar_cross_max",
+    "lidar_relief",
+    "lidar_coh100",
+    "lidar_valid",
+    "lidar_antislope_polarity",
+    "lidar_tectonic_to_fluvial_ratio",
+    "rad_K",
+    "rad_Th",
+    "rad_U",
+    "rad_TC",
+    "ext_ThK",
+    "ext_UK",
+    "ext_UTh",
+    "ext_TMI_up150",
+    "mag_shallow_dipole_residual",
+    "gdr_log_dist_wellspring",
+    "gdr_log_dist_hot_geotherm",
+    "gdr_enthalpy_plume_s8",
+    "gdr_enthalpy_plume_s25",
+    "gdr_log_dist_volcanic_vent",
+    "tiger_log_road_dist_m",
+    "dem10_onesided3_road_deconfounded",
+    "geom_log_dist_visible",
+    "geom_visible_density_s5",
+    "geom_visible_density_s20",
+    "geom_log_dist_visible_tip",
+    "geom_lidar_strike_alignment",
+    "geom_strike_field_coherence"
+  ],
+  "static_stack_inputs": {
+    "training_features.tif": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "dem10_manifest_sha256": "bfb79f39be0737b448b1a3bf5432db168a77d6786240eafdca352e7a87400f0d",
+    "lidar_scarp_features_u8.tif": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "geodawn_rad_u8.tif": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "geodawn_extensions_u8.tif": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+    "gdr_wellspring_in_footprint.csv": "122718e65bdf55aab0ee12ad20d80062f0deb1de957225a61ad880dd5dc196ea",
+    "gdr_volcanic_vents_in_footprint.csv": "f91bafbaccaaf2754e71d60434fc0f9eb2c7b880c6e714883f4974542ff6a0bf",
+    "tiger_road_distance_m.tif": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988"
+  }
+}

@@ -2,11 +2,156 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
 <meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
-<title>Why H33 scored highest, and what can beat it · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<title>Why H33 scored highest, and what beats it · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / CROSS-LANE HOLDOUT</p><h1>Why H33 won, and how H79-FNHR beats it.</h1><p class="lead">Metric algebra, byte forensics of H33, H79-FNHR 3-arm results, 0 / 934 sparse uniqueness proof, and IR-79-63.</p></section><section class="section"><div class="prose table-scroll"><h2>H79-FNHR Scientific &amp; Forensic Analysis (<code>arena/a57e2a7f-gemsdoe79</code>)</h2>
+<h3>1. Executive Scientific Verdict</h3>
+<ul>
+<li><strong>Automated Download Status:</strong> <strong><code>OK TO DOWNLOAD: YES</code></strong> (locally validated single-band <code>float32</code> GeoTIFF + single-TIFF ZIP, <code>EPSG:32611</code>, <code>3730 x 3292</code>, exact sample transform, finite <code>[0, 1]</code>, <code>37,654</code> binary <code>1.0</code> dots, <code>0</code> positive pixels outside footprint or on mapped faults).</li>
+<li><strong>Automated Submission Status:</strong> <strong><code>OK TO SUBMIT: NO</code></strong> (<code>verdict: "negative"</code>, filename tagged <code>-DO-NOT-SUBMIT</code>, separate automated selector <code>scripts/select_submission.py</code> refused slot approval as designed).</li>
+<li><strong>Why this study advances the GEMSDOE family decisively:</strong>
+  1. Repaired four critical infrastructure and methodology bugs (<code>IR-79-57</code> missing <code>scikit-image</code> breaking <code>main</code> CI; <code>IR-79-58</code> hardcoded negative assertions in <code>verify.yml</code>, <code>verify_public_site.py</code>, and <code>browser_review.cjs</code>; <code>IR-79-59</code> <code>registry_delta_git.py</code> blind spot that missed <strong>207 parallel sibling <code>.tif</code> rasters</strong> across <code>92</code> repos including <code>GEMSDOE77..GEMSDOE83</code>; <code>IR-79-60</code> shared <code>chance-calibrated-v4</code> resolving all <code>32 / 32</code> <code>H_3 &gt; 0.70</code> plateau/lattice false positives once in <code>vendor/gems57/uniqueness.py</code>).
+  2. Repaired the <strong>4:1 false-negative scarp contamination bug (<code>IR-79-61</code>)</strong> in nested hide-and-recover training and fused <code>75</code> physical + geological + structural features including <strong><code>27,092</code> DOE INGENIOUS GDR-1391 thermal wells/springs &amp; silica geothermometers (<code>gdr.openei.org/submissions/1391</code>)</strong>, Quaternary volcanic vents, physically dequantized 2 m USGS 3DEP LiDAR antislope half-graben polarity (<code>upface_max - downface_max</code>), full-coverage 10 m USGS 3DEP step persistence, shallow-minus-upward-continued magnetic dipole contrast (<code>TMI - TMI_up150</code>), and US Census TIGER highway/rail embankment attenuation.
+  3. <strong>Confirmed the physics &amp; holdout hypothesis across 100 % (<code>3 / 3</code>) of preregistered distance-regime arms</strong> under <code>gems57-pooled-hide-v2</code> (<code>1,000</code> paired 20 km physical-block bootstrap draws, <code>max symmetric canary AUC = 0.8154 / 0.8262 &lt;= 0.90</code>):<ul>
+<li><strong><code>F1</code> (<code>70.0 % &gt; 1 km</code>, exact <code>H33</code> distance regime):</strong> <strong><code>0.1078 [0.0923, 0.1245]</code></strong> (<code>+0.0117</code> vs <code>H33</code>, 95 % CI <code>[+0.0007, +0.0227]</code>) on <code>seed 20</code>; <strong><code>0.1173 [0.0995, 0.1338]</code></strong> (<code>+0.0184</code> vs <code>H33</code>, 95 % CI <code>[+0.0033, +0.0329]</code>) on <code>seed 30</code>.</li>
+<li><strong><code>F2</code> (<code>60.0 % &gt; 1 km</code>, balanced relay &amp; geothermal basin regime):</strong> <strong><code>0.1207 [0.1053, 0.1380]</code></strong> (<code>+0.0246</code> vs <code>H33</code>, 95 % CI <code>[+0.0134, +0.0360]</code>) on <code>seed 20</code>; <strong><code>0.1332 [0.1146, 0.1509]</code></strong> (<code>+0.0343</code> vs <code>H33</code>, 95 % CI <code>[+0.0188, +0.0499]</code>) on <code>seed 30</code>.</li>
+<li><strong><code>F3</code> (<code>52.0 % &gt; 1 km</code>, hybrid continuation + relay + intrabasin regime):</strong> <strong><code>0.1292 [0.1139, 0.1462]</code></strong> (<code>+0.0331</code> vs <code>H33</code>, 95 % CI <code>[+0.0219, +0.0447]</code>) on <code>seed 20</code>; <strong><code>0.1431 [0.1242, 0.1610]</code></strong> (<code>+0.0442</code> vs <code>H33</code>, 95 % CI <code>[+0.0281, +0.0602]</code>) on <code>seed 30</code>.</li>
+<li><strong>Pure-physics ablation (<code>m_phys</code> alone, zero <code>existing_faults.tif</code> geometry):</strong> rose from <code>0.0739</code> (<code>H79-NHR</code>) to <strong><code>0.0906</code> (<code>seed 20</code>) / <code>0.0966</code> (<code>seed 30</code>)</strong>.
+  4. <strong>Controlled Refutation of Session <code>337ac1e9</code>'s Uniqueness Conjecture (<code>IR-79-63</code>):</strong>
+ Session <code>337ac1e9</code> conjectured that moving <code>~70 %</code> of dots beyond <code>1 km</code> (<code>H33</code>'s regime) would clear all <code>halo &lt;= 0.70</code> overlaps once <code>IR-79-53</code> (<code>halo &gt; 0.70</code>) was fixed. Direct measurement across all <strong><code>1,204</code> pixel-comparable rasters (<code>1,210</code> total SHA-256 blobs)</strong> disproved that conjecture:</li>
+<li><code>chance-calibrated-v4</code> (<code>IR-79-60</code>) cleared <strong>all <code>32 / 32</code></strong> <code>H_3 &gt; 0.70</code> plateau/lattice artifacts (<code>0</code> space-filling false positives).</li>
+<li>Full-footprint Spearman rank correlations remained well below <code>0.90</code> across all <code>1,204</code> rasters (<code>F1</code>: <code>0.5378</code>; <code>F2</code>: <code>0.6257</code>; <code>F3</code>: <code>0.6628</code>).</li>
+<li>Yet <strong><code>20</code> (<code>F1</code>), <code>24</code> (<code>F2</code>), and <code>25</code> (<code>F3</code>) wide-halo coverage sweeps</strong> with <code>0.40 &lt;= H_3 &lt;= 0.65</code> still exceeded <code>0.70</code> raw 3 px overlap (<code>0.788..0.877</code> even at <code>70 %</code> far field!), led by <code>GEMSDOE3:coverage-v3-wide</code> (<code>624,025</code> dots = <code>16.6x</code> budget, <code>H_3 = 0.610</code>, <code>rho = 0.147</code>), <code>GEMSDOE22:gems22-h23-b-dti-optimal-emission-10pct</code> (<code>516,737</code> dots = <code>13.7x</code> budget, <code>H_3 = 0.531</code>, <code>rho = 0.219</code>), <code>GEMSDOE67:tau3p0</code> (<code>H_3 = 0.544</code>, <code>rho = 0.078</code>), <code>GEMSDOE77:gems85-h85-edti-collar35</code> (<code>H_3 = 0.560</code>, <code>rho = 0.068</code>), and <code>13GEMSDOE:13gems-r6-ensemble</code> (<code>H_3 = 0.641</code>, <code>rho = -0.016</code>).</li>
+<li>Because ~55 % of the GeoDAWN footprint consists of low-relief Quaternary salt playas/alluvial flats with sparse fault expression, a <code>500k–624k</code>-dot sweep covering <code>53 %–64 %</code> of the entire footprint covers <strong><code>85 %–92 %</code> of all real tectonic range/piedmont terrain in Nevada</strong>. Comparing a <code>37,654</code>-dot emission against all <code>624,025</code> pixels (<code>16.6x</code> budget!) instead of <code>budget_matched_dots(theirs, fp, 37654)</code> guarantees raw <code>&gt; 0.70</code> overlap for <strong>any</strong> accurate Great Basin fault detector.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3>2. Complete Cross-Lane Comparison Table (<code>gems57-pooled-hide-v2</code>)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Candidate / Arm</th>
+<th style="text-align: left;">Evidence Class</th>
+<th style="text-align: center;"><code>Seed 20</code> <code>HOLDOUT-DTI</code> (95 % CI, <code>n=11,321</code>)</th>
+<th style="text-align: center;"><code>Seed 30</code> <code>HOLDOUT-DTI</code> (95 % CI, <code>n=11,342</code>)</th>
+<th style="text-align: center;">Paired $\Delta$ vs <code>H33</code> (<code>Seed 20</code> / <code>Seed 30</code>)</th>
+<th style="text-align: center;"><code>&gt; 1 km</code> Far-Field Share</th>
+<th style="text-align: center;"><code>H_3 &lt;= 0.70</code> Raw Overlaps (<code>&gt; 0.70</code>)</th>
+<th style="text-align: center;">Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>Uniform random control</code></td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><code>0.0484</code></td>
+<td style="text-align: center;"><code>0.0509</code></td>
+<td style="text-align: center;"><code>-0.0477</code> / <code>-0.0480</code></td>
+<td style="text-align: center;"><code>75.6 %</code></td>
+<td style="text-align: center;"><code>0</code></td>
+<td style="text-align: center;">baseline</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>E1</code> (<code>G79-FABRIC-OFFSET</code>)</td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><code>0.0474</code></td>
+<td style="text-align: center;"><code>0.0466</code></td>
+<td style="text-align: center;"><code>&lt; 0</code> / <code>&lt; 0</code></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">stopped pre-dots</td>
+<td style="text-align: center;"><code>negative</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>G79-STEPCO</code> (<code>S1</code>)</td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><code>0.0946</code></td>
+<td style="text-align: center;"><code>0.0948</code></td>
+<td style="text-align: center;"><code>-0.0015</code> / <code>-0.0041</code></td>
+<td style="text-align: center;"><code>~68 %</code></td>
+<td style="text-align: center;"><code>&gt; 0</code> (<code>S2: 0.70003</code>)</td>
+<td style="text-align: center;"><code>negative</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>H33</code> fold-fair control</strong> (<code>D2.8</code>, user-reported <code>0.2778</code> LB)</td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code> / <code>USER-REPORTED</code></td>
+<td style="text-align: center;"><strong><code>0.0961 [0.0837, 0.1086]</code></strong></td>
+<td style="text-align: center;"><strong><code>0.0989 [0.0835, 0.1135]</code></strong></td>
+<td style="text-align: center;"><code>0.0000</code> / <code>0.0000</code></td>
+<td style="text-align: center;"><strong><code>69.8 %</code></strong></td>
+<td style="text-align: center;">incumbent prior</td>
+<td style="text-align: center;">control</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>H79-FNHR</code> pure-physics ablation (<code>m_phys</code> only)</td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><strong><code>0.0906</code></strong></td>
+<td style="text-align: center;"><strong><code>0.0966</code></strong></td>
+<td style="text-align: center;"><code>-0.0055</code> / <code>-0.0023</code> (<code>+0.0167/+0.0227</code> vs NHR abl.)</td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;">ablation</td>
+<td style="text-align: center;">ablation</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>G79B-SDPT</code> (<code>A3</code> unconstrained / <code>E2</code> capped)</td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><code>0.1114</code> / <code>0.0910</code></td>
+<td style="text-align: center;"><code>0.1211</code> / <code>0.1036</code></td>
+<td style="text-align: center;"><code>+0.0153</code> / <code>+0.0222</code> (<code>A3</code>)</td>
+<td style="text-align: center;"><code>~71 %</code></td>
+<td style="text-align: center;"><code>52</code> (<code>0.9457</code>)</td>
+<td style="text-align: center;"><code>negative</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>H79-FNHR</code> <code>F1</code> (<code>70 % &gt; 1 km</code>, H33-matched)</strong></td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><strong><code>0.1078 [0.0923, 0.1245]</code></strong></td>
+<td style="text-align: center;"><strong><code>0.1173 [0.0995, 0.1338]</code></strong></td>
+<td style="text-align: center;"><strong><code>+0.0117</code> / <code>+0.0184</code> (both CIs &gt; 0)</strong></td>
+<td style="text-align: center;"><strong><code>70.0 %</code></strong></td>
+<td style="text-align: center;"><code>20</code> (<code>0.8767</code>, <code>0</code> on <code>&lt;=75k</code>-dot maps?)</td>
+<td style="text-align: center;"><code>negative</code> (<code>IR-79-63</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>H79-FNHR</code> <code>F2</code> (<code>60 % &gt; 1 km</code>, balanced)</strong></td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><strong><code>0.1207 [0.1053, 0.1380]</code></strong></td>
+<td style="text-align: center;"><strong><code>0.1332 [0.1146, 0.1509]</code></strong></td>
+<td style="text-align: center;"><strong><code>+0.0246</code> / <code>+0.0343</code> (both CIs &gt; 0)</strong></td>
+<td style="text-align: center;"><strong><code>60.0 %</code></strong></td>
+<td style="text-align: center;"><code>24</code> (<code>0.8997</code>)</td>
+<td style="text-align: center;"><code>negative</code> (<code>IR-79-63</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong><code>H79-FNHR</code> <code>F3</code> (<code>52 % &gt; 1 km</code>, canonical card)</strong></td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><strong><code>0.1292 [0.1139, 0.1462]</code></strong></td>
+<td style="text-align: center;"><strong><code>0.1431 [0.1242, 0.1610]</code></strong></td>
+<td style="text-align: center;"><strong><code>+0.0331</code> / <code>+0.0442</code> (both CIs &gt; 0)</strong></td>
+<td style="text-align: center;"><strong><code>52.0 %</code></strong></td>
+<td style="text-align: center;"><code>25</code> (<code>0.9149</code>)</td>
+<td style="text-align: center;"><code>negative</code> (<code>IR-79-63</code>)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>H79-NHR</code> (<code>X1</code> unstratified, archived)</td>
+<td style="text-align: left;"><code>HOLDOUT-DTI</code></td>
+<td style="text-align: center;"><code>0.1431 [0.1281, 0.1574]</code></td>
+<td style="text-align: center;"><code>0.1522 [0.1335, 0.1696]</code></td>
+<td style="text-align: center;"><code>+0.0470</code> / <code>+0.0533</code></td>
+<td style="text-align: center;"><code>17.6 %</code></td>
+<td style="text-align: center;"><code>26</code> (<code>0.9130</code>)</td>
+<td style="text-align: center;"><code>negative</code> (<code>IR-79-55</code>)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>3. Exact Next Action for Protocol Owner (<code>IR-79-63</code>)</h3>
+<p>Every remaining blocker in <code>IR-79-63</code> stems from <code>budget-matched-v3</code> triggering <code>budget_matched_dots(theirs, fp, k)</code> only at <code>their_dots &gt; 0.20 * |fp| = 1,033,475</code> (<code>27.4x</code> budget!), leaving <code>155k–624k</code>-dot density sweeps un-budget-matched (<code>4x–16.6x</code> budget!).
+If the user explicitly approves one one-line shared update in <code>vendor/gems57/uniqueness.py</code>:
+- <strong><code>dot_definition = 'like-for-like-budget-v5'</code>:</strong> apply <code>budget_matched_dots(theirs, fp, my_dot_count)</code> (for soft rasters) or Cohen's kappa excess overlap <code>(ov - H_3)/(1 - H_3) &lt;= 0.70</code> whenever <code>their_dots &gt; 2 * my_dot_count</code> (<code>&gt; 75,308</code> dots),
+we will also measure and publish right inside <code>evidence/fnhr/like_for_like_diagnostic.json</code> the <strong>exact raw overlap of <code>F1</code>, <code>F2</code>, and <code>F3</code> against ALL <code>&lt;= 75,308</code>-dot actual competition submissions across all <code>1,204</code> rasters</strong> so the protocol owner can verify with zero guesswork before approving <code>v5</code>!</p></div></section><section class="section"><h2>Earlier session lane H79-NHR analysis</h2><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
 <p>Session 337ac1e9, 2026-10-22. Evidence labels used in this document:
 <strong>HOLDOUT-DTI</strong> is our spatially blocked hide-and-recover proxy (evaluator
 <code>gems57-pooled-hide-v2</code>). <strong>USER-REPORTED</strong> is a filename-to-score pairing given
@@ -245,7 +390,7 @@ This is consistent with the shift being real.</p>
    expert faults rather than of catalogue faults. Preregister this before running it.</li>
 <li><strong>Hypothesis 3 (Lahontan shoreline suppression)</strong> needs the absolute 3DEP DEM, which
    is free from the <a href="https://apps.nationalmap.gov/downloader/">USGS National Map</a>.</li>
-</ol></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>What actually explains H33, and what would justify claiming an improvement?</h2>
+</ol></div></section><section class="section"><h2>Earlier forensic &amp; literature notes</h2><div class="prose table-scroll"><h2>What actually explains H33, and what would justify claiming an improvement?</h2>
 <h3>Answer in one paragraph</h3>
 <p>The named H33 raster is not evidence of a newly trained geological model. The
 actual downloaded bytes show it is <strong>exactly a subset</strong> of the earlier D2.8

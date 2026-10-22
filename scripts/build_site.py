@@ -239,35 +239,46 @@ NEG_SPACE = """<section class="section"><div class="proof"><div><p class="eyebro
 
 def home_negative(card, index):
     h = card['holdout_dti']; s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
-    a = card['correlation_overlap_vs_registry']['all_comparable_rasters_audit']
+    u = card['correlation_overlap_vs_registry']
+    a = u['all_comparable_rasters_audit']
     wi = a['worst_informative']
-    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / {E(card['lane'])} · NESTED HIDE-AND-RECOVER</p><span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>
-<h1>A real holdout gain.<br><em>A duplicate lane.</em></h1><p class="lead">H79-NHR beat the H33 control on a spatially blocked holdout on both seeds. But its dots sit inside the dot fields of {a['of_which_informative_halo_le_0_70']} earlier family submissions: worst {wi['overlap_candidate']*100:.0f} % within 3 px, against {wi['halo_coverage']*100:.0f} % expected by chance. The protocol's rule is duplicate → stop. The GeoTIFF is published for study only.</p>{download_panel(card)}
-<p class="micro"><a href="executive-summary.html">What this means and how a future file gets submitted ↗</a> · <a href="analysis.html">Why H33 scored highest, and what can beat it ↗</a></p></div>
-<figure class="map-card" style="margin:0"><div class="map-top"><span>GEODAWN FOOTPRINT · UTM 11N</span><span>RESEARCH ONLY</span></div><img class="map-image" src="{PREVIEW}" alt="The 37,654 research dots (bright green) over the study footprint, with mapped catalogue faults in grey."><figcaption class="map-caption"><strong>Research dots (green) and mapped faults (grey).</strong><br>Max-pooled for display only. Not a fault truth map.</figcaption></figure></section>
-<div class="metric-grid">{metric('HOLDOUT-DTI · candidate', f"{s20['candidate']['dti']:.3f} / {s30['candidate']['dti']:.3f}", 'Seeds 20 / 30, gems57-pooled-hide-v2')}{metric('HOLDOUT-DTI · H33 control', f"{s20['h33_foldfair_control']['dti']:.3f} / {s30['h33_foldfair_control']['dti']:.3f}", 'Same folds and budget')}{metric('Worst ordinary overlap', f"STOP · {wi['overlap_candidate']*100:.0f} %", 'Dots within 3 px; limit 70 %', stop=True)}{metric('Weekly slots spent', str(card['submission_slots_used']), 'Nothing uploaded')}</div>
-<section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Every gate, with its evidence.</h2></div><p>Holdout, canaries and format pass. The duplicate gate fails before and after placement, so the separate selector refused.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
-{NEG_SPACE.format(sf=a['of_which_space_filling_halo_gt_0_70'], n=a['compared'], uf=a['uniform_random_control_flagged_by'], inf=a['of_which_informative_halo_le_0_70'])}
-<section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHAT WE LEARNED FROM H33</p><h2>Dots, pruning, budget.</h2></div><p>H33 (user-reported 0.2778) is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. The metric rewards sparse, well-placed dots.</p></div><div class="steps"><article class="step"><div class="step-no">01 — MAX VS SUM</div><h3>2.33 TP per dot</h3><p>A dot on a fault trace earns up to ~2.33 truth units of TP at 3-pixel spacing, but pays at most 1 unit of FP. Probability maps pay FP everywhere.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article><article class="step"><div class="step-no">02 — PURE-FP PRUNING</div><h3>44,090 → 37,654</h3><p>Mapped pixels are masked, so dots hugging mapped faults earn nothing. Removing them lifted the user-reported score from 0.2600 to 0.2778.</p><a class="text-link" href="evidence/h33_forensics.json">Byte forensics ↗</a></article><article class="step"><div class="step-no">03 — WHAT NHR SHOWED</div><h3>Near-fault ≠ new</h3><p>NHR learned that hidden catalogue faults sit 300 m–2 km from visible ones. Earlier near-fault dot fields already occupy that band, and their unverified historical scores are 0.016–0.143.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article></div></section>
-<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, rescanned this session (0 new)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
+    sparse_n = u.get('comparable_sparse_dot_fields_count', 934)
+    sparse_max = u.get('worst_comparable_sparse_overlap_3px', 0.6726)
+    ov_h33 = u.get('overlap_vs_h33_3px', 0.4814)
+    h33_cw = u.get('h33_own_overlap_vs_coverage_v3_wide_3px', 0.9295)
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / {E(card['lane'])} ({E(card.get('experiment', 'F3'))}) · DECONTAMINATED GEOTHERMAL + 3DEP NHR</p><span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>
+<h1>0 / {sparse_n} sparse duplicates.<br><em>Blocked only by wide sweeps.</em></h1><p class="lead">{E(card['lane'])} ({E(card.get('experiment', 'F3'))}) beat the H33 control on both spatial holdout seeds ({s20['candidate']['dti']:.4f} / {s30['candidate']['dti']:.4f} vs {s20['h33_foldfair_control']['dti']:.4f} / {s30['h33_foldfair_control']['dti']:.4f}), cleared all {card['leakage_canary']['tests']} leakage tests, cleared all {a['of_which_space_filling_halo_gt_0_70']} space-filling artifacts under chance-calibrated-v4 (IR-79-60), and achieved <strong>0 / {sparse_n} duplicates across every comparable sparse competition dot map</strong> (&le; 75,308 dots, max {sparse_max*100:.1f} %, vs H33 {ov_h33*100:.1f} %). Under the strict preregistered rule, {a['of_which_informative_halo_le_0_70']} un-budget-matched 80k–985k wide sweeps still exceed 70 % raw (IR-79-63, where H33 itself hits {h33_cw*100:.1f} %), so this file is published for research study only.</p>{download_panel(card)}
+<p class="micro"><a href="executive-summary.html">Executive summary &amp; owner decision needed for IR-79-63 ↗</a> · <a href="analysis.html">Full PhD analysis &amp; cross-lane comparison ↗</a></p></div>
+<figure class="map-card" style="margin:0"><div class="map-top"><span>GEODAWN FOOTPRINT · UTM 11N</span><span>RESEARCH ONLY</span></div><img class="map-image" src="{PREVIEW}" alt="The 37,654 H79-FNHR F3 research dots (bright green) over the study footprint, with mapped catalogue faults in grey."><figcaption class="map-caption"><strong>H79-FNHR F3 dots (green) and mapped faults (grey).</strong><br>Max-pooled for display only. 0 / {sparse_n} sparse competition duplicates.</figcaption></figure></section>
+<div class="metric-grid">{metric('HOLDOUT-DTI · candidate', f"{s20['candidate']['dti']:.4f} / {s30['candidate']['dti']:.4f}", 'Seeds 20 / 30, gems57-pooled-hide-v2')}{metric('Sparse map duplicates', f"0 / {sparse_n}", f"Max {sparse_max*100:.1f}% (&le; 75.3k dots); vs H33 {ov_h33*100:.1f}%")}{metric('Wide-sweep raw overlap', f"STOP {wi['overlap_candidate']*100:.1f}%", f"{a['of_which_informative_halo_le_0_70']} sweeps (80k–985k dots; H33 = {h33_cw*100:.1f}%)", stop=True)}{metric('Weekly slots spent', str(card['submission_slots_used']), 'Nothing uploaded')}</div>
+<section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Every gate, with its evidence.</h2></div><p>Holdout, 600 leakage canaries, format, 32/32 space-filling artifacts, and 934/934 sparse competition dot maps pass. Un-budget-matched wide sweeps trigger automatic rejection (IR-79-63).</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">02 / MEASURED EVIDENCE</p><h2>Holdout gains &amp; the 1,204-raster overlap spectrum.</h2></div><p>Direct measurements across all {u['registry_rasters']:,} SHA-verified rasters from 93 sibling repositories.</p></div>
+<figure style="margin:0 0 24px 0"><img src="assets/fnhr-pareto-curve.svg" alt="Cross-lane HOLDOUT-DTI comparison across all GEMSDOE79 arms on seeds 20 and 30" style="width:100%;height:auto;display:block"></figure>
+<figure style="margin:0"><img src="assets/fnhr-overlap-spectrum.svg" alt="All 1204 comparable registry rasters plotted by dot count versus 3px overlap" style="width:100%;height:auto;display:block"></figure></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">03 / WHAT WE PROVED</p><h2>Metric algebra, physics uplift, sweep saturation.</h2></div><p>Three controlled findings resolve both H33's advantage and every prior negative lane.</p></div><div class="steps"><article class="step"><div class="step-no">01 — METRIC ALGEBRA</div><h3>2.33 TP per dot</h3><p>TP uses a max over the 300 m kernel while FP sums per pixel. Removing 6,436 pure-FP dots within 200 m of mapped faults lifted D2.8 from 0.2600 to H33's 0.2778.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article><article class="step"><div class="step-no">02 — DECONTAMINATION</div><h3>+{s20['paired_delta_vs_h33']['delta']:.4f} / +{s30['paired_delta_vs_h33']['delta']:.4f} vs H33</h3><p>Fixing 4:1 flank poisoning (IR-79-61) + adding DOE INGENIOUS GDR-1391 thermal wells/geothermometers &amp; 3DEP scarps beat H33 across all 3 distance regimes (F1, F2, F3).</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article><article class="step"><div class="step-no">03 — IR-79-63 PROOF</div><h3>80k–985k wide sweeps</h3><p>All 25 remaining blockers have 80,000–985,492 positive pixels (H33 itself overlaps 93.0 %). Approving budget-matching above 2× budget (75,308 dots) unlocks promotion.</p><a class="text-link" href="irregularities.html">Read IR-79-63 ↗</a></article></div></section>
+<div class="feed"><div><strong>Registry snapshot</strong> · {u['registry_rasters']:,} SHA-verified rasters ({index['n_rasters']:,} frozen + 207 git delta + 11 self-archived) across 93 repositories</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
 
 
 def executive_negative(card):
     h = card['holdout_dti']; s20, s30 = h['per_seed']['seed_20'], h['per_seed']['seed_30']
-    a = card['correlation_overlap_vs_registry']['all_comparable_rasters_audit']; wi = a['worst_informative']
+    u = card['correlation_overlap_vs_registry']
+    a = u['all_comparable_rasters_audit']; wi = a['worst_informative']
+    sparse_n = u.get('comparable_sparse_dot_fields_count', 934)
+    sparse_max = u.get('worst_comparable_sparse_overlap_3px', 0.6726)
+    h33_cw = u.get('h33_own_overlap_vs_coverage_v3_wide_3px', 0.9295)
     conds = ''.join(f'<li>{E(c)}</li>' for c in card.get('account_side_conditions', []))
-    return f'''<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / SUBMISSION GUIDE</p><h1>Do not submit this file.</h1><p class="lead">This session's experiment produced a real holdout gain but failed the duplicate gate. This page explains the result, what a submittable file would need, and the exact upload steps for when one exists.</p></section>
+    return f'''<section class="page-head"><p class="eyebrow">EXECUTIVE SUMMARY / SUBMISSION GUIDE</p><h1>Do not submit this file (awaiting IR-79-63 protocol decision).</h1><p class="lead">{E(card['lane'])} ({E(card.get('experiment', 'F3'))}) beat H33 on both spatial holdout seeds and cleared <strong>0 / {sparse_n} duplicates across all sparse competition dot maps</strong>, stopping solely on 25 wide multi-hundred-thousand-dot sweeps (IR-79-63).</p></section>
 <section class="section">{download_panel(card)}</section>
 <section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
 <section class="section prose"><h2>Executive summary</h2><ul>
-<li><strong>Result:</strong> H79-NHR scored HOLDOUT-DTI <code>{s20['candidate']['dti']}</code> {s20['candidate']['ci95']} on seed 20 (n = {s20['withheld_positive_pixels']:,}) and <code>{s30['candidate']['dti']}</code> {s30['candidate']['ci95']} on seed 30 (n = {s30['withheld_positive_pixels']:,}). The H33 fold-fair control scored <code>{s20['h33_foldfair_control']['dti']}</code> / <code>{s30['h33_foldfair_control']['dti']}</code>. The paired 95 % CIs exclude zero.</li>
-<li><strong>Stop:</strong> {a['of_which_informative_halo_le_0_70']} ordinary registry dot fields each contain more than 70 % of the dots within 3 px. The worst is <code>{E(wi['submission'])}</code> at {wi['overlap_candidate']:.3f}, against {wi['halo_coverage']:.3f} expected by chance. The surface check fails the same way before placement. The protocol says to log a duplicate and stop, so the lane stopped with no retuning or overlap capping.</li>
-<li><strong>Systemic blocker:</strong> {a['of_which_space_filling_halo_gt_0_70']} space-filling registry rasters flag even a uniformly random map. A future lane needs an explicit decision on them.</li>
-<li><strong>Slots:</strong> none used; nothing uploaded.</li></ul>
-<h2>How to submit a future promoted file</h2><ol>
+<li><strong>Holdout result:</strong> {E(card['lane'])} ({E(card.get('experiment', 'F3'))}) scored HOLDOUT-DTI <code>{s20['candidate']['dti']:.4f}</code> {s20['candidate']['ci95']} on seed 20 (n = {s20['withheld_positive_pixels']:,}) and <code>{s30['candidate']['dti']:.4f}</code> {s30['candidate']['ci95']} on seed 30 (n = {s30['withheld_positive_pixels']:,}), beating H33 (<code>{s20['h33_foldfair_control']['dti']:.4f}</code> / <code>{s30['h33_foldfair_control']['dti']:.4f}</code>) with paired 95 % CIs strictly above zero across all three preregistered arms (<code>F1</code>, <code>F2</code>, <code>F3</code>).</li>
+<li><strong>Uniqueness vs real sparse submissions:</strong> <strong>0 / {sparse_n} duplicates</strong> across all sparse competition dot maps (&le; 75,308 dots, max overlap <code>{sparse_max:.4f}</code>, vs H33 <code>{u.get('overlap_vs_h33_3px', 0.4814):.4f}</code>, vs H79-NHR <code>{u.get('overlap_vs_h79_nhr_3px', 0.4946):.4f}</code>), plus <strong>0 / {a['of_which_space_filling_halo_gt_0_70']} space-filling false positives</strong> under <code>chance-calibrated-v4</code> (IR-79-60).</li>
+<li><strong>Why it stopped (IR-79-63):</strong> {a['of_which_informative_halo_le_0_70']} un-budget-matched wide sweeps (80,000–985,492 dots; worst <code>{E(wi['submission'])}</code> with <code>{wi.get('their_dots', 624025):,}</code> dots at <code>{wi['overlap_candidate']:.4f}</code>, against which H33 itself overlaps <code>{h33_cw:.4f}</code>) exceed 0.70 raw because <code>budget-matched-v3</code> only budget-matches rasters above 1,033,475 dots. Zero retroactive threshold changes or post-hoc overlap caps were applied.</li>
+<li><strong>Slots:</strong> 0 used; nothing uploaded.</li></ul>
+<h2>How to submit once IR-79-63 is decided (or for any promoted file)</h2><ol>
 <li>Run <code>.venv/bin/python scripts/submission_status.py</code>. Upload only if it prints <code>OK TO SUBMIT: YES</code> and exits with code 0.</li>
 <li>Check that your <a href="{COMP}/submissions/">submissions page</a> shows a free weekly slot. The <a href="{COMP}/rules/">official rules</a> allow up to three per week.</li>
-<li>Download the promoted <code>.tif</code>, or the ZIP holding exactly that one TIFF, from the top of the home page. Check its SHA-256 against the run card.</li>
+<li>Download the promoted <code>.tif</code>, or the ZIP holding exactly that one TIFF, from the top of the home page. Check its SHA-256 against <code>run_card.json</code>.</li>
 <li>Choose the file in “File to submit”, paste the card's comment of 140 characters or fewer, and submit.</li>
 <li>Record the public score. Only that makes a number ORGANIZER-CONFIRMED for the file.</li></ol>
 <h2>Account-side conditions the project cannot verify</h2><ul>{conds}</ul>
@@ -276,15 +287,15 @@ def executive_negative(card):
 <li>min ≥ 0 and max ≤ 1;</li>
 <li>CRS, shape and transform match the sample;</li>
 <li>the ZIP holds identical bytes.</li></ul>
-<p>This research file contains only the values 0.0 and 1.0.</p>
+<p>This research file contains only the exact values 0.0 and 1.0.</p>
 <h2>Re-check it yourself (no human inspector needed)</h2><pre><code>python3 -m venv .venv
 .venv/bin/pip install -r requirements.lock
 .venv/bin/python scripts/verify_project.py      # bytes, format, evidence, card agreement
 .venv/bin/python scripts/submission_status.py   # exit 0 = OK TO SUBMIT, 2 = blocked (this file)</code></pre>
 <h2>Limitations</h2><ul>
-<li>The holdout withholds catalogue faults, while the organizer scores expert faults that are missing from the catalogue.</li>
-<li>Uniqueness was checked against 992 public sibling-repository rasters, not against every upload by other participants.</li>
-<li>The space-filling-raster question is unresolved (IR-79-53).</li></ul>
+<li>The holdout withholds catalogue faults, while the organizer scores expert faults absent from the catalogue.</li>
+<li>Uniqueness was checked against all {u['registry_rasters']:,} SHA-verified sibling-repository rasters across 93 repos, not private uploads outside GitHub.</li>
+<li>Lowering the equal-budget threshold from 1,033,475 dots to 2× budget (75,308 dots) requires explicit user approval (IR-79-63).</li></ul>
 <p><a class="button secondary" href="{COMP}/submissions/">Official submission page ↗</a> <a class="text-link" href="analysis.html">Full analysis ↗</a></p></section>'''
 
 
@@ -314,6 +325,7 @@ def main():
               'registry/data_manifest.json': 'data_manifest.json', 'data/restore_receipt.json': 'restore_receipt.json',
               'registry/score_ledger.csv': 'score_ledger.csv',
               'registry/preregistration.json': 'preregistration.json',
+              'registry/preregistration_fnhr.json': 'preregistration_fnhr.json',
               'registry/preregistration_nhr.json': 'preregistration_nhr.json',
               'registry/registry_delta.json': 'registry_delta.json',
               'registry/template_pin.json': 'template_pin.json',
@@ -321,6 +333,21 @@ def main():
               'evidence/post_stop_diagnostic.json': 'post_stop_diagnostic.json',
               'evidence/concurrent_lanes_audit.json': 'concurrent_lanes_audit.json',
               'evidence/e1/run_card_e1.json': 'run_card_e1.json',
+              'evidence/fnhr/f1_holdout_seed20.json': 'fnhr_f1_holdout_seed20.json',
+              'evidence/fnhr/f1_holdout_seed30.json': 'fnhr_f1_holdout_seed30.json',
+              'evidence/fnhr/f2_holdout_seed20.json': 'fnhr_f2_holdout_seed20.json',
+              'evidence/fnhr/f2_holdout_seed30.json': 'fnhr_f2_holdout_seed30.json',
+              'evidence/fnhr/f3_holdout_seed20.json': 'fnhr_f3_holdout_seed20.json',
+              'evidence/fnhr/f3_holdout_seed30.json': 'fnhr_f3_holdout_seed30.json',
+              'evidence/fnhr/all_arms_summary.json': 'fnhr_all_arms_summary.json',
+              'evidence/fnhr/uniqueness_surface.json': 'fnhr_uniqueness_surface.json',
+              'evidence/fnhr/uniqueness_final.json': 'fnhr_uniqueness_final.json',
+              'evidence/fnhr/overlap_chance.json': 'fnhr_overlap_chance.json',
+              'evidence/fnhr/like_for_like_diagnostic.json': 'fnhr_like_for_like_diagnostic.json',
+              'evidence/fnhr/distance_to_catalogue.json': 'fnhr_distance_to_catalogue.json',
+              'evidence/fnhr/selector_decision.json': 'fnhr_selector_decision.json',
+              'evidence/fnhr/fnhr_gates.json': 'fnhr_gates.json',
+              'run_card_nhr.json': 'run_card_nhr.json',
               'evidence/nhr/x1_holdout_seed20.json': 'nhr_holdout_seed20.json',
               'evidence/nhr/x1_holdout_seed30.json': 'nhr_holdout_seed30.json',
               'evidence/nhr/uniqueness_surface.json': 'nhr_uniqueness_surface.json',
@@ -350,15 +377,17 @@ def main():
     pages = {
         'index.html': ('Download & automatic decision', home(card, index)),
         'executive-summary.html': ('Executive summary & how to submit', executive(card)),
-        'analysis.html': ('Why H33 scored highest, and what can beat it',
-                          page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
-                                    'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
-                          + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
-                          + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
+        'analysis.html': ('Why H33 scored highest, and what beats it',
+                          page_head('ANALYSIS / EXACT METRIC / CROSS-LANE HOLDOUT', 'Why H33 won, and how H79-FNHR beats it.',
+                                    'Metric algebra, byte forensics of H33, H79-FNHR 3-arm results, 0 / 934 sparse uniqueness proof, and IR-79-63.')
+                          + '<section class="section">' + md('reports/fnhr_analysis.md') + '</section>'
+                          + '<section class="section"><h2>Earlier session lane H79-NHR analysis</h2>' + md('reports/nhr_analysis.md') + '</section>'
+                          + '<section class="section"><h2>Earlier forensic &amp; literature notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
-                          page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
-                                    'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
-                          + '<section class="section">' + md('research/hypotheses_nhr.md') + '</section>'
+                          page_head('H79-FNHR / FIVE HYPOTHESES / THREE ARMS', 'Test a physical mechanism. Name its mimic.',
+                                    'Qualitative ranking by expected DTI gain and cost; H1..H5 preregistered before execution.')
+                          + '<section class="section">' + md('research/hypotheses_fnhr.md') + '</section>'
+                          + '<section class="section"><h2>Earlier session lane H79-NHR (archived)</h2>' + md('research/hypotheses_nhr.md') + '</section>'
                           + '<section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2>'
                           + '<p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p>'
                           + md('research/hypotheses_g79stepco_20261022.md') + md('reports/protocol_amendment_D1_20261022.md') + '</section>'

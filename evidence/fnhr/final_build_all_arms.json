@@ -1,0 +1,216 @@
+{
+  "lane": "H79-FNHR",
+  "preregistration_sha256": "7436f552598d6fc555bd89cc8d512cb8292b2968023a0cb92058f2dd7667cd8a",
+  "generated_utc": "2026-10-22T05:14:49.619883+00:00",
+  "runtime_s": 514.6,
+  "n_features": 75,
+  "feature_names": [
+    "tf_mag_anom",
+    "tf_rtp",
+    "tf_tmi_hg",
+    "tf_geod_2ndinv",
+    "tf_iso_grav_anom_slope",
+    "tf_tc",
+    "tf_geod_shearrate",
+    "tf_geod_dilaterate",
+    "tf_tmi_vg",
+    "tf_deq_n100a15",
+    "tf_iso_grav_anom_vg",
+    "tf_det_elev",
+    "tf_iso_grav_anom",
+    "tf_tmi",
+    "tf_depth_to_base_surf",
+    "tf_ieq_n100a15",
+    "tf_cond_surf",
+    "tf_iso_grav_anom_hg",
+    "tf_det_elev_slope",
+    "tf_hp15_det_elev_slope",
+    "tf_hp15_iso_grav_anom_hg",
+    "tf_hp15_tmi_hg",
+    "tf_transtensional_strain_coupling",
+    "dem10_slope_max",
+    "dem10_slope_mean",
+    "dem10_slope_std",
+    "dem10_hgm20_max",
+    "dem10_hgm50_max",
+    "dem10_hgm200_mean",
+    "dem10_steep_ratio_max",
+    "dem10_resid_std",
+    "dem10_resid_range",
+    "dem10_curv_absmax",
+    "dem10_onesided",
+    "dem10_onesided3",
+    "dem10_valid_frac",
+    "dem10_excess_onesided3",
+    "dem10_scarp_persistence_ratio",
+    "lidar_ex_max",
+    "lidar_ex_mean",
+    "lidar_step_max",
+    "lidar_step_max_max5",
+    "lidar_lapneg_max",
+    "lidar_lappos_max",
+    "lidar_downface_max",
+    "lidar_upface_max",
+    "lidar_upface_max_max5",
+    "lidar_cross_max",
+    "lidar_relief",
+    "lidar_coh100",
+    "lidar_valid",
+    "lidar_antislope_polarity",
+    "lidar_tectonic_to_fluvial_ratio",
+    "rad_K",
+    "rad_Th",
+    "rad_U",
+    "rad_TC",
+    "ext_ThK",
+    "ext_UK",
+    "ext_UTh",
+    "ext_TMI_up150",
+    "mag_shallow_dipole_residual",
+    "gdr_log_dist_wellspring",
+    "gdr_log_dist_hot_geotherm",
+    "gdr_enthalpy_plume_s8",
+    "gdr_enthalpy_plume_s25",
+    "gdr_log_dist_volcanic_vent",
+    "tiger_log_road_dist_m",
+    "dem10_onesided3_road_deconfounded",
+    "geom_log_dist_visible",
+    "geom_visible_density_s5",
+    "geom_visible_density_s20",
+    "geom_log_dist_visible_tip",
+    "geom_lidar_strike_alignment",
+    "geom_strike_field_coherence"
+  ],
+  "nested_receipts": [
+    {
+      "rep": 0,
+      "hidden_px": 12207,
+      "positives": 72396,
+      "clean_negatives": 90000,
+      "excluded_remaining_halo_px": 271348
+    },
+    {
+      "rep": 1,
+      "hidden_px": 12204,
+      "positives": 72200,
+      "clean_negatives": 90000,
+      "excluded_remaining_halo_px": 271620
+    },
+    {
+      "rep": 2,
+      "hidden_px": 12211,
+      "positives": 73520,
+      "clean_negatives": 90000,
+      "excluded_remaining_halo_px": 270240
+    }
+  ],
+  "crossfit_physics_receipts": [
+    {
+      "quadrant": 0,
+      "positives_full_visible_halo": 316341,
+      "negatives_sampled": 320000
+    },
+    {
+      "quadrant": 1,
+      "positives_full_visible_halo": 303949,
+      "negatives_sampled": 320000
+    },
+    {
+      "quadrant": 2,
+      "positives_full_visible_halo": 255013,
+      "negatives_sampled": 320000
+    },
+    {
+      "quadrant": 3,
+      "positives_full_visible_halo": 282773,
+      "negatives_sampled": 320000
+    }
+  ],
+  "static_stack_inputs": {
+    "training_features.tif": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "dem10_manifest_sha256": "bfb79f39be0737b448b1a3bf5432db168a77d6786240eafdca352e7a87400f0d",
+    "lidar_scarp_features_u8.tif": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "geodawn_rad_u8.tif": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "geodawn_extensions_u8.tif": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+    "gdr_wellspring_in_footprint.csv": "122718e65bdf55aab0ee12ad20d80062f0deb1de957225a61ad880dd5dc196ea",
+    "gdr_volcanic_vents_in_footprint.csv": "f91bafbaccaaf2754e71d60434fc0f9eb2c7b880c6e714883f4974542ff6a0bf",
+    "tiger_road_distance_m.tif": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988"
+  },
+  "arms": {
+    "F1": {
+      "requested": 37654,
+      "emitted": 37654,
+      "spacing_px": 3,
+      "quotas": [
+        0.13,
+        0.17,
+        0.21,
+        0.29,
+        0.2
+      ],
+      "placed_per_band": {
+        "(2,5.0] px": 4895,
+        "(5,10.0] px": 6401,
+        "(10,20.0] px": 7907,
+        "(20,50.0] px": 10920,
+        "(50,inf] px": 7531
+      },
+      "median_dist_px": 19.697715759277344,
+      "mean_dist_px": 29.73052978515625,
+      "fraction_le_5px": 0.12999946884793115,
+      "fraction_gt_10px": 0.7000053115206883,
+      "surface_sha256": "488d59844179aecec0b3a4306fada0cfc5b2733e652a9778f588d8c14bcc5392",
+      "dots_sha256": "d11e195cb37dbe1fdb4f421799391857a6f1d33f850883cacb67f47a412c8434"
+    },
+    "F2": {
+      "requested": 37654,
+      "emitted": 37654,
+      "spacing_px": 3,
+      "quotas": [
+        0.16,
+        0.24,
+        0.24,
+        0.22,
+        0.14
+      ],
+      "placed_per_band": {
+        "(2,5.0] px": 6025,
+        "(5,10.0] px": 9037,
+        "(10,20.0] px": 9037,
+        "(20,50.0] px": 8284,
+        "(50,inf] px": 5271
+      },
+      "median_dist_px": 13.601470947265625,
+      "mean_dist_px": 23.895280838012695,
+      "fraction_le_5px": 0.16000956073723907,
+      "fraction_gt_10px": 0.5999893769586232,
+      "surface_sha256": "0d981af2d503cb2fc3fe6ac146ff1dd7fa9db4230b618d91310e64bd034d0f64",
+      "dots_sha256": "9f4b2c568758c3846ef5f277ec8f8acb762a5054ce2bad14b411304f96105597"
+    },
+    "F3": {
+      "requested": 37654,
+      "emitted": 37654,
+      "spacing_px": 3,
+      "quotas": [
+        0.2,
+        0.28,
+        0.24,
+        0.18,
+        0.1
+      ],
+      "placed_per_band": {
+        "(2,5.0] px": 7531,
+        "(5,10.0] px": 10543,
+        "(10,20.0] px": 9037,
+        "(20,50.0] px": 6778,
+        "(50,inf] px": 3765
+      },
+      "median_dist_px": 10.816654205322266,
+      "mean_dist_px": 19.97294044494629,
+      "fraction_le_5px": 0.20000531152068837,
+      "fraction_gt_10px": 0.5199978753917246,
+      "surface_sha256": "93b47b2be74f0f327f58f9918cb9a4d9ac42c4c683e702c88987ef9a8198440f",
+      "dots_sha256": "fae5cf3a613129aa76fa330db531646fec6f10cdaa922937f634bafefc070bf7"
+    }
+  }
+}

@@ -1,20 +1,27 @@
 # Start-of-session contract
 
 1. Read **all of README.md**, including the original prompt, then `run_card.json`,
-   `reports/irregularities.md`, `registry/preregistration_nhr.json` (active lane) and
-   `registry/preregistration.json` (archived E1) before work.
+   `reports/irregularities.md`, `registry/preregistration_fnhr.json` (active lane),
+   `registry/preregistration_nhr.json` (archived NHR) and `registry/preregistration.json`
+   (archived E1) before work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-3. Active lane: **H79-NHR** (session 337ac1e9), opened at the user's explicit
-   request and preregistered before any result. One experiment (X1) was used. It beat
-   the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
-   and the lane is stopped. Do not retune or overlap-cap X1.
-   A new idea needs a new preregistered lane, with three experiments or two hours at most.
-   E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
-   it, add jitter to it, or exempt dense priors for it.
+3. Active lane: **H79-FNHR** (session a57e2a7f), preregistered before execution in
+   `registry/preregistration_fnhr.json` (SHA-256 locked in `evidence/fnhr/preregistration_sha256.txt`)
+   within the 3-experiment budget (`F1`, `F2`, `F3`). All three arms cleared single-feature
+   leakage canaries (`<= 0.8262`) and beat `H33` with paired 95 % CIs strictly `> 0` on both
+   `seed 20` and `seed 30` (`F1`: `0.1078` / `0.1173`, `F2`: `0.1207` / `0.1332`,
+   `F3`: `0.1292` / `0.1431`), and `chance-calibrated-v4` (`IR-79-60`) cleared all `32`
+   `H_3 > 0.70` plateau/lattice artifacts, **but** `20..25` wide-halo coverage sweeps
+   (`0.40 <= H_3 <= 0.65`, `250k..624k` dots) still overlapped `> 0.70` raw (`IR-79-63`).
+   Honoring the preregistered gate with zero retroactive threshold edits, `H79-FNHR` is
+   stopped with `verdict: "negative"` (`DO-NOT-SUBMIT`). Do not retune or overlap-cap `F1..F3`.
+   `H79-NHR` (`X1`), `G79B-SDPT`, `G79-STEPCO`, and `E1` (`G79-FABRIC-OFFSET`) stay stopped
+   negative and archived unchanged.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
-   version note and an IR entry. Example: the `budget-matched-v3` dot definition, IR-79-47. Use the shared evaluator,
-   writer and literal novelty gate; never invent scientific metrics or receipts.
+   version note and an IR entry. Examples: `budget-matched-v3` (`IR-79-47`) and
+   `chance-calibrated-v4` (`IR-79-60`, `reports/upstream_patch_uniqueness_v4.diff`). Use the shared evaluator,
+   writer and novelty gate; never invent scientific metrics or receipts.
 5. Do not replace missing measurements with zero. Only a submission-page receipt
    establishes ORGANIZER-CONFIRMED for an artifact. Public leaderboard observations
    and user-reported scores must retain their evidence classes.
