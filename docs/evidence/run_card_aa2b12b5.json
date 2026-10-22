@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "session": "aa2b12b5",
+  "hypothesis": "Top-ranked conditional proposal: short, mutually consistent magnetic and gravity characteristic lengths along persistent open contacts may expose buried faulted contacts omitted from the USGS/INGENIOUS catalogue. It was not implemented or validated.",
+  "mechanism": "After exact sentinel/footprint masking, compare robust horizontal/vertical gradient-magnitude length ratios independently in TMI and isostatic gravity, requiring cross-sensor consistency and low-relief open-lineament persistence. Single-sensor, unthresholded-gradient, closed-contact and survey-aligned controls are required. No surface was computed.",
+  "named_non_fault_process_that_could_mimic_it": "Thin igneous dikes, pluton margins and sedimentary facies contacts; airborne survey levelling seams can also create open linear gradients.",
+  "holdout_dti": null,
+  "holdout_dti_status": "NOT RUN. The literal registry preflight stopped before feature computation, canaries, holdout or placement. No evaluator version, withheld-positive count or 95% CI exists for this proposal.",
+  "correlation_overlap_vs_registry": {
+    "candidate_surface_rank_correlation": null,
+    "candidate_surface_overlap": null,
+    "candidate_final_dot_rank_correlation": null,
+    "candidate_final_dot_overlap": null,
+    "pinned_registry_witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "witness_covered_allowed_fraction": 1.0,
+    "provable_literal_forward_overlap_of_any_nonempty_candidate": 1.0,
+    "limit": 0.7,
+    "evidence": "evidence/preflight_aa2b12b5.json",
+    "result": "duplicate unavoidable under the stipulated literal rule; stop before experiments"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_candidate": "NOT APPLICABLE: no new TIFF was created.",
+    "official_sample_submission": "PASS R1-R8; sha256 2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "inherited_research_download": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. This is not a newly generated candidate; its failed novelty and official R6 gates are unchanged."
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "new_tif_generated": false,
+  "ok_to_download": true,
+  "ok_to_download_scope": "inherited research artifact only",
+  "ok_to_submit": false,
+  "submission_slots_used": 0,
+  "scientific_experiments": 0,
+  "runtime_inputs": "13/13 present and SHA-256 verified under ignored data/raw at 2026-10-22T20:59:10.928546Z; owner-mirror consistency, not organizer authentication",
+  "source_review": "evidence/source_review_aa2b12b5.json",
+  "hypotheses": "research/hypotheses_aa2b12b5.md",
+  "software_review": "reports/session_review_aa2b12b5.md",
+  "h33_reported_score_class": "UNVERIFIED HISTORICAL REPORT; no artifact-linked organizer receipt",
+  "public_leader_observation": "0.4413, not this project's score"
+}

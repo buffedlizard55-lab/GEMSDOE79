@@ -133,6 +133,13 @@ def test_absent_card_fails_closed(tmp_path):
     ('run_g79_dfsd.py', ['--stage', 'seed20', '--allow-initial-build']),
     ('run_pfsd.py', ['--stage', 'seed20']),
     ('run_pfsd.py', []),
+    ('run_tipstep.py', []),
+    ('novelty_tipstep.py', []),
+    ('run_tdw.py', []),
+    ('tdw_novelty.py', []),
+    ('run_mdsc.py', []),
+    ('finalize_mdsc.py', []),
+    ('generate_ventprox_submission.py', []),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (
@@ -142,6 +149,15 @@ def test_current_scientific_commands_refuse_before_writing(script, args):
         + list((ROOT / 'evidence/cjx').glob('*.json'))
         + list((ROOT / 'evidence/pfsd').glob('*.json'))
         + list((ROOT / 'artifacts/cjx').glob('*'))
+        + list((ROOT / 'artifacts/tipstep').glob('*'))
+        + list((ROOT / 'artifacts/tdw').glob('*'))
+        + list((ROOT / 'artifacts/mdsc_8e58a8d0').glob('*'))
+        + list((ROOT / 'artifacts/ventprox').glob('*'))
+        + list((ROOT / 'evidence/tipstep').glob('*'))
+        + list((ROOT / 'evidence/tdw').glob('*'))
+        + list((ROOT / 'evidence/mdsc_8e58a8d0').glob('*'))
+        + [ROOT / 'run_card_tipstep.json', ROOT / 'run_card_tdw.json', ROOT / 'run_card_mdsc.json',
+           ROOT / 'evidence/tipstep_experiment1.json', ROOT / 'evidence/tipstep_novelty_local.json']
         + list((ROOT / 'docs/downloads').glob('*'))
     )
     frozen = {p: p.read_bytes() for p in paths if p.is_file()}

@@ -1,17 +1,34 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
-## Latest session — G79-TIPSTEP (2026-10-22, this branch)
+## Current review — session `aa2b12b5` (2026-10-22)
 
-**A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
-SHA-256 `4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a`, in `artifacts/tipstep/`).
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO** — format PASS (zeros outside footprint; no NaN, values
-in [0,1], EPSG:32611 3730×3292 matching sample), locally novel vs 40 sparse archived dot rasters
-(max 3-px overlap 0.4765 < 0.70, max |rho| 0.056 < 0.90), HOLDOUT-DTI (gems57-pooled-hide-v2)
-0.0927 [0.0795,0.1049] (seed 20, n=11,321) / 0.0928 [0.0777,0.1079] (seed 30, n=11,342), +0.091 vs
-uniform — but **below the THVC/CSKD holdout incumbents**, so no slot is spent. Full registry
-(1,108-row) scan not completed offline; flagged, not hidden. See
-[`docs/tipstep-submission.html`](docs/tipstep-submission.html), `run_card_tipstep.json`,
-`research/hypotheses_tipstep.md`. The canonical THVC decision below is unchanged.
+**OK TO DOWNLOAD: YES (inherited research artifact only). OK TO SUBMIT: NO.**
+No new unique submission TIFF was generated. A fresh hash-pinned preflight again proved that the
+prompt's literal overlap rule stops every nonempty candidate before surface creation or placement
+([receipt](evidence/preflight_aa2b12b5.json)); no threshold exemption, jitter, renaming or sparse-only
+bypass was used. All **13/13** owner-mirrored inputs were restored and SHA-256 verified locally
+([runtime receipt](evidence/runtime_data_status_aa2b12b5.json)); this resolves data placement, not
+organizer authentication or scientific eligibility. See the [three ranked untried hypotheses](research/hypotheses_aa2b12b5.md),
+[negative run card](evidence/run_card_aa2b12b5.json), and [three-pass review](reports/session_review_aa2b12b5.md).
+Zero scientific experiments and zero competition slots were used.
+
+Pass 2 found and fixed a real publication/lifecycle defect: TIPSTEP was absent from the reproducible
+Pages build, its page made an unsupported portal-cause claim, and several negative-lane runners
+lacked fail-closed guards. The rebuilt page now reports official **R6 FAIL**, limits the local sparse
+novelty diagnostic, and documents the non-comparable historical uniform-control mask. No closed lane
+was rerun and no historical TIFF bytes changed.
+
+## Prior lane — G79-TIPSTEP (2026-10-22; closed negative)
+
+A byte-distinct research GeoTIFF exists at `artifacts/tipstep/` (29,259 dots,
+SHA-256 `4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a`).
+**OK TO DOWNLOAD: YES (research only). OK TO SUBMIT: NO.** Its local range/grid checks pass, but
+official R6 fails because the exterior is zero rather than NaN. Historical HOLDOUT-DTI
+(`gems57-pooled-hide-v2`) is 0.0927 [0.0795,0.1049] (seed 20, n=11,321) / 0.0928 [0.0777,0.1079]
+(seed 30, n=11,342), below the THVC/CSKD incumbents. The 40-sparse-raster local diagnostic is not
+full-registry clearance, and the historical uniform-control mask is not comparable to the candidate's
+mask. See [`docs/tipstep-submission.html`](docs/tipstep-submission.html), `run_card_tipstep.json`,
+and `research/hypotheses_tipstep.md`. The canonical THVC decision below is unchanged.
 
 ## Latest review — 2026-10-22, session `1f9d2dc9`
 ## Current review — session `a26add66` (2026-10-22)

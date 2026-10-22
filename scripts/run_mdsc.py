@@ -17,6 +17,7 @@ from scipy.stats import rankdata, spearmanr
 from sklearn.metrics import roc_auc_score
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "vendor"))
 sys.path.insert(0, str(ROOT / "scripts"))
 from gems57 import evaluate_holdout as eh
@@ -24,6 +25,7 @@ from gems57 import holdout
 from gems57.grid import load_grid
 from gems57.evaluate_holdout import pooled_summary
 from run_h80_drape_pilot import BUDGET, SEP_PX, greedy_place, normalise, pooled_terms
+from gems79.lifecycle import enforce_open_lane
 
 OUT = ROOT / "evidence" / "mdsc_8e58a8d0"
 CACHE = ROOT / ".cache" / "mdsc_8e58a8d0"
@@ -137,6 +139,7 @@ def run_seed(seed, grid, s_a, s_b, feats):
 
 
 def main():
+    enforce_open_lane(ROOT, 'G79-MDSC-8e58a8d0', reason='run_mdsc.py')
     OUT.mkdir(parents=True, exist_ok=True); CACHE.mkdir(parents=True, exist_ok=True)
     grid = load_grid(ROOT / "data/raw")
     s_a, s_b, feats, info = build_surface(grid.footprint)

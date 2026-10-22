@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "session": "aa2b12b5",
+  "reviewed_utc": "2026-10-22T21:03:19Z",
+  "retrieval_method": "Official/public pages read with research fetch_page; GitHub repository metadata/files read with authenticated gh; local rasters and scripts inspected directly. A page or file listing is not binary acquisition or organizer authentication.",
+  "official_sources": [
+    {
+      "id": "DD-PROBLEM",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+      "access": "both chunks read",
+      "claims": [
+        "Target objects are geological faults indicative of geothermal resources; initial test labels are expert-identified faults absent from the public USGS database.",
+        "Metric is distance-weighted Tversky with alpha 0.2, beta 0.8 and a 300 m triangular kernel.",
+        "Submission is a single-layer float32 GeoTIFF with values in [0,1], matching CRS/resolution/bounds; the text requires null or NaN outside the bounds."
+      ],
+      "limits": "No hidden labels, per-account slots or submission receipt are exposed."
+    },
+    {
+      "id": "DD-LEADERBOARD",
+      "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+      "access": "public rows read",
+      "evidence_class": "PUBLIC-LEADERBOARD OBSERVATION",
+      "claims": [
+        "Rank 1 is xiaofanhu at 0.4413."
+      ],
+      "limits": "This is not an artifact-linked submission-page receipt and not this project's score."
+    },
+    {
+      "id": "DD-REFERENCE",
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "access": "GitHub page/README inspected; commit aebe92f7c8a990f0e3443451b7a825d9afd6336b",
+      "claims": [
+        "Official baseline provides CPU and GPU environment options."
+      ],
+      "limits": "The baseline does not establish this repository's model performance or provide the hidden test labels."
+    },
+    {
+      "id": "USGS-GEODAWN",
+      "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+      "doi": "10.5066/P93LGLVQ",
+      "license": "CC0 1.0 Universal",
+      "access": "release description and ScienceBase attached-file listing read",
+      "claims": [
+        "Area 1 and Area 2 are overlapping surveys with different flight specifications.",
+        "ScienceBase lists 22103_area1_grids.zip at 42.43 MB and 22103_area2_grids.zip at 227.39 MB, plus outlines and flight paths.",
+        "Radiometrics inform surface geology/soil composition; magnetics inform subsurface structure/geology; variable terrain clearance is an interpretation caveat."
+      ],
+      "limits": "No Area 1/Area 2 archive was downloaded, hashed, co-registered or used in an experiment."
+    },
+    {
+      "id": "GDR-1391",
+      "url": "https://gdr.openei.org/submissions/1391",
+      "doi": "10.15121/1881483",
+      "license": "CC BY 4.0",
+      "access": "resource list read",
+      "claims": [
+        "Quaternary Faults v2.zip is publicly listed at 5.85 MB and supersedes v1.",
+        "The compilation includes fault, volcanic, thermal, geodetic, geophysical and well/spring datasets."
+      ],
+      "limits": "The v2 shapefile archive was not downloaded or hashed; metadata is not local geometry."
+    },
+    {
+      "id": "GDR-QFAULTS-FIELD-DEFINITIONS-MIRROR",
+      "url": "https://github.com/buffedlizard55-lab/60GEMSDOE/blob/b99591eede63c6d45c8a896255b8cd34824fa00b/data/external/qfaults_8_README_fielddefinitions_qfaults_ingenious_nad83conus117_2023-06-27.txt",
+      "access": "exact mirrored text inspected with gh",
+      "claims": [
+        "FCODE2023 distinguishes continuous/accurate, discontinuous/accurate and inferred fault locations.",
+        "MAPSCALE encodes mapping scale; RECNUM, SLIPRTNUM, DIPDIRECT and SLIPSENSE are separate attributes and may be unknown or unspecified."
+      ],
+      "limits": "Mirror inspection is not organizer authentication. Full geometry is required before per-trace use; centroid-only CSVs are insufficient for assigning attributes along every pixel."
+    }
+  ],
+  "h33_review": {
+    "site_url": "https://buffedlizard55-lab.github.io/GEMSDOE32/docs/index.html",
+    "site_access": "both chunks read",
+    "reported_score": 0.2778,
+    "reported_score_class": "UNVERIFIED HISTORICAL REPORT; no artifact-linked organizer submission-page receipt",
+    "site_self_description": "GEMSDOE32 labels the artifact UNSCORED and 0.2747 a model projection, not a score.",
+    "raster_measurements": {
+      "evidence_class": "RASTER-MEASUREMENT, NOT A SCORE",
+      "d28_positive_pixels": 44090,
+      "h33_positive_pixels": 37654,
+      "deleted_off_catalogue_pixels_within_2px": 6436,
+      "h33_equals_d28_pruned_distance_le_2px": true,
+      "source": "evidence/h33_forensics.json"
+    },
+    "causal_limit": "Thinning can reduce redundant summed false-positive cost while max-cover TP is unchanged, but deleting useful predictions can hurt. Hidden truth is required to establish the actual score effect."
+  },
+  "runtime_local_measurements": {
+    "manifest_inputs_verified": 13,
+    "manifest_inputs_expected": 13,
+    "receipt": "evidence/runtime_data_status_aa2b12b5.json",
+    "official_sample_portal_spec": "PASS",
+    "sample_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "new_candidate_raster": null,
+    "preflight": "evidence/preflight_aa2b12b5.json"
+  },
+  "score_policy": {
+    "organizer_confirmed_scores_for_this_session": null,
+    "new_holdout_dti_for_this_session": null,
+    "projected_scores": null,
+    "note": "No candidate was created or evaluated; missing measurements remain null, never zero."
+  },
+  "limitations": [
+    "DrivenData authentication, hidden labels, weekly account capacity and artifact-linked submission receipts are unavailable.",
+    "Owner-mirror SHA-256 checks establish byte consistency, not organizer provenance or redistribution clearance for every derivative.",
+    "The literal registry overlap rule blocks every nonempty candidate before scientific validation; the three hypotheses in research/hypotheses_aa2b12b5.md remain untested.",
+    "External source listings for the two conditional hypotheses do not prove local acquisition, schema suitability, footprint coverage or scientific utility."
+  ]
+}

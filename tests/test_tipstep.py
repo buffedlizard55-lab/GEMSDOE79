@@ -14,3 +14,24 @@ def test_tipstep_unique_valid_negative():
     with zipfile.ZipFile(TIF.with_suffix('.zip')) as z: assert z.read(TIF.name)==TIF.read_bytes()
     nov=json.loads((ROOT/'evidence/tipstep_novelty_local.json').read_text())
     assert nov['sparse_dot_rasters']['duplicates']==[] and nov['sparse_dot_rasters']['max_overlap']<0.70
+
+
+def test_tipstep_portal_and_control_limitations_are_explicit():
+    from gems79.portal_spec import validate_portal_file
+    card = json.loads((ROOT / 'run_card_tipstep.json').read_text())
+    report = validate_portal_file(TIF)
+    assert report['failed_rules'] == ['R6']
+    assert 'undiagnosed' in card['validator']['outside_footprint']
+    assert 'not comparable' in card['verdict_reason']
+    assert any('UNIFORM control' in item for item in card['audit_limitations'])
+    assert card['ok_to_submit'] is False and card['verdict'] == 'negative'
+
+
+def test_tipstep_page_is_generated_with_fifteen_page_contract():
+    from build_site import tipstep_page
+    page = tipstep_page()
+    assert 'Byte-distinct research TIF. Do not submit.' in page
+    assert 'FAIL R6' in page
+    assert 'Uniform-control caveat' in page
+    assert 'will NOT trigger' not in page
+    assert 'NaN-outside exports fail the range check' not in page

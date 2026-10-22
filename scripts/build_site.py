@@ -93,9 +93,9 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a href="g79-opc.html">OPC (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_a92a0164.md">Branch review · a92a0164</a> · <a href="{REPO}/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_aa2b12b5.md">Current review · aa2b12b5</a> · <a href="{REPO}/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
     line = decision_line(card)
     if promoted(card):
@@ -244,11 +244,12 @@ def novelty_explanation(summary, preflight):
 
 
 def current_review_notice(runtime_data):
-    """Build-time facts only; a CI rebuild may have different ignored raw inputs."""
+    """Current session facts only; ignored raw inputs can differ on a CI rebuild."""
     verified, expected = runtime_data['verified_count'], runtime_data['expected_count']
-    return f'''<section class="section"><div class="notice"><strong>Current review · a201fa92: no new TIFF; DO NOT SUBMIT.</strong>
-A hash-verified registry witness forces 100% overlap for every nonempty candidate, above the required 70% limit; we stopped before surface creation and placement. The inherited download also FAILS official outside-bounds rule R6. At this build, <strong>{verified}/{expected}</strong> owner-mirrored inputs are SHA-256 verified locally (checked {E(runtime_data['checked_utc'])} UTC); Git-ignored raw files are not shipped with the site and this is not organizer authentication.
-<a href="evidence/preflight_a201fa92.json">Measured stop ↗</a> · <a href="evidence/run_card_a201fa92.json">Negative run card ↗</a> · <a href="{REPO}/blob/main/reports/session_review_a201fa92.md">Three-pass review ↗</a></div></section>'''
+    preflight = load_json(ROOT / 'evidence/preflight_aa2b12b5.json')
+    return f'''<section class="section"><div class="notice"><strong>Current review · aa2b12b5: no new TIFF; DO NOT SUBMIT.</strong>
+A freshly restored, hash-verified registry witness covers {preflight['covered_allowed_fraction']:.0%} of allowed cells, forcing {preflight['covered_allowed_fraction']:.1f} forward overlap for every nonempty candidate under the literal {preflight['limit']:.0%} limit. We stopped before surface creation, canaries, holdout or placement. At this build, <strong>{verified}/{expected}</strong> owner-mirrored inputs are SHA-256 verified locally (checked {E(runtime_data['checked_utc'])} UTC); ignored raw files are not shipped with the site and this is not organizer authentication. The inherited download also FAILS official outside-bounds rule R6.
+<a href="evidence/preflight_aa2b12b5.json">Measured stop ↗</a> · <a href="evidence/run_card_aa2b12b5.json">Negative run card ↗</a> · <a href="{REPO}/blob/main/reports/session_review_aa2b12b5.md">Three-pass review ↗</a> · <a href="{REPO}/blob/main/research/hypotheses_aa2b12b5.md">Three untried hypotheses ↗</a></div></section>'''
 
 
 def latest_review_notice(preflight, runtime_data):
@@ -268,7 +269,7 @@ The pinned witness covers {coverage:.0%} of allowed cells against the literal {l
 def home(card, summary, preflight, h33, latest_preflight, runtime_data):
     dots = card['positive_pixels']
     c = summary['canaries']
-    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map, not a newly generated submission. Its grid and in-footprint values pass local checks, but its zero-filled exterior fails the separate official-text format check (R6), and its full novelty gate fails. <strong>OK TO DOWNLOAD: YES, for research. OK TO SUBMIT: NO.</strong> Archived lanes are separate research results; byte-distinct does not mean protocol-unique. <a href="{REPO}/blob/main/reports/session_review_50335987.md">Latest review: ZIP validation corrected; no new candidate ↗</a></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="g79-cskd.html">Open G79-CSKD (0.2145 Seed-30 record) ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map, not a newly generated submission. Its grid and in-footprint values pass local checks, but its zero-filled exterior fails the separate official-text format check (R6), and its full novelty gate fails. <strong>OK TO DOWNLOAD: YES, for research. OK TO SUBMIT: NO.</strong> Archived lanes are separate research results; byte-distinct does not mean protocol-unique. <a href="{REPO}/blob/main/reports/session_review_aa2b12b5.md">Current review: data restored; literal novelty stop; no new candidate ↗</a></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="g79-cskd.html">Open G79-CSKD (0.2145 Seed-30 record) ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div><figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
 {current_review_notice(runtime_data)}
 {latest_review_notice(latest_preflight, runtime_data)}
 <div class="metric-grid">{metric('Official format', 'PASS' if _portal_format(str(ROOT / card['submission_file']))['ok'] else 'FAIL ' + ','.join(_portal_format(str(ROOT / card['submission_file']))['failed_rules']), 'R1–R8 · see decision guide', stop=not _portal_format(str(ROOT / card['submission_file']))['ok'])}{metric('Full novelty', 'BLOCKED', f"{summary['dots']['max_forward_overlap_3px']:.4f} overlap; limit 0.70", stop=True)}{metric('Feature canaries', f"{c['feature_seed_tests']} tests", f"{c['feature_count']} features × 2 seeds; max AUC {c['max_symmetric_auc']:.5f}")}{metric('This review', '0 experiments', '0 new placements · 0 slots spent')}</div>
@@ -696,6 +697,53 @@ SHA-256 <code>{c['raster_sha256']}</code> \u00b7 {val['emitted_positive_pixels']
 <p>Full record: <a href="{REPO}/blob/main/reports/session_review_8e58a8d0.md">session review 8e58a8d0</a> \u00b7 <a href="{REPO}/blob/main/run_card_mdsc.json">run_card_mdsc.json</a></p></section>'''
 
 
+def tipstep_page():
+    """Render the closed TIPSTEP lane without inflating its evidence scope."""
+    path = ROOT / 'run_card_tipstep.json'
+    if not path.exists():
+        return page_head('G79-TIPSTEP', 'No TIPSTEP artifact is registered.')
+    c = json.loads(path.read_text())
+    raster_rel = c['raster']['file']
+    tif = Path(raster_rel).name
+    zipf = Path(raster_rel).with_suffix('.zip').name
+    raw_tif = f'{REPO}/raw/main/{raster_rel}'
+    raw_zip = f'{REPO}/raw/main/{Path(raster_rel).with_suffix(".zip").as_posix()}'
+    h = c['holdout']
+    nov = c['novelty_vs_registry']
+    sparse = nov['sparse_dot_rasters']
+    portal = validate_portal_file(ROOT / raster_rel)
+    official = 'PASS' if portal['ok'] else 'FAIL ' + ','.join(portal['failed_rules'])
+    canary_values = [float(x) for values in h['leakage_canaries'].values()
+                     if isinstance(values, list) for x in values
+                     if isinstance(x, (int, float)) and not isinstance(x, bool)]
+    canary_max = max(canary_values)
+    return f'''{page_head('G79-TIPSTEP / CLOSED NEGATIVE LANE',
+        'Byte-distinct research TIF. Do not submit.',
+        'Generated in a prior session. Local format and sparse-map diagnostics do not clear full-registry novelty or the holdout incumbent.')}
+<section class="section"><div class="download-warning"><strong>OK TO DOWNLOAD: YES (research only). OK TO SUBMIT: NO.</strong><br>
+{E(c['verdict_reason'])}</div>
+<div class="actions"><a class="button" href="{E(raw_tif)}" download>↓ Research GeoTIFF</a><a class="button secondary" href="{E(raw_zip)}" download>↓ ZIP containing the same TIFF</a></div>
+<p class="micro">These links fetch the preserved bytes from the GitHub repository. They are not submission approval.</p>
+<div class="panel"><h3>Immutable research identity</h3><p><strong>Name:</strong> <code>{E(c['submission_name'])}</code><br>
+<strong>Note ({c['submission_note_chars']}/140 characters):</strong> {E(c['submission_note'])}<br>
+<strong>SHA-256:</strong> <code>{E(c['raster']['sha256'])}</code><br>
+<strong>Positive pixels:</strong> {c['raster']['dots']:,}</p></div></section>
+<section class="section"><h2>Automated evidence and limits</h2><div class="table-scroll"><table><thead><tr><th>Check</th><th>Result</th><th>Scope</th></tr></thead><tbody>
+<tr><td>Local grid/range</td><td>PASS</td><td>Single float32 band, EPSG:32611, 3730 × 3292, sample transform, finite values in [0,1]. This does not diagnose an earlier portal rejection.</td></tr>
+<tr><td>Official R1–R8 format</td><td>{E(official)}</td><td>The zero-filled exterior fails R6; official text requires null/NaN outside the sample footprint. No upload should be attempted.</td></tr>
+<tr><td>Leakage canaries</td><td>PASS on frozen checks</td><td>Maximum symmetric AUC {canary_max:.4f} ≤ 0.90; necessary, not proof against every leakage pathway.</td></tr>
+<tr><td>HOLDOUT-DTI · seed 20</td><td>{h['seed20']['dti']:.4f} [{h['seed20']['ci95'][0]:.4f}, {h['seed20']['ci95'][1]:.4f}]</td><td>{E(h['evaluator_version'])}; n = {h['seed20']['withheld_positive_pixels']:,} withheld positives; below the incumbent.</td></tr>
+<tr><td>HOLDOUT-DTI · seed 30</td><td>{h['seed30']['dti']:.4f} [{h['seed30']['ci95'][0]:.4f}, {h['seed30']['ci95'][1]:.4f}]</td><td>{E(h['evaluator_version'])}; n = {h['seed30']['withheld_positive_pixels']:,} withheld positives; below the incumbent.</td></tr>
+<tr><td>Full-registry novelty</td><td>NOT CLEARED</td><td>{E(nov['full_registry_gate'])}. The frozen universal witness independently stops every nonempty candidate.</td></tr>
+<tr><td>Local sparse diagnostic only</td><td>{sparse['n']} rasters; max overlap {sparse['max_forward_overlap_3px']:.4f}; max |ρ| {sparse['max_abs_spearman_sample200k']:.4f}</td><td>Not the full registry and not a uniqueness certificate or promotion gate.</td></tr>
+<tr><td>Selector / organizer score</td><td>NOT APPROVED / NONE</td><td>Zero slots used. No ORGANIZER-CONFIRMED score exists for this artifact.</td></tr>
+</tbody></table></div></section>
+<section class="section prose"><h2>Two corrections to the original page</h2><ul>
+<li><strong>No portal-cause claim:</strong> an all-finite [0,1] interior cannot prove why a different upload was rejected. This file also fails official R6 because its exterior is zero rather than NaN.</li>
+<li><strong>Uniform-control caveat:</strong> the historical runner builds TIPSTEP's allowed domain from the visible catalogue but the uniform control uses <code>distance_to_full_catalogue &gt; 2 px</code>. That excludes a hidden-truth collar only for the control. The reported candidate-minus-uniform contrast is therefore not a fair promotion measurement; it is not used to support this artifact. The candidate's below-incumbent result and negative verdict remain unchanged.</li></ul>
+<p>Evidence: <a href="{REPO}/blob/main/run_card_tipstep.json">run card</a> · <a href="{REPO}/blob/main/evidence/tipstep_experiment1.json">holdout receipt</a> · <a href="{REPO}/blob/main/evidence/tipstep_novelty_local.json">local novelty diagnostic</a> · <a href="{REPO}/blob/main/scripts/run_tipstep.py">historical runner and control mask</a>. Closed-lane scripts now refuse to rerun or replace these bytes.</p></section>'''
+
+
 def main():
     report = verify()
     if not report['all_checks_passed']:
@@ -724,6 +772,10 @@ def main():
         (SITE / d).mkdir(parents=True, exist_ok=True)
     map_preview(card)
     copies = {'run_card.json': 'run_card.json', 'evidence/verification.json': 'verification.json',
+              'evidence/preflight_aa2b12b5.json': 'preflight_aa2b12b5.json',
+              'evidence/run_card_aa2b12b5.json': 'run_card_aa2b12b5.json',
+              'evidence/source_review_aa2b12b5.json': 'source_review_aa2b12b5.json',
+              'evidence/runtime_data_status_aa2b12b5.json': 'runtime_data_status_aa2b12b5.json',
               'evidence/h33_forensics.json': 'h33_forensics.json',
               'evidence/universal_overlap_certificate.json': 'universal_overlap_certificate.json',
               'evidence/witness_review_20261022_a7d092d7.json': 'witness_review_20261022_a7d092d7.json',
@@ -901,7 +953,7 @@ def main():
         'research.html': ('Deferred geological hypotheses',
                           page_head('HYPOTHESES / PREREGISTERED LANES', 'Test a mechanism. Name its mimic.',
                                     'Current source-checked shortlist first; older proposal files are linked for provenance, not restated as current hypotheses or measured results.')
-                          + '<section class="section">' + md('research/hypotheses_a92a0164.md') + '</section>'
+                          + '<section class="section">' + md('research/hypotheses_aa2b12b5.md') + '</section>'
                           + '<section class="section"><div class="notice"><strong>Historical proposal archive.</strong> These dated files are not execution evidence or current rankings. Some include speculative score projections or superseded availability claims; no such projection is a result. Current source availability and the fail-closed stop are in the shortlist above.</div><ul>'
                           + f'<li><a href="{REPO}/blob/main/research/hypotheses_9eb122ea.md">research/hypotheses_9eb122ea.md</a></li>'
                           + f'<li><a href="{REPO}/blob/main/research/hypotheses_9574eb05.md">research/hypotheses_9574eb05.md</a></li>'
@@ -927,6 +979,7 @@ def main():
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),
         'g79-opc.html': ('G79-OPC new TIF \u2014 oriented pair-correlation lane, automated gate verdict', opc_page()),
         'g79-cjxdir.html': ('G79-CJX-DIR — new unique research GeoTIFF (do not submit)', cjxdir_page()),
+        'tipstep-submission.html': ('G79-TIPSTEP — closed negative research artifact', tipstep_page()),
     }
     for filename, (title, content) in pages.items():
         (SITE / filename).write_text(shell(title, content, card))
@@ -956,6 +1009,8 @@ def main():
         'scientific_summary_sha256': hashlib.sha256((SITE / 'evidence/evidence_summary.json').read_bytes()).hexdigest(),
         'runtime_data_status_sha256': hashlib.sha256((SITE / 'evidence/runtime_data_status.json').read_bytes()).hexdigest(),
         'runtime_data_all_manifest_inputs_ready': runtime_data['all_manifest_inputs_ready'],
+        'current_session_preflight_sha256': hashlib.sha256((SITE / 'evidence/preflight_aa2b12b5.json').read_bytes()).hexdigest(),
+        'current_session_run_card_sha256': hashlib.sha256((SITE / 'evidence/run_card_aa2b12b5.json').read_bytes()).hexdigest(),
         'latest_preflight_sha256': hashlib.sha256((SITE / 'evidence/preflight_a92a0164.json').read_bytes()).hexdigest(),
         'latest_review_card_sha256': hashlib.sha256((SITE / 'evidence/run_card_a92a0164.json').read_bytes()).hexdigest(),
         'latest_source_review_sha256': hashlib.sha256((SITE / 'evidence/source_review_a92a0164.json').read_bytes()).hexdigest(),
