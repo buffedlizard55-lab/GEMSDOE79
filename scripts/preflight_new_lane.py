@@ -4,8 +4,8 @@
 No model training, dot placement, holdout, competition upload or protocol change.
 The literal definition is finite positive support, not the optional budget-matched
 interpretation. A full-footprint witness blocks *any* nonempty dot set.
-Exit 0 means the one witnessed impossibility is absent (NOT novelty approval),
-exit 2 means duplicate is mathematically unavoidable, exit 3 means unverified.
+Exit 2 means duplicate is mathematically unavoidable; exit 3 means unverified.
+This rejection-only check never returns exit 0 or authorizes a new lane.
 """
 from __future__ import annotations
 import argparse

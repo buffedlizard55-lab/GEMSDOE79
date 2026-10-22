@@ -26,11 +26,11 @@
 
 1. **Caught & Fixed `float16` Overflow on High-Resistivity MT Channels (`src/gems79/pfsd_model.py`):**
    - Initial shard cast `.astype(np.float16)` overflowed raw `mt_res_*` (`> 65,504` $\Omega\cdot\text{m}$); changed `shards[q]["X"]` to `float32` (`~117 MB` total) and clamped `float16` buffers cleanly to `[-30000, 30000]` (`0` `RuntimeWarning`s across Seeds 20, 30, and Live).
-2. **Caught & Fixed Unbiased Stage-1/Stage-2 Horvitz-Thompson Sampling & `300 m` Support Alignment (`IR-79-145`):**
+2. **Caught & Fixed Unbiased Stage-1/Stage-2 Horvitz-Thompson Sampling & `300 m` Support Alignment (`IR-79-209`):**
    - Preserved `halo_pool` (`0 < q < 1`) with exact inverse-probability weights in `build_decontaminated_quadrant_shards`, replaced integer `np.roll` shifts with bilinear `_sparse_line_integral` + Hessian Sato tubularity, and aligned placement support (`d_known > 3.0 px`) with the `d_sim_vis > 3.0 px` flank-decontaminated training domain so `13,411` dots were no longer extrapolated into the untrained `2.0–3.0 px` collar.
-3. **Caught & Fixed `(truth, pred)` Argument-Order Swap in `dti_binary` (`IR-79-144`):**
+3. **Caught & Fixed `(truth, pred)` Argument-Order Swap in `dti_binary` (`IR-79-208`):**
    - Discovered `scripts/run_g79_thvc.py:195, 237` passed `(truth, pred)` in reverse order to `metric.dti_binary(pred_bool, truth)`; fixed in `scripts/run_pfsd.py:189, 297` and logged in `reports/irregularities.md`.
-4. **Flagged Prior Backlog Numeric Projections (`IR-79-143`) & Sealed Closed-Lane CLI Guard (`IR-79-147`):**
+4. **Flagged Prior Backlog Numeric Projections (`IR-79-207`) & Sealed Closed-Lane CLI Guard (`IR-79-211`):**
    - Flagged `research/hypotheses_post_thvc_backlog.md:21-25` in `reports/irregularities.md`, verified `scripts/run_pfsd.py` exits `2` (`No files changed.`) before `lightgbm` import when `experiment_state.json` is `closed`, and verified zero `/home/user/GEMSDOE79` machine paths in any JSON receipt.
 
 ---

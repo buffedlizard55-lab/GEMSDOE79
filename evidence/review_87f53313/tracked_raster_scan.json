@@ -1,0 +1,1504 @@
+{
+  "schema": "tracked_raster_scan.v2",
+  "rule_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "n_tracked_rasters": 39,
+  "n_prediction_artifacts": 32,
+  "n_reference_inputs": 7,
+  "flagged_prediction_artifacts": [],
+  "reference_inputs_outside_0_1": [
+    "archive/h79_cspt_3d386a3/data/bridge/existing_faults.tif",
+    "archive/h79_cspt_3d386a3/data/bridge/labels.tif",
+    "archive/h79_mct_c26efec/data/bridge/existing_faults.tif",
+    "data/reference/existing_faults.tif"
+  ],
+  "flagged_outside_0_1_or_error": [
+    "archive/h79_cspt_3d386a3/data/bridge/existing_faults.tif",
+    "archive/h79_cspt_3d386a3/data/bridge/labels.tif",
+    "archive/h79_mct_c26efec/data/bridge/existing_faults.tif",
+    "data/reference/existing_faults.tif"
+  ],
+  "records": [
+    {
+      "path": "archive/concurrent_2026-10-22_5d14587/docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/concurrent_2026-10-22_5d14587/docs/e2_downloads/h79-ml-strain-relay-dotted-20261022-7ef42077.tif",
+      "role": "prediction_artifact",
+      "sha256": "05038613e608fb119cc60541d669beddd446eaa37d6a764aa47b13ba737a8ee4",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/fgr_cb54ff09/downloads/gems79-h79-fgr-farfield-38000dots-20261022T045243Z-72c45bc4-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "ff7c2ee62948e7760e1617fe7a2e48aa18782ef2878b400146068f6b46520442",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241160,
+      "n_positive": 38000,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "418d1292e9d27314e94597185e8858ff4697ec161f7aa66864a078091a7bbe85",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_cjxdir/gems79-cjx-junction-20000dots-20261022T154845Z-7ee99228b5-zeros.tif",
+      "role": "prediction_artifact",
+      "sha256": "5bdebaafc7c15bd6f9de6092398c86618986d19d4d06075acf92386948563e47",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12259160,
+      "n_positive": 20000,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_etp_incoming_45998a01/downloads/g79-etp-elastic-tip-28761dots-20261022T140921Z-e2203dcf-zeros.tif",
+      "role": "prediction_artifact",
+      "sha256": "e2203dcf897e210dc124b48138ad57690bc7f19ec3f2df3830acc64b7de90e67",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12250399,
+      "n_positive": 28761,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_etp_incoming_45998a01/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+      "role": "prediction_artifact",
+      "sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12244660,
+      "n_positive": 34500,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 10396288,
+      "n_positive": 1882872,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 0.7477255463600159,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_fabric_offset_f61b17a2/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 10396288,
+      "n_positive": 1882872,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 0.7477255463600159,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_ff1/downloads/gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "db87c3fc47360f6d7bcd2a0de174d0626a379f4af3f14ddbd3de527d323e1770",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
+      "role": "prediction_artifact",
+      "sha256": "e48a9293bae098bee570160e44aeffc511347080876ecb96bd7688946b82e40e",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_mag_730d5ee7/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif",
+      "role": "prediction_artifact",
+      "sha256": "e48a9293bae098bee570160e44aeffc511347080876ecb96bd7688946b82e40e",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_stepco_s1/downloads/gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "6ae07fbf14dfe2d169aa9f926c54ee5e74215d7c569ffcc325cb91da297e510a",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_stepco_s2/downloads/gems79-stepco-s2cover-37654dots-20261022T021024Z-7e676fe2-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "d50974d1f9148adf0e0a484052c97579af0c50e079d8afd6d6ac2cc22541497c",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12244067,
+      "n_positive": 35093,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/g79b_sdpt_67557396/downloads/gems79b-sdpt-a3-37654dots-20261022T022252Z-0b639b8d-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "7f88b358f8d0bbdcb529a3d69d23abfb824473c9ba41c1398f6f0b963527ba03",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_cov_e23d5371/downloads/gems79-h79-cov-research-37654dots-20261022T044820Z-eee84d40-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "77d66736a59fe84f54a1474c2198745c1ae94fe56546eacbd1fe3084b6a6d14a",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_cspt_3d386a3/data/bridge/existing_faults.tif",
+      "role": "reference_input",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "int8",
+      "dtypes": [
+        "int8"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": -1.0,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": true,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 5106385,
+      "n_positive": 60988,
+      "n_sentinel": 0,
+      "min": -1.0,
+      "max": 1.0,
+      "n_outside_0_1": 7111787,
+      "non_single_band_float32": true
+    },
+    {
+      "path": "archive/h79_cspt_3d386a3/data/bridge/labels.tif",
+      "role": "reference_input",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "int8",
+      "dtypes": [
+        "int8"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": -1.0,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": true,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 5106385,
+      "n_positive": 60988,
+      "n_sentinel": 0,
+      "min": -1.0,
+      "max": 1.0,
+      "n_outside_0_1": 7111787,
+      "non_single_band_float32": true
+    },
+    {
+      "path": "archive/h79_cspt_3d386a3/data/bridge/sample_submission.tif",
+      "role": "reference_input",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": true,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 7111787,
+      "n_inf": 0,
+      "n_finite": 5167373,
+      "n_zero": 5106385,
+      "n_positive": 60988,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_cspt_3d386a3/docs/downloads/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif",
+      "role": "prediction_artifact",
+      "sha256": "388d86783e743a7f1a466e5f2cc58e5a694da12908a3ffe14bb8e55409cf75fc",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12242660,
+      "n_positive": 36500,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_cspt_3d386a3/submissions/gemsdoe79-h79-cspt-kkt1swap-36500-20261021T223000Z-zeros.tif",
+      "role": "prediction_artifact",
+      "sha256": "388d86783e743a7f1a466e5f2cc58e5a694da12908a3ffe14bb8e55409cf75fc",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12242660,
+      "n_positive": 36500,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_dilstep_6444be2d/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif",
+      "role": "prediction_artifact",
+      "sha256": "b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_ffas_c04e5e27/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_fnhr_a57e2a7f/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "d5f69d51e9f14b624cd5bca5f4207886d29d8aba05674f522d224bb2b7fb6fcc",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_mct_c26efec/data/bridge/existing_faults.tif",
+      "role": "reference_input",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "int8",
+      "dtypes": [
+        "int8"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": -1.0,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": true,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 5106385,
+      "n_positive": 60988,
+      "n_sentinel": 0,
+      "min": -1.0,
+      "max": 1.0,
+      "n_outside_0_1": 7111787,
+      "non_single_band_float32": true
+    },
+    {
+      "path": "archive/h79_mct_c26efec/data/bridge/sample_submission.tif",
+      "role": "reference_input",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": true,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 7111787,
+      "n_inf": 0,
+      "n_finite": 5167373,
+      "n_zero": 5106385,
+      "n_positive": 60988,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_mct_c26efec/docs/downloads/gems79-h79-mct-capped-37654-20261021T222726Z-2987c74e-zeros.tif",
+      "role": "prediction_artifact",
+      "sha256": "d1a4158acb3b6593c659ef37749bc80c5af0ddf20c62357554462e0870b7df6d",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_nhr_337ac1e9/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_nhr_337ac1e9/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "archive/h79_step_21642326/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+      "role": "prediction_artifact",
+      "sha256": "a422d9a08a07a089f304a0ce7f76eca35bcfeff82877af7ee5034e3f94c294e1",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12241506,
+      "n_positive": 37654,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12267160,
+      "n_positive": 12000,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "data/reference/existing_faults.tif",
+      "role": "reference_input",
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "int8",
+      "dtypes": [
+        "int8"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": -1.0,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": true,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 5106385,
+      "n_positive": 60988,
+      "n_sentinel": 0,
+      "min": -1.0,
+      "max": 1.0,
+      "n_outside_0_1": 7111787,
+      "non_single_band_float32": true
+    },
+    {
+      "path": "data/reference/sample_submission.tif",
+      "role": "reference_input",
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": true,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 7111787,
+      "n_inf": 0,
+      "n_finite": 5167373,
+      "n_zero": 5106385,
+      "n_positive": 60988,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    },
+    {
+      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "role": "prediction_artifact",
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "dtypes": [
+        "float32"
+      ],
+      "count": 1,
+      "single_band": true,
+      "bands_checked": 1,
+      "nodata": null,
+      "nodata_is_nan": false,
+      "nodata_outside_0_1": false,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "n_nan": 0,
+      "n_inf": 0,
+      "n_finite": 12279160,
+      "n_zero": 12244067,
+      "n_positive": 35093,
+      "n_sentinel": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "n_outside_0_1": 0,
+      "non_single_band_float32": false
+    }
+  ]
+}

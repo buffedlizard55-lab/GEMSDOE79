@@ -434,6 +434,12 @@ def stage_place():
 
 
 if __name__ == "__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "G79-BER",
+        reason="G79-BER is stopped and archived (HOLDOUT-DTI 0.0788/0.0882 < H33; surface duplicate).",
+    )
     ap = argparse.ArgumentParser()
     ap.add_argument("stage", choices=["features", "holdout", "final", "uniqueness", "place"])
     ap.add_argument("phase", nargs="?", choices=["surface", "final"])

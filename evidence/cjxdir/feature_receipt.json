@@ -1,0 +1,93 @@
+{
+  "bands": {
+    "rtp": {
+      "band": 2,
+      "valid_footprint_cells": 5164312,
+      "min": -2786.299560546875,
+      "max": 4508.76025390625
+    },
+    "grav": {
+      "band": 13,
+      "valid_footprint_cells": 5164312,
+      "min": -45.75756072998047,
+      "max": 24.232954025268555
+    },
+    "abs_tmi_hg_rank": {
+      "band": 3,
+      "valid_footprint_cells": 5164312,
+      "min": 0.004909869749099016,
+      "max": 2200.4365234375,
+      "statistic": "percentile rank of |value|"
+    },
+    "abs_grav_hg_rank": {
+      "band": 18,
+      "valid_footprint_cells": 5164312,
+      "min": -15.441243171691895,
+      "max": 12.856057167053223,
+      "statistic": "percentile rank of |value|"
+    }
+  },
+  "fill_medians": {
+    "rtp": -137.22166442871094,
+    "grav": -7.26103401184082
+  },
+  "band_descriptions": {
+    "1": "mag_anom - Magnetic anomaly - deviation from expected Earth's magnetic field",
+    "2": "rtp - Reduced to pole magnetic data - magnetic anomaly corrected for latitude effects",
+    "3": "tmi_hg - Total magnetic intensity horizontal gradient - rate of change in horizontal direction",
+    "4": "geod_2ndinv - Geodetic second invariant - measure of strain rate tensor magnitude",
+    "5": "iso_grav_anom_slope - Isostatic gravity anomaly slope - gradient of gravity after isostatic correction",
+    "6": "tc - Tilt angle or total curvature - magnetic field derivative for edge detection",
+    "7": "geod_shearrate - Geodetic shear rate - rate of angular deformation from GPS/InSAR",
+    "8": "geod_dilaterate - Geodetic dilatation rate - rate of volumetric strain (expansion/contraction)",
+    "9": "tmi_vg - Total magnetic intensity vertical gradient - rate of change in vertical direction",
+    "10": "deq_n100a15 - Distance to earthquake (n=100km radius, a=15\u00b0 azimuth parameters)",
+    "11": "iso_grav_anom_vg - Isostatic gravity anomaly vertical gradient - vertical rate of change",
+    "12": "det_elev - Detrended elevation - topography with regional trends removed",
+    "13": "iso_grav_anom - Isostatic gravity anomaly - gravity after compensating for topographic mass",
+    "14": "tmi - Total magnetic intensity - total strength of magnetic field",
+    "15": "depth_to_base_surf - Depth to basement surface - thickness of sedimentary cover",
+    "16": "ieq_n100a15 - Earthquake intensity or density (n=100km radius, a=15\u00b0 parameters)",
+    "17": "cond_surf - Conductivity surface - electrical conductivity of subsurface",
+    "18": "iso_grav_anom_hg - Isostatic gravity anomaly horizontal gradient - horizontal rate of change",
+    "19": "det_elev_slope - Detrended elevation slope - gradient of elevation after detrending"
+  },
+  "features": [
+    "raw_rtp_rank",
+    "raw_grav_rank",
+    "j_rtp_s1",
+    "j_rtp_s2",
+    "j_rtp_s4",
+    "j_grav_s1",
+    "j_grav_s2",
+    "j_grav_s4",
+    "pers_rtp",
+    "pers_grav",
+    "edge_rtp_s2",
+    "edge_grav_s2",
+    "CJXJ",
+    "CJXFULL",
+    "abs_tmi_hg_rank",
+    "abs_grav_hg_rank",
+    "EDGE"
+  ],
+  "feature_files_sha256": {
+    "raw_rtp_rank": "753514dd760e6db09c9519352e6df32b5c8c2e1a02ba637843f7e83d580adba8",
+    "raw_grav_rank": "f2896c595b297561a971bed455a3e76e167dcb0a6dca50c6b0bd04e80651758a",
+    "j_rtp_s1": "f487a8c80f814a9d4c6f2ae5f166d5177ff5d17d87ab7a20c7741a2bac7e2707",
+    "j_rtp_s2": "2b3af2456177a3ed84798706c14c1cb1ca02e4ee3d170de0e397cca3b5638928",
+    "j_rtp_s4": "77c33508dba868c8a6ef21075247afd33ebcb545a4fa0e4623ec0ef16c69d34c",
+    "j_grav_s1": "609f8c87e5b2e356282e050463be2e94f2223acb9d7e6b33565f9abd0eb2cb82",
+    "j_grav_s2": "1e305e04a57f04072cba3ae89e7f61022475ec617f34c7e33b250e831295736c",
+    "j_grav_s4": "d9054beb21a3efa15919839ecaf39fff4006e77b449d1bd616eabbe1c035b105",
+    "pers_rtp": "dbdcfc13e1e0f80e96316c2a5b5ff707fe444e33ca3c8a104eb21c6158a9ad1f",
+    "pers_grav": "371d133a2673dbaf70b0858143910155e5ce7d93f83bef5792dea6d2515971b6",
+    "edge_rtp_s2": "09ad07d61b5e1ee6e3e2df766f37c20debec2a541cd9f5727dbd9254f3c2d128",
+    "edge_grav_s2": "f83a839ea4543b03c463af1bb1ce23f4275ffffd4588ae264d946cce49b28ce2",
+    "CJXJ": "22aeee552abb043df1d5beaabed30466df693e99b0cd1bdb6d677750c315625a",
+    "CJXFULL": "abe57149bbedebf35387f7503186dd2922b59205635caecc7eb5a892832ceb28",
+    "abs_tmi_hg_rank": "39f8f0bc4a5bb9d30720dc145543e3daba79c2ac4af5185c55820b8dc0a6829a",
+    "abs_grav_hg_rank": "b0b24714784744e363a2fe3babf970a3120a200dfafb835fb81e058e8630a242",
+    "EDGE": "e4e24344d27725741af355e05d3a5ffd4535dbe5ec37929b510e7edc0ec3d47b"
+  }
+}

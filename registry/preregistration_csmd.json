@@ -1,0 +1,50 @@
+{
+  "schema_version": "gems79-preregistration-v1",
+  "preregistered_utc": "2026-10-22T14:25:00Z",
+  "branch": "arena/1dc8cff0-gemsdoe79",
+  "lane": "G79-CSMD",
+  "title": "Coulomb Stress-Shadow, Sub-Smectite MT-Gravity, Potassic Kd, Drape-Notched Magnetics, Slip-Deficit & Flank-Decontaminated Charnes-Cooper Multi-Regime Discovery",
+  "hypothesis": "Fixing the 4:1 false-negative scarp-flank training contamination (d_known >= 3.0 px in far_pool and 100%-visible flank-decontaminated pure-physics head) while adding 4 new static physical transforms (H80-MT-PHASE sub-smectite conductivity x basement-depth normal colinearity, H80-DRAPE-DECONV 400 m flight-line Butterworth notch + drape-corrected magnetic wavenumber depth, H80-RADIO-KD cross-fitted potassic adularia residual Kd, H80-SLIP-DEFICIT piedmont relief junction step) and 2 strictly fold-visible elastic mechanics channels (H80-COULOMB-CFS planar Coulomb failure stress lobe/shadow and H80-SLIP-DEFICIT gap inversion) coupled with Coulomb-shadow-penalized Charnes-Cooper submodular kernel allocation improves zero-catalogue pure-physics HOLDOUT-DTI over G79-THVC EXP-79-1 (0.0784 / 0.0648), beats H33 fold-fair control (0.0961 / 0.0989) on both holdout seeds with paired 95% CIs strictly > 0, and eliminates the 0.7139 > 0.70 forward 3-px collision with live post-index GEMSDOE83 (< 0.70 across all comparable sparse <= 75,308-dot submissions in the 1,212-raster universe).",
+  "mechanism": "Normal slip on segmented Great Basin faults transfers positive Coulomb failure stress (Delta CFS > 0) into forward propagation cones and 15-45 deg en-echelon relay step-overs while casting a negative stress shadow (Delta CFS < 0) across perpendicular lateral flanks (300-2500 m). Far-field unmapped faults (>1.2 km from mapped traces) express co-aligned electrical conductivity and gravity basement-depth steps beneath smectite clay caps, potassic adularia-illite alteration (+K normalized by immobile eTh) with magnetite oxidation, shallow intra-sedimentary magnetic wavenumber steps masked by 400 m E-W flight-line corrugation, and piedmont scarp steps conserving range-front footwall structural relief.",
+  "named_non_fault_process": "Isotropic 200-800 m distance halos on stress-shadowed perpendicular flanks of mapped faults, pluvial Lake Lahontan/Bonneville shoreline risers, closed-basin illite/potash playas, E-W 400 m aeromagnetic tie-line leveling corrugation, incised alluvial fan channel banks, and TIGER/Line highway/railroad embankments.",
+  "evaluator": {
+    "module": "vendor/gems57/evaluate_holdout.py",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seeds": [20, 30],
+    "bootstrap_draws": 1000,
+    "block_size_m": 20000.0,
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "buffer_px": 3
+  },
+  "experiments": [
+    {
+      "id": "CSMD-1",
+      "name": "EXP-CSMD-1_pure_zero_catalogue_decontam",
+      "description": "74-channel static physical & hydrothermal stack (zero existing_faults.tif topology features), trained across 4 spatial quadrants on 100% of fold-visible faults (vis) with 1 <= d_vis < 3.0 px scarp flanks excluded from negatives, emitted at 37,654 dots (3.0 px Poisson spacing)."
+    },
+    {
+      "id": "CSMD-2",
+      "name": "EXP-CSMD-2_csmd_uniform_d28",
+      "description": "Full 90-channel G79-CSMD stack (74 static + 16 strictly fold-visible topology & Coulomb stress/slip-deficit channels), flank-decontaminated (d_known >= 3.0 px) two-stage dual-head ensemble (p_exact, q_300m) blended with the 100%-visible pure-physics far-field head, emitted at uniform 2.8 px Poisson spacing (max 37,654 dots)."
+    },
+    {
+      "id": "CSMD-3",
+      "name": "EXP-CSMD-3_csmd_charnes_cooper",
+      "description": "Full 90-channel G79-CSMD dual-head + far-field physics surfaces coupled with Coulomb-Shadow-Penalized Charnes-Cooper Submodular Kernel Allocation (lambda_fp selected on inner simulated hide-and-recover only), balancing near-tip/relay lobes and far-field physical fault corridors."
+    }
+  ],
+  "gates": {
+    "leakage_canary_max_auc_le_0p90": true,
+    "beats_h33_and_uniform_both_seeds_paired_ci_gt_0": true,
+    "pure_physics_beats_thvc_exp1_both_seeds": true,
+    "zero_duplicates_across_all_comparable_sparse_le_75308_dots": true,
+    "clears_gemsdoe83_forward_overlap_le_0p70": true,
+    "literal_and_chance_calibrated_v4_surface_and_final_uniqueness": true
+  },
+  "max_experiments": 3,
+  "max_hours": 2,
+  "no_retroactive_amendments": true,
+  "no_post_scoring_collision_caps_or_jitter": true
+}

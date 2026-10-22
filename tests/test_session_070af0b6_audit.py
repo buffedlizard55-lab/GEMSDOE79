@@ -15,6 +15,12 @@ def test_requirements_txt_declares_lightgbm_and_matplotlib():
     req_lock = (ROOT / "requirements.lock").read_text()
     assert "lightgbm" in req_txt and "lightgbm==" in req_lock
     assert "matplotlib" in req_txt and "matplotlib==" in req_lock
+    pkgs = [
+        re.split(r"[><=!~]", ln.strip())[0].strip().lower()
+        for ln in req_txt.splitlines()
+        if ln.strip() and not ln.strip().startswith("#")
+    ]
+    assert len(pkgs) == len(set(pkgs)), f"Duplicate packages in requirements.txt: {pkgs}"
 
 
 def test_run_card_paths_are_repo_relative_across_all_copies():
@@ -82,8 +88,10 @@ def test_exact_dti_algebra_pigeonhole_bounds_and_unique_ir_ids():
 
     ir_txt = (ROOT / "reports/irregularities.md").read_text(encoding="utf-8")
     ir_ids = re.findall(r"\|\s*(IR-79-\d+)\s*\|", ir_txt)
-    # 126 at 070af0b6; +4 from G79-BER (IR-79-127..130); +5 from H79-MRND (IR-79-131..135); +7 from H79-FNHR (IR-79-136..142); +5 from H79-PFSD (IR-79-143..147).
-    assert len(ir_ids) == len(set(ir_ids)) == 147
+    # 126 at 070af0b6; +4 from G79-BER (IR-79-127..130); +5 from H79-MRND (IR-79-131..135); +7 from H79-FNHR (IR-79-136..142).
+    assert len(ir_ids) == len(set(ir_ids))
+    # The historical prefix through IR-79-158 is immutable; later reviews may append new IDs.
+    assert {f"IR-79-{n:02d}" for n in range(1, 159)} <= set(ir_ids)
 
 
 def test_executive_summary_and_sources_surface_caveats_and_date():

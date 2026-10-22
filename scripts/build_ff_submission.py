@@ -13,6 +13,12 @@ from gems57.grid import load_grid
 from gems57.submission_writer import write_submission
 EV = ROOT/"evidence/ff1"; BUDGET = 37654
 def main():
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H79-FF1",
+        reason="H79-FF1 is stopped and archived (HOLDOUT-DTI 0.0250/0.0249 < uniform; surface duplicate).",
+    )
     hold = {s: json.loads((EV/f"x1_holdout_seed{s}.json").read_text()) for s in (20,30)}
     uniq_s = json.loads((EV/"uniqueness_surface.json").read_text())
     inf = json.loads((EV/"informative_overlap.json").read_text())

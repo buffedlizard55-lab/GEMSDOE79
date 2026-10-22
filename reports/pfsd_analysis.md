@@ -57,7 +57,7 @@ All scores below are **`HOLDOUT-DTI`** computed by unmodified `vendor/gems57/eva
 
 ### 3.2 True Un-Swapped 6-Regime Geological Decomposition (`metric.dti_binary(pred, truth)`)
 
-*(Fixes the `(truth, pred)` argument-order swap found in `scripts/run_g79_thvc.py:195` — logged as `IR-79-144`.)*
+*(Fixes the `(truth, pred)` argument-order swap found in `scripts/run_g79_thvc.py:195` — logged as `IR-79-208`.)*
 
 | Geological / Observational Regime | Seed 20 `n` | `EXP-PFSD-3` (`S20 / S30`) | `EXP-PFSD-2` (`S20 / S30`) | `EXP-PFSD-1` Pure Physics (`S20 / S30`) | `H33` Fold-Fair (`S20 / S30`) |
 |---|---:|---|---|---|---|

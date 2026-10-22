@@ -1,0 +1,11 @@
+{
+  "lane": "G79-CJX",
+  "registration_type": "retrospective_record_of_pre_score_freeze",
+  "nominated_in": "research/hypotheses_e4a4422d.md (candidate G79-CJX, ranked #1 in research/cjx_hypotheses.md)",
+  "irregularity": "No separate preregistration file was written before Exp 1 ran; the mechanism, bands (2 rtp, 13 iso_grav_anom), scales (1/2/4 px), budget (37654), separator (2.8 px), catalogue allowance (>2 px) and evaluator (gems57-pooled-hide-v2, seeds 20/30) were frozen in src/gems79/cjx.py and scripts/run_cjx_experiment.py before any CJX score was computed. Exp 3 arms were frozen in its module docstring before it ran. This file records that freeze; it does not retroactively create a timestamped preregistration.",
+  "hypothesis": "Coincident multi-scale potential-field contacts (magnetic RTP + isostatic gravity) that wind at orientation junctions, steered to visible fault terminations, recover unmapped fault continuations better than chance and better than the incumbent ensemble.",
+  "named_non_fault_mimic": "Pluton and caldera margins, survey-block seams (coincident edges/junctions); fluvial terrace risers (surface expression).",
+  "experiments_budget": 3,
+  "promotion_gate": "Pooled HOLDOUT-DTI must beat both the frozen H33 fold-fair control and the frozen G79-THVC incumbent on seeds 20 and 30; canary max symmetric AUC <= 0.90; format PASS; literal novelty |rho| <= 0.90 and 3-px forward overlap <= 0.70 on surface and final dots vs the restored registry.",
+  "verdict": "negative (holdout gate failed; see run_card_cjx.json)"
+}

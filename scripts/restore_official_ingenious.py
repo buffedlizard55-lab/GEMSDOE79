@@ -83,6 +83,43 @@ def _sha256(p: Path) -> str:
     return h.hexdigest()
 
 
+def _fetch_ingenious_blob(item: dict, tmp: Path) -> None:
+    res = subprocess.run(
+        [
+            "gh",
+            "api",
+            f"repos/{item['repo']}/contents/{item['path']}?ref={item['ref']}",
+            "-H",
+            "Accept: application/vnd.github.raw",
+        ],
+        capture_output=True,
+    )
+    if res.returncode == 0 and res.stdout:
+        tmp.write_bytes(res.stdout)
+        return
+    repo_short = item["repo"].split("/")[-1]
+    gitdir = ROOT / ".cache/registry_git" / f"{repo_short}.git"
+    if not (gitdir / "HEAD").exists():
+        gitdir.parent.mkdir(parents=True, exist_ok=True)
+        subprocess.run(
+            ["git", "clone", "-q", "--bare", "--filter=blob:none", f"https://github.com/{item['repo']}.git", str(gitdir)],
+            check=True,
+        )
+    ref = item["ref"]
+    if ref != "HEAD":
+        subprocess.run(
+            ["git", "--git-dir", str(gitdir), "fetch", "-q", "--filter=blob:none", "origin", ref],
+            check=False,
+            capture_output=True,
+        )
+    data = subprocess.run(
+        ["git", "--git-dir", str(gitdir), "show", f"{ref}:{item['path']}"],
+        check=True,
+        capture_output=True,
+    ).stdout
+    tmp.write_bytes(data)
+
+
 def main() -> None:
     target = ROOT / ".cache" / "official_ing"
     target.mkdir(parents=True, exist_ok=True)
@@ -93,18 +130,7 @@ def main() -> None:
             status = "present"
         else:
             tmp = dest.with_suffix(dest.suffix + ".tmp")
-            with tmp.open("wb") as out:
-                subprocess.run(
-                    [
-                        "gh",
-                        "api",
-                        f"repos/{item['repo']}/contents/{item['path']}?ref={item['ref']}",
-                        "-H",
-                        "Accept: application/vnd.github.raw",
-                    ],
-                    stdout=out,
-                    check=True,
-                )
+            _fetch_ingenious_blob(item, tmp)
             got = _sha256(tmp)
             if got != item["sha256"]:
                 tmp.unlink(missing_ok=True)

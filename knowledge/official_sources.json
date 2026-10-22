@@ -122,19 +122,19 @@
         "third_place_public_dti": 0.3894,
         "rank_21_participant": "kinghorton42",
         "rank_21_public_dti": 0.3261,
-        "rank_48_participant": "sam35",
-        "rank_48_public_dti": 0.2804,
-        "rank_49_participant": "op01",
-        "rank_49_public_dti": 0.2797,
-        "rank_50_participant": "kinneso_outlook",
-        "rank_50_public_dti": 0.2784,
+        "rank_48_participant": "moongrega",
+        "rank_48_public_dti": 0.2818,
+        "rank_49_participant": "arnofault",
+        "rank_49_public_dti": 0.2817,
+        "rank_50_participant": "sam35",
+        "rank_50_public_dti": 0.2804,
         "prior_2026_10_21_rank_48_participant": "extradr19",
         "prior_2026_10_21_rank_48_public_dti": 0.2778,
         "first_place_submissions": 27
       },
       "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
       "limits": [
-        "Between 2026-10-21 and 2026-10-22 new higher entries (including Azazel 0.3289 and kinneso_outlook 0.2784) moved the visible top-50 floor from 0.2778 to 0.2784; 21 teams exceed 0.3195.",
+        "All three public leaderboard chunks re-read on 2026-10-22: new entries (including like2 0.3160 and dmitry_v 0.2963) shifted the visible top-50 floor to 0.2804 (#48 moongrega 0.2818, #49 arnofault 0.2817, #50 sam35 0.2804); 21 teams exceed 0.3195.",
         "A matching numeric value does not prove the H33 filename, raster hash, or submitting identity.",
         "No submission in this repository has an ORGANIZER-CONFIRMED submission-page receipt."
       ],
@@ -251,6 +251,46 @@
       "access": "read in full on 2026-10-22",
       "verified_claims": [
         "Confirms published H33 file h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif (SHA-256 c55bafc470054e82...) is self-labelled UNSCORED on GEMSDOE32's own public page without an uploaded portal receipt."
+      ]
+    },
+    {
+      "id": "USGS-QFAULTS",
+      "source_type": "OFFICIAL PRIMARY SOURCE",
+      "authority": "U.S. Geological Survey Earthquake Hazards Program, Quaternary Fault and Fold Database of the United States (DOI: 10.5066/P9BCVRCK)",
+      "url": "https://www.usgs.gov/programs/earthquake-hazards/faults",
+      "access": "read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "Database compiles faults and folds demonstrating geological evidence of coseismic surface deformation in M>6 earthquakes during the Quaternary, and states that hazard-map traces are simplified representations of fault geometry.",
+        "Public-domain GIS archive is published at https://earthquake.usgs.gov/static/lfs/nshm/qfaults/Qfaults_GIS.zip (interactive map DOI 10.5066/F7S75FJM)."
+      ],
+      "limits": [
+        "Explains why distributed sub-M6 accommodation faults, alluvial-bajada/playa-buried blind geothermal conduits, and simplified outboard piedmont splays are systematically underrepresented in the public USGS/INGENIOUS mask."
+      ]
+    },
+    {
+      "id": "UNR-NGL-MIDAS",
+      "source_type": "OFFICIAL PRIMARY GEODETIC SOURCE",
+      "authority": "Nevada Geodetic Laboratory, University of Nevada, Reno (Blewitt, Hammond & Kreemer 2018, DOI: 10.1029/2018EO104623)",
+      "url": "https://geodesy.unr.edu/",
+      "access": "read via research fetch_page on 2026-10-22",
+      "verified_claims": [
+        "Publishes open-access MAGNET and global GPS station horizontal and vertical velocity tables via MIDAS, including North America plate-frame velocities at https://geodesy.unr.edu/gps_timeseries/IGS20/midas/midas.NA.txt."
+      ],
+      "limits": [
+        "Metadata and product URLs verified on 2026-10-22; direct shell download from geodesy.unr.edu is blocked inside the restricted sandbox, so midas.NA.txt requires owner mirror placement before ingestion."
+      ]
+    },
+    {
+      "id": "BLM-MINING-CLAIMS",
+      "source_type": "OFFICIAL PUBLIC FEDERAL GIS",
+      "authority": "U.S. Bureau of Land Management (BLM) National Mining Claims ArcGIS MapServer Layer 2",
+      "url": "https://gis.blm.gov/nlsdb/rest/services/Mining_Claims/MiningClaims/MapServer/2",
+      "access": "SHA-256-verified GeoDAWN-grid distance compilation via buffedlizard55-lab/GEMSDOE24 (commit 07345ea0604953d7efb858d9cfbc21e20c7aca0b)",
+      "verified_claims": [
+        "Public federal mineral-estate mining claim records across Nevada/Great Basin; used in G79-CSKD strictly as a non-fault anthropogenic surface-disturbance deconfounder (open-pit benches, haul roads, and potassic tailings piles)."
+      ],
+      "limits": [
+        "Mirrored Euclidean distance grid verified via SHA-256 (92c2762b1c205221...); proximity to closed claims does not preclude genuine fault-hosted mineralization."
       ]
     }
   ]
