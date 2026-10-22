@@ -44,6 +44,8 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 ## What changed in this review
 
+**Independent replay, session f6a01061:** [three-pass repository review](reports/session_review_f6a01061.md) reconfirms the universal novelty blocker, local TIFF format PASS, 477 passing tests, and selector refusal. No new unique TIFF or organizer score was generated.
+
 - Reconciled every canonical holdout view, both seeds, paired intervals and ablations with shared evaluator output; preserved original metadata and all scientific receipts.
 - Added a read-only evidence summary, type/interval/algebra/accounting checks, adversarial tests and receipt-derived website tables. Failed full novelty gates are red, not disguised by green sparse-only checks.
 - Restored and SHA-verified [all 13 manifest inputs](evidence/review_e4a4422d/input_restoration.json), and independently [remeasured H33](evidence/review_e4a4422d/h33_remeasurement.json). Restoration is not a scientific experiment or independent organizer authentication.
