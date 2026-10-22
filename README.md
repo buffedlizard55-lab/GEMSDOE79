@@ -4,6 +4,18 @@
 
 Current session review: [b79882e0 — three passes and automated preflight hardening](reports/session_review_b79882e0.md). The pinned registry witness was freshly restored and remeasured; it still blocks any nonempty new candidate under the literal overlap rule. No new scientific experiment or submission slot was used. Malformed-manifest/restore failures now return structured preflight refusals instead of tracebacks.
 
+
+## Not the canonical file: G79-MAG (archived research preview, do not submit)
+
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** This is not the file in the decision table below.
+>
+> Archived preview: [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](docs/g79_mag/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip). Values are in [0, 1] with no NaN.
+>
+> Reported by that lane, not remeasured here: budget-matched overlap 0.644, Spearman 0.18, HOLDOUT-DTI 0.0045 / 0.0067 versus the H33 control 0.096. That holdout loss is why it is not a submission. Do not upload it. The canonical download is the H79-DILSTEP file in the next section.
+>
+> **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue, overlap 0.64 vs worst — **contrarian far-field + multi-physics vs single-scrap amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`run_card_g79_mag.json`](run_card_g79_mag.json).
+
+
 ## Download and submission decision — start here
 
 Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-68182759.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
