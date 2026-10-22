@@ -1,0 +1,822 @@
+{
+  "lane": "H79-PFSD",
+  "session_branch": "arena/9574eb05-gemsdoe79",
+  "generated_utc": "2026-10-22T18:56:32Z",
+  "preregistration": "registry/preregistration_pfsd.json",
+  "preregistration_sha256": "81a0770e97c7eb520971478fc7512e0e4e076b41d96803c8e3ace076b99ea77c",
+  "static_feature_meta": {
+    "lane": "H79-PFSD",
+    "rows": 5167373,
+    "cols": 92,
+    "feature_names": [
+      "tf_mag_anom",
+      "tf_rtp",
+      "tf_tmi_hg",
+      "tf_geod_2ndinv",
+      "tf_iso_grav_anom_slope",
+      "tf_tc",
+      "tf_geod_shearrate",
+      "tf_geod_dilaterate",
+      "tf_tmi_vg",
+      "tf_deq_n100a15",
+      "tf_iso_grav_anom_vg",
+      "tf_det_elev",
+      "tf_iso_grav_anom",
+      "tf_tmi",
+      "tf_depth_to_base_surf",
+      "tf_ieq_n100a15",
+      "tf_cond_surf",
+      "tf_iso_grav_anom_hg",
+      "tf_det_elev_slope",
+      "rtp_uc600_res",
+      "rtp_demag_trough",
+      "rtp_hgm_z200",
+      "rtp_tilt_z200_abs",
+      "rtp_tilt_dip_shift",
+      "rtp_crest_prom",
+      "euler_si_rtp",
+      "grav_uc800_res",
+      "grav_hgm_z200",
+      "grav_hgm_z800",
+      "grav_tilt_z200_abs",
+      "grav_tilt_dip_shift",
+      "grav_crest_prom",
+      "bdepth_hgm_300m",
+      "bdepth_hgm_900m",
+      "transtension_conduit_idx",
+      "det_elev_prom_600m",
+      "prov_z_geod_2ndinv",
+      "prov_z_geod_shearrate",
+      "prov_z_geod_dilaterate",
+      "prov_z_ieq",
+      "prov_z_cond_surf",
+      "prov_z_grav_hg",
+      "prov_z_elev_slope",
+      "t2m_dab_300m",
+      "t2m_dab_900m",
+      "t2m_dab_2200m",
+      "t2m_dab_grad_ridge",
+      "t2m_survey_weight",
+      "t2m_upward_grad_600m",
+      "t2m_solar_deconf_flux",
+      "paleo_vent_kde_800m",
+      "paleo_vent_kde_2400m",
+      "paleo_hitemp_sinter_1200m",
+      "paleo_vent_strike_bridge",
+      "gdr_thermal_anom_900m",
+      "gdr_geotherm_qtz_1800m",
+      "gdr_chalc_upflow_1200m",
+      "gdr_cat_qtz_diseq_1800m",
+      "volc_vent_prox_3km",
+      "volc_mafic_dike_bridge",
+      "rad_k_th_alteration",
+      "rad_u_th_redox",
+      "tmi_shallow_150m_res",
+      "hydro_demag_clay_conj",
+      "rad_thk_bajada_dipole",
+      "lidar_present",
+      "scarp_unified_step",
+      "scarp_unified_ex",
+      "scarp_unified_curv",
+      "scarp_unified_line",
+      "lidar_up_down_asym",
+      "topo10_slope_p90",
+      "topo10_relief_local",
+      "road_proximity_confound",
+      "mountain_wall_ratio",
+      "chi_step_max",
+      "chi_ksn_max",
+      "chi_playa_raised",
+      "trace_aniso_max_800m",
+      "trace_aniso_max_2000m",
+      "trace_aniso_ratio",
+      "block_step_elev_600m",
+      "block_step_grav_800m",
+      "lidar_signed_antislope_deq",
+      "lidar_tect_fluvial_ratio_deq",
+      "dem10_onesided3_road_deconf",
+      "dem10_excess_onesided",
+      "dem10_persistence_20_200",
+      "chi_trunk_ksn_gated",
+      "strike_concord_grav",
+      "strike_concord_bdepth",
+      "strike_concord_rtp"
+    ],
+    "build_seconds": 428.35,
+    "peak_rss_mb": 3668.0,
+    "forbidden_files_blocked": [
+      "derived_sgmc_faults_100m_u8.tif",
+      "gdr_qfaults_traces.csv"
+    ],
+    "forbidden_columns_blocked": [
+      "dist_known_fault_px",
+      "known_fault",
+      "label"
+    ]
+  },
+  "leakage_canary_summary": {
+    "passed": true,
+    "total_canary_tests": 212,
+    "max_symmetric_auc": 0.804651,
+    "max_feature": "net_tip_fwd_35px"
+  },
+  "seed20_scores": {
+    "EXP-PFSD-3_equil_charnes_cooper": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.18858227461488186,
+      "ci95": [
+        0.17103720531945785,
+        0.20644131789893164
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 3112.869592707566,
+      "fpw": 34136.592236210156,
+      "fnw": 8208.13040729243
+    },
+    "EXP-PFSD-2_pfsd_uniform_d28": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.18541454822096548,
+      "ci95": [
+        0.16697964799126727,
+        0.20364591079779784
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 2991.9085453096372,
+      "fpw": 32405.69314173995,
+      "fnw": 8329.09145469036
+    },
+    "EXP-PFSD-1_uncorrupted_pure_physics": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.09974828578788136,
+      "ci95": [
+        0.0829320282545317,
+        0.11739484714194533
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 1595.0920953551151,
+      "fpw": 33076.772948137506,
+      "fnw": 9725.907904644882
+    },
+    "C2_h33_analogue_foldfair": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.09608619416803546,
+      "ci95": [
+        0.08369710235895188,
+        0.10945394423524195
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 1588.9204532602826,
+      "fpw": 35809.116597847176,
+      "fnw": 9732.079546739715
+    },
+    "C1_fabric_offset_E1_placed": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.044114656775908714,
+      "ci95": [
+        0.03689599682694533,
+        0.051614777128813585
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 727.6236689796393,
+      "fpw": 36457.98191763791,
+      "fnw": 10593.376331020361
+    },
+    "C0_random_B37654": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.04974298336614327,
+      "ci95": [
+        0.04321837391044233,
+        0.056472026285909874
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 810.8442038474166,
+      "fpw": 35408.53064191061,
+      "fnw": 10510.155796152587
+    }
+  },
+  "seed30_scores": {
+    "EXP-PFSD-3_equil_charnes_cooper": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.17458762862745109,
+      "ci95": [
+        0.15777164212126277,
+        0.19113711749079113
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 2444.1226430655283,
+      "fpw": 22184.89439303244,
+      "fnw": 8897.877356934472
+    },
+    "EXP-PFSD-2_pfsd_uniform_d28": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.17508230921304854,
+      "ci95": [
+        0.15659684250341677,
+        0.19333343893448968
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 2845.488801043155,
+      "fpw": 33047.97084707664,
+      "fnw": 8496.511198956841
+    },
+    "EXP-PFSD-1_uncorrupted_pure_physics": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.11344294217225612,
+      "ci95": [
+        0.0962830627164843,
+        0.13223299384444173
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 1818.4659410388663,
+      "fpw": 32962.45765958665,
+      "fnw": 9523.534058961124
+    },
+    "C2_h33_analogue_foldfair": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.09889767286222764,
+      "ci95": [
+        0.08446574477870235,
+        0.11310547607703857
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 1638.0162557476992,
+      "fpw": 35807.67431660717,
+      "fnw": 9703.983744252295
+    },
+    "C1_fabric_offset_E1_placed": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.044007645081126326,
+      "ci95": [
+        0.03651773787182634,
+        0.05175311356464441
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 726.5161737431436,
+      "fpw": 36449.79770670198,
+      "fnw": 10615.483826256852
+    },
+    "C0_random_B37654": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.042202812026791936,
+      "ci95": [
+        0.03815600874121666,
+        0.046443364383107456
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 687.2591249550649,
+      "fpw": 35368.12144489495,
+      "fnw": 10654.74087504494
+    }
+  },
+  "live_model_meta": {
+    "lane": "H79-PFSD",
+    "live_train_seconds": 1722.95,
+    "peak_rss_mb": 3725.8,
+    "top25_features_by_gain": [
+      {
+        "feature": "net_tip_fwd_35px",
+        "gain_share": 0.167813
+      },
+      {
+        "feature": "net_tip_x_scarp",
+        "gain_share": 0.065634
+      },
+      {
+        "feature": "net_tip_x_grav_bdepth",
+        "gain_share": 0.046145
+      },
+      {
+        "feature": "net_log_dist",
+        "gain_share": 0.031522
+      },
+      {
+        "feature": "tf_det_elev",
+        "gain_share": 0.031065
+      },
+      {
+        "feature": "volc_vent_prox_3km",
+        "gain_share": 0.03103
+      },
+      {
+        "feature": "det_elev_prom_600m",
+        "gain_share": 0.029471
+      },
+      {
+        "feature": "net_colinear_bridge",
+        "gain_share": 0.026104
+      },
+      {
+        "feature": "tf_deq_n100a15",
+        "gain_share": 0.022999
+      },
+      {
+        "feature": "net_exp_near_600",
+        "gain_share": 0.021958
+      },
+      {
+        "feature": "block_step_elev_600m",
+        "gain_share": 0.018862
+      },
+      {
+        "feature": "net_tip_fwd_15px",
+        "gain_share": 0.018652
+      },
+      {
+        "feature": "net_tip_wing_lobe",
+        "gain_share": 0.01768
+      },
+      {
+        "feature": "tf_geod_shearrate",
+        "gain_share": 0.016909
+      },
+      {
+        "feature": "prov_z_ieq",
+        "gain_share": 0.016253
+      },
+      {
+        "feature": "tf_ieq_n100a15",
+        "gain_share": 0.015688
+      },
+      {
+        "feature": "net_density_15px",
+        "gain_share": 0.01514
+      },
+      {
+        "feature": "tf_iso_grav_anom",
+        "gain_share": 0.015127
+      },
+      {
+        "feature": "tf_geod_dilaterate",
+        "gain_share": 0.014466
+      },
+      {
+        "feature": "prov_z_geod_dilaterate",
+        "gain_share": 0.01438
+      },
+      {
+        "feature": "prov_z_geod_shearrate",
+        "gain_share": 0.014306
+      },
+      {
+        "feature": "net_exp_mid_1800",
+        "gain_share": 0.014129
+      },
+      {
+        "feature": "tf_geod_2ndinv",
+        "gain_share": 0.014061
+      },
+      {
+        "feature": "prov_z_geod_2ndinv",
+        "gain_share": 0.013743
+      },
+      {
+        "feature": "net_density_40px",
+        "gain_share": 0.012546
+      }
+    ],
+    "top20_pure_physics_features_by_gain": [
+      {
+        "feature": "tf_det_elev",
+        "gain_share": 0.064265
+      },
+      {
+        "feature": "volc_vent_prox_3km",
+        "gain_share": 0.058115
+      },
+      {
+        "feature": "tf_deq_n100a15",
+        "gain_share": 0.04877
+      },
+      {
+        "feature": "tf_ieq_n100a15",
+        "gain_share": 0.044961
+      },
+      {
+        "feature": "block_step_elev_600m",
+        "gain_share": 0.043926
+      },
+      {
+        "feature": "tf_geod_dilaterate",
+        "gain_share": 0.032684
+      },
+      {
+        "feature": "tf_geod_shearrate",
+        "gain_share": 0.031787
+      },
+      {
+        "feature": "tf_geod_2ndinv",
+        "gain_share": 0.031068
+      },
+      {
+        "feature": "t2m_survey_weight",
+        "gain_share": 0.030495
+      },
+      {
+        "feature": "prov_z_geod_shearrate",
+        "gain_share": 0.029318
+      },
+      {
+        "feature": "tf_iso_grav_anom",
+        "gain_share": 0.028846
+      },
+      {
+        "feature": "det_elev_prom_600m",
+        "gain_share": 0.027747
+      },
+      {
+        "feature": "prov_z_ieq",
+        "gain_share": 0.026328
+      },
+      {
+        "feature": "transtension_conduit_idx",
+        "gain_share": 0.023501
+      },
+      {
+        "feature": "prov_z_geod_dilaterate",
+        "gain_share": 0.02307
+      },
+      {
+        "feature": "prov_z_cond_surf",
+        "gain_share": 0.021855
+      },
+      {
+        "feature": "tf_depth_to_base_surf",
+        "gain_share": 0.020907
+      },
+      {
+        "feature": "prov_z_geod_2ndinv",
+        "gain_share": 0.020726
+      },
+      {
+        "feature": "tf_cond_surf",
+        "gain_share": 0.019748
+      },
+      {
+        "feature": "topo10_relief_local",
+        "gain_share": 0.01835
+      }
+    ],
+    "cc_params_by_seed": [
+      {
+        "gamma_eq": 0.45,
+        "lambda_fp": 0.0042,
+        "min_sep_px": 2.2,
+        "max_budget": 39500,
+        "emitted_dots": 39500,
+        "inner_sim_dti": 0.215998
+      },
+      {
+        "gamma_eq": 0.0,
+        "lambda_fp": 0.0058,
+        "min_sep_px": 1.9,
+        "max_budget": 39000,
+        "emitted_dots": 39000,
+        "inner_sim_dti": 0.204558
+      }
+    ]
+  },
+  "emitted_positive_pixels": 39250,
+  "staged_tif_sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+  "validator_output": {
+    "format_passed": true,
+    "does_not_approve_submission": true,
+    "validator": {
+      "file": "archive/h79_pfsd_9574eb05/h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 146056,
+      "sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.003196472767740488,
+      "emitted_positive_pixels": 39250,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 39250,
+      "footprint_fraction": 0.007595735782959736
+    },
+    "reference_grid": {
+      "path": "archive/h79_pfsd_9574eb05/h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 146056,
+      "sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.003196472767740488,
+      "n_nonzero": 39250,
+      "mass": 39250.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    }
+  },
+  "surface_uniqueness_summary": {
+    "checked": 1213,
+    "max_abs_spearman": 0.831279,
+    "sparse_le_50k_collisions_gt_070": 0,
+    "sparse_le_50k_max_overlap": 0.244706
+  },
+  "dot_uniqueness_summary": {
+    "checked": 1213,
+    "literal_unique": false,
+    "literal_duplicate_count": 109,
+    "max_abs_spearman": 0.295523,
+    "sparse_le_50k_collisions_gt_070": 2,
+    "sparse_le_50k_max_overlap": 0.806573,
+    "key_peer_comparisons": {
+      "GEMSDOE83_gvcd": {
+        "submission": "GEMSDOE83:docs/downloads/gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros.tif",
+        "sha256": "79f14dc84cd7760cb44645bc090ed2d33dbcfe789cec844fd83753fcff1082a2",
+        "their_dots": 37654,
+        "forward_overlap_3px": 0.653401,
+        "reverse_overlap_3px": 0.577442,
+        "spearman_full_footprint": 0.025892
+      },
+      "GEMSDOE78_gfv_latest": {
+        "submission": "GEMSDOE78:docs/downloads/gems78-h78-gfv-136b-dink-20261022T070254Z-45cd56e7-zeros.tif",
+        "sha256": "0338383df9c36c0a2581ddc584e6aafa5ce364ba52cd9e56749628bc4301dd07",
+        "their_dots": 37654,
+        "forward_overlap_3px": 0.533554,
+        "reverse_overlap_3px": 0.433845,
+        "spearman_full_footprint": 0.02225
+      },
+      "GEMSDOE78_mghd": {
+        "submission": "GEMSDOE78:docs/downloads/gems78-h78mghd-dualcover-44090dots-20261022T032500Z-1045873e-DO-NOT-SUBMIT.tif",
+        "sha256": "44429c439118a6e20f77f6da821ecd4e46697da0545314d20b65e81766d8b698",
+        "their_dots": 44090,
+        "forward_overlap_3px": 0.682828,
+        "reverse_overlap_3px": 0.56015,
+        "spearman_full_footprint": 0.099047
+      },
+      "G79_THVC_canonical": {
+        "submission": "GEMSDOE79:archive/g79_thvc_33e1f8ec/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+        "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+        "their_dots": 35093,
+        "forward_overlap_3px": 0.806573,
+        "reverse_overlap_3px": 0.867124,
+        "spearman_full_footprint": 0.055621
+      },
+      "H79_FNHR_F3": {
+        "submission": "GEMSDOE79:archive/h79_fnhr_a57e2a7f/gems79-h79-fnhr-f3-37654dots-20261022T051800Z-fae5cf3a-DO-NOT-SUBMIT.tif",
+        "sha256": "d5f69d51e9f14b624cd5bca5f4207886d29d8aba05674f522d224bb2b7fb6fcc",
+        "their_dots": 37654,
+        "forward_overlap_3px": 0.44935,
+        "reverse_overlap_3px": 0.480507,
+        "spearman_full_footprint": 0.011321
+      },
+      "H33_GEMSDOE32": {
+        "submission": "GEMSDOE32:h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+        "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+        "their_dots": 44090,
+        "forward_overlap_3px": 0.383338,
+        "reverse_overlap_3px": 0.343525,
+        "spearman_full_footprint": 0.017257
+      }
+    }
+  },
+  "writer_manifest": {
+    "file": "h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+    "bytes": 146056,
+    "submission_name": "h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT",
+    "note": "GEMSDOE79 H79-PFSD: strike-concord+2m-flux+10m3DEP dual-expert + equil Charnes-Cooper (39250 px)",
+    "note_chars": 96,
+    "validator": {
+      "file": "archive/h79_pfsd_9574eb05/h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 146056,
+      "sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.003196472767740488,
+      "emitted_positive_pixels": 39250,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 39250,
+      "footprint_fraction": 0.007595735782959736
+    },
+    "template_report": {
+      "path": "archive/h79_pfsd_9574eb05/h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+      "bytes": 146056,
+      "sha256": "23cc11b49380e7e6eac772157b3b9538e3fc44559b871d69e1fe3fa2faa2bf84",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.003196472767740488,
+      "n_nonzero": 39250,
+      "mass": 39250.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    },
+    "zip_file": "h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.zip",
+    "zip_sha256": "68aea1e223041cda84aa81ce7fd2013ac7ff0b25bf1a9245455df1f7a6ce9813",
+    "approved_for_weekly_slot": false,
+    "promoted": false,
+    "submission_slots_used": 0,
+    "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+    "metadata": {
+      "lane": "H79-PFSD",
+      "consensus_equilibrated_charnes_cooper": {
+        "gamma_eq": 0.225,
+        "lambda_fp": 0.005,
+        "min_sep_px": 2.2,
+        "max_budget": 39250
+      },
+      "holdout_dti_seed20": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.18858227461488186,
+        "ci95": [
+          0.17103720531945785,
+          0.20644131789893164
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 3112.869592707566,
+        "fpw": 34136.592236210156,
+        "fnw": 8208.13040729243
+      },
+      "holdout_dti_seed30": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.17458762862745109,
+        "ci95": [
+          0.15777164212126277,
+          0.19113711749079113
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 2444.1226430655283,
+        "fpw": 22184.89439303244,
+        "fnw": 8897.877356934472
+      }
+    }
+  },
+  "archived_tif": "archive/h79_pfsd_9574eb05/h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.tif",
+  "archived_zip": "archive/h79_pfsd_9574eb05/h79-pfsd-equilcc-20261022-2c5d5fd3-zeros-DO-NOT-SUBMIT.zip",
+  "archived_zip_sha256": "68aea1e223041cda84aa81ce7fd2013ac7ff0b25bf1a9245455df1f7a6ce9813"
+}
