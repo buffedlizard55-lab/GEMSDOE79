@@ -19,6 +19,7 @@
 
 - **Unique Submission Name (`55 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
 - **Short Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
+- **Latest repository review (2026-10-22):** [three-pass audit, official source checks, untried hypothesis ranking, blockers, and validation evidence](reports/repository_review_2026-10-22_session-64600edb.md).
 
 ![Dual-Seed Holdout Progression](docs/figures/fig1_holdout_progression.png)
 
@@ -1003,4 +1004,3 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
-

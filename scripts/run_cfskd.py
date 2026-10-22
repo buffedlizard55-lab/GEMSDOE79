@@ -22,7 +22,7 @@ def build_stack(grid):
     fp=grid.footprint; fp_idx=np.flatnonzero(fp)
     cache=ROOT/".cache"/"cfskd"; cache.mkdir(parents=True,exist_ok=True)
     # first pass: collect names count = 19 tf +3 hp +1 transtension +4 rad +4 ext +5 lidar +2 kd = 38
-    names=[]; 
+    names=[];
     def plan(n): names.append(n)
     tf_names=[]
     with rasterio.open(RAW/"training_features.tif") as s: desc=list(s.descriptions)
