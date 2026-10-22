@@ -4,7 +4,25 @@
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative`.**
 
-[**Download the newly generated GeoTIFF**](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
+### Current repository review — 2026-10-22 (session `8ed5d89a`)
+
+**Critical release conflict repaired:** PR #12's H79-CSPT pages advertised approval,
+while the canonical run card still rejected E1. Its uniqueness procedure excluded
+space-filling priors and changed the shared tool; this is not allowed by the
+literal parallel-run protocol. All incoming work is preserved with byte hashes in
+[the non-authoritative CSPT archive](archive/h79_cspt_3d386a3/README.md), outside
+the published website. The original shared tool, registry and input pins, stopped
+lane and full original prompt below are restored. No new experiment or weekly
+submission slot was used. Final local checks: **122 tests passed**, 7 pages /
+109 links verified, and 21 responsive browser cases passed. [Three-pass review and next steps](reports/session_review_8ed5d89a.md).
+
+A fresh independent [witness re-measurement](evidence/session_witness_review_8ed5d89a.json)
+confirms that every allowed cell is within the prior's positive support halo.
+**No nonempty candidate can pass the current literal overlap rule.** A different
+filename or byte-distinct TIFF does not fix this. The existing research download
+remains **DO NOT SUBMIT**; no higher leaderboard score is claimed.
+
+[**Download existing research GeoTIFF — DO NOT SUBMIT**](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
 
 This is a **newly computed, byte-distinct research surface**, not a copied prior
 submission and **not protocol-unique**. Its name deliberately includes
