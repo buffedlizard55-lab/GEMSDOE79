@@ -4,27 +4,28 @@
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> **A new unique research GeoTIFF (G79-DZD) has been generated.** It passes all local format/range gates (single float32 band, EPSG:32611, 3730 × 3292, pinned geotransform, all finite, values in [0,1], zero outside footprint, zero dots on mapped faults). It is **unique vs 36 locally available registry rasters** (max |ρ| = 0.0212 ≤ 0.90, max forward 3-px overlap = 0.2456 ≤ 0.70). It is **NOT approved for upload** because holdout-DTI and the leakage canary require DrivenData training data (login-gated, not in this checkout), and the full 992-raster registry uniqueness scan could not be completed offline (registry rasters not cached locally; GitHub TLS unavailable). A separate selector must approve a weekly slot before any upload.
+> **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
 
-**[Download unique submission GeoTIFF](docs/downloads/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_0d90d81b.md)** · **[Five untried hypotheses](research/hypotheses_0d90d81b.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
-- **TIFF:** 172,278 bytes; SHA-256 `42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab`.
-- **ZIP:** SHA-256 `4f88a616634778e3f1df85866e7000f32cca1bcd429fa9a1d70d211ffe8c4811`.
-- **New unique name:** `g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT` (85 characters).
-- **Note (113/140 characters):** `G79-DZD: fault damage-zone distance decay from USGS/INGENIOUS catalogue, zero on mapped faults, 12k sparse dots`.
-- **Method:** G79-DZD damage-zone distance decay — targets fault damage-zone permeability at ~200 m optimal cross-fault distance from catalogue faults. Distinct from the stopped G79-THVC lane (84-channel multi-physics ML ensemble).
+- **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
+- **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
+- **Existing name:** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT` (55 characters, not a new identity).
+- **Legacy note, preserved verbatim (98/140 characters):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`.
+
+The historical “Charnes-Cooper” identifier is not an exact-optimization claim. Code inspection finds **fixed-penalty lazy-greedy weighted kernel cover**, not a certified fractional-programming solver. No model code or raster bytes were changed to make that correction.
 
 | Gate | Evidence-backed disposition |
 |---|---|
-| Local format | **PASS:** one float32 band, EPSG:32611, shape 3730 × 3292, affine `[100, 0, 243350, 0, -100, 4508550]`, finite values in [0,1]; matching sample grid. ZIP contains identical TIFF bytes. All 12 format/range checks passed. |
-| Uniqueness vs local registry | **PASS:** max |Spearman ρ| = 0.0212 (limit 0.90); max forward 3-px overlap = 0.2456 (limit 0.70) vs 36 locally available GEMSDOE79 rasters. Full 992-raster registry scan unverified offline. |
-| Zero dots on mapped catalogue | **PASS:** 0 positive pixels on USGS/INGENIOUS-mapped faults. 12,000 sparse dots (0.23% of footprint). |
-| Holdout-DTI | **NOT MEASURABLE:** requires training_features.tif and labels.tif from DrivenData (login-gated). Not present in this checkout. |
-| Leakage canary | **NOT RUN:** requires labelled holdout folds (login-gated). Feature-alone AUC cannot be computed without truth. |
-| Full registry uniqueness | **UNVERIFIED:** 992 registry rasters on GitHub mirrors not accessible offline (TLS unavailable). 36 local rasters checked — all pass. |
-| Slot selection | **NOT APPROVED.** Separate selector (scripts/select_submission.py) has not bound a receipt to this raster's SHA-256. |
+| Local format | **PASS:** one float32 band, EPSG:32611, shape 3730 × 3292, affine `[100, 0, 243350, 0, -100, 4508550]`, finite binary 0/1 values; matching sample grid. ZIP contains identical TIFF bytes. |
+| Surface novelty | **BLOCKED:** maximum absolute rank correlation 0.7712, but maximum forward overlap 1.0000 exceeds 0.70. |
+| Final-dot novelty | **BLOCKED:** maximum absolute rank correlation 0.1210, but maximum forward overlap 1.0000 exceeds 0.70. Low correlation alone is not approval. |
+| Scan completeness | **Incomplete:** 1,108 rows, 1,088 comparable, 20 non-comparable; 1,082 defined rank correlations and 6 undefined. Frozen accessible inventory, not a new full-family or organizer census. |
+| Leakage canaries | **PASS on the frozen checks:** 84 features × 2 seeds = 168 tests; maximum symmetric AUC 0.78961 / 0.80360, below 0.90. Not proof of every form of leakage freedom. |
+| Historical H33-control comparison | Candidate exceeds its H33 fold-fair control on both seeds, with positive paired 95% intervals. See the labelled evidence below. Not a new result beating today's incumbent. |
+| Slot selection | **NOT APPROVED.** No organizer receipt or remaining-account-capacity measurement. Sparse-prior diagnostics cannot substitute for the full novelty gate. |
 
-The G79-THVC inherited artifact (blocked by a universal-overlap witness) has been moved to `archive/g79_thvc_legacy_downloads/`. The G79-DZD lane uses a different geological mechanism (damage-zone distance decay, no ML ensemble) and does not drift into the G79-THVC lane.
+The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
 
 ## New this session: G79-CJX — a unique TIF was generated, and the automated gate says NO
 
@@ -49,6 +50,45 @@ final dots) and G1 (format) are reported in `run_card_cjx.json`. No
 leaderboard score is claimed: 0.2778/0.4413 remain unverified historical
 reports, and beating them is not demonstrated. Verdict: **negative** —
 a deliverable, per the parallel-run protocol.
+
+## New this session: G79-DZD — a second unique TIF, gates say NO
+
+> **G79-DZD: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
+> Unique file, generated this session by `scripts/generate_unique_submission.py`,
+> not a copy or rename of any registry submission:
+> `artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif`
+> (SHA-256 `42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab`), with a
+> ZIP containing the identical TIFF beside it.
+> Decision page: [docs/dzd-submission.html](docs/dzd-submission.html) ·
+> Lane card: `run_card_g79_dzd.json`.
+
+**Hypothesis (H79-H2, ranked H1 of five in [research/candidate_hypotheses.md](research/candidate_hypotheses.md)).**
+Geothermal permeability concentrates in the fracture damage zone *adjacent* to
+mapped faults (~200 m optimal cross-fault distance), not on the mapped traces,
+so unmapped splays inside that envelope are plausible conduits absent from the
+USGS/INGENIOUS catalogue.
+
+**Mechanism.** Deterministic single-channel transform — no ML, no multi-physics
+stack: Euclidean distance from catalogue cells; Gaussian damage-zone score
+centred at 200 m with 150 m sigma; modulated by local catalogue-gradient fault
+activity; zero on catalogue; zero outside footprint; top-12,000 sparse dots
+normalised to [0,1]. Distinct from G79-THVC (84-channel ensemble) and G79-CJX
+(potential-field junctions).
+
+**Measured gates.** G1 format PASS (single float32 band, EPSG:32611, 3730 × 3292,
+pinned transform, all finite, values in [0,1], zero NaN, zero outside footprint).
+G2 PASS: 12,000 dots = 0.2322 % of footprint, 0 positive pixels on the mapped
+catalogue. G5 partial-inventory novelty PASS vs the 36 locally cached rasters
+(max |ρ| 0.0212 ≤ 0.90, max forward 3-px overlap 0.2456 ≤ 0.70).
+**G3 holdout and G4 full-registry novelty are NOT MEASURED**: `data/raw/training_features.tif`
+and `labels.tif` are login-gated and absent from this checkout, and the 992-raster
+registry is not cached locally (GitHub TLS unavailable). No holdout number is
+claimed, no leaderboard score is claimed, and 0.2778/0.4413 remain unverified
+historical reports. Verdict: **negative** — a deliverable, not an upload.
+
+Recheck: `python scripts/generate_unique_submission.py --help` (regeneration
+refuses to overwrite existing bytes), `python scripts/validate_submission.py
+artifacts/dzd/<tif>` (local format only), `python scripts/verify_project.py`.
 
 ## Scientific evidence, not a leaderboard projection
 
