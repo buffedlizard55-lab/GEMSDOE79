@@ -304,6 +304,14 @@ presented as protocol-unique.
 - Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 
+## Latest repository review — session `e9955043` (2026-10-22)
+
+- Full three-pass repository and research review: [`reports/session_review_e9955043.md`](reports/session_review_e9955043.md).
+- **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — no new competition slot was used (`0` slots used).
+- Formulated 5 distinct candidate geological hypotheses with official citations in [`research/hypotheses_e9955043.md`](research/hypotheses_e9955043.md).
+- Analyzed GEMSDOE32's highest score (`h33-h33-2-b2`: 0.2778) using PhD-level mathematical/geological derivation.
+- All 259 software tests and 27 project integrity assertions passed cleanly.
+
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).Generative AI assisted research, code, tests and prose. No source measurements or organizer receipts
 were synthesized. See [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md).
