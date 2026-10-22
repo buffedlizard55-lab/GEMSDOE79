@@ -124,6 +124,8 @@ def test_absent_card_fails_closed(tmp_path):
     ('build_cjx_submission.py', []),
     ('cjx_gate.py', []),
     ('cjx_sparse_novelty_diagnostic.py', []),
+    ('audit_g79b.py', []),
+    ('build_cjx_page.py', []),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (
