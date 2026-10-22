@@ -14,6 +14,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
+from gems79.portal_spec import validate_portal_file
 from validate_submission import validate_path
 
 
@@ -172,11 +173,13 @@ def sibling_audit_and_delta_checks(root):
             # uniqueness.py (be529511...). The merged file only appends amendment
             # D-2 functions; regeneration reproduced 1755/1778 audit leaves
             # identically, so the recorded previous pin remains valid evidence.
+            # IR-79-229: D-3 appended a third shared amendment; the audit's pin is
+            # accepted if it is the current, previous or a recorded historical pin.
             audit_doc.get('shared_tools_pinned', {}).get('uniqueness_py_sha256') in (
                 sha(root / 'vendor/gems57/uniqueness.py'),
-                next((e.get('previous_sha256') for e in json.loads(
+                *next(([e.get('previous_sha256'), *e.get('historical_sha256', [])] for e in json.loads(
                     (root / 'registry/template_pin.json').read_text())['files']
-                    if e['path'] == 'vendor/gems57/uniqueness.py'), None)) and
+                    if e['path'] == 'vendor/gems57/uniqueness.py'), [None])) and
             audit_doc.get('shared_tools_pinned', {}).get('validate_py_sha256') == sha(root / 'vendor/gems57/validate.py') and
             audit_doc.get('shared_tools_pinned', {}).get('evaluate_holdout_py_sha256') == sha(root / 'vendor/gems57/evaluate_holdout.py') and
             audit_doc.get('shared_tools_pinned', {}).get('disk3_exactness_self_test', {}).get('matches_edt_le_3_exact') is True and
@@ -480,7 +483,9 @@ def verify(refresh_timestamp: bool = False):
     state = json.loads((ROOT / 'evidence/experiment_state.json').read_text())
     checks['e1_scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
                                              state['final_dot_placements_performed'] == 0)
-    decision = submission_decision(card, actual_sha256=actual_sha, format_passed=result['format_passed'])
+    portal = validate_portal_file(path, ROOT / 'data/reference/sample_submission.tif')
+    decision = submission_decision(card, actual_sha256=actual_sha,
+                                   format_passed=result['format_passed'], portal_passed=portal['ok'])
     checks['status_tool_and_card_agree'] = (decision['ok_to_download'] == card['ok_to_download'] and
         decision['ok_to_submit'] == card['ok_to_submit'] and decision['verdict'] == card['verdict'] and
         card['submission_slots_used'] == 0 and card['organizer_submission_receipt'] is None)

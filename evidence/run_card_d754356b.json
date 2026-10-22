@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "session": "d754356b",
+  "date_utc": "2026-10-22",
+  "lane": null,
+  "hypothesis": "No new hypothesis was run: the prompt supplied no assigned method paragraph and preflight stopped before experiments. Ranked future proposals are documented in reports/session_review_d754356b.md.",
+  "mechanism": "No new candidate mechanism was tested. Historical STEPCO S2-COVER ranked cells by the shared 300 m kernel expected-credit surface; this is prior archived evidence, not a new experiment.",
+  "named_non_fault_process_that_could_mimic_it": "For the archived STEPCO S2 method, facies pinch-outs or paleochannel margins can jointly step gravity and basement depth; alluvial-fan lobes can step topography; survey seams can step airborne magnetic/radiometric fields.",
+  "decision": "negative_stop_before_new_experiment",
+  "new_candidate_created": false,
+  "new_raster_sha256": null,
+  "preflight": {
+    "command": ".venv/bin/python scripts/preflight_new_lane.py --restore",
+    "exit_code": 2,
+    "state": "impossible_under_literal_gate",
+    "start_new_lane": false,
+    "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "covered_allowed_fraction": 1.0,
+    "literal_overlap_limit": 0.7,
+    "result_class": "NOVELTY-MEASUREMENT"
+  },
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "status": "historical archived STEPCO S2-COVER; not run in this session",
+    "metric": {
+      "alpha": 0.2,
+      "beta": 0.8,
+      "triangular_kernel_radius_m": 300
+    },
+    "seed_20": {
+      "candidate_dti": 0.09353792696615745,
+      "ci95": [0.07802349965946792, 0.10884680838578148],
+      "withheld_positive_pixels": 11321,
+      "fold_fair_h33_control_dti": 0.09608619416803546,
+      "fold_fair_h33_control_ci95": [0.08279135588805873, 0.1096036495361893],
+      "paired_candidate_minus_h33_dti": -0.0025482672018780073,
+      "paired_ci95": [-0.015621526505597286, 0.010440462250321829]
+    },
+    "seed_30": {
+      "candidate_dti": 0.09606869944786882,
+      "ci95": [0.07958903481600553, 0.11171976488892789],
+      "withheld_positive_pixels": 11342,
+      "fold_fair_h33_control_dti": 0.09889767286222764,
+      "fold_fair_h33_control_ci95": [0.0841715694712062, 0.11225025519437444],
+      "paired_candidate_minus_h33_dti": -0.0028289734143588235,
+      "paired_ci95": [-0.015797547125326838, 0.011003332351349565]
+    }
+  },
+  "correlation_overlap_vs_registry": {
+    "evidence_class": "NOVELTY-MEASUREMENT",
+    "scope": "archived prior STEPCO S2-COVER; registry inventory used by that receipt",
+    "surface_worst_absolute_rank_correlation": 0.5177389869708736,
+    "final_dots_worst_absolute_rank_correlation": 0.08188954176652058,
+    "literal_worst_forward_overlap_3px": 1.0,
+    "matched_budget_worst_overlap_3px": 0.42866627715514954,
+    "correlation_threshold": 0.9,
+    "overlap_threshold": 0.7,
+    "duplicate_final_dots": true
+  },
+  "raster_sha256": null,
+  "reviewed_prior_artifact": {
+    "submission_name": "gems79-stepco-s2cover-37654dots-20261022T021024Z-7e676fe2-DO-NOT-SUBMIT",
+    "submission_note": "GEMSDOE79 STEPCO S2-COVER: step-dipole HGB + kernel-cover dots 37654 s3 cat>2px 20261022T021024Z",
+    "archived_tif": "archive/g79_stepco_s2/downloads/gems79-stepco-s2cover-37654dots-20261022T021024Z-7e676fe2-DO-NOT-SUBMIT.tif",
+    "sha256": "d50974d1f9148adf0e0a484052c97579af0c50e079d8afd6d6ac2cc22541497c",
+    "verdict": "negative",
+    "created_in_this_session": false
+  },
+  "validator_output": {
+    "evidence_class": "FORMAT-VALIDATION",
+    "scope": "archived S2 writer receipt; no new TIFF was generated or validated in this session",
+    "passes": true,
+    "single_band_float32": true,
+    "crs": "EPSG:32611",
+    "shape": [3730, 3292],
+    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+    "no_nan_inside_footprint": true,
+    "all_values_in_range_0_1": true,
+    "grid_matches_sample": true,
+    "local_format_only_not_organizer_acceptance": true
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "submission_decision": "no new submission; archived prior artifact is DO-NOT-SUBMIT",
+  "competition_slots_used": 0,
+  "verdict": "negative",
+  "limitations": [
+    "No assigned method paragraph is present in the user message.",
+    "Literal overlap gate is universally blocked by a full-coverage witness.",
+    "0 of 13 runtime inputs are currently present/verified under data/raw.",
+    "No organizer submission-page receipt establishes H33's reported score."
+  ]
+}

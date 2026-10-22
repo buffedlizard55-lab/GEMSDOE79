@@ -5,7 +5,7 @@
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (new, NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>Entries retain their original dates and are ordered by review sequence. No entry authorizes a threshold exemption.</p>
 <table>
@@ -1668,6 +1668,130 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-219</td>
 <td>The official ScienceBase item JSON exposes a public heat-flow ZIP <code>downloadUri</code>, listing <code>130154244</code> bytes (124.12 MiB) and an advertised MD5; the earlier note incorrectly labeled the binary-unit size as MB.</td>
 <td>Corrected the unit and recorded the exact URL and advertised-but-unverified MD5. Public listing is not proof of archive transfer, a local hash, suitable schema, or target-area coverage.</td>
+</tr>
+<tr>
+<td>IR-79-220</td>
+<td>The strict portal validator discarded the inner TIFF R1 result for ZIP inputs, so a two-band TIFF could pass as a single archive member. It also trusted raster readability without checking GTiff driver, and missing inputs or corrupt archived TIFFs could escape as tracebacks.</td>
+<td>Fixed once in <code>src/gems79/portal_spec.py</code>: combine inner/outer R1, require GTiff, emit structured fail-closed inspection reports. Six new software-fixture cases; full suite 603 passed. No scientific raster or selector state changed. See <code>reports/session_review_148fa8f5.md</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>50335987</code> — ZIP inspector correction</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-50335987-01</td>
+<td>ZIP format inspector dropped the inner TIFF single-band failure, allowing a multi-band member to pass R1.</td>
+<td>Combine container and inner R1; regression tests require rejection for direct and zipped multi-band TIFFs. Central validator fixed, scientific template unchanged.</td>
+</tr>
+<tr>
+<td>IR-50335987-02</td>
+<td>A non-raster member named <code>.tif</code> in a valid ZIP raised RasterioIOError instead of a machine-readable refusal.</td>
+<td>Return negative R1; paired direct/ZIP regression tests.</td>
+</tr>
+<tr>
+<td>IR-50335987-03</td>
+<td>Homepage conflated byte-distinct historical artifacts with protocol uniqueness; executive summary generalized a three-file calibration to every research TIFF.</td>
+<td>Hero explicitly says no approved submission; narrowed calibration scope. No historical receipts or raster bytes altered.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>a201fa92</code> — official-format promotion gate and current input restore (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-221</td>
+<td>The shared older local validator passes a zero-filled exterior, while the official problem's R6 requires null/NaN outside the sample bounds; the canonical download fails R6 on 7,111,787 exterior cells. Older readiness and selector code could in principle approve on local format alone, though novelty stops this artifact.</td>
+<td>Wired the separate R1–R8 validator into readiness, independent <code>submission_decision</code> and selector; missing portal result now fails closed. Site labels official format FAIL separately from local range PASS. No TIFF was rewritten and no portal rejection cause was inferred.</td>
+</tr>
+<tr>
+<td>IR-79-222</td>
+<td>The raw 13-file owner-mirror manifest was missing in this fresh checkout. The existing restore script fetched all 13, checked pinned SHA-256 and kept the old receipt unchanged; all 13 were present in this session after restore.</td>
+<td>Record current runtime status in <code>evidence/runtime_data_status_a201fa92.json</code>. Raw files are ignored and not included in the pull request; fresh clones and CI must restore explicitly. Hash equality to an owner mirror is not organizer authentication.</td>
+</tr>
+<tr>
+<td>IR-79-223</td>
+<td>A hash-verified universal-support registry witness forces literal 3-pixel forward overlap 1.0 for any nonempty candidate, violating the 0.70 cap. The canonical card already exhausted its 3 experiments.</td>
+<td>Re-ran <code>preflight_new_lane.py --restore</code> (exit 2); no candidate surface, dots, TIFF or selector promotion was fabricated. A prospective protocol-owner resolution, not a post-hoc exemption, is required before new modeling.</td>
+</tr>
+<tr>
+<td>IR-79-224</td>
+<td>The existing shared all-finite writer rejects NaN, whereas the official R6 verifier rejects zero-filled exterior pixels on this sample grid; neither policy alone is sufficient for a future compliant promoted artifact.</td>
+<td>This session prevents approval of the mismatch but does not alter pinned scientific writer/grid bytes or rescore historical TIFFs. Prospective shared writer/validator update with NaN exterior <em>only</em>, finite [0,1] interior and full test/pin migration is the next engineering step after method/protocol authorization.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>a26add66</code> — automated official-format validator review (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-225</td>
+<td>The ZIP path discarded the inner TIFF's R1 result, so a one-member ZIP containing a two-band GeoTIFF could return <code>ok:true</code>. Reproduced by a failing regression before the fix.</td>
+<td>Preserve and combine archive/raster R1; require GDAL <code>GTiff</code> driver. Fix once in <code>src/gems79/portal_spec.py</code>, version <code>gems79-portal-format-v2</code>; no private evaluator/writer fork.</td>
+</tr>
+<tr>
+<td>IR-79-226</td>
+<td>Missing inputs, an unreadable TIFF inside a ZIP, and some decompression failures could raise instead of returning an automated refusal. A non-GeoTIFF with a <code>.tif</code> filename could pass R1.</td>
+<td>Complete eight-rule failed reports, actual-driver checks, archive/IO error handling, CLI continuation and adversarial tests. No malformed input is promoted by this fix.</td>
+</tr>
+<tr>
+<td>IR-79-227</td>
+<td>Homepage used unqualified local-format PASS while the official R6 exterior rule failed. This was a policy/communication ambiguity, not proof of portal acceptance.</td>
+<td>Homepage now says Official format FAIL R6 and links to the guide. Rechecked official sample PASS and inherited THVC TIFF/ZIP FAIL R6. Shared writer and archived bytes unchanged; prior upload error still undiagnosed.</td>
+</tr>
+<tr>
+<td>IR-79-228</td>
+<td>Data-placement claims needed current verification; historical restore metadata alone was insufficient.</td>
+<td>Restored and SHA-verified all thirteen owner-mirror inputs and exactly reproduced the historical cache in this workspace. Pins prove mirror integrity, not organizer origin. New-lane feasibility still exits 2, with full coverage of allowed cells. No candidate, holdout, placement or slot.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>ff2e4413</code> addendum (<code>2026-10-22</code>): amendment D-3 and lane <code>G79-OPC</code> (<code>arena/ff2e4413-gemsdoe79</code>)</h3>
+<p>Review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_ff2e4413.md"><code>reports/session_review_ff2e4413.md</code></a>. Run card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_opc.json"><code>run_card_opc.json</code></a>. These IDs were renumbered from 207–209 to 229–231 when merging with concurrent main sessions.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-229</td>
+<td><strong>Amendment D-3 adopted prospectively (session <code>ff2e4413</code>).</strong> The D-2 saturated-halo exact-cell fallback was uncorrected for chance. Plateau priors (tie-inclusive dot-equivalent set = whole footprint, e.g. <code>GEMSDOE48</code> unassigned-mass, <code>5GEMSDOE</code> density probe) therefore fired on every candidate (<code>IR-79-128</code>). Recorded as <code>IR-79-207</code> in the sha-pinned files <code>vendor/gems57/uniqueness.py</code> and <code>registry/preregistration_g79_opc.json</code>, which were written before the merge renumbering. Together with the literal witnesses, this made the owner's top-priority "generate a unique submission" request unsatisfiable.</td>
+<td>Fixed once in shared <code>vendor/gems57/uniqueness.py</code> (<code>saturated_branch='chance-corrected-d3'</code>; default unchanged), pinned in <code>registry/template_pin.json</code>, tested in <code>tests/test_uniqueness_d3.py</code>, documented in <code>reports/protocol_amendment_D3_20261022.md</code>. Committed <strong>before</strong> any <code>G79-OPC</code> surface, score or placement (<code>registry/preregistration_g79_opc.json</code>). No historical verdict is changed. The owner may reverse it. If reversed, every candidate is blocked again.</td>
+</tr>
+<tr>
+<td>IR-79-230</td>
+<td><strong><code>G79-OPC</code> seed-20 run 1 was invalid: the holdout allowed/negative domain used the full catalogue, which leaked truth.</strong> <code>scripts/run_g79_opc.py</code> excluded <code>d(catalogue) &lt;= 3 px</code> (hidden faults included) from the allowed domain. The hidden truth therefore could never be predicted (full model <code>0.0657</code>). Run 1 is preserved as <code>evidence/opc/seed20_INVALID_run1_truth_excluded_from_allowed.json</code> and is not a result.</td>
+<td>Fixed as preregistration deviation <code>D-OPC-2</code>, disclosed as post-result: only the <em>visible</em> catalogue defines the allowed domain and negatives in holdout. No model, feature, budget or placement parameter changed. The recipe was rerun unchanged on seeds 20 and 30. Rule for future lanes: holdout code must never read <code>grid.catalogue</code> for masks.</td>
+</tr>
+<tr>
+<td>IR-79-231</td>
+<td><strong><code>G79-OPC</code> stopped negative (G3 and G4 fail). The anisotropy signal did not replicate.</strong> HOLDOUT-DTI (<code>gems57-pooled-hide-v2</code>): full model <code>0.1207 [0.0968, 0.1448]</code> (seed 20, n = 11,321) and <code>0.1506 [0.1246, 0.1768]</code> (seed 30, n = 11,342); both are below G79-THVC <code>0.1905 / 0.1944</code>. Oriented minus isotropic geometry was <code>+0.0464 [0.0277, 0.0622]</code> on seed 20 but <code>-0.0027 [-0.0233, 0.0138]</code> on seed 30. Prior-corrected probabilities were under-calibrated about 5× (Σp <code>2,090</code> vs <code>11,321</code> hidden pixels), so too few dots were emitted (18–20k). D-3 novelty on 1,222/1,232 comparable rasters fired on 14 rows (13 distinct dense dot-field paths; worst chance-corrected <code>0.8264</code>, <code>GEMSDOE53</code> thin_bin).</td>
+<td>Verdict: negative. The TIFF is archived research-only (<code>artifacts/opc/*-DO-NOT-SUBMIT.tif</code>, <code>run_card_opc.json</code>). The runner refuses to rerun (<code>refuse_if_closed</code>). Calibration was <strong>not</strong> retuned after viewing the holdout. A prospective fix (inner-validated calibration on simulated hides) is listed in <code>research/hypotheses_ff2e4413.md</code> as a new lane.</td>
 </tr>
 </tbody>
 </table></div></section></main>

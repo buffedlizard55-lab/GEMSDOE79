@@ -1,0 +1,23 @@
+{
+  "evidence_class": "SOURCE-REVIEW",
+  "review_date_utc": "2026-10-22",
+  "freshly_retrieved": [
+    {
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution/blob/aebe92f7c8a990f0e3443451b7a825d9afd6336b/README.md",
+      "local_snapshot": "evidence/official_reference_readme_148fa8f5.md",
+      "sha256": "cfa4d55559c9128313beb9417eae7e0a94c31677132afb1120f9e86222804239",
+      "supports": [
+        "Reference solution requires data placement.",
+        "CPU-only execution is supported; GPU is faster."
+      ],
+      "does_not_support": [
+        "Local data readiness",
+        "Any candidate score",
+        "Portal acceptance"
+      ]
+    }
+  ],
+  "network_limit": "Outbound access is limited to GitHub and package registries. DrivenData, USGS, GDR, Dropbox and NLR pages were not freshly fetched in this session.",
+  "historical_sources": "knowledge/review_e4a4422d_sources.json; historical source descriptions are not fresh verification.",
+  "organizer_submission_receipt": null
+}
