@@ -38,6 +38,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "vendor"))
 sys.path.insert(0, str(ROOT / "src"))
 
+if __name__ == "__main__":
+    from gems79.lifecycle import LaneClosedError, require_open_lane
+    try:
+        require_open_lane(ROOT, "G79-THVC")
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)
+
 from gems57 import evaluate_holdout, holdout, metric, submission_writer, uniqueness
 from gems57.grid import Grid
 from gems79.thvc_features import (

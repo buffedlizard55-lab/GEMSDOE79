@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "lane": "H79-MRND",
+  "session_id": "800321e2-gemsdoe79",
+  "registered_before_any_result": true,
+  "title": "Multi-Regime Brittle-Crustal Nested Discovery (Dequantized TIGER-Deseamed 3DEP Dipoles + Scarp-vs-Channel Invariant + Multi-Scale Potential-Field Worms + INGENIOUS Hydrothermal Conduits + Nested Hide-to-Recover Three-Regime Kernel-Credit Trees)",
+  "preregistered_utc": "2026-10-22T04:42:00Z",
+  "hypothesis_memo": "research/hypotheses_mrnd_800321e2.md",
+  "budget_cap": {
+    "max_experiments": 3,
+    "max_wall_clock_minutes": 120
+  },
+  "inputs": {
+    "manifest": "registry/data_manifest.json",
+    "training_features_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "labels_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "existing_faults_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+    "sample_submission_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "ext_lidar_scarp_features_u8_sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "ext_lidar_scarp_features_json_sha256": "9ef0df6e87598a8b0cd52fe821661e5fdb3a00568c5d9b1c5d61fd6b242dcd41",
+    "ext_geodawn_rad_u8_sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "ext_geodawn_extensions_u8_sha256": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+    "ext_tiger_road_distance_m_sha256": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988",
+    "ext_gdr_wellspring_sha256": "122718e65bdf55aab0ee12ad20d80062f0deb1de957225a61ad880dd5dc196ea",
+    "ext_gdr_volcanic_vents_sha256": "f91bafbaccaaf2754e71d60434fc0f9eb2c7b880c6e714883f4974542ff6a0bf",
+    "excluded_tabular_columns": [
+      "dist_known_fault_px"
+    ],
+    "excluded_rasters": [
+      "derived_sgmc_faults_100m_u8.tif",
+      "gdr_qfaults_traces.csv",
+      ".cache/registry/** (never read during feature computation, training, calibration, or dot placement; accessed solely inside vendor/gems57/uniqueness.py)"
+    ]
+  },
+  "evaluator": {
+    "id": "gems57-pooled-hide-v2",
+    "implementation": "vendor/gems57/evaluate_holdout.py",
+    "seeds": [
+      20,
+      30
+    ],
+    "withhold_fraction": 0.2,
+    "buffer_px": 3,
+    "boundary_px": 12,
+    "alpha": 0.2,
+    "beta": 0.8,
+    "radius_m": 300.0,
+    "bootstrap_resamples": 1000,
+    "bootstrap_ci_level": 0.95
+  },
+  "controls": [
+    "h33_foldfair_control",
+    "ablation_single_regime_static",
+    "uniform_control"
+  ],
+  "experiments": [
+    {
+      "id": "M1",
+      "name": "Nested hide-to-recover three-regime brittle-crustal kernel-credit models + TIGER/canyon deseaming + INGENIOUS hydrothermal conduits",
+      "regimes": [
+        {
+          "id": "R1_relay_tip_mod",
+          "d_min_m_exclusive": 0.0,
+          "d_max_m_inclusive": 1400.0,
+          "share": 0.24
+        },
+        {
+          "id": "R2_piedmont_bajada",
+          "d_min_m_exclusive": 1400.0,
+          "d_max_m_inclusive": 4500.0,
+          "share": 0.34
+        },
+        {
+          "id": "R3_concealed_intrabasin",
+          "d_min_m_exclusive": 4500.0,
+          "d_max_m_inclusive": null,
+          "share": 0.42
+        }
+      ],
+      "fixed_parameters": {
+        "nested_replicates_per_model": 4,
+        "nested_hide_fraction": 0.2,
+        "nested_buffer_px": 3,
+        "negatives_sampled_per_replicate": 120000,
+        "hgb_max_iter": 220,
+        "hgb_learning_rate": 0.07,
+        "hgb_max_leaf_nodes": 63,
+        "hgb_min_samples_leaf": 180,
+        "hgb_l2_regularization": 1.5,
+        "road_deseam_scale_m": 150.0,
+        "road_deseam_floor": 0.15,
+        "canyon_penalty_weight": 0.45,
+        "surface_calibration": "exp(-rank_desc_r(x) / (q_r * B_scale))",
+        "budget_full_footprint": 37654,
+        "placement_spacing_px": 3
+      }
+    }
+  ],
+  "gates": {
+    "single_feature_auc_max": 0.9,
+    "surface_spearman_max": 0.9,
+    "surface_forward_overlap_3px_max": 0.7,
+    "placement_spearman_max": 0.9,
+    "placement_forward_overlap_3px_max": 0.7,
+    "holdout_must_beat_controls": [
+      "h33_foldfair_control",
+      "uniform_control"
+    ],
+    "no_dense_prior_exemption": true
+  }
+}

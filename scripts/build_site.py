@@ -349,6 +349,9 @@ def main():
               'evidence/ber/feature_receipt.json': 'ber_feature_receipt.json',
               'evidence/ber/distance_diagnostics.json': 'ber_distance_diagnostics.json',
               'run_card_ber.json': 'run_card_ber.json',
+              'registry/preregistration_mrnd.json': 'preregistration_mrnd.json',
+              'run_card_mrnd.json': 'run_card_mrnd.json',
+              'registry/preregistration_asym.json': 'preregistration_asym.json',
               'run_card_asym.json': 'run_card_asym.json',
 
               'evidence/g79_thvc_results.json': 'g79_thvc_results.json',
@@ -400,6 +403,10 @@ def main():
     stepco_dir.mkdir(exist_ok=True)
     for src in sorted((ROOT / 'evidence/stepco').glob('*.json')):
         shutil.copyfile(src, stepco_dir / src.name)
+    mrnd_dir = SITE / 'evidence/mrnd'
+    mrnd_dir.mkdir(exist_ok=True)
+    for src in sorted((ROOT / 'evidence/mrnd').glob('*.json')):
+        shutil.copyfile(src, mrnd_dir / src.name)
     for source, dest in copies.items():
         shutil.copyfile(ROOT / source, SITE / 'evidence' / dest)
     for stale in (SITE / 'assets').glob('*.png'):
@@ -418,6 +425,9 @@ def main():
                           + '<section class="section">' + md('reports/verification_passes.md') + '</section>'
                           + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Lane G79-BER (session 4f80e0d0, negative, archived)</h2>' + md('reports/ber_analysis.md') + '</section>'
+                          + '<section class="section"><h2>Lane H79-MRND &amp; Session 800321e2 Review (negative, surface-stopped)</h2>'
+                          + '<p><a href="evidence/run_card_mrnd.json">H79-MRND run card</a> · <a href="evidence/preregistration_mrnd.json">preregistration</a> · <a href="evidence/mrnd/m1_holdout_seed20.json">seed 20 holdout</a> · <a href="evidence/mrnd/m1_holdout_seed30.json">seed 30 holdout</a> · <a href="evidence/mrnd/uniqueness_surface.json">surface uniqueness</a> · <a href="evidence/mrnd/surface_diagnostic.json">3-tier diagnostic</a>.</p>'
+                          + md('reports/mrnd_analysis.md') + md('reports/session_review_800321e2.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
@@ -441,6 +451,9 @@ def main():
                           + '<section class="section"><h2>Lane G79-BER (session 4f80e0d0, negative, archived)</h2>'
                           + '<p>Band-stratified evidence recovery, preregistered before any result: five distance-to-catalogue bands with area-proportional quotas, one nested-hide model per band, and 30 new worm / basement-step / antislope transforms (85 features). HOLDOUT-DTI 0.0788 [0.0684, 0.0889] (seed 20) and 0.0882 [0.0739, 0.1011] (seed 30) vs the H33 fold-fair control 0.0961 / 0.0989 — below the bar on both seeds (and below canonical G79-THVC 0.1905 / 0.1944), so no slot was spent. Under amendment D-2 the surface is highly registry-distinct (worst ρ 0.314, worst chance-corrected overlap 0.654) but is recorded not unique: four full-footprint diagnostic surfaces fire the saturated exact test (IR-79-128) and the gate was not changed after the result. Verdict: negative, <code>ok_to_submit: false</code>; artifact archived as DO-NOT-SUBMIT in <code>archive/g79_ber_4f80e0d0/</code>. <a href="evidence/run_card_ber.json">BER run card</a> · <a href="evidence/preregistration_ber.json">preregistration</a> · <a href="analysis.html">full analysis</a>.</p>'
                           + md('research/hypotheses_ber.md') + md('reports/protocol_amendment_D2_20261022.md') + '</section>'
+                          + '<section class="section"><h2>Lane H79-MRND (session 800321e2, negative, surface-stopped)</h2>'
+                          + '<p>Preregistered 3-regime nested discovery (<code>q = (0.24, 0.34, 0.42)</code>, 77 features, max AUC 0.8589 &le; 0.90): beat H33 fold-fair control on both seeds (<code>0.1044 / 0.1236</code> vs <code>0.0961 / 0.0989</code>; Seed 30 paired &Delta; +0.0247, 95% CI [+0.0095, +0.0389]), passed Spearman (&rho; = 0.2582 &le; 0.90), flagged <code>0 / ~950</code> normal-budget (&le;167k-dot) submissions, and achieved worst chance-corrected excess overlap <code>0.5486 &le; 0.70</code> across all 982 informative comparable rasters, stopping pre-placement under literal one-sided overlap (IR-79-132). <a href="evidence/run_card_mrnd.json">MRND run card</a> · <a href="evidence/preregistration_mrnd.json">preregistration</a> · <a href="analysis.html">full analysis</a>.</p>'
+                          + md('research/hypotheses_mrnd_800321e2.md') + '</section>'
                           + '<section class="section"><h2>Concurrent lane G79B-SDPT (session 67557396, negative, archived) &amp; H79-FF (session 1de1617f, negative, archived)</h2>'
                           + '<p><strong>G79B-SDPT</strong> (archived in <code>archive/g79b_sdpt_67557396/</code>): Unconstrained A3 scored HOLDOUT-DTI 0.1211 [0.1029, 0.1402] (seed 30) and 0.1114 [0.0943, 0.1287] (seed 20) vs its A1 control 0.1143 / 0.1087 (paired 95% CIs vs control span zero), and failed the duplicate gate against 99 dot-field priors. Post-duplicate Amendments B1/B2 overlap-capped 52 priors (E2), reducing HOLDOUT-DTI to 0.1036 / 0.0910 (below control on both seeds). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/run_card_g79b.json">G79B run card</a> · <a href="evidence/concurrent_lanes_audit.json">9-lane &amp; cross-lane audit</a>.</p>'
                           + '<p><strong>H79-FF</strong> (archived in <code>archive/h79_ff_1de1617f/</code>): Placed 37,654 binary dots strictly 2–8 km off the mapped catalogue ranked by USGS 3DEP lidar <code>step_max</code>. Not preregistered and not evaluated on <code>HOLDOUT-DTI</code>; failed the duplicate gate (1.0000 vs space-filling priors, 0.9976 vs 13GEMSDOE lattice, 0.8802 vs GEMSDOE3 coverage-v3-wide). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/ff_run_card.json">H79-FF run card</a>.</p>'

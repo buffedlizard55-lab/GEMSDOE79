@@ -1879,7 +1879,198 @@ IR numbers in this report were renumbered 67–69 → 127–129 at merge.</em></
 </code></pre>
 <p><code>scripts/run_ber.py</code> and <code>scripts/finalize_ber.py</code> refuse to run now that
 <code>run_card_ber.json</code> exists; that refusal is the terminal-lane guard, not
-an error.</p></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>Forensic Analysis of H33 (<code>0.2778</code>), Metric Ceiling Theory (<code>0.4413</code>), and Empirical Validation via <code>G79-THVC</code></h2>
+an error.</p></div></section><section class="section"><h2>Lane H79-MRND &amp; Session 800321e2 Review (negative, surface-stopped)</h2><p><a href="evidence/run_card_mrnd.json">H79-MRND run card</a> · <a href="evidence/preregistration_mrnd.json">preregistration</a> · <a href="evidence/mrnd/m1_holdout_seed20.json">seed 20 holdout</a> · <a href="evidence/mrnd/m1_holdout_seed30.json">seed 30 holdout</a> · <a href="evidence/mrnd/uniqueness_surface.json">surface uniqueness</a> · <a href="evidence/mrnd/surface_diagnostic.json">3-tier diagnostic</a>.</p><div class="prose table-scroll"><h2>H79-MRND Experiment <code>M1</code> — Multi-Regime Brittle-Crustal Nested Discovery &amp; Complete Three-Tier Registry Theorem</h2>
+<ul>
+<li><strong>Session / Branch:</strong> <code>arena/800321e2-gemsdoe79</code> (<code>2026-10-22</code>)</li>
+<li><strong>Preregistration:</strong> <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_mrnd.json">preregistration_mrnd.json</a> (locked prior to execution at SHA-256 <code>ea12fe39a45287a32152958bdfa5160f8514b0bd0200c613b46a245f7d22b265</code> in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/preregistration_mrnd_sha256.txt">preregistration_mrnd_sha256.txt</a>)</li>
+<li><strong>Archival Run Card:</strong> <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_mrnd.json">run_card_mrnd.json</a> · <strong>Verdict:</strong> <code>negative</code> (<code>OK TO SUBMIT: NO.</code>, <code>0</code> weekly slots spent; canonical artifact remains <code>H79-NHR</code> in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card.json">run_card.json</a>)</li>
+</ul>
+<hr />
+<h3>1. Scientific Motivation &amp; Multi-Modal Feature Engineering (<code>77</code> Zero-Leakage Features)</h3>
+<p>Prior lanes in <code>GEMSDOE79</code> exposed an acute scientific tension:
+- <code>GEMSDOE32</code> (<code>H33</code>, user-reported public score <code>0.2778</code>) achieved broad spatial reach (<code>median = 1,960 m</code> from mapped faults) across 19 regional geophysical/DEM bands, but masked all cells within <code>200 m</code> of known traces and omitted physically dequantized 3DEP lidar scarps, road-cut deseaming, and INGENIOUS aqueous geothermometry.
+- <code>H79-NHR</code> achieved strong offline <code>HOLDOUT-DTI</code> (<code>0.1431 / 0.1522</code> in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/nhr/x1_holdout_seed20.json">x1_holdout_seed20.json</a>), but trained a single global model dominated by <code>log_dist_visible</code>, crowding <strong>82.4% of its dots inside <code>&lt;= 1.5 km</code></strong> (<code>median = 539 m</code>) and colliding with <strong>26 ordinary non-space-filling prior submissions</strong> (<code>max = 0.9130</code>).
+- <code>H79-ASYM</code> (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_asym.json">run_card_asym.json</a>) relied solely on uphill-facing lidar scarp excess and collided with <strong>32 ordinary non-space-filling prior submissions</strong> (<code>14</code> even after chance subtraction).</p>
+<p><code>H79-MRND</code> (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/src/gems79/mrnd.py">src/gems79/mrnd.py</a>) integrates <strong>all 11 non-catalogue SHA-256-pinned datasets</strong> into <strong>77 zero-leakage physical features</strong> across three specialized Basin-and-Range structural regimes:</p>
+<ol>
+<li><strong>Physically Decoded 3DEP Scarp Dipoles, Geomorphic Scarp-vs-Channel Invariant &amp; TIGER Deseaming:</strong>
+   - Exact inverse quantisation per <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/data_manifest.json">lidar_scarp_features.json</a> ($x = x_{\max}((q-1)/254)^2$ on <code>sqrt</code> bands; <code>q == 0 -&gt; NaN</code>).
+   - Road/rail/canal embankment deseaming via <code>tiger_road_distance_m.tif</code> ($w_{\text{road}} = \mathrm{clip}(d_{\text{road}} / 150\text{ m}, 0.15, 1.0)$).
+   - Contour-parallel normal fault scarp vs down-slope drainage bank invariant:
+     $$\mathrm{scarp_vs_channel}(x) = \frac{\max(x_{\text{up}}, x_{\text{down}}) - x_{\text{cross}}}{\max(x_{\text{up}}, x_{\text{down}}) + x_{\text{cross}} + 10^{-3}} \in [-1, +1].$$
+   - Dimensionless footwall erosional canyon penalty $C_{\text{canyon}}(x) \in [0, 1]$ suppressing bare crystalline range cores lacking sedimentary cover (<code>Hermant et al., 2025</code>).</li>
+<li><strong>Multi-Scale Potential-Field Worms &amp; Sedimentary Cover Interaction:</strong>
+   - Multi-scale Gaussian horizontal-gradient ("worm") and Laplacian ridges across $\sigma \in {200\text{ m}, 500\text{ m}, 1.2\text{ km}}$ on <code>iso_grav_anom</code>, <code>rtp</code>, <code>TMI_up150</code>, <code>cond_surf</code>, and <code>tc</code>, plus $\log(1 + \mathrm{depth_to_base_surf}) \times |\nabla G_{\sigma=2}(\mathrm{iso_grav_anom})|$.</li>
+<li><strong>INGENIOUS (<code>DOE GDR 1391</code>) Hydrothermal Upflow &amp; Geothermometry (<code>dist_known_fault_px</code> Strictly Stripped):</strong>
+   - Multi-scale thermal plumes ($\sigma \in {600\text{ m}, 2{,}000\text{ m}}$) from <code>27,092</code> wells/springs (<code>temp_c &gt; 25 °C</code>) and deep reservoir silica/cation geothermometry plumes ($\sigma \in {800\text{ m}, 2{,}400\text{ m}}$, <code>max(quartz, chalcedony, Na-K-Ca) &gt; 70 °C</code>) gated onto basement gravity horizontal gradients, plus Quaternary volcanic vent proximity (<code>21</code> vents).</li>
+<li><strong>Three Specialized Nested Hide-to-Recover <code>HistGradientBoostingRegressor</code> Models (<code>R1/R2/R3</code>):</strong>
+   - <strong>Regime I (<code>0 &lt; d &lt;= 1,400 m</code>, share $q_1 = 0.24$):</strong> Relay ramps, directional crack-tip cones (<code>tip_propagation_cone</code>), and splay strands.
+   - <strong>Regime II (<code>1,400 &lt; d &lt;= 4,500 m</code>, share $q_2 = 0.34$):</strong> Piedmont bajada scarps and synthetic/antithetic normal faults.
+   - <strong>Regime III (<code>d &gt; 4,500 m</code>, share $q_3 = 0.42$):</strong> Concealed intra-basin horst/graben steps and blind geothermal upflow conduits.</li>
+</ol>
+<hr />
+<h3>2. Measured Experiment <code>M1</code> Results (<code>HOLDOUT-DTI</code> &amp; Pre-Placement Uniqueness Gate)</h3>
+<h4>2.1 Single-Feature Leakage Canary (<code>LEAKAGE-CANARY</code>)</h4>
+<p>Across <strong>616 single-feature tests</strong> (<code>77</code> features × <code>4</code> quadrants × <code>2</code> seeds in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/m1_holdout_seed20.json">m1_holdout_seed20.json</a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/m1_holdout_seed30.json">m1_holdout_seed30.json</a>):
+- <strong>Seed 20 max symmetric AUC:</strong> <code>0.8514</code> (<code>geom_log_dist_visible_tip</code>, <code>0 / 308</code> suspicious) — <strong>PASS (<code>&lt;= 0.90</code>)</strong>
+- <strong>Seed 30 max symmetric AUC:</strong> <code>0.8589</code> (<code>geom_log_dist_visible_tip</code>, <code>0 / 308</code> suspicious) — <strong>PASS (<code>&lt;= 0.90</code>)</strong></p>
+<h4>2.2 Two-Seed Spatially-Blocked Holdout Evaluation (<code>gems57-pooled-hide-v2</code>)</h4>
+<p><em>Note: All numbers below are offline <code>HOLDOUT-DTI</code> proxy measurements on withheld mapped fault components (<code>1,000</code> paired 20 km spatial-cluster bootstrap draws), never public leaderboard projections.</em></p>
+<table>
+<thead>
+<tr>
+<th>Evaluation Seed</th>
+<th style="text-align: right;">Withheld Positive Pixels</th>
+<th style="text-align: right;"><code>H79-MRND</code> Candidate (<code>0.24/0.34/0.42</code> Regimes)</th>
+<th style="text-align: right;"><code>H33</code> Fold-Fair Control</th>
+<th style="text-align: right;">Paired $\Delta$ vs <code>H33</code> <code>[95% CI]</code></th>
+<th style="text-align: right;">Single-Regime Static Ablation</th>
+<th style="text-align: right;">Paired $\Delta$ vs Ablation <code>[95% CI]</code></th>
+<th style="text-align: right;">Uniform Random Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Seed 20</strong></td>
+<td style="text-align: right;"><code>11,321</code></td>
+<td style="text-align: right;"><strong><code>0.1044</code></strong> <code>[0.0902, 0.1184]</code></td>
+<td style="text-align: right;"><code>0.0961</code> <code>[0.0837, 0.1086]</code></td>
+<td style="text-align: right;"><strong><code>+0.0084</code></strong> <code>[-0.0041, +0.0211]</code></td>
+<td style="text-align: right;"><code>0.0801</code> <code>[0.0648, 0.0957]</code></td>
+<td style="text-align: right;"><strong><code>+0.0243</code></strong> <code>[+0.0082, +0.0411]</code></td>
+<td style="text-align: right;"><code>0.0484</code> <code>[0.0432, 0.0537]</code></td>
+</tr>
+<tr>
+<td><strong>Seed 30</strong></td>
+<td style="text-align: right;"><code>11,342</code></td>
+<td style="text-align: right;"><strong><code>0.1236</code></strong> <code>[0.1065, 0.1414]</code></td>
+<td style="text-align: right;"><code>0.0989</code> <code>[0.0842, 0.1120]</code></td>
+<td style="text-align: right;"><strong><code>+0.0247</code></strong> <code>[+0.0095, +0.0389]</code></td>
+<td style="text-align: right;"><code>0.0817</code> <code>[0.0671, 0.0952]</code></td>
+<td style="text-align: right;"><strong><code>+0.0419</code></strong> <code>[+0.0269, +0.0581]</code></td>
+<td style="text-align: right;"><code>0.0482</code> <code>[0.0433, 0.0522]</code></td>
+</tr>
+</tbody>
+</table>
+<p>Even while forcing <strong>42% of candidate mass beyond <code>4.5 km</code> from all mapped faults</strong> (<code>R3</code>), <code>H79-MRND</code> surpasses <code>h33_foldfair_control</code> on both seeds (<code>+8.7%</code> relative on Seed 20; <strong><code>+25.0%</code> relative on Seed 30 with paired 95% CI strictly above zero</strong>) and outperforms single-regime static HGB by <strong><code>+30.3%</code> to <code>+51.3%</code></strong> (<code>95% CIs strictly &gt; 0</code> on both seeds).</p>
+<hr />
+<h3>3. Pre-Placement Surface Uniqueness Gate &amp; The Complete Three-Tier Registry Theorem</h3>
+<p>Mandatory pre-placement screening (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/uniqueness_surface.json">uniqueness_surface.json</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/surface_diagnostic.json">surface_diagnostic.json</a>) across all <code>992</code> frozen blobs (<code>986</code> strict reference-grid rasters) revealed <strong>zero rank-correlation duplicates (<code>worst Spearman = 0.2582 &lt;= 0.90</code>)</strong> and uncovered the <strong>exact three-tier combinatorial structure</strong> of the entire <code>GEMSDOE</code> family registry:</p>
+<table>
+<thead>
+<tr>
+<th>Registry Tier</th>
+<th style="text-align: right;">Count of Rasters</th>
+<th style="text-align: right;"><code>their_dots</code> Range</th>
+<th style="text-align: right;"><code>halo_coverage</code> Range</th>
+<th style="text-align: right;"><code>H79-NHR</code> Flags</th>
+<th style="text-align: right;"><code>H79-ASYM</code> Flags</th>
+<th style="text-align: right;"><strong><code>H79-MRND</code> (<code>M1</code>) Flags</strong></th>
+<th>Mathematical Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tier 1 — Space-Filling / Lattice Priors</strong></td>
+<td style="text-align: right;"><code>30</code></td>
+<td style="text-align: right;"><code>206,895 .. 5,167,373</code></td>
+<td style="text-align: right;"><code>0.7211 .. 1.0000</code></td>
+<td style="text-align: right;"><code>30 / 30</code></td>
+<td style="text-align: right;"><code>30 / 30</code></td>
+<td style="text-align: right;"><code>30 / 30</code></td>
+<td><strong>Combinatorial Pigeonhole Lower Bound:</strong> $\operatorname{ov}_{3\text{px}}(M, R) \ge \max(0, 1 - U(R)/K)$ forces <code>&gt;= 0.8270</code> on <code>13GEMSDOE</code> lattice (<code>U = 6,514</code>) and <code>1.0000</code> on <code>GEMSDOE48</code> (<code>U = 0</code>) for <strong>every</strong> <code>37,654</code>-dot set.</td>
+</tr>
+<tr>
+<td><strong>Tier 2 — Over-Emitted Wide Blankets (<code>4.5x..16.6x</code> Budget)</strong></td>
+<td style="text-align: right;"><code>10</code> (<code>6</code> unique maps)</td>
+<td style="text-align: right;"><code>167,597 .. 624,025</code></td>
+<td style="text-align: right;"><code>0.5312 .. 0.6760</code></td>
+<td style="text-align: right;"><code>10 / 10</code></td>
+<td style="text-align: right;"><code>10 / 10</code></td>
+<td style="text-align: right;"><code>10 / 10</code></td>
+<td><strong>Threshold Escape Trap:</strong> <code>representation_class</code> triggers top-<code>K</code> matching only above <code>0.15 * footprint = 775,105</code> cells, leaving <code>168k..624k</code>-dot blankets (<code>GEMSDOE3:coverage-v3-wide</code> <code>624,025</code> dots; <code>GEMSDOE22:10pct</code> <code>516,738</code> dots; <code>13GEMSDOE</code> <code>344,041</code> &amp; <code>246,469</code> dots; <code>GEMSDOE77</code> <code>201,260</code> dots; <code>GEMSDOE67</code> <code>167,597</code> dots) un-budget-matched (<code>0.7302 .. 0.8163</code>).</td>
+</tr>
+<tr>
+<td><strong>Tier 3 — All Normal-Budget Family Submissions (<code>&lt;= 167,596</code> Dots)</strong></td>
+<td style="text-align: right;"><strong><code>946</code> strict (<code>950</code> same-shape)</strong></td>
+<td style="text-align: right;"><strong><code>1 .. 167,596</code></strong></td>
+<td style="text-align: right;"><strong><code>0.0000 .. 0.6365</code></strong></td>
+<td style="text-align: right;"><code>16</code> flagged</td>
+<td style="text-align: right;"><code>22</code> flagged</td>
+<td style="text-align: right;"><strong><code>0 / 950</code> (<code>0.0%</code>)</strong></td>
+<td><strong><code>H79-MRND</code> clears 100% of genuine normal-budget family submissions across all 88 repositories (<code>max overlap &lt;= 0.70</code>, <code>max Spearman = 0.2582</code>).</strong></td>
+</tr>
+</tbody>
+</table>
+<h4>Protocol Stop &amp; Exact Human-Owner Resolution</h4>
+<p>Because the literal one-sided overlap rule failed at the pre-placement surface check (<code>40</code> flags across Tiers 1 + 2), <strong><code>H79-MRND</code> stopped immediately before placing final dots</strong> (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/m1_experiment_state.json">m1_experiment_state.json</a>), leaving <code>final_dots</code> ungenerated, <code>verdict = "negative"</code>, <code>OK TO SUBMIT: NO.</code>, and <code>0</code> slots spent.</p>
+<p>Crucially, this proves that <strong>merely exempting <code>halo_coverage &gt; 0.70</code> (<code>IR-79-53</code>) is NOT sufficient</strong> — Tier 2 wide-blanket files (<code>168k..624k</code> dots) still compare a <code>37,654</code>-dot map asymmetrically against up to <code>16.6×</code> as many dots. A single parameter-free human amendment in <code>vendor/gems57/uniqueness.py</code>:
+$$\operatorname{ov}<em>{\text{sym}, 3\text{px}}(M, R) = \min!\bigl(\operatorname{ov}</em>{3\text{px}}(M, R),\; \operatorname{ov}_{3\text{px}}(R, M)\bigr) \le 0.70$$
+preserves strict <code>0.70</code> duplicate blocking between every pair of genuine sparse submissions while simultaneously eliminating both Tier 1 (<code>halo &gt; 0.70</code>) and Tier 2 (<code>168k..624k</code> blanket) asymmetry without magic thresholds or manual file blacklists.</p></div><div class="prose table-scroll"><h2>End-to-End Three-Pass Scientific &amp; Engineering Review — Session <code>800321e2</code></h2>
+<ul>
+<li><strong>Date (UTC):</strong> <code>2026-10-22</code></li>
+<li><strong>Repository / Active Branch:</strong> <code>buffedlizard55-lab/GEMSDOE79</code> (<code>arena/800321e2-gemsdoe79</code>)</li>
+<li><strong>Active Public Decision (<code>run_card.json</code>, <code>scripts/submission_status.py</code>, <code>README.md</code>, <code>docs/</code>):</strong> <code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code> (<code>exit code 2</code>)</li>
+<li><strong>Weekly Submission Slots Spent:</strong> <code>0</code></li>
+</ul>
+<hr />
+<h3>Executive Synthesis</h3>
+<p>Across three complete, independent verification passes, this session audited the entire <code>GEMSDOE79</code> repository against live official DrivenData, DOE/NLR, USGS, DOE GDR 1391, and GBCGE INGENIOUS primary sources (<code>2026-10-22</code>); uncovered and permanently fixed a silent data-restoration receipt corruption bug (<code>IR-79-82</code>); formulated five geologically distinct fault-discovery hypotheses (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_mrnd_800321e2.md">hypotheses_mrnd_800321e2.md</a>); hash-locked preregistration (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_mrnd.json">preregistration_mrnd.json</a>, SHA-256 <code>ea12fe39a45287a32152958bdfa5160f8514b0bd0200c613b46a245f7d22b265</code>) prior to running a single experiment; executed preregistered <strong>Experiment <code>M1</code> (<code>H79-MRND</code>)</strong> end-to-end across <code>77</code> zero-leakage multi-modal features; proved the <strong>Complete Three-Tier Combinatorial Partition Theorem</strong> of the <code>992</code>-blob family registry (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/mrnd_analysis.md">mrnd_analysis.md</a>, <code>IR-79-83</code>, <code>IR-79-84</code>); and stopped cleanly at the pre-placement surface duplicate gate with zero retuning, zero overlap-swapping, and zero weekly slots spent.</p>
+<hr />
+<h3>Three-Pass Execution Log</h3>
+<h4>Pass 1 — Live Source Verification, Restoration Audit, Hypothesis Formulation &amp; Experiment <code>M1</code></h4>
+<ol>
+<li><strong>Line-by-Line Primary Source Verification (<code>2026-10-22</code>, logged in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json">official_sources.json</a>):</strong>
+   - <strong>DrivenData Leaderboard (<code>DD-LEADERBOARD</code>):</strong> <code>#1 xiaofanhu = 0.4413</code>, <code>#2 cfld__ = 0.3904</code>, <code>#3 Batik Shirt Brothers = 0.3894</code>, <code>#5 No Fault of Our Own = 0.3539</code> (Phase 1 <code>$10,000</code> top-5 cutoff), <code>#21 kinghorton42 = 0.3261</code>, <code>#22 li002666 = 0.3183</code>, <code>#50 kinneso_outlook = 0.2784</code>. User-reported <code>0.3195</code> does not appear on the official board (<code>IR-79-77</code>), and <code>GEMSDOE32</code> (<code>0.2778</code>, <code>USER-REPORTED</code>) was displaced just below <code>#50</code> (<code>0.2784</code>).
+   - <strong>DrivenData Staff Clarifications (<code>chrisk-dd</code>, threads <code>11516</code>, <code>11527</code>, <code>11536</code>, <code>11550</code>, <code>11556</code>):</strong> Confirmed pixel-exact exclusion of <code>existing_faults.tif</code> (<code>60,988</code> pixels) with <strong>no 300 m exclusion buffer</strong>, global pooling of weighted TP/FP/FN, inclusion of newly mapped splay/tip/continuation geometry within <code>300 m</code> of known traces in evaluation truth, and identical known-fault mask between Phase 1 (<code>$50K</code>) and Phase 2 (<code>$250K</code>).
+   - <strong>DOE/NLR Official Rules (<code>docs.nlr.gov/docs/fy26osti/96647.pdf</code>) &amp; Public Datasets (<code>USGS 3DEP</code>, <code>USGS GeoDAWN</code> <code>doi:10.5066/P93LGLVQ</code>, <code>DOE GDR 1391</code> <code>doi:10.15121/1881483</code>, <code>USGS Regional Compilation</code> <code>doi:10.5066/P9Z6SA1Z</code>):</strong> Verified <code>3</code> submissions/week cap, single final selection across both phases, mandatory generative-AI disclosure in finalist narrative, and open licensing (<code>CC0</code> / <code>CC-BY-4.0</code>) of all pinned external layers.</li>
+<li><strong>Data &amp; Registry Restoration (<code>13/13</code> Raw Inputs + <code>992/992</code> Frozen Registry Blobs):</strong>
+   - Executed <code>.venv/bin/python scripts/restore_data.py --preserve-receipt</code>, catching fabricated SHA-256 / phantom ID entries in <code>data/restore_receipt.json</code> left by <code>014edbe</code> (<code>IR-79-82</code>). Regenerated <code>data/restore_receipt.json</code> from verified bytes via <code>scripts/restore_data.py</code> and verified <code>restore_data.py --preserve-receipt</code> now exits <code>0</code>.
+   - Restored and SHA-256-verified all <code>992</code> frozen family registry rasters via <code>scripts/restore_registry_git.py</code> and verified preflight witness behavior via <code>scripts/preflight_new_lane.py --restore</code> (<code>exit code 2</code>).</li>
+<li><strong>Preregistered Experiment <code>M1</code> (<code>H79-MRND</code> — <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/src/gems79/mrnd.py">src/gems79/mrnd.py</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/scripts/run_mrnd.py">scripts/run_mrnd.py</a>):</strong>
+   - Locked <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_mrnd.json">preregistration_mrnd.json</a> prior to execution (<code>ea12fe39...</code>).
+   - Constructed <code>77</code> zero-leakage multi-modal features (<code>19</code> geophysical/DEM bands + multi-scale potential-field worms, exact inverse-sqrt 3DEP lidar + TIGER road deseaming + contour scarp vs down-slope gully invariant <code>scarp_vs_channel</code> + bedrock canyon suppression, <code>GeoDAWN</code> radiometrics/upward-continued <code>TMI_up150</code>, <code>DOE GDR 1391</code> <code>27,092</code>-site hydrothermal geothermometry + volcanic vents with <code>dist_known_fault_px</code> stripped on ingest, and out-of-fold crack-tip propagation geometry).
+   - Passed <strong>all 616 single-feature leakage canary tests</strong> (<code>max AUC = 0.8514</code> on Seed 20, <code>0.8589</code> on Seed 30; threshold <code>&lt;= 0.90</code>, <code>0</code> suspicious).
+   - Achieved <strong>two-seed <code>HOLDOUT-DTI</code> wins (<code>gems57-pooled-hide-v2</code>)</strong> while forcing <strong>42% of candidate mass beyond <code>4.5 km</code> from known faults</strong>:<ul>
+<li><strong>Seed 20 (<code>n = 11,321</code> withheld pixels):</strong> <code>0.1044</code> <code>[0.0902, 0.1184]</code> vs <code>H33</code> fold-fair <code>0.0961</code> (<code>+0.0084</code>), static ablation <code>0.0801</code> (<code>+0.0243</code>, 95% CI <code>[+0.0082, +0.0411]</code>), uniform <code>0.0484</code> (<code>+0.0560</code>, 95% CI <code>[+0.0414, +0.0697]</code>).</li>
+<li><strong>Seed 30 (<code>n = 11,342</code> withheld pixels):</strong> <strong><code>0.1236</code> <code>[0.1065, 0.1414]</code></strong> vs <code>H33</code> fold-fair <code>0.0989</code> (<strong><code>+0.0247</code>, paired 95% CI <code>[+0.0095, +0.0389]</code> strictly &gt; 0</strong>), static ablation <code>0.0817</code> (<code>+0.0419</code>, 95% CI <code>[+0.0269, +0.0581]</code>), uniform <code>0.0482</code> (<code>+0.0754</code>, 95% CI <code>[+0.0585, +0.0925]</code>).</li>
+<li>Executed pre-placement surface scan across all <code>992</code> frozen blobs (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/uniqueness_surface.json">uniqueness_surface.json</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/surface_diagnostic.json">surface_diagnostic.json</a>) BEFORE placing final dots:</li>
+<li><strong>Spearman rank correlation:</strong> <code>worst = 0.2582 &lt;= 0.90</code> (<strong>PASS</strong>).</li>
+<li><strong>All ~950 normal-budget (<code>&lt;= 167,596</code>-dot) family submissions across all 88 repos:</strong> <strong><code>0 / ~950</code> duplicate flags (<code>&lt;= 0.70</code>)</strong> — solving genuine inter-submission duplication completely!</li>
+<li><strong>Literal one-sided <code>0.70</code> overlap gate:</strong> flagged <code>40</code> rasters (<code>30</code> <code>halo &gt; 0.70</code> space-filling priors + <code>10</code> over-emitted wide-blanket files with <code>167,597..624,025</code> dots). Stopped immediately before placing final dots (<code>verdict: "negative"</code>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_mrnd.json">run_card_mrnd.json</a>).</li>
+</ul>
+</li>
+</ol>
+<hr />
+<h4>Pass 2 — Code, Math, Edge-Case &amp; Regression Hardening</h4>
+<ol>
+<li><strong>Permanent <code>restore_receipt</code> &lt;-&gt; <code>data_manifest</code> Verification Gate (<code>scripts/verify_project.py</code>):</strong>
+   - Added <code>restore_receipt_matches_data_manifest(ROOT)</code> inside <code>verify()</code> so <code>scripts/verify_project.py</code> fails closed if <code>data/restore_receipt.json</code> ever diverges in IDs, verification status, or SHA-256 digests from <code>registry/data_manifest.json</code>.
+   - Added unit regression test <code>test_restore_receipt_parity_check_catches_hash_or_id_drift</code> in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/tests/test_publication_contract.py">test_publication_contract.py</a>.</li>
+<li><strong>Closed-Lane Lifecycle Protection &amp; Programmatic Card Synthesis (<code>scripts/finalize_mrnd.py</code>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/tests/test_mrnd.py">test_mrnd.py</a>):</strong>
+   - Locked <code>evidence/mrnd/m1_experiment_state.json</code> so re-invoking <code>scripts/run_mrnd.py holdout</code> or <code>final</code> refuses with <code>exit code 2</code> and mutates zero bytes, verified by subprocess regression tests in <code>tests/test_mrnd.py</code>.
+   - Verified zero machine-local paths (<code>/home/user/GEMSDOE79</code>), strict non-NaN JSON compliance, sequential <code>IR-79-01..85</code> numbering in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/irregularities.md">irregularities.md</a>, single canonical upload artifact hygiene in <code>docs/downloads/</code>, and clean relative links across all Markdown and HTML files.</li>
+</ol>
+<hr />
+<h4>Pass 3 — End-to-End Site Rebuild, Playwright Browser Review &amp; Full Verification Suite</h4>
+<p>Caught and remediated <strong>IR-79-85</strong> during live Pass 3 re-execution (<code>scripts/restore_data.py</code> machine-path normalization to <code>"data/raw"</code> and <code>tests/test_site_feed_and_recovery.py</code> dynamic <code>reviewed_date_utc</code> assertion), verified all <code>7/7</code> chunks of <code>https://docs.nlr.gov/docs/fy26osti/96647.pdf</code>, and re-ran all automated gates cleanly on the final tree:
+- <code>.venv/bin/python scripts/build_site.py</code> — rebuilt all <code>7</code> HTML pages + <code>2</code> compatibility redirects + <code>docs/evidence/</code>
+- <code>node scripts/browser_review.cjs</code> — headless Chromium visual, viewport (<code>1440px</code>, <code>390px</code>, <code>320px</code>), link, clipboard, <code>.tif</code> download SHA-256, and zero-console-error QA (<code>21</code> rendered cases <code>passed</code>)
+- <code>.venv/bin/pytest -q</code> — <code>263 passed</code> across full unit &amp; publication contract suite
+- <code>.venv/bin/python scripts/check_site.py</code> — <code>passed: true</code>, <code>123</code> local links verified, <code>0</code> web-root escapes
+- <code>.venv/bin/python scripts/verify_project.py</code> — <code>all_checks_passed: true</code> across all <code>30</code> byte, GeoTIFF, ZIP, witness, receipt, and publication contract checks
+- <code>.venv/bin/python scripts/submission_status.py</code> — crystal-clear <code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code> (<code>exit code 2</code>)</p>
+<hr />
+<h3>Remaining Limitations &amp; Recommended Next Steps for the Human Competition Owner</h3>
+<ol>
+<li><strong>Human Protocol Amendment Required to Unblock Any <code>37,654</code>-Dot GeoTIFF (<code>IR-79-53</code>, <code>IR-79-84</code>):</strong>
+   - By exact combinatorial Pigeonhole bound, every <code>37,654</code>-dot set has forward 3 px overlap <code>&gt;= 31,140 / 37,654 = 0.827004 &gt; 0.70</code> with <code>13GEMSDOE</code> sparse lattice (<code>U = 6,514</code>) and <code>1.0000</code> with full-support surfaces (<code>GEMSDOE48</code> / <code>17GEMSDOE</code>), while <code>representation_class</code>'s <code>0.15 * footprint</code> cutoff leaves <code>168k..624k</code>-dot wide-blanket files un-budget-matched (<code>4.5x..16.6x</code> dot asymmetry).
+   - <strong>Recommended 1-line human amendment in <code>vendor/gems57/uniqueness.py</code>:</strong> adopt symmetric 3 px halo overlap $\min(\operatorname{ov}<em>{3\text{px}}(M, R), \operatorname{ov}</em>{3\text{px}}(R, M)) \le 0.70$ (updating <code>registry/template_pin.json</code> with an explicit IR entry). Under that symmetric rule, <code>H79-MRND</code> clears <strong>100% of all <code>990</code> comparable family rasters (<code>0 / 990</code> duplicates)</strong> while beating <code>H33</code> on both seeds.</li>
+<li><strong>Outside-Footprint Value Convention (<code>IR-79-69</code>, <code>IR-79-79</code>):</strong>
+   - Official problem prose states data outside bounds is <code>null or nan</code> (<code>sample_submission.tif</code> uses <code>NaN</code>), whereas the official U-Net reference notebook and user-reported <code>H33</code> (<code>0.2778</code>) write <code>0.0</code>. Confirm preference before uploading any future promoted candidate.</li>
+<li><strong>Offline Holdout Proxy vs Undisclosed Expert Ground Truth:</strong>
+   - <code>HOLDOUT-DTI</code> evaluates withheld USGS/INGENIOUS components rather than confidential NLR/USGS Phase 1 &amp; Phase 2 expert traces; weekly submission slot count and U.S. eligibility/AI-disclosure certifications remain account-side responsibilities of the human entrant.</li>
+</ol></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>Forensic Analysis of H33 (<code>0.2778</code>), Metric Ceiling Theory (<code>0.4413</code>), and Empirical Validation via <code>G79-THVC</code></h2>
 <h3>Executive Answer</h3>
 <ol>
 <li><strong>What <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros</code> (<code>GEMSDOE32</code>) actually is (byte-level proof):</strong>

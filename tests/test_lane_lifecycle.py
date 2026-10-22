@@ -92,6 +92,9 @@ def test_absent_card_fails_closed(tmp_path):
     ('emit_dilstep_research.py', []),
     ('run_fgr.py', ['holdout', '--seed', '20']),
     ('finalize_fgr.py', []),
+    ('run_mrnd.py', ['holdout', '--seed', '20']),
+    ('mrnd_uniqueness.py', ['surface']),
+    ('finalize_mrnd.py', []),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (

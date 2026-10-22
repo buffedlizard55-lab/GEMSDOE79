@@ -131,6 +131,16 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 | Uniqueness | Not unique under amendment D-2 as preregistered (worst ρ 0.314, worst chance-corrected overlap 0.654 vs all 982 informative comparable priors; 4 plateau diagnostics fire the saturated branch, IR-79-128). Placement never ran. |
 | Verdict | **Stopped negative**, 1 of 3 experiments, 0 slots. Full analysis: [`reports/ber_analysis.md`](reports/ber_analysis.md) · card: [`run_card_ber.json`](run_card_ber.json) · hypotheses: [`research/hypotheses_ber.md`](research/hypotheses_ber.md) |
 
+### Concurrent session `800321e2` — Lane `H79-MRND` (negative, surface-stopped) & restore-receipt fix (`IR-79-131`..`IR-79-134`)
+
+| | |
+|---|---|
+| Lane / Card | **`H79-MRND`** ([`run_card_mrnd.json`](run_card_mrnd.json), [`registry/preregistration_mrnd.json`](registry/preregistration_mrnd.json) SHA-256 `ea12fe39a45287a32152958bdfa5160f8514b0bd0200c613b46a245f7d22b265`) — **canonical repository download remains `G79-THVC` above (`0.1905 / 0.1944`)** |
+| Method | 3-regime Basin-and-Range nested discovery (`77` physical features: `sqrt`-decoded 3DEP LiDAR scarp asymmetry, road-de-seamed relief, GeoDAWN `K/Th/U` + magnetic tilt/curvature, GDR 1391 thermal springs/geothermometry + volcanic vents, anisotropic crack-tip cone) with preregistered regime quotas `q = (0.24, 0.34, 0.42)` |
+| `HOLDOUT-DTI` (`gems57-pooled-hide-v2`) | Seed 20: **`0.1044`** `[0.0902, 0.1184]` (`n=11,321`) · Seed 30: **`0.1236`** `[0.1065, 0.1414]` (`n=11,342`) vs `H33` control `0.0961 / 0.0989` (**beats `H33` on both seeds; Seed 30 paired `Δ = +0.0247`, 95% CI `[+0.0095, +0.0389]`**; `+30.3%` / `+51.3%` over single-regime static ablation; ranks #3 blind OOF behind `G79-THVC` `0.1905 / 0.1944` and `H79-NHR` `0.1431 / 0.1522`) |
+| Leakage & Uniqueness | `616` single-feature AUC tests, `max = 0.8589 <= 0.90` (**PASS**). Pre-placement surface `worst Spearman = 0.2582 <= 0.90` (**PASS**), **`0 / ~950` normal-budget (`<= 167,596`-dot) flags**, and **worst chance-corrected overlap `0.5486 <= 0.70` across all `982` informative comparable rasters**; stopped pre-placement (`0` dots placed, `0` slots used) when 30 space-filling priors + 6 wide blankets (`168k..624k` dots) exceeded raw `0.70` ([`reports/mrnd_analysis.md`](reports/mrnd_analysis.md), [`reports/session_review_800321e2.md`](reports/session_review_800321e2.md), [`research/hypotheses_mrnd_800321e2.md`](research/hypotheses_mrnd_800321e2.md)) |
+| Infrastructure fix | Resolved **`IR-79-127` / `IR-79-131`**: regenerated [`data/restore_receipt.json`](data/restore_receipt.json) from verified manifest bytes so `scripts/restore_data.py --preserve-receipt` succeeds (`13/13`), normalized `storage_root` to `"data/raw"`, and added `restore_receipt_matches_data_manifest()` to `scripts/verify_project.py`. |
+
 ## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 

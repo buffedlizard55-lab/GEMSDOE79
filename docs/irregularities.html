@@ -937,5 +937,43 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>The frozen audit bytes were restored unchanged rather than committing a regenerated file that silently drops recorded lane measurements. <code>verify_project.py</code> now accepts the audit's recorded pin when it equals the current tool sha <strong>or</strong> the <code>previous_sha256</code> recorded in <code>registry/template_pin.json</code> (documented backward-compatible append only). Remaining limitation: someone should restore the missing <code>local_gems79_concurrent_lanes_audit</code> generator (or formally retire that section) so the audit is end-to-end reproducible again; until then the audit is frozen evidence, not a runnable receipt.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>800321e2</code> addendum (2026-10-22) — <code>H79-MRND</code> multi-regime discovery lane &amp; <code>restore_receipt.json</code> resolution (<code>arena/800321e2-gemsdoe79</code>)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_800321e2.md"><code>reports/session_review_800321e2.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/mrnd_analysis.md"><code>reports/mrnd_analysis.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_mrnd_800321e2.md"><code>research/hypotheses_mrnd_800321e2.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_mrnd.json"><code>run_card_mrnd.json</code></a>, and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd"><code>evidence/mrnd/</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-131</td>
+<td><strong>Resolved <code>IR-79-127</code> (<code>data/restore_receipt.json</code> hash/ID mismatch &amp; sandbox path leak in <code>scripts/restore_data.py</code>).</strong> On base <code>fb463fd</code> and <code>1977a64</code> (<code>IR-79-127</code>), <code>data/restore_receipt.json</code> contained a hand-edited non-manifest hash (<code>e8086c43…</code>) and phantom ID (<code>ext_geodawn_mag_u8</code>) that caused <code>scripts/restore_data.py --preserve-receipt</code> to fail closed, while regenerating the receipt leaked absolute path <code>/home/user/GEMSDOE79/data/raw</code> into <code>storage_root</code> (copied into <code>docs/evidence/restore_receipt.json</code>).</td>
+<td>Normalized <code>storage_root</code> inside <code>ROOT</code> to <code>"data/raw"</code> in <code>scripts/restore_data.py</code>, regenerated <code>data/restore_receipt.json</code> directly from the 13 SHA-256-verified manifest inputs so <code>scripts/restore_data.py --preserve-receipt</code> exits <code>0</code>, and added <code>restore_receipt_matches_data_manifest()</code> in <code>scripts/verify_project.py</code> + <code>tests/test_publication_contract.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-132</td>
+<td><strong><code>H79-MRND</code> Experiment <code>M1</code> beat <code>H33</code> on both seeds and cleared all <code>982</code> informative comparable rasters on chance-corrected overlap, stopping pre-placement under literal one-sided overlap.</strong> Preregistered in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_mrnd.json"><code>registry/preregistration_mrnd.json</code></a> (<code>sha256: ea12fe39…</code>, <code>77</code> features, <code>max single-feature AUC = 0.8589 &lt;= 0.90</code> across <code>616</code> tests), <code>H79-MRND</code> scored <code>HOLDOUT-DTI</code> <code>0.1044</code> <code>[0.0902, 0.1184]</code> vs <code>H33</code> <code>0.0961</code> on Seed 20 and <code>0.1236</code> <code>[0.1065, 0.1414]</code> vs <code>H33</code> <code>0.0989</code> on Seed 30 (<code>paired Δ = +0.0247, 95% CI [+0.0095, +0.0389]</code>; <code>+30.3%</code> / <code>+51.3%</code> over single-regime static ablation). Pre-placement surface scan (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/mrnd/uniqueness_surface.json"><code>evidence/mrnd/uniqueness_surface.json</code></a>) passed Spearman (<code>0.2582 &lt;= 0.90</code>), flagged <code>0 / ~950</code> normal-budget (<code>&lt;= 167,596</code>-dot) family submissions, and achieved <strong>worst chance-corrected overlap <code>0.5486 &lt;= 0.70</code> across all <code>982</code> informative comparable rasters</strong>, but stopped immediately before dot placement under the pre-merge <code>budget-matched-v3</code> gate (<code>40</code> raw flags: <code>30</code> <code>halo &gt; 0.70</code> priors + <code>10</code> <code>168k..624k</code>-dot blankets).</td>
+<td>Kept canonical repository artifact as <strong><code>G79-THVC</code></strong> (<code>0.1905 / 0.1944 HOLDOUT-DTI</code>, <code>run_card.json</code>); archived <code>H79-MRND</code> (<code>verdict = negative</code>, <code>ok_to_submit = false</code>, <code>0</code> dots placed, <code>0</code> slots used) in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_mrnd.json"><code>run_card_mrnd.json</code></a>.</td>
+</tr>
+<tr>
+<td>IR-79-133</td>
+<td><strong>Symmetric 3-px halo overlap complement to <code>informative-halo-v4</code> / <code>Amendment D-2</code> (<code>reports/mrnd_analysis.md</code>).</strong> All 10 non-space-filling files that flagged <code>H79-MRND</code> above <code>0.70</code> raw overlap are 6 wide blankets (<code>167,597 .. 624,025</code> dots = <code>4.5x .. 16.6x</code> budget; <code>halo 0.531 .. 0.676</code>) escaping <code>budget-matched-v3</code>'s <code>0.15 * footprint = 775,105</code> cutoff. Under symmetric 3-px overlap $\min(\operatorname{ov}<em>{3\text{px}}(M, R), \operatorname{ov}</em>{3\text{px}}(R, M)) \le 0.70$, a dense blanket covering the footprint has tiny reverse coverage by a <code>37,654</code>-dot map while near-identical <code>K</code>-dot sets exceed <code>0.70</code> in both directions.</td>
+<td>Documented in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/mrnd_analysis.md"><code>reports/mrnd_analysis.md</code></a> alongside <code>D-2</code>/<code>D-3</code>; <code>vendor/gems57/uniqueness.py</code> left byte-identical to <code>origin/main</code> (<code>1977a64</code>).</td>
+</tr>
+<tr>
+<td>IR-79-134</td>
+<td><strong>Closed-lane CLI lifecycle guards added to all three <code>mrnd</code> entry points.</strong> Following <code>IR-79-97</code> / <code>IR-79-121</code>, closed-lane scripts must refuse execution with exit code <code>2</code> and zero file mutations.</td>
+<td>Protected <code>scripts/run_mrnd.py</code>, <code>scripts/mrnd_uniqueness.py</code>, and <code>scripts/finalize_mrnd.py</code> with fail-closed <code>m1_experiment_state.json</code> checks (<code>exit 2</code>, <code>No files changed.</code>) and added all three to <code>tests/test_lane_lifecycle.py</code> plus <code>tests/test_mrnd.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-135</td>
+<td><strong>Top-level <code>lightgbm</code> import preceded <code>require_open_lane</code> in <code>scripts/run_g79_thvc.py</code>.</strong> When invoked in an environment without optional <code>lightgbm</code> installed, <code>scripts/run_g79_thvc.py</code> raised <code>ModuleNotFoundError</code> (<code>exit 1</code>) on module import instead of failing closed via <code>require_open_lane</code> (<code>exit 2</code>).</td>
+<td>Moved <code>require_open_lane(ROOT, "G79-THVC")</code> ahead of <code>gems79.thvc_model</code> imports when <code>__name__ == "__main__"</code> so closed-lane enforcement exits <code>2</code> (<code>No files changed</code>) even without <code>lightgbm</code>, and synced <code>.[dev]</code> in <code>.venv</code> so <code>tests/test_g79_thvc_pipeline.py</code> runs unskipped.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
