@@ -90,7 +90,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="g79-opc.html">OPC (new)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
@@ -231,9 +231,25 @@ def home(card, summary, preflight, h33):
 <div class="feed"><div><strong>Evidence scope</strong> · Frozen {summary['dots']['expected']:,}-entry inventory; {summary['dots']['compared']:,} comparable, {summary['dots']['non_comparable']} non-comparable. Not a fresh family census or complete organizer registry.</div><a href="sources.html">Official sources &amp; source-health feed ↗</a></div>'''
 
 
+def opc_summary_box():
+    """Short G79-OPC status box for the executive summary, generated from run_card_opc.json."""
+    path = ROOT / 'run_card_opc.json'
+    if not path.exists():
+        return ''
+    c = json.loads(path.read_text())
+    a, b = c['holdout']['seed20']['candidate'], c['holdout']['seed30']['candidate']
+    return (f'<section class="section prose"><h2>Latest lane: G79-OPC (session ff2e4413)</h2>'
+            f'<p><strong>OK TO DOWNLOAD (research): YES · OK TO SUBMIT: {"YES" if c["ok_to_submit"] else "NO"}.</strong> '
+            f'A new, unique {c["raster"]["dots"]:,}-dot GeoTIFF was generated from an oriented pair-correlation fault prior. '
+            f'HOLDOUT-DTI was {a["dti"]:.4f} (seed 20) and {b["dti"]:.4f} (seed 30), below the G79-THVC bar of 0.1905 / 0.1944. '
+            f'Verdict: <strong>{E(c["verdict"])}</strong>. <a href="g79-opc.html">Open the G79-OPC page ↗</a></p>'
+            f'<p>To check it yourself, run <code>.venv/bin/python scripts/opc_gate.py</code>. Exit 2 means OK TO SUBMIT: NO, '
+            f'and exit 1 means the run card and the evidence disagree.</p></section>')
+
+
 def executive(card, summary):
     return f'''{page_head('EXECUTIVE SUMMARY / NO UPLOAD AUTHORIZED', 'Download for research. Do not submit.', 'This review improves evidence consistency and reporting. It does not deliver a newly unique candidate or establish a leaderboard gain.')}
-<section class="section">{download_panel(card)}</section>{download_check_panel(card)}<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
+<section class="section">{download_panel(card)}</section>{opc_summary_box()}{download_check_panel(card)}<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 <section class="section prose"><h2>The decision in plain language</h2><ul><li><strong>Research download: yes.</strong> The single-band raster is finite and in [0, 1], with sample-matching CRS, shape and transform. ZIP and TIFF hashes are checked.</li><li><strong>Competition submission: no.</strong> Both frozen novelty stages fail. The separate selector has not approved a slot. A person must not bypass these failures by uploading manually.</li><li><strong>Scientific evidence: limited.</strong> Historical buffered HOLDOUT-DTI exceeds its H33 control, but this is not a new experiment beating the incumbent and not an organizer score.</li><li><strong>New deliverable requested: not achieved.</strong> A universal-overlap witness made any nonempty new candidate impossible under the stipulated literal rule. We stopped rather than disguise an inherited map as new.</li></ul>
 <h2>What happened to the “values must be in [0, 1]” error?</h2><p>The rejected artifact and its submission-page receipt are unavailable, so its cause cannot be diagnosed. Local checks for this file find no NaN, infinity, sentinel or out-of-range pixel. That is evidence about <em>these bytes</em>, not a claim to have repaired or tested the earlier upload.</p><p>Outside-footprint convention (IR-79-69): the official problem page says outside-footprint data is “null or nan”. This inherited file has finite zero fill. The reference notebook's export cell does not explicitly apply an exterior NaN mask; that is not an organizer acceptance receipt. The convention must be resolved against the current official contract before any future eligible upload; no replacement TIFF was made here.</p>
 <p>The <a href="evidence/post_index_sibling_audit_20261022.json">later sibling collision audit (IR-79-122)</a> is a further reason not to treat the frozen sparse-only diagnostic as clearance.</p>
@@ -383,6 +399,62 @@ No ORGANIZER-CONFIRMED score exists for this artifact.</p>
 <p><a href="evidence/run_card_cjxdir.json">Run card ↗</a> · <a href="evidence/cjxdir_holdout_results.json">Holdout receipts ↗</a> ·
 <a href="evidence/cjxdir_uniqueness_restored_subset.json">Novelty audit ↗</a> · <a href="evidence/cjxdir_phase_null.json">Phase-null diagnostic ↗</a> ·
 <a href="evidence/preregistration_cjxdir.json">Preregistration ↗</a> · <a href="index.html">Canonical G79-THVC decision ↗</a></p></section>'''
+
+
+def opc_page():
+    """G79-OPC page rendered only from run_card_opc.json (session ff2e4413)."""
+    path = ROOT / 'run_card_opc.json'
+    if not path.exists():
+        return page_head('G79-OPC', 'No OPC candidate built.', 'Run scripts/run_g79_opc.py and scripts/opc_finalize.py.')
+    c = json.loads(path.read_text())
+    h, g, r = c['holdout'], c['gates'], c['raster']
+    yn = lambda v: 'PASS' if v is True else 'FAIL'
+    arms = [('EXP-OPC-2_full', 'EXP-OPC-2 full model (candidate)'),
+            ('EXP-OPC-1_geometry_oriented', 'EXP-OPC-1 oriented pair-correlation geometry only'),
+            ('C-ISO_geometry_isotropic', 'C-ISO isotropic control (same pipeline, rotation-averaged)'),
+            ('C0_random_same_count', 'C0 random, same dot count')]
+
+    def cell(seed, arm):
+        a = h[seed]['all_arms'][arm]
+        return f"{a['dti']:.4f} [{a['ci95'][0]:.4f}, {a['ci95'][1]:.4f}]"
+    rows = ''.join(f'<tr><td>{E(lbl)}</td><td>{cell("seed20", k)}</td><td>{cell("seed30", k)}</td></tr>' for k, lbl in arms)
+    an = {s: h[s]['anisotropy_test']['C-ISO_geometry_isotropic'] for s in ('seed20', 'seed30')}
+    nv = g['G4_novelty']['phases']
+    nrows = ''.join(
+        f"<tr><td>{E(k)}</td><td>{v['checked']}/{v['expected']}</td><td>{yn(v['unique_under_D3'])}</td>"
+        f"<td>{abs(v['worst_spearman'] or 0):.4f}</td><td>{(v['worst_chance_corrected'] or 0):.4f}</td>"
+        f"<td>{(v['worst_literal_forward_overlap'] or 0):.4f}</td></tr>" for k, v in nv.items())
+    raw_tif = f"{REPO}/raw/main/{r['path']}"
+    raw_zip = f"{REPO}/raw/main/{r['zip']}"
+    decision = 'OK TO DOWNLOAD (research): YES · OK TO SUBMIT: ' + ('YES' if c['ok_to_submit'] else 'NO')
+    return f'''{page_head('G79-OPC / NEW TIFF / NEGATIVE', 'Fault populations have shape. Not enough to win.',
+                           'A preregistered lane learned where unmapped faults sit relative to mapped ones (strike-rotated pair correlation). It generated a new GeoTIFF, which was machine-validated and then rejected on the holdout bar.')}
+<section class="section"><div class="download-warning"><strong>{E(decision)}</strong><br>
+Computed by <code>scripts/opc_finalize.py</code> and re-checked independently by <code>scripts/opc_gate.py</code>, with no human inspector.
+A format PASS is not submission approval.</div>
+<div class="actions"><a class="button" href="{E(raw_tif)}">↓ Research GeoTIFF (GitHub) <span>{r['bytes'] / 1024:.0f} KiB</span></a>
+<a class="button secondary" href="{E(raw_zip)}">↓ ZIP (GitHub)</a></div>
+<p class="micro">Name: {E(c['submission_name'])} · Note ({c['note_chars']}/140): {E(c['note'])}<br>
+SHA-256: {E(r['sha256'])} · {r['dots']:,} binary dots · zeros outside the footprint</p></section>
+<section class="section prose"><h2>Hypothesis, mechanism, mimic</h2><p>{E(c['hypothesis'])}</p><p>{E(c['mechanism'])}</p>
+<p><strong>Named non-fault mimic:</strong> {E(c['non_fault_mimic'])}</p></section>
+<section class="section"><div class="section-head"><div><p class="eyebrow">HOLDOUT-DTI · {E(h['evaluator_version'])} · NOT A LEADERBOARD SCORE</p>
+<h2>Better than its controls, below the incumbent.</h2></div><p>Buffered whole-component hide-and-recover; α = 0.2, β = 0.8, 300 m kernel.
+Withheld positives: seed 20 n = {h['seed20']['candidate']['withheld_positive_pixels']:,}, seed 30 n = {h['seed30']['candidate']['withheld_positive_pixels']:,}.</p></div>
+<div class="table-scroll"><table><thead><tr><th>Arm</th><th>Seed 20 HOLDOUT-DTI [95% CI]</th><th>Seed 30 HOLDOUT-DTI [95% CI]</th></tr></thead><tbody>
+{rows}<tr><td>G79-THVC incumbent (bar)</td><td>0.1905</td><td>0.1944</td></tr></tbody></table></div>
+<p class="micro">Anisotropy test (oriented minus isotropic, same folds): seed 20 {an['seed20']['delta']:+.4f} [{an['seed20']['ci95'][0]:+.4f}, {an['seed20']['ci95'][1]:+.4f}];
+seed 30 {an['seed30']['delta']:+.4f} [{an['seed30']['ci95'][0]:+.4f}, {an['seed30']['ci95'][1]:+.4f}]. The seed-20 gain did not replicate on seed 30, so anisotropy is <strong>not</strong> established.
+Leakage canary max symmetric AUC {c['canary']['max_symmetric_auc_seed20']:.4f} / {c['canary']['max_symmetric_auc_seed30']:.4f} (gate ≤ 0.90).</p></section>
+<section class="section"><h2>Novelty (D-3, full family)</h2><div class="table-scroll"><table><thead><tr><th>Phase</th><th>Rasters compared</th><th>Unique (D-3)</th><th>Worst |ρ|</th><th>Worst chance-corrected</th><th>Worst literal 3-px overlap</th></tr></thead><tbody>{nrows}</tbody></table></div></section>
+<section class="section prose"><h2>Automated gates</h2><ul>
+<li>G1 format, values in [0, 1], ZIP identical: <strong>{yn(g['G1_format']['passed'])}</strong></li>
+<li>G2 leakage canary: <strong>{yn(g['G2_canary']['passed'])}</strong></li>
+<li>G3 beats G79-THVC on both seeds and the best 2-seed mean (0.1963): <strong>{yn(g['G3_holdout']['passed'])}</strong> (2-seed mean {g['G3_holdout']['two_seed_mean']:.4f})</li>
+<li>G4 novelty, D-3, both phases: <strong>{yn(g['G4_novelty']['passed'])}</strong></li></ul>
+<p><strong>Verdict: {E(c['verdict'])}.</strong> Slots used: {c['slots_used']}. No ORGANIZER-CONFIRMED score exists for this artifact.</p>
+<p><a href="evidence/run_card_opc.json">Run card ↗</a> · <a href="evidence/opc_seed20.json">Seed 20 receipts ↗</a> · <a href="evidence/opc_seed30.json">Seed 30 receipts ↗</a> ·
+<a href="evidence/preregistration_g79_opc.json">Preregistration ↗</a> · <a href="{REPO}/blob/main/research/hypotheses_ff2e4413.md">Hypotheses ↗</a> · <a href="index.html">Canonical decision ↗</a></p></section>'''
 
 
 def cjx_page():
@@ -591,7 +663,13 @@ def main():
               'run_card_csmd.json': 'run_card_csmd.json',
               'registry/preregistration_g79_dfsd.json': 'preregistration_g79_dfsd.json',
               'run_card_dfsd.json': 'run_card_dfsd.json',
-              'evidence/g79_dfsd_results.json': 'g79_dfsd_results.json'}
+              'evidence/g79_dfsd_results.json': 'g79_dfsd_results.json',
+              'run_card_opc.json': 'run_card_opc.json',
+              'registry/preregistration_g79_opc.json': 'preregistration_g79_opc.json',
+              'evidence/opc/seed20.json': 'opc_seed20.json',
+              'evidence/opc/seed30.json': 'opc_seed30.json',
+              'evidence/opc/novelty_final_dots.json': 'opc_novelty_final_dots.json',
+              'evidence/opc/novelty_pre_placement_surface.json': 'opc_novelty_pre_placement_surface.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json', 'evidence_summary.json'}
     for stale in (SITE / 'evidence').iterdir():
@@ -653,6 +731,7 @@ def main():
         'irregularities.html': ('Irregularities & stop reasons',
                                 page_head('OWN THE OUTCOME', 'Failures are part of the record.')
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),
+        'g79-opc.html': ('G79-OPC new TIF \u2014 oriented pair-correlation lane, automated gate verdict', opc_page()),
         'g79-cjxdir.html': ('G79-CJX-DIR — new unique research GeoTIFF (do not submit)', cjxdir_page()),
     }
     for filename, (title, content) in pages.items():

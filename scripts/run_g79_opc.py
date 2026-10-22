@@ -380,10 +380,22 @@ def run_live(grid, names_phys, lphi):
     log("live done", pm)
 
 
+def refuse_if_closed():
+    """Lane lifecycle guard: once run_card_opc.json records a terminal verdict, no rerun/retune."""
+    card = Path(__file__).resolve().parents[1] / "run_card_opc.json"
+    if card.exists():
+        import json as _j
+        v = _j.loads(card.read_text()).get("verdict")
+        if v not in (None, "pending", "in_progress"):
+            sys.stderr.write(f"G79-OPC is closed ({v}); do not restart, retune or repackage. No files changed.\n")
+            raise SystemExit(2)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("stage", choices=["phys", "seed20", "seed30", "live", "all"])
     a = ap.parse_args()
+    refuse_if_closed()
     CACHE.mkdir(parents=True, exist_ok=True); EVID.mkdir(parents=True, exist_ok=True)
     grid = load_grid()
     names = build_phys(grid)
