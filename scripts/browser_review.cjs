@@ -21,7 +21,7 @@ const sha = (buffer) => crypto.createHash('sha256').update(buffer).digest('hex')
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('response', (response) => { if (response.status() >= 400) errors.push(response.status() + ' ' + response.url()); });
-  const pages = ['index.html', 'executive-summary.html', 'research.html', 'analysis.html', 'sources.html', 'history.html', 'irregularities.html'];
+  const pages = ['index.html', 'executive-summary.html', 'research.html', 'analysis.html', 'sources.html', 'history.html', 'irregularities.html', 'cjx-submission.html'];
   const cases = [];
   for (const width of [1440, 390, 320]) {
     await page.setViewportSize({width, height: width > 680 ? 1050 : 900});
