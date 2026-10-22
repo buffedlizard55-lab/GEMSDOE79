@@ -1,0 +1,761 @@
+{
+  "schema_version": 2,
+  "lane": "G79-CSHD",
+  "session_branch": "arena/e8afe252-gemsdoe79",
+  "generated_utc": "2026-10-22T20:20:00Z",
+  "canonical_project_card": "run_card.json (G79-THVC retained per frozen session pins; this file records the G79-CSHD two-seed record & fail-closed novelty stop)",
+  "preregistration_path": "registry/preregistration_g79_cshd.json",
+  "preregistration_sha256": "ee4745070d8abb93c87065fcdf8f24bf4f68fdeb10c7dbfd8d5589c634bbb373",
+  "hypothesis": "H79-CSHD (Concealed Subsurface Half-Graben + Hydrothermal Conduit + Wallace Throw-Deficit + Okada Relay): Unmapped Great Basin faults exhibit (1) upward-deconvolved RTP aeromagnetic demagnetization troughs, local magnetic source depth steps, and K/eU adularia alteration without surface playa confounding, (2) 2-m shallow temperature probe conduits (DOE GDR 1391) and paleo-sinter alignments, (3) 10-m 3DEP road-deconfounded asymmetric piedmont scarp steps + along-range Wallace throw-deficit gaps across the 24.99% non-LiDAR gap, and (4) fold-visible Okada Coulomb shear-dilation relay zones.",
+  "mechanism": "98-channel decontaminated two-stage out-of-fold ensemble (LightGBM + CatBoost/HistGBDT + MLP + L2-Logistic on Horvitz-Thompson exposure-weighted simulated hides, excluding 0-1.5 km positive-flank false negatives) predicting exact pixel probability p_exact(x) and 300-m triangular kernel credit q_300m(x), calibrated by inner-validated crustal relay decay (tau = 4.2 km) and allocated via greedy submodular fractional kernel cover (lambda_fp = 0.0018, min_sep = 1.9 px, budget cap = 40,000; 39,747 dots emitted, 1,713 > 1.5 km).",
+  "named_non_fault_mimic": "Pleistocene Lake Lahontan/Bonneville wave-cut shorelines, Humboldt/Carson/Walker fluvial terrace risers, welded caldera cooling joints, linear highway/railroad embankments in 10-m DEMs (suppressed by road_deconfound), and alkaline evaporite playa K/eU false positives (vetoed by closed-basin playa mask).",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "two_seed_mean_dti": 0.198218,
+    "prior_repo_best_two_seed_mean_dti": 0.196306,
+    "g79_thvc_two_seed_mean_dti": 0.192458,
+    "beats_g79_thvc_both_seeds": true,
+    "beats_all_time_repo_two_seed_mean": true,
+    "headline_seed": 20,
+    "dti": 0.192403,
+    "ci95": [
+      0.176031,
+      0.20779
+    ],
+    "withheld_positive_pixels": 11321,
+    "tpw": 3197.0808361144227,
+    "fpw": 34601.8094073881,
+    "fnw": 8123.919163885575,
+    "per_seed": {
+      "seed_20": {
+        "candidate": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.1924030824363654,
+          "ci95": [
+            0.17603118723288932,
+            0.20779009680055469
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 3197.0808361144227,
+          "fpw": 34601.8094073881,
+          "fnw": 8123.919163885575
+        },
+        "exp2_uniform_d28": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.15897009731226328,
+          "ci95": [
+            0.1419259294805547,
+            0.17627234829625688
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 2580.835539189743,
+          "fpw": 33308.7808460426,
+          "fnw": 8740.164460810256
+        },
+        "exp1_pure_zero_catalogue": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.09918309118894257,
+          "ci95": [
+            0.0809489830572235,
+            0.11761917898746892
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 1564.4725000578094,
+          "fpw": 32019.43135854993,
+          "fnw": 9756.527499942187
+        },
+        "h33_foldfair_control": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.09608619416803546,
+          "ci95": [
+            0.08310859732830818,
+            0.108974692419136
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 1588.9204532602826,
+          "fpw": 35809.116597847176,
+          "fnw": 9732.079546739715
+        },
+        "delta_vs_h33": 0.096317,
+        "delta_vs_g79_thvc": 0.00188
+      },
+      "seed_30": {
+        "candidate": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.2040329427657942,
+          "ci95": [
+            0.18520662715113825,
+            0.22094350402963425
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 3415.5454780301557,
+          "fpw": 34917.288116052725,
+          "fnw": 7926.454521969845
+        },
+        "exp2_uniform_d28": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.17910985057352916,
+          "ci95": [
+            0.1621879910482761,
+            0.19698072211093912
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 2908.9009272880903,
+          "fpw": 32927.480573044624,
+          "fnw": 8433.09907271191
+        },
+        "exp1_pure_zero_catalogue": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.1094593974490178,
+          "ci95": [
+            0.09213687873278498,
+            0.12555350849857388
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 1742.0252295594805,
+          "fpw": 32464.01181786957,
+          "fnw": 9599.974770440514
+        },
+        "h33_foldfair_control": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.09889767286222764,
+          "ci95": [
+            0.08541218338164393,
+            0.11276233290508292
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 1638.0162557476992,
+          "fpw": 35807.67431660717,
+          "fnw": 9703.983744252295
+        },
+        "delta_vs_h33": 0.105135,
+        "delta_vs_g79_thvc": 0.00964
+      }
+    },
+    "regime_decomposition_seed20": {
+      "near_network_le_1500m": {
+        "truth_pixels": 8283,
+        "scores": {
+          "EXP-CSHD-3_dual_regime_cc": {
+            "dti": 0.215355,
+            "tp_w": 2896.08,
+            "emitted_in_regime": 32691
+          },
+          "EXP-CSHD-2_cshd_uniform_d28": {
+            "dti": 0.177529,
+            "tp_w": 2336.73,
+            "emitted_in_regime": 31545
+          },
+          "EXP-CSHD-1_pure_zero_catalogue": {
+            "dti": 0.116201,
+            "tp_w": 1122.1,
+            "emitted_in_regime": 14607
+          },
+          "C2_h33_analogue_foldfair": {
+            "dti": 0.117202,
+            "tp_w": 1120.72,
+            "emitted_in_regime": 14052
+          },
+          "C1_fabric_offset_E1_placed": {
+            "dti": 0.058325,
+            "tp_w": 528.72,
+            "emitted_in_regime": 11893
+          },
+          "C0_random_B37654": {
+            "dti": 0.065276,
+            "tp_w": 570.77,
+            "emitted_in_regime": 10251
+          }
+        }
+      },
+      "stepover_piedmont_1500_to_4000m": {
+        "truth_pixels": 2664,
+        "scores": {
+          "EXP-CSHD-3_dual_regime_cc": {
+            "dti": 0.093017,
+            "tp_w": 265.48,
+            "emitted_in_regime": 3474
+          },
+          "EXP-CSHD-2_cshd_uniform_d28": {
+            "dti": 0.078537,
+            "tp_w": 216.8,
+            "emitted_in_regime": 3027
+          },
+          "EXP-CSHD-1_pure_zero_catalogue": {
+            "dti": 0.080195,
+            "tp_w": 355.58,
+            "emitted_in_regime": 11333
+          },
+          "C2_h33_analogue_foldfair": {
+            "dti": 0.081099,
+            "tp_w": 370.8,
+            "emitted_in_regime": 11990
+          },
+          "C1_fabric_offset_E1_placed": {
+            "dti": 0.033591,
+            "tp_w": 162.59,
+            "emitted_in_regime": 13449
+          },
+          "C0_random_B37654": {
+            "dti": 0.038067,
+            "tp_w": 186.43,
+            "emitted_in_regime": 13722
+          }
+        }
+      },
+      "blind_basin_gt_4000m": {
+        "truth_pixels": 374,
+        "scores": {
+          "EXP-CSHD-3_dual_regime_cc": {
+            "dti": 0.0,
+            "tp_w": 0.0,
+            "emitted_in_regime": 48
+          },
+          "EXP-CSHD-2_cshd_uniform_d28": {
+            "dti": 0.0,
+            "tp_w": 0.0,
+            "emitted_in_regime": 40
+          },
+          "EXP-CSHD-1_pure_zero_catalogue": {
+            "dti": 0.03692,
+            "tp_w": 61.98,
+            "emitted_in_regime": 6866
+          },
+          "C2_h33_analogue_foldfair": {
+            "dti": 0.025846,
+            "tp_w": 61.93,
+            "emitted_in_regime": 10451
+          },
+          "C1_fabric_offset_E1_placed": {
+            "dti": 0.006536,
+            "tp_w": 16.9,
+            "emitted_in_regime": 11422
+          },
+          "C0_random_B37654": {
+            "dti": 0.01116,
+            "tp_w": 29.63,
+            "emitted_in_regime": 11763
+          }
+        }
+      },
+      "lidar_1m_covered": {
+        "truth_pixels": 9277,
+        "scores": {
+          "EXP-CSHD-3_dual_regime_cc": {
+            "dti": 0.194494,
+            "tp_w": 2623.24,
+            "emitted_in_regime": 29010
+          },
+          "EXP-CSHD-2_cshd_uniform_d28": {
+            "dti": 0.159081,
+            "tp_w": 2078.32,
+            "emitted_in_regime": 27176
+          },
+          "EXP-CSHD-1_pure_zero_catalogue": {
+            "dti": 0.108568,
+            "tp_w": 1386.49,
+            "emitted_in_regime": 26061
+          },
+          "C2_h33_analogue_foldfair": {
+            "dti": 0.103518,
+            "tp_w": 1366.17,
+            "emitted_in_regime": 28093
+          },
+          "C1_fabric_offset_E1_placed": {
+            "dti": 0.044738,
+            "tp_w": 593.03,
+            "emitted_in_regime": 28828
+          },
+          "C0_random_B37654": {
+            "dti": 0.051808,
+            "tp_w": 666.96,
+            "emitted_in_regime": 26861
+          }
+        }
+      },
+      "non_lidar_10m_3dep_gap": {
+        "truth_pixels": 2044,
+        "scores": {
+          "EXP-CSHD-3_dual_regime_cc": {
+            "dti": 0.183289,
+            "tp_w": 573.52,
+            "emitted_in_regime": 7203
+          },
+          "EXP-CSHD-2_cshd_uniform_d28": {
+            "dti": 0.15806,
+            "tp_w": 501.07,
+            "emitted_in_regime": 7436
+          },
+          "EXP-CSHD-1_pure_zero_catalogue": {
+            "dti": 0.058877,
+            "tp_w": 176.79,
+            "emitted_in_regime": 6745
+          },
+          "C2_h33_analogue_foldfair": {
+            "dti": 0.066514,
+            "tp_w": 222.09,
+            "emitted_in_regime": 8400
+          },
+          "C1_fabric_offset_E1_placed": {
+            "dti": 0.0413,
+            "tp_w": 133.73,
+            "emitted_in_regime": 7936
+          },
+          "C0_random_B37654": {
+            "dti": 0.041815,
+            "tp_w": 143.3,
+            "emitted_in_regime": 8875
+          }
+        }
+      },
+      "low_relief_piedmont_basin": {
+        "truth_pixels": 5125,
+        "scores": {
+          "EXP-CSHD-3_dual_regime_cc": {
+            "dti": 0.160249,
+            "tp_w": 1119.97,
+            "emitted_in_regime": 13937
+          },
+          "EXP-CSHD-2_cshd_uniform_d28": {
+            "dti": 0.133838,
+            "tp_w": 856.9,
+            "emitted_in_regime": 11116
+          },
+          "EXP-CSHD-1_pure_zero_catalogue": {
+            "dti": 0.087041,
+            "tp_w": 540.84,
+            "emitted_in_regime": 10316
+          },
+          "C2_h33_analogue_foldfair": {
+            "dti": 0.07791,
+            "tp_w": 592.14,
+            "emitted_in_regime": 17190
+          },
+          "C1_fabric_offset_E1_placed": {
+            "dti": 0.033918,
+            "tp_w": 267.24,
+            "emitted_in_regime": 18757
+          },
+          "C0_random_B37654": {
+            "dti": 0.041607,
+            "tp_w": 333.16,
+            "emitted_in_regime": 19354
+          }
+        }
+      }
+    }
+  },
+  "leakage_canary": {
+    "passed": true,
+    "features_tested": 98,
+    "features_cleared": 98,
+    "auc": 0.8043,
+    "max_feature": "cshd_tip_fwd35",
+    "required_threshold": 0.9,
+    "source_pointer": "evidence/g79_cshd_single_feature_auc.json"
+  },
+  "correlation_overlap_vs_registry": {
+    "total_rasters_scanned": 1223,
+    "valid_comparable_rasters": 1213,
+    "surface_before_placement": {
+      "max_abs_spearman": 0.606504,
+      "threshold": 0.9,
+      "passed": true
+    },
+    "final_dots": {
+      "max_abs_spearman": 0.23659,
+      "gemsdoe83_d2_excess_overlap": 0.6591,
+      "gemsdoe83_d2_cleared": true,
+      "d2_nonsaturated_firings_gt_0p70": 16,
+      "d2_max_external_excess_overlap": 0.818196,
+      "universal_literal_witness_overlap": 1.0,
+      "passed": false
+    },
+    "source_pointer": "evidence/g79_cshd_uniqueness_summary.json"
+  },
+  "artifacts": {
+    "official_portal_nan_exterior": {
+      "tif": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif",
+      "tif_sha256": "c9886dba47fd1de727aff9bd24cfcb406db02982970ee3e5cde901e229055535",
+      "tif_bytes": 214921,
+      "zip": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.zip",
+      "zip_sha256": "dffb7aea4c611872553f7457642aff3cdfe4d2bfd7a63012f5b60a58c978b6bc",
+      "zip_bytes": 131211,
+      "portal_r1_r8_validator": {
+        "validator_version": "gems79-portal-format-v2",
+        "file": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif",
+        "sha256": "c9886dba47fd1de727aff9bd24cfcb406db02982970ee3e5cde901e229055535",
+        "bytes": 214921,
+        "template": "data/reference/sample_submission.tif",
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+        "does_not_approve_submission": true,
+        "rules": [
+          {
+            "rule": "R1",
+            "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+            "pass": true,
+            "detail": "driver GTiff; 1 band(s)"
+          },
+          {
+            "rule": "R2",
+            "text": "datatype float32",
+            "pass": true,
+            "detail": "dtype float32"
+          },
+          {
+            "rule": "R3",
+            "text": "CRS EPSG:32611",
+            "pass": true,
+            "detail": "CRS EPSG:32611"
+          },
+          {
+            "rule": "R4",
+            "text": "shape, transform, 100 m resolution and bounds equal the template",
+            "pass": true,
+            "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+          },
+          {
+            "rule": "R5",
+            "text": "nodata absent or NaN",
+            "pass": true,
+            "detail": "nodata nan"
+          },
+          {
+            "rule": "R6",
+            "text": "data outside the bounds is null or NaN",
+            "pass": true,
+            "detail": "0 non-NaN cell(s) outside the template bounds (of 7111787)"
+          },
+          {
+            "rule": "R7",
+            "text": "every in-bounds cell is finite (no NaN, no inf)",
+            "pass": true,
+            "detail": "0 NaN/inf cell(s) inside the bounds"
+          },
+          {
+            "rule": "R8",
+            "text": "every in-bounds value is between 0 and 1 inclusive",
+            "pass": true,
+            "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+          }
+        ],
+        "cells": {
+          "compared": true,
+          "inside_cells": 5167373,
+          "outside_cells": 7111787,
+          "outside_non_nan": 0,
+          "inside_nonfinite": 0,
+          "inside_out_of_range": 0,
+          "inside_min": 0.0,
+          "inside_max": 1.0,
+          "inside_positive": 39747,
+          "inside_mass": 39747.0
+        },
+        "failed_rules": [],
+        "ok": true
+      },
+      "portal_zip_r1_r8_validator": {
+        "validator_version": "gems79-portal-format-v2",
+        "file": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.zip",
+        "sha256": "dffb7aea4c611872553f7457642aff3cdfe4d2bfd7a63012f5b60a58c978b6bc",
+        "bytes": 131211,
+        "template": "data/reference/sample_submission.tif",
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+        "does_not_approve_submission": true,
+        "rules": [
+          {
+            "rule": "R1",
+            "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+            "pass": true,
+            "detail": "zip members ['g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif']; CRC error None; driver GTiff; 1 band(s)"
+          },
+          {
+            "rule": "R2",
+            "text": "datatype float32",
+            "pass": true,
+            "detail": "dtype float32"
+          },
+          {
+            "rule": "R3",
+            "text": "CRS EPSG:32611",
+            "pass": true,
+            "detail": "CRS EPSG:32611"
+          },
+          {
+            "rule": "R4",
+            "text": "shape, transform, 100 m resolution and bounds equal the template",
+            "pass": true,
+            "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+          },
+          {
+            "rule": "R5",
+            "text": "nodata absent or NaN",
+            "pass": true,
+            "detail": "nodata nan"
+          },
+          {
+            "rule": "R6",
+            "text": "data outside the bounds is null or NaN",
+            "pass": true,
+            "detail": "0 non-NaN cell(s) outside the template bounds (of 7111787)"
+          },
+          {
+            "rule": "R7",
+            "text": "every in-bounds cell is finite (no NaN, no inf)",
+            "pass": true,
+            "detail": "0 NaN/inf cell(s) inside the bounds"
+          },
+          {
+            "rule": "R8",
+            "text": "every in-bounds value is between 0 and 1 inclusive",
+            "pass": true,
+            "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+          }
+        ],
+        "cells": {
+          "compared": true,
+          "inside_cells": 5167373,
+          "outside_cells": 7111787,
+          "outside_non_nan": 0,
+          "inside_nonfinite": 0,
+          "inside_out_of_range": 0,
+          "inside_min": 0.0,
+          "inside_max": 1.0,
+          "inside_positive": 39747,
+          "inside_mass": 39747.0
+        },
+        "inner_tif": "g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif",
+        "failed_rules": [],
+        "ok": true
+      },
+      "all_r1_r8_passed": true
+    },
+    "shared_writer_zeros_exterior": {
+      "tif": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif",
+      "tif_sha256": "e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789",
+      "tif_bytes": 143755,
+      "zip": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.zip",
+      "zip_sha256": "118c3032a2ce019f109fb3650ffb78170a3309b6188d6575ff5c10ce1a97ca90",
+      "zip_bytes": 108718,
+      "local_validator": {
+        "format_passed": true,
+        "does_not_approve_submission": true,
+        "validator": {
+          "file": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif",
+          "bytes": 143755,
+          "sha256": "e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789",
+          "meta": {
+            "crs": "EPSG:32611",
+            "shape": [
+              3730,
+              3292
+            ],
+            "dtype": "float32",
+            "count": 1,
+            "nodata": null,
+            "transform": [
+              100.0,
+              0.0,
+              243350.0,
+              0.0,
+              -100.0,
+              4508550.0
+            ],
+            "profile_compress": "deflate"
+          },
+          "band_description": [
+            null
+          ],
+          "n_finite": 12279160,
+          "n_nan": 0,
+          "n_infinite": 0,
+          "min": 0.0,
+          "max": 1.0,
+          "mean": 0.003236947814002633,
+          "emitted_positive_pixels": 39747,
+          "checks": {
+            "single_band": true,
+            "dtype_float32": true,
+            "dimensions_3730x3292": true,
+            "crs_epsg_32611": true,
+            "transform_matches_sample_submission": true,
+            "no_nan_anywhere": true,
+            "no_inf_anywhere": true,
+            "no_sentinel_values": true,
+            "range_0_1_guaranteed": true,
+            "min_ge_0": true,
+            "max_le_1": true,
+            "in_footprint_all_finite": true,
+            "in_footprint_range_0_1": true,
+            "outside_footprint_zero": true,
+            "zero_dots_on_mapped_catalogue": true
+          },
+          "all_checks_passed": true,
+          "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+          "on_catalogue_positive_pixels": 0,
+          "in_footprint_positive_pixels": 39747,
+          "footprint_fraction": 0.00769191618255543
+        },
+        "reference_grid": {
+          "path": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif",
+          "bytes": 143755,
+          "sha256": "e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789",
+          "bands": 1,
+          "dtype": "float32",
+          "crs": "EPSG:32611",
+          "width": 3292,
+          "height": 3730,
+          "bounds": [
+            243350.0,
+            4135550.0,
+            572550.0,
+            4508550.0
+          ],
+          "ref_bounds": [
+            243350.0,
+            4135550.0,
+            572550.0,
+            4508550.0
+          ],
+          "transform": [
+            100.0,
+            0.0,
+            243350.0,
+            0.0,
+            -100.0,
+            4508550.0
+          ],
+          "nodata": null,
+          "blocksize": [
+            256,
+            256
+          ],
+          "fixture_grid": false,
+          "has_validity_mask": false,
+          "nan_pixels": 0,
+          "infinity_pixels": 0,
+          "n_nan": 0,
+          "min": 0.0,
+          "max": 1.0,
+          "mean": 0.003236947814002633,
+          "n_nonzero": 39747,
+          "mass": 39747.0,
+          "mass_outside_footprint": 0,
+          "problems": [],
+          "ok": true,
+          "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+        }
+      },
+      "portal_r1_r8_validator": {
+        "validator_version": "gems79-portal-format-v2",
+        "file": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-zeros-DO-NOT-SUBMIT.tif",
+        "sha256": "e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789",
+        "bytes": 143755,
+        "template": "data/reference/sample_submission.tif",
+        "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+        "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+        "does_not_approve_submission": true,
+        "rules": [
+          {
+            "rule": "R1",
+            "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+            "pass": true,
+            "detail": "driver GTiff; 1 band(s)"
+          },
+          {
+            "rule": "R2",
+            "text": "datatype float32",
+            "pass": true,
+            "detail": "dtype float32"
+          },
+          {
+            "rule": "R3",
+            "text": "CRS EPSG:32611",
+            "pass": true,
+            "detail": "CRS EPSG:32611"
+          },
+          {
+            "rule": "R4",
+            "text": "shape, transform, 100 m resolution and bounds equal the template",
+            "pass": true,
+            "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+          },
+          {
+            "rule": "R5",
+            "text": "nodata absent or NaN",
+            "pass": true,
+            "detail": "nodata None"
+          },
+          {
+            "rule": "R6",
+            "text": "data outside the bounds is null or NaN",
+            "pass": false,
+            "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+          },
+          {
+            "rule": "R7",
+            "text": "every in-bounds cell is finite (no NaN, no inf)",
+            "pass": true,
+            "detail": "0 NaN/inf cell(s) inside the bounds"
+          },
+          {
+            "rule": "R8",
+            "text": "every in-bounds value is between 0 and 1 inclusive",
+            "pass": true,
+            "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+          }
+        ],
+        "cells": {
+          "compared": true,
+          "inside_cells": 5167373,
+          "outside_cells": 7111787,
+          "outside_non_nan": 7111787,
+          "inside_nonfinite": 0,
+          "inside_out_of_range": 0,
+          "inside_min": 0.0,
+          "inside_max": 1.0,
+          "inside_positive": 39747,
+          "inside_mass": 39747.0
+        },
+        "failed_rules": [
+          "R6"
+        ],
+        "ok": false
+      }
+    }
+  },
+  "submission_file": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.tif",
+  "zip_file": "archive/g79_cshd_e8afe252/g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT.zip",
+  "raster_sha256": "c9886dba47fd1de727aff9bd24cfcb406db02982970ee3e5cde901e229055535",
+  "zip_sha256": "dffb7aea4c611872553f7457642aff3cdfe4d2bfd7a63012f5b60a58c978b6bc",
+  "zeros_raster_sha256": "e96af2b0f3b7259c79f89a36acbbc472a4677543e1c0f0313d75d80ef5961789",
+  "positive_pixels": 39747,
+  "far_field_pixels_gt_1500m": 1713,
+  "submission_name": "g79-cshd-dualcc-20261022-8a4788c4-nan-DO-NOT-SUBMIT",
+  "submission_note": "GEMSDOE79 G79-CSHD: 98ch deconv-geophys+2m-probe+3DEP+Okada dual-regime CC (39747 px; 1713 >1.5km)",
+  "protocol_unique": false,
+  "current_best_holdout_beaten": true,
+  "source_provenance_verified": true,
+  "approved_for_weekly_slot": false,
+  "selector_receipt": null,
+  "organizer_submission_receipt": null,
+  "submission_slots_used": 0,
+  "experiments_run": 3,
+  "experiment_budget": 3,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "decision_line": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.",
+  "stop_reason": "Achieved #1 all-time repository HOLDOUT-DTI across both seeds (Seed 20 = 0.192403 > G79-THVC 0.190523; Seed 30 = 0.204033 > G79-THVC 0.194393; 2-seed mean = 0.198218 > G79-CSKD 0.196306; pure zero-catalogue EXP-CSHD-1 = 0.099183 / 0.109459 > H33 on both seeds), passed all 98/98 leakage canaries (max AUC = 0.8043 <= 0.90), passed 8/8 official DrivenData portal format rules R1-R8 on NaN-exterior GeoTIFF+ZIP (and 15/15 local checks on zeros-exterior GeoTIFF+ZIP), and cleared GEMSDOE83 under Amendment D-2 (0.6591 <= 0.70), but flagged 16/1,209 legacy dense/corridor rasters under D-2 (max external = 0.8182 on 59GEMSDOE) plus the 1.0000 universal literal witness. Per Parallel-Run Protocol Rules 1, 5, and 6, halted automatically with verdict = negative, OK TO DOWNLOAD: YES, OK TO SUBMIT: NO, and 0 weekly slots spent."
+}

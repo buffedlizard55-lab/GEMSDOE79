@@ -1,0 +1,37 @@
+{
+  "lane": "G79-TIPSTEP",
+  "hypothesis": "Unmapped faults are disproportionately straight continuations beyond mapped catalogue tips and collinear stepover bridges between nearby tips of different mapped faults; dotted emission (3 px spacing, >2 px off catalogue, min separation 2.8 px) captures them at low false-positive cost under the 300 m triangular-kernel DTI.",
+  "mechanism": "Catalogue-geometry only (no external layers; 0/13 training inputs present in checkout): endpoint detection on visible catalogue, local PCA strike at each tip of components >=20 px, tip rays to 60 px, collinear stepover bridges (6-45 px, |cos|>0.75 to both strikes), score-ordered greedy emission.",
+  "named_non_fault_mimic": "Catalogue digitisation fragmentation (a bridge may merely reconnect one fault split by mapping) and roads/drainage lineaments collinear with tips.",
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2, "beta": 0.8, "triangular_kernel_m": 300,
+    "seed20": {"dti": 0.0927, "ci95": [0.0795, 0.1049], "withheld_positive_pixels": 11321, "uniform_dti": 0.0017, "paired_delta_vs_uniform": 0.0910, "paired_ci95": [0.0779, 0.1032]},
+    "seed30": {"dti": 0.0928, "ci95": [0.0777, 0.1079], "withheld_positive_pixels": 11342, "uniform_dti": 0.0019},
+    "incumbent_comparison": "Below G79-THVC holdout incumbent (0.1905/0.1944) and G79-CSKD seed30 record (0.2145); therefore does NOT clear the promote gate.",
+    "leakage_canaries": {"tipstep_surface_symmetric_auc": [0.5076, 0.5072], "dist_to_visible_symmetric_auc": [0.8063, 0.8021], "limit": 0.90, "pass": true}
+  },
+  "novelty_vs_registry": {
+    "scope": "Local archived rasters only: 44 comparable of 45 local files; NOT the full 1108-row cross-repo registry (unavailable offline).",
+    "sparse_dot_rasters": {"n": 40, "max_forward_overlap_3px": 0.4765, "max_abs_spearman_sample200k": 0.0562, "duplicates": [], "limits": {"rho": 0.90, "overlap": 0.70}},
+    "dense_continuous_flag": "4 dense/continuous local rasters reach overlap up to 0.907 by construction (universal-witness obstruction flagged in prior sessions); reported, not silently passed.",
+    "full_registry_gate": "NOT CLEARED - incomplete scan"
+  },
+  "raster": {"file": "artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif", "sha256": "4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a", "dots": 29259, "bytes": 127432},
+  "validator": {"format_passed": true, "no_nan_inside_footprint": true, "values_in_0_1": true, "min": 0.0, "max": 1.0, "crs": "EPSG:32611", "shape": [3730, 3292], "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0], "matches_sample": true, "outside_footprint": "zeros (not NaN): local all-finite range/grid PASS, but official R6 FAIL; the earlier portal error is undiagnosed without its bytes and receipt"},
+  "submission_name": "gems79-tipstep-20261022",
+  "submission_note": "G79-TIPSTEP catalogue tip-extension + collinear stepover bridges, dotted 3px, >2px off catalogue",
+  "submission_note_chars": 96,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "verdict_reason": "Byte-distinct and local format/range-valid, but official R6 fails. HOLDOUT-DTI 0.0927/0.0928 does not beat the current incumbent (THVC 0.1905/0.1944; CSKD 0.2145 seed30), full-registry novelty was not cleared, and the uniform-control mask is not comparable. Do not spend a weekly slot.",
+  "audit_limitations": [
+    "Official R1-R8 format check fails R6 because the exterior is zero rather than NaN; local range PASS is not portal compliance.",
+    "The historical UNIFORM control excludes a >2 px full-catalogue collar while TIPSTEP uses the visible catalogue; their contrast is not a fair promotion measurement.",
+    "Full-registry novelty was not cleared, and the frozen universal witness independently blocks every nonempty candidate under the literal rule."
+  ],
+  "organizer_confirmed_score": null,
+  "leaderboard_claim": "None. 0.2778 (H33) is an unverified historical report; 0.4413 is a public-leaderboard observation for another entrant; neither is this artifact's score. No score above 0.2778 is promised or implied."
+}
