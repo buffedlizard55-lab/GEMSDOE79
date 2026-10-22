@@ -24,7 +24,7 @@ Delivered:
   controls, does not beat the current holdout best, literal novelty fails.
   Format PASS ≠ approval; the lane never selects itself (protocol rule 6) and
   `select_submission.py` has no CJX adapter, so `ok_to_submit` stays false.
-- Ranked hypotheses with the required fields: `research/hypotheses_cjx_20261022.md`
+- Ranked hypotheses with the required fields: `research/hypotheses_cjxdir_20261022.md`
   (CJX tested; BLC, RSS, anti-junction diagnostic, HFR data-blocked, ranked).
 - H33 analysis: same file, bottom section. Short version: H33's lead is DTI
   arithmetic on the H19-5 lineage (spaced binarization + 2-px catalogue-shell
