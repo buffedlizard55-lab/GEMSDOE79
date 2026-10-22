@@ -16,7 +16,9 @@ sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor")]
 from gems57.grid import load_grid
 from gems57.submission_writer import write_submission
 from gems57 import validate as V
+from gems79.lifecycle import enforce_open_lane
 
+enforce_open_lane(ROOT, 'G79-VENTPROX', reason='generate_ventprox_submission.py')
 OUT_DIR = ROOT / "artifacts" / "ventprox"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 

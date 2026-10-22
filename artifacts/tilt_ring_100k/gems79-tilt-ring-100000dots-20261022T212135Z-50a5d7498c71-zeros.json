@@ -1,7 +1,7 @@
 {
-  "file": "gems79-tilt-ring-100000dots-20261022T212135Z-50a5d7498c71-zeros.tif",
+  "file": "artifacts/tilt_ring_100k/gems79-tilt-ring-100000dots-20261022T212135Z-50a5d7498c71-zeros.tif",
   "sha256": "aa0685b0bcbead416b41d22b8c327393d55e32e18e360fa460eb0af020d018ec",
-  "zip_file": "gems79-tilt-ring-100000dots-20261022T212135Z-50a5d7498c71-zeros.zip",
+  "zip_file": "artifacts/tilt_ring_100k/gems79-tilt-ring-100000dots-20261022T212135Z-50a5d7498c71-zeros.zip",
   "zip_sha256": "10dd323b6636aa09f72d15001b2165554748737237c45f04ba7e2b618d6b1b0b",
   "submission_name": "GEMSDOE79-TILT-RING-100K",
   "note": "Magnetic tilt angle 1px ring (100000 dots, max kernel credit)",
@@ -20,7 +20,12 @@
     "all_finite": true,
     "zeros_outside_footprint": true,
     "nan_outside_footprint": false,
-    "passes_portal_range_check": true
+    "passes_portal_range_check": false,
+    "local_all_finite_range_check": true,
+    "official_r1_r8_passed": false,
+    "official_failed_rules": [
+      "R6"
+    ]
   },
   "hypothesis": "Hidden geothermal faults extend visible catalogue; magnetic tilt angle identifies fault contacts; 1px ring placement maximizes kernel credit.",
   "mechanism": "Top 100k pixels by tilt angle in 1px catalogue ring; binary dots",
@@ -49,5 +54,8 @@
   "generated": "20261022T212135Z",
   "ok_to_submit_format": true,
   "ok_to_download": true,
-  "status": "Generated. Format-valid. Ready for competition submission."
+  "status": "RESEARCH ONLY \u2014 OK TO DOWNLOAD; DO NOT SUBMIT. Local range/grid pass, official R6 FAIL, registry novelty not cleared.",
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "selector_receipt": null
 }

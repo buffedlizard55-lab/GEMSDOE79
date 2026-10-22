@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Build run_card_mdsc.json from evidence JSONs only (no hand-typed numbers)."""
 from __future__ import annotations
-import hashlib, json
+import hashlib, json, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'src'))
+from gems79.lifecycle import enforce_open_lane
 E = ROOT / "evidence" / "mdsc_8e58a8d0"
 ART = ROOT / "artifacts" / "mdsc_8e58a8d0"
 
@@ -18,6 +20,7 @@ def sha(p):
 
 
 def main():
+    enforce_open_lane(ROOT, 'G79-MDSC-8e58a8d0', reason='finalize_mdsc.py')
     mdsc = load(E / "summary.json")
     sfgc = load(ROOT / "evidence/sfgc_lite_8e58a8d0/summary.json")
     nov = load(E / "novelty_local_sparse.json")

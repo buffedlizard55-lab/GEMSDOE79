@@ -8,6 +8,9 @@ import numpy as np, rasterio
 from scipy import ndimage as ndi
 from scipy.stats import spearmanr
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT/'src'))
+from gems79.lifecycle import enforce_open_lane
+enforce_open_lane(ROOT, 'G79-TIPSTEP', reason='novelty_tipstep.py')
 mine_path=ROOT/'artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif'
 with rasterio.open(mine_path) as d: mine=d.read(1)
 with rasterio.open(ROOT/'data/reference/sample_submission.tif') as d: fp=~np.isnan(d.read(1))

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "session": "aa2b12b5",
+  "verified_utc": "2026-10-22T21:34:33Z",
+  "scientific_result": {
+    "new_tif_generated": false,
+    "new_holdout_dti": null,
+    "new_organizer_confirmed_score": null,
+    "experiments": 0,
+    "placements": 0,
+    "submission_slots_used": 0,
+    "preflight_exit": 2,
+    "preflight_receipt": "evidence/preflight_aa2b12b5.json"
+  },
+  "data": {
+    "state": "all_manifest_inputs_verified",
+    "verified": 13,
+    "expected": 13,
+    "receipt": "evidence/runtime_data_status_aa2b12b5.json",
+    "scope": "Local owner-mirror presence and SHA-256, not organizer authentication"
+  },
+  "software": {
+    "python_full_suite": {
+      "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q",
+      "passed": 658,
+      "failed": 0
+    },
+    "node_download_identity_suite": {
+      "command": "node --test tools/browser-qa/download-check.test.cjs",
+      "passed": 12,
+      "failed": 0
+    },
+    "real_browser": {
+      "command": "QA_BASE_URL=http://127.0.0.1:8080 QA_REPORT_PATH=evidence/browser_review_aa2b12b5.json node scripts/browser_review.cjs",
+      "rendered_cases": 57,
+      "viewports": [
+        1440,
+        390,
+        320
+      ],
+      "pages": 19,
+      "passed": true,
+      "browser_errors": 0,
+      "download_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "identity_network_requests": 0,
+      "receipt": "evidence/browser_review_aa2b12b5.json"
+    },
+    "site_build": {
+      "command": ".venv/bin/python scripts/build_site.py",
+      "pages": 19,
+      "passed": true
+    },
+    "site_check": {
+      "command": ".venv/bin/python scripts/check_site.py",
+      "local_links_checked": 591,
+      "all_pages_reachable": true,
+      "passed": true
+    },
+    "project_verify": {
+      "command": ".venv/bin/python scripts/verify_project.py",
+      "checks": 35,
+      "all_checks_passed": true,
+      "scope": "Evidence/byte integrity, not submission approval"
+    },
+    "official_sample_format": {
+      "command": ".venv/bin/python scripts/validate_portal_spec.py data/reference/sample_submission.tif",
+      "result": "PASS R1-R8"
+    },
+    "submission_status": {
+      "command": ".venv/bin/python scripts/submission_status.py",
+      "exit": 2,
+      "ok_to_download": true,
+      "ok_to_submit": false,
+      "human_inspection_required": false
+    }
+  },
+  "review_passes": {
+    "pass_1": "Repository/source/data audit, fresh preflight, hypotheses before code, baseline defects reproduced",
+    "pass_2": "TIPSTEP evidence/control corrections, reproducible Pages integration, closed-lane lifecycle fixes and targeted regression tests",
+    "pass_3": "Full requirement review, complete Python/Node/browser verification, fail-closed status recheck and limitations recorded"
+  },
+  "notes": [
+    "The current public leader 0.4413 is a public observation, not this project's score.",
+    "H33 0.2778 remains an unverified historical report without an artifact-linked organizer receipt.",
+    "No claim is made that a future proposal would beat 0.2778 or 0.4413."
+  ],
+  "concurrent_main_reconciliation": {
+    "merged_origin_main": "0352e5ef356c1a26578df71dde3801a34f386922",
+    "preserved": "G79-CSHD, THVC-NANFIX, G79-GEM, G79-UGBP, shared NaN writer and TILT-RING-100K research bytes; canonical negative G79-THVC decision unchanged",
+    "irregularity_ids_renumbered_for_this_session": [
+      244,
+      245,
+      246,
+      247,
+      248,
+      249,
+      250
+    ],
+    "portal_claim_review": "Active CSHD/NANFIX text now says local R1-R8 PASS, not guaranteed portal acceptance or a diagnosed earlier error",
+    "static_page_integration": "Registered GEM/UGBP in the reproducible 19-page build, repaired evidence links and portal wording",
+    "shared_writer": "Merged explicit exterior=\"nan\" support and validators; legacy zero mode and historical bytes unchanged",
+    "tilt_ring": "Removed duplicate public/root copies only; preserved artifact bytes and marked negative for R6 failure and unestablished registry novelty"
+  }
+}

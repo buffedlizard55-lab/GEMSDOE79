@@ -5,6 +5,8 @@ from scipy.ndimage import binary_dilation
 from scipy.stats import spearmanr
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT/"src"),str(ROOT/"vendor")]
+from gems79.lifecycle import enforce_open_lane
+enforce_open_lane(ROOT, 'G79-TDW', reason='tdw_novelty.py')
 from gems57.grid import load_grid
 grid=load_grid(ROOT/"data"/"reference"); fp=grid.footprint
 cand_path=ROOT/"docs"/"downloads"/"gems79-tdw-tiltworm-37654dots-20261022.tif"

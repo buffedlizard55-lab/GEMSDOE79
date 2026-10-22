@@ -114,6 +114,9 @@ def check_site():
                 'all_manifest_inputs_ready', 'files'):
         assert runtime[key] == observed_now[key], f'Runtime data feed drift: {key}'
     assert site_manifest['runtime_data_status_sha256'] == hashlib.sha256(runtime_path.read_bytes()).hexdigest()
+    assert site_manifest['current_session_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_aa2b12b5.json').read_bytes()).hexdigest()
+    assert site_manifest['current_session_run_card_sha256'] == hashlib.sha256((site / 'evidence/run_card_aa2b12b5.json').read_bytes()).hexdigest()
+    assert json.loads((site / 'evidence/run_card_aa2b12b5.json').read_text()) == json.loads((ROOT / 'evidence/run_card_aa2b12b5.json').read_text())
     assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_a92a0164.json').read_bytes()).hexdigest()
     assert site_manifest['latest_review_card_sha256'] == hashlib.sha256((site / 'evidence/run_card_a92a0164.json').read_bytes()).hexdigest()
     assert site_manifest['latest_source_review_sha256'] == hashlib.sha256((site / 'evidence/source_review_a92a0164.json').read_bytes()).hexdigest()

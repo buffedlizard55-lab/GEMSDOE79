@@ -257,7 +257,7 @@
   "zip_bytes": 281477,
   "positive_pixels": 35093,
   "submission_name": "g79-thvc-nanfix-35093dots-20261022T203418Z-a141df56-nan",
-  "submission_note": "G79-THVC-NANFIX: same 35,093 dots as THVC but NaN exterior \u2014 R1-R8 ALL PASS (fixes portal range error)",
+  "submission_note": "G79-THVC-NANFIX: same 35,093 dots, NaN exterior; local R1-R8 PASS; DO NOT SUBMIT",
   "validator": {
     "file": "artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.tif",
     "bytes": 1586230,
@@ -280,15 +280,16 @@
   },
   "format_gates_passed": true,
   "portal_r1_r8_all_pass": true,
-  "portal_error_fixed": "Predicted values must be in range [0,1] cannot occur: all finite values are in [0,1] and exterior is NaN (null) per official spec. Verified by scripts/validate_portal_spec.py exit 0.",
+  "portal_error_fixed": "UNVERIFIED: local R1-R8 PASS only; portal acceptance and the cause of any earlier rejected upload are unknown.",
   "original_thvc_r6": "FAIL (7111787 zeros outside where NaN expected)",
   "this_r6": "PASS (0 non-NaN outside)",
   "ok_to_download": true,
   "ok_to_submit": false,
-  "ok_to_submit_note": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO \u2014 format R1-R8 PASS but literal novelty gate still BLOCKED (same dots as THVC, max overlap 1.0 >0.70). This file will not trigger the [0,1] range error, but still requires a novelty protocol decision before spending a weekly slot.",
+  "ok_to_submit_note": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO \u2014 local R1-R8 format PASS, but literal novelty gate remains BLOCKED (same dots as THVC, max overlap 1.0 > 0.70). Portal acceptance and the cause of any earlier upload rejection are unverified; a novelty protocol decision is required before spending a weekly slot.",
   "approved_for_weekly_slot": false,
   "experiment_count": 1,
   "holdout_evaluations_performed": 0,
   "holdout_inherited": true,
-  "holdout_source": "run_card.json (G79-THVC) \u2014 dot-identical, so holdout DTI 0.1905/0.1944 unchanged"
+  "holdout_source": "run_card.json (G79-THVC) \u2014 dot-identical, so holdout DTI 0.1905/0.1944 unchanged",
+  "portal_acceptance_verified": false
 }

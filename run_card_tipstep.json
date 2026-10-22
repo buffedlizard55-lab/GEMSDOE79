@@ -19,14 +19,19 @@
     "full_registry_gate": "NOT CLEARED - incomplete scan"
   },
   "raster": {"file": "artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif", "sha256": "4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a", "dots": 29259, "bytes": 127432},
-  "validator": {"format_passed": true, "no_nan_inside_footprint": true, "values_in_0_1": true, "min": 0.0, "max": 1.0, "crs": "EPSG:32611", "shape": [3730, 3292], "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0], "matches_sample": true, "outside_footprint": "zeros (not NaN) - fixes the 'Predicted values must be in range [0, 1]' portal error seen with NaN-outside files"},
+  "validator": {"format_passed": true, "no_nan_inside_footprint": true, "values_in_0_1": true, "min": 0.0, "max": 1.0, "crs": "EPSG:32611", "shape": [3730, 3292], "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0], "matches_sample": true, "outside_footprint": "zeros (not NaN): local all-finite range/grid PASS, but official R6 FAIL; the earlier portal error is undiagnosed without its bytes and receipt"},
   "submission_name": "gems79-tipstep-20261022",
   "submission_note": "G79-TIPSTEP catalogue tip-extension + collinear stepover bridges, dotted 3px, >2px off catalogue",
   "submission_note_chars": 96,
   "ok_to_download": true,
   "ok_to_submit": false,
   "verdict": "negative",
-  "verdict_reason": "Unique and format-valid, and holdout beats uniform by +0.091 (CI excludes 0) on both seeds, but HOLDOUT-DTI 0.0927/0.0928 does not beat the current holdout incumbent (THVC 0.1905/0.1944; CSKD 0.2145 seed30) and the full 1108-row registry novelty scan was not completed offline. Per protocol: do not spend a weekly slot.",
+  "verdict_reason": "Byte-distinct and local format/range-valid, but official R6 fails. HOLDOUT-DTI 0.0927/0.0928 does not beat the current incumbent (THVC 0.1905/0.1944; CSKD 0.2145 seed30), full-registry novelty was not cleared, and the uniform-control mask is not comparable. Do not spend a weekly slot.",
+  "audit_limitations": [
+    "Official R1-R8 format check fails R6 because the exterior is zero rather than NaN; local range PASS is not portal compliance.",
+    "The historical UNIFORM control excludes a >2 px full-catalogue collar while TIPSTEP uses the visible catalogue; their contrast is not a fair promotion measurement.",
+    "Full-registry novelty was not cleared, and the frozen universal witness independently blocks every nonempty candidate under the literal rule."
+  ],
   "organizer_confirmed_score": null,
   "leaderboard_claim": "None. 0.2778 (H33) is an unverified historical report; 0.4413 is a public-leaderboard observation for another entrant; neither is this artifact's score. No score above 0.2778 is promised or implied."
 }

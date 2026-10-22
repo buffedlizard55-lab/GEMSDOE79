@@ -9,6 +9,7 @@ from gems57.grid import load_grid
 from gems57 import holdout, evaluate_holdout
 from gems57.submission_writer import write_submission
 from gems79.tipstep import emit, build_surface
+from gems79.lifecycle import enforce_open_lane
 from sklearn.metrics import roc_auc_score
 
 NAME="gems79-tipstep-20261022"
@@ -20,6 +21,7 @@ def sha(p):
     return h.hexdigest()
 
 def main():
+    enforce_open_lane(ROOT, 'G79-TIPSTEP', reason='run_tipstep.py')
     t0=time.time(); g=load_grid(ROOT/'data/reference'); fp,cat=g.footprint,g.catalogue
     out={'lane':'G79-TIPSTEP','hypothesis':'Unmapped faults are disproportionately straight continuations beyond mapped tips and collinear stepover bridges between nearby fault tips; dotted 3px emission >2px off catalogue captures them at low FP cost.','mimic':'Roads/drainage lineaments and catalogue digitisation fragmentation (bridges may merely reconnect one fault split by mapping, not a hidden fault).','experiments':[]}
     final_budget=40000

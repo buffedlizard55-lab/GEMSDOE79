@@ -17,6 +17,7 @@ from gems57 import holdout, evaluate_holdout
 from gems57.submission_writer import write_submission
 from gems57.validate import validate as shared_validate
 from gems79.tdw import build_tdw_features, greedy_emit
+from gems79.lifecycle import enforce_open_lane
 
 BUDGET = 37654
 NAME = "gems79-tdw-tiltworm-37654dots-20261022"
@@ -29,6 +30,7 @@ def sha(p):
     return h.hexdigest()
 
 def main():
+    enforce_open_lane(ROOT, 'G79-TDW', reason='run_tdw.py')
     t0=time.time()
     grid = load_grid(ROOT/"data"/"reference")
     fp, cat = grid.footprint, grid.catalogue
