@@ -27,7 +27,7 @@ The shared writer fixes ZIP-member time to 2026-10-08 for deterministic bytes.
 That archive timestamp is **not** the scientific experiment/export time; the
 original run card contains that provenance.
 
-## Shared writer v2 — explicit NaN exterior (IR-79-232)
+## Shared writer v2 — explicit NaN exterior (IR-79-242)
 
 `write_submission(..., exterior="nan")` accepts only finite, real model arrays in
 [0,1], zero outside the exact template footprint, and zero on supplied catalogue

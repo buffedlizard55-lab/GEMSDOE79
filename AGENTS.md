@@ -1,11 +1,11 @@
 # Latest engineering review (3d53e182)
 
 Read reports/session_review_3d53e182.md and evidence/run_card_3d53e182.json first.
-Shared writer v2 supports explicit NaN exterior (IR-79-232); legacy default remains
+Shared writer v2 supports explicit NaN exterior (IR-79-242); legacy default remains
 zero exterior for reproducibility. No historical file was changed or promoted.
 Synthetic tests are not candidate generation. Fresh literal preflight still stops
 all nonempty candidates. TIPSTEP historical zero-fill/error-cause claims are
-superseded by IR-79-233. Existing stop rules below remain in force.
+superseded by IR-79-243. Existing stop rules below remain in force.
 
 # Start-of-session contract
 

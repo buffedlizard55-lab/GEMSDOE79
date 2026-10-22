@@ -5,7 +5,7 @@
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a href="thvc-nanfix.html">NANFIX (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (NO)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a href="thvc-nanfix.html">NANFIX (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>Entries retain their original dates and are ordered by review sequence. No entry authorizes a threshold exemption.</p>
 <table>
@@ -1795,6 +1795,68 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
+<h3>Session <code>e8afe252</code> — <code>G79-CSHD</code> two-seed holdout record, <code>R1–R8</code> <code>NaN</code>-exterior GeoTIFF, &amp; <code>origin/main</code> site repair (<code>2026-10-22</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-232</td>
+<td>Merging <code>origin/main</code> (<code>6e3ca91</code>) uncovered a live CI failure introduced in PR <code>#138</code> (<code>2ed6c2d</code>): <code>docs/tipstep-submission.html</code> was written manually without registering in <code>scripts/build_site.py</code> or <code>scripts/check_site.py</code>, omitted <code>&lt;a class="skip" href="#main"&gt;</code>, broke <code>test_all_site_links_and_status_are_consistent</code> and <code>test_check_site_detects_stale_irregularities_html</code>, and asserted without portal receipt that <code>NaN</code>-outside GeoTIFFs fail range checks (contradicting official rule <code>R6</code>).</td>
+<td>Registered <code>tipstep_page()</code> and <code>cshd_page()</code> cleanly in <code>scripts/build_site.py</code> and <code>scripts/check_site.py</code>, restored skip-link accessibility, corrected the <code>R6</code> vs <code>0.0</code>-exterior explanation, and rebuilt <code>docs/evidence/site_manifest.json</code> so all site/link/irregularity tests pass.</td>
+</tr>
+<tr>
+<td>IR-79-233</td>
+<td><code>training_features.tif</code> encodes outside-footprint nodata with <code>-FLT_MAX</code> (<code>-3.4028235e+38</code>), causing 2D FFT upward-deconvolved magnetic/gravity channels to overflow to <code>NaN</code> across the entire grid if unfiltered.</td>
+<td>Added finite <code>&lt; 1e20</code> footprint masking and mean-centered <code>float64</code> <code>rfft2</code> in <code>src/gems79/cshd_features.py</code>; verified <code>0</code> <code>NaN</code>/<code>Inf</code> cells across all <code>98</code> channels.</td>
+</tr>
+<tr>
+<td>IR-79-234</td>
+<td>Computing crack-tip/stepover mechanical channels once on <code>visible</code> instead of inside each simulated hide draw <code>sim_vis</code> suppresses true tip signals on simulated hidden segments (<code>inner AUC</code> distortion).</td>
+<td>Recomputed <code>compute_cshd_mechanics(sim_vis, ...)</code> freshly per simulated hide draw in <code>src/gems79/cshd_model.py</code> (<code>0</code> leakage across fold boundaries).</td>
+</tr>
+<tr>
+<td>IR-79-235</td>
+<td>Raw inverse-sampling Horvitz-Thompson weights (<code>w_pos = 1.0</code>, <code>w_neg ~ 100.0</code>) compressed neural/logistic posterior probabilities by <code>~10x</code> relative to tree splits.</td>
+<td>Normalized sample weights to preserve empirical training class prior sums while retaining exact exposure-probability ratios across distance bands.</td>
+</tr>
+<tr>
+<td>IR-79-236</td>
+<td>Widening Stage-1 <code>StandardScaler</code> clipping from <code>[-6.0, 6.0]</code> to <code>[-30.0, 30.0]</code> caused <code>LogisticRegression</code> (<code>m_lin</code>) to saturate at <code>p = 1.0</code> on <code>+28 sigma</code> volcanic/playa outliers (<code>10,206</code> false far dots, dropping <code>EXP-CSHD-2</code> to <code>0.1524</code>).</td>
+<td>Restored <code>[-6.0, 6.0]</code> clipping in <code>src/gems79/cshd_model.py</code>, yielding crisp probability calibration across all <code>98</code> features.</td>
+</tr>
+<tr>
+<td>IR-79-237</td>
+<td>Empirical uniform <code>[0, 1]</code> quantile scaling inside <code>piedmont_scarp</code> assigned <code>&gt;= 0.50</code> scarp weight to <code>50%</code> of flat alluvial fans/washes, inflating far-field false positives.</td>
+<td>Replaced quantile scaling in <code>src/gems79/cshd_features.py</code> with physical <code>p99</code> amplitude normalization (<code>25:1</code> scarp-to-wash contrast).</td>
+</tr>
+<tr>
+<td>IR-79-238</td>
+<td>Raw potential-field magnitudes exceeding <code>65,504</code> emitted <code>float16</code> overflow warnings in shard caches, and default GDAL block caching across <code>1,223</code>-raster scans inflated container page cache.</td>
+<td>Added <code>np.clip(..., -65000.0, 65000.0).astype(np.float16)</code> before shard storage and freed <code>memmap</code> buffers (<code>GDAL_CACHEMAX=32</code>) prior to <code>1,223</code>-raster cross-repo scans.</td>
+</tr>
+<tr>
+<td>IR-79-239</td>
+<td>Shared <code>vendor/gems57/submission_writer.py</code> emits <code>0.0</code> exterior cells (<code>15/15 PASS</code> locally, <code>FAIL</code> official <code>R6</code>), whereas official <code>src/gems79/portal_spec.py</code> (<code>gems79-portal-format-v2</code>) requires <code>NaN</code> exterior cells matching <code>sample_submission.tif</code>.</td>
+<td>Archived and SHA-256 verified both artifacts in <code>archive/g79_cshd_e8afe252/</code>: <code>-nan-DO-NOT-SUBMIT.{tif,zip}</code> (<code>8/8 PASS</code> across <code>R1–R8</code> on both <code>.tif</code> and <code>.zip</code>) and <code>-zeros-DO-NOT-SUBMIT.{tif,zip}</code> (<code>15/15 PASS</code> on <code>validate_submission.py</code>), with identical <code>39,747</code> in-bounds <code>[0, 1]</code> fault dots and <code>0</code> interior <code>NaN</code>/<code>Inf</code>.</td>
+</tr>
+<tr>
+<td>IR-79-240</td>
+<td><strong><code>G79-CSHD</code> achieved the #1 all-time repository <code>HOLDOUT-DTI</code> across both seeds (<code>0.192403</code> Seed 20, <code>0.204033</code> Seed 30; <code>2</code>-seed mean <code>0.198218</code> &gt; <code>G79-CSKD</code> <code>0.196306</code> and canonical <code>G79-THVC</code> <code>0.190523 / 0.194393</code>), with pure zero-catalogue <code>EXP-CSHD-1 = 0.099183 / 0.109459 &gt; H33</code> on both seeds and <code>98/98</code> leakage canaries cleared (<code>max AUC = 0.8043 &lt;= 0.90</code>), and cleared <code>GEMSDOE83</code> under Amendment D-2 (<code>0.6591 &lt;= 0.70</code>), but flagged <code>16/1,209</code> legacy corridor/dense rasters (<code>max external D-2 = 0.8182</code>, <code>59GEMSDOE</code>) plus the <code>1.0000</code> universal literal witness.</strong></td>
+<td>Per Parallel-Run Protocol Rules 1, 5, and 6, halted automatically without post-hoc overlap capping or slot expenditure: <code>verdict = negative</code>, <code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code>, <code>0</code> weekly slots spent (<code>run_card_cshd.json</code>, <code>docs/g79-cshd.html</code>).</td>
+</tr>
+<tr>
+<td>IR-79-241</td>
+<td>Merging concurrent <code>origin/main</code> PR <code>#141</code> (<code>406e4cf</code>) uncovered live <code>main</code> CI failures in both <code>Verify research deliverable</code> and <code>Pages and public-source health</code>: <code>406e4cf</code> placed a duplicate copy of <code>g79-thvc-nanfix-35093dots-20261022-b262e265-nan.{tif,zip}</code> into <code>docs/downloads/</code> (breaking six single-canonical-TIFF tests) AND recorded nonexistent <code>...T203418Z-a141df56-nan.tif</code> paths in <code>run_card_thvc_nanfix.json</code>.</td>
+<td>Removed the duplicate copy from <code>docs/downloads/</code> while preserving <code>artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.{tif,zip}</code>, fixed <code>run_card_thvc_nanfix.json</code> and <code>docs/thvc-nanfix.html</code> paths to <code>artifacts/thvc_nanfix/</code>, restored strict <code>expected = {sub, zip}</code> in <code>scripts/verify_project.py</code>, and re-verified all <code>637</code> tests green.</td>
+</tr>
+</tbody>
+</table>
 <h3>Session <code>3d53e182</code> — prospective shared format repair</h3>
 <table>
 <thead>
@@ -1806,12 +1868,12 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-232</td>
+<td>IR-79-242</td>
 <td>IR-79-224 remained unresolved: the shared writer rejected NaN exterior although the separate R6 check requires it.</td>
 <td>Added explicit <code>exterior="nan"</code> mode in the shared writer and validators; exact template-mask check, finite real [0,1] model input, NaN exterior encoding, strict JSON receipt, TIFF/ZIP roundtrip tests. Legacy mode and historical bytes unchanged. No new scientific raster or promotion.</td>
 </tr>
 <tr>
-<td>IR-79-233</td>
+<td>IR-79-243</td>
 <td>TIPSTEP page was absent from the site generator/manifest and claimed zero exterior fixes the portal error; the historical card makes the same unsupported causal claim.</td>
 <td>Generate an explicit historical negative page with official R6 failure and no full-registry novelty claim. Preserve historical card as evidence, mark its error diagnosis superseded. No rejected-file bytes or organizer receipt exist to establish that diagnosis.</td>
 </tr>

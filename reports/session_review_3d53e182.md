@@ -59,7 +59,7 @@ Found an inherited site inconsistency: TIPSTEP had an unmanaged page absent from
 the generator and an unsupported claim that zero exterior fixes a portal error.
 The generated archive page now states R6 failure and incomplete full novelty;
 historical card is retained and explicitly annotated as superseded prose. The
-page manifest, navigation and site checker now include it (IR-79-233).
+page manifest, navigation and site checker now include it (IR-79-243).
 
 ## Pass 3 — final verification and limitations
 
@@ -112,3 +112,12 @@ Post-reconciliation: **644 Python tests pass**, **16 generated pages / 456 local
 links pass**. Previous 15-page browser result applies to the pre-reconciliation
 build; the final browser result is recorded in `evidence/browser_review.json`.
 No historical prediction pixels were edited and no new experiment was run here.
+
+A second concurrent merge (#144, CSHD) was reconciled on the same branch. Its
+archived artifacts, scientific receipts, code and generated page are preserved;
+they are not experiments from this review. Engineering irregularity IDs were
+renumbered to IR-79-242/243 to avoid collisions. Removed a duplicate companion
+page-manifest entry introduced by overlapping generator changes. Current site:
+17 pages, 505 local links. This review does not endorse historical absolute
+leaderboard or portal-error guarantees in concurrent prose; format PASS is local
+and all active submission decisions remain negative.

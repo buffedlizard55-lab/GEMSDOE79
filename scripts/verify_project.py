@@ -180,7 +180,7 @@ def sibling_audit_and_delta_checks(root):
                     if e['path'] == 'vendor/gems57/uniqueness.py'), [None])) and
             audit_doc.get('shared_tools_pinned', {}).get('validate_py_sha256') in (
                 sha(root / 'vendor/gems57/validate.py'),
-                # IR-79-232: opt-in exterior mode; frozen default-policy audit remains historical.
+                # IR-79-242: opt-in exterior mode; frozen default-policy audit remains historical.
                 *next((e.get('historical_sha256', []) for e in json.loads(
                     (root / 'registry/template_pin.json').read_text())['files']
                     if e['path'] == 'vendor/gems57/validate.py'), [])) and
