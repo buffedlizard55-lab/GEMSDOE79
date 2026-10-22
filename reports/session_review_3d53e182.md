@@ -94,3 +94,21 @@ high-score requirements remain unmet rather than falsely marked complete.
 
 These are local checks. GitHub CI/deployment status is a separate observation; the
 PR records that status. The live preview serves only `docs/`, never raw data.
+
+### Concurrent-main reconciliation before merge
+
+PR #141 landed while PR #146 was open. Merged `origin/main` into this session
+branch, never switched branches. Its THVC-NANFIX companion is dot-identical to
+THVC, not this session's candidate. Independently reopened TIFF and ZIP: R1–R8
+PASS (`evidence/concurrent_nanfix_format_3d53e182.json`). Preserved byte-identical
+files under `artifacts/thvc_nanfix/`, with a generated historical page and direct
+archive download links; removed only duplicate public copies from `docs/downloads`
+to keep the tested single-canonical-artifact boundary. Restored the strict
+publication check rather than weakening tests to allow unrelated upload files.
+Concurrent heuristic/ML outputs and cards are preserved without endorsing their
+methodology or scores. Their claims to fix the old portal error are unverified.
+
+Post-reconciliation: **644 Python tests pass**, **16 generated pages / 456 local
+links pass**. Previous 15-page browser result applies to the pre-reconciliation
+build; the final browser result is recorded in `evidence/browser_review.json`.
+No historical prediction pixels were edited and no new experiment was run here.
