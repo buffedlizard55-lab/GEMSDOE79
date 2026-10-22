@@ -1241,6 +1241,33 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>PR builds and production deployments used the same Pages concurrency group. The review PR's Pages run was cancelled while its two verification workflows completed successfully; a later pending PR run can displace a pending production run under the shared group.</td>
 <td>Separate PR-number groups from the production group. Keep production serialized and PR deployments disabled; retain exact public-byte verification. Added a workflow regression test. Observed cancellation alone does not authenticate a successful deployment.</td>
 </tr>
+<tr>
+<td>IR-79-172</td>
+<td>Session d52085f3 was asked for a unique submittable TIF. The new-lane preflight fails closed without the pinned witness (exit 3) and exits 2 with it, because the literal gate blocks every candidate. The witness is a continuous 17GEMSDOE surface positive on all 5,167,373 footprint cells, values 0.00046–0.98412. No lane method paragraph is in the record, so no lane was assigned.</td>
+<td>Reproduced both preflight exits and the full test/verify run (477 passed; verify exit 0). Measured the witness directly and, using the shared <code>budget_matched_dots</code> and <code>_near</code>, its top-37,654 footprint coverage is 0.0185 (top-38,000: 0.0186). That is a chance-level feasibility measurement, not a candidate score. No gate was changed, no lane started, no placement or submission made. The decision on literal versus top-k (D-1) and a lane paragraph are the owner's (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_d52085f3.md">review d52085f3</a> §7). Public leaderboard page confirms #1 at 0.4413, not 0.3195 (IR-79-05).</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 3ca6c6a6 — downloaded-file identity and publishing permissions</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-173</td>
+<td>The site had no local way to bind a user's chosen downloaded file to its published format-checked bytes. An old, altered or repacked file cannot inherit another file's range validation, and the prior portal rejection cannot be diagnosed without its bytes and receipt.</td>
+<td>Added SHA-256 plus size checking for the exact TIFF and ZIP in the executive summary, with no upload or raster-decoding claim. Unknown bytes, crypto/read errors and stale async results cannot authorize submission. Python, Node and real-browser tests cover both matching files, same-size tampering, error paths and zero network requests. The canonical novelty STOP and all scientific receipts remain unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-174</td>
+<td>GitHub Pages API reported legacy main-root publishing and errored status; the public site was still readable. Attempting to select workflow publishing returned HTTP 403, Resource not accessible by integration.</td>
+<td>Kept the existing workflow's explicit permission warning and public-byte verification. Local preview passed, but neither local success nor an attempted API update proves deployment. Settings permission remains unavailable to this integration; no credential was requested or stored. See session review 3ca6c6a6 for the precise scope.</td>
+</tr>
 </tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
