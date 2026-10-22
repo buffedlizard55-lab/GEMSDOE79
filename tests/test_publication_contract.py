@@ -459,7 +459,9 @@ def test_mt_backlog_uses_official_depth_integrated_conductance_metadata():
     assert "500 m`, `1.5 km`, or `3 km` resistivity slices" in backlog
     assert "Unvalidated planning estimate" in backlog
     assert "not a measured score" in backlog
-    assert "No shared evaluator ran these hypotheses" in backlog
+    assert "Later reduced DRAPE and RADIO pilots are separate, negative experiments" in backlog
+    assert "they do not validate the planning gain values" in backlog
+    assert "The MT conductance hypothesis was not tested" in backlog
 
 
 def test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts():

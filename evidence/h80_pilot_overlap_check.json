@@ -1,0 +1,135 @@
+{
+  "per_seed": {
+    "20": {
+      "DRAPE_A_notch": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.195,
+          "D2.8_GEMSDOE25": 0.2028,
+          "G79-THVC_canonical": 0.1352
+        },
+        "spearman": {
+          "H33_GEMSDOE32": 0.0011,
+          "D2.8_GEMSDOE25": 0.0011,
+          "G79-THVC_canonical": 0.0039
+        }
+      },
+      "DRAPE_B_control": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.1949,
+          "D2.8_GEMSDOE25": 0.2034,
+          "G79-THVC_canonical": 0.1357
+        },
+        "spearman": {
+          "H33_GEMSDOE32": 0.0013,
+          "D2.8_GEMSDOE25": 0.0013,
+          "G79-THVC_canonical": 0.0041
+        }
+      },
+      "RADIO_A_th_normalised_K": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.0261,
+          "D2.8_GEMSDOE25": 0.0275,
+          "G79-THVC_canonical": 0.0985
+        },
+        "spearman": {
+          "H33_GEMSDOE32": -0.035,
+          "D2.8_GEMSDOE25": -0.0403,
+          "G79-THVC_canonical": -0.0108
+        }
+      },
+      "RADIO_B_raw_K": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.0398,
+          "D2.8_GEMSDOE25": 0.0421,
+          "G79-THVC_canonical": 0.085
+        },
+        "spearman": {
+          "H33_GEMSDOE32": -0.04,
+          "D2.8_GEMSDOE25": -0.045,
+          "G79-THVC_canonical": -0.0152
+        }
+      }
+    },
+    "30": {
+      "DRAPE_A_notch": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.1953,
+          "D2.8_GEMSDOE25": 0.2035,
+          "G79-THVC_canonical": 0.1355
+        },
+        "spearman": {
+          "H33_GEMSDOE32": 0.0011,
+          "D2.8_GEMSDOE25": 0.0011,
+          "G79-THVC_canonical": 0.0039
+        }
+      },
+      "DRAPE_B_control": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.1951,
+          "D2.8_GEMSDOE25": 0.2038,
+          "G79-THVC_canonical": 0.136
+        },
+        "spearman": {
+          "H33_GEMSDOE32": 0.0013,
+          "D2.8_GEMSDOE25": 0.0013,
+          "G79-THVC_canonical": 0.0041
+        }
+      },
+      "RADIO_A_th_normalised_K": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.026,
+          "D2.8_GEMSDOE25": 0.0279,
+          "G79-THVC_canonical": 0.0979
+        },
+        "spearman": {
+          "H33_GEMSDOE32": -0.035,
+          "D2.8_GEMSDOE25": -0.0403,
+          "G79-THVC_canonical": -0.0108
+        }
+      },
+      "RADIO_B_raw_K": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.0395,
+          "D2.8_GEMSDOE25": 0.0422,
+          "G79-THVC_canonical": 0.0847
+        },
+        "spearman": {
+          "H33_GEMSDOE32": -0.04,
+          "D2.8_GEMSDOE25": -0.045,
+          "G79-THVC_canonical": -0.0152
+        }
+      }
+    }
+  },
+  "comparators": {
+    "H33_GEMSDOE32": {
+      "path": ".cache/registry/17a76895f68174cc93f3cb1597d25686f6d6bc67.tif",
+      "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "positive_pixels_in_footprint": 37654
+    },
+    "D2.8_GEMSDOE25": {
+      "path": ".cache/registry/bfb7e86d046dd178c3d6ab60522861b5464dd420.tif",
+      "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "positive_pixels_in_footprint": 44090
+    },
+    "G79-THVC_canonical": {
+      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "positive_pixels_in_footprint": 35093
+    }
+  },
+  "summary": {
+    "max_within_3px": 0.2038,
+    "max_abs_spearman": 0.045,
+    "rule": "duplicate if rank corr > 0.90 or > 70 pct of dots within 3 px of one registry raster",
+    "result": "NOT DUPLICATES"
+  }
+}
