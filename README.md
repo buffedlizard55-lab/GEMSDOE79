@@ -2,6 +2,9 @@
 
 ## Download and submission decision — start here
 
+Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-68182759.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
+
+
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
 > This is a newly generated, format-valid research GeoTIFF. It failed the protocol's duplicate gate,
