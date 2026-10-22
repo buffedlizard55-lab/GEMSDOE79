@@ -112,3 +112,12 @@ above describe the pre-integration checkout, not the enlarged final suite.
 
 Final integrated verification: **609 software tests passed**; site build, site-link
 checker and project verification passed. No new scientific measurements.
+
+A further main merge added a201fa92's independent official-format promotion gate.
+Retained it. Its ignored restored inputs are not present in this workspace.
+Integration tests exposed an inherited gap in issue IDs and a stale AGENTS.md
+reference; assigned this review's three findings IDs 221–223 to fill that gap
+and corrected the writer-policy reference to 227. No gate thresholds changed.
+
+After the final gate integration and issue-reference fixes: **611 tests passed**;
+site build, link check and project verification passed again.

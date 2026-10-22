@@ -14,6 +14,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
+from gems79.portal_spec import validate_portal_file
 from validate_submission import validate_path
 
 
@@ -478,7 +479,9 @@ def verify(refresh_timestamp: bool = False):
     state = json.loads((ROOT / 'evidence/experiment_state.json').read_text())
     checks['e1_scientific_stop_honored'] = (state['stopped'] and state['experiment_count'] == 1 and
                                              state['final_dot_placements_performed'] == 0)
-    decision = submission_decision(card, actual_sha256=actual_sha, format_passed=result['format_passed'])
+    portal = validate_portal_file(path, ROOT / 'data/reference/sample_submission.tif')
+    decision = submission_decision(card, actual_sha256=actual_sha,
+                                   format_passed=result['format_passed'], portal_passed=portal['ok'])
     checks['status_tool_and_card_agree'] = (decision['ok_to_download'] == card['ok_to_download'] and
         decision['ok_to_submit'] == card['ok_to_submit'] and decision['verdict'] == card['verdict'] and
         card['submission_slots_used'] == 0 and card['organizer_submission_receipt'] is None)
