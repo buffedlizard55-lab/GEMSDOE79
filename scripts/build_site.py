@@ -38,9 +38,13 @@ def md(path):
         href = match.group(1)
         if href.startswith(('https:', 'http:', '#', 'mailto:')):
             return match.group(0)
-        target = (path.parent / href).resolve()
+        raw_path = href.split('#', 1)[0].split('?', 1)[0]
+        target = (path.parent / raw_path).resolve()
+        if not target.exists():
+            raise FileNotFoundError(f'Broken relative link {href!r} in {path.relative_to(ROOT)}')
         if target.is_relative_to(ROOT):
-            return 'href="' + REPO + '/blob/main/' + str(target.relative_to(ROOT)) + '"'
+            frag = ('#' + href.split('#', 1)[1]) if '#' in href else ''
+            return 'href="' + REPO + '/blob/main/' + str(target.relative_to(ROOT)) + frag + '"'
         return match.group(0)
     text = re.sub(r'href="([^"]+)"', link, text)
     return '<div class="prose table-scroll">' + text + '</div>'
@@ -207,7 +211,7 @@ def executive_promoted(card):
 <li><strong>Distribution shift.</strong> The holdout withholds mapped faults, while the organizer scores expert-found faults that are absent from the map. Our dots sit closer to mapped faults than H33's do: median 539 m versus 1.96 km.</li>
 <li><strong>Proxy, not projection.</strong> This file has no ORGANIZER-CONFIRMED score until you upload it.</li>
 <li><strong>Uniqueness scope.</strong> The 992 public sibling-repository rasters were checked, not every file other participants have uploaded.</li>
-<li><strong>Dot definition.</strong> The registry comparison uses the shared budget-matched-v3 dot definition (IR-79-36), because the literal definition flags every non-empty map as a duplicate.</li></ul>
+<li><strong>Dot definition.</strong> The registry comparison uses the shared budget-matched-v3 dot definition (IR-79-47), because the literal definition flags every non-empty map as a duplicate.</li></ul>
 <p><a class="button secondary" href="{COMP}/submissions/">Official submission page ↗</a> <a class="text-link" href="analysis.html">Full analysis ↗</a></p></section>'''
 
 
@@ -280,7 +284,7 @@ def executive_negative(card):
 <h2>Limitations</h2><ul>
 <li>The holdout withholds catalogue faults, while the organizer scores expert faults that are missing from the catalogue.</li>
 <li>Uniqueness was checked against 992 public sibling-repository rasters, not against every upload by other participants.</li>
-<li>The space-filling-raster question is unresolved (IR-79-42).</li></ul>
+<li>The space-filling-raster question is unresolved (IR-79-53).</li></ul>
 <p><a class="button secondary" href="{COMP}/submissions/">Official submission page ↗</a> <a class="text-link" href="analysis.html">Full analysis ↗</a></p></section>'''
 
 
@@ -326,11 +330,18 @@ def main():
               'evidence/nhr/distance_to_catalogue.json': 'nhr_distance_to_catalogue.json',
               'evidence/nhr/overlap_chance.json': 'nhr_overlap_chance.json',
               'evidence/nhr/surface_topk_vs_flagged.json': 'nhr_surface_topk_vs_flagged.json',
-              'evidence/nhr/selector_decision.json': 'nhr_selector_decision.json'}
+              'evidence/nhr/selector_decision.json': 'nhr_selector_decision.json',
+              'evidence/family_lineage_forensics.json': 'family_lineage_forensics.json',
+              'run_card_stepco.json': 'run_card_stepco.json'}
+    copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
     for stale in (SITE / 'evidence').iterdir():
-        if stale.name not in keep:
+        if stale.is_file() and stale.name not in keep:
             stale.unlink()
+    stepco_dir = SITE / 'evidence/stepco'
+    stepco_dir.mkdir(exist_ok=True)
+    for src in sorted((ROOT / 'evidence/stepco').glob('*.json')):
+        shutil.copyfile(src, stepco_dir / src.name)
     for source, dest in copies.items():
         shutil.copyfile(ROOT / source, SITE / 'evidence' / dest)
     for stale in (SITE / 'assets').glob('*.png'):
@@ -348,6 +359,9 @@ def main():
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
                                     'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
                           + '<section class="section">' + md('research/hypotheses_nhr.md') + '</section>'
+                          + '<section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2>'
+                          + '<p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p>'
+                          + md('research/hypotheses_g79stepco_20261022.md') + md('reports/protocol_amendment_D1_20261022.md') + '</section>'
                           + '<section class="section"><h2>Previous lane (E1, negative, archived)</h2>' + md('research/hypotheses.md') + '</section>'),
         'sources.html': ('Official sources & current health feed', sources_page(sources)),
         'history.html': ('Historical reports, not receipts', history_page()),

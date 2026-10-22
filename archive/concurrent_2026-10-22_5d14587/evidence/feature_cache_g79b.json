@@ -1,0 +1,77 @@
+{
+  "lane": "G79B-SCARP-DIPOLE-GEOAND",
+  "preregistration_sha256": "7940054953cc2115870890a3a499aed5140634d0bb0edff324e4bd98201f90ee",
+  "counts": {
+    "footprint_cells": 5167373,
+    "lidar_supported_cells": 3892984,
+    "valid_cells_band18": 5164312,
+    "valid_cells_band3": 5164312,
+    "support_cells": 3891355,
+    "road_valid_cells": 5167373,
+    "road_suppressed_below_1_cells": 1489919,
+    "surface_positive_cells": 3891315
+  },
+  "files": [
+    {
+      "name": "geo_only_surface",
+      "sha256": "b1a3ce23dc38611b846e665254a8a919b92648ea76b3da4a63569495e99923a3",
+      "bytes": 49116768
+    },
+    {
+      "name": "geo_or",
+      "sha256": "f5e73a943efd42e6ed63ac2be57c4bbed5352c37e5a20f16d91eca609545a6fe",
+      "bytes": 49116768
+    },
+    {
+      "name": "lidar_only_surface",
+      "sha256": "99da75f62d1d8f03bc42f07516b45cd8b960c04c026d24bf687b737a5e273e87",
+      "bytes": 49116768
+    },
+    {
+      "name": "lidar_triple",
+      "sha256": "8f0cc575daf12b3333d76fb68cafe0502a47384391def9aba026c9d5e3766b40",
+      "bytes": 49116768
+    },
+    {
+      "name": "rank_grav_hg",
+      "sha256": "89d6b513d12ae1d1ce34b0b1ef1f44c89215c68320ce0917a9d7e1507bda8d4e",
+      "bytes": 49116768
+    },
+    {
+      "name": "rank_lapneg",
+      "sha256": "ef86fc3969ca0b27a2e2201164f7256aeeda94a0f82ee8fef52b042b0cda09c0",
+      "bytes": 49116768
+    },
+    {
+      "name": "rank_lappos",
+      "sha256": "2e13a183d41588805229f8c656832db02e21314edacea403340d0a8b75598ff4",
+      "bytes": 49116768
+    },
+    {
+      "name": "rank_step",
+      "sha256": "4f02c4b1456973248f81867260c5188bebcab16db60589584c2138a625d1e1ec",
+      "bytes": 49116768
+    },
+    {
+      "name": "rank_tmi_hg",
+      "sha256": "8a92a8caa4fa251c1ea6cd4cfe087748600ca3a187221848dd0d55544ea3738e",
+      "bytes": 49116768
+    },
+    {
+      "name": "road_factor",
+      "sha256": "a3103752e6c234849a99adc17149f5227f530b1b1341e9b56eec735f6438b9ae",
+      "bytes": 49116768
+    },
+    {
+      "name": "scarp_dipole_surface",
+      "sha256": "5cb0eb8f682ae45c01bb5778c6943997303647b9e6b6ced89f99b3a64904886e",
+      "bytes": 49116768
+    },
+    {
+      "name": "support",
+      "sha256": "dc590cf68415f3313652048309a6415e90cb31f0e766e34f0f387e614e754d0d",
+      "bytes": 12279288
+    }
+  ],
+  "input_pins": "registry/data_manifest.json (13/13 restored and hash-verified this session)"
+}

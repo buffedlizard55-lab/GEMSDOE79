@@ -17,7 +17,7 @@ georeference are compared pixel-by-pixel, which is conservative: it treats them 
 aligned. Unreadable files and files with another shape cannot be valid competition
 submissions; they are listed, not silently dropped.
 
-This script decides nothing. It records measurements for IR-79-42.
+This script decides nothing. It records measurements for IR-79-53.
 """
 from __future__ import annotations
 import hashlib

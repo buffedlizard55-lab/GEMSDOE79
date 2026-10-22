@@ -38,7 +38,11 @@ def test_edited_ok_flag_cannot_bypass_individual_gates():
     card['approved_for_weekly_slot']=True; card['verdict']='promote'
     result=submission_decision(card,actual_sha256=card['raster_sha256'],format_passed=True)
     assert not result['ok_to_submit']
-    assert 'holdout_dti_and_ci_not_measured' in result['blockers']
+    # STEPCO measured its holdout, so the surviving blockers are the real
+    # scientific/selector gates an edited flag still cannot bypass.
+    assert 'literal_novelty_not_cleared' in result['blockers']
+    assert 'matched_current_best_holdout_not_beaten' in result['blockers']
+    assert 'separate_selector_receipt_missing_or_unbound' in result['blockers']
 
 def test_corrupt_bytes_disable_download_and_submission():
     card=json.loads((ROOT/'run_card.json').read_text())

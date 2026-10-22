@@ -173,7 +173,7 @@ This is consistent with the shift being real.
 1. **Decide how to treat the 30 space-filling registry rasters.** A uniformly
    random map is flagged by 30 registry rasters, because their 3 px halos cover more
    than 70 % of the allowed area. Taken literally, the duplicate rule therefore rejects
-   every possible submission (IR-79-42). This needs an explicit user decision. One
+   every possible submission (IR-79-53). This needs an explicit user decision. One
    option: for those rasters, use overlap beyond chance, `(ov − halo)/(1 − halo)`,
    and keep the literal rule for all others.
 2. **Target the far field explicitly.** H33's dots are mostly more than 1 km from the

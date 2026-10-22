@@ -3,7 +3,7 @@
 
 All novelty mathematics is the shared template's
 ``gems57.uniqueness.compare_array_to_registry`` with ``dot_definition=
-'budget-matched-v3'`` (shared fix, see reports/irregularities.md IR-79-36).
+'budget-matched-v3'`` (shared fix, see reports/irregularities.md IR-79-47).
 Thresholds are unchanged: Spearman > 0.90 or > 70 % of my dots within 3 px of
 one registry raster's dots => duplicate => stop.
 

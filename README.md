@@ -43,9 +43,34 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
    leakage. However, its dots fall in the 300 m–2 km band around mapped faults, which 26 earlier family
    dot fields already occupy. Those fields have unverified historical scores of 0.016–0.143. Under the protocol, that is a
    **duplicate lane → stop**.
-3. **Systemic blocker (IR-79-42).** 30 registry rasters are space-filling: their 3 px halos cover more than 70 % of
+3. **Systemic blocker (IR-79-53).** 30 registry rasters are space-filling: their 3 px halos cover more than 70 % of
    the area, so even a uniformly random map is flagged by them. Taken literally, the duplicate rule rejects every
    possible submission. The next lane needs **an explicit user decision** on these rasters.
+
+## Concurrent lane G79-STEPCO (session `220dabc8`): also negative, archived
+
+Another session ran lane G79-STEPCO (multi-field step dipoles with a fixed HistGradientBoosting model) in
+parallel, and it merged to `main` first, as PR #26.
+
+| Experiment | Seed 20 | Seed 30 | H33 control (seed 20 / 30) |
+|---|---|---|---|
+| S1 | 0.0946 [0.0778, 0.1110] | 0.0948 [0.0782, 0.1115] | 0.0961 / 0.0989 |
+| S2-COVER | 0.0935 | 0.0961 | |
+
+- S1 **tied** the H33 control rather than beating it. S2-COVER tied as well.
+- STEPCO's own uniqueness reading also fired, because of the same space-filling registry rasters.
+- Its verdict is also **OK TO SUBMIT: NO**.
+
+When the two lanes were merged, H79-NHR became the canonical card because its holdout evidence is stronger.
+The STEPCO files are kept as they are:
+- S1 TIFF, ZIP and receipt: moved byte-for-byte to [`archive/g79_stepco_s1/`](archive/g79_stepco_s1/README.md).
+- S2: [`archive/g79_stepco_s2/`](archive/g79_stepco_s2/).
+- Card and evidence, unchanged: [`run_card_stepco.json`](run_card_stepco.json) and [`evidence/stepco/`](evidence/stepco/).
+- Review: [`reports/session_review_220dabc8.md`](reports/session_review_220dabc8.md).
+- Its protocol amendment: [`reports/protocol_amendment_D1_20261022.md`](reports/protocol_amendment_D1_20261022.md).
+
+The STEPCO lane's README section is preserved in [`reports/readme_history_through_9417f4e.md`](reports/readme_history_through_9417f4e.md).
+The merge is recorded as IR-79-56.
 
 ## Limitations and next steps
 
@@ -54,9 +79,9 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
   (`evidence/nhr/distance_to_catalogue.json`).
 - Uniqueness covers the 992 hash-verified public sibling-repository rasters (0 new on a rescan of
   branches, tags and pull refs), not every file other participants have uploaded.
-- The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-36) and can be reversed.
+- The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-47) and can be reversed.
 - Next steps:
-  1. Decide IR-79-42.
+  1. Decide IR-79-53.
   2. Run a far-field lane that ranks within H33-like distance bands (more than 1 km from mapped faults), with
      antislope or lidar evidence, checking the surface for uniqueness before placement.
   3. Reweight the nested target by distance band.
@@ -636,25 +661,25 @@ gemsdoe72-h72-1-sgmc-offcatalogue-20261020T195456Z-6e6525e5-zeros: 0.0492
 
 [https://buffedlizard55-lab.github.io/GEMSDOE73/](https://buffedlizard55-lab.github.io/GEMSDOE73/)
 
-gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros:
+gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros: 0.1917
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
 
-gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros:
+gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros: 0.0669
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
 
-gems75-trlt-radon-loco-ridge-20261021-zeros:
+gems75-trlt-radon-loco-ridge-20261021-zeros: 0.1627
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
 
-gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros:
+gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555
 
 gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
@@ -662,7 +687,7 @@ gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
 [https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
 
-gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros:
+gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 ....
 

@@ -10,7 +10,7 @@
 ## Pass 1 — implement and verify
 
 **Inputs**
-- Restored the inputs and all 992 registry rasters by SHA-256, using git so that no REST quota is needed (IR-79-38).
+- Restored the inputs and all 992 registry rasters by SHA-256, using git so that no REST quota is needed (IR-79-49).
 - Rescanned branches, tags and pull refs: 0 new rasters.
 
 **Experiment X1**
@@ -25,9 +25,9 @@
   - Leakage canary: 464 single-feature AUC tests, max 0.8589.
 
 **Uniqueness**
-- Ran surface and final-dot uniqueness with the shared `uniqueness.py` and the v3 dot definition (IR-79-36).
+- Ran surface and final-dot uniqueness with the shared `uniqueness.py` and the v3 dot definition (IR-79-47).
 - Ran a per-raster audit of overlap against chance (`scripts/nhr_overlap_chance.py`, 990 comparable rasters, 2 invalid files listed).
-- 26 ordinary dot fields each hold more than 70 % of the dots within 3 px. The worst is 0.913, against 0.610 expected by chance. This is a duplicate, so the lane stopped (IR-79-44).
+- 26 ordinary dot fields each hold more than 70 % of the dots within 3 px. The worst is 0.913, against 0.610 expected by chance. This is a duplicate, so the lane stopped (IR-79-55).
 
 **Packaging**
 - The research artifact was written by the shared writer, with a DO-NOT-SUBMIT name and a note that states the failure.
@@ -48,9 +48,9 @@
 - Absolute sandbox paths appeared in published JSON. They were stripped, and `nhr_uniqueness.py` now writes relative paths.
 - The panel overflowed horizontally at 320 px. Fixed with `minmax(0,1fr)` grid columns.
 - The status text cited unverified rule section numbers. They were removed.
-- `AGENTS.md` and `evidence/browser_review.json` had merge-conflict markers; the JSON was invalid (IR-79-37). Both resolved.
+- `AGENTS.md` and `evidence/browser_review.json` had merge-conflict markers; the JSON was invalid (IR-79-48). Both resolved.
 - The "Paste into the submission form" heading appeared on a negative artifact. It is now conditional.
-- The IR number IR-79-30 was already taken. The new entries are renumbered IR-79-36 to IR-79-44.
+- The IR number IR-79-30 was already taken. The new entries are renumbered IR-79-47 to IR-79-55.
 
 ## Pass 3 — requirement recheck
 
@@ -72,6 +72,28 @@
 
 ## Unresolved
 
-- **IR-79-42.** 30 space-filling registry rasters flag even a uniformly random map, so any future lane needs an explicit user decision.
-- **IR-79-43.** The final placement was run before the surface scan finished. No decision depended on this.
-- **Proxy limits.** HOLDOUT-DTI is not a leaderboard projection; catalogue and expert faults may differ (IR-79-40).
+- **IR-79-53.** 30 space-filling registry rasters flag even a uniformly random map, so any future lane needs an explicit user decision.
+- **IR-79-54.** The final placement was run before the surface scan finished. No decision depended on this.
+- **Proxy limits.** HOLDOUT-DTI is not a leaderboard projection; catalogue and expert faults may differ (IR-79-51).
+
+## Merge with concurrent `main` (PR #22 to #26)
+
+While this lane was running, 49 commits landed on `main`. The largest was G79-STEPCO (PR #26), which is also negative because its holdout tied H33.
+
+**How the merge was resolved**
+- **Canonical card.** H79-NHR is the canonical card, because its holdout evidence is stronger.
+- **STEPCO.**
+  - The S1 TIFF, ZIP and receipt moved byte-for-byte to `archive/g79_stepco_s1/`.
+  - Its card and evidence are unchanged, and the research page links to them.
+  - `tests/test_stepco.py` now reads `run_card_stepco.json` and the archived path.
+- **E1.** The archive is unified at `archive/g79_fabric_offset_e1/`, the location `main` uses; the bytes were confirmed identical with `cmp`.
+- **Irregularities.** This session's IDs were renumbered from IR-79-36..44 to IR-79-47..55, and IR-79-56 records the merge.
+- **Verifier.** `main`'s conflict-marker and strict-JSON checks were added to `verify_project.py`, along with its rule that `md()` rejects broken links.
+- **README.** The prompt section is taken from `main`, which includes the user-supplied GEMSDOE73–77 scores. The STEPCO status section is preserved in `reports/readme_history_through_9417f4e.md`.
+- **Pages URL.** Verified with `gh api repos/buffedlizard55-lab/GEMSDOE79/pages`: `https://buffedlizard55-lab.github.io/GEMSDOE79/`.
+
+**Checks after the merge**
+- `verify_project.py`: all checks passed.
+- `pytest`: 179 passed.
+- `check_site.py`: 114 links.
+- Browser review: 21 cases passed.

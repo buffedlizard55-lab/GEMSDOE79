@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import re
 import sys
 import zipfile
 
@@ -14,6 +15,55 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
 from gems79.status import submission_decision
 from validate_submission import validate_path
+
+
+_CONFLICT_MARKER_RE = re.compile(r'^(<{7}(?: .*)?|={7}|\|{7}(?: .*)?|>{7}(?: .*)?)$', re.M)
+_SKIP_PARTS = frozenset({'.git', '.venv', 'node_modules', '.cache', '__pycache__', '.pytest_cache', 'artifacts'})
+
+
+def _reject_dup_keys(pairs):
+    out = {}
+    for k, v in pairs:
+        if k in out:
+            raise ValueError(f'duplicate JSON key: {k!r}')
+        out[k] = v
+    return out
+
+
+def strict_loads_bytes(raw: bytes):
+    return json.loads(
+        raw.decode('utf-8'),
+        parse_constant=lambda c: (_ for _ in ()).throw(ValueError(f'nonfinite constant {c!r}')),
+        object_pairs_hook=_reject_dup_keys,
+    )
+
+
+def _iter_repo_files(root: Path):
+    for p in root.rglob('*'):
+        if _SKIP_PARTS.intersection(p.relative_to(root).parts) or not p.is_file():
+            continue
+        yield p
+
+
+def repo_text_checks(root: Path):
+    conflict_free = True
+    json_strict_ok = True
+    for fpath in _iter_repo_files(root):
+        if fpath.suffix.lower() in ('.tif', '.tiff', '.zip', '.png', '.jpg', '.jpeg', '.npy', '.npz', '.pdf'):
+            continue
+        raw = fpath.read_bytes()
+        try:
+            txt = raw.decode('utf-8')
+        except UnicodeDecodeError:
+            continue
+        if _CONFLICT_MARKER_RE.search(txt):
+            conflict_free = False
+        if fpath.suffix.lower() == '.json':
+            try:
+                strict_loads_bytes(raw)
+            except Exception:
+                json_strict_ok = False
+    return conflict_free, json_strict_ok
 
 
 def sha(path):
@@ -47,7 +97,10 @@ def publication_contract_checks(root, card):
     verified = [r['blob'] for r in receipt['files'] if r['status'] == 'verified']
     line = decision_line(card)
     contradicting = ('OK TO SUBMIT: NO.' if 'SUBMIT: YES' in line else 'OK TO SUBMIT: YES.')
+    conflict_free, json_strict_ok = repo_text_checks(root)
     return {
+        'no_git_conflict_markers': conflict_free,
+        'all_repo_json_strictly_valid': json_strict_ok,
         'readme_matches_card_decision': (
             line in readme and contradicting not in readme and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),

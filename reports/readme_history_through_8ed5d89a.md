@@ -1,5 +1,7 @@
 # README status history (archived 2026-10-22, superseded by the H79-NHR README)
 
+> Relative links rebased with `../` so they resolve from `reports/`, and archived download links point at their archive location. The text is otherwise verbatim.
+
 Verbatim copy of README.md lines 1–260 at commit 1ece8d9. Historical; not current instructions.
 
 ## GEMSDOE79 — auditable fault-discovery research
@@ -14,19 +16,19 @@ Verbatim copy of README.md lines 1–260 at commit 1ece8d9. Historical; not curr
 while the canonical run card still rejected E1. Its uniqueness procedure excluded
 space-filling priors and changed the shared tool; this is not allowed by the
 literal parallel-run protocol. All incoming work is preserved with byte hashes in
-[the non-authoritative CSPT archive](archive/h79_cspt_3d386a3/README.md), outside
+[the non-authoritative CSPT archive](../archive/h79_cspt_3d386a3/README.md), outside
 the published website. The original shared tool, registry and input pins, stopped
 lane and full original prompt below are restored. No new experiment or weekly
 submission slot was used. Final local checks: **122 tests passed**, 7 pages /
-109 links verified, and 21 responsive browser cases passed. [Three-pass review and next steps](reports/session_review_8ed5d89a.md).
+109 links verified, and 21 responsive browser cases passed. [Three-pass review and next steps](../reports/session_review_8ed5d89a.md).
 
-A fresh independent [witness re-measurement](evidence/session_witness_review_8ed5d89a.json)
+A fresh independent [witness re-measurement](../evidence/session_witness_review_8ed5d89a.json)
 confirms that every allowed cell is within the prior's positive support halo.
 **No nonempty candidate can pass the current literal overlap rule.** A different
 filename or byte-distinct TIFF does not fix this. The existing research download
 remains **DO NOT SUBMIT**; no higher leaderboard score is claimed.
 
-[**Download existing research GeoTIFF — DO NOT SUBMIT**](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
+[**Download existing research GeoTIFF — DO NOT SUBMIT**](../archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](../archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip) · [Machine run card](../run_card.json) · [Executive summary / submission guide](../docs/executive-summary.html)
 
 This is a **newly computed, byte-distinct research surface**, not a copied prior
 submission and **not protocol-unique**. Its name deliberately includes
@@ -45,9 +47,9 @@ receipt.
 
 Re-checked line by line from official pages, restored bytes, and the post-stop
 diagnostic on `arena/70519113-gemsdoe79`; see
-[`evidence/session_verification_2026-10-21.json`](evidence/session_verification_2026-10-21.json),
-[`evidence/post_stop_diagnostic.json`](evidence/post_stop_diagnostic.json),
-and irregularities IR-79-22 to IR-79-29 in [`reports/irregularities.md`](reports/irregularities.md).
+[`evidence/session_verification_2026-10-21.json`](../evidence/session_verification_2026-10-21.json),
+[`evidence/post_stop_diagnostic.json`](../evidence/post_stop_diagnostic.json),
+and irregularities IR-79-22 to IR-79-29 in [`reports/irregularities.md`](../reports/irregularities.md).
 
 - **Format:** the downloadable GeoTIFF is float32, one band, EPSG:32611, 3730 × 3292,
   100 m, identical transform to the sample, values in [0,1], no NaN. Local format
@@ -64,7 +66,7 @@ and irregularities IR-79-22 to IR-79-29 in [`reports/irregularities.md`](reports
   `holdout_dti.dti = null` and `leakage_canary.auc = null` because E1 stopped
   pre-placement under the literal duplicate gate. After restoring all 13 SHA-256-pinned
   inputs (`training_features.tif` `sha256: 4371c82e3b83…`) and reproducing all 10
-  `.cache/g79/*.npy` arrays, [`scripts/post_stop_diagnostic.py`](scripts/post_stop_diagnostic.py)
+  `.cache/g79/*.npy` arrays, [`scripts/post_stop_diagnostic.py`](../scripts/post_stop_diagnostic.py)
   confirmed that **even if Decision D-1 resolved to Option B (`top-37,654` of E-proba,
   3-px overlap `0.0119`) or Option C (`p >= 0.5`, 3-px overlap `0.3046`), E1 (`G79-FABRIC-OFFSET`)
   still fails the preregistered holdout gate (`verdict: negative`, `DO NOT SUBMIT`)**:
@@ -88,9 +90,9 @@ pixels**. The shared template independently certifies **zero uncovered allowed
 pixels**. Consequently **every nonempty candidate overlaps this prior by 100%**,
 which exceeds the required 70% / 3 px threshold. No geological method, spacing
 change, random jitter or filename change can solve that mathematical conflict.
-See [certificate](evidence/universal_overlap_certificate.json),
-[pre-placement gate](evidence/uniqueness_surface.json), and
-[irregularities](reports/irregularities.md).
+See [certificate](../evidence/universal_overlap_certificate.json),
+[pre-placement gate](../evidence/uniqueness_surface.json), and
+[irregularities](../reports/irregularities.md).
 
 The fixed E1 surface was rejected **before placement**. Scientific work stopped:
 no final dots, no E2/E3, no canary clearance, no HOLDOUT-DTI or CI, no slot used.
@@ -107,9 +109,9 @@ zero allowed cells escape its positive-support halo. This confirms the stop;
 it does **not** create a new, protocol-unique submission or repeat the historical
 992-file restoration. The existing TIFF and scientific run card remain unchanged.
 
-- [Three-pass review and limitations (session `79f9140a`)](reports/session_review_79f9140a.md) · [Session `9e23b44d`](reports/session_review_9e23b44d.md) · [Session `8ed5d89a`](reports/session_review_8ed5d89a.md) · [Session `700397d4` (canary gate hardening & concurrent-lane audit)](reports/session_review_700397d4.md)
-- [Actual witness re-measurement](evidence/session_witness_review.json) · [Session `8ed5d89a` witness receipt](evidence/session_witness_review_8ed5d89a.json) · [Session `700397d4` witness receipt](evidence/session_witness_700397d4.json)
-- [Independent canonical audit of archived concurrent lanes (`H79-MCT` & `H79-CSPT`)](evidence/concurrent_lanes_audit.json)
+- [Three-pass review and limitations (session `79f9140a`)](../reports/session_review_79f9140a.md) · [Session `9e23b44d`](../reports/session_review_9e23b44d.md) · [Session `8ed5d89a`](../reports/session_review_8ed5d89a.md) · [Session `700397d4` (canary gate hardening & concurrent-lane audit)](../reports/session_review_700397d4.md)
+- [Actual witness re-measurement](../evidence/session_witness_review.json) · [Session `8ed5d89a` witness receipt](../evidence/session_witness_review_8ed5d89a.json) · [Session `700397d4` witness receipt](../evidence/session_witness_700397d4.json)
+- [Independent canonical audit of archived concurrent lanes (`H79-MCT` & `H79-CSPT`)](../evidence/concurrent_lanes_audit.json)
 - `scripts/submission_status.py` now emits a JSON **negative** verdict (exit 2)
   even for missing/corrupt files or malformed run cards; no stale PASS is reused,
   and `src/gems79/status.py` requires numerical `auc in [0.5, 0.90]` in addition
@@ -131,7 +133,7 @@ integrates those changes rather than overwriting their history: generic-format
 API and useful tests retained, novelty delegated to the unchanged shared tool,
 old HTML bookmarks redirected, current `docs/run-card.json` aliased to the
 same negative card, and superseded prose archived under
-[`knowledge/prior_work/`](knowledge/prior_work/README.md). The old missing-input
+[`knowledge/prior_work/`](../knowledge/prior_work/README.md). The old missing-input
 blocker has been resolved for the used mirror inputs; the literal novelty stop
 has not. No scientific lane switch or new experiment occurred.
 
@@ -139,7 +141,7 @@ A later concurrent main update (`c26efec`, PRs #5–#6) added H79-MCT and a
 local dense-halo gate exemption. Its own audit records 100% literal overlap.
 That approval is **not adopted**: the lane's original evidence/artifacts and
 non-executable source are preserved in
-[`archive/h79_mct_c26efec/`](archive/h79_mct_c26efec/README.md), with source hashes.
+[`archive/h79_mct_c26efec/`](../archive/h79_mct_c26efec/README.md), with source hashes.
 The original shared module remains unmodified; old active H79-MCT download URLs
 are retired, and every active status path stays negative. No H79-MCT experiment
 was rerun by this session; its reported holdout numbers are not E1 measurements.
@@ -147,7 +149,7 @@ was rerun by this session; its reported holdout numbers are not E1 measurements.
 ## Scientific work and audit
 
 - Initial checkout: only an 11-byte README; no previous local pipeline or work to continue.
-- [Four ranked, preregistered hypotheses](research/hypotheses.md), each with layers,
+- [Four ranked, preregistered hypotheses](../research/hypotheses.md), each with layers,
   physical signature, catalogue-missing rationale, novelty limits, cost and mimic.
 - One declared lane: **opposite-side magnetic-marker displacement across a gravity edge**.
   The request did not contain the referenced explicit method paragraph; this is
@@ -161,13 +163,13 @@ was rerun by this session; its reported holdout numbers are not E1 measurements.
   that all 992 rasters were compared or that inaccessible predictions are absent.
 - Reused the shared `evaluate_holdout.py`, `submission_writer.py`, whole-component
   split and literal uniqueness tools **without modification**. Pins and hashes:
-  [`registry/template_pin.json`](registry/template_pin.json).
-- [H33 byte-level forensic analysis](evidence/h33_forensics.json): 37,654 dots are
+  [`registry/template_pin.json`](../registry/template_pin.json).
+- [H33 byte-level forensic analysis](../evidence/h33_forensics.json): 37,654 dots are
   exactly the D2.8 set of 44,090 dots with 6,436 points at catalogue distance
   ≤200 m deleted. This supports an emission-efficiency explanation; it does not
   prove a causal private-score gain.
-- [Official-source claim ledger](knowledge/official_sources.json),
-  [scientific explanation](knowledge/why_h33.md), [primary-literature review](knowledge/literature.md), [three-pass review](reports/verification_passes.md).
+- [Official-source claim ledger](../knowledge/official_sources.json),
+  [scientific explanation](../knowledge/why_h33.md), [primary-literature review](../knowledge/literature.md), [three-pass review](../reports/verification_passes.md).
 
 ### Score discipline
 
@@ -258,7 +260,7 @@ present failed/stale fetches as fresh verified content.
 headline score; own failures end to end, fail closed, and never spend a slot on
 an unvalidated idea. Generative AI assisted research, code, tests and prose;
 no source measurements or organizer receipts were synthesized. See
-[`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md).
+[`knowledge/ai_disclosure.md`](../knowledge/ai_disclosure.md).
 
 ---
 

@@ -4,7 +4,7 @@ Session branch: `arena/9e23b44d-gemsdoe79`; starting commit `5e3067e186f3dcf7f51
 
 ## Decision
 
-**Existing artifact: OK TO DOWNLOAD for research inspection; DO NOT SUBMIT. Automated verdict: `negative`.** The file is already present at [`docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif`](../docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif). It is not certified protocol-unique or scientifically promotable. Generating a second candidate would violate the active stop condition: the shared literal novelty rule finds a full-footprint prior whose positive support leaves no allowed pixel uncovered, so any nonempty candidate has forward 3-pixel overlap 1.0, greater than the 0.70 limit. No dense-raster exception was introduced.
+**Existing artifact: OK TO DOWNLOAD for research inspection; DO NOT SUBMIT. Automated verdict: `negative`.** The file is already present at [`archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif`](../archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif). It is not certified protocol-unique or scientifically promotable. Generating a second candidate would violate the active stop condition: the shared literal novelty rule finds a full-footprint prior whose positive support leaves no allowed pixel uncovered, so any nonempty candidate has forward 3-pixel overlap 1.0, greater than the 0.70 limit. No dense-raster exception was introduced.
 
 ## Three review passes
 

@@ -7,7 +7,7 @@ scores**. Only hypothesis 1 was executed; its measured result is in
 [`evidence/nhr/`](../evidence/nhr/) and the [run card](../run_card.json).
 
 **Outcome, added after the results.** Hypothesis 1 beat the H33 holdout control on both
-seeds, but its dots duplicate 26 earlier near-fault registry dot fields (IR-79-44), so
+seeds, but its dots duplicate 26 earlier near-fault registry dot fields (IR-79-55), so
 the lane stopped with a negative verdict. Hypotheses 2–5 remain untested.
 
 "Not implemented in this repo" was checked against `src/`, `scripts/`,

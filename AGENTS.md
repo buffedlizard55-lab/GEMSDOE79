@@ -6,14 +6,14 @@
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
 3. Active lane: **H79-NHR** (session 337ac1e9), opened at the user's explicit
    request and preregistered before any result. One experiment (X1) was used. It beat
-   the holdout best but **failed the duplicate gate** (IR-79-44), so the verdict is `negative`
+   the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
    and the lane is stopped. Do not retune or overlap-cap X1.
    A new idea needs a new preregistered lane, with three experiments or two hours at most.
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
-   version note and an IR entry. Example: the `budget-matched-v3` dot definition, IR-79-36. Use the shared evaluator,
+   version note and an IR entry. Example: the `budget-matched-v3` dot definition, IR-79-47. Use the shared evaluator,
    writer and literal novelty gate; never invent scientific metrics or receipts.
 5. Do not replace missing measurements with zero. Only a submission-page receipt
    establishes ORGANIZER-CONFIRMED for an artifact. Public leaderboard observations
