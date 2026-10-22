@@ -30,7 +30,15 @@ this session did not rewrite any historically scored or pinned scientific bytes.
 [executive summary](docs/executive-summary.html) and the original prompt below.
 
 
-## Latest review — 2026-10-22, session `1f9d2dc9`
+## Latest review — 2026-10-22, Arena session `d754356b`
+
+**No new candidate TIFF was generated; no submission is approved.** The prompt's purported assigned method paragraph is absent, and the literal novelty preflight returns exit 2: a hash-verified registry witness covers 100% of allowed cells, so every nonempty candidate exceeds the 70% forward-overlap limit. Do not rename, jitter, or re-place an archived raster. This review used zero submission slots.
+
+The audited, already archived STEPCO S2-COVER artifact is **DO NOT SUBMIT**: its `gems57-pooled-hide-v2` HOLDOUT-DTI is 0.09354 (seed 20; 11,321 withheld positives; 95% CI [0.07802, 0.10885]) and 0.09607 (seed 30; 11,342 withheld positives; 95% CI [0.07959, 0.11172]); its paired CIs versus the fold-fair H33 control include zero and its literal final-dot overlap is 1.0. Those are historical results already in the repository, not results from this session. H33's 0.2778 remains an **UNVERIFIED HISTORICAL REPORT**, not an organizer receipt.
+
+See the [three-pass review](reports/session_review_d754356b.md) and [JSON run card](evidence/run_card_d754356b.json) for the five qualitatively ranked hypotheses, official-source links, exact test results, runtime-data status, and blockers. Runtime inputs remain 0/13 under `data/raw`; no model experiment or new submission file was possible under the current stop conditions.
+
+## Latest prior review — 2026-10-22, session `1f9d2dc9`
 
 **No new candidate TIFF was generated; no submission is approved.** The
 [three-pass review](reports/session_review_1f9d2dc9.md) documents the literal-novelty
@@ -62,6 +70,8 @@ A separate three-pass review independently recorded the literal-gate stop, four 
 > **NEW SESSION 0be4d7bb — G79-TDW:** A new unique 37,654-dot TIF (`gems79-tdw-tiltworm-37654dots-20261022`, SHA-256 `0a79e3e54c1c8b9254ba0c8a36e61a1c41f09c594ae59778b2bf6478ba391eef`) was generated and machine-validated. **OK TO DOWNLOAD: YES (research only, `artifacts/tdw/`). OK TO SUBMIT: NO** — HOLDOUT-DTI 0.0395/0.0413 fell below the uniform control and the THVC incumbent, so no slot was spent. Details: `docs/tdw-submission.html`, `run_card_tdw.json`, `evidence/tdw/experiment1.json`. The canonical THVC decision below is unchanged.
 >
 **[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_1f9d2dc9.md)** · **[Ranked untried hypotheses](research/hypotheses_1f9d2dc9.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+
+New research artifact (not a submission): `artifacts/ventprox/gems79-ventprox-geothermalvents-12000dots-20261022-20261022T200156Z-zeros-DO-NOT-SUBMIT.tif` — OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. (vent-proximity Gaussian around GDR volcanic vents; format-validated; novelty/holdout not cleared.)
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
