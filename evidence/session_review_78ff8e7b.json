@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "review_id": "session-78ff8e7b",
+  "reviewed_date_utc": "2026-10-22",
+  "branch": "arena/78ff8e7b-gemsdoe79",
+  "base_commit": "80550533de8e12f9a631ed928d50bcfc7f95e319",
+  "review_type": "three-pass repository audit; no scientific run",
+  "original_prompt_preserved_in_readme": true,
+  "decision": {
+    "new_lane_authorized": false,
+    "new_scientific_experiment_run": false,
+    "holdout_validation_run_this_review": false,
+    "candidate_surface_or_dot_map_generated": false,
+    "new_tiff_or_zip_generated": false,
+    "selector_run": false,
+    "submission_slot_used": 0,
+    "organizer_upload_attempted": false,
+    "canonical_artifact_status": "downloadable; not submit-approved",
+    "ok_to_download": true,
+    "ok_to_submit": false,
+    "verdict": "negative",
+    "reason": "The literal registry support-overlap preflight is impossible for every nonempty candidate under its current pinned witness. Closed lanes and the novelty definition were not bypassed."
+  },
+  "verification": {
+    "pytest": {
+      "command": ".venv/bin/python -m pytest -q",
+      "result": "355 passed"
+    },
+    "project_verifier": {
+      "command": ".venv/bin/python scripts/verify_project.py",
+      "result": "all checks passed; verifies published evidence/artifact contracts, not a new science run"
+    },
+    "site_check": {
+      "command": ".venv/bin/python scripts/check_site.py",
+      "result": "passed: 7 pages, 150 local links, 2 compatibility redirects; submit false"
+    },
+    "submission_status": {
+      "command": ".venv/bin/python scripts/submission_status.py",
+      "result": "ok_to_download=true; ok_to_submit=false; verdict=negative",
+      "exit_code": 2,
+      "exit_code_expected": true
+    },
+    "literal_preflight": {
+      "command": ".venv/bin/python scripts/preflight_new_lane.py --restore",
+      "result": "start_new_lane=false; state=impossible_under_literal_gate",
+      "exit_code": 2,
+      "exit_code_expected": true,
+      "scientific_experiments_performed": 0
+    },
+    "direct_tiff_validator": {
+      "command": ".venv/bin/python scripts/validate_submission.py docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "result": "format_passed=true; all 15 local format/range checks passed; does_not_approve_submission=true"
+    }
+  },
+  "novelty_preflight": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "rule": "Literal shared forward 3-pixel positive-support overlap; no dense/lattice exemption",
+    "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "witness_positive_pixels": 5167373,
+    "allowed_pixels": 5106385,
+    "uncovered_allowed_pixels": 0,
+    "covered_allowed_fraction": 1.0,
+    "forward_overlap_for_any_nonempty_allowed_candidate": 1.0,
+    "overlap_limit": 0.7,
+    "conclusion": "Every nonempty candidate fails the literal overlap limit against this witness. This is not a complete registry comparison or organizer decision."
+  },
+  "current_canonical_artifact": {
+    "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "zip_path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip",
+    "raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "tiff_bytes": 137299,
+    "raster_format_measurement": {
+      "evidence_class": "LOCAL-FORMAT-MEASUREMENT",
+      "single_band": true,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "shape": [3730, 3292],
+      "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
+      "positive_pixels": 35093,
+      "min": 0.0,
+      "max": 1.0,
+      "nan_or_infinite_pixels": 0,
+      "positive_pixels_outside_footprint": 0,
+      "positive_pixels_on_catalogue": 0,
+      "validator_passed": true,
+      "uniqueness_or_organizer_acceptance": "not established"
+    }
+  },
+  "holdout_dti_this_review": {
+    "evidence_class": "NOT-RUN",
+    "evaluator": null,
+    "runs": [],
+    "reason": "Preflight stop precedes any candidate generation, canary, or holdout evaluation."
+  },
+  "prior_canonical_holdout_reference": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator": "gems57-pooled-hide-v2",
+    "newly_measured_this_review": false,
+    "runs": [
+      {
+        "seed": 20,
+        "withheld_positive_count": 11321,
+        "dti": 0.1905,
+        "ci_95": [0.1741, 0.2069]
+      },
+      {
+        "seed": 30,
+        "withheld_positive_count": 11342,
+        "dti": 0.1944,
+        "ci_95": [0.1774, 0.2126]
+      }
+    ],
+    "h33_fold_fair_control": [
+      {
+        "seed": 20,
+        "withheld_positive_count": 11321,
+        "dti": 0.0961,
+        "ci_95": [0.0831, 0.109]
+      },
+      {
+        "seed": 30,
+        "withheld_positive_count": 11342,
+        "dti": 0.0989,
+        "ci_95": [0.0854, 0.1128]
+      }
+    ]
+  },
+  "h33_score_provenance": {
+    "value": 0.2778,
+    "evidence_class": "UNVERIFIED-HISTORICAL-REPORT",
+    "organizer_receipt_linking_value_to_raster": false,
+    "raster_finding": "H33 pixels exactly match D2.8 after pruning catalogue-distance <= 2 pixels; this is a geometry measurement and does not causally establish the reported score."
+  },
+  "other_reported_scores": {
+    "public_leaderboard_observation": {
+      "value": 0.4413,
+      "evidence_class": "OFFICIAL-PUBLIC-LEADERBOARD-OBSERVATION",
+      "observed_date_utc_in_local_source_ledger": "2026-10-22",
+      "re_fetched_this_review": false,
+      "not_this_repository_artifact": true
+    },
+    "organizer_confirmed_artifact_score": null
+  },
+  "input_availability": {
+    "data_reference_present": true,
+    "data_raw_present": false,
+    "cache_thvc_present": false,
+    "restore_receipt_caveat": "The receipt matches manifest IDs/hashes in verify_project.py but does not prove those ignored raw/cache bytes are materialized in this checkout now.",
+    "official_source_ledger": "knowledge/official_sources.json",
+    "source_ledger_reviewed_date": "2026-10-22",
+    "external_pages_live_fetched_this_review": false,
+    "competition_submission_page_or_weekly_capacity": "not accessible/verified; no login or upload attempted"
+  },
+  "edge_review": {
+    "finding": "THVC directional stencils call numpy.roll and therefore wrap across opposite raster boundaries.",
+    "code_locations": [
+      "src/gems79/thvc_features.py:636",
+      "src/gems79/thvc_features.py:644",
+      "src/gems79/thvc_features.py:653-662"
+    ],
+    "canonical_positive_pixels_within_10_pixels_of_outer_boundary": 140,
+    "impact_on_predictions_or_prior_HOLDOUT_DTI": "unknown; proximity does not establish influence",
+    "code_changed": false
+  },
+  "qualitative_candidate_shortlist": [
+    {
+      "rank": 1,
+      "name": "scale-space scarp-crest migration",
+      "expected_improvement_prior": "moderate; unmeasured",
+      "cost": "low-medium",
+      "data": "pinned training_features.tif and LiDAR scarp-feature bands; files absent locally",
+      "history": "previously proposed in the repository backlog; related family rasters include GEMSDOE40 h13-crest-binary, GEMSDOE77 h82-crestthin, GEMSDOE42 xscale-worm-persistence, and 55GEMSDOE multiscale tensor persistence; exact displacement-between-scales test not confirmed as run"
+    },
+    {
+      "rank": 2,
+      "name": "magnetic-marker termination corroborated by an independent scarp",
+      "expected_improvement_prior": "moderate; unmeasured",
+      "cost": "medium",
+      "data": "GeoDAWN potential-field features and LiDAR bands; files absent locally",
+      "history": "previously proposed; related family outputs include GEMSDOE45 KMTIP, GEMSDOE70 magnetic/cover outputs, and GEMSDOE77 demagnetization/gravity-step and magnetic/gravity-coherence outputs; exact marker-termination test not confirmed as run"
+    },
+    {
+      "rank": 3,
+      "name": "depth-persistent MT resistivity/phase step aligned with gravity basement edge",
+      "expected_improvement_prior": "medium-high theoretical; low confidence and unmeasured",
+      "cost": "high",
+      "data": "DOE GDR 1391 official source is listed in source ledger; required depth slices are absent from manifest and checkout",
+      "history": "direct sibling raster prior art: GEMSDOE32 h32c-mt-claycap-breach, GEMSDOE76 MT-breach, and GEMSDOE77 h77c-claycap-breach; not family-unique or currently viable"
+    },
+    {
+      "rank": 4,
+      "name": "visible-only Coulomb stress shadows and conjugate accommodation",
+      "expected_improvement_prior": "low-moderate; unmeasured",
+      "cost": "high modelling cost",
+      "data": "fold-visible faults and geodetic strain bands; raw feature stack absent and slip/dip/rake assumptions unverified",
+      "history": "previously proposed in the post-THVC backlog; research-only"
+    }
+  ],
+  "scope_notes": [
+    "This is a scoped three-pass review, not a byte-for-byte revalidation of every historical lane, evidence row, or archive.",
+    "No candidate was tested, so candidate priorities are not HOLDOUT-DTI values or predicted leaderboard scores.",
+    "The pre-existing uniqueness_final_artifact.json is an early stop after 1 of 992 registry rasters; it is not complete uniqueness clearance.",
+    "No changes to the scientific model, evaluator, shared uniqueness rule, raster, archive, or submission slot state were made."
+  ],
+  "maintained_documents": [
+    "reports/repository_review_2026-10-22_session-78ff8e7b.md",
+    "README.md",
+    "reports/irregularities.md",
+    "evidence/session_review_78ff8e7b.json"
+  ]
+}

@@ -7,7 +7,7 @@
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
-<p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
+<p>Entries retain their recorded dates and are grouped by session addenda. No entry authorizes an unratified threshold exemption.</p>
 <table>
 <thead>
 <tr>
@@ -1021,6 +1021,44 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-142</td>
 <td><strong>Complete <code>0 / 934</code> sparse competition uniqueness proof &amp; controlled refutation of near-fault crowding (<code>evidence/fnhr/like_for_like_diagnostic.json</code>).</strong> Across all <strong><code>934</code> comparable sparse dot fields (<code>&lt;= 75,308</code> dots = <code>&lt;= 2x</code> budget)</strong> in 93 sibling repositories, <code>H79-FNHR</code> (<code>F3</code>, <code>d5f69d51…</code>) achieves <strong><code>0 / 934</code> duplicates (<code>max overlap = 0.6726 &lt;= 0.70</code>, <code>0.4814</code> vs <code>H33</code>, <code>0.4405</code> vs canonical <code>G79-THVC</code>)</strong>, whereas all <code>25</code> remaining raw overlaps (<code>20</code> even at <code>F1</code>'s <code>70 % &gt; 1 km</code> H33 distance distribution) are <code>80,000–985,492</code>-dot wide sweeps against which <strong><code>H33</code> itself overlaps <code>0.9295</code></strong>.</td>
 <td>Canonical repository artifact remains <strong><code>G79-THVC</code></strong> (<code>0.1905 / 0.1944 HOLDOUT-DTI</code>); <code>H79-FNHR</code> (<code>F3</code>, <code>verdict = negative</code>, <code>OK TO SUBMIT: NO</code>, <code>0</code> slots used) is archived cleanly under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_fnhr_a57e2a7f/README.md"><code>archive/h79_fnhr_a57e2a7f/</code></a>. Combining <code>H79-FNHR</code>'s <code>0.0906</code> zero-catalogue physics head with <code>G79-THVC</code>'s Charnes-Cooper placer (<code>0.4405</code> mutual overlap) is the top candidate for the next prospective lane once the owner decides <code>DENSE_SUPPORT_FRACTION</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>78ff8e7b</code> addendum (2026-10-22) — three-pass repository review; no new lane</h3>
+<p>Full review and machine-readable card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_session-78ff8e7b.md"><code>reports/repository_review_2026-10-22_session-78ff8e7b.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/session_review_78ff8e7b.json"><code>evidence/session_review_78ff8e7b.json</code></a>. This addendum does not modify the historical G79-THVC run card or reinterpret any closed lane.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-143</td>
+<td><strong>The current literal overlap preflight remains mathematically impossible for every non-empty candidate.</strong> Re-measured <code>evidence/universal_overlap_certificate.json</code> against hash-pinned witness SHA-256 <code>ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be</code>: all <code>5,106,385</code> allowed cells are covered, leaving <code>0</code> uncovered; any allowed candidate dot therefore has forward 3-px overlap <code>1.0</code> against the <code>0.70</code> limit.</td>
+<td><code>scripts/preflight_new_lane.py --restore</code> correctly exits <code>2</code> with <code>start_new_lane=false</code>. No dense-support exemption, threshold alteration, candidate surface, placement, or holdout was attempted. <code>evidence/uniqueness_final_artifact.json</code> remains an early stop at <code>1 / 992</code>, not complete registry clearance. Resolution requires a prospectively ratified, symmetric interpretation of registry “dots”; do not bypass the literal rule locally.</td>
+</tr>
+<tr>
+<td>IR-79-144</td>
+<td><strong>The current checkout does not contain the raw/cache inputs needed for a new scientific run.</strong> <code>data/raw/</code> and <code>.cache/thvc/</code> are absent, although <code>data/restore_receipt.json</code> records manifest inputs as present. <code>scripts/verify_project.py</code> verifies receipt-to-manifest identity, not current physical presence of every ignored raw/cache file.</td>
+<td>Reported as a provenance/availability limitation, not as an input-hash mismatch. No new source data were fetched, and no feature cache was fabricated. Re-materialize data through a permitted, hash-verifiable route before any prospectively authorized experiment.</td>
+</tr>
+<tr>
+<td>IR-79-145</td>
+<td><strong>Potential circular boundary contamination in closed G79-THVC directional features.</strong> <code>src/gems79/thvc_features.py:636,644,653–662</code> uses <code>numpy.roll</code>, which wraps opposite raster edges. A raster-distance check found <code>140</code> canonical positive pixels within <code>10</code> pixels of the outer raster edge, but raw feature inputs are absent and the check did not measure feature influence.</td>
+<td>Preserve this as a possible defect only; it is not evidence that those pixels or historic HOLDOUT-DTI results were affected. No closed-lane code change or rescore was made. Any future prospective implementation should use non-wrapping stencils with explicit support masking and its own holdout receipts.</td>
+</tr>
+<tr>
+<td>IR-79-146</td>
+<td><strong>The reviewed shortlist is not new-to-repository research.</strong> Cross-scale crest migration, magnetic marker termination, depth-persistent MT/clay-cap response, and Coulomb stress shadows already appear in prior hypothesis/backlog files; some are related to sibling submissions.</td>
+<td>Reconciled them as previously proposed but unvalidated ideas, not new discoveries or uniqueness-cleared lanes. Candidate priorities remain qualitative; no DTI or leaderboard lift is projected. External-source pages were not fetched in this review, and required local inputs are absent.</td>
+</tr>
+<tr>
+<td>IR-79-147</td>
+<td><strong>ZIP byte count remained stale after the earlier IR-79-124 correction.</strong> <code>docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip</code> is <code>102,628</code> bytes on disk (<code>stat</code>), but <code>reports/g79_thvc_scientific_report.md</code> and <code>reports/verification_passes.md</code> still said <code>102,600</code>.</td>
+<td>Corrected both source reports to <code>102,628</code>; <code>scripts/build_site.py</code> was updated to surface the current universal-witness preflight and review-card link, then the generated Pages files were rebuilt and checked.</td>
 </tr>
 </tbody>
 </table></div></section></main>

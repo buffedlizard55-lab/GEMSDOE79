@@ -97,8 +97,23 @@ def decision_box(card):
         return (f'<div class="download-warning go"><strong>{E(line)}</strong><br>Every automated gate passed '
                 '(format, uniqueness before and after placement, leakage canaries, holdout beats the best control). '
                 'One account-side condition remains, which the project cannot see: your submission page must show ≥ 1 free weekly slot.</div>')
+    witness_note = ''
+    certificate_path = ROOT / 'evidence/universal_overlap_certificate.json'
+    if certificate_path.exists():
+        certificate = json.loads(certificate_path.read_text())
+        if (certificate.get('evidence_class') == 'REGISTRY-MEASUREMENT'
+                and certificate.get('universal_overlap_blocker') is True
+                and certificate.get('covered_allowed_fraction') == 1.0
+                and certificate.get('overlap_limit') == 0.70):
+            witness_note = ('<br><strong>Current new-lane preflight:</strong> under the literal shared rule, '
+                            'the pinned witness covers every allowed cell, so every non-empty candidate has '
+                            'forward overlap 1.0 and cannot pass the 0.70 limit. This is a one-witness stop, '
+                            'not a complete registry clearance or an organizer score. '
+                            '<a href="evidence/universal_overlap_certificate.json">Open the certificate</a> · '
+                            '<a href="evidence/session_review_78ff8e7b.json">Open the 2026-10-22 review card</a>.')
     return (f'<div class="download-warning"><strong>{E(line)}</strong><br>Research download only. '
             + E(card.get('stop_reason') or ('Blocked by: ' + ', '.join(card.get('blockers', []))))
+            + witness_note
             + ' No human inspection is needed to reach this automated rejection.</div>')
 
 
@@ -312,6 +327,7 @@ def main():
     copies = {'run_card.json': 'run_card.json', 'evidence/verification.json': 'verification.json',
               'evidence/h33_forensics.json': 'h33_forensics.json',
               'evidence/universal_overlap_certificate.json': 'universal_overlap_certificate.json',
+              'evidence/session_review_78ff8e7b.json': 'session_review_78ff8e7b.json',
               'evidence/witness_review_20261022_a7d092d7.json': 'witness_review_20261022_a7d092d7.json',
               'evidence/new_lane_preflight_a7d092d7.json': 'new_lane_preflight_a7d092d7.json',
               'knowledge/official_sources.json': 'official_sources.json',
