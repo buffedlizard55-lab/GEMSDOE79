@@ -1567,5 +1567,28 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Archived <code>g79-dfsd-ccsubmod-20261022-947eff42-zeros-DO-NOT-SUBMIT.{tif,zip,json}</code> (<code>SHA-256: 9df6c871…</code>) under <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/g79_dfsd_d7da950d/README.md"><code>archive/g79_dfsd_d7da950d/</code></a> with <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_dfsd.json"><code>run_card_dfsd.json</code></a>, guarded <code>scripts/run_g79_dfsd.py</code> (<code>exit 2</code>, <code>No files changed.</code>), and preserved canonical <code>G79-THVC</code> in <code>docs/downloads/</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>9340b31a</code> addendum (<code>2026-10-22</code>) — official-format validator (<code>arena/9340b31a-gemsdoe79</code>)</h3>
+<p>Review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9340b31a.md"><code>reports/session_review_9340b31a.md</code></a>. Evidence: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/portal_spec_calibration.json"><code>evidence/portal_spec_calibration.json</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-207</td>
+<td><strong>Measured conflict with the official outside-bounds rule.</strong> The official Submission-format section says “data outside the bounds is null or nan” (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/, fetched 2026-10-22); the official <code>sample_submission.tif</code> writes NaN in all <code>7,111,787</code> outside cells. All three project TIFFs (THVC, CJX, DZD) write <code>0</code> in all <code>7,111,787</code> outside cells and FAIL rule R6 in <code>src/gems79/portal_spec.py</code> (R1–R5, R7, R8 PASS). The shared writer's all-finite policy (<code>vendor/gems57/grid.py</code>) prevents NaN exterior output.</td>
+<td>Owner decision: adopt the official convention (NaN exterior, <code>nodata=NaN</code>) or keep zeros with a documented justification. No file was regenerated. Validator and tests pin the measured behavior.</td>
+</tr>
+<tr>
+<td>IR-79-208</td>
+<td><strong>Portal range error still not diagnosable.</strong> The project's files have all in-footprint values in [0, 1] (R8 PASS), so no local range check reproduces “Predicted values must be in range [0, 1]”. The earlier rejected upload and its receipt are not in the repository.</td>
+<td>Unverified; no cause is claimed. Future rejections need the exact message, file name and receipt saved. R6 is a plausible but unproven contributor.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

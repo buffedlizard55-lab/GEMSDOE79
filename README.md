@@ -27,6 +27,16 @@ The historical “Charnes-Cooper” identifier is not an exact-optimization clai
 
 The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
 
+## New this session: official-format validator (R1–R8) — `9340b31a`
+
+> **OK TO DOWNLOAD: YES (research artifacts only). OK TO SUBMIT: NO.** Unchanged. No new candidate GeoTIFF was generated and no slot was used.
+
+- **Format check against the official rules:** `.venv/bin/python scripts/validate_portal_spec.py YOUR_FILE.tif` (exit 0 = all rules pass). Rules come from the [official Submission-format section](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). The official `sample_submission.tif` passes all 8; the three project research TIFFs pass R1–R5, R7, R8 and **fail R6** (`0` outside the bounds, where the official text says “null or nan”). Evidence: [`evidence/portal_spec_calibration.json`](evidence/portal_spec_calibration.json) · [IR-79-207](reports/irregularities.md).
+- **Not diagnosed:** whether R6 caused the earlier “Predicted values must be in range [0, 1]” message. The project's values are all within [0, 1], and the rejected upload is not in the repository. Unverified; no cause is claimed.
+- **Owner decision required:** the shared writer's all-finite zero policy conflicts with the official text and template. See the [review](reports/session_review_9340b31a.md) §2 and §7.
+- **H33 (`0.2778`):** the efficiency mechanism is explained in the review §4 from the organizer's metric algebra `DTI = T/(0.2T+0.2F+0.8G)`. The score itself remains an unverified historical report. Leaderboard `#1` is `0.4413` (public observation, not this project's score).
+- **Hypotheses:** the five ranked, untried hypotheses in [`research/hypotheses_0d90d81b.md`](research/hypotheses_0d90d81b.md) were **not validated** here. Validation waits for the owner's novelty-gate decision (IR-79-116).
+
 ## New this session: G79-CJX — a unique TIF was generated, and the automated gate says NO
 
 > **G79-CJX: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
