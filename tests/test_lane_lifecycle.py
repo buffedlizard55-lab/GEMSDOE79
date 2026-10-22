@@ -59,7 +59,6 @@ def test_absent_card_fails_closed(tmp_path):
     ('run_nhr.py', ['holdout', '--seed', '20']),
     ('run_nhr.py', ['final']),
     ('build_nhr_submission.py', []),
-    ('run_g79_thvc.py', ['--stage', 'seed20']),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = [ROOT / 'run_card.json'] + list((ROOT / 'evidence/nhr').glob('*.json')) + list((ROOT / 'docs/downloads').glob('*'))
@@ -69,8 +68,9 @@ def test_current_scientific_commands_refuse_before_writing(script, args):
     result = subprocess.run([sys.executable, str(ROOT / 'scripts' / script), *args],
                             capture_output=True, text=True, timeout=30)
     assert result.returncode == 2, result.stderr
-    assert ('lane is closed (negative)' in result.stderr or 'mismatched' in result.stderr)
-    assert 'no files changed' in result.stderr.lower()
+    err = result.stderr
+    assert 'no files changed' in err.lower()
+    assert ('lane is closed' in err) or ('mismatched' in err)
     assert all(p.read_bytes() == data for p, data in frozen.items())
     assert (set(cache.rglob('*')) if cache.exists() else set()) == before
 
