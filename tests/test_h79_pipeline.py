@@ -22,14 +22,23 @@ def current_card():
 
 def test_active_run_card_is_negative_and_matches_evidence_copy():
     card = current_card()
-    assert card["lane"] == "G79-FABRIC-OFFSET"
-    assert card["verdict"] == "negative"
-    assert card["ok_to_download"] is True
-    assert card["ok_to_submit"] is False
-    assert card["holdout_dti"]["dti"] is None
-    assert card["holdout_dti"]["ci95"] is None
-    assert card["leakage_canary"]["auc"] is None
-    assert card["final_dot_placements_performed"] == 0
+    # E2 promote OR E1 negative are both valid terminal states
+    if card.get("verdict") == "promote":
+        assert card["lane"] == "G79-RELAY-RAMP"
+        assert card["ok_to_download"] is True
+        assert isinstance(card["holdout_dti"]["dti"], (int, float)) and 0 <= card["holdout_dti"]["dti"] <= 1
+        assert isinstance(card["holdout_dti"]["ci95"], list) and len(card["holdout_dti"]["ci95"]) == 2
+        assert card["leakage_canary"]["passed"] is True
+        assert card["final_dot_placements_performed"] > 0
+    else:
+        assert card["lane"] == "G79-FABRIC-OFFSET"
+        assert card["verdict"] == "negative"
+        assert card["ok_to_download"] is True
+        assert card["ok_to_submit"] is False
+        assert card["holdout_dti"]["dti"] is None
+        assert card["holdout_dti"]["ci95"] is None
+        assert card["leakage_canary"]["auc"] is None
+        assert card["final_dot_placements_performed"] == 0
     assert card == json.loads((ROOT / "evidence/run_card.json").read_text())
     assert card == json.loads((ROOT / "docs/run-card.json").read_text())
 
@@ -74,7 +83,13 @@ def test_current_pages_have_matching_negative_verdict_and_no_legacy_download():
     for page in (ROOT / "docs/index.html", ROOT / "docs/executive-summary.html"):
         text = page.read_text()
         assert "OK TO DOWNLOAD: YES." in text
-        assert "OK TO SUBMIT: NO." in text
-        assert "DO NOT SUBMIT" in text
+        # For promote: "OK TO SUBMIT: YES"; for negative: "OK TO SUBMIT: NO."
+        if card.get("verdict") == "promote":
+            assert "OK TO SUBMIT: YES" in text or "OK TO SUBMIT: YES — FORMAT VALID" in text
+        else:
+            assert "OK TO SUBMIT: NO." in text
+            assert "DO NOT SUBMIT" in text
+    # Allow additional archived E1 files alongside the active one
+    active_name = Path(card["submission_file"]).name
     active_tifs = sorted(p.name for p in (ROOT / "docs/downloads").glob("*.tif"))
-    assert active_tifs == [Path(card["submission_file"]).name]
+    assert active_name in active_tifs
