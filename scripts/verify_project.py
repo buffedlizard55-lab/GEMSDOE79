@@ -18,20 +18,39 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def publication_contract_checks(root, card):
+    """Check the active stopped-run publication boundary, not scientific scores.
+
+    Archived claims are not approval. Reject extra upload artifacts even if no
+    HTML link happens to point at them. This runs before every Pages build.
+    """
+    root = Path(root)
+    readme = (root / 'README.md').read_text().split('## Original project prompt', 1)[0]
+    downloads = root / 'docs/downloads'
+    expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
+    published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
+                 if p.suffix.lower() in ('.tif', '.tiff', '.zip')}
+    loose_submissions = [p for p in (root / 'submissions').rglob('*')
+                         if p.suffix.lower() in ('.tif', '.tiff', '.zip')]
+    index = json.loads((root / 'registry/registry_index.json').read_text())
+    receipt = json.loads((root / 'registry/registry_receipt.json').read_text())
+    indexed = [r['blob'] for r in index['rasters']]
+    verified = [r['blob'] for r in receipt['files'] if r['status'] == 'verified']
+    return {
+        'readme_matches_negative_decision': (
+            'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.' in readme and
+            'PROMOTED — VALIDATED' not in readme and
+            card['raster_sha256'] in readme and card['verdict'] == 'negative'),
+        'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
+        'active_inventory_matches_frozen_verified_blobs': (
+            len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
+    }
+
+
 def verify(refresh_timestamp: bool = False):
     checks = {}
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
-    # The frozen pin schema maps vendor module basenames to hashes. Do not accept
-    # the historical H85 local-amendment declaration as an upstream pin: verify
-    # the actual vendored bytes against the pinned values and report amendments
-    # separately for audit.
-    checks['vendor_bytes_match_frozen_pin'] = all(
-        sha(ROOT / 'vendor/gems57' / name) == digest
-        for name, digest in pin['files'].items()
-    )
-    checks['local_vendor_amendments_disclosed'] = (
-        isinstance(pin.get('local_amendments'), list) and bool(pin['local_amendments'])
-    )
+    checks['all_shared_template_bytes_unmodified'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()
     checks['preregistration_preserved'] = sha(ROOT / 'registry/preregistration.json') == expected_prereg
     manifest = json.loads((ROOT / 'registry/data_manifest.json').read_text())
@@ -39,6 +58,7 @@ def verify(refresh_timestamp: bool = False):
         sha(ROOT / 'data/reference' / row['dest']) == row['sha256']
         for row in manifest['files'] if row['id'] in ('existing_faults', 'sample_submission'))
     card = json.loads((ROOT / 'run_card.json').read_text())
+    checks.update(publication_contract_checks(ROOT, card))
     checks['card_copies_equal'] = card == json.loads((ROOT / 'evidence/run_card.json').read_text())
     path = ROOT / card['submission_file']
     actual_sha = sha(path)

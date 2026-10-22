@@ -1,3 +1,8 @@
+> **Historical PR #16 review, superseded in part by the PR #18 recovery.**
+> Its statements about a retained local novelty amendment and unimportable feature
+> API describe its own snapshot, not the recovered active pipeline. The shared
+> module/pins and G79 feature API are restored; see `session_review_8ed5d89a.md`.
+
 # Repository review — 2026-10-22
 
 ## Executive outcome

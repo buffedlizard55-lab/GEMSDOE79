@@ -96,8 +96,8 @@ def checks_panel(card):
 def home(card, index):
     overlap=card['correlation_overlap_vs_registry']['surface_before_placement']
     return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / E1 · MAGNETIC FABRIC OFFSET</p><span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>
-<h1>A new GeoTIFF.<br><em>A clear decision.</em></h1><p class="lead">A fresh geophysical response, exported and checked end to end. The file passes format validation. It does <strong>not</strong> pass the competition-readiness gate.</p>{download_panel(card)}
-<p class="micro"><a href="executive-summary.html">Why it is blocked &amp; how future submissions work ↗</a></p></div>
+<h1>A research GeoTIFF.<br><em>A clear decision.</em></h1><p class="lead">The existing E1 geophysical response, exported and checked end to end. The file passes format validation. It does <strong>not</strong> pass the competition-readiness gate.</p>{download_panel(card)}
+<p class="micro"><a href="executive-summary.html">Why it is blocked &amp; how future submissions work ↗</a></p><p class="notice"><strong>Release correction · 2026-10-22:</strong> the conflicting H79-CSPT approval from PR #12 is withdrawn from this site. Its dense-prior exemption was not authorized. Work is preserved in the repository archive, not cleared for submission. <a href="irregularities.html">Audit and limitations ↗</a> · <a href="evidence/session_witness_review_8ed5d89a.json">Fresh witness re-check ↗</a></p></div>
 <figure class="map-card" style="margin:0"><div class="map-top"><span>GeoDAWN · UTM ZONE 11N</span><span>RESEARCH ONLY</span></div><img class="map-image" src="assets/fabric-offset-preview.png" alt="Actual unvalidated magnetic-marker offset response within the GeoDAWN footprint, brighter where the computed response is larger."><figcaption class="map-caption"><strong>The computed field, not a fault truth map.</strong><br>Display-only log contrast. No synthetic geology, copied prediction values or claimed vent discoveries.</figcaption></figure></section>
 <div class="metric-grid"><div class="metric"><div class="label">File validation</div><div class="value">PASS ↗</div><div class="description">On-disk format &amp; range checks</div></div><div class="metric"><div class="label">Literal novelty</div><div class="value stop">STOP · 100%</div><div class="description">Overlap with a universal prior</div></div><div class="metric"><div class="label">HOLDOUT-DTI</div><div class="value">Not run</div><div class="description">Stopped before scientific scoring</div></div><div class="metric"><div class="label">Weekly slots spent</div><div class="value">0</div><div class="description">No upload or selector action</div></div></div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Validation is not just a green badge.</h2></div><p>Format, uniqueness and performance are separate gates. One passes. One proves the run must stop. The others are explicitly unmeasured.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
@@ -146,6 +146,7 @@ def main():
     copies={'run_card.json':'run_card.json','evidence/verification.json':'verification.json',
             'evidence/universal_overlap_certificate.json':'universal_overlap_certificate.json',
             'evidence/session_witness_review.json':'session_witness_review.json',
+            'evidence/session_witness_review_8ed5d89a.json':'session_witness_review_8ed5d89a.json',
             'evidence/uniqueness_surface.json':'uniqueness_surface.json',
             'evidence/uniqueness_final_artifact.json':'uniqueness_final_artifact.json',
             'evidence/h33_forensics.json':'h33_forensics.json',
