@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "session": "f7f01963",
+  "hypothesis": "Conditional proposal only: a multi-scale terrain saddle crossed by an isostatic-gravity gradient may indicate a buried range-segment transfer structure absent from the surface-fault catalogue.",
+  "mechanism": "Candidate shortlist rank 1 uses training feature bands 12 det_elev, 19 det_elev_slope, 13 iso_grav_anom, and 18 iso_grav_anom_hg. No surface or feature was computed because the mandatory literal registry gate blocks every nonempty candidate before placement.",
+  "named_non_fault_process_that_could_mimic_it": "Drainage divide, resistant lithology, or inherited bedrock pass unrelated to faulting.",
+  "holdout_dti": null,
+  "holdout_dti_status": "NOT RUN: pre-placement literal novelty gate exits 2. No evaluator result, withheld-positive count, or confidence interval exists for this proposal.",
+  "correlation_overlap_vs_registry": {
+    "evidence_class": "REGISTRY-MEASUREMENT",
+    "surface_rank_correlation": null,
+    "surface_overlap": null,
+    "final_dot_rank_correlation": null,
+    "final_dot_overlap": null,
+    "pinned_witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+    "witness_covered_allowed_fraction": 1.0,
+    "implied_overlap_for_any_nonempty_candidate": 1.0,
+    "limit": 0.70,
+    "preflight": "evidence/preflight_a201fa92.json; freshly re-run in this review, exit 2"
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_candidate": "NOT CREATED",
+    "official_template": "PASS R1-R8",
+    "inherited_research_tif": "FAIL R6: 7,111,787 exterior cells are zero rather than null/NaN; interior finite and within [0,1], EPSG:32611, shape 3730x3292 and affine match template",
+    "earlier_portal_range_error": "UNDIAGNOSED: rejected file and submission receipt unavailable"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "ok_to_download": true,
+  "download_scope": "Inherited research artifact only; never submit",
+  "ok_to_submit": false,
+  "new_tif_generated": false,
+  "scientific_experiments": 0,
+  "submission_slots_used": 0,
+  "runtime_inputs": "13/13 locally SHA-256-matched owner-mirror files under ignored data/raw at review time; not organizer-authenticated",
+  "verification": {
+    "verify_project": "PASS",
+    "check_site": "PASS: 14 pages, 382 local links",
+    "pytest": "PASS: 634 tests",
+    "data_status": "13/13 verified locally",
+    "submission_status": "BLOCKED as expected; exit 2",
+    "official_format_validator": "template PASS; inherited TIFF FAIL R6",
+    "new_lane_preflight": "STOP as expected; exit 2"
+  }
+}

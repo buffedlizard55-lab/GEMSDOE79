@@ -1,17 +1,22 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
-## Latest session — G79-TIPSTEP (2026-10-22, this branch)
+## Current decision — session f7f01963 (2026-10-22)
 
-**A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
-SHA-256 `4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a`, in `artifacts/tipstep/`).
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO** — format PASS (zeros outside footprint; no NaN, values
-in [0,1], EPSG:32611 3730×3292 matching sample), locally novel vs 40 sparse archived dot rasters
-(max 3-px overlap 0.4765 < 0.70, max |rho| 0.056 < 0.90), HOLDOUT-DTI (gems57-pooled-hide-v2)
-0.0927 [0.0795,0.1049] (seed 20, n=11,321) / 0.0928 [0.0777,0.1079] (seed 30, n=11,342), +0.091 vs
-uniform — but **below the THVC/CSKD holdout incumbents**, so no slot is spent. Full registry
-(1,108-row) scan not completed offline; flagged, not hidden. See
-[`docs/tipstep-submission.html`](docs/tipstep-submission.html), `run_card_tipstep.json`,
-`research/hypotheses_tipstep.md`. The canonical THVC decision below is unchanged.
+**OK TO DOWNLOAD: YES (inherited research artifact only). OK TO SUBMIT: NO.** No new
+candidate TIFF, experiment, holdout evaluation, dot placement, selector action, upload,
+or weekly slot was created in this review. The pinned literal-novelty witness covers
+100% of allowed cells, making every nonempty candidate exceed the required 70% overlap
+limit. The inherited TIFF also fails the official R6 exterior-null check. Do not upload
+it or any archived research raster. See the [three-pass repository review](reports/session_review_f7f01963.md),
+[negative run card](evidence/run_card_f7f01963.json), and [measured preflight](evidence/preflight_a201fa92.json).
+
+This checkout currently has 13/13 locally SHA-256-verified owner-mirror inputs under
+ignored `data/raw/`; this proves mirror integrity only, not organizer origin. Runtime
+availability can differ in a fresh checkout. Historical lane results below are not
+results from the current review. Five ranked candidate hypotheses are proposals in the
+[review and research backlog](reports/session_review_f7f01963.md), not experiments or scores.
+The request for a new unique submission remains unmet under the active literal novelty
+rule; no exception or post-hoc redefinition is used.
 
 ## Latest review — 2026-10-22, session `1f9d2dc9`
 ## Current review — session `a26add66` (2026-10-22)
