@@ -36,6 +36,14 @@ Environment setup was isolated in ignored `.venv/`; no tracked dependency files 
 
 No training, canary, holdout, DTI calculation, candidate-surface comparison, placement, TIF writing, selector invocation, competition upload, or account-side slot inspection was performed.
 
+## Main synchronization for PR review
+
+GitHub main advanced while this documentation PR was open. To make the PR mergeable, the latest `origin/main` was merged into this fixed Arena branch; no branch switch occurred. That concurrent main update included the archived `H79-PFSD` TIFF/evidence bundle and the `G79-STPO` research TIFF under `artifacts/stepover/`. These were produced in parallel, not by this review. The PFSD README says its artifact was archived and not selected; the STPO JSON states `OK TO DOWNLOAD: YES`, `OK TO SUBMIT: NO`, and lists holdout, leakage, and complete novelty checks as absent. Neither artifact is endorsed or promoted by this report.
+
+The merge also made an important historical evidence inconsistency more visible: `reports/session_review_9574eb05.md` calls H33's 0.2778 **ORGANIZER-CONFIRMED**, while `knowledge/h33_review_e4a4422d.md` and `knowledge/review_e4a4422d_sources.json` classify it as unverified and say the sibling page labels its artifact UNSCORED. No artifact-linked submission-page receipt is cited in that report. Treat the H33 numeric claim as **UNVERIFIED HISTORICAL REPORT** unless such a receipt is supplied; this review did not edit the historical report or manufacture one.
+
+After syncing main, this review's changes remain documentation-only. The complete test, project-integrity, and site checks were rerun on the merged tree before PR merge.
+
 ## Flagged irregularities / unresolved limitations
 
 1. **Mandatory novelty rule is unsatisfiable as written:** frozen full-coverage witness and literal forward-overlap threshold conflict. Do not silently amend it locally.

@@ -1,0 +1,117 @@
+{
+  "evidence_class": "REPOSITORY-MEASUREMENT",
+  "generated_utc": "2026-10-22T19:14:20.086733+00:00",
+  "official_reference": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+  "official_sample": {
+    "file": "data/reference/sample_submission.tif",
+    "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "bytes": 1599597,
+    "bands": 1,
+    "dtype": "float32",
+    "epsg": 32611,
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform_matches_pin": true,
+    "nodata": "nan",
+    "nan_pixels": 7111787,
+    "min": 0.0,
+    "max": 1.0,
+    "in_range_0_1": true,
+    "positive_pixels": 60988,
+    "nan_outside_footprint": 7111787,
+    "zero_outside_footprint": 0,
+    "nonzero_outside_footprint": 0,
+    "nan_inside_footprint": 0,
+    "fill_convention": "nan_outside",
+    "epsg_matches_pin": true,
+    "shape_matches_pin": true,
+    "footprint_cells": 5167373,
+    "footprint_matches_grid_loader": true
+  },
+  "local_artifacts": [
+    {
+      "file": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "bytes": 137299,
+      "bands": 1,
+      "dtype": "float32",
+      "epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform_matches_pin": true,
+      "nodata": null,
+      "nan_pixels": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "in_range_0_1": true,
+      "positive_pixels": 35093,
+      "nan_outside_footprint": 0,
+      "zero_outside_footprint": 7111787,
+      "nonzero_outside_footprint": 0,
+      "nan_inside_footprint": 0,
+      "fill_convention": "zero_outside"
+    },
+    {
+      "file": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+      "sha256": "a422d9a08a07a089f304a0ce7f76eca35bcfeff82877af7ee5034e3f94c294e1",
+      "bytes": 827272,
+      "bands": 1,
+      "dtype": "float32",
+      "epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform_matches_pin": true,
+      "nodata": null,
+      "nan_pixels": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "in_range_0_1": true,
+      "positive_pixels": 37654,
+      "nan_outside_footprint": 0,
+      "zero_outside_footprint": 7111787,
+      "nonzero_outside_footprint": 0,
+      "nan_inside_footprint": 0,
+      "fill_convention": "zero_outside"
+    },
+    {
+      "file": "artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif",
+      "sha256": "42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab",
+      "bytes": 172278,
+      "bands": 1,
+      "dtype": "float32",
+      "epsg": 32611,
+      "shape": [
+        3730,
+        3292
+      ],
+      "transform_matches_pin": true,
+      "nodata": null,
+      "nan_pixels": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "in_range_0_1": true,
+      "positive_pixels": 12000,
+      "nan_outside_footprint": 0,
+      "zero_outside_footprint": 7111787,
+      "nonzero_outside_footprint": 0,
+      "nan_inside_footprint": 0,
+      "fill_convention": "zero_outside"
+    }
+  ],
+  "novelty_witness": {
+    "status": "measured",
+    "blob": "374c88b1da2b803e2ed160de467fd71ae114010d",
+    "footprint_cells": 5167373,
+    "positive_support_cells_in_footprint": 5167373,
+    "fraction_of_footprint_with_positive_support": 1.0,
+    "positive_support_outside_footprint": 0,
+    "unique_values_sampled": 98283
+  },
+  "scope": "Format and gate-definition facts only. Not portal acceptance, not organizer receipt, not holdout DTI, not a slot approval."
+}
