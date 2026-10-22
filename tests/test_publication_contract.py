@@ -293,17 +293,17 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
     assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
 
 
-def test_reproduce_artifact_recovers_canonical_nhr_bytes():
+def test_reproduce_artifact_recovers_archived_nhr_bytes():
     import reproduce_artifact
-    card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
+    archived = json.loads((ROOT / 'archive/h79_nhr/run_card.json').read_text(encoding='utf-8'))
     rep = reproduce_artifact.reproduce_nhr(ROOT)
-    assert rep['lane'] == card['lane'] == 'H79-NHR'
+    assert rep['lane'] == archived['lane'] == 'H79-NHR'
     assert rep['exact_tiff_recovery'] is True
     assert rep['exact_single_tiff_zip_recovery'] is True
     assert rep['exact_decoded_dots_recovery'] is True
-    assert rep['raster_sha256'] == card['raster_sha256']
-    assert rep['zip_sha256'] == card['zip_sha256']
-    assert rep['positive_pixels'] == card['positive_pixels'] == 37654
+    assert rep['raster_sha256'] == archived['raster_sha256']
+    assert rep['zip_sha256'] == archived['zip_sha256']
+    assert rep['positive_pixels'] == 37654
 
 
 def test_verification_and_evidence_json_have_no_machine_checkout_paths():

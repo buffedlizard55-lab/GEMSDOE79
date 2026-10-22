@@ -57,6 +57,16 @@ def selection_evidence(root, card, gates, actual):
 
 def main() -> int:
     card = json.loads((ROOT / "run_card.json").read_text())
+    if card.get("lane") != "H79-NHR":
+        refusal = {
+            "selected": False,
+            "selector": "scripts/select_submission.py",
+            "reason": "This adapter re-derives H79-NHR gates only. It will not approve another lane.",
+            "lane": card.get("lane"),
+            "card_left_unchanged": True,
+        }
+        print(json.dumps(refusal, indent=2))
+        return 2
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]

@@ -1,12 +1,86 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79: a format-valid research GeoTIFF that lost its holdout and failed the duplicate gate. Download for audit. Do not submit.">
 <title>Five ranked hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Analysis</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">H79-DILSTEP rank 1 was preregistered and run. It lost. Ranks 2–5 were not started.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — 2026-10-22 session <code>arena/6444be2d-gemsdoe79</code></h2>
+<p>Written before any H79-DILSTEP score. The E1 result is in <code>reports/dilstep_result.md</code>: the holdout lost to the H33 control, and the surface gate failed. Rank is expected usefulness for faults
+<strong>missing from the USGS/INGENIOUS catalogue</strong>, then implementation cost on the
+pinned mirrors. These are not DTI scores and not leaderboard projections.</p>
+<p>Official context, read this session:</p>
+<ul>
+<li>Task and metric: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData problem page</a>. Alpha 0.2 penalizes false positives; beta 0.8 penalizes false negatives; kernel radius 300 m. Known USGS/INGENIOUS pixels are masked at scoring (<a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff clarification</a>).</li>
+<li>Public leaderboard observed 2026-10-22: rank 1 is 0.4413 (xiaofanhu), not 0.3195. The prompt's 0.3195 figure is stale (already IR-79-05). <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Leaderboard</a>.</li>
+<li>Structural prior: Faulds &amp; Hinz, World Geothermal Congress 2015, <a href="https://pangea.stanford.edu/ERE/db/WGC/papers/WGC/2015/11100.pdf">Favorable tectonic and structural settings</a>. Step-overs ~32%, terminations ~25%, intersections ~22%, major range-front faults ~1% of catalogued Great Basin systems.</li>
+<li>GeoDAWN magnetics/radiometrics: <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">USGS data release</a>, DOI 10.5066/P93LGLVQ. Area 2 flight lines are 400 m apart; a 100 m grid is not 100 m independent magnetic observations.</li>
+<li>Grid: <a href="https://epsg.io/32611">EPSG:32611</a>.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Hypothesis</th>
+<th>Layers and signature</th>
+<th>Why a fault missing from the catalogue, not one already in it</th>
+<th>Difference from this repo</th>
+<th>Cost</th>
+<th>Data</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 (run as E1)</td>
+<td><strong>H79-DILSTEP.</strong> Linking strands in step-overs, tip horse-tails and high-angle intersections.</td>
+<td><code>tmi_hg</code>, <code>iso_grav_anom_hg</code>, positive <code>geod_dilaterate</code>, rank-only Th/K, lidar <code>step_max</code> only as a shoreline suppressor. Visible-catalogue tips only.</td>
+<td>Faulds settings are exactly the strands regional linework omits. Mid-segment range fronts are down-weighted, not re-predicted.</td>
+<td>Not NHR regression, not STEPCO dipoles, not scarp persistence, not far-field lidar rank, not E1 lag. Band 6 <code>tc</code> unused (IR-79-13).</td>
+<td>Medium. Closed form, no new download.</td>
+<td>Pinned mirrors already in <code>registry/data_manifest.json</code>.</td>
+</tr>
+<tr>
+<td>2 (not run)</td>
+<td>Walker Lane cross-strike magnetic ridges in basin floors only (strike 280–330°).</td>
+<td><code>rtp</code> gradient orientation, low <code>det_elev_slope</code>, high <code>depth_to_base_surf</code>.</td>
+<td>Blind NW cross-faults lack scarps, so Qfaults omits them.</td>
+<td>Not the all-orientation Blakely/Radon/tilt-worm siblings, and not E1's lag.</td>
+<td>Low, but holdout truth is mostly range-front, so the proxy may reject a real organizer signal.</td>
+<td>Same pinned stack.</td>
+</tr>
+<tr>
+<td>3 (not run)</td>
+<td>Upflow offset: dots upslope of a Th/K high that is not adjacent to a mapped fault.</td>
+<td>Th/K, <code>det_elev</code> aspect, distance to visible faults.</td>
+<td>Alteration can mark a blind conduit the mapper did not draw.</td>
+<td>GEMSDOE46 fused radiometrics onto scarps. This would place the dot off the anomaly, toward the inferred conduit.</td>
+<td>Medium.</td>
+<td>Same uint8 Th/K derivative. Not a calibrated concentration (IR-79-17).</td>
+</tr>
+<tr>
+<td>4 (not run)</td>
+<td>Basin-floor blind gravity edge under cover, no lidar step required.</td>
+<td><code>iso_grav_anom_hg</code>, high <code>depth_to_base_surf</code>, low slope.</td>
+<td>Cover hides the scarp, so the fault is absent from a geomorphic catalogue.</td>
+<td>Not the scarp family and not H79-FF (which requires a lidar step 2–8 km out).</td>
+<td>Low. Same holdout-mismatch risk as rank 2.</td>
+<td>Same pinned stack.</td>
+</tr>
+<tr>
+<td>5 (not run)</td>
+<td>Distance-band hide-and-recover (backlog item from a7d092d7).</td>
+<td>Full feature stack plus visible-only distance, separate rankings by distance band.</td>
+<td>Could learn far-field discoveries instead of NHR's 300 m–2 km collar.</td>
+<td>NHR used one pooled target. This would split the target.</td>
+<td>High, and the near band is the known duplicate corridor.</td>
+<td>Same pinned stack.</td>
+</tr>
+</tbody>
+</table>
+<p>Only rank 1 is preregistered and executed (<code>registry/preregistration_h79_dilstep.json</code>).
+Ranks 2–5 were not scored. No external dataset beyond the pinned mirrors was required
+for rank 1, so none was proposed as a blocker.</p></div></section><section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
 <p><strong>Pre-experiment shortlist, not measured performance.</strong> The current request does not
 contain a delimited single-method lane paragraph. No new scientific lane was
 implicitly assigned. The inherited H79-NHR lane already stopped as a duplicate;

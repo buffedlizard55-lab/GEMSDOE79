@@ -4,10 +4,11 @@
    `reports/irregularities.md`, `registry/preregistration_nhr.json` (active lane) and
    `registry/preregistration.json` (archived E1) before work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-3. Active lane: **H79-NHR** (session 337ac1e9), opened at the user's explicit
-   request and preregistered before any result. One experiment (X1) was used. It beat
-   the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
-   and the lane is stopped. Do not retune or overlap-cap X1.
+3. Active research file: **H79-DILSTEP** (this session), one preregistered experiment,
+   verdict `negative`. It lost the holdout to the H33 control and failed the IR-79-67
+   surface gate. Do not retune it, overlap-cap it, or place submission dots from it.
+   **H79-NHR** (session 337ac1e9) is archived under `archive/h79_nhr/` and stays stopped.
+   It beat the holdout best but **failed the duplicate gate** (IR-79-55). Do not retune or overlap-cap X1.
    A new idea needs a new preregistered lane, with three experiments or two hours at most.
    Follow-up review a7d092d7 re-measured the universal literal-overlap witness:
    `scripts/preflight_new_lane.py --restore` exits 2, forbidding any nonempty new

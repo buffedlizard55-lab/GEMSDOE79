@@ -32,6 +32,10 @@ ARCHIVED_E1_REPRODUCTION = {
 
 def reproduce_nhr(root: Path = ROOT) -> dict:
     card = json.loads((root / 'run_card.json').read_text())
+    if card.get('lane') != 'H79-NHR':
+        card = json.loads((root / 'archive/h79_nhr/run_card.json').read_text())
+        if card.get('lane') != 'H79-NHR':
+            raise ValueError('archived H79-NHR card is missing')
     build = json.loads((root / 'evidence/nhr/x1_final_build.json').read_text())
     if card['verdict'] != 'negative' or card['ok_to_submit']:
         raise ValueError('This command only recovers the existing stopped negative artifact')

@@ -4,25 +4,29 @@
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> This is a newly generated, format-valid research GeoTIFF. It failed the protocol's duplicate gate,
+> This is a newly generated, format-valid research GeoTIFF. It lost the holdout and failed the duplicate gate,
 > so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
 > exits with code 2, and no human inspection is needed.
 
 | | |
 |---|---|
-| File | [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip) |
-| Unique name | `gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT` |
-| Note (122/140) | `H79-NHR research only; HOLDOUT-DTI 0.143/0.152 vs H33 0.096/0.099; DUPLICATE: 0.91 of dots within 3px of a registry raster` |
-| SHA-256 | `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2` |
+| File | [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT.zip) |
+| Unique name | `gems79-h79-dilstep-research-37654dots-20261022T045200Z-7dd0d54b-DO-NOT-SUBMIT` |
+| Note (113/140) | `H79-DILSTEP research only; HOLDOUT-DTI 0.072/0.065 lost to H33; 0.85 of dots within 3px of a prior; do not submit` |
+| SHA-256 | `8497da98470fa45539c1626f6a0186e674e542ee0710cf5c92a980c5142dda6b` |
 | Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
-| Lane / experiment | H79-NHR / X1 (1 of 3 allowed; about 70 min of 2 h) |
-| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.1431** [0.1281, 0.1574], n = 11,321 · seed 30: **0.1522** [0.1335, 0.1696], n = 11,342 |
-| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.112] |
-| Paired Δ vs H33 control | +0.047 [0.0321, 0.0621] · +0.0533 [0.0369, 0.0704] |
-| Leakage canary | 464 single-feature AUC tests, max 0.8589 ≤ 0.90 (`geom_log_dist_visible_tip`): **PASS** |
-| Duplicate gate | **FAIL.** 26 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif` at 0.913, against 0.610 expected by chance. Rank correlation is clear: worst ρ 0.112. |
-| Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/nhr/selector_decision.json`). |
+| Lane / experiment | H79-DILSTEP / E1 (1 of 3 allowed) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0721** [0.0577, 0.0874], n = 11,321 · seed 30: **0.0650** [0.0528, 0.0778], n = 11,342 |
+| HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.1120] |
+| Paired Δ vs H33 control | −0.0240 [−0.0418, −0.0050] · −0.0339 [−0.0526, −0.0159] |
+| Leakage canary | 72 single-feature AUC tests, max 0.6981 ≤ 0.90 (`horsetail`): **PASS** |
+| Duplicate gate | **FAIL** under IR-79-67. 12 registry files (7 distinct maps; nan/all-finite twins counted separately) hold > 70% of the check dots within 3 px, and each of those priors covers at most 70% of allowed cells. Worst: `13GEMSDOE:docs/downloads/archive/13gems-r6-ensemble-20260929T182914Z.tif` at 0.8527, against halo coverage 0.6413. Worst Spearman 0.6406, under 0.90. Literal overlap against a full-footprint witness is 1.0 and is not called uniqueness. |
+| Verdict | **negative**. Lost to the H33 control on both seeds, and the surface gate failed before submission placement. No retune. No overlap cap. No slot. |
 | Slots used | 0 |
+
+### Archived H79-NHR (session 337ac1e9, stopped negative)
+
+Moved out of `docs/downloads/` so this repository still publishes one upload pair. Bytes are unchanged in [`archive/h79_nhr/`](archive/h79_nhr/README.md). SHA-256 `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2`. HOLDOUT-DTI 0.1431 / 0.1522 beat the H33 control and failed the duplicate gate. Do not submit that file either.
 
 ### Archived concurrent artifact (2026-10-22, lane H79-FF, session 1de1617f)
 

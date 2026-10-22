@@ -68,8 +68,8 @@ def test_current_scientific_commands_refuse_before_writing(script, args):
     result = subprocess.run([sys.executable, str(ROOT / 'scripts' / script), *args],
                             capture_output=True, text=True, timeout=30)
     assert result.returncode == 2, result.stderr
-    assert 'lane is closed (negative)' in result.stderr
-    assert 'No files changed.' in result.stderr
+    assert ('lane is closed' in result.stderr) or ('mismatched' in result.stderr)
+    assert 'no files changed' in result.stderr.lower()
     assert all(p.read_bytes() == data for p, data in frozen.items())
     assert (set(cache.rglob('*')) if cache.exists() else set()) == before
 
