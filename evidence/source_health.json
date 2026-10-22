@@ -1,10 +1,10 @@
 {
-  "attempted_utc": "2026-10-22T15:57:03.873184+00:00",
+  "attempted_utc": "2026-10-22T20:41:01.141683+00:00",
   "sources": [
     {
       "id": "DD-PROBLEM",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
-      "attempted_utc": "2026-10-22T15:57:03.717963+00:00",
+      "attempted_utc": "2026-10-22T20:41:00.935287+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -13,7 +13,7 @@
     {
       "id": "DOE-RULES",
       "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
-      "attempted_utc": "2026-10-22T15:57:03.718690+00:00",
+      "attempted_utc": "2026-10-22T20:41:00.935884+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -22,7 +22,7 @@
     {
       "id": "USGS-GEODAWN",
       "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
-      "attempted_utc": "2026-10-22T15:57:03.719063+00:00",
+      "attempted_utc": "2026-10-22T20:41:00.936380+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -31,7 +31,7 @@
     {
       "id": "GDR-1391",
       "url": "https://gdr.openei.org/submissions/1391",
-      "attempted_utc": "2026-10-22T15:57:03.719700+00:00",
+      "attempted_utc": "2026-10-22T20:41:00.936672+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -40,7 +40,7 @@
     {
       "id": "DD-LEADERBOARD",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "attempted_utc": "2026-10-22T15:57:03.721736+00:00",
+      "attempted_utc": "2026-10-22T20:41:00.938283+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -49,7 +49,7 @@
     {
       "id": "DD-AUTH",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/",
-      "attempted_utc": "2026-10-22T15:57:03.725379+00:00",
+      "attempted_utc": "2026-10-22T20:41:00.941342+00:00",
       "meaning": "HTTP reachability only; not a fresh review of scientific claims",
       "state": "fetch_failed",
       "error": "SSLError",
@@ -74,7 +74,7 @@
     "rank_50_participant": "arnofault",
     "rank_50_public_dti": 0.2817,
     "first_place_submissions": 27,
-    "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION — NOT A SUBMISSION RECEIPT",
+    "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 NOT A SUBMISSION RECEIPT",
     "source_url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
     "observed_date": "2026-10-22",
     "observed_utc": null,
@@ -91,41 +91,6 @@
     }
   },
   "scientific_claims_reviewed_date": "2026-10-22",
-  "note": "Direct shell HTTP attempts remain the recorded failed reachability probes at 15:57Z. The later public leaderboard value and official-source content were reread separately with research fetch_page on 2026-10-22; no private receipt, slot capacity, or local score is inferred.",
-  "submission_slots_used_by_this_refresh": 0,
-  "research_fetch_checks": [
-    {
-      "id": "DD-LEADERBOARD",
-      "state": "all_three_chunks_reviewed",
-      "observed_date_utc": "2026-10-22",
-      "evidence_class": "PUBLIC-OBSERVATION; NOT A SUBMISSION RECEIPT"
-    },
-    {
-      "id": "USGS-COMCAT-FDSN",
-      "state": "count_and_sample_queries_succeeded",
-      "m2_5_event_count": 5886,
-      "focal_mechanism_product_count": 2249,
-      "sample_geojson_records": 5,
-      "evidence_class": "REMOTE API AVAILABILITY ONLY"
-    },
-    {
-      "id": "CDSE-SENTINEL1-SLC",
-      "state": "stac_query_returned_five_items",
-      "sample_item_id": "S1C_IW_SLC__1SDV_20251231T013457_20251231T013524_005689_00B5D0_DECC",
-      "evidence_class": "METADATA ONLY; NO ASSETS DOWNLOADED"
-    },
-    {
-      "id": "USGS-HEAT-RESIDUALS",
-      "state": "sciencebase_public_downloadUri_and_metadata_listed",
-      "evidence_class": "PUBLIC DOWNLOAD URI LISTED; NO BINARY TRANSFER OR HASH VERIFICATION",
-      "listed_zip_size_bytes": 130154244,
-      "listed_zip_size_mib": 124.12,
-      "advertised_md5_not_locally_verified": "2f7aed23c8801a9541dc48e50eedb131"
-    },
-    {
-      "id": "UNR-NGL-MIDAS",
-      "state": "raw_text_samples_returned",
-      "evidence_class": "SAMPLE TEXT ONLY; NO FULL FILE OR HASH"
-    }
-  ]
+  "note": "A new fetch attempt does not refresh an old observation. No submission receipt, remaining-account-capacity or scientific result is inferred.",
+  "submission_slots_used_by_this_refresh": 0
 }

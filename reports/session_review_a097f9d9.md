@@ -17,7 +17,7 @@ This is a negative preflight/source/software review, not a new model or leaderbo
 | Rank 3–5 untried geological hypotheses before implementation | Four **deferred, untested** signatures written first | [Shortlist](../research/hypotheses_a097f9d9.md): exact layers, transforms, rationale, differences, nonfault mimics, controls, qualitative value/cost, access limitations. Repository-scope proposals, not a claim of global novelty. |
 | Spatially blocked hide-and-recover validation and matched incumbent improvement before a slot | **NOT RUN / UNMET** | Literal preflight STOP occurs before any new surface. No feature canary, holdout, placement, promotion, upload, or slot. Prospective protocol uses the unchanged shared evaluator; scores are null in this review card. |
 | Autonomously acquire/prepare supplied public data | All **13 manifest entries restored and locally hash-verified** | [Before](../evidence/review_a097f9d9/runtime_before.json) / [after](../evidence/review_a097f9d9/runtime_after.json). Existing historical restore receipt is preserved. Mirrors are not independently authenticated organizer bytes, and the older feature cache was not rebuilt. |
-| Clean daily-use site, auditable sources, current automated feed | Existing 13-page site improved and rebuilt | New official-format widget/reports, current negative review card/source audit, ranked shortlist, archive warnings; no external page assets. Existing scheduled source-health/rebuild workflow retained. Network health is not a new scientific fact or acceptance receipt. |
+| Clean daily-use site, auditable sources, current automated feed | Existing site improved (15 pages after preserving incoming archives) and rebuilt | New official-format widget/reports, current negative review card/source audit, ranked shortlist, archive warnings; no external page assets. Existing scheduled source-health/rebuild workflow retained. Network health is not a new scientific fact or acceptance receipt. |
 | Preserve original prompt and complete three review passes, PR/merge | Prompt preserved; review/release verification tracked below | [Prompt hash receipt](../evidence/review_a097f9d9/prompt_preservation.json) proves the original prompt section is unchanged. Release/merge must not be inferred from this working document before the GitHub result is recorded. |
 
 ## H33: what the evidence actually supports
@@ -48,7 +48,7 @@ No fresh competition HTML/PDF, leaderboard, ScienceBase or ComCat binary was acq
 
 ## Format and readiness engineering
 
-`gems79-official-text-format-v2` is a **local checker of previously transcribed official text**, not the organizer's own validator. It applies R6 to the finite footprint in pinned sample SHA `2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc`; the actual portal's tolerance of another exterior convention remains unproved.
+`gems79-portal-format-v3` is a **local checker of previously transcribed official text**, not the organizer's own validator. It applies R6 to the finite footprint in pinned sample SHA `2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc`; the actual portal's tolerance of another exterior convention remains unproved.
 
 1. Fixed wrapper R1 losing the contained raster's single-band failure. The original direct-fail/ZIP-pass synthetic reproduction is preserved in [the before receipt](../evidence/review_a097f9d9/multiband_zip_before.json). Regressions now require both direct and wrapped two-band files to fail R1.
 2. Check actual GTiff driver, float32, pinned grid, nodata convention, NaN exterior, finite **valid/unmasked** interior and interior range. An internal/external GDAL validity mask cannot conceal an invalid footprint cell.
@@ -58,9 +58,9 @@ No fresh competition HTML/PDF, leaderboard, ScienceBase or ComCat binary was acq
 6. `select_submission.py` reads unambiguous strict JSON and confines artifact paths to the repository. Canonical refusal leaves the card byte-identical. `verify_project.py` distinguishes an honestly blocked artifact's repository integrity from submission eligibility.
 7. Pages display fresh sample/TIFF/ZIP reports and a negative official-format gate bound into public status/manifest. Archive pages are clearly historical, and active copy no longer guarantees a portal error “cannot occur” or labels failed-literal rasters protocol-unique. Browser file matching says identity is not an R1–R8 PASS.
 
-The **unchanged shared research writer/legacy validator still require all-finite, zero exterior**. They were not privately forked, and no stopped artifact was re-encoded. Before any authorized future export, a prospective change to the shared writer/exterior policy must be reconciled with official text and recorded once centrally. Merely making an old map NaN outside would fix a local format rule, **not create a novel map or earn promotion**.
+The **shared research writer/legacy validator (unchanged by this review) still require all-finite, zero exterior**. They were not privately forked, and no stopped artifact was re-encoded. Before any authorized future export, a prospective change to the shared writer/exterior policy must be reconciled with official text and recorded once centrally. Merely making an old map NaN outside would fix a local format rule, **not create a novel map or earn promotion**.
 
-Fresh [format checks](../evidence/review_a097f9d9/official_text_format_checks_final.json): sample **PASS**; THVC TIFF/ZIP **FAIL R6 only**, with **7,111,787** zero exterior cells each. Their interior values already pass R8; the reported historical range error is still undiagnosed.
+Fresh [format checks](../evidence/review_a097f9d9/official_text_format_checks_after_sync.json): sample **PASS**; THVC TIFF/ZIP **FAIL R6 only**, with **7,111,787** zero exterior cells each. Their interior values already pass R8; the reported historical range error is still undiagnosed.
 
 ## Three implementation/review/fix passes
 
@@ -76,11 +76,21 @@ Fresh [format checks](../evidence/review_a097f9d9/official_text_format_checks_fi
 - Added synthetic-only software cases for multiband archives, masks, invalid drivers/templates, malformed/unsafe archives, resource bounds, byte changes, forged/partial reports, no-overwrite CLI, selector path/JSON refusal and a valid NaN-exterior readiness contract.
 - Fixed an additional review finding: corrupt contained TIFF/CRC inspection must also clear wrapper R1, not retain a packaging-only R1 PASS.
 - Rebuilt/check-linked the site and ran the expanded targeted set: **206 passed** before the final documentation/site addendum. Node identity-check tests: **12 passed**; no file matching grants submission permission.
-- Fresh H33 byte remeasurement reproduced exact subset identity without rewriting `evidence/h33_forensics.json`. Added IR-79-220–224, current negative card and source audit. Corrected active README guarantees/record claims while preserving all 35,279 original-prompt bytes (SHA `28b1480498eefb6e684cd31ec71fc3bdb3fa0850119b390e1f13ad33e6723dc8`).
+- Fresh H33 byte remeasurement reproduced exact subset identity without rewriting `evidence/h33_forensics.json`. Added IR-79-232–236, current negative card and source audit. Corrected active README guarantees/record claims while preserving all 35,279 original-prompt bytes (SHA `28b1480498eefb6e684cd31ec71fc3bdb3fa0850119b390e1f13ad33e6723dc8`).
 
 ### Pass 3 — whole-project, browser, immutability and release review
 
-**In progress in the working branch.** Final full-suite result, browser checks, deterministic build/CLI refusal, immutable scientific-byte checks and actual PR/merge result are recorded only after execution. No completed release or public deployment is claimed by this provisional line.
+Before synchronization, the full suite passed **648 tests in 102.44 s** ([receipt](../evidence/review_a097f9d9/final_tests_pass3.json)) and browser QA passed **39 page/viewport cases** ([receipt](../evidence/review_a097f9d9/browser_review_final.json)). An earlier attempt found one missing historical-backlog heading/link contract (647 passed / 1 failed); it was repaired by preserving the historical link, not weakening the test. Additional review fixed standalone PAM/world-file metadata and external-mask dependence and bounded the decoded template size before raster allocation.
+
+Main had advanced while this isolated audit ran. Integration target **`6e3ca91`** contains independent v2 ZIP/format-gate fixes and stopped OPC, TIPSTEP and VENTPROX work. The integrated checker is **v3**, preserving those fixes and adding the stricter byte/template/report/mask/standalone/resource rules. Compatibility error fields are sanitized; the older `portal_passed` boolean is accepted only as a veto, never as substitute evidence. The format banner deliberately does **not** cache a result by pathname or accept a card-injected report.
+
+- Preserved **836** historical tracked files relative to incoming main; no session-authored change to the shared writer/evaluator, incoming uniqueness/pin, old cards, rasters or frozen scientific receipts. [After-sync immutability receipt](../evidence/review_a097f9d9/immutability_after_sync.json). The earlier [787-file proof](../evidence/review_a097f9d9/immutability.json) is explicitly pre-sync; it is not claimed against a different integration baseline.
+- Retained main's optional D-3 helper **without using it** to relax this review's literal STOP. The unchanged literal preflight was rerun after synchronization and still exits **2** ([receipt](../evidence/review_a097f9d9/preflight_after_sync.json)). Other sessions' archived TIFFs are not the new deliverable requested from this review.
+- IR IDs were renumbered to **IR-79-232–237**, preserving main's IR-79-220–231 and all scientific records. Incoming TIPSTEP's unsupported portal-error diagnosis is not repeated as fact: the old card remains intact, while a reproducible, reachable archive page displays its inherited evaluator/n/CI, current R6 failure and no submission permission. The builder now preserves **15 pages**, including OPC and TIPSTEP.
+- Six current primary-host reachability probes all failed; the scheduled/feed mechanism preserves its dated leaderboard observation instead of inventing an update ([attempt receipt](../evidence/review_a097f9d9/source_health_attempt_after_sync.json)). No new official scientific binary or score was acquired by that attempt.
+- Post-integration targeted regressions initially passed **203 tests**; the final expanded full-suite/browser/CLI results are recorded below only after execution.
+
+**Final integrated verification is in progress.** Release/PR state is authenticated by GitHub, not inferred from a local PASS or this working document.
 
 ## Next work, in dependency order
 
@@ -90,4 +100,4 @@ Fresh [format checks](../evidence/review_a097f9d9/official_text_format_checks_fi
 4. Run every-feature leakage canary; blocked whole-segment hide-and-recover; matched incumbent/control comparison with paired 95% spatial intervals and a named nonfault null. Respect three-experiment/two-hour budget and stop on failure.
 5. Only after both surface/final literal novelty and all scientific/format/provenance gates pass may the separate selector consider a slot. Account capacity and an artifact-bound organizer submission-page receipt are still unavailable here. No slot was used and no score is invented.
 
-**Machine-readable outcome:** [one negative review run card](../evidence/review_a097f9d9/run_card.json). Canonical historical run cards, TIFF/ZIP, shared evaluator/writer and frozen scientific receipts remain authoritative for their own dated measurements, not new work.
+**Machine-readable outcome:** [one negative review run card](../evidence/review_a097f9d9/run_card.json). Canonical historical run cards, TIFF/ZIP, shared evaluator/writer and frozen scientific receipts are unchanged by this review and remain authoritative for their own dated measurements, not new work.

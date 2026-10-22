@@ -30,7 +30,8 @@ def check_site():
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
         'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
         'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html', 'tdw-submission.html',
-    }, 'Expected the thirteen project pages (canonical seven + lane pages)'
+        'g79-opc.html', 'tipstep-submission.html',
+    }, 'Expected the fifteen project pages (canonical seven + lane pages)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
@@ -124,7 +125,7 @@ def check_site():
     status = json.loads((site / 'status.json').read_text())
     assert status['official_text_format_passed'] is official_ok
     assert status['official_format_report'] == 'evidence/official_format_validation.json'
-    assert ('official_text_format_not_cleared' in status['blockers']) is (not official_ok)
+    assert ('official_format_rules_not_cleared' in status['blockers']) is (not official_ok)
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert status['verdict'] == card['verdict'] and status['decision_line'] == line
     assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}

@@ -48,7 +48,7 @@ def test_historical_format_pass_alone_never_clears_submission(software_evidence)
     assert result['ok_to_download'] is True
     assert result['ok_to_submit'] is False
     assert result['official_text_format_passed'] is False
-    assert result['blockers'] == ['official_text_format_not_cleared']
+    assert result['blockers'] == ['official_format_rules_not_cleared']
 
 
 def test_bound_complete_official_report_can_clear_only_its_format_gate(software_evidence):
@@ -76,7 +76,7 @@ def test_valid_nan_exterior_is_not_blocked_by_legacy_all_finite_policy(software_
 
 
 @pytest.mark.parametrize('change', ['failed_r6', 'wrong_hash', 'wrong_template', 'duplicate',
-                                   'partial', 'truthy_ok', 'truthy_rule', 'inspection_error'])
+                                   'partial', 'truthy_ok', 'truthy_rule', 'inspection_error', 'legacy_error'])
 def test_forged_or_stale_official_format_cannot_promote(software_evidence, change):
     card, original = software_evidence
     report = deepcopy(original)
@@ -94,13 +94,15 @@ def test_forged_or_stale_official_format_cannot_promote(software_evidence, chang
         report['ok'] = 1
     elif change == 'truthy_rule':
         report['rules'][0]['pass'] = 'true'
-    else:
+    elif change == 'inspection_error':
         report['inspection_error'] = {'type': 'ValueError'}
+    else:
+        report['error'] = {'type': 'ValueError'}
     result = submission_decision(card, actual_sha256=SHA, format_passed=True,
                                  official_format_report=report)
     assert result['ok_to_submit'] is False
     assert result['official_text_format_passed'] is False
-    assert 'official_text_format_not_cleared' in result['blockers']
+    assert 'official_format_rules_not_cleared' in result['blockers']
 
 
 def test_current_cli_rederives_r6_failure_instead_of_using_card_format_flag():
@@ -109,7 +111,7 @@ def test_current_cli_rederives_r6_failure_instead_of_using_card_format_flag():
     assert result['local_research_format_passed'] is True
     assert result['official_text_format_passed'] is False
     assert result['official_format_validation']['failed_rules'] == ['R6']
-    assert 'official_text_format_not_cleared' in result['blockers']
+    assert 'official_format_rules_not_cleared' in result['blockers']
     assert result['human_inspection_required_for_this_decision'] is False
 
 
@@ -150,10 +152,53 @@ def test_public_pages_and_status_expose_live_official_format_not_just_range_pass
     assert public == expected
     status = json.loads((ROOT / 'docs/status.json').read_text())
     assert status['official_text_format_passed'] is False
-    assert 'official_text_format_not_cleared' in status['blockers']
+    assert 'official_format_rules_not_cleared' in status['blockers']
     for name in ('index.html', 'executive-summary.html'):
         soup = BeautifulSoup((ROOT / 'docs' / name).read_text(), 'html.parser')
         row = soup.find(attrs={'data-gate': 'Official submission format (R1–R8)'})
         assert row and row['data-passed'] == 'false'
         assert 'R6' in row.get_text()
         assert 'OK TO SUBMIT: NO.' in soup.get_text(' ', strip=True)
+
+
+def test_legacy_portal_boolean_is_only_a_veto_never_a_replacement(software_evidence):
+    card, report = software_evidence
+    missing = submission_decision(card, actual_sha256=SHA, format_passed=True,
+                                  portal_passed=True)
+    assert missing['ok_to_submit'] is False
+    assert 'official_format_rules_not_cleared' in missing['blockers']
+    vetoed = submission_decision(card, actual_sha256=SHA, format_passed=True,
+                                 official_format_report=report, portal_passed=False)
+    assert vetoed['ok_to_submit'] is False
+    complete = submission_decision(card, actual_sha256=SHA, format_passed=True,
+                                   official_format_report=report, portal_passed=True)
+    assert complete['ok_to_submit'] is True  # synthetic software fixture only
+
+
+def test_banner_ignores_card_injected_report_and_does_not_cache_a_path(monkeypatch, software_evidence):
+    import build_site
+    card, passed = software_evidence
+    card['submission_file'] = 'SOFTWARE-FIXTURE.tif'
+    card['_official_format_validation'] = deepcopy(passed)
+    failed = deepcopy(passed)
+    failed['ok'] = False
+    failed['failed_rules'] = ['R6']
+    failed['rules'][5]['pass'] = False
+    responses = iter((passed, failed))
+    monkeypatch.setattr(build_site, 'validate_portal_file', lambda path: next(responses))
+    assert 'OFFICIAL FORMAT: PASS' in build_site.portal_status_panel(card)
+    assert 'OFFICIAL FORMAT: FAIL (R6)' in build_site.portal_status_panel(card)
+
+
+def test_preserved_tipstep_page_is_reachable_and_does_not_repeat_portal_guarantee():
+    soup = BeautifulSoup((ROOT / 'docs/tipstep-submission.html').read_text(), 'html.parser')
+    text = soup.get_text(' ', strip=True)
+    assert 'Historical research artifact' in text
+    assert 'OK TO SUBMIT: NO.' in text
+    assert 'unsupported' in text and 'R6' in text
+    actual = json.loads((ROOT / 'docs/evidence/tipstep_official_format.json').read_text())
+    card = json.loads((ROOT / 'run_card_tipstep.json').read_text())
+    assert actual['sha256'] == card['raster']['sha256']
+    assert actual['failed_rules'] == ['R6']
+    home = BeautifulSoup((ROOT / 'docs/index.html').read_text(), 'html.parser')
+    assert home.find('a', href='tipstep-submission.html')

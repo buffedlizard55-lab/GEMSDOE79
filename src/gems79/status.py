@@ -26,7 +26,7 @@ def _unit_number(value):
     return type(value) in (int, float) and 0 <= value <= 1 and math.isfinite(value)
 
 
-def submission_decision(card, *, actual_sha256, format_passed, official_format_report=None):
+def submission_decision(card, *, actual_sha256, format_passed, official_format_report=None, portal_passed=None):
     """Decide from live local format evidence; absent official-text checks block.
 
     ``format_passed`` is the historical research range/grid check. A complete
@@ -47,11 +47,14 @@ def submission_decision(card, *, actual_sha256, format_passed, official_format_r
         official_format_report, expected_sha256=actual_sha256,
         expected_template_sha256=PINNED_TEMPLATE_SHA256,
     )
+    # Compatibility with incoming main: a legacy boolean is only a veto, never
+    # evidence that can substitute for the complete live byte-bound report.
+    official_ok = official_ok and (portal_passed is None or portal_passed is True)
     download_format_ok = format_passed is True or official_ok
     if not download_format_ok:
         blockers.append('format_validation_failed')
     if not official_ok:
-        blockers.append('official_text_format_not_cleared')
+        blockers.append('official_format_rules_not_cleared')
     if card.get('protocol_unique') is not True:
         blockers.append('literal_novelty_not_cleared')
     canary = card.get('leakage_canary')

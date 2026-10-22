@@ -25,7 +25,7 @@ import rasterio
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_TEMPLATE = ROOT / 'data' / 'reference' / 'sample_submission.tif'
 PINNED_TEMPLATE_SHA256 = '2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc'
-VALIDATOR_VERSION = 'gems79-official-text-format-v2'
+VALIDATOR_VERSION = 'gems79-portal-format-v3'
 OFFICIAL_CRS = 'EPSG:32611'
 OFFICIAL_RES = 100.0
 OFFICIAL_PAGE = 'https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/'
@@ -212,6 +212,7 @@ def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
         'template': None, 'template_sha256': None,
         'bytes_stable_during_validation': False,
         'organizer_acceptance_established': False,
+        'does_not_approve_submission': True,
         'inspection_policy': {'max_file_or_zip_member_bytes': MAX_INSPECTION_BYTES,
                               'not_an_organizer_size_rule': True},
     }
@@ -249,17 +250,18 @@ def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
         # CLI/library inspection boundary: never reuse stale PASS on an error.
         # Interrupts and process termination (BaseException) still propagate.
         out['inspection_error'] = {'stage': stage, 'type': type(exc).__name__}
+        out['error'] = dict(out['inspection_error'])  # compatibility, sanitized like the v3 field
     return _finalize(out)
 
 
 def portal_report_passed(report, *, expected_sha256=None, expected_template_sha256=None):
-    """Check a complete, byte-bound v2 report, not a self-reported PASS flag."""
+    """Check a complete, byte-bound v3 report, not a self-reported PASS flag."""
     if not isinstance(report, dict):
         return False
     if (report.get('validator_version') != VALIDATOR_VERSION
             or report.get('ok') is not True or report.get('failed_rules') != []
             or report.get('bytes_stable_during_validation') is not True
-            or 'inspection_error' in report):
+            or 'inspection_error' in report or 'error' in report):
         return False
     rows = report.get('rules')
     if (not isinstance(rows, list) or len(rows) != len(RULES)

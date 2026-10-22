@@ -53,7 +53,7 @@
     "failed_official_text_rules": [
       "R6"
     ],
-    "official_text_report": "evidence/review_a097f9d9/official_text_format_checks_final.json",
+    "official_text_report": "evidence/review_a097f9d9/official_text_format_checks_after_sync.json",
     "ok_to_submit": false
   },
   "scientific_experiments_performed": 0,
@@ -66,5 +66,19 @@
   "ranked_hypotheses": "research/hypotheses_a097f9d9.md",
   "verdict": "negative",
   "stop_reason": "Literal full-footprint witness makes every nonempty new candidate fail the unchanged 70% overlap rule. No lane paragraph is supplied. New unique submission and top-candidate holdout validation remain unmet, not bypassed.",
-  "software_changes_are_not_scientific_experiments": true
+  "software_changes_are_not_scientific_experiments": true,
+  "software_validator_version": "gems79-portal-format-v3",
+  "integration": {
+    "incoming_main_commit": "6e3ca91",
+    "incoming_historical_artifacts": [
+      "G79-OPC",
+      "G79-TIPSTEP",
+      "VENTPROX"
+    ],
+    "those_artifacts_are_this_reviews_new_output": false,
+    "optional_incoming_D3_mode_used_by_this_review": false,
+    "literal_stop_rechecked": "evidence/review_a097f9d9/preflight_after_sync.json",
+    "all_incoming_scientific_bytes_preserved": true,
+    "scope": "Preserved concurrent main archives/code; did not start, re-run, rescore or promote their lanes."
+  }
 }

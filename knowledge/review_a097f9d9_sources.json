@@ -40,7 +40,7 @@
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
       "verification": "Previously transcribed text and source ledger reviewed; not newly fetched in this sandbox.",
       "prior_evidence": "knowledge/review_e4a4422d_sources.json",
-      "verified_local_measurement": "evidence/review_a097f9d9/official_text_format_checks_final.json",
+      "verified_local_measurement": "evidence/review_a097f9d9/official_text_format_checks_after_sync.json",
       "claims_with_scope": [
         "The prior transcription says exterior data is null or nan. R6 conservatively applies that sentence to the pinned sample footprint.",
         "Fresh local measurement: the pinned sample has NaN exterior and passes R1-R8; canonical research TIFF/ZIP have zero exterior and fail R6 only.",
@@ -65,14 +65,15 @@
     },
     {
       "id": "A097-NOVELTY-WITNESS",
-      "authority": "Shared pinned registry and unchanged shared uniqueness tool",
+      "authority": "Shared pinned registry and unchanged literal mode in incoming main; optional D3 code is retained but not used",
       "url": "https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/vendor/gems57/uniqueness.py",
       "verification": "Fresh restoration and remeasurement of one frozen witness; not a full registry rescan.",
       "evidence": "evidence/review_a097f9d9/preflight.json",
       "verified_claims": [
         "The decisive witness covers every allowed cell under the literal positive-support definition; the required preflight refuses a new lane.",
         "The stop applies even when raw data are restored. No density exemption or chance-corrected interpretation was adopted."
-      ]
+      ],
+      "after_sync_evidence": "evidence/review_a097f9d9/preflight_after_sync.json"
     },
     {
       "id": "A097-RUNTIME-INPUTS",
@@ -115,5 +116,7 @@
     "canonical_ledger_rows": 103,
     "canonical_ledger_sites": 77,
     "artifact_linked_organizer_receipts_in_ledger": 0
-  }
+  },
+  "integration_scope": "Incoming main 6e3ca91 already contained independent ZIP/gate fixes and stopped OPC/TIPSTEP/VENTPROX work. Preserved its scientific bytes and optional D3 helper; this review neither uses D3 to bypass the literal STOP nor counts those TIFFs as newly generated here.",
+  "reachability_attempt": "evidence/review_a097f9d9/source_health_attempt_after_sync.json: six primary-host requests failed; no new scientific bytes/leaderboard value were obtained. The current feed preserves its explicitly dated observation."
 }
