@@ -15,6 +15,7 @@
    - `H79-ML-STRAIN-RELAY` (`0.0472 / 0.0442`, `archive/concurrent_2026-10-22_5d14587/`)
    - `G79-STEPCO` (`0.0468 / 0.0422`, `archive/g79_stepco_s1/` & `archive/g79_stepco_s2/`)
    - `H79-FFAS` (`0.0422 / 0.0367`, `archive/h79_ffas_c04e5e27/`)
+   - `G79-BER` (`0.0788 / 0.0882`, `archive/g79_ber_4f80e0d0/`) — session 4f80e0d0, merged after the 17-lane snapshot; terminal `run_card_ber.json`, not unique under amendment D-2 (IR-79-128); do not retune its band quotas or re-place its dots
    - `G79B-SDPT` (`0.0297 / 0.0290`, `archive/g79b_sdpt_a3/`)
    - `H79-FGR` (`0.0058 / 0.0056`, `archive/fgr_cb54ff09/`)
    - `G79-MAG` (`0.0045 / 0.0067`, `archive/g79_mag_730d5ee7/`)
@@ -23,6 +24,9 @@
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
    version note and an IR entry. Example: `informative-halo-v4` overlap mode, IR-79-86.
+   Amendment D-2's chance-corrected overlap (`compare_array_to_registry_d2`, IR-79-128)
+   coexists in the same module; the D-3 saturated-branch question needs a prospective
+   owner decision, never a post-hoc edit to pass a finished lane.
    Use the shared evaluator, writer and novelty gate; never invent scientific metrics or receipts.
 5. Do not replace missing measurements with zero. Only a submission-page receipt
    establishes ORGANIZER-CONFIRMED for an artifact. Public leaderboard observations

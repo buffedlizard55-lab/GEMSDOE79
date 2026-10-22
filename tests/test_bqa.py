@@ -27,9 +27,19 @@ def test_frozen_tool_is_the_one_that_produced_the_bqa_evidence():
 
 
 def test_shared_tool_is_left_as_main_pinned_it():
+    # BQA-era guard: the shared tool must equal the living template pin, and
+    # the frozen sibling audit's recorded pin must remain in the pin chain.
+    # Amendment D-2 (session 4f80e0d0, IR-79-128) appended functions to the
+    # shared tool and updated the pin once, so the audit pin is now the
+    # recorded previous_sha256 (see IR-79-130); BQA's own evidence was
+    # produced by its frozen archived copy (test above), not this file.
     import hashlib
     pin = json.loads((ROOT / "evidence/post_snapshot_sibling_audit.json").read_text())["shared_tools_pinned"]
-    assert hashlib.sha256((ROOT / "vendor/gems57/uniqueness.py").read_bytes()).hexdigest() == pin["uniqueness_py_sha256"]
+    current = hashlib.sha256((ROOT / "vendor/gems57/uniqueness.py").read_bytes()).hexdigest()
+    entry = next(e for e in json.loads((ROOT / "registry/template_pin.json").read_text())["files"]
+                 if e["path"] == "vendor/gems57/uniqueness.py")
+    assert current == entry["sha256"]
+    assert pin["uniqueness_py_sha256"] in (entry["sha256"], entry["previous_sha256"])
 from gems79 import bqa  # noqa: E402
 
 

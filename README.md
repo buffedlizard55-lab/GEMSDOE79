@@ -114,6 +114,23 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 - **Session `6d4a2fdf` cross-org review**: [`reports/session_review_6d4a2fdf.md`](reports/session_review_6d4a2fdf.md) · [`research/hypotheses_6d4a2fdf.md`](research/hypotheses_6d4a2fdf.md) · [`evidence/registry_obstructions_certificate.json`](evidence/registry_obstructions_certificate.json).
 - **Session review & 5 untried subsurface hypotheses**: [`reports/session_review_070af0b6.md`](reports/session_review_070af0b6.md), [`reports/session_review_3cfa694f.md`](reports/session_review_3cfa694f.md), [`reports/fgr_farfield_refutation.md`](reports/fgr_farfield_refutation.md), [`research/hypotheses_post_thvc_backlog.md`](research/hypotheses_post_thvc_backlog.md), [`reports/irregularities.md`](reports/irregularities.md) (`IR-79-01`..`IR-79-125`).
 
+### G79-BER addendum (session `4f80e0d0`, merged after the 17-lane snapshot above)
+
+**Decision for the new file: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** Lane **G79-BER** (band-stratified evidence recovery) was run from base `9640ed3` in parallel with the lanes above, preregistered before any result ([`registry/preregistration_ber.json`](registry/preregistration_ber.json)), and merged afterwards without changing the canonical `G79-THVC` artifact or decision. It generated a new unique-by-construction GeoTIFF that **failed its preregistered holdout gate**, so it is archived as research evidence and no weekly slot was spent.
+
+| | |
+|---|---|
+| File | [`archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif`](archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif) · ZIP alongside |
+| Unique name | `gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT` |
+| Note (135/140) | `G79-BER research only; HOLDOUT-DTI 0.079/0.088 vs H33 0.096/0.099; FAILED holdout<H33,no-final-dots,surface-uniqueness,final-uniqueness` |
+| SHA-256 | `934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b` |
+| Format | single band float32, EPSG:32611, 3730 × 3292, values exactly 0/1, all finite, no nodata sentinel: **PASS** (local preflight vs the portal `[0, 1]` error; not organizer acceptance) |
+| Method | Five distance-to-catalogue bands, per-band nested-hide models, area-proportional quotas (3170/4609/7814/13803/8258), 30 new worm/basement-step/antislope transforms (85 features); raw distance/density excluded from ranking |
+| `HOLDOUT-DTI` (`gems57-pooled-hide-v2`) | Seed 20: **0.0788** [0.0684, 0.0889] (`n=11,321`) · Seed 30: **0.0882** [0.0739, 0.1011] (`n=11,342`) vs H33 control `0.0961 / 0.0989` — **below the bar on both seeds** (and below canonical `G79-THVC` `0.1905 / 0.1944`) |
+| Leakage canary | 680 single-feature AUC tests, max 0.8589 ≤ 0.90: **PASS** |
+| Uniqueness | Not unique under amendment D-2 as preregistered (worst ρ 0.314, worst chance-corrected overlap 0.654 vs all 982 informative comparable priors; 4 plateau diagnostics fire the saturated branch, IR-79-128). Placement never ran. |
+| Verdict | **Stopped negative**, 1 of 3 experiments, 0 slots. Full analysis: [`reports/ber_analysis.md`](reports/ber_analysis.md) · card: [`run_card_ber.json`](run_card_ber.json) · hypotheses: [`research/hypotheses_ber.md`](research/hypotheses_ber.md) |
+
 ## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 

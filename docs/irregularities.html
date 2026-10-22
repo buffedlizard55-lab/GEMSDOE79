@@ -904,5 +904,38 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Removed the duplicate trailing definitions so the full assertions execute, and included archived <code>H79-DILSTEP</code> SHA-256 digests alongside canonical <code>G79-THVC</code> in <code>test_every_sha256_cited_in_session_6d4a2fdf_review_matches_machine_receipts</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>G79-BER session addendum — session 4f80e0d0 (2026-10-22; IRs renumbered 127–129 at merge with origin/main 90829f9, whose log already used 67–126)</h3>
+<p>Details: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/ber_analysis.md"><code>reports/ber_analysis.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_ber.json"><code>run_card_ber.json</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/ber"><code>evidence/ber/</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-127</td>
+<td><strong>Frozen restore receipt conflicts with the data manifest</strong> (found on session base 9640ed3; still present at merge). <code>data/restore_receipt.json</code> records <code>ext_geodawn_rad_u8</code> at SHA-256 <code>e8086c43…</code> (27,687,166 bytes), while <code>registry/data_manifest.json</code> pins <code>c22420f7…</code> (26,612,970 bytes). <code>scripts/restore_data.py --preserve-receipt</code> therefore fails closed even though restored files match the manifest pins byte-wise.</td>
+<td>Left untouched: the receipt is frozen evidence and the manifest is authoritative for restores (the restore enforces manifest pins). Future restores in a fresh sandbox should omit <code>--preserve-receipt</code> and run <code>scripts/restore_registry_git.py</code> separately. Reconciling which rad bytes are canonical needs an owner decision; every feature stack in this repo (incl. G79-BER's receipt, <code>evidence/ber/feature_receipt.json</code>) used the manifest-pinned bytes.</td>
+</tr>
+<tr>
+<td>IR-79-128</td>
+<td><strong>Amendment D-2's saturated-halo branch is degenerate on plateau diagnostic surfaces.</strong> Four registry rasters (three GEMSDOE48 "unassigned-mass" diagnostics, Spearman ρ = 0.0013 vs the G79-BER surface; the 5GEMSDOE density probe, ρ = 0.178) are positive on the entire footprint, so their tie-inclusive dot-equivalent set is all 5,167,373 footprint cells, halo coverage is 1.0, and D-2's exact-cell fallback returns overlap 1.0 for <em>any</em> candidate (<code>evidence/ber/uniqueness_surface.json</code>). This is the same plateau class named in IR-79-53, reaching D-2 through the branch designed for genuine dot lattices (dot-set size 37,654). Additionally, 6 of 992 registry rasters are not comparable on the canonical grid (4 CRS/transform mismatches incl. two <code>SCHEMA-DEMO</code> files, 1 corrupt TIFF, 1 grid/band mismatch), so <code>complete_accessible_scan</code> is false. Note <code>informative-halo-v4</code> (IR-79-86, already on main) skips exactly these vacuous firings but keeps the raw 0.70 threshold for mid-halo priors where D-2 chance-corrects (e.g. coverage-v3-wide: raw 0.859 at halo 0.593 fires under v4, corrected 0.654 passes under D-2); the two readings are complementary, both reported.</td>
+<td><strong>Not fixed for G79-BER.</strong> The gate stayed exactly as preregistered; the lane is recorded not unique under D-2 (placement never ran) and is negative on holdout in any case. Against the 982 informative comparable rasters the surface passes both D-2 numeric criteria (worst ρ 0.314, worst chance-corrected overlap 0.654). Recommended prospective D-3 (owner decision, future lane): chance-correct the saturated branch too — duplicate iff exact overlap &gt; 0.70 and <code>(exact − e)/(1 − e) &gt; 0.70</code> with <code>e = #(S∩A)/#A</code>, treating <code>e ≥ 0.999999</code> as non-informative — which still catches lattice copies (e ≈ 0.0077) and stops plateau diagnostics from vetoing every map.</td>
+</tr>
+<tr>
+<td>IR-79-129</td>
+<td><strong>Finalize packaging defect (session-local).</strong> Two parallel edits to <code>scripts/finalize_ber.py</code> raced; the submission-note shortening was silently overwritten, so the first <code>run_card_ber.json</code> carried a 139-char note truncated mid-token (<code>…final_rank_correlation_le_0</code>).</td>
+<td>One documented repackage before any commit/publication: identical dots (<code>ad519409…</code>), gates and verdict; the rewritten TIFF is byte-identical (SHA-256 <code>934b5c50…</code> before and after, since the note lives in the receipt/card, not the raster bytes); final note is 135 chars and complete. The same packaging review also normalised the writer receipt's sandbox-absolute <code>validator.file</code>/<code>template_report.path</code> to repo-relative paths (IR-79-63 class; <code>scripts/finalize_ber.py</code> now does this itself). No scientific content changed.</td>
+</tr>
+<tr>
+<td>IR-79-130</td>
+<td><strong>Merge-time audit/tool pin drift (pre-existing on main, found while merging G79-BER).</strong> <code>evidence/post_snapshot_sibling_audit.json</code> pins <code>uniqueness.py</code> at <code>be529511…</code> (v4), but merging amendment D-2 appends functions to that shared file, so <code>verify_project.py</code>'s exact-sha check failed. Regeneration was attempted honestly: all 207 delta blobs were re-fetched and SHA-verified, and the audit was re-run under the merged tool. It reproduced <strong>1755 of 1778</strong> leaf values identically (every pigeonhole/pairwise number), proving the D-2 append is behaviour-identical for everything the audit computes — but main's <code>scripts/audit_post_snapshot_siblings.py</code> cannot reproduce its own committed audit: it referenced the pre-archive NHR path <code>docs/downloads/…</code> (fixed to <code>archive/h79_nhr/downloads/…</code> here) and no longer emits the committed <code>local_gems79_concurrent_lanes_audit</code> section at all.</td>
+<td>The frozen audit bytes were restored unchanged rather than committing a regenerated file that silently drops recorded lane measurements. <code>verify_project.py</code> now accepts the audit's recorded pin when it equals the current tool sha <strong>or</strong> the <code>previous_sha256</code> recorded in <code>registry/template_pin.json</code> (documented backward-compatible append only). Remaining limitation: someone should restore the missing <code>local_gems79_concurrent_lanes_audit</code> generator (or formally retire that section) so the audit is end-to-end reproducible again; until then the audit is frozen evidence, not a runnable receipt.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

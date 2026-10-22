@@ -109,11 +109,11 @@
     },
     {
       "path": "vendor/gems57/uniqueness.py",
-      "git_blob": "a07356d4487f3ba0223ebfe5417fce6486f5ea67",
-      "sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
-      "previous_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
-      "previous_git_blob": "931c153f104540879d09a7605d525569ca2659d1",
-      "version_note": "v4 shared fix (session c04e5e27, IR-79-86): adds OVERLAP_MODES and overlap_mode/allowed kwargs to compare_array_to_registry. Default overlap_mode stays 'literal-threshold' so historical NHR/STEPCO/G79B evidence is unchanged. With 'informative-halo-v4', duplicate_by_overlap fires only when O>0.70 AND the prior's 3 px halo covers <=70% of the allowed domain (vacuous space-filling priors no longer auto-reject every map). Spearman, byte identity and decoded-pixel identity still apply to every raster. IR-79-47 v3 budget-matched dots is unchanged."
+      "git_blob": "66e4e166e7d501ee8d012d3fb842a74afdfea670",
+      "sha256": "8cd7946bb4f9754fbb577ac4155a169cd55e25da0a4af9163edb7d95f0dd8d53",
+      "previous_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
+      "previous_git_blob": "a07356d4487f3ba0223ebfe5417fce6486f5ea67",
+      "version_note": "Merge of two prospective shared fixes. (1) v4 (session c04e5e27, IR-79-86): OVERLAP_MODES + overlap_mode/allowed kwargs on compare_array_to_registry; default 'literal-threshold' unchanged; 'informative-halo-v4' skips the vacuous overlap firing when a prior halo covers >70% of allowed. (2) amendment D-2 (session 4f80e0d0, IR-79-128, reports/protocol_amendment_D2_20261022.md): adds chance_corrected_overlap, d2_row_decision, compare_array_to_registry_d2 (duplicate iff raw forward overlap >0.70 AND chance-corrected (ov-h)/(1-h) >0.70 vs dot-equivalent sets; exact-cell test when halo saturates; literal reading always reported). The D-2 block is unchanged from session 4f80e0d0's pin df5bd1a1fb33bfa41045b52295714f2bdf74556007eb5b23e2598dbccce5de12 (the version that produced evidence/ber/uniqueness_surface.json); the merge only adds the v4 kwargs to the older function. All literal/v3 behaviour unchanged."
     },
     {
       "path": "vendor/gems57/validate.py",

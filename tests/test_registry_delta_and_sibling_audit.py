@@ -77,7 +77,13 @@ def test_post_snapshot_sibling_audit_and_binary_pigeonhole_certificate() -> None
     assert audit == published_audit
 
     pins = audit['shared_tools_pinned']
-    assert pins['uniqueness_py_sha256'] == _sha256(ROOT / 'vendor/gems57/uniqueness.py')
+    # IR-79-130: frozen audit pin may equal the current tool sha or the
+    # previous pin recorded in registry/template_pin.json (amendment D-2
+    # appended functions without changing audit-used behaviour).
+    _entry = next(e for e in json.loads((ROOT / 'registry/template_pin.json').read_text())['files']
+                  if e['path'] == 'vendor/gems57/uniqueness.py')
+    assert pins['uniqueness_py_sha256'] in (
+        _sha256(ROOT / 'vendor/gems57/uniqueness.py'), _entry['previous_sha256'])
     assert pins['validate_py_sha256'] == _sha256(ROOT / 'vendor/gems57/validate.py')
     assert pins['evaluate_holdout_py_sha256'] == _sha256(ROOT / 'vendor/gems57/evaluate_holdout.py')
     assert pins['disk3_exactness_self_test']['matches_edt_le_3_exact'] is True

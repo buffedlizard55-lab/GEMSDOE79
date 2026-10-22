@@ -113,7 +113,7 @@ PROMPT_SIBLING_CANDIDATES = [
         "repo": "GEMSDOE79",
         "needle": "gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT",
         "prompt_status": "unscored_blocked_research_only",
-        "local_path": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
+        "local_path": "archive/h79_nhr/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
         "reported_holdout": {
             "dti": 0.1431,
             "ci95": [0.1281, 0.1574],

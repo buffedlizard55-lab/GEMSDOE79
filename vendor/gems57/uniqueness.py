@@ -511,3 +511,191 @@ def two_phase_summary(rows, footprint_cells: int, *, rho_limit: float = RHO_LIMI
         ),
         literal_firings=literal_firings,
     )
+
+
+# ---------------------------------------------------------------------------
+# Amendment D-2 (shared fix v4, session 4f80e0d0, 2026-10-22;
+# reports/protocol_amendment_D2_20261022.md).  The functions above are
+# unchanged: the literal gate and budget-matched-v3 keep their frozen
+# behaviour for earlier lanes.  D-2 adds the chance-corrected overlap test
+# for halo-saturating priors.  If a prior's 3 px halo already covers a
+# fraction ``h`` of the candidate's allowed dot domain, a candidate placed
+# independently of that prior has expected forward overlap ``h``; the
+# discriminating statistic for "drifted into another lane" is therefore
+# ``(ov - h) / (1 - h)``, which is 0 under independence and 1 for a copy at
+# any ``h``.  Thresholds (rho 0.90, overlap 0.70, dense fraction 0.20) are
+# inherited unchanged; the literal reading is always reported alongside.
+# ---------------------------------------------------------------------------
+
+HALO_SATURATION = 0.999999
+
+
+def chance_corrected_overlap(observed, halo_coverage):
+    """(ov - h)/(1 - h); ``None`` when the halo saturates the allowed domain."""
+    h = float(halo_coverage)
+    if h >= HALO_SATURATION:
+        return None
+    return float((float(observed) - h) / (1.0 - h))
+
+
+def d2_row_decision(*, forward_overlap, halo_coverage, exact_overlap,
+                    spearman, identical):
+    """Pure D-2 decision for one registry raster (unit-testable, no I/O)."""
+    corr = chance_corrected_overlap(forward_overlap, halo_coverage)
+    by_rho = bool(spearman is not None and spearman > RHO_LIMIT)
+    if corr is None:
+        by_overlap = bool(exact_overlap is not None and exact_overlap > OVERLAP_LIMIT)
+        test = 'exact_cell_halo_saturated'
+    else:
+        by_overlap = bool(forward_overlap > OVERLAP_LIMIT and corr > OVERLAP_LIMIT)
+        test = 'chance_corrected_halo'
+    return dict(chance_corrected_overlap=corr, overlap_test=test,
+                duplicate_by_rho_d2=by_rho, duplicate_by_overlap_d2=by_overlap,
+                duplicate_d2=bool(by_rho or by_overlap or identical))
+
+
+def compare_array_to_registry_d2(candidate_dots, registry_index, footprint, allowed,
+                                 *, candidate_surface=None, file_sha256=None,
+                                 progress=None, expected_grid=None):
+    """Amendment D-2 registry comparison for one candidate dot set.
+
+    ``candidate_dots`` is the boolean dot set under test; Spearman rho is
+    computed on ``candidate_surface`` when supplied (the pre-placement phase)
+    and on the binary dot field otherwise.  ``allowed`` is the domain the
+    candidate's dots could occupy, used only to measure each prior's halo
+    coverage ``h``.  Every registry raster is checked for rho, identity,
+    literal forward overlap, and the D-2 chance-corrected decision against
+    its dot-equivalent set (literal support for dot fields; budget-matched
+    top-k, ties included, for continuous surfaces).  Fail-closed: any
+    missing/hash-mismatched/grid-mismatched raster is an error row and the
+    scan is not complete.
+    """
+    fp = np.asarray(footprint, bool)
+    allowed = np.asarray(allowed, bool)
+    mine = np.asarray(candidate_dots, bool) & fp
+    if mine.ndim != 2 or mine.shape != fp.shape or allowed.shape != fp.shape or not fp.any():
+        raise ValueError('candidate / footprint / allowed grid mismatch or empty footprint')
+    if not allowed.any() or (mine & ~allowed).any():
+        raise ValueError('candidate dots must lie inside a non-empty allowed domain')
+    rho_arr = mine.astype(np.float32) if candidate_surface is None else np.asarray(candidate_surface, np.float32)
+    if rho_arr.shape != fp.shape or not np.isfinite(rho_arr).all() or (rho_arr < 0).any() or (rho_arr > 1).any():
+        raise ValueError('candidate surface must be finite in [0,1] on the footprint grid')
+    if (rho_arr[~fp] > 0).any():
+        raise ValueError('positive candidate surface mass outside footprint')
+    idx = registry_index if isinstance(registry_index, (list, dict)) else json.loads(Path(registry_index).read_text())
+    records, inventory_complete, source_errors = records_from_index(idx)
+    values = rho_arr[fp]
+    ranks = rankdata(values).astype(np.float64)
+    ranks -= ranks.mean()
+    norm = float(np.linalg.norm(ranks))
+    my_dot_count = int(mine.sum())
+    decoded_digest = hashlib.sha256(np.ascontiguousarray(rho_arr).tobytes()).hexdigest()
+    rows = []
+    for i, rec in enumerate(records):
+        p = Path(rec['file'])
+        if not p.is_absolute():
+            p = ROOT / p
+        base = dict(repo=rec.get('repo'), submission=rec.get('submission', p.name), file=str(p))
+        try:
+            if not p.exists():
+                raise FileNotFoundError('missing registry file; cannot certify uniqueness')
+            digest = _sha(p)
+            if rec.get('sha256') and digest != rec['sha256']:
+                raise ValueError('registry SHA256 pin mismatch')
+            with rasterio.open(p) as src:
+                if src.count != 1 or src.shape != mine.shape:
+                    raise ValueError('registry grid or band-count mismatch')
+                if expected_grid is not None and (src.shape, src.crs, src.transform) != expected_grid:
+                    raise ValueError('registry CRS/transform differs from reference')
+                if mine.shape == (3730, 3292):
+                    from .grid import TRANSFORM
+                    if src.crs is None or src.crs.to_epsg() != 32611 or src.transform != TRANSFORM:
+                        raise ValueError('registry CRS/transform mismatch')
+                theirs = src.read(1).astype(np.float32)
+            theirs = np.where(np.isfinite(theirs), theirs, 0.0)
+            theirs[~fp] = 0
+            tv = theirs[fp]
+            literal = (theirs > 0) & fp
+            representation = representation_class(int(literal.sum()), int(fp.sum()))['kind']
+            tb = literal[fp]
+            if norm == 0 or np.ptp(tv) == 0:
+                rho = None
+            elif np.all((tv == 0) | (tv == 1)):
+                nt = int(tb.sum()); n = len(tv)
+                rho = float(ranks[tb].sum() / (norm * np.sqrt(nt * (n - nt) / n))) if 0 < nt < n else None
+            else:
+                tr = rankdata(tv).astype(np.float64)
+                tr -= tr.mean()
+                rho = float(np.dot(ranks, tr) / (norm * np.linalg.norm(tr)))
+            support = literal if representation == 'dot_field' else budget_matched_dots(theirs, fp, my_dot_count)
+            near_support = _near(support)
+            halo = float(near_support[allowed].mean())
+            ov = float(near_support[mine].mean()) if my_dot_count else 0.0
+            exact = float(support[mine].mean()) if my_dot_count else 0.0
+            if representation == 'dot_field':
+                literal_ov = ov
+            else:
+                literal_ov = float(_near(literal)[mine].mean()) if my_dot_count else 0.0
+            their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
+            identical = bool((file_sha256 and digest == file_sha256) or their_decoded == decoded_digest)
+            decision = d2_row_decision(forward_overlap=ov, halo_coverage=halo,
+                                       exact_overlap=exact, spearman=rho, identical=identical)
+            rows.append({**base, 'sha256': digest, 'decoded_sha256': their_decoded,
+                         'representation': representation,
+                         'their_literal_positive_cells': int(literal.sum()),
+                         'their_dot_equivalent_cells': int(support.sum()),
+                         'spearman_full_footprint': rho,
+                         'halo_coverage_allowed': halo,
+                         'my_dots_within_3px_of_dot_equivalent': ov,
+                         'my_dots_exactly_on_dot_equivalent': exact,
+                         'my_dots_within_3px_literal': literal_ov,
+                         'jaccard_vs_dot_equivalent': _jaccard(mine, support),
+                         'identical_bytes_or_decoded': identical, **decision})
+        except (OSError, ValueError, rasterio.errors.RasterioError) as e:
+            rows.append({**base, 'error': str(e)})
+        if progress:
+            progress(i + 1, len(records), rows[-1])
+    checked = [r for r in rows if 'error' not in r]
+    errors = [r for r in rows if 'error' in r]
+    firings = [r for r in checked if r['duplicate_d2']]
+
+    def _worst(key, subset=checked):
+        vals = [r for r in subset if r.get(key) is not None]
+        return max(vals, key=lambda r: r[key]) if vals else None
+
+    w_rho, w_ov, w_corr, w_lit = (_worst('spearman_full_footprint'),
+                                  _worst('my_dots_within_3px_of_dot_equivalent'),
+                                  _worst('chance_corrected_overlap'),
+                                  _worst('my_dots_within_3px_literal'))
+    complete = bool(inventory_complete and records and not source_errors and not errors
+                    and len(checked) == len(records))
+    unique = bool(complete and my_dot_count > 0 and norm > 0 and not firings)
+    return dict(
+        evidence_class='REGISTRY-MEASUREMENT', gate='amendment-D2',
+        unique_under_D2=unique, complete_accessible_scan=complete,
+        registry_rasters_expected=len(records), registry_rasters_checked=len(checked),
+        missing_or_invalid=len(errors), source_errors=list(source_errors or []),
+        my_dots=my_dot_count, allowed_cells=int(allowed.sum()),
+        candidate_decoded_sha256=decoded_digest, candidate_file_sha256=file_sha256,
+        rho_limit=RHO_LIMIT, overlap_limit=OVERLAP_LIMIT,
+        worst_spearman_full_footprint=(w_rho['spearman_full_footprint'] if w_rho else None),
+        worst_spearman_submission=(w_rho['submission'] if w_rho else None),
+        worst_forward_overlap_dot_equivalent=(w_ov['my_dots_within_3px_of_dot_equivalent'] if w_ov else None),
+        worst_forward_overlap_submission=(w_ov['submission'] if w_ov else None),
+        worst_chance_corrected_overlap=(w_corr['chance_corrected_overlap'] if w_corr else None),
+        worst_chance_corrected_submission=(w_corr['submission'] if w_corr else None),
+        worst_literal_forward_overlap=(w_lit['my_dots_within_3px_literal'] if w_lit else None),
+        worst_literal_submission=(w_lit['submission'] if w_lit else None),
+        literal_overlap_firings=sum(1 for r in checked if r['my_dots_within_3px_literal'] > OVERLAP_LIMIT),
+        dot_equivalent_overlap_firings=sum(1 for r in checked if r['my_dots_within_3px_of_dot_equivalent'] > OVERLAP_LIMIT),
+        d2_firings=[dict(submission=r['submission'], representation=r['representation'],
+                         spearman=r['spearman_full_footprint'], forward_overlap=r['my_dots_within_3px_of_dot_equivalent'],
+                         halo_coverage=r['halo_coverage_allowed'], chance_corrected=r['chance_corrected_overlap'],
+                         exact_overlap=r['my_dots_exactly_on_dot_equivalent'], test=r['overlap_test'])
+                    for r in firings],
+        duplicate_count_d2=len(firings),
+        rows=rows,
+        scope=('Amendment D-2 (reports/protocol_amendment_D2_20261022.md): rho vs every raster; '
+               'chance-corrected overlap vs each prior dot-equivalent set; literal reading reported. '
+               'Unique under D-2 is never literal-rule unique. Indexed public owner-repository '
+               'inventory only; private/later files may be absent.'))
