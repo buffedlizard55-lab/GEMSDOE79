@@ -13,7 +13,7 @@ literal parallel-run protocol. All incoming work is preserved with byte hashes i
 [the non-authoritative CSPT archive](archive/h79_cspt_3d386a3/README.md), outside
 the published website. The original shared tool, registry and input pins, stopped
 lane and full original prompt below are restored. No new experiment or weekly
-submission slot was used. Final local checks: **118 tests passed**, 7 pages /
+submission slot was used. Final local checks: **122 tests passed**, 7 pages /
 109 links verified, and 21 responsive browser cases passed. [Three-pass review and next steps](reports/session_review_8ed5d89a.md).
 
 A fresh independent [witness re-measurement](evidence/session_witness_review_8ed5d89a.json)

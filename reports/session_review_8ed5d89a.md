@@ -134,7 +134,7 @@ or more hypotheses simply to evade the existing stop.
 ## Local verification results
 
 - `.venv/bin/python scripts/build_site.py`: seven evidence-driven pages built.
-- `.venv/bin/python -m pytest -q`: **118 passed**.
+- `.venv/bin/python -m pytest -q`: **122 passed**.
 - `.venv/bin/python scripts/check_site.py`: **7 pages, 109 local links**, two
   compatibility redirects, no third-party browser assets; submission false.
 - `.venv/bin/python scripts/verify_project.py`: all **21** recorded integrity,
@@ -153,3 +153,14 @@ The local preview serves only `docs/` on port 8080. No scientific improvement or
 public Pages deployment is implied by successful local checks. PR/merge and
 GitHub check outcomes will be recorded in the PR release comments after they
 actually occur, rather than claimed in advance here.
+
+## Concurrent main integration before merge
+
+While PR #18 checks ran, PR #16 (`88b8d3c`) merged into main. It also corrected
+negative status but retained the locally amended shared module and replaced
+tests with expectations of that amendment / an ImportError in the active runner.
+Merged main into the fixed session branch, retained its four useful negative-run
+artifact tests under `tests/test_current_run_integrity.py` and its indexed-repo
+count display, preserved its dated review with a superseded-snapshot warning,
+and kept the original shared tool/pins and stopped-run feature tests. Archive
+bytes remain unchanged. Regenerated derived JSON/pages from recovered pins.
