@@ -47,7 +47,9 @@ def test_unlinked_or_nested_upload_artifact_blocks_release(publication, path):
 def test_false_readme_promotion_blocks_release(publication):
     root, card = publication
     (root / 'README.md').write_text('PROMOTED — VALIDATED & OK TO DOWNLOAD AND SUBMIT')
+    # For negative fixture, promoted string should not count as valid negative
     assert not publication_contract_checks(root, card)['readme_matches_negative_decision']
+    assert not publication_contract_checks(root, card)['readme_matches_decision']
 
 
 @pytest.mark.parametrize('rasters', [[{'blob': 'other'}], [{'blob': 'a'}, {'blob': 'a'}]])

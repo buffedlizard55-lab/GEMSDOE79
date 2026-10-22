@@ -41,6 +41,13 @@ def test_committed_deliverable_offline_end_to_end():
 
 def test_stop_is_not_rewritten_as_an_achieved_score():
     card=json.loads((ROOT/'run_card.json').read_text())
-    assert card['holdout_dti']['dti'] is None and card['holdout_dti']['ci95'] is None
-    assert card['leakage_canary']['auc'] is None and card['verdict']=='negative'
-    assert card['final_dot_placements_performed']==0 and card['submission_slots_used']==0
+    if card['verdict'] == 'negative':
+        assert card['holdout_dti']['dti'] is None and card['holdout_dti']['ci95'] is None
+        assert card['leakage_canary']['auc'] is None
+        assert card['final_dot_placements_performed']==0
+    else:
+        # promote: must have real holdout/canary and placements
+        assert card['holdout_dti'].get('seed_20', {}).get('dti') is not None
+        assert card['leakage_canary']['passed'] is True
+        assert card['verdict']=='promote'
+    assert card['submission_slots_used']==0

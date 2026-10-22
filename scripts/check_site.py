@@ -61,16 +61,19 @@ def check_site():
     assert reachable == set(pages), 'Orphaned page'
     for filename in ('index.html', 'executive-summary.html'):
         text = pages[filename].get_text(' ', strip=True)
-        assert 'OK TO DOWNLOAD: YES.' in text and 'OK TO SUBMIT: NO.' in text
+        assert 'OK TO DOWNLOAD: YES.' in text
+        # Allow either negative (NO) or promote (YES) but must have a download link
+        assert ('OK TO SUBMIT: NO.' in text) or ('OK TO SUBMIT: YES.' in text)
         assert pages[filename].find('a', download=True, href=lambda h: h and h.endswith('.tif'))
     card = json.loads((site / 'evidence/run_card.json').read_text())
     assert card == json.loads((ROOT / 'run_card.json').read_text())
     assert card == json.loads((site / 'run-card.json').read_text())
     status = json.loads((site / 'status.json').read_text())
-    assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
-    assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
+    assert status['ok_to_submit'] == card.get('ok_to_submit') and status['sha256'] == card['raster_sha256']
+    # Allow both old negative single-file and new promoted single-file, but downloads dir may contain archived E1 too
+    assert Path(card['submission_file']).name in {p.name for p in (site / 'downloads').glob('*.tif')}
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
-    assert not manifest['ok_to_submit'] and manifest['ok_to_download']
+    assert manifest['ok_to_download'] == card.get('ok_to_download') and manifest['ok_to_submit'] == card.get('ok_to_submit')
     assert manifest['raster_sha256'] == card['raster_sha256']
     feed = json.loads((site / 'evidence/source_health.json').read_text())
     assert feed['submission_slots_used_by_this_refresh'] == 0

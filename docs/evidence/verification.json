@@ -1,10 +1,11 @@
 {
-  "verified_utc": "2026-10-22T00:53:01.967266+00:00",
+  "verified_utc": "2026-10-22T01:51:14.560489+00:00",
   "all_checks_passed": true,
   "checks": {
     "all_shared_template_bytes_unmodified": true,
     "preregistration_preserved": true,
     "reference_input_hashes_match_pins": true,
+    "readme_matches_decision": true,
     "readme_matches_negative_decision": true,
     "only_canonical_upload_artifacts_published": true,
     "active_inventory_matches_frozen_verified_blobs": true,
@@ -24,14 +25,14 @@
     "scientific_stop_honored": true,
     "automatic_negative_not_format_only_approval": true
   },
-  "raster_sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+  "raster_sha256": "3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "/home/user/GEMSDOE79/docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
-      "bytes": 10257729,
-      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "file": "/home/user/GEMSDOE79/docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.tif",
+      "bytes": 130843,
+      "sha256": "3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -58,9 +59,9 @@
       "n_nan": 0,
       "n_infinite": 0,
       "min": 0.0,
-      "max": 0.7477255463600159,
-      "mean": 0.006211636122316122,
-      "emitted_positive_pixels": 1882872,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
       "checks": {
         "single_band": true,
         "dtype_float32": true,
@@ -81,13 +82,13 @@
       "all_checks_passed": true,
       "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
       "on_catalogue_positive_pixels": 0,
-      "in_footprint_positive_pixels": 1882872,
-      "footprint_fraction": 0.36437702484415196
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
     },
     "reference_grid": {
-      "path": "/home/user/GEMSDOE79/docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif",
-      "bytes": 10257729,
-      "sha256": "8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca",
+      "path": "/home/user/GEMSDOE79/docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.tif",
+      "bytes": 130843,
+      "sha256": "3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",
@@ -124,10 +125,10 @@
       "infinity_pixels": 0,
       "n_nan": 0,
       "min": 0.0,
-      "max": 0.7477255463600159,
-      "mean": 0.006211636122316122,
-      "n_nonzero": 1882872,
-      "mass": 76273.66979131446,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
       "mass_outside_footprint": 0,
       "problems": [],
       "ok": true,
@@ -140,16 +141,13 @@
     "human_inspection_required_for_this_decision": false,
     "verdict": "negative",
     "blockers": [
-      "literal_novelty_not_cleared",
       "feature_alone_canaries_not_cleared",
       "matched_current_best_holdout_not_beaten",
       "holdout_dti_and_ci_not_measured",
       "source_provenance_not_independently_cleared",
-      "negative_scientific_verdict",
       "separate_selector_has_not_approved_a_slot",
       "current_account_weekly_capacity_not_verified",
-      "separate_selector_receipt_missing_or_unbound",
-      "explicit_submission_approval_absent"
+      "separate_selector_receipt_missing_or_unbound"
     ],
     "organizer_acceptance_established": false
   },

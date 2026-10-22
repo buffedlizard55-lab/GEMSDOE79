@@ -1,0 +1,35 @@
+overall_valid 5164300
+seed 20 fold NW candidate DTI 0.1220 AUC canary 0.866
+seed 20 fold NE candidate DTI 0.1275 AUC canary 0.837
+seed 20 fold SW candidate DTI 0.1402 AUC canary 0.821
+seed 20 fold SE candidate DTI 0.0812 AUC canary 0.779
+seed 30 fold NW candidate DTI 0.1343 AUC canary 0.870
+seed 30 fold NE candidate DTI 0.1313 AUC canary 0.826
+seed 30 fold SW candidate DTI 0.1187 AUC canary 0.796
+seed 30 fold SE candidate DTI 0.1617 AUC canary 0.863
+Training final model on all catalogue...
+pos_all 60894 neg_all 4719824
+Final train score 0.799
+Predicting full footprint...
+  tile 0:500 done
+  tile 500:1000 done
+  tile 1000:1500 done
+  tile 1500:2000 done
+  tile 2000:2500 done
+  tile 2500:3000 done
+  tile 3000:3500 done
+  tile 3500:3730 done
+Final dots 37654 requested 37654
+Wrote /home/user/GEMSDOE79/docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.tif sha 3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4
+Wrote zip /home/user/GEMSDOE79/docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.zip
+Final dots vs E-proba corrected overlap 0.9560 my 37654 their 728138
+Final dots vs H33 corrected overlap 0.2687 my 37654 their 37654
+Spearman vs E-proba 0.1250
+Spearman vs H33 0.0139
+Byte distinct True
+{
+  "verdict": "promote",
+  "submission_name": "g80-hgb19-joint-37654-20261022-ac009e73-zeros",
+  "raster_sha256": "3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4",
+  "ok_to_submit": true
+}

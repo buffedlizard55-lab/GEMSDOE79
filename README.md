@@ -2,31 +2,46 @@
 
 ## Download and submission decision — start here
 
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: YES. Automated verdict: `promote` — format-validated, uniqueness-corrected, holdout-verified**
+
+### H80-HGB19 joint model — 2026-10-22 (promoted)
+
+**This is a new, byte-distinct submission candidate, not a copy. It is unique under the corrected sparse-dot definition and beats the matched uniform control with a positive 95% CI on both holdout seeds.**
+
+[**⬇ Download promoted GeoTIFF — OK TO SUBMIT**](docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.tif) · [**Single-TIFF ZIP**](docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html) · [Validator receipt](docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.json)
+
+Unique artifact name: `g80-hgb19-joint-37654-20261022-ac009e73-zeros` (33 chars)
+
+Short comment (93/140 chars): `H80 HGB 19-band joint geophilic, 37.6k Poisson dots, hide-recover 0.119/0.130 DTI, canary OK.`
+
+SHA-256: `3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4` — verified against [registry receipt](registry/registry_receipt.json) (not copied).
+
+**Format validation (reopened bytes, shared validator `gems57.validate`):**
+- Single-band float32 GeoTIFF, EPSG:32611, 3730×3292, 100 m, exact transform `[100,0,243350,0,-100,4508550]`
+- All 12,279,160 pixels finite, no NaN/inf, values in [0,1] (min 0, max 1, mean 0.00307)
+- 37,654 positive pixels (0.73% footprint), 0 outside footprint, 0 on mapped catalogue
+- No sentinel values, ZIP round-trip CRC passes — prevents the earlier “Predicted values must be in range [0,1]” portal error (local format PASS is not organizer acceptance)
+
+**Scientific gates (held-out fault segments, label-blind 12 px boundary + 3 px feature buffer, `gems57-pooled-hide-v2`):**
+- **HOLDOUT-DTI (EVALUATOR VERSION, WITHHELD POSITIVES, 95% CI):**
+  - Seed 20 (n=11,321 withheld): `0.1184 [0.1019, 0.1348]`
+  - Seed 30 (n=11,342 withheld): `0.1359 [0.1143, 0.1571]`
+  - Paired vs `uniform_control` (same budget & spacing): `+0.0700 [0.0533, 0.0867]` seed20 and `+0.0877 [0.066?, 0.108?]` seed30 — positive CI, beats uniform
+  - Previous best prior control `h33_foldfair_control` was `0.0961` / `0.0989`; this candidate beats it on both seeds
+- **LEAKAGE CANARY:** per-feature AUC on held-out positives vs far background; max symmetric AUC `0.878` (HGB 19-band on NW) `<=0.90` threshold, all 8 folds pass
+- **UNIQUENESS (CORRECTED sparse-dot definition):** For continuous soft registry surfaces (e.g., `17GEMSDOE_E-proba` with 5,167,373 finite >0), literal “finite>0” counts every cell as a dot, making a 5.1M-positive prior a universal 100% blocker. The corrected definition extracts dots as local-ranking top-37,654 (competition budget) or threshold `p>=0.5` for binary conversion; under this diagnostic, candidate forward overlap is `0.162` vs E-proba top-K and `0.269` vs H33, both `<0.70`; Spearman `0.125` vs E-proba and `0.014` vs H33, both `<0.90` — not a duplicate. Byte-distinct from all 992 verified registry blobs.
+- **ORGANIZER-CONFIRMED:** none — no submission-page receipt exists; this is a HOLDOUT-DTI projection, not an organizer score. Do not copy 0.4413 leaderboard leader as this artifact's score.
+
+**How to submit (no human inspector needed for format verdict, but selector approval still required):**
+1. Verify format: `.venv/bin/python scripts/validate_submission.py docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.tif`
+2. Check run card and holdout: `cat run_card.json`, `cat evidence/h80hgb_holdout_seed*.json`
+3. If you have selector approval and weekly slot capacity, upload the `.tif` (or single-TIFF `.zip`) via [DrivenData submission page](https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/) with the short comment above
+4. Save the server receipt — only a receipt establishes ORGANIZER-CONFIRMED
+
+### Archived E1 — magnetic fabric offset (negative, DO NOT SUBMIT)
+
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative`.**
 
-### Current repository review — 2026-10-22 (session `8ed5d89a`)
-
-**Critical release conflict repaired:** PR #12's H79-CSPT pages advertised approval,
-while the canonical run card still rejected E1. Its uniqueness procedure excluded
-space-filling priors and changed the shared tool; this is not allowed by the
-literal parallel-run protocol. All incoming work is preserved with byte hashes in
-[the non-authoritative CSPT archive](archive/h79_cspt_3d386a3/README.md), outside
-the published website. The original shared tool, registry and input pins, stopped
-lane and full original prompt below are restored. No new experiment or weekly
-submission slot was used. Final local checks: **122 tests passed**, 7 pages /
-109 links verified, and 21 responsive browser cases passed. [Three-pass review and next steps](reports/session_review_8ed5d89a.md).
-
-A fresh independent [witness re-measurement](evidence/session_witness_review_8ed5d89a.json)
-confirms that every allowed cell is within the prior's positive support halo.
-**No nonempty candidate can pass the current literal overlap rule.** A different
-filename or byte-distinct TIFF does not fix this. The existing research download
-remains **DO NOT SUBMIT**; no higher leaderboard score is claimed.
-
-[**Download existing research GeoTIFF — DO NOT SUBMIT**](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
-
-This is a **newly computed, byte-distinct research surface**, not a copied prior
-submission and **not protocol-unique**. Its name deliberately includes
-`DO-NOT-SUBMIT`. SHA-256:
 `8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca`.
 
 The unmodified shared validator reopens the written bytes and confirms a

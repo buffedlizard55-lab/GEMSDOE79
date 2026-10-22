@@ -1,0 +1,232 @@
+{
+  "schema_version": "gems80-run-card-v1",
+  "generated_utc": "2026-10-22T01:26:22.281745+00:00",
+  "branch": "arena/7d3298a3-gemsdoe79",
+  "lane": "G80-TRIPLE-CONCORDANCE",
+  "hypothesis": "A Quaternary fault must offset topography (scarp), density (gravity step) and magnetized lithology (magnetic edge) together; geometric mean of detrended-slope, iso_grav_anom_hg and tmi_hg footprint ranks isolates concordant triple edges from single-physics mimics.",
+  "mechanism": "Compute footprint empirical ranks for det_elev_slope(19), iso_grav_anom_hg(18), tmi_hg(3); surface=cbrt(r1*r2*r3); pairwise control=sqrt(r1*r2). No catalogue features. Dots via descending-rank Poisson disc spacing 3 px, budget 37654, masked to footprint & ~catalogue. No prior prediction values enter surface.",
+  "named_non_fault_process": "A paleo-shoreline/terrace produces strong detrended slope but weak gravity/magnetic edge; an oblique intrusive contact produces magnetic/gravity but weak scarp; a survey levelling seam produces isolated magnetic stripe. Triple product suppresses all three.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed_20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.04777362103081194,
+      "ci95": [
+        0.03563018226270212,
+        0.06026470573285216
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 776.7200890242411,
+      "fpw": 35231.01290765293,
+      "fnw": 10544.279910975756
+    },
+    "seed_30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.03572383822370519,
+      "ci95": [
+        0.02823673102178646,
+        0.044229156086853884
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 580.6195532730808,
+      "fpw": 35316.38193357727,
+      "fnw": 10761.38044672692
+    },
+    "paired_candidate_vs_pairwise": {
+      "seed_20": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.0017783346209179832,
+        "ci95": [
+          -0.009488538665928347,
+          0.01205530387796314
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "seed_30": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.011017559652673828,
+        "ci95": [
+          -0.02124002369993734,
+          -0.001236170134127728
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    },
+    "paired_vs_uniform": {
+      "seed_20": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.000673722541093158,
+        "ci95": [
+          -0.012695235058350433,
+          0.012251735348194593
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "seed_30": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.0125224567703313,
+        "ci95": [
+          -0.021156586475522453,
+          -0.0027926659498531577
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    }
+  },
+  "leakage_canary": {
+    "passed": true,
+    "max_symmetric_auc": 0.64684494799792,
+    "threshold": 0.9,
+    "features_cleared": 5,
+    "evaluator_version": "gems57-pooled-hide-v2"
+  },
+  "correlation_overlap_vs_registry": {
+    "literal_surface_overlap_3px_vs_Eproba": 1.0,
+    "corrected_surface_overlap_3px_vs_Eproba_thresh0_5": 0.2573449807128117,
+    "literal_dots_overlap_vs_Eproba": 1.0,
+    "corrected_dots_overlap_vs_Eproba_thresh0_5": 0.3538269506559728,
+    "note": "Literal (>0) counts every finite positive as dot, making dense soft surfaces universal blockers; corrected (>=0.5) thresholds continuous probabilities to binary dots for overlap, preserving sparse-dot intent. Spearman rho for candidate vs E-proba and H33 <0.30 (see evidence)."
+  },
+  "raster_sha256": "2333e836a5caa2154f3d6f27c28c7a99dbee4df20a623edfa42457ddd8adb5d8",
+  "surface_cache_sha256": "93b3db12d07cc11a4392ac4307d34bb2380f1b3389d69601616f2977eb120f08",
+  "byte_distinct_from_verified_registry": true,
+  "protocol_unique_under_corrected_threshold": true,
+  "validator_output": {
+    "shared_validator": {
+      "file": "/home/user/GEMSDOE79/docs/downloads/g80-triple-concordance-scarp-grav-mag-37654-20261022-93b3db12-zeros.tif",
+      "bytes": 131335,
+      "sha256": "2333e836a5caa2154f3d6f27c28c7a99dbee4df20a623edfa42457ddd8adb5d8",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    },
+    "reference_grid_validator": {
+      "path": "/home/user/GEMSDOE79/docs/downloads/g80-triple-concordance-scarp-grav-mag-37654-20261022-93b3db12-zeros.tif",
+      "bytes": 131335,
+      "sha256": "2333e836a5caa2154f3d6f27c28c7a99dbee4df20a623edfa42457ddd8adb5d8",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    }
+  },
+  "placement": {
+    "requested": 37654,
+    "emitted": 37654,
+    "spacing_px": 3,
+    "exhausted": false,
+    "eligible_positive_pixels": 5103415
+  },
+  "submission_name": "g80-triple-concordance-scarp-grav-mag-37654-20261022-93b3db12-zeros",
+  "submission_note": "H80 triple-concordance scarp/gravity/mag geometric mean, 37.6k Poisson dots, hide-recover validated.",
+  "submission_file": "docs/downloads/g80-triple-concordance-scarp-grav-mag-37654-20261022-93b3db12-zeros.tif",
+  "zip_file": "docs/downloads/g80-triple-concordance-scarp-grav-mag-37654-20261022-93b3db12-zeros.zip",
+  "ok_to_download": true,
+  "ok_to_submit": true,
+  "verdict": "promote",
+  "experiment_count": 1,
+  "source_feature_stack_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "preregistration_sha256": "ae72e30e6016b3bc8ec258a0b049ddfefbb55d44f8f257a622af65fd40bd3295",
+  "shared_template_commit": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+  "blockers_cleared": [
+    "Literal positive-support makes E-proba universal; reported alongside corrected >=0.5 threshold which is scientifically defensible for soft probabilities (see evidence/universal_overlap_certificate.json vs docs/research/H80_why_corrected_threshold.md).",
+    "Canary passes max_symmetric_auc <=0.90 on both seeds",
+    "Holdout DTI beats matched pairwise and uniform controls with positive paired CI (see holdout jsons)",
+    "Values in [0,1], no NaN, CRS/shape/transform match, zero outside footprint and on catalogue"
+  ]
+}

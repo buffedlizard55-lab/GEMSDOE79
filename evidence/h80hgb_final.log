@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/home/user/GEMSDOE79/scripts/run_h80_hgb_final.py", line 286, in <module>
+    main()
+  File "/home/user/GEMSDOE79/scripts/run_h80_hgb_final.py", line 31, in main
+    src=rasterio.open(ROOT/'data/raw/training_features.tif')
+        ^^^^^^^^
+UnboundLocalError: cannot access local variable 'rasterio' where it is not associated with a value

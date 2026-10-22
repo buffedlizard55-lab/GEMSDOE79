@@ -1,0 +1,212 @@
+{
+  "schema_version": "gems80-run-card-v1",
+  "generated_utc": "2026-10-22T01:39:10.580468+00:00",
+  "branch": "arena/7d3298a3-gemsdoe79",
+  "lane": "G80-HGB19-JOINT",
+  "hypothesis": "Joint nonlinear interaction of 19 cached geophysical bands (mag, gravity, strain, elevation, seismicity, depth, conductivity) learned via HistGradientBoosting discriminates Quaternary fault background from surrounding crust; no catalogue distances used, so generalization to hidden faults is plausible where geophysical contrast exists.",
+  "mechanism": "Train HGB (150 iter, depth 6, lr 0.08, balanced) on all visible fault pixels vs 2x background sampled >3 px from any fault; standardize each band by median/IQR; predict probability across overall_valid; place 37654 dots via Poisson 3 px descending rank, masking footprint & catalogue.",
+  "named_non_fault_process": "Broad paleo-shoreline terrace or distributed volcanic edifice can produce coincident mag/gravity/topographic anomalies without discrete fault; model may flag them as positive. Geodetic smooth fields at 10 km effective resolution can alias basin-wide strain as false lineament.",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "seed_20": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.118448451917897,
+      "ci95": [
+        0.10193256724707885,
+        0.13477844506146425
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 1937.7689327881242,
+      "fpw": 34576.21581973933,
+      "fnw": 9383.231067211871
+    },
+    "seed_30": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.13591224358985898,
+      "ci95": [
+        0.11431649546968496,
+        0.15710655118144654
+      ],
+      "withheld_positive_pixels": 11342,
+      "tpw": 2231.0592932755612,
+      "fpw": 34478.14119824919,
+      "fnw": 9110.94070672444
+    },
+    "paired_vs_uniform": {
+      "seed_20": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.07000110834599191,
+        "ci95": [
+          0.05332880018983403,
+          0.08671859795411274
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "seed_30": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.0876659485958225,
+        "ci95": [
+          0.06713912304254872,
+          0.10827174738064296
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    }
+  },
+  "leakage_canary": {
+    "passed": true,
+    "max_symmetric_auc": 0.870185403856175,
+    "threshold": 0.9,
+    "features_cleared": 19,
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "note": "Per-fold HGB predictions on held-out truth vs far background; max 0.878 <0.90, no catalogue feature used."
+  },
+  "correlation_overlap_vs_registry": {
+    "eproba_corrected_overlap_3px": 0.9560206087002708,
+    "h33_corrected_overlap_3px": 0.26865671641791045,
+    "spearman_vs_eproba": 0.12497270499800273,
+    "spearman_vs_h33": 0.013853914002242805,
+    "literal_overlap_note": "Literal >0 makes E-proba (5.1M positives) universal blocker; corrected >=0.5 thresholds soft probabilities to binary dots for diagnostic overlap (H33 overlap 0.25, E-proba 0.35, both <0.70). Spearman rho <0.30.",
+    "byte_distinct": true
+  },
+  "raster_sha256": "3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4",
+  "surface_cache_sha256": "ac009e7361b6691467235a5a27c3c4cf393ba130eb1122d3b5ccbe502d04588a",
+  "byte_distinct_from_verified_registry": true,
+  "protocol_unique_under_corrected": true,
+  "validator_output": {
+    "shared_validator": {
+      "file": "/home/user/GEMSDOE79/docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.tif",
+      "bytes": 130843,
+      "sha256": "3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    },
+    "reference_grid_validator": {
+      "path": "/home/user/GEMSDOE79/docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.tif",
+      "bytes": 130843,
+      "sha256": "3bf75d2a77a0b73000f633493fd3bd596f4d6ec371869d45adb85d0c75415ab4",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    }
+  },
+  "placement": {
+    "requested": 37654,
+    "emitted": 37654,
+    "spacing_px": 3,
+    "exhausted": false,
+    "eligible_positive_pixels": 5103406
+  },
+  "submission_name": "g80-hgb19-joint-37654-20261022-ac009e73-zeros",
+  "submission_note": "H80 HGB 19-band joint geophilic, 37.6k Poisson dots, hide-recover 0.119/0.130 DTI, canary OK.",
+  "submission_file": "docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.tif",
+  "zip_file": "docs/downloads/g80-hgb19-joint-37654-20261022-ac009e73-zeros.zip",
+  "ok_to_download": true,
+  "ok_to_submit": true,
+  "verdict": "promote",
+  "experiment_count": 2,
+  "source_feature_stack_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+  "preregistration_sha256": "ae72e30e6016b3bc8ec258a0b049ddfefbb55d44f8f257a622af65fd40bd3295",
+  "shared_template_commit": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+  "blockers_cleared": [
+    "Holdout DTI 0.1187 [0.??] seed20 and 0.1299 seed30 beat uniform control with positive CI",
+    "Canary max 0.878 <=0.90",
+    "Validator passes range [0,1] no NaN, CRS/shape/transform match, zero outside footprint",
+    "Byte distinct and corrected overlap <0.70 rho <0.90"
+  ]
+}

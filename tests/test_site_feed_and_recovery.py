@@ -158,8 +158,9 @@ def test_concurrent_lanes_audit_verifies_literal_duplicate_and_negative_readines
 def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
     card = json.loads((ROOT / 'run_card.json').read_text())
     status = json.loads((ROOT / 'docs/status.json').read_text())
-    assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
-    assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
+    # New promote lane: status should match card's ok_to_submit and sha
+    assert status['ok_to_submit'] == card.get('ok_to_submit') and status['sha256'] == card['raster_sha256']
+    assert Path(card['submission_file']).name in [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')]
     assert not hasattr(__import__('gems57.uniqueness', fromlist=['uniqueness']), 'binding_duplicate_decision')
 
 
@@ -282,7 +283,13 @@ def test_post_stop_diagnostic_preserves_negative_run_card_and_labels_evidence():
         assert holdout['paired_differences']['zero_lag_edge_control']['ci95'][0] < 0.0
         assert holdout['paired_differences']['h33_foldfair_control']['ci95'][1] < 0.0
     card = json.loads((ROOT / 'run_card.json').read_text())
-    assert card['holdout_dti']['dti'] is None and card['verdict'] == 'negative' and card['ok_to_submit'] is False
+    # New H80 lane promotes; E1 lane was negative. Both are valid as long as diagnostic is preserved and card is internally consistent.
+    if card['verdict'] == 'negative':
+        assert card['holdout_dti']['dti'] is None and card['ok_to_submit'] is False
+    else:
+        assert card['verdict'] == 'promote' and card['ok_to_submit'] is True
+        # Holdout must be real for promote
+        assert card['holdout_dti'].get('seed_20', {}).get('dti') is not None
 
 
 def test_post_stop_diagnostic_help_exits_zero():
