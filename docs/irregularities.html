@@ -1669,6 +1669,102 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>The official ScienceBase item JSON exposes a public heat-flow ZIP <code>downloadUri</code>, listing <code>130154244</code> bytes (124.12 MiB) and an advertised MD5; the earlier note incorrectly labeled the binary-unit size as MB.</td>
 <td>Corrected the unit and recorded the exact URL and advertised-but-unverified MD5. Public listing is not proof of archive transfer, a local hash, suitable schema, or target-area coverage.</td>
 </tr>
+<tr>
+<td>IR-79-220</td>
+<td>The strict portal validator discarded the inner TIFF R1 result for ZIP inputs, so a two-band TIFF could pass as a single archive member. It also trusted raster readability without checking GTiff driver, and missing inputs or corrupt archived TIFFs could escape as tracebacks.</td>
+<td>Fixed once in <code>src/gems79/portal_spec.py</code>: combine inner/outer R1, require GTiff, emit structured fail-closed inspection reports. Six new software-fixture cases; full suite 603 passed. No scientific raster or selector state changed. See <code>reports/session_review_148fa8f5.md</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>50335987</code> — ZIP inspector correction</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-50335987-01</td>
+<td>ZIP format inspector dropped the inner TIFF single-band failure, allowing a multi-band member to pass R1.</td>
+<td>Combine container and inner R1; regression tests require rejection for direct and zipped multi-band TIFFs. Central validator fixed, scientific template unchanged.</td>
+</tr>
+<tr>
+<td>IR-50335987-02</td>
+<td>A non-raster member named <code>.tif</code> in a valid ZIP raised RasterioIOError instead of a machine-readable refusal.</td>
+<td>Return negative R1; paired direct/ZIP regression tests.</td>
+</tr>
+<tr>
+<td>IR-50335987-03</td>
+<td>Homepage conflated byte-distinct historical artifacts with protocol uniqueness; executive summary generalized a three-file calibration to every research TIFF.</td>
+<td>Hero explicitly says no approved submission; narrowed calibration scope. No historical receipts or raster bytes altered.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>a201fa92</code> — official-format promotion gate and current input restore (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-221</td>
+<td>The shared older local validator passes a zero-filled exterior, while the official problem's R6 requires null/NaN outside the sample bounds; the canonical download fails R6 on 7,111,787 exterior cells. Older readiness and selector code could in principle approve on local format alone, though novelty stops this artifact.</td>
+<td>Wired the separate R1–R8 validator into readiness, independent <code>submission_decision</code> and selector; missing portal result now fails closed. Site labels official format FAIL separately from local range PASS. No TIFF was rewritten and no portal rejection cause was inferred.</td>
+</tr>
+<tr>
+<td>IR-79-222</td>
+<td>The raw 13-file owner-mirror manifest was missing in this fresh checkout. The existing restore script fetched all 13, checked pinned SHA-256 and kept the old receipt unchanged; all 13 were present in this session after restore.</td>
+<td>Record current runtime status in <code>evidence/runtime_data_status_a201fa92.json</code>. Raw files are ignored and not included in the pull request; fresh clones and CI must restore explicitly. Hash equality to an owner mirror is not organizer authentication.</td>
+</tr>
+<tr>
+<td>IR-79-223</td>
+<td>A hash-verified universal-support registry witness forces literal 3-pixel forward overlap 1.0 for any nonempty candidate, violating the 0.70 cap. The canonical card already exhausted its 3 experiments.</td>
+<td>Re-ran <code>preflight_new_lane.py --restore</code> (exit 2); no candidate surface, dots, TIFF or selector promotion was fabricated. A prospective protocol-owner resolution, not a post-hoc exemption, is required before new modeling.</td>
+</tr>
+<tr>
+<td>IR-79-224</td>
+<td>The existing shared all-finite writer rejects NaN, whereas the official R6 verifier rejects zero-filled exterior pixels on this sample grid; neither policy alone is sufficient for a future compliant promoted artifact.</td>
+<td>This session prevents approval of the mismatch but does not alter pinned scientific writer/grid bytes or rescore historical TIFFs. Prospective shared writer/validator update with NaN exterior <em>only</em>, finite [0,1] interior and full test/pin migration is the next engineering step after method/protocol authorization.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>a26add66</code> — automated official-format validator review (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-225</td>
+<td>The ZIP path discarded the inner TIFF's R1 result, so a one-member ZIP containing a two-band GeoTIFF could return <code>ok:true</code>. Reproduced by a failing regression before the fix.</td>
+<td>Preserve and combine archive/raster R1; require GDAL <code>GTiff</code> driver. Fix once in <code>src/gems79/portal_spec.py</code>, version <code>gems79-portal-format-v2</code>; no private evaluator/writer fork.</td>
+</tr>
+<tr>
+<td>IR-79-226</td>
+<td>Missing inputs, an unreadable TIFF inside a ZIP, and some decompression failures could raise instead of returning an automated refusal. A non-GeoTIFF with a <code>.tif</code> filename could pass R1.</td>
+<td>Complete eight-rule failed reports, actual-driver checks, archive/IO error handling, CLI continuation and adversarial tests. No malformed input is promoted by this fix.</td>
+</tr>
+<tr>
+<td>IR-79-227</td>
+<td>Homepage used unqualified local-format PASS while the official R6 exterior rule failed. This was a policy/communication ambiguity, not proof of portal acceptance.</td>
+<td>Homepage now says Official format FAIL R6 and links to the guide. Rechecked official sample PASS and inherited THVC TIFF/ZIP FAIL R6. Shared writer and archived bytes unchanged; prior upload error still undiagnosed.</td>
+</tr>
+<tr>
+<td>IR-79-228</td>
+<td>Data-placement claims needed current verification; historical restore metadata alone was insufficient.</td>
+<td>Restored and SHA-verified all thirteen owner-mirror inputs and exactly reproduced the historical cache in this workspace. Pins prove mirror integrity, not organizer origin. New-lane feasibility still exits 2, with full coverage of allowed cells. No candidate, holdout, placement or slot.</td>
+</tr>
 </tbody>
 </table>
 <h3>Session <code>414b11bf</code> addendum (2026-10-22) — post-sync preflight and backlog correction</h3>
@@ -1683,30 +1779,35 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-220</td>
+<td>IR-79-229</td>
 <td>The historical H79-U1–U5 file is not a current list of five distinct untried methods: U1/U2/U4/U5 materially overlap later magnetic-depth, fan/knickpoint, relay/conjugate/Coulomb, and shoreline/isohypse work. U3 assumes <code>cond_2km</code>–<code>cond_15km</code> bands absent from the 19-band local raster; the cited USGS product spans depth-integrated 2–200 km intervals.</td>
 <td>Added a warning banner to the historical file, retired its projected-gain ranges from active planning, and recorded the corrected current four-item qualitative shortlist in <code>research/hypotheses_a92a0164.md</code>. Exact variants remain unvalidated; broad-family overlap means they are not represented as globally novel.</td>
 </tr>
 <tr>
-<td>IR-79-221</td>
-<td>Follow-up runtime check verified 13/13 pinned manifest inputs at <code>2026-10-22T20:06:12.510691Z</code>, superseding the earlier 0/13 workspace snapshot for this local review only. The feature-cache receipt still names ten arrays that are absent; <code>.cache</code> contains only restore metadata and the novelty witness.</td>
-<td>Saved the fresh receipt in <code>evidence/preflight_414b11bf.json</code> and summarized it in <code>evidence/review_414b11bf.json</code>. No <code>prepare_data.py</code>, candidate feature generation, or experiment was run. A clean GitHub checkout still lacks ignored <code>data/raw</code> inputs; byte presence does not establish source authenticity, license, or scientific meaning.</td>
+<td>IR-79-230</td>
+<td>Session 414b11bf's time-specific runtime check verified 13/13 pinned manifest inputs at <code>2026-10-22T20:06:12.510691Z</code>; the ten arrays in the historical feature-cache receipt remained absent.</td>
+<td>Saved the fresh preflight and review evidence. No <code>prepare_data.py</code>, candidate feature generation, or experiment was run. A clean GitHub checkout lacks ignored <code>data/raw</code> inputs; byte presence does not establish source authenticity, license, or scientific meaning.</td>
 </tr>
 <tr>
-<td>IR-79-222</td>
+<td>IR-79-231</td>
 <td>Registry inspection found a sibling GEMSDOE75 raster named <code>H75-1 ... ComCat3D</code>; the proposed event-time/focal-plane coherence operator was not found as an executed GEMSDOE79 lane, but ComCat itself is not globally unused.</td>
 <td>Added the cross-lane caution to the ranked backlog. This narrow local-scope proposal is not exempt from pre-placement rank-correlation and overlap checks.</td>
 </tr>
 <tr>
-<td>IR-79-223</td>
+<td>IR-79-232</td>
 <td>The inherited main-branch <code>ventprox</code> TIFF locally passed the prior project range/shape receipt, but the official portal validator fails R6: all <code>7,111,787</code> out-of-template cells are finite zeros rather than null/NaN. It lacks a holdout and novelty clearance and was not generated by this review.</td>
 <td>Recorded the official validator output in the three-pass report and machine review. Preserve provenance; do not present it as new work or as valid for submission. No artifact was modified.</td>
 </tr>
 <tr>
-<td>IR-79-224</td>
+<td>IR-79-233</td>
 <td>Fresh post-sync literal preflight exits <code>2</code>, reports <code>impossible_under_literal_gate</code>, and sets <code>start_new_lane:false</code>; the pinned witness covers <code>1.0</code> of allowed cells versus the <code>0.70</code> limit.</td>
 <td>No candidate surface, pre-placement correlation, holdout, final-dot audit, selector, slot, or new TIFF was created. Preserve the gate unchanged; any protocol clarification must be made prospectively by its owner.</td>
 </tr>
+<tr>
+<td>IR-79-234</td>
+<td>The later main synchronization imported the G79-TIPSTEP TIFF and a static page that described local zero-exterior range checks as a format PASS. The current official validator returns R6 FAIL for the TIFF and its one-TIFF ZIP, with all 7,111,787 outside-template cells non-NaN.</td>
+<td>Retained the artifact as separate inherited research work, corrected its page to state <strong>OK TO DOWNLOAD: YES for research; OK TO SUBMIT: NO; official R6 FAIL</strong>, and added a source template/build rule plus reachability/format assertions so the guide is not deleted during site generation. No TIFF bytes changed.</td>
+</tr>
 </tbody>
 </table></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_414b11bf.md">Current review · 414b11bf</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Prior review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_414b11bf.md">Follow-up review · 414b11bf</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_a92a0164.md">Prior review · a92a0164</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

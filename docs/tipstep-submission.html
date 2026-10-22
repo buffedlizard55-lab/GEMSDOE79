@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>G79-TIPSTEP — research GeoTIFF, official R6 fail · GEMSDOE79</title><link rel="stylesheet" href="assets/site.css"></head>
+<body><a class="skip" href="#main">Skip to content</a><main class="wrap" id="main">
+<p><a href="index.html">← GEMSDOE79 home</a> · <a href="executive-summary.html">Decision / executive summary</a></p>
+<h1>G79-TIPSTEP — inherited research GeoTIFF</h1>
+<div class="download-warning"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong><br>
+Local sparse-raster novelty check only; the full registry scan was not completed. This file does
+<strong>not</strong> beat the current holdout incumbent and it fails official R6, so no weekly
+competition slot is approved. No human inspector is needed for this negative decision — it is
+computed from the gates below.</div>
+<p>
+<a class="button" href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif">↓ Download GeoTIFF (127 KB)</a>
+<a class="button secondary" href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.zip">↓ ZIP (same TIFF)</a>
+</p>
+<h2>Submission identity (for your records — do not upload this one)</h2>
+<div class="code-label">Submission name</div><div class="code-box">gems79-tipstep-20261022</div>
+<div class="code-label">Note (96/140 characters)</div><div class="code-box">G79-TIPSTEP catalogue tip-extension + collinear stepover bridges, dotted 3px, &gt;2px off catalogue</div>
+<div class="code-label">GeoTIFF SHA-256</div><div class="code-box">4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a</div>
+<h2>Format: local checks pass; official R6 fails</h2>
+<p>Local shape/range checks confirm a single float32 band, 12,279,160 finite cells, min 0.0, max 1.0, EPSG:32611, 3730×3292 and a sample-matching transform. That is not full official-format validation: the official Submission-format text requires null/NaN outside bounds, while this file writes zeros. The automated R1–R8 validator reports <strong>R6 FAIL</strong> for all 7,111,787 outside-template cells; its one-TIFF ZIP also fails R6 on the same member. Neither file is approved for submission. The cause of any earlier portal error remains unverified without its original file and receipt.</p>
+<h2>Gates (all labelled, no projections)</h2>
+<ul>
+<li><strong>Local shape/range:</strong> PASS; <strong>official R1–R8:</strong> FAIL R6 (above).</li>
+<li><strong>HOLDOUT-DTI</strong> (evaluator gems57-pooled-hide-v2, α=0.2, β=0.8, 300 m kernel):
+seed 20 = 0.0927 [0.0795, 0.1049], n=11,321 withheld px; seed 30 = 0.0928 [0.0777, 0.1079],
+n=11,342. Paired HOLDOUT-DTI difference versus uniform control: +0.091 (95% CI [0.078, 0.103]).
+Leakage canary only: maximum symmetric AUC 0.806 &lt; 0.90 (tipstep surface alone 0.51).</li>
+<li><strong>Incumbent gate: FAIL.</strong> Below the documented THVC/CSKD HOLDOUT-DTI incumbents under the same evaluator protocol. Protocol: do not spend a slot; this file is not promoted.</li>
+<li><strong>Novelty (local scope):</strong> vs 40 sparse dot rasters archived in this repo: max 3-px forward overlap 0.4765 &lt; 0.70, max |Spearman| 0.056 &lt; 0.90, zero duplicates. Full 1,108-row cross-repo registry not scanned offline; 4 dense continuous rasters flagged (universal-witness obstruction) — see run card. Hence uniqueness is <em>locally measured</em>, not registry-certified.</li>
+<li><strong>Organiser score:</strong> none. No ORGANIZER-CONFIRMED receipt exists for this file. Historical H33 0.2778 is unverified; leaderboard 0.4413 belongs to another entrant.</li>
+</ul>
+<h2>How to submit a (future, approved) file — executive summary</h2>
+<ol>
+<li>Only upload a file whose page states “OK TO SUBMIT: YES” from the selector; this one states NO.</li>
+<li>On DrivenData: New submission → choose the single-band .tif (or a .zip containing exactly one .tif).</li>
+<li>Paste the submission name and the ≤140-character note shown on that file's page.</li>
+<li>Confirm the page reports a free weekly slot on your account before spending it.</li>
+</ol>
+<p>Full evidence: <code>run_card_tipstep.json</code>, <code>evidence/tipstep_experiment1.json</code>,
+<code>evidence/tipstep_novelty_local.json</code>, <code>research/hypotheses_tipstep.md</code>.</p>
+</main></body></html>

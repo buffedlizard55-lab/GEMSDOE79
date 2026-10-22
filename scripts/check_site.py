@@ -27,8 +27,9 @@ def check_site():
     assert set(pages) == {
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
         'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
-        'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html', 'tdw-submission.html',
-    }, 'Expected the thirteen project pages (canonical seven + lane pages)'
+        'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html',
+        'tdw-submission.html', 'tipstep-submission.html',
+    }, 'Expected the fourteen project pages (canonical seven + lane pages)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
@@ -113,12 +114,12 @@ def check_site():
                 'all_manifest_inputs_ready', 'files'):
         assert runtime[key] == observed_now[key], f'Runtime data feed drift: {key}'
     assert site_manifest['runtime_data_status_sha256'] == hashlib.sha256(runtime_path.read_bytes()).hexdigest()
-    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_414b11bf.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_a92a0164.json').read_bytes()).hexdigest()
     assert site_manifest['latest_review_card_sha256'] == hashlib.sha256((site / 'evidence/run_card_a92a0164.json').read_bytes()).hexdigest()
-    assert site_manifest['latest_review_session'] == '414b11bf'
-    assert site_manifest['latest_review_evidence_sha256'] == hashlib.sha256((site / 'evidence/review_414b11bf.json').read_bytes()).hexdigest()
-    assert site_manifest['latest_review_report_sha256'] == hashlib.sha256((site / 'evidence/session_review_414b11bf.md').read_bytes()).hexdigest()
     assert site_manifest['latest_source_review_sha256'] == hashlib.sha256((site / 'evidence/source_review_a92a0164.json').read_bytes()).hexdigest()
+    assert site_manifest['session_414b11bf_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_414b11bf.json').read_bytes()).hexdigest()
+    assert site_manifest['session_414b11bf_review_sha256'] == hashlib.sha256((site / 'evidence/review_414b11bf.json').read_bytes()).hexdigest()
+    assert site_manifest['session_414b11bf_report_sha256'] == hashlib.sha256((site / 'evidence/session_review_414b11bf.md').read_bytes()).hexdigest()
     assert json.loads((site / 'evidence/preflight_414b11bf.json').read_text()) == json.loads((ROOT / 'evidence/preflight_414b11bf.json').read_text())
     assert json.loads((site / 'evidence/review_414b11bf.json').read_text()) == json.loads((ROOT / 'evidence/review_414b11bf.json').read_text())
     assert (site / 'evidence/session_review_414b11bf.md').read_text() == (ROOT / 'reports/session_review_414b11bf.md').read_text()
@@ -130,11 +131,16 @@ def check_site():
     assert f"{runtime['verified_count']}/{runtime['expected_count']}" in source_text
     for filename in ('index.html', 'executive-summary.html'):
         current_text = pages[filename].get_text(' ', strip=True)
-        assert 'Latest review' in current_text and 'session 414b11bf' in current_text
-        assert 'no new candidate GeoTIFF' in current_text and 'no slot use' in current_text
+        assert 'Follow-up audit' in current_text and 'session 414b11bf' in current_text
+        assert 'no experiment' in current_text.lower() and 'slot use' in current_text
         assert 'review-time runtime availability' in current_text.lower() and '13/13' in current_text
         assert 'H33' in current_text and '0.2747' in current_text and 'UNSCORED' in current_text and '0.4413' in current_text
-        assert 'ventprox TIFF' in current_text and 'outside-bounds R6' in current_text
+        assert 'ventprox TIFF' in current_text and 'official R6' in current_text
+    tipstep_text = pages['tipstep-submission.html'].get_text(' ', strip=True)
+    assert 'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.' in tipstep_text
+    assert 'official r6 fails' in tipstep_text.lower() and '7,111,787' in tipstep_text
+    assert 'Local sparse-raster novelty check only' in tipstep_text
+    assert pages['index.html'].find('a', href='tipstep-submission.html')
     assert '@import' not in (site / 'assets/site.css').read_text()
     assert (ROOT / '.nojekyll').exists() and (site / '.nojekyll').exists()
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()

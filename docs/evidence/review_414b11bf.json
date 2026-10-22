@@ -296,5 +296,94 @@
     "Feature arrays listed by the historical receipt are absent from the local cache.",
     "Remote source metadata is not local data acquisition or validation.",
     "No organizer submission-page receipt establishes a local artifact score."
-  ]
+  ],
+  "post_review_main_sync": {
+    "main_commit": "2ed6c2d276a64baa0043e7715731cd3bc1038f47",
+    "merged_prs_into_assigned_branch": [
+      134,
+      135,
+      137,
+      138
+    ],
+    "assigned_branch_unchanged": "arena/414b11bf-gemsdoe79",
+    "newly_inherited_main_artifact": {
+      "lane": "G79-TIPSTEP",
+      "path": "artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif",
+      "sha256": "4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a",
+      "created_by_session_414b11bf": false,
+      "holdout_dti": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "seed_20": {
+          "dti": 0.0927,
+          "ci95": [
+            0.0795,
+            0.1049
+          ],
+          "withheld_positive_count": 11321
+        },
+        "seed_30": {
+          "dti": 0.0928,
+          "ci95": [
+            0.0777,
+            0.1079
+          ],
+          "withheld_positive_count": 11342
+        },
+        "status": "Separate inherited main-branch negative result; below the documented incumbents."
+      },
+      "registry_scope": "40 sparse local rasters only; full 1108-row scan was not completed."
+    },
+    "official_format_validation": {
+      "command": ".venv/bin/python scripts/validate_portal_spec.py artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif",
+      "exit_code": 2,
+      "failed_rule": "R6",
+      "outside_template_non_nan_cells": 7111787,
+      "status": "FAIL; the TIFF and its one-TIFF ZIP both contain finite zeros in all 7,111,787 out-of-template cells rather than null/NaN.",
+      "zip_command": ".venv/bin/python scripts/validate_portal_spec.py artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.zip",
+      "zip_exit_code": 2,
+      "zip_failed_rule": "R6",
+      "zip_outside_template_non_nan_cells": 7111787
+    },
+    "verification_after_sync": {
+      "build_site": {
+        "passed": true,
+        "pages": 14,
+        "decision": "OK TO DOWNLOAD: YES. OK TO SUBMIT: NO."
+      },
+      "check_site": {
+        "passed": true,
+        "pages": 14,
+        "local_links_checked": 357,
+        "all_pages_reachable_from_home": true,
+        "compatibility_redirects": 2,
+        "external_assets": 0,
+        "submit": false
+      },
+      "verify_project": {
+        "passed": true,
+        "all_checks_passed": true
+      },
+      "pytest": {
+        "passed": 624,
+        "failed": 0,
+        "duration_seconds": 98.93
+      },
+      "browser_unit_tests": {
+        "passed": 12,
+        "failed": 0
+      },
+      "browser_render_review": {
+        "passed": true,
+        "rendered_cases": 42,
+        "download_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2"
+      },
+      "pull_request": {
+        "number": 139,
+        "state": "OPEN",
+        "merged": false,
+        "checks_at_latest_observation": "Not yet rechecked after pushing the synchronized branch."
+      }
+    }
+  }
 }
