@@ -11,5 +11,5 @@ registry raster and contains a patterned preregistration digest. No new claim of
 metric, CI, canary, novelty or provenance validity is made. The original root
 card, preregistration and research prose remain historical evidence. Original
 `docs/downloads/` paths in immutable receipts map to `downloads/` here; original
-`docs/evidence/` ETP files map to `evidence/`. No bytes were regenerated, renamed
+`docs/evidence/` ETP files map to `evidence/`. The embedded ETP receipts also retain historical `archive/g79_etp_20261022/` paths from a later reconciliation; those references identify the same preserved files here and were not rewritten. No bytes were regenerated, renamed
 to claim novelty, or promoted. Canonical G79-THVC remains negative.
