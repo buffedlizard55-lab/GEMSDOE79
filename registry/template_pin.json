@@ -109,11 +109,15 @@
     },
     {
       "path": "vendor/gems57/uniqueness.py",
-      "git_blob": "66e4e166e7d501ee8d012d3fb842a74afdfea670",
-      "sha256": "8cd7946bb4f9754fbb577ac4155a169cd55e25da0a4af9163edb7d95f0dd8d53",
-      "previous_sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
-      "previous_git_blob": "a07356d4487f3ba0223ebfe5417fce6486f5ea67",
-      "version_note": "Merge of two prospective shared fixes. (1) v4 (session c04e5e27, IR-79-86): OVERLAP_MODES + overlap_mode/allowed kwargs on compare_array_to_registry; default 'literal-threshold' unchanged; 'informative-halo-v4' skips the vacuous overlap firing when a prior halo covers >70% of allowed. (2) amendment D-2 (session 4f80e0d0, IR-79-128, reports/protocol_amendment_D2_20261022.md): adds chance_corrected_overlap, d2_row_decision, compare_array_to_registry_d2 (duplicate iff raw forward overlap >0.70 AND chance-corrected (ov-h)/(1-h) >0.70 vs dot-equivalent sets; exact-cell test when halo saturates; literal reading always reported). The D-2 block is unchanged from session 4f80e0d0's pin df5bd1a1fb33bfa41045b52295714f2bdf74556007eb5b23e2598dbccce5de12 (the version that produced evidence/ber/uniqueness_surface.json); the merge only adds the v4 kwargs to the older function. All literal/v3 behaviour unchanged."
+      "git_blob": "b3418a502d76f9fb53073268ab261c9bf5b1f2db",
+      "sha256": "adafe293a9bc27fb416543cc9d30208c8a08540bc0605060e304a4dc7b255779",
+      "previous_sha256": "8cd7946bb4f9754fbb577ac4155a169cd55e25da0a4af9163edb7d95f0dd8d53",
+      "previous_git_blob": "66e4e166e7d501ee8d012d3fb842a74afdfea670",
+      "version_note": "Amendment D-3 (session ff2e4413, IR-79-207, reports/protocol_amendment_D3_20261022.md): adds SATURATED_BRANCHES, d3_exact_decision and a saturated_branch keyword (default 'exact-d2' = unchanged D-2 behaviour and receipts) on d2_row_decision / compare_array_to_registry_d2. 'chance-corrected-d3' chance-corrects only the halo-saturated exact-cell branch (duplicate iff exact>0.70 and (exact-e)/(1-e)>0.70, e=|S\u2229A|/|A|; e>=0.999999 non-informative, rho/identity still apply). Prior note: Merge of two prospective shared fixes. (1) v4 (session c04e5e27, IR-79-86): OVERLAP_MODES + overlap_mode/allowed kwargs on compare_array_to_registry; default 'literal-threshold' unchanged; 'informative-halo-v4' skips the vacuous overlap firing when a prior halo covers >70% of allowed. (2) amendment D-2 (session 4f80e0d0, IR-79-128, reports/protocol_amendment_D2_20261022.md): adds chance_corrected_overlap, d2_row_decision, compare_array_to_registry_d2 (duplicate iff raw forward overlap >0.70 AND chance-corrected (ov-h)/(1-h) >0.70 vs dot-equivalent sets; exact-cell test when halo saturates; literal reading always reported). The D-2 block is unchanged from session 4f80e0d0's pin df5bd1a1fb33bfa41045b52295714f2bdf74556007eb5b23e2598dbccce5de12 (the version that produced evidence/ber/uniqueness_surface.json); the merge only adds the v4 kwargs to the older function. All literal/v3 behaviour unchanged.",
+      "historical_sha256": [
+        "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
+        "8cd7946bb4f9754fbb577ac4155a169cd55e25da0a4af9163edb7d95f0dd8d53"
+      ]
     },
     {
       "path": "vendor/gems57/validate.py",
