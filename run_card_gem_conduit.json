@@ -1,0 +1,134 @@
+{
+  "schema_version": 2,
+  "lane": "G79-GEM",
+  "generated_utc": "2026-10-22T21:07:41Z",
+  "hypothesis": "Concealed geothermal conduit faults (blind, absent from the USGS/INGENIOUS catalogue) coincide with an isostatic-gravity horizontal-gradient edge and a magnetic-anomaly low (hydrothermal demagnetization). Surface = gravity-edge rank x (1 - magnetic-anomaly rank), zeroed on the catalogue and outside the footprint; top dots emitted as a sparse binary field.",
+  "mechanism": "training_features band 18 (iso_grav_anom_hg) x (1 - band 1 mag_anom rank), empirical unit ranks on the footprint, product normalised to [0,1], top-37,654 dots via kernel-credit ranking; sparse binary emission in [0,1].",
+  "named_non_fault_mimic": "Pluvial shoreline benches, fluvial terrace risers, welded caldera cooling joints, lateral thermal outflow plumes can mimic gravity/mag edges without being geothermal faults.",
+  "holdout_dti": {
+    "evidence_class": "HOLDEOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "dti": 0.0045,
+    "ci95": [
+      0.0029,
+      0.0064
+    ],
+    "withheld_positive_pixels": 22663,
+    "per_seed": {
+      "seed_20": {
+        "dti": 0.0041,
+        "ci95": [
+          0.0023,
+          0.0062
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "seed_30": {
+        "dti": 0.0049,
+        "ci95": [
+          0.0024,
+          0.0081
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    },
+    "note": "Below the ~0.05 random control: this concealed-fault detector targets blind faults not the catalogue segments used as holdout truth. Negative result.",
+    "source_pointer": "scripts/run_gem_conduit.py"
+  },
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5056,
+    "passed": true,
+    "required_threshold": 0.9,
+    "features_cleared": 2,
+    "n_suspicious_gt_0p90": 0,
+    "per_feature": {
+      "gravity_edge_rank": 0.5056,
+      "mag_demag_low": 0.4998
+    }
+  },
+  "correlation_overlap_vs_registry": {
+    "note": "Measured vs locally cached historical rasters only (full 992-raster registry not cached locally). Candidate is distinct from all dot submissions (max dot-vs-dot forward 3-px overlap 0.2400 vs h79-dilstep), but overlaps the dense G79-FF1 fabric-offset surface at 0.8986 forward 3-px overlap (> 0.70), so the FULL literal novelty gate FAILS vs that dense prior surface.",
+    "max_forward_overlap_3px_vs_local": 0.8986,
+    "forward_overlap_limit": 0.7,
+    "max_abs_spearman_vs_local": 0.1124,
+    "spearman_limit": 0.9,
+    "novelty_passed": false,
+    "novelty_note": "FAIL vs dense fabric-offset prior surface; distinct from all sparse dot submissions"
+  },
+  "submission_file": "artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.tif",
+  "zip_file": "artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.zip",
+  "raster_sha256": "c60a4387070e43f33c6a68792d71eaabeaa1abfeb6632ad956b470e3b1c61f2d",
+  "zip_sha256": "396e65748a6356c3c6341630ddbeff05acfa1fb6bda5b19ca0f640915ecee486",
+  "submission_name": "gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z",
+  "submission_note": "GEMSDOE79 G79-GEM concealed-conduit: gravity-gradient x magnetic-low blind-fault surface; negative holdout, research-only, DO NOT SUBMIT",
+  "positive_pixels": 37654,
+  "validator": {
+    "file": "/home/user/GEMSDOE79/artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.tif",
+    "bytes": 87127,
+    "sha256": "c60a4387070e43f33c6a68792d71eaabeaa1abfeb6632ad956b470e3b1c61f2d",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "runtime_s": null,
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "approved_for_weekly_slot": false,
+  "verdict": "negative_research_artifact_not_approved_for_submission",
+  "blockers": [
+    "Full literal novelty gate fails (0.8986 forward 3-px overlap vs dense G79-FF1 fabric-offset surface > 0.70).",
+    "Holdout DTI 0.0045 is below the ~0.05 random control (negative result).",
+    "No DrivenData login: cannot obtain an organizer receipt or verify a weekly slot.",
+    "Weekly slot / eligibility not observable from this checkout (account-side)."
+  ],
+  "submission_note_display": "OK TO DOWNLOAD: YES (locally validated research GeoTIFF). OK TO SUBMIT: NO (novelty gate fails, holdout negative, no organizer receipt, weekly slot unverified)."
+}
