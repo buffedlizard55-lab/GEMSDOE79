@@ -1669,6 +1669,11 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>The official ScienceBase item JSON exposes a public heat-flow ZIP <code>downloadUri</code>, listing <code>130154244</code> bytes (124.12 MiB) and an advertised MD5; the earlier note incorrectly labeled the binary-unit size as MB.</td>
 <td>Corrected the unit and recorded the exact URL and advertised-but-unverified MD5. Public listing is not proof of archive transfer, a local hash, suitable schema, or target-area coverage.</td>
 </tr>
+<tr>
+<td>IR-79-220</td>
+<td>The strict portal validator discarded the inner TIFF R1 result for ZIP inputs, so a two-band TIFF could pass as a single archive member. It also trusted raster readability without checking GTiff driver, and missing inputs or corrupt archived TIFFs could escape as tracebacks.</td>
+<td>Fixed once in <code>src/gems79/portal_spec.py</code>: combine inner/outer R1, require GTiff, emit structured fail-closed inspection reports. Six new software-fixture cases; full suite 603 passed. No scientific raster or selector state changed. See <code>reports/session_review_148fa8f5.md</code>.</td>
+</tr>
 </tbody>
 </table>
 <h3>Session <code>50335987</code> — ZIP inspector correction</h3>

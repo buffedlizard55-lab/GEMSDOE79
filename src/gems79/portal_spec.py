@@ -74,7 +74,8 @@ def _validate_tif(path: Path, template: Path, out: dict) -> None:
     ref_inside = ~ref_outside
 
     with rasterio.open(path) as src:
-        _check(results, 'R1', src.count == 1, f'{src.count} band(s)')
+        _check(results, 'R1', src.driver == 'GTiff' and src.count == 1,
+               f'driver {src.driver}; {src.count} band(s)')
         _check(results, 'R2', src.dtypes[0] == 'float32', f'dtype {src.dtypes[0]}')
         crs_ok = src.crs is not None and src.crs.to_string() == OFFICIAL_CRS
         _check(results, 'R3', crs_ok, f'CRS {src.crs}')
@@ -122,7 +123,7 @@ def _validate_tif(path: Path, template: Path, out: dict) -> None:
     }
 
 
-def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
+def _inspect_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
     """Validate a .tif or a single-TIFF .zip against the official rules."""
     path, template = Path(path), Path(template)
     out = {'file': _rel(path), 'sha256': _sha256(path), 'bytes': path.stat().st_size,
@@ -142,22 +143,18 @@ def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
                         extracted = Path(tmp) / Path(tifs[0]).name
                         extracted.write_bytes(z.read(tifs[0]))
                         _validate_tif(extracted, template, out)
-                        # R1 requires BOTH a single archive member and a
-                        # single-band GeoTIFF. Never discard an inner failure.
-                        inner_r1 = out['rules'][1]
-                        archive_r1 = out['rules'][0]
-                        archive_r1['pass'] = archive_r1['pass'] and inner_r1['pass']
-                        archive_r1['detail'] += '; inner TIFF: ' + inner_r1['detail']
+                        # R1 requires BOTH a single archive member and a single
+                        # GeoTIFF band. Never discard the inner raster failure.
+                        outer, inner = out['rules'][0], out['rules'][1]
+                        outer['pass'] = outer['pass'] and inner['pass']
+                        outer['detail'] += '; ' + inner['detail']
                         del out['rules'][1]
                     out['inner_tif'] = tifs[0]
                 else:
                     for rule in ('R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8'):
                         _check(out['rules'], rule, False, 'not evaluated: zip is not a single TIFF')
-        except (zipfile.BadZipFile, rasterio.errors.RasterioIOError) as exc:
-            # A readable archive is not evidence that its member is a TIFF.
-            # Return a refusal rather than crashing the automated inspector.
-            out['rules'] = []
-            _check(out['rules'], 'R1', False, f'not a readable single-GeoTIFF zip: {exc}')
+        except zipfile.BadZipFile as exc:
+            _check(out['rules'], 'R1', False, f'not a valid zip: {exc}')
     else:
         try:
             _validate_tif(path, template, out)
@@ -165,6 +162,30 @@ def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
             _check(out['rules'], 'R1', False, f'not readable as GeoTIFF: {exc}')
     out['failed_rules'] = [r['rule'] for r in out['rules'] if not r['pass']]
     out['ok'] = bool(out['rules']) and not out['failed_rules'] and len(out['rules']) == len(RULES)
+    return out
+
+
+def validate_portal_file(path, template=DEFAULT_TEMPLATE) -> dict:
+    """Return a fail-closed report, including for absent or corrupt inputs.
+
+    Inspection errors are not measured rule failures: all rules are marked
+    unverified/failed and the exception type is reported without private paths.
+    This never grants scientific or competition approval.
+    """
+    try:
+        out = _inspect_portal_file(path, template)
+    except (OSError, ValueError, RuntimeError, zipfile.BadZipFile,
+            rasterio.errors.RasterioError) as exc:
+        out = {'file': _rel(path), 'template': _rel(template),
+               'sha256': None, 'template_sha256': None, 'bytes': None,
+               'official_source': OFFICIAL_PAGE, 'rules': [],
+               'cells': {'compared': False},
+               'inspection_error': {'type': type(exc).__name__}}
+        for rule in RULES:
+            _check(out['rules'], rule, False, 'not verified: input or template inspection failed')
+        out['failed_rules'] = list(RULES)
+        out['ok'] = False
+    out['does_not_approve_submission'] = True
     return out
 
 

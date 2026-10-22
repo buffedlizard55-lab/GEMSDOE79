@@ -97,3 +97,18 @@ assumed to have succeeded merely because local HTML builds.
   pinned inputs, audit feature semantics, freeze untouched validation, and test
   one mechanism within budget. Resolve exterior writing against official format
   before an eligible future export. None authorizes an upload of stopped files.
+
+## Concurrent-main reconciliation before merge
+
+Main advanced during review. Incorporated the d754356b and e1bfa000 reviews and
+preserved the incoming vent-proximity negative artifact without generating or
+endorsing it. The 148fa8f5 session independently fixed the same inner-ZIP defect
+and added driver validation and a broader fail-closed inspection boundary. Adopted
+that shared implementation rather than retaining a competing version; kept this
+session's direct/ZIP regression cases. Thus this PR's final validator content is
+identical to that incoming fix, not a second private validator. Rebuilt generated
+pages and reran the combined suite after resolving conflicts. Earlier test counts
+above describe the pre-integration checkout, not the enlarged final suite.
+
+Final integrated verification: **609 software tests passed**; site build, site-link
+checker and project verification passed. No new scientific measurements.
