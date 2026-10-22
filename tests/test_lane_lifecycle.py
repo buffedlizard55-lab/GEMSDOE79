@@ -129,13 +129,18 @@ def test_absent_card_fails_closed(tmp_path):
     ('generate_unique_submission.py', ['test-name', 'test-note']),
     ('run_g79_cskd.py', ['--stage', 'seed20']),
     ('run_csmd.py', ['--stage', 'seed20']),
+    ('run_stfd.py', ['--stage', 'canary']),
+    ('run_stfd.py', ['--stage', 'seed20']),
+    ('run_stfd.py', ['--stage', 'live']),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (
-        [ROOT / 'run_card.json', ROOT / 'run_card_stepco.json', ROOT / 'run_card_g79b.json', ROOT / 'run_card_asym.json', ROOT / 'run_card_cjx.json']
+        [ROOT / 'run_card.json', ROOT / 'run_card_stepco.json', ROOT / 'run_card_g79b.json', ROOT / 'run_card_asym.json', ROOT / 'run_card_cjx.json', ROOT / 'run_card_stfd.json']
         + list((ROOT / 'evidence/nhr').glob('*.json'))
         + list((ROOT / 'evidence/ffas').glob('*.json'))
         + list((ROOT / 'evidence/cjx').glob('*.json'))
+        + list((ROOT / 'evidence/stfd').glob('*'))
+        + list((ROOT / 'archive/g79_stfd_1b017e86/downloads').glob('*'))
         + list((ROOT / 'artifacts/cjx').glob('*'))
         + list((ROOT / 'docs/downloads').glob('*'))
     )

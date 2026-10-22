@@ -1,0 +1,1088 @@
+{
+  "lane": "G79-STFD",
+  "threshold": 0.9,
+  "n_static_features": 97,
+  "n_mech_features": 22,
+  "n_features_tested": 119,
+  "feature_seed_tests": 238,
+  "per_seed": {
+    "20": {
+      "withheld_positive_pixels": 11321,
+      "sampled_negatives": 350000,
+      "max_symmetric_auc": 0.789678,
+      "worst_feature": "net_tip_fwd_35px",
+      "all_passed": true,
+      "top10_features": [
+        {
+          "feature": "net_tip_fwd_35px",
+          "symmetric_auc": 0.789678,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_x_scarp",
+          "symmetric_auc": 0.784381,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_x_swarm_strain",
+          "symmetric_auc": 0.782173,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_x_grav_bdepth",
+          "symmetric_auc": 0.777082,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_wing_lobe",
+          "symmetric_auc": 0.771041,
+          "passed": true
+        },
+        {
+          "feature": "net_relay_x_hydro",
+          "symmetric_auc": 0.766821,
+          "passed": true
+        },
+        {
+          "feature": "net_log_dist",
+          "symmetric_auc": 0.755381,
+          "passed": true
+        },
+        {
+          "feature": "net_exp_near_600",
+          "symmetric_auc": 0.755381,
+          "passed": true
+        },
+        {
+          "feature": "net_exp_mid_1800",
+          "symmetric_auc": 0.755381,
+          "passed": true
+        },
+        {
+          "feature": "net_exp_far_4500",
+          "symmetric_auc": 0.755381,
+          "passed": true
+        }
+      ],
+      "features": {
+        "tf_mag_anom": {
+          "symmetric_auc": 0.509261,
+          "passed": true
+        },
+        "tf_rtp": {
+          "symmetric_auc": 0.517769,
+          "passed": true
+        },
+        "tf_tmi_hg": {
+          "symmetric_auc": 0.528334,
+          "passed": true
+        },
+        "tf_geod_2ndinv": {
+          "symmetric_auc": 0.567078,
+          "passed": true
+        },
+        "tf_iso_grav_anom_slope": {
+          "symmetric_auc": 0.523799,
+          "passed": true
+        },
+        "tf_tc": {
+          "symmetric_auc": 0.528152,
+          "passed": true
+        },
+        "tf_geod_shearrate": {
+          "symmetric_auc": 0.566822,
+          "passed": true
+        },
+        "tf_geod_dilaterate": {
+          "symmetric_auc": 0.515667,
+          "passed": true
+        },
+        "tf_tmi_vg": {
+          "symmetric_auc": 0.512853,
+          "passed": true
+        },
+        "tf_deq_n100a15": {
+          "symmetric_auc": 0.537556,
+          "passed": true
+        },
+        "tf_iso_grav_anom_vg": {
+          "symmetric_auc": 0.513636,
+          "passed": true
+        },
+        "tf_det_elev": {
+          "symmetric_auc": 0.512791,
+          "passed": true
+        },
+        "tf_iso_grav_anom": {
+          "symmetric_auc": 0.540705,
+          "passed": true
+        },
+        "tf_tmi": {
+          "symmetric_auc": 0.50881,
+          "passed": true
+        },
+        "tf_depth_to_base_surf": {
+          "symmetric_auc": 0.524515,
+          "passed": true
+        },
+        "tf_ieq_n100a15": {
+          "symmetric_auc": 0.543091,
+          "passed": true
+        },
+        "tf_cond_surf": {
+          "symmetric_auc": 0.521311,
+          "passed": true
+        },
+        "tf_iso_grav_anom_hg": {
+          "symmetric_auc": 0.507087,
+          "passed": true
+        },
+        "tf_det_elev_slope": {
+          "symmetric_auc": 0.563648,
+          "passed": true
+        },
+        "rtp_uc600_res": {
+          "symmetric_auc": 0.506788,
+          "passed": true
+        },
+        "rtp_demag_trough": {
+          "symmetric_auc": 0.50858,
+          "passed": true
+        },
+        "rtp_hgm_z200": {
+          "symmetric_auc": 0.535987,
+          "passed": true
+        },
+        "rtp_tilt_z200_abs": {
+          "symmetric_auc": 0.530322,
+          "passed": true
+        },
+        "rtp_tilt_dip_shift": {
+          "symmetric_auc": 0.507495,
+          "passed": true
+        },
+        "rtp_crest_prom": {
+          "symmetric_auc": 0.521786,
+          "passed": true
+        },
+        "euler_si_rtp": {
+          "symmetric_auc": 0.510943,
+          "passed": true
+        },
+        "grav_uc800_res": {
+          "symmetric_auc": 0.504118,
+          "passed": true
+        },
+        "grav_hgm_z200": {
+          "symmetric_auc": 0.526001,
+          "passed": true
+        },
+        "grav_hgm_z800": {
+          "symmetric_auc": 0.521154,
+          "passed": true
+        },
+        "grav_tilt_z200_abs": {
+          "symmetric_auc": 0.523609,
+          "passed": true
+        },
+        "grav_tilt_dip_shift": {
+          "symmetric_auc": 0.516112,
+          "passed": true
+        },
+        "grav_crest_prom": {
+          "symmetric_auc": 0.517141,
+          "passed": true
+        },
+        "bdepth_hgm_300m": {
+          "symmetric_auc": 0.538828,
+          "passed": true
+        },
+        "bdepth_hgm_900m": {
+          "symmetric_auc": 0.536872,
+          "passed": true
+        },
+        "transtension_conduit_idx": {
+          "symmetric_auc": 0.542445,
+          "passed": true
+        },
+        "det_elev_prom_600m": {
+          "symmetric_auc": 0.574003,
+          "passed": true
+        },
+        "t2m_dab_300m": {
+          "symmetric_auc": 0.508642,
+          "passed": true
+        },
+        "t2m_dab_900m": {
+          "symmetric_auc": 0.528186,
+          "passed": true
+        },
+        "t2m_dab_2200m": {
+          "symmetric_auc": 0.503467,
+          "passed": true
+        },
+        "t2m_dab_grad_ridge": {
+          "symmetric_auc": 0.519046,
+          "passed": true
+        },
+        "t2m_survey_weight": {
+          "symmetric_auc": 0.510565,
+          "passed": true
+        },
+        "paleo_vent_kde_800m": {
+          "symmetric_auc": 0.515211,
+          "passed": true
+        },
+        "paleo_vent_kde_2400m": {
+          "symmetric_auc": 0.546498,
+          "passed": true
+        },
+        "paleo_hitemp_sinter_1200m": {
+          "symmetric_auc": 0.510195,
+          "passed": true
+        },
+        "paleo_vent_strike_bridge": {
+          "symmetric_auc": 0.502435,
+          "passed": true
+        },
+        "gdr_thermal_anom_900m": {
+          "symmetric_auc": 0.510623,
+          "passed": true
+        },
+        "gdr_geotherm_qtz_1800m": {
+          "symmetric_auc": 0.512186,
+          "passed": true
+        },
+        "volc_vent_prox_3km": {
+          "symmetric_auc": 0.544611,
+          "passed": true
+        },
+        "rad_k_th_alteration": {
+          "symmetric_auc": 0.53665,
+          "passed": true
+        },
+        "rad_u_th_redox": {
+          "symmetric_auc": 0.508526,
+          "passed": true
+        },
+        "tmi_shallow_150m_res": {
+          "symmetric_auc": 0.501174,
+          "passed": true
+        },
+        "hydro_demag_clay_conj": {
+          "symmetric_auc": 0.514902,
+          "passed": true
+        },
+        "lidar_present": {
+          "symmetric_auc": 0.532162,
+          "passed": true
+        },
+        "scarp_unified_step": {
+          "symmetric_auc": 0.575681,
+          "passed": true
+        },
+        "scarp_unified_ex": {
+          "symmetric_auc": 0.572354,
+          "passed": true
+        },
+        "scarp_unified_curv": {
+          "symmetric_auc": 0.582774,
+          "passed": true
+        },
+        "scarp_unified_line": {
+          "symmetric_auc": 0.509877,
+          "passed": true
+        },
+        "lidar_up_down_asym": {
+          "symmetric_auc": 0.536145,
+          "passed": true
+        },
+        "topo10_slope_p90": {
+          "symmetric_auc": 0.568865,
+          "passed": true
+        },
+        "topo10_relief_local": {
+          "symmetric_auc": 0.565819,
+          "passed": true
+        },
+        "road_proximity_confound": {
+          "symmetric_auc": 0.500489,
+          "passed": true
+        },
+        "mountain_wall_ratio": {
+          "symmetric_auc": 0.549173,
+          "passed": true
+        },
+        "chi_step_max": {
+          "symmetric_auc": 0.500353,
+          "passed": true
+        },
+        "chi_ksn_max": {
+          "symmetric_auc": 0.504201,
+          "passed": true
+        },
+        "chi_playa_raised": {
+          "symmetric_auc": 0.536988,
+          "passed": true
+        },
+        "trace_aniso_max_800m": {
+          "symmetric_auc": 0.565131,
+          "passed": true
+        },
+        "trace_aniso_max_2000m": {
+          "symmetric_auc": 0.564083,
+          "passed": true
+        },
+        "trace_aniso_ratio": {
+          "symmetric_auc": 0.522226,
+          "passed": true
+        },
+        "block_step_elev_600m": {
+          "symmetric_auc": 0.575512,
+          "passed": true
+        },
+        "block_step_grav_800m": {
+          "symmetric_auc": 0.525891,
+          "passed": true
+        },
+        "basin_floor_closure": {
+          "symmetric_auc": 0.549326,
+          "passed": true
+        },
+        "lahontan_isohypse_env": {
+          "symmetric_auc": 0.518962,
+          "passed": true
+        },
+        "scarp_strike_elev_climb": {
+          "symmetric_auc": 0.557842,
+          "passed": true
+        },
+        "lahontan_shoreline_veto": {
+          "symmetric_auc": 0.51634,
+          "passed": true
+        },
+        "scarp_lahontan_mine_clean": {
+          "symmetric_auc": 0.577661,
+          "passed": true
+        },
+        "blm_mine_prox_350m": {
+          "symmetric_auc": 0.521064,
+          "passed": true
+        },
+        "blm_log_dist_m": {
+          "symmetric_auc": 0.521064,
+          "passed": true
+        },
+        "rtp_flight_notched_hgm": {
+          "symmetric_auc": 0.535441,
+          "passed": true
+        },
+        "mag_local_wavenumber_kloc": {
+          "symmetric_auc": 0.52202,
+          "passed": true
+        },
+        "rad_tc_total_count": {
+          "symmetric_auc": 0.528131,
+          "passed": true
+        },
+        "rad_kd_adularia_resid": {
+          "symmetric_auc": 0.520456,
+          "passed": true
+        },
+        "rad_kd_clean_conduit": {
+          "symmetric_auc": 0.508202,
+          "passed": true
+        },
+        "seis_swarm_log_excess": {
+          "symmetric_auc": 0.521756,
+          "passed": true
+        },
+        "seis_swarm_fraction": {
+          "symmetric_auc": 0.505284,
+          "passed": true
+        },
+        "geod_transtension_obliquity": {
+          "symmetric_auc": 0.529849,
+          "passed": true
+        },
+        "seis_swarm_x_transtension": {
+          "symmetric_auc": 0.522928,
+          "passed": true
+        },
+        "seis_deq_grad_boundary": {
+          "symmetric_auc": 0.520252,
+          "passed": true
+        },
+        "piedmont_rel_height_4km": {
+          "symmetric_auc": 0.552034,
+          "passed": true
+        },
+        "piedmont_break_curvature": {
+          "symmetric_auc": 0.524356,
+          "passed": true
+        },
+        "rtp_hgm_block_qnorm": {
+          "symmetric_auc": 0.527855,
+          "passed": true
+        },
+        "grav_hgm_block_qnorm": {
+          "symmetric_auc": 0.523896,
+          "passed": true
+        },
+        "scarp_modality_qnorm": {
+          "symmetric_auc": 0.57171,
+          "passed": true
+        },
+        "grav_bdepth_concordance": {
+          "symmetric_auc": 0.542927,
+          "passed": true
+        },
+        "scarp_throw_polarity_match": {
+          "symmetric_auc": 0.515477,
+          "passed": true
+        },
+        "lidar_strike_x_grav_align": {
+          "symmetric_auc": 0.533018,
+          "passed": true
+        },
+        "cond_conduit_grad_300m": {
+          "symmetric_auc": 0.532122,
+          "passed": true
+        },
+        "clean_shoreline_mine_road_veto": {
+          "symmetric_auc": 0.515621,
+          "passed": true
+        },
+        "net_log_dist": {
+          "symmetric_auc": 0.755381,
+          "passed": true
+        },
+        "net_exp_near_600": {
+          "symmetric_auc": 0.755381,
+          "passed": true
+        },
+        "net_exp_mid_1800": {
+          "symmetric_auc": 0.755381,
+          "passed": true
+        },
+        "net_exp_far_4500": {
+          "symmetric_auc": 0.755381,
+          "passed": true
+        },
+        "net_density_15px": {
+          "symmetric_auc": 0.747251,
+          "passed": true
+        },
+        "net_density_40px": {
+          "symmetric_auc": 0.717249,
+          "passed": true
+        },
+        "net_tip_fwd_15px": {
+          "symmetric_auc": 0.744163,
+          "passed": true
+        },
+        "net_tip_fwd_35px": {
+          "symmetric_auc": 0.789678,
+          "passed": true
+        },
+        "net_tip_wing_lobe": {
+          "symmetric_auc": 0.771041,
+          "passed": true
+        },
+        "net_colinear_bridge": {
+          "symmetric_auc": 0.684069,
+          "passed": true
+        },
+        "net_relay_stepover": {
+          "symmetric_auc": 0.697499,
+          "passed": true
+        },
+        "net_tip_x_scarp": {
+          "symmetric_auc": 0.784381,
+          "passed": true
+        },
+        "net_tip_x_grav_bdepth": {
+          "symmetric_auc": 0.777082,
+          "passed": true
+        },
+        "net_relay_x_hydro": {
+          "symmetric_auc": 0.766821,
+          "passed": true
+        },
+        "net_coulomb_shadow": {
+          "symmetric_auc": 0.508091,
+          "passed": true
+        },
+        "net_coulomb_oblique_lobe": {
+          "symmetric_auc": 0.653822,
+          "passed": true
+        },
+        "net_slip_deficit_front": {
+          "symmetric_auc": 0.582382,
+          "passed": true
+        },
+        "net_clean_scarp_x_slipdef": {
+          "symmetric_auc": 0.523908,
+          "passed": true
+        },
+        "net_hangingwall_dip_proj": {
+          "symmetric_auc": 0.549776,
+          "passed": true
+        },
+        "net_tip_x_swarm_strain": {
+          "symmetric_auc": 0.782173,
+          "passed": true
+        },
+        "net_piedmont_slip_deficit": {
+          "symmetric_auc": 0.515357,
+          "passed": true
+        },
+        "net_junction_hydro_conduit": {
+          "symmetric_auc": 0.673456,
+          "passed": true
+        }
+      }
+    },
+    "30": {
+      "withheld_positive_pixels": 11342,
+      "sampled_negatives": 350000,
+      "max_symmetric_auc": 0.804721,
+      "worst_feature": "net_tip_fwd_35px",
+      "all_passed": true,
+      "top10_features": [
+        {
+          "feature": "net_tip_fwd_35px",
+          "symmetric_auc": 0.804721,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_x_swarm_strain",
+          "symmetric_auc": 0.797094,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_x_grav_bdepth",
+          "symmetric_auc": 0.795575,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_x_scarp",
+          "symmetric_auc": 0.790586,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_wing_lobe",
+          "symmetric_auc": 0.769356,
+          "passed": true
+        },
+        {
+          "feature": "net_relay_x_hydro",
+          "symmetric_auc": 0.765992,
+          "passed": true
+        },
+        {
+          "feature": "net_tip_fwd_15px",
+          "symmetric_auc": 0.7543,
+          "passed": true
+        },
+        {
+          "feature": "net_log_dist",
+          "symmetric_auc": 0.751582,
+          "passed": true
+        },
+        {
+          "feature": "net_exp_near_600",
+          "symmetric_auc": 0.751582,
+          "passed": true
+        },
+        {
+          "feature": "net_exp_mid_1800",
+          "symmetric_auc": 0.751582,
+          "passed": true
+        }
+      ],
+      "features": {
+        "tf_mag_anom": {
+          "symmetric_auc": 0.501563,
+          "passed": true
+        },
+        "tf_rtp": {
+          "symmetric_auc": 0.508064,
+          "passed": true
+        },
+        "tf_tmi_hg": {
+          "symmetric_auc": 0.505555,
+          "passed": true
+        },
+        "tf_geod_2ndinv": {
+          "symmetric_auc": 0.566494,
+          "passed": true
+        },
+        "tf_iso_grav_anom_slope": {
+          "symmetric_auc": 0.572443,
+          "passed": true
+        },
+        "tf_tc": {
+          "symmetric_auc": 0.545171,
+          "passed": true
+        },
+        "tf_geod_shearrate": {
+          "symmetric_auc": 0.572658,
+          "passed": true
+        },
+        "tf_geod_dilaterate": {
+          "symmetric_auc": 0.516651,
+          "passed": true
+        },
+        "tf_tmi_vg": {
+          "symmetric_auc": 0.500822,
+          "passed": true
+        },
+        "tf_deq_n100a15": {
+          "symmetric_auc": 0.548502,
+          "passed": true
+        },
+        "tf_iso_grav_anom_vg": {
+          "symmetric_auc": 0.543162,
+          "passed": true
+        },
+        "tf_det_elev": {
+          "symmetric_auc": 0.52838,
+          "passed": true
+        },
+        "tf_iso_grav_anom": {
+          "symmetric_auc": 0.532303,
+          "passed": true
+        },
+        "tf_tmi": {
+          "symmetric_auc": 0.504078,
+          "passed": true
+        },
+        "tf_depth_to_base_surf": {
+          "symmetric_auc": 0.531264,
+          "passed": true
+        },
+        "tf_ieq_n100a15": {
+          "symmetric_auc": 0.566341,
+          "passed": true
+        },
+        "tf_cond_surf": {
+          "symmetric_auc": 0.518747,
+          "passed": true
+        },
+        "tf_iso_grav_anom_hg": {
+          "symmetric_auc": 0.520413,
+          "passed": true
+        },
+        "tf_det_elev_slope": {
+          "symmetric_auc": 0.53732,
+          "passed": true
+        },
+        "rtp_uc600_res": {
+          "symmetric_auc": 0.503743,
+          "passed": true
+        },
+        "rtp_demag_trough": {
+          "symmetric_auc": 0.501244,
+          "passed": true
+        },
+        "rtp_hgm_z200": {
+          "symmetric_auc": 0.512475,
+          "passed": true
+        },
+        "rtp_tilt_z200_abs": {
+          "symmetric_auc": 0.513115,
+          "passed": true
+        },
+        "rtp_tilt_dip_shift": {
+          "symmetric_auc": 0.501632,
+          "passed": true
+        },
+        "rtp_crest_prom": {
+          "symmetric_auc": 0.506429,
+          "passed": true
+        },
+        "euler_si_rtp": {
+          "symmetric_auc": 0.50374,
+          "passed": true
+        },
+        "grav_uc800_res": {
+          "symmetric_auc": 0.504018,
+          "passed": true
+        },
+        "grav_hgm_z200": {
+          "symmetric_auc": 0.571912,
+          "passed": true
+        },
+        "grav_hgm_z800": {
+          "symmetric_auc": 0.564065,
+          "passed": true
+        },
+        "grav_tilt_z200_abs": {
+          "symmetric_auc": 0.538811,
+          "passed": true
+        },
+        "grav_tilt_dip_shift": {
+          "symmetric_auc": 0.513921,
+          "passed": true
+        },
+        "grav_crest_prom": {
+          "symmetric_auc": 0.5332,
+          "passed": true
+        },
+        "bdepth_hgm_300m": {
+          "symmetric_auc": 0.558951,
+          "passed": true
+        },
+        "bdepth_hgm_900m": {
+          "symmetric_auc": 0.559921,
+          "passed": true
+        },
+        "transtension_conduit_idx": {
+          "symmetric_auc": 0.561614,
+          "passed": true
+        },
+        "det_elev_prom_600m": {
+          "symmetric_auc": 0.583986,
+          "passed": true
+        },
+        "t2m_dab_300m": {
+          "symmetric_auc": 0.520426,
+          "passed": true
+        },
+        "t2m_dab_900m": {
+          "symmetric_auc": 0.542408,
+          "passed": true
+        },
+        "t2m_dab_2200m": {
+          "symmetric_auc": 0.528505,
+          "passed": true
+        },
+        "t2m_dab_grad_ridge": {
+          "symmetric_auc": 0.53852,
+          "passed": true
+        },
+        "t2m_survey_weight": {
+          "symmetric_auc": 0.536774,
+          "passed": true
+        },
+        "paleo_vent_kde_800m": {
+          "symmetric_auc": 0.5013,
+          "passed": true
+        },
+        "paleo_vent_kde_2400m": {
+          "symmetric_auc": 0.525474,
+          "passed": true
+        },
+        "paleo_hitemp_sinter_1200m": {
+          "symmetric_auc": 0.500453,
+          "passed": true
+        },
+        "paleo_vent_strike_bridge": {
+          "symmetric_auc": 0.50087,
+          "passed": true
+        },
+        "gdr_thermal_anom_900m": {
+          "symmetric_auc": 0.508853,
+          "passed": true
+        },
+        "gdr_geotherm_qtz_1800m": {
+          "symmetric_auc": 0.505798,
+          "passed": true
+        },
+        "volc_vent_prox_3km": {
+          "symmetric_auc": 0.53133,
+          "passed": true
+        },
+        "rad_k_th_alteration": {
+          "symmetric_auc": 0.544414,
+          "passed": true
+        },
+        "rad_u_th_redox": {
+          "symmetric_auc": 0.535764,
+          "passed": true
+        },
+        "tmi_shallow_150m_res": {
+          "symmetric_auc": 0.502564,
+          "passed": true
+        },
+        "hydro_demag_clay_conj": {
+          "symmetric_auc": 0.500441,
+          "passed": true
+        },
+        "lidar_present": {
+          "symmetric_auc": 0.529363,
+          "passed": true
+        },
+        "scarp_unified_step": {
+          "symmetric_auc": 0.546022,
+          "passed": true
+        },
+        "scarp_unified_ex": {
+          "symmetric_auc": 0.541739,
+          "passed": true
+        },
+        "scarp_unified_curv": {
+          "symmetric_auc": 0.552896,
+          "passed": true
+        },
+        "scarp_unified_line": {
+          "symmetric_auc": 0.513994,
+          "passed": true
+        },
+        "lidar_up_down_asym": {
+          "symmetric_auc": 0.534547,
+          "passed": true
+        },
+        "topo10_slope_p90": {
+          "symmetric_auc": 0.540597,
+          "passed": true
+        },
+        "topo10_relief_local": {
+          "symmetric_auc": 0.537148,
+          "passed": true
+        },
+        "road_proximity_confound": {
+          "symmetric_auc": 0.540589,
+          "passed": true
+        },
+        "mountain_wall_ratio": {
+          "symmetric_auc": 0.568101,
+          "passed": true
+        },
+        "chi_step_max": {
+          "symmetric_auc": 0.501443,
+          "passed": true
+        },
+        "chi_ksn_max": {
+          "symmetric_auc": 0.501643,
+          "passed": true
+        },
+        "chi_playa_raised": {
+          "symmetric_auc": 0.503386,
+          "passed": true
+        },
+        "trace_aniso_max_800m": {
+          "symmetric_auc": 0.526745,
+          "passed": true
+        },
+        "trace_aniso_max_2000m": {
+          "symmetric_auc": 0.521353,
+          "passed": true
+        },
+        "trace_aniso_ratio": {
+          "symmetric_auc": 0.541566,
+          "passed": true
+        },
+        "block_step_elev_600m": {
+          "symmetric_auc": 0.553867,
+          "passed": true
+        },
+        "block_step_grav_800m": {
+          "symmetric_auc": 0.572006,
+          "passed": true
+        },
+        "basin_floor_closure": {
+          "symmetric_auc": 0.522744,
+          "passed": true
+        },
+        "lahontan_isohypse_env": {
+          "symmetric_auc": 0.529655,
+          "passed": true
+        },
+        "scarp_strike_elev_climb": {
+          "symmetric_auc": 0.546322,
+          "passed": true
+        },
+        "lahontan_shoreline_veto": {
+          "symmetric_auc": 0.559829,
+          "passed": true
+        },
+        "scarp_lahontan_mine_clean": {
+          "symmetric_auc": 0.5331,
+          "passed": true
+        },
+        "blm_mine_prox_350m": {
+          "symmetric_auc": 0.506709,
+          "passed": true
+        },
+        "blm_log_dist_m": {
+          "symmetric_auc": 0.506709,
+          "passed": true
+        },
+        "rtp_flight_notched_hgm": {
+          "symmetric_auc": 0.511203,
+          "passed": true
+        },
+        "mag_local_wavenumber_kloc": {
+          "symmetric_auc": 0.501035,
+          "passed": true
+        },
+        "rad_tc_total_count": {
+          "symmetric_auc": 0.545167,
+          "passed": true
+        },
+        "rad_kd_adularia_resid": {
+          "symmetric_auc": 0.515564,
+          "passed": true
+        },
+        "rad_kd_clean_conduit": {
+          "symmetric_auc": 0.504804,
+          "passed": true
+        },
+        "seis_swarm_log_excess": {
+          "symmetric_auc": 0.506711,
+          "passed": true
+        },
+        "seis_swarm_fraction": {
+          "symmetric_auc": 0.525134,
+          "passed": true
+        },
+        "geod_transtension_obliquity": {
+          "symmetric_auc": 0.54909,
+          "passed": true
+        },
+        "seis_swarm_x_transtension": {
+          "symmetric_auc": 0.506889,
+          "passed": true
+        },
+        "seis_deq_grad_boundary": {
+          "symmetric_auc": 0.519021,
+          "passed": true
+        },
+        "piedmont_rel_height_4km": {
+          "symmetric_auc": 0.518269,
+          "passed": true
+        },
+        "piedmont_break_curvature": {
+          "symmetric_auc": 0.534171,
+          "passed": true
+        },
+        "rtp_hgm_block_qnorm": {
+          "symmetric_auc": 0.510069,
+          "passed": true
+        },
+        "grav_hgm_block_qnorm": {
+          "symmetric_auc": 0.573233,
+          "passed": true
+        },
+        "scarp_modality_qnorm": {
+          "symmetric_auc": 0.531189,
+          "passed": true
+        },
+        "grav_bdepth_concordance": {
+          "symmetric_auc": 0.564995,
+          "passed": true
+        },
+        "scarp_throw_polarity_match": {
+          "symmetric_auc": 0.508773,
+          "passed": true
+        },
+        "lidar_strike_x_grav_align": {
+          "symmetric_auc": 0.535387,
+          "passed": true
+        },
+        "cond_conduit_grad_300m": {
+          "symmetric_auc": 0.514045,
+          "passed": true
+        },
+        "clean_shoreline_mine_road_veto": {
+          "symmetric_auc": 0.527191,
+          "passed": true
+        },
+        "net_log_dist": {
+          "symmetric_auc": 0.751582,
+          "passed": true
+        },
+        "net_exp_near_600": {
+          "symmetric_auc": 0.751582,
+          "passed": true
+        },
+        "net_exp_mid_1800": {
+          "symmetric_auc": 0.751582,
+          "passed": true
+        },
+        "net_exp_far_4500": {
+          "symmetric_auc": 0.751582,
+          "passed": true
+        },
+        "net_density_15px": {
+          "symmetric_auc": 0.737096,
+          "passed": true
+        },
+        "net_density_40px": {
+          "symmetric_auc": 0.719743,
+          "passed": true
+        },
+        "net_tip_fwd_15px": {
+          "symmetric_auc": 0.7543,
+          "passed": true
+        },
+        "net_tip_fwd_35px": {
+          "symmetric_auc": 0.804721,
+          "passed": true
+        },
+        "net_tip_wing_lobe": {
+          "symmetric_auc": 0.769356,
+          "passed": true
+        },
+        "net_colinear_bridge": {
+          "symmetric_auc": 0.68698,
+          "passed": true
+        },
+        "net_relay_stepover": {
+          "symmetric_auc": 0.707121,
+          "passed": true
+        },
+        "net_tip_x_scarp": {
+          "symmetric_auc": 0.790586,
+          "passed": true
+        },
+        "net_tip_x_grav_bdepth": {
+          "symmetric_auc": 0.795575,
+          "passed": true
+        },
+        "net_relay_x_hydro": {
+          "symmetric_auc": 0.765992,
+          "passed": true
+        },
+        "net_coulomb_shadow": {
+          "symmetric_auc": 0.534157,
+          "passed": true
+        },
+        "net_coulomb_oblique_lobe": {
+          "symmetric_auc": 0.67869,
+          "passed": true
+        },
+        "net_slip_deficit_front": {
+          "symmetric_auc": 0.573555,
+          "passed": true
+        },
+        "net_clean_scarp_x_slipdef": {
+          "symmetric_auc": 0.515931,
+          "passed": true
+        },
+        "net_hangingwall_dip_proj": {
+          "symmetric_auc": 0.539681,
+          "passed": true
+        },
+        "net_tip_x_swarm_strain": {
+          "symmetric_auc": 0.797094,
+          "passed": true
+        },
+        "net_piedmont_slip_deficit": {
+          "symmetric_auc": 0.507009,
+          "passed": true
+        },
+        "net_junction_hydro_conduit": {
+          "symmetric_auc": 0.694809,
+          "passed": true
+        }
+      }
+    }
+  },
+  "overall_max_symmetric_auc": 0.804721,
+  "overall_worst_feature": "net_tip_fwd_35px",
+  "gate_passed": true,
+  "elapsed_seconds": 156.61
+}

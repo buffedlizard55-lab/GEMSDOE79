@@ -5,8 +5,210 @@
 <title>What H33 teaches us, without score promises · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / MEASURED LINEAGE</p><h1>Understand H33. Do not copy it.</h1><p class="lead">Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.</p></section><section class="section"><div class="prose table-scroll"><h2>Session <code>1dc8cff0</code> Three-Pass Review Report (<code>arena/1dc8cff0-gemsdoe79</code>, 2026-10-22)</h2>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-stfd.html">STFD (0.2021 #1)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / MEASURED LINEAGE</p><h1>Understand H33. Do not copy it.</h1><p class="lead">Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.</p></section><section class="section"><div class="prose table-scroll"><h2>Session Report (<code>arena/1b017e86-gemsdoe79</code>) — PhD Forensics of <code>H33</code>, Five Ranked Geological Hypotheses, Prospective <code>G79-STFD</code> (<code>0.2021</code> Dual-Seed Strict <code>LOQO</code> <code>HOLDOUT-DTI</code>), <code>1,273</code>-Raster <code>196</code>-Repo Audit, and Three-Pass Verification</h2>
+<p><strong>Date:</strong> <code>2026-10-22</code> (UTC) | <strong>Branch:</strong> <code>arena/1b017e86-gemsdoe79</code> | <strong>Active Lane:</strong> <code>G79-STFD</code> (<code>status: closed</code>, <code>verdict: negative</code>)
+<strong>Canonical Repository Decision Line (<code>run_card.json</code>):</strong> <code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code>
+<strong>Archived <code>G79-STFD</code> Decision Line (<code>run_card_stfd.json</code>):</strong> <code>OK TO DOWNLOAD (RESEARCH ARCHIVE): YES. OK TO SUBMIT: NO.</code></p>
+<hr />
+<h3>1. Evidence-Class Discipline &amp; PhD Forensic Analysis of <code>H33</code> (<code>0.2778</code> <code>ORGANIZER-CONFIRMED</code>)</h3>
+<p>Every score reported in this document carries an explicit, non-interchangeable evidence label:
+- <strong><code>ORGANIZER-CONFIRMED</code> / <code>PUBLIC-OBSERVATION</code>:</strong> Live public DrivenData #306 competition scores evaluated on the organizers' undisclosed hidden Nevada geothermal fault test set (<code>https://www.drivendata.org/competitions/306/gems-geothermal-faults/leaderboard/</code>):
+  - <strong><code>0.2778</code> (<code>ORGANIZER-CONFIRMED</code>):</strong> Achieved identically by <code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code> (<code>GEMSDOE32</code>, <code>37,654</code> non-zero <code>100 m</code> pixels = <code>0.7287%</code> of the <code>5,167,373</code>-cell active footprint; SHA-256 <code>61f2da65...</code>) and replicated identically wherever those exact <code>37,654</code> coordinates were re-uploaded.
+  - <strong><code>0.4413</code> (<code>PUBLIC-OBSERVATION</code>):</strong> Verified <code>#1</code> public leaderboard score (<code>xiaofanhu</code>, <code>#2 cfld__ = 0.3904</code>, <code>#3 Batik Shirt Brothers = 0.3894</code>, <code>#50 sam35 = 0.2804</code> as of <code>2026-10-22</code>).
+  - <strong><code>0.3195</code> (<code>TARGET BENCHMARK</code>):</strong> Intermediate competition milestone cited in the project prompt (<code>+0.0417</code> above <code>H33</code>'s <code>0.2778</code>, <code>~25th</code> place on the live leaderboard).
+- <strong><code>HOLDOUT-DTI</code> (<code>gems57-pooled-hide-v2</code>):</strong> Strict 4-fold Leave-One-Quadrant-Out (<code>LOQO</code>) spatial cross-validation on <code>data/raw/training_features.tif</code> + <code>known_faults</code> with <code>22%</code> withheld fault components (<code>11,321</code> withheld positive pixels on Seed 20; <code>11,342</code> on Seed 30; <code>300 m</code> triangular kernel, $\alpha = 0.2$, $\beta = 0.8$).</p>
+<h4>Why <code>H33</code> Reaches <code>0.2778</code> (<code>ORGANIZER-CONFIRMED</code>) — And Why ItPlateaus Below <code>0.3195</code>–<code>0.4413</code></h4>
+<ol>
+<li><strong>Exact alignment with the asymmetric DTI objective (<code>alpha = 0.2</code>, <code>beta = 0.8</code>, <code>r = 300 m</code>):</strong>
+   $$\text{DTI} = \frac{\text{TP}_w}{\text{TP}_w + 0.2\,\text{FP}_w + 0.8\,\text{FN}_w}$$
+   Because false negatives are penalized $4\times$ more heavily than false positives ($\beta / \alpha = 4$) and every hit within $300\text{ m}$ receives linear distance weight $w(d) = \max(0, 1 - d / 300\text{ m})$, emitting dense continuous probabilities across <code>5.17M</code> cells destroys <code>DTI</code> via $0.2\,\text{FP}_w$, while ultra-conservative maps collapse via $0.8\,\text{FN}_w$. <code>H33</code> selects <code>37,654</code> spaced <code>1.0</code> dots (<code>~205 m</code> minimum separation) right near the stationary fractional trade-off point where marginal $\Delta \text{TP}_w / \Delta \text{FP}_w \approx \lambda(\theta) = \frac{0.2\,\theta}{1 - 0.2\,\theta}$.</li>
+<li><strong>Tip-bridge and step-over concentration around mapped traces (<code>USGS Qfaults</code>, DOI <code>10.5066/P9BCVRCK</code>; <code>INGENIOUS</code>, DOI <code>10.15121/1881483</code>):</strong>
+   Direct spatial inspection of <code>H33</code>'s <code>37,654</code> dots reveals that <strong><code>86.4%</code> lie within <code>1.5 km</code> (<code>15 px</code>) of mapped faults</strong>, capturing unmapped relay ramps, en-echelon step-overs, and range-front along-strike continuations where surface alluvial fans obscure short trace segments.</li>
+<li><strong>Why <code>H33</code> is identical (<code>0.2778</code>) across sibling <code>GEMSDOE</code> listings:</strong>
+   <code>H33</code> is a deterministic fixed GeoTIFF (<code>h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code>); re-uploading identical pixel coordinates (with external <code>NaN</code> replaced by <code>0.0</code> outside footprint) produces the exact same <code>TP_w</code>, <code>FP_w</code>, and <code>FN_w</code> against the fixed hidden organizer ground truth (<code>IR-79-191</code>).</li>
+<li><strong>The three physical ceilings trapping <code>H33</code> at <code>0.0961 / 0.0989</code> strict <code>LOQO</code> <code>HOLDOUT-DTI</code> (<code>0.2778</code> <code>ORGANIZER-CONFIRMED</code>):</strong>
+   - <strong>Zero seismic-swarm vs background mainshock separation:</strong> <code>H33</code> ignores the joint ratio between INGENIOUS declustered/independent seismicity (<code>ieq_n100a15</code>) and dependent/swarm seismicity (<code>deq_n100a15</code>) coupled with GPS transtensional dilatation (<code>geod_dilaterate &gt; 0</code> $\times$ <code>geod_shearrate</code>, UNR NGL MIDAS DOI <code>10.1029/2018EO104623</code>) that illuminates blind geothermal fluid conduits under playa fill (Faulds &amp; Hinz, 2015).
+   - <strong>Unpolarized symmetric fault halos &amp; survey seam artifacts:</strong> <code>H33</code> places symmetric halos on both footwall and hanging wall instead of projecting dip-slip normal splays into the deepening alluvial hanging wall ($+\nabla\text{depth_to_base_surf}$), and suffers cross-block amplitude shifts across USGS GeoDAWN radiometric/magnetic acquisition boundaries (DOI <code>10.5066/P93LGLVQ</code>) and 1 m LiDAR vs 10 m 3DEP coverage seams (<code>lidar_present</code>).
+   - <strong>Pleistocene shoreline &amp; mine-blast false positives:</strong> Unvetoed scarp extractors fire heavily along equipotential Lake Lahontan (<code>~1,330 m</code>) / Lake Bonneville highstand benches and open-pit mining benches (<code>BLM MLRS</code>).</li>
+</ol>
+<hr />
+<h3>2. Summary of the Five Untried Geological Hypotheses (<code>research/hypotheses_1b017e86.md</code>)</h3>
+<p>Full mathematical derivations, layer tables, non-fault mimics, and official data citations are recorded in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_1b017e86.md"><code>research/hypotheses_1b017e86.md</code></a>:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Rank</th>
+<th>Code</th>
+<th>Physical Hypothesis &amp; Target Transform</th>
+<th>Expected Gain vs Cost</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>1</strong></td>
+<td><strong><code>H1-STFD</code> (<code>G79-STFD</code>)</strong></td>
+<td><strong>Seismo-Tectonic Fluid-Dilatancy, Hanging-Wall Throw Polarity &amp; Survey-Quantile Domain-Debiased Dinkelbach Stack (<code>119</code> features: <code>97</code> static + <code>22</code> mechanics)</strong> — <code>seis_swarm_log_excess</code>, <code>geod_transtension_obliquity</code>, <code>grav_bdepth_concordance</code>, <code>scarp_modality_qnorm</code>, <code>net_tip_x_swarm_strain</code>, <code>net_hangingwall_dip_proj</code>, <code>net_junction_hydro_conduit</code> + observable order-statistic quadrant calibration + unit-consistent Dinkelbach emission.</td>
+<td><strong>Highest (<code>+0.095</code> to <code>+0.115</code> <code>HOLDOUT-DTI</code> over <code>H33</code>; breaks <code>0.200</code> strict <code>LOQO</code> barrier)</strong></td>
+<td><strong>Implemented &amp; Sealed (<code>0.1928 / 0.2114</code>, Mean <code>0.2021</code> — #1 in <code>GEMSDOE79</code>)</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><code>H2-EULER3D</code></td>
+<td>3D Potential-Field Euler Deconvolution Structural Index ($N \in [0, 0.5]$ contact vs $N \ge 1.5$ pipe/sill) &amp; Upward-Continuation Depth-Persistence Ratio across <code>iso_grav_anom</code> + notched <code>tmi</code> (<code>GeoDAWN</code>, DOI <code>10.5066/P93LGLVQ</code>).</td>
+<td>High (<code>+0.008</code>–<code>+0.015</code> incremental <code>HOLDOUT-DTI</code>), Medium cost</td>
+<td>Deferred (clean next orthogonal physics module)</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><code>H3-KNICK-STREAM</code></td>
+<td>Tectonic Stream-Profile Steepness Jump ($\Delta k_{sn}$) &amp; Drainage Divide Asymmetry across 3DEP 10 m <code>dem10</code> channels (<code>DOI 10.5066/P937PN4Z</code>) detecting blind range-front uplift across eroded alluvial fans without preserved surface scarps.</td>
+<td>Moderate-High (<code>+0.006</code>–<code>+0.012</code>), Medium cost</td>
+<td>Deferred</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td><code>H4-MT-UPFLOW</code></td>
+<td>3D Magnetotelluric Phase-Tensor Skew &amp; Sub-Clay Conductive Upflow Plume Edge (<code>USGS/USArray MT</code> + <code>cond_surf</code>) separating sub-vertical hydrothermal fault feeders ($&lt;10\ \Omega\cdot\text{m}$ roots) from flat smectite playa lakes.</td>
+<td>Moderate (<code>+0.005</code>–<code>+0.011</code>), Medium-High cost</td>
+<td>Deferred</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td><code>H5-INSAR-CREEP</code></td>
+<td>ARIA/OPERA Sentinel-1 Ascending/Descending LOS Vertical Subsidence vs Horizontal Transtensional Creep Decomposition (<code>NASA ASF OPERA</code>).</td>
+<td>Speculative-Moderate, High external ingest cost (<code>~2.5 GB</code>)</td>
+<td>Deferred</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>3. Prospective <code>G79-STFD</code> Results (<code>run_card_stfd.json</code>, <code>gems57-pooled-hide-v2</code>)</h3>
+<h4>3.1 Single-Feature Leakage Canary (<code>evidence/stfd/canary_238_tests.json</code>)</h4>
+<ul>
+<li><strong>Features tested:</strong> <code>119</code> (<code>97</code> domain-debiased static physics + <code>22</code> fold-visible network mechanics) $\times$ <code>2</code> seeds = <strong><code>238</code> single-feature tests</strong>.</li>
+<li><strong>Result:</strong> <strong>PASSED (<code>238 / 238 &lt;= 0.90</code>)</strong> — maximum symmetric ROC-AUC = <code>0.789678</code> on Seed 20 and <code>0.804721</code> on Seed 30 (<code>net_tip_fwd_35px</code>). Top zero-catalogue standalone features include <code>grav_hgm_block_qnorm</code> (<code>0.5732</code>), <code>scarp_modality_qnorm</code> (<code>0.5717</code>), <code>grav_bdepth_concordance</code> (<code>0.5650</code>), <code>piedmont_rel_height_4km</code> (<code>0.5520</code>), and <code>geod_transtension_obliquity</code> (<code>0.5491</code>).</li>
+</ul>
+<h4>3.2 Dual-Seed Strict 4-Fold <code>LOQO</code> <code>HOLDOUT-DTI</code> Progression (<code>&lt;= 3</code> Experiments)</h4>
+<table>
+<thead>
+<tr>
+<th>Experiment / Control</th>
+<th style="text-align: right;">Placed Dots</th>
+<th style="text-align: right;">Seed 20 <code>HOLDOUT-DTI</code> (95% CI, <code>11,321</code> px)</th>
+<th style="text-align: right;">Seed 30 <code>HOLDOUT-DTI</code> (95% CI, <code>11,342</code> px)</th>
+<th style="text-align: right;">Dual-Seed Mean</th>
+<th style="text-align: right;">Paired $\Delta$ vs <code>H33</code> (Seed 20 / Seed 30)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>EXP-STFD-3</code> (<code>G79-STFD</code> Dinkelbach)</strong></td>
+<td style="text-align: right;"><code>39,867 / 39,930</code></td>
+<td style="text-align: right;"><strong><code>0.1928</code> (<code>[0.1737, 0.2117]</code>)</strong></td>
+<td style="text-align: right;"><strong><code>0.2114</code> (<code>[0.1914, 0.2306]</code>)</strong></td>
+<td style="text-align: right;"><strong><code>0.2021</code></strong></td>
+<td style="text-align: right;"><strong><code>+0.0967</code> / <code>+0.1125</code> (<code>CI &gt; 0</code>)</strong></td>
+</tr>
+<tr>
+<td><strong><code>EXP-STFD-2</code> (<code>119</code>-ch Uniform <code>37,654</code>)</strong></td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td style="text-align: right;"><strong><code>0.1923</code> (<code>[0.1755, 0.2082]</code>)</strong></td>
+<td style="text-align: right;"><strong><code>0.2110</code> (<code>[0.1909, 0.2303]</code>)</strong></td>
+<td style="text-align: right;"><strong><code>0.2016</code></strong></td>
+<td style="text-align: right;"><strong><code>+0.0962</code> / <code>+0.1121</code> (<code>CI &gt; 0</code>)</strong></td>
+</tr>
+<tr>
+<td><strong><code>EXP-STFD-1</code> (<code>97</code>-ch <code>100%</code> Zero-Catalogue Physics)</strong></td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td style="text-align: right;"><strong><code>0.1090</code> (<code>[0.0865, 0.1314]</code>)</strong></td>
+<td style="text-align: right;"><strong><code>0.1276</code> (<code>[0.1066, 0.1500]</code>)</strong></td>
+<td style="text-align: right;"><strong><code>0.1183</code></strong></td>
+<td style="text-align: right;"><strong><code>+0.0129</code> / <code>+0.0287</code></strong></td>
+</tr>
+<tr>
+<td>Canonical <code>G79-THVC</code> (<code>run_card.json</code>)</td>
+<td style="text-align: right;"><code>35,093</code></td>
+<td style="text-align: right;"><code>0.1905</code> (<code>[0.1743, 0.2063]</code>)</td>
+<td style="text-align: right;"><code>0.1944</code> (<code>[0.1782, 0.2102]</code>)</td>
+<td style="text-align: right;"><code>0.1924</code></td>
+<td style="text-align: right;"><code>+0.0944</code> / <code>+0.0955</code></td>
+</tr>
+<tr>
+<td>Archived <code>G79-CSKD</code> (<code>IR-79-200</code>)</td>
+<td style="text-align: right;"><code>42,000</code></td>
+<td style="text-align: right;"><code>0.1781</code> (<code>[0.1605, 0.1950]</code>)</td>
+<td style="text-align: right;"><code>0.2145</code> (<code>[0.1965, 0.2323]</code>)</td>
+<td style="text-align: right;"><code>0.1963</code></td>
+<td style="text-align: right;"><code>+0.0820</code> / <code>+0.1156</code></td>
+</tr>
+<tr>
+<td>Archived <code>G79-CSMD</code> (<code>IR-79-203</code>)</td>
+<td style="text-align: right;"><code>35,600</code></td>
+<td style="text-align: right;"><code>0.1629</code> (<code>[0.1476, 0.1781]</code>)</td>
+<td style="text-align: right;"><code>0.1749</code> (<code>[0.1585, 0.1909]</code>)</td>
+<td style="text-align: right;"><code>0.1689</code></td>
+<td style="text-align: right;"><code>+0.0669</code> / <code>+0.0760</code></td>
+</tr>
+<tr>
+<td><code>C2_h33_analogue_foldfair</code> (<code>H33</code>)</td>
+<td style="text-align: right;"><code>38,802 / 38,829</code></td>
+<td style="text-align: right;"><code>0.0961</code> (<code>[0.0828, 0.1095]</code>)</td>
+<td style="text-align: right;"><code>0.0989</code> (<code>[0.0852, 0.1130]</code>)</td>
+<td style="text-align: right;"><code>0.0975</code></td>
+<td style="text-align: right;"><code>0.0000</code> / <code>0.0000</code></td>
+</tr>
+<tr>
+<td><code>C1_fabric_offset_E1_placed</code></td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td style="text-align: right;"><code>0.0441</code> (<code>[0.0375, 0.0511]</code>)</td>
+<td style="text-align: right;"><code>0.0440</code> (<code>[0.0364, 0.0518]</code>)</td>
+<td style="text-align: right;"><code>0.0441</code></td>
+<td style="text-align: right;"><code>-0.0520</code> / <code>-0.0549</code></td>
+</tr>
+<tr>
+<td><code>C0_random_B37654</code></td>
+<td style="text-align: right;"><code>37,654</code></td>
+<td style="text-align: right;"><code>0.0425</code> (<code>[0.0374, 0.0473]</code>)</td>
+<td style="text-align: right;"><code>0.0463</code> (<code>[0.0415, 0.0506]</code>)</td>
+<td style="text-align: right;"><code>0.0444</code></td>
+<td style="text-align: right;"><code>-0.0535</code> / <code>-0.0526</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Detached strand recovery (<code>&gt;= 400 m</code> isolated from all visible traces):</strong> <code>0.0394</code> on Seed 20 (<code>+62.8%</code> over <code>H33</code>'s <code>0.0242</code>) and <code>0.0417</code> on Seed 30 (<code>+80.1%</code> over <code>H33</code>'s <code>0.0232</code>).</li>
+<li><strong>Live full-catalogue importance share:</strong> New <code>STFD</code> seismo-tectonic channels contribute <strong><code>15.49%</code> of total Stage-1 split gain</strong>, led by <strong><code>net_tip_x_swarm_strain</code> (<code>#5</code> overall at <code>6.27%</code>)</strong>, <strong><code>piedmont_rel_height_4km</code> (<code>#11</code> at <code>1.88%</code>)</strong>, and <strong><code>geod_transtension_obliquity</code> (<code>1.11%</code>)</strong>.</li>
+</ul>
+<h4>3.3 <code>1,273</code>-Raster Uniqueness Audit Across All <code>196</code> <code>buffedlizard55-lab</code> Repositories (<code>evidence/stfd/novelty_196repos_audit.json</code>)</h4>
+<ul>
+<li><strong>Pre-placement surface max <code>|Spearman|</code>:</strong> <strong><code>0.6218 &lt;= 0.90</code></strong> (<code>GEMSDOE82:artifacts/surface_h82.tif</code>) — <strong>PASS</strong>.</li>
+<li><strong>Post-placement dots max <code>|Spearman|</code>:</strong> <strong><code>0.1092 &lt;= 0.90</code></strong> (<code>57GEMSDOE:gems57-relative-strand-surface</code>) — <strong>PASS</strong>.</li>
+<li><strong>External cross-repo sparse <code>&lt;= 75,308 px</code> 3-px overlap (<code>957</code> external sparse rasters across all <code>195</code> non-self repos):</strong> <strong><code>0</code> duplicates <code>&gt; 0.70</code> (<code>max = 0.6981 &lt;= 0.70</code> on <code>60GEMSDOE:calib_h28ridge_01839.tif</code>; <code>GEMSDOE83 = 0.6544 &lt;= 0.70</code>; <code>GEMSDOE78 dualcover = 0.6004 &lt;= 0.70</code>; <code>GEMSDOE78 dink = 0.5673 &lt;= 0.70</code>; <code>H33 = 0.4316 &lt;= 0.70</code>)</strong>!</li>
+<li><strong>Why <code>verdict = "negative"</code> / <code>OK TO SUBMIT: NO</code> is strictly maintained:</strong>
+  1. Unamended literal <code>vendor/gems57/uniqueness.py</code> evaluates <code>1.0000 &gt; 0.70</code> against pinned <code>5,167,373</code>-pixel dense surfaces (<code>17GEMSDOE:E-proba-multiscale</code>) and <code>0.9983 &gt; 0.70</code> against <code>13GEMSDOE:r13-lattice-s5</code> (<code>chance_corrected_overlap = +0.0416</code> and <code>-0.3575</code>, non-duplicates under <code>D2</code>), AND
+  2. Within <code>GEMSDOE79</code>'s own local research archives, three unsubmitted <code>DO-NOT-SUBMIT</code> sibling maps (<code>G79-CSMD</code> <code>0.8274</code>, <code>G79-CSKD</code> <code>0.7600</code>, <code>G79-THVC</code> <code>0.7388</code>) share core strict-<code>LOQO</code> tip-bridge loci. Under <code>AGENTS.md</code> §3–§6, local agents never self-grant exemptions without human coordinator sign-off.</li>
+</ul>
+<hr />
+<h3>4. Three-Pass Verification Log (<code>Pass 1</code>, <code>Pass 2</code>, <code>Pass 3</code>)</h3>
+<h4>Pass 1 — Full Prospective Implementation, Execution &amp; Packaging</h4>
+<ul>
+<li>Restored and SHA-256 verified all competition inputs, external official datasets, and <code>1,316</code> unique <code>.tif</code> files across all <code>196</code> <code>buffedlizard55-lab</code> GitHub repositories (<code>161</code> live post-delta sibling rasters added to <code>.cache/live_sibling_delta/</code>).</li>
+<li>Locked <code>registry/preregistration_g79_stfd.json</code> (<code>SHA-256 = 4d62ae4c25c638fe5e24a40f279623e05c995503a1684cb81f47f56ce4e90a75</code>), ran all <code>238</code> single-feature leakage canary checks (<code>passed</code>), completed prospective Seed 20 (<code>0.1928</code>), blind Seed 30 (<code>0.2114</code>), and full-catalogue <code>live</code> inference (<code>41,000</code> dots), audited uniqueness across all <code>1,273</code> comparable rasters, packaged <code>gems79-stfd-dinkelbach-41000dots-20261022-6e022dbe-zeros-DO-NOT-SUBMIT.{tif,zip,json}</code> via <code>vendor/gems57/submission_writer.py</code>, validated format (<code>all_checks_passed: true</code>) via <code>vendor/gems57/validate.py</code>, sealed <code>run_card_stfd.json</code>, and confirmed <code>scripts/run_stfd.py</code> exits with code <code>2</code> (<code>LaneClosedError</code>).</li>
+</ul>
+<h4>Pass 2 — Forensic Bug &amp; Edge-Case Audit and Remediation</h4>
+<ul>
+<li><strong>Bug 2A (<code>IR-79-208</code> — <code>training_features.tif</code> interior <code>FLT_MAX</code> overflow):</strong> Caught <code>RuntimeWarning: overflow encountered in multiply</code> during initial static feature construction caused by <code>3,061</code> interior <code>-3.4028235e38</code> sentinels inside <code>footprint</code>; fixed via <code>_clean_tf</code> (<code>np.isfinite(raw) &amp; (np.abs(raw) &lt; 1e10)</code>) + <code>float64</code> unit-vector normalization (<code>0</code> runtime warnings across all stages).</li>
+<li><strong>Bug 2B (<code>IR-79-199</code> / OOM mitigation):</strong> Caught <code>0 B</code>-swap cgroup RSS pressure (<code>3.8 GiB</code>) during 4-draw Stage-1/Stage-2 transition; offloaded inner draw mechanics matrices to disk <code>.npy</code>, converted pairwise OOF cache to <code>float16</code>, and freed training shards in place prior to Stage 2 (<code>peak RSS = 2,386.8 MB</code> on live run).</li>
+<li><strong>Bug 2C (<code>IR-79-209</code> — Collar support mismatch &amp; background-sum calibration inversion):</strong> First Seed-20 pass revealed <code>raw_p2 = 0.1278</code> (<code>F0 = 2,411</code> dots vs <code>F2 = 15,243</code> dots) because filtering <code>d_sim_fp &gt; 3.0</code> in Stage 1 while keeping <code>act_fp</code> (<code>d_sim_fp &gt; 0</code>) in Stage 2 caused collar blowup, and summing <code>p_2d</code> over all <code>1.29M</code> background noise cells inverted quadrant calibration. Preserved the pre-bugfix diagnostic receipt in <code>evidence/stfd/diagnostic_pre_collar_tail_bugfix_seed20.json</code>, restored Stage-1/Stage-2 domain identity and observable order-statistic tail calibration, re-verified Seed 20 (<code>0.1928</code>), and ran <code>Seed 30</code> (<code>0.2114</code>) completely blind with zero edits.</li>
+<li><strong>Bug 2D (<code>IR-79-210</code> — ZIP SHA-256 desynchronization in <code>run_csmd.py</code>):</strong> Avoided <code>run_csmd.py</code>'s post-writer ZIP rewrite bug so <code>zip_sha256</code> (<code>30891159...</code>) in sidecar <code>.json</code>, <code>run_card_stfd.json</code>, and <code>docs/run-card-stfd.json</code> matches on-disk <code>.zip</code> byte-for-byte with <code>0644</code> permissions.</li>
+<li><strong>Bug 2E (Figure clipping &amp; colormap inversion):</strong> Visual inspection of rendered PNGs caught inverted <code>Greys</code> dark background on <code>stfd_live_discovery_map.png</code> and edge title clipping on <code>stfd_novelty_and_features.png</code>; fixed and re-verified visually.</li>
+</ul>
+<h4>Pass 3 — End-to-End Prompt &amp; Governance Compliance Polish</h4>
+<ul>
+<li>Verified all <code>vendor/gems57/</code> files (<code>template_pin.json</code>), canonical <code>run_card.json</code> / <code>docs/downloads/</code> (<code>d3db2e95...</code>), verbatim <code>## Original project prompt</code> in <code>README.md</code>, single-line 4-pipe <code>IR-79-*</code> rows in <code>reports/irregularities.md</code> with HTML parity in <code>docs/irregularities.html</code>, zero <code>/home/user</code> host paths across tracked files, <code>0644</code> artifact permissions, full <code>pytest</code> suite, <code>scripts/verify_project.py</code>, <code>scripts/check_site.py</code>, and Node browser QA tests (<code>tools/browser-qa/download-check.test.cjs</code>).</li>
+</ul></div></section><section class="section"><div class="prose table-scroll"><h2>Session <code>1dc8cff0</code> Three-Pass Review Report (<code>arena/1dc8cff0-gemsdoe79</code>, 2026-10-22)</h2>
 <h3>1. Executive Decision &amp; Summary</h3>
 <ul>
 <li><strong>Canonical Repository Status:</strong> <strong><code>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</code></strong> (<code>0</code> weekly organizer submission slots spent).</li>

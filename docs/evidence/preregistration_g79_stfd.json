@@ -1,0 +1,52 @@
+{
+  "lane": "G79-STFD",
+  "title": "Seismo-Tectonic Fluid-Strain, Survey-Propensity Debiased Multi-Physics, Throw-Polarized Hanging-Wall Mechanics, and Self-Consistent Fractional Dinkelbach Allocation",
+  "session_branch": "arena/1b017e86-gemsdoe79",
+  "preregistered_utc": "2026-10-22T17:45:00Z",
+  "status": "open",
+  "max_experiments": 3,
+  "max_walltime_hours": 2.0,
+  "evaluator": {
+    "module": "vendor/gems57/evaluate_holdout.py",
+    "holdout_module": "vendor/gems57/holdout.py",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "spatial_blocking": "strict_4fold_leave_one_quadrant_out_LOQO",
+    "seeds": [20, 30],
+    "buffer_px": 3,
+    "boundary_px": 12,
+    "allow_rule": "footprint & (distance_transform_edt(~visible) >= 3.0)",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "kernel_radius_m": 300.0,
+    "bootstrap_draws": 1000
+  },
+  "feature_counts": {
+    "n_static_pure_physics": 97,
+    "n_fold_visible_mechanics": 22,
+    "n_total": 119,
+    "dropped_geographic_shift_features": ["abs_elev_km", "geodawn_area1_hires"]
+  },
+  "experiments": [
+    {
+      "id": "EXP-STFD-1",
+      "name": "EXP-STFD-1_pure_zero_catalogue_97ch",
+      "description": "Strict 4-fold LOQO 2-stage multi-family model trained on 100% of fold-visible faults with flank decontamination (far_pool >= 3.0 px) over all 97 domain-debiased pure-physics channels (0 catalogue features at inference); emitted at exact H33 budget B = 37,654 with uniform d_min = 2.8 px spacing."
+    },
+    {
+      "id": "EXP-STFD-2",
+      "name": "EXP-STFD-2_stfd119_uniform_d28",
+      "description": "Strict 4-fold LOQO 119-channel model combining quadrant-stratified inner hide-and-recover Stage-1 draws (R = 4, buffer_px = 3), multi-draw Stage-2 spatial line-integral + Sato tubularity stacking incorporating calibrated 97-ch pure-physics OOF posteriors (p_phys, q_phys), and observable visible-prevalence quadrant calibration; emitted at matched B = 37,654 with uniform d_min = 2.8 px spacing."
+    },
+    {
+      "id": "EXP-STFD-3",
+      "name": "EXP-STFD-3_stfd_fractional_dinkelbach",
+      "description": "Self-consistent fixed-point fractional Dinkelbach 300 m kernel allocator (lambda* = alpha * DTI* / (1 - alpha * DTI*)) on the EXP-STFD-2 posteriors coupled with a dedicated pure-physics off-catalogue discovery reserve (d_vis >= 9.0 px, min_sep = 2.4 px)."
+    }
+  ],
+  "gates": {
+    "G1_format": "Single-band float32 EPSG:32611 3730x3292 GeoTIFF in [0, 1], 0 NaN/Inf, 0 outside-footprint or catalogue positives, ZIP verified via vendor/gems57/validate.py and scripts/validate_submission.py.",
+    "G2_leakage_canary": "All 119 features x 2 seeds = 238 single-feature symmetric ROC-AUC tests <= 0.90.",
+    "G3_holdout_bar": "Beat H33 fold-fair control (paired 95% CI > 0) AND canonical G79-THVC (0.190523 / 0.194366) on BOTH Seed 20 and Seed 30 under strict LOQO evaluation.",
+    "G4_novelty": "Audit both pre-placement surface and post-placement binary dots via vendor/gems57/uniqueness.py across all accessible rasters across all 196 buffedlizard55-lab repositories (|Spearman| <= 0.90; 0 comparable sparse collisions > 0.70; literal dense-witness result recorded verbatim without local override)."
+  }
+}

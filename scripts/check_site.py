@@ -25,9 +25,9 @@ def check_site():
         assert document.find('a')['href'] == target and target in pages
     assert set(pages) == {
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
-        'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
+        'sources.html', 'history.html', 'irregularities.html', 'g79-stfd.html', 'g79-cskd.html',
         'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html',
-    }, 'Expected the eleven project pages (canonical seven + G79-CSKD + G79-CJX + G79-DZD + G79-CJX-DIR lane pages)'
+    }, 'Expected the twelve project pages (canonical seven + G79-STFD + G79-CSKD + G79-CJX + G79-DZD + G79-CJX-DIR lane pages)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
