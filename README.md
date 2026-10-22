@@ -7,6 +7,8 @@
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(The existing research TIFF passes local format/CRS/`[0,1]`, leakage-canary, and spatial-holdout checks, but **fails the literal registry-overlap gate**; it is not cleared for submission. The holdout results are not organizer scores. No weekly slot has been used.)*
 >
 > **Current review (2026-10-22):** no new TIFF or holdout experiment was made. The fail-closed preflight proves a literal 3-pixel overlap of `1.0` for any nonempty candidate against a pinned full-footprint registry raster; see [the session review](reports/repository_review_2026-10-22_arena-63e67511.md) and [the machine preflight result](evidence/new_lane_preflight_b79882e0.json).
+>
+> **Additional scoped review (`78ff8e7b`):** this review reconciles current mainline prior art, including negative G79-CFSKD and H80 scoring-only pilots (PRs #79 and #81). The H80 preregistration-timing breach is disclosed; its limited three-raster overlap check does not override the literal-witness stop. This review ran no experiments, authorizes no new lane, and certifies no remaining idea as family-novel. See the [three-pass review](reports/repository_review_2026-10-22_session-78ff8e7b.md) and [JSON card](evidence/session_review_78ff8e7b.json). Archived lane artifacts are research only, not submit-approved.
 
 | Gate / Decision | Automated Result | Verified Machine Evidence |
 |---|---|---|

@@ -1,17 +1,9 @@
-# Current GEMSDOE79 brief
+# Current GEMSDOE79 brief — review updated 2026-10-22
 
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** One computed E1 field was stopped by
-the mandatory literal duplicate rule before holdout or dot placement.
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** The existing canonical G79-THVC TIFF is locally format-valid but is not submit-approved. A fresh read-only measurement of the literal registry witness shows that its positive support covers every allowed cell; any non-empty candidate therefore has forward 3-pixel overlap `1.0` against the current `0.70` limit. This blocks new lanes under the inherited rule and is not a complete registry clearance or organizer score.
 
-Read the **complete original prompt in [README](https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/README.md)** and the
-[current run card](run-card.json) at the start of every session. Use the
-[four preregistered hypotheses](analysis.html),
-[irregularity register](irregularities.html) and
-[executive summary & verification guide](executive-summary.html).
+No experiment, candidate raster, final placement, selector decision, slot selection, or upload was made in the current review. Mainline contains archived G79-CFSKD (PR #79) and scoring-only H80 DRAPE/RADIO pilots (PR #81), all negative; the H80 pilots have a disclosed preregistration-timing breach and limited three-raster overlap checks. Their prior **HOLDOUT-DTI** evidence, evaluator, withheld-positive counts, and 95% CIs are documented in the [review](https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_session-78ff8e7b.md) and source cards. These lanes were not rerun here and are not submit-approved. The canonical holdout results in `run_card.json` are prior **HOLDOUT-DTI** measurements, not results reproduced this session. No artifact in this repository has an **ORGANIZER-CONFIRMED** submission-page receipt.
 
-The earlier missing-data preflight brief was merged concurrently. Its exact
-text is retained as a clearly [historical snapshot](https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/prior_work/PROJECT_BRIEF.md).
-Its proposed lane does not authorize changing the now-stopped E1 lane. Used
-inputs have since been restored from pinned mirrors; independent organizer
-origin, scientific validation, selector approval and account capacity remain
-uncleared. No competition slot has been used.
+Read the **complete original prompt in [README](https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/README.md)** and the [canonical run card](run-card.json) at the start of every session. See the [three-pass scoped review](https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_session-78ff8e7b.md), [machine-readable review card](evidence/session_review_78ff8e7b.json), [literal overlap certificate](evidence/universal_overlap_certificate.json), [irregularity register](irregularities.html), and [executive summary and download status](executive-summary.html).
+
+The current checkout has the pinned reference rasters, but not `data/raw/` or `.cache/thvc/`; the restore receipt matches manifest hashes but does not prove those ignored files are materialized here now. Official sources are listed in [official source ledger](evidence/official_sources.json); this review did not live-fetch the external pages. Candidate ideas in existing backlogs are prior proposals and cannot be called new or globally unique without a prospective method definition, verified source data, and an authorized complete uniqueness check.

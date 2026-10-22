@@ -3,7 +3,7 @@
 ## 1. Executive Summary & Automated Disposition
 
 - **Downloadable Candidate GeoTIFF:** `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif` (`137,299 B`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`)
-- **Single-TIFF Submission ZIP:** `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip` (`102,600 B`, SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`)
+- **Single-TIFF Submission ZIP:** `docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip` (`102,628 B`, SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`)
 - **Unique Submission Name (`55 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
 - **Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
 - **`OK TO DOWNLOAD`:** **YES (`ok_to_download: true`)** — passes `15 / 15` GeoTIFF grid, CRS (`EPSG:32611`), shape (`3730 × 3292`), geotransform (`[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]`), value-range (`[0.0, 1.0]`, strictly binary `{0.0, 1.0}`), finite/zero-NaN, zero outside-footprint, zero mapped-catalogue, and single-TIFF ZIP CRC/byte-identity checks automatically without human intervention.

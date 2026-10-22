@@ -7,7 +7,7 @@
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
-<p>All entries are dated 2026-10-21. No entry authorizes a threshold exemption.</p>
+<p>Historical entries retain their original dates; appended findings are dated as recorded in their source evidence. No entry authorizes a threshold exemption.</p>
 <table>
 <thead>
 <tr>
@@ -1128,6 +1128,49 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>IR-79-156</td>
 <td><strong>Restored inputs are not organizer-authenticated, and two label files are byte-identical.</strong> Training inputs come from owner GitHub mirrors via <code>scripts/restore_data.py</code> (13 entries verified, receipt preserved). <code>labels.tif</code> and <code>existing_faults.tif</code> share SHA-256 prefix <code>7ba308ccdc4418b3</code> (60,988 positive pixels each). Rules §3.3 states the labels come from the INGENIOUS compilation, which is consistent with this.</td>
 <td>Flagged, not a defect. Byte equality is recorded here. Raw-data hash checks against organizer-published checksums remain unverified.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session <code>78ff8e7b</code> addendum (2026-10-22) — review refreshed after PR #81 entered main</h3>
+<p>Full review and machine-readable card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/repository_review_2026-10-22_session-78ff8e7b.md"><code>repository_review_2026-10-22_session-78ff8e7b.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/session_review_78ff8e7b.json"><code>session_review_78ff8e7b.json</code></a>. These findings do not change the canonical G79-THVC run card or submit status.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-157</td>
+<td><strong>The literal overlap preflight blocks every non-empty candidate.</strong> The frozen witness SHA-256 <code>ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be</code> has positive support covering all <code>5,106,385</code> allowed cells, leaving zero uncovered; any allowed non-empty candidate therefore has forward 3-pixel overlap <code>1.0</code> against the <code>0.70</code> limit.</td>
+<td><code>scripts/preflight_new_lane.py --restore</code> exits <code>2</code> with <code>start_new_lane=false</code>; this is a literal-rule result, not a complete all-raster clearance. Do not bypass via a density exemption, threshold change, alternate dot interpretation, or candidate placement.</td>
+</tr>
+<tr>
+<td>IR-79-158</td>
+<td><strong>The current checkout still lacks the raw/cache inputs needed for a new scientific run.</strong> <code>data/reference/</code> and <code>data/bridge/</code> contain grid rasters, but <code>data/raw/</code> and <code>.cache/thvc/</code> are absent; the restore receipt does not prove ignored source bytes are present.</td>
+<td>No external page was fetched and no feature cache was fabricated by this review. Re-materialize inputs only through a permitted, hash-verifiable route after prospective protocol authorization.</td>
+</tr>
+<tr>
+<td>IR-79-159</td>
+<td><strong>Closed THVC directional features may wrap across raster edges.</strong> <code>src/gems79/thvc_features.py</code> uses <code>numpy.roll</code>; 140 canonical positive pixels lie within 10 pixels of an outer boundary, but raw features were unavailable to measure whether their scores depend on wrapped values.</td>
+<td>Keep this as an unmeasured possible defect; no historical HOLDOUT-DTI score was invalidated or recomputed, and no closed-lane code was changed.</td>
+</tr>
+<tr>
+<td>IR-79-160</td>
+<td><strong>Mainline H80 pilots are negative but have a disclosed preregistration-timing breach.</strong> The hand-entered timestamps were withdrawn because the scoring-only pilots preceded the committing preregistration (<code>IR-79-148</code> in the H80 review); no new raster was written and no slot was used. <strong>HOLDOUT-DTI</strong> (<code>gems57-pooled-hide-v2</code>): DRAPE candidate seed 20 (<code>n=11,321</code>) <code>0.0504</code>, 95% CI <code>[0.0424, 0.0584]</code>; seed 30 (<code>n=11,342</code>) <code>0.0459</code>, <code>[0.0388, 0.0529]</code>. RADIO candidate seed 20 (<code>n=11,321</code>) <code>0.0206</code>, <code>[0.0106, 0.0303]</code>; seed 30 (<code>n=11,342</code>) <code>0.0318</code>, <code>[0.0199, 0.0440]</code> (<code>run_card_h80_pilots.json</code>).</td>
+<td>These are cited as prior mainline holdout measurements, not experiments conducted or validated by this review. H80 used 2 of its 3 experiment budget; no additional run is authorized here. Interpret the results with the timestamp breach, not as a clean prospective confirmation.</td>
+</tr>
+<tr>
+<td>IR-79-161</td>
+<td><strong>The earlier shortlist must account for newly merged prior art and a mis-specified MT source.</strong> G79-CFSKD (PR #79) implemented the Coulomb flank-shadow veto; H80-RADIO tested a thorium-normalised K residual; H80-DRAPE tested a spectral notch; and the proposed GDR 1391 resistivity slices at 500 m / 1.5 km / 3 km do not exist in the cited product, which supplies conductance layers instead (<code>IR-79-149</code>).</td>
+<td>Removed Coulomb from the untried shortlist, downgraded related K residual ideas after the negative pilot, and re-scoped the MT proposal to deep conductance as a regional prior. No remaining idea is certified family-novel; the conducted comparison is qualitative, not a complete algorithm-level lineage audit.</td>
+</tr>
+<tr>
+<td>IR-79-162</td>
+<td><strong>A merge restored a stale ZIP byte count (<code>102,600 B</code>) in the active scientific report.</strong> <code>stat</code> confirms the canonical ZIP is <code>102,628</code> bytes with SHA-256 <code>dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9</code>.</td>
+<td>Corrected the report to <code>102,628 B</code>; the generated site is rebuilt and validated. The earlier IR-79-124 remains the historical record of the same size correction.</td>
 </tr>
 </tbody>
 </table></div></section></main>
