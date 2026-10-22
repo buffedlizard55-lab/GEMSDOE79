@@ -1,11 +1,8 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22):** [three-pass active-branch review](reports/repository_review_2026-10-22_active-branch.md). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used.
+**Latest repository audit (`2026-10-22`, active branch `arena/6d4a2fdf-gemsdoe79`):** [`reports/session_review_6d4a2fdf.md`](reports/session_review_6d4a2fdf.md) · Ranked next-lane hypotheses: [`research/hypotheses_6d4a2fdf.md`](research/hypotheses_6d4a2fdf.md) · Three-tier Pigeonhole obstruction & cross-sibling uniqueness certificate: [`evidence/registry_obstructions_certificate.json`](evidence/registry_obstructions_certificate.json) · Cross-family byte forensics (`GEMSDOE`..`GEMSDOE90`): [`evidence/family_lineage_forensics.json`](evidence/family_lineage_forensics.json) (prior reviews preserved: [active-branch review](reports/repository_review_2026-10-22_active-branch.md), [session 68182759](reports/repository_review_2026-10-22_session-68182759.md)).
 
 ## Download and submission decision — start here
-
-Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-68182759.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
-
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
@@ -49,7 +46,34 @@ Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard5
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
 
-Current independent three-pass review for this branch: [`reports/repository_review_2026-10-22_session-14aaf1c8.md`](reports/repository_review_2026-10-22_session-14aaf1c8.md). It records no new experiment, TIFF, upload, or slot use.
+Current independent three-pass review for this branch (`arena/6d4a2fdf-gemsdoe79`): [`reports/session_review_6d4a2fdf.md`](reports/session_review_6d4a2fdf.md) (prior session review preserved at [`reports/repository_review_2026-10-22_session-14aaf1c8.md`](reports/repository_review_2026-10-22_session-14aaf1c8.md)). It records zero new experiments, zero new submittable TIFFs, zero uploads, and zero weekly slots used.
+
+## Session `arena/6d4a2fdf-gemsdoe79` synthesis (`2026-10-22`): primary-source rulings, three-tier Pigeonhole proof, cross-sibling audit & next hypotheses
+
+1. **Primary-source rulings verified line by line (`2026-10-22`, [`knowledge/official_sources.json`](knowledge/official_sources.json)):**
+   - **Live Leaderboard (`DD-LEADERBOARD`):** Top 50 spans `#1 xiaofanhu = 0.4413` (`27` submissions), `#2 cfld__ = 0.3904`, `#3 Batik Shirt Brothers = 0.3894`, `#4 BrandenKMurray = 0.3713`, `#5 No Fault of Our Own = 0.3539`, ..., `#50 kinneso_outlook = 0.2784` (`OFFICIAL PUBLIC LEADERBOARD OBSERVATION`). Comparing `2026-10-21` (`#48 extradr19 = 0.2778`) against `2026-10-22` (`#48 sam35 = 0.2804`, `#49 op01 = 0.2797`, `#50 = 0.2784`) explains why `0.2778` shifted just below row `50` (`IR-79-72`); both `0.2778` (`GEMSDOE32`) and `0.3195` (`GEMSDOE49`) remain `UNVERIFIED HISTORICAL REPORTS` without an authenticated receipt.
+   - **Official DrivenData Staff Rulings (`chrisk-dd`, [`11516/4`](https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2), [`11527/7`](https://community.drivendata.org/t/how-were-the-new-test-faults-identified-data-sources-and-fault-types/11527/7), [`11536/2`](https://community.drivendata.org/t/where-do-you-draw-the-line/11536/2), [`11543/2`](https://community.drivendata.org/t/using-a-teammates-geological-interpretation-as-training-labels/11543/2), [`11550/2`](https://community.drivendata.org/t/leaderboard-aggregation-pooled-over-public-test-pixels-or-mean-of-per-chunk-scores/11550/2), [`11556/3`](https://community.drivendata.org/t/questions-about-the-final-round-rules/11556/3)):** (a) exclusion of `existing_faults.tif` is pixel-exact in both Phase 1 (`$50k`) and Phase 2 (`$250k`); (b) "new fault" includes newly mapped splays/continuations within `< 300 m` of existing traces; (c) reproducible human geological hand-labeling/hard-negative curation on public data inside the GeoDAWN region IS permitted (`11543/2`), explaining how leading teams purge pluvial shoreline and anthropogenic scarps; (d) Phase 2 updates ground truth from expert review of all Phase 1 submissions (`11527/7`).
+
+2. **Three-Tier Registry Pigeonhole Proof (`IR-79-73`, `scripts/verify_registry_obstructions.py` $\to$ [`evidence/registry_obstructions_certificate.json`](evidence/registry_obstructions_certificate.json)):**
+   Across the `5,106,385` allowed off-catalogue footprint cells, **thresholding continuous priors (`p >= 0.5` or `top-K`) ALONE cannot admit any `37,654`-dot map**:
+   - **Tier 1 (`literal` `> 0`):** `17GEMSDOE` (`ab0a0a62…`) leaves **`0`** uncovered pixels (`min overlap = 1.0`).
+   - **Tier 2 (`p >= 0.5` AND `budget-matched-v3` at $K = 37,654$):** `5GEMSDOE:gems-density-probe-20260925T184215Z-9cdae9b4.tif` (`9cdae9b4…`, strictly binary `1.0` on all `5,106,385` allowed cells!) plus `3` `GEMSDOE48` unassigned-mass rasters leave **`0`** uncovered pixels (`min overlap = 1.0`).
+   - **Tier 3 (Strictly binary sparse dot maps $\le 20\%$ support):** `13GEMSDOE` spacing-5 binary lattices (`c12533bb…`, `b4570b40…`; `206,895` binary `{0, 1}` pixels $= 4.00\%$ support; $\max_{\mathbb{Z}^2} d(x, 5\mathbb{Z}^2) = \sqrt{8} \approx 2.8284 < 3.0\text{ px}$) leave **exact `6,514` uncovered allowed pixels**, forcing $\min_{|M|=37,654}\text{ov}_{3\text{px}}(M, \text{lattice-s5}) = \mathbf{15570/18827 \approx 0.827004 > 0.70}$ by the Pigeonhole Principle ($K_{\max}(0.70) = 21,713$). Any prospective protocol amendment (`AGENTS.md §4`) must therefore adopt **Cohen-style overlap beyond chance** $(\text{ov}_{3\text{px}}(A, B) - h(B))/(1 - h(B)) \le 0.70$ with deterministic tie-breaking.
+
+3. **Byte-Level Forensic Audit of All 6 Prompt-Named Unscored Siblings & `GEMSDOE84..90` (`IR-79-74`, `IR-79-76`, [`evidence/family_lineage_forensics.json`](evidence/family_lineage_forensics.json)):**
+   `GEMSDOE84..90` are empty 1-file stubs (`README.md` only, `0` `.tif`). Every one of all 6 prompt-named candidates passes local `[0, 1]` GeoTIFF validation (`0` NaNs) **and fails the unmodified shared 992-raster `v3` uniqueness gate even strictly on non-space-filling informative priors (`11`–`25` collisions `> 0.70` each)**:
+
+   | Repo | Prompt-Named Unscored Artifact | SHA-256 | Dots | Sibling Holdout Claim | Informative `v3` Collisions (`>0.70`) | Worst Excess Overlap ($\le 0.70$?) | Key Forensic Finding |
+   |---|---|---|---:|---|---:|---:|---|
+   | `GEMSDOE76` | `gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros` | `54c97839…` | `39,200` | `0.1782` (`n=60,988`, non-standard `8 km` split) | `22` (`0.9555`) | `0.9051` (`FAIL`) | Non-comparable split; fails excess overlap (`GEMSDOE22:10pct`). |
+   | `GEMSDOE78` | `gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros` | `8ca06ece…` | `44,090` | `0.1771` (`gems57-pooled-hide-v2` S20) | `20` (`0.9378`) | `0.8406` (`FAIL`) | `b5` (`500 m`) collar zeros all near-fault splays; fails excess overlap (`GEMSDOE3`). |
+   | `GEMSDOE80` | `gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros` | `a3c14d76…` | `51,667` | `0.2349` (**forked** `GEMSDOE80-v2`, `n=18,313`) | `13` (`0.8589`) | **`0.6907`** | Private evaluator fork (`Rule 2` breach), `20`-raster check, heavy `51,667` budget. |
+   | `GEMSDOE81` | `gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros` | `9798fe7f…` | `44,090` | `0.2170` (`gems57-pooled-hide-v2`, `n=22,641`) | `25` (`1.0000`) | `1.0000` (`FAIL`) | **`IR-79-11` Collar Trap:** `100.0%` of dots in `(200, 500 m]`, **`0.0% > 1 km`** (`med = 223.6 m`); only `5` rasters checked! |
+   | `GEMSDOE82` | `gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros` | `120810fe…` | `37,654` | `0.1253` (`gems57-pooled-hide-v2` S20) | `21` (`0.9648`) | `0.9249` (`FAIL`) | Below `GEMSDOE79` `H79-NHR` (`0.1431` S20) AND fails excess overlap (`0.925`). |
+   | `GEMSDOE83` | `gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros` | `79f14dc8…` | `37,654` | **`0.2068`** (`0.1999` S20 / `0.2138` S30, `gems57-pooled-hide-v2`) | `11` (`0.8514`) | **`0.6194`** | **Best cross-family candidate** (`37,654` dots, shared evaluator, `0.6194 <= 0.70` excess), pending `v4` ratification + full 990-raster excess check. |
+
+4. **Five Ranked Untried Candidate Geological Hypotheses ([`research/hypotheses_6d4a2fdf.md`](research/hypotheses_6d4a2fdf.md)):**
+   `H79-CAND-1` (Azimuth-gated crack-tip splay & selective `(150, 400 m]` collar admission + excess-overlap Dinkelbach decoding), `H79-CAND-2` (Along-strike elevation-slope $|\nabla_{\parallel} z|$ Lahontan/Bonneville strandline & GeoDAWN tie-line deconfounder), `H79-CAND-3` (Depth-adaptive $H(x)\cot\delta$ subsurface-to-surface up-dip fault-plane registration), `H79-CAND-4` (`11543/2`-compliant programmatic/human hard-negative atlas), and `H79-CAND-5` (Phase-2 relocated microseismicity planar lineaments + Sentinel-1 InSAR velocity steps via GitHub Actions).
 
 ## Follow-up preflight (2026-10-22, branch `arena/a7d092d7-gemsdoe79`)
 

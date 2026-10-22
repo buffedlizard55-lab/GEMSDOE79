@@ -1,20 +1,24 @@
 #!/usr/bin/env python3
-"""Cross-repository byte forensics for top scored landmarks (GEMSDOE..GEMSDOE77)
-and post-snapshot sibling repositories (GEMSDOE78, GEMSDOE80..GEMSDOE83).
+"""Cross-repository byte forensics for top scored landmarks (GEMSDOE..GEMSDOE77),
+prompt-named unscored candidates (GEMSDOE76, GEMSDOE78, GEMSDOE80..GEMSDOE83),
+and all post-snapshot sibling repositories (GEMSDOE78..GEMSDOE88).
 
 Uses zero-REST-quota Git Smart-HTTP where blobs are outside the frozen 992-file
 E1 snapshot, never rewrites registry/registry_index.json, registry/registry_receipt.json,
-run_card.json, or evidence/experiment_state.json, and labels every score strictly
+run_card.json, or evidence/experiment_state.json, and labels every number strictly
 by evidence class (UNVERIFIED HISTORICAL REPORT vs HOLDOUT-DTI vs RASTER-MEASUREMENT).
 """
 from __future__ import annotations
-from datetime import datetime, timezone
+
 import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
+
 import numpy as np
 import rasterio
 from scipy import ndimage as ndi
@@ -22,10 +26,11 @@ from scipy.stats import spearmanr
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'src'), str(ROOT / 'vendor'), str(ROOT / 'scripts')]
-from gems57 import uniqueness as shared
-from gems57.grid import load_grid
-from restore_registry import restore_blob
 
+from gems57 import evaluate_holdout, holdout, uniqueness as shared  # noqa: E402
+from gems57.grid import load_grid  # noqa: E402
+from restore_registry import restore_blob  # noqa: E402
+from validate_submission import validate_path  # noqa: E402
 
 LANDMARKS = [
     ('GEMSDOE32', 'h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros', 0.2778),
@@ -46,26 +51,47 @@ LANDMARKS = [
     ('GEMSDOE74', 'gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros', 0.0669),
 ]
 
-POST_SNAPSHOT_SIBLINGS = ['GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83']
+PROMPT_NAMED_UNSCORED = [
+    ('GEMSDOE76', 'gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros'),
+    ('GEMSDOE78', 'gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros'),
+    ('GEMSDOE80', 'gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros'),
+    ('GEMSDOE81', 'gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros'),
+    ('GEMSDOE82', 'gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros'),
+    ('GEMSDOE83', 'gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros'),
+]
+
+POST_SNAPSHOT_SIBLINGS = [
+    'GEMSDOE78', 'GEMSDOE80', 'GEMSDOE81', 'GEMSDOE82', 'GEMSDOE83',
+    'GEMSDOE84', 'GEMSDOE85', 'GEMSDOE86', 'GEMSDOE87', 'GEMSDOE88',
+]
 
 
 def sha256_bytes(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
 
 
+_REPO_HEAD_CACHE: dict[str, tuple[Path, str | None, list[dict]]] = {}
+
+
 def ensure_repo_head(repo: str) -> tuple[Path, str | None, list[dict]]:
+    if repo in _REPO_HEAD_CACHE:
+        return _REPO_HEAD_CACHE[repo]
     full_repo = f'buffedlizard55-lab/{repo}'
     bare = ROOT / '.cache' / 'git_mirrors' / f'{full_repo.replace("/", "__")}.git'
     if not (bare / 'HEAD').exists():
         bare.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(['git', 'init', '--bare', '-q', str(bare)], check=True)
         subprocess.run(['git', '-C', str(bare), 'remote', 'add', 'origin', f'https://github.com/{full_repo}.git'], check=True)
+        subprocess.run(['git', '-C', str(bare), 'config', 'gc.auto', '0'], check=True)
+    else:
+        subprocess.run(['git', '-C', str(bare), 'config', 'gc.auto', '0'], check=False)
     res = subprocess.run(
         ['git', '-C', str(bare), '-c', 'gc.auto=0', 'fetch', '-q', '--filter=blob:none', '--depth=1', 'origin', 'HEAD'],
         capture_output=True, text=True,
     )
     if res.returncode != 0:
-        return bare, None, []
+        _REPO_HEAD_CACHE[repo] = (bare, None, [])
+        return _REPO_HEAD_CACHE[repo]
     commit = subprocess.check_output(['git', '-C', str(bare), 'rev-parse', 'FETCH_HEAD'], text=True).strip()
     tree_out = subprocess.check_output(['git', '-C', str(bare), 'ls-tree', '-r', '-l', 'FETCH_HEAD'], text=True)
     entries = []
@@ -73,10 +99,11 @@ def ensure_repo_head(repo: str) -> tuple[Path, str | None, list[dict]]:
         meta, path = line.split('\t', 1)
         parts = meta.split()
         entries.append({'mode': parts[0], 'type': parts[1], 'blob': parts[2], 'size': int(parts[3]), 'path': path})
-    return bare, commit, entries
+    _REPO_HEAD_CACHE[repo] = (bare, commit, entries)
+    return _REPO_HEAD_CACHE[repo]
 
 
-def locate_and_load(repo: str, needle: str, index_rows: list[dict], pins: dict) -> tuple[np.ndarray, dict] | None:
+def locate_and_load(repo: str, needle: str, index_rows: list[dict], pins: dict) -> tuple[np.ndarray, dict, Path] | None:
     hits = [
         r for r in index_rows
         if r['repo'] == repo and any(needle.lower() in a.lower() for a in r.get('aliases', [r['path']]))
@@ -97,17 +124,21 @@ def locate_and_load(repo: str, needle: str, index_rows: list[dict], pins: dict) 
             'sha256': sha256_bytes(data),
             'bytes': len(data),
             'in_frozen_992_registry': True,
-        }
+        }, tif_path
     bare, commit, entries = ensure_repo_head(repo)
-    candidates = [e for e in entries if e['path'].lower().endswith(('.tif', '.tiff')) and needle.lower() in e['path'].lower()]
+    candidates = [
+        e for e in entries
+        if e['path'].lower().endswith(('.tif', '.tiff')) and needle.lower() in e['path'].lower()
+    ]
     if not candidates:
         return None
+    candidates.sort(key=lambda e: (0 if e['path'].startswith('docs/downloads/') else 1, e['path']))
     entry = candidates[0]
     cache_path = ROOT / '.cache' / 'family_forensics' / f"{entry['blob']}.tif"
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     if not cache_path.exists():
         with cache_path.open('wb') as out:
-            subprocess.run(['git', '-C', str(bare), 'cat-file', 'blob', entry['blob']], stdout=out, check=True)
+            subprocess.run(['git', '-C', str(bare), '-c', 'gc.auto=0', 'cat-file', 'blob', entry['blob']], stdout=out, check=True)
     data = cache_path.read_bytes()
     with rasterio.open(cache_path) as ds:
         arr = ds.read(1)
@@ -119,27 +150,47 @@ def locate_and_load(repo: str, needle: str, index_rows: list[dict], pins: dict) 
         'sha256': sha256_bytes(data),
         'bytes': len(data),
         'in_frozen_992_registry': False,
-    }
+    }, cache_path
 
 
-def summarize_array(arr: np.ndarray, grid, d_cat: np.ndarray, h33_bool: np.ndarray, d28_bool: np.ndarray) -> dict:
+def summarize_array(
+    arr: np.ndarray,
+    grid,
+    d_cat: np.ndarray,
+    h33_bool: np.ndarray,
+    d28_bool: np.ndarray,
+    nhr_bool: np.ndarray | None = None,
+) -> dict:
     fp = grid.footprint
     in_fp = arr[fp]
     pos = np.isfinite(arr) & (arr > 0) & fp
     clean = np.where(fp & np.isfinite(arr), np.clip(arr, 0.0, 1.0), 0.0).astype(np.float32)
     dvals = d_cat[pos]
-    rho_h33 = float(spearmanr(clean[fp], h33_bool[fp].astype(np.float32)).statistic) if pos.any() else 0.0
-    return {
+    is_bin = bool(set(np.unique(in_fp[np.isfinite(in_fp)]).tolist()) <= {0.0, 1.0})
+    if not pos.any():
+        rho_h33 = 0.0
+    elif is_bin:
+        # For binary {0,1} vectors, mid-ranks are an exact positive affine map of {0,1},
+        # so Spearman rank correlation equals the exact closed-form phi coefficient.
+        n = float(fp.sum())
+        nx = float(pos.sum())
+        ny = float(h33_bool.sum())
+        nxy = float((pos & h33_bool).sum())
+        rho_h33 = float((nxy * n - nx * ny) / np.sqrt(nx * (n - nx) * ny * (n - ny)))
+    else:
+        rho_h33 = float(spearmanr(clean[fp], h33_bool[fp].astype(np.float32)).statistic)
+    out = {
         'evidence_class': 'RASTER-MEASUREMENT',
         'nan_outside_footprint': int(np.isnan(arr[~fp]).sum()),
         'nan_inside_footprint': int(np.isnan(in_fp).sum()),
         'positive_pixels_in_footprint': int(pos.sum()),
         'sum_probability_mass': float(clean.sum()),
-        'is_binary_0_1_in_footprint': bool(set(np.unique(in_fp[np.isfinite(in_fp)]).tolist()) <= {0.0, 1.0}),
+        'is_binary_0_1_in_footprint': is_bin,
         'on_catalogue_positive_pixels': int((pos & grid.catalogue).sum()),
         'within_200m_of_catalogue_pixels': int(((dvals > 0) & (dvals <= 2.0)).sum()),
         'between_200m_and_300m_of_catalogue_pixels': int(((dvals > 2.0) & (dvals <= 3.0)).sum()),
         'between_200m_and_500m_of_catalogue_pixels': int(((dvals > 2.0) & (dvals <= 5.0)).sum()),
+        'median_distance_to_catalogue_m': float(np.median(dvals) * 100.0) if len(dvals) else None,
         'over_1km_from_catalogue_fraction': float((dvals > 10.0).mean()) if len(dvals) else 0.0,
         'exact_subset_of_d28': bool(not (pos & ~d28_bool).any()),
         'exact_superset_of_h33': bool(not (h33_bool & ~pos).any()),
@@ -150,30 +201,99 @@ def summarize_array(arr: np.ndarray, grid, d_cat: np.ndarray, h33_bool: np.ndarr
         'forward_3px_overlap_with_d28': float(shared.dot_overlap(pos, d28_bool)),
         'spearman_with_h33': rho_h33,
     }
+    if nhr_bool is not None:
+        out['shared_exact_pixels_with_nhr'] = int((pos & nhr_bool).sum())
+        out['forward_3px_overlap_with_nhr'] = float(shared.dot_overlap(pos, nhr_bool))
+        out['reverse_3px_overlap_from_nhr'] = float(shared.dot_overlap(nhr_bool, pos)) if pos.any() else 0.0
+    return out
+
+
+def static_holdout_evaluation(clean_arms: dict[str, np.ndarray], grid) -> dict:
+    """Evaluate static full-footprint predictions across seeds 20 & 30 on gems57-pooled-hide-v2.
+
+    CRITICAL METHODOLOGY CAVEAT: Static rasters generated from the full catalogue
+    (rather than refitted fold-by-fold with hidden components withheld) reflect
+    full-catalogue conditioning: models that positively target mapped fault tips/strands
+    experience optimistic leakage inflation when hidden catalogue components remain in
+    their input geometry, whereas models that only delete a collar around full-catalogue
+    pixels suffer mild collar deletion around hidden components. Compare directly with
+    H79-NHR's blind out-of-fold score (0.1431 / 0.1522) vs static full-catalogue score below.
+    """
+    fp = grid.footprint
+    out = {}
+    for seed in (20, 30):
+        folds, _ = holdout.buffered_component_draw(grid, seed=seed)
+        d_vis = ndi.distance_transform_edt(~folds[0]['visible'])
+        h33_ff = np.where(d_vis > 2.0, clean_arms['D28_static'], 0.0).astype(np.float32)
+        arms_with_ctrl = {'h33_foldfair_control': h33_ff, **clean_arms}
+        terms_by_arm: dict[str, np.ndarray] = {}
+        for fold in folds:
+            for name, pred in arms_with_ctrl.items():
+                _, terms = evaluate_holdout.evaluate(pred, fold, fp)
+                terms_by_arm[name] = terms_by_arm[name] + terms if name in terms_by_arm else terms
+        pooled = evaluate_holdout.pooled_summary(
+            terms_by_arm, draws=1000, seed=520810, candidate='H79_NHR_static_fullcat'
+        )
+        out[f'seed_{seed}'] = {
+            'evaluator_version': pooled['evaluator_version'],
+            'split_version': folds[0]['receipt']['split_version'],
+            'evidence_class': 'HOLDOUT-DTI (STATIC FULL-CATALOGUE RASTER DIAGNOSTIC; NOT OUT-OF-FOLD REFIT)',
+            'withheld_positive_pixels': pooled['scores']['h33_foldfair_control']['withheld_positive_pixels'],
+            'scores': {
+                k: {
+                    'dti': round(v['dti'], 4),
+                    'ci95': [round(c, 4) for c in v['ci95']],
+                    'tpw': round(v['tpw'], 2),
+                    'fpw': round(v['fpw'], 2),
+                }
+                for k, v in pooled['scores'].items()
+            },
+        }
+    return out
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.parse_args()
-    current_branch = subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', '--abbrev-ref', 'HEAD'], text=True).strip()
+    current_branch = subprocess.check_output(
+        ['git', '-C', str(ROOT), 'rev-parse', '--abbrev-ref', 'HEAD'], text=True
+    ).strip()
     grid = load_grid(ROOT / 'data/reference')
+    fp = grid.footprint
     d_cat = ndi.distance_transform_edt(~grid.catalogue)
     index_rows = json.loads((ROOT / 'registry/registry_index.json').read_text())['rasters']
-    pins = {r['blob']: r for r in json.loads((ROOT / 'registry/registry_receipt.json').read_text())['files'] if r['status'] == 'verified'}
+    pins = {
+        r['blob']: r
+        for r in json.loads((ROOT / 'registry/registry_receipt.json').read_text())['files']
+        if r['status'] == 'verified'
+    }
 
-    h33_arr, _ = locate_and_load('GEMSDOE32', 'h33-2-b2', index_rows, pins)
-    d28_arr, _ = locate_and_load('GEMSDOE25', 'dotted-h19-5-d2-8', index_rows, pins)
-    h33_bool = np.isfinite(h33_arr) & (h33_arr > 0) & grid.footprint
-    d28_bool = np.isfinite(d28_arr) & (d28_arr > 0) & grid.footprint
+    h33_arr, _, _ = locate_and_load('GEMSDOE32', 'h33-2-b2', index_rows, pins)
+    d28_arr, _, _ = locate_and_load('GEMSDOE25', 'dotted-h19-5-d2-8', index_rows, pins)
+    card = json.loads((ROOT / 'run_card.json').read_text())
+    with rasterio.open(ROOT / card['submission_file']) as ds:
+        nhr_arr = ds.read(1)
+
+    h33_bool = np.isfinite(h33_arr) & (h33_arr > 0) & fp
+    d28_bool = np.isfinite(d28_arr) & (d28_arr > 0) & fp
+    nhr_bool = np.isfinite(nhr_arr) & (nhr_arr > 0) & fp
+
+    static_arms: dict[str, np.ndarray] = {
+        'H33_static_fullcat': h33_bool.astype(np.float32),
+        'D28_static': d28_bool.astype(np.float32),
+        'H79_NHR_static_fullcat': nhr_bool.astype(np.float32),
+    }
 
     landmark_results = []
     for repo, needle, reported_score in LANDMARKS:
         loaded = locate_and_load(repo, needle, index_rows, pins)
         if loaded is None:
-            landmark_results.append({'repo': repo, 'needle': needle, 'reported_public_dti': reported_score, 'found': False})
+            landmark_results.append({
+                'repo': repo, 'needle': needle, 'reported_public_dti': reported_score, 'found': False,
+            })
             continue
-        arr, src = loaded
-        metrics = summarize_array(arr, grid, d_cat, h33_bool, d28_bool)
+        arr, src, _ = loaded
+        metrics = summarize_array(arr, grid, d_cat, h33_bool, d28_bool, nhr_bool)
         landmark_results.append({
             'repo': repo,
             'reported_submission_name': needle,
@@ -183,14 +303,39 @@ def main() -> None:
             'source': src,
             'measurements': metrics,
         })
+        if repo in ('GEMSDOE70', 'GEMSDOE49', 'GEMSDOE73'):
+            static_arms[f'{repo}_static'] = np.where(
+                fp & np.isfinite(arr), np.clip(arr, 0.0, 1.0), 0.0
+            ).astype(np.float32)
+
+    prompt_unscored_results = []
+    for repo, needle in PROMPT_NAMED_UNSCORED:
+        loaded = locate_and_load(repo, needle, index_rows, pins)
+        if loaded is None:
+            prompt_unscored_results.append({'repo': repo, 'submission_name': needle, 'found': False})
+            continue
+        arr, src, tif_path = loaded
+        fmt = validate_path(tif_path)
+        metrics = summarize_array(arr, grid, d_cat, h33_bool, d28_bool, nhr_bool)
+        static_arms[f'{repo}_{needle[:14]}_static'] = np.where(
+            fp & np.isfinite(arr), np.clip(arr, 0.0, 1.0), 0.0
+        ).astype(np.float32)
+        prompt_unscored_results.append({
+            'repo': repo,
+            'prompt_submission_name': needle,
+            'reported_public_dti': None,
+            'reported_score_evidence_class': 'UNSCORED IN PROMPT (NO ORGANIZER RECEIPT)',
+            'found': True,
+            'local_format_passed': bool(fmt['format_passed']),
+            'source': src,
+            'measurements': metrics,
+        })
         print(
-            f"{repo:10s} pub={reported_score:.4f} pos={metrics['positive_pixels_in_footprint']:7d} "
+            f"[PROMPT-UNSCORED] {repo:10s} {needle[:46]:46s} "
+            f"fmt={fmt['format_passed']} pos={metrics['positive_pixels_in_footprint']:7d} "
             f"ov_h33={metrics['forward_3px_overlap_with_h33']:.4f} "
-            f"rev_h33={metrics['reverse_3px_overlap_from_h33']:.4f} "
-            f"ov_d28={metrics['forward_3px_overlap_with_d28']:.4f} "
-            f"exact_h33={metrics['shared_exact_pixels_with_h33']:5d} "
-            f"d<=200m={metrics['within_200m_of_catalogue_pixels']:5d} "
-            f"200<d<=300m={metrics['between_200m_and_300m_of_catalogue_pixels']:5d}",
+            f"ov_nhr={metrics['forward_3px_overlap_with_nhr']:.4f} "
+            f"med_d={metrics['median_distance_to_catalogue_m']:.0f}m",
             flush=True,
         )
 
@@ -202,19 +347,33 @@ def main() -> None:
             if e['path'].lower().endswith(('.tif', '.tiff'))
             and any(k in '/' + e['path'].lower() for k in ('/downloads/', '/submissions/', '/artifacts/'))
         ]
-        sibling_item = {'repo': repo, 'head_commit': commit, 'published_tifs': []}
-        for entry in tifs[:3]:
+        # Deduplicate identical blobs within a single repo while keeping canonical path order
+        seen_blobs: set[str] = set()
+        unique_tifs = []
+        for e in sorted(tifs, key=lambda item: (0 if item['path'].startswith('docs/downloads/') else 1, item['path'])):
+            if e['blob'] in seen_blobs:
+                continue
+            seen_blobs.add(e['blob'])
+            unique_tifs.append(e)
+        sibling_item = {
+            'repo': repo,
+            'head_commit': commit,
+            'total_tracked_files': len(entries),
+            'unique_published_tif_blobs': len(unique_tifs),
+            'published_tifs': [],
+        }
+        for entry in unique_tifs:
             cache_path = ROOT / '.cache' / 'family_forensics' / f"{entry['blob']}.tif"
             cache_path.parent.mkdir(parents=True, exist_ok=True)
             if not cache_path.exists():
                 with cache_path.open('wb') as out:
-                    subprocess.run(['git', '-C', str(bare), 'cat-file', 'blob', entry['blob']], stdout=out, check=True)
+                    subprocess.run(['git', '-C', str(bare), '-c', 'gc.auto=0', 'cat-file', 'blob', entry['blob']], stdout=out, check=True)
             data = cache_path.read_bytes()
             with rasterio.open(cache_path) as ds:
                 if ds.shape != grid.shape or ds.count != 1:
                     continue
                 arr = ds.read(1)
-            metrics = summarize_array(arr, grid, d_cat, h33_bool, d28_bool)
+            metrics = summarize_array(arr, grid, d_cat, h33_bool, d28_bool, nhr_bool)
             sibling_item['published_tifs'].append({
                 'path': entry['path'],
                 'blob': entry['blob'],
@@ -222,29 +381,44 @@ def main() -> None:
                 'bytes': len(data),
                 'measurements': metrics,
             })
-            print(
-                f"[POST] {repo:10s} {Path(entry['path']).name[:42]:42s} "
-                f"pos={metrics['positive_pixels_in_footprint']:7d} "
-                f"ov_h33={metrics['forward_3px_overlap_with_h33']:.4f} "
-                f"ov_d28={metrics['forward_3px_overlap_with_d28']:.4f} "
-                f"200<d<=300m={metrics['between_200m_and_300m_of_catalogue_pixels']:5d}",
-                flush=True,
-            )
         post_snapshot_results.append(sibling_item)
 
+    holdout_comparison = static_holdout_evaluation(static_arms, grid)
+
     out = {
-        'schema_version': 1,
+        'schema_version': 2,
         'generated_utc': datetime.now(timezone.utc).isoformat(),
         'session_branch': current_branch,
         'scope': (
-            'Byte-verified lineage and geometry audit across 16 scored historical landmarks '
-            '(GEMSDOE19..GEMSDOE77) and 5 post-snapshot sibling repositories (GEMSDOE78, GEMSDOE80..83). '
+            'Byte-verified lineage, distance-to-catalogue, cross-overlap, and static holdout '
+            'audit across 16 scored historical landmarks (GEMSDOE19..GEMSDOE77), all 6 '
+            'prompt-named unscored candidates (GEMSDOE76, GEMSDOE78, GEMSDOE80..GEMSDOE83), '
+            'and all 10 post-snapshot sibling repositories (GEMSDOE78, GEMSDOE80..GEMSDOE88). '
             'Does not modify frozen registry/registry_index.json, run_card.json, or experiment_state.json.'
         ),
         'scored_landmarks': landmark_results,
+        'prompt_named_unscored_candidates': prompt_unscored_results,
+        'static_holdout_comparison': {
+            'methodology_warning': (
+                'Static rasters built on the full existing_faults.tif catalogue are evaluated '
+                'as-is on gems57-pooled-hide-v2 (seeds 20 & 30). Any candidate whose geometry '
+                'positively tracks full-catalogue fault tips/strands leaks hidden-component '
+                'locations into static scoring: for example, H79-NHR scores 0.1431 / 0.1522 in '
+                'true blind out-of-fold refitting vs higher when its full-catalogue static map '
+                'is scored without re-hiding geometry. Static numbers below are comparative '
+                'diagnostics ONLY, never blind out-of-fold HOLDOUT-DTI claims.'
+            ),
+            'blind_oof_reference_nhr': {
+                'seed_20': {'dti': 0.1431, 'ci95': [0.1281, 0.1574]},
+                'seed_30': {'dti': 0.1522, 'ci95': [0.1335, 0.1696]},
+            },
+            'per_seed': holdout_comparison,
+        },
         'post_snapshot_siblings': post_snapshot_results,
     }
-    (ROOT / 'evidence/family_lineage_forensics.json').write_text(json.dumps(out, indent=2, allow_nan=False) + '\n')
+    dest = ROOT / 'evidence/family_lineage_forensics.json'
+    dest.write_text(json.dumps(out, indent=2, allow_nan=False) + '\n')
+    shutil.copyfile(dest, ROOT / 'docs/evidence/family_lineage_forensics.json')
 
 
 if __name__ == '__main__':
