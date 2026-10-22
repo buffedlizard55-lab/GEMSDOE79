@@ -92,5 +92,8 @@ def test_dfsd_artifact_bytes_zip_permissions_and_card_parity():
 def test_pr70_etp_quarantine_integrity_and_no_rogue_downloads():
     assert (ROOT / "archive/g79_etp_incoming_45998a01/README.md").is_file()
     assert not (ROOT / "data/bridge").exists()
-    active_tifs = [p.name for p in (ROOT / "docs/downloads").glob("*.tif")]
-    assert active_tifs == ["g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"]
+    active_tifs = {p.name for p in (ROOT / "docs/downloads").glob("*.tif")}
+    # The canonical artifact plus any probe explicitly declared in
+    # registry/published_probes.json; nothing else may be published.
+    from verify_project import declared_probe_names
+    assert active_tifs == {"g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"} | declared_probe_names(ROOT)

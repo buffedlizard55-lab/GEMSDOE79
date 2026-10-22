@@ -57,8 +57,9 @@ def test_h79_step_and_dilstep_archived_intact_and_runner_refuses_rerun():
     assert dtif.is_file() and drc.is_file()
     assert hashlib.sha256(dtif.read_bytes()).hexdigest() == json.loads(drc.read_text())["raster_sha256"]
 
-    downloads_tifs = sorted(p.name for p in (ROOT / "docs/downloads").glob("*.tif"))
-    assert downloads_tifs == ["g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"]
+    downloads_tifs = {p.name for p in (ROOT / "docs/downloads").glob("*.tif")}
+    from verify_project import declared_probe_names
+    assert downloads_tifs == {"g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif"} | declared_probe_names(ROOT)
 
     proc = subprocess.run(
         [sys.executable, str(ROOT / "scripts/run_edge_lane.py")],

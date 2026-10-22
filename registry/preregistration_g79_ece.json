@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "lane": "G79-ECE",
+  "experiment": "EXP-2 of max 3 (follows the falsified EXP-1 G79-MFX)",
+  "preregistered_utc": "2026-10-22",
+  "written_before_any_measurement": true,
+  "motivation_measured_before_preregistration": {
+    "EXP1_result": "G79-MFX matched filtering scored HOLDOUT-DTI 0.0504/0.0492 against a budget-matched UNIFORM control of 0.0505/0.0515 - no skill, recorded as a terminal negative.",
+    "observation_that_generated_this_hypothesis": "Under the published metric (alpha 0.2, beta 0.8, 300 m triangular kernel) a dot that misses costs 0.2 while each uncovered truth cell costs 0.8, and TP_w uses max-over-dots per truth cell. At 0.23% truth prevalence the index is therefore dominated by COVERAGE, not precision - which is why a no-skill uniform field already scores about 0.05 and why the repository's own dense-prior lanes cluster near 0.26 on the leaderboard."
+  },
+  "hypothesis": "Because the metric is coverage-dominated, the highest-DTI emission at fixed dot cost is not the top-ranked pixels of a classifier but a kernel-spaced (3 px) space-filling lattice over a physically enriched corridor prior: the fault-likelihood region defined by magnetic structure-tensor coherence and magnetic tilt-angle contact loci, which are computed from geophysics alone and therefore contain no catalogue information.",
+  "mechanism": "R = {coherence(RTP) > 0.50} union {|tilt| < 0.25} with coherence from a structure tensor of the RTP magnetic band (inner sigma 1 px, outer 3 px) and tilt recomputed as atan2(dz, |grad_h|) from the drilled RTP band; emission is a quasi-hexagonal 3 px lattice inside R restricted to allowed cells (footprint, no visible catalogue pixel, distance to visible catalogue > 0); the dot count is whatever the lattice produces, capped at 190,000, with no classifier, no ranking and no per-pixel posterior involved.",
+  "named_non_fault_process": "Shallow Tertiary volcanic contacts and basalt dyke swarms produce coherent magnetic edges exactly like faults. They are NOT filtered here - this lane deliberately trades precision for coverage, so the residual mimic is a stated cost, not a claim of rejection.",
+  "prediction_written_before_measurement": {
+    "enrichment_ratio": "> 1.5 (withheld truth density inside R relative to outside R)",
+    "holdout_dti": "> UNIFORM control at the same dot count, and > the frozen THVC incumbent 0.190517 / 0.194366 on both seeds",
+    "falsification": "if enrichment <= 1.2 or the pooled DTI does not exceed both controls, the coverage hypothesis is rejected and no slot is spent"
+  },
+  "holdout_protocol": {
+    "instrument": "vendor/gems57/holdout.buffered_component_draw, seeds 20 and 30, 3 px feature collar, 12 px boundary erosion",
+    "evaluator": "vendor/gems57/evaluate_holdout (gems57-pooled-hide-v2), pooled first then paired 20 km block bootstrap, draws=1000",
+    "controls": ["UNIFORM at identical dot count", "frozen THVC incumbent 0.190517 / 0.194366"]
+  },
+  "fixed_before_measurement": {
+    "coherence_threshold": 0.5,
+    "tilt_abs_threshold": 0.25,
+    "lattice_px": 3,
+    "max_dots": 190000,
+    "variants_reported": ["A: coherence only", "B: |tilt| only", "C (PRIMARY, pre-specified): A union B"]
+  },
+  "decision_rule": {
+    "promote": "primary variant beats UNIFORM and the THVC incumbent on both seeds, and the artifact passes the official format validator",
+    "negative": "otherwise record the terminal negative card",
+    "novelty_note": "A coverage-optimal lattice is expected to overlap dense predecessor rasters far above the 0.70 dot-overlap rule simply because dense fields overlap dense fields. That overlap is measured and reported as a property of the strategy; it is never used to claim or deny scientific validity, and no dot is jittered to game it.",
+    "no_post_hoc_changes": "no retuning of thresholds, lattice pitch or dot cap after seeing a score"
+  },
+  "budget": {"experiments_used": 2, "experiments_allowed": 3, "weekly_slots_used": 0}
+}

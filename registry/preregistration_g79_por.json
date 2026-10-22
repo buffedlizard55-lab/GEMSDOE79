@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "lane": "G79-POR",
+  "experiment": "EXP-3 of max 3 (follows falsified EXP-1 G79-MFX and EXP-2 G79-ECE)",
+  "preregistered_utc": "2026-10-22",
+  "written_before_any_measurement": true,
+  "motivation": "EXP-2 measured that geophysical corridors enrich withheld-fault density by only 1.06-1.22x and that corridor-only coverage scores 0.044 against a 0.069 budget-matched uniform control; EXP-1 measured that catalogue-template matched filtering has no skill (0.050 vs 0.051). The two readings of 'where are the unmapped faults' - splays/parallels adjacent to mapped traces, versus blind basin faults far from any trace - are mutually exclusive hypotheses about the hidden test, and the local instrument can only reward the first.",
+  "hypothesis": "A fixed 50/50 portfolio emission - half the dot budget as a 3 px lattice in the 3-12 px collar around the mapped catalogue (the regime the holdout does validate) and half as a 3 px lattice inside the coherence/tilt corridors beyond 12 px (the regime only the hidden test can score) - keeps the holdout-demonstrable coverage benefit while remaining spatially unlike every informative prior raster in the registry.",
+  "mechanism": "collar = 3 <= distance_to_catalogue <= 12 px and ~catalogue; corridors = EXP-2 primary region R and distance_to_catalogue > 12 px; each arm gets exactly 20000 dots from a quasi-hexagonal 3 px lattice, taken in raster order (no classifier, no score ranking); emit as binary 1.0.",
+  "named_non_fault_process": "Collar arm: road/rail/fence lineaments and digitisation offsets parallel to mapped traces. Corridor arm: shallow volcanic contacts and dyke swarms (unchanged from EXP-2). Both are stated costs, not claimed rejections.",
+  "prediction_written_before_measurement": {
+    "holdout": "collar arm alone > uniform control at 20000 dots; hybrid pooled DTI > uniform at 40000 dots; neither expected to exceed the frozen THVC incumbent",
+    "novelty": "hybrid max forward overlap vs informative (<=200000-dot) priors <= 0.70"
+  },
+  "fixed_before_measurement": {"collar_inner_px": 3, "collar_outer_px": 12, "corridor_min_px": 12, "lattice_px": 3, "arm_budget": 20000},
+  "decision_rule": {
+    "promote": "hybrid beats uniform on both seeds AND clears the informative-prior overlap rule AND passes the official format validator",
+    "negative": "otherwise the card records a negative and the artifact is released only as a labelled probe",
+    "no_post_hoc_changes": "no retuning of collar width, arm budget, lattice pitch or corridor thresholds after seeing a score"
+  },
+  "budget": {"experiments_used": 3, "experiments_allowed": 3, "weekly_slots_used": 0}
+}

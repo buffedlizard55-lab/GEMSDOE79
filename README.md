@@ -1,5 +1,53 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## North star (read first, every session)
+
+This repository answers one question: **can we produce a unique, download-and-submit-ready GeoTIFF for the DOE GEMS Prize that beats the family's best reported public score, without a human in the loop?** Every session starts from the standing prompt at the end of this file, and from the two operating values: *Maximize P(Win)* and *Own the Outcome*. A file that fails its own gates is reported as a negative, never renamed or re-dated to look promotable; a negative with a measured reason is itself a deliverable.
+
+## Current session — G79-MFX / G79-ECE / G79-POR (2026-10-22, this branch)
+
+**A new, generated, uniqueness-cleared GeoTIFF exists and is published as a labelled probe:**
+[`docs/probe-submission.html`](docs/probe-submission.html) ·
+`gems79-PROBE-por-collar-corridor-40000dots-20261022` (40,000 dots, SHA-256
+`738e5e50af91cbe61331222d5da4fca45001c1828881aa64bb4bdcbe6926b5b1`, 71 KiB TIFF and a 21 KiB
+single-member ZIP in `docs/downloads/`).
+
+**Download: YES. Upload to DrivenData: YES (15/15 official format checks, max 3-px forward overlap
+0.513 against 70 informative priors, limit 0.70). Scientific promotion: NO. Final-round pick: NO** —
+its own instrument scores it at chance (HOLDOUT-DTI 0.0440 / 0.0468 against budget-matched uniform
+controls 0.0450 / 0.0491). It is a leaderboard probe, not a validated detector. See
+`registry/published_probes.json`, `run_card_por.json` and
+`evidence/novelty_gems79-por-collar-corridor-40000dots-20261022.json`.
+
+Three genuinely new lanes were preregistered before measurement and all three are **terminal
+negatives** (no slot spent):
+
+| Lane | Idea | HOLDOUT-DTI seed 20 / 30 | Uniform control | Verdict |
+|---|---|---|---|---|
+| `G79-MFX` | catalogue-template matched filtering + 4-quadrant OOF LightGBM | 0.0504 / 0.0492 | 0.0505 / 0.0515 | negative — no skill; the model collapsed onto catalogue proximity (0% of dots beyond 1 km) |
+| `G79-ECE` | coverage-only 3 px lattice over magnetic coherence/tilt corridors (190k dots) | 0.0443 / 0.0441 | 0.0688 / 0.0642 | negative — corridor enrichment only 1.06x / 1.22x |
+| `G79-POR` | 50/50 fixed portfolio: 3–12 px collar + corridor, 20k dots each | 0.0440 / 0.0468 | 0.0450 / 0.0491 | negative — collar arm alone did beat uniform (0.0509 / 0.0564) but the mixture did not |
+
+**Why H33 reported 0.2778, and can we beat it?** H33 is byte-measurably D2.8 minus its inner ~2 px
+ring, i.e. the SAME dense corroborated surface with the catalogue-hugging pixels removed. At 0.23%
+truth prevalence with α = 0.2 / β = 0.8, the index is coverage-dominated, so a dense
+corroborated-surface emitter is near the optimum *of this instrument's geometry*; removing dots
+that sit on or beside mapped traces cuts false-positive cost without cutting much coverage. That
+explains the family's 0.26–0.28 cluster; it does not explain the gap to the public leader. The
+board read on 2026-10-22 ranks 1 at **0.4413** and rank 23 at 0.3167, so 0.2778 is now far outside
+the top 25. Nothing measured this session closes that gap, and the binding obstacle is stated
+plainly in `reports/session_review_g79_mfx_ece_por.md`: **the holdout's truth is 100% catalogue
+geometry while the organiser's truth is, by definition, faults absent from the catalogue.** The
+instrument can falsify but cannot certify discovery.
+
+**Promoted?** No. The canonical card is unchanged: `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`,
+SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`, verdict `negative`
+(OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.). A published probe is not a promotion and does not change
+that line. Full receipts: `reports/session_review_g79_mfx_ece_por.md`,
+`research/hypotheses_g79_mfx_ece_por.md`, `registry/preregistration_g79_{mfx,ece,por}.json`,
+`run_card_{mfx,ece,por}.json`, `evidence/{mfx_experiment1,ece_experiment2,por_experiment3}.json`,
+`reports/irregularities.md` IR-79-232…IR-79-235.
+
 ## Latest session — G79-TIPSTEP (2026-10-22, this branch)
 
 **A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,

@@ -1,0 +1,136 @@
+{
+  "lane": "G79-POR",
+  "preregistration": "registry/preregistration_g79_por.json",
+  "fixed": {
+    "collar_px": [
+      3,
+      12
+    ],
+    "corridor_min_px": 12,
+    "arm_budget": 20000,
+    "lattice_px": 3
+  },
+  "input_receipts": {
+    "training_features_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"
+  },
+  "holdout": {
+    "seed20": {
+      "scores": {
+        "COLLAR": {
+          "dti": 0.050941359526650826,
+          "ci95": [
+            0.032027191764666375,
+            0.0702393456175003
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "CORRIDOR": {
+          "dti": 0.004910551742247978,
+          "ci95": [
+            0.0010618814698448104,
+            0.009695099926854737
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "HYBRID": {
+          "dti": 0.04399874733530666,
+          "ci95": [
+            0.027839398313521075,
+            0.05897789249641512
+          ],
+          "withheld_positive_pixels": 11321
+        },
+        "UNIFORM": {
+          "dti": 0.04495516275212838,
+          "ci95": [
+            0.039900857981205275,
+            0.04961877520931577
+          ],
+          "withheld_positive_pixels": 11321
+        }
+      },
+      "dots": {
+        "collar": 20000,
+        "corridor": 20000
+      },
+      "hybrid_dots": 40000
+    },
+    "seed30": {
+      "scores": {
+        "COLLAR": {
+          "dti": 0.056392801843335685,
+          "ci95": [
+            0.035436247724786644,
+            0.0772912857708808
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "CORRIDOR": {
+          "dti": 0.0030676897909392995,
+          "ci95": [
+            0.00033003409444047393,
+            0.0063482609795906565
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "HYBRID": {
+          "dti": 0.04679093326194816,
+          "ci95": [
+            0.029786593461502194,
+            0.06488709278296456
+          ],
+          "withheld_positive_pixels": 11342
+        },
+        "UNIFORM": {
+          "dti": 0.04909617640175128,
+          "ci95": [
+            0.043342128317025004,
+            0.053717138265219365
+          ],
+          "withheld_positive_pixels": 11342
+        }
+      },
+      "dots": {
+        "collar": 20000,
+        "corridor": 20000
+      },
+      "hybrid_dots": 40000
+    }
+  },
+  "final": {
+    "dots": 40000,
+    "collar_dots": 20000,
+    "corridor_dots": 20000,
+    "on_catalogue": 0,
+    "median_dist_to_catalogue_m": 1202.0797289396148,
+    "frac_gt_1km_from_catalogue": 0.593825
+  },
+  "submission": {
+    "name": "gems79-por-collar-corridor-40000dots-20261022",
+    "note": "G79-POR 50/50 collar (3-12px) + geophysical corridor 3px lattices, 40k dots",
+    "note_chars": 75,
+    "file": "docs/downloads/gems79-por-collar-corridor-40000dots-20261022.tif",
+    "sha256": "738e5e50af91cbe61331222d5da4fca45001c1828881aa64bb4bdcbe6926b5b1",
+    "bytes": 72369,
+    "dots": 40000,
+    "validator_all_checks_passed": true,
+    "validator_checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    }
+  },
+  "elapsed_s": 89.0
+}

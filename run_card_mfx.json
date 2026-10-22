@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "lane": "G79-MFX",
+  "session_branch": "arena/36514e3d-gemsdoe79",
+  "built_utc": "2026-10-22T21:28:44.108485+00:00",
+  "hypothesis": "Unmapped faults reproduce the multi-band 15x15 px geophysical signature of mapped catalogue faults, so a matched filter whose templates are cut from visible catalogue pixels recovers them without relying on proximity to a mapped trace.",
+  "mechanism": "32 orientation-diverse 15x15 px zero-mean unit-norm templates cut from VISIBLE catalogue pixels in RTP/gravity/slope bands; max-over-template normalized cross-correlation at 15 and 21 px; 4-quadrant out-of-fold LightGBM over 14 channels; prior-corrected posterior; 40,000 dots from the shared 3 px decimated allocator off-catalogue.",
+  "named_non_fault_process": "Miocene basalt dyke swarms and shallow lithologic contacts; residual mimic is measured, not assumed away.",
+  "holdout_evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "holdout": {
+    "seed20": {
+      "mfx_dti": 0.050364389201041755,
+      "mfx_ci95": [
+        0.038092863593986045,
+        0.06433300292184257
+      ],
+      "uniform_dti": 0.0505495597269947,
+      "withheld_positive_pixels": 11321
+    },
+    "seed30": {
+      "mfx_dti": 0.0491974541992216,
+      "mfx_ci95": [
+        0.03444933615394508,
+        0.06343742696245318
+      ],
+      "uniform_dti": 0.05149934680650263,
+      "withheld_positive_pixels": 11342
+    }
+  },
+  "incumbent_thvc_frozen": {
+    "seed20": 0.190517,
+    "seed30": 0.194366
+  },
+  "leakage_canary": {
+    "seed20": 0.7517476327001422,
+    "seed30": 0.7490835086300089
+  },
+  "correlation_overlap_vs_registry": {
+    "scope": "every local prior raster in this checkout plus the 12 highest-scoring predecessor rasters fetched from their public GitHub mirrors; the full 992-raster registry is NOT re-restored here",
+    "informative_priors": {
+      "n_informative_priors": 70,
+      "max_forward_overlap": 0.691975,
+      "worst_prior": "g79-cskd-ccsubmod-20261022-cdfdd16f-zeros-DO-NOT-SUBMIT.tif",
+      "max_jaccard": 0.05679019066153155
+    },
+    "saturated_prior_max_forward_overlap": 0.8569
+  },
+  "raster_sha256": "ef4c3aa4f407aab6c5ef77d7fa90ea51563b1f218d1732de7464b87acd2c1301",
+  "positive_pixels": 40000,
+  "validator": {
+    "all_checks_passed": true,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    }
+  },
+  "submission_name": "gems79-mfx-sigtransfer-40000dots-20261022",
+  "submission_note": "G79-MFX catalogue-template matched filter, 4-quadrant OOF, 40k dots",
+  "artifact_location": "artifacts/mfx/",
+  "verdict": "negative",
+  "reason": "HOLDOUT-DTI 0.0504 / 0.0492 is indistinguishable from the budget-matched UNIFORM control 0.0505 / 0.0515: the matched filter has no skill on withheld strands, and the learned model collapsed onto catalogue proximity (0% of dots beyond 1 km). Terminal negative; no slot spent."
+}

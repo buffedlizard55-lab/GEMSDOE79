@@ -129,8 +129,9 @@ def test_status_tool_card_and_pages_tell_the_same_story():
     for page in ("docs/index.html", "docs/executive-summary.html"):
         text = (ROOT / page).read_text()
         assert line in text and card["raster_sha256"] in text
-    active = sorted(p.name for p in (ROOT / "docs/downloads").glob("*.tif"))
-    assert active == [Path(card["submission_file"]).name]
+    active = {p.name for p in (ROOT / "docs/downloads").glob("*.tif")}
+    from verify_project import declared_probe_names
+    assert active == {Path(card["submission_file"]).name} | declared_probe_names(ROOT)
 
 
 def test_selector_receipt_is_bound_to_the_exact_bytes_when_promoted():

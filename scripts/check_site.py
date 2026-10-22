@@ -28,8 +28,8 @@ def check_site():
         'index.html', 'executive-summary.html', 'analysis.html', 'research.html',
         'sources.html', 'history.html', 'irregularities.html', 'g79-cskd.html',
         'cjx-submission.html', 'dzd-submission.html', 'g79-cjxdir.html', 'mdsc-submission.html', 'tdw-submission.html',
-        'g79-opc.html',
-    }, 'Expected the fourteen project pages (canonical seven + lane pages)'
+        'g79-opc.html', 'probe-submission.html', 'tipstep-submission.html',
+    }, 'Expected sixteen project pages: canonical seven, lane pages, the declared probe page and the G79-TIPSTEP page that had been orphaned since the previous session (IR-79-236)'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
@@ -99,7 +99,10 @@ def check_site():
     status = json.loads((site / 'status.json').read_text())
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
     assert status['verdict'] == card['verdict'] and status['decision_line'] == line
-    assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
+    probes_path = ROOT / 'registry/published_probes.json'
+    probe_names = ({Path(e['file']).name for e in json.loads(probes_path.read_text())['probes']}
+                   if probes_path.is_file() else set())
+    assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name} | probe_names
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     assert manifest['ok_to_submit'] is card['ok_to_submit'] and manifest['ok_to_download']
     assert manifest['raster_sha256'] == card['raster_sha256']

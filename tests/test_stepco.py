@@ -89,6 +89,11 @@ def test_s1_artifact_bytes_match_run_card_and_are_byte_unique_vs_archive():
 
 
 def test_only_one_canonical_tif_is_published():
+    """Exactly one canonical (non-submittable) TIFF, plus declared labelled probes."""
+    from verify_project import declared_probe_names
     tifs = sorted((ROOT / "docs/downloads").glob("*.tif"))
-    assert len(tifs) == 1
-    assert "DO-NOT-SUBMIT" in tifs[0].name
+    canonical = [p for p in tifs if "DO-NOT-SUBMIT" in p.name]
+    assert len(canonical) == 1
+    assert {p.name for p in tifs} == {canonical[0].name} | declared_probe_names(ROOT)
+    for probe in declared_probe_names(ROOT):
+        assert "PROBE" in probe

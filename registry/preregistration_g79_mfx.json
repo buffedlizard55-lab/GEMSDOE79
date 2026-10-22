@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "lane": "G79-MFX",
+  "preregistered_utc": "2026-10-22",
+  "session_branch": "arena/36514e3d-gemsdoe79",
+  "written_before_any_measurement": true,
+  "why_this_is_not_a_rerun": {
+    "checked_absent_from_repo_before_preregistration": [
+      "matched-filter / template-bank / normalized-cross-correlation fault-signature transfer",
+      "grep -rniE 'matched.filter|template bank|template_bank|nonparametric|one-class' over *.py/*.json/*.md excluding archive/ returned no method hit before this file was written"
+    ],
+    "explicitly_not_this_lane": {
+      "G79-TDW": "flight-line de-striped Salem tilt-depth worms + gravity concordance (holdout 0.0395/0.0413, falsified)",
+      "G79-TIPSTEP": "catalogue tip extension + collinear stepover bridges (holdout 0.0927)",
+      "H79-NHR / G79-CSKD / G79-DFSD / G79-CSMD": "pointwise GBM/stage-2 ensembles on the 19 drilled bands plus engineered physics channels",
+      "H78-MPC": "monogenic phase congruency (analytic-signal, no template learning)",
+      "H79-MRND": "multi-regime nested discovery on 77 pointwise features"
+    }
+  },
+  "hypothesis": "A fault that is missing from the USGS/INGENIOUS catalogue nevertheless reproduces the local multi-band geophysical signature of the catalogue faults that are already mapped: the same joint pattern of reduced-to-pole magnetic gradient, isostatic-gravity gradient, detrended-elevation slope and depth-to-basement contrast. Because that signature is learned here as raw 15x15 pixel templates taken from visible catalogue pixels and transferred by normalized cross-correlation, an unmapped strand is recovered by its own texture rather than by its distance to a neighbouring mapped trace.",
+  "mechanism": "1) Build a bank of 32 orientation-diverse, zero-mean unit-norm 15x15 templates from 4 channels (RTP magnetics b2, isostatic gravity b13, detrended-elevation slope b19, depth-to-basement b15) centred on visible catalogue pixels, greedily de-duplicated by normalized correlation. 2) Score every pixel by the maximum over templates of the sum over channels of normalized cross-correlation (NCC), computed with FFT convolution and local-energy normalization; add the same score at a second scale (21x21) and a structure-tensor coherence channel. 3) Fit a LightGBM on pointwise channels (19 drilled bands, both NCC scales, coherence, |tilt|, and the fold-derived distance-to-visible-catalogue) with 4-quadrant out-of-fold fitting, and prior-correct the balanced-sample posterior. 4) Emit binary 1.0 dots with gems57.emit.emit_decimated (3 px tile = kernel-matched spacing) at a fixed 40,000-dot budget on allowed = footprint & ~masked_known & (distance to visible catalogue > 2 px).",
+  "named_non_fault_process": "Miocene basalt dyke swarms and shallow Tertiary volcanic/lithologic contacts, which are the classic magnetic-edge mimics and produce the same RTP-gradient texture as a fault. Partial rejection: the template must match simultaneously in the gravity and elevation-slope channels, and the structure-tensor coherence channel suppresses blob-like (non-linear) responses; residual mimic is reported, not assumed away.",
+  "named_failure_modes_checked_in_advance": [
+    "Template leakage: templates are cut only from VISIBLE catalogue pixels of the fold being scored; the withheld strands never contribute a template.",
+    "Distance shortcut: distance-to-visible is a single explicit channel and its own single-feature AUC is reported in the canary table; if it exceeds 0.90 the result is called leakage.",
+    "Spatial shortcut: held-out target quadrant pixels never enter that quadrant's training sample."
+  ],
+  "holdout_protocol": {
+    "instrument": "vendor/gems57/holdout.buffered_component_draw (whole components withheld, 3 px feature collar, 12 px boundary erosion)",
+    "seeds": [20, 30],
+    "modes": ["all"],
+    "evaluator": "vendor/gems57/evaluate_holdout (gems57-pooled-hide-v2, alpha 0.2, beta 0.8, 300 m triangular kernel)",
+    "pooling": "pooled first, then paired percentile bootstrap over physical 20 km blocks (draws=1000)",
+    "controls": ["UNIFORM: same dot count sampled uniformly from the allowed set", "incumbent THVC frozen holdout 0.190517 (seed 20) / 0.194366 (seed 30)"]
+  },
+  "fixed_before_measurement": {
+    "dot_budget": 40000,
+    "off_catalogue_prune_px": 2,
+    "emission_tile_px": 3,
+    "template_count": 32,
+    "template_size_px": 15,
+    "second_scale_px": 21,
+    "canary_auc_limit": 0.90,
+    "novelty_rho_limit": 0.90,
+    "novelty_overlap_limit": 0.70
+  },
+  "decision_rule_written_before_running": {
+    "promote": "HOLDOUT-DTI > incumbent THVC on BOTH seeds AND > UNIFORM control on both seeds AND every canary symmetric AUC <= 0.90 AND local overlap <= 0.70 AND |rho| <= 0.90",
+    "negative": "any of the above fails -> record the terminal negative card; the artifact may still be released as a validated, unique file but must be labelled NOT the recommended pick",
+    "no_post_hoc_changes": "No retuning of budget, prune distance, template count, scale or emission tile after seeing a holdout number. A sensitivity curve may be reported as a diagnostic only.",
+    "ok_to_submit_semantics": "OK TO SUBMIT is decided ONLY by the official-format and uniqueness gates (CRS/shape/transform/dtype/range/single-band/no positive mass outside the footprint/no positive mass on the mapped catalogue/novelty). Scientific promotion is a separate, additional verdict and is never conflated with it."
+  },
+  "budget": {
+    "experiments_allowed": 3,
+    "experiments_planned": 2,
+    "wall_clock_target_minutes": 120,
+    "weekly_submission_slots_used_by_this_script": 0
+  }
+}

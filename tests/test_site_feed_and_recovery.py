@@ -185,7 +185,9 @@ def test_stale_concurrent_status_cannot_promote_or_add_active_tiffs():
     card_b = json.loads((ROOT / 'run_card_g79b.json').read_text())
     status = json.loads((ROOT / 'docs/status.json').read_text())
     assert status['ok_to_submit'] is card['ok_to_submit'] and status['sha256'] == card['raster_sha256']
-    assert [p.name for p in (ROOT / 'docs/downloads').glob('*.tif')] == [Path(card['submission_file']).name]
+    from verify_project import declared_probe_names
+    assert {p.name for p in (ROOT / 'docs/downloads').glob('*.tif')} == (
+        {Path(card['submission_file']).name} | declared_probe_names(ROOT))
     # Concurrent lane G79B-SDPT stays quarantined in archive/, never published.
     archived = ROOT / 'archive/g79b_sdpt_67557396/downloads' / (card_b['submission_name'] + '.tif')
     assert archived.is_file() and 'DO-NOT-SUBMIT' in archived.name

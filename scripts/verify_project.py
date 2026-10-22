@@ -85,6 +85,15 @@ def decision_line(card):
     return f'OK TO DOWNLOAD: {dl}. OK TO SUBMIT: {sub}.'
 
 
+def declared_probe_names(root, *, suffix='.tif'):
+    """File names of probes declared in registry/published_probes.json."""
+    path = Path(root) / 'registry/published_probes.json'
+    if not path.is_file():
+        return set()
+    key = 'file' if suffix == '.tif' else 'zip'
+    return {Path(e[key]).name for e in json.loads(path.read_text())['probes']}
+
+
 def publication_contract_checks(root, card):
     """Check the active publication boundary against the canonical run card.
 
@@ -102,6 +111,29 @@ def publication_contract_checks(root, card):
     )
     downloads = root / 'docs/downloads'
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
+    # Declared probes (registry/published_probes.json) are the ONLY other upload
+    # artifacts allowed to sit in docs/downloads. A probe must carry PROBE in its
+    # file name, must record status 'probe_not_promoted' and
+    # recommended_as_final_pick = false, and must not be the canonical submission.
+    probes_path = root / 'registry/published_probes.json'
+    probes = json.loads(probes_path.read_text())['probes'] if probes_path.is_file() else []
+    probe_problems = []
+    for probe in probes:
+        pf = root / probe['file']
+        pz = root / probe['zip']
+        if not pf.is_file() or not pz.is_file():
+            probe_problems.append(f"missing {probe['file']}")
+            continue
+        if sha(pf) != probe['sha256'] or sha(pz) != probe['zip_sha256']:
+            probe_problems.append(f"sha mismatch {probe['file']}")
+        if 'PROBE' not in pf.stem:
+            probe_problems.append(f"undeclared naming {pf.name}")
+        if probe.get('status') != 'probe_not_promoted' or probe.get('recommended_as_final_pick') is not False:
+            probe_problems.append(f"status {probe['file']}")
+        if Path(probe['file']).name in expected:
+            probe_problems.append(f"probe shadows canonical {probe['file']}")
+        expected.add(Path(probe['file']).name)
+        expected.add(Path(probe['zip']).name)
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
                  if p.suffix.lower() in ('.tif', '.tiff', '.zip')}
     docs_dir = root / 'docs'
@@ -140,6 +172,7 @@ def publication_contract_checks(root, card):
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
         'only_canonical_upload_artifacts_published': (
             published == expected and not loose_submissions and not extra_docs_uploads),
+        'declared_probes_are_labelled_and_hash_pinned': not probe_problems,
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
     }

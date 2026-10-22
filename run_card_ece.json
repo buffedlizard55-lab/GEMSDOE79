@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "lane": "G79-ECE",
+  "session_branch": "arena/36514e3d-gemsdoe79",
+  "built_utc": "2026-10-22T21:28:44.108840+00:00",
+  "hypothesis": "Because alpha=0.2 / beta=0.8 with a 300 m kernel makes the index coverage-dominated, the best emission is a kernel-spaced lattice over a physically enriched corridor prior rather than the top-ranked pixels of a classifier.",
+  "mechanism": "Corridor prior = {structure-tensor coherence of RTP > 0.50} union {|tilt angle| < 0.25}; quasi-hexagonal 3 px lattice inside the prior and outside the mapped catalogue, capped at 190,000 dots; no classifier.",
+  "named_non_fault_process": "Shallow volcanic contacts and dyke swarms produce coherent magnetic edges like faults; they were not filtered, which is a stated cost of a coverage-first strategy.",
+  "holdout_evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "holdout": {
+    "seed20": {
+      "arms": {
+        "A_coherence": {
+          "dti": 0.044389860908442824,
+          "ci95": [
+            0.032255383362343786,
+            0.0558529441555179
+          ]
+        },
+        "B_tilt": {
+          "dti": 0.013231476712799917,
+          "ci95": [
+            0.010264213299707938,
+            0.016298804176968298
+          ]
+        },
+        "C_union": {
+          "dti": 0.044257921004980855,
+          "ci95": [
+            0.03224039691155603,
+            0.0554723605122009
+          ]
+        },
+        "UNIFORM": {
+          "dti": 0.06876574670239208,
+          "ci95": [
+            0.06010071396680308,
+            0.07751761692592612
+          ]
+        }
+      },
+      "enrichment_C_union": 1.0589444227361668
+    },
+    "seed30": {
+      "arms": {
+        "A_coherence": {
+          "dti": 0.04401615196807756,
+          "ci95": [
+            0.034216197119362975,
+            0.053007275047546286
+          ]
+        },
+        "B_tilt": {
+          "dti": 0.014363731727545782,
+          "ci95": [
+            0.01092440248899186,
+            0.017855049341958616
+          ]
+        },
+        "C_union": {
+          "dti": 0.04411664516614828,
+          "ci95": [
+            0.034289845064242284,
+            0.05310818552204617
+          ]
+        },
+        "UNIFORM": {
+          "dti": 0.06422894567886007,
+          "ci95": [
+            0.056743037830580205,
+            0.07213891230719256
+          ]
+        }
+      },
+      "enrichment_C_union": 1.2156537393237203
+    }
+  },
+  "incumbent_thvc_frozen": {
+    "seed20": 0.190517,
+    "seed30": 0.194366
+  },
+  "correlation_overlap_vs_registry": {
+    "scope": "every local prior raster in this checkout plus the 12 highest-scoring predecessor rasters fetched from their public GitHub mirrors; the full 992-raster registry is NOT re-restored here",
+    "informative_priors": {
+      "n_informative_priors": 70,
+      "max_forward_overlap": 0.1873157894736842,
+      "worst_prior": "gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif",
+      "max_jaccard": 0.016884497529860546
+    },
+    "saturated_prior_max_forward_overlap": 0.9095157894736842
+  },
+  "raster_sha256": "c081526cbb5b32e60c7f509ffe861e74da521d563a15b3dc0f0bfb13094f33d6",
+  "positive_pixels": 190000,
+  "validator": {
+    "all_checks_passed": true,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    }
+  },
+  "submission_name": "gems79-ece-corridor-lattice-20261022",
+  "submission_note": "G79-ECE 3px lattice on magnetic coherence+tilt corridors, coverage-optimal",
+  "artifact_location": "artifacts/ece/",
+  "verdict": "negative",
+  "reason": "Corridor truth enrichment measured only 1.06x (seed 20) and 1.22x (seed 30), and the corridor lattice scored 0.0443 / 0.0441 against a budget-matched UNIFORM control of 0.0688 / 0.0642. The coverage hypothesis is falsified on the instrument; terminal negative, no slot spent."
+}
