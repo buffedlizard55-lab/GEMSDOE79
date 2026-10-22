@@ -1,5 +1,8 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
+Session `arena/6d4a2fdf-gemsdoe79` (`2026-10-22`): [`reports/session_review_6d4a2fdf.md`](reports/session_review_6d4a2fdf.md) · [`research/hypotheses_6d4a2fdf.md`](research/hypotheses_6d4a2fdf.md) · [`evidence/registry_obstructions_certificate.json`](evidence/registry_obstructions_certificate.json) · [`registry/registry_delta.json`](registry/registry_delta.json) (`IR-79-115`..`IR-79-119`).
+
+
 **Latest repository audit (2026-10-22, session `4ddab9a1`):** [end-to-end 1,199-blob cross-organization review](reports/session_review_4ddab9a1.md) · [five ranked genuinely untried hypotheses (`H79-U1`..`H79-U5`)](research/hypotheses_4ddab9a1_untried.md) · [machine-readable 92-repo sibling audit](evidence/post_snapshot_sibling_audit.json) · [session 3cfa694f](reports/session_review_3cfa694f.md) · [session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md) · [session b79882e0](reports/session_review_b79882e0.md). Current outcome remains **`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`** (`0` weekly competition slots used; all `1,199` family GeoTIFFs across `92` sibling repos hash-verified; rogue non-canonical `G79-MAG` upload pair archived under [`archive/g79_mag_730d5ee7/`](archive/g79_mag_730d5ee7/README.md)).
 
 

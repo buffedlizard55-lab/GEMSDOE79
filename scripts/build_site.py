@@ -429,6 +429,8 @@ def main():
               'evidence/nhr/surface_topk_vs_flagged.json': 'nhr_surface_topk_vs_flagged.json',
               'evidence/nhr/selector_decision.json': 'nhr_selector_decision.json',
               'evidence/family_lineage_forensics.json': 'family_lineage_forensics.json',
+              'evidence/registry_obstructions_certificate.json': 'registry_obstructions_certificate.json',
+              'evidence/registry_obstructions_certificate.json': 'registry_obstructions_certificate.json',
               'evidence/artifact_reproduction.json': 'artifact_reproduction.json',
               'evidence/ff/ff_run_card.json': 'ff_run_card.json',
               'evidence/dilstep/holdout_seed20.json': 'dilstep_holdout_seed20.json',
@@ -469,6 +471,7 @@ def main():
                                     'Measured numbers only. User-reported 0.2778 and public 0.4413 are not this file\'s score.')
                           + '<section class="section">' + md('reports/session_review_4ddab9a1.md') + '</section>'
                           + '<section class="section">' + md('reports/dilstep_result.md') + '</section>'
+                          + '<section class="section"><h2>Session 6d4a2fdf — cross-repository audit &amp; three-tier Pigeonhole synthesis (2026-10-22)</h2>' + md('reports/session_review_6d4a2fdf.md') + '</section>'
                           + '<section class="section"><h2>Concurrent lane H79-BQA (session 0bd0e0b2, negative, no file)</h2>' + md('reports/bqa_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier H79-FFAS notes</h2>' + md('reports/ffas_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier H33 and H79-NHR notes</h2>' + md('reports/nhr_analysis.md') + '</section>'
@@ -480,6 +483,7 @@ def main():
                           + '<p>Cross-checked directly against all 92 sibling repositories and 1,199 immutable prediction blobs to exclude mechanisms already tested in GEMSDOE76..GEMSDOE83. No new model was trained and zero weekly submission slots were used. <a href="evidence/post_snapshot_sibling_audit.json">1,199-blob sibling audit JSON ↗</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_4ddab9a1_untried.md">Standalone hypotheses file ↗</a>.</p>'
                           + md('research/hypotheses_4ddab9a1_untried.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_h79_dilstep.md') + '</section>'
+                          + '<section class="section"><h2>Session 6d4a2fdf — cross-family candidate hypotheses &amp; official ruling synthesis (not executed, 2026-10-22)</h2>' + md('research/hypotheses_6d4a2fdf.md') + '</section>'
                           + '<section class="section"><h2>Concurrent lane H79-BQA (session 0bd0e0b2, negative, no file written)</h2>'
                           + '<p>Band-weighted hide-and-recover beat the H33 control on two confirmatory holdout seeds but failed the surface-uniqueness gate before placement. <a href="evidence/bqa_state.json">Machine state</a> · <a href="evidence/run_card_bqa.json">run card</a> · <a href="evidence/bqa_preregistration_amendment_A1.json">amendment A1</a>.</p>'
                           + md('research/hypotheses_bqa.md') + '</section>'

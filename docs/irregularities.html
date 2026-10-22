@@ -819,5 +819,43 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>This session re-hashed all 13 inputs against the manifest; all match, including <code>ext_geodawn_rad_u8</code> at the manifest pin <code>c22420f7…</code>, which NHR and BQA used. The re-hash is kept as <code>evidence/bqa/restore_receipt_0bd0e0b2.json</code>. The canonical <code>data/restore_receipt.json</code> is left as main has it; which radiometric pin is authoritative remains the owner's decision (IR-79-99).</td>
 </tr>
 </tbody>
+</table>
+<h3>Session 2026-10-22 — line-by-line primary-source rulings, three-tier Pigeonhole proof, <code>registry_delta_git.py</code> promisor fix &amp; <code>GEMSDOE..92</code> reconciliation (<code>arena/6d4a2fdf-gemsdoe79</code>)</h3>
+<p>Full three-pass review report: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_6d4a2fdf.md"><code>reports/session_review_6d4a2fdf.md</code></a>; ranked candidate geological hypotheses: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_6d4a2fdf.md"><code>research/hypotheses_6d4a2fdf.md</code></a>; executable certificates: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/registry_obstructions_certificate.json"><code>evidence/registry_obstructions_certificate.json</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/family_lineage_forensics.json"><code>evidence/family_lineage_forensics.json</code></a>, and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/registry_delta.json"><code>registry/registry_delta.json</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-115</td>
+<td><strong>Primary-source ledger sync &amp; newly verified DrivenData staff rulings (<code>knowledge/official_sources.json</code>, <code>docs/evidence/source_health.json</code>, <code>2026-10-22</code>).</strong> Verified live public leaderboard (<code>#1 xiaofanhu = 0.4413</code> with <code>27</code> submissions, <code>#2 cfld__ = 0.3904</code>, <code>#3 Batik Shirt Brothers = 0.3894</code>, ..., <code>#48 sam35 = 0.2804</code>, <code>#49 op01 = 0.2797</code>, <code>#50 kinneso_outlook = 0.2784</code>, explaining why <code>2026-10-21</code> <code>#48 extradr19 = 0.2778</code> shifted below row 50) plus official staff (<code>chrisk-dd</code>) forum clarifications: <code>11516/4</code> (pixel-exact mask; new-fault truth CAN lie <code>&lt; 300 m</code> from known traces), <code>11527/7</code> (Phase 2 <code>$250k</code> updates labels from expert review of all Phase 1 submissions), <code>11536/2</code> ("new fault" includes newly mapped splays/continuations), <code>11543/2</code> (reproducible human geological hand-labeling &amp; hard-negative curation on public data inside GeoDAWN IS permitted), <code>11550/2</code>, and <code>11556/3</code>.</td>
+<td>Synced <code>knowledge/official_sources.json</code> and <code>docs/evidence/source_health.json</code> to <code>2026-10-22</code> (<code>15</code> verified primary sources) while preserving <code>scripts/refresh_feed.py</code> offline-cache semantics.</td>
+</tr>
+<tr>
+<td>IR-79-116</td>
+<td><strong>Three-Tier Pigeonhole Impossibility Proof &amp; Excess-Overlap Audit (<code>scripts/verify_registry_obstructions.py</code> -&gt; <code>evidence/registry_obstructions_certificate.json</code>).</strong> Across all <code>5,106,385</code> allowed cells: <strong>(Tier 1)</strong> <code>literal &gt; 0</code> witness <code>17GEMSDOE</code> (<code>ab0a0a62…</code>) leaves <strong><code>0</code></strong> uncovered cells; <strong>(Tier 2)</strong> under <code>p &gt;= 0.5</code> AND <code>budget-matched-v3</code>, <code>5GEMSDOE:gems-density-probe</code> (<code>9cdae9b4…</code>) + <code>3</code> <code>GEMSDOE48</code> rasters leave <strong><code>0</code></strong> uncovered cells; <strong>(Tier 3)</strong> sparse binary <code>13GEMSDOE</code> spacing-5 lattices (<code>c12533bb…</code>, <code>b4570b40…</code>, <code>206,895</code> dots = <code>4.00%</code> support) leave <strong>exact <code>6,514</code></strong> uncovered cells, forcing minimum 3-px forward overlap <strong><code>15570/18827 ≈ 0.827004 &gt; 0.70</code></strong> (<code>K_max(0.70) = 21,713</code>). Even among <code>h &lt;= 0.70</code> priors (<code>informative-halo-v4</code>), wide ensembles (<code>h = 0.531–0.641</code>) trigger raw <code>&gt; 0.70</code> hits on distinct maps (<code>H79-DILSTEP</code>: <code>0.5894</code> excess; <code>GEMSDOE83</code>: <code>0.6194</code> excess; <code>GEMSDOE80</code>: <code>0.6907</code> excess), whereas copies fail Cohen excess overlap too (<code>G79-THVC</code>: <code>0.7857</code>, <code>H79-NHR</code>: <code>0.7770</code>, <code>GEMSDOE78</code>: <code>0.8406</code>, <code>GEMSDOE76</code>: <code>0.9051</code>, <code>GEMSDOE82</code>: <code>0.9249</code>, <code>GEMSDOE81</code>: <code>1.0000</code>).</td>
+<td>Published hash-verified <code>evidence/registry_obstructions_certificate.json</code> (<code>docs/evidence/registry_obstructions_certificate.json</code>) and documented prospective <code>excess-overlap-v5</code> <code>(ov - h)/(1 - h) &lt;= 0.70</code>.</td>
+</tr>
+<tr>
+<td>IR-79-117</td>
+<td><strong>Static Full-Catalogue Holdout Bias Diagnostic (<code>evidence/registry_obstructions_certificate.json</code>).</strong> Static evaluation of full-catalogue rasters without re-hiding input geometry gives <code>GEMSDOE81</code> (<code>9798fe7f…</code>, <code>100.0%</code> of dots in <code>(200, 500 m]</code>, <code>0.0% &gt; 1 km</code>) an artificial <code>0.0918 / 0.0935</code> collar score while giving collared maps (<code>G79-THVC</code>, <code>GEMSDOE78</code>, <code>GEMSDOE83</code>) <code>0.0000 / 0.0000</code> unless refit out-of-fold (<code>GEMSDOE83</code> blind OOF: <code>0.1999 / 0.2138</code>, mean <code>0.2068</code>).</td>
+<td>Quantified static vs blind OOF diagnostics across all 10 audited family artifacts so static scores are never misread as blind <code>HOLDOUT-DTI</code>.</td>
+</tr>
+<tr>
+<td>IR-79-118</td>
+<td><strong>Fixed two root-cause git-promisor &amp; repo-discovery bugs in <code>scripts/registry_delta_git.py</code> (<code>n_new_rasters: 0</code> -&gt; <code>207</code> unique blobs across <code>91</code> sibling repositories).</strong> <code>git rev-list --all --objects --missing=allow-promisor</code> omitted all unfetched promisor blobs on <code>--filter=blob:none</code> clones AND <code>repos</code> omitted newly created <code>GEMSDOE78, 80..92</code>.</td>
+<td>Fixed via <code>git ls-tree -r</code> across all unique reachable commit root trees + <code>discover_owner_repos()</code>, recovering <strong><code>207</code> unique prediction <code>.tif</code> blobs</strong> across <code>91</code> sibling repos (<code>repo_errors: []</code>).</td>
+</tr>
+<tr>
+<td>IR-79-119</td>
+<td><strong>Lingering NaN-outside sibling GeoTIFFs (<code>GEMSDOE80</code>, <code>GEMSDOE82</code>, <code>GEMSDOE83</code>).</strong> <code>GEMSDOE80</code> (<code>3</code>), <code>GEMSDOE82</code> (<code>2</code>), and <code>GEMSDOE83</code> (<code>4</code>) still publish <code>-nan.tif</code> files alongside <code>-zeros.tif</code> despite live portal <code>NaN</code> rejection.</td>
+<td>Documented across review artifacts; <code>GEMSDOE79</code> publishes strictly one all-finite <code>[0.0, 1.0]</code> canonical negative file (<code>H79-DILSTEP</code>, <code>0</code> NaNs).</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
