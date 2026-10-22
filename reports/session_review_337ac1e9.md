@@ -60,7 +60,7 @@
 | Obvious OK to download / submit | README top, Pages hero, `status.json`, and the CLI exit code (2) all say YES / NO. |
 | Automated validation, no human inspector | Shared validator plus reopened-TIFF and ZIP checks. The status decision is automatic. |
 | Grid, range and NaN rules | EPSG:32611, 3730×3292, sample transform, values {0, 1}, no NaN anywhere. |
-| Name and note ≤ 140 characters | Name is 87 characters, note is 122. |
+| Name and note ≤ 140 characters | Name is 73 characters, note is 122. |
 | Why H33 scored highest; can we beat it | `reports/nhr_analysis.md`: metric algebra, byte forensics, bounds, leader gap. |
 | 3–5 hypotheses ranked by gain and cost | 5, in `research/hypotheses_nhr.md`. |
 | Top hypothesis validated on a blocked holdout before any slot | Done. It beat the holdout best; the slot is still withheld because it is a duplicate. |
