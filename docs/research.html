@@ -2,11 +2,11 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
 <meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
-<title>Five ranked hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<title>Ranked hypotheses and current eligibility · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">RESEARCH / RANKED HYPOTHESES / GATES</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Historical lanes are clearly separated from new prospective ideas; no new holdout runs until prerequisites pass.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
 <p>Written before any H79-NHR holdout result existed (preregistration:
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_nhr.json"><code>registry/preregistration_nhr.json</code></a>).
 Ranks are qualitative judgements of expected DTI improvement and cost, <strong>not
@@ -98,7 +98,115 @@ allocator needs.</p>
 <p>Withheld <em>catalogue</em> components are not the organizer's <em>expert</em> faults. If
 expert faults are less clustered around mapped traces than catalogue
 components are, the geometry inputs will over-reward proximity on the real
-test. The holdout cannot measure that shift; only an organizer score can.</p></div></section><section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2><p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p><div class="prose table-scroll"><h2>Candidate hypotheses for the 2026-10-22 session (lane selection)</h2>
+test. The holdout cannot measure that shift; only an organizer score can.</p></div></section><section class="section"><h2>Follow-up hypotheses from official-source research (not run)</h2><div class="prose table-scroll"><h2>Follow-up hypothesis shortlist — 2026-10-22</h2>
+<p>This shortlist was written after reviewing the full current project brief, the
+active H79-NHR card, all current and archived lane code/hypothesis registers,
+the 992-entry owner-mirror raster inventory, and the newly checked official
+USGS / GDR / USGS ComCat pages. Ranks are <strong>qualitative priors for expected
+HOLDOUT-DTI gain versus implementation cost</strong>, not scores or leaderboard
+projections. No claim of novelty outside this repository is made.</p>
+<p>The previously preregistered H79-NHR top hypothesis has already been tested
+once. It is <strong>not</strong> revived or re-ranked here. H79-NHR remains stopped and
+negative after failing both surface and final-dot uniqueness.</p>
+<h3>Ranked new geological hypotheses</h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Hypothesis, layers, physical signature</th>
+<th>Why it could reveal faults missing from the catalogue</th>
+<th>Difference from this repository's tested/archived lanes</th>
+<th>Expected gain / cost (qualitative)</th>
+<th>Named non-fault mimic</th>
+<th>Official data status / eligibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 — prospective top</strong></td>
+<td><strong>Background-corrected heat-flow residual corridors.</strong> Use the USGS 2022 Great Basin heat-flow point residual (well observation minus the locally estimated background conductive trend), retaining the release's measurement-quality fields. The candidate signal is a spatially coherent signed residual anomaly, not the absolute smoothed heat-flow map; compare it with the supplied conductivity, depth-to-basement, gravity-gradient and elevation context.</td>
+<td>A blind fault that channels hydrothermal or groundwater flow can produce a local departure from background conductive heat flow even where no surface scarp or mapped trace exists. The USGS release specifically describes its residual field as potentially useful for identifying hydrothermal or groundwater influence.</td>
+<td>The reviewed active/archived code uses shallow temperature probes, geothermometer values, radiometrics, conductivity, or geothermal point proximity, but no lane in this repository uses the USGS <strong>well residual from a background-conductive heat-flow model</strong>. This is a new data/mechanism, not a retuning of H79-NHR.</td>
+<td><strong>Medium, high uncertainty / high</strong>: the physical link to fluid pathways is strong, but the target is a fault map rather than a geothermal-resource map; point spacing, quality, and interpolation may dominate.</td>
+<td>Topographic groundwater circulation, lateral aquifer flow, well-depth/completion effects, local lithology, and measurement-quality differences can create residual clusters without a fault.</td>
+<td>USGS ScienceBase lists a public 124.12 MB ZIP (DOI <a href="https://doi.org/10.5066/P9BZPVUC">10.5066/P9BZPVUC</a>) and documents the residual. Its attached-file MD5 is recorded in <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/official_sources.json"><code>knowledge/official_sources.json</code></a>. The binary was <strong>not downloaded</strong>; a <code>fetch_page</code> attempt returned HTTP 500. The release's use/reuse terms and native schema must be checked from the downloaded metadata before processing. <strong>Not executable in this sandbox yet.</strong></td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td><strong>Depth-coherent MT conductance pathways.</strong> Use the USGS conductance rasters at 2–12, 12–20, 20–50, 50–90, and 90–200 km depth, with the supplied conductivity, basement-depth, gravity-gradient and geodetic-dilation bands. Signature: a laterally continuous conductor that persists across crustal depth intervals and is spatially related to a shallow structural boundary.</td>
+<td>Fault zones may connect deep conductive fluids to the upper crust, including under basin fill where surface expression is weak. Depth persistence could distinguish a through-going structure from a shallow lithologic edge.</td>
+<td>No reviewed lane uses these <strong>depth-sliced USGS 3D MT conductance maps</strong>. The supplied <code>cond_surf</code> is not a substitute for depth-resolved conductance. Existing clay-cap / conductivity hypotheses use the supplied regional surface layer, not this depth sequence.</td>
+<td><strong>Low–medium / high</strong>: fluid pathways are physically relevant, but the inversion is regional and likely much coarser than 100 m; this may only rank broad corridors, not fault traces.</td>
+<td>Graphitic/metamorphic units, saline basin fill, conductive alteration unrelated to a fault, and inversion smoothing.</td>
+<td>Official USGS release <a href="https://doi.org/10.5066/P9TWT2LU">10.5066/P9TWT2LU</a> lists five 3.94 MB GeoTIFFs in native EPSG:4269, derived from &gt;800 MT transfer functions. No binary downloaded; effective spatial support and alignment remain unverified. <strong>Not executable until retrieved and screened.</strong></td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td><strong>Focal-mechanism stress compatibility of independent lineaments.</strong> Use public USGS ComCat focal-mechanism / moment-tensor products to estimate a spatial stress-orientation field; compare it with lineament orientation inferred only from non-catalogue raster structure (magnetic/gravity/lidar), and the supplied geodetic strain bands. Do not use Qfault geometries or fault-segment tendency values.</td>
+<td>Active, unmapped normal faults may be expressed by local seismic mechanisms and geodetic strain even where mapped inventories are incomplete. Stress compatibility could prioritize one of several raster-derived lineament orientations.</td>
+<td>The supplied stack has earthquake distance/intensity summaries but no focal-mechanism tensors; reviewed lanes use lineament geometry and strain, not an independently estimated stress field from ComCat.</td>
+<td><strong>Low–medium / medium–high</strong>: mechanistically targeted but limited to active structures, potentially sparse mechanism coverage, and has additional inversion/uncertainty work.</td>
+<td>Induced geothermal seismicity, non-fault seismicity, network detection/completeness, and stress heterogeneity.</td>
+<td>Official <a href="https://earthquake.usgs.gov/data/comcat/index.php">USGS ComCat overview</a> and <a href="https://earthquake.usgs.gov/fdsnws/event/1/">FDSN event service</a> document public catalog products and product-type queries. An exploratory broad query returned features, but no regional catalog was saved or counted; coverage must be audited before eligibility.</td>
+</tr>
+<tr>
+<td><strong>4 — rejected before implementation</strong></td>
+<td><strong>USGS Quaternary-fault slip/dilation tendency.</strong> The release contains stress-conditioned slip and dilation tendencies for mapped Quaternary fault segments.</td>
+<td>Favorably oriented faults may be more likely to host hydrothermal processes.</td>
+<td>The USGS release states that its segment geometries are based on a database modified after the USGS Qfault database.</td>
+<td>The geology is plausible; the apparent gain could be high, but the leakage risk is unacceptable.</td>
+<td>Regional stress heterogeneity and lithology may make a segment's computed tendency unrepresentative of nearby blind faults.</td>
+<td>Official release <a href="https://doi.org/10.5066/P9YL58W6">10.5066/P9YL58W6</a> is public and lists shapefile/KMZ resources. <strong>Ineligible as a holdout feature:</strong> rasterized fault-segment tendency would reintroduce target-catalogue geometry into the predictor and could trivially reveal withheld components. It is retained as source context only.</td>
+</tr>
+</tbody>
+</table>
+<h3>Decision: no new holdout lane is currently eligible</h3>
+<p>HFR is the top <strong>prospective</strong> hypothesis, not an active or executed lane. No
+new lane was preregistered for holdout because two hard prerequisites are unmet:</p>
+<ol>
+<li>The USGS heat-flow archive is listed publicly, but its binary was not
+   retrieved, SHA-256 pinned, or checked for field names, units, quality
+   categories, spatial coverage, and projection. No surrogate or copied value
+   was substituted.</li>
+<li>The existing uniqueness scan is incomplete: <strong>986 of 992</strong> registry rasters
+   were comparable, with six TIFF/grid/transform errors. Restoring all 992
+   byte blobs did not fix those comparison errors. A fail-closed scan cannot
+   certify a new surface against an incomplete inventory.</li>
+</ol>
+<p>There is also a decisive budget constraint for the currently used
+<strong>37,654-dot</strong> emission. The verified 13GEMSDOE 5-pixel lattice's 3-pixel halo
+leaves 6,514 allowed cells outside the halo. Even if every candidate dot were
+placed in those cells first, at most 6,514 of 37,654 dots could avoid that
+one registry raster; at least <strong>82.70%</strong> would overlap, above the protocol's
+70% limit. This is a geometric upper bound, independent of the geology. It
+applies to that budget and this registry raster; it does <strong>not</strong> prove that
+all smaller-budget maps are impossible. We do not choose a smaller budget or
+apply a chance correction after observing the result.</p>
+<p>Therefore there is <strong>no new preregistration, surface, holdout experiment, TIFF,
+upload, or slot selection</strong> in this continuation. The previously authorized
+H79-NHR lane remains stopped; this is not permission to resume it. The next
+scientific step requires a complete, comparable registry scan and a legitimate
+source-data path, followed by one fixed preregistration and a surface-only
+uniqueness gate before any holdout work.</p>
+<h3>Newly verified official sources</h3>
+<ul>
+<li><a href="https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28">USGS heat-flow release</a>, DOI
+  <a href="https://doi.org/10.5066/P9BZPVUC">10.5066/P9BZPVUC</a>: background conductive
+  heat-flow maps and well residuals; public 124.12 MB attachment listed.</li>
+<li><a href="https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b">USGS electrical conductance maps</a>, DOI
+  <a href="https://doi.org/10.5066/P9TWT2LU">10.5066/P9TWT2LU</a>: five 2–200 km depth
+  intervals from a 3D MT inversion; GeoTIFFs listed.</li>
+<li><a href="https://www.sciencebase.gov/catalog/item/6296974dd34ec53d276bb33d">USGS slip/dilation tendency release</a>, DOI
+  <a href="https://doi.org/10.5066/P9YL58W6">10.5066/P9YL58W6</a>: useful for geologic
+  context but not an independent holdout predictor because it uses Qfault-based
+  segment geometries.</li>
+<li><a href="https://earthquake.usgs.gov/data/comcat/index.php">USGS ComCat</a>: public
+  focal-mechanism/moment-tensor products and event-query documentation.</li>
+<li><a href="https://gdr.openei.org/submissions/1391">DOE GDR INGENIOUS compilation</a>, DOI
+  <a href="https://doi.org/10.15121/1881483">10.15121/1881483</a>: publicly accessible
+  CC BY 4.0 resource listing; 116.98 MB across nine files. Listing availability
+  is not a claim that a new archive was downloaded.</li>
+</ul></div></section><section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2><p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p><div class="prose table-scroll"><h2>Candidate hypotheses for the 2026-10-22 session (lane selection)</h2>
 <p>Written before implementing or scoring anything in this session, as required.
 "Not tried yet" is verifiable only against this repository (which contains one
 closed lane, <code>G79-FABRIC-OFFSET</code>) and the 98-row score ledger of sibling

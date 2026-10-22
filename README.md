@@ -36,16 +36,29 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
    masked, so those dots were pure false positives. Removing them lifted the user-reported score from 0.2600
    to 0.2778. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
    0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
-2. **Can we beat it?** Five untried hypotheses were ranked in
+2. **Can we beat it?** Five hypotheses were ranked in
    [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
    learning, was preregistered in [`registry/preregistration_nhr.json`](registry/preregistration_nhr.json)
    and run once. It **beat the H33 control on the holdout** on both seeds, with paired CIs above zero and no
-   leakage. However, its dots fall in the 300 m–2 km band around mapped faults, which 26 earlier family
-   dot fields already occupy. Those fields have unverified historical scores of 0.016–0.143. Under the protocol, that is a
-   **duplicate lane → stop**.
-3. **Systemic blocker (IR-79-53).** 30 registry rasters are space-filling: their 3 px halos cover more than 70 % of
-   the area, so even a uniformly random map is flagged by them. Taken literally, the duplicate rule rejects every
-   possible submission. The next lane needs **an explicit user decision** on these rasters.
+   leakage. However, it duplicated 26 informative family dot fields, so the lane stopped. The current public
+   leaderboard snapshot (2026-10-22) shows #1 = 0.4413, #22 = 0.3183, and #48 = 0.2804; these are
+   public observations, not file-linked submission receipts. The prompt's 0.3195 is not the current #22 value.
+3. **Protocol / registry blocker (IR-79-53, IR-79-57/58).** 30 registry rasters are space-filling, so even a
+   uniform map is flagged by them. More specifically, the 5-px `13GEMSDOE` lattice's 3-px halo leaves only
+   6,514 of 5,106,385 allowed pixels outside its halo. At the active 37,654-dot budget, at least 31,140 dots
+   (82.70 %) must overlap it—above the 70 % limit, regardless of the candidate surface. This proves the
+   current budget cannot pass that gate; it does **not** prove every smaller-budget map impossible. The registry
+   restore verifies 992/992 byte hashes, but six rasters remain invalid or misaligned in the old comparison
+   audit (986 comparable), so no complete novelty certificate exists. No chance correction, exclusion, or
+   threshold change is authorized.
+
+## Continuation on this fixed branch (`arena/616fe8e7-gemsdoe79`, 2026-10-22)
+
+- The Git-based restore receipt confirms **992/992** registry blobs present and SHA-256/Git-blob/size verified; the 13 manifest inputs also re-hash successfully. Durable summaries are [`evidence/registry_restore_git_2026-10-22.json`](evidence/registry_restore_git_2026-10-22.json) and [`evidence/data_restore_2026-10-22.json`](evidence/data_restore_2026-10-22.json). These verify bytes only; they do not change the NHR uniqueness audit's six grid/format errors or its duplicate witnesses.
+- Rechecked the official public leaderboard: #1 **0.4413**, #22 **0.3183**, #48 **0.2804**. The historical H33 value **0.2778** still has no file-linked organizer receipt, and **0.3195** is not the observed current #22 value.
+- Fixed IR-79-63 in `scripts/refresh_feed.py`: when direct HTTP checks fail, the feed now uses the newest dated reviewed observation instead of retaining an older snapshot. The six sandbox HTTP probes still failed with `SSLError`; the feed retained the reviewed 2026-10-22 values and marks the fetch failures. Rebuilt the site to expose the official-source resources and follow-up shortlist; 187 tests, project verification, and site checks pass.
+- Added a ranked, source-checked shortlist in [`research/hypotheses_followup_20261022.md`](research/hypotheses_followup_20261022.md). The leading *prospective* idea is USGS background heat-flow well residuals as a fluid-flow indicator; the official page lists a 124.12 MB public ZIP and explains the residual, but the binary fetch failed in this sandbox, so no feature or score was computed. Depth-banded USGS MT conductance and USGS ComCat focal mechanisms are lower-ranked alternatives; Qfault-derived slip/dilation values are excluded as leakage-prone.
+- **No new lane was eligible to enter holdout.** The current comparison inventory is incomplete (six invalid/misaligned rasters), the active 37,654-dot budget is mathematically incompatible with the 70% gate against the verified 13GEMSDOE lattice, and no new method paragraph was supplied. H79-NHR remains stopped; no new holdout, TIFF, upload, or weekly slot was used. Review and acceptance details: [`reports/repository_review_2026-10-22.md`](reports/repository_review_2026-10-22.md) and [`reports/requirements_review.md`](reports/requirements_review.md).
 
 ## Concurrent lane G79-STEPCO (session `220dabc8`): also negative, archived
 
@@ -97,13 +110,11 @@ already dotted, so uniqueness after the fact costs more than detector gains.
   (`evidence/nhr/distance_to_catalogue.json`).
 - Uniqueness covers the 992 hash-verified public sibling-repository rasters (0 new on a rescan of
   branches, tags and pull refs), not every file other participants have uploaded.
-- The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-47) and can be reversed.
+- The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-47); it does not exempt any dot field, remove the 70% threshold, or repair the six invalid/misaligned registry entries.
 - Next steps:
-  1. Decide IR-79-53.
-  2. Run a far-field lane that ranks within H33-like distance bands (more than 1 km from mapped faults), with
-     antislope or lidar evidence, checking the surface for uniqueness before placement.
-  3. Reweight the nested target by distance band.
-  4. Add the absolute 3DEP DEM for shoreline suppression.
+  1. Resolve the registry-comparison completeness issue without silently excluding indexed rasters or changing the protocol thresholds.
+  2. Obtain and hash-pin the official heat-flow release (or the chosen alternative source), inspect its native grid/fields, then preregister one fixed method.
+  3. Run the surface uniqueness gate on the complete registry **before** placement; stop if incomplete or duplicate. Only a passing preregistered surface may proceed to leakage canaries and buffered holdout.
 
 ## Reproduce and verify
 

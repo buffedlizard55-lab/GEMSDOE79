@@ -221,7 +221,12 @@ def sources_page(sources):
         source_type = row.get('source_type', 'OFFICIAL SOURCE')
         claims=''.join('<li>'+E(c)+'</li>' for c in row.get('verified_claims',[]))
         limits=' '.join(row.get('limits',[]))
-        items.append(f'''<article class="source-item"><div><div class="source-id">{E(row['id'])}</div><span class="badge neutral">{E(source_type)}</span></div><div><h3>{E(row['authority'])}</h3><a href="{E(row['url'])}">{E(row['url'])} ↗</a><p>Review: {E(row['access'])} · {E(sources.get('reviewed_date_utc', ''))}</p><ul>{claims}</ul><p><strong>Limits:</strong> {E(limits)}</p></div></article>''')
+        resources=''.join('<li><a href="'+E(r['url'])+'">'+E(r['name'])+'</a>'
+                          + (f" · {int(r['bytes']):,} bytes" if r.get('bytes') else '')
+                          + (f" · listed MD5 {E(r['listed_md5'])}" if r.get('listed_md5') else '')
+                          + '</li>' for r in row.get('resources',[]))
+        resource_block=f'<p><strong>Listed file downloads:</strong></p><ul>{resources}</ul>' if resources else ''
+        items.append(f'''<article class="source-item"><div><div class="source-id">{E(row['id'])}</div><span class="badge neutral">{E(source_type)}</span></div><div><h3>{E(row['authority'])}</h3><a href="{E(row['url'])}">{E(row['url'])} ↗</a><p>Review: {E(row['access'])} · {E(sources.get('reviewed_date_utc', ''))}</p><ul>{claims}</ul><p><strong>Limits:</strong> {E(limits)}</p>{resource_block}</div></article>''')
     return '''<section class="page-head"><p class="eyebrow">PROVENANCE / FRESHNESS / LIMITS</p><h1>Sources you can audit.</h1><p class="lead">Official scientific claims, mirrored byte integrity, live URL reachability and submission receipts are different kinds of evidence. We never interchange them.</p></section>
 <section class="section"><div class="panel"><h3>Public-source health feed</h3><p id="feed-status">Loading the last recorded fetch attempt…</p><div id="feed-observation" class="micro"></div><div class="table-scroll"><table><thead><tr><th>Source</th><th>Last fetch state</th><th>HTTP</th></tr></thead><tbody id="health-rows"></tbody></table></div><p class="micro">A successful request checks reachability only. A failed refresh does not update an old leaderboard observation. Daily checks never access private receipts, allocate slots or run experiments. <a href="evidence/source_health.json">Raw feed JSON ↗</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/actions/workflows/site.yml">Latest scheduled workflow and deployment state ↗</a></p></div></section>
 <section class="section"><div class="notice">No candidate here has an ORGANIZER-CONFIRMED submission-page receipt. The public leaderboard observation is not this file’s score. Direct requests to non-allowlisted domains can fail in the sandbox even when the research browser can read them.</div>'''+''.join(items)+'''</section><section class="section prose"><h2>Accessible datasets, not invented new measurements</h2><p>The numerical feature stack, sample and mapped faults were restored from immutable owner GitHub mirrors and hash-checked. This verifies consistency, not independent organizer authentication. H79-NHR uses only the supplied feature stack and the hash-pinned free external layers listed in the manifest (lidar scarp derivatives, GeoDAWN radiometrics). No new paid, private or fabricated observations were introduced.</p><p><a href="evidence/data_manifest.json">Data sources and SHA-256 pins ↗</a> · <a href="evidence/restore_receipt.json">Actual restoration receipt ↗</a> · <a href="evidence/official_sources.json">Claim-by-claim official source ledger ↗</a></p></section>'''
@@ -355,10 +360,11 @@ def main():
                                     'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
                           + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
-        'research.html': ('Five ranked hypotheses',
-                          page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
-                                    'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
+        'research.html': ('Ranked hypotheses and current eligibility',
+                          page_head('RESEARCH / RANKED HYPOTHESES / GATES', 'Test a mechanism. Name its mimic.',
+                                    'Historical lanes are clearly separated from new prospective ideas; no new holdout runs until prerequisites pass.')
                           + '<section class="section">' + md('research/hypotheses_nhr.md') + '</section>'
+                          + '<section class="section"><h2>Follow-up hypotheses from official-source research (not run)</h2>' + md('research/hypotheses_followup_20261022.md') + '</section>'
                           + '<section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2>'
                           + '<p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p>'
                           + md('research/hypotheses_g79stepco_20261022.md') + md('reports/protocol_amendment_D1_20261022.md') + '</section>'

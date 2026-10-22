@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "evidence_class": "DATA-RESTORE-VERIFICATION",
+  "generated_date_utc": "2026-10-22",
+  "manifest": "registry/data_manifest.json",
+  "manifest_sha256": "eb6ec57d001e2e7f9279d450357e61961efabedff0a0085f5022b76b2dd60d0c",
+  "original_receipt": "data/restore_receipt.json",
+  "original_receipt_preserved": true,
+  "manifest_entries": 13,
+  "verified_entries": 13,
+  "all_verified": true,
+  "rows": [
+    {
+      "id": "training_features",
+      "path": "data/raw/training_features.tif",
+      "bytes": 418912844,
+      "expected_bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "expected_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+      "verified": true
+    },
+    {
+      "id": "labels",
+      "path": "data/raw/labels.tif",
+      "bytes": 425830,
+      "expected_bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "verified": true
+    },
+    {
+      "id": "existing_faults",
+      "path": "data/raw/existing_faults.tif",
+      "bytes": 425830,
+      "expected_bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "expected_sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
+      "verified": true
+    },
+    {
+      "id": "sample_submission",
+      "path": "data/raw/sample_submission.tif",
+      "bytes": 1599597,
+      "expected_bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "expected_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+      "verified": true
+    },
+    {
+      "id": "ext_lidar_scarp_features_u8",
+      "path": "data/raw/external/lidar_scarp_features_u8.tif",
+      "bytes": 36943606,
+      "expected_bytes": 36943606,
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "expected_sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+      "verified": true
+    },
+    {
+      "id": "ext_lidar_scarp_features_json",
+      "path": "data/raw/external/lidar_scarp_features.json",
+      "bytes": 3531,
+      "expected_bytes": null,
+      "sha256": "9ef0df6e87598a8b0cd52fe821661e5fdb3a00568c5d9b1c5d61fd6b242dcd41",
+      "expected_sha256": "9ef0df6e87598a8b0cd52fe821661e5fdb3a00568c5d9b1c5d61fd6b242dcd41",
+      "verified": true
+    },
+    {
+      "id": "ext_geodawn_rad_u8",
+      "path": "data/raw/external/geodawn_rad_u8.tif",
+      "bytes": 26612970,
+      "expected_bytes": 26612970,
+      "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+      "expected_sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+      "verified": true
+    },
+    {
+      "id": "ext_geodawn_extensions_u8",
+      "path": "data/raw/external/geodawn_extensions_u8.tif",
+      "bytes": 27132925,
+      "expected_bytes": 27132925,
+      "sha256": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+      "expected_sha256": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+      "verified": true
+    },
+    {
+      "id": "ext_derived_sgmc_faults_100m_u8",
+      "path": "data/raw/external/derived_sgmc_faults_100m_u8.tif",
+      "bytes": 198602,
+      "expected_bytes": 198602,
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+      "expected_sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0",
+      "verified": true
+    },
+    {
+      "id": "ext_tiger_road_distance_m",
+      "path": "data/raw/external/tiger_road_distance_m.tif",
+      "bytes": 10492276,
+      "expected_bytes": null,
+      "sha256": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988",
+      "expected_sha256": "e5350423508968fa2d32b0a6ae0d3fb4ae3ea645e3b8736f0c8e7ad9ff2f2988",
+      "verified": true
+    },
+    {
+      "id": "ext_gdr_wellspring",
+      "path": "data/raw/external/gdr_wellspring_in_footprint.csv",
+      "bytes": 2146771,
+      "expected_bytes": null,
+      "sha256": "122718e65bdf55aab0ee12ad20d80062f0deb1de957225a61ad880dd5dc196ea",
+      "expected_sha256": "122718e65bdf55aab0ee12ad20d80062f0deb1de957225a61ad880dd5dc196ea",
+      "verified": true
+    },
+    {
+      "id": "ext_gdr_volcanic_vents",
+      "path": "data/raw/external/gdr_volcanic_vents_in_footprint.csv",
+      "bytes": 672,
+      "expected_bytes": null,
+      "sha256": "f91bafbaccaaf2754e71d60434fc0f9eb2c7b880c6e714883f4974542ff6a0bf",
+      "expected_sha256": "f91bafbaccaaf2754e71d60434fc0f9eb2c7b880c6e714883f4974542ff6a0bf",
+      "verified": true
+    },
+    {
+      "id": "ext_gdr_qfaults_traces",
+      "path": "data/raw/external/gdr_qfaults_traces.csv",
+      "bytes": 126177,
+      "expected_bytes": null,
+      "sha256": "9702f2e5c382a4f472ae834d22b94990983b059677a37adfafd51c50f75e643c",
+      "expected_sha256": "9702f2e5c382a4f472ae834d22b94990983b059677a37adfafd51c50f75e643c",
+      "verified": true
+    }
+  ],
+  "scope": "Current bytes match owner-mirror SHA-256 pins and listed sizes where present; this does not authenticate those mirrors as organizer-origin files."
+}

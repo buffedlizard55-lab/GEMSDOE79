@@ -90,7 +90,11 @@ PUBLIC-LEADERBOARD (fetched 2026-10-22,
 | cfld__ | 0.3904 |
 | Batik Shirt Brothers | 0.3894 |
 
-The user's other target is 0.3195.
+The same 2026-10-22 page fetch showed rank 22 at **0.3183** and rank 48 at
+**0.2804**. The prompt's **0.3195** is therefore retained as a historical /
+user-reported target, not the current rank-22 observation. All leaderboard
+values here are public-page observations, not receipts identifying an H33 file
+or any artifact from this repository.
 
 Using the same `N_truth` and a similar FP budget, ESTIMATE:
 

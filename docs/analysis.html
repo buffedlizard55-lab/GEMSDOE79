@@ -98,7 +98,11 @@ are user-reported and the public leaderboard names teams, not files.</p>
 </tr>
 </tbody>
 </table>
-<p>The user's other target is 0.3195.</p>
+<p>The same 2026-10-22 page fetch showed rank 22 at <strong>0.3183</strong> and rank 48 at
+<strong>0.2804</strong>. The prompt's <strong>0.3195</strong> is therefore retained as a historical /
+user-reported target, not the current rank-22 observation. All leaderboard
+values here are public-page observations, not receipts identifying an H33 file
+or any artifact from this repository.</p>
 <p>Using the same <code>N_truth</code> and a similar FP budget, ESTIMATE:</p>
 <table>
 <thead>
@@ -513,9 +517,12 @@ into four distinct regimes:</p>
 <p>The source website calls the file a high-ranked primary, but explicitly says it
 has no organizer score receipt and also includes projected/live-mirror numbers.
 We do not convert those projections into scores. The prompt's <strong>0.2778 is an
-UNVERIFIED historical filename-to-score report</strong>. An official public leaderboard
-observation also shows 0.2778 for a participant, but neither that number nor the
-participant's identity proves which file or hash was uploaded.</p>
+UNVERIFIED historical filename-to-score report</strong>. The official public leaderboard
+snapshot fetched on 2026-10-21 also showed 0.2778 at rank 48; neither that number
+nor the participant's identity proves which file or hash was uploaded. A newer
+snapshot fetched on 2026-10-22 showed #1 = 0.4413, #22 = 0.3183, and #48 = 0.2804.
+The prompt's 0.3195 was not the observed rank-22 value. These remain public
+leaderboard observations, not ORGANIZER-CONFIRMED receipts for H33 or this repo.</p>
 <h3>The precise metric argument</h3>
 <p><a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#performance-metric">Official formula</a>:</p>
 <ul>

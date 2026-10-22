@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "evidence_class": "REGISTRY-MEASUREMENT",
+  "generated_date_utc": "2026-10-22",
+  "method": "Count footprint cells that are not within the shared 3-pixel Euclidean halo of the positive support of the hash-verified 13GEMSDOE lattice raster. Compare that finite cell capacity to the fixed H79-NHR emitted-dot budget; no candidate surface or hidden labels are used.",
+  "shared_overlap_radius_px": 3,
+  "overlap_limit": 0.7,
+  "registry_raster": {
+    "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif",
+    "git_blob": "5c1a159439735522659ee78969df3f34efddcdde",
+    "sha256": "c12533bb980234c3a706af641d4f1d514bbbe482714b2ebcac3b10f3e72a7a3f",
+    "positive_pixels": 206895,
+    "halo_coverage_of_allowed_pixels": 0.9987243421716145
+  },
+  "candidate_budget_reference": {
+    "lane": "H79-NHR",
+    "dot_count": 37654,
+    "allowed_pixels_footprint_minus_catalogue": 5106385
+  },
+  "capacity_bound": {
+    "allowed_pixels_outside_lattice_halo": 6514,
+    "maximum_candidate_dots_that_can_avoid_this_lattice_halo": 6514,
+    "minimum_candidate_dots_inside_lattice_halo": 31140,
+    "minimum_forward_overlap_fraction": 0.8270037711796887,
+    "overlap_limit_exceeded": true
+  },
+  "conclusion": "For a 37,654-dot candidate on this grid, at most 6,514 distinct cells can be outside this registry raster's 3-pixel halo; therefore at least 82.70% of candidate dots must overlap, independently of candidate surface values. This budget cannot pass the literal 70% overlap gate against this raster.",
+  "scope_caveat": "This bound is specific to the 37,654-dot budget and this indexed raster. It does not prove that every smaller-budget candidate is impossible. It is not a uniqueness certificate: the prior full-registry audit has six invalid/misaligned comparisons and remains incomplete.",
+  "registry_inventory_status": {
+    "hash_verified_rasters": 992,
+    "surface_audit_grid_comparable": 986,
+    "surface_audit_errors": 6,
+    "complete_uniqueness_certificate": false
+  },
+  "no_candidate_tiff_created": true,
+  "no_holdout_run": true,
+  "no_threshold_or_registry_exception_applied": true
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "evidence_class": "REGISTRY-BLOB-RESTORE-VERIFICATION",
+  "generated_date_utc": "2026-10-22",
+  "restore_method": "git clone --bare --filter=blob:none; retrieve blobs with git cat-file; verify SHA-256, Git blob id, and byte size against frozen registry pins.",
+  "registry_index": "registry/registry_index.json",
+  "registry_index_sha256": "607f89aa78df3297217a4ee2ad4472e9d1f713ca2c22b32fd594bea6b66d33ec",
+  "frozen_receipt": "registry/registry_receipt.json",
+  "frozen_receipt_sha256": "3e03f6f5bfc9e832003b808fb2351707bce555790853d1937ea363e65790bae0",
+  "registry_rasters": 992,
+  "present_and_verified": 992,
+  "errors": [],
+  "hash_failures": [],
+  "scope": "Verifies that all pinned registry TIFF bytes are present and correct in the ignored cache. It does not certify CRS/grid comparability or novelty; the candidate audit still records six invalid/misaligned comparisons."
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "reviewed_date_utc": "2026-10-21",
-  "retrieval_method": "Research fetch_page tool; direct sandbox egress to these non-GitHub domains is restricted. Extracts below are reviewed claims, not archived complete page bytes.",
+  "reviewed_date_utc": "2026-10-22",
+  "retrieval_method": "Research fetch_page/web_search tools; direct sandbox egress to non-allowlisted official hosts is restricted. Page metadata and attached-file listings are not binary data receipts; no new non-GitHub binary was downloaded.",
   "sources": [
     {
       "id": "DD-PROBLEM",
@@ -84,15 +84,17 @@
       "authority": "DOE Geothermal Data Repository / INGENIOUS contributors",
       "url": "https://gdr.openei.org/submissions/1391",
       "doi": "10.15121/1881483",
-      "access": "dataset description and resource links read",
+      "access": "Current 2026-10-22 dataset-description/resource listing read; public resources and sizes enumerated; no new GDR archive downloaded.",
       "license_as_published": "Creative Commons Attribution 4.0",
       "verified_claims": [
-        "The compilation includes 2 m temperature probes, gravity/magnetics, heat flow, MT, faults, volcanic features, paleogeothermal features and well/spring chemistry.",
-        "Datasets are provided as is and may be redistributed with attribution; users are responsible for fitness for purpose.",
-        "Quaternary Faults v2 supersedes v1; that source is not automatically independent of the competition catalogue."
+        "The compilation includes 2 m temperature probes, earthquake density, geodetic shear/dilation, heat flow, MT conductance, gravity/magnetics, paleogeothermal features, faults/volcanics, well/spring temperature and chemistry, and related data.",
+        "The listing reports 116.98 MB across 9 files; the well/spring geodatabase download is listed as 19.85 MB and the 2 m probe archive as 1.03 MB.",
+        "The repository page labels the dataset publicly accessible under CC BY 4.0; redistribution requires attribution and the data are provided as is.",
+        "Quaternary Faults v2 supersedes v1; Qfault-based traces are not automatically independent of the competition catalogue."
       ],
       "limits": [
-        "No new GDR data are required by this lane; no new direct binary download from this host is claimed."
+        "The public listing proves a download is offered, not that the binary was retrieved or its contents/hash authenticated in this session.",
+        "A public dataset description is not evidence of fit-for-purpose resolution or a candidate score."
       ]
     },
     {
@@ -112,19 +114,21 @@
       "id": "DD-LEADERBOARD",
       "authority": "DrivenData public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "access": "all three chunks read",
+      "access": "Current 2026-10-22 fetch_page chunks 0-1 read; previous 2026-10-21 observation came from all three chunks.",
       "observation": {
         "first_place_participant": "xiaofanhu",
         "public_dti": 0.4413,
-        "rank_48_participant": "extradr19",
-        "rank_48_public_dti": 0.2778
+        "rank_22_public_dti": 0.3183,
+        "rank_48_participant": "sam35",
+        "rank_48_public_dti": 0.2804
       },
-      "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION \u2014 not a submission-page receipt and not this candidate's score",
+      "score_class": "OFFICIAL PUBLIC LEADERBOARD OBSERVATION — not a submission-page receipt and not this candidate’s score",
       "limits": [
         "A matching numeric value does not prove the H33 filename, raster hash, or submitting identity.",
+        "On the 2026-10-22 snapshot, the prompt’s 0.3195 figure was not the current rank-22 value; retain it only as a historical/user-reported target.",
         "No submission in this repository has an ORGANIZER-CONFIRMED submission-page receipt."
       ],
-      "observed_date_utc": "2026-10-21"
+      "observed_date_utc": "2026-10-22"
     },
     {
       "id": "DD-AUTH",
@@ -180,6 +184,84 @@
       "limits": [
         "Project description is not a discovery claim or hidden-label receipt for this candidate."
       ]
+    },
+    {
+      "id": "USGS-HEATFLOW-2022",
+      "authority": "U.S. Geological Survey, ScienceBase data release",
+      "url": "https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28",
+      "doi": "10.5066/P9BZPVUC",
+      "access": "ScienceBase summary, release metadata, and attached-file listing read on 2026-10-22; direct binary fetch attempted via fetch_page and returned HTTP 500.",
+      "license_as_published": "No explicit license statement was found in the page text reviewed; source is a public USGS data-release listing.",
+      "resources": [
+        {
+          "name": "heat_flow_maps_and_supporting_data_for_the_Great_Basin_USA.zip",
+          "url": "https://www.sciencebase.gov/catalog/file/get/6297d2fad34ec53d276c5b28?f=__disk__03%2Fac%2F86%2F03ac865d4a5a3c5c52d8ca92bc170105c6fe508a",
+          "bytes": 130154244,
+          "listed_md5": "2f7aed23c8801a9541dc48e50eedb131"
+        }
+      ],
+      "verified_claims": [
+        "The release provides estimated background conductive heat-flow maps made with a weighted 2D LOESS procedure that de-emphasizes measurements judged convectively influenced.",
+        "The point coverage includes a well residual measuring departure from estimated background heat flow; the USGS description says residuals may help identify hydrothermal or groundwater influence.",
+        "ScienceBase lists a public ZIP of 124.12 MB and publishes its MD5, but neither the ZIP nor its contents were downloaded here."
+      ],
+      "limits": [
+        "Residuals are not fault labels and can reflect groundwater circulation, lithology, well quality, and measurement uncertainty.",
+        "The maps were intentionally designed to estimate background conductive heat flow, not to map every convective anomaly.",
+        "No SHA-256 or grid compatibility is claimed until the binary is fetched and verified."
+      ],
+      "reviewed_date_utc": "2026-10-22"
+    },
+    {
+      "id": "USGS-MT-CONDUCTANCE-2022",
+      "authority": "U.S. Geological Survey, ScienceBase data release",
+      "url": "https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b",
+      "doi": "10.5066/P9TWT2LU",
+      "access": "ScienceBase summary and attached-file listings (chunks 0-1) read on 2026-10-22; no raster binary downloaded.",
+      "verified_claims": [
+        "The release estimates electrical conductance from a 3D inversion of more than 800 publicly available magnetotelluric transfer functions.",
+        "Five GeoTIFFs are listed for depth intervals 2–12 km, 12–20 km, 20–50 km, 50–90 km, and 90–200 km; each listing shows a 3.94 MB raster in native CRS EPSG:4269.",
+        "The USGS description says these conductance maps are intended to inform subsurface fluids and fluid pathways."
+      ],
+      "limits": [
+        "The inverse-model grid resolution and effective spatial support have not been compared with the 100 m competition grid; resampling would not create 100 m information.",
+        "Conductive lithology, saline basin fill, and inversion smoothing can mimic or blur fault-related fluid pathways.",
+        "No binary download, alignment, or candidate score is claimed."
+      ],
+      "reviewed_date_utc": "2026-10-22"
+    },
+    {
+      "id": "USGS-SLIP-DILATION-2022",
+      "authority": "U.S. Geological Survey, ScienceBase data release",
+      "url": "https://www.sciencebase.gov/catalog/item/6296974dd34ec53d276bb33d",
+      "doi": "10.5066/P9YL58W6",
+      "access": "ScienceBase summary and attached-file listing read on 2026-10-22; no shapefile binary downloaded.",
+      "verified_claims": [
+        "The release reports slip- and dilation-tendency calculations for Quaternary fault segments and includes fault geometry and stress inputs.",
+        "USGS says the fault segments came from a publicly available database modified after the USGS Quaternary Fault and Fold Database; the listing offers 34.25 MB and 27.35 MB study-area shapefile ZIPs."
+      ],
+      "limits": [
+        "Because the feature geometries are derived from Qfault, rasterizing these tendencies for a hide-and-recover holdout would expose the target catalogue and is not eligible as an independent feature.",
+        "Use as literature/context only unless a stress tensor independent of fault geometries can be obtained and separately validated."
+      ],
+      "reviewed_date_utc": "2026-10-22"
+    },
+    {
+      "id": "USGS-COMCAT-FOCAL-MECHANISMS",
+      "authority": "U.S. Geological Survey Earthquake Hazards Program",
+      "url": "https://earthquake.usgs.gov/data/comcat/index.php",
+      "api_url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+      "access": "Official ComCat overview and FDSN product-type documentation reviewed on 2026-10-22; public query returned event features when filtering producttype=focal-mechanism; no raw catalog file saved.",
+      "verified_claims": [
+        "ComCat includes earthquake source parameters and products including focal mechanisms and moment tensors from contributing networks.",
+        "The public FDSN event service supports product-type filtering, including focal-mechanism, and returns catalog results in GeoJSON."
+      ],
+      "limits": [
+        "Mechanism coverage is event/network dependent and likely much sparser than the supplied earthquake density bands.",
+        "Recent/induced seismicity and network completeness can mimic active fault corridors; target faults are not all active.",
+        "No event-count, stress inversion, or candidate score is claimed from the broad exploratory query."
+      ],
+      "reviewed_date_utc": "2026-10-22"
     }
   ]
 }

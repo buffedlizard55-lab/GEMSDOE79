@@ -57,20 +57,28 @@ def test_probe_login_redirect_is_not_receipt(monkeypatch):
     assert got['state'] == 'authentication_required'
 
 
-def test_failed_feed_preserves_old_observation_date(tmp_path, monkeypatch):
+def test_failed_feed_uses_newer_dated_reviewed_leaderboard(tmp_path, monkeypatch):
     (tmp_path / 'knowledge').mkdir(); (tmp_path / 'docs/evidence').mkdir(parents=True)
     ledger = json.loads((ROOT / 'knowledge/official_sources.json').read_text())
     (tmp_path / 'knowledge/official_sources.json').write_text(json.dumps(ledger))
     path = tmp_path / 'docs/evidence/source_health.json'
-    old = {'public_dti': .1234, 'observed_utc': '2026-01-01T00:00:00Z'}
+    old = {'public_dti': .1234, 'observed_date': '2026-01-01', 'method': 'older review'}
     path.write_text(json.dumps({'leaderboard_observation': old}))
     monkeypatch.setattr(refresh_feed, 'ROOT', tmp_path)
     monkeypatch.setattr(refresh_feed, 'probe', lambda row: {'id': row['id'], 'state': 'fetch_failed'})
     refresh_feed.main()
     result = json.loads(path.read_text())
-    assert result['leaderboard_observation'] == old
-    assert result['scientific_claims_reviewed_date'] == '2026-10-21'
+    assert result['leaderboard_observation']['public_dti'] == .4413
+    assert result['leaderboard_observation']['observed_date'] == '2026-10-22'
+    assert result['leaderboard_observation']['rank_22_public_dti'] == .3183
+    assert result['scientific_claims_reviewed_date'] == '2026-10-22'
     assert result['submission_slots_used_by_this_refresh'] == 0
+
+
+def test_failed_feed_keeps_a_newer_prior_snapshot_than_an_older_ledger():
+    prior = {'public_dti': .5678, 'observed_utc': '2026-10-21T23:59:00Z', 'method': 'newer reviewed snapshot'}
+    ledger = {'public_dti': .4413, 'observed_date': '2026-10-20', 'method': 'ledger'}
+    assert refresh_feed.newest_leaderboard_observation(('ledger', ledger), ('prior', prior)) == prior
 
 
 def test_restore_present_input_never_needs_network(tmp_path, monkeypatch):

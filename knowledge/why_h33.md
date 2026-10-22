@@ -68,9 +68,12 @@ Three structural findings follow directly from these byte measurements:
 The source website calls the file a high-ranked primary, but explicitly says it
 has no organizer score receipt and also includes projected/live-mirror numbers.
 We do not convert those projections into scores. The prompt's **0.2778 is an
-UNVERIFIED historical filename-to-score report**. An official public leaderboard
-observation also shows 0.2778 for a participant, but neither that number nor the
-participant's identity proves which file or hash was uploaded.
+UNVERIFIED historical filename-to-score report**. The official public leaderboard
+snapshot fetched on 2026-10-21 also showed 0.2778 at rank 48; neither that number
+nor the participant's identity proves which file or hash was uploaded. A newer
+snapshot fetched on 2026-10-22 showed #1 = 0.4413, #22 = 0.3183, and #48 = 0.2804.
+The prompt's 0.3195 was not the observed rank-22 value. These remain public
+leaderboard observations, not ORGANIZER-CONFIRMED receipts for H33 or this repo.
 
 ## The precise metric argument
 

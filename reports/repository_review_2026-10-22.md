@@ -1,120 +1,118 @@
-> **Historical PR #16 review, superseded in part by the PR #18 recovery.**
-> Its statements about a retained local novelty amendment and unimportable feature
-> API describe its own snapshot, not the recovered active pipeline. The shared
-> module/pins and G79 feature API are restored; see `session_review_8ed5d89a.md`.
+# Repository review — 2026-10-22 continuation
 
-# Repository review — 2026-10-22
+## Decision at a glance
 
-## Executive outcome
+**No new eligible candidate or holdout lane.** The 2026-10-22 continuation
+restored and hash-verified the recorded inputs/registry, refreshed the reviewed
+public leaderboard snapshot, repaired stale-feed fallback behavior, ranked
+four official-source hypotheses, and rebuilt the research site. It did not
+produce a new TIFF, preregister or execute a new experiment, access a submission
+account, select a weekly slot, upload a file, or obtain an organizer receipt.
 
-The repository's active `run_card.json` is an E1 **negative** run in lane
-`G79-FABRIC-OFFSET`. It authorizes download of one newly computed research
-GeoTIFF, but explicitly does not authorize submission. A literal pre-placement
-overlap witness stopped the registered experiment; the authorized E1 run placed
-no final dots and did not run the holdout or leakage canary. No current score is
-claimed for this artifact, and no competition slot has been used.
+The existing H79-NHR GeoTIFF remains a research artifact with
+`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` Its recorded holdout is positive versus
+the H33 control, but H79-NHR is a **negative/stop** lane because its registered
+novelty gate fails. No local score is being promoted to a public score or
+organizer-confirmed result.
 
-The repo had serious current-vs-historical conflicts: the root README and
-published Pages HTML described `H79-CSPT` as promoted, while the active run card,
-status JSON, preregistration and negative evidence described a different lane
-and an automated rejection. The stale positive Pages copy linked an older
-candidate. This review made active README/Pages content derive from the negative
-run card and removed those obsolete files from the active `docs/downloads/`
-folder. The separate historical files under `submissions/` and old analysis
-records are not evidence for the current run and were not promoted.
+## Pass 1 — repository, evidence, and science
 
-## Pass 1 — inspect and implement
+1. Read the full `README.md` and traced its brief, claims, and links to the
+   run card, preregistration, evaluator outputs, raster/format receipts,
+   uniqueness audits, frozen registry, source-data manifest, status tool, and
+   published pages. The README keeps the complete original user brief.
+2. Reviewed active and archived experiment records without reopening a stopped
+   lane. `run_card.json` identifies the H79-NHR raster, submission name/note,
+   holdout method/version, two-seed results and confidence intervals, leakage
+   canaries, and negative verdict.
+3. Reconfirmed the local scientific comparison in `reports/nhr_analysis.md`:
+   H79-NHR holdout DTI is 0.1431 / 0.1522 versus the fold-fair H33 control at
+   0.0961 / 0.0989. The 58-feature × 4-fold × 2-seed leakage audit has 464
+   tests; maximum AUC is 0.8589, below the 0.90 leakage trigger. H79-NHR still
+   fails novelty: 26 non-space-filling registry dot fields exceed the 70%
+   3-pixel rule, with a worst overlap of 0.913. The surface top-k gate also
+   fails. No overlap cap, exclusion, or threshold change was introduced.
+4. Restored **992/992** pinned registry Git blobs and verified **13/13** source
+   manifest byte hashes; durable summaries are in
+   `evidence/registry_restore_git_2026-10-22.json` and
+   `evidence/data_restore_2026-10-22.json`. These are byte-integrity results,
+   not CRS/pixel-grid comparability or independent organizer authentication.
+5. Strict registry comparison remains **986/992 comparable**, with six errors
+   recorded in the existing uniqueness evidence. Therefore no complete
+   novelty certificate exists, even though all frozen bytes are present.
+6. Independently recomputed the r13 lattice capacity bound. Of 5,106,385
+   allowed pixels, only 6,514 are outside its 3-pixel halo. A 37,654-dot map
+   must therefore place at least 31,140 dots (82.7004%) inside that halo, over
+   the 70% stop threshold. This is specific to that raster and budget; it is
+   not generalized to every smaller candidate.
+7. Checked official sources for the follow-up ranking. USGS describes
+   background-corrected heat-flow well residuals; the listed heat-flow ZIP is
+   130,154,244 bytes but the direct binary fetch returned HTTP 500. The
+   depth-banded MT files are listed publicly. The broad ComCat query was too
+   large to estimate local focal-mechanism coverage; it is not cited as a
+   coverage count. USGS fault slip/dilation is catalogue-conditioned and was
+   ranked last as a leakage-prone lead. The four-item ranking and limits are
+   in `research/hypotheses_followup_20261022.md`.
+8. Verified the 2026-10-22 public leaderboard observation: first 0.4413,
+   rank 22 0.3183, and rank 48 0.2804. The old rank-48 value 0.2778 is not
+   current in that observation and is not linked to a local H33 artifact
+   receipt. The values are **public leaderboard observations**, not scores for
+   this branch or organizer receipts.
 
-- Read the current README, `AGENTS.md`, run card, irregularity log,
-  preregistration, current status, evidence and site builder before changes.
-- Found that `scripts/verify_project.py` treated `registry/template_pin.json`
-  `files` as a list of `{path, sha256}` records, but the actual pin schema is a
-  filename-to-SHA-256 object. Changed verification to check each named file in
-  `vendor/gems57/` against the frozen map.
-- Found `scripts/build_site.py` expected `registry_index.json['repositories']`,
-  while the frozen index contains `rasters` and `scored`. Changed the displayed
-  repository count to derive from the actual indexed raster records.
-- Rebuilt the static Pages site from the negative run card. It now states
-  **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**, links the active research-only
-  artifact, and exposes the automated rejection rather than a human-inspection
-  placeholder.
-- Removed three obsolete positive H79-CSPT artifacts from the public download
-  directory; retained historical records outside the active download path.
-- Replaced H79-CSPT-era tests that asserted promotion/old scores with tests of
-  current artifact hashes, format-only validity, negative status, and ZIP
-  integrity. Replaced tests for an obsolete feature API with software-only
-  numerical helper tests. Updated the README to retain the persistent brief,
-  parallel-run protocol, and three-pass procedure without continuing to present
-  old promotion claims as current.
+## Pass 2 — engineering, reproducibility, and documentation
 
-## Pass 2 — review assumptions, bugs, edge cases
+1. Added the missing `scikit-image` dependency and pinned runtime dependency
+   set so a clean install from `requirements.lock` succeeds. A clean lock
+   environment installed and `pip check` returned no broken requirements.
+2. Found a source-health freshness defect: on failed direct HTTP checks,
+   `scripts/refresh_feed.py` kept any prior snapshot even when the source
+   ledger contained a newer research-reviewed public page observation. Added
+   date-aware fallback selection: fresh parsed public pages win a same-day
+   tie; otherwise retain the newest dated direct, ledger, or prior observation.
+   No request failure is treated as a score refresh, receipt, or slot check.
+   Added regression tests for newer-ledger and newer-prior behavior.
+3. Ran the refresh once. All six direct HTTP probes failed with `SSLError` in
+   this environment. The dated 2026-10-22 source-ledger observation was
+   correctly preserved in `docs/evidence/source_health.json`, and the attempt
+   is explicitly marked as a fetch failure. The subsequent site build exposed
+   listed official source downloads on the Sources page and the new prospective
+   ranking on the Research page.
+4. Reconciled `reports/requirements_review.md` with the latest evidence and
+   replaced stale repository-review copy with this review. Updated README and
+   irregularity records remain explicit about which work was not done.
 
-- Confirmed a local format PASS is kept separate from scientific approval. The
-  status checker returns a machine-readable negative decision and exit code 2.
-- Confirmed the active artifact is not renamed from an old registry raster and
-  the public download directory contains only the current run-card TIFF.
-- Confirmed missing cached bulk inputs do not silently become zero-filled
-  measurements. This checkout lacks `.cache/data/` and the full restored feature
-  inputs; the stopped E1 must not be restarted just to obtain a score.
-- Found a second test inconsistency: test assumptions expected the vendored
-  uniqueness helper not to contain a binding helper, although the actual frozen
-  pin explicitly records a local amendment and the code contains it. Replaced
-  that assertion with byte-pin and amendment-disclosure checks. This does not
-  certify that the helper is upstream code.
-- Kept the legacy experiment runner unexecuted: importing it fails because it
-  expects a different `FEATURE_NAMES` API. No attempt was made to adapt it to
-  restart the scientifically stopped run.
+## Pass 3 — acceptance and quality gates
 
-## Pass 3 — full requirement re-check
+Executed after the latest source-feed, site, report, and test changes:
 
-- Persistent prompt/values and this review are present in the README.
-- `research/hypotheses.md` documents four ranked hypotheses and named mimics;
-  only the preregistered top hypothesis was computed. The stop is honored; no
-  second or third experiment, new lane, registry exemption, submission-slot
-  selection, or upload was performed.
-- The H33 explanation is qualitative and mechanism-based. The 0.2778 number is
-  treated as a reported historical score without an artifact-linked receipt;
-  this review does not claim a causal score decomposition or leaderboard gain.
-- The registry and data source receipts explicitly separate owner-mirror
-  consistency from organizer authentication. Missing private data, login,
-  submission capacity and organizer receipts remain limitations.
-- The final machine card, site status and status script agree: download yes,
-  submit no, `verdict = negative`, no human inspection required for that
-  automated decision.
+- `python -m pytest -q`: **187 passed**.
+- `scripts/verify_project.py`: **all checks passed**, including strict JSON,
+  pinned inputs, TIFF format, raster/card hash agreement, holdout-evaluator
+  agreement, leakage canary, and status consistency.
+- `scripts/build_site.py`: built **7 pages**; the decision is download YES /
+  submit NO.
+- `scripts/check_site.py`: **passed**, 7 pages and 114 local links, every page
+  reachable, 2 compatibility redirects, no external assets; feed not treated
+  as a submission receipt.
+- `scripts/submission_status.py`: returned its expected **exit 2** because
+  submission is blocked; the output is download YES / submit NO, with novelty,
+  negative-verdict, selector/slot, and explicit-approval blockers.
 
-## Verification performed
+The build and tests validate the repository's current reproducible state; they
+cannot make the candidate unique or infer organizer acceptance. There is no
+human-review gate in the local submission decision.
 
-Using the repository lockfile in a local virtual environment:
+## Remaining stop conditions
 
-- `pytest -q`: **104 passed**.
-- `python scripts/verify_project.py`: **all 19 consistency/format/status checks
-  passed**; raster SHA-256
-  `8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca`.
-- `python scripts/check_site.py`: **passed**, 7 pages, 107 local links checked,
-  all pages reachable, two compatibility redirects, no external assets.
-- `python scripts/submission_status.py`: returns JSON with `ok_to_download=true`,
-  `ok_to_submit=false`, `verdict=negative`; exit code 2 is expected for this
-  blocked artifact.
+1. Resolve the six strict registry-comparability errors without dropping any
+   indexed raster or changing the 70% / 3-pixel thresholds.
+2. If continuing to the HFR-residual lead, retrieve the official source binary,
+   record size/SHA-256 and fields, verify spatial compatibility, then write a
+   separate preregistration before testing it on the blocked holdout.
+3. Run that prospective lane only after its fixed surface passes novelty.
+   Keep holdout experiments limited to three or two hours. Submit or select a
+   weekly slot only after a separate selector receipt and account-only
+   conditions are independently established.
 
-These are repository-integrity and local-format checks, not an organizer upload,
-scientific holdout score, private leaderboard result, or uniqueness clearance.
-
-## Remaining limitations / next steps
-
-1. The literal overlap definition currently admits a whole-footprint prior,
-   making every nonempty candidate fail. Obtain an authoritative protocol
-   clarification before any further novelty clearance or scientific run.
-2. Review `registry/template_pin.json` and the local amendments to `vendor/gems57`
-   with upstream provenance. The pin is self-contained; do not describe it as
-   proof of upstream source integrity. Do not bypass the current gate.
-3. `src/gems79/features.py`, `scripts/run_experiment.py`, portions of
-   `tests/`, and historical H79-CSPT documentation originated in incompatible
-   prior work. The runner is currently unimportable and is not the registered
-   E1 method. Quarantine or reconcile this code through a separately reviewed
-   change before treating it as reproducible science.
-4. The post-stop diagnostic reports weak performance and does not turn the
-   stopped run into a promotion candidate. A different hypothesis requires a
-   new authorized preregistration after issue 1 is resolved.
-5. This environment cannot authenticate to the DrivenData account, verify the
-   current weekly cap, upload files, or obtain organizer receipts. No score above
-   H33 or the public leaderboard leader is established.
+No PR, merge, submission, slot allocation, or organizer-confirmed score is
+claimed in this review.
