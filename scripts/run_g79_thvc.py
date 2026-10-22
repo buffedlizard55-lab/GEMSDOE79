@@ -23,9 +23,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+try:
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+except ImportError:  # pragma: no cover
+    matplotlib = None  # type: ignore[assignment]
+    plt = None  # type: ignore[assignment]
 import numpy as np
 import rasterio
 from scipy import ndimage as ndi

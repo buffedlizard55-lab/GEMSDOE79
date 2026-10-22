@@ -1,8 +1,6 @@
 # GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-**Latest repository audit (2026-10-22):** [three-pass review, session 3cfa694f](reports/session_review_3cfa694f.md) · [session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md). Independently checked all pytest tests, 29 integrity gates, the pinned universal-overlap witness, and all 11 post-snapshot sibling repositories (`GEMSDOE76`, `GEMSDOE78`, `GEMSDOE80`..`GEMSDOE88`). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used. [Prior active-branch audit](reports/repository_review_2026-10-22_active-branch.md) is retained as history.
-
-Current session review: [b79882e0 — three passes and automated preflight hardening](reports/session_review_b79882e0.md). The pinned registry witness was freshly restored and remeasured; it still blocks any nonempty new candidate under the literal overlap rule. No new scientific experiment or submission slot was used. Malformed-manifest/restore failures now return structured preflight refusals instead of tracebacks.
+**Latest repository audit (2026-10-22, session `4ddab9a1`):** [end-to-end 1,199-blob cross-organization review](reports/session_review_4ddab9a1.md) · [five ranked genuinely untried hypotheses (`H79-U1`..`H79-U5`)](research/hypotheses_4ddab9a1_untried.md) · [machine-readable 92-repo sibling audit](evidence/post_snapshot_sibling_audit.json) · [session 3cfa694f](reports/session_review_3cfa694f.md) · [session 91a8c516](reports/repository_review_2026-10-22_session-91a8c516.md) · [session b79882e0](reports/session_review_b79882e0.md). Current outcome remains **`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`** (`0` weekly competition slots used; all `1,199` family GeoTIFFs across `92` sibling repos hash-verified; rogue non-canonical `G79-MAG` upload pair archived under [`archive/g79_mag_730d5ee7/`](archive/g79_mag_730d5ee7/README.md)).
 
 
 ## Not the canonical file: G79-MAG (archived research preview, do not submit)
@@ -11,21 +9,15 @@ Current session review: [b79882e0 — three passes and automated preflight harde
 >
 > Archived preview: [`archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif`](archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.tif) · ZIP [`archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip`](archive/g79_mag_730d5ee7/downloads/gems79-g79-mag-37654dots-20261022T060000Z-e48a9293.zip). Values are in [0, 1] with no NaN.
 >
-> Reported by that lane, not remeasured here: budget-matched overlap 0.644, Spearman 0.18, HOLDOUT-DTI 0.0045 / 0.0067 versus the H33 control 0.096. That holdout loss is why it is not a submission. Do not upload it. The canonical download is the H79-DILSTEP file in the next section.
+> Byte-level re-measurement (`IR-79-96`, `IR-79-106`): `HOLDOUT-DTI = 0.0045 / 0.0067` versus the `H33` control `0.0961 / 0.0989`, and actual forward `3-px` overlap against binary dot raster `13GEMSDOE` `r13-lattice-s5` is **`0.990864 > 0.70`**. Do not upload it. The canonical download is the `H79-DILSTEP` file in the next section.
 >
-> **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue, overlap 0.64 vs worst — **contrarian far-field + multi-physics vs single-scrap amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`archive/g79_mag_730d5ee7/run_card_g79_mag.json`](archive/g79_mag_730d5ee7/run_card_g79_mag.json).
-
+> **Why this lane is different:** H33 and 26 near-fault dot fields already occupy the 0.3–2 km splay band (H79-NHR median 0.54 km, overlap 0.91). G79-MAG targets buried faults via co-located RTP magnetic + isostatic gravity steps (potential-field coincidence) corroborated by lidar, median 20.2 px (2.0 km) from catalogue — **contrarian far-field + multi-physics vs single-scarp amplitude**. Full hypotheses, preregistration, and per-gate evidence: [`research/hypotheses_g79_farcond.md`](research/hypotheses_g79_farcond.md), [`registry/preregistration_mag.json`](registry/preregistration_mag.json), [`archive/g79_mag_730d5ee7/run_card_g79_mag.json`](archive/g79_mag_730d5ee7/run_card_g79_mag.json).
 
 ## Download and submission decision — start here
 
-Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-68182759.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
-
-
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> This is a newly generated, format-valid research GeoTIFF. It lost the holdout and failed the duplicate gate,
-> so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
-> exits with code 2, and no human inspection is needed.
+> This is a newly generated, format-valid research GeoTIFF (`37,654` binary `{0.0, 1.0}` pixels, `0` `NaN`/`±Inf`, passes `"Predicted values must be in range [0, 1]"`). It lost the holdout to `H33` on both seeds and failed the duplicate gate, so **do not upload it**. The decision is 100% automatic (`scripts/submission_status.py` exits `2`; `scripts/select_submission.py` exits `2`), requiring zero human inspection.
 
 | | |
 |---|---|
@@ -436,6 +428,21 @@ IR-79-91/92/93. Slots used: 0.
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).Generative AI assisted research, code, tests and prose. No source measurements or organizer receipts
 were synthesized. See [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md).
+
+## Complete `1,199`-blob cross-organization audit (`GEMSDOE`..`GEMSDOE92`, session `4ddab9a1`, 2026-10-22)
+
+- **Root-cause registry delta fix (`IR-79-69`):** Fixed a silent Git partial-clone plumbing bug in [`scripts/registry_delta_git.py`](scripts/registry_delta_git.py) where `git rev-list --all --objects --missing=allow-promisor` emitted `?<oid>` lines with no file paths, hiding **all `207` cross-ref and post-snapshot GeoTIFFs as `"n_new_rasters": 0`**. Traversing unique commit root trees across all **`92` non-self `GEMS*` repositories** via zero-REST-quota Git Smart-HTTP recovered **`1,199` SHA-verified prediction GeoTIFF blobs** (`992` frozen + `207` delta; `1,189` comparable `(3730, 3292)` GeoDAWN rasters; **`70` unindexed sibling `.tif`s (`34.5%`) failing DrivenData's `[0, 1]`/`NaN` portal range check**). Full receipt: [`registry/registry_delta.json`](registry/registry_delta.json) and [`evidence/post_snapshot_sibling_audit.json`](evidence/post_snapshot_sibling_audit.json).
+- **Exact Binary Pigeonhole Impossibility Proof (`IR-79-70`):** Even if continuous probability surfaces (`17GEMSDOE` `ab0a0a62…` and `GEMSDOE48`/`5GEMSDOE` constant ties) are top-`k` thresholded under `budget-matched-v3`, sparse **binary `{0, 1}` dot raster** `13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif` (`206,895` binary pixels, `representation = 'dot_field'`, untouched by `budget_matched_dots`) covers **`5,099,871 / 5,106,385` allowed cells (`99.872434%`)**, leaving **only `6,514` uncovered cells across all of Nevada & California**. By the Pigeonhole Principle, **every binary map with `k >= 21,714` dots exceeds `0.70`**, and **every possible `37,654`-dot map has overlap `>= (37,654 - 6,514) / 37,654 = 0.827004 > 0.70`**. Prospective `Decision D-1` must therefore apply excess-over-chance normalization across all `> 60,000`-dot / `> 0.70`-halo priors while enforcing raw `<= 0.70` on like-for-like sparse `<= 60,000`-dot submissions.
+- **Byte-verified audit of newly added prompt repos (`GEMSDOE76`..`GEMSDOE92`, `IR-79-71`):**
+  - **`GEMSDOE79` (`H79-NHR`, `37,654` dots):** `[0, 1]` **PASS**, shared `HOLDOUT-DTI = 0.1431 / 0.1522` (beats `H33` `0.0961 / 0.0989` on both seeds), fails **all 4 overlap regimes** (`28` `halo <= 0.70` collisions up to `0.9130`; `3` `<= 60k` sparse collisions up to `0.8143` vs `GEMSDOE53`) -> **`OK TO SUBMIT: NO` confirmed**.
+  - **`GEMSDOE81` (`44,090` dots):** Claimed `OK TO SUBMIT: YES` after checking only `5` priors — byte audit reveals **`18` collisions `> 0.70` against prior sparse `<= 60k`-dot maps, worst `0.9203` (`92.03%`) against `58GEMSDOE:gems58-prox-dot36k`** (plus `71` `halo <= 0.70` collisions up to `1.0000`). **Do not spend a weekly slot on `GEMSDOE81`.**
+  - **`GEMSDOE76` (`39,200` dots):** Self-stopped negative; **`4` sparse `<= 60k` collisions** (up to `0.7220` vs `GEMSDOE63`) and `76` `halo <= 0.70` collisions (`0.9555`).
+  - **`GEMSDOE78` (`44,090` dots):** `0` sparse cross-repo collisions (`0.6475`), `24` `halo <= 0.70` collisions (`0.9378`), local OOF `0.1771` **below its own `CTRL_A2` control `0.1826`**.
+  - **`GEMSDOE80` (`51,667` dots):** `0` sparse collisions (`0.6122`), `13` `halo <= 0.70` collisions (`0.8589`), evaluated `0.2349` on a **private Voronoi evaluator fork** (`GEMSDOE80-evaluate_holdout.py-v2`), scanned `20` priors, shipped `3` `(3000, 4000)` `.tif`s.
+  - **`GEMSDOE82` (`37,654` dots):** `0` sparse collisions (`0.6804`), `68` `halo <= 0.70` collisions (`0.9648`), shared Seed-20 `HOLDOUT-DTI = 0.1253` (below `H79-NHR` `0.1431`), kept `2` `-nan.tif` downloads.
+  - **`GEMSDOE83` (`37,654` dots):** Strongest raw shared holdout signal in the organization (`HOLDOUT-DTI = 0.2068 [0.1927, 0.2198]`), `0` sparse `<= 60k` collisions (`0.6102` achieved via post-hoc `overlap_cap = 0.650`), `11` `halo <= 0.70` collisions (`0.8514`), kept `3` `-nan.tif` downloads.
+  - **`GEMSDOE84`..`GEMSDOE92`:** Empty single-line `# GEMSDOE84`..`# GEMSDOE92` `README.md` stubs (`0` rasters).
+- **Live `2026-10-22` leaderboard & 5 ranked genuinely untried hypotheses (`IR-79-72`):** Official leaderboard top `#1 xiaofanhu = 0.4413`, `#2 cfld__ = 0.3904`, `#3 Batik Shirt Brothers = 0.3894`, `#50 kinneso_outlook = 0.2784` (up from `0.2778` on `2026-10-21`; [`knowledge/official_sources.json`](knowledge/official_sources.json)). Five genuinely untried geological hypotheses (`H79-U1` de-striped 3D magnetic tilt-depth worms, `H79-U2` multi-drainage fan-apex/knickpoint collinearity, `H79-U3` MT conductance edge × heat-flow residual, `H79-U4` conjugate Walker Lane × Basin-and-Range Riedel transfer zones, `H79-U5` USGS 3DEP true-altitude pluvial paleoshoreline veto) are ranked in [`research/hypotheses_4ddab9a1_untried.md`](research/hypotheses_4ddab9a1_untried.md). Full three-pass audit: [`reports/session_review_4ddab9a1.md`](reports/session_review_4ddab9a1.md).
 
 ---
 
@@ -1052,6 +1059,36 @@ gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros:
 [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
 
 gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
+
+:
 
 ....
 

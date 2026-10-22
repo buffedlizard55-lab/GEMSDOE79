@@ -234,11 +234,12 @@ def home_promoted(card, index):
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Everything you need to submit.</h2></div><p>Copy the name and comment, upload the TIFF (or the ZIP), and keep the SHA-256 for your records. Each gate is listed, with its evidence.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
 <section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHAT WE LEARNED FROM H33</p><h2>Dots, pruning, budget.</h2></div><p>H33 (user-reported 0.2778) is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. The metric rewards sparse, well-placed dots.</p></div><div class="steps"><article class="step"><div class="step-no">01 — MAX VS SUM</div><h3>2.33 TP per dot</h3><p>On an ideal straight grid-aligned trace, dots spaced 3 pixels apart average ~2.33 TP units per dot. This is illustrative, not a measured score. Redundant positives can add FP without extra TP.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article><article class="step"><div class="step-no">02 — NEAR-CATALOGUE PRUNING</div><h3>44,090 → 37,654</h3><p>Known fault pixels are masked, but predictions nearby could still credit unknown faults. Pruning those 6,436 dots coincided with user-reported 0.2600 → 0.2778; no organizer receipt links either value to these bytes.</p><a class="text-link" href="evidence/h33_forensics.json">Byte forensics ↗</a></article><article class="step"><div class="step-no">03 — OUR ANSWER</div><h3>Learn the hidden-fault target</h3><p>Hide 20 % of mapped faults inside training, then fit the metric's own kernel credit. +{s20['paired_delta_vs_h33']['delta']:.3f} / +{s30['paired_delta_vs_h33']['delta']:.3f} HOLDOUT-DTI over the H33 control.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article></div></section>
 <section class="section"><div class="notice"><strong>Main risk, stated plainly:</strong> the gain comes mainly from distance-to-mapped-fault features. The median NHR dot is 539 m from a mapped fault; the median H33 dot is 1.96 km away. If the organizer's expert-found faults lie far from known fault systems, this file can score below H33. Only an organizer score can tell. <a href="analysis.html">Details ↗</a></div></section>
-<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, rescanned this session (0 new)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
+''' + registry_feed_banner(index)
 
 
-def u_count(card):
-    return f"{card['correlation_overlap_vs_registry']['registry_rasters']:,}"
+def registry_feed_banner(index):
+    delta = json.loads((ROOT / 'registry/registry_delta.json').read_text())
+    return f'<div class="feed"><div><strong>Registry inventory</strong> · {index["n_rasters"] + delta["n_new_rasters"]:,} hash-verified raster blobs ({index["n_rasters"]:,} frozen + {delta["n_new_rasters"]:,} cross-ref/post-snapshot) across {delta["n_repositories_scanned"]} sibling repositories</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'
 
 
 def checks_panel(card):
@@ -331,7 +332,7 @@ def home_negative(card, index):
 <div class="metric-grid">{metric('HOLDOUT-DTI · candidate', f"{s20['candidate']['dti']:.3f} / {s30['candidate']['dti']:.3f}", 'Seeds 20 / 30, gems57-pooled-hide-v2', stop=not card.get('current_best_holdout_beaten'))}{metric('HOLDOUT-DTI · H33 control', f"{s20['h33_foldfair_control']['dti']:.3f} / {s30['h33_foldfair_control']['dti']:.3f}", 'Same folds and budget')}{metric('Worst informative overlap', metric_ov, 'Dots within 3 px; limit 70 %', stop=stop_ov)}{metric('Weekly slots spent', str(card['submission_slots_used']), 'Nothing uploaded')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Every gate, with its evidence.</h2></div><p>Format is valid. The scientific gates did not all pass, so the separate selector refused. No human inspection is required.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>{NEG_SPACE.format(sf=a['of_which_space_filling_halo_gt_0_70'], n=a['compared'], uf=a['uniform_random_control_flagged_by'], inf=a['of_which_informative_halo_le_0_70'])}
 <section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHAT WE LEARNED FROM H33</p><h2>Dots, pruning, budget.</h2></div><p>H33 (user-reported 0.2778) is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. The metric rewards sparse, well-placed dots.</p></div><div class="steps"><article class="step"><div class="step-no">01 — MAX VS SUM</div><h3>2.33 TP per dot</h3><p>On an ideal straight grid-aligned trace, dots spaced 3 pixels apart average ~2.33 TP units per dot. This is illustrative, not a measured score. Redundant positives can add FP without extra TP.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article><article class="step"><div class="step-no">02 — NEAR-CATALOGUE PRUNING</div><h3>44,090 → 37,654</h3><p>Known fault pixels are masked, but predictions nearby could still credit unknown faults. Pruning those 6,436 dots coincided with user-reported 0.2600 → 0.2778; no organizer receipt links either value to these bytes.</p><a class="text-link" href="evidence/h33_forensics.json">Byte forensics ↗</a></article><article class="step"><div class="step-no">03 — WHAT NHR SHOWED</div><h3>Near-fault ≠ new</h3><p>NHR learned that hidden catalogue faults sit 300 m–2 km from visible ones. Earlier near-fault dot fields already occupy that band, and their unverified historical scores are 0.016–0.143.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article></div></section>
-<div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, rescanned this session (0 new)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
+''' + registry_feed_banner(index)
 
 
 def executive_negative(card):
@@ -413,6 +414,8 @@ def main():
               'registry/template_pin.json': 'template_pin.json',
               'registry/protocol_clarification.json': 'protocol_clarification.json',
               'evidence/post_stop_diagnostic.json': 'post_stop_diagnostic.json',
+              'registry/registry_delta.json': 'registry_delta.json',
+              'evidence/post_snapshot_sibling_audit.json': 'post_snapshot_sibling_audit.json',
               'evidence/concurrent_lanes_audit.json': 'concurrent_lanes_audit.json',
               'evidence/e1/run_card_e1.json': 'run_card_e1.json',
               'evidence/nhr/x1_holdout_seed20.json': 'nhr_holdout_seed20.json',
@@ -453,15 +456,19 @@ def main():
         'index.html': ('Download & automatic decision', home(card, index)),
         'executive-summary.html': ('Executive summary & how to submit', executive(card)),
         'analysis.html': ('Why this file is not a submission',
-                          page_head('ANALYSIS / HOLDOUT-DTI / NOT A LEADERBOARD SCORE', 'H79-DILSTEP lost the holdout.',
+                          page_head('ANALYSIS / HOLDOUT-DTI / 1,199-BLOB AUDIT', 'Why H33 won, and why current lanes stopped.',
                                     'Measured numbers only. User-reported 0.2778 and public 0.4413 are not this file\'s score.')
+                          + '<section class="section">' + md('reports/session_review_4ddab9a1.md') + '</section>'
                           + '<section class="section">' + md('reports/dilstep_result.md') + '</section>'
                           + '<section class="section"><h2>Earlier H79-FFAS notes</h2>' + md('reports/ffas_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier H33 and H79-NHR notes</h2>' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
-                                    'H79-DILSTEP rank 1 was preregistered and run. It lost. Ranks 2–5 were not started.')
+                                    'Qualitative ranking by expected DTI gain and cost; cross-checked across all 93 GEMS repositories.')
+                          + '<section class="section"><h2>Session 4ddab9a1 — genuinely untried backlog across GEMSDOE – GEMSDOE92 (not executed, 2026-10-22)</h2>'
+                          + '<p>Cross-checked directly against all 92 sibling repositories and 1,199 immutable prediction blobs to exclude mechanisms already tested in GEMSDOE76..GEMSDOE83. No new model was trained and zero weekly submission slots were used. <a href="evidence/post_snapshot_sibling_audit.json">1,199-blob sibling audit JSON ↗</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_4ddab9a1_untried.md">Standalone hypotheses file ↗</a>.</p>'
+                          + md('research/hypotheses_4ddab9a1_untried.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_h79_dilstep.md') + '</section>'
                           + '<section class="section"><h2>Archived lane H79-FFAS</h2>' + md('research/hypotheses_ffas.md') + '</section>'
                           + '<section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2>'

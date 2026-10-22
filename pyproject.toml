@@ -14,4 +14,8 @@ where = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
-pythonpath = ["."]
+pythonpath = [".", "src", "vendor", "scripts"]
+filterwarnings = [
+    "error",
+    "ignore:Use `@` matmul instead of `\\*` mul operator.*:PendingDeprecationWarning:rasterio\\.transform",
+]

@@ -2,6 +2,8 @@ name: Pages and public-source health
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
   schedule:
     - cron: '17 6 * * *'
@@ -47,6 +49,7 @@ jobs:
         with:
           path: docs
   deploy:
+    if: github.event_name != 'pull_request'
     permissions:
       contents: read
       pages: write
