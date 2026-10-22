@@ -52,6 +52,7 @@ Full byte-level proofs and derivations are documented in [`knowledge/why_h33.md`
 ## 3. Repository Navigation & Reproducible Verification Commands
 
 - **Scientific Reports & Preregistrations:** [`research/hypotheses.md`](research/hypotheses.md) · [`registry/preregistration_g79_thvc.json`](registry/preregistration_g79_thvc.json) · [`reports/g79_thvc_scientific_report.md`](reports/g79_thvc_scientific_report.md) · [`reports/irregularities.md`](reports/irregularities.md) · [`reports/verification_passes.md`](reports/verification_passes.md) · [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md)
+- **Latest active-branch audit:** [`reports/repository_review_2026-10-22_session-2c72eff9.md`](reports/repository_review_2026-10-22_session-2c72eff9.md) (negative/no new experiment; current assigned branch only).
 - **Archived Historical Lanes (preserved intact, non-executable):** [`archive/g79_fabric_offset_f61b17a2/`](archive/g79_fabric_offset_f61b17a2/run_card_f61b17a2.json) · [`archive/h79_mct_c26efec/`](archive/h79_mct_c26efec/README.md) · [`knowledge/prior_work/`](knowledge/prior_work/README.md)
 - **Self-Contained Website (`docs/`):** [`docs/index.html`](docs/index.html) · [`docs/executive-summary.html`](docs/executive-summary.html)
 
