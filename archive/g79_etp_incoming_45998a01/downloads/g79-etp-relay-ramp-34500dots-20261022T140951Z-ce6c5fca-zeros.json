@@ -1,0 +1,119 @@
+{
+  "file": "g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+  "sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8",
+  "bytes": 138983,
+  "submission_name": "g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros",
+  "note": "G79-ETP v2: relay-ramp + conjugate horsetail + far-field damage 34500px Poisson3.0 pure-geom",
+  "note_chars": 92,
+  "n_dots": 34500,
+  "hypothesis": "Blind relay ramps between en-echelon map tips (10-35px, subparallel <25\u00b0) and conjugate horsetail splays near junctions host unmapped Quaternary ruptures; far-field 1.2-2km damage-zone splay completes basin coverage",
+  "mechanism": "Endpoint PCA strike, KDTree relay pairs (SIF-weighted), junction-proximal fan, 1.2-2km perpendicular damage offsets, greedy Poisson 3.0px",
+  "mimic": "Alluvial-fan distributary channel avulsions and agricultural field boundaries forming linear but non-tectonic relay patterns",
+  "lane": "G79-ETP-v2",
+  "generated_utc": "20261022T140951Z",
+  "validator": {
+    "file": "/home/user/GEMSDOE79/docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+    "bytes": 138983,
+    "sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0028096383903175592,
+    "emitted_positive_pixels": 34500,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 34500,
+    "footprint_fraction": 0.0066765066117735255
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOE79/docs/downloads/g79-etp-relay-ramp-34500dots-20261022T140951Z-ce6c5fca-zeros.tif",
+    "bytes": 138983,
+    "sha256": "ce6c5fca4f1b2583bd3b4dbadfb1ec6839b20502fae4eeecf9bf1c4938a4afd8",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0028096383903175592,
+    "n_nonzero": 34500,
+    "mass": 34500.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  }
+}

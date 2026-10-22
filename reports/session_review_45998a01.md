@@ -118,3 +118,15 @@ repeated again.
 4. Only after both surface and final novelty, measured holdout gain, canaries,
    byte/format checks and separate selector approval pass may a slot be used.
    Account-side capacity and organizer acceptance are not locally inferable.
+
+## Merge reconciliation
+
+Main advanced during this review. Merged `origin/main` at `eb3e3d5` on the
+assigned session branch, preserving the other reviews and renumbering this
+session's appended irregularities after the existing prefix. Incoming PR #70
+published extra ETP uploads and scripts without the canonical publication
+contract. Preserved those files byte-for-byte outside Pages under
+`archive/g79_etp_incoming_45998a01/`; their approximate evaluator and one-raster
+novelty comparison are not scientific clearance. No incoming TIFF is offered as
+this session's newly generated result. Rebuilt the site and reran verification
+on the reconciled tree before merging PR #78.
