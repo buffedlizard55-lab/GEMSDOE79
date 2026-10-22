@@ -119,6 +119,11 @@ LOCAL_GEMS79_LANE_SPECS = {
         "path": "archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif",
         "overlap_vs_g79_thvc_canonical": 0.541934,
     },
+    "G79-CJX_archived": {
+        "path": "artifacts/cjx/g79-cjx-tipjunction-37654dots-20261022T153333Z-6a9bf2a2-zeros.tif",
+        "overlap_vs_g79_thvc_canonical": 0.511871,
+        "overlap_vs_13gemsdoe_r13_lattice_s5": 0.989085,
+    },
 }
 
 
