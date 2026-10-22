@@ -47,9 +47,49 @@ above random and the frozen H33 fold-fair control (0.0961/0.0989) but
 slot may be spent. Max leakage-canary symmetric AUC 0.5674 (≤ 0.90, PASS).
 Gate G4 (literal novelty vs all 992 restored registry rasters, surface and
 final dots) and G1 (format) are reported in `run_card_cjx.json`. No
-leaderboard score is claimed: 0.2778/0.4413 remain unverified historical
-reports, and beating them is not demonstrated. Verdict: **negative** —
-a deliverable, per the parallel-run protocol.
+leaderboard score is claimed: 0.2778 remains an unverified historical user
+report and 0.4413 is a public leaderboard observation (`#1 xiaofanhu`), not an
+organizer receipt for this artifact, and beating them is not demonstrated.
+Verdict: **negative** — a deliverable, per the parallel-run protocol.
+
+## New this session: G79-DZD — a second unique TIF, gates say NO
+
+> **G79-DZD: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
+> Unique file, generated this session by `scripts/generate_unique_submission.py`,
+> not a copy or rename of any registry submission:
+> `artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif`
+> (SHA-256 `42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab`), with a
+> ZIP containing the identical TIFF beside it.
+> Decision page: [docs/dzd-submission.html](docs/dzd-submission.html) ·
+> Lane card: `run_card_g79_dzd.json`.
+
+**Hypothesis (H79-H2, ranked H1 of five in [research/candidate_hypotheses.md](research/candidate_hypotheses.md)).**
+Geothermal permeability concentrates in the fracture damage zone *adjacent* to
+mapped faults (~200 m optimal cross-fault distance), not on the mapped traces,
+so unmapped splays inside that envelope are plausible conduits absent from the
+USGS/INGENIOUS catalogue.
+
+**Mechanism.** Deterministic single-channel transform — no ML, no multi-physics
+stack: Euclidean distance from catalogue cells; Gaussian damage-zone score
+centred at 200 m with 150 m sigma; modulated by local catalogue-gradient fault
+activity; zero on catalogue; zero outside footprint; top-12,000 sparse dots
+normalised to [0,1]. Distinct from G79-THVC (84-channel ensemble) and G79-CJX
+(potential-field junctions).
+
+**Measured gates.** G1 format PASS (single float32 band, EPSG:32611, 3730 × 3292,
+pinned transform, all finite, values in [0,1], zero NaN, zero outside footprint).
+G2 PASS: 12,000 dots = 0.2322 % of footprint, 0 positive pixels on the mapped
+catalogue. G5 partial-inventory novelty PASS vs the 36 locally cached rasters
+(max |ρ| 0.0212 ≤ 0.90, max forward 3-px overlap 0.2456 ≤ 0.70).
+**G3 holdout and G4 full-registry novelty are NOT MEASURED**: `data/raw/training_features.tif`
+and `labels.tif` are login-gated and absent from this checkout, and the 992-raster
+registry is not cached locally (GitHub TLS unavailable). No holdout number is
+claimed, no leaderboard score is claimed, and 0.2778/0.4413 remain unverified
+historical reports. Verdict: **negative** — a deliverable, not an upload.
+
+Recheck: `python scripts/generate_unique_submission.py --help` (regeneration
+refuses to overwrite existing bytes), `python scripts/validate_submission.py
+artifacts/dzd/<tif>` (local format only), `python scripts/verify_project.py`.
 
 ## Scientific evidence, not a leaderboard projection
 
@@ -122,9 +162,11 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 ### Navigation and preserved history
 
-Latest review: [session 87f53313](reports/session_review_87f53313.md) completed a three-pass scientific, forensic, and software-hardening audit (`IR-79-191`..`IR-79-193`): audited all 19 raw bands of `training_features.tif` ([feature-stack receipt](evidence/review_87f53313/feature_stack_audit.json), refining `Band 6 tc` `3,073` interior sentinels and `Band 10 deq_n100a15` swarm density and diagnosing `G79-CJX`'s `29.73%` interior-sentinel cliff), verified the [3-tier Pigeonhole novelty obstruction](evidence/review_87f53313/three_tier_obstruction_summary.json), hardened `verify_overlap_witness.py` / `scan_tracked_rasters.py` / `measure_registry_halo.py` / `verify_registry_obstructions.py` / `check_site.py` / `browser_review.cjs`, documented open `PR #100` (`G79-CONJ`) novelty failures, and ranked [four unimplemented geological hypotheses](research/hypotheses_87f53313.md) (`0` experiments run, `0` competition slots used).
+Latest review: [session 87f53313](reports/session_review_87f53313.md) completed a three-pass scientific, forensic, and software-hardening audit (`IR-79-194`..`IR-79-196`): audited all 19 raw bands of `training_features.tif` ([feature-stack receipt](evidence/review_87f53313/feature_stack_audit.json), refining `Band 6 tc` `3,073` interior sentinels and `Band 10 deq_n100a15` swarm density and diagnosing `G79-CJX`'s `29.73%` interior-sentinel cliff), verified the [3-tier Pigeonhole novelty obstruction](evidence/review_87f53313/three_tier_obstruction_summary.json), added fail-closed `enforce_open_lane` protection to closed-lane `scripts/generate_unique_submission.py` (`G79-DZD`), hardened `verify_overlap_witness.py` / `scan_tracked_rasters.py` / `verify_registry_obstructions.py` / `check_site.py` / `browser_review.cjs`, documented open `PR #100` (`G79-CONJ`) novelty failures, and ranked [four unimplemented geological hypotheses](research/hypotheses_87f53313.md) (`0` experiments run, `0` competition slots used).
 
-Concurrent review: [session b80aa866](reports/session_review_b80aa866.md) repaired `AGENTS.md` path/IR integrity (`IR-79-188`), added fail-closed `enforce_open_lane` CLI guards to `scripts/audit_g79b.py` and `scripts/build_cjx_page.py` (`IR-79-189`), and registered `G79-CJX` in `local_gems79_concurrent_lanes_audit` with halo-domain reconciliation (`IR-79-190`). Preceding review: [session 2669a0a3](reports/session_review_2669a0a3.md) and [four untried post-CJX hypotheses](research/hypotheses_2669a0a3.md) added closed-lane `enforce_open_lane` guards to all five `G79-CJX` scripts, hardened exterior-halo masking & single-band checks in `scripts/measure_registry_halo.py`, and audited live 92-repo sibling & leaderboard drift (`IR-79-181`..`IR-79-183`); 0 new experiments and 0 competition slots used.
+Concurrent review: [session efdbc11f](reports/session_review_efdbc11f.md) remediated `IR-79-191`..`IR-79-193` (multi-band and `float32` sentinel/all-NaN hardening in `scripts/scan_tracked_rasters.py`, fail-closed explicit catalogue grid/path & `radius_px` checks in `scripts/measure_registry_halo.py`, 92-repo post-delta sibling byte forensics for both new `GEMSDOE78` blobs in [post_delta_sibling_check.json](evidence/review_efdbc11f/post_delta_sibling_check.json), five untried source-grounded geological hypotheses in [hypotheses_efdbc11f.md](research/hypotheses_efdbc11f.md), and `G79-CJX` `--verify-readonly` + fail-closed partial-registry novelty bounds + `0.4413` evidence-class correction); 0 new experiments and 0 competition slots used.
+
+Concurrent review: [session b80aa866](reports/session_review_b80aa866.md) repaired `AGENTS.md` path/IR integrity (`IR-79-188`), added fail-closed `enforce_open_lane` CLI guards to `scripts/audit_g79b.py` and `scripts/build_cjx_page.py` (`IR-79-189`), and registered `G79-CJX` in `local_gems79_concurrent_lanes_audit` with halo-domain reconciliation (`IR-79-190`). Concurrent review: [session 2669a0a3](reports/session_review_2669a0a3.md) and [four untried post-CJX hypotheses](research/hypotheses_2669a0a3.md) added closed-lane `enforce_open_lane` guards to all five `G79-CJX` scripts, hardened exterior-halo masking & single-band checks in `scripts/measure_registry_halo.py`, and audited live 92-repo sibling & leaderboard drift (`IR-79-181`..`IR-79-183`); 0 new experiments and 0 competition slots used.
 
 Concurrent review: [session 7fdf94b3](reports/session_review_7fdf94b3.md) remediated `IR-79-175`..`IR-79-177` (repo-relative paths and exact `5,167,373 - 60,988 = 5,106,385` off-catalogue accounting in `scripts/measure_registry_halo.py`, fail-closed `enforce_open_lane` guards on 3 remaining archived CLI scripts, `requirements.txt` deduplication, live `13/13` data restoration via `scripts/restore_data.py --preserve-receipt`, and 3-tier Pigeonhole obstruction reconciliation); 499 tests passed and no new candidate or competition slot was used. Concurrent review: [session 43963905](reports/session_review_43963905.md) independently rechecked the universal novelty blocker, local TIFF format, project verifier, and site; 477 tests passed. No new candidate or competition slot was used. The preceding [session 7d96e79d review](reports/session_review_7d96e79d.md) and [session f652f0b3 review](reports/repository_review_2026-10-22_arena-f652f0b3.md) are preserved as separate session reports.
 

@@ -90,7 +90,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="cjx-submission.html">CJX candidate</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="cjx-submission.html">CJX candidate</a><a href="dzd-submission.html">DZD candidate</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 
@@ -306,8 +306,47 @@ Produced by scripts/cjx_gate.py. A format PASS alone never approves submission.<
 </tbody></table>
 <h2>Holdout \u2014 HOLDOUT-DTI (gems57-pooled-hide-v2, \u03b1=0.2 \u03b2=0.8, 300 m)</h2>
 <table><thead><tr><th>Seed</th><th>CJX v3 tip [95% CI]</th><th>Withheld</th><th>H33 control (frozen)</th><th>THVC incumbent (frozen)</th><th>Gate</th></tr></thead><tbody>{rows}</tbody></table>
-<p>Exp 1\u20132 (catalogue-free coincident edges/junctions) scored below random; Exp 3 (tip-steered) is above. No organizer-confirmed score exists for this artifact; historical reports 0.2778 / 0.4413 are not receipts and are not claimed. Full record: research/cjx_hypotheses.md and evidence/cjx/.</p>
+<p>Exp 1\u20132 (catalogue-free coincident edges/junctions) scored below random; Exp 3 (tip-steered) is above. No organizer-confirmed score exists for this artifact; 0.2778 is an unverified historical report and 0.4413 is a public leaderboard observation (#1 xiaofanhu), neither claimed for this candidate. Full record: research/cjx_hypotheses.md and evidence/cjx/.</p>
 <h2>If a future banner ever says YES</h2><ol><li>Download the .tif or the .zip containing exactly it.</li><li>Choose it on the DrivenData submission page, paste the name/note above, submit. The \u201cPredicted values must be in range [0, 1]\u201d error cannot come from this writer: zeros mode rejects non-finite/out-of-range values at build time and G1 re-verifies the bytes.</li></ol></section>'''
+
+
+def dzd_page():
+    """G79-DZD unique-TIF page, generated solely from run_card_g79_dzd.json."""
+    dzd_path = ROOT / 'run_card_g79_dzd.json'
+    if not dzd_path.exists():
+        return page_head('G79-DZD', 'No DZD candidate built.',
+                         'Run scripts/generate_unique_submission.py.')
+    c = json.loads(dzd_path.read_text())
+    g = c['gates']
+    rows = ''.join(
+        f'<tr><td>{k}</td><td>{v["result"]}</td><td>{v["detail"]}</td></tr>'
+        for k, v in g.items())
+    return f'''{page_head('G79-DZD / UNIQUE TIF / AUTOMATED GATE',
+        'A new unique TIF. The gate says no.',
+        'Generated this session and validated with no human inspection. Downloading for research is fine; submitting is not approved.')}
+<section class="section"><div class="notice"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO \u2014 DO NOT SUBMIT.</strong><br>
+Produced by scripts/generate_unique_submission.py. A format PASS alone never approves submission.</div>
+<h2>Download</h2>
+<p><a href="{REPO}/blob/main/artifacts/dzd/{c['tif']}" download>{c['tif']}</a> \u00b7
+<a href="{REPO}/blob/main/artifacts/dzd/{c['zip']}">{c['zip']}</a> (ZIP contains exactly that TIFF) \u00b7
+SHA-256 <code>{c['raster_sha256']}</code> \u00b7 {c['dots']:,} dots</p>
+<p><strong>Submission name:</strong> <code>{c['submission_name']}</code><br>
+<strong>Note ({c['submission_note_chars']}/140 chars):</strong> {c['submission_note']}</p>
+<h2>Automated gates</h2>
+<table><thead><tr><th>Gate</th><th>Result</th><th>Detail</th></tr></thead><tbody>{rows}</tbody></table>
+<h2>Why it is unique</h2>
+<p>{c['mechanism']}</p>
+<p>Distinct from {c['distinct_from']} It is unique against the 36 locally cached registry rasters
+(max |\u03c1| = 0.0212, max 3-px overlap = 0.2456). The full 992-raster registry scan and the
+holdout were not runnable offline, so this page does not claim them.</p>
+<h2>If a future banner ever says YES</h2>
+<ol><li>Download the .tif or the .zip containing exactly it.</li>
+<li>Confirm <code>scripts/verify_project.py</code> and <code>scripts/submission_status.py</code> agree.</li>
+<li>Complete the unmeasured gates (holdout, canary, full registry novelty) and let
+<code>scripts/select_submission.py</code> bind a receipt to this exact SHA-256.</li>
+<li>Choose the file on the DrivenData submission page and paste the name/note above.
+The \u201cPredicted values must be in range [0, 1]\u201d error cannot come from this writer: zeros mode
+rejects non-finite or out-of-range values at build time and G1 re-verifies the bytes.</li></ol></section>'''
 
 
 def main():
@@ -462,16 +501,19 @@ def main():
                           page_head('ANALYSIS / EXACT METRIC / MEASURED LINEAGE', 'Understand H33. Do not copy it.',
                                     'Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.')
                           + '<section class="section">' + md('knowledge/h33_review_e4a4422d.md') + '</section>'
+                          + '<section class="section">' + md('research/h33_analysis.md') + '</section>'
                           + holdout_table(summary) + archive_links()),
         'research.html': ('Deferred geological hypotheses',
                           page_head('DEFERRED HYPOTHESES / ZERO NEW EXPERIMENTS', 'Test a mechanism. Name its mimic.',
                                     'Source-grounded ideas, qualitative ranking and explicit data gates. None is an approved or executed new lane.')
                           + '<section class="section">' + md('research/hypotheses_0d90d81b.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_e4a4422d.md') + '</section>'
+                          + '<section class="section">' + md('research/candidate_hypotheses.md') + '</section>'
                           + novelty_explanation(summary, preflight) + archive_links()),
         'sources.html': ('Official sources, availability & source health', sources_page(sources)),
         'history.html': ('Historical reports, not receipts', history_page()),
         'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
+        'dzd-submission.html': ('G79-DZD unique TIF \u2014 automated gate verdict', dzd_page()),
         'irregularities.html': ('Irregularities & stop reasons',
                                 page_head('OWN THE OUTCOME', 'Failures are part of the record.')
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),

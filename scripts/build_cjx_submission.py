@@ -66,4 +66,5 @@ def main():
 
 
 if __name__ == "__main__":
+    enforce_open_lane(ROOT, "G79-CJX", reason="terminal negative CJX submission build")
     main()

@@ -42,6 +42,8 @@ def sha256_file(path: Path) -> str:
 
 def disk_structure(radius_px: int) -> np.ndarray:
     r = int(radius_px)
+    if r < 0:
+        raise ValueError("radius_px must be >= 0")
     yy, xx = np.mgrid[-r : r + 1, -r : r + 1]
     return (xx * xx + yy * yy) <= r * r
 
@@ -96,45 +98,39 @@ def measure(
             "This is a measurement of the gate, not a novelty approval."
         ),
     }
-    cat_cand = catalogue_path
     explicit_cat = catalogue_path is not None
+    cat_cand = Path(catalogue_path) if explicit_cat else None
     if cat_cand is None:
         default_cat = footprint_path.parent / "existing_faults.tif"
         if default_cat.is_file():
             cat_cand = default_cat
+    elif not cat_cand.is_file():
+        raise FileNotFoundError(f"catalogue raster not found: {cat_cand}")
     if cat_cand is not None:
-        if not cat_cand.is_file():
-            if explicit_cat:
-                raise FileNotFoundError(f"catalogue raster not found: {cat_cand}")
-        else:
-            with rasterio.open(cat_cand) as cat_ds:
-                grid_ok = (
-                    cat_ds.count == 1
-                    and cat_ds.shape == fp_shape
-                    and tuple(cat_ds.transform) == fp_transform
-                    and cat_ds.crs == fp_crs
-                )
-                if not grid_ok:
-                    if explicit_cat:
-                        raise ValueError("catalogue raster grid/band count does not match the footprint grid")
-                else:
-                    cat_a = cat_ds.read(1)
-                    cat_mask = footprint & np.isfinite(cat_a) & (cat_a > 0)
-                    off_cat = footprint & ~cat_mask
-                    n_off_cat = int(off_cat.sum())
-                    cov_off_cat = int((halo & off_cat).sum())
-                    out.update(
-                        catalogue_path=_rel_path(cat_cand),
-                        catalogue_sha256=sha256_file(cat_cand),
-                        catalogue_positive_cells_in_footprint=int(cat_mask.sum()),
-                        off_catalogue_allowed_cells=n_off_cat,
-                        off_catalogue_halo_covered_cells=cov_off_cat,
-                        off_catalogue_halo_coverage_fraction=(
-                            cov_off_cat / n_off_cat if n_off_cat else None
-                        ),
-                        off_catalogue_uncovered_cells=n_off_cat - cov_off_cat,
-                        uncovered_cells_on_catalogue=int((~halo & cat_mask).sum()),
-                    )
+        with rasterio.open(cat_cand) as cat_ds:
+            if (
+                cat_ds.shape != fp_shape
+                or tuple(cat_ds.transform) != fp_transform
+                or cat_ds.crs != fp_crs
+            ):
+                raise ValueError("catalogue raster grid (shape/transform/CRS) does not match the footprint grid")
+            cat_a = cat_ds.read(1)
+        cat_mask = footprint & np.isfinite(cat_a) & (cat_a > 0)
+        off_cat = footprint & ~cat_mask
+        n_off_cat = int(off_cat.sum())
+        cov_off_cat = int((halo & off_cat).sum())
+        out.update(
+            catalogue_path=_rel_path(cat_cand),
+            catalogue_sha256=sha256_file(cat_cand),
+            catalogue_positive_cells_in_footprint=int(cat_mask.sum()),
+            off_catalogue_allowed_cells=n_off_cat,
+            off_catalogue_halo_covered_cells=cov_off_cat,
+            off_catalogue_halo_coverage_fraction=(
+                cov_off_cat / n_off_cat if n_off_cat else None
+            ),
+            off_catalogue_uncovered_cells=n_off_cat - cov_off_cat,
+            uncovered_cells_on_catalogue=int((~halo & cat_mask).sum()),
+        )
     return out
 
 
@@ -142,19 +138,17 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("registry", type=Path)
     ap.add_argument("--footprint", type=Path, default=ROOT / "data" / "reference" / "sample_submission.tif")
-    ap.add_argument("--catalogue", type=Path, default=None, help="optional explicit catalogue GeoTIFF")
+    ap.add_argument("--catalogue", type=Path, default=None, help="optional explicit catalogue mask GeoTIFF")
     ap.add_argument("--radius-px", type=int, default=3)
     ap.add_argument("--json", type=Path, help="write the result here (refuses to overwrite)")
     args = ap.parse_args()
     result = measure(args.registry, args.footprint, args.radius_px, catalogue_path=args.catalogue)
     text = json.dumps(result, indent=2, sort_keys=True, allow_nan=False)
     if args.json:
+        if args.json.exists():
+            raise SystemExit(f"refusing to overwrite {args.json}")
         args.json.parent.mkdir(parents=True, exist_ok=True)
-        try:
-            with args.json.open("x", encoding="utf-8") as fh:
-                fh.write(text + "\n")
-        except FileExistsError as exc:
-            raise SystemExit(f"refusing to overwrite {args.json}") from exc
+        args.json.write_text(text + "\n", encoding="utf-8")
     print(text)
 
 

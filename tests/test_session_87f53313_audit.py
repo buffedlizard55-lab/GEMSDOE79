@@ -213,5 +213,5 @@ def test_session_87f53313_evidence_strict_json_and_no_workspace_path_leaks():
         parsed = load_json(path)
         assert isinstance(parsed, dict)
     ir_txt = (ROOT / "reports/irregularities.md").read_text(encoding="utf-8")
-    for ir_id in ("IR-79-191", "IR-79-192", "IR-79-193"):
+    for ir_id in ("IR-79-194", "IR-79-195", "IR-79-196"):
         assert ir_id in ir_txt
