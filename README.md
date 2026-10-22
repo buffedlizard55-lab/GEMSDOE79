@@ -30,6 +30,9 @@ The canonical card is [`run_card.json`](run_card.json); every number above is co
 
 ## Follow-up preflight (2026-10-22, branch `arena/a7d092d7-gemsdoe79`)
 
+Concurrent [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md)
+confirmed no additional scientific experiment or submission slot was used.
+
 **Automated decision is still OK TO DOWNLOAD: YES / OK TO SUBMIT: NO.**
 The canonical GeoTIFF above is independently generated and locally format-valid,
 but it is *not* protocol-unique. No extra GeoTIFF was issued with a misleading
