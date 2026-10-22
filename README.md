@@ -2,6 +2,8 @@
 
 ## Download & Automated Submission Status — Start Here
 
+**Current review (2026-10-22, session `45998a01`):** [Three-pass review and next steps](reports/session_review_45998a01.md). No new TIFF was generated: the frozen literal novelty gate blocks every nonempty candidate, and no single-method lane was supplied. The download below is the existing research artifact, **not a newly unique or submission-approved file**. Historical holdout results do not prove a higher private leaderboard score.
+
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(The existing research TIFF passes local format/CRS/`[0,1]`, leakage-canary, and spatial-holdout checks, but **fails the literal registry-overlap gate**; it is not cleared for submission. The holdout results are not organizer scores. No weekly slot has been used.)*
 >
 > **Current review (2026-10-22):** no new TIFF or holdout experiment was made. The fail-closed preflight proves a literal 3-pixel overlap of `1.0` for any nonempty candidate against a pinned full-footprint registry raster; see [the session review](reports/repository_review_2026-10-22_arena-63e67511.md) and [the machine preflight result](evidence/new_lane_preflight_b79882e0.json).

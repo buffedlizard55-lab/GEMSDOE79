@@ -309,3 +309,12 @@ Full three-pass review: [`reports/session_review_a57e2a7f.md`](session_review_a5
 | ID | Finding and evidence | Resolution / remaining limitation |
 |---|---|---|
 | IR-79-143 | **Submission-name length misstated as 43/140.** `len("g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT") = 55`, not 43, in `README.md` and `reports/g79_thvc_scientific_report.md` (note 98/140 verified correct). | Fixed to `55/140` in both sources; site rebuilt. No raster/card/verdict change. Full review: `reports/session_review_5fb439d3.md`. Canonical artifact stays G79-THVC, OK TO DOWNLOAD YES / OK TO SUBMIT NO, 0 slots used. |
+
+## Session 45998a01 — review-only validator hardening (2026-10-22)
+
+| ID | Verified finding | Resolution |
+|---|---|---|
+| IR-79-144 | `validate_submission.py` raised on corrupt/missing TIFF/ZIP and printed a format PASS before failing to write an existing report. | JSON rejection at the CLI inspection boundary, nonzero exit, no exception-detail leak, and exclusive evidence creation retained. Added adversarial software tests; shared validator/evaluator/writer pins unchanged. |
+| IR-79-145 | The prompt supplies no single-method lane; restored frozen witness still blocks any nonempty candidate under the literal overlap rule. | `evidence/preflight_45998a01.json` records refusal. No experiments or new TIFFs; canonical negative artifact unchanged. |
+| IR-79-146 | Inherited `knowledge/why_h33.md` said “Yes, decisively” in answer to whether a higher organizer score was proven, although only local holdout comparisons exist. README also understated the submission-name length. | Clarified scope to historical HOLDOUT-DTI; corrected length and added an explicit no-new-artifact notice to README, home and guide. Inherited scalar vs per-seed CI discrepancy is flagged, not silently rewritten (`reports/session_review_45998a01.md`). |
+| IR-79-147 | Merge reconciliation found incoming ETP TIFF/ZIP files published alongside canonical THVC, violating the existing publication boundary. The ETP card uses an approximate evaluator, a patterned preregistration digest and a one-raster novelty comparison. | Preserved incoming bytes, scripts and publication evidence under `archive/g79_etp_incoming_45998a01/`; did not validate those scientific claims or promote them. Canonical card and shared tools unchanged. |
