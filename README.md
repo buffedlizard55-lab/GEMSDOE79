@@ -657,7 +657,7 @@ gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 [https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
 
-:
+gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:
 
 ....
 
@@ -669,23 +669,53 @@ gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 [https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
 
-:
+gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
 
-:
+gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
 
-:
+gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
+
+gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
 
 :
 

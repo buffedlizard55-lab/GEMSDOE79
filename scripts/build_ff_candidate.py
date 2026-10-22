@@ -43,7 +43,7 @@ from gems57.submission_writer import write_submission   # noqa: E402
 DIST_LO_M = 2000.0  # distal band lower bound (m)
 DIST_HI_M = 8000.0  # distal band upper bound (m)
 BUDGET = 37654
-OUT = ROOT / "docs/downloads"
+OUT = ROOT / "archive/h79_ff_1de1617f/downloads"
 
 
 def sha(p: Path) -> str:
@@ -51,6 +51,10 @@ def sha(p: Path) -> str:
 
 
 def main() -> None:
+    raise SystemExit(
+        "STOPPED: lane H79-FF is negative and archived under archive/h79_ff_1de1617f/downloads/. "
+        "Do not write additional artifacts into docs/downloads/ (see IR-79-52 and IR-79-66)."
+    )
     grid = load_grid(ROOT / "data/reference")
     fp, cat = grid.footprint, grid.catalogue
 

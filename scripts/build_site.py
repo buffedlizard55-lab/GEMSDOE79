@@ -199,7 +199,7 @@ def executive_promoted(card):
 <li>Uniform random control: <code>{s20['uniform_control']['dti']}</code> and <code>{s30['uniform_control']['dti']}</code>.</li></ul>
 <p>These are offline proxy scores on withheld <em>catalogue</em> faults. They are not leaderboard scores, and we do not project a leaderboard number from them.</p>
 <h2>How this file avoids the known range error locally</h2><p>The shared writer refuses NaN, ±Inf, sentinels and anything outside [0, 1]; it never clips silently. It then reopens the written TIFF and checks:</p><ul>
-<li>finite values everywhere, including outside the footprint;</li>
+<li>finite values everywhere, including outside the footprint (a team all-finite policy, not a verified portal requirement; see the limitations);</li>
 <li>min ≥ 0 and max ≤ 1;</li>
 <li>CRS, shape and transform identical to the sample;</li>
 <li>a ZIP that holds exactly the same bytes.</li></ul>
@@ -212,6 +212,7 @@ def executive_promoted(card):
 <li><strong>Distribution shift.</strong> The holdout withholds mapped faults, while the organizer scores expert-found faults that are absent from the map. Our dots sit closer to mapped faults than H33's do: median 539 m versus 1.96 km.</li>
 <li><strong>Proxy, not projection.</strong> This file has no ORGANIZER-CONFIRMED score until you upload it.</li>
 <li><strong>Uniqueness scope.</strong> The 992 public sibling-repository rasters were checked, not every file other participants have uploaded.</li>
+<li><strong>Outside-footprint convention (IR-79-69).</strong> The official competition page (“Submission format”, drivendata.org/competitions/306/competition-doe-gems/page/967/) says data outside the bounds “is null or nan”. The official sample uses NaN there. The official reference notebook writes finite values. This file follows the all-finite policy. The protocol owner must decide the convention before any future file is considered for upload.</li>
 <li><strong>Dot definition.</strong> The registry comparison uses the shared budget-matched-v3 dot definition (IR-79-47), because the literal definition flags every non-empty map as a duplicate.</li></ul>
 <p><a class="button secondary" href="{COMP}/submissions/">Official submission page ↗</a> <a class="text-link" href="analysis.html">Full analysis ↗</a></p></section>'''
 
@@ -329,6 +330,11 @@ def main():
               'evidence/nhr/selector_decision.json': 'nhr_selector_decision.json',
               'evidence/family_lineage_forensics.json': 'family_lineage_forensics.json',
               'run_card_stepco.json': 'run_card_stepco.json',
+              'evidence/artifact_reproduction.json': 'artifact_reproduction.json',
+              'evidence/ff/ff_run_card.json': 'ff_run_card.json',
+              'evidence/run_card_g79b.json': 'run_card_g79b.json',
+              'run_card_asym.json': 'run_card_asym.json',
+
               'evidence/g79_thvc_results.json': 'g79_thvc_results.json',
               'evidence/g79_leakage_canary.json': 'g79_leakage_canary.json',
               'evidence/g79_surface_uniqueness_1108.json': 'g79_surface_uniqueness_1108.json',
@@ -362,6 +368,9 @@ def main():
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
                                     'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
+                          + '<section class="section"><h2>Session e846fc02 — next-lane backlog (not executed, 2026-10-22)</h2>'
+                          + '<p>This session audited the H79-NHR stop and added five newly ranked, not-yet-tested hypotheses that target terrain the family has not dotted. No new model was trained and no weekly slot was used. <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/research/hypotheses_e846fc02.md">Standalone hypotheses file</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/knowledge/geothermal_vent_discovery.md">Geothermal vent discovery source synthesis</a>.</p>'
+                          + md('research/hypotheses_e846fc02.md') + '</section>'
                           + '<section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2>'
                           + '<p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p>'
                           + md('research/hypotheses_preflight_a7d092d7.md') + '</section>'
@@ -369,6 +378,10 @@ def main():
                           + '<section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2>'
                           + '<p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p>'
                           + md('research/hypotheses_g79stepco_20261022.md') + md('reports/protocol_amendment_D1_20261022.md') + '</section>'
+                          + '<section class="section"><h2>Concurrent lane G79B-SDPT (session 67557396, negative, archived) &amp; H79-FF (session 1de1617f, negative, archived)</h2>'
+                          + '<p><strong>G79B-SDPT</strong> (archived in <code>archive/g79b_sdpt_67557396/</code>): Unconstrained A3 scored HOLDOUT-DTI 0.1211 [0.1029, 0.1402] (seed 30) and 0.1114 [0.0943, 0.1287] (seed 20) vs its A1 control 0.1143 / 0.1087 (paired 95% CIs vs control span zero), and failed the duplicate gate against 99 dot-field priors. Post-duplicate Amendments B1/B2 overlap-capped 52 priors (E2), reducing HOLDOUT-DTI to 0.1036 / 0.0910 (below control on both seeds). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/run_card_g79b.json">G79B run card</a> · <a href="evidence/concurrent_lanes_audit.json">9-lane &amp; cross-lane audit</a>.</p>'
+                          + '<p><strong>H79-FF</strong> (archived in <code>archive/h79_ff_1de1617f/</code>): Placed 37,654 binary dots strictly 2–8 km off the mapped catalogue ranked by USGS 3DEP lidar <code>step_max</code>. Not preregistered and not evaluated on <code>HOLDOUT-DTI</code>; failed the duplicate gate (1.0000 vs space-filling priors, 0.9976 vs 13GEMSDOE lattice, 0.8802 vs GEMSDOE3 coverage-v3-wide). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/ff_run_card.json">H79-FF run card</a>.</p>'
+                          + md('research/hypotheses_g79b.md') + '</section>'
                           + '<section class="section"><h2>Previous lane (E1, negative, archived)</h2>' + md('research/hypotheses.md') + '</section>'),
         'sources.html': ('Official sources & current health feed', sources_page(sources)),
         'history.html': ('Historical reports, not receipts', history_page()),

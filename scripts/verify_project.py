@@ -83,7 +83,14 @@ def decision_line(card):
 def publication_contract_checks(root, card):
     """Check the active publication boundary against the canonical run card."""
     root = Path(root)
-    readme = (root / 'README.md').read_text().split('## Original project prompt', 1)[0]
+    readme_full = (root / 'README.md').read_text()
+    readme_parts = readme_full.split('## Original project prompt', 1)
+    readme = readme_parts[0]
+    after_details = (
+        readme_parts[1].split('</details>', 1)[1]
+        if len(readme_parts) > 1 and '</details>' in readme_parts[1]
+        else ''
+    )
     downloads = root / 'docs/downloads'
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
@@ -102,6 +109,7 @@ def publication_contract_checks(root, card):
         'all_repo_json_strictly_valid': json_strict_ok,
         'readme_matches_card_decision': (
             line in readme and contradicting not in readme and
+            not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
         'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
         'active_inventory_matches_frozen_verified_blobs': (
@@ -203,7 +211,7 @@ def verify(refresh_timestamp: bool = False):
                                      card['submission_note'] == receipt['note'] and
                                      path.stem == card['submission_name'])
     checks['filename_warning_matches_verdict'] = (('DO-NOT-SUBMIT' in path.name) == (card['verdict'] != 'promote'))
-    result = validate_path(path)
+    result = json.loads(json.dumps(validate_path(path)).replace(str(ROOT) + '/', ''))
     checks['reopened_tiff_format_all_passed'] = result['format_passed']
     checks['format_receipt_positive_count_agrees'] = result['validator']['emitted_positive_pixels'] == card['positive_pixels']
     zip_path = path.with_suffix('.zip')
@@ -230,7 +238,15 @@ def verify(refresh_timestamp: bool = False):
     if not refresh_timestamp and out_path.exists():
         try:
             existing = json.loads(out_path.read_text())
-            if {k: v for k, v in existing.items() if k != 'verified_utc'} == payload and isinstance(existing.get('verified_utc'), str):
+            existing_cmp = json.loads(json.dumps({k: v for k, v in existing.items() if k != 'verified_utc'}))
+            fmt = existing_cmp.get('format_report', {})
+            if isinstance(fmt.get('validator'), dict) and isinstance(fmt['validator'].get('file'), str):
+                if fmt['validator']['file'].endswith(card['submission_file']):
+                    fmt['validator']['file'] = card['submission_file']
+            if isinstance(fmt.get('reference_grid'), dict) and isinstance(fmt['reference_grid'].get('path'), str):
+                if fmt['reference_grid']['path'].endswith(card['submission_file']):
+                    fmt['reference_grid']['path'] = card['submission_file']
+            if existing_cmp == payload and isinstance(existing.get('verified_utc'), str):
                 verified_utc = existing['verified_utc']
         except Exception:
             pass
