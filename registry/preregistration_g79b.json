@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "lane": "G79B-SCARP-DIPOLE-GEOAND",
+  "registered_utc": "2026-10-22T00:55:18.141557+00:00",
+  "branch": "arena/e2f3892f-gemsdoe79",
+  "authorization": "New lane explicitly requested by the project owner in the 2026-10-22 session prompt (unique TIF required). Prior lane G79-FABRIC-OFFSET (E1) remains stopped-negative and untouched; its preregistration, run card evidence and DO-NOT-SUBMIT artifact are preserved.",
+  "hypothesis": "A young, previously unmapped basin normal fault produces BOTH (a) a paired crest-convexity/base-concavity Laplacian dipole with a short-wavelength topographic step in 1 m lidar derivatives, AND (b) a subsurface density or susceptibility edge (isostatic gravity or TMI horizontal gradient). Requiring both independent physics to agree suppresses the characteristic false positives of either alone (shorelines/roads for lidar; lithologic contacts for potential fields).",
+  "mechanism": "Rank-only geometric means on hash-pinned cached bands; no fitted parameters; no prior prediction values; catalogue used only as a placement exclusion mask (visible-only inside folds).",
+  "named_non_fault_mimic": "Lake Lahontan paleo-shoreline wave-cut benches (contour-parallel crest/base dipoles) and canal/road embankments can mimic the lidar dipole; unfaulted intrusive/volcanic contacts can supply the potential-field edge.",
+  "inputs": [
+    "training_features.tif sha256 4371c82e... band 18 iso_grav_anom_hg, band 3 tmi_hg (band semantics from embedded descriptions)",
+    "external/lidar_scarp_features_u8.tif sha256 d580bb8b... bands 4 lapneg_max, 5 lappos_max, 3 step_max, 12 valid; quantisation per lidar_scarp_features.json (monotonic, rank-safe; 0 = no lidar)",
+    "external/tiger_road_distance_m.tif sha256 e5350423... (suppression only)",
+    "data/reference/sample_submission.tif (footprint/grid), existing_faults.tif (catalogue mask + holdout labels)"
+  ],
+  "fixed_transform": {
+    "ranks": "Footprint empirical mid-ranks in [0,1] per band over its valid cells (gems79.features.unit_ranks semantics); constant band -> zeros",
+    "lidar_triple": "(rank_lapneg * rank_lappos * rank_step)^(1/3)",
+    "geo_or": "maximum(rank_iso_grav_hg, rank_tmi_hg)",
+    "road_factor": "clip(road_distance_m / 300, 0.1, 1.0); 1.0 where road band invalid inside footprint",
+    "surface": "sqrt(lidar_triple * geo_or) * road_factor",
+    "support": "footprint AND lidar valid-band u8 >= 128 (>=~50% lidar coverage) AND both geophysics bands valid; surface = 0 outside support",
+    "controls": {
+      "lidar_only": "lidar_triple * road_factor",
+      "geo_only": "geo_or * road_factor",
+      "uniform": "default_rng(790021) surface (same as E1 instrument)"
+    }
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer_px=3, boundary_px=12 (identical instrument to E1/post-stop diagnostic)",
+    "evaluator": "gems57-pooled-hide-v2 (pooled DTI alpha 0.2 beta 0.8, 300 m triangular kernel)",
+    "placement": "gems79.placement.place spacing=3; per-fold budget = round(37654 * region/footprint); allowed = support & region & (distance to VISIBLE catalogue > 2 px); identical allowed/budget for candidate, lidar_only, geo_only, uniform arms",
+    "h33_control": "fold-fair: actual restored D2.8 dots & region & (distance to visible > 2), as in post_stop_diagnostic; reference values 0.0961 (seed20) / 0.0989 (seed30)",
+    "canaries": "each component feature alone per fold (symmetric AUC); any > 0.90 stops the run before trusting scores"
+  },
+  "emission_final": {
+    "budget_dots": 37654,
+    "spacing_px": 3,
+    "values": "binary 1.0 dots, 0 elsewhere, float32 via shared submission_writer (finite zeros outside footprint, matching scored family '-zeros' artifacts)",
+    "exclusion": "distance to full catalogue > 2 px; zero mass on catalogue and outside footprint"
+  },
+  "promotion_gate": "Candidate pooled HOLDOUT-DTI beats h33_foldfair AND best matched control with paired 95% CI lower bound > 0 on BOTH seeds; canaries all <= 0.90; uniqueness (below) passes; shared validator passes. Otherwise verdict negative and artifact named DO-NOT-SUBMIT.",
+  "uniqueness": {
+    "definition_note": "IR-79-24 Decision D-1: the literal 'every finite positive cell is a dot' rule is mathematically vacuous vs full-footprint continuous registry rasters (17GEMSDOE E-proba covers 100% of footprint => overlap 1.0 for ANY candidate). Operative definition this run, disclosed not hidden: binary priors use their actual >0 dot support; continuous priors use equal-budget top-37654 cells (Option B) with p>=0.5 (Option C) as sensitivity. The literal result vs the E-proba witness (1.0) is also reported.",
+    "limits": {
+      "abs_spearman_surface_max": 0.9,
+      "forward_dot_overlap_3px_max": 0.7
+    },
+    "comparators": "restored registry blobs for all ledger submissions scoring >= 0.19 plus the E-proba witness and h19-4/h19-5 surfaces, subject to index availability; scope stated in run card, early-stop on any duplicate",
+    "phases": "surface BEFORE placement AND final dots"
+  },
+  "budget": {
+    "max_experiments_this_lane": 2,
+    "experiment_1": "surface as above",
+    "experiment_2_contingency": "ONLY if Exp1 candidate loses to lidar_only with paired CI upper < 0 on both seeds (AND-gate harmful): Exp2 = lidar_triple * (0.5+0.5*rank_coh100) * road_factor. Otherwise no Exp2. No other retuning."
+  },
+  "slots": "No competition slot is used or selected by this run; promotion to a slot is the separate selector step by the account holder."
+}

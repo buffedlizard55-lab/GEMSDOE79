@@ -88,6 +88,14 @@ GeoTIFF is available. It is **not protocol-unique** and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
 inspector. Negative results and the impossible-gate certificate are deliverables.
 
+Session 2026-10-22, lane G79B-SCARP-DIPOLE-GEOAND (branch `arena/e2f3892f-gemsdoe79`):
+
+| ID | Finding and evidence | Resolution / remaining limitation |
+|---|---|---|
+| IR-79-36 | `AGENTS.md` (prior session) instructed "do not silently open a new scientific lane", while the 2026-10-22 owner prompt explicitly requires a new unique submission and new hypotheses. | Owner instruction governs. The new lane is declared loudly (`registry/preregistration_g79b.json`, hash-pinned before computation), E1 remains stopped-negative and byte-preserved, and no E1 threshold or gate was altered. `AGENTS.md` updated (branch-neutral session rule) to record both lanes as closed. |
+| IR-79-37 | Decision D-1 (IR-79-24) remains formally open: the literal >0-support dot definition rejects every nonempty candidate vs the full-footprint E-proba witness. | G79B used the disclosed operative definitions (actual support for sparse priors; equal-budget top-37,654 Option B and p>=0.5 Option C for continuous priors) against 18 restored comparators, reported the literal result, and keeps `protocol_unique=false`. The scoped scan is not a full 992-raster clearance; a protocol-owner ruling is still required before any future promotion claim. |
+| IR-79-38 | G79B Experiment 1 is holdout-negative: candidate 0.0530/0.0449 vs uniform 0.0538/0.0504 and fold-fair H33 0.0961/0.0989 (gems57-pooled-hide-v2, seeds 20/30); canaries pass (72 tests, max symmetric AUC 0.6553). The preregistered Experiment-2 contingency condition was not met (candidate-minus-lidar_only paired CIs include 0 on both seeds). | Lane closed as a negative deliverable. No retuning, no second experiment, no slot used. Pixel-level interpretation (lidar dipole AUC ~0.58 yet chance-level dot recovery) is recorded in `evidence/session_verification_2026-10-22.json`; the recommended future lane is strike-coherent lineament-level aggregation before emission. |
+| IR-79-39 | The prompt repeats "0.3195 is the highest score" alongside "leaderboard high score 0.4413". The public leaderboard read on 2026-10-22 shows #1 = 0.4413, #2 = 0.3904; 0.3195 would rank about 22nd. | 0.4413 recorded as PUBLIC-OBSERVATION; 0.3195 treated as a stale unverified figure. No artifact in this repo has an ORGANIZER-CONFIRMED score. |
 ## Session 2026-10-22 — PR #12 release conflict (IR-79-30)
 
 The starting merge `3d386a3` advertised H79-CSPT promotion in the README and
