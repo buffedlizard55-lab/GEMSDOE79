@@ -6,7 +6,7 @@
 >
 > **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
 
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/review_20261022.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[Latest autonomous review](reports/session_review_0d90d81b.md)** · **[Five untried hypotheses](research/hypotheses_0d90d81b.md)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
 - **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
 - **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
@@ -44,7 +44,7 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 ## What changed in this review
 
-**Independent replay, session f6a01061:** [three-pass repository review](reports/session_review_f6a01061.md) reconfirms the universal novelty blocker, local TIFF format PASS, 477 passing tests, and selector refusal. No new unique TIFF or organizer score was generated.
+**Latest replay & post-`04:31Z` forensic audit, session `0d90d81b`:** [three-pass repository review](reports/session_review_0d90d81b.md) and [pinned forensic receipt](evidence/session_0d90d81b_audit.json) verify autonomous restoration of all `13/13` SHA-256 inputs plus `8/8` E1 normal bands, audit the `2` newly merged post-`04:31Z` `GEMSDOE78` GeoTIFFs (`1,201` total non-self family rasters; demonstrating `H78-GFV`'s `0.2149/0.2198` global in-sample training vs `0.1700/0.1778` strict 3-quadrant LOQO), reconcile the `5,106,385` off-catalogue `6,514`-cell halo bound, refresh the live `2026-10-22` leaderboard (`#1` `0.4413`, `#50` `0.2804`), and synthesize [five untried geological hypotheses](research/hypotheses_0d90d81b.md) (`IR-79-173`..`IR-79-177`). Prior review: [session f6a01061](reports/session_review_f6a01061.md).
 
 - Reconciled every canonical holdout view, both seeds, paired intervals and ablations with shared evaluator output; preserved original metadata and all scientific receipts.
 - Added a read-only evidence summary, type/interval/algebra/accounting checks, adversarial tests and receipt-derived website tables. Failed full novelty gates are red, not disguised by green sparse-only checks.
