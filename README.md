@@ -6,7 +6,7 @@
 
 ### Current repository review — 2026-10-22
 
-The latest independent review ran the pinned test suite (**108 passed**), offline artifact/evidence verification (all checks passed), and static-site link validation (7 pages, 107 local links; submission remains disabled). It did not run another scientific experiment or generate another TIFF: the mandatory literal novelty stop still blocks every nonempty candidate. See [the three-pass review, evidence limits, and next steps](reports/session_review_9e23b44d.md). **The existing downloadable artifact remains DO NOT SUBMIT.**
+The latest independent review ran the pinned test suite (**108 passed**), offline artifact/evidence verification (all checks passed), and static-site link validation (7 pages, 107 local links; submission remains disabled). It did not run another scientific experiment or generate another TIFF: the mandatory literal novelty stop still blocks every nonempty candidate. See [the three-pass review, evidence limits, and next steps](reports/session_review_ee5444de.md). **The existing downloadable artifact remains DO NOT SUBMIT.**
 
 [**Download the newly generated GeoTIFF**](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
 
