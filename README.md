@@ -42,6 +42,21 @@ The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.js
 
 **Portal range error:** without the rejected file and its receipt we cannot diagnose “Predicted values must be in range [0, 1]”. These current bytes pass local checks; that does not prove portal acceptance. The official problem page says exterior values are “null or nan”; this inherited file has zero fill. The discrepancy remains explicit, not “fixed” by inventing a portal result.
 
+## Latest follow-up — session 84124ba0
+
+[Three-pass audit](reports/session_review_84124ba0.md): independently remeasured the
+universal overlap blocker, verified the inherited TIFF, and hardened witness
+manifest checks against missing/duplicate pins and wrong reference filenames.
+No scientific lane restarted and no new TIFF was generated. The new-file request
+remains unmet under the literal uniqueness rule. The automated refusal is unchanged.
+
+Current prompt addendum (verbatim):
+> I think it makes sense that in order for a submission to be validated that it needs to pass certain high scoring validation gates before confirming whether a file is unique and can be submitted for scoring.
+
+Performance, novelty and format are separate required gates; a known impossibility
+is checked before spending compute or a slot. A local score cannot guarantee a
+leaderboard result. The original full project prompt remains below.
+
 ## What changed in this review
 
 **Independent replay, session f6a01061:** [three-pass repository review](reports/session_review_f6a01061.md) reconfirms the universal novelty blocker, local TIFF format PASS, 477 passing tests, and selector refusal. No new unique TIFF or organizer score was generated.
@@ -75,11 +90,11 @@ Do **not** rerun closed `run_g79_thvc.py` stages, resume stopped lanes, cap over
 
 ### Navigation and preserved history
 
-Latest review: [session 43963905](reports/session_review_43963905.md) independently rechecked the universal novelty blocker, local TIFF format, project verifier, and site; 477 tests passed. No new candidate or competition slot was used. The preceding [session 7d96e79d review](reports/session_review_7d96e79d.md) and [session f652f0b3 review](reports/repository_review_2026-10-22_arena-f652f0b3.md) are preserved as separate session reports.
+Concurrent review: [session 43963905](reports/session_review_43963905.md) independently rechecked the universal novelty blocker, local TIFF format, project verifier, and site; 477 tests passed. No new candidate or competition slot was used. The preceding [session 7d96e79d review](reports/session_review_7d96e79d.md) and [session f652f0b3 review](reports/repository_review_2026-10-22_arena-f652f0b3.md) are preserved as separate session reports.
 
 [Three-pass review](reports/session_review_e4a4422d.md) · [Run card](run_card.json) · [Verification receipt](evidence/verification.json) · [Current scientific summary](docs/evidence/evidence_summary.json) · [Irregularities](reports/irregularities.md) · [AI disclosure](knowledge/ai_disclosure.md) · [Shared-tool provenance](vendor/README.md) · [Prior README snapshot](archive/review_e4a4422d/readme_before.txt) · [Earlier README history](reports/readme_history_through_8ed5d89a.md)
 
-This session's review: [repository and gate audit d52085f3](reports/session_review_d52085f3.md) (no new lane, placement or submission). Concurrent reports merged from main remain available: [closed-lane and prompt-repair review f0d99a40](reports/session_review_f0d99a40.md), [canonical selector review f40e4f2e](reports/session_review_f40e4f2e.md), [input/publication review 64600edb](reports/repository_review_2026-10-22_session-64600edb.md), [validator/publication review 45998a01](reports/session_review_45998a01.md), [H80 pilot review 842c8c7c](reports/session_review_842c8c7c.md), and [CFSKD negative report](reports/cfskd_analysis.md). Their scientific experiments were performed by other sessions, not this one. Limited-comparator uniqueness claims in those reports are not the required full-registry clearance and do not alter the canonical STOP. Their prior README prose is [preserved verbatim](archive/review_e4a4422d/readme_incoming_5e0d031.txt), not adopted as current guidance.
+Concurrent review: [repository and gate audit d52085f3](reports/session_review_d52085f3.md) (no new lane, placement or submission). Concurrent reports merged from main remain available: [closed-lane and prompt-repair review f0d99a40](reports/session_review_f0d99a40.md), [canonical selector review f40e4f2e](reports/session_review_f40e4f2e.md), [input/publication review 64600edb](reports/repository_review_2026-10-22_session-64600edb.md), [validator/publication review 45998a01](reports/session_review_45998a01.md), [H80 pilot review 842c8c7c](reports/session_review_842c8c7c.md), and [CFSKD negative report](reports/cfskd_analysis.md). Their scientific experiments were performed by other sessions, not this one. Limited-comparator uniqueness claims in those reports are not the required full-registry clearance and do not alter the canonical STOP. Their prior README prose is [preserved verbatim](archive/review_e4a4422d/readme_incoming_5e0d031.txt), not adopted as current guidance.
 
 Archived lane narratives and figures are historical, not current approval. Stopped-lane bytes and concurrent reviewers' work remain preserved. The following prompt incorporates the documented upstream restorations in IR-79-160; the initial prompt bytes remain in the archived README. All changes to that body are recorded in the prompt-preservation receipt; historical requests inside it do not override the measured STOP.
 
