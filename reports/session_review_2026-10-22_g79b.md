@@ -37,19 +37,15 @@ gravity HG, rank TMI HG)) × road factor` on lidar-supported cells;
 37,654 dots, spacing 3 px, >2 px from (visible) catalogue. Preregistered
 in `registry/preregistration_g79b.json` (SHA-256 pinned before compute).
 
-| Arm (HOLDOUT-DTI) | Seed 20 (n=11,321) | Seed 30 (n=11,342) |
-|---|---:|---:|
-| **Candidate** | 0.0530 | 0.0449 |
-| lidar_only control | 0.0568 | 0.0456 |
-| geo_only control | 0.0340 | 0.0366 |
-| uniform-random control | 0.0538 | 0.0504 |
-| fold-fair H33 control | 0.0961 | 0.0989 |
+| Arm | Seed 20 measurement | Seed 30 measurement |
+|---|---|---|
+| **Candidate** | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,321; 95% CI [0.0409, 0.0678]): **0.0530** | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,342; 95% CI [0.0351, 0.0545]): **0.0449** |
+| lidar_only control | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,321; 95% CI [0.0432, 0.0725]): 0.0568 | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,342; 95% CI [0.0359, 0.0550]): 0.0456 |
+| geo_only control | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,321; 95% CI [0.0243, 0.0437]): 0.0340 | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,342; 95% CI [0.0268, 0.0468]): 0.0366 |
+| uniform-random control | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,321; 95% CI [0.0464, 0.0613]): 0.0538 | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,342; 95% CI [0.0448, 0.0551]): 0.0504 |
+| fold-fair H33 control | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,321; 95% CI [0.0826, 0.1089]): 0.0961 | HOLDOUT-DTI (evaluator `gems57-pooled-hide-v2`; withheld positives n=11,342; 95% CI [0.0842, 0.1120]): 0.0989 |
 
-Candidate − H33 control: −0.0431 [−0.0603, −0.0244] and −0.0540
-[−0.0698, −0.0380] (paired 95% CIs exclude 0). Leakage canaries: 72/72
-pass (max symmetric AUC 0.6553 ≤ 0.90). The preregistered Experiment-2
-contingency condition was **not** met (candidate−lidar_only CIs include 0),
-so no second experiment was run.
+Candidate-minus-H33 paired HOLDOUT-DTI difference (evaluator `gems57-pooled-hide-v2`; seed 20; withheld positives n=11,321; paired 95% CI [−0.0603, −0.0244]) is −0.0431. For seed 30 (n=11,342; paired 95% CI [−0.0698, −0.0380]) the difference is −0.0540. These paired 95% CIs exclude zero. Leakage canaries: 72/72 pass (maximum symmetric AUC 0.6553, threshold 0.90; LEAKAGE-CANARY, not a competition score). The preregistered Experiment-2 contingency condition was **not** met (candidate-minus-lidar_only paired CIs include zero), so no second experiment was run.
 
 **Physical interpretation.** The lidar dipole bands do carry fault signal
 (pixel AUC ≈ 0.58; mean rank 0.46 on catalogue vs 0.36 far away), but at

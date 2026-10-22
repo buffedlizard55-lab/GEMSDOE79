@@ -6,17 +6,26 @@
 
 [**Download the newly generated GeoTIFF**](docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
 
-This is a **newly computed, unique 37,654-dot artifact** (surface Spearman ≤ 0.11 and
-equal-budget 3 px dot overlap ≤ 0.41 against the 18 highest-scoring family rasters;
-limits 0.90 / 0.70), not a copied prior submission. SHA-256:
-`16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795`. Its name deliberately
-includes `DO-NOT-SUBMIT` because it **failed its preregistered holdout gate**:
-pooled HOLDOUT-DTI (`gems57-pooled-hide-v2`) **0.0530** (seed 20, n=11,321) / **0.0449**
-(seed 30, n=11,342) — at/below the uniform-random control (0.0538 / 0.0504) and far below
-the fold-fair H33 control (0.0961 / 0.0989). HOLDOUT-DTI is a catalogue hide-and-recover
-proxy, never a leaderboard score or projection. Zero weekly slots were used.
+This is a **newly computed, byte-distinct 37,654-dot research artifact**, not a copied prior submission. A scoped novelty comparison against 18 restored comparators measured surface Spearman ≤ 0.11 and equal-budget 3-px dot overlap ≤ 0.41 (limits 0.90 / 0.70), but this is **not protocol clearance**: the literal overlap rule remains unresolved, the complete registry was not scanned, and `protocol_unique` is false. SHA-256: `16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795`. Its name deliberately includes `DO-NOT-SUBMIT` because the preregistered spatially blocked holdout is negative.
 
-Unique artifact name (also the file stem): `g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT`
+Every performance value below is explicitly **HOLDOUT-DTI**, evaluator `gems57-pooled-hide-v2`, with withheld-positive count and 95% CI. These are hide-and-recover measurements, not leaderboard scores or projections.
+
+| Arm | Evidence class | Evaluator | Seed / withheld positives | DTI | 95% CI |
+|---|---|---|---:|---:|---:|
+| Candidate | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0530 | [0.0409, 0.0678] |
+| Candidate | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0449 | [0.0351, 0.0545] |
+| Lidar-only control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0568 | [0.0432, 0.0725] |
+| Lidar-only control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0456 | [0.0359, 0.0550] |
+| Geophysics-only control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0340 | [0.0243, 0.0437] |
+| Geophysics-only control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0366 | [0.0268, 0.0468] |
+| Uniform-random control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0538 | [0.0464, 0.0613] |
+| Uniform-random control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0504 | [0.0448, 0.0551] |
+| Fold-fair H33 control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0961 | [0.0826, 0.1089] |
+| Fold-fair H33 control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0989 | [0.0842, 0.1120] |
+
+The candidate does not beat the uniform-random or fold-fair H33 controls. Zero weekly slots were used.
+
+Artifact name (unique file identifier only; not protocol clearance): `g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT`
 Short comment (107/140 chars): `G79B scarp-dipole AND gravity/magnetic edge, 37654 dots; HOLDOUT-NEGATIVE research artifact. DO NOT SUBMIT.`
 These identify the file for reproducibility; they are **not** an instruction to upload it.
 
@@ -50,6 +59,10 @@ its run card is preserved byte-identically at
 [`evidence/run_card_g79_e1.json`](evidence/run_card_g79_e1.json) and its artifact moved to
 [`archive/g79_e1_fabric_offset/`](archive/g79_e1_fabric_offset/) so this page and the site expose exactly
 one current artifact. The historical record below (2026-10-21) is retained unchanged.
+
+### Integration note — upstream PR #22 merged during review (2026-10-22)
+
+PR #22 advanced `main` to the G79B negative run while this review branch was open. This branch incorporates that upstream state so the safety review can be merged without reverting the newer artifact, run card, or archived E1 bytes. This review did **not** rerun G79B science, retune its surface, or use a slot. The current machine decision is regenerated from the verified run card; scoped uniqueness is disclosed but `protocol_unique` remains false and submission remains blocked. The earlier E1 snapshot and this branch's three-pass review/addendum are recorded in [`reports/session_review_a23a7367.md`](reports/session_review_a23a7367.md).
 
 ### Concurrent session re-verification and post-stop diagnostic, 2026-10-21
 

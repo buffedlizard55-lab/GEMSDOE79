@@ -8,12 +8,17 @@
    rename or switch branches. Historical branch names in immutable
    cards, reports or prior prompts are provenance, not instructions for a new session.
 3. Both scientific lanes in this repo are **closed negative**:
-   - G79-FABRIC-OFFSET (E1): literal pre-placement duplicate stop; post-stop
-     diagnostic HOLDOUT-DTI 0.0474/0.0466. Card preserved at
-     `evidence/run_card_g79_e1.json`; artifact under `archive/g79_e1_fabric_offset/`.
-   - G79B-SCARP-DIPOLE-GEOAND (2026-10-22, owner-authorized new lane): unique and
-     format-valid, but HOLDOUT-DTI 0.0530/0.0449 does not beat uniform (0.0538/0.0504)
-     or the fold-fair H33 control (0.0961/0.0989). Current `run_card.json` is this card.
+   - G79-FABRIC-OFFSET (E1): literal pre-placement duplicate stop; the offline
+     post-stop HOLDOUT-DTI diagnostic is negative. Its frozen evidence and full
+     evaluator/count/CI labels are in `evidence/post_stop_diagnostic.json`.
+     Card preserved at `evidence/run_card_g79_e1.json`; artifact under
+     `archive/g79_e1_fabric_offset/`.
+   - G79B-SCARP-DIPOLE-GEOAND (2026-10-22, owner-authorized lane): format-valid,
+     but the candidate does not beat the preregistered uniform-random or fold-fair
+     H33 controls. Full HOLDOUT-DTI values, evaluator, withheld-positive counts
+     and 95% CIs are in `run_card.json` and the seed-specific evidence files.
+     Its scoped novelty comparison does not clear the literal rule;
+     `protocol_unique` remains false and the current run card is negative.
    Do not restart, retune, add jitter, exempt dense priors or silently open a new
    lane. A new lane requires explicit owner authorization AND a fresh
    preregistration before computation. Maximum three experiments/two hours per run;
