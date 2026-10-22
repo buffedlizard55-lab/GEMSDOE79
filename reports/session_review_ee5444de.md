@@ -42,6 +42,7 @@ These are local reproducibility/format checks, not organizer acceptance. The num
 3. Reproduce the incumbent holdout with matching evaluator/withheld-positive counts/95% CI before asserting an improvement. No leaderboard projection or success claim is justified.
 4. Keep the TIFF quarantined. A separate selector must approve any weekly slot; account capacity and an organizer receipt are not available in this checkout.
 5. No evidence here establishes geothermal vents, temperature, permeability or viable wells. The competition task is fault mapping; this distinction is documented in the source ledger.
+6. **Concurrent-main merge risk:** after the local review, `origin/main` was fetched for the requested PR. It is 36 commits ahead of this session base and contains a separate H79-CSPT lane. Its README advertises a promoted submission and reports uniqueness only against a filtered 949-raster subset while classifying 67 space-filling rasters separately. The shared `vendor/gems57/uniqueness.py` SHA-256 differs from this branch's pinned `1c5094…` version (origin/main: `d60cd8…`). These incoming claims and code were not scientifically audited under this session's literal rule. PR #14 is therefore open but GitHub reports it `CONFLICTING` / `DIRTY`; it was not merged. Do not rebase/merge the incoming lane or alter the novelty definition without authorized protocol review. This is an irregularity for explicit review, not a claim about hidden organizer decisions.
 
 ## Run card for this review
 
