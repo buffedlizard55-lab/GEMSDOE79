@@ -51,6 +51,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--seed", type=int, default=30)
     args = ap.parse_args()
+    from gems79.lifecycle import require_open_lane
+    require_open_lane(ROOT, "G79B-SDPT")
     seed = args.seed
     t0 = time.time()
     PROC.mkdir(parents=True, exist_ok=True)
@@ -210,4 +212,9 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    from gems79.lifecycle import LaneClosedError
+    try:
+        main()
+    except LaneClosedError as exc:
+        print(str(exc), file=sys.stderr)
+        raise SystemExit(2)

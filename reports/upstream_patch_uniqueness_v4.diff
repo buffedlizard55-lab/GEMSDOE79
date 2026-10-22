@@ -1,89 +1,66 @@
 diff --git a/vendor/gems57/uniqueness.py b/vendor/gems57/uniqueness.py
-index 931c153..2e46503 100644
+index 931c153..a07356d 100644
 --- a/vendor/gems57/uniqueness.py
 +++ b/vendor/gems57/uniqueness.py
-@@ -208,7 +208,24 @@ def records_from_index(index):
-     return records, bool(complete), index.get('errors', [])
+@@ -209,6 +209,7 @@ def records_from_index(index):
  
  
--DOT_DEFINITIONS = ('literal', 'budget-matched-v3')
-+DOT_DEFINITIONS = ('literal', 'budget-matched-v3', 'chance-corrected-v4')
-+CHANCE_INFORMATIVE_MAX = 1.0 - 1e-9
-+"""v4 (session 0bd0e0b2, IR-79-68): halo coverage at or above this is non-discriminating."""
-+
-+
-+def chance_corrected(overlap, coverage):
-+    """Cohen-kappa-style agreement beyond chance: (O - C) / (1 - C).
-+
-+    ``coverage`` C is the fraction of the candidate's allowed cells that lie within
-+    3 px of the registry raster's dots, i.e. the expected forward overlap of a
-+    uniform-random dot set. For C -> 0 the value equals the raw overlap, so the
-+    inherited rule is unchanged for sparse dot fields. Returns None when C >= 1
-+    (every possible map overlaps 100 %, so the test carries no information).
-+    """
-+    o, c = float(overlap), float(coverage)
-+    if c >= CHANCE_INFORMATIVE_MAX:
-+        return None
-+    return (o - c) / (1.0 - c)
+ DOT_DEFINITIONS = ('literal', 'budget-matched-v3')
++OVERLAP_MODES = ('literal-threshold', 'informative-halo-v4')
  
  
  def budget_matched_dots(theirs, footprint, k):
-@@ -233,11 +250,14 @@ def budget_matched_dots(theirs, footprint, k):
+@@ -233,9 +234,12 @@ def budget_matched_dots(theirs, footprint, k):
  
  def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=None,
                                include_reverse=True, progress=None, expected_grid=None,
 -                              dot_definition='literal'):
-+                              dot_definition='literal', allowed=None):
++                              dot_definition='literal', overlap_mode='literal-threshold',
++                              allowed=None):
      if dot_definition not in DOT_DEFINITIONS:
          raise ValueError(f'unknown dot_definition {dot_definition!r}')
++    if overlap_mode not in OVERLAP_MODES:
++        raise ValueError(f'unknown overlap_mode {overlap_mode!r}')
      mine = np.asarray(mine, np.float32)
      fp = np.asarray(footprint, bool)
-+    # v4: the chance model is a uniform dot set over the candidate's allowed cells
-+    # (default: the whole footprint). Must contain every candidate dot.
-+    allowed_cells = fp if allowed is None else (np.asarray(allowed, bool) & fp)
      if mine.ndim != 2 or mine.shape != fp.shape or not fp.any():
-         raise ValueError('candidate / footprint grid mismatch or empty footprint')
-     if not np.isfinite(mine).all() or (mine < 0).any() or (mine > 1).any():
-@@ -253,6 +273,8 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
-     norm = float(np.linalg.norm(ranks))
-     my_support = _dots(mine) & fp
-     my_dot_count = int(my_support.sum())
-+    if dot_definition == 'chance-corrected-v4' and (my_support & ~allowed_cells).any():
-+        raise ValueError('candidate dots outside the declared allowed domain')
-     my_near = _near(my_support) if include_reverse else None
-     decoded_digest = hashlib.sha256(np.ascontiguousarray(mine).tobytes()).hexdigest()
-     for i, rec in enumerate(records):
-@@ -294,10 +316,20 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
-                 tr = rankdata(tv).astype(np.float64)
-                 tr -= tr.mean()
-                 rho = float(np.dot(ranks,tr)/(norm*np.linalg.norm(tr)))
--            if dot_definition == 'budget-matched-v3' and representation == 'continuous_surface':
-+            if dot_definition in ('budget-matched-v3', 'chance-corrected-v4') and representation == 'continuous_surface':
+@@ -297,12 +301,29 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
+             if dot_definition == 'budget-matched-v3' and representation == 'continuous_surface':
                  # rho above already used the full surface; only the dot set changes
                  support = budget_matched_dots(theirs, fp, my_dot_count)
 -            ov = float(_near(support)[my_support].mean()) if my_dot_count else 0.0
-+            halo = _near(support)
-+            ov = float(halo[my_support].mean()) if my_dot_count else 0.0
-+            extra = {}
-+            dup_overlap = bool(ov > OVERLAP_LIMIT)
-+            if dot_definition == 'chance-corrected-v4':
-+                cov = float(halo[allowed_cells].mean())
-+                kappa = chance_corrected(ov, cov) if my_dot_count else 0.0
-+                extra = dict(their_halo_coverage_allowed=cov, chance_corrected_overlap=kappa,
-+                             overlap_test_informative=kappa is not None,
-+                             raw_overlap_gt_limit=bool(ov > OVERLAP_LIMIT))
-+                dup_overlap = bool(kappa is not None and kappa > OVERLAP_LIMIT)
++            their_near = _near(support)
++            ov = float(their_near[my_support].mean()) if my_dot_count else 0.0
++            domain = np.asarray(allowed, bool) if allowed is not None else fp
++            if domain.shape != fp.shape:
++                raise ValueError('allowed mask shape mismatch')
++            halo_coverage = float(their_near[domain].mean()) if domain.any() else 0.0
              reverse = float(my_near[support].mean()) if include_reverse and support.any() else 0.0
              jac = _jaccard(my_support, support)
              their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
-@@ -310,8 +342,8 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
++            # IR-79-53: when a prior's 3 px halo already covers >70 % of the
++            # allowed domain, O > 0.70 is true of every nonempty map (including
++            # a uniform random one) and carries no information about duplication.
++            # informative-halo-v4 keeps the 0.70 threshold for discriminating
++            # priors and skips only that vacuous overlap firing. Spearman, byte
++            # identity and decoded-pixel identity still apply to every raster.
++            if overlap_mode == 'informative-halo-v4':
++                dup_ov = bool(ov > OVERLAP_LIMIT and halo_coverage <= OVERLAP_LIMIT)
++            else:
++                dup_ov = bool(ov > OVERLAP_LIMIT)
+             row = {**base, 'sha256':digest, 'decoded_sha256':their_decoded,
+                 'their_dots':int(support.sum()), 'my_dots_within_3px_of_theirs':ov,
++                'halo_coverage': halo_coverage, 'overlap_mode': overlap_mode,
++                'overlap_vacuous': bool(halo_coverage > OVERLAP_LIMIT),
+                 'their_literal_positive_cells':literal_support_cells,
+                 'representation':representation, 'dot_definition':dot_definition,
+                 'their_dots_within_3px_of_mine':reverse, 'spearman_full_footprint':rho,
+@@ -310,7 +331,7 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
                  'identical_bytes':bool(file_sha256 and digest==file_sha256),
                  'identical_decoded_predictions':bool(their_decoded==decoded_digest),
                  'duplicate_by_rho':bool(rho is not None and rho > RHO_LIMIT),
 -                'duplicate_by_overlap':bool(ov > OVERLAP_LIMIT),
--                'duplicate_by_jaccard':bool(jac > JACCARD_LIMIT)}
-+                'duplicate_by_overlap':dup_overlap,
-+                'duplicate_by_jaccard':bool(jac > JACCARD_LIMIT), **extra}
++                'duplicate_by_overlap':dup_ov,
+                 'duplicate_by_jaccard':bool(jac > JACCARD_LIMIT)}
              rows.append(row)
          except (OSError, ValueError, rasterio.errors.RasterioError) as e:
-             rows.append({**base, 'error':str(e)})

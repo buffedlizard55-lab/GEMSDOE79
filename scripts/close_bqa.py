@@ -116,7 +116,8 @@ def main():
                          per_seed=x2, stop_reason=stop),
                  x3="not run: no remaining hypothesis was preregistered, and a full gated pipeline would not finish before the 06:30Z hard stop",
                  geotiff_written=False, final_dot_placements_performed=0, submission_slots_used=0,
-                 canonical_deliverable_unchanged="run_card.json (H79-NHR, DO-NOT-SUBMIT)")
+                 canonical_deliverable_unchanged=("run_card.json is not touched by this lane (canonical lane at close: "
+                                                  + json.loads((ROOT / "run_card.json").read_text())["lane"] + ")"))
     (EV / "state.json").write_text(json.dumps(state, indent=2, allow_nan=False) + "\n")
 
     prereg = json.loads((ROOT / "registry/preregistration_bqa.json").read_text())
@@ -147,7 +148,7 @@ def main():
                            "tests_per_seed": hold[30]["leakage_canary"]["tests"],
                            "features_cleared": len(hold[30]["leakage_canary"]["per_feature_max"])},
         "correlation_overlap_vs_registry": dict(shared_tool=usurf["shared_tool"], dot_definition=usurf["dot_definition"],
-                                                protocol_clarification="IR-79-68", surface_before_placement=g5,
+                                                protocol_clarification="IR-79-110 (in-session IR-79-68)", surface_before_placement=g5,
                                                 final_dots=None),
         "protocol_unique": False,
         "raster_sha256": None,

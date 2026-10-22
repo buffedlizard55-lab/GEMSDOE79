@@ -10,7 +10,26 @@ from affine import Affine
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / "src"), str(ROOT / "vendor"), str(ROOT / "scripts")]
-from gems57 import uniqueness as U  # noqa: E402
+import importlib.util  # noqa: E402
+import gems57  # noqa: E402,F401
+
+# Frozen BQA copy of the shared tool (archive/h79_bqa/README.md); the shared vendor/gems57 tool is main's.
+_FROZEN = ROOT / "archive/h79_bqa/uniqueness_chance_corrected_v4_e68079b5.py"
+_spec = importlib.util.spec_from_file_location("gems57.uniqueness_bqa_frozen", _FROZEN)
+U = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(U)
+
+
+def test_frozen_tool_is_the_one_that_produced_the_bqa_evidence():
+    import hashlib
+    ev = json.loads((ROOT / "evidence/bqa/x2_uniqueness_surface.json").read_text())
+    assert hashlib.sha256(_FROZEN.read_bytes()).hexdigest() == ev["shared_tool_sha256"]
+
+
+def test_shared_tool_is_left_as_main_pinned_it():
+    import hashlib
+    pin = json.loads((ROOT / "evidence/post_snapshot_sibling_audit.json").read_text())["shared_tools_pinned"]
+    assert hashlib.sha256((ROOT / "vendor/gems57/uniqueness.py").read_bytes()).hexdigest() == pin["uniqueness_py_sha256"]
 from gems79 import bqa  # noqa: E402
 
 
@@ -22,7 +41,7 @@ def test_chance_corrected_reduces_to_raw_overlap_for_sparse_priors():
 
 
 def test_frozen_nhr_remains_duplicate_and_uniform_passes_under_v4():
-    """IR-79-68 must not rescue the stopped NHR lane and must be satisfiable."""
+    """IR-79-110 (in-session IR-79-68) must not rescue the stopped NHR lane and must be satisfiable."""
     rows = json.loads((ROOT / "evidence/nhr/overlap_chance.json").read_text())["rows"]
     k_nhr = [U.chance_corrected(r["overlap_candidate"], r["halo_coverage"]) for r in rows]
     k_uni = [U.chance_corrected(r["overlap_uniform"], r["halo_coverage"]) for r in rows]
@@ -105,9 +124,13 @@ def test_quota_placement_spacing_quota_and_fill():
     assert not dots[band == -1].any()
 
 
-def test_delta_scanner_reads_blob_ids_from_raw_log():
-    src = (ROOT / "scripts/registry_delta_git.py").read_text()
-    assert '"log", "--all", "--raw"' in src and '"rev-list"' not in src
+def test_bqa_uniqueness_inventory_snapshot_is_preserved():
+    """IR-79-112: BQA's receipts used 992 indexed + 215 delta rasters; the snapshot is kept as evidence."""
+    snap = json.loads((ROOT / "evidence/bqa/registry_delta_0bd0e0b2.json").read_text())
+    index = json.loads((ROOT / "registry/registry_index.json").read_text())
+    usurf = json.loads((ROOT / "evidence/bqa/x2_uniqueness_surface.json").read_text())
+    assert snap["n_new_rasters"] == len(snap["rasters"]) == 215
+    assert usurf["provisional_topk_check"]["registry_rasters_expected"] == len(index["rasters"]) + 215 == 1207
 
 
 def test_bqa_closure_is_rederived_from_evidence_and_wrote_no_file():
@@ -138,7 +161,7 @@ def test_bqa_closure_is_rederived_from_evidence_and_wrote_no_file():
         assert ff['candidate']['dti'] < ff['h33_foldfair_control']['dti']
     assert not [p for p in (root / 'docs/downloads').iterdir() if 'bqa' in p.name.lower()]
     canonical = json.loads((root / 'run_card.json').read_text())
-    assert canonical['lane'] == 'H79-NHR'
+    assert canonical['lane'] != 'H79-BQA'
     r = subprocess.run([_sys.executable, str(root / 'scripts/run_bqa.py'), 'place-x2'],
                        capture_output=True, text=True, timeout=60)
     assert r.returncode != 0 and 'closed (negative)' in r.stderr

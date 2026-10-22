@@ -109,11 +109,11 @@
     },
     {
       "path": "vendor/gems57/uniqueness.py",
-      "git_blob": "2e465036ce852f8a860231ae530fa279d2d2cf33",
-      "sha256": "e68079b5242da080f0d11b442b2b5d18e5e04d70b82b396fb240504c92fdb290",
+      "git_blob": "a07356d4487f3ba0223ebfe5417fce6486f5ea67",
+      "sha256": "be529511cbc6c17fe4dec375a1a0f544fb8dfa06d2ab916f151a5cc5d1942283",
       "previous_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
       "previous_git_blob": "931c153f104540879d09a7605d525569ca2659d1",
-      "version_note": "v4 shared fix (session 0bd0e0b2, IR-79-68): adds dot_definition 'chance-corrected-v4' (kappa = (o - c)/(1 - c) with c = the other raster's 3 px halo coverage of the allowed domain; rows with c > 0.70 are non-discriminating) and an optional allowed= domain. 'literal' and 'budget-matched-v3' are unchanged. Patch exported to reports/upstream_patch_uniqueness_v4.diff. v3 note: DOT_DEFINITIONS, budget_matched_dots(), dot_definition parameter (session 337ac1e9, IR-79-47). Upstream origin: 60GEMSDOE@b99591e."
+      "version_note": "v4 shared fix (session c04e5e27, IR-79-86): adds OVERLAP_MODES and overlap_mode/allowed kwargs to compare_array_to_registry. Default overlap_mode stays 'literal-threshold' so historical NHR/STEPCO/G79B evidence is unchanged. With 'informative-halo-v4', duplicate_by_overlap fires only when O>0.70 AND the prior's 3 px halo covers <=70% of the allowed domain (vacuous space-filling priors no longer auto-reject every map). Spearman, byte identity and decoded-pixel identity still apply to every raster. IR-79-47 v3 budget-matched dots is unchanged."
     },
     {
       "path": "vendor/gems57/validate.py",
@@ -121,5 +121,5 @@
       "sha256": "e7849554b47f6a2b66aeb2f7cfd5db06267412f049f52a73f1c41f934a2c34dd"
     }
   ],
-  "policy": "Shared code; never fork locally. A shared defect is fixed once here with a version note, the pin is updated, and the patch is exported for the upstream template (reports/upstream_patch_uniqueness_v3.diff, reports/upstream_patch_uniqueness_v4.diff)."
+  "policy": "Shared code; never fork locally. A shared defect is fixed once here with a version note, the pin is updated, and the patch is exported for the upstream template (reports/upstream_patch_uniqueness_v3.diff and reports/upstream_patch_uniqueness_v4.diff)."
 }
