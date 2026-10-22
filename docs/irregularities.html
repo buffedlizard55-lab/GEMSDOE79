@@ -1297,5 +1297,27 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Consolidated <code>requirements.txt</code> to a single <code>scikit-image&gt;=0.26,&lt;1</code> line with a duplicate-package test in <code>tests/test_session_070af0b6_audit.py</code>, verified all <code>13/13</code> pinned inputs live via <code>scripts/restore_data.py --preserve-receipt</code>, and documented the complete 3-tier Pigeonhole obstruction in <code>reports/session_review_7fdf94b3.md</code> and <code>evidence/review_7fdf94b3/summary.json</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session 3ca6c6a6 — downloaded-file identity and publishing permissions</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-178</td>
+<td>The site had no local way to bind a user's chosen downloaded file to its published format-checked bytes. An old, altered or repacked file cannot inherit another file's range validation, and the prior portal rejection cannot be diagnosed without its bytes and receipt.</td>
+<td>Added SHA-256 plus size checking for the exact TIFF and ZIP in the executive summary, with no upload or raster-decoding claim. Unknown bytes, crypto/read errors and stale async results cannot authorize submission. Python, Node and real-browser tests cover both matching files, same-size tampering, error paths and zero network requests. The canonical novelty STOP and all scientific receipts remain unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-179</td>
+<td>GitHub Pages API reported legacy main-root publishing and errored status; the public site was still readable. Attempting to select workflow publishing returned HTTP 403, Resource not accessible by integration.</td>
+<td>Kept the existing workflow's explicit permission warning and public-byte verification. Local preview passed, but neither local success nor an attempted API update proves deployment. Settings permission remains unavailable to this integration; no credential was requested or stored. See session review 3ca6c6a6 for the precise scope.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
