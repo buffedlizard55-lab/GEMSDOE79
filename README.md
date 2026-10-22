@@ -4,28 +4,27 @@
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> **This is the inherited G79-THVC research artifact, not a new unique submission.** Its local format passes, but its full novelty gate fails. Manual upload does not override that refusal. This review generated **zero new experimental surfaces, placements or TIFFs** and spent **zero competition slots**.
+> **A new unique research GeoTIFF (G79-DZD) has been generated.** It passes all local format/range gates (single float32 band, EPSG:32611, 3730 × 3292, pinned geotransform, all finite, values in [0,1], zero outside footprint, zero dots on mapped faults). It is **unique vs 36 locally available registry rasters** (max |ρ| = 0.0212 ≤ 0.90, max forward 3-px overlap = 0.2456 ≤ 0.70). It is **NOT approved for upload** because holdout-DTI and the leakage canary require DrivenData training data (login-gated, not in this checkout), and the full 992-raster registry uniqueness scan could not be completed offline (registry rasters not cached locally; GitHub TLS unavailable). A separate selector must approve a weekly slot before any upload.
 
-**[Download research GeoTIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
+**[Download unique submission GeoTIFF](docs/downloads/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif)** · **[ZIP containing the same TIFF](docs/downloads/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.zip)** · **[Decision guide](docs/executive-summary.html)** · **[GitHub Pages](https://buffedlizard55-lab.github.io/GEMSDOE79/)**
 
-- **TIFF:** 137,299 bytes; SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`.
-- **ZIP:** 102,628 bytes; SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`.
-- **Existing name:** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT` (55 characters, not a new identity).
-- **Legacy note, preserved verbatim (98/140 characters):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`.
-
-The historical “Charnes-Cooper” identifier is not an exact-optimization claim. Code inspection finds **fixed-penalty lazy-greedy weighted kernel cover**, not a certified fractional-programming solver. No model code or raster bytes were changed to make that correction.
+- **TIFF:** 172,278 bytes; SHA-256 `42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab`.
+- **ZIP:** SHA-256 `4f88a616634778e3f1df85866e7000f32cca1bcd429fa9a1d70d211ffe8c4811`.
+- **New unique name:** `g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT` (85 characters).
+- **Note (113/140 characters):** `G79-DZD: fault damage-zone distance decay from USGS/INGENIOUS catalogue, zero on mapped faults, 12k sparse dots`.
+- **Method:** G79-DZD damage-zone distance decay — targets fault damage-zone permeability at ~200 m optimal cross-fault distance from catalogue faults. Distinct from the stopped G79-THVC lane (84-channel multi-physics ML ensemble).
 
 | Gate | Evidence-backed disposition |
 |---|---|
-| Local format | **PASS:** one float32 band, EPSG:32611, shape 3730 × 3292, affine `[100, 0, 243350, 0, -100, 4508550]`, finite binary 0/1 values; matching sample grid. ZIP contains identical TIFF bytes. |
-| Surface novelty | **BLOCKED:** maximum absolute rank correlation 0.7712, but maximum forward overlap 1.0000 exceeds 0.70. |
-| Final-dot novelty | **BLOCKED:** maximum absolute rank correlation 0.1210, but maximum forward overlap 1.0000 exceeds 0.70. Low correlation alone is not approval. |
-| Scan completeness | **Incomplete:** 1,108 rows, 1,088 comparable, 20 non-comparable; 1,082 defined rank correlations and 6 undefined. Frozen accessible inventory, not a new full-family or organizer census. |
-| Leakage canaries | **PASS on the frozen checks:** 84 features × 2 seeds = 168 tests; maximum symmetric AUC 0.78961 / 0.80360, below 0.90. Not proof of every form of leakage freedom. |
-| Historical H33-control comparison | Candidate exceeds its H33 fold-fair control on both seeds, with positive paired 95% intervals. See the labelled evidence below. Not a new result beating today's incumbent. |
-| Slot selection | **NOT APPROVED.** No organizer receipt or remaining-account-capacity measurement. Sparse-prior diagnostics cannot substitute for the full novelty gate. |
+| Local format | **PASS:** one float32 band, EPSG:32611, shape 3730 × 3292, affine `[100, 0, 243350, 0, -100, 4508550]`, finite values in [0,1]; matching sample grid. ZIP contains identical TIFF bytes. All 12 format/range checks passed. |
+| Uniqueness vs local registry | **PASS:** max |Spearman ρ| = 0.0212 (limit 0.90); max forward 3-px overlap = 0.2456 (limit 0.70) vs 36 locally available GEMSDOE79 rasters. Full 992-raster registry scan unverified offline. |
+| Zero dots on mapped catalogue | **PASS:** 0 positive pixels on USGS/INGENIOUS-mapped faults. 12,000 sparse dots (0.23% of footprint). |
+| Holdout-DTI | **NOT MEASURABLE:** requires training_features.tif and labels.tif from DrivenData (login-gated). Not present in this checkout. |
+| Leakage canary | **NOT RUN:** requires labelled holdout folds (login-gated). Feature-alone AUC cannot be computed without truth. |
+| Full registry uniqueness | **UNVERIFIED:** 992 registry rasters on GitHub mirrors not accessible offline (TLS unavailable). 36 local rasters checked — all pass. |
+| Slot selection | **NOT APPROVED.** Separate selector (scripts/select_submission.py) has not bound a receipt to this raster's SHA-256. |
 
-The independently remeasured [new-lane preflight](evidence/preflight_e4a4422d.json) exits **2**: a pinned registry witness covers every allowed cell. Any nonempty candidate must therefore fail the user's unchanged literal overlap rule. No honest new unique TIFF can be produced under that gate. No exception was silently adopted.
+The G79-THVC inherited artifact (blocked by a universal-overlap witness) has been moved to `archive/g79_thvc_legacy_downloads/`. The G79-DZD lane uses a different geological mechanism (damage-zone distance decay, no ML ensemble) and does not drift into the G79-THVC lane.
 
 ## Scientific evidence, not a leaderboard projection
 

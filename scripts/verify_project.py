@@ -272,6 +272,59 @@ def dilstep_evidence_checks(root, card):
     return out
 
 
+def g79_dzd_evidence_checks(root, card):
+    """Honesty checks for the G79-DZD lane (damage-zone distance decay).
+
+    Holdout-DTI and leakage canary are not measurable offline (DrivenData
+    training data is login-gated). Uniqueness is checked against locally
+    available rasters only; the full 992-raster registry scan is unverified.
+    A failed or unmeasurable gate must stay failed — no number is replaced
+    with a projection.
+    """
+    root = Path(root)
+    u = card['correlation_overlap_vs_registry']
+    v = card['validator']
+    out = {}
+    # Holdout-DTI not measurable: card must not claim a numeric score.
+    out['holdout_dti_not_claimed'] = (
+        card['holdout_dti'].get('evidence_class') == 'NOT_MEASURED' and
+        card['holdout_dti'].get('dti') is None and
+        card['holdout_dti'].get('ci95') is None)
+    # Leakage canary not run: card must not claim a pass.
+    out['leakage_canary_not_claimed'] = (
+        card['leakage_canary'].get('evidence_class') == 'NOT_RUN' and
+        card['leakage_canary'].get('passed') is not True)
+    # Uniqueness: partial local check must match the card.
+    sbp = u.get('surface_before_placement', {})
+    out['uniqueness_partial_matches_card'] = (
+        u.get('unique_vs_local_rasters') is True and
+        u.get('unique_vs_full_registry', '').startswith('UNVERIFIED') and
+        sbp.get('max_abs_spearman', 1.0) <= 0.90 and
+        sbp.get('literal_max_forward_overlap_3px', 1.0) <= 0.70 and
+        card.get('protocol_unique') is not True)
+    # Format validation must have passed on disk (checks are nested under 'checks').
+    vc = v.get('checks', {})
+    out['format_validation_passed'] = (
+        v.get('all_checks_passed') is True and
+        vc.get('range_0_1_guaranteed') is True and
+        vc.get('no_nan_anywhere') is True and
+        vc.get('zero_dots_on_mapped_catalogue') is True and
+        vc.get('outside_footprint_zero') is True)
+    # No selector receipt for a not-approved artifact.
+    out['no_selector_receipt'] = card.get('selector_receipt') is None
+    # Verdict must be negative when gates are unmeasurable/failed.
+    out['verdict_matches_blocked_state'] = (
+        card.get('verdict') == 'negative' and
+        card.get('ok_to_submit') is False and
+        card.get('ok_to_download') is True)
+    # Preregistration hash must match.
+    out['preregistration_hash_matches_card'] = (
+        sha(root / card['preregistration_path']) == card['preregistration_sha256'])
+    # No submission placement after failed gate: ok_to_submit must be False.
+    out['no_submission_placement_after_failed_gate'] = card.get('ok_to_submit') is False
+    return out
+
+
 def evidence_checks(root, card):
     """Every card number must equal the evaluator / uniqueness / gate evidence."""
     root = Path(root)
@@ -280,6 +333,8 @@ def evidence_checks(root, card):
         return thvc_evidence_checks(root, card)
     if lane == 'H79-DILSTEP':
         return dilstep_evidence_checks(root, card)
+    if lane == 'G79-DZD':
+        return g79_dzd_evidence_checks(root, card)
     if lane == 'H79-FFAS':
         ev = root / 'evidence/ffas'
         prereg_name = 'preregistration_ffas.json'
