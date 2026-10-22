@@ -8,9 +8,12 @@
 3. Canonical research file in `docs/downloads/`: **`G79-THVC`** (`g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`), achieving the highest shared `gems57-pooled-hide-v2` `HOLDOUT-DTI` across all **17** `GEMSDOE79` lanes (**`0.1905`** on Seed 20, **`0.1944`** on Seed 30 vs `H33` fold-fair control `0.0961 / 0.0989`), verdict `negative` (`OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.`, `0` weekly slots spent) because of non-sparse / corridor registry overlap (`28` under `informative-halo-v4`, `58` under `budget-matched-v3`, `96` literal, plus live `GEMSDOE83 = 0.7139 > 0.70`, while `0 / 718` sparse `<= 50k` pinned submissions fire at `max = 0.6844 <= 0.70`).
    All concurrent/historical `GEMSDOE79` lanes stay **stopped negative** and byte-archived under `archive/`:
    - `H79-NHR` (`0.1431 / 0.1522`, `archive/h79_nhr/` & `archive/h79_nhr_337ac1e9/`)
+   - `H79-FNHR` (`0.1292 / 0.1431` `F3`, `0.0906 / 0.0966` pure zero-catalogue physics, `archive/h79_fnhr_a57e2a7f/` & `run_card_fnhr.json`, `IR-79-140`..`IR-79-142`)
    - `H79-MRND` (`0.1044 / 0.1236`, session `800321e2`, `run_card_mrnd.json` & `evidence/mrnd/`) — multi-regime nested discovery (`77` features, `max AUC = 0.8589 <= 0.90`); beats `H33` control on both seeds (`+0.0247`, 95% CI `[+0.0095, +0.0389]` on Seed 30) and clears all `982` informative comparable priors on chance-corrected overlap (`worst = 0.5486 <= 0.70`, `0` normal-budget `<=167k` flags), stopped pre-placement under literal one-sided overlap (`IR-79-132`); do not retune quotas or re-place dots
+   - `G79-ETP` / `G79-ETP-v2` (`0.0968 / 0.1061` fold-fair `gems57-pooled-hide-v2`, `0.0000` static full-catalogue, `archive/g79_etp_incoming_45998a01/` & `run_card_etp.json`, `IR-79-147` / `IR-79-151`)
    - `H79-STEP` (`0.0949 / 0.1087`, `archive/h79_step_21642326/`)
    - `H79-DILSTEP` (`0.0721 / 0.0689`, `archive/h79_dilstep_6444be2d/`)
+   - `G79-CFSKD` (`0.0654 / 0.0678`, `archive/g79_cfskd_bda00cff/` & `run_card_cfskd.json`, `IR-79-152`)
    - `H79-COV` (`0.0610 / 0.0581`, `archive/h79_cov_e23d5371/`)
    - `H79-FF` (`0.0510 / 0.0488`, `archive/h79_ff/` & `archive/h79_ff_1de1617f/`)
    - `H79-ML-STRAIN-RELAY` (`0.0472 / 0.0442`, `archive/concurrent_2026-10-22_5d14587/`)

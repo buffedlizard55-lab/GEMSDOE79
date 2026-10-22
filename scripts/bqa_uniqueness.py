@@ -38,9 +38,6 @@ from nhr_uniqueness import inventory           # noqa: E402  (index + delta, has
 CACHE = ROOT / ".cache/bqa"
 OUT = ROOT / "evidence/bqa"
 DEF = "chance-corrected-v4"
-if DEF not in getattr(shared, "DOT_DEFINITIONS", ()):
-    raise SystemExit("H79-BQA is closed. The shared tool no longer carries chance-corrected-v4 (see archive/h79_bqa/README.md); "
-                     "to re-check the frozen evidence, check out commit b429e89.")
 BUDGET = 37654
 _G = {}
 
@@ -239,6 +236,12 @@ def run(phase):
 
 
 if __name__ == "__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H79-BQA",
+        reason="H79-BQA is closed (verdict=negative, duplicate surface; uniqueness receipts frozen).",
+    )
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("phase", choices=["surface", "final", "surface-x2", "final-x2"])
     ap.add_argument("--workers", type=int, default=2)

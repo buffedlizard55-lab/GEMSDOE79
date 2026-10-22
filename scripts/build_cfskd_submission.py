@@ -37,4 +37,11 @@ def main():
           "submission_name":name,"note":"G79-CFSKD EXP3 KD+Coulomb veto; HOLDOUT-DTI 0.0654/0.0678 NEGATIVE - do not submit"[:140],
           "writer_report":rep}
     (out.with_suffix(".json")).write_text(json.dumps(meta,indent=2)+"\n"); print(json.dumps(meta,indent=2))
-if __name__=="__main__": main()
+if __name__=="__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "G79-CFSKD",
+        reason="G79-CFSKD is closed and archived (HOLDOUT-DTI 0.0654/0.0678 < H33; archive/g79_cfskd_bda00cff/ frozen).",
+    )
+    main()

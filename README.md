@@ -57,7 +57,7 @@ Full byte-level proofs and derivations are documented in [`knowledge/why_h33.md`
 ## 3. Repository Navigation & Reproducible Verification Commands
 
 - **Scientific Reports & Preregistrations:** [`research/hypotheses.md`](research/hypotheses.md) · [`registry/preregistration_g79_thvc.json`](registry/preregistration_g79_thvc.json) · [`reports/g79_thvc_scientific_report.md`](reports/g79_thvc_scientific_report.md) · [`reports/irregularities.md`](reports/irregularities.md) · [`reports/verification_passes.md`](reports/verification_passes.md) · [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md)
-- **Latest active-branch audit:** [`reports/repository_review_2026-10-22_session-2c72eff9.md`](reports/repository_review_2026-10-22_session-2c72eff9.md) (negative/no new experiment; current assigned branch only).
+- **Latest active-branch audit:** [`reports/session_review_f0d99a40.md`](reports/session_review_f0d99a40.md) · [`reports/session_review_45998a01.md`](reports/session_review_45998a01.md) · [`reports/repository_review_2026-10-22_arena-63e67511.md`](reports/repository_review_2026-10-22_arena-63e67511.md) · [`reports/repository_review_2026-10-22_session-2c72eff9.md`](reports/repository_review_2026-10-22_session-2c72eff9.md) (negative/no new promotion; canonical `G79-THVC` retained).
 - **Archived Historical Lanes (preserved intact, non-executable):** [`archive/g79_fabric_offset_f61b17a2/`](archive/g79_fabric_offset_f61b17a2/run_card_f61b17a2.json) · [`archive/h79_mct_c26efec/`](archive/h79_mct_c26efec/README.md) · [`knowledge/prior_work/`](knowledge/prior_work/README.md)
 - **Self-Contained Website (`docs/`):** [`docs/index.html`](docs/index.html) · [`docs/executive-summary.html`](docs/executive-summary.html)
 
@@ -190,9 +190,6 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 > re-restored this session (local 4-raster scope only); H80-MT-PHASE/H80-DRAPE-DECONV blocked (data not in pinned inputs).
 
 ---
-
-## Original project prompt` (`IR-79-81`).
-- Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
@@ -581,7 +578,7 @@ h45-eulerdepthreadcluster-20261006-f28e5cff6826-zeros: 0.0984
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE41/](https://buffedlizard55-lab.github.io/GEMSDOE41/)
+[https://buffedlizard55-lab.github.io/GEMSDOE41/docs/index.html](https://buffedlizard55-lab.github.io/GEMSDOE41/docs/index.html)
 
 h42-submission-primary: 0.0245
 
@@ -755,19 +752,19 @@ gems73-h73-mcsc-seamfree-blakely-37654dots-20261021T073716Z-b27ac445-zeros: 0.19
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
+GEMSDOE74:[https://buffedlizard55-lab.github.io/GEMSDOE74/](https://buffedlizard55-lab.github.io/GEMSDOE74/)
 
 gemsdoe74-triregime-radon-piedmont-37654-20261021T051000Z-zeros: 0.0669
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
+GEMSDOE75:[https://buffedlizard55-lab.github.io/GEMSDOE75/](https://buffedlizard55-lab.github.io/GEMSDOE75/)
 
 gems75-trlt-radon-loco-ridge-20261021-zeros: 0.1627
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
+GEMSDOE76:[https://buffedlizard55-lab.github.io/GEMSDOE76/](https://buffedlizard55-lab.github.io/GEMSDOE76/)
 
 gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros: 0.1555
 
@@ -775,77 +772,79 @@ gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
+GEMSDOE77:[https://buffedlizard55-lab.github.io/GEMSDOE77/](https://buffedlizard55-lab.github.io/GEMSDOE77/)
 
 gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
+GEMSDOE78: [https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
 
 gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/)
+GEMSDOE79: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
+GEMSDOE80: [https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
 
 gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
+GEMSDOE81: [https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
 
 gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
+GEMSDOE82: [https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
 
 gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
+GEMSDOE83: [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
 
 gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros:
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
+GEMSDOE84: [https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
+GEMSDOE85: [https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
+GEMSDOE86: [https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
+GEMSDOE87: [https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
 
 :
 
 ....
 
-[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
+GEMSDOE88: [https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
 
 :
 
 ....
+
+I want to have a validation gates in place so I never get the "Predicted values must be in range [0, 1]" error again when I submit my TIF file to the competition.
 
 The following is the leaderboard for the competition:
 

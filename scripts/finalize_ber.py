@@ -325,4 +325,10 @@ def main():
 
 
 if __name__ == "__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "G79-BER",
+        reason="G79-BER is already finalized and archived (verdict=negative, 0 slots used).",
+    )
     main()

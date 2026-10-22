@@ -33,6 +33,12 @@ def sha(p: Path) -> str:
 
 
 def main() -> None:
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "H79-FF",
+        reason="H79-FF is stopped and archived; blocker measurement receipt is frozen.",
+    )
     cand = None
     for p in (ROOT / "archive/h79_ff_1de1617f/downloads").glob("gems79-h79-ff-farfield-scarp-*.tif"):
         cand = p

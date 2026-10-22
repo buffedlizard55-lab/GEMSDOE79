@@ -131,4 +131,11 @@ def main():
         log(seed, {k:round(v["dti"],4) for k,v in summ["scores"].items()}, "canary",round(canary_max,4),canary_worst)
     (OUT/"holdout_results.json").write_text(json.dumps(results,indent=2))
     log("done",time.time()-t0)
-if __name__=="__main__": main()
+if __name__=="__main__":
+    from gems79.lifecycle import enforce_open_lane
+    enforce_open_lane(
+        ROOT,
+        "G79-CFSKD",
+        reason="G79-CFSKD is closed (3/3 experiments exhausted; HOLDOUT-DTI 0.0654/0.0678 < H33).",
+    )
+    main()
