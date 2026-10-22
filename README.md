@@ -52,6 +52,45 @@ report and 0.4413 is a public leaderboard observation (`#1 xiaofanhu`), not an
 organizer receipt for this artifact, and beating them is not demonstrated.
 Verdict: **negative** — a deliverable, per the parallel-run protocol.
 
+## New this session: G79-DZD — a second unique TIF, gates say NO
+
+> **G79-DZD: OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO.**
+> Unique file, generated this session by `scripts/generate_unique_submission.py`,
+> not a copy or rename of any registry submission:
+> `artifacts/dzd/g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif`
+> (SHA-256 `42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab`), with a
+> ZIP containing the identical TIFF beside it.
+> Decision page: [docs/dzd-submission.html](docs/dzd-submission.html) ·
+> Lane card: `run_card_g79_dzd.json`.
+
+**Hypothesis (H79-H2, ranked H1 of five in [research/candidate_hypotheses.md](research/candidate_hypotheses.md)).**
+Geothermal permeability concentrates in the fracture damage zone *adjacent* to
+mapped faults (~200 m optimal cross-fault distance), not on the mapped traces,
+so unmapped splays inside that envelope are plausible conduits absent from the
+USGS/INGENIOUS catalogue.
+
+**Mechanism.** Deterministic single-channel transform — no ML, no multi-physics
+stack: Euclidean distance from catalogue cells; Gaussian damage-zone score
+centred at 200 m with 150 m sigma; modulated by local catalogue-gradient fault
+activity; zero on catalogue; zero outside footprint; top-12,000 sparse dots
+normalised to [0,1]. Distinct from G79-THVC (84-channel ensemble) and G79-CJX
+(potential-field junctions).
+
+**Measured gates.** G1 format PASS (single float32 band, EPSG:32611, 3730 × 3292,
+pinned transform, all finite, values in [0,1], zero NaN, zero outside footprint).
+G2 PASS: 12,000 dots = 0.2322 % of footprint, 0 positive pixels on the mapped
+catalogue. G5 partial-inventory novelty PASS vs the 36 locally cached rasters
+(max |ρ| 0.0212 ≤ 0.90, max forward 3-px overlap 0.2456 ≤ 0.70).
+**G3 holdout and G4 full-registry novelty are NOT MEASURED**: `data/raw/training_features.tif`
+and `labels.tif` are login-gated and absent from this checkout, and the 992-raster
+registry is not cached locally (GitHub TLS unavailable). No holdout number is
+claimed, no leaderboard score is claimed, and 0.2778/0.4413 remain unverified
+historical reports. Verdict: **negative** — a deliverable, not an upload.
+
+Recheck: `python scripts/generate_unique_submission.py --help` (regeneration
+refuses to overwrite existing bytes), `python scripts/validate_submission.py
+artifacts/dzd/<tif>` (local format only), `python scripts/verify_project.py`.
+
 ## Scientific evidence, not a leaderboard projection
 
 **HOLDOUT-DTI**, shared evaluator `gems57-pooled-hide-v2`; buffered whole-component splits, exact visible-catalogue mask, pooled weighted TP/FP/FN; α = 0.2, β = 0.8, triangular radius 300 m. The following are **inherited measurements**, not experiments performed in this review:

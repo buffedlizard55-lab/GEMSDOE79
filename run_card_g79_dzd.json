@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "lane": "G79-DZD",
+  "generated_utc": "2026-10-22T15:40:45Z",
+  "identical_to_canonical_card": false,
+  "note": "Lane-specific card for the G79-DZD unique-TIF page. The canonical project decision remains run_card.json (G79-THVC).",
+  "hypothesis": "H79-H2 (G79-DZD): geothermal-conducive permeability concentrates in the damage zone adjacent to mapped faults (~200 m optimal cross-fault distance) rather than on the mapped traces, so unmapped splays and damage-zone fractures inside that envelope are plausible conduits absent from the USGS/INGENIOUS catalogue.",
+  "mechanism": "Deterministic single-channel transform, no ML and no multi-physics stack: Euclidean distance from catalogue fault cells; Gaussian damage-zone score centred at 200 m cross-fault distance with 150 m sigma; modulated by local catalogue-gradient fault activity; zero on catalogue; zero outside footprint; top-12,000 sparse dots normalised to [0,1].",
+  "named_non_fault_mimic": "Pleistocene pluvial paleo-shoreline benches (Lake Lahontan / Lake Bonneville), fluvial terrace risers, welded ash-flow caldera cooling joints, and alluvial-fan piedmont slope breaks.",
+  "distinct_from": "G79-THVC (84-channel multi-physics ML ensemble with kernel-cover), G79-CJX (potential-field junction persistence).",
+  "dots": 12000,
+  "submission_name": "g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT",
+  "submission_note": "G79-DZD: fault damage-zone distance decay from USGS/INGENIOUS catalogue, zero on mapped faults, 12k sparse dots",
+  "submission_note_chars": 111,
+  "raster_sha256": "42a87578095aa27263f4d36bd8f0c9ca2f18085be34ba6e98f8fd88521d98cab",
+  "zip_sha256": "4f88a616634778e3f1df85866e7000f32cca1bcd429fa9a1d70d211ffe8c4811",
+  "tif": "g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.tif",
+  "zip": "g79-dzd-damagezone-distance-decay-12kdots-20261022-20261022T154045Z-DO-NOT-SUBMIT.zip",
+  "artifact_dir": "artifacts/dzd",
+  "generator": "scripts/generate_unique_submission.py",
+  "gates": {
+    "G1_format_shared_validator": {
+      "result": "PASS",
+      "detail": "single float32 band, EPSG:32611, 3730x3292, pinned transform, all finite, values in [0,1], zero outside footprint, zero dots on mapped catalogue"
+    },
+    "G2_dot_budget_and_catalogue_exclusion": {
+      "result": "PASS",
+      "detail": "12000 dots (0.2322% of footprint); 0 positive pixels on mapped catalogue"
+    },
+    "G3_holdout_beats_incumbent": {
+      "result": "NOT MEASURED",
+      "detail": "requires data/raw/training_features.tif and labels.tif (DrivenData login-gated); absent from this checkout"
+    },
+    "G4_literal_novelty_full_registry": {
+      "result": "NOT MEASURED",
+      "detail": "992-raster registry not cached locally; GitHub TLS unavailable in this sandbox"
+    },
+    "G5_novelty_vs_local_rasters": {
+      "result": "PASS (partial inventory)",
+      "detail": "vs 36 locally available rasters: max |Spearman rho| 0.0212 (limit 0.90), max forward 3-px overlap 0.2456 (limit 0.70)"
+    },
+    "G6_select_approval": {
+      "result": "NOT APPROVED",
+      "detail": "no selector receipt bound to this raster; account-side weekly slot not observable"
+    }
+  },
+  "holdout_dti": {
+    "evidence_class": "NOT_MEASURED",
+    "dti": null,
+    "ci95": null,
+    "evaluator_version": "gems57-pooled-hide-v2"
+  },
+  "leakage_canary": {
+    "evidence_class": "NOT_RUN",
+    "passed": null,
+    "required_threshold": 0.9
+  },
+  "verdict": "negative",
+  "ok_to_download": true,
+  "ok_to_submit": false,
+  "submission_slots_used": 0,
+  "blockers": [
+    "holdout_dti_not_measured_training_data_login_gated",
+    "leakage_canary_not_run_training_data_login_gated",
+    "literal_novelty_full_registry_not_measured",
+    "separate_selector_has_not_approved_a_slot"
+  ]
+}
