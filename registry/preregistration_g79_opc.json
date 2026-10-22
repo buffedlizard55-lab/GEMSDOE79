@@ -111,5 +111,14 @@
    "change": "lidar_strike_concordance uses cos^2(theta_lidar - theta_opc) = (1+cos 2 delta)/2 instead of |cos 2 delta|, and the label-free convention check uses the signed mean cos 2 delta",
    "reason": "|cos 2 delta| equals 1 for both parallel and perpendicular strikes, so it cannot express concordance and cannot detect a 90-degree convention error (measured: two conventions differing by 90 deg scored identically, evidence/opc/lidar_strike_convention.json first version). Found by inspecting the label-free convention scores only; no holdout, canary or truth-based number existed."
   }
+ ],
+ "deviations_after_first_result": [
+  {
+   "id": "D-OPC-2",
+   "utc": "2026-10-22T19:31:00Z",
+   "change": "holdout placement domain and training negative pool exclude only the VISIBLE catalogue (known to the lane), not the full catalogue",
+   "reason": "BUG, found after the first seed-20 run: allowed = footprint & d_vis>3 & ~grid.catalogue removed every withheld-truth pixel from the placement domain (and from the training negatives), i.e. it used truth to forbid dots on truth. This violates the hide-and-recover semantics. The first run (EXP-OPC-2 0.0657) is preserved as evidence/opc/seed20_INVALID_run1_truth_excluded_from_allowed.json and is NOT a lane result. No model, feature, hyperparameter or placement rule was changed. Live mode was always correct: the live catalogue is fully known.",
+   "disclosure": "This is a post-result correction; reviewers should weigh it as such."
+  }
  ]
 }

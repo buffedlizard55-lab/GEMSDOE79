@@ -166,7 +166,7 @@ def sim_draws(visible, grid, base_seed, lphi, tag):
     return draws
 
 
-def assemble(draws, grid, quad, train_quads, phys, rng):
+def assemble(draws, grid, quad, train_quads, phys, rng, known):
     """Training rows (footprint-row indices) for the given quadrants."""
     fp = grid.footprint
     rowid = np.full(fp.shape, -1, np.int64)
@@ -177,7 +177,10 @@ def assemble(draws, grid, quad, train_quads, phys, rng):
         for q in train_quads:
             reg = dr["regions"][q]
             pos = dr["hidden"] & reg
-            negpool = reg & fp & ~grid.catalogue & (dr["dsim"] > 3)
+            # ``known`` = the catalogue the lane is allowed to see (visible V in the
+            # holdout, full catalogue live). Using grid.catalogue here would drop the
+            # real withheld truth from the negatives (D-OPC-2).
+            negpool = reg & fp & ~known & (dr["dsim"] > 3)
             negpool &= ~pos
             pidx = rowid[pos]
             nidx_all = np.flatnonzero(negpool.ravel())
@@ -259,7 +262,9 @@ def run_seed(seed, grid, names_phys, lphi):
     vis = folds[0]["visible"]
     hidden_all = folds[0]["hidden_all"]
     d_vis = ndi.distance_transform_edt(~vis)
-    allowed = fp & (d_vis > 3) & ~grid.catalogue & (quad >= 0)
+    # D-OPC-2: only the VISIBLE catalogue may shape the domain; excluding the full
+    # catalogue would forbid dots exactly on the withheld truth (a truth leak).
+    allowed = fp & (d_vis > 3) & (quad >= 0)
     Gv, gmeta = geom_fp(vis, grid, lphi, seed=7907, tag=f"vis{seed}")
     names = names_phys + opc.GEOM_NAMES
     rng = np.random.default_rng(79_000 + seed)
@@ -287,7 +292,7 @@ def run_seed(seed, grid, names_phys, lphi):
     importances = {}
     for q in range(4):
         tq = [k for k in range(4) if k != q]
-        X, y, w, st = assemble(draws, grid, quad, tq, phys, rng)
+        X, y, w, st = assemble(draws, grid, quad, tq, phys, rng, vis)
         rows_q = np.flatnonzero(quad_fp == q)
         Xq = np.hstack([phys[rows_q], Gv[rows_q]])
         train_meta[q] = st
@@ -357,7 +362,7 @@ def run_live(grid, names_phys, lphi):
     Gl, gmeta = geom_fp(cat, grid, lphi, seed=7907, tag="live")
     draws = sim_draws(cat, grid, 9900, lphi, tag="live")
     rng = np.random.default_rng(79_999)
-    X, y, w, st = assemble(draws, grid, quad, [0, 1, 2, 3], phys, rng)
+    X, y, w, st = assemble(draws, grid, quad, [0, 1, 2, 3], phys, rng, cat)
     m = fit(X, y, list(range(X.shape[1])), 7999)
     del X, y; gc.collect()
     p = np.zeros(n, np.float32)
