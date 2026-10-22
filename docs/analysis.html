@@ -249,7 +249,469 @@ This is consistent with the shift being real.</p>
    expert faults rather than of catalogue faults. Preregister this before running it.</li>
 <li><strong>Hypothesis 3 (Lahontan shoreline suppression)</strong> needs the absolute 3DEP DEM, which
    is free from the <a href="https://apps.nationalmap.gov/downloader/">USGS National Map</a>.</li>
-</ol></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>What actually explains H33, and what would justify claiming an improvement?</h2>
+</ol></div></section><section class="section"><h2>Lane G79-BER (session 4f80e0d0, negative, archived)</h2><div class="prose table-scroll"><h2>G79-BER analysis — why H33 leads, what banded evidence recovery measured, and whether 0.2778 can be beaten</h2>
+<p>Session <code>4f80e0d0</code>, branch <code>arena/4f80e0d0-gemsdoe79</code>, 2026-10-22.
+Lane <strong>G79-BER</strong>, experiment <strong>X1 of at most 3</strong> (1 used), preregistered in
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_ber.json"><code>registry/preregistration_ber.json</code></a>
+before any result. Run card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_ber.json"><code>run_card_ber.json</code></a>.
+Machine evidence: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/ber"><code>evidence/ber/</code></a>.</p>
+<p><strong>Verdict: negative. OK TO DOWNLOAD: YES (research). OK TO SUBMIT: NO.</strong>
+No submission slot was used. Every performance number below is labelled
+HOLDOUT-DTI, REGISTRY-MEASUREMENT, RASTER-MEASUREMENT or
+UNVERIFIED HISTORICAL REPORT. No leaderboard score is claimed or projected
+for any file produced here; the only ORGANIZER-CONFIRMED scores this project
+can ever cite are DrivenData submission-page receipts, of which this session
+produced none.</p>
+<hr />
+<h3>1. Executive answer</h3>
+<ol>
+<li><strong>A new, unique-by-construction GeoTIFF was generated and is downloadable</strong>
+   (<code>archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif</code>,
+   SHA-256 <code>934b5c50…c56dbc89b</code>). It is format-valid (single-band float32,
+   EPSG:32611, 3730 × 3292, values exactly 0/1, all finite, no nodata
+   sentinel — the local conditions for the portal error
+   "Predicted values must be in range [0, 1]" are absent). It is labelled
+   <strong>DO NOT SUBMIT</strong> automatically, because it failed two preregistered
+   gates. No human inspection is needed or permitted to change that.</li>
+<li><strong>HOLDOUT-DTI</strong>: the candidate scored 0.0788 [0.0684, 0.0889] (seed 20,
+   n = 11,321 withheld positives) and 0.0882 [0.0739, 0.1011] (seed 30,
+   n = 11,342) against the fold-fair H33 control's 0.0961 / 0.0989 on the
+   identical instrument (<code>gems57-pooled-hide-v2</code>). It beats uniform
+   placement decisively but does <strong>not</strong> beat the current holdout best on
+   either seed. Under the protocol ("do not spend a submission slot on an
+   idea that hasn't beaten the current holdout best"), that ends the lane.</li>
+<li><strong>Uniqueness</strong>: against every informative comparable registry raster the
+   surface is the most distinct this repo has measured (worst Spearman
+   ρ = 0.314, worst chance-corrected 3 px overlap = 0.654; limits 0.90 /
+   0.70). It is nevertheless recorded <strong>not unique under amendment D-2</strong>,
+   because four full-footprint diagnostic surfaces fire D-2's
+   saturated-halo exact test (IR-79-68) and 6 of 992 registry rasters are
+   not comparable on this grid. The gate was <strong>not</strong> modified after seeing
+   this; §7 explains why, and what a prospective D-3 would need.</li>
+<li><strong>Can 0.2778 be beaten?</strong> Nothing in this session's evidence supports
+   spending a slot on that claim. §8 quantifies what beating it requires in
+   metric terms and ranks the remaining paths by expected value. The honest
+   summary: every measured route that is <em>independent</em> of the H19-5 lineage
+   scores below the H33 control on the only validated instrument available
+   offline, and every route that beats the control offline has so far
+   reproduced prior rasters. Breaking that trade-off needs either new
+   information (GPU-scale modelling, absolute-elevation data) or an owner
+   decision on the duplicate definition — not another tabular retune.</li>
+</ol>
+<h3>2. What was verified from official sources (line by line)</h3>
+<p>Fetched 2026-10-22; verify manually at the links.</p>
+<ul>
+<li><strong>Problem and metric</strong> — DrivenData competition 306 overview,
+  <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/</a>:
+  detect geothermal-indicative faults in the GeoDAWN region; the USGS
+  catalogue is incomplete/inaccurate; the test labels are expert-identified
+  faults <strong>not</strong> in the USGS database. Metric (verbatim structure):
+  kernel <code>k(d) = max(1 − d/R, 0)</code>, R = 300 m;
+  <code>TPw = Σ_g max_x p(x)·k(d)</code>, <code>FPw = Σ_{p&gt;0} p(x)·[1 − max_g k(d)]</code>,
+  <code>FNw = Σ_g [1 − max_x p(x)·k(d)]</code>;
+  <code>DTI = TPw / (TPw + α·FPw + β·FNw)</code>, α = 0.2, β = 0.8. Worked example on
+  the page: TPw = 3.00, FPw = 1.89, FNw = 2.00 → 0.60. Our offline
+  evaluator (<code>vendor/gems57/evaluate_holdout.py</code>, <code>gems57-pooled-hide-v2</code>)
+  implements the same pooled form; its frozen control values reproduced
+  exactly this session (§5), which is the strongest available check that
+  the wiring is unchanged.</li>
+<li><strong>Submission format</strong> — same page: GeoTIFF, CRS UTM 11N (EPSG:32611),
+  100 m pixels, same bounds as the sample, single layer float32, values
+  0–1, null/NaN outside bounds in the template. This repo's writer emits
+  finite 0/1 everywhere instead (zeros template lineage), which the shared
+  validator checks byte-wise.</li>
+<li><strong>Prize structure</strong> — same page: one chosen submission is scored in both
+  prize rounds; the final round rescoring uses expanded expert labels.
+  Consequence: there is no "probe now, fix later" — a weak file submitted
+  this week can become the file that counts.</li>
+<li><strong>Official reference solution</strong> —
+  <a href="https://github.com/drivendataorg/gems-prize-reference-solution">https://github.com/drivendataorg/gems-prize-reference-solution</a>: a U-Net
+  with Monte-Carlo cross-validation (John Lipor). That is the organizer-sanctioned
+  modelling family; it is <strong>not runnable in this sandbox</strong> (2 CPU,
+  ~3.8 GB RAM, no GPU), which is a hard scope limit recorded in
+  <code>research/hypotheses_ber.md</code> (hypothesis 5).</li>
+<li><strong>Not verified</strong>: the live leaderboard (login-walled from here). The
+  brief cites both 0.4413 and 0.3195 as "highest"; treat both as
+  UNVERIFIED HISTORICAL REPORT until read on the submission page. The
+  family-best <code>h33-h33-2-b2-…-e5eb6e7e-zeros: 0.2778</code> is likewise a
+  user-reported ledger value (<code>registry/score_ledger.csv</code>), not an
+  ORGANIZER-CONFIRMED receipt in this repo.</li>
+</ul>
+<h3>3. Why H33 scored highest (PhD-level mechanism)</h3>
+<p>Evidence: <code>evidence/h33_forensics.json</code>,
+<code>evidence/family_lineage_forensics.json</code>, <code>knowledge/why_h33.md</code>
+(all RASTER-MEASUREMENT unless stated).</p>
+<p><strong>Lineage.</strong> Every reported family score above 0.2478 descends from one
+root surface, <code>h19-5</code>. H33 is not a new model: it is the D2.8 dot field
+with its 6,436 dots within 200 m of the catalogue deleted, leaving 37,654
+dots. Along the lineage, the count of dots within 200 m of the catalogue
+falls 6436 → 3894 → 2545 → 2353 → 0 while the reported score rises
+0.2600 → 0.2632 → 0.2708 → 0.2710 → 0.2778 (UNVERIFIED HISTORICAL REPORT
+for the scores; RASTER-MEASUREMENT for the dot counts).</p>
+<p><strong>Why deleting near-catalogue dots helps, in metric terms.</strong> DTI's FP term
+charges each positive pixel <code>p(x)·(1 − max_g k(d))</code> against the <em>expert</em>
+truth set, and the catalogue itself is masked pixel-exactly. A dot 100 m
+from a catalogue trace earns credit only if an <em>expert</em> (unmapped) fault
+pixel lies within 300 m; dots hugging mapped traces mostly pay FP mass
+while adding little TPw, because the max-cover in TPw saturates — one dot
+near a truth pixel already captures most of its credit, and β = 0.8 makes
+uncovered truth (FNw) four times more expensive per unit than FPw. H33's
+edit therefore does two things at once: it removes nearly pure-FP mass,
+and the fixed budget is re-expressed as a dot field whose median distance
+to the catalogue is 1.96 km, with 69.8 % of dots beyond 1 km
+(RASTER-MEASUREMENT, <code>evidence/ber/distance_diagnostics.json</code> reproduces
+this profile: median 19.6 px). In other words, H33 wins not by modelling
+faults better but by <em>spending its fixed budget where unmapped-fault
+discovery is geometrically possible</em> and refusing to spend it re-tracing
+the catalogue.</p>
+<p><strong>Why the H19-5 root is hard to beat.</strong> The genuinely independent family
+lanes (GEMSDOE70 at a reported 0.2478, forward 3 px overlap vs H33 only
+0.548; GEMSDOE49 at 0.2376, overlap 0.434 — overlaps RASTER-MEASUREMENT,
+scores UNVERIFIED) prove expert truth has large mass off the H19-5 lines.
+Yet on the offline hide-and-recover instrument, H19-5-lineage dots recover
+withheld catalogue components better than any single-sensor evidence
+ranking tried in this repo (H33 fold-fair control 0.0961 / 0.0989
+HOLDOUT-DTI, reproduced exactly in three independent lanes). The likely
+reason is corroboration: H19-5 was built from multiple independent
+lineament extractions, so its lines encode cross-sensor agreement that a
+per-pixel tabular model over the same rasters does not reconstruct —
+agreement is precisely what separates fault scarps from the named mimics
+(paleo-shorelines, canyon margins, lithologic contacts). G79-BER's
+stratified results (§5) are direct evidence: within 1 km of the catalogue
+our per-band models match the control, but beyond 2 km — where single-
+sensor evidence thins and corroboration matters most — they lose in every
+band on both seeds.</p>
+<p><strong>The trap this sets.</strong> The pooled holdout rewards catalogue proximity
+(withheld <em>catalogue</em> components sit near mapped systems; 98 % of withheld
+truth pixels this session lie within 5 km, 83 % within 2 km). H79-NHR
+exploited that with distance/density geometry, beat the control
+(0.1431 / 0.1522 HOLDOUT-DTI), and duplicated 26 registry fields whose
+reported public scores are 0.016–0.143 — i.e. the offline instrument's
+optimum is a known poor leaderboard region. Any lane that simply
+maximises pooled HOLDOUT-DTI will re-enter that trap. G79-BER was designed
+against it explicitly; that it still lost to the control is the scientific
+content of this session.</p>
+<h3>4. What G79-BER tested (design, frozen before results)</h3>
+<p>Full specification: <code>registry/preregistration_ber.json</code>; ranked hypotheses
+with viability checks: <code>research/hypotheses_ber.md</code>.</p>
+<ul>
+<li><strong>Bands.</strong> Five distance-to-visible-catalogue bands — (200, 500],
+  (500, 1000], (1000, 2000], (2000, 5000], &gt; 5000 m. Cells ≤ 200 m from
+  the catalogue and catalogue cells are never eligible (mirroring the
+  measured H33 rule). Full-footprint allowed cells per band:
+  409,430 / 595,180 / 1,009,170 / 1,782,574 / 1,066,471; the 37,654-dot
+  budget is allocated ∝ allowed area by largest remainder:
+  <strong>3170 / 4609 / 7814 / 13803 / 8258</strong> (RASTER-MEASUREMENT).</li>
+<li><strong>Models.</strong> One histogram gradient-boosting regressor per band (NHR
+  hyperparameters verbatim: 250 iterations, lr 0.08, 63 leaves, min-leaf
+  200, L2 1.0), target = 300 m triangular-kernel credit to nested-withheld
+  whole fault components (3 replicates, hide fraction 0.20, 3 px buffer,
+  200k uniform negatives per replicate). No band needed the preregistered
+  &lt; 3000-positive merge fallback (final positive rows per band:
+  42,161 / 67,834 / 60,040 / 38,518 / 3,810).</li>
+<li><strong>Features (85).</strong> The cached 52-feature NHR static stack (SHA-pinned
+  inputs, <code>evidence/ber/feature_receipt.json</code>) + 30 new transforms + 3
+  geometry features. New: FFT upward-continuation worms (horizontal
+  gradient magnitude and tilt of RTP magnetics, band 2, and isostatic
+  gravity, band 13, at 0/200/500/1000/2000 m continuation plus a rank-
+  persistence summary) targeting <strong>buried intrabasinal faults</strong> whose only
+  expression is a basement offset; step dipoles / σ3 gradients of
+  log depth-to-basement (band 15) and surface conductance (band 17); six
+  lidar antislope/dipole rank interactions targeting uphill-facing scarps.
+  Geometry restricted to <code>log_dist_visible_tip</code>, <code>lidar_strike_alignment</code>,
+  <code>strike_field_coherence</code>; raw distance-to-catalogue and density — the
+  features that collapsed NHR onto prior fields — are excluded from
+  ranking and used only to define bands.</li>
+<li><strong>Named non-fault mimics.</strong> Lake Lahontan shoreline/terrace risers
+  (contour-parallel steps with identical lidar and worm signatures) and
+  buried lithologic basement contacts / onlap edges (identical worm
+  signature, no fault). Absolute-elevation shoreline suppression was
+  assessed and rejected as not viable here: it needs an absolute DEM
+  (USGS 3DEP is the named free official source), but this sandbox's egress
+  is limited to GitHub/PyPI (hypotheses doc, hypothesis 3).</li>
+<li><strong>Holdout.</strong> Shared <code>buffered_component_draw</code>, seeds 20/30, leave-one-
+  quadrant-out; arms: candidate, <code>h33_foldfair_control</code>,
+  <code>uniform_control</code>, <code>banded_uniform_control</code> (diagnostic isolating the
+  allocation), plus a distance-stratified kernel-credit diagnostic.</li>
+<li><strong>Promotion gate (preregistered).</strong> Canaries ≤ 0.90 both seeds;
+  candidate &gt; H33 fold-fair control point estimate both seeds; paired 95 %
+  CI vs uniform excludes 0 both seeds; amendment-D-2 uniqueness before
+  placement and on final dots; shared writer/validator pass with exactly
+  37,654 dots. "Promote" would have meant promote-to-selector only.</li>
+</ul>
+<p>The worm implementation was verified independently: spectral HGM at 0 m
+continuation correlates 0.90 (RTP) / 0.77 (gravity) with the repo's
+existing spatial-Gaussian gradient magnitudes on a 200k-cell sample, all
+features are finite where the source rasters are, and no new feature
+approaches the leakage canary (worm AUCs 0.52–0.58). The negative below is
+therefore a measurement, not an implementation artefact.</p>
+<h3>5. Results (all HOLDOUT-DTI, evaluator <code>gems57-pooled-hide-v2</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>Seed 20 (n = 11,321)</th>
+<th>Seed 30 (n = 11,342)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>candidate (G79-BER)</strong></td>
+<td><strong>0.0788</strong> [0.0684, 0.0889]</td>
+<td><strong>0.0882</strong> [0.0739, 0.1011]</td>
+</tr>
+<tr>
+<td>h33_foldfair_control (bar)</td>
+<td>0.0961 [0.0837, 0.1086]</td>
+<td>0.0989 [0.0842, 0.112]</td>
+</tr>
+<tr>
+<td>uniform_control</td>
+<td>0.0500 [0.0448, 0.0552]</td>
+<td>0.0498 [0.0449, 0.0541]</td>
+</tr>
+<tr>
+<td>banded_uniform_control</td>
+<td>0.0502 [0.0450, 0.0553]</td>
+<td>0.0490 [0.0442, 0.0532]</td>
+</tr>
+<tr>
+<td>paired Δ candidate − H33</td>
+<td>−0.0173 [−0.0287, −0.0055]</td>
+<td>−0.0106 [−0.0245, +0.0044]</td>
+</tr>
+<tr>
+<td>paired Δ candidate − uniform</td>
+<td>+0.0288 [0.0185, 0.0386]</td>
+<td>+0.0385 [0.0248, 0.0508]</td>
+</tr>
+</tbody>
+</table>
+<p>Control values reproduce the frozen H79-NHR X1 numbers exactly (0.096086…,
+0.098898…), confirming identical folds, evaluator and wiring. The banded-
+uniform arm shows the area-proportional allocation itself is neutral for
+random dots; all candidate lift over uniform comes from within-band
+ranking, and it is not enough.</p>
+<p><strong>Leakage canary: PASS.</strong> 680 single-feature AUC tests (85 features × 4
+folds × 2 seeds); maximum 0.8589 (<code>geom_log_dist_visible_tip</code>, the same
+known geometry feature as in NHR), threshold 0.90.</p>
+<p><strong>Distance-stratified kernel credit per withheld truth pixel</strong>
+(diagnostic, HOLDOUT-DTI machinery; bands by truth distance to visible
+catalogue):</p>
+<table>
+<thead>
+<tr>
+<th>Band</th>
+<th>Truth px (s20/s30)</th>
+<th>BER s20</th>
+<th>H33 s20</th>
+<th>BER s30</th>
+<th>H33 s30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>(200, 500] m</td>
+<td>2509 / 2377</td>
+<td>0.110</td>
+<td>0.120</td>
+<td>0.123</td>
+<td>0.123</td>
+</tr>
+<tr>
+<td>(500, 1000] m</td>
+<td>3662 / 3838</td>
+<td>0.126</td>
+<td>0.144</td>
+<td>0.137</td>
+<td>0.131</td>
+</tr>
+<tr>
+<td>(1000, 2000] m</td>
+<td>3306 / 3089</td>
+<td>0.102</td>
+<td>0.151</td>
+<td>0.143</td>
+<td>0.168</td>
+</tr>
+<tr>
+<td>(2000, 5000] m</td>
+<td>1659 / 1939</td>
+<td>0.118</td>
+<td>0.140</td>
+<td>0.094</td>
+<td>0.156</td>
+</tr>
+<tr>
+<td>&gt; 5000 m</td>
+<td>185 / 99</td>
+<td>0.077</td>
+<td>0.163</td>
+<td>0.003</td>
+<td>0.216</td>
+</tr>
+</tbody>
+</table>
+<p>Two mechanisms, both unfavourable: (i) <strong>allocation</strong> — 58 % of dots are
+sent beyond 2 km, where only ~16 % of holdout truth lives; (ii) <strong>within-
+band ranking</strong> — even per truth pixel, the far-band models recover less
+than H19-5-lineage dots, and beyond 5 km they recover almost nothing on
+seed 30. Mechanism (ii) is the deeper result: at fixed budget share, our
+worm/scarp evidence ranks far-field withheld faults worse than the
+corroborated multiline field. Caveat, stated before the run and still
+true: the holdout withholds <em>catalogue</em> components, so it cannot directly
+reward discovery of the <em>expert</em> faults that determine the leaderboard,
+and its far-band truth counts (185 / 99 pixels) are small. That caveat
+cuts both ways — it is not evidence BER would score well publicly; it is
+a statement that this instrument cannot settle the far-field question,
+which is exactly why the preregistered bar was the pooled control
+comparison rather than the stratified diagnostic.</p>
+<p><strong>Distance/road profile of the final dots</strong> (RASTER-MEASUREMENT,
+<code>evidence/ber/distance_diagnostics.json</code>): median distance to catalogue
+20.9 px (2.09 km) vs H33's 19.6 px; 79.3 % of dots beyond 1 km (H33:
+69.8 %); 8.4 % within 500 m (H33: 15.0 %). Median distance to a TIGER road
+781 m vs 640 m footprint-wide; 12.9 % of dots within 100 m of a road vs
+16.2 % footprint-wide — the dot field is not a road-following artefact.
+The design achieved its intended H33-like far profile; profile alone does
+not produce H33-like recovery.</p>
+<h3>6. Uniqueness and amendment D-2 (REGISTRY-MEASUREMENT)</h3>
+<p>The literal duplicate rule (" &gt; 70 % of dots within 3 px of <em>any</em> registry
+raster's positive support") is unsatisfiable in this registry (IR-79-53:
+space-filling priors flag even uniform-random dots). With the user's
+standing instruction that uniqueness must be decidable, this session
+adopted <strong>amendment D-2</strong> prospectively, before any BER result
+(<code>reports/protocol_amendment_D2_20261022.md</code>), implemented once in the
+shared tool (<code>vendor/gems57/uniqueness.py</code>,
+<code>compare_array_to_registry_d2</code>, pin updated in
+<code>registry/template_pin.json</code>, 7 unit tests): a candidate is a duplicate
+iff it is byte/decoded-identical, or Spearman ρ &gt; 0.90, or its 3 px
+forward overlap against a prior's dot-equivalent set exceeds 0.70 <strong>and</strong>
+the chance-corrected overlap <code>(ov − h)/(1 − h)</code> (h = the prior halo's
+share of allowed cells) also exceeds 0.70; if the halo saturates
+(h ≥ 0.999999) exact-cell overlap &gt; 0.70 decides instead. D-2 does not
+resurrect stopped lanes (NHR's worst corrected overlap is 0.777 — still a
+duplicate). Wording is always "unique under D-2", never literal-rule
+unique; literal overlaps are reported alongside (78 literal firings for
+BER, as for any map in this registry).</p>
+<p>Surface scan (pre-placement, as protocol requires): 986 of 992 registry
+rasters comparable. The 6 exceptions are named in the evidence: four
+CRS/transform mismatches (including two <code>SCHEMA-DEMO</code> files), one corrupt
+TIFF (<code>smoke.tif</code>, missing <code>StripOffsets</code>), one grid/band mismatch
+(<code>GEMS36_FORMAT_TEST_NOT_SUBMISSION</code>). Results:</p>
+<ul>
+<li>worst Spearman ρ <strong>0.314</strong> (GEMSDOE48 H56b plausibility) — limit 0.90;</li>
+<li>worst chance-corrected overlap <strong>0.654</strong> (coverage-v3-wide, raw overlap
+  0.859 at halo 0.593) — limit 0.70;</li>
+<li><strong>4 D-2 firings</strong>, all full-footprint diagnostic surfaces whose tie-
+  inclusive dot-equivalent set is the entire footprint (5,167,373 cells),
+  forcing exact overlap 1.0 for <em>any</em> candidate: three GEMSDOE48
+  "unassigned-mass" diagnostics (ρ = 0.0013) and the 5GEMSDOE density
+  probe (ρ = 0.178). Recorded as <strong>IR-79-68</strong>.</li>
+</ul>
+<p><strong>Decision:</strong> the lane is recorded <em>not unique under D-2</em>, placement was
+never run, and the archived TIFF serialises the audited provisional
+top-quota dots once as negative evidence. The saturated branch was
+designed for genuine dot lattices (|S| = 37,654); for tie-degenerate
+plateau surfaces a chance-corrected exact test (or declaring
+|S| ≥ 99 % of allowed non-informative) would be the principled fix — but
+adopting it after seeing it fire on our own experiment would be moving
+the goalposts, and the verdict is negative on holdout regardless. A D-3
+amendment is a prospective owner decision for a future lane; the exact
+formula recommended is recorded in IR-79-68. What can be stated as
+measurement: against all 982 informative comparable rasters, BER passes
+both D-2 numeric criteria with margin — intrinsic uniqueness-by-design
+(banded allocation + per-band rank normalisation) worked where
+uniqueness-by-capping (G79B-SDPT) and pooled ranking (H79-NHR) did not.</p>
+<h3>7. Irregularities found this session</h3>
+<ul>
+<li><strong>IR-79-67</strong> — <code>data/restore_receipt.json</code> pins <code>ext_geodawn_rad_u8</code> to
+  SHA <code>e8086c…</code>, conflicting with the manifest's <code>c22420…</code>; the on-disk
+  file matches the manifest. Left untouched (frozen evidence); restores
+  must not use <code>--preserve-receipt</code>.</li>
+<li><strong>IR-79-68</strong> — D-2 saturated-halo degeneracy on plateau diagnostics
+  (above). Gate left exactly as preregistered; D-3 recommendation
+  recorded.</li>
+<li><strong>IR-79-69</strong> — a parallel-edit race truncated the first finalize note
+  mid-token; one documented repackage with identical dots, gates and
+  verdict produced byte-identical raster bytes (SHA-256 <code>934b5c50…</code>
+  before and after).</li>
+</ul>
+<h3>8. Can the family best (reported 0.2778) be beaten?</h3>
+<p><strong>What the metric requires.</strong> At H33-like FP mass, reaching a reported
+0.3195 needs ≈ 1.2× H33's expert-truth kernel credit and 0.4413 needs
+≈ 1.6–1.7× (arithmetic on the verified DTI formula; the leaderboard
+values themselves are UNVERIFIED per §2). No formatting trick buys this:
+values must stay in [0, 1], the budget of useful dots is fixed by FP
+economics, and max-cover means credit only grows by putting dots within
+300 m of <em>expert</em> faults that H33 misses, without spending the dots that
+earn H33's existing credit.</p>
+<p><strong>What the accumulated evidence says.</strong></p>
+<ul>
+<li>Independent tabular evidence ranking over the supplied 19 bands +
+  lidar/radiometric mirrors has now been measured four ways in this repo
+  (NHR pooled, STEPCO, G79B, BER banded). Offline, only the
+  catalogue-proximity variant beats the H33 control, and it duplicates
+  known low-scoring fields. The far-field, where new credit must come
+  from, is exactly where per-pixel evidence is weakest (§5).</li>
+<li>The two independent reported scores near the top (GEMSDOE70 0.2478,
+  GEMSDOE49 0.2376; UNVERIFIED) show off-lineage truth exists but was
+  captured at lower efficiency than H33 captures on-lineage truth.</li>
+<li>Therefore a &gt; 0.2778 file most plausibly requires <strong>new information or
+  corroboration structure</strong>, not a new weighting of the same rasters:
+  (a) the organizer's U-Net family (spatial context learns scarp-vs-
+  shoreline morphology per-pixel features cannot) — needs GPU
+  infrastructure this sandbox lacks; (b) absolute-elevation data (USGS
+  3DEP, free/public-domain) enabling Lahontan shoreline suppression, the
+  single largest named mimic — needs a data path into the sandbox
+  (egress is GitHub/PyPI only; a GitHub-mirrored, SHA-pinned derivative,
+  as was done for the lidar stack, is the established pattern);
+  (c) an <em>independent</em> multiline corroboration build in the H19-5 spirit
+  but from disjoint extractors, preregistered against the D-2/D-3 gate so
+  its uniqueness is intrinsic. Each is a future preregistered lane, and
+  none may spend a weekly slot before beating the H33 fold-fair control
+  on both seeds of the shared instrument — the rule that stopped this
+  lane.</li>
+<li>The duplicate-gate blocker also needs the owner's prospective decision
+  (D-3, IR-79-68): under any reading in force today, even a future
+  holdout-winning surface would need its uniqueness established against
+  plateau diagnostics in a way the current tool cannot express.</li>
+</ul>
+<p><strong>Bottom line for this week:</strong> there is no file in this repository —
+including the one generated this session — that the automatic gates can
+honestly mark OK TO SUBMIT. The canonical site artifact remains the
+H79-NHR research GeoTIFF (DO NOT SUBMIT). Spending a slot now would mean
+choosing between a duplicate (NHR-class) and a holdout-loser (BER-class);
+the protocol exists precisely to refuse that choice.</p>
+<h3>9. Limitations</h3>
+<ul>
+<li>Holdout truth is withheld <em>catalogue</em> components; leaderboard truth is
+  expert-only faults. HOLDOUT-DTI is a gate, not a score estimate, in
+  either direction.</li>
+<li>Far-band stratified counts are small (185 / 99 truth pixels beyond
+  5 km); the seed-30 value 0.003 should be read as "essentially no
+  recovery measured", with wide uncertainty.</li>
+<li>Inputs are owner GitHub mirrors verified against
+  <code>registry/data_manifest.json</code> SHA-256 pins; organizer-origin
+  authentication is impossible without a DrivenData login. 6 of 992
+  registry rasters are not grid-comparable (§6).</li>
+<li>Compute ceiling (2 CPU / 3.8 GB) excluded the reference U-Net family;
+  tabular HGB is what was measurable here.</li>
+<li>Experiment budget: 1 of 3 experiments used; feature build + two
+  holdout seeds + final fit + registry scan ≈ 62 min inside the 2 h
+  window from preregistration (04:45 → 05:47 UTC). X2/X3 were reserved
+  for defect fixes; line-by-line review found no implementation defect
+  (controls reproduced exactly, quotas exact in every fold, worms
+  verified against independent gradients), so they were not spent.</li>
+</ul>
+<h3>10. Reproduction (read-only checks; the lane is terminal)</h3>
+<pre><code class="language-bash">.venv/bin/python -m pytest tests/test_ber.py tests/test_uniqueness_d2.py -q
+.venv/bin/python scripts/validate_submission.py \
+  archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif
+.venv/bin/python scripts/verify_project.py
+</code></pre>
+<p><code>scripts/run_ber.py</code> and <code>scripts/finalize_ber.py</code> refuse to run now that
+<code>run_card_ber.json</code> exists; that refusal is the terminal-lane guard, not
+an error.</p></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>What actually explains H33, and what would justify claiming an improvement?</h2>
 <h3>Answer in one paragraph</h3>
 <p>The named H33 raster is not evidence of a newly trained geological model. The
 actual downloaded bytes show it is <strong>exactly a subset</strong> of the earlier D2.8

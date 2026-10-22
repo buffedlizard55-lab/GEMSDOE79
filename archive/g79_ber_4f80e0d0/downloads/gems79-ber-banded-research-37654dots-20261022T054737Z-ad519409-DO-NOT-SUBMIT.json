@@ -1,0 +1,126 @@
+{
+  "file": "gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif",
+  "sha256": "934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b",
+  "bytes": 114265,
+  "submission_name": "gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT",
+  "note": "G79-BER research only; HOLDOUT-DTI 0.079/0.088 vs H33 0.096/0.099; FAILED holdout<H33,no-final-dots,surface-uniqueness,final-uniqueness",
+  "note_chars": 135,
+  "validator": {
+    "file": "archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif",
+    "bytes": 114265,
+    "sha256": "934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "template_report": {
+    "path": "archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif",
+    "bytes": 114265,
+    "sha256": "934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "n_nonzero": 37654,
+    "mass": 37654.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "e2f70c1cac7b9b1c74d9b66926c5da2c135c0f466bb3fd5215a1d854fb056e60",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "G79-BER",
+    "experiment": "X1",
+    "dots_sha256": "ad5194091950f47972aadc28fcf4d115753734d700832a1007e4fb8e7900c276",
+    "dots_source": "provisional surface top-quota dots (placement stopped)",
+    "rank_surface_sha256": "b85922ff4b5ad57903fa13c63e9ae6b9c45ba0a7cde28b4e85e20f518b2de16c"
+  }
+}

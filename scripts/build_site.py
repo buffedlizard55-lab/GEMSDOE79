@@ -338,6 +338,15 @@ def main():
               'evidence/artifact_reproduction.json': 'artifact_reproduction.json',
               'evidence/ff/ff_run_card.json': 'ff_run_card.json',
               'run_card_stepco.json': 'run_card_stepco.json',
+              'registry/preregistration_ber.json': 'preregistration_ber.json',
+              'evidence/ber/x1_holdout_seed20.json': 'ber_holdout_seed20.json',
+              'evidence/ber/x1_holdout_seed30.json': 'ber_holdout_seed30.json',
+              'evidence/ber/uniqueness_surface.json': 'ber_uniqueness_surface.json',
+              'evidence/ber/x1_gates.json': 'ber_gates.json',
+              'evidence/ber/x1_final_surface.json': 'ber_final_surface.json',
+              'evidence/ber/feature_receipt.json': 'ber_feature_receipt.json',
+              'evidence/ber/distance_diagnostics.json': 'ber_distance_diagnostics.json',
+              'run_card_ber.json': 'run_card_ber.json',
               'run_card_g79b.json': 'run_card_g79b.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
@@ -360,6 +369,7 @@ def main():
                           page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
                                     'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
                           + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
+                          + '<section class="section"><h2>Lane G79-BER (session 4f80e0d0, negative, archived)</h2>' + md('reports/ber_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
@@ -371,6 +381,9 @@ def main():
                           + '<section class="section"><h2>Concurrent lane G79-STEPCO (session 220dabc8, negative, archived)</h2>'
                           + '<p>Run in parallel by another session and merged first. Its S1 holdout tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989); its artifacts are archived byte-for-byte in <code>archive/g79_stepco_s1/</code> and <code>archive/g79_stepco_s2/</code>. <a href="evidence/run_card_stepco.json">STEPCO run card</a> · <a href="evidence/stepco/holdout_s1_seed20.json">holdout seed 20</a>.</p>'
                           + md('research/hypotheses_g79stepco_20261022.md') + md('reports/protocol_amendment_D1_20261022.md') + '</section>'
+                          + '<section class="section"><h2>Lane G79-BER (session 4f80e0d0, negative, archived)</h2>'
+                          + '<p>Band-stratified evidence recovery, preregistered before any result: five distance-to-catalogue bands with area-proportional quotas, one nested-hide model per band, and 30 new worm / basement-step / antislope transforms (85 features). HOLDOUT-DTI 0.0788 [0.0684, 0.0889] (seed 20) and 0.0882 [0.0739, 0.1011] (seed 30) vs the H33 fold-fair control 0.0961 / 0.0989 — below the bar on both seeds, so no slot was spent. Under amendment D-2 the surface is the most registry-distinct measured here (worst ρ 0.314, worst chance-corrected overlap 0.654) but is recorded not unique: four full-footprint diagnostic surfaces fire the saturated exact test (IR-79-68) and the gate was not changed after the result. Verdict: negative, <code>ok_to_submit: false</code>; artifact archived as DO-NOT-SUBMIT in <code>archive/g79_ber_4f80e0d0/</code>. <a href="evidence/run_card_ber.json">BER run card</a> · <a href="evidence/preregistration_ber.json">preregistration</a> · <a href="analysis.html">full analysis</a>.</p>'
+                          + md('research/hypotheses_ber.md') + md('reports/protocol_amendment_D2_20261022.md') + '</section>'
                           + '<section class="section"><h2>Concurrent lane G79B-SDPT (session 67557396, negative, archived) &amp; H79-FF (session 1de1617f, negative, archived)</h2>'
                           + '<p><strong>G79B-SDPT</strong> (archived in <code>archive/g79b_sdpt_67557396/</code>): Unconstrained A3 scored HOLDOUT-DTI 0.1211 [0.1029, 0.1402] (seed 30) and 0.1114 [0.0943, 0.1287] (seed 20) vs its A1 control 0.1143 / 0.1087 (paired 95% CIs vs control span zero), and failed the duplicate gate against 99 dot-field priors. Post-duplicate Amendments B1/B2 overlap-capped 52 priors (E2), reducing HOLDOUT-DTI to 0.1036 / 0.0910 (below control on both seeds). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/run_card_g79b.json">G79B run card</a> · <a href="evidence/concurrent_lanes_audit.json">9-lane &amp; cross-lane audit</a>.</p>'
                           + '<p><strong>H79-FF</strong> (archived in <code>archive/h79_ff_1de1617f/</code>): Placed 37,654 binary dots strictly 2–8 km off the mapped catalogue ranked by USGS 3DEP lidar <code>step_max</code>. Not preregistered and not evaluated on <code>HOLDOUT-DTI</code>; failed the duplicate gate (1.0000 vs space-filling priors, 0.9976 vs 13GEMSDOE lattice, 0.8802 vs GEMSDOE3 coverage-v3-wide). Verdict: negative, <code>ok_to_submit: false</code>. <a href="evidence/ff_run_card.json">H79-FF run card</a>.</p>'

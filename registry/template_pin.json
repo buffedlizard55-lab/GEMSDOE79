@@ -109,11 +109,11 @@
     },
     {
       "path": "vendor/gems57/uniqueness.py",
-      "git_blob": "931c153f104540879d09a7605d525569ca2659d1",
-      "sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
-      "previous_sha256": "1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95",
-      "previous_git_blob": "71d66ff89aa3a5cfdaeffb11fe09fa2609cc73e5",
-      "version_note": "v3 shared fix (session 337ac1e9, IR-79-47): adds DOT_DEFINITIONS, budget_matched_dots() and the dot_definition parameter of compare_array_to_registry. Default stays 'literal'; with 'budget-matched-v3' a continuous-surface registry raster is compared via its top-k cells (k = candidate dot count, ties included) while its full-surface Spearman rho is unchanged; constant rasters still block. Upstream origin: 60GEMSDOE@b99591e."
+      "git_blob": "4cbaa24ab1cf48ae12c95653164699138fa00d23",
+      "sha256": "df5bd1a1fb33bfa41045b52295714f2bdf74556007eb5b23e2598dbccce5de12",
+      "previous_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+      "previous_git_blob": "931c153f104540879d09a7605d525569ca2659d1",
+      "version_note": "v4 shared fix (session 4f80e0d0, amendment D-2, reports/protocol_amendment_D2_20261022.md): adds chance_corrected_overlap, d2_row_decision and compare_array_to_registry_d2 (rho vs every raster; dot-equivalent sets as in v3/D-1; duplicate iff raw forward overlap >0.70 AND chance-corrected (ov-h)/(1-h) >0.70, exact-cell test when halo saturates; literal reading always reported). All v3/literal functions unchanged. Previous v3 note: v3 shared fix (session 337ac1e9, IR-79-47): adds DOT_DEFINITIONS, budget_matched_dots() and the dot_definition parameter of compare_array_to_registry. Default stays 'literal'; with 'budget-matched-v3' a continuous-surface registry raster is compared via its top-k cells (k = candidate dot count, ties included) while its full-surface Spearman rho is unchanged; constant rasters still block. Upstream origin: 60GEMSDOE@b99591e."
     },
     {
       "path": "vendor/gems57/validate.py",

@@ -40,6 +40,28 @@ Session `1de1617f` generated an additional negative research GeoTIFF (`H79-FF`);
 | Verdict | **negative.** Unique by construction (new bytes, not copied) but not unique under the protocol gate and not evaluated on `HOLDOUT-DTI`; **do not upload**. See [`evidence/ff/ff_run_card.json`](evidence/ff/ff_run_card.json). |
 | Slots used | 0 |
 
+### Archived lane G79-BER (2026-10-22, session 4f80e0d0) — new unique-by-construction TIFF, negative
+
+**Decision for the new file: OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A new GeoTIFF was
+generated this session (band-stratified evidence recovery, preregistered before any result).
+It is format-valid but **failed the holdout gate**, so it must not be uploaded and no weekly
+slot was spent. The canonical artifact above is unchanged.
+
+| | |
+|---|---|
+| File | [`archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif`](archive/g79_ber_4f80e0d0/downloads/gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT.tif) · ZIP alongside |
+| Unique name | `gems79-ber-banded-research-37654dots-20261022T054737Z-ad519409-DO-NOT-SUBMIT` |
+| Note (135/140) | `G79-BER research only; HOLDOUT-DTI 0.079/0.088 vs H33 0.096/0.099; FAILED holdout<H33,no-final-dots,surface-uniqueness,final-uniqueness` |
+| SHA-256 | `934b5c50dfe79553c7ccd674932854bfa4ed474fd7e46b9385deaf4c56dbc89b` |
+| Format | single band float32, EPSG:32611, 3730 × 3292, values exactly 0/1, all finite, no nodata sentinel: **PASS** (local preflight vs the portal `[0, 1]` error; not organizer acceptance) |
+| Lane / experiment | G79-BER / X1 (1 of 3 allowed; ≈62 min of 2 h). Five distance bands, per-band nested-hide models, new worm/basement/antislope transforms (85 features) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`) | seed 20: **0.0788** [0.0684, 0.0889], n = 11,321 · seed 30: **0.0882** [0.0739, 0.1011], n = 11,342 |
+| HOLDOUT-DTI, H33 fold-fair control (the bar) | 0.0961 · 0.0989 — candidate **below the bar on both seeds** (paired Δ −0.0173 [−0.0287, −0.0055] · −0.0106 [−0.0245, +0.0044]) |
+| Leakage canary | 680 single-feature AUC tests, max 0.8589 ≤ 0.90: **PASS** |
+| Uniqueness (amendment D-2) | **Not unique under D-2 as preregistered.** Worst ρ 0.314 and worst chance-corrected overlap 0.654 vs all 982 informative comparable registry rasters (within limits), but 4 full-footprint diagnostic surfaces fire the saturated exact test (IR-79-68); gate not modified post-hoc. Placement never ran. |
+| Verdict | **negative**. No retuning, capping or second experiment. Full analysis: [`reports/ber_analysis.md`](reports/ber_analysis.md); card: [`run_card_ber.json`](run_card_ber.json); hypotheses: [`research/hypotheses_ber.md`](research/hypotheses_ber.md). |
+| Slots used | 0 |
+
 Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.

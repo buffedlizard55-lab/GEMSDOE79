@@ -434,5 +434,33 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>Quarantined <code>H79-FF</code>'s <code>.tif</code>, <code>.zip</code>, and <code>.json</code> byte-for-byte to <code>archive/h79_ff_1de1617f/downloads/</code> (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_ff_1de1617f/README.md"><code>archive/h79_ff_1de1617f/README.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/ff/ff_run_card.json"><code>evidence/ff/ff_run_card.json</code></a>), restored <code>data/restore_receipt.json</code> to all 7 verified files, added a stopped-lane guard to <code>scripts/build_ff_candidate.py</code>, and rebuilt <code>docs/</code> cleanly via <code>scripts/build_site.py</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>G79-BER session addendum — session 4f80e0d0 (2026-10-22)</h3>
+<p>Details: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/ber_analysis.md"><code>reports/ber_analysis.md</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_ber.json"><code>run_card_ber.json</code></a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/ber"><code>evidence/ber/</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-67</td>
+<td><strong>Frozen restore receipt conflicts with the data manifest.</strong> <code>data/restore_receipt.json</code> records <code>ext_geodawn_rad_u8</code> at SHA-256 <code>e8086c…</code>, while <code>registry/data_manifest.json</code> pins <code>c22420f7…</code>; the receipt's <code>ext_geodawn_mag_u8</code> (<code>a35a9c6d…</code>) equals the manifest's <code>extensions</code> entry. <code>scripts/restore_data.py --preserve-receipt</code> therefore fails closed even though all 7 on-disk files match the manifest pins.</td>
+<td>Left untouched: the receipt is frozen evidence and the manifest is authoritative for restores (the restore enforces manifest pins byte-wise). Future restores in a fresh sandbox must omit <code>--preserve-receipt</code> and run <code>scripts/restore_registry_git.py</code> separately.</td>
+</tr>
+<tr>
+<td>IR-79-68</td>
+<td><strong>Amendment D-2's saturated-halo branch is degenerate on plateau diagnostic surfaces.</strong> Four registry rasters (three GEMSDOE48 "unassigned-mass" diagnostics, Spearman ρ = 0.0013 vs the G79-BER surface; the 5GEMSDOE density probe, ρ = 0.178) are positive on the entire footprint, so their tie-inclusive dot-equivalent set is all 5,167,373 footprint cells, halo coverage is 1.0, and D-2's exact-cell fallback returns overlap 1.0 for <em>any</em> candidate (<code>evidence/ber/uniqueness_surface.json</code>). This is the same plateau class named in IR-79-53, reaching D-2 through the branch designed for genuine dot lattices (</td>
+<td>S</td>
+</tr>
+<tr>
+<td>IR-79-69</td>
+<td><strong>Finalize packaging defect (session-local).</strong> Two parallel edits to <code>scripts/finalize_ber.py</code> raced; the submission-note shortening was silently overwritten, so the first <code>run_card_ber.json</code> carried a 139-char note truncated mid-token (<code>…final_rank_correlation_le_0</code>).</td>
+<td>One documented repackage before any commit/publication: identical dots (<code>ad519409…</code>), gates and verdict; the rewritten TIFF is byte-identical (SHA-256 <code>934b5c50…</code> before and after, since the note lives in the receipt/card, not the raster bytes); final note is 135 chars and complete. The same packaging review also normalised the writer receipt's sandbox-absolute <code>validator.file</code>/<code>template_report.path</code> to repo-relative paths (IR-79-63 class; <code>scripts/finalize_ber.py</code> now does this itself). No scientific content changed.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

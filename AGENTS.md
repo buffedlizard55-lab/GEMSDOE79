@@ -14,6 +14,15 @@
    candidate under that reading. Do not bypass it or restart the stopped lane.
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.
+   G79-BER (session 4f80e0d0) is likewise **stopped negative** after X1: it lost to
+   the H33 fold-fair control on both seeds (0.0788/0.0882 vs 0.0961/0.0989
+   HOLDOUT-DTI) and is recorded not unique under amendment D-2 (IR-79-68);
+   `run_card_ber.json` is terminal and `scripts/run_ber.py` refuses to rerun.
+   Do not retune its band quotas or re-place its dots. Amendment D-2
+   (`reports/protocol_amendment_D2_20261022.md`) is in the shared uniqueness
+   tool with the literal reading still reported; the D-3 saturated-branch
+   question in IR-79-68 needs a prospective owner decision, never a
+   post-hoc edit to pass a finished lane.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a
    version note and an IR entry. Example: the `budget-matched-v3` dot definition, IR-79-47. Use the shared evaluator,
