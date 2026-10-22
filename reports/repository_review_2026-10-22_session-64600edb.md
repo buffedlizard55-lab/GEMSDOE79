@@ -65,6 +65,14 @@ At review start, `data/raw/` was absent even though the frozen restoration recei
 3. Only after a surface and final dots clear the approved novelty rule and beat the best valid holdout with confidence intervals should the separate selector consider a slot. A real submission-page receipt is required to call any score `ORGANIZER-CONFIRMED`.
 4. Public current leaderboard data and DrivenData account-side capacity require access to the relevant official pages; no authenticated submission access is available in this run.
 
+## Addendum — latest-main integration audit (2026-10-22)
+
+After the initial three-pass review, `origin/main` advanced to `845b51e` through concurrent merged work. I merged that commit into the fixed Arena branch (without switching branches) before PR verification. This exposed a baseline regression from the incoming `G79-ETP-v2` change: it placed two additional TIFFs in `docs/downloads/`, replaced the canonical ETP download links on generated Pages, and caused eight repository tests plus `verify_project.py` to fail the explicit one-canonical-artifact contract.
+
+The two TIFF/ZIP/metadata bundles are preserved in [`../archive/g79_etp_20261022/`](../archive/g79_etp_20261022/), with an audit note. This is administrative quarantine only; their bytes were not modified and their method/results were not re-tuned. Specific irregularities are logged as [IR-79-144 and IR-79-145](irregularities_session_64600edb.md): the ETP registration contains a literal placeholder instead of a digest, the card's own evaluator description says “approximate pooled truth” rather than the required segment-buffered hide-and-recover procedure, and its reported novelty scan compares only one raster despite listing 1,108 expected. Accordingly, the card's reported performance numbers are not accepted as protocol-compliant HOLDOUT-DTI and its sparse pairwise comparison is not a full-registry novelty pass. The canonical site's pages were rebuilt from `run_card.json`; the status remains **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
+
+No other session's scientific method or result was retuned. The archive preserves the incoming records so an owner can adjudicate them without losing evidence.
+
 ## Canonical run card
 
 The authoritative JSON run card remains [`../run_card.json`](../run_card.json), generated for `G79-THVC`; this review records no new experiment and does not replace it. The verdict remains **negative** for submission while the file remains downloadable for research/audit.

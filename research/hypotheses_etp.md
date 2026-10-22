@@ -1,5 +1,7 @@
 # Five Candidate Geological Hypotheses for Next-Generation Blind Fault Discovery (G79-ETP Lane)
 
+> **Archive / evidence warning (2026-10-22):** This is an incoming historical proposal, not a validated scientific ranking. Its projected numeric DTI gains are unsupported estimates, not measured scores. The attached lane registration contains a placeholder hash; the run card describes its evaluator as approximate and explicitly says the required full hide-and-recover pipeline was not used. Do not label its reported values as protocol-compliant HOLDOUT-DTI, do not treat the one-raster similarity comparison as registry uniqueness, and do not submit either TIFF. Artifacts and audit are preserved under [`archive/g79_etp_20261022/`](../archive/g79_etp_20261022/).
+
 **Date:** 2026-10-22 · **Base:** `G79-THVC` (0.1905/0.1944 HOLDOUT-DTI) · **Lane:** `G79-ETP` (Elastic Tip Process-Zone & Relay Ramp)
 
 All hypotheses target faults **missing from USGS/INGENIOUS catalogue** (existing_faults.tif), not those already mapped. Each specifies layers, physical signature, why it catches uncatalogued faults, how it differs from prior repo work, and required data source.
