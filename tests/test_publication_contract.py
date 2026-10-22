@@ -353,6 +353,8 @@ def test_verification_and_evidence_json_have_no_machine_checkout_paths():
         'docs/evidence/family_lineage_forensics.json',
         'knowledge/official_sources.json',
         'docs/evidence/source_health.json',
+        'evidence/halo_saturation_13GEMSDOE_1db538e6.json',
+        'evidence/halo_saturation_17GEMSDOE_Eproba_1db538e6.json',
         'run_card_g79b.json',
         'run_card_stepco.json',
     ):

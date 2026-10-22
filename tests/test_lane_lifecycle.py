@@ -116,6 +116,9 @@ def test_absent_card_fails_closed(tmp_path):
     ('run_h80_radio_pilot.py', []),
     ('h80_pilot_overlap_check.py', []),
     ('build_h80_run_card.py', []),
+    ('run_experiment.py', []),
+    ('finalize_negative.py', []),
+    ('build_site_g79b.py', []),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (
