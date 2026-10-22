@@ -82,13 +82,13 @@ def test_exact_dti_algebra_pigeonhole_bounds_and_unique_ir_ids():
 
     ir_txt = (ROOT / "reports/irregularities.md").read_text(encoding="utf-8")
     ir_ids = re.findall(r"\|\s*(IR-79-\d+)\s*\|", ir_txt)
-    assert len(ir_ids) == len(set(ir_ids)) == 110
+    assert len(ir_ids) == len(set(ir_ids)) == 120
 
 
 def test_executive_summary_and_sources_surface_caveats_and_date():
     exec_html = (ROOT / "docs/executive-summary.html").read_text()
     assert "IR-79-69" in exec_html
-    assert "IR-79-107" in exec_html
+    assert "IR-79-117" in exec_html
     assert "post_index_sibling_audit_20261022.json" in exec_html
 
     sources = json.loads((ROOT / "knowledge/official_sources.json").read_text())

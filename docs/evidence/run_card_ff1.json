@@ -1,0 +1,409 @@
+{
+  "schema_version": "gems79-run-card-v2",
+  "lane": "H79-FF1",
+  "generated_utc": "2026-10-22T05:15:45.626589+00:00",
+  "hypothesis": "Subsidiary antithetic/synthetic strands 1-3 km from mapped traces carry unmapped-fault kernel credit; restricting a learned discovery surface to that band beats the H33 fold-fair control on hide-and-recover holdout while vacating the near-field dot fields that made H79-NHR a duplicate.",
+  "mechanism": "Basin-and-Range multi-strand fault zones: subsidiary strands/step-overs within ~1-3 km share strike and offset Quaternary surfaces (lidar scarps in stack).",
+  "named_non_fault_process": "Pluvial Lake Lahontan shoreline/terrace risers and incised channel banks",
+  "holdout_dti": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "per_seed": {
+      "seed_20": {
+        "candidate": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.09442932450120838,
+          "ci95": [
+            0.08025512991189823,
+            0.10738795520652823
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 1543.6849823504547,
+          "fpw": 34909.89974063995,
+          "fnw": 9777.31501764954
+        },
+        "h33_foldfair_control": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.09608619416803546,
+          "ci95": [
+            0.08279135588805873,
+            0.1096036495361893
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 1588.9204532602826,
+          "fpw": 35809.116597847176,
+          "fnw": 9732.079546739715
+        },
+        "uniform_control": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.053977128904516426,
+          "ci95": [
+            0.04450729832169108,
+            0.06336948809001071
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 879.12878566618,
+          "fpw": 35272.17571351593,
+          "fnw": 10441.871214333822
+        },
+        "unrestricted_nhr_reference": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.14310099969560106,
+          "ci95": [
+            0.1283305654039763,
+            0.15776098739969172
+          ],
+          "withheld_positive_pixels": 11321,
+          "tpw": 2349.4924173281674,
+          "fpw": 34458.611143300965,
+          "fnw": 8971.50758267183
+        },
+        "withheld_positive_pixels": 11321
+      },
+      "seed_30": {
+        "candidate": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.09305913734143087,
+          "ci95": [
+            0.0802334303698279,
+            0.10652035135461893
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 1522.1798759551714,
+          "fpw": 34895.44158163174,
+          "fnw": 9819.820124044827
+        },
+        "h33_foldfair_control": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.09889767286222764,
+          "ci95": [
+            0.0841715694712062,
+            0.11225025519437444
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 1638.0162557476992,
+          "fpw": 35807.67431660717,
+          "fnw": 9703.983744252295
+        },
+        "uniform_control": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.05096292812821853,
+          "ci95": [
+            0.04464860502294129,
+            0.05724251828165794
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 830.5023901842059,
+          "fpw": 35282.529085747694,
+          "fnw": 10511.497609815791
+        },
+        "unrestricted_nhr_reference": {
+          "evidence_class": "HOLDOUT-DTI",
+          "evaluator_version": "gems57-pooled-hide-v2",
+          "dti": 0.152169684541851,
+          "ci95": [
+            0.1321136041959883,
+            0.16994627513100194
+          ],
+          "withheld_positive_pixels": 11342,
+          "tpw": 2502.8353628919795,
+          "fpw": 34367.46888369496,
+          "fnw": 8839.164637108015
+        },
+        "withheld_positive_pixels": 11342
+      }
+    }
+  },
+  "leakage_canary": {
+    "per_seed": {
+      "seed_20": 0.8513959646385856,
+      "seed_30": 0.8588719723814486
+    },
+    "threshold": 0.9,
+    "passed": true
+  },
+  "uniqueness": {
+    "surface_worst_spearman": 0.6329547042505124,
+    "literal_gate_worst_overlap": 1.0,
+    "literal_gate_flag": "space-filling plateau raster (IR-79-53)",
+    "informative_final": {
+      "dot_fields_checked": 852,
+      "worst": {
+        "submission": "GEMSDOE3:docs/downloads/pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+        "their_dots": 155021,
+        "overlap": 0.7821479789663781
+      },
+      "top10": [
+        {
+          "submission": "GEMSDOE3:docs/downloads/pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+          "their_dots": 155021,
+          "overlap": 0.7821479789663781
+        },
+        {
+          "submission": "GEMSDOE3:docs/downloads/pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif",
+          "their_dots": 155021,
+          "overlap": 0.7719764168481437
+        },
+        {
+          "submission": "GEMSDOE67:docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif",
+          "their_dots": 167597,
+          "overlap": 0.7653104583842354
+        },
+        {
+          "submission": "GEMSDOE67:docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
+          "their_dots": 167597,
+          "overlap": 0.7653104583842354
+        },
+        {
+          "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r14-union-tips10-lat6_zerofill.tif",
+          "their_dots": 192231,
+          "overlap": 0.7476496520953949
+        },
+        {
+          "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r14-union-tips10-lat6_nan-outside.tif",
+          "their_dots": 192231,
+          "overlap": 0.7476496520953949
+        },
+        {
+          "submission": "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-allfinite.tif",
+          "their_dots": 180000,
+          "overlap": 0.7087958782599458
+        },
+        {
+          "submission": "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-nan.tif",
+          "their_dots": 180000,
+          "overlap": 0.7087958782599458
+        },
+        {
+          "submission": "GEMSDOE23:docs/downloads/gemsdoe23-h30-arrangement-matched-habitat-20261002-0d4e02e8-allfinite.tif",
+          "their_dots": 91533,
+          "overlap": 0.6316725978647687
+        },
+        {
+          "submission": "GEMSDOE23:docs/downloads/gemsdoe23-h30-arrangement-matched-habitat-20261002-0d4e02e8-nan.tif",
+          "their_dots": 91533,
+          "overlap": 0.6316725978647687
+        }
+      ],
+      "n_gt_0_70": 8
+    },
+    "informative_provisional": {
+      "dot_fields_checked": 852,
+      "worst": {
+        "submission": "GEMSDOE3:docs/downloads/pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+        "their_dots": 155021,
+        "overlap": 0.7821479789663781
+      },
+      "top10": [
+        {
+          "submission": "GEMSDOE3:docs/downloads/pindrop-v4-nodes-20260925T152420Z-f347b70daa.tif",
+          "their_dots": 155021,
+          "overlap": 0.7821479789663781
+        },
+        {
+          "submission": "GEMSDOE3:docs/downloads/pindrop-v4-discovery-20260925T152423Z-37f9d5b855.tif",
+          "their_dots": 155021,
+          "overlap": 0.7719764168481437
+        },
+        {
+          "submission": "GEMSDOE67:docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-zero.tif",
+          "their_dots": 167597,
+          "overlap": 0.7653104583842354
+        },
+        {
+          "submission": "GEMSDOE67:docs/downloads/gemsdoe67-ovtr-ml-cover-tau3p0-20261012-nan.tif",
+          "their_dots": 167597,
+          "overlap": 0.7653104583842354
+        },
+        {
+          "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r14-union-tips10-lat6_zerofill.tif",
+          "their_dots": 192231,
+          "overlap": 0.7476496520953949
+        },
+        {
+          "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r14-union-tips10-lat6_nan-outside.tif",
+          "their_dots": 192231,
+          "overlap": 0.7476496520953949
+        },
+        {
+          "submission": "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-allfinite.tif",
+          "their_dots": 180000,
+          "overlap": 0.7087958782599458
+        },
+        {
+          "submission": "GEMSDOE50:docs/downloads/gemsdoe50-h59-topo-lineament-scatter-180k-20261007T170212Z-nan.tif",
+          "their_dots": 180000,
+          "overlap": 0.7087958782599458
+        },
+        {
+          "submission": "GEMSDOE23:docs/downloads/gemsdoe23-h30-arrangement-matched-habitat-20261002-0d4e02e8-allfinite.tif",
+          "their_dots": 91533,
+          "overlap": 0.6316725978647687
+        },
+        {
+          "submission": "GEMSDOE23:docs/downloads/gemsdoe23-h30-arrangement-matched-habitat-20261002-0d4e02e8-nan.tif",
+          "their_dots": 91533,
+          "overlap": 0.6316725978647687
+        }
+      ],
+      "n_gt_0_70": 8
+    },
+    "final_literal_worst_spearman": 0.08187074539766775,
+    "final_literal_worst_overlap_3px": 1.0,
+    "final_literal_duplicate_flag": true
+  },
+  "gates": {
+    "canary_le_0_90_both_seeds": true,
+    "beats_h33_control_both_seeds": false,
+    "surface_spearman_le_0_90": true,
+    "informative_dotfield_overlap_le_0_70": false,
+    "literal_gate_note": "literal shared gate flags space-filling plateau rasters (IR-79-53); recorded, not waived",
+    "exact_budget": true
+  },
+  "raster_sha256": "db87c3fc47360f6d7bcd2a0de174d0626a379f4af3f14ddbd3de527d323e1770",
+  "dots_sha256": "27ce6a331432766e5a2a98bf6b3fe83020e4b4f4723f155f7a0804c08bcad851",
+  "validator": {
+    "file": "gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.tif",
+    "sha256": "db87c3fc47360f6d7bcd2a0de174d0626a379f4af3f14ddbd3de527d323e1770",
+    "bytes": 140046,
+    "submission_name": "gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT",
+    "note": "H79-FF1 far-field 1-3km band; HOLDOUT-DTI 0.0944/0.0931 vs H33 0.0961/0.0989; verdict negative",
+    "note_chars": 94,
+    "validator": {
+      "file": "/home/user/GEMSDOE79/archive/g79_ff1/downloads/gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.tif",
+      "bytes": 140046,
+      "sha256": "db87c3fc47360f6d7bcd2a0de174d0626a379f4af3f14ddbd3de527d323e1770",
+      "meta": {
+        "crs": "EPSG:32611",
+        "shape": [
+          3730,
+          3292
+        ],
+        "dtype": "float32",
+        "count": 1,
+        "nodata": null,
+        "transform": [
+          100.0,
+          0.0,
+          243350.0,
+          0.0,
+          -100.0,
+          4508550.0
+        ],
+        "profile_compress": "deflate"
+      },
+      "band_description": [
+        null
+      ],
+      "n_finite": 12279160,
+      "n_nan": 0,
+      "n_infinite": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "emitted_positive_pixels": 37654,
+      "checks": {
+        "single_band": true,
+        "dtype_float32": true,
+        "dimensions_3730x3292": true,
+        "crs_epsg_32611": true,
+        "transform_matches_sample_submission": true,
+        "no_nan_anywhere": true,
+        "no_inf_anywhere": true,
+        "no_sentinel_values": true,
+        "range_0_1_guaranteed": true,
+        "min_ge_0": true,
+        "max_le_1": true,
+        "in_footprint_all_finite": true,
+        "in_footprint_range_0_1": true,
+        "outside_footprint_zero": true,
+        "zero_dots_on_mapped_catalogue": true
+      },
+      "all_checks_passed": true,
+      "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+      "on_catalogue_positive_pixels": 0,
+      "in_footprint_positive_pixels": 37654,
+      "footprint_fraction": 0.007286874781441169
+    },
+    "template_report": {
+      "path": "/home/user/GEMSDOE79/archive/g79_ff1/downloads/gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.tif",
+      "bytes": 140046,
+      "sha256": "db87c3fc47360f6d7bcd2a0de174d0626a379f4af3f14ddbd3de527d323e1770",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0030664964579045773,
+      "n_nonzero": 37654,
+      "mass": 37654.0,
+      "mass_outside_footprint": 0,
+      "problems": [],
+      "ok": true,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+    },
+    "zip_file": "gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT.zip",
+    "zip_sha256": "8c65f707adebde3115acfc34d6fdedc78751424a540314ea82e923140d96aa2a",
+    "approved_for_weekly_slot": false,
+    "promoted": false,
+    "submission_slots_used": 0,
+    "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+    "metadata": {
+      "lane": "H79-FF1",
+      "gates": {
+        "canary_le_0_90_both_seeds": true,
+        "beats_h33_control_both_seeds": false,
+        "surface_spearman_le_0_90": true,
+        "informative_dotfield_overlap_le_0_70": false,
+        "literal_gate_note": "literal shared gate flags space-filling plateau rasters (IR-79-53); recorded, not waived",
+        "exact_budget": true
+      },
+      "ok_to_submit": false
+    }
+  },
+  "submission_name": "gems79-h79ff1-farfield1-3km-37654dots-20261022T051544Z-27ce6a33-DO-NOT-SUBMIT",
+  "submission_note": "H79-FF1 far-field 1-3km band; HOLDOUT-DTI 0.0944/0.0931 vs H33 0.0961/0.0989; verdict negative",
+  "note_chars": 94,
+  "ok_to_submit": false,
+  "verdict": "negative",
+  "verdict_reason": "Far-field band candidate HOLDOUT-DTI 0.0944/0.0931 does not beat H33 fold-fair control 0.0961/0.0989 on either seed; band costs ~0.049-0.059 vs unrestricted NHR surface. Do not upload; 0 weekly slots used."
+}

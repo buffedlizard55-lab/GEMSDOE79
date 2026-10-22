@@ -102,11 +102,13 @@ def training_rows(stack, context, region, seed):
     return np.concatenate(X), np.concatenate(y), receipts
 
 
-def fit(X, y, seed):
+def fit(X, y, seed, sample_weight=None):
+    """Shared regressor (NHR hyper-parameters). ``sample_weight`` added for H79-BQA;
+    the default None reproduces the frozen NHR behaviour exactly."""
     m = HistGradientBoostingRegressor(max_iter=250, learning_rate=0.08, max_leaf_nodes=63,
                                       min_samples_leaf=200, l2_regularization=1.0,
                                       random_state=seed, early_stopping=False)
-    m.fit(X, y)
+    m.fit(X, y, sample_weight=sample_weight)
     return m
 
 

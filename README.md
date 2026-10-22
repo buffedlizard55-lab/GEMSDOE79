@@ -91,13 +91,13 @@ Full line-by-line forensic receipts, three-pass verification records, and offici
 
 ### Reconciled 17-lane `GEMSDOE79` benchmark & concurrent-session archive (`arena/070af0b6-gemsdoe79`)
 
-All **17** concurrent `GEMSDOE79` lanes through `PR #58` (`bd02274`) have been audited byte-for-byte on the shared `gems57-pooled-hide-v2` holdout evaluator and reconciled without deleting any historical evidence:
+All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `H79-BQA` `0.119/0.123` surface-stopped and `H79-FF1` `0.025/0.025` archived in [`archive/g79_ff1/`](archive/g79_ff1/README.md)) have been audited byte-for-byte on the shared `gems57-pooled-hide-v2` holdout evaluator and reconciled without deleting any historical evidence:
 
 | Rank | Lane | PR / Session | Shared `HOLDOUT-DTI` (Seed 20 / Seed 30) | Dots | Archive / Location | Automated Verdict |
 |---:|---|---|---:|---:|---|---|
 | **1** | **`G79-THVC` (canonical)** | `#51` (`33e1f8ec`) | **`0.1905` / `0.1944`** (`+98.3% / +96.6%` vs `H33`) | `35,093` | [`docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif) | **Download YES · Submit NO** (`0` sparse `<=50k` dups; `28` `v4` / `96` literal + `GEMSDOE83 = 0.7139`) |
 | 2 | `H79-NHR` | `#38` (`337ac1e9`) | `0.1431` / `0.1522` | `37,654` | [`archive/h79_nhr/`](archive/h79_nhr/README.md) | Stopped negative (`26` `v4` / `94` literal) |
-| 3 | `H79-STEP` | `#53` (`21642326`) | `0.0949` / `0.1087` (`< H33` on Seed 20) | `37,654` | [`archive/h79_step_21642326/`](archive/h79_step_21642326/README.md) | Stopped negative (`IR-79-105`) |
+| 3 | `H79-STEP` | `#53` (`21642326`) | `0.0949` / `0.1087` (`< H33` on Seed 20) | `37,654` | [`archive/h79_step_21642326/`](archive/h79_step_21642326/README.md) | Stopped negative (`IR-79-115`) |
 | — | *`H33` fold-fair control* | *`GEMSDOE32`* | *`0.0961` / `0.0989`* | *`37,654`* | *Reference benchmark* | *Baseline control* |
 | 4 | `H79-DILSTEP` | `#55` (`6444be2d`) | `0.0721` / `0.0689` (`< H33`) | `37,654` | [`archive/h79_dilstep_6444be2d/`](archive/h79_dilstep_6444be2d/README.md) | Stopped negative (`12` `v4` surface flags) |
 | 5 | `H79-COV` | `#56` (`e23d5371`) | `0.0610` / `0.0581` (`< H33`) | `37,654` | [`archive/h79_cov_e23d5371/`](archive/h79_cov_e23d5371/README.md) | Stopped negative (`36` `v4` flags) |
@@ -111,7 +111,7 @@ All **17** concurrent `GEMSDOE79` lanes through `PR #58` (`bd02274`) have been a
 | 13–17 | `E1`, `H79-ASYM`, `H79-MCT`, `H79-CSPT`, `G79B-GEOAND` | `#8`..`#44` | Surface-stopped / quarantined | — | [`evidence/concurrent_lanes_audit.json`](evidence/concurrent_lanes_audit.json) | Stopped negative |
 
 - **Post-snapshot sibling repositories (`GEMSDOE76`..`GEMSDOE92`)**: Full byte audit in [`evidence/post_index_sibling_audit_20261022.json`](evidence/post_index_sibling_audit_20261022.json) and [`evidence/family_lineage_forensics.json`](evidence/family_lineage_forensics.json); `GEMSDOE84`..`GEMSDOE92` (`9` repos) contain only empty `README.md` stubs with `0` `.tif` files.
-- **Session review & 5 untried subsurface hypotheses**: [`reports/session_review_070af0b6.md`](reports/session_review_070af0b6.md), [`reports/session_review_3cfa694f.md`](reports/session_review_3cfa694f.md), [`reports/fgr_farfield_refutation.md`](reports/fgr_farfield_refutation.md), [`research/hypotheses_post_thvc_backlog.md`](research/hypotheses_post_thvc_backlog.md), [`reports/irregularities.md`](reports/irregularities.md) (`IR-79-01`..`IR-79-110`).
+- **Session review & 5 untried subsurface hypotheses**: [`reports/session_review_070af0b6.md`](reports/session_review_070af0b6.md), [`reports/session_review_3cfa694f.md`](reports/session_review_3cfa694f.md), [`reports/fgr_farfield_refutation.md`](reports/fgr_farfield_refutation.md), [`research/hypotheses_post_thvc_backlog.md`](research/hypotheses_post_thvc_backlog.md), [`reports/irregularities.md`](reports/irregularities.md) (`IR-79-01`..`IR-79-120`).
 
 ## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).

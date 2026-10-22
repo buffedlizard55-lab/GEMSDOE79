@@ -116,9 +116,22 @@ def publication_contract_checks(root, card):
     line = decision_line(card)
     contradicting = ('OK TO SUBMIT: NO.' if 'SUBMIT: YES' in line else 'OK TO SUBMIT: YES.')
     conflict_free, json_strict_ok = repo_text_checks(root)
+    irreg_path = root / 'reports/irregularities.md'
+    if irreg_path.is_file():
+        irreg_lines = [
+            ln for ln in irreg_path.read_text().splitlines()
+            if ln.lstrip().startswith('| IR-79-')
+        ]
+        irreg_single_line_ok = bool(irreg_lines) and all(
+            ln.strip().startswith('|') and ln.strip().endswith('|') and ln.count('|') >= 4
+            for ln in irreg_lines
+        )
+    else:
+        irreg_single_line_ok = True
     return {
         'no_git_conflict_markers': conflict_free,
         'all_repo_json_strictly_valid': json_strict_ok,
+        'irregularities_table_rows_single_line': irreg_single_line_ok,
         'readme_matches_card_decision': (
             line in readme and contradicting not in readme and
             not after_details.strip() and
@@ -127,6 +140,39 @@ def publication_contract_checks(root, card):
             published == expected and not loose_submissions and not extra_docs_uploads),
         'active_inventory_matches_frozen_verified_blobs': (
             len(indexed) == len(set(indexed)) == len(verified) and set(indexed) == set(verified)),
+    }
+
+
+def sibling_audit_and_delta_checks(root):
+    """Verify full cross-organization Git delta and 1,199-blob sibling audit receipts."""
+    root = Path(root)
+    index = json.loads((root / 'registry/registry_index.json').read_text())
+    indexed = [r['blob'] for r in index['rasters']]
+    delta_doc = json.loads((root / 'registry/registry_delta.json').read_text())
+    audit_path = root / 'evidence/post_snapshot_sibling_audit.json'
+    audit_doc = json.loads(audit_path.read_text()) if audit_path.is_file() else {}
+    pigeon = (
+        audit_doc.get('dual_regime_pigeonhole_impossibility_certificate', {})
+        .get('sparse_binary_dot_field_pigeonhole_proof', {})
+        .get('witness', {})
+    )
+    return {
+        'registry_delta_verified': (
+            isinstance(delta_doc.get('n_repositories_scanned'), int) and
+            delta_doc['n_repositories_scanned'] >= 92 and
+            isinstance(delta_doc.get('n_new_rasters'), int) and
+            delta_doc['n_new_rasters'] == len(delta_doc.get('rasters', [])) >= 207 and
+            all(s.get('status') == 'ok' for s in delta_doc.get('repositories', []))),
+        'post_snapshot_sibling_audit_verified': (
+            bool(audit_doc) and
+            audit_doc.get('shared_tools_pinned', {}).get('uniqueness_py_sha256') == sha(root / 'vendor/gems57/uniqueness.py') and
+            audit_doc.get('shared_tools_pinned', {}).get('validate_py_sha256') == sha(root / 'vendor/gems57/validate.py') and
+            audit_doc.get('shared_tools_pinned', {}).get('evaluate_holdout_py_sha256') == sha(root / 'vendor/gems57/evaluate_holdout.py') and
+            audit_doc.get('shared_tools_pinned', {}).get('disk3_exactness_self_test', {}).get('matches_edt_le_3_exact') is True and
+            audit_doc.get('organization_inventory', {}).get('total_unique_prediction_blobs_verified') == (
+                len(indexed) + len(delta_doc.get('rasters', []))) and
+            isinstance(pigeon.get('guaranteed_min_overlap_at_37654_dots'), (int, float)) and
+            pigeon['guaranteed_min_overlap_at_37654_dots'] > 0.70),
     }
 
 
@@ -297,6 +343,7 @@ def witness_report_checks(root):
 def verify(refresh_timestamp: bool = False):
     checks = {}
     checks.update(witness_report_checks(ROOT))
+    checks.update(sibling_audit_and_delta_checks(ROOT))
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
     checks['all_shared_template_bytes_match_pins'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()
@@ -320,6 +367,12 @@ def verify(refresh_timestamp: bool = False):
                                      path.stem == card['submission_name'])
     checks['filename_warning_matches_verdict'] = (('DO-NOT-SUBMIT' in path.name) == (card['verdict'] != 'promote'))
     result = validate_path(path)
+    if isinstance(result.get('validator'), dict) and isinstance(result['validator'].get('file'), str):
+        if result['validator']['file'].endswith(card['submission_file']):
+            result['validator']['file'] = card['submission_file']
+    if isinstance(result.get('reference_grid'), dict) and isinstance(result['reference_grid'].get('path'), str):
+        if result['reference_grid']['path'].endswith(card['submission_file']):
+            result['reference_grid']['path'] = card['submission_file']
     checks['reopened_tiff_format_all_passed'] = result['format_passed']
     checks['format_receipt_positive_count_agrees'] = result['validator']['emitted_positive_pixels'] == card['positive_pixels']
     zip_path = path.with_suffix('.zip')

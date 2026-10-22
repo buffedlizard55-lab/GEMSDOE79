@@ -34,7 +34,7 @@ def test_clean_publication_matches_current_card(publication):
 
 @pytest.mark.parametrize('path', [
     'docs/downloads/rogue.TIF', 'docs/downloads/rogue.zip',
-    'docs/downloads/nested/research-DO-NOT-SUBMIT.tif', 'submissions/rogue.tiff',
+    'docs/downloads/nested/research-DO-NOT-SUBMIT.tif', 'docs/g79_mag/rogue.tif', 'submissions/rogue.tiff',
 ])
 def test_unlinked_or_nested_upload_artifact_blocks_release(publication, path):
     root, card = publication
