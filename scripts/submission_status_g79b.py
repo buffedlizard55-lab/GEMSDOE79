@@ -37,7 +37,7 @@ def decide(root=ROOT):
 
     name = card.get("submission_name", "")
     # Lane archived under the concurrent-lane quarantine layout on merge;
-    # the canonical docs/downloads artifact belongs to H79-NHR.
+    # the canonical docs/downloads artifact belongs to G79-THVC.
     tif = root / "archive" / "g79b_sdpt_67557396" / "downloads" / f"{name}.tif"
     zf = tif.with_suffix(".zip")
     sha_ok = fmt_ok = zip_ok = False

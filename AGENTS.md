@@ -24,8 +24,9 @@
    - `G79B-SDPT` (`0.0297 / 0.0290`, `archive/g79b_sdpt_a3/`)
    - `H79-FGR` (`0.0058 / 0.0056`, `archive/fgr_cb54ff09/`)
    - `G79-MAG` (`0.0045 / 0.0067`, `archive/g79_mag_730d5ee7/`)
-   - `G79-CJX-DIR` (`0.0256 / 0.0319` candidate EXP2, below EDGE/UNIFORM controls; phase-randomized null `0.0338 / 0.0324` beats the real σ=2 junction surface `0.0225 / 0.0230`; `archive/g79_cjxdir/` & `run_card_cjxdir.json`, `IR-79-172`) — cross-scale RTP×gravity director-junction lane, preregistered `registry/preregistration_cjxdir.json`, 3/3 arms exhausted; do not retune its scales, budget or placement
+   - `G79-CJX-DIR` (`0.0256 / 0.0319` candidate EXP2, below EDGE/UNIFORM controls; phase-randomized null `0.0338 / 0.0324` beats the real σ=2 junction surface `0.0225 / 0.0230`; `archive/g79_cjxdir/` & `run_card_cjxdir.json`, `IR-79-184`) — cross-scale RTP×gravity director-junction lane, preregistered `registry/preregistration_cjxdir.json`, 3/3 arms exhausted; do not retune its scales, budget or placement
    - Surface-stopped / quarantined: `G79-FABRIC-OFFSET`, `H79-ASYM`, `H79-MCT`, `H79-CSPT`, `G79B-SCARP-DIPOLE-GEOAND`.
+   - `G79-CJX` (`0.1041 / 0.1063` tip-steered, Exps 1-2 below random, `run_card_cjx.json`, `evidence/cjx/`, TIF in `artifacts/cjx/`) — unique TIF generated 2026-10-22, verdict **negative**: G3 holdout failed vs THVC incumbent, G4 literal failed vs the 100%-footprint diagnostics witness; do not re-place its dots or rename it as a submission.
    Do not restart stopped lanes, retune on holdout, add overlap caps/jitter, or exempt dense priors locally. `scripts/preflight_new_lane.py --restore` exits `2` under the literal reading.
 4. `vendor/gems57` is shared code, not a private fork. Most files match the upstream pin; `uniqueness.py` contains documented shared amendments (see `vendor/README.md`). Check its SHA-256
    pins (`registry/template_pin.json`). A real shared defect is fixed once in the shared module, with a

@@ -86,7 +86,7 @@ byte-untouched; CJX lives in `archive/g79_cjxdir/` + `run_card_cjxdir.json` +
 allows only canonical artifacts under `docs/downloads/`. README gains a clearly
 labelled CJX section (canonical decision line untouched, contradicted nowhere);
 `docs/g79-cjxdir.html` is receipt-generated (no hand-typed numbers) with the
-download/decision box at the top; AGENTS.md and IR-79-172 record the closed lane.
+download/decision box at the top; AGENTS.md and IR-79-184 record the closed lane.
 Every label distinguishes HOLDOUT-DTI from (absent) ORGANIZER-CONFIRMED scores.
 
 ## Limitations & next work (for a future session)
