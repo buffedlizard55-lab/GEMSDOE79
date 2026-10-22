@@ -97,6 +97,12 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
   present; the large training raster, `.cache` feature stack, raw GeoDAWN line
   products, raw MT tensors, and raw 1 m DEM are absent. The owner's hash pins
   verify mirror consistency, not organizer-origin authentication.
+- During PR preparation, integrated the newer `origin/main` rather than leave a
+  stale review branch. Its inherited IR-79-80/81 evidence adds a prompt-named
+  sibling-raster audit and README publication-boundary tests; those are upstream
+  records, not new experiments or scores from this session. The latest official
+  leaderboard observation cited above is likewise inherited from the 2026-10-22
+  source review, not fetched by this session.
 
 ### Pass 2 — identify and fix a repository defect; review hypotheses
 
@@ -106,7 +112,7 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
   the file to one `>=0.25,<1` line (the lock pins `0.26.0`); the merge preserves
   that upstream bound. This PR adds a regression test rejecting duplicate
   normalized package names in either manifest and records the branch-baseline
-  finding as IR-79-80. No locked package version or scientific artifact changed.
+  finding as IR-79-82 after integrating newer main updates. No locked package version or scientific artifact changed.
 - The previous shortlist in
   `research/hypotheses_preflight_a7d092d7.md` was checked against the archives.
   Its far-field idea is adjacent to archived H79-FF; its cross-scale scarp idea
@@ -146,7 +152,7 @@ maximum symmetric AUC 0.8589. No canary or holdout was rerun in this review.
   two compatibility redirects; After merging the latest `origin/main` into this fixed Arena branch and
   regenerating the site, `pip check` passed; `verify_project.py` passed all
   checks; `check_site.py` passed all seven pages, 120 local links and two
-  compatibility redirects; and `pytest -q` passed 250 tests (two upstream
+  compatibility redirects; and `pytest -q` passed 252 tests (two upstream
   Rasterio deprecation warnings only). `git diff --check` passed after removing
   two inherited trailing-space issues in a merged report. These are
   software/format checks, not a new scientific holdout or organizer acceptance result.

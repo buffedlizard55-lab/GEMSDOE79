@@ -91,7 +91,14 @@ def publication_contract_checks(root, card):
     HTML link happens to point at them. This runs before every Pages build.
     """
     root = Path(root)
-    readme = (root / 'README.md').read_text().split('## Original project prompt', 1)[0]
+    readme_full = (root / 'README.md').read_text()
+    readme_parts = readme_full.split('## Original project prompt', 1)
+    readme = readme_parts[0]
+    after_details = (
+        readme_parts[1].split('</details>', 1)[1]
+        if len(readme_parts) > 1 and '</details>' in readme_parts[1]
+        else ''
+    )
     downloads = root / 'docs/downloads'
     expected = {Path(card['submission_file']).name, Path(card['zip_file']).name}
     published = {p.relative_to(downloads).as_posix() for p in downloads.rglob('*')
@@ -110,6 +117,7 @@ def publication_contract_checks(root, card):
         'all_repo_json_strictly_valid': json_strict_ok,
         'readme_matches_card_decision': (
             line in readme and contradicting not in readme and
+            not after_details.strip() and
             card['raster_sha256'] in readme and card['verdict'] in ('promote', 'negative')),
         'only_canonical_upload_artifacts_published': published == expected and not loose_submissions,
         'active_inventory_matches_frozen_verified_blobs': (

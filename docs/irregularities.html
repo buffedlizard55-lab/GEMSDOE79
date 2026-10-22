@@ -561,6 +561,16 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td><strong>Format question for the organizer.</strong> The problem page says data outside the bounds must be "null or nan" (https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/). Every raster this repo writes is finite, with 0 outside the footprint. The user-reported H33 raster (score 0.2778, not organizer-confirmed) is also all-finite, with 0 outside the footprint and 7,111,787 zeros there, so the zero-fill follows a file that was reported as scored (<code>evidence/h33_forensics.json</code>). Zeros add no FP or TP under the metric.</td>
 <td>Kept as the repo's shared writer convention, which matches the H33 precedent. Flagged for organizer clarification. Not a proven cause of any rejection.</td>
 </tr>
+<tr>
+<td>IR-79-80</td>
+<td><strong><code>scripts/analyze_family_lineage.py</code> blobless-clone <code>git ls-tree -r -l</code> hang and missing prompt-named post-snapshot candidates.</strong> Calling <code>git ls-tree -r -l FETCH_HEAD</code> on a <code>--filter=blob:none</code> clone forced <code>git</code> to lazily fetch every missing blob from the promisor remote just to print object sizes, causing 60+ s timeouts, while <code>tifs[:3]</code> omitted 6 newly listed prompt-named unscored candidates (<code>GEMSDOE76</code> <code>gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros</code>, <code>GEMSDOE78</code> <code>gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros</code>, <code>GEMSDOE80</code> <code>gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros</code>, <code>GEMSDOE81</code> <code>gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros</code>, <code>GEMSDOE82</code> <code>gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros</code>, <code>GEMSDOE83</code> <code>gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros</code>) and the 5 newly listed <code>GEMSDOE84</code>..<code>GEMSDOE88</code> sibling entries.</td>
+<td>Removed <code>-l</code> from <code>git ls-tree -r FETCH_HEAD</code>, added explicit single-blob <code>git fetch --depth=1 origin &lt;blob&gt;</code> before <code>cat-file</code>, synced the verbatim prompt in <code>README.md</code>, and recorded byte-verified measurements of all 6 prompt-named unscored candidates (showing <code>&lt; 0.70</code> 3-px overlap with <code>H79-NHR</code>: <code>0.3884</code>..<code>0.5901</code>) plus the 5 empty siblings (<code>GEMSDOE84</code>..<code>GEMSDOE88</code>, <code>0</code> <code>.tif</code> files) in <code>evidence/family_lineage_forensics.json</code> and <code>docs/evidence/family_lineage_forensics.json</code>.</td>
+</tr>
+<tr>
+<td>IR-79-81</td>
+<td><strong>Status prose appended after <code>&lt;/details&gt;</code> in <code>README.md</code> escaped <code>publication_contract_checks</code>.</strong> Commit <code>8d065ff</code> appended a review section after <code>&lt;/details&gt;</code> below <code>## Original project prompt</code>, where <code>scripts/verify_project.py</code> (<code>readme = readme_full.split('## Original project prompt', 1)[0]</code>) ignored it.</td>
+<td>Relocated the section above <code>## Original project prompt</code> and updated <code>publication_contract_checks</code> (<code>readme_matches_card_decision</code>) to reject any non-whitespace content after <code>&lt;/details&gt;</code> in <code>README.md</code>, with regression coverage in <code>tests/test_publication_contract.py</code>.</td>
+</tr>
 </tbody>
 </table>
 <h3>Arena review — session <code>7c7104d8</code> (2026-10-22)</h3>
@@ -574,9 +584,9 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 </thead>
 <tbody>
 <tr>
-<td>IR-79-80</td>
-<td>The branch baseline (<code>9640ed3</code>) listed <code>scikit-image</code> twice in <code>requirements.txt</code> (<code>&gt;=0.25,&lt;0.27</code> and <code>&gt;=0.25,&lt;1</code>). While this review was underway, concurrent changes merged to <code>main</code> already consolidated the manifest to one <code>&gt;=0.25,&lt;1</code> line; the lock continues to pin <code>0.26.0</code>.</td>
-<td>Preserved the merged-main constraint and added a regression test that rejects duplicate normalized package names in <code>requirements.txt</code> or <code>requirements.lock</code>. This PR changes no locked package version, scientific input, model, run card, or TIFF.</td>
+<td>IR-79-82</td>
+<td>The branch baseline (<code>9640ed3</code>) listed <code>scikit-image</code> twice in <code>requirements.txt</code> (<code>&gt;=0.25,&lt;0.27</code> and <code>&gt;=0.25,&lt;1</code>). Concurrent main updates had since consolidated the manifest to one <code>&gt;=0.25,&lt;1</code> line; the lock pins <code>0.26.0</code>.</td>
+<td>Preserved the latest main constraint and added a regression test that rejects duplicate normalized package names in <code>requirements.txt</code> or <code>requirements.lock</code>. This PR changes no locked package version, scientific input, model, run card, or TIFF.</td>
 </tr>
 </tbody>
 </table></div></section></main>

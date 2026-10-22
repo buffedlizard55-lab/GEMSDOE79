@@ -297,6 +297,22 @@ Those changes were merged into this branch without changing scientific evidence.
   team's all-finite policy and the sample's NaN; the public Format line now states this conflict), IR-79-70 (preflight
   exit 3 vs 2 depends on `--restore`), IR-79-71 (92 index scopes vs 71 repositories), IR-79-72 (leaderboard re-read).
 
+## Latest software-only review (session 566bec0c, 2026-10-22)
+
+[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
+witness reproduced; no new experiments or slots used. Preflight now rejects
+malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
+SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
+presented as protocol-unique.
+
+## Latest repository review — session `4b4b1214` (2026-10-22)
+
+- Full three-pass repository, lineage, and software review: [`reports/session_review_4b4b1214.md`](reports/session_review_4b4b1214.md).
+- **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — no new scientific experiment, retuning, or competition slot was used (`0` slots used).
+- Fixed a blobless-clone hang in `scripts/analyze_family_lineage.py` (`git ls-tree -r -l` lazily fetched every missing blob from the promisor remote) and extended `evidence/family_lineage_forensics.json` (and `docs/evidence/family_lineage_forensics.json`) with pixel-byte measurements of all 6 newly listed prompt-named unscored candidates (`GEMSDOE76` `gems76-ptcf-tiltworm-submod39k`, `GEMSDOE78` `gems78-h78sigx-fuse-b5`, `GEMSDOE80` `gemsdoe80-h80g-choquet-tworegime`, `GEMSDOE81` `gems81-cont-poisson44090-buf2`, `GEMSDOE82` `gemsdoe82-h82-submodular-punoisyor`, `GEMSDOE83` `gems83-h83-gvcd-dink300`) and verified that `GEMSDOE84`..`GEMSDOE88` currently have `0` published `.tif` files (`IR-79-80`).
+- Hardened `scripts/verify_project.py` (`publication_contract_checks`) to reject any status text appended after `</details>` in `README.md`, and relocated the misplaced `566bec0c` review section above `## Original project prompt` (`IR-79-81`).
+- Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
+
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
 Generative AI assisted research, code, tests and prose. No source measurements or organizer receipts
@@ -902,7 +918,7 @@ gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 [https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
 
-:
+gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:
 
 ....
 
@@ -914,23 +930,53 @@ gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 [https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
 
-:
+gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
 
-:
+gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
 
-:
+gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
+
+gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
+
+:
+
+....
+
+[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
 
 :
 
@@ -1093,11 +1139,3 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
-
-## Latest software-only review (session 566bec0c, 2026-10-22)
-
-[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
-witness reproduced; no new experiments or slots used. Preflight now rejects
-malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
-SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
-presented as protocol-unique.
