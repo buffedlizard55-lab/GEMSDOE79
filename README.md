@@ -1,5 +1,9 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Active branch audit — 2026-10-22 (`arena/2f4b0aa9-gemsdoe79`)
+
+This review generated no candidate surface or TIFF and used no competition slot. Runtime check: **0/13** manifest inputs present in `data/raw`; training/holdout and fresh leakage canaries are therefore unavailable. Checks completed in the branch environment: `verify_project.py` passed (historical release remains **OK TO DOWNLOAD: YES; OK TO SUBMIT: NO**), `check_site.py` passed (13 pages / 339 local links), and **597 tests passed**. No new score is claimed. See [three-pass review and run card](reports/session_review_2f4b0aa9.md). The source-grounded research backlog in `research/hypotheses_e4a4422d.md` remains prospective; previously stopped ideas are not reopened by this review.
+
 ## Latest review — 2026-10-22, session `1f9d2dc9`
 
 **No new candidate TIFF was generated; no submission is approved.** The
