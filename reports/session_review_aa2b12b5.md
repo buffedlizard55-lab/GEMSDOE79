@@ -48,25 +48,25 @@ The historical TIPSTEP runner constructs the candidate's allowed domain from the
 
 Added fail-closed `enforce_open_lane` protection before bulk reads/writes in seven mutating scripts: `run_tipstep.py`, `novelty_tipstep.py`, `run_tdw.py`, `tdw_novelty.py`, `run_mdsc.py`, `finalize_mdsc.py`, and `generate_ventprox_submission.py`. Registered the commands and their artifacts/evidence in lifecycle tests. One import-path defect found by the new MDSC test was also corrected. No closed runner was allowed to replace historical bytes.
 
-All findings are logged as IR-79-242 through IR-79-246 in [the irregularity register](irregularities.md).
+All findings are logged as IR-79-242 through IR-79-247 in [the irregularity register](irregularities.md).
 
 ## Pass 3 — final requirements and verification
 
-The final verification covered code compilation, the 17-page site build after concurrent-main reconciliation, local link/evidence consistency, canonical fail-closed status, the complete test suite, JSON integrity, the current data manifest, and the official sample format. Exact command outcomes are recorded below after the final run.
+The final verification covered code compilation, the 19-page site build after concurrent-main reconciliation, local link/evidence consistency, canonical fail-closed status, the complete test suite, JSON integrity, the current data manifest, and the official sample format. Exact command outcomes are recorded below after the final run.
 
-- `python scripts/build_site.py` → built 17 pages after concurrent-main reconciliation with the canonical negative decision.
+- `python scripts/build_site.py` → built 19 pages after concurrent-main reconciliation with the canonical negative decision.
 - `python scripts/check_site.py` → PASS; all pages reachable and scientific tables/gates receipt-derived.
 - `python scripts/verify_project.py` → PASS; this is integrity verification, not submission approval.
 - `python scripts/submission_status.py` → expected **exit 2**, automated BLOCKED decision; no human inspector required.
 - Targeted TIPSTEP/lifecycle/site tests → initial run found an MDSC import-path error and the then-missing review link; both were corrected and are included in the final full-suite rerun.
-- Full Python suite → **646 passed, 0 failed**.
+- Full Python suite → **648 passed, 0 failed**.
 - Download-identity Node suite → **12 passed, 0 failed**.
-- Real Chromium QA → **51/51 rendered cases passed** (17 pages × 1440/390/320 px), exact TIFF SHA-256 download, clipboard, two redirects, private TIFF/ZIP identity checks and altered-byte refusal; zero network requests during local hashing and zero browser errors ([receipt](../evidence/browser_review_aa2b12b5.json)).
+- Real Chromium QA → **57/57 rendered cases passed** (19 pages × 1440/390/320 px), exact TIFF SHA-256 download, clipboard, two redirects, private TIFF/ZIP identity checks and altered-byte refusal; zero network requests during local hashing and zero browser errors ([receipt](../evidence/browser_review_aa2b12b5.json)).
 - Machine-readable final summary: [`evidence/verification_aa2b12b5.json`](../evidence/verification_aa2b12b5.json).
 
 ## Concurrent-main reconciliation (required before PR merge)
 
-PR #150 initially conflicted because `main` advanced to `406bd28` with G79-CSHD and THVC-NANFIX. I merged that revision into the assigned session branch, preserved both concurrent lanes and their evidence, kept the canonical G79-THVC decision negative, renumbered this session's irregularities to IR-79-242..246, and rebuilt the combined 17-page site. The final full suite is **646 passed**, Node identity suite **12 passed**, and real-browser suite **51/51 passed** with **507** local links checked. Active CSHD/NANFIX prose that claimed to eliminate or prevent the portal range error was corrected to local R1–R8 PASS with portal acceptance unverified; no raster or scientific score was changed (IR-79-246).
+PR #150 initially conflicted because `main` advanced through `d71ec32` with G79-CSHD, THVC-NANFIX, G79-GEM and G79-UGBP. I merged those revisions into the assigned session branch, preserved both concurrent lanes and their evidence, kept the canonical G79-THVC decision negative, renumbered this session's irregularities to IR-79-242..247, and rebuilt the combined 19-page site. The final full suite is **648 passed**, Node identity suite **12 passed**, and real-browser suite **57/57 passed** with **557** local links checked. Active CSHD/NANFIX prose that claimed to eliminate or prevent the portal range error was corrected to local R1–R8 PASS with portal acceptance unverified; no raster or scientific score was changed (IR-79-246). Newly arrived GEM/UGBP static pages were registered in the same reproducible build, with broken evidence links and the unsupported portal heading corrected (IR-79-247).
 
 ## Negative run card
 

@@ -18,6 +18,21 @@ lacked fail-closed guards. The rebuilt page now reports official **R6 FAIL**, li
 novelty diagnostic, and documents the non-comparable historical uniform-control mask. No closed lane
 was rerun and no historical TIFF bytes changed.
 
+## Latest review — 2026-10-22, session `arena/1f1c75eb-gemsdoe79`
+
+**A new unique research GeoTIFF was generated, validated locally, and published with an explicit download/submit decision.**
+
+- New method lane **G79-GEM** (concealed-conduit: training_features band 18 iso_grav_anom_hg gravity-gradient edge × (1 − band 1 mag_anom rank), zeroed on the catalogue and outside the footprint, top-37,654 dots).
+- Download: `docs/gem-submission.html` — **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
+- Artifacts: `artifacts/gem_submission/gems79-gem-conduit-gravity-maglow-37654dots-20261022T210740Z.{tif,zip,json}` (SHA-256 `c60a4387070e43f33c6a68792d71eaabeaa1abfeb6632ad956b470e3b1c61f2d`).
+- Format: PASS (single float32 band, EPSG:32611, 3730 × 3292, sample-matching transform, all finite, [0, 1]).
+- Holdout (measured): **0.0045 [0.0029, 0.0064]**, below the ~0.05 random control → **negative**.
+- Novelty vs locally cached rasters: distinct from all sparse dot submissions, but **fails** vs the dense G79-FF1 fabric-offset surface (0.8986 forward 3-px overlap > 0.70) → novelty gate fails.
+- Leakage canary: PASS (max feature-alone AUC 0.5056 ≤ 0.90).
+- **Zero competition slots spent.** Not submitted; no organizer receipt; DrivenData login required to upload.
+
+The full original project prompt remains archived below and is the starting contract.
+
 ## Current session — `G79-CSHD` (`arena/e8afe252-gemsdoe79`, `2026-10-22`): #1 all-time two-seed `HOLDOUT-DTI` record (`0.1924` / `0.2040`; mean `0.1982`), `8/8` official `R1–R8` `NaN`-exterior GeoTIFF + ZIP, & fail-closed novelty stop
 
 **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** (`verdict = negative`, `submission_slots_used = 0` — computed automatically from [`run_card_cshd.json`](run_card_cshd.json) and canonical [`run_card.json`](run_card.json); zero human inspection required.)
@@ -38,6 +53,34 @@ was rerun and no historical TIFF bytes changed.
   - **Leakage canary (Rule 4):** **PASS** — `98 / 98` features `<= 0.90` (`max symmetric AUC = 0.8043`, [`evidence/g79_cshd_single_feature_auc.json`](evidence/g79_cshd_single_feature_auc.json)).
   - **Uniqueness scan (Rule 1):** Pre-placement surface `max |Spearman| = 0.6065 <= 0.90` (**PASS**); post-placement `max |Spearman| = 0.2366 <= 0.90` (**PASS**); **clears `GEMSDOE83` under Amendment D-2 (`0.6591 <= 0.70`, PASS)**, `GEMSDOE77` (`0.6952`), `GEMSDOE80` (`0.6494`), and `GEMSDOE78` (`0.6237`), but flags `16 / 1,209` legacy dense corridor rasters (`max external D-2 = 0.8182`, `59GEMSDOE`) plus the `1.0000` universal coverage witness (`IR-79-240`).
 - **Live `origin/main` regression repaired (`IR-79-232`):** Registered `docs/tipstep-submission.html` and [`docs/g79-cshd.html`](docs/g79-cshd.html) cleanly inside `scripts/build_site.py` and `scripts/check_site.py`, restoring `100%` test pass across the entire repository. See [`reports/session_review_e8afe252.md`](reports/session_review_e8afe252.md), [`research/hypotheses_cshd.md`](research/hypotheses_cshd.md), and [`docs/executive-summary.html`](docs/executive-summary.html).
+
+## Independent repository audit — session `f7f01963`
+
+This assigned-branch review was completed before synchronizing the concurrent `G79-CSHD` update from `origin/main`. Its negative findings remain scoped to that review snapshot; it did not run CSHD or re-evaluate any historical result. See the [three-pass audit](reports/session_review_f7f01963.md) and [negative audit card](evidence/run_card_f7f01963.json). It also corrected the site-inventory drift present in the branch baseline; the latest main page inventory now includes its reviewed historical TIPSTEP page.
+
+## Historical session — G79-TIPSTEP (2026-10-22; not the current decision)
+
+## Latest session — G79-UGBP (2026-10-22, this branch)
+
+**A new unique GeoTIFF was generated this session:** `gems79-ugbp-20261022`
+(37,654 dots, SHA-256 `1bf7a15622e0077f78ffd9b4939e1ea475c6566bd3ad170e9084146a7115a35a`,
+in `artifacts/ugbp/` — download buttons on the site, no manual inspection needed;
+the automated gates below are the inspection).
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO** — local format PASS (zeros outside footprint;
+no NaN anywhere, values in [0,1], EPSG:32611 3730×3292 matching sample, 0 dots on the
+catalogue; official-text R6 NaN-exterior discrepancy disclosed as with every shipped
+file, IR-79-224), locally novel (surface max |rho| 0.119 < 0.90; sparse-dot max 3-px
+overlap 0.663 < 0.70; full 1,108-row registry not scanned offline — flagged, not hidden),
+HOLDOUT-DTI (gems57-pooled-hide-v2) candidate **0.1465 [0.1298,0.1615] (seed 20,
+n=11,321) / 0.1477 [0.1289,0.1661] (seed 30, n=11,342)** — beats uniform and the H33
+holdout control but **below the THVC incumbent (0.1905/0.1944)**, and the UGBP chemistry
+mechanism itself is at chance on this instrument (pure surface 0.0148/0.0100; ablation
+delta +0.0007/+0.0009), so no slot is spent and the lane is closed. Five ranked
+hypotheses (top candidate validated here): [`research/hypotheses_ugbp.md`](research/hypotheses_ugbp.md);
+preregistration [`registry/preregistration_g79_ugbp.json`](registry/preregistration_g79_ugbp.json);
+gates and download: [`docs/ugbp-submission.html`](docs/ugbp-submission.html),
+[`run_card_ugbp.json`](run_card_ugbp.json). The canonical THVC decision below is unchanged.
+No score above the unverified H33 report (0.2778) is claimed or projected.
 
 ## Prior lane — G79-TIPSTEP (2026-10-22; closed negative)
 

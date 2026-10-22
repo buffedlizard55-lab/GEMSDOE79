@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "aa2b12b5",
-  "verified_utc": "2026-10-22T21:23:35Z",
+  "verified_utc": "2026-10-22T21:28:18Z",
   "scientific_result": {
     "new_tif_generated": false,
     "new_holdout_dti": null,
@@ -22,7 +22,7 @@
   "software": {
     "python_full_suite": {
       "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q",
-      "passed": 646,
+      "passed": 648,
       "failed": 0
     },
     "node_download_identity_suite": {
@@ -32,13 +32,13 @@
     },
     "real_browser": {
       "command": "QA_BASE_URL=http://127.0.0.1:8080 QA_REPORT_PATH=evidence/browser_review_aa2b12b5.json node scripts/browser_review.cjs",
-      "rendered_cases": 51,
+      "rendered_cases": 57,
       "viewports": [
         1440,
         390,
         320
       ],
-      "pages": 17,
+      "pages": 19,
       "passed": true,
       "browser_errors": 0,
       "download_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
@@ -47,12 +47,12 @@
     },
     "site_build": {
       "command": ".venv/bin/python scripts/build_site.py",
-      "pages": 17,
+      "pages": 19,
       "passed": true
     },
     "site_check": {
       "command": ".venv/bin/python scripts/check_site.py",
-      "local_links_checked": 507,
+      "local_links_checked": 557,
       "all_pages_reachable": true,
       "passed": true
     },
@@ -85,15 +85,17 @@
     "No claim is made that a future proposal would beat 0.2778 or 0.4413."
   ],
   "concurrent_main_reconciliation": {
-    "merged_origin_main": "406bd28",
-    "preserved": "G79-CSHD and THVC-NANFIX artifacts, evidence and pages; canonical negative G79-THVC decision unchanged",
+    "merged_origin_main": "d71ec323429086cff0d245e66318cb68d6edd687",
+    "preserved": "G79-CSHD, THVC-NANFIX, G79-GEM and G79-UGBP artifacts, evidence and pages; canonical negative G79-THVC decision unchanged",
     "irregularity_ids_renumbered_for_this_session": [
       242,
       243,
       244,
       245,
-      246
+      246,
+      247
     ],
-    "portal_claim_review": "Active CSHD/NANFIX text now says local R1-R8 PASS, not guaranteed portal acceptance or a diagnosed earlier error"
+    "portal_claim_review": "Active CSHD/NANFIX text now says local R1-R8 PASS, not guaranteed portal acceptance or a diagnosed earlier error",
+    "static_page_integration": "Registered GEM/UGBP in the reproducible 19-page build, repaired evidence links and portal wording"
   }
 }
