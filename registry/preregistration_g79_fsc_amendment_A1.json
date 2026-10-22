@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "lane": "G79-FSC",
+  "amendment": "A1",
+  "experiment": "EXP-FSC-3 (third and final experiment of the 3-experiment budget)",
+  "registered_utc_clock_read": "2026-10-22T15:50:48Z",
+  "written_before": "seed-30 EXP-FSC-1/2 results existed; after seed-20 EXP-FSC-1/2 results were seen.",
+  "disclosure": "This amendment departs from the original preregistration, which allowed EXP-FSC-3 only for a software defect. It is a scientific amendment made after seeing seed 20: candidate HOLDOUT-DTI 0.1406 [0.1265, 0.1551] vs THVC 0.1905; fabric family +0.0062 [-0.0018, +0.0151] over the ablation. Because it was chosen after one look at the shared holdout, any EXP-FSC-3 gain carries a selection bias of one extra try. The comparison bar (THVC, both seeds) and every other promotion gate are unchanged. Seed-20 results are not edited.",
+  "diagnosis": "Gain shares are dominated by smooth regional fields (cond_surf, earthquake distance/density, geodetic strain): the EXP-FSC-1 model learns where fault-rich regions are, not where a missing strand lies relative to the mapped network. The only localizing catalogue feature was the isotropic log distance to an endpoint.",
+  "change": "Add one feature family that expresses the original fabric hypothesis in the frame of the network itself: (a) offset from each pixel to its nearest visible fault pixel and to its nearest visible endpoint, decomposed into along-fabric and across-fabric components using the visible-catalogue fabric orientation at that pixel; (b) the tip axis of the nearest endpoint (unit vector from the local 11x11 catalogue centroid to the endpoint) with signed forward distance, across-axis distance and a forward cone exp(-across^2/18) * exp(-forward/25) for forward > 0. All are computed from the visible catalogue only (outer-visible for prediction, inner-visible for training, full catalogue for the live map). Everything else (LightGBM settings, inner hide, inner-only (K, s, c) grid, fabric-normal NMS placement, evaluator, seeds, bootstrap) is identical.",
+  "arm_name": "candidate_a1",
+  "promotion_rule": "Unchanged from registry/preregistration_g79_fsc.json. If candidate_a1 beats THVC on both seeds and passes every other gate, the live artifact is rebuilt with A1 features and the inner-selected (K, s, c) rule. Otherwise G79-FSC is NEGATIVE and its TIFF is published only as DO-NOT-SUBMIT research.",
+  "leakage_canary": "Every new feature is tested alone on outer withheld truth; symmetric AUC > 0.90 stops the arm."
+}
