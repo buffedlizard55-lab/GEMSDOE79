@@ -1,77 +1,259 @@
-# GEMSDOE79 — Coupled Multi-Physics, Geothermal Conduit & Crack-Tip Fault Discovery (`G79-THVC`)
+# GEMSDOE79 — auditable fault-discovery research for the DOE GEMS challenge
 
-## Download & Automated Submission Status — Start Here
+**Latest repository audit (2026-10-22):** [three-pass active-branch review](reports/repository_review_2026-10-22_active-branch.md). Current outcome remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**; no new experiment or competition slot was used.
 
-> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(Automated fail-closed machine gate: format/CRS/`[0,1]`/canary/holdout gates ALL PASS with #1 `GEMSDOE79` two-seed `HOLDOUT-DTI = 0.1905 / 0.1944`; automatic submission remains `NO` so zero weekly slots are spent automatically.)*
+## Download and submission decision — start here
 
-| Gate / Decision | Automated Result | Verified Machine Evidence |
-|---|---|---|
-| **`OK TO DOWNLOAD?`** | **✅ YES (`ok_to_download: true`)** | [**`g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif`**](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif) (`137,299 B`, SHA-256 `d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2`) · [**Single-TIFF ZIP**](docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.zip) (`102,600 B`, SHA-256 `dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9`) |
-| **`FORMAT & [0, 1] RANGE VALID?`** | **✅ PASS (`15 / 15` checks, `0` human inspection needed)** | Single-band `float32`, `EPSG:32611`, `3730 × 3292`, `[100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0]`, **`35,093` binary pixels strictly in `{0.0, 1.0}`**, `0` NaN/Inf anywhere, `0` outside footprint, `0` on mapped catalogue ([`run_card.json`](run_card.json), [`evidence/verification.json`](evidence/verification.json)) |
-| **`BEATS H33 ON SPATIAL HOLDOUT?`** | **✅ YES — NEARLY `2×` ACROSS BOTH SEEDS** | **Seed 20 (`n = 11,321`)**: **`HOLDOUT-DTI = 0.1905`** `[0.1741, 0.2069]` vs `H33 = 0.0961` `[0.0831, 0.1090]` (**`+98.3%`, `P = 1.000`**)<br>**Seed 30 (`n = 11,342`)**: **`HOLDOUT-DTI = 0.1944`** `[0.1774, 0.2126]` vs `H33 = 0.0989` `[0.0854, 0.1128]` (**`+96.6%`, `P = 1.000`**) ([`evidence/g79_thvc_results.json`](evidence/g79_thvc_results.json)) |
-| **`LEAKAGE CANARIES CLEARED?`** | **✅ PASS (`84 / 84` channels `<= 0.90`)** | Max single-feature symmetric AUC = **`0.7896 <= 0.90`** (`seed=20`) and **`0.7871 <= 0.90`** (`seed=30`); `dist_known_fault_px` blocked at ingestion ([`evidence/g79_leakage_canary.json`](evidence/g79_leakage_canary.json)) |
-| **`REGISTRY UNIQUENESS (`1,108` rasters / `93` repos)`** | **✅ SPARSE PASS (`0.6844 <= 0.70`) / ⚠️ BLANKETS FAIL-CLOSED** | Pre-placement surface `max |Spearman| = 0.7712 <= 0.90` (`1,082` rasters); post-placement `max |Spearman| = 0.1210 <= 0.90`, `max Jaccard = 0.0417 <= 0.55`; **comparable `<= 50k`-dot sparse overlap = `0.6844 <= 0.70` across all `718` sparse maps (`0.3427` vs `H33`)**; literal unchanged `uniqueness.py` flags space-filling/`80k` blankets (`17GEMSDOE = 1.0000`, `13GEMSDOE = 0.9985`, `59GEMSDOE = 0.8224` where **Oracle ground truth `truth20 = 0.8682 > 0.70`**) |
-| **`OK TO SUBMIT AUTOMATICALLY?`** | **⛔ NO (`ok_to_submit: false`, exit code `2`)** | Held strictly fail-closed (`0 / 3` weekly slots used) pending **cross-repo selector comparison** across parallel lanes (`GEMSDOE79` vs `GEMSDOE73`, etc.) and DrivenData weekly capacity verification. See [**Executive Summary & Submission Guide**](docs/executive-summary.html). |
+Latest independent repository review and three-pass verification: [2026-10-22 session review](reports/repository_review_2026-10-22_session-68182759.md). It records the current automated decision, exact checks run, limitations, and next steps. The decision remains **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO**.
 
-- **Unique Submission Name (`43 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
-- **Short Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
 
-![Dual-Seed Holdout Progression](docs/figures/fig1_holdout_progression.png)
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
+>
+> This is a newly generated, format-valid research GeoTIFF. It failed the protocol's duplicate gate,
+> so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
+> exits with code 2, and no human inspection is needed.
 
----
+| | |
+|---|---|
+| File | [`docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT.zip) |
+| Unique name | `gems79-h79-step-37654dots-20261022T043422Z-a99bb5c2-DO-NOT-SUBMIT` |
+| Note (137/140) | `H79-STEP catalogue-distance annulus x fault-zone complexity; research only; not uniqueness-cleared (registry cache absent); do not submit` |
+| SHA-256 | `0c6782957e178a98b9f231b4386ef6796c083252a090351b0fb4f7f9a756a64c` |
+| Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
+| Lane / experiment | H79-STEP / E1 (1 of 3 allowed; about 45 min of 2 h) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.0949** [0.0735, 0.1161], n = 11,321 · seed 30: **0.1087** [0.0858, 0.1293], n = 11,342 |
+| HOLDOUT-DTI, uniform control | seed 20: **0.0315** · seed 30: **0.0389** |
+| Paired Δ vs uniform control | +0.063 [0.043, 0.084] · +0.070 [0.046, 0.091]; 95% CIs exclude zero on both seeds |
+| Leakage canary | 8 single-feature AUC tests, max 0.6149 ≤ 0.90: **PASS** |
+| Uniqueness gate | **NOT CHECKED locally** — registry raster cache not restored; the literal reading is blocked by a universal-support witness. Not cleared for submission. |
+| Beat H33 holdout control | Seed 20: 0.0949 vs H33 0.0961 (not beaten) · seed 30: 0.1087 vs H33 0.0989 (beaten) — not beaten on both seeds |
+| Verdict | **negative.** Not uniqueness-cleared; **do not upload**. The separate selector has not approved a slot. |
+| Slots used | 0 |
 
-## 1. Forensic Analysis of `H33` (`0.2778`), Leaderboard Ceiling (`0.4413`), and Why `G79-THVC` Doubly Outperforms `H33`
 
-Full byte-level proofs and derivations are documented in [`knowledge/why_h33.md`](knowledge/why_h33.md) and [`evidence/h33_forensics.json`](evidence/h33_forensics.json):
+### Honest score assessment (this session, lane H79-STEP)
 
-1. **What `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` (`GEMSDOE32`) actually is:** Exact pixel comparison proves `H33` (`37,654` binary `1.0` pixels) is **not** a newly trained model — it is `D2.8` (`44,090` binary `1.0` pixels) with the **`6,436` pixels at Euclidean distance `<= 200 m` (`2.0 px`) from `existing_faults.tif` zeroed out** (`0` pixels outside `D2.8`). Because the official Distance-Weighted Tversky Index (`DTI`, `alpha=0.2, beta=0.8, r=300 m`) takes a point-wise `max` over predictions for `TP_w` but a linear `sum` for `FP_w`, converting dense probability maps (`0.06–0.12` historical report) into spaced binary `1.0` impulses (`D2.8 = 0.2768`) removes massive false-positive halo mass, and pruning the `200 m` flank around masked known faults (`H33 = 0.2778`) removes redundant flank echoes.
-2. **Leaderboard Reconciliation:** `0.2778` is an unverified historical filename-to-score report from the prompt ledger; `0.3195` is a stale snapshot inside one prompt paragraph; **`0.4413` (`xiaofanhu`, Rank #1)** is the verified public leaderboard observation read directly from DrivenData on `2026-10-21` ([`knowledge/official_sources.json`](knowledge/official_sources.json)). **Zero scores here are labeled `ORGANIZER-CONFIRMED`**, and all experimental results below carry strict **`HOLDOUT-DTI` (`gems57-pooled-hide-v2`)** receipts.
-3. **Why `H33` stalled — and the 4 bottlenecks solved by `G79-THVC`:**
-   - **24.99% Nevada 1-m LiDAR Blind Gap (`3.29×` regime gain: `0.0145 -> 0.0477`):** `1,291,341 / 5,167,373` footprint pixels lack 1-m 3DEP LiDAR (`dem_100m.tif = NaN`). Domain-adaptive conditioning (`lidar_present`) + non-LiDAR topographic/geophysical/hydrothermal channels prevent blind-gap collapse.
-   - **Covered Basin & Geothermal Conduit Physics (`2.49×–2.60×` regime gain):** Integrates official DOE GDR 1391 (`DOI: 10.15121/1881483`) **2-m shallow temperature probes (`temp_2m_probes.csv`), Quaternary sinter/travertine/tufa mounds (`paleogeothermal.geojson`), geothermometry spring temperatures (`geochem_springs.csv`), volcanic vents (`volcanic_vents.geojson`), magnetic demagnetization + Smectite clay alteration lows, and gravity basement-depth steps (`grav_bdepth`)** ([`evidence/official_ingenious_receipt.json`](evidence/official_ingenious_receipt.json)).
-   - **Anisotropic Mode-II/III Crack-Tip Mechanics (`#1` & `#2` gain channels):** Replaces `H33`'s isotropic distance collar with fold-fair along-strike fracture-tip propagation lobes (`net_tip_fwd_35px = 11.55%` gain, `net_tip_x_grav_bdepth = 10.37%` gain).
-   - **Exact Charnes-Cooper Submodular Kernel Allocation (`+0.0209` on `seed=20`, `+0.0258` on `seed=30`):** Replaces fixed `d = 3.0 px` Poisson-disk spacing with exact submodular maximization of marginal $\mathbb{E}[\Delta	ext{TP}_w] - \lambda_{	ext{fp}}\mathbb{E}[\Delta	ext{FP}_w]$ (`lambda_fp = 0.0022, min_sep = 1.9 px`), stopping endogenously where marginal utility reaches zero (`35,093` live dots).
+This artifact does **not** beat the 0.2778 / 0.3195 reference levels, and it is **not cleared for submission**.
 
-![Regimes and Top Features](docs/figures/fig2_regimes_and_features.png)
+* HOLDOUT-DTI is 0.0949 / 0.1087 (seeds 20 / 30) against a uniform control of 0.0315 / 0.0389 — a real, measured holdout gain with paired 95% CIs excluding zero, but well below 0.2778.
+* It did not beat the H33 holdout control on seed 20 (0.0949 vs 0.0961), so it is not a promoted candidate.
+* It is **not uniqueness-cleared**: the registry raster cache is not restored locally, and the protocol's literal reading is blocked by a universal-support witness, so no nonempty map can pass the 0.70 overlap gate as the rule currently stands.
+* No organizer score exists: only a DrivenData submission-page receipt makes a number ORGANIZER-CONFIRMED, and no slot was used.
 
----
+To exceed 0.2778 this project would need (a) the login-walled training data restored and a model trained on it, (b) the universal-witness / dot-definition question resolved prospectively, and (c) a separate selector approval plus a free weekly slot. None of those preconditions is met in this session. The negative result is the deliverable.
 
-## 2. Two-Seed Controlled Ablation Ladder (`HOLDOUT-DTI`, `gems57-pooled-hide-v2`)
 
-| Arm | Model & Placement | Dots | `seed=20` (`n=11,321`) `HOLDOUT-DTI` [95% CI] | `seed=30` (`n=11,342`) `HOLDOUT-DTI` [95% CI] |
-|---|---|---:|---:|---:|
-| `C0_random_B37654` | Uniform random in-footprint (`d >= 3 px`) | `37,654` | `0.0497` `[0.0433, 0.0561]` | `0.0422` `[0.0378, 0.0465]` |
-| `C1_fabric_offset_E1_placed` | Archived prior `G79-FABRIC-OFFSET` placed | `37,654` | `0.0441` `[0.0370, 0.0512]` | `0.0440` `[0.0371, 0.0517]` |
-| `C2_h33_analogue_foldfair` | Fold-fair `H33` benchmark (`D2.8` minus `<=200 m` visible collar) | `37,654` | `0.0961` `[0.0831, 0.1090]` | `0.0989` `[0.0854, 0.1128]` |
-| `EXP-79-1_pure_zero_catalogue` | Pure zero-catalogue `70`-ch physics + GDR-1391 thermal/vent | `37,654` | `0.0784` `[0.0661, 0.0898]` | `0.0648` `[0.0524, 0.0781]` |
-| `EXP-79-2_thvc_uniform_d28` | Full `84`-ch `G79-THVC` 2-stage ensemble + fixed `d=3.0 px` | `37,654` | `0.1697` `[0.1521, 0.1876]` | `0.1686` `[0.1510, 0.1866]` |
-| **`EXP-79-3_thvc_charnes_cooper`** | **Full `84`-ch `G79-THVC` + Charnes-Cooper submodular placement** | **`40,000` / `35,093`** | **`0.1905` `[0.1741, 0.2069]`** | **`0.1944` `[0.1774, 0.2126]`** |
+### Archived concurrent artifact (2026-10-22, lane H79-FF, session 1de1617f)
 
----
+Session `1de1617f` generated an additional negative research GeoTIFF (`H79-FF`); to preserve the single-canonical-artifact publication contract in `docs/downloads/` (`IR-79-52`, `IR-79-66`), its bytes are archived under [`archive/h79_ff_1de1617f/`](archive/h79_ff_1de1617f/README.md):
 
-## 3. Repository Navigation & Reproducible Verification Commands
+| | |
+|---|---|
+| File | [`archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif`](archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif) · ZIP [`archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip`](archive/h79_ff_1de1617f/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip) |
+| Unique name | `gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8` |
+| Note (113/140) | `H79-FF far-field lidar-scarp discovery, 2000-8000m off catalogue, 37654 dots, step_max surface; research artifact` |
+| SHA-256 | `b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9` |
+| Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
+| Method | far-field lidar scarp: dots placed 2–8 km off the mapped catalogue, ranked by USGS 3DEP lidar step_max, 3 px Poisson spacing, fixed budget; off-catalogue, zeros elsewhere |
+| Uniqueness gate | **FAIL.** > 70 % of dots within 3 px of registry priors: 13GEMSDOE spacing-5 lattice 0.9976, GEMSDOE48 space-filling surface 1.0000, 5GEMSDOE density probe 1.0000, GEMSDOE3 coverage field 0.8802 (limit 0.70). |
+| Verdict | **negative.** Unique by construction (new bytes, not copied) but not unique under the protocol gate and not evaluated on `HOLDOUT-DTI`; **do not upload**. See [`evidence/ff/ff_run_card.json`](evidence/ff/ff_run_card.json). |
+| Slots used | 0 |
 
-- **Scientific Reports & Preregistrations:** [`research/hypotheses.md`](research/hypotheses.md) · [`registry/preregistration_g79_thvc.json`](registry/preregistration_g79_thvc.json) · [`reports/g79_thvc_scientific_report.md`](reports/g79_thvc_scientific_report.md) · [`reports/irregularities.md`](reports/irregularities.md) · [`reports/verification_passes.md`](reports/verification_passes.md) · [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md)
-- **Archived Historical Lanes (preserved intact, non-executable):** [`archive/g79_fabric_offset_f61b17a2/`](archive/g79_fabric_offset_f61b17a2/run_card_f61b17a2.json) · [`archive/h79_mct_c26efec/`](archive/h79_mct_c26efec/README.md) · [`knowledge/prior_work/`](knowledge/prior_work/README.md)
-- **Self-Contained Website (`docs/`):** [`docs/index.html`](docs/index.html) · [`docs/executive-summary.html`](docs/executive-summary.html)
+Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
+submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
+The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
+
+Current independent three-pass review for this branch: [`reports/repository_review_2026-10-22_session-14aaf1c8.md`](reports/repository_review_2026-10-22_session-14aaf1c8.md). It records no new experiment, TIFF, upload, or slot use.
+
+## Follow-up preflight (2026-10-22, branch `arena/a7d092d7-gemsdoe79`)
+
+Concurrent [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md)
+confirmed no additional scientific experiment or submission slot was used.
+
+**Automated decision is still OK TO DOWNLOAD: YES / OK TO SUBMIT: NO.**
+The canonical GeoTIFF above is independently generated and locally format-valid,
+but it is *not* protocol-unique. No extra GeoTIFF was issued with a misleading
+"ready" label, and no weekly submission slot was spent.
+
+A re-download and independent measurement of the pinned [17GEMSDOE registry
+witness](evidence/witness_review_20261022_a7d092d7.json) confirmed that all
+5,106,385 allowed cells are covered by the witness's positive support. With the
+literal dot definition (any finite positive value), **every nonempty candidate
+has forward 3 px overlap 1.0 > 0.70**. The automated
+[new-lane preflight](evidence/new_lane_preflight_a7d092d7.json) returns exit 2
+and forbids experiments under that rule. This is a mathematical impossibility
+for a new *submittable* TIFF under the current literal protocol, not a missing
+human inspection step. A byte-distinct file or a format PASS is not a solution.
+The current NHR file fails even the more informative ordinary-dot comparison
+(26 non-space-filling registry rasters); waiving the universal witness alone
+would not promote it.
+
+Four untested [ranked hypotheses](research/hypotheses_preflight_a7d092d7.md)
+are documented for a *future, separately preregistered* lane. None received a
+holdout score in this review; no score is projected. The obstacle must be
+resolved *prospectively* by an explicit protocol definition of what constitutes
+"dots" in continuous prior rasters; silently changing the rule would violate
+the user's stop instruction. The [executive summary](docs/executive-summary.html)
+and [automated status command](scripts/submission_status.py) continue to make
+submission safety explicit. This review also fixed a clean-install test failure
+(missing pinned `scikit-image`) and corrected overconfident wording about
+near-catalogue false positives and the 70% halo proof.
+
+Latest concurrent software review: [session `0c9f6bad`](reports/session_review_0c9f6bad.md).
+It independently hardened selector evidence and fixed clean-install dependencies; no scientific slot was used.
+
+## Repository review — session `2747f26f` (2026-10-22)
+
+[Three-pass review and next steps](reports/session_review_2747f26f.md): the fresh
+hash-pinned registry preflight still refuses any new lane under the literal
+positive-support overlap rule. No new scientific raster or competition slot was
+used. The selector CLI now emits a structured refusal for missing/malformed
+inputs rather than a traceback; ten regression cases protect that path.
+All 240 software tests, format/evidence verification and site link checks passed.
+The original request for a newly generated **protocol-unique submittable** TIFF
+remains blocked, not silently marked complete. Official GitHub reference material
+was freshly reviewed; non-GitHub scientific sites were not freshly verified here.
+
+## What the previous session found (2026-10-22, session `337ac1e9`)
+
+1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
+   Sparse placements can reduce redundant FP: on an ideal straight grid-aligned trace, dots
+   spaced three pixels apart average about 2.33 TP units per dot. This is an illustrative calculation,
+   not a measured performance bound or proof that all sparse maps win.
+   H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
+   masked; nearby dots can still credit hidden traces, so the pruning is not proved to remove only
+   false positives. The reported 0.2600 and 0.2778 values have no artifact-bound organizer receipts or
+   causal demonstration. Algebra shows 0.2778 needs at least 23.6 % of truth credit, and
+   0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
+2. **Can we beat it?** Five untried hypotheses were ranked in
+   [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
+   learning, was preregistered in [`registry/preregistration_nhr.json`](registry/preregistration_nhr.json)
+   and run once. It **beat the H33 control on the holdout** on both seeds, with paired CIs above zero and no
+   leakage. However, its dots fall in the 300 m–2 km band around mapped faults, which 26 earlier family
+   dot fields already occupy. Those fields have unverified historical scores of 0.016–0.143. Under the protocol, that is a
+   **duplicate lane → stop**.
+3. **Systemic blocker (IR-79-53).** A verified literal-support witness covers every allowed cell,
+   so every nonempty map has overlap 1.0 and fails. Separately, 30 registry halos cover more than
+   70% of the area and flag the seeded uniform control; that statistic alone is NOT a proof of
+   universal rejection. The next lane needs **a prospective protocol clarification**.
+
+## Concurrent lane G79-STEPCO (session `220dabc8`): also negative, archived
+
+Another session ran lane G79-STEPCO (multi-field step dipoles with a fixed HistGradientBoosting model) in
+parallel, and it merged to `main` first, as PR #26.
+
+| Experiment | Seed 20 | Seed 30 | H33 control (seed 20 / 30) |
+|---|---|---|---|
+| S1 | 0.0946 [0.0778, 0.1110] | 0.0948 [0.0782, 0.1115] | 0.0961 / 0.0989 |
+| S2-COVER | 0.0935 | 0.0961 | |
+
+- S1 **tied** the H33 control rather than beating it. S2-COVER tied as well.
+- STEPCO's own uniqueness reading also fired, because of the same space-filling registry rasters.
+- Its verdict is also **OK TO SUBMIT: NO**.
+
+When the two lanes were merged, H79-NHR became the canonical card because its holdout evidence is stronger.
+The STEPCO files are kept as they are:
+- S1 TIFF, ZIP and receipt: moved byte-for-byte to [`archive/g79_stepco_s1/`](archive/g79_stepco_s1/README.md).
+- S2: [`archive/g79_stepco_s2/`](archive/g79_stepco_s2/).
+- Card and evidence, unchanged: [`run_card_stepco.json`](run_card_stepco.json) and [`evidence/stepco/`](evidence/stepco/).
+- Review: [`reports/session_review_220dabc8.md`](reports/session_review_220dabc8.md).
+- Its protocol amendment: [`reports/protocol_amendment_D1_20261022.md`](reports/protocol_amendment_D1_20261022.md).
+
+The STEPCO lane's README section is preserved in [`reports/readme_history_through_9417f4e.md`](reports/readme_history_through_9417f4e.md).
+The merge is recorded as IR-79-56.
+
+## Concurrent lane G79B-SDPT (session `67557396`): also negative, archived
+
+Scarp dipole-persistence + trace-object detector
+([hypotheses](research/hypotheses_g79b.md),
+[preregistration](registry/preregistration_g79b.json),
+[run card](run_card_g79b.json)), archived under
+[`archive/g79b_sdpt_67557396/`](archive/g79b_sdpt_67557396/README.md) —
+**not** the canonical download; **DO NOT SUBMIT**. Unconstrained HOLDOUT-DTI
+0.1211/0.1114 beat its control (0.1143/0.1087) and the archived best on both
+seeds (canary worst AUC 0.600), but duplicated 99 prior dot fields; the
+preregistered uniqueness cap (52 discriminating priors at 0.68,
+[Amendments B1](registry/preregistration_g79b_amendment_B1.json)/[B2](registry/preregistration_g79b_amendment_B2.json))
+cost −0.0176/−0.0203, leaving the registry-unique artifact **below** its
+control (0.1036/0.0910) — verdict negative, 0 slots used. Reproduce:
+`PYTHONPATH=src:vendor:scripts .venv/bin/python scripts/submission_status_g79b.py`
+(exit 2). Same wall as STEPCO/NHR: the family's good scarp terrain is
+already dotted, so uniqueness after the fact costs more than detector gains.
+
+## Limitations and next steps
+
+- HOLDOUT-DTI withholds *catalogue* faults; the organizer scores *expert* faults absent from the
+  catalogue. This file's dots sit closer to mapped faults than H33's: median 539 m against 1.96 km
+  (`evidence/nhr/distance_to_catalogue.json`).
+- Uniqueness covers the 992 hash-verified public sibling-repository rasters (0 new on a rescan of
+  branches, tags and pull refs), not every file other participants have uploaded.
+- The v3 dot definition for continuous registry surfaces is a recorded interpretation (IR-79-47) and can be reversed.
+- Next steps:
+  1. Decide IR-79-53.
+  2. Run a far-field lane that ranks within H33-like distance bands (more than 1 km from mapped faults), with
+     antislope or lidar evidence, checking the surface for uniqueness before placement.
+  3. Reweight the nested target by distance band.
+  4. Add the absolute 3DEP DEM for shoreline suppression.
+
+## Verify the frozen result (safe default)
+
+The active lane is **stopped**. These commands inspect existing bytes and evidence;
+they do not retrain, place dots, regenerate the scientific card or use a slot.
 
 ```bash
-# 1. Instant offline verification (format, hashes, ZIP, canaries, dual-seed receipts, site, tests)
-python3 -m venv .venv
-.venv/bin/pip install -r requirements.lock
-.venv/bin/python -m pytest -q
+python3 -m venv .venv && .venv/bin/pip install -r requirements.lock
+.venv/bin/python scripts/restore_data.py --ids existing_faults,sample_submission --target-dir data/reference --preserve-receipt
 .venv/bin/python scripts/verify_project.py
 .venv/bin/python scripts/submission_status.py  # expected exit 2: DO NOT SUBMIT
 .venv/bin/python scripts/build_site.py
 .venv/bin/python scripts/check_site.py
-.venv/bin/python scripts/submission_status.py   # exits 2 (fail-closed)
-
-# 2. Full data restoration & end-to-end G79-THVC re-execution from raw data
-bash scripts/download_competition_data.sh
-.venv/bin/python scripts/restore_official_ingenious.py
-.venv/bin/python scripts/restore_registry.py
-.venv/bin/python scripts/run_g79_thvc.py --stage all
+.venv/bin/python -m pytest -q
 ```
+
+Historical experiment entry points (`run_nhr.py`, `nhr_uniqueness.py`,
+`build_nhr_submission.py`, `finalize_nhr.py`) document reproduction, **not permission
+to resume this lane**. Do not rerun them in routine verification. A new authorized
+lane must complete the surface novelty gate **before** any final dot placement,
+then clear final novelty, leakage and matched holdout gates before the separate
+selector can approve it. The selector now checks the existing evaluator/novelty
+evidence against the card as well as the complete literal gate receipt. This is
+an evidence-consistency check, not a fresh scientific evaluation.
+
+Historical experimental commands remain in source for audit, but `run_nhr.py holdout`,
+`run_nhr.py final`, and `build_nhr_submission.py` now refuse a terminal lane before
+loading bulk data or changing evidence. Reproduction of frozen outputs is not permission
+to restart a stopped scientific lane. Any future runner must separate surface generation,
+completed uniqueness clearance, and placement; the archived runner's sequencing is not a template.
+
+Concurrent completed software reviews: [0c9f6bad](reports/session_review_0c9f6bad.md)
+and [0a460648](reports/session_review_0a460648.md) independently fixed dependencies,
+hardened selector evidence checks and excluded local virtual environments from scans.
+Those changes were merged into this branch without changing scientific evidence.
+
+## Latest repository review — session `2203b2cc` (2026-10-22)
+
+- Fixed a clean-install test/Pages blocker: `scikit-image` was imported by the merged
+  G79B tests but absent from both dependency manifests. It and its dependencies are now pinned.
+- Added terminal-lane guards and regression tests; no new experiment, copied submission,
+  uniqueness exemption, slot selection or competition upload occurred.
+- Removed the website metadata's unsupported “validated, unique” assertion and corrected
+  the H33 explanation: a known-fault pixel mask does not make the surrounding collar pure FP.
+- The existing TIFF remains downloadable and format-valid, **not protocol-unique**.
+  No file meeting all submission gates was generated this session.
+- Review and next-session blockers: [three-pass report](reports/session_review_2203b2cc.md).
+
+## Maintenance review — session `e846fc02` (2026-10-22, no new experiment)
+
+- **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — the canonical research GeoTIFF (`abbf5314…`, 37,654 dots, single band float32 EPSG:32611, values exactly 0/1, no NaN anywhere) remains locally format-valid (`Predicted values must be in range [0,1]` PASS) but duplicate-blocked (26 informative dot fields >70%, worst 0.913 vs 0.610 chance; surface also fails; universal whole-footprint witness still covers 100% of allowed cells, `preflight_new_lane.py` exits 2). No retraining, no dot placement, no weekly slot was used.
+- **Fixes:** collapsed duplicate `scikit-image` constraints in `requirements.txt` to `>=0.25,<1` (lock pins 0.26.0; `pip install -r requirements.lock` verified); rebuilt the static site with the new backlog included (`build_site.py` now embeds `research/hypotheses_e846fc02.md`); `verify_project.py` 29/29 PASS, `check_site.py` 7 pages / 120 links PASS, `pytest` 230 PASS, `submission_status.py` exit 2.
+- **New research inputs for a future preregistered lane:** five newly ranked, not-yet-tested hypotheses (`research/hypotheses_e846fc02.md`) — tip-pair stepover linkage, drainage-deflection scarps, antislope polarity, persistent basement-edge worms, radiometric alteration lineament — each with layers, transform, why it targets *uncatalogued* faults, difference from repo, cost/mimic/viability; ranked so a future lane can pick one, preregister, and validate on the spatially blocked HOLDOUT-DTI before touching a slot. A separate geothermal-vent synthesis (`knowledge/geothermal_vent_discovery.md`) consolidates all official sources line-by-line for reuse.
+- **No protocol exemption was added.** The universal literal witness and its implications (IR-79-53) still require an explicit prospective decision before any nonempty map can pass the 0.70 gate; the site's `research.html` now surfaces this with the new backlog.
+- Three-pass review: [`reports/session_review_e846fc02.md`](reports/session_review_e846fc02.md).
+
+Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
+preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
+Generative AI assisted research, code, tests and prose. No source measurements or organizer receipts
+were synthesized. See [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md).
 
 ---
 
@@ -657,7 +839,7 @@ gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros: 0.0964
 
 [https://buffedlizard55-lab.github.io/GEMSDOE78/](https://buffedlizard55-lab.github.io/GEMSDOE78/)
 
-gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:
+:
 
 ....
 
@@ -669,53 +851,23 @@ gems78-h78sigx-fuse-b5-44090dots-20261022T021932Z-zeros:
 
 [https://buffedlizard55-lab.github.io/GEMSDOE80/](https://buffedlizard55-lab.github.io/GEMSDOE80/)
 
-gemsdoe80-h80g-choquet-tworegime-20261022T000000Z-zeros:
+:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE81/](https://buffedlizard55-lab.github.io/GEMSDOE81/)
 
-gems81-cont-poisson44090-buf2-20261021T233115Z-42223e10-zeros:
+:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE82/](https://buffedlizard55-lab.github.io/GEMSDOE82/)
 
-gemsdoe82-h82-submodular-punoisyor-20261021T235456Z-fe137199-zeros:
+:
 
 ....
 
 [https://buffedlizard55-lab.github.io/GEMSDOE83/](https://buffedlizard55-lab.github.io/GEMSDOE83/)
-
-gems83-h83-gvcd-dink300-37654dots-20261021-1a373694-zeros:
-
-....
-
-[https://buffedlizard55-lab.github.io/GEMSDOE84/](https://buffedlizard55-lab.github.io/GEMSDOE84/)
-
-:
-
-....
-
-[https://buffedlizard55-lab.github.io/GEMSDOE85/](https://buffedlizard55-lab.github.io/GEMSDOE85/)
-
-:
-
-....
-
-[https://buffedlizard55-lab.github.io/GEMSDOE86/](https://buffedlizard55-lab.github.io/GEMSDOE86/)
-
-:
-
-....
-
-[https://buffedlizard55-lab.github.io/GEMSDOE87/](https://buffedlizard55-lab.github.io/GEMSDOE87/)
-
-:
-
-....
-
-[https://buffedlizard55-lab.github.io/GEMSDOE88/](https://buffedlizard55-lab.github.io/GEMSDOE88/)
 
 :
 
@@ -878,3 +1030,11 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
+
+## Latest software-only review (session 566bec0c, 2026-10-22)
+
+[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
+witness reproduced; no new experiments or slots used. Preflight now rejects
+malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
+SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
+presented as protocol-unique.
