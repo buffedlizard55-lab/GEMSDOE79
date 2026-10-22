@@ -1242,5 +1242,23 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Separate PR-number groups from the production group. Keep production serialized and PR deployments disabled; retain exact public-byte verification. Added a workflow regression test. Observed cancellation alone does not authenticate a successful deployment.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>4d7aa82a</code> addendum — current-checkout review and input restoration</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_4d7aa82a.md"><code>reports/session_review_4d7aa82a.md</code></a>. Current literal novelty stop: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/preflight_4d7aa82a.json"><code>evidence/preflight_4d7aa82a.json</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-172</td>
+<td>The fresh assigned-branch workspace did not contain <code>data/raw/</code> or the derived <code>.cache/g79/</code> feature arrays; only the small tracked reference rasters were present. Prior sessions' restored inputs were local ignored data, not a portable tracked cache.</td>
+<td>Ran <code>scripts/restore_data.py --preserve-receipt</code>: all 13 manifest entries restored from the pinned owner-maintained GitHub mirrors with matching SHA-256 values; receipt recorded at <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/input_restoration_4d7aa82a.json"><code>evidence/input_restoration_4d7aa82a.json</code></a> and the frozen <code>data/restore_receipt.json</code> preserved. This proves mirror-byte consistency, not independent organizer authentication. The official DrivenData data tab remains login-gated. Derived arrays were not rebuilt: the shared literal novelty preflight re-measured the universal witness and stopped before any experiment, and the required single-method lane paragraph was absent. No TIFF, holdout, or submission slot was generated.</td>
+</tr>
+</tbody>
 </table></div></section></main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_4d7aa82a.md">Latest review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
