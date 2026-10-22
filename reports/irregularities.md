@@ -71,3 +71,26 @@ Session 2026-10-21 post-stop diagnostic and code-integrity audit (branch `arena/
 GeoTIFF is available. It is **not protocol-unique** and is not a validated
 competition candidate. This verdict is automated, not deferred to a human
 inspector. Negative results and the impossible-gate certificate are deliverables.
+
+## Session 2026-10-22 — PR #12 release conflict (IR-79-30)
+
+The starting merge `3d386a3` advertised H79-CSPT promotion in the README and
+main/executive pages, while the canonical root card and status API remained
+negative for G79-FABRIC-OFFSET. The CSPT solver's
+`load_packed_informative_halos` excluded `is_space_filling` priors; its audit's
+`overall_uniqueness_pass` was therefore not an all-registry literal pass. The
+merge also replaced the shared novelty module, pin-manifest schema, feature API,
+data manifest and registry index. Existing verification would fail before
+publishing (feature import and pin schema did not match the stopped run).
+
+Preserved all 55 incoming changed paths in a SHA-256 manifest and a clearly
+non-authoritative archive; the modified shared module is retained in Git history
+only. Recovered active files from the verified first parent without changing
+branches. No CSPT score, canary or organizer receipt is authenticated by this
+review. Its README's unreceipted organizer-score label and projected gains are
+not repeated as scientific results. Archived source/tests are non-executable.
+Added release guards for contradictory README status, unlinked/extra downloadable
+TIFF/ZIPs, and a replaced frozen inventory. A new one-witness re-measurement
+confirms zero uncovered allowed pixels; this is not a new full registry scan.
+See `reports/session_review_8ed5d89a.md` and
+`evidence/session_witness_review_8ed5d89a.json`. E1 and weekly slots remain stopped.

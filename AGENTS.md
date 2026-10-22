@@ -24,3 +24,9 @@
   reactivate its dense-prior exemptions, placement amendments or positive flags.
   Current E1 is stopped, all active status aliases are negative, and any protocol
   clarification requires explicit authorization, not an agent-created bypass.
+
+- PR #12 H79-CSPT is also historical/non-authoritative under
+  `archive/h79_cspt_3d386a3/`. It excluded space-filling priors and changed the
+  shared novelty module; neither promotion nor the local fork is adopted.
+  Before publishing run `scripts/verify_project.py`: its publication contract
+  rejects a conflicting README, extra upload artifacts or a replaced inventory.
