@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "lane": "H79-ARC",
+  "experiment": "X2",
+  "kind": "gate-instrument defect fix (reserved by registry/preregistration_arc.json: X2/X3 only for a defect fix, never for tuning against the holdout)",
+  "registered_utc": "2026-10-22T05:55:00Z",
+  "branch": "arena/167a60a6-gemsdoe79",
+  "bytes_changed": false,
+  "x1_outcome_preserved": {
+    "holdout": "candidate beats h33_foldfair_control point estimate both seeds (0.1020 vs 0.0961; 0.1005 vs 0.0989); paired CI vs uniform excludes 0 both seeds; canaries max 0.6866 (560 tests)",
+    "surface_gate_x1": "FAIL: worst Spearman 0.496 (pass), provisional unspaced top-k worst excess 0.9477, 86 D-2 firings",
+    "final_gate_x1": "FAIL: worst Spearman 0.0889 (pass), worst excess 0.8068, 5 D-2 firings, all against 201k-624k dot fields (5.3-16.6x budget); worst budget-comparable (<=4x) excess 0.6639"
+  },
+  "defects_fixed": [
+    "D-3 budget comparability: excess test fires only vs rasters with dot count <= 4x candidate budget; calibration evidence/arc/d2_calibration_family_lanes.json shows D-2 rejects GEMSDOE70, GEMSDOE49 and H33 themselves vs mega-fields, while H79-NHR (positive control) still fails budget-comparable fields",
+    "Allocator-matched surface preview: place_cover provisional dots instead of unspaced top-k (X1 preview imported from the descending-rank NHR lane)",
+    "Completeness supplement: 4 same-shape/other-georeference rasters compared pixel-aligned; 2 invalid files listed not-comparable"
+  ],
+  "x2_promotion_gate": [
+    "all X1 scientific gates unchanged (canaries, holdout vs H33 control point estimate both seeds, paired CI vs uniform, evaluator pinned, exact budget, audited bytes, format)",
+    "surface Spearman <= 0.90 vs every comparable registry raster (990)",
+    "allocator-matched provisional dots and final dots: excess <= 0.70 vs every budget-comparable raster (dots <= 4x budget); rho <= 0.90 and no byte/pixel identity vs every comparable raster; mega-field literal readings reported in full",
+    "separate selector re-derives all gates including the X2 evidence files"
+  ],
+  "reversal_clause": "If the protocol owner rejects Amendment D-3 or the allocator-matched preview, the verdict reverts to negative on the preserved X1 readings and the file must not be submitted.",
+  "documents": ["reports/protocol_amendment_D3_20261022.md", "evidence/arc/d2_calibration_family_lanes.json"]
+}

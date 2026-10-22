@@ -1,0 +1,128 @@
+{
+  "evidence_class": "REGISTRY-MEASUREMENT",
+  "generated_utc": "2026-10-22T06:05:12.132822+00:00",
+  "purpose": "Calibration of Amendment D-2 excess overlap against mega dot-fields, on lanes independent of H79-ARC (plus the stopped H79-NHR as a positive control).",
+  "blockers": [
+    {
+      "submission": "61GEMSDOE:docs/downloads/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif",
+      "their_dots": 311617,
+      "halo": 0.969626262022938
+    },
+    {
+      "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif",
+      "their_dots": 206895,
+      "halo": 0.9987243421716145
+    },
+    {
+      "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+      "their_dots": 206895,
+      "halo": 0.9987243421716145
+    },
+    {
+      "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+      "their_dots": 624025,
+      "halo": 0.6096677003398686
+    },
+    {
+      "submission": "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif",
+      "their_dots": 201260,
+      "halo": 0.5602928490507473
+    }
+  ],
+  "candidate_budget": 37654,
+  "table": [
+    {
+      "candidate": "H79-ARC X1 final dots (this lane)",
+      "dots": 37654,
+      "excess_vs_blockers": {
+        "61GEMSDOE:docs/downloads/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif": 0.8068,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif": 0.7294,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif": 0.7294,
+        "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif": 0.727,
+        "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif": 0.7092
+      },
+      "d2_would_reject_vs_these_blockers": true
+    },
+    {
+      "candidate": "GEMSDOE70 p5 dual-submod (reported 0.2478, lineage-distinct)",
+      "dots": 37654,
+      "excess_vs_blockers": {
+        "61GEMSDOE:docs/downloads/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif": 0.5838,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif": 1.0,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif": 1.0,
+        "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif": 0.8907,
+        "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif": 0.4729
+      },
+      "d2_would_reject_vs_these_blockers": true
+    },
+    {
+      "candidate": "GEMSDOE49 gate_ortho (reported 0.2376, lineage-distinct)",
+      "dots": 40000,
+      "excess_vs_blockers": {
+        "61GEMSDOE:docs/downloads/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif": 0.7934,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif": -1.3909,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif": -1.3909,
+        "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif": 0.7585,
+        "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif": 0.2382
+      },
+      "d2_would_reject_vs_these_blockers": true
+    },
+    {
+      "candidate": "GEMSDOE73 mcsc Blakely (reported 0.1917, lineage-distinct)",
+      "dots": 37654,
+      "excess_vs_blockers": {
+        "61GEMSDOE:docs/downloads/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif": -0.2801,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif": 0.1256,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif": 0.1256,
+        "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif": 0.6114,
+        "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif": 0.3584
+      },
+      "d2_would_reject_vs_these_blockers": false
+    },
+    {
+      "candidate": "H33 champion itself (user-reported 0.2778)",
+      "dots": 37654,
+      "excess_vs_blockers": {
+        "61GEMSDOE:docs/downloads/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif": 0.5812,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif": 0.3338,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif": 0.3338,
+        "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif": 0.7969,
+        "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif": 0.5135
+      },
+      "d2_would_reject_vs_these_blockers": true
+    },
+    {
+      "candidate": "H79-NHR stopped lane dots (known duplicate, control)",
+      "dots": 37654,
+      "excess_vs_blockers": {
+        "61GEMSDOE:docs/downloads/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif": -0.3203,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif": -2.5392,
+        "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif": -2.5392,
+        "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif": 0.777,
+        "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif": 0.5664
+      },
+      "d2_would_reject_vs_these_blockers": true
+    }
+  ],
+  "nhr_still_fails_budget_comparable_reading": {
+    "firings": 3,
+    "worst": [
+      {
+        "submission": "GEMSDOE53:docs/submissions/gems53-h1-thin_bin_q0p1-20261008-aefc7582.tif",
+        "excess": 0.7666787907520747,
+        "their_dots": 56605
+      },
+      {
+        "submission": "59GEMSDOE:docs/downloads/gems59-h59i2-loco-ipp-corridor-20261011T000000Z-zeros.tif",
+        "excess": 0.7319345305323515,
+        "their_dots": 77727
+      },
+      {
+        "submission": "GEMSDOE37:docs/downloads/gemsdoe37-h6-physics-dotted-80k-20261005T055000Z-0bef9211631c.tif",
+        "excess": 0.7082228958611311,
+        "their_dots": 80000
+      }
+    ]
+  },
+  "finding": "D-2 excess against >=5x-budget dot-fields rejects 3 of the 4 calibration lanes (GEMSDOE70, GEMSDOE49 and H33 itself) that byte-level lineage measurement establishes as distinct submissions.  It therefore does not discriminate duplication in that regime.  H79-NHR (positive control) still fires against budget-comparable fields, so a budget-comparability restriction (Amendment D-3) preserves its negative verdict."
+}

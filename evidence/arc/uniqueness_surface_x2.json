@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "lane": "H79-ARC",
+  "experiment": "X2",
+  "phase": "surface",
+  "evidence_class": "REGISTRY-MEASUREMENT",
+  "generated_utc": "2026-10-22T06:10:29.624398+00:00",
+  "basis": "surface Spearman from X1 shared-tool scan (986) + supplement (4); allocator-matched provisional dots = place_cover output (identical to final dots)",
+  "registry_rasters_expected": 992,
+  "compared": 990,
+  "not_comparable": [
+    {
+      "submission": "GEMSDOE63:docs/downloads/smoke.tif",
+      "reason": "89ffb2d61840859392a758928ffdbae4260f2918.tif: MissingRequired:TIFF directory is missing required \"StripOffsets\" field",
+      "disposition": "not_comparable_invalid_file"
+    },
+    {
+      "submission": "GEMSDOE36:docs/downloads/GEMS36_FORMAT_TEST_NOT_SUBMISSION.tif",
+      "reason": "shape/band mismatch with competition grid",
+      "disposition": "not_comparable_invalid_file"
+    }
+  ],
+  "worst_spearman": 0.4964495520672087,
+  "surface_rho_firings": 0,
+  "worst_forward_overlap_3px": 1.0,
+  "worst_overlap_beyond_chance_provisional_topk_x1": 0.9476734468403617,
+  "worst_overlap_beyond_chance_allocator_provisional": 0.6638977316073147,
+  "provisional_cells": 37654,
+  "provisional_dots_sha256": "d2f5eafa4757c4369c5e3782395cf277757981f6abdc75177657e29fef1149d9",
+  "surface_sha256": "90a7a14b051362e7f8b8ac8335c7c26a3be92ca6b540150695ddb02780b5fb34",
+  "allocator_provisional_check": {
+    "budget_comparable_rasters": 873,
+    "mega_field_rasters": 117,
+    "excess_firings_budget_comparable": 0,
+    "worst_excess_budget_comparable": 0.6638977316073147,
+    "worst_excess_budget_comparable_submission": "GEMSDOE37:docs/downloads/gemsdoe37-h6-physics-dotted-80k-20261005T055000Z-0bef9211631c.tif",
+    "rho_firings_all": 0,
+    "identity_matches": 0,
+    "mega_field_excess_firings_reported_only": [
+      {
+        "submission": "61GEMSDOE:docs/downloads/gems61-lane-buried-step-gravinversion-hgm-r3-k400k-b2zeros.tif",
+        "their_dots": 311617,
+        "literal_overlap": 0.9941307696393478,
+        "halo_coverage_allowed": 0.969626262022938,
+        "overlap_beyond_chance": 0.8067662806242475
+      },
+      {
+        "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_zerofill.tif",
+        "their_dots": 206895,
+        "literal_overlap": 0.9996547511552557,
+        "halo_coverage_allowed": 0.9987243421716145,
+        "overlap_beyond_chance": 0.7293562293414836
+      },
+      {
+        "submission": "13GEMSDOE:docs/downloads/13gems_20261001_r13-lattice-s5_v2_nan-outside.tif",
+        "their_dots": 206895,
+        "literal_overlap": 0.9996547511552557,
+        "halo_coverage_allowed": 0.9987243421716145,
+        "overlap_beyond_chance": 0.7293562293414836
+      },
+      {
+        "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
+        "their_dots": 624025,
+        "literal_overlap": 0.893450894991236,
+        "halo_coverage_allowed": 0.6096677003398686,
+        "overlap_beyond_chance": 0.7270297510568865
+      },
+      {
+        "submission": "GEMSDOE77:docs/downloads/gems85-h85-edti-collar35-skel-r33-20261021-d97b248e-zeros.tif",
+        "their_dots": 201260,
+        "literal_overlap": 0.8721251394274181,
+        "halo_coverage_allowed": 0.5602928490507473,
+        "overlap_beyond_chance": 0.7091817581394301
+      }
+    ],
+    "passed_d3": true
+  },
+  "passed_d3": true,
+  "passed": true,
+  "passed_d2": true
+}

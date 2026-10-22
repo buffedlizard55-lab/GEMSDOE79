@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "lane": "H79-ARC",
+  "title": "Ridge-concordance kernel-credit learning without catalogue proximity, max-cover emission",
+  "registered_utc": "2026-10-22T04:40:00Z",
+  "branch": "arena/167a60a6-gemsdoe79",
+  "session": "167a60a6",
+  "registered_before_any_holdout_result": true,
+  "protocol_amendments_applied_prospectively": [
+    "D-1 (reports/protocol_amendment_D1_20261022.md): registry dots of a continuous surface = budget-matched top-k (shared budget-matched-v3)",
+    "D-2 (reports/protocol_amendment_D2_20261022.md): duplicate iff rho>0.90 or chance-corrected excess overlap (ov-h)/(1-h)>0.70 or byte/pixel identity; literal ov always reported"
+  ],
+  "supersedes": "Nothing. H79-NHR remains the stopped negative canonical lane until H79-ARC produces a complete run card; its artifact and card are then archived byte-for-byte, not edited.",
+  "lane_paragraph": "Expert-identified faults missing from the USGS/INGENIOUS catalogue must carry mappable physical evidence - a scarp, a basement edge, an alteration line - or experts could not have drawn them. H79-ARC therefore ranks cells only by label-independent physical line evidence: structure-tensor line-coherent edge strength of detrended elevation, RTP magnetics and isostatic gravity at sigma 1/2/4, magnetic horizontal-gradient worm persistence across scales, Hessian ridge anisotropy, USGS 3DEP lidar scarp morphometry including antislope (uphill-facing) asymmetry, GeoDAWN radiometrics, and the regional strike field of the visible catalogue (alignment and coherence only - explicitly NO distance-to-catalogue, density or tip-distance input, the proximity shortcut that made H79-NHR a duplicate and a distribution-shift risk). A gradient-boosted regressor is trained on nested hide-to-recover simulations (whole components withheld with a 3 px collar, all catalogue-derived inputs recomputed from the remainder) against the official 300 m triangular-kernel credit target. Dots are emitted by greedy submodular max-cover of the expected kernel credit (marginal-credit greedy with 3 px minimum spacing) at the fixed inherited budget of 37,654, strictly more than 2 px from any catalogue pixel (the measured H33 collar), binary 1.0 values, zeros elsewhere.",
+  "hypothesis": "Unmapped faults are concentrated where multiple independent physical layers express the same coherent line (scarp + potential-field edge + strike concordance); a credit-regressor over ridge-steered transforms of those layers, forbidden from using catalogue proximity, ranks unmapped-fault kernel credit better than the H33 lineage ranking and occupies a different dot habitat than near-catalogue registry fields.",
+  "mechanism": "Basin-and-Range normal faults offset Quaternary surfaces (lidar scarps, including under-mapped antithetic uphill-facing piedmont scarps) and/or magnetic/gravity basement (horizontal-gradient worms) along the regional strike; concordance of independent line evidence along one trace is specific to a through-going structure.",
+  "named_non_fault_mimic": "Pluvial Lake Lahontan shoreline/terrace risers: contour-parallel, predominantly downslope-facing steps of 2-10 m near range fronts; also incised channel banks, roads and mine benches. Antislope asymmetry and magnetic/gravity concordance are the preregistered suppressors; residual mimic leakage is an expected failure mode.",
+  "inputs": [
+    "data/raw/training_features.tif sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5 (19 bands, restored and re-verified this session)",
+    "data/raw/external/lidar_scarp_features_u8.tif sha256 d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "data/raw/external/geodawn_rad_u8.tif sha256 c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "data/raw/external/geodawn_extensions_u8.tif sha256 a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b",
+    "data/reference/existing_faults.tif and sample_submission.tif (grid, footprint, catalogue)"
+  ],
+  "excluded_inputs": "No registry raster, prior submission, SGMC/Qfaults product, or score is an input. No catalogue-proximity feature (distance, density, tip distance) is an input. The catalogue is used only for (a) nested-hide targets from the visible remainder, (b) the regional strike field, (c) the >2 px emission exclusion and exact masking.",
+  "feature_additions_over_nhr_static_stack": [
+    "For det_elev, rtp, iso_grav_anom: line-coherent edge strength = gaussian_gradient_magnitude(sigma) * structure-tensor coherence(sigma), sigma in {1,2,4} (det_elev sigma in {1,2})",
+    "Hessian ridge anisotropy |lam1-lam2| of det_elev at sigma {1,2} and of rtp at sigma {2,4} (scale-normalised second derivatives)",
+    "Magnetic worm persistence: sum over sigma {1,2,4} of HG(rtp,sigma) * 1[HG is 3x3 local max], robust-scaled",
+    "Lidar antislope: (upface_max - downface_max) and upface_max/(upface_max+downface_max+1) from raw u8 bands where valid",
+    "step_max structure-tensor coherence at sigma 2"
+  ],
+  "geometry_inputs_visible_only": ["lidar_strike_alignment", "strike_field_coherence"],
+  "fixed_parameters": {
+    "nested_replicates_per_model": 3,
+    "nested_hide_fraction": 0.2,
+    "nested_buffer_px": 3,
+    "negatives_sampled_per_replicate": 200000,
+    "target": "max(1 - d/3 px, 0) towards the nested-withheld component; context catalogue pixels excluded from training rows",
+    "model": "sklearn HistGradientBoostingRegressor(max_iter=250, learning_rate=0.08, max_leaf_nodes=63, min_samples_leaf=200, l2_regularization=1.0, random_state=seed) - inherited unchanged from H79-NHR preregistration",
+    "placement": "greedy submodular max-cover: repeatedly choose the allowed cell maximising marginal expected kernel credit sum_c p(c)*(max(k(d),cover(c))-cover(c)) under the official 3 px triangular kernel, lazy-greedy with row-major tie-break, 3 px minimum spacing, budget 37654 scaled by evaluation-region footprint area in folds",
+    "allowed_cells": "footprint & region & not masked/visible catalogue & distance-to-visible-catalogue > 2 px",
+    "final_map": "model trained on nested hides of the full catalogue over the whole footprint; strike field from the full catalogue; 37654 binary dots >2 px off the catalogue; zeros elsewhere (all finite)"
+  },
+  "holdout": {
+    "split": "shared gems57.holdout.buffered_component_draw, seeds 20 and 30, buffer 3 px, boundary 12 px - identical instrument to H79-NHR so controls are directly comparable",
+    "training_for_holdout": "leave-one-quadrant-out: for fold q the model is fitted only on nested hides of the VISIBLE catalogue in the three other quadrants; strike-field inputs at prediction time come from the visible catalogue only",
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py) - alpha 0.2, beta 0.8, 300 m triangular kernel, pooled terms, pixel-exact visible-fault masking",
+    "controls": [
+      "h33_foldfair_control: legacy D2.8 dots outside 2 px of the fold's visible catalogue (same construction as H79-NHR) - the current holdout best among registry-clearable references (0.0961/0.0989); H79-NHR's 0.1431/0.1522 is reported for context but is a stopped duplicate lane, not a clearable bar",
+      "uniform_control: seeded uniform surface, same cover allocator, allowed cells and budget",
+      "ablation_poisson_emission: identical candidate surface emitted with gems79.placement.place (descending-rank 3 px Poisson) instead of max-cover - isolates the emission change"
+    ],
+    "ci": "shared paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws"
+  },
+  "leakage_canary": "Every input feature alone (extended static stack + 2 strike inputs) on each seed and fold: held-out positives vs unlabeled proxies >3 px from truth and >3 px from visible faults; symmetric AUC > 0.90 means leakage until proven otherwise and blocks promotion.",
+  "promotion_gate": [
+    "all canaries <= 0.90 on both seeds",
+    "candidate pooled HOLDOUT-DTI > h33_foldfair_control point estimate on BOTH seeds",
+    "paired 95% CI of candidate minus uniform_control excludes 0 on both seeds",
+    "uniqueness under Amendments D-1+D-2 (shared gems57.uniqueness v4): pre-placement surface Spearman <= 0.90 and provisional top-k excess <= 0.70 vs every registry raster; final dots Spearman <= 0.90 and excess <= 0.70 vs every registry raster; no byte or decoded-pixel identity with any checked raster",
+    "shared validator: single band float32, EPSG:32611, 3730x3292, sample transform, all finite, values in [0,1], no mass outside footprint or on catalogue",
+    "separate selector (scripts/select_submission.py, lane-adapted) re-derives every gate from evidence + bytes and binds its receipt to the raster SHA-256 before ok_to_submit may be true"
+  ],
+  "experiments": [
+    "X1: the lane exactly as specified above",
+    "X2/X3: reserved; only for a defect fix, never for tuning against the holdout"
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2},
+  "score_policy": "Only evaluator outputs are labelled HOLDOUT-DTI (version, withheld positives, 95% CI). No projected leaderboard score is written anywhere. ORGANIZER-CONFIRMED requires a submission-page receipt. Historical family scores remain UNVERIFIED HISTORICAL / USER-REPORTED as labelled in registry/score_ledger.csv."
+}

@@ -1,0 +1,431 @@
+{
+  "schema_version": 1,
+  "lane": "H79-ARC",
+  "experiment": "X1",
+  "seed": 20,
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "generated_utc": "2026-10-22T05:00:42.686705+00:00",
+  "runtime_s": 461.5,
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "seed": 20,
+    "tests": 280,
+    "threshold": 0.9,
+    "max_symmetric_auc": 0.6866368304732189,
+    "worst": {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "arc_det_elev_lineedge_s2",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6866368304732189,
+      "symmetric_auc": 0.6866368304732189,
+      "suspicious": false
+    },
+    "n_suspicious": 0,
+    "per_feature_max": {
+      "tf_iso_grav_anom_vg": 0.531372336923077,
+      "step_max": 0.6479848673946959,
+      "K": 0.5769396627876223,
+      "coh100": 0.546478107124285,
+      "tf_mag_anom": 0.5459476153846153,
+      "tf_geod_shearrate": 0.558571049986776,
+      "tf_det_elev": 0.6374246697867915,
+      "iso_grav_anom_log_s2": 0.5519926339053562,
+      "arc_rtp_hessaniso_s4": 0.5573729745189807,
+      "det_elev_log_s1": 0.5816791185647425,
+      "downface_max_max5": 0.6758990587623505,
+      "step_max_max5": 0.6736764976599064,
+      "rtp_log_s2": 0.5353946619864794,
+      "ex_max": 0.6374591549661986,
+      "tf_cond_surf": 0.5693802418096724,
+      "rtp_log_s5": 0.5431597945917837,
+      "tf_tmi": 0.5351874615384615,
+      "ex_mean": 0.6317226365054602,
+      "arc_rtp_lineedge_s2": 0.5605011596463859,
+      "tf_geod_2ndinv": 0.5531877228246496,
+      "tf_deq_n100a15": 0.579539216923077,
+      "geom_strike_field_coherence": 0.5919529396984925,
+      "iso_grav_anom_gradmag_s5": 0.5688239907692307,
+      "downface_max": 0.655627550702028,
+      "tf_tmi_hg": 0.5592842381695268,
+      "det_elev_gradmag_s1": 0.6666904446177847,
+      "arc_det_elev_hessaniso_s1": 0.6473033723348934,
+      "arc_det_elev_lineedge_s1": 0.6700860634425376,
+      "geom_lidar_strike_alignment": 0.5789697815912637,
+      "ThK": 0.5782108814352573,
+      "tf_tmi_vg": 0.5398534425377015,
+      "tf_depth_to_base_surf": 0.5634644276923076,
+      "tf_tc": 0.5650317152513731,
+      "TC": 0.564999615547106,
+      "arc_rtp_lineedge_s1": 0.5615978809152367,
+      "cross_max": 0.6609846307852314,
+      "rtp_gradmag_s5": 0.571346918876755,
+      "rtp_gradmag_s2": 0.5653052340093604,
+      "arc_iso_grav_anom_lineedge_s1": 0.5661211876923077,
+      "arc_step_coherence_s2": 0.5931918070722828,
+      "TMI_up150": 0.5234307369230768,
+      "det_elev_gradmag_s3": 0.6835620332813312,
+      "UK": 0.5572018183020365,
+      "lapneg_max": 0.6536716276651066,
+      "arc_det_elev_lineedge_s2": 0.6866368304732189,
+      "Th": 0.5636230292307693,
+      "tf_iso_grav_anom_hg": 0.537636880016899,
+      "arc_rtp_hessaniso_s2": 0.5635782709308372,
+      "tf_iso_grav_anom": 0.5216798676923078,
+      "arc_rtp_lineedge_s4": 0.5609641159646387,
+      "relief": 0.6763407410296413,
+      "arc_iso_grav_anom_lineedge_s4": 0.5634549569230769,
+      "lappos_max": 0.6552746723868954,
+      "arc_det_elev_hessaniso_s2": 0.6608208424336973,
+      "tf_rtp": 0.5324432969318772,
+      "arc_antislope_ratio": 0.6010467368694747,
+      "arc_antislope_diff": 0.5619384477379096,
+      "U": 0.5639203569230771,
+      "upface_max": 0.6612121970878835,
+      "arc_iso_grav_anom_lineedge_s2": 0.5663307261538462,
+      "arc_rtp_worm_persist": 0.5021976738957947,
+      "tf_ieq_n100a15": 0.5249967368694748,
+      "iso_grav_anom_log_s5": 0.565890543421737,
+      "tf_det_elev_slope": 0.6468459152366095,
+      "UTh": 0.5464930092307694,
+      "tf_geod_dilaterate": 0.533656814334832,
+      "ex_max_max5": 0.6684267576703068,
+      "tf_iso_grav_anom_slope": 0.5681944830769231,
+      "iso_grav_anom_gradmag_s2": 0.5683982061538462,
+      "det_elev_log_s3": 0.6084224757076468
+    }
+  },
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.10201479326722829,
+        "ci95": [
+          0.08828215578188975,
+          0.11744829796583862
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 1671.6940704112571,
+        "fpw": 34978.21065418324,
+        "fnw": 9649.30592958874
+      },
+      "ablation_poisson_emission": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.09256772643750913,
+        "ci95": [
+          0.07935943289446093,
+          0.10829694031725678
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 1512.4146778515312,
+        "fpw": 34895.91676730587,
+        "fnw": 9808.585322148469
+      },
+      "uniform_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.048669167847267415,
+        "ci95": [
+          0.04268437272810529,
+          0.054078527662726625
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 792.140378321911,
+        "fpw": 35303.96260677429,
+        "fnw": 10528.859621678086
+      },
+      "h33_foldfair_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.09608619416803546,
+        "ci95": [
+          0.08369779677637204,
+          0.10855668800868364
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 1588.9204532602826,
+        "fpw": 35809.116597847176,
+        "fnw": 9732.079546739715
+      }
+    },
+    "best_comparable_control": "h33_foldfair_control",
+    "paired_differences": {
+      "ablation_poisson_emission": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.009447066829719158,
+        "ci95": [
+          0.004331786161781048,
+          0.015364195502219354
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "uniform_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.05334562541996087,
+        "ci95": [
+          0.0397518727762231,
+          0.06686603133349792
+        ],
+        "withheld_positive_pixels": 11321
+      },
+      "h33_foldfair_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.005928599099192827,
+        "ci95": [
+          -0.006270526446295893,
+          0.019292985652178705
+        ],
+        "withheld_positive_pixels": 11321
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 159,
+      "draws": 1000,
+      "seed": 7920,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "folds": [
+    {
+      "fold": "NW",
+      "budget": 8000,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 8064,
+          "positive_rows": 49212,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 8067,
+          "positive_rows": 48357,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 8152,
+          "positive_rows": 48040,
+          "negative_rows": 200000
+        }
+      ],
+      "cover_info": {
+        "requested": 8000,
+        "emitted": 8000,
+        "spacing_px": 3,
+        "exhausted": false,
+        "pool": 400000,
+        "expected_cover": 14016.687112212181
+      },
+      "withheld_truth": 1923
+    },
+    {
+      "fold": "NE",
+      "budget": 9919,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 7733,
+          "positive_rows": 45538,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 7679,
+          "positive_rows": 47443,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 7952,
+          "positive_rows": 47132,
+          "negative_rows": 200000
+        }
+      ],
+      "cover_info": {
+        "requested": 9919,
+        "emitted": 9919,
+        "spacing_px": 3,
+        "exhausted": false,
+        "pool": 400000,
+        "expected_cover": 18938.047362089157
+      },
+      "withheld_truth": 2367
+    },
+    {
+      "fold": "SW",
+      "budget": 9793,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 6461,
+          "positive_rows": 39703,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 6447,
+          "positive_rows": 37444,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 6723,
+          "positive_rows": 41018,
+          "negative_rows": 200000
+        }
+      ],
+      "cover_info": {
+        "requested": 9793,
+        "emitted": 9793,
+        "spacing_px": 3,
+        "exhausted": false,
+        "pool": 400000,
+        "expected_cover": 18800.558793783188
+      },
+      "withheld_truth": 3781
+    },
+    {
+      "fold": "SE",
+      "budget": 7891,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 6841,
+          "positive_rows": 44055,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 6873,
+          "positive_rows": 43468,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 6823,
+          "positive_rows": 43484,
+          "negative_rows": 200000
+        }
+      ],
+      "cover_info": {
+        "requested": 7891,
+        "emitted": 7891,
+        "spacing_px": 3,
+        "exhausted": false,
+        "pool": 400000,
+        "expected_cover": 15211.997189164162
+      },
+      "withheld_truth": 3250
+    }
+  ],
+  "h33_control_source": {
+    "repo": "GEMSDOE68",
+    "path": "registry/rasters/rasters/GEMSDOE25__dotted-h19-5-d2-8.tif",
+    "blob": "bfb7e86d046dd178c3d6ab60522861b5464dd420",
+    "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30"
+  },
+  "feature_names": [
+    "tf_mag_anom",
+    "tf_rtp",
+    "rtp_gradmag_s2",
+    "rtp_log_s2",
+    "rtp_gradmag_s5",
+    "rtp_log_s5",
+    "tf_tmi_hg",
+    "tf_geod_2ndinv",
+    "tf_iso_grav_anom_slope",
+    "tf_tc",
+    "tf_geod_shearrate",
+    "tf_geod_dilaterate",
+    "tf_tmi_vg",
+    "tf_deq_n100a15",
+    "tf_iso_grav_anom_vg",
+    "tf_det_elev",
+    "det_elev_gradmag_s1",
+    "det_elev_log_s1",
+    "det_elev_gradmag_s3",
+    "det_elev_log_s3",
+    "tf_iso_grav_anom",
+    "iso_grav_anom_gradmag_s2",
+    "iso_grav_anom_log_s2",
+    "iso_grav_anom_gradmag_s5",
+    "iso_grav_anom_log_s5",
+    "tf_tmi",
+    "tf_depth_to_base_surf",
+    "tf_ieq_n100a15",
+    "tf_cond_surf",
+    "tf_iso_grav_anom_hg",
+    "tf_det_elev_slope",
+    "ex_max",
+    "ex_max_max5",
+    "ex_mean",
+    "step_max",
+    "step_max_max5",
+    "lapneg_max",
+    "lappos_max",
+    "downface_max",
+    "downface_max_max5",
+    "upface_max",
+    "cross_max",
+    "relief",
+    "coh100",
+    "K",
+    "Th",
+    "U",
+    "TC",
+    "ThK",
+    "UK",
+    "UTh",
+    "TMI_up150",
+    "arc_det_elev_lineedge_s1",
+    "arc_det_elev_lineedge_s2",
+    "arc_rtp_lineedge_s1",
+    "arc_rtp_lineedge_s2",
+    "arc_rtp_lineedge_s4",
+    "arc_iso_grav_anom_lineedge_s1",
+    "arc_iso_grav_anom_lineedge_s2",
+    "arc_iso_grav_anom_lineedge_s4",
+    "arc_det_elev_hessaniso_s1",
+    "arc_det_elev_hessaniso_s2",
+    "arc_rtp_hessaniso_s2",
+    "arc_rtp_hessaniso_s4",
+    "arc_rtp_worm_persist",
+    "arc_antislope_diff",
+    "arc_antislope_ratio",
+    "arc_step_coherence_s2",
+    "geom_lidar_strike_alignment",
+    "geom_strike_field_coherence"
+  ],
+  "static_stack_inputs": {
+    "training_features.tif": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "lidar_scarp_features_u8.tif": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "geodawn_rad_u8.tif": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "geodawn_extensions_u8.tif": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b"
+  },
+  "extra_stack_inputs": {
+    "training_features.tif": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "lidar_scarp_features_u8.tif": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568"
+  }
+}
