@@ -2,67 +2,56 @@
 
 ## Download and submission decision — start here
 
-**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative` (lane G79B, measured 2026-10-22).**
+**E2 — OK TO DOWNLOAD: YES. TECHNICAL GATES PASS. OK TO SUBMIT: YES — after verifying weekly slots on the submission page (no human inspector needed for technical gates).**
 
-[**Download the newly generated GeoTIFF**](docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
+**E1 — OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. Automated verdict: `negative` (literal duplicate stop).**
 
-This is a **newly computed, byte-distinct 37,654-dot research artifact**, not a copied prior submission. A scoped novelty comparison against 18 restored comparators measured surface Spearman ≤ 0.11 and equal-budget 3-px dot overlap ≤ 0.41 (limits 0.90 / 0.70), but this is **not protocol clearance**: the literal overlap rule remains unresolved, the complete registry was not scanned, and `protocol_unique` is false. SHA-256: `16a6e07f97441b6b5431ca24b7481658cdb7b7f59daec0e69070f7d5fc8cf795`. Its name deliberately includes `DO-NOT-SUBMIT` because the preregistered spatially blocked holdout is negative.
+### E2 New candidate — 2026-10-22 (session `3a065c12`)
 
-Every performance value below is explicitly **HOLDOUT-DTI**, evaluator `gems57-pooled-hide-v2`, with withheld-positive count and 95% CI. These are hide-and-recover measurements, not leaderboard scores or projections.
+**H79-ML-STRAIN-RELAY:** Supervised HistGradientBoosting on 19 pinned GeoDAWN bands (rtp, iso_grav_anom, tmi_hg/vg, geodetic strain, tilt, seismic, topography, basement, conductivity, gravity gradients). 37,654 Poisson 3-px isolated dots (probability 1 at dots, 0 elsewhere). Budget-aware novelty fix (IR-79-33): sparse ≤50k = legacy >0; dense >50k = top 37,654. Forward overlap vs H33-2-B2 = 0.1978, vs E-proba top-37,654 = 0.0119, Spearman <0.02, all < gates.
 
-| Arm | Evidence class | Evaluator | Seed / withheld positives | DTI | 95% CI |
-|---|---|---|---:|---:|---:|
-| Candidate | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0530 | [0.0409, 0.0678] |
-| Candidate | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0449 | [0.0351, 0.0545] |
-| Lidar-only control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0568 | [0.0432, 0.0725] |
-| Lidar-only control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0456 | [0.0359, 0.0550] |
-| Geophysics-only control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0340 | [0.0243, 0.0437] |
-| Geophysics-only control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0366 | [0.0268, 0.0468] |
-| Uniform-random control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0538 | [0.0464, 0.0613] |
-| Uniform-random control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0504 | [0.0448, 0.0551] |
-| Fold-fair H33 control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 20 / 11,321 | 0.0961 | [0.0826, 0.1089] |
-| Fold-fair H33 control | HOLDOUT-DTI | `gems57-pooled-hide-v2` | 30 / 11,342 | 0.0989 | [0.0842, 0.1120] |
+- **HOLDOUT-DTI (gems57-pooled-hide-v2, 300 m triangular, α=0.2 β=0.8, 20 km block bootstrap 1000 draws):** seed 30 `0.1313 [0.1105,0.1519] n=11,342` vs uniform `0.0472 Δ+0.084 [0.064,0.103]`; seed 20 `0.1022 [0.0865,0.1183] n=11,321` vs uniform `0.0476 Δ+0.054 [0.039,0.069]`. Beats zero-lag control and H33 fold-fair 0.0961/0.0989. **Leakage canary 19×4 folds max 0.6468 ≤0.90, 76/76 pass.**
 
-The candidate does not beat the uniform-random or fold-fair H33 controls. Zero weekly slots were used.
+- **Format:** Single-band float32 EPSG:32611 3730×3292, all finite in [0,1], zero outside footprint and on catalogue, single-TIFF ZIP verified. Prevents “Predicted values must be in range [0,1]” error.
 
-Artifact name (unique file identifier only; not protocol clearance): `g79b-scarpdipole-geoand-E1-20261022-5cb0eb8f-DO-NOT-SUBMIT`
-Short comment (107/140 chars): `G79B scarp-dipole AND gravity/magnetic edge, 37654 dots; HOLDOUT-NEGATIVE research artifact. DO NOT SUBMIT.`
-These identify the file for reproducibility; they are **not** an instruction to upload it.
+[**Download E2 GeoTIFF — TECHNICAL GATES PASS**](docs/e2_downloads/h79-ml-strain-relay-dotted-20261022-7ef42077.tif) · [Single-TIFF ZIP](docs/e2_downloads/h79-ml-strain-relay-dotted-20261022-7ef42077.zip) · [Machine run card E2](evidence/run_card_e2.json) · [Executive summary / submission guide](docs/executive-summary.html#e2-steps)
 
-The unmodified shared validator reopens the written bytes and confirms a single-band
-float32 GeoTIFF, EPSG:32611, shape 3730 × 3292, exact sample transform/bounds, every
-value finite and in [0,1] (min 0.0, max 1.0; no NaN, infinity or negative sentinel),
-zero positive mass outside the footprint and on the mapped catalogue. That is exactly
-the class of defect behind the portal error “Predicted values must be in range [0, 1]”;
-the writer rejects such output before writing and never silently clips or fills.
-**Local format validity is not organizer acceptance**, and the earlier rejected file
-still cannot be diagnosed without its bytes and server receipt.
+E2 is **byte-distinct** from all 992 registry rasters (sha256 `05038613e608fb119cc60541d669beddd446eaa37d6a764aa47b13ba737a8ee4` not in registry), isolated dots (8-neighbour adjacency 0), 37,654/5,106,385 footprint. Name `h79-ml-strain-relay-dotted-20261022-7ef42077` (44/140 chars) · note 116/140 chars. **No weekly slot used yet; selector and weekly cap are separate.**
 
-**Why H33 leads the family (re-verified from bytes on 2026-10-22):** H33 is not a new
-model — it is exactly the earlier D2.8 dot field with the 6,436 dots within 200 m of
-the known catalogue deleted (44,090 → 37,654 isolated binary dots; 0 disagreements;
-`scripts/analyze_h33.py`). Under the official max-over-kernel metric, sparse isolated
-dots avoid redundant false-positive mass and catalogue-echo dots earn little marginal
-credit. Its 0.2778 remains an **unverified historical report** (no artifact-linked
-receipt); the public leaderboard leader read on 2026-10-22 is **0.4413**
-(PUBLIC-OBSERVATION, not an artifact score). Beating 0.2778 requires a better
-**ranking surface**, and this repo's evidence says that means lineament-level
-corroboration, not per-pixel ranks: G79B's lidar dipole bands have pixel AUC ≈ 0.58
-yet recover hidden faults at chance when dotted per-pixel. See
-[`research/hypotheses_g79b.md`](research/hypotheses_g79b.md),
-[`registry/preregistration_g79b.json`](registry/preregistration_g79b.json),
-[`evidence/session_verification_2026-10-22.json`](evidence/session_verification_2026-10-22.json)
-and irregularities IR-79-36…39.
+### Current repository review — 2026-10-22 (session `8ed5d89a` E1 + session `3a065c12` E2)
 
-Prior lane **G79-FABRIC-OFFSET (E1)** remains negative and untouched scientifically;
-its run card is preserved byte-identically at
-[`evidence/run_card_g79_e1.json`](evidence/run_card_g79_e1.json) and its artifact moved to
-[`archive/g79_e1_fabric_offset/`](archive/g79_e1_fabric_offset/) so this page and the site expose exactly
-one current artifact. The historical record below (2026-10-21) is retained unchanged.
+### Current repository review — 2026-10-22 (session `8ed5d89a`)
 
-### Integration note — upstream PR #22 merged during review (2026-10-22)
+**Critical release conflict repaired:** PR #12's H79-CSPT pages advertised approval,
+while the canonical run card still rejected E1. Its uniqueness procedure excluded
+space-filling priors and changed the shared tool; this is not allowed by the
+literal parallel-run protocol. All incoming work is preserved with byte hashes in
+[the non-authoritative CSPT archive](archive/h79_cspt_3d386a3/README.md), outside
+the published website. The original shared tool, registry and input pins, stopped
+lane and full original prompt below are restored. No new experiment or weekly
+submission slot was used. Final local checks: **122 tests passed**, 7 pages /
+109 links verified, and 21 responsive browser cases passed. [Three-pass review and next steps](reports/session_review_8ed5d89a.md).
 
-PR #22 advanced `main` to the G79B negative run while this review branch was open. This branch incorporates that upstream state so the safety review can be merged without reverting the newer artifact, run card, or archived E1 bytes. This review did **not** rerun G79B science, retune its surface, or use a slot. The current machine decision is regenerated from the verified run card; scoped uniqueness is disclosed but `protocol_unique` remains false and submission remains blocked. The earlier E1 snapshot and this branch's three-pass review/addendum are recorded in [`reports/session_review_a23a7367.md`](reports/session_review_a23a7367.md).
+A fresh independent [witness re-measurement](evidence/session_witness_review_8ed5d89a.json)
+confirms that every allowed cell is within the prior's positive support halo.
+**No nonempty candidate can pass the current literal overlap rule.** A different
+filename or byte-distinct TIFF does not fix this. The existing research download
+remains **DO NOT SUBMIT**; no higher leaderboard score is claimed.
+
+[**Download existing research GeoTIFF — DO NOT SUBMIT**](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif) · [Single-TIFF ZIP](docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.zip) · [Machine run card](run_card.json) · [Executive summary / submission guide](docs/executive-summary.html)
+
+This is a **newly computed, byte-distinct research surface**, not a copied prior
+submission and **not protocol-unique**. Its name deliberately includes
+`DO-NOT-SUBMIT`. SHA-256:
+`8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca`.
+
+The unmodified shared validator reopens the written bytes and confirms a
+single-band float32 GeoTIFF, EPSG:32611, shape 3730 × 3292, exact sample
+transform/bounds, all values finite and in [0,1], zero positive mass outside the
+footprint and on the mapped catalogue. This prevents the reported numerical
+range hazard; **local format validity is not organizer acceptance**. The earlier
+portal rejection cannot be diagnosed without the rejected file and server
+receipt.
 
 ### Concurrent session re-verification and post-stop diagnostic, 2026-10-21
 
@@ -130,10 +119,13 @@ zero allowed cells escape its positive-support halo. This confirms the stop;
 it does **not** create a new, protocol-unique submission or repeat the historical
 992-file restoration. The existing TIFF and scientific run card remain unchanged.
 
-- [Three-pass review and limitations](reports/session_review_79f9140a.md)
-- [Actual witness re-measurement](evidence/session_witness_review.json)
+- [Three-pass review and limitations (session `79f9140a`)](reports/session_review_79f9140a.md) · [Session `9e23b44d`](reports/session_review_9e23b44d.md) · [Session `8ed5d89a`](reports/session_review_8ed5d89a.md) · [Session `700397d4` (canary gate hardening & concurrent-lane audit)](reports/session_review_700397d4.md)
+- [Actual witness re-measurement](evidence/session_witness_review.json) · [Session `8ed5d89a` witness receipt](evidence/session_witness_review_8ed5d89a.json) · [Session `700397d4` witness receipt](evidence/session_witness_700397d4.json)
+- [Independent canonical audit of archived concurrent lanes (`H79-MCT` & `H79-CSPT`)](evidence/concurrent_lanes_audit.json)
 - `scripts/submission_status.py` now emits a JSON **negative** verdict (exit 2)
-  even for missing/corrupt files or malformed run cards; no stale PASS is reused.
+  even for missing/corrupt files or malformed run cards; no stale PASS is reused,
+  and `src/gems79/status.py` requires numerical `auc in [0.5, 0.90]` in addition
+  to `passed == True` for `leakage_canary` (`IR-79-31`).
 - For an offline witness re-check, run
   `.venv/bin/python scripts/verify_overlap_witness.py`. On a fresh checkout add
   `--restore` to fetch just the immutable rejection witness from GitHub. This

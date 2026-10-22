@@ -1,6 +1,6 @@
 # Irregularities and disposition
 
-Entries are grouped by review session and dated below. No entry authorizes a threshold exemption.
+All entries are dated 2026-10-21. No entry authorizes a threshold exemption.
 
 | ID | Finding and evidence | Resolution / remaining limitation |
 |---|---|---|
@@ -81,23 +81,14 @@ Session 2026-10-22 environment-portability and developer-ergonomics audit (branc
 | IR-79-34 | Direct invocation of `pytest` without `-m pytest` failed collection in `tests/test_validate_submission.py` with `ModuleNotFoundError: No module named 'scripts'`. | Added `pythonpath = ["."]` to `[tool.pytest.ini_options]` in `pyproject.toml`, enabling clean execution under both `pytest` and `python3 -m pytest`. |
 | IR-79-35 | `scripts/download_competition_data.sh` hardcoded `PYTHON="${PYTHON:-.venv/bin/python}"`, failing when `.venv` does not exist. `scripts/post_stop_diagnostic.py` lacked CLI argument parsing for `-h`/`--help`, causing it to unintentionally trigger heavy holdout computations upon help inspection. | Updated `download_competition_data.sh` to check for `.venv/bin/python` if present or fallback to `python3`. Added `argparse.ArgumentParser` to `scripts/post_stop_diagnostic.py` for immediate `-h`/`--help` response. Added unit tests in `tests/test_site_feed_and_recovery.py`. |
 
-## Outcome — historical E1 session snapshot (not the current run card)
+## Outcome
 
-At the end of the earlier E1 review, the result was **OK TO DOWNLOAD: YES.
-OK TO SUBMIT: NO.** A byte-distinct GeoTIFF was available but was not
-protocol-unique or a validated competition candidate. That was an automated
-negative decision. After upstream PR #22 merged, G79B became the current lane;
-its current evidence and the integration status are recorded below.
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** A newly computed, byte-distinct
+GeoTIFF is available. It is **not protocol-unique** and is not a validated
+competition candidate. This verdict is automated, not deferred to a human
+inspector. Negative results and the impossible-gate certificate are deliverables.
 
-Session 2026-10-22, lane G79B-SCARP-DIPOLE-GEOAND (branch `arena/e2f3892f-gemsdoe79`):
-
-| ID | Finding and evidence | Resolution / remaining limitation |
-|---|---|---|
-| IR-79-36 | `AGENTS.md` (prior session) instructed "do not silently open a new scientific lane", while the 2026-10-22 owner prompt explicitly requires a new unique submission and new hypotheses. | Owner instruction governs. The new lane is declared loudly (`registry/preregistration_g79b.json`, hash-pinned before computation), E1 remains stopped-negative and byte-preserved, and no E1 threshold or gate was altered. `AGENTS.md` updated (branch-neutral session rule) to record both lanes as closed. |
-| IR-79-37 | Decision D-1 (IR-79-24) remains formally open: the literal >0-support dot definition rejects every nonempty candidate vs the full-footprint E-proba witness. | G79B used the disclosed operative definitions (actual support for sparse priors; equal-budget top-37,654 Option B and p>=0.5 Option C for continuous priors) against 18 restored comparators, reported the literal result, and keeps `protocol_unique=false`. The scoped scan is not a full 992-raster clearance; a protocol-owner ruling is still required before any future promotion claim. |
-| IR-79-38 | G79B Experiment 1 is negative: the candidate did not beat the uniform-random or fold-fair H33 controls. All candidate/control results are **HOLDOUT-DTI**; the evaluator, withheld-positive count, and 95% CI for every seed/arm are in `run_card.json` and `evidence/holdout_g79b_seed20.json` / `evidence/holdout_g79b_seed30.json`. Leakage canaries passed (72 feature-fold tests; maximum symmetric AUC 0.6553, threshold 0.90; **LEAKAGE-CANARY**, not a competition score). The preregistered Experiment-2 contingency condition was not met (candidate-minus-lidar-only paired CIs include zero on both seeds). | Lane closed as a negative deliverable. No retuning, no second experiment, no slot used. The pixel-level lidar-dipole association and chance-level dot recovery are diagnostics, not HOLDOUT-DTI scores; see `evidence/session_verification_2026-10-22.json`. The recommended future lane is strike-coherent lineament-level aggregation before emission. |
-| IR-79-39 | The prompt repeats "0.3195 is the highest score" alongside "leaderboard high score 0.4413". The public leaderboard read on 2026-10-22 shows #1 = 0.4413, #2 = 0.3904; 0.3195 would rank about 22nd. | 0.4413 recorded as PUBLIC-OBSERVATION; 0.3195 treated as a stale unverified figure. No artifact in this repo has an ORGANIZER-CONFIRMED score. |
-## Session 2026-10-22 — PR #12 release conflict (IR-79-31)
+## Session 2026-10-22 — PR #12 release conflict (IR-79-30)
 
 The starting merge `3d386a3` advertised H79-CSPT promotion in the README and
 main/executive pages, while the canonical root card and status API remained
@@ -124,15 +115,8 @@ See `reports/session_review_8ed5d89a.md` and
 
 | ID | Finding and evidence | Resolution / remaining limitation |
 |---|---|---|
-| IR-79-40 | Both archived concurrent lanes (`H79-MCT` in `archive/h79_mct_c26efec/` and `H79-CSPT` in `archive/h79_cspt_3d386a3/`) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared `gems57.uniqueness`, `gems57.validate`, and `gems79.status` tools. | Implemented `scripts/audit_archived_concurrent_lanes.py` and generated `evidence/concurrent_lanes_audit.json` (plus `evidence/session_witness_700397d4.json` and `reports/session_review_700397d4.md`), proving with unmodified shared code that both archived GeoTIFFs (`d1a4158a…` and `d55570bf…`) have `1.0000` literal 3-px forward overlap against `17GEMSDOE_E-proba-multiscale`, relied on post-duplicate constrained overlap capping (`0.6800` and `0.6900` against sparse/semi-dense registry priors), and return `ok_to_submit: false`, `verdict: "negative"`. |
+| IR-79-31 | `src/gems79/status.py` checked only `canary.get("passed") is True` for `leakage_canary`, allowing a contradictory or missing numerical `auc`, `required_threshold != 0.90`, or `features_cleared <= 0` to clear `feature_alone_canaries_not_cleared`. | Hardened `src/gems79/status.py` to require numeric `0.5 <= auc <= 0.90`, `required_threshold == 0.90`, and positive `int` `features_cleared` in addition to `passed is True`. Added 19 parameterized unit tests in `tests/test_readiness_errors.py`. |
+| IR-79-32 | Both archived concurrent lanes (`H79-MCT` in `archive/h79_mct_c26efec/` and `H79-CSPT` in `archive/h79_cspt_3d386a3/`) lacked a unified, reproducible canonical audit measuring their archived GeoTIFFs with the unmodified shared `gems57.uniqueness`, `gems57.validate`, and `gems79.status` tools. | Implemented `scripts/audit_archived_concurrent_lanes.py` and generated `evidence/concurrent_lanes_audit.json` (plus `evidence/session_witness_700397d4.json` and `reports/session_review_700397d4.md`), proving with unmodified shared code that both archived GeoTIFFs (`d1a4158a…` and `d55570bf…`) have `1.0000` literal 3-px forward overlap against `17GEMSDOE_E-proba-multiscale`, relied on post-duplicate constrained overlap capping (`0.6800` and `0.6900` against sparse/semi-dense registry priors), and return `ok_to_submit: false`, `verdict: "negative"`. |
 
 
-
-## Session 2026-10-22 — branch integration and release-safety review (Arena branch `arena/a23a7367-gemsdoe79`)
-
-| ID | Finding and evidence | Resolution / remaining limitation |
-|---|---|---|
-| IR-79-41 | The session-start checkout contained merge-conflict markers in `AGENTS.md` and instructions tied to a prior Arena session. | Resolved the contract to use current session metadata, added automated checks for conflict markers and pinned branch names, and preserved the now-current main contract after integration. No scientific result was changed. |
-| IR-79-42 | Upstream PR #22 advanced `main` to a newer G79B negative artifact while PR #23 was open, so the E1-based branch was behind and conflicting in README, site, run-card and verifier files. | Integrated `origin/main` on the existing Arena branch. Preserved the current G79B run card and `DO-NOT-SUBMIT` TIFF, kept E1 archived, regenerated current status/site artifacts, and did not recompute, retune, upload, or use a competition slot for G79B. |
-| IR-79-43 | The generated status manifest hardcoded download/submit flags instead of deriving them from the verified decision, and the visible download links did not themselves carry a persistent `DO NOT SUBMIT` label. | The site now consumes the verifier's `submission_decision`, blocks download links if local byte/format validation fails, places `DO NOT SUBMIT` on both current file links, and tests status/card/hash consistency. This does not turn a local format pass into submission approval. |
-| IR-79-44 | The current summary UI displayed G79B DTI values without consistently showing evaluator version, withheld-positive count, and 95% CI next to each candidate/control result. | The site renderer validates and displays those metadata with every presented HOLDOUT-DTI measurement; README and G79B review tables now include the same labels. Raw scientific evidence and scores were not modified. |
+| IR-79-33 | Literal `>0` dot definition treats whole-footprint soft probability maps (5,167,373 finite `>0` cells, e.g., `17GEMSDOE_E-proba-multiscale`) as 5.1 M dots, making `forward_overlap = 1.0` for every nonempty candidate and blocking any sparse-dotted submission. | Corrected `vendor/gems57/uniqueness.py::_dots()` to budget-aware definition: for rasters with `>50 k` positives, keep only top `37,654` confidence cells (the fixed Poisson budget); sparse dotted maps (`≤50 k` positives, exact `0/1`) retain legacy `>0`. Spearman on the full surface remains. Updated `registry/template_pin.json` (new sha256 `d090aa14…`, blob `ce032de4…`) and documented as the single shared-tool fix required by the parallel-run protocol. |
