@@ -1,6 +1,28 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
-## Latest session — G79-TIPSTEP (2026-10-22, this branch)
+## Latest session — G79-UGBP (2026-10-22, this branch)
+
+**A new unique GeoTIFF was generated this session:** `gems79-ugbp-20261022`
+(37,654 dots, SHA-256 `1bf7a15622e0077f78ffd9b4939e1ea475c6566bd3ad170e9084146a7115a35a`,
+in `artifacts/ugbp/` — download buttons on the site, no manual inspection needed;
+the automated gates below are the inspection).
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO** — local format PASS (zeros outside footprint;
+no NaN anywhere, values in [0,1], EPSG:32611 3730×3292 matching sample, 0 dots on the
+catalogue; official-text R6 NaN-exterior discrepancy disclosed as with every shipped
+file, IR-79-224), locally novel (surface max |rho| 0.119 < 0.90; sparse-dot max 3-px
+overlap 0.663 < 0.70; full 1,108-row registry not scanned offline — flagged, not hidden),
+HOLDOUT-DTI (gems57-pooled-hide-v2) candidate **0.1465 [0.1298,0.1615] (seed 20,
+n=11,321) / 0.1477 [0.1289,0.1661] (seed 30, n=11,342)** — beats uniform and the H33
+holdout control but **below the THVC incumbent (0.1905/0.1944)**, and the UGBP chemistry
+mechanism itself is at chance on this instrument (pure surface 0.0148/0.0100; ablation
+delta +0.0007/+0.0009), so no slot is spent and the lane is closed. Five ranked
+hypotheses (top candidate validated here): [`research/hypotheses_ugbp.md`](research/hypotheses_ugbp.md);
+preregistration [`registry/preregistration_g79_ugbp.json`](registry/preregistration_g79_ugbp.json);
+gates and download: [`docs/ugbp-submission.html`](docs/ugbp-submission.html),
+[`run_card_ugbp.json`](run_card_ugbp.json). The canonical THVC decision below is unchanged.
+No score above the unverified H33 report (0.2778) is claimed or projected.
+
+## Previous session — G79-TIPSTEP (2026-10-22)
 
 **A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
 SHA-256 `4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a`, in `artifacts/tipstep/`).

@@ -1,0 +1,27 @@
+{
+  "lane": "G79-UGBP",
+  "frozen_before_holdout": true,
+  "hypothesis": "Unmapped geothermal conduit faults are marked up-gradient of kinetically disequilibrated well/spring chemistry: distal outflow sites (Tcat-Tqtz>=25C, Tqtz-Tout>=40C, Tcat>=110C) point along +grad(det_elev) streamlines to a blind conduit gated by isostatic gravity horizontal-gradient basement steps, while proximal near-equilibrated sites (Tq>=100C, -40<=Tcat-Tqtz<=15C) mark conduits at the site.",
+  "mechanism": "Catalogue-free UGBP surfaces (proximal isotropic sigma=9px; distal isotropic control sigma=9px; distal streamline-advection 3-80px step 3px decay exp(-t/35px); gated = upgradient*(0.25+0.75*rank(iso_grav_anom_hg))) are canaried alone, then fused as 4 features into a HistGradientBoosting hide-and-recover learner (24 frozen features) trained only on an inner simulated hide of the visible catalogue; dotted greedy emission min_sep=2.8px, >2px off visible catalogue (holdout) / full catalogue (final), budget 37654, binary 1.0 dots, shared submission_writer zeros-outside.",
+  "named_non_fault_mimic": "Lateral thermal groundwater plumes in permeable alluvial-fan channels and agricultural irrigation-return wells; falsified if up-gradient advection does not beat the distal-isotropic control.",
+  "csv_whitelist_columns": ["layer", "row", "col", "temp_c", "geothermquartz_c", "geothermchalc_c", "geothermcat_c"],
+  "csv_forbidden_columns_never_read": ["dist_known_fault_px", "utm_x", "utm_y", "name"],
+  "site_aggregation": "median per (row,col) over rows at the site",
+  "distal_rule": {"d1_min_c": 25.0, "drop_min_c": 40.0, "tcat_min_c": 110.0, "weight": "clip(d1/60,0,1)*clip((Tcat-100)/80,0,1)"},
+  "proximal_rule": {"tq_min_c": 100.0, "d1_range_c": [-40.0, 15.0], "weight": "clip((Tq-80)/80,0,1)"},
+  "streamline": {"field": "det_elev gaussian sigma=3px gradient", "step_px": 3.0, "max_px": 80.0, "decay_px": 35.0},
+  "learner_features_frozen": ["tf_rtp_rank", "tf_tmi_hg_rank", "tf_iso_grav_hg_rank", "tf_iso_grav_rank", "tf_det_elev_rank", "tf_det_elev_slope_rank", "tf_depth_base_rank", "tf_cond_rank", "tf_dilaterate_rank", "tf_2ndinv_rank", "lidar_step_rank", "lidar_coh", "lidar_present", "rad_kth_rank", "ugbp_prox_iso", "ugbp_distal_iso", "ugbp_upgrad", "ugbp_upgrad_gated", "mech_logdist", "mech_exp6", "mech_exp18", "mech_dens15", "mech_tipstep"],
+  "learner": {"model": "sklearn HistGradientBoostingClassifier", "max_iter": 300, "learning_rate": 0.06, "max_leaf_nodes": 31, "min_samples_leaf": 40, "l2_regularization": 1.0, "inner_hide_frac": 0.22, "inner_buffer_px": 3, "negatives": 60000, "negative_rule": "active & dist_to_sim_visible>3px", "seed": 7900},
+  "emission": {"budget_dots": 37654, "min_sep_px": 2.8, "off_catalogue_px_exclusive": 2.0, "dot_value": 1.0},
+  "experiments_budget_max": 3,
+  "experiments": {
+    "EXP1": "UGBP gated surface alone, dotted emission (falsification vs distal-isotropic canary)",
+    "EXP2": "Learner with UGBP features (candidate)",
+    "EXP3": "Learner without UGBP features (ablation, attribution only)"
+  },
+  "evaluator": "gems57-pooled-hide-v2, buffered_component_draw buffer_px=3 boundary_px=12, pooled DTI alpha=0.2 beta=0.8 triangular 300m, seeds 20 and 30",
+  "canary_limit_symmetric_auc": 0.90,
+  "promote_gate": "EXP2 HOLDOUT-DTI strictly greater than G79-THVC 0.1905 (seed20, n=11321) AND 0.1944 (seed30, n=11342), plus local novelty pass (max |Spearman|<=0.90 and max 3px forward overlap<=0.70 on surface and final dots), plus shared format validation PASS. Full 1108-row registry scan unavailable offline: if not completed, verdict stays negative (novelty incomplete) even if holdout beats.",
+  "submission_name": "gems79-ugbp-20261022",
+  "submission_note": "G79-UGBP disequilibrium up-gradient conduits x gravity step gate, dotted 2.8px learner fusion"
+}
