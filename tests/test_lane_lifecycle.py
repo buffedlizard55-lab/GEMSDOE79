@@ -122,8 +122,8 @@ def test_absent_card_fails_closed(tmp_path):
     ('run_cjx_experiment.py', []),
     ('run_cjx_exp3.py', []),
     ('build_cjx_submission.py', []),
+    ('cjx_gate.py', []),
     ('cjx_sparse_novelty_diagnostic.py', []),
-    ('cjx_gate.py', ['--recompute-write']),
 ])
 def test_current_scientific_commands_refuse_before_writing(script, args):
     paths = (
@@ -131,6 +131,7 @@ def test_current_scientific_commands_refuse_before_writing(script, args):
         + list((ROOT / 'evidence/nhr').glob('*.json'))
         + list((ROOT / 'evidence/ffas').glob('*.json'))
         + list((ROOT / 'evidence/cjx').glob('*.json'))
+        + list((ROOT / 'artifacts/cjx').glob('*'))
         + list((ROOT / 'docs/downloads').glob('*'))
     )
     frozen = {p: p.read_bytes() for p in paths if p.is_file()}

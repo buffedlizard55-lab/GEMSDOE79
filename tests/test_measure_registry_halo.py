@@ -13,11 +13,15 @@ mod = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(mod)
 
 
-def _write(path, arr):
-    profile = dict(driver="GTiff", height=arr.shape[0], width=arr.shape[1], count=1,
+def _write(path, arr, count=1):
+    profile = dict(driver="GTiff", height=arr.shape[-2], width=arr.shape[-1], count=count,
                    dtype="float32", crs="EPSG:32611", transform=from_origin(0, 100, 100, 100), nodata=None)
     with rasterio.open(path, "w", **profile) as dst:
-        dst.write(arr.astype("float32"), 1)
+        if count == 1:
+            dst.write(arr.astype("float32"), 1)
+        else:
+            for b in range(count):
+                dst.write(arr[b].astype("float32"), b + 1)
 
 
 def test_single_dot_halo_matches_disk_count(tmp_path):
@@ -49,6 +53,26 @@ def test_grid_mismatch_fails_closed(tmp_path):
     _write(tmp_path / "reg.tif", np.ones((5, 5), dtype="float32"))
     with pytest.raises(ValueError):
         mod.measure(tmp_path / "reg.tif", tmp_path / "fp.tif")
+
+
+def test_exterior_positive_cell_does_not_bleed_halo_into_footprint(tmp_path):
+    fp = np.full((11, 11), np.nan, dtype="float32")
+    fp[3:8, 3:8] = 0.5
+    reg = np.zeros((11, 11), dtype="float32")
+    reg[2, 5] = 1.0  # outside footprint, 1 px from footprint edge
+    _write(tmp_path / "fp.tif", fp)
+    _write(tmp_path / "reg.tif", reg)
+    out = mod.measure(tmp_path / "reg.tif", tmp_path / "fp.tif", radius_px=3)
+    assert out["registry_dot_cells_in_footprint"] == 0
+    assert out["registry_dot_cells_outside_footprint"] == 1
+    assert out["halo_covered_allowed_cells"] == 0
+
+
+def test_multiband_raster_fails_closed(tmp_path):
+    _write(tmp_path / "fp.tif", np.ones((4, 4), dtype="float32"), count=1)
+    _write(tmp_path / "reg2.tif", np.ones((2, 4, 4), dtype="float32"), count=2)
+    with pytest.raises(ValueError, match="single-band"):
+        mod.measure(tmp_path / "reg2.tif", tmp_path / "fp.tif")
 
 
 def test_off_catalogue_accounting_and_repo_relative_paths(tmp_path):

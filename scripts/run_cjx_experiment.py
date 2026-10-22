@@ -32,6 +32,8 @@ def sym_auc(scores, y):
 
 
 def main():
+    enforce_open_lane(ROOT, "G79-CJX", reason="G79-CJX stopped negative (3/3 budget exhausted)")
+    OUT.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     grid = load_grid(ROOT / "data/reference")
     footprint, catalogue = grid.footprint, grid.catalogue

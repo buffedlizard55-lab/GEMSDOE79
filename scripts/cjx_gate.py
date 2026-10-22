@@ -1,23 +1,10 @@
 #!/usr/bin/env python3
 """Automated submission gate for G79-CJX — no human inspection.
 
-By default (`python scripts/cjx_gate.py`), runs read-only against committed
-artifacts and frozen receipts on a clean checkout without requiring gitignored
-caches or mutating files on disk. Rewriting receipts (`--recompute-write`) is
-gated by `enforce_open_lane` so terminal lanes cannot be overwritten.
-
-Gates (all must pass to print ok_to_submit=true):
-  G1 format   shared validator: 1-band float32, EPSG:32611, 3730x3292,
-              sample transform, finite everywhere, values in [0,1],
-              no NaN inside footprint, plus matching ZIP CRC/bytes.
-  G2 canary   every CJX channel symmetric AUC <= 0.90 on both holdout seeds.
-  G3 holdout  pooled HOLDOUT-DTI (gems57-pooled-hide-v2) of the final arm
-              must beat BOTH the H33 fold-fair control AND the incumbent
-              G79-THVC on both seeds (frozen receipts, labelled as such).
-  G4 novelty  vs all 992 frozen registry rasters (fail-closed if any expected
-              raster was unchecked), surface AND final dots:
-              |Spearman| <= 0.90 and literal 3-px forward overlap <= 0.70.
-Exit 0 only if every gate passes; otherwise 2 with a machine-readable summary.
+Default CLI invocation (`python scripts/cjx_gate.py`) enforces the closed-lane
+lifecycle guard (`enforce_open_lane`) before rewriting receipts. Pass
+`--verify-readonly` to verify the committed CJX GeoTIFF, ZIP, and gate receipts
+on a clean checkout without requiring gitignored caches or mutating files.
 """
 from __future__ import annotations
 
@@ -48,7 +35,7 @@ def _surface_path() -> Path:
     for cand in (ROOT / "evidence/cjx/cjx_surface.npz", ROOT / ".cache/cjx/cjx_surface.npz"):
         if cand.exists():
             return cand
-    raise FileNotFoundError("cjx_surface.npz missing; closed lane G79-CJX must use read-only gate verification")
+    raise FileNotFoundError("cjx_surface.npz missing; closed lane G79-CJX must use --verify-readonly")
 
 
 def overlap_and_halo(my_dots, their_support):
@@ -314,16 +301,16 @@ def _recompute_and_write() -> int:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
-        "--recompute-write",
+        "--verify-readonly",
         action="store_true",
-        help="Recompute novelty from .cache/registry and rewrite CJX gate receipts (open lane only).",
+        help="Verify committed CJX bytes and receipts read-only without rewriting files.",
     )
     args = ap.parse_args(argv)
-    if args.recompute_write:
-        return _recompute_and_write()
-    summary = _verify_readonly(ROOT)
-    print(json.dumps(summary, indent=2, allow_nan=False))
-    return 0 if summary["ok_to_submit"] else 2
+    if args.verify_readonly:
+        summary = _verify_readonly(ROOT)
+        print(json.dumps(summary, indent=2, allow_nan=False))
+        return 0 if summary["ok_to_submit"] else 2
+    return _recompute_and_write()
 
 
 if __name__ == "__main__":

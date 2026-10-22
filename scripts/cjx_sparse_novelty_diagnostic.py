@@ -14,6 +14,7 @@ from gems79.lifecycle import enforce_open_lane
 
 
 def main():
+    enforce_open_lane(ROOT, "G79-CJX", reason="G79-CJX stopped negative (3/3 budget exhausted)")
     grid = load_grid(ROOT / "data/reference")
     fp = grid.footprint
     meta = json.loads((ROOT / "evidence/cjx/final_build.json").read_text())

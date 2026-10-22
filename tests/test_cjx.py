@@ -50,7 +50,7 @@ def test_cjx_gate_fails_closed_on_incomplete_registry_and_runs_clean_readonly():
     ) is True
 
     before = (root / "run_card_cjx.json").read_bytes()
-    proc = subprocess.run([sys.executable, str(root / "scripts/cjx_gate.py")], capture_output=True, text=True, timeout=60)
+    proc = subprocess.run([sys.executable, str(root / "scripts/cjx_gate.py"), "--verify-readonly"], capture_output=True, text=True, timeout=60)
     assert proc.returncode == 2
     out = json.loads(proc.stdout)
     assert out["ok_to_download"] is True
