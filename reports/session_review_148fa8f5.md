@@ -111,3 +111,14 @@ or complete fresh scientific validation is claimed.
 See [the single JSON card](../evidence/run_card_148fa8f5.json). Null fields mean
 not measured, never a zero score. Repository/software test counts and novelty
 coverage are not competition scores.
+
+### Concurrent-main synchronization
+
+While PR #129 was open, main advanced through PRs #127 and #128. Merged
+`origin/main` into the fixed session branch (no branch switch). Resolved only
+generated-site conflicts by rebuilding with `scripts/build_site.py`; retained
+concurrent history and research artifacts. Main's new `artifacts/ventprox/` TIFF
+and its generator were produced by a different session, not this review; their
+existence does not change this review's no-new-TIFF outcome or grant submission
+approval. The generator's filename describes it as DO-NOT-SUBMIT. Rechecked the
+merged tree before merge; no scientific claim is inferred from those new bytes.
