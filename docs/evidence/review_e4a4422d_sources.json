@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "reviewed_date_utc": "2026-10-22",
-  "method": "Primary pages read through the research fetch tool in this session; this is a claim ledger, not a byte-authenticated copy of a remote website.",
+  "method": "Primary official pages and query responses reread using the research fetch tool on 2026-10-22. This claim ledger is not a byte-authenticated copy of remote sites; shell HTTP reachability failures are recorded separately.",
   "sources": [
     {
       "id": "DD-PROBLEM-REVIEW",
@@ -25,7 +25,7 @@
       "id": "DD-LEADERBOARD-REVIEW",
       "authority": "DrivenData public leaderboard",
       "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
-      "access": "All three content chunks read successfully on 2026-10-22",
+      "access": "All three leaderboard chunks reread via research fetch_page on 2026-10-22; exact later fetch time not exposed.",
       "evidence_class": "PUBLIC-OBSERVATION, NOT ORGANIZER-CONFIRMED FOR A LOCAL ARTIFACT",
       "observation": {
         "rank": 1,
@@ -37,20 +37,47 @@
         "rank_3_public_dti": 0.3894,
         "rank_21_participant": "kinghorton42",
         "rank_21_public_dti": 0.3261,
-        "rank_48_participant": "moongrega",
-        "rank_48_public_dti": 0.2818,
-        "rank_49_participant": "arnofault",
-        "rank_49_public_dti": 0.2817,
-        "rank_50_participant": "sam35",
-        "rank_50_public_dti": 0.2804
+        "rank_22_participant": "li002666",
+        "rank_22_public_dti": 0.3183,
+        "rank_48_participant": "jgaines",
+        "rank_48_public_dti": 0.282,
+        "rank_49_participant": "moongrega",
+        "rank_49_public_dti": 0.2818,
+        "rank_50_participant": "arnofault",
+        "rank_50_public_dti": 0.2817,
+        "first_place_submissions": 27,
+        "observed_date_utc": "2026-10-22"
       },
       "limits": [
-        "The observation does not authenticate H33's reported score (0.2778, now below the #50 visible floor 0.2804) or imply any new file will achieve it.",
-        "Public leaderboard scores do not substitute for authenticated submission-page receipts."
+        "The earlier same-day board snapshot is preserved in historical_observations; its #50 was sam35 at 0.2804. The later read has #50 arnofault at 0.2817.",
+        "The user-reported H33 figure 0.2778 is not linked to the H33 bytes by an organizer receipt; equal leaderboard numbers do not prove identity.",
+        "The user-reported 0.3195 is distinct from the current leader 0.4413 and is not a score for this repository."
       ],
       "source_type": "PUBLIC-OBSERVATION",
       "verified_claims": [
-        "PUBLIC-OBSERVATION across all three leaderboard pages on 2026-10-22: #1 xiaofanhu 0.4413 (27 subs), #2 cfld__ 0.3904 (15 subs), #3 Batik Shirt Brothers 0.3894 (45 subs), #21 kinghorton42 0.3261 (21 teams > 0.3195), and visible top-50 floor #48 moongrega 0.2818, #49 arnofault 0.2817, #50 sam35 0.2804."
+        "Latest public observation on 2026-10-22: #1 xiaofanhu 0.4413, #21 kinghorton42 0.3261, #22 li002666 0.3183; top-50 floor #50 arnofault 0.2817."
+      ],
+      "historical_observations": [
+        {
+          "rank": 1,
+          "participant": "xiaofanhu",
+          "public_dti": 0.4413,
+          "rank_2_participant": "cfld__",
+          "rank_2_public_dti": 0.3904,
+          "rank_3_participant": "Batik Shirt Brothers",
+          "rank_3_public_dti": 0.3894,
+          "rank_21_participant": "kinghorton42",
+          "rank_21_public_dti": 0.3261,
+          "rank_48_participant": "moongrega",
+          "rank_48_public_dti": 0.2818,
+          "rank_49_participant": "arnofault",
+          "rank_49_public_dti": 0.2817,
+          "rank_50_participant": "sam35",
+          "rank_50_public_dti": 0.2804,
+          "observed_date_utc": "2026-10-22",
+          "source_evidence": "evidence/session_0d90d81b_audit.json#/live_public_leaderboard_20261022",
+          "status": "Earlier same-day public observation; retained as historical evidence, superseded by later read."
+        }
       ]
     },
     {
@@ -124,16 +151,20 @@
       "authority": "USGS, DeAngelo and coauthors, 2022",
       "url": "https://www.sciencebase.gov/catalog/item/6297d2fad34ec53d276c5b28",
       "doi": "10.5066/P9BZPVUC",
-      "access": "Official description and ZIP listing read successfully via DOI redirect",
+      "access": "ScienceBase metadata and item JSON read; public downloadUri and file metadata listed",
       "verified_claims": [
         "Background conductive heat-flow maps deliberately de-emphasize convectively influenced outliers using iterative weighted LOESS.",
         "The release also provides well-point residuals; the authors say these may help identify hydrothermal or groundwater influence.",
-        "A supporting-data ZIP is publicly listed on the release page."
+        "ScienceBase JSON exposes a public downloadUri for the supporting-data ZIP (130,154,244 listed bytes, about 124.12 MiB); no archive bytes were transferred."
       ],
       "limits": [
-        "ZIP bytes, coordinate/field coverage and redistribution metadata were not acquired and validated here. The residual hypothesis remains data-blocked, not execution-ready."
+        "The listed ZIP bytes and advertised MD5 were not downloaded or locally verified. Coordinate/field coverage, file-level reuse terms, and residual QA remain unverified; the residual hypothesis is still blocked by preflight and not execution-ready."
       ],
-      "source_type": "OFFICIAL PRIMARY SOURCE"
+      "source_type": "OFFICIAL PRIMARY SOURCE",
+      "download_url_listed_in_official_metadata": "https://www.sciencebase.gov/catalog/file/get/6297d2fad34ec53d276c5b28?f=__disk__03%2Fac%2F86%2F03ac865d4a5a3c5c52d8ca92bc170105c6fe508a",
+      "listed_file_size_bytes": 130154244,
+      "listed_file_size_mib": 124.12,
+      "advertised_md5_not_locally_verified": "2f7aed23c8801a9541dc48e50eedb131"
     },
     {
       "id": "H33-SIBLING-REVIEW",
@@ -189,6 +220,59 @@
       ],
       "limits": [
         "URL and metadata verified; direct shell download from geodesy.unr.edu is blocked in the restricted sandbox, requiring owner mirror placement before model execution."
+      ]
+    },
+    {
+      "id": "USGS-COMCAT-FDSN-REVIEW",
+      "authority": "U.S. Geological Survey ComCat FDSN Event Web Service",
+      "url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+      "access": "Official API documentation, two count queries and a limited GeoJSON sample read on 2026-10-22",
+      "evidence_class": "OFFICIAL API AVAILABILITY CHECK",
+      "verified_claims": [
+        "Sample-footprint query for 2000–2025 returned 5,886 events at M>=2.5; producttype=focal-mechanism returned 2,249; limited GeoJSON returned five events."
+      ],
+      "limits": [
+        "Counts and sample records are not a local catalogue, parsed focal mechanisms, holdout result, or score."
+      ]
+    },
+    {
+      "id": "CDSE-SENTINEL1-SLC-REVIEW",
+      "authority": "Copernicus Data Space Ecosystem / Sentinel-1 STAC",
+      "url": "https://stac.dataspace.copernicus.eu/v1/collections/sentinel-1-slc",
+      "access": "Official collection and bbox/date query read on 2026-10-22",
+      "evidence_class": "OFFICIAL FREE-DATA METADATA CHECK",
+      "verified_claims": [
+        "Copernicus terms say Sentinel data are free, full and open; download requires account registration.",
+        "The SLC collection retains complex phase; five catalogue items were returned for the queried time interval and bbox."
+      ],
+      "limits": [
+        "No asset was acquired; a sample scene intersected the northeastern edge, and full-footprint/time-series suitability is unverified."
+      ]
+    },
+    {
+      "id": "USGS-AMARGOSA-OF00-188-REVIEW",
+      "authority": "U.S. Geological Survey Open-File Report 00-188",
+      "url": "https://pubs.usgs.gov/of/2000/of00-188/of00-188.pdf",
+      "access": "Abstract and first parsed chunk read on 2026-10-22",
+      "evidence_class": "OFFICIAL PRIMARY-SOURCE ANALOG",
+      "verified_claims": [
+        "The abstract describes alluvial-cover magnetic anomalies and spring alignments interpreted as possible concealed faults in the Amargosa region."
+      ],
+      "limits": [
+        "Not direct evidence in the GeoDAWN sample area; full report was not acquired or completely read."
+      ]
+    },
+    {
+      "id": "USGS-MAG-MINERAL-PP1652-REVIEW",
+      "authority": "U.S. Geological Survey Professional Paper 1652-D2",
+      "url": "https://pubs.usgs.gov/pp/2004/1652/pdf/508/ChapD2508.pdf",
+      "access": "Selected parsed chunks read on 2026-10-22",
+      "evidence_class": "OFFICIAL PRIMARY-SOURCE ANALOG",
+      "verified_claims": [
+        "The study describes RTP/high-pass magnetic transformations and susceptibility/magnetite interpretation in a Montana watershed."
+      ],
+      "limits": [
+        "Different region and study purpose; no target-area fault or geothermal claim established."
       ]
     }
   ]

@@ -113,16 +113,18 @@ def check_site():
                 'all_manifest_inputs_ready', 'files'):
         assert runtime[key] == observed_now[key], f'Runtime data feed drift: {key}'
     assert site_manifest['runtime_data_status_sha256'] == hashlib.sha256(runtime_path.read_bytes()).hexdigest()
-    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_9eb122ea.json').read_bytes()).hexdigest()
-    assert site_manifest['latest_review_card_sha256'] == hashlib.sha256((site / 'evidence/session_9eb122ea_run_card.json').read_bytes()).hexdigest()
-    assert json.loads((site / 'evidence/preflight_9eb122ea.json').read_text()) == json.loads((ROOT / 'evidence/preflight_9eb122ea.json').read_text())
-    assert json.loads((site / 'evidence/session_9eb122ea_run_card.json').read_text()) == json.loads((ROOT / 'evidence/session_9eb122ea_run_card.json').read_text())
+    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_a92a0164.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_review_card_sha256'] == hashlib.sha256((site / 'evidence/run_card_a92a0164.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_source_review_sha256'] == hashlib.sha256((site / 'evidence/source_review_a92a0164.json').read_bytes()).hexdigest()
+    assert json.loads((site / 'evidence/preflight_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/preflight_a92a0164.json').read_text())
+    assert json.loads((site / 'evidence/run_card_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/run_card_a92a0164.json').read_text())
+    assert json.loads((site / 'evidence/source_review_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/source_review_a92a0164.json').read_text())
     source_text = pages['sources.html'].get_text(' ', strip=True)
     assert 'Runtime input availability at this build' in source_text
     assert f"{runtime['verified_count']}/{runtime['expected_count']}" in source_text
     for filename in ('index.html', 'executive-summary.html'):
         current_text = pages[filename].get_text(' ', strip=True)
-        assert 'Latest review' in current_text and 'no new candidate GeoTIFF' in current_text
+        assert 'Parallel review' in current_text and 'no new candidate GeoTIFF' in current_text
     assert '@import' not in (site / 'assets/site.css').read_text()
     assert (ROOT / '.nojekyll').exists() and (site / '.nojekyll').exists()
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()

@@ -22,7 +22,7 @@ BUDGET = 37654
 NAME = "gems79-tdw-tiltworm-37654dots-20261022"
 NOTE = "G79-TDW destriped tilt-depth worms, gravity-concordant, 37654 dots, zeros outside footprint"
 
-def sha(p): 
+def sha(p):
     h=hashlib.sha256()
     with open(p,'rb') as f:
         for b in iter(lambda: f.read(1<<20), b""): h.update(b)
@@ -46,7 +46,7 @@ def main():
     hold = {}
     for seed in (20, 30):
         folds, quad = holdout.buffered_component_draw(grid, seed=seed, buffer_px=3, boundary_px=12)
-        truth_all = np.zeros(fp.shape, bool); 
+        truth_all = np.zeros(fp.shape, bool)
         for f in folds: truth_all |= f["truth"]
         vis = folds[0]["visible"]
         d_truth = ndi.distance_transform_edt(~truth_all); d_vis = ndi.distance_transform_edt(~vis)

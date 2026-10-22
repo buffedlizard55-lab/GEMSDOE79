@@ -15,6 +15,14 @@ and terminal negative run card](reports/review_b0325dc8/README.md).
 
 A separate three-pass review independently recorded the literal-gate stop, four untried geological hypotheses, and a **current 0/13 runtime-input check** under `data/raw`. The historical restore receipt remains metadata evidence only; it does not prove those files are present now. No experiment, holdout, placement, new TIFF, selector action, upload, or slot use occurred. See the [session review](reports/session_review_9eb122ea.md), [ranked hypotheses](research/hypotheses_9eb122ea.md), [run card](evidence/session_9eb122ea_run_card.json), and [machine-readable runtime status](evidence/runtime_data_status_9eb122ea.json). Recheck present availability with `python scripts/data_status.py`.
 
+## Parallel review `a92a0164` — fail-closed, no candidate (2026-10-22)
+
+> **This branch-specific review generated no experiment, holdout, placement, candidate TIFF, submission, or selector action; zero slots were used.** Its [preflight receipt](evidence/preflight_a92a0164.json) has `start_new_lane:false`: the pinned witness covers 100% of allowed cells, so every nonempty candidate has literal forward overlap 1.0000 > 0.70. The stop was not bypassed. See the [three-pass report](reports/session_review_a92a0164.md), [run card](evidence/run_card_a92a0164.json), [source review](evidence/source_review_a92a0164.json), and [four deduplicated, ranked hypotheses](research/hypotheses_a92a0164.md).
+
+- H33 `0.2778` remains an **unverified historical report**; its exact pixel lineage does not prove hidden-truth status or a score cause. The separate `0.4413` value is a **public-leaderboard observation** for `xiaofanhu`, not this repository's score. `0.3195` is an older user-reported benchmark, not the current public leader. No higher leaderboard result is promised.
+- The later 2026-10-22 board snapshot reports rank 1 `0.4413` and rank 50 `0.2817` (`arnofault`); earlier same-day `0.2804` (`sam35`) is retained as history only. Neither is an organizer submission-page receipt.
+- **No new TIFF exists for session a92.** The older inherited research TIFF and separately archived candidate artifacts remain separately classified; local format validity never implies approval or authorizes a slot. External metadata/count checks were not treated as local data acquisition.
+
 ## Download and automated decision
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
