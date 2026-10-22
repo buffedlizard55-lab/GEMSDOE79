@@ -1,0 +1,136 @@
+{
+  "file": "gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif",
+  "sha256": "b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9",
+  "bytes": 134390,
+  "submission_name": "gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8",
+  "note": "H79-FF far-field lidar-scarp discovery, 2000-8000m off catalogue, 37654 dots, step_max surface; research artifact",
+  "note_chars": 113,
+  "validator": {
+    "file": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif",
+    "bytes": 134390,
+    "sha256": "b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "emitted_positive_pixels": 37654,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 37654,
+    "footprint_fraction": 0.007286874781441169
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.tif",
+    "bytes": 134390,
+    "sha256": "b4dd75e03cb2b4949cb4f0c079ca40077d2bfcb2651f4f3837dd5fbd035d2ba9",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0030664964579045773,
+    "n_nonzero": 37654,
+    "mass": 37654.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.zip",
+  "zip_sha256": "224f211cb2dbabff0a8b1ee1c525c124575e97984fae6e8e080618cd4cbac955",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "lane": "H79-FF",
+    "hypothesis": "far-field lidar scarp",
+    "domain_m": [
+      2000.0,
+      8000.0
+    ],
+    "dots_sha256": "b899aac89ea5f1285b816d52d72600febb0469f4dcfd90caa21c047d758073bd",
+    "placement": {
+      "requested": 37654,
+      "emitted": 37654,
+      "spacing_px": 3,
+      "exhausted": false,
+      "eligible_positive_pixels": 1863940
+    },
+    "surface_sha256": "42c53b017194ef825df8c096c15d11c177fc37a5168d3d9931d085a2db685b27"
+  }
+}
