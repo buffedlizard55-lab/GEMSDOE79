@@ -4,11 +4,21 @@
    `reports/irregularities.md`, `registry/preregistration_nhr.json` (active lane) and
    `registry/preregistration.json` (archived E1) before work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-3. Active lane: **H79-NHR** (session 337ac1e9), opened at the user's explicit
-   request and preregistered before any result. One experiment (X1) was used. It beat
-   the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
-   and the lane is stopped. Do not retune or overlap-cap X1.
-   A new idea needs a new preregistered lane, with three experiments or two hours at most.
+3. Active lane: **H79-DCE** (session 31f55b3a), preregistered in
+   `registry/preregistration_dce.json` before any result. **Stopped negative**
+   (IR-79-60): the capped cover emission decorrelated every ordinary registry
+   raster (182 capped, 0 flagged) but (a) the tile-cover + ceiling consumed the
+   entire X1-class holdout gain (candidate 0.1019 / 0.1048 vs H33 control
+   0.0961 / 0.0989, paired CIs include zero) and (b) 11 of 30 space-filling
+   rasters still hold the dots beyond chance (worst 13gems-r8-ensemble +0.0608
+   vs 0.0036 margin). Research GeoTIFF is DO-NOT-SUBMIT; evidence in
+   `evidence/dce/`; analysis in `reports/dce_analysis.md`. Do not retune the
+   ceiling or extend caps to vacuous rasters — both are post-hoc for this lane.
+   H79-NHR stays **stopped negative** and archived
+   (`archive/g79_nhr_337ac1e9/`); its surface was reused byte-identically
+   (hash-verified). The shared v4 amendments (IR-79-57 vacuous beyond-chance
+   test, IR-79-58 not-comparable exclusion) are recorded in
+   `reports/irregularities.md` and are reversible by the protocol owner.
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256

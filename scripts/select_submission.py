@@ -27,7 +27,12 @@ def main() -> int:
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
-    gates = json.loads((ROOT / "evidence/nhr/x1_gates.json").read_text())
+    # Lane-aware gate receipt (shared fix: the NHR path was hardcoded before H79-DCE existed)
+    lane_ev = {"H79-NHR": "evidence/nhr/x1_gates.json",
+               "H79-DCE": "evidence/dce/dce_gates.json"}.get(card.get("lane"))
+    if lane_ev is None:
+        raise SystemExit(f"no gate receipt path registered for lane {card.get('lane')!r}")
+    gates = json.loads((ROOT / lane_ev).read_text())
     trial = dict(card)
     trial["selector_receipt"] = {"raster_sha256": actual, "selector": "scripts/select_submission.py",
                                  "all_automated_gates_passed": True, "source_url": "pending",
@@ -43,7 +48,7 @@ def main() -> int:
                    "raster_sha256": actual, "observed_utc": datetime.now(timezone.utc).isoformat(),
                    "blockers": decision["blockers"], "failed_gates": sorted(k for k, v in gates["gates"].items() if not v),
                    "card_left_unchanged": True}
-        (ROOT / "evidence/nhr/selector_decision.json").write_text(json.dumps(refusal, indent=2) + "\n")
+        (ROOT / lane_ev.replace("dce_gates", "selector_decision").replace("x1_gates", "selector_decision")).write_text(json.dumps(refusal, indent=2) + "\n")
         print(json.dumps(refusal, indent=2))
         return 2
     card["selector_receipt"] = {

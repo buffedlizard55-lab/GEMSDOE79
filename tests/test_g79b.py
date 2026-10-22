@@ -3,6 +3,9 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import pytest
+
+pytest.importorskip("skimage", reason="optional G79B dependency; not in requirements.lock")
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "vendor"))

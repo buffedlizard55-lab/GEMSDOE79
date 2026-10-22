@@ -1,0 +1,37 @@
+{
+  "lane": "H79-DCE",
+  "stage": "surface",
+  "evidence_class": "RASTER-MEASUREMENT, NOT A SCORE",
+  "generated_utc": "2026-10-22T04:11:46.651013+00:00",
+  "runtime_s": 197.6,
+  "nested": [
+    {
+      "replicate": 0,
+      "hidden_pixels": 12199,
+      "positive_rows": 72444,
+      "negative_rows": 200000
+    },
+    {
+      "replicate": 1,
+      "hidden_pixels": 12222,
+      "positive_rows": 72635,
+      "negative_rows": 200000
+    },
+    {
+      "replicate": 2,
+      "hidden_pixels": 12221,
+      "positive_rows": 73609,
+      "negative_rows": 200000
+    }
+  ],
+  "surface_sha256": "f9f4e7c9f3d0d65d7ddd44ef436f18b5132b7ec991a101a027626b825de30816",
+  "x1_recorded_surface_sha256": "f9f4e7c9f3d0d65d7ddd44ef436f18b5132b7ec991a101a027626b825de30816",
+  "surface_hash_matches_frozen_x1_receipt": true,
+  "static_stack_inputs": {
+    "training_features.tif": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "lidar_scarp_features_u8.tif": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "geodawn_rad_u8.tif": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "geodawn_extensions_u8.tif": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b"
+  },
+  "note": "Surface rebuilt with the identical shared stack builder, parameters and seed as H79-NHR X1; no parameter of the model or training was changed in this lane."
+}

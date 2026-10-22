@@ -4,48 +4,70 @@
 
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.**
 >
-> This is a newly generated, format-valid research GeoTIFF. It failed the protocol's duplicate gate,
-> so **do not upload it**. The decision is automatic: `scripts/submission_status.py`
-> exits with code 2, and no human inspection is needed.
+> This is a newly generated, format-valid research GeoTIFF. It failed the preregistered
+> holdout and uniqueness gates, so **do not upload it**. The decision is automatic:
+> `scripts/submission_status.py` exits with code 2, and no human inspection is needed.
 
 | | |
 |---|---|
-| File | [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip) |
-| Unique name | `gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT` |
-| Note (122/140) | `H79-NHR research only; HOLDOUT-DTI 0.143/0.152 vs H33 0.096/0.099; DUPLICATE: 0.91 of dots within 3px of a registry raster` |
-| SHA-256 | `abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2` |
+| File | [`docs/downloads/gems79-h79-dce-cover-37654dots-20261022T053035Z-b5dd778c-DO-NOT-SUBMIT.tif`](docs/downloads/gems79-h79-dce-cover-37654dots-20261022T053035Z-b5dd778c-DO-NOT-SUBMIT.tif) · ZIP [`docs/downloads/gems79-h79-dce-cover-37654dots-20261022T053035Z-b5dd778c-DO-NOT-SUBMIT.zip`](docs/downloads/gems79-h79-dce-cover-37654dots-20261022T053035Z-b5dd778c-DO-NOT-SUBMIT.zip) |
+| Unique name | `gems79-h79-dce-cover-37654dots-20261022T053035Z-b5dd778c-DO-NOT-SUBMIT` |
+| Note (117/140) | `H79-DCE research only; failed gates: paired_ci_vs_h33_excludes_zero_both_seeds, final_uniqueness_passed, final_forwar` |
+| SHA-256 | `4df5f414dd223def9fd125e512f86dbd8b722fb0279719d8f5a32f358218f40d` |
 | Format | single band float32, EPSG:32611, 3730 × 3292, transform identical to the sample, values exactly 0/1, no NaN anywhere: **PASS** |
-| Lane / experiment | H79-NHR / X1 (1 of 3 allowed; about 70 min of 2 h) |
-| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.1431** [0.1281, 0.1574], n = 11,321 · seed 30: **0.1522** [0.1335, 0.1696], n = 11,342 |
+| Lane / experiment | H79-DCE / X1 (1 of 3 allowed; ~110 min of 2 h) |
+| HOLDOUT-DTI, candidate (`gems57-pooled-hide-v2`, 4 spatial folds) | seed 20: **0.1019** [0.0888, 0.1153], n = 11,321 · seed 30: **0.1048** [0.0887, 0.1217], n = 11,342 |
 | HOLDOUT-DTI, H33 fold-fair control | 0.0961 [0.0837, 0.1086] · 0.0989 [0.0842, 0.112] |
-| Paired Δ vs H33 control | +0.047 [0.0321, 0.0621] · +0.0533 [0.0369, 0.0704] |
+| Paired Δ vs H33 control | +0.0058 [−0.0100, +0.0214] · +0.0059 [−0.0102, +0.0215] — **CIs include zero** |
+| Uncapped-cover control (cap-free) | 0.1210 · 0.1229 → measured cap cost 0.0191 / 0.0181 |
+| X1-recipe reproduction arm | 0.1462 · 0.1522 (frozen X1 was 0.1431 / 0.1522) |
 | Leakage canary | 464 single-feature AUC tests, max 0.8589 ≤ 0.90 (`geom_log_dist_visible_tip`): **PASS** |
-| Duplicate gate | **FAIL.** 26 ordinary registry dot fields each contain > 70 % of the dots within 3 px. Worst: `GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif` at 0.913, against 0.610 expected by chance. Rank correlation is clear: worst ρ 0.112. |
-| Verdict | **negative**. The lane stopped as the protocol requires, with no retuning and no overlap capping. The separate selector refused (`evidence/nhr/selector_decision.json`). |
+| Holdout gate g3 | **FAIL.** The candidate beats the H33 control on the point estimate on both seeds, but the paired 95 % CI lower bounds are −0.0100 / −0.0102. |
+| Uniqueness gate g5 | **FAIL.** 986 comparable rasters scanned (6 not-comparable, IR-79-58); worst Spearman 0.104 ≤ 0.90; 0 ordinary rasters above the 0.68 ceiling (182 capped at placement, max fraction 0.6800); but 11 of the 30 space-filling rasters hold the dots **beyond chance** (worst `13gems-r8-ensemble`: overlap 0.817 vs 0.756 uniform chance, excess +0.0608 > margin 0.0036). |
+| Verdict | **negative.** The lane stopped as preregistered, with no retuning and no post-hoc cap extension. The separate selector refused (`evidence/dce/selector_decision.json`). |
 | Slots used | 0 |
 
 Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard55-lab.github.io/GEMSDOE79/). It has the download at the top, an [executive summary and
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
 
-## What this session found (2026-10-22, session `337ac1e9`)
+## What this session found (2026-10-22, session `31f55b3a`, lane H79-DCE)
 
-1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
-   So sparse dots win: one dot on a trace earns up to about 2.33 truth units of TP and pays at most 1 unit of FP.
-   H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
-   masked, so those dots were pure false positives. Removing them lifted the user-reported score from 0.2600
-   to 0.2778. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
-   0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
-2. **Can we beat it?** Five untried hypotheses were ranked in
-   [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
-   learning, was preregistered in [`registry/preregistration_nhr.json`](registry/preregistration_nhr.json)
-   and run once. It **beat the H33 control on the holdout** on both seeds, with paired CIs above zero and no
-   leakage. However, its dots fall in the 300 m–2 km band around mapped faults, which 26 earlier family
-   dot fields already occupy. Those fields have unverified historical scores of 0.016–0.143. Under the protocol, that is a
-   **duplicate lane → stop**.
-3. **Systemic blocker (IR-79-53).** 30 registry rasters are space-filling: their 3 px halos cover more than 70 % of
-   the area, so even a uniformly random map is flagged by them. Taken literally, the duplicate rule rejects every
-   possible submission. The next lane needs **an explicit user decision** on these rasters.
+1. **Decorrelation now has a measured price, and the price is the whole gain.** The stopped H79-NHR
+   surface (rebuilt byte-identically; SHA-256 match against the frozen X1 receipt) still ranks
+   hidden faults well: its top-k arm reaches 0.1462 / 0.1522 on the shared holdout. But converting
+   that surface into an emission that no earlier family map duplicates — a 300 m tile-cover
+   (−0.0253 / −0.0295) plus a per-raster 0.68 collision ceiling (−0.0191 / −0.0181) — consumes the
+   entire gain over the H33 control. Final: 0.1019 / 0.1048 vs 0.0961 / 0.0989, paired CIs
+   including zero. The pre-stated limitation in
+   [`research/hypotheses_dce.md`](research/hypotheses_dce.md) is confirmed.
+2. **The uniqueness blocker goes deeper than literal overlap.** The shared-tool v4 amendments
+   (IR-79-57/58, recorded in [`reports/irregularities.md`](reports/irregularities.md),
+   patch in [`reports/upstream_patch_uniqueness_v4.diff`](reports/upstream_patch_uniqueness_v4.diff))
+   fixed the two defects that blocked *every* map: space-filling rasters now block only on overlap
+   beyond measured chance, and undecodable/off-grid registry files are excluded with recorded
+   reasons. The capped emission then holds every ordinary raster at ≤ 0.68 (182 capped, 0 flagged).
+   But 11 of the 30 space-filling rasters — the family's near-fault ensembles — still hold our dots
+   *beyond chance* (+0.017 to +0.061 vs ~0.003 margins): any map that concentrates near mapped
+   faults is statistically similar to the family's near-fault ensembles. Uniqueness and the
+   near-fault mechanism are in direct tension.
+3. **The X1 result is real and reproducible.** The X1-recipe reproduction arm lands within 0.004
+   of the frozen H79-NHR holdout numbers on both seeds, and the H33 / uniform controls reproduce
+   exactly — the earlier lane's scientific claim stands; only its emission was un-submittable.
+
+Full analysis: [`reports/dce_analysis.md`](reports/dce_analysis.md).
+
+## Previous session (2026-10-22, session `337ac1e9`, lane H79-NHR): negative, archived
+
+The H79-NHR lane (nested hide-and-recover learning) beat the H33 control on both seeds
+(0.1431 [0.1281, 0.1574] / 0.1522 [0.1335, 0.1696] vs 0.0961 / 0.0989, paired CIs above zero,
+canaries clear) but its top-k emission duplicated 26 ordinary registry dot fields (worst 0.913
+vs 0.610 chance, IR-79-55). Its research GeoTIFF, card and evidence are archived byte-for-byte
+in [`archive/g79_nhr_337ac1e9/`](archive/g79_nhr_337ac1e9/README.md) and
+[`evidence/nhr/`](evidence/nhr/); the surface is what H79-DCE reused. Why H33 scored highest
+(the metric's max-vs-sum algebra, H33 = D2.8 minus 6,436 near-catalogue dots, 0.2600 → 0.2778)
+is derived in [`reports/nhr_analysis.md`](reports/nhr_analysis.md) and remains the family's
+best confirmed result (user-reported 0.2778).
 
 ## Concurrent lane G79-STEPCO (session `220dabc8`): also negative, archived
 

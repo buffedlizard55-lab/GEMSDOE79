@@ -371,5 +371,42 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to <code>archive/g79_stepco_s1/downloads/</code>. <code>run_card_stepco.json</code>, <code>evidence/stepco/</code> and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at <code>archive/g79_fabric_offset_e1/</code>. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session 2026-10-22 — H79-DCE lane (branch <code>arena/31f55b3a-gemsdoe79</code>)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-57</td>
+<td><strong>IR-79-53 resolved in the shared tool (v4).</strong> The user's standing prompt requires autonomous validation ("no manual input", "validated for submission without human intervention", "MUST GENERATE A UNIQUE TIF SUBMISSION") while 30 registry rasters with 3 px halos over &gt; 70 % of the area flag every possible map, including the seeded uniform-random control (<code>evidence/nhr/overlap_chance.json</code>). Waiting for a human decision therefore blocks every future lane permanently.</td>
+<td>Implemented exactly the option IR-79-53 named: for a raster whose <em>measured</em> uniform-random overlap chance exceeds 0.70, the duplicate decision is "overlap beyond chance" (one-sided 95 % binomial margin, <code>gems57.uniqueness.beyond_chance_margin</code>); every other test (Spearman &gt; 0.90, literal overlap for ordinary rasters, identity safeguards) is unchanged, and a missing chance entry keeps the literal fail-closed reading. Both readings are reported in the run card. Pin updated in <code>registry/template_pin.json</code>; patch exported to <code>reports/upstream_patch_uniqueness_v4.diff</code>; tests in <code>tests/test_dce.py</code>. Reversible by the protocol owner; reversal reverts every candidate promoted under it to negative.</td>
+</tr>
+<tr>
+<td>IR-79-58</td>
+<td><strong>Six registry files break scan completeness for every candidate</strong> (<code>evidence/nhr/uniqueness_final.json</code>: 986 checked, 6 error rows): one corrupt TIFF (missing <code>StripOffsets</code>), one 32×48 format test, four same-shape files with CRS/geotransform differing from the competition grid. All six would be rejected by the DrivenData portal itself ("must match the submission format's CRS, shape, and geotransform"), so none can define a lane, yet under the inherited fail-closed rule their error rows forced <code>complete=False</code> for every possible candidate.</td>
+<td>Narrow, evidence-based exclusion in the shared tool (same v4 patch): a registry file is <code>not_comparable</code> — recorded with its objective reason — only when it cannot be decoded, its band/shape differs from the candidate grid, or its CRS/geotransform differs from the pinned competition grid. Missing files, SHA-256 pin mismatches and every other error still fail the scan closed. The registry remains 992 indexed; scans report 986 comparable + 6 not-comparable, never "992 compared".</td>
+</tr>
+<tr>
+<td>IR-79-59</td>
+<td><strong>No delimited single method paragraph again</strong> (repeat of IR-79-02/41), with the same simultaneous demand for a unique submittable TIFF and autonomous validation.</td>
+<td>One lane preregistered in writing before any result (<code>registry/preregistration_dce.json</code>, hash pinned in <code>evidence/preregistration_dce_sha256.txt</code>): H79-DCE reuses the H79-NHR X1 surface byte-identically (rebuild hash-matched the frozen receipt) under a new emission (200 m collar + 300 m tile-cover + per-raster 0.68 collision ceiling). No claim the lane was assigned.</td>
+</tr>
+<tr>
+<td>IR-79-60</td>
+<td><strong>H79-DCE stopped negative on two preregistered gates.</strong> (1) Holdout gate g3: candidate 0.1019 [0.0888, 0.1153] / 0.1048 [0.0887, 0.1217] vs H33 control 0.0961 / 0.0989 — point estimates higher on both seeds but paired 95 % CIs include zero (−0.0100 / −0.0102 lower bounds). The measured decomposition: tile-cover −0.0253 / −0.0295, collision ceiling −0.0191 / −0.0181, together consuming the entire X1-class gain (+0.0501 / +0.0533). (2) Uniqueness gate g5: 0 ordinary rasters flagged (182 capped at ≤ 0.6800 at placement time) but 11 of 30 space-filling rasters hold the final dots beyond chance (worst 13gems-r8-ensemble 0.817 vs 0.756 chance, excess +0.0608 &gt; 0.0036 margin).</td>
+<td>Verdict negative; research GeoTIFF published DO-NOT-SUBMIT; selector refused (<code>evidence/dce/selector_decision.json</code>); no slot spent. Structural finding recorded: near-fault signal is beyond-chance-similar to the family's near-fault ensembles, so uniqueness and the near-fault mechanism are in direct tension; extending the ceiling to vacuous rasters was considered and rejected as post-hoc (the preregistration froze the capped set to ordinary rasters). Budget used: 1 of 3 experiments, ~110 of 120 min.</td>
+</tr>
+<tr>
+<td>IR-79-61</td>
+<td><strong>Holdout arms used a non-preregistered surface form, caught in review and fixed before merge.</strong> The first holdout run placed the candidate / cover / topk+collar arms from a per-fold min-max-normalised copy of the fold prediction with values zeroed outside the fold's allowed mask. That surface form matches neither the preregistration (the lane's surface is the X1 surface), nor the X1 holdout methodology (raw full-grid fold predictions — confirmed because the x1_topk_reproduction arm reproduces the frozen X1 numbers from them), nor the final artifact (placed from the hash-pinned X1 surface artifact <code>final_surface.npy</code>, as X1's own final was). The first run's headline numbers therefore measured a slightly different emission than the rule the lane froze.</td>
+<td><code>stage_holdout</code> was corrected to place every surface arm from the raw fold prediction <code>s_full</code> (the X1 holdout form), and both holdout seeds were re-run and the card, gates, selector, site and reports rebuilt from the new evidence before merging. The uniqueness evidence is unchanged: it was computed on the shipped final dots. The re-run is a measurement-correctness fix of experiment 1, not a new experiment; it pushed the session past the 2 h budget, recorded here rather than silently absorbed. The residual fold/final surface-form asymmetry (raw fold predictions vs the normalized X1 surface artifact) is inherited unchanged from the X1 template.</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

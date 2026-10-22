@@ -109,11 +109,11 @@
     },
     {
       "path": "vendor/gems57/uniqueness.py",
-      "git_blob": "931c153f104540879d09a7605d525569ca2659d1",
-      "sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
-      "previous_sha256": "1c5094b814277ae801ccea6a47cf744429cffcdc10f9cc79f229d5fc44a8df95",
-      "previous_git_blob": "71d66ff89aa3a5cfdaeffb11fe09fa2609cc73e5",
-      "version_note": "v3 shared fix (session 337ac1e9, IR-79-47): adds DOT_DEFINITIONS, budget_matched_dots() and the dot_definition parameter of compare_array_to_registry. Default stays 'literal'; with 'budget-matched-v3' a continuous-surface registry raster is compared via its top-k cells (k = candidate dot count, ties included) while its full-surface Spearman rho is unchanged; constant rasters still block. Upstream origin: 60GEMSDOE@b99591e."
+      "git_blob": "9cef41246075c8e57e384a76614e6865f25ce52f",
+      "sha256": "810729cba93acf7d96299a5829e9649c0bae40697595e94d2e3f30778892b5cc",
+      "previous_sha256": "f7974ab42bacef37486311ba1742ce839853b817da8ac5fef098adb341d6b20b",
+      "previous_git_blob": "931c153f104540879d09a7605d525569ca2659d1",
+      "version_note": "v4 shared fix (session 31f55b3a, IR-79-57/58): adds the measured-chance vacuous-overlap adjudication (uniform_chance mapping; a raster whose measured uniform-random 3px overlap chance exceeds 0.70 blocks only when the candidate's overlap is beyond chance by a one-sided 95% binomial margin; missing entries keep the literal fail-closed reading) and the not_comparable exclusion (undecodable TIFFs, band/shape mismatch, CRS/transform mismatch vs the pinned grid are excluded with reasons instead of breaking completeness; all other errors still fail closed). v3 semantics (IR-79-47) unchanged. Upstream origin: 60GEMSDOE@b99591e."
     },
     {
       "path": "vendor/gems57/validate.py",

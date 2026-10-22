@@ -6,7 +6,7 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-DCE decorrelation results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
 <p>Session 337ac1e9, 2026-10-22. Evidence labels used in this document:
 <strong>HOLDOUT-DTI</strong> is our spatially blocked hide-and-recover proxy (evaluator
 <code>gems57-pooled-hide-v2</code>). <strong>USER-REPORTED</strong> is a filename-to-score pairing given
@@ -245,6 +245,136 @@ This is consistent with the shift being real.</p>
    expert faults rather than of catalogue faults. Preregister this before running it.</li>
 <li><strong>Hypothesis 3 (Lahontan shoreline suppression)</strong> needs the absolute 3DEP DEM, which
    is free from the <a href="https://apps.nationalmap.gov/downloader/">USGS National Map</a>.</li>
+</ol></div></section><section class="section"><h2>This session: what decorrelation costs (H79-DCE)</h2><div class="prose table-scroll"><h2>H79-DCE analysis — what decorrelation costs</h2>
+<p><em>Session <code>31f55b3a</code>, 2026-10-22. Lane preregistered in
+<code>registry/preregistration_dce.json</code> before any result. Every number below is
+copied from the evidence JSONs in <code>evidence/dce/</code>.</em></p>
+<h3>Question</h3>
+<p>The previous lane (H79-NHR X1) beat the H33 fold-fair control on the holdout
+(0.1431 / 0.1522 vs 0.0961 / 0.0989) but stopped as a registry duplicate: 26
+ordinary registry dot fields each held &gt; 70 % of its dots within 3 px, worst
+0.913. Two shared-tool amendments (IR-79-57 vacuous beyond-chance test,
+IR-79-58 not-comparable exclusion) removed the <em>space-filling</em> part of that
+blocker, but the ordinary-raster collisions remain — they can only be fixed by
+changing where dots are placed. H79-DCE tested the placement-time fix: keep the
+X1 surface byte-identically, but emit a 300 m tile-cover with a 200 m catalogue
+collar under a per-raster 0.68 collision ceiling.</p>
+<h3>Design (frozen before the result)</h3>
+<ul>
+<li>Surface: the X1 stack rebuilt from the same seeds; the rebuilt surface
+  SHA-256 matches the frozen X1 receipt, so no retuning of the stopped lane
+  happened (gate g0 of the preregistration).</li>
+<li>At-risk set: scan this lane's own <em>uncapped</em> emission against all 960
+  ordinary (chance ≤ 0.70) registry rasters before touching the holdout;
+  freeze every raster with uncapped overlap &gt; 0.50 as capped. Result: 182
+  rasters frozen (worst uncapped overlap 0.926, chance 0.612 — the same
+  coverage-v3-wide raster that topped X1's list).</li>
+<li>Emission: one dot per 300 m tile at the tile's argmax expected kernel
+  credit, no dots within 200 m of the visible catalogue, a candidate tile is
+  skipped when any capped raster containing it has spent
+  <code>floor(0.68 × 37,654) = 25,604</code> in-halo dots; later-ranked tiles fill the
+  budget. Deterministic stable order, per-raster receipts.</li>
+<li>Holdout: the shared evaluator (<code>gems57-pooled-hide-v2</code>, 4 quadrant folds,
+  buffered hide-and-recover, seeds 20 and 30) with six arms per seed:
+  candidate, cover-uncapped, top-k + collar, X1-recipe reproduction, H33
+  fold-fair control, uniform control.</li>
+</ul>
+<h3>Result</h3>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th>seed 20</th>
+<th>seed 30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>candidate (capped cover)</strong></td>
+<td><strong>0.1019</strong> [0.0888, 0.1153]</td>
+<td><strong>0.1048</strong> [0.0887, 0.1217]</td>
+</tr>
+<tr>
+<td>cover, uncapped</td>
+<td>0.1210 [0.1071, 0.1358]</td>
+<td>0.1229 [0.1060, 0.1405]</td>
+</tr>
+<tr>
+<td>top-k + collar</td>
+<td>0.1463</td>
+<td>0.1524</td>
+</tr>
+<tr>
+<td>X1 recipe reproduction</td>
+<td>0.1462</td>
+<td>0.1522</td>
+</tr>
+<tr>
+<td>H33 fold-fair control</td>
+<td>0.0961</td>
+<td>0.0989</td>
+</tr>
+<tr>
+<td>uniform random</td>
+<td>0.0151</td>
+<td>0.0151</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The candidate beats the H33 control on the point estimate on both seeds
+  (+0.0058 / +0.0059) but the paired 95 % CIs include zero (−0.0100, +0.0214)
+  and (−0.0102, +0.0215): <strong>not a statistically distinguishable improvement</strong>.
+  Frozen gate g3 requires the CI lower bound &gt; 0 on both seeds, so the verdict
+  is <strong>negative</strong>.</li>
+<li>Decomposition of the loss from the X1-class arm (0.1462 / 0.1522) to the
+  candidate (0.1019 / 0.1048):</li>
+<li>tile-cover decimation −0.0253 / −0.0295 (cover vs top-k + collar),</li>
+<li>collision ceiling −0.0191 / −0.0181 (candidate vs uncapped cover).
+  The pre-stated limitation (below) is confirmed almost exactly: the cap alone
+  costs about what the G79B-SDPT post-hoc cap cost (−0.0176 / −0.0203), and
+  the tile-cover costs nearly as much again.</li>
+<li>Sanity anchors: the X1-recipe reproduction arm lands within 0.004 of the
+  frozen X1 holdout numbers on both seeds; the H33 and uniform controls
+  reproduce the X1-run values to 4 decimals on seed 30; canaries pass
+  (max AUC 0.8514 / 0.8589 ≤ 0.90).</li>
+<li>Placement receipts: exactly 37,654 dots, every capped raster at or below
+  25,604 in-halo dots (max fraction 0.67998 ≤ 0.68), 254,286 candidate tiles
+  skipped by the ceiling.</li>
+</ul>
+<h3>What this means for the goal (a unique submittable TIF)</h3>
+<ol>
+<li><strong>Uniqueness is now a placement problem with a measured price.</strong> The
+   emission clears the ordinary-raster duplicate rule by construction, and the
+   shared v4 amendments clear the vacuous (space-filling) rasters on measured
+   chance. The final scan receipt is in <code>evidence/dce/uniqueness_final.json</code>.
+   But the price is real: the two decorrelation mechanisms together consume
+   the entire X1 gain over the H33 control on this holdout.</li>
+<li><strong>The metric, not the model, is the binding constraint.</strong> The X1 surface
+   ranks hidden-fault habitat well (its top-k arm still reaches 0.146 / 0.152),
+   but the metric pays truth credit per 300 m neighbourhood and charges a
+   false positive per dot. Once cover emission forbids neighbouring crest
+   pixels and the ceiling forbids the family's already-occupied high-credit
+   tiles, the remaining freedom is worth ≈ +0.006 over legacy H33 dots —
+   indistinguishable from zero at 95 %.</li>
+<li><strong>Leaderboard context (user-cited, unverified):</strong> own best is 0.2778 (H33);
+   the public leader is 0.4413. A holdout-tied-with-H33 file has no expected
+   leaderboard edge over H33, so spending a weekly slot on it cannot maximize
+   P(Win). The negative verdict costs nothing; a slot spent on a
+   zero-expected-gain file would.</li>
+</ol>
+<h3>Remaining routes (ranked, for a future session)</h3>
+<ol>
+<li><strong>Hypothesis 2 (strain corridors)</strong> and <strong>3 (antislope asymmetry)</strong> from
+   <code>research/hypotheses_dce.md</code> — new <em>physics</em> that could raise the surface's
+   ranking quality itself rather than re-spending the same credit on emission.</li>
+<li><strong>Hypothesis 5 (Lahontan shoreline elevation banding)</strong> needs USGS 3DEP
+   DEM tiles (free, official, https://www.usgs.gov/3d-elevation-program);
+   blocked this session by the outbound-network allowlist.</li>
+<li>If a future surface beats H33 with CI &gt; 0 <em>and</em> its uncapped emission
+   already has low registry overlap, the DCE machinery (at-risk scan, capped
+   tile-cover, fixed point) is reusable as-is; the 0.68 ceiling and 300 m
+   tiles are the knobs the cap cost is most sensitive to.</li>
 </ol></div></section><section class="section"><h2>Earlier forensic notes</h2><div class="prose table-scroll"><h2>What actually explains H33, and what would justify claiming an improvement?</h2>
 <h3>Answer in one paragraph</h3>
 <p>The named H33 raster is not evidence of a newly trained geological model. The

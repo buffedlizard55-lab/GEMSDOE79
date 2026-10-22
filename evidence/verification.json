@@ -1,5 +1,5 @@
 {
-  "verified_utc": "2026-10-22T02:35:14.192148+00:00",
+  "verified_utc": "2026-10-22T05:30:53.556072+00:00",
   "all_checks_passed": true,
   "checks": {
     "all_shared_template_bytes_match_pins": true,
@@ -22,22 +22,25 @@
     "new_bytes_not_copied_from_registry": true,
     "holdout_card_equals_evaluator_output": true,
     "holdout_beats_h33_control_both_seeds": true,
+    "holdout_gate_consistent_with_verdict": true,
     "leakage_canary_clear": true,
     "uniqueness_card_matches_evidence": true,
     "gate_receipt_bound_to_raster_and_verdict": true,
     "promotion_requires_uniqueness": true,
+    "cap_fixed_point_consistent": true,
     "preregistration_hash_matches_card": true,
+    "frozen_nhr_evidence_preserved": true,
     "e1_scientific_stop_honored": true,
     "status_tool_and_card_agree": true
   },
-  "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+  "raster_sha256": "4df5f414dd223def9fd125e512f86dbd8b722fb0279719d8f5a32f358218f40d",
   "format_report": {
     "format_passed": true,
     "does_not_approve_submission": true,
     "validator": {
-      "file": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-      "bytes": 136481,
-      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "file": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-dce-cover-37654dots-20261022T053035Z-b5dd778c-DO-NOT-SUBMIT.tif",
+      "bytes": 124482,
+      "sha256": "4df5f414dd223def9fd125e512f86dbd8b722fb0279719d8f5a32f358218f40d",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -91,9 +94,9 @@
       "footprint_fraction": 0.007286874781441169
     },
     "reference_grid": {
-      "path": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-      "bytes": 136481,
-      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "path": "/home/user/GEMSDOE79/docs/downloads/gems79-h79-dce-cover-37654dots-20261022T053035Z-b5dd778c-DO-NOT-SUBMIT.tif",
+      "bytes": 124482,
+      "sha256": "4df5f414dd223def9fd125e512f86dbd8b722fb0279719d8f5a32f358218f40d",
       "bands": 1,
       "dtype": "float32",
       "crs": "EPSG:32611",

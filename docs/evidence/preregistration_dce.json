@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "lane": "H79-DCE",
+  "session_branch": "arena/31f55b3a-gemsdoe79",
+  "written_utc": "2026-10-22T04:30:00Z",
+  "written_before_any_dce_result_existed": true,
+  "hypothesis": "The H79-NHR nested hide-to-recover kernel-credit surface (HOLDOUT-DTI 0.1431/0.1522, canary-cleared, stopped only as a registry duplicate) ranks unmapped-fault habitat well, but its top-k Poisson emission concentrates dots on lineament crests and inside the 200 m catalogue collar. A decorrelated cover emission - one dot per 300 m tile at the tile's argmax expected kernel credit, a 200 m catalogue collar, and a per-raster collision ceiling during placement - should retain most of that holdout credit while keeping the 3 px overlap with every ordinary registry raster at or below 0.68, producing the first artifact that can clear the protocol's duplicate gate without deleting credit-bearing dots after the fact.",
+  "mechanism": "The metric's TP is a per-truth-cell maximum over a 300 m triangular kernel while FP is a per-dot sum, so after one dot covers a crest segment's kernel neighbourhood, neighbouring crest pixels add no marginal truth credit but still pay false-positive mass. Tile-decimated cover emission (shared gems57.emit.emit_decimated, tile_px=3) converts the surface's expected credit into non-redundant 300 m cover, and the 200 m collar removes dots whose only neighbours are masked catalogue pixels (the measured H33 optimum: 44,090 -> 37,654 dots, user-reported 0.2600 -> 0.2778). The per-raster ceiling displaces the remaining excess overlap to nearby unoccupied high-credit tiles instead of deleting dots.",
+  "named_non_fault_process": "Pluvial Lake Lahontan shoreline and terrace risers, incised channel banks, roads and mine benches produce contour-parallel steps of similar 2-10 m scale near range fronts; the displacement rule itself can move dots onto such mimics where they fall outside registry halos.",
+  "differs_from": "E1 G79-FABRIC-OFFSET (hand-built magnetic lag transform, stopped), H79-NHR X1 (same surface, top-k Poisson emission, no collar, no ceiling), G79-STEPCO (fixed step-dipole HGB, tied control), G79B-SDPT (scarp dipole detector with a post-hoc dot-deleting uniqueness amendment). No lane in this repo has used tile-cover decimation, a placement-time collision ceiling, or the 200 m collar together; the G79B cap deleted already-placed dots, which cost -0.0176/-0.0203, while a placement-time allowance displaces rather than deletes.",
+  "fixed_parameters": {
+    "surface": "identical to H79-NHR X1: src/gems79/nhr.build_static_stack + geometry_features, HistGradientBoostingRegressor(max_iter=250, learning_rate=0.08, max_leaf_nodes=63, min_samples_leaf=200, l2_regularization=1.0), nested_hide_fraction=0.2, nested_buffer_px=3, nested_replicates_per_model=3, negatives_sampled_per_replicate=200000, final seed 790000; no parameter changed",
+    "budget": 37654,
+    "collar_px": 2,
+    "tile_px": 3,
+    "emission": "gems57.emit.emit_decimated(surface, allowed, tile_px=3) candidate order; at most one dot per tile at the tile argmax of the kernel-convolved expected credit",
+    "collision_ceiling": 0.68,
+    "atrisk_seed_threshold": 0.5,
+    "atrisk_seed_rule": "before the holdout, place the UNCAPPED tile-cover emission (collar included, budget 37654) on the final surface and scan every ordinary registry raster (uniform chance <= 0.70 per evidence/nhr/overlap_chance.json); the capped set is frozen as every raster whose overlap with those uncapped dots exceeds 0.50",
+    "atrisk_fixed_point": "after the final capped placement, the authoritative full scan re-measures every ordinary raster; any raster whose overlap exceeds 0.68 joins the capped set and placement re-runs, at most 5 iterations. Because added caps monotonically cannot raise the achievable credit, if any addition is needed after the holdout has run, the promotion gate fails unless the holdout is re-run with the final frozen set; otherwise the lane stops negative",
+    "vacuous_rasters": "rasters whose uniform-random 3 px overlap chance exceeds 0.70 are exempt from the literal ceiling and adjudicated by the shared beyond-chance test (IR-79-57)",
+    "not_comparable_rasters": "registry files that cannot be decoded, or whose shape or CRS/geotransform differs from the competition grid, are excluded from the comparable registry with per-file reasons (IR-79-58); every other error still fails the scan closed",
+    "holdout": "gems57.holdout.buffered_component_draw(seed in {20, 30}, buffer_px=3, boundary_px=12), 4 leave-one-quadrant-out folds, evaluator gems57-pooled-hide-v2, pooled terms, 1000-draw paired spatial bootstrap; arms: candidate, cover_uncapped_control, topk_collar_control, x1_topk_reproduction, h33_foldfair_control, uniform_control",
+    "final_map": "capped tile-cover dots as 0/1 float32 on the competition grid, zeros elsewhere (all finite), no positive pixel on the mapped catalogue or inside the 200 m collar"
+  },
+  "promotion_gates": {
+    "g1_format": "single-band GeoTIFF, EPSG:32611, 3730x3292, transform identical to the sample, values in [0,1], no NaN inside the footprint, zero positives on the catalogue, shared writer receipt + reopened validator PASS",
+    "g2_canaries": "every feature alone AUC <= 0.90 on both seeds, zero suspicious",
+    "g3_beats_h33_control": "candidate HOLDOUT-DTI > h33_foldfair_control on both seeds AND paired 95% CI lower bound > 0 on both seeds; the H33 fold-fair control is the current best holdout reference among promotable candidates because H79-NHR X1, which scored higher, is a stopped un-submittable duplicate lane",
+    "g4_paired_vs_uniform": "paired 95% CI vs uniform_control excludes 0 on both seeds",
+    "g5_final_uniqueness": "complete scan of every comparable registry raster (986 of 992 after IR-79-58 exclusions, zero unexpected errors): worst Spearman <= 0.90, forward 3 px overlap <= 0.70 against every ordinary raster, beyond-chance clear against every vacuous raster",
+    "g6_cap_converged": "fixed point reached within 5 iterations and exactly 37654 dots placed",
+    "g7_selector": "scripts/select_submission.py re-derives every gate from evidence and binds ok_to_submit to the exact raster sha256; weekly-slot availability remains an account-side condition"
+  },
+  "budget_rule": "1 experiment (X1) of 3 allowed; experiment compute within 2 hours",
+  "stop_conditions": [
+    "any promotion gate fails -> verdict negative, artifact (if any) published DO-NOT-SUBMIT",
+    "holdout candidate does not beat the H33 fold-fair control on both seeds -> negative, no slot",
+    "cap fixed point does not converge -> negative"
+  ],
+  "negative_results_are_deliverables": true
+}

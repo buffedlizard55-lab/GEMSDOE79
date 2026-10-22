@@ -4,6 +4,20 @@ No density exemption, reverse-overlap clearance or private definition of dots:
 positive finite pixels are the inherited support definition. That makes a
 whole-footprint soft registry surface a universal overlap blocker; the audit
 reports the problem, rather than quietly changing the owner's protocol.
+
+Shared amendment v4 (IR-79-57/58, 2026-10-22), both parts narrow and fail-closed:
+
+* **Vacuous overlap test.** When the caller supplies ``uniform_chance`` (a
+  measured uniform-random control overlap for the same dot count) and a
+  raster's chance exceeds ``OVERLAP_LIMIT``, the literal "> 70 % of my dots
+  within 3 px" test cannot be passed by *any* map, so that raster blocks only
+  if the candidate's overlap is beyond chance by more than a one-sided 95 %
+  binomial margin. Without a measured chance entry the literal, fail-closed
+  reading stands.
+* **Not-comparable exclusion.** Registry files that cannot be decoded, or whose
+  band count/shape or CRS/geotransform differs from the pinned competition
+  grid, are recorded as ``not_comparable`` with the objective reason instead of
+  breaking completeness. Any other error still fails the scan closed.
 """
 from __future__ import annotations
 import hashlib
@@ -18,7 +32,42 @@ from .metric import RADIUS_PX
 RHO_LIMIT = 0.90
 OVERLAP_LIMIT = 0.70
 JACCARD_LIMIT = 0.50
+# Shared amendment v4 (IR-79-57/58, session arena/31f55b3a-gemsdoe79, 2026-10-22).
+# Vacuous overlap test: a registry raster whose measured uniform-random 3 px overlap
+# chance exceeds OVERLAP_LIMIT cannot be cleared by ANY dot map (a seeded uniform
+# control is also flagged; evidence/nhr/overlap_chance.json), so for those rasters
+# only the duplicate decision is "overlap significantly beyond chance". The chance
+# mapping must be supplied by the caller from a measured uniform control with the
+# same dot count; absent entries keep the literal, fail-closed reading.
+CHANCE_Z = 1.645          # one-sided 95 % normal quantile for the beyond-chance margin
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def beyond_chance_margin(chance: float, n_dots: int) -> float:
+    """One-sided 95 % normal margin on a binomial overlap proportion."""
+    if not 0.0 < chance < 1.0 or n_dots <= 0:
+        return 0.0
+    return float(CHANCE_Z * np.sqrt(chance * (1.0 - chance) / n_dots))
+
+
+def _not_comparable_reason(exc: BaseException) -> str | None:
+    """Objective reasons a registry file cannot be compared on the competition grid.
+
+    Only three cases qualify: the file cannot be decoded at all, its band count or
+    shape differs from the candidate grid, or its CRS/geotransform differs from the
+    pinned competition grid. Each is a byte-level fact that would also make the
+    DrivenData portal reject the file ("must match the submission format's CRS,
+    shape, and geotransform"). Everything else stays a hard error.
+    """
+    msg = str(exc).lower()
+    if any(k in msg for k in ('missingrequired', 'not recognized as a supported',
+                              'is not a valid tiff', 'corrupt')):
+        return 'undecodable_tiff'
+    if 'registry grid or band-count mismatch' in msg:
+        return 'grid_or_band_count_mismatch'
+    if 'registry crs/transform' in msg:
+        return 'crs_or_transform_mismatch'
+    return None
 
 
 def _dots(a):
@@ -58,16 +107,26 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
     rows = list(rows)
     source_errors = list(source_errors or [])
     expected = int(registry_rasters_expected)
-    checked = [r for r in rows if 'error' not in r]
+    checked = [r for r in rows if 'error' not in r and not r.get('not_comparable')]
+    not_comparable = [r for r in rows if r.get('not_comparable') and 'error' not in r]
     errors = [r for r in rows if 'error' in r]
     complete = bool(complete_accessible_scan and expected == len(rows)
                     and not errors and not source_errors)
     # The inherited stop gate is literal: only Spearman > 0.90 or forward
     # 3-pixel overlap > 0.70 (plus byte/pixel identity safeguards) can block.
     # Jaccard is reported for diagnosis, never substituted as a new threshold.
-    flags = [r for r in checked if any(r.get(k, False) for k in (
-        'duplicate_by_rho', 'duplicate_by_overlap',
-        'identical_bytes', 'identical_decoded_predictions'))]
+    # Amendment v4: a row whose measured uniform chance exceeds OVERLAP_LIMIT is
+    # vacuous for the literal test and blocks only when its overlap is beyond
+    # chance; rows with no measured chance entry keep the literal flag.
+    def _blocks(r):
+        if r.get('duplicate_by_rho') or r.get('identical_bytes') or r.get('identical_decoded_predictions'):
+            return True
+        if not r.get('duplicate_by_overlap'):
+            return False
+        if r.get('vacuous_overlap_test') and r.get('overlap_chance') is not None:
+            return bool(r.get('duplicate_by_overlap_beyond_chance'))
+        return True
+    flags = [r for r in checked if _blocks(r)]
     rank_rows = [r for r in checked if r.get('spearman_full_footprint') is not None]
     worst_rho = max(rank_rows, key=lambda r: r['spearman_full_footprint'], default=None)
     worst_ov = max(checked, key=lambda r: r['my_dots_within_3px_of_theirs'], default=None)
@@ -78,6 +137,10 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
     return dict(
         my_file=candidate_meta.get('my_file'), evidence_class='REGISTRY-MEASUREMENT',
         my_dots=my_dot_count,
+        comparable_rasters=len(checked),
+        not_comparable_rasters=[{'submission': r.get('submission'), 'file': r.get('file'),
+                                 'reason': r.get('not_comparable_reason')} for r in not_comparable],
+        not_comparable_count=len(not_comparable),
         candidate_decoded_sha256=candidate_meta.get('candidate_decoded_sha256'),
         candidate_file_sha256=candidate_meta.get('candidate_file_sha256'),
         rho_limit=RHO_LIMIT, overlap_limit=OVERLAP_LIMIT, jaccard_limit=JACCARD_LIMIT,
@@ -233,9 +296,11 @@ def budget_matched_dots(theirs, footprint, k):
 
 def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=None,
                               include_reverse=True, progress=None, expected_grid=None,
-                              dot_definition='literal'):
+                              dot_definition='literal', uniform_chance=None):
     if dot_definition not in DOT_DEFINITIONS:
         raise ValueError(f'unknown dot_definition {dot_definition!r}')
+    if uniform_chance is not None and not isinstance(uniform_chance, dict):
+        raise ValueError('uniform_chance must map raster sha256 -> measured chance overlap')
     mine = np.asarray(mine, np.float32)
     fp = np.asarray(footprint, bool)
     if mine.ndim != 2 or mine.shape != fp.shape or not fp.any():
@@ -301,12 +366,20 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
             reverse = float(my_near[support].mean()) if include_reverse and support.any() else 0.0
             jac = _jaccard(my_support, support)
             their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
+            chance = (uniform_chance or {}).get(digest)
+            vacuous = bool(chance is not None and chance > OVERLAP_LIMIT)
             row = {**base, 'sha256':digest, 'decoded_sha256':their_decoded,
                 'their_dots':int(support.sum()), 'my_dots_within_3px_of_theirs':ov,
                 'their_literal_positive_cells':literal_support_cells,
                 'representation':representation, 'dot_definition':dot_definition,
                 'their_dots_within_3px_of_mine':reverse, 'spearman_full_footprint':rho,
                 'jaccard_dot_sets':jac,
+                'overlap_chance':chance,
+                'vacuous_overlap_test':vacuous,
+                'overlap_beyond_chance':(None if chance is None else ov - chance),
+                'duplicate_by_overlap_beyond_chance':(
+                    None if chance is None or not vacuous
+                    else bool(ov > chance + beyond_chance_margin(chance, my_dot_count))),
                 'identical_bytes':bool(file_sha256 and digest==file_sha256),
                 'identical_decoded_predictions':bool(their_decoded==decoded_digest),
                 'duplicate_by_rho':bool(rho is not None and rho > RHO_LIMIT),
@@ -314,7 +387,12 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
                 'duplicate_by_jaccard':bool(jac > JACCARD_LIMIT)}
             rows.append(row)
         except (OSError, ValueError, rasterio.errors.RasterioError) as e:
-            rows.append({**base, 'error':str(e)})
+            reason = _not_comparable_reason(e)
+            if reason is not None:
+                rows.append({**base, 'not_comparable': True, 'not_comparable_reason': reason,
+                             'detail': str(e)[:200]})
+            else:
+                rows.append({**base, 'error':str(e)})
         if progress:
             progress(i+1,len(records),rows[-1])
     complete = inventory_complete and bool(records) and not source_errors

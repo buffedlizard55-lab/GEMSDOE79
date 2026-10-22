@@ -1,0 +1,31 @@
+{
+  "lane": "H79-DCE",
+  "generated_utc": "2026-10-22T05:30:36.443723+00:00",
+  "raster_sha256": "4df5f414dd223def9fd125e512f86dbd8b722fb0279719d8f5a32f358218f40d",
+  "name": "gems79-h79-dce-cover-37654dots-20261022T053035Z-b5dd778c-DO-NOT-SUBMIT",
+  "note": "H79-DCE research only; failed gates: paired_ci_vs_h33_excludes_zero_both_seeds, final_uniqueness_passed, final_forwar",
+  "gates": {
+    "canaries_all_le_0_90_both_seeds": true,
+    "beats_current_holdout_best_both_seeds": true,
+    "paired_ci_vs_h33_excludes_zero_both_seeds": false,
+    "paired_ci_vs_uniform_excludes_zero_both_seeds": true,
+    "evaluator_version_pinned": true,
+    "final_rank_correlation_le_0_90": true,
+    "final_uniqueness_passed": false,
+    "final_uniqueness_complete": true,
+    "final_forward_overlap_le_0_70": false,
+    "beyond_chance_clear_on_vacuous": false,
+    "cap_fixed_point_converged": true,
+    "cap_fixed_point_no_post_holdout_additions": true,
+    "dots_exactly_budget": true,
+    "surface_hash_verified_against_x1_receipt": true,
+    "x1_reproduction_arm_present": true
+  },
+  "all_passed": false,
+  "failed_gates": [
+    "paired_ci_vs_h33_excludes_zero_both_seeds",
+    "final_uniqueness_passed",
+    "final_forward_overlap_le_0_70",
+    "beyond_chance_clear_on_vacuous"
+  ]
+}

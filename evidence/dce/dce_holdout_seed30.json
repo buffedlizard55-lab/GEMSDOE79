@@ -1,0 +1,4205 @@
+{
+  "schema_version": 1,
+  "lane": "H79-DCE",
+  "experiment": "X1",
+  "seed": 30,
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "generated_utc": "2026-10-22T05:30:25.131082+00:00",
+  "runtime_s": 429.4,
+  "leakage_canary": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "seed": 30,
+    "tests": 232,
+    "threshold": 0.9,
+    "max_symmetric_auc": 0.8588719723814486,
+    "worst": {
+      "seed": 30,
+      "fold": "NW",
+      "feature": "geom_log_dist_visible_tip",
+      "positive_pixels": 1919,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.14112802761855134,
+      "symmetric_auc": 0.8588719723814486,
+      "suspicious": false
+    },
+    "n_suspicious": 0,
+    "per_feature_max": {
+      "geom_log_dist_visible": 0.8481481318394998,
+      "downface_max_max5": 0.612959702970297,
+      "tf_iso_grav_anom_vg": 0.586979900990099,
+      "tf_depth_to_base_surf": 0.5789240818516248,
+      "ex_mean": 0.5860034132360605,
+      "tf_rtp": 0.5620769202709744,
+      "iso_grav_anom_log_s2": 0.5718754265704584,
+      "ex_max": 0.5904508129233975,
+      "geom_strike_field_coherence": 0.601273085413929,
+      "upface_max": 0.6137192183428869,
+      "tf_tmi_vg": 0.509598884835852,
+      "det_elev_log_s1": 0.5682769397283531,
+      "iso_grav_anom_gradmag_s2": 0.6234341213921902,
+      "U": 0.5406099384550085,
+      "ex_max_max5": 0.6043436216779572,
+      "tf_det_elev": 0.5692340853140916,
+      "tf_geod_shearrate": 0.5700115269382391,
+      "tf_deq_n100a15": 0.5599199384550084,
+      "det_elev_gradmag_s1": 0.6353481735278791,
+      "TC": 0.5741320224957556,
+      "tf_cond_surf": 0.6036439499739448,
+      "step_max": 0.5984708441896821,
+      "downface_max": 0.6054573970818136,
+      "tf_geod_dilaterate": 0.5536828923973023,
+      "tf_geod_2ndinv": 0.5429327123501824,
+      "tf_iso_grav_anom": 0.5425419592641261,
+      "tf_tmi": 0.5576147628973424,
+      "coh100": 0.5441934523189161,
+      "geom_log_dist_visible_tip": 0.8588719723814486,
+      "rtp_gradmag_s5": 0.549407729303548,
+      "ThK": 0.5712990588595953,
+      "tf_ieq_n100a15": 0.5897891201716738,
+      "lappos_max": 0.6132069723814486,
+      "TMI_up150": 0.5575939812402293,
+      "rtp_gradmag_s2": 0.5519367232597623,
+      "tf_tmi_hg": 0.5540509656196944,
+      "iso_grav_anom_gradmag_s5": 0.6267875339558574,
+      "cross_max": 0.6139259353830121,
+      "step_max_max5": 0.6188254325169358,
+      "det_elev_log_s3": 0.6155157764460657,
+      "tf_mag_anom": 0.5667860239708182,
+      "lapneg_max": 0.6090441036998437,
+      "Th": 0.5879828501697792,
+      "K": 0.5887544736842105,
+      "UTh": 0.5787387216431638,
+      "relief": 0.6331331031787389,
+      "tf_det_elev_slope": 0.6120614330380407,
+      "geom_visible_density_s5": 0.8120737806149037,
+      "geom_visible_density_s20": 0.7944627201667535,
+      "geom_lidar_strike_alignment": 0.5889813965607087,
+      "iso_grav_anom_log_s5": 0.5775740662139219,
+      "tf_iso_grav_anom_slope": 0.6243921370967742,
+      "rtp_log_s2": 0.5220765177398161,
+      "tf_tc": 0.5741803183361631,
+      "det_elev_gradmag_s3": 0.6606958910891089,
+      "rtp_log_s5": 0.525952340588596,
+      "UK": 0.5594962688900469,
+      "tf_iso_grav_anom_hg": 0.555625849172287
+    }
+  },
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.10482197831542418,
+        "ci95": [
+          0.08866225779566954,
+          0.12174810805294756
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 1705.8281461960207,
+        "fpw": 34294.038288405216,
+        "fnw": 9636.171853803979
+      },
+      "cover_uncapped_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.12285535969823688,
+        "ci95": [
+          0.10602835418740846,
+          0.14053277259337466
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 2000.9367073269593,
+        "fpw": 34065.7158890984,
+        "fnw": 9341.063292673036
+      },
+      "topk_collar_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.15243169225411396,
+        "ci95": [
+          0.1344039548098144,
+          0.1708352284413681
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 2507.437858625378,
+        "fpw": 34372.479931505484,
+        "fnw": 8834.562141374618
+      },
+      "x1_topk_reproduction": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.15218128245014972,
+        "ci95": [
+          0.13431286384973065,
+          0.1704915169766603
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 2503.224020449502,
+        "fpw": 34373.58231010194,
+        "fnw": 8838.775979550494
+      },
+      "uniform_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.01513426585028903,
+        "ci95": [
+          0.012987212634354615,
+          0.01741149358981373
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 7419.527717952148,
+        "fpw": 2398447.236937134,
+        "fnw": 3922.4722820478532
+      },
+      "h33_foldfair_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.09889767286222764,
+        "ci95": [
+          0.08417148325275596,
+          0.11199985048545542
+        ],
+        "withheld_positive_pixels": 11342,
+        "tpw": 1638.0162557476992,
+        "fpw": 35807.67431660717,
+        "fnw": 9703.983744252295
+      }
+    },
+    "best_comparable_control": "topk_collar_control",
+    "paired_differences": {
+      "cover_uncapped_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.0180333813828127,
+        "ci95": [
+          -0.023220866602544767,
+          -0.013389434217978299
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "topk_collar_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.04760971393868978,
+        "ci95": [
+          -0.05706266069591461,
+          -0.03903592609681386
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "x1_topk_reproduction": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.04735930413472554,
+        "ci95": [
+          -0.05666049435761355,
+          -0.0388097185786155
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "uniform_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.08968771246513516,
+        "ci95": [
+          0.07391804963423744,
+          0.10555160067932
+        ],
+        "withheld_positive_pixels": 11342
+      },
+      "h33_foldfair_control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": 0.0059243054531965406,
+        "ci95": [
+          -0.010226524759822464,
+          0.02147922630278462
+        ],
+        "withheld_positive_pixels": 11342
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 159,
+      "draws": 1000,
+      "seed": 7930,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "folds": [
+    {
+      "fold": "NW",
+      "budget": 8000,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 8148,
+          "positive_rows": 48075,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 8112,
+          "positive_rows": 49794,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 8112,
+          "positive_rows": 48292,
+          "negative_rows": 200000
+        }
+      ],
+      "placements": {
+        "candidate": {
+          "requested": 8000,
+          "emitted": 8000,
+          "spacing_px": 3,
+          "exhausted": false,
+          "rule": "tile-cover-decimated-capped",
+          "ceiling": 0.68,
+          "capped_rasters": 182,
+          "skipped_by_ceiling": 29084,
+          "per_raster": {
+            "04b75259720baa2c52b7e9c56a2b3bccc471e3500a6112e782d95422419ae67b": {
+              "allowance": 5440,
+              "placed_in_halo": 1778,
+              "halo_overlap_fraction": 0.22225
+            },
+            "052688eafbc7a55d90caab72252a50304fe5caa8ecf973f8e791b4ae910f0792": {
+              "allowance": 5440,
+              "placed_in_halo": 3296,
+              "halo_overlap_fraction": 0.412
+            },
+            "055e9aac96b89b9a1d8fca8005778733039ed79f1165bb8cdd46dcfc51d6f53d": {
+              "allowance": 5440,
+              "placed_in_halo": 3550,
+              "halo_overlap_fraction": 0.44375
+            },
+            "088069aec07a9150d9473f94f259bd1f7e4c5212f4ff55c1866bf41b3d1fc8e6": {
+              "allowance": 5440,
+              "placed_in_halo": 3516,
+              "halo_overlap_fraction": 0.4395
+            },
+            "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf": {
+              "allowance": 5440,
+              "placed_in_halo": 5054,
+              "halo_overlap_fraction": 0.63175
+            },
+            "0c7d00e879e7f54e3019de185b252e5faad2983c754c9030273ad333688acb69": {
+              "allowance": 5440,
+              "placed_in_halo": 5277,
+              "halo_overlap_fraction": 0.659625
+            },
+            "0c9199f14e625d7b2539a0a045803b74d6494ce568d185abecc193fe7e93c6f2": {
+              "allowance": 5440,
+              "placed_in_halo": 3545,
+              "halo_overlap_fraction": 0.443125
+            },
+            "10bf2c4d3885d06116664226705712c3656a7a21364ec8559b4ec8200efd1f5e": {
+              "allowance": 5440,
+              "placed_in_halo": 3351,
+              "halo_overlap_fraction": 0.418875
+            },
+            "111c7048be1bde71ffe586448fd493d4b522ab3b0e8bd5866888cc3b1c58f744": {
+              "allowance": 5440,
+              "placed_in_halo": 2481,
+              "halo_overlap_fraction": 0.310125
+            },
+            "132e23e10344013a23ffd18a21a3fdcdb59c7c7c84444708db1fb38072c119ef": {
+              "allowance": 5440,
+              "placed_in_halo": 3296,
+              "halo_overlap_fraction": 0.412
+            },
+            "1381e784fb8b8340beffd0e735ac9eea89ad35d1a807f8a9bab5506e3fc8275e": {
+              "allowance": 5440,
+              "placed_in_halo": 3467,
+              "halo_overlap_fraction": 0.433375
+            },
+            "1580815184c647fd53e7d15e9c49639440c25e8cba74768b5fe695dc22e75f6c": {
+              "allowance": 5440,
+              "placed_in_halo": 2249,
+              "halo_overlap_fraction": 0.281125
+            },
+            "15c12778486e5a15f6cced0e9d61c6cf32f2c916128fb37f5ff2f09edd7bb144": {
+              "allowance": 5440,
+              "placed_in_halo": 2505,
+              "halo_overlap_fraction": 0.313125
+            },
+            "1aae84bb9a0cad39500053121c22c1a844f409c65830d50ed8f1ab5422cd488f": {
+              "allowance": 5440,
+              "placed_in_halo": 2599,
+              "halo_overlap_fraction": 0.324875
+            },
+            "1f7b5a4f18dbc62f31b14078545332238be9289dd388d57f550d75fb5a5fe95a": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "20be05cc671c85484e4cfc8ea40d2fced71d7ec70f20ab915f36fcc68fcc4851": {
+              "allowance": 5440,
+              "placed_in_halo": 2325,
+              "halo_overlap_fraction": 0.290625
+            },
+            "224be205fdd428260f9c3f5ff6978e4b0ddf09a7dfa7b7acde341c18151d6c65": {
+              "allowance": 5440,
+              "placed_in_halo": 2545,
+              "halo_overlap_fraction": 0.318125
+            },
+            "2269b714c78262a8d45dbd5eb02290a27ec9b99afe02340e343f5cb1ac7c58f3": {
+              "allowance": 5440,
+              "placed_in_halo": 2481,
+              "halo_overlap_fraction": 0.310125
+            },
+            "25b1c0449e8d94469db22bab4c390110b6f8a928dc01cf21a39b97efcf84d19e": {
+              "allowance": 5440,
+              "placed_in_halo": 3374,
+              "halo_overlap_fraction": 0.42175
+            },
+            "28adc53bcaca11329c807baa5659079c25f225c5908f7874762a034cf70cab05": {
+              "allowance": 5440,
+              "placed_in_halo": 5312,
+              "halo_overlap_fraction": 0.664
+            },
+            "28f30b31c5d054764038144c2742364c5e4f1e2ca79f122281d04cb9d15cd5db": {
+              "allowance": 5440,
+              "placed_in_halo": 4668,
+              "halo_overlap_fraction": 0.5835
+            },
+            "2a0707537962757e9aa8f856fd6d3fdfdc8d0e387b0eef6639eacf18fe2ba7b2": {
+              "allowance": 5440,
+              "placed_in_halo": 2477,
+              "halo_overlap_fraction": 0.309625
+            },
+            "2b06d45c5b5726be60ed7f953accda58919999a99b442bb87410377e0c4c034a": {
+              "allowance": 5440,
+              "placed_in_halo": 3057,
+              "halo_overlap_fraction": 0.382125
+            },
+            "2b070e616f5494d09d39f4a35727adceb541e72a2a0471322f7b87cc1fb1dc86": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "2bff4b55cabe5a4eb7ab1aeff6b21e407a87a576d1d0c3c5f20ed3ddb1c279ba": {
+              "allowance": 5440,
+              "placed_in_halo": 2621,
+              "halo_overlap_fraction": 0.327625
+            },
+            "2f6e74e4d48ad47d07671cee4e73f08d012178e337a9045a9b57e51012b3613a": {
+              "allowance": 5440,
+              "placed_in_halo": 2485,
+              "halo_overlap_fraction": 0.310625
+            },
+            "318fdda4e26bcb1c673a1c8af866b4d9515a3ac73d88ee95c3ff52ed4e124f43": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "31bf5aef0539dc3c401662f0bc3b657287943049ad8d031d10026ba45d669c4b": {
+              "allowance": 5440,
+              "placed_in_halo": 2591,
+              "halo_overlap_fraction": 0.323875
+            },
+            "346d57f0eca0ff36f7648f8b5a3ba8764054ab9e42e1677873791b83f460f45e": {
+              "allowance": 5440,
+              "placed_in_halo": 2794,
+              "halo_overlap_fraction": 0.34925
+            },
+            "34f8dea50ff0b2eeac843e1f3f76e8d9a7bb63368aab2de339ba046009162744": {
+              "allowance": 5440,
+              "placed_in_halo": 2483,
+              "halo_overlap_fraction": 0.310375
+            },
+            "3537e9fc47a465036a8c1462b99a29b7f3449ee2e7bb94fd0a12d438a85b375d": {
+              "allowance": 5440,
+              "placed_in_halo": 2408,
+              "halo_overlap_fraction": 0.301
+            },
+            "3543d0c430ca1ef145204b81ef44fa736794f1240d63745f9f31f1d0e1edee0e": {
+              "allowance": 5440,
+              "placed_in_halo": 2428,
+              "halo_overlap_fraction": 0.3035
+            },
+            "3589e89a1ad4f78f54e6f17f9b7cdb0edb563f66aedfcdabd632ef8774968c3a": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "35b648795818c96c444ee66d1d58fbf1146aa9ef70a4a2f69cab27784b210b86": {
+              "allowance": 5440,
+              "placed_in_halo": 3045,
+              "halo_overlap_fraction": 0.380625
+            },
+            "38539dc647d5ede0d8fa90123810d18130ee15e524097f55e83b6b8a57976ea9": {
+              "allowance": 5440,
+              "placed_in_halo": 4386,
+              "halo_overlap_fraction": 0.54825
+            },
+            "388b31312ab1dc53d839a5a584970a8c9cd2f7dca6a286c36945b89a5ef07be0": {
+              "allowance": 5440,
+              "placed_in_halo": 3294,
+              "halo_overlap_fraction": 0.41175
+            },
+            "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26": {
+              "allowance": 5440,
+              "placed_in_halo": 2873,
+              "halo_overlap_fraction": 0.359125
+            },
+            "40524184b4cc88a0fa92c3fcc869b2d6ebb9a87c6c2019105fcf9716b419d8fb": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "41216d099db0e077dcdedb99c0fcda879c4d9406fafa42b45b78a968f6349c38": {
+              "allowance": 5440,
+              "placed_in_halo": 2545,
+              "halo_overlap_fraction": 0.318125
+            },
+            "42bffef1b5973973cdcb52c252067b33159e03fa721d1f58bec83f18ca779a21": {
+              "allowance": 5440,
+              "placed_in_halo": 3156,
+              "halo_overlap_fraction": 0.3945
+            },
+            "46a0f0fa2f63e6e6b4a5fe4520e999b925cf3ff954a01b10b36b735c1b0649c8": {
+              "allowance": 5440,
+              "placed_in_halo": 3313,
+              "halo_overlap_fraction": 0.414125
+            },
+            "47caaca53d2906f797459abf1194fb81ee1181e05cf5c9a6e74e6f57b0999b98": {
+              "allowance": 5440,
+              "placed_in_halo": 4866,
+              "halo_overlap_fraction": 0.60825
+            },
+            "4a931832d76040b51252649e525376a31b5b15b3bb8c2ffbda8758531211776b": {
+              "allowance": 5440,
+              "placed_in_halo": 2142,
+              "halo_overlap_fraction": 0.26775
+            },
+            "4aff087dee275bc4958c787308a6141965479856dc38915dba5a6cd81e24989f": {
+              "allowance": 5440,
+              "placed_in_halo": 2289,
+              "halo_overlap_fraction": 0.286125
+            },
+            "4c31411088a92d83589b1fd0557c00460069b1a7cfbbe18a0fb1ceaa1b38d420": {
+              "allowance": 5440,
+              "placed_in_halo": 2214,
+              "halo_overlap_fraction": 0.27675
+            },
+            "4d00b72c78fa21c258061079daad55c3a99b1bc91dc5d3e2516ad4c0e90ba334": {
+              "allowance": 5440,
+              "placed_in_halo": 2738,
+              "halo_overlap_fraction": 0.34225
+            },
+            "4d6548d4ec07a47a25b83d28ebc05d58b57448c1507b460aed52cec395bdb6b5": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "50041161e7a7922992f05c9e027092806f13b1537d1888fd10d461bbd4a8b6c2": {
+              "allowance": 5440,
+              "placed_in_halo": 2284,
+              "halo_overlap_fraction": 0.2855
+            },
+            "516661e70e3e9c923a4e162a8ece8c7c9ad21e9814a7a3db13c805bc06d9f39a": {
+              "allowance": 5440,
+              "placed_in_halo": 2450,
+              "halo_overlap_fraction": 0.30625
+            },
+            "542eaf30766ba57b122cc85fb239e407294a282e1259dcceae0c55575ee19f95": {
+              "allowance": 5440,
+              "placed_in_halo": 3334,
+              "halo_overlap_fraction": 0.41675
+            },
+            "54dfe8bd79f767370558bebc1c23366cb43e5e5a4b26c7d9d14131c8b58bdc0c": {
+              "allowance": 5440,
+              "placed_in_halo": 4380,
+              "halo_overlap_fraction": 0.5475
+            },
+            "566bfd0a4fe4486d7fae3fec0f3ac52329b1da98d409984e2c0187f557bfe8d4": {
+              "allowance": 5440,
+              "placed_in_halo": 3481,
+              "halo_overlap_fraction": 0.435125
+            },
+            "5823def4fab491ac6bd667cedb467c0540fd1bbce1351992289f4a609e7b775e": {
+              "allowance": 5440,
+              "placed_in_halo": 2503,
+              "halo_overlap_fraction": 0.312875
+            },
+            "5b59e106b6e448038b96fb340c5bae39094d4558c239c437aea28b6020d5d32f": {
+              "allowance": 5440,
+              "placed_in_halo": 4380,
+              "halo_overlap_fraction": 0.5475
+            },
+            "5c5c1784c615c807423479d497a3ca1faa1607dbc11aa413b05b96801629c427": {
+              "allowance": 5440,
+              "placed_in_halo": 2989,
+              "halo_overlap_fraction": 0.373625
+            },
+            "5db55c064eb0b920beb84cd4d6de426a347206b7b8a2c9adc8cfb343084a570b": {
+              "allowance": 5440,
+              "placed_in_halo": 2260,
+              "halo_overlap_fraction": 0.2825
+            },
+            "609af5bce51d916fbba1fd383615323803591814823ac794d04b9a3374975b3f": {
+              "allowance": 5440,
+              "placed_in_halo": 1778,
+              "halo_overlap_fraction": 0.22225
+            },
+            "60a7930a5ac229bb8a3a81656de49c1e228eab8398e0b26316972d516a2951f5": {
+              "allowance": 5440,
+              "placed_in_halo": 2698,
+              "halo_overlap_fraction": 0.33725
+            },
+            "612412b48e45704e40a00718589da6a04f12e0b23d55954094de7c4ebc85a44f": {
+              "allowance": 5440,
+              "placed_in_halo": 4380,
+              "halo_overlap_fraction": 0.5475
+            },
+            "61f9b53de42786e6d48afa50fd453a87c57d5d7b9b626c7dcf28c2dfbd20f411": {
+              "allowance": 5440,
+              "placed_in_halo": 2698,
+              "halo_overlap_fraction": 0.33725
+            },
+            "6292a7916c83d371fc650b0f0c6a090702b9890eaa6e6546d50f104eea2fadc3": {
+              "allowance": 5440,
+              "placed_in_halo": 2210,
+              "halo_overlap_fraction": 0.27625
+            },
+            "629800b15ca54906b1bfcbde8811273a47b90d112038b86aea6701460070e1ed": {
+              "allowance": 5440,
+              "placed_in_halo": 3316,
+              "halo_overlap_fraction": 0.4145
+            },
+            "641cc910f2be240a2a9d298926fec5a337542cdfd0010c39f18baad66fb8fe88": {
+              "allowance": 5440,
+              "placed_in_halo": 2432,
+              "halo_overlap_fraction": 0.304
+            },
+            "64faebf44c5a5e03ef596efdc7ba4123ef0343b223988118a7e8dcd09dc51490": {
+              "allowance": 5440,
+              "placed_in_halo": 2144,
+              "halo_overlap_fraction": 0.268
+            },
+            "6733bbde40e61bc16309d351b0c3f92c17f30aab023eaf07db80795198867096": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "699d9c7f6d136818af48ed65d357bcd6eca828e530c73c4d80c3a6cca4214b81": {
+              "allowance": 5440,
+              "placed_in_halo": 3579,
+              "halo_overlap_fraction": 0.447375
+            },
+            "69d7cdbb1337b07278dd73f4e605cd35c185e8f9cfef18614d4c9c071800a8cf": {
+              "allowance": 5440,
+              "placed_in_halo": 2260,
+              "halo_overlap_fraction": 0.2825
+            },
+            "6bcf9de850471535816e1a798983a329b4408d39cfa91d4c17511e7fe0158a38": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "703ea58b0e49479d57acb9293d748d861b07eba80898aa6bc0ed07595bc1dc91": {
+              "allowance": 5440,
+              "placed_in_halo": 2876,
+              "halo_overlap_fraction": 0.3595
+            },
+            "70c4ccd5dd51c6cbf1c0b8019738885a357dde7be64c17b4fb278a12f073e1e4": {
+              "allowance": 5440,
+              "placed_in_halo": 5440,
+              "halo_overlap_fraction": 0.68
+            },
+            "73a8dcb305609def44f4c2cc421f6c4a3c4d5c45a9fe8ef64078a58706908fb4": {
+              "allowance": 5440,
+              "placed_in_halo": 2481,
+              "halo_overlap_fraction": 0.310125
+            },
+            "741f781734cbbf7145c2f7c93112d2272e62213205f15283babad65433a7fc28": {
+              "allowance": 5440,
+              "placed_in_halo": 2258,
+              "halo_overlap_fraction": 0.28225
+            },
+            "749fdffc1b9a6d5b610513e9ab8f68576feb102f419f234647180eb04d30f9d6": {
+              "allowance": 5440,
+              "placed_in_halo": 2166,
+              "halo_overlap_fraction": 0.27075
+            },
+            "756af6ee74b3fd456eeb30bbcaaa41de51d3cdc17222b04166d8280ba7c18c3e": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58": {
+              "allowance": 5440,
+              "placed_in_halo": 3410,
+              "halo_overlap_fraction": 0.42625
+            },
+            "7810719248d2aa17b4aefdc838bf7ea5ad90a08ae0882c7f96f158bf01696302": {
+              "allowance": 5440,
+              "placed_in_halo": 3036,
+              "halo_overlap_fraction": 0.3795
+            },
+            "7884f24bcb0eff0e9d3b196a07560ee5aff39b7fce83a96b6bcf90b006ef5b45": {
+              "allowance": 5440,
+              "placed_in_halo": 3605,
+              "halo_overlap_fraction": 0.450625
+            },
+            "789dd56c4287cd50c8d2d5e3f063828a8d25a275d82bd8418a4cf971d908b8a6": {
+              "allowance": 5440,
+              "placed_in_halo": 5440,
+              "halo_overlap_fraction": 0.68
+            },
+            "78a916d09ba6af7f6d88fa9e8ff2e9f79696297cab2e11786a472dbed21c24e9": {
+              "allowance": 5440,
+              "placed_in_halo": 2810,
+              "halo_overlap_fraction": 0.35125
+            },
+            "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3": {
+              "allowance": 5440,
+              "placed_in_halo": 3548,
+              "halo_overlap_fraction": 0.4435
+            },
+            "7cacff894c4444997e2ee8896582cda82ad34a43cf039cfb960befa20577d005": {
+              "allowance": 5440,
+              "placed_in_halo": 3072,
+              "halo_overlap_fraction": 0.384
+            },
+            "7f00890a62878d612fb5eef67a9a364a2df819433dde74b6762ce4fc0fc4fe15": {
+              "allowance": 5440,
+              "placed_in_halo": 3036,
+              "halo_overlap_fraction": 0.3795
+            },
+            "7f0fbe2fcec056f2a06f927f011a2010c95608ea610bcf56db62cb2bae4b8806": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "7f71739a2804bf2fa7199d30d512e0a267e4cfa2fdd0d32304b962db65b98662": {
+              "allowance": 5440,
+              "placed_in_halo": 2776,
+              "halo_overlap_fraction": 0.347
+            },
+            "82359f80280062072a4fdd8723d637a9bed0b77223386c319ab35bac990d8f23": {
+              "allowance": 5440,
+              "placed_in_halo": 4492,
+              "halo_overlap_fraction": 0.5615
+            },
+            "861c880e7a56203d197182075765480efaf224ad6cfde342fab511f5f908fa4c": {
+              "allowance": 5440,
+              "placed_in_halo": 2548,
+              "halo_overlap_fraction": 0.3185
+            },
+            "8624c5a58c681f57a6d26cab0652cfe654bcd46dc8ba68a7d5a4c0feaa29bc89": {
+              "allowance": 5440,
+              "placed_in_halo": 5312,
+              "halo_overlap_fraction": 0.664
+            },
+            "8721329b55c72635803cca27414f3d0ffe4705f48285de0dc7c29d6fd3eb90d3": {
+              "allowance": 5440,
+              "placed_in_halo": 3579,
+              "halo_overlap_fraction": 0.447375
+            },
+            "87eda0c871f8f2ff03482452674010083486aad534e6a7f75dc3124177a34db1": {
+              "allowance": 5440,
+              "placed_in_halo": 2711,
+              "halo_overlap_fraction": 0.338875
+            },
+            "883d93f2801987481f8ffb761eeae8f7a39520ad3b670e09129bdaaf7983e2c7": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "886e470530d8b23a4967a7f8d9f55df5fb39441ff7b544490cab457d076731f7": {
+              "allowance": 5440,
+              "placed_in_halo": 3313,
+              "halo_overlap_fraction": 0.414125
+            },
+            "88976dc5b2504838b193d41b718df95eb1e237b870b94a6443dc3bee65e98e06": {
+              "allowance": 5440,
+              "placed_in_halo": 5440,
+              "halo_overlap_fraction": 0.68
+            },
+            "8a59bc5ea68df8c64f2467fd5e8b3652a324fa3d5e364b9e974d993401c2ec1f": {
+              "allowance": 5440,
+              "placed_in_halo": 2738,
+              "halo_overlap_fraction": 0.34225
+            },
+            "8a85485ed0877d240ece6b07883641d04fa64cdf8d3687ff767a068346350313": {
+              "allowance": 5440,
+              "placed_in_halo": 2711,
+              "halo_overlap_fraction": 0.338875
+            },
+            "92904a5bfd84c8bd1141683fc5d29817aa4de71574d8caff5b40f7ed0072a5b8": {
+              "allowance": 5440,
+              "placed_in_halo": 2876,
+              "halo_overlap_fraction": 0.3595
+            },
+            "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981": {
+              "allowance": 5440,
+              "placed_in_halo": 2685,
+              "halo_overlap_fraction": 0.335625
+            },
+            "93d1a77e8d90e4a60dd68e2785b4a1b5cf8b34bfad80109c79354cae74c61c06": {
+              "allowance": 5440,
+              "placed_in_halo": 2249,
+              "halo_overlap_fraction": 0.281125
+            },
+            "9606cef20d34046e9b5f6d506df642847ffae1deafe97fc9e75a07c0094a94f5": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "96737553f2c6322bdf9870759b0e14c4bedd55f11eb4ce8e0f1ffb3e5288dd28": {
+              "allowance": 5440,
+              "placed_in_halo": 4451,
+              "halo_overlap_fraction": 0.556375
+            },
+            "9a5f5433cbfed4a1a8ac2587678aaa930c8ed93e948b9e94874c8febc549fd57": {
+              "allowance": 5440,
+              "placed_in_halo": 2418,
+              "halo_overlap_fraction": 0.30225
+            },
+            "9b4a7b83fd7bb58bed86692059f112ffc9418b8bd6f0704100dabef1f98c7682": {
+              "allowance": 5440,
+              "placed_in_halo": 2214,
+              "halo_overlap_fraction": 0.27675
+            },
+            "9b4cf4450bbc6c13b307e5ec89f0dd2d2f0a54245b1757287541079098fba0de": {
+              "allowance": 5440,
+              "placed_in_halo": 2225,
+              "halo_overlap_fraction": 0.278125
+            },
+            "9bd1e50d86114daa7c944d0c6d4f9f7cba6ba5070ae98ba5e45a965d78650777": {
+              "allowance": 5440,
+              "placed_in_halo": 2350,
+              "halo_overlap_fraction": 0.29375
+            },
+            "9f36769d415ff85e7ed62a610092fffb94cda970949c0087a29a38b71456d8c1": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "a0e4b3f31cb84270b10d19fff8399412a0850f3cffeb77d59b553c7ff0475d67": {
+              "allowance": 5440,
+              "placed_in_halo": 1676,
+              "halo_overlap_fraction": 0.2095
+            },
+            "a0eaa98c3294a7686d26753348bca9eaf143f089a9d39d827ee19ddb7e55ffac": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "a1a26570f336e84a743e5acb451df16ede8734613f1f9a4b1d515ff69d369ba3": {
+              "allowance": 5440,
+              "placed_in_halo": 4448,
+              "halo_overlap_fraction": 0.556
+            },
+            "a26e5e46acc00ddd867f0b2910e638b25e4e81108ebe05c0abcc7c9b04372247": {
+              "allowance": 5440,
+              "placed_in_halo": 2952,
+              "halo_overlap_fraction": 0.369
+            },
+            "a9f99d5cbc5b616fd5b0535ace4d43246fc31a3f865277f26f4acc8495cc9817": {
+              "allowance": 5440,
+              "placed_in_halo": 2599,
+              "halo_overlap_fraction": 0.324875
+            },
+            "aac8aa8a021ee309c91c5084f17ff2d64623163faa382cfd76ca781352d945b8": {
+              "allowance": 5440,
+              "placed_in_halo": 2192,
+              "halo_overlap_fraction": 0.274
+            },
+            "aac907db6aadc3d07a4eeb2531a0be200ee0143599ab304921e4f4f742fbc02a": {
+              "allowance": 5440,
+              "placed_in_halo": 4630,
+              "halo_overlap_fraction": 0.57875
+            },
+            "ab9076de63bd76fd8857b0dba81f6c19be4a95377cb52802f71ccf177cf9b9ce": {
+              "allowance": 5440,
+              "placed_in_halo": 2417,
+              "halo_overlap_fraction": 0.302125
+            },
+            "abb0cb1349c9745a27156ebd95b435dec6086d38d9be3ec637400001d9fa33a0": {
+              "allowance": 5440,
+              "placed_in_halo": 2733,
+              "halo_overlap_fraction": 0.341625
+            },
+            "ac4ebc913a172f3415f14a3b47b169af03798cff3a643ffd0a89451b869259be": {
+              "allowance": 5440,
+              "placed_in_halo": 2401,
+              "halo_overlap_fraction": 0.300125
+            },
+            "ad9750be86acf6b8c253dcd8f1ee6487c2ea8327a582a8c9e6a765d16037d319": {
+              "allowance": 5440,
+              "placed_in_halo": 5277,
+              "halo_overlap_fraction": 0.659625
+            },
+            "ae5c5aafce85a395af73944ab10f3fc2cad7bcc1244d49a52d53443bd0f5c3c2": {
+              "allowance": 5440,
+              "placed_in_halo": 4668,
+              "halo_overlap_fraction": 0.5835
+            },
+            "aeaa9a46236a658d91a05be48d54f14b44804c967d590314caeb2c0a82511f60": {
+              "allowance": 5440,
+              "placed_in_halo": 3475,
+              "halo_overlap_fraction": 0.434375
+            },
+            "b0afa9ecc6ff5dbc9ee55cd4e32a818113411aad911e2dae7c87b72d2715530f": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "b2f89a83ffb1080c512bb46c6feae3a6211207cd619e0291bd2d767c002be87f": {
+              "allowance": 5440,
+              "placed_in_halo": 2820,
+              "halo_overlap_fraction": 0.3525
+            },
+            "b33684ae033512a1a1c7d2cfccd128955fedfdff2a8fed6c7585a755b1b58b3c": {
+              "allowance": 5440,
+              "placed_in_halo": 2870,
+              "halo_overlap_fraction": 0.35875
+            },
+            "b6d91ba6f6a703c45bbd71dca43209f95521be52dfa4d9ae96fc8270c392740c": {
+              "allowance": 5440,
+              "placed_in_halo": 3294,
+              "halo_overlap_fraction": 0.41175
+            },
+            "b748e0f97738a5e3b0feaf35dab340ff1dcedd6b8d2124f2b54b5f1b0f14d7d3": {
+              "allowance": 5440,
+              "placed_in_halo": 4451,
+              "halo_overlap_fraction": 0.556375
+            },
+            "b7e39108f9718021edaac2920680ee49d3ffdcacab93e38822081556407d6010": {
+              "allowance": 5440,
+              "placed_in_halo": 4480,
+              "halo_overlap_fraction": 0.56
+            },
+            "b7ea86e8893434e3ea6616cdba07ac3e55e3b8bd0bc42add68bdf5d4084efc22": {
+              "allowance": 5440,
+              "placed_in_halo": 2321,
+              "halo_overlap_fraction": 0.290125
+            },
+            "b83ea0e7074882ceee31de89695281c00ade51f26a0a7048f628f60058755356": {
+              "allowance": 5440,
+              "placed_in_halo": 2969,
+              "halo_overlap_fraction": 0.371125
+            },
+            "b9530b70065da1f5e9da82caf4f5aaba3d7175dbbbfb2851e4b2ab2dd13aa4f1": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "b9ca8c093d3b0812112f2c62b06e2047a48156e71136c735962ececfb20372bf": {
+              "allowance": 5440,
+              "placed_in_halo": 2401,
+              "halo_overlap_fraction": 0.300125
+            },
+            "ba1ef907a699a879135062235eae5acd43c2adc9b616653e1e609a9b59134398": {
+              "allowance": 5440,
+              "placed_in_halo": 2491,
+              "halo_overlap_fraction": 0.311375
+            },
+            "bb1f328dbf12395254305bd74094a22e1582cd5110576c01ddb02daca45bffa0": {
+              "allowance": 5440,
+              "placed_in_halo": 1820,
+              "halo_overlap_fraction": 0.2275
+            },
+            "bb517a03bbce13900d8bc973365ffbea077a580a706edb5fc8587fba1a659847": {
+              "allowance": 5440,
+              "placed_in_halo": 2258,
+              "halo_overlap_fraction": 0.28225
+            },
+            "bd1e3d056e83e792aed8c77b3249f833d119320779b94d2eb7c5b65ac5161428": {
+              "allowance": 5440,
+              "placed_in_halo": 5440,
+              "halo_overlap_fraction": 0.68
+            },
+            "bdc045934e4a2e33a90093ef07e4968f9fffb016ce3ff3e780bbe7fa5c32977a": {
+              "allowance": 5440,
+              "placed_in_halo": 1083,
+              "halo_overlap_fraction": 0.135375
+            },
+            "be9dfc8f3643b8a70748ab6d018aeed055792f2bf36a3ae96f46568a85158229": {
+              "allowance": 5440,
+              "placed_in_halo": 2591,
+              "halo_overlap_fraction": 0.323875
+            },
+            "c02930644a5c3b1051a57c5f2092bb1c942d6adb07d6ca76be205ad8e0d46ab9": {
+              "allowance": 5440,
+              "placed_in_halo": 2289,
+              "halo_overlap_fraction": 0.286125
+            },
+            "c36696693639749791286bcd58e48a78ff79d4651b63fc33d273aab8191df0d4": {
+              "allowance": 5440,
+              "placed_in_halo": 5018,
+              "halo_overlap_fraction": 0.62725
+            },
+            "c3bf15a0471c5f00d3a436f2328ef443564a955f44a32776485e706344529839": {
+              "allowance": 5440,
+              "placed_in_halo": 2284,
+              "halo_overlap_fraction": 0.2855
+            },
+            "c5ea501eba0ab840d26f0c017d01074c4bd9040ec5e2c5ac19bde8655d150e64": {
+              "allowance": 5440,
+              "placed_in_halo": 3036,
+              "halo_overlap_fraction": 0.3795
+            },
+            "c9a83c6c8f230ae85b829933a127b65b3832b03b5eaccd8a687ce8bbf1858d5b": {
+              "allowance": 5440,
+              "placed_in_halo": 4998,
+              "halo_overlap_fraction": 0.62475
+            },
+            "cb755e0b91642a085c74bb70eeeb6d89018287226aea93e02d45e9e779df3341": {
+              "allowance": 5440,
+              "placed_in_halo": 3302,
+              "halo_overlap_fraction": 0.41275
+            },
+            "ce3f70fa2e1e7bbea60c8c62a2f805c22d15b8a8905ebec757259617ceb02fbc": {
+              "allowance": 5440,
+              "placed_in_halo": 3545,
+              "halo_overlap_fraction": 0.443125
+            },
+            "ce749a992baec603460dfeddd068758855cb8b12978268e6ef94f6e23ffd9ee7": {
+              "allowance": 5440,
+              "placed_in_halo": 3459,
+              "halo_overlap_fraction": 0.432375
+            },
+            "cf59ad8290e4f883b6c9d0fd19871a003a4e32bede578860b56ff5815966db40": {
+              "allowance": 5440,
+              "placed_in_halo": 4380,
+              "halo_overlap_fraction": 0.5475
+            },
+            "d07cbb6f69076e76f1a8a4806ddc5639421bc9a59b10d80a09b9fb423bb99427": {
+              "allowance": 5440,
+              "placed_in_halo": 4386,
+              "halo_overlap_fraction": 0.54825
+            },
+            "d0c5fd6825b544eb08672303c11292eb99d6105e42a41eac0e5a211a3fdc69e5": {
+              "allowance": 5440,
+              "placed_in_halo": 5440,
+              "halo_overlap_fraction": 0.68
+            },
+            "d1e87159a8908f0051352c091d9343e8e5128e2c8eea0debdd17589a02692dad": {
+              "allowance": 5440,
+              "placed_in_halo": 2432,
+              "halo_overlap_fraction": 0.304
+            },
+            "d34ad9224ccbd7c7c2bad4382272c80afc2f1850daf46ae7b1f9c6edcf1939f4": {
+              "allowance": 5440,
+              "placed_in_halo": 2417,
+              "halo_overlap_fraction": 0.302125
+            },
+            "d4a5de924057eec12c4e4ee9bdb5de361754b7bc9ace8691f86cb1ace51e57e2": {
+              "allowance": 5440,
+              "placed_in_halo": 3442,
+              "halo_overlap_fraction": 0.43025
+            },
+            "d7977d7b93287f17fbf3cb85f10fdbee4acc5c8453a7faa451e760363433a286": {
+              "allowance": 5440,
+              "placed_in_halo": 3389,
+              "halo_overlap_fraction": 0.423625
+            },
+            "d7fc78a036f325ddb80f94fdda1864b4af0889eb58b0291356945fb1b44e1da0": {
+              "allowance": 5440,
+              "placed_in_halo": 3550,
+              "halo_overlap_fraction": 0.44375
+            },
+            "db0dd67da44b83bc47f05289c05e2e917118d04b03e4958076f64661b726fb6b": {
+              "allowance": 5440,
+              "placed_in_halo": 2450,
+              "halo_overlap_fraction": 0.30625
+            },
+            "dc6a7a597a511152551dcf202ecee280429cf13e977e849058b449cf5ce36fd9": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "e050b1ec627e8207c1fe5f7530f015d0cf2feb6bb98c5bce225e5db806afb0e3": {
+              "allowance": 5440,
+              "placed_in_halo": 5440,
+              "halo_overlap_fraction": 0.68
+            },
+            "e13394d96baf6867f3a6851d9243de74f8d37c581ff003dbdf3e7497f58dab38": {
+              "allowance": 5440,
+              "placed_in_halo": 2347,
+              "halo_overlap_fraction": 0.293375
+            },
+            "e15f2d96c585bf2446dead518f1916f7307490b2ed2f6d72ee8c5788dfed2f63": {
+              "allowance": 5440,
+              "placed_in_halo": 2989,
+              "halo_overlap_fraction": 0.373625
+            },
+            "e1b943c37103db06c96884492a9a5519c89234e8a83fc9b1674f7f436f9cdf45": {
+              "allowance": 5440,
+              "placed_in_halo": 2347,
+              "halo_overlap_fraction": 0.293375
+            },
+            "e29e8f04e048a4aa210edbc1128dc39703e9271a11c02a5a391c7753339b0125": {
+              "allowance": 5440,
+              "placed_in_halo": 4630,
+              "halo_overlap_fraction": 0.57875
+            },
+            "e3ce40ccdf285f8fffccc1c55a8c7b48452a921f59d312ded90f7f70f3b52cde": {
+              "allowance": 5440,
+              "placed_in_halo": 1879,
+              "halo_overlap_fraction": 0.234875
+            },
+            "e4c718f450130e2e07e14ef506f051ea974c53382740974e758858519e866fe4": {
+              "allowance": 5440,
+              "placed_in_halo": 2434,
+              "halo_overlap_fraction": 0.30425
+            },
+            "e5711e098797ccd5f4dd471290ff3a758d24fe21c29072138bdf770f8ecfd120": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "e5f3684e9b49e8f11019f87e047017c5ab8a46294935bc0c7c80859ca7d2b1ce": {
+              "allowance": 5440,
+              "placed_in_halo": 5018,
+              "halo_overlap_fraction": 0.62725
+            },
+            "e6f82d42c751e77f93f79d0c62c6ac0574daf9e35c827b1566753fe26b0984ef": {
+              "allowance": 5440,
+              "placed_in_halo": 2225,
+              "halo_overlap_fraction": 0.278125
+            },
+            "e6f8d6ebbaa28fd758d7c744e4f9bc4928a70b18a0d06d3e51041ad1e3b52257": {
+              "allowance": 5440,
+              "placed_in_halo": 3850,
+              "halo_overlap_fraction": 0.48125
+            },
+            "e9bfb8fd27989c073fc57a04cf6f0f3eca9c49b7f82dfec5c9f10e424e703a91": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "ead50e13592a2facea8b01b9eceb292693a5b21c76319ab8cd9ae37a0e133f3b": {
+              "allowance": 5440,
+              "placed_in_halo": 2794,
+              "halo_overlap_fraction": 0.34925
+            },
+            "eaf1ed0cfe60922f96cb57929083e65b1b715acc9803f005a9e520cf1699006b": {
+              "allowance": 5440,
+              "placed_in_halo": 3605,
+              "halo_overlap_fraction": 0.450625
+            },
+            "ed1b767f75804048382fc8baf61ff1edad6e9fd7b5b214def715ba5a1e290f6d": {
+              "allowance": 5440,
+              "placed_in_halo": 2387,
+              "halo_overlap_fraction": 0.298375
+            },
+            "eefc2885990d5f5ae0c943ab152ef69de6de1c6c722420e1dbcd6e4af634ecac": {
+              "allowance": 5440,
+              "placed_in_halo": 2646,
+              "halo_overlap_fraction": 0.33075
+            },
+            "f06ada5aa834ceaf65e8700e36bbd46eddb96929b42c9041c72c8369c1022838": {
+              "allowance": 5440,
+              "placed_in_halo": 2630,
+              "halo_overlap_fraction": 0.32875
+            },
+            "f11c8684b152c2ccefc51c1f725491e31499bbef2091a0284b47cc35d785f93e": {
+              "allowance": 5440,
+              "placed_in_halo": 3302,
+              "halo_overlap_fraction": 0.41275
+            },
+            "f1d7b06a9a1e34861b57953829b96d4f405b6eecb7fa00766cca5407ce50225e": {
+              "allowance": 5440,
+              "placed_in_halo": 2599,
+              "halo_overlap_fraction": 0.324875
+            },
+            "f514ed677937c3efd3227427d5680a674a9e3ebe62dfe7ebf14270b829cf5258": {
+              "allowance": 5440,
+              "placed_in_halo": 2810,
+              "halo_overlap_fraction": 0.35125
+            },
+            "f614e72d999941b8ded1746ea11900ac0a653184a3c55226fdb9cc6f90b07d2a": {
+              "allowance": 5440,
+              "placed_in_halo": 4473,
+              "halo_overlap_fraction": 0.559125
+            },
+            "f68e590f8534d036872f18170819b52366c728e68619f17c648dce9629b0aaf2": {
+              "allowance": 5440,
+              "placed_in_halo": 3086,
+              "halo_overlap_fraction": 0.38575
+            },
+            "f7e5645f10ffb9961ad3199ff83c67cd3bc9375d75af971cf656253dae1057c5": {
+              "allowance": 5440,
+              "placed_in_halo": 4480,
+              "halo_overlap_fraction": 0.56
+            },
+            "f87d3fc008230ec12a2b2ad260de643d15b8e474135d28020dafd2c784d2cbd5": {
+              "allowance": 5440,
+              "placed_in_halo": 3118,
+              "halo_overlap_fraction": 0.38975
+            },
+            "faaad2cf0841f6d27de61d7048b0f16999eea80dd9479f24fef2f6065ef8f82f": {
+              "allowance": 5440,
+              "placed_in_halo": 2646,
+              "halo_overlap_fraction": 0.33075
+            },
+            "faebf9e13f763ccedd2486df2209e6e7f37d1a5548495003e2401c5b03d538c8": {
+              "allowance": 5440,
+              "placed_in_halo": 3408,
+              "halo_overlap_fraction": 0.426
+            },
+            "fb2d0d2d74bad2b52c6fcd48db5d8e2855c938fd222798e03fc01a96dbdc6d0e": {
+              "allowance": 5440,
+              "placed_in_halo": 3118,
+              "halo_overlap_fraction": 0.38975
+            },
+            "fc96a096abcb5972af2ae0404807c9275975e881dd5b3fc28c38b2071d44890b": {
+              "allowance": 5440,
+              "placed_in_halo": 3481,
+              "halo_overlap_fraction": 0.435125
+            },
+            "fe7eb41038baea535c5404adace8b062b0758babda8e0d5213351614a02cfbe3": {
+              "allowance": 5440,
+              "placed_in_halo": 4432,
+              "halo_overlap_fraction": 0.554
+            },
+            "fed5232e8efeefef00728ce9d5884f08e007c542f317cb11419452d14ff866da": {
+              "allowance": 5440,
+              "placed_in_halo": 3389,
+              "halo_overlap_fraction": 0.423625
+            },
+            "fffa7524b3f6e5a3b58f90b33aa9bc37982e214915ee3a16ca981feb2aa6cae3": {
+              "allowance": 5440,
+              "placed_in_halo": 2457,
+              "halo_overlap_fraction": 0.307125
+            }
+          }
+        },
+        "cover_uncapped_control": {
+          "requested": 8000,
+          "emitted": 8000,
+          "spacing_px": 3,
+          "exhausted": false,
+          "rule": "tile-cover-decimated-uncapped"
+        },
+        "topk_collar_control": {
+          "requested": 8000,
+          "emitted": 8000,
+          "spacing_px": 3,
+          "exhausted": false,
+          "eligible_positive_pixels": 1058331
+        },
+        "x1_topk_reproduction": {
+          "requested": 8000,
+          "emitted": 8000,
+          "spacing_px": 3,
+          "exhausted": false,
+          "eligible_positive_pixels": 1090258
+        }
+      },
+      "withheld_truth": 1919
+    },
+    {
+      "fold": "NE",
+      "budget": 9919,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 7727,
+          "positive_rows": 47495,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 7755,
+          "positive_rows": 46953,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 7723,
+          "positive_rows": 46441,
+          "negative_rows": 200000
+        }
+      ],
+      "placements": {
+        "candidate": {
+          "requested": 9919,
+          "emitted": 9919,
+          "spacing_px": 3,
+          "exhausted": false,
+          "rule": "tile-cover-decimated-capped",
+          "ceiling": 0.68,
+          "capped_rasters": 182,
+          "skipped_by_ceiling": 21562,
+          "per_raster": {
+            "04b75259720baa2c52b7e9c56a2b3bccc471e3500a6112e782d95422419ae67b": {
+              "allowance": 6744,
+              "placed_in_halo": 2262,
+              "halo_overlap_fraction": 0.22804718217562253
+            },
+            "052688eafbc7a55d90caab72252a50304fe5caa8ecf973f8e791b4ae910f0792": {
+              "allowance": 6744,
+              "placed_in_halo": 3479,
+              "halo_overlap_fraction": 0.3507410021171489
+            },
+            "055e9aac96b89b9a1d8fca8005778733039ed79f1165bb8cdd46dcfc51d6f53d": {
+              "allowance": 6744,
+              "placed_in_halo": 4614,
+              "halo_overlap_fraction": 0.4651678596632725
+            },
+            "088069aec07a9150d9473f94f259bd1f7e4c5212f4ff55c1866bf41b3d1fc8e6": {
+              "allowance": 6744,
+              "placed_in_halo": 5765,
+              "halo_overlap_fraction": 0.5812077830426454
+            },
+            "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf": {
+              "allowance": 6744,
+              "placed_in_halo": 6744,
+              "halo_overlap_fraction": 0.6799072487145882
+            },
+            "0c7d00e879e7f54e3019de185b252e5faad2983c754c9030273ad333688acb69": {
+              "allowance": 6744,
+              "placed_in_halo": 6280,
+              "halo_overlap_fraction": 0.6331283395503579
+            },
+            "0c9199f14e625d7b2539a0a045803b74d6494ce568d185abecc193fe7e93c6f2": {
+              "allowance": 6744,
+              "placed_in_halo": 5205,
+              "halo_overlap_fraction": 0.5247504788789192
+            },
+            "10bf2c4d3885d06116664226705712c3656a7a21364ec8559b4ec8200efd1f5e": {
+              "allowance": 6744,
+              "placed_in_halo": 3617,
+              "halo_overlap_fraction": 0.3646536949289243
+            },
+            "111c7048be1bde71ffe586448fd493d4b522ab3b0e8bd5866888cc3b1c58f744": {
+              "allowance": 6744,
+              "placed_in_halo": 5025,
+              "halo_overlap_fraction": 0.5066034882548645
+            },
+            "132e23e10344013a23ffd18a21a3fdcdb59c7c7c84444708db1fb38072c119ef": {
+              "allowance": 6744,
+              "placed_in_halo": 3479,
+              "halo_overlap_fraction": 0.3507410021171489
+            },
+            "1381e784fb8b8340beffd0e735ac9eea89ad35d1a807f8a9bab5506e3fc8275e": {
+              "allowance": 6744,
+              "placed_in_halo": 5072,
+              "halo_overlap_fraction": 0.5113418691400343
+            },
+            "1580815184c647fd53e7d15e9c49639440c25e8cba74768b5fe695dc22e75f6c": {
+              "allowance": 6744,
+              "placed_in_halo": 1069,
+              "halo_overlap_fraction": 0.10777296098397016
+            },
+            "15c12778486e5a15f6cced0e9d61c6cf32f2c916128fb37f5ff2f09edd7bb144": {
+              "allowance": 6744,
+              "placed_in_halo": 2017,
+              "halo_overlap_fraction": 0.20334711160399233
+            },
+            "1aae84bb9a0cad39500053121c22c1a844f409c65830d50ed8f1ab5422cd488f": {
+              "allowance": 6744,
+              "placed_in_halo": 3974,
+              "halo_overlap_fraction": 0.40064522633329974
+            },
+            "1f7b5a4f18dbc62f31b14078545332238be9289dd388d57f550d75fb5a5fe95a": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "20be05cc671c85484e4cfc8ea40d2fced71d7ec70f20ab915f36fcc68fcc4851": {
+              "allowance": 6744,
+              "placed_in_halo": 3499,
+              "halo_overlap_fraction": 0.35275733440871054
+            },
+            "224be205fdd428260f9c3f5ff6978e4b0ddf09a7dfa7b7acde341c18151d6c65": {
+              "allowance": 6744,
+              "placed_in_halo": 3996,
+              "halo_overlap_fraction": 0.40286319185401753
+            },
+            "2269b714c78262a8d45dbd5eb02290a27ec9b99afe02340e343f5cb1ac7c58f3": {
+              "allowance": 6744,
+              "placed_in_halo": 5025,
+              "halo_overlap_fraction": 0.5066034882548645
+            },
+            "25b1c0449e8d94469db22bab4c390110b6f8a928dc01cf21a39b97efcf84d19e": {
+              "allowance": 6744,
+              "placed_in_halo": 3541,
+              "halo_overlap_fraction": 0.35699163222099
+            },
+            "28adc53bcaca11329c807baa5659079c25f225c5908f7874762a034cf70cab05": {
+              "allowance": 6744,
+              "placed_in_halo": 6350,
+              "halo_overlap_fraction": 0.6401855025708236
+            },
+            "28f30b31c5d054764038144c2742364c5e4f1e2ca79f122281d04cb9d15cd5db": {
+              "allowance": 6744,
+              "placed_in_halo": 4960,
+              "halo_overlap_fraction": 0.5000504083072891
+            },
+            "2a0707537962757e9aa8f856fd6d3fdfdc8d0e387b0eef6639eacf18fe2ba7b2": {
+              "allowance": 6744,
+              "placed_in_halo": 1990,
+              "halo_overlap_fraction": 0.2006250630103841
+            },
+            "2b06d45c5b5726be60ed7f953accda58919999a99b442bb87410377e0c4c034a": {
+              "allowance": 6744,
+              "placed_in_halo": 5529,
+              "halo_overlap_fraction": 0.557415062002218
+            },
+            "2b070e616f5494d09d39f4a35727adceb541e72a2a0471322f7b87cc1fb1dc86": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "2bff4b55cabe5a4eb7ab1aeff6b21e407a87a576d1d0c3c5f20ed3ddb1c279ba": {
+              "allowance": 6744,
+              "placed_in_halo": 5105,
+              "halo_overlap_fraction": 0.514668817421111
+            },
+            "2f6e74e4d48ad47d07671cee4e73f08d012178e337a9045a9b57e51012b3613a": {
+              "allowance": 6744,
+              "placed_in_halo": 3189,
+              "halo_overlap_fraction": 0.32150418388950497
+            },
+            "318fdda4e26bcb1c673a1c8af866b4d9515a3ac73d88ee95c3ff52ed4e124f43": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "31bf5aef0539dc3c401662f0bc3b657287943049ad8d031d10026ba45d669c4b": {
+              "allowance": 6744,
+              "placed_in_halo": 3091,
+              "halo_overlap_fraction": 0.3116241556608529
+            },
+            "346d57f0eca0ff36f7648f8b5a3ba8764054ab9e42e1677873791b83f460f45e": {
+              "allowance": 6744,
+              "placed_in_halo": 3718,
+              "halo_overlap_fraction": 0.3748361730013106
+            },
+            "34f8dea50ff0b2eeac843e1f3f76e8d9a7bb63368aab2de339ba046009162744": {
+              "allowance": 6744,
+              "placed_in_halo": 4177,
+              "halo_overlap_fraction": 0.4211109990926505
+            },
+            "3537e9fc47a465036a8c1462b99a29b7f3449ee2e7bb94fd0a12d438a85b375d": {
+              "allowance": 6744,
+              "placed_in_halo": 4601,
+              "halo_overlap_fraction": 0.4638572436737574
+            },
+            "3543d0c430ca1ef145204b81ef44fa736794f1240d63745f9f31f1d0e1edee0e": {
+              "allowance": 6744,
+              "placed_in_halo": 3118,
+              "halo_overlap_fraction": 0.31434620425446114
+            },
+            "3589e89a1ad4f78f54e6f17f9b7cdb0edb563f66aedfcdabd632ef8774968c3a": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "35b648795818c96c444ee66d1d58fbf1146aa9ef70a4a2f69cab27784b210b86": {
+              "allowance": 6744,
+              "placed_in_halo": 4114,
+              "halo_overlap_fraction": 0.4147595523742313
+            },
+            "38539dc647d5ede0d8fa90123810d18130ee15e524097f55e83b6b8a57976ea9": {
+              "allowance": 6744,
+              "placed_in_halo": 3407,
+              "halo_overlap_fraction": 0.343482205867527
+            },
+            "388b31312ab1dc53d839a5a584970a8c9cd2f7dca6a286c36945b89a5ef07be0": {
+              "allowance": 6744,
+              "placed_in_halo": 5622,
+              "halo_overlap_fraction": 0.5667910071579796
+            },
+            "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26": {
+              "allowance": 6744,
+              "placed_in_halo": 5267,
+              "halo_overlap_fraction": 0.5310011089827603
+            },
+            "40524184b4cc88a0fa92c3fcc869b2d6ebb9a87c6c2019105fcf9716b419d8fb": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "41216d099db0e077dcdedb99c0fcda879c4d9406fafa42b45b78a968f6349c38": {
+              "allowance": 6744,
+              "placed_in_halo": 3996,
+              "halo_overlap_fraction": 0.40286319185401753
+            },
+            "42bffef1b5973973cdcb52c252067b33159e03fa721d1f58bec83f18ca779a21": {
+              "allowance": 6744,
+              "placed_in_halo": 3787,
+              "halo_overlap_fraction": 0.3817925194071983
+            },
+            "46a0f0fa2f63e6e6b4a5fe4520e999b925cf3ff954a01b10b36b735c1b0649c8": {
+              "allowance": 6744,
+              "placed_in_halo": 3759,
+              "halo_overlap_fraction": 0.378969654199012
+            },
+            "47caaca53d2906f797459abf1194fb81ee1181e05cf5c9a6e74e6f57b0999b98": {
+              "allowance": 6744,
+              "placed_in_halo": 6744,
+              "halo_overlap_fraction": 0.6799072487145882
+            },
+            "4a931832d76040b51252649e525376a31b5b15b3bb8c2ffbda8758531211776b": {
+              "allowance": 6744,
+              "placed_in_halo": 2461,
+              "halo_overlap_fraction": 0.24810968847666096
+            },
+            "4aff087dee275bc4958c787308a6141965479856dc38915dba5a6cd81e24989f": {
+              "allowance": 6744,
+              "placed_in_halo": 3583,
+              "halo_overlap_fraction": 0.36122593003326947
+            },
+            "4c31411088a92d83589b1fd0557c00460069b1a7cfbbe18a0fb1ceaa1b38d420": {
+              "allowance": 6744,
+              "placed_in_halo": 3233,
+              "halo_overlap_fraction": 0.3259401149309406
+            },
+            "4d00b72c78fa21c258061079daad55c3a99b1bc91dc5d3e2516ad4c0e90ba334": {
+              "allowance": 6744,
+              "placed_in_halo": 3639,
+              "halo_overlap_fraction": 0.3668716604496421
+            },
+            "4d6548d4ec07a47a25b83d28ebc05d58b57448c1507b460aed52cec395bdb6b5": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "50041161e7a7922992f05c9e027092806f13b1537d1888fd10d461bbd4a8b6c2": {
+              "allowance": 6744,
+              "placed_in_halo": 3565,
+              "halo_overlap_fraction": 0.35941123097086397
+            },
+            "516661e70e3e9c923a4e162a8ece8c7c9ad21e9814a7a3db13c805bc06d9f39a": {
+              "allowance": 6744,
+              "placed_in_halo": 4121,
+              "halo_overlap_fraction": 0.41546526867627787
+            },
+            "542eaf30766ba57b122cc85fb239e407294a282e1259dcceae0c55575ee19f95": {
+              "allowance": 6744,
+              "placed_in_halo": 3537,
+              "halo_overlap_fraction": 0.3565883657626777
+            },
+            "54dfe8bd79f767370558bebc1c23366cb43e5e5a4b26c7d9d14131c8b58bdc0c": {
+              "allowance": 6744,
+              "placed_in_halo": 5098,
+              "halo_overlap_fraction": 0.5139631011190644
+            },
+            "566bfd0a4fe4486d7fae3fec0f3ac52329b1da98d409984e2c0187f557bfe8d4": {
+              "allowance": 6744,
+              "placed_in_halo": 3444,
+              "halo_overlap_fraction": 0.34721242060691604
+            },
+            "5823def4fab491ac6bd667cedb467c0540fd1bbce1351992289f4a609e7b775e": {
+              "allowance": 6744,
+              "placed_in_halo": 2045,
+              "halo_overlap_fraction": 0.20616997681217863
+            },
+            "5b59e106b6e448038b96fb340c5bae39094d4558c239c437aea28b6020d5d32f": {
+              "allowance": 6744,
+              "placed_in_halo": 5098,
+              "halo_overlap_fraction": 0.5139631011190644
+            },
+            "5c5c1784c615c807423479d497a3ca1faa1607dbc11aa413b05b96801629c427": {
+              "allowance": 6744,
+              "placed_in_halo": 4386,
+              "halo_overlap_fraction": 0.4421816715394697
+            },
+            "5db55c064eb0b920beb84cd4d6de426a347206b7b8a2c9adc8cfb343084a570b": {
+              "allowance": 6744,
+              "placed_in_halo": 3612,
+              "halo_overlap_fraction": 0.3641496118560339
+            },
+            "609af5bce51d916fbba1fd383615323803591814823ac794d04b9a3374975b3f": {
+              "allowance": 6744,
+              "placed_in_halo": 2262,
+              "halo_overlap_fraction": 0.22804718217562253
+            },
+            "60a7930a5ac229bb8a3a81656de49c1e228eab8398e0b26316972d516a2951f5": {
+              "allowance": 6744,
+              "placed_in_halo": 3760,
+              "halo_overlap_fraction": 0.3790704708135901
+            },
+            "612412b48e45704e40a00718589da6a04f12e0b23d55954094de7c4ebc85a44f": {
+              "allowance": 6744,
+              "placed_in_halo": 5098,
+              "halo_overlap_fraction": 0.5139631011190644
+            },
+            "61f9b53de42786e6d48afa50fd453a87c57d5d7b9b626c7dcf28c2dfbd20f411": {
+              "allowance": 6744,
+              "placed_in_halo": 3760,
+              "halo_overlap_fraction": 0.3790704708135901
+            },
+            "6292a7916c83d371fc650b0f0c6a090702b9890eaa6e6546d50f104eea2fadc3": {
+              "allowance": 6744,
+              "placed_in_halo": 4091,
+              "halo_overlap_fraction": 0.4124407702389354
+            },
+            "629800b15ca54906b1bfcbde8811273a47b90d112038b86aea6701460070e1ed": {
+              "allowance": 6744,
+              "placed_in_halo": 3563,
+              "halo_overlap_fraction": 0.35920959774170785
+            },
+            "641cc910f2be240a2a9d298926fec5a337542cdfd0010c39f18baad66fb8fe88": {
+              "allowance": 6744,
+              "placed_in_halo": 3893,
+              "halo_overlap_fraction": 0.39247908055247505
+            },
+            "64faebf44c5a5e03ef596efdc7ba4123ef0343b223988118a7e8dcd09dc51490": {
+              "allowance": 6744,
+              "placed_in_halo": 4029,
+              "halo_overlap_fraction": 0.40619014013509425
+            },
+            "6733bbde40e61bc16309d351b0c3f92c17f30aab023eaf07db80795198867096": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "699d9c7f6d136818af48ed65d357bcd6eca828e530c73c4d80c3a6cca4214b81": {
+              "allowance": 6744,
+              "placed_in_halo": 4628,
+              "halo_overlap_fraction": 0.46657929226736566
+            },
+            "69d7cdbb1337b07278dd73f4e605cd35c185e8f9cfef18614d4c9c071800a8cf": {
+              "allowance": 6744,
+              "placed_in_halo": 3612,
+              "halo_overlap_fraction": 0.3641496118560339
+            },
+            "6bcf9de850471535816e1a798983a329b4408d39cfa91d4c17511e7fe0158a38": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "703ea58b0e49479d57acb9293d748d861b07eba80898aa6bc0ed07595bc1dc91": {
+              "allowance": 6744,
+              "placed_in_halo": 4625,
+              "halo_overlap_fraction": 0.46627684242363143
+            },
+            "70c4ccd5dd51c6cbf1c0b8019738885a357dde7be64c17b4fb278a12f073e1e4": {
+              "allowance": 6744,
+              "placed_in_halo": 6744,
+              "halo_overlap_fraction": 0.6799072487145882
+            },
+            "73a8dcb305609def44f4c2cc421f6c4a3c4d5c45a9fe8ef64078a58706908fb4": {
+              "allowance": 6744,
+              "placed_in_halo": 1984,
+              "halo_overlap_fraction": 0.2000201633229156
+            },
+            "741f781734cbbf7145c2f7c93112d2272e62213205f15283babad65433a7fc28": {
+              "allowance": 6744,
+              "placed_in_halo": 1055,
+              "halo_overlap_fraction": 0.106361528379877
+            },
+            "749fdffc1b9a6d5b610513e9ab8f68576feb102f419f234647180eb04d30f9d6": {
+              "allowance": 6744,
+              "placed_in_halo": 4209,
+              "halo_overlap_fraction": 0.4243371307591491
+            },
+            "756af6ee74b3fd456eeb30bbcaaa41de51d3cdc17222b04166d8280ba7c18c3e": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58": {
+              "allowance": 6744,
+              "placed_in_halo": 4709,
+              "halo_overlap_fraction": 0.47474543804819036
+            },
+            "7810719248d2aa17b4aefdc838bf7ea5ad90a08ae0882c7f96f158bf01696302": {
+              "allowance": 6744,
+              "placed_in_halo": 3140,
+              "halo_overlap_fraction": 0.3165641697751789
+            },
+            "7884f24bcb0eff0e9d3b196a07560ee5aff39b7fce83a96b6bcf90b006ef5b45": {
+              "allowance": 6744,
+              "placed_in_halo": 5906,
+              "halo_overlap_fraction": 0.595422925698155
+            },
+            "789dd56c4287cd50c8d2d5e3f063828a8d25a275d82bd8418a4cf971d908b8a6": {
+              "allowance": 6744,
+              "placed_in_halo": 6744,
+              "halo_overlap_fraction": 0.6799072487145882
+            },
+            "78a916d09ba6af7f6d88fa9e8ff2e9f79696297cab2e11786a472dbed21c24e9": {
+              "allowance": 6744,
+              "placed_in_halo": 3652,
+              "halo_overlap_fraction": 0.3681822764391572
+            },
+            "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3": {
+              "allowance": 6744,
+              "placed_in_halo": 5324,
+              "halo_overlap_fraction": 0.5367476560137111
+            },
+            "7cacff894c4444997e2ee8896582cda82ad34a43cf039cfb960befa20577d005": {
+              "allowance": 6744,
+              "placed_in_halo": 4228,
+              "halo_overlap_fraction": 0.4262526464361327
+            },
+            "7f00890a62878d612fb5eef67a9a364a2df819433dde74b6762ce4fc0fc4fe15": {
+              "allowance": 6744,
+              "placed_in_halo": 3140,
+              "halo_overlap_fraction": 0.3165641697751789
+            },
+            "7f0fbe2fcec056f2a06f927f011a2010c95608ea610bcf56db62cb2bae4b8806": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "7f71739a2804bf2fa7199d30d512e0a267e4cfa2fdd0d32304b962db65b98662": {
+              "allowance": 6744,
+              "placed_in_halo": 5647,
+              "halo_overlap_fraction": 0.5693114225224317
+            },
+            "82359f80280062072a4fdd8723d637a9bed0b77223386c319ab35bac990d8f23": {
+              "allowance": 6744,
+              "placed_in_halo": 4407,
+              "halo_overlap_fraction": 0.4442988204456094
+            },
+            "861c880e7a56203d197182075765480efaf224ad6cfde342fab511f5f908fa4c": {
+              "allowance": 6744,
+              "placed_in_halo": 4503,
+              "halo_overlap_fraction": 0.45397721544510533
+            },
+            "8624c5a58c681f57a6d26cab0652cfe654bcd46dc8ba68a7d5a4c0feaa29bc89": {
+              "allowance": 6744,
+              "placed_in_halo": 6350,
+              "halo_overlap_fraction": 0.6401855025708236
+            },
+            "8721329b55c72635803cca27414f3d0ffe4705f48285de0dc7c29d6fd3eb90d3": {
+              "allowance": 6744,
+              "placed_in_halo": 4628,
+              "halo_overlap_fraction": 0.46657929226736566
+            },
+            "87eda0c871f8f2ff03482452674010083486aad534e6a7f75dc3124177a34db1": {
+              "allowance": 6744,
+              "placed_in_halo": 4331,
+              "halo_overlap_fraction": 0.4366367577376752
+            },
+            "883d93f2801987481f8ffb761eeae8f7a39520ad3b670e09129bdaaf7983e2c7": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "886e470530d8b23a4967a7f8d9f55df5fb39441ff7b544490cab457d076731f7": {
+              "allowance": 6744,
+              "placed_in_halo": 3759,
+              "halo_overlap_fraction": 0.378969654199012
+            },
+            "88976dc5b2504838b193d41b718df95eb1e237b870b94a6443dc3bee65e98e06": {
+              "allowance": 6744,
+              "placed_in_halo": 6680,
+              "halo_overlap_fraction": 0.6734549853815909
+            },
+            "8a59bc5ea68df8c64f2467fd5e8b3652a324fa3d5e364b9e974d993401c2ec1f": {
+              "allowance": 6744,
+              "placed_in_halo": 3639,
+              "halo_overlap_fraction": 0.3668716604496421
+            },
+            "8a85485ed0877d240ece6b07883641d04fa64cdf8d3687ff767a068346350313": {
+              "allowance": 6744,
+              "placed_in_halo": 4331,
+              "halo_overlap_fraction": 0.4366367577376752
+            },
+            "92904a5bfd84c8bd1141683fc5d29817aa4de71574d8caff5b40f7ed0072a5b8": {
+              "allowance": 6744,
+              "placed_in_halo": 4625,
+              "halo_overlap_fraction": 0.46627684242363143
+            },
+            "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981": {
+              "allowance": 6744,
+              "placed_in_halo": 5144,
+              "halo_overlap_fraction": 0.5186006653896562
+            },
+            "93d1a77e8d90e4a60dd68e2785b4a1b5cf8b34bfad80109c79354cae74c61c06": {
+              "allowance": 6744,
+              "placed_in_halo": 1069,
+              "halo_overlap_fraction": 0.10777296098397016
+            },
+            "9606cef20d34046e9b5f6d506df642847ffae1deafe97fc9e75a07c0094a94f5": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "96737553f2c6322bdf9870759b0e14c4bedd55f11eb4ce8e0f1ffb3e5288dd28": {
+              "allowance": 6744,
+              "placed_in_halo": 5275,
+              "halo_overlap_fraction": 0.531807641899385
+            },
+            "9a5f5433cbfed4a1a8ac2587678aaa930c8ed93e948b9e94874c8febc549fd57": {
+              "allowance": 6744,
+              "placed_in_halo": 4577,
+              "halo_overlap_fraction": 0.46143764492388345
+            },
+            "9b4a7b83fd7bb58bed86692059f112ffc9418b8bd6f0704100dabef1f98c7682": {
+              "allowance": 6744,
+              "placed_in_halo": 3233,
+              "halo_overlap_fraction": 0.3259401149309406
+            },
+            "9b4cf4450bbc6c13b307e5ec89f0dd2d2f0a54245b1757287541079098fba0de": {
+              "allowance": 6744,
+              "placed_in_halo": 3908,
+              "halo_overlap_fraction": 0.39399132977114626
+            },
+            "9bd1e50d86114daa7c944d0c6d4f9f7cba6ba5070ae98ba5e45a965d78650777": {
+              "allowance": 6744,
+              "placed_in_halo": 4137,
+              "halo_overlap_fraction": 0.4170783345095272
+            },
+            "9f36769d415ff85e7ed62a610092fffb94cda970949c0087a29a38b71456d8c1": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "a0e4b3f31cb84270b10d19fff8399412a0850f3cffeb77d59b553c7ff0475d67": {
+              "allowance": 6744,
+              "placed_in_halo": 3329,
+              "halo_overlap_fraction": 0.3356185099304365
+            },
+            "a0eaa98c3294a7686d26753348bca9eaf143f089a9d39d827ee19ddb7e55ffac": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "a1a26570f336e84a743e5acb451df16ede8734613f1f9a4b1d515ff69d369ba3": {
+              "allowance": 6744,
+              "placed_in_halo": 5222,
+              "halo_overlap_fraction": 0.5264643613267467
+            },
+            "a26e5e46acc00ddd867f0b2910e638b25e4e81108ebe05c0abcc7c9b04372247": {
+              "allowance": 6744,
+              "placed_in_halo": 4548,
+              "halo_overlap_fraction": 0.4585139631011191
+            },
+            "a9f99d5cbc5b616fd5b0535ace4d43246fc31a3f865277f26f4acc8495cc9817": {
+              "allowance": 6744,
+              "placed_in_halo": 3974,
+              "halo_overlap_fraction": 0.40064522633329974
+            },
+            "aac8aa8a021ee309c91c5084f17ff2d64623163faa382cfd76ca781352d945b8": {
+              "allowance": 6744,
+              "placed_in_halo": 4302,
+              "halo_overlap_fraction": 0.43371307591491076
+            },
+            "aac907db6aadc3d07a4eeb2531a0be200ee0143599ab304921e4f4f742fbc02a": {
+              "allowance": 6744,
+              "placed_in_halo": 4895,
+              "halo_overlap_fraction": 0.49349732835971366
+            },
+            "ab9076de63bd76fd8857b0dba81f6c19be4a95377cb52802f71ccf177cf9b9ce": {
+              "allowance": 6744,
+              "placed_in_halo": 4092,
+              "halo_overlap_fraction": 0.41254158685351344
+            },
+            "abb0cb1349c9745a27156ebd95b435dec6086d38d9be3ec637400001d9fa33a0": {
+              "allowance": 6744,
+              "placed_in_halo": 4500,
+              "halo_overlap_fraction": 0.4536747656013711
+            },
+            "ac4ebc913a172f3415f14a3b47b169af03798cff3a643ffd0a89451b869259be": {
+              "allowance": 6744,
+              "placed_in_halo": 4092,
+              "halo_overlap_fraction": 0.41254158685351344
+            },
+            "ad9750be86acf6b8c253dcd8f1ee6487c2ea8327a582a8c9e6a765d16037d319": {
+              "allowance": 6744,
+              "placed_in_halo": 6280,
+              "halo_overlap_fraction": 0.6331283395503579
+            },
+            "ae5c5aafce85a395af73944ab10f3fc2cad7bcc1244d49a52d53443bd0f5c3c2": {
+              "allowance": 6744,
+              "placed_in_halo": 4960,
+              "halo_overlap_fraction": 0.5000504083072891
+            },
+            "aeaa9a46236a658d91a05be48d54f14b44804c967d590314caeb2c0a82511f60": {
+              "allowance": 6744,
+              "placed_in_halo": 5282,
+              "halo_overlap_fraction": 0.5325133582014316
+            },
+            "b0afa9ecc6ff5dbc9ee55cd4e32a818113411aad911e2dae7c87b72d2715530f": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "b2f89a83ffb1080c512bb46c6feae3a6211207cd619e0291bd2d767c002be87f": {
+              "allowance": 6744,
+              "placed_in_halo": 3034,
+              "halo_overlap_fraction": 0.3058776086299022
+            },
+            "b33684ae033512a1a1c7d2cfccd128955fedfdff2a8fed6c7585a755b1b58b3c": {
+              "allowance": 6744,
+              "placed_in_halo": 4863,
+              "halo_overlap_fraction": 0.49027119669321506
+            },
+            "b6d91ba6f6a703c45bbd71dca43209f95521be52dfa4d9ae96fc8270c392740c": {
+              "allowance": 6744,
+              "placed_in_halo": 5622,
+              "halo_overlap_fraction": 0.5667910071579796
+            },
+            "b748e0f97738a5e3b0feaf35dab340ff1dcedd6b8d2124f2b54b5f1b0f14d7d3": {
+              "allowance": 6744,
+              "placed_in_halo": 5275,
+              "halo_overlap_fraction": 0.531807641899385
+            },
+            "b7e39108f9718021edaac2920680ee49d3ffdcacab93e38822081556407d6010": {
+              "allowance": 6744,
+              "placed_in_halo": 5267,
+              "halo_overlap_fraction": 0.5310011089827603
+            },
+            "b7ea86e8893434e3ea6616cdba07ac3e55e3b8bd0bc42add68bdf5d4084efc22": {
+              "allowance": 6744,
+              "placed_in_halo": 1774,
+              "halo_overlap_fraction": 0.1788486742615183
+            },
+            "b83ea0e7074882ceee31de89695281c00ade51f26a0a7048f628f60058755356": {
+              "allowance": 6744,
+              "placed_in_halo": 5292,
+              "halo_overlap_fraction": 0.5335215243472125
+            },
+            "b9530b70065da1f5e9da82caf4f5aaba3d7175dbbbfb2851e4b2ab2dd13aa4f1": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "b9ca8c093d3b0812112f2c62b06e2047a48156e71136c735962ececfb20372bf": {
+              "allowance": 6744,
+              "placed_in_halo": 4092,
+              "halo_overlap_fraction": 0.41254158685351344
+            },
+            "ba1ef907a699a879135062235eae5acd43c2adc9b616653e1e609a9b59134398": {
+              "allowance": 6744,
+              "placed_in_halo": 3849,
+              "halo_overlap_fraction": 0.3880431495110394
+            },
+            "bb1f328dbf12395254305bd74094a22e1582cd5110576c01ddb02daca45bffa0": {
+              "allowance": 6744,
+              "placed_in_halo": 3561,
+              "halo_overlap_fraction": 0.3590079645125517
+            },
+            "bb517a03bbce13900d8bc973365ffbea077a580a706edb5fc8587fba1a659847": {
+              "allowance": 6744,
+              "placed_in_halo": 1055,
+              "halo_overlap_fraction": 0.106361528379877
+            },
+            "bd1e3d056e83e792aed8c77b3249f833d119320779b94d2eb7c5b65ac5161428": {
+              "allowance": 6744,
+              "placed_in_halo": 6744,
+              "halo_overlap_fraction": 0.6799072487145882
+            },
+            "bdc045934e4a2e33a90093ef07e4968f9fffb016ce3ff3e780bbe7fa5c32977a": {
+              "allowance": 6744,
+              "placed_in_halo": 0,
+              "halo_overlap_fraction": 0.0
+            },
+            "be9dfc8f3643b8a70748ab6d018aeed055792f2bf36a3ae96f46568a85158229": {
+              "allowance": 6744,
+              "placed_in_halo": 3091,
+              "halo_overlap_fraction": 0.3116241556608529
+            },
+            "c02930644a5c3b1051a57c5f2092bb1c942d6adb07d6ca76be205ad8e0d46ab9": {
+              "allowance": 6744,
+              "placed_in_halo": 3583,
+              "halo_overlap_fraction": 0.36122593003326947
+            },
+            "c36696693639749791286bcd58e48a78ff79d4651b63fc33d273aab8191df0d4": {
+              "allowance": 6744,
+              "placed_in_halo": 6164,
+              "halo_overlap_fraction": 0.6214336122593004
+            },
+            "c3bf15a0471c5f00d3a436f2328ef443564a955f44a32776485e706344529839": {
+              "allowance": 6744,
+              "placed_in_halo": 3565,
+              "halo_overlap_fraction": 0.35941123097086397
+            },
+            "c5ea501eba0ab840d26f0c017d01074c4bd9040ec5e2c5ac19bde8655d150e64": {
+              "allowance": 6744,
+              "placed_in_halo": 3140,
+              "halo_overlap_fraction": 0.3165641697751789
+            },
+            "c9a83c6c8f230ae85b829933a127b65b3832b03b5eaccd8a687ce8bbf1858d5b": {
+              "allowance": 6744,
+              "placed_in_halo": 6200,
+              "halo_overlap_fraction": 0.6250630103841113
+            },
+            "cb755e0b91642a085c74bb70eeeb6d89018287226aea93e02d45e9e779df3341": {
+              "allowance": 6744,
+              "placed_in_halo": 3570,
+              "halo_overlap_fraction": 0.35991531404375443
+            },
+            "ce3f70fa2e1e7bbea60c8c62a2f805c22d15b8a8905ebec757259617ceb02fbc": {
+              "allowance": 6744,
+              "placed_in_halo": 5205,
+              "halo_overlap_fraction": 0.5247504788789192
+            },
+            "ce749a992baec603460dfeddd068758855cb8b12978268e6ef94f6e23ffd9ee7": {
+              "allowance": 6744,
+              "placed_in_halo": 5312,
+              "halo_overlap_fraction": 0.5355378566387741
+            },
+            "cf59ad8290e4f883b6c9d0fd19871a003a4e32bede578860b56ff5815966db40": {
+              "allowance": 6744,
+              "placed_in_halo": 5098,
+              "halo_overlap_fraction": 0.5139631011190644
+            },
+            "d07cbb6f69076e76f1a8a4806ddc5639421bc9a59b10d80a09b9fb423bb99427": {
+              "allowance": 6744,
+              "placed_in_halo": 3407,
+              "halo_overlap_fraction": 0.343482205867527
+            },
+            "d0c5fd6825b544eb08672303c11292eb99d6105e42a41eac0e5a211a3fdc69e5": {
+              "allowance": 6744,
+              "placed_in_halo": 6744,
+              "halo_overlap_fraction": 0.6799072487145882
+            },
+            "d1e87159a8908f0051352c091d9343e8e5128e2c8eea0debdd17589a02692dad": {
+              "allowance": 6744,
+              "placed_in_halo": 3893,
+              "halo_overlap_fraction": 0.39247908055247505
+            },
+            "d34ad9224ccbd7c7c2bad4382272c80afc2f1850daf46ae7b1f9c6edcf1939f4": {
+              "allowance": 6744,
+              "placed_in_halo": 4092,
+              "halo_overlap_fraction": 0.41254158685351344
+            },
+            "d4a5de924057eec12c4e4ee9bdb5de361754b7bc9ace8691f86cb1ace51e57e2": {
+              "allowance": 6744,
+              "placed_in_halo": 3848,
+              "halo_overlap_fraction": 0.38794233289646135
+            },
+            "d7977d7b93287f17fbf3cb85f10fdbee4acc5c8453a7faa451e760363433a286": {
+              "allowance": 6744,
+              "placed_in_halo": 3005,
+              "halo_overlap_fraction": 0.30295392680713784
+            },
+            "d7fc78a036f325ddb80f94fdda1864b4af0889eb58b0291356945fb1b44e1da0": {
+              "allowance": 6744,
+              "placed_in_halo": 4614,
+              "halo_overlap_fraction": 0.4651678596632725
+            },
+            "db0dd67da44b83bc47f05289c05e2e917118d04b03e4958076f64661b726fb6b": {
+              "allowance": 6744,
+              "placed_in_halo": 4121,
+              "halo_overlap_fraction": 0.41546526867627787
+            },
+            "dc6a7a597a511152551dcf202ecee280429cf13e977e849058b449cf5ce36fd9": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "e050b1ec627e8207c1fe5f7530f015d0cf2feb6bb98c5bce225e5db806afb0e3": {
+              "allowance": 6744,
+              "placed_in_halo": 6680,
+              "halo_overlap_fraction": 0.6734549853815909
+            },
+            "e13394d96baf6867f3a6851d9243de74f8d37c581ff003dbdf3e7497f58dab38": {
+              "allowance": 6744,
+              "placed_in_halo": 3759,
+              "halo_overlap_fraction": 0.378969654199012
+            },
+            "e15f2d96c585bf2446dead518f1916f7307490b2ed2f6d72ee8c5788dfed2f63": {
+              "allowance": 6744,
+              "placed_in_halo": 4386,
+              "halo_overlap_fraction": 0.4421816715394697
+            },
+            "e1b943c37103db06c96884492a9a5519c89234e8a83fc9b1674f7f436f9cdf45": {
+              "allowance": 6744,
+              "placed_in_halo": 3759,
+              "halo_overlap_fraction": 0.378969654199012
+            },
+            "e29e8f04e048a4aa210edbc1128dc39703e9271a11c02a5a391c7753339b0125": {
+              "allowance": 6744,
+              "placed_in_halo": 4895,
+              "halo_overlap_fraction": 0.49349732835971366
+            },
+            "e3ce40ccdf285f8fffccc1c55a8c7b48452a921f59d312ded90f7f70f3b52cde": {
+              "allowance": 6744,
+              "placed_in_halo": 3890,
+              "halo_overlap_fraction": 0.3921766307087408
+            },
+            "e4c718f450130e2e07e14ef506f051ea974c53382740974e758858519e866fe4": {
+              "allowance": 6744,
+              "placed_in_halo": 3117,
+              "halo_overlap_fraction": 0.3142453876398831
+            },
+            "e5711e098797ccd5f4dd471290ff3a758d24fe21c29072138bdf770f8ecfd120": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "e5f3684e9b49e8f11019f87e047017c5ab8a46294935bc0c7c80859ca7d2b1ce": {
+              "allowance": 6744,
+              "placed_in_halo": 6164,
+              "halo_overlap_fraction": 0.6214336122593004
+            },
+            "e6f82d42c751e77f93f79d0c62c6ac0574daf9e35c827b1566753fe26b0984ef": {
+              "allowance": 6744,
+              "placed_in_halo": 3908,
+              "halo_overlap_fraction": 0.39399132977114626
+            },
+            "e6f8d6ebbaa28fd758d7c744e4f9bc4928a70b18a0d06d3e51041ad1e3b52257": {
+              "allowance": 6744,
+              "placed_in_halo": 3810,
+              "halo_overlap_fraction": 0.3841113015424942
+            },
+            "e9bfb8fd27989c073fc57a04cf6f0f3eca9c49b7f82dfec5c9f10e424e703a91": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "ead50e13592a2facea8b01b9eceb292693a5b21c76319ab8cd9ae37a0e133f3b": {
+              "allowance": 6744,
+              "placed_in_halo": 3718,
+              "halo_overlap_fraction": 0.3748361730013106
+            },
+            "eaf1ed0cfe60922f96cb57929083e65b1b715acc9803f005a9e520cf1699006b": {
+              "allowance": 6744,
+              "placed_in_halo": 5906,
+              "halo_overlap_fraction": 0.595422925698155
+            },
+            "ed1b767f75804048382fc8baf61ff1edad6e9fd7b5b214def715ba5a1e290f6d": {
+              "allowance": 6744,
+              "placed_in_halo": 4500,
+              "halo_overlap_fraction": 0.4536747656013711
+            },
+            "eefc2885990d5f5ae0c943ab152ef69de6de1c6c722420e1dbcd6e4af634ecac": {
+              "allowance": 6744,
+              "placed_in_halo": 4015,
+              "halo_overlap_fraction": 0.4047787075310011
+            },
+            "f06ada5aa834ceaf65e8700e36bbd46eddb96929b42c9041c72c8369c1022838": {
+              "allowance": 6744,
+              "placed_in_halo": 4096,
+              "halo_overlap_fraction": 0.4129448533118258
+            },
+            "f11c8684b152c2ccefc51c1f725491e31499bbef2091a0284b47cc35d785f93e": {
+              "allowance": 6744,
+              "placed_in_halo": 3512,
+              "halo_overlap_fraction": 0.35406795039822564
+            },
+            "f1d7b06a9a1e34861b57953829b96d4f405b6eecb7fa00766cca5407ce50225e": {
+              "allowance": 6744,
+              "placed_in_halo": 3974,
+              "halo_overlap_fraction": 0.40064522633329974
+            },
+            "f514ed677937c3efd3227427d5680a674a9e3ebe62dfe7ebf14270b829cf5258": {
+              "allowance": 6744,
+              "placed_in_halo": 3652,
+              "halo_overlap_fraction": 0.3681822764391572
+            },
+            "f614e72d999941b8ded1746ea11900ac0a653184a3c55226fdb9cc6f90b07d2a": {
+              "allowance": 6744,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5309002923681823
+            },
+            "f68e590f8534d036872f18170819b52366c728e68619f17c648dce9629b0aaf2": {
+              "allowance": 6744,
+              "placed_in_halo": 3199,
+              "halo_overlap_fraction": 0.32251235003528583
+            },
+            "f7e5645f10ffb9961ad3199ff83c67cd3bc9375d75af971cf656253dae1057c5": {
+              "allowance": 6744,
+              "placed_in_halo": 5267,
+              "halo_overlap_fraction": 0.5310011089827603
+            },
+            "f87d3fc008230ec12a2b2ad260de643d15b8e474135d28020dafd2c784d2cbd5": {
+              "allowance": 6744,
+              "placed_in_halo": 6442,
+              "halo_overlap_fraction": 0.6494606311120072
+            },
+            "faaad2cf0841f6d27de61d7048b0f16999eea80dd9479f24fef2f6065ef8f82f": {
+              "allowance": 6744,
+              "placed_in_halo": 4015,
+              "halo_overlap_fraction": 0.4047787075310011
+            },
+            "faebf9e13f763ccedd2486df2209e6e7f37d1a5548495003e2401c5b03d538c8": {
+              "allowance": 6744,
+              "placed_in_halo": 3258,
+              "halo_overlap_fraction": 0.3284605302953927
+            },
+            "fb2d0d2d74bad2b52c6fcd48db5d8e2855c938fd222798e03fc01a96dbdc6d0e": {
+              "allowance": 6744,
+              "placed_in_halo": 6442,
+              "halo_overlap_fraction": 0.6494606311120072
+            },
+            "fc96a096abcb5972af2ae0404807c9275975e881dd5b3fc28c38b2071d44890b": {
+              "allowance": 6744,
+              "placed_in_halo": 3444,
+              "halo_overlap_fraction": 0.34721242060691604
+            },
+            "fe7eb41038baea535c5404adace8b062b0758babda8e0d5213351614a02cfbe3": {
+              "allowance": 6744,
+              "placed_in_halo": 5183,
+              "halo_overlap_fraction": 0.5225325133582014
+            },
+            "fed5232e8efeefef00728ce9d5884f08e007c542f317cb11419452d14ff866da": {
+              "allowance": 6744,
+              "placed_in_halo": 3005,
+              "halo_overlap_fraction": 0.30295392680713784
+            },
+            "fffa7524b3f6e5a3b58f90b33aa9bc37982e214915ee3a16ca981feb2aa6cae3": {
+              "allowance": 6744,
+              "placed_in_halo": 1946,
+              "halo_overlap_fraction": 0.1961891319689485
+            }
+          }
+        },
+        "cover_uncapped_control": {
+          "requested": 9919,
+          "emitted": 9919,
+          "spacing_px": 3,
+          "exhausted": false,
+          "rule": "tile-cover-decimated-uncapped"
+        },
+        "topk_collar_control": {
+          "requested": 9919,
+          "emitted": 9919,
+          "spacing_px": 3,
+          "exhausted": false,
+          "eligible_positive_pixels": 1312621
+        },
+        "x1_topk_reproduction": {
+          "requested": 9919,
+          "emitted": 9919,
+          "spacing_px": 3,
+          "exhausted": false,
+          "eligible_positive_pixels": 1351794
+        }
+      },
+      "withheld_truth": 2356
+    },
+    {
+      "fold": "SW",
+      "budget": 9793,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 6470,
+          "positive_rows": 38177,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 6462,
+          "positive_rows": 39301,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 6513,
+          "positive_rows": 39732,
+          "negative_rows": 200000
+        }
+      ],
+      "placements": {
+        "candidate": {
+          "requested": 9793,
+          "emitted": 9793,
+          "spacing_px": 3,
+          "exhausted": false,
+          "rule": "tile-cover-decimated-capped",
+          "ceiling": 0.68,
+          "capped_rasters": 182,
+          "skipped_by_ceiling": 42681,
+          "per_raster": {
+            "04b75259720baa2c52b7e9c56a2b3bccc471e3500a6112e782d95422419ae67b": {
+              "allowance": 6659,
+              "placed_in_halo": 3875,
+              "halo_overlap_fraction": 0.39569079955069947
+            },
+            "052688eafbc7a55d90caab72252a50304fe5caa8ecf973f8e791b4ae910f0792": {
+              "allowance": 6659,
+              "placed_in_halo": 5026,
+              "halo_overlap_fraction": 0.5132237312365976
+            },
+            "055e9aac96b89b9a1d8fca8005778733039ed79f1165bb8cdd46dcfc51d6f53d": {
+              "allowance": 6659,
+              "placed_in_halo": 5961,
+              "halo_overlap_fraction": 0.6087000919023793
+            },
+            "088069aec07a9150d9473f94f259bd1f7e4c5212f4ff55c1866bf41b3d1fc8e6": {
+              "allowance": 6659,
+              "placed_in_halo": 5588,
+              "halo_overlap_fraction": 0.5706116613907893
+            },
+            "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf": {
+              "allowance": 6659,
+              "placed_in_halo": 6659,
+              "halo_overlap_fraction": 0.6799754926988666
+            },
+            "0c7d00e879e7f54e3019de185b252e5faad2983c754c9030273ad333688acb69": {
+              "allowance": 6659,
+              "placed_in_halo": 6240,
+              "halo_overlap_fraction": 0.6371898294700297
+            },
+            "0c9199f14e625d7b2539a0a045803b74d6494ce568d185abecc193fe7e93c6f2": {
+              "allowance": 6659,
+              "placed_in_halo": 6234,
+              "halo_overlap_fraction": 0.6365771469416931
+            },
+            "10bf2c4d3885d06116664226705712c3656a7a21364ec8559b4ec8200efd1f5e": {
+              "allowance": 6659,
+              "placed_in_halo": 5091,
+              "halo_overlap_fraction": 0.5198611252935771
+            },
+            "111c7048be1bde71ffe586448fd493d4b522ab3b0e8bd5866888cc3b1c58f744": {
+              "allowance": 6659,
+              "placed_in_halo": 3527,
+              "halo_overlap_fraction": 0.3601552129071786
+            },
+            "132e23e10344013a23ffd18a21a3fdcdb59c7c7c84444708db1fb38072c119ef": {
+              "allowance": 6659,
+              "placed_in_halo": 5026,
+              "halo_overlap_fraction": 0.5132237312365976
+            },
+            "1381e784fb8b8340beffd0e735ac9eea89ad35d1a807f8a9bab5506e3fc8275e": {
+              "allowance": 6659,
+              "placed_in_halo": 5727,
+              "halo_overlap_fraction": 0.5848054732972532
+            },
+            "1580815184c647fd53e7d15e9c49639440c25e8cba74768b5fe695dc22e75f6c": {
+              "allowance": 6659,
+              "placed_in_halo": 4648,
+              "halo_overlap_fraction": 0.4746247319513939
+            },
+            "15c12778486e5a15f6cced0e9d61c6cf32f2c916128fb37f5ff2f09edd7bb144": {
+              "allowance": 6659,
+              "placed_in_halo": 4155,
+              "halo_overlap_fraction": 0.4242826508730726
+            },
+            "1aae84bb9a0cad39500053121c22c1a844f409c65830d50ed8f1ab5422cd488f": {
+              "allowance": 6659,
+              "placed_in_halo": 3822,
+              "halo_overlap_fraction": 0.3902787705503931
+            },
+            "1f7b5a4f18dbc62f31b14078545332238be9289dd388d57f550d75fb5a5fe95a": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "20be05cc671c85484e4cfc8ea40d2fced71d7ec70f20ab915f36fcc68fcc4851": {
+              "allowance": 6659,
+              "placed_in_halo": 4116,
+              "halo_overlap_fraction": 0.42030021443888493
+            },
+            "224be205fdd428260f9c3f5ff6978e4b0ddf09a7dfa7b7acde341c18151d6c65": {
+              "allowance": 6659,
+              "placed_in_halo": 4398,
+              "halo_overlap_fraction": 0.44909629327070355
+            },
+            "2269b714c78262a8d45dbd5eb02290a27ec9b99afe02340e343f5cb1ac7c58f3": {
+              "allowance": 6659,
+              "placed_in_halo": 3527,
+              "halo_overlap_fraction": 0.3601552129071786
+            },
+            "25b1c0449e8d94469db22bab4c390110b6f8a928dc01cf21a39b97efcf84d19e": {
+              "allowance": 6659,
+              "placed_in_halo": 5272,
+              "halo_overlap_fraction": 0.5383437148983968
+            },
+            "28adc53bcaca11329c807baa5659079c25f225c5908f7874762a034cf70cab05": {
+              "allowance": 6659,
+              "placed_in_halo": 6659,
+              "halo_overlap_fraction": 0.6799754926988666
+            },
+            "28f30b31c5d054764038144c2742364c5e4f1e2ca79f122281d04cb9d15cd5db": {
+              "allowance": 6659,
+              "placed_in_halo": 5872,
+              "halo_overlap_fraction": 0.5996119677320535
+            },
+            "2a0707537962757e9aa8f856fd6d3fdfdc8d0e387b0eef6639eacf18fe2ba7b2": {
+              "allowance": 6659,
+              "placed_in_halo": 4112,
+              "halo_overlap_fraction": 0.41989175941999385
+            },
+            "2b06d45c5b5726be60ed7f953accda58919999a99b442bb87410377e0c4c034a": {
+              "allowance": 6659,
+              "placed_in_halo": 4494,
+              "halo_overlap_fraction": 0.45889921372408865
+            },
+            "2b070e616f5494d09d39f4a35727adceb541e72a2a0471322f7b87cc1fb1dc86": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "2bff4b55cabe5a4eb7ab1aeff6b21e407a87a576d1d0c3c5f20ed3ddb1c279ba": {
+              "allowance": 6659,
+              "placed_in_halo": 3927,
+              "halo_overlap_fraction": 0.4010007147962831
+            },
+            "2f6e74e4d48ad47d07671cee4e73f08d012178e337a9045a9b57e51012b3613a": {
+              "allowance": 6659,
+              "placed_in_halo": 4021,
+              "halo_overlap_fraction": 0.41059940774022263
+            },
+            "318fdda4e26bcb1c673a1c8af866b4d9515a3ac73d88ee95c3ff52ed4e124f43": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "31bf5aef0539dc3c401662f0bc3b657287943049ad8d031d10026ba45d669c4b": {
+              "allowance": 6659,
+              "placed_in_halo": 3898,
+              "halo_overlap_fraction": 0.398039415909323
+            },
+            "346d57f0eca0ff36f7648f8b5a3ba8764054ab9e42e1677873791b83f460f45e": {
+              "allowance": 6659,
+              "placed_in_halo": 3991,
+              "halo_overlap_fraction": 0.40753599509853977
+            },
+            "34f8dea50ff0b2eeac843e1f3f76e8d9a7bb63368aab2de339ba046009162744": {
+              "allowance": 6659,
+              "placed_in_halo": 3927,
+              "halo_overlap_fraction": 0.4010007147962831
+            },
+            "3537e9fc47a465036a8c1462b99a29b7f3449ee2e7bb94fd0a12d438a85b375d": {
+              "allowance": 6659,
+              "placed_in_halo": 3454,
+              "halo_overlap_fraction": 0.35270090881241706
+            },
+            "3543d0c430ca1ef145204b81ef44fa736794f1240d63745f9f31f1d0e1edee0e": {
+              "allowance": 6659,
+              "placed_in_halo": 3989,
+              "halo_overlap_fraction": 0.40733176758909423
+            },
+            "3589e89a1ad4f78f54e6f17f9b7cdb0edb563f66aedfcdabd632ef8774968c3a": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "35b648795818c96c444ee66d1d58fbf1146aa9ef70a4a2f69cab27784b210b86": {
+              "allowance": 6659,
+              "placed_in_halo": 5266,
+              "halo_overlap_fraction": 0.5377310323700603
+            },
+            "38539dc647d5ede0d8fa90123810d18130ee15e524097f55e83b6b8a57976ea9": {
+              "allowance": 6659,
+              "placed_in_halo": 4855,
+              "halo_overlap_fraction": 0.4957622791790054
+            },
+            "388b31312ab1dc53d839a5a584970a8c9cd2f7dca6a286c36945b89a5ef07be0": {
+              "allowance": 6659,
+              "placed_in_halo": 4792,
+              "halo_overlap_fraction": 0.48932911263147144
+            },
+            "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26": {
+              "allowance": 6659,
+              "placed_in_halo": 4551,
+              "halo_overlap_fraction": 0.46471969774328603
+            },
+            "40524184b4cc88a0fa92c3fcc869b2d6ebb9a87c6c2019105fcf9716b419d8fb": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "41216d099db0e077dcdedb99c0fcda879c4d9406fafa42b45b78a968f6349c38": {
+              "allowance": 6659,
+              "placed_in_halo": 4398,
+              "halo_overlap_fraction": 0.44909629327070355
+            },
+            "42bffef1b5973973cdcb52c252067b33159e03fa721d1f58bec83f18ca779a21": {
+              "allowance": 6659,
+              "placed_in_halo": 5080,
+              "halo_overlap_fraction": 0.5187378739916266
+            },
+            "46a0f0fa2f63e6e6b4a5fe4520e999b925cf3ff954a01b10b36b735c1b0649c8": {
+              "allowance": 6659,
+              "placed_in_halo": 4835,
+              "halo_overlap_fraction": 0.4937200040845502
+            },
+            "47caaca53d2906f797459abf1194fb81ee1181e05cf5c9a6e74e6f57b0999b98": {
+              "allowance": 6659,
+              "placed_in_halo": 6424,
+              "halo_overlap_fraction": 0.6559787603390177
+            },
+            "4a931832d76040b51252649e525376a31b5b15b3bb8c2ffbda8758531211776b": {
+              "allowance": 6659,
+              "placed_in_halo": 3002,
+              "halo_overlap_fraction": 0.306545491677729
+            },
+            "4aff087dee275bc4958c787308a6141965479856dc38915dba5a6cd81e24989f": {
+              "allowance": 6659,
+              "placed_in_halo": 4135,
+              "halo_overlap_fraction": 0.4222403757786174
+            },
+            "4c31411088a92d83589b1fd0557c00460069b1a7cfbbe18a0fb1ceaa1b38d420": {
+              "allowance": 6659,
+              "placed_in_halo": 3699,
+              "halo_overlap_fraction": 0.3777187787194935
+            },
+            "4d00b72c78fa21c258061079daad55c3a99b1bc91dc5d3e2516ad4c0e90ba334": {
+              "allowance": 6659,
+              "placed_in_halo": 5021,
+              "halo_overlap_fraction": 0.5127131624629838
+            },
+            "4d6548d4ec07a47a25b83d28ebc05d58b57448c1507b460aed52cec395bdb6b5": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "50041161e7a7922992f05c9e027092806f13b1537d1888fd10d461bbd4a8b6c2": {
+              "allowance": 6659,
+              "placed_in_halo": 4134,
+              "halo_overlap_fraction": 0.4221382620238946
+            },
+            "516661e70e3e9c923a4e162a8ece8c7c9ad21e9814a7a3db13c805bc06d9f39a": {
+              "allowance": 6659,
+              "placed_in_halo": 4216,
+              "halo_overlap_fraction": 0.430511589911161
+            },
+            "542eaf30766ba57b122cc85fb239e407294a282e1259dcceae0c55575ee19f95": {
+              "allowance": 6659,
+              "placed_in_halo": 5071,
+              "halo_overlap_fraction": 0.5178188501991218
+            },
+            "54dfe8bd79f767370558bebc1c23366cb43e5e5a4b26c7d9d14131c8b58bdc0c": {
+              "allowance": 6659,
+              "placed_in_halo": 4869,
+              "halo_overlap_fraction": 0.4971918717451241
+            },
+            "566bfd0a4fe4486d7fae3fec0f3ac52329b1da98d409984e2c0187f557bfe8d4": {
+              "allowance": 6659,
+              "placed_in_halo": 5236,
+              "halo_overlap_fraction": 0.5346676197283774
+            },
+            "5823def4fab491ac6bd667cedb467c0540fd1bbce1351992289f4a609e7b775e": {
+              "allowance": 6659,
+              "placed_in_halo": 4145,
+              "halo_overlap_fraction": 0.423261513325845
+            },
+            "5b59e106b6e448038b96fb340c5bae39094d4558c239c437aea28b6020d5d32f": {
+              "allowance": 6659,
+              "placed_in_halo": 4869,
+              "halo_overlap_fraction": 0.4971918717451241
+            },
+            "5c5c1784c615c807423479d497a3ca1faa1607dbc11aa413b05b96801629c427": {
+              "allowance": 6659,
+              "placed_in_halo": 4541,
+              "halo_overlap_fraction": 0.46369856019605843
+            },
+            "5db55c064eb0b920beb84cd4d6de426a347206b7b8a2c9adc8cfb343084a570b": {
+              "allowance": 6659,
+              "placed_in_halo": 4203,
+              "halo_overlap_fraction": 0.4291841110997651
+            },
+            "609af5bce51d916fbba1fd383615323803591814823ac794d04b9a3374975b3f": {
+              "allowance": 6659,
+              "placed_in_halo": 3875,
+              "halo_overlap_fraction": 0.39569079955069947
+            },
+            "60a7930a5ac229bb8a3a81656de49c1e228eab8398e0b26316972d516a2951f5": {
+              "allowance": 6659,
+              "placed_in_halo": 4678,
+              "halo_overlap_fraction": 0.4776881445930767
+            },
+            "612412b48e45704e40a00718589da6a04f12e0b23d55954094de7c4ebc85a44f": {
+              "allowance": 6659,
+              "placed_in_halo": 4869,
+              "halo_overlap_fraction": 0.4971918717451241
+            },
+            "61f9b53de42786e6d48afa50fd453a87c57d5d7b9b626c7dcf28c2dfbd20f411": {
+              "allowance": 6659,
+              "placed_in_halo": 4678,
+              "halo_overlap_fraction": 0.4776881445930767
+            },
+            "6292a7916c83d371fc650b0f0c6a090702b9890eaa6e6546d50f104eea2fadc3": {
+              "allowance": 6659,
+              "placed_in_halo": 3613,
+              "halo_overlap_fraction": 0.36893699581333605
+            },
+            "629800b15ca54906b1bfcbde8811273a47b90d112038b86aea6701460070e1ed": {
+              "allowance": 6659,
+              "placed_in_halo": 5055,
+              "halo_overlap_fraction": 0.5161850301235577
+            },
+            "641cc910f2be240a2a9d298926fec5a337542cdfd0010c39f18baad66fb8fe88": {
+              "allowance": 6659,
+              "placed_in_halo": 3959,
+              "halo_overlap_fraction": 0.4042683549474114
+            },
+            "64faebf44c5a5e03ef596efdc7ba4123ef0343b223988118a7e8dcd09dc51490": {
+              "allowance": 6659,
+              "placed_in_halo": 4527,
+              "halo_overlap_fraction": 0.46226896762993974
+            },
+            "6733bbde40e61bc16309d351b0c3f92c17f30aab023eaf07db80795198867096": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "699d9c7f6d136818af48ed65d357bcd6eca828e530c73c4d80c3a6cca4214b81": {
+              "allowance": 6659,
+              "placed_in_halo": 5988,
+              "halo_overlap_fraction": 0.6114571632798939
+            },
+            "69d7cdbb1337b07278dd73f4e605cd35c185e8f9cfef18614d4c9c071800a8cf": {
+              "allowance": 6659,
+              "placed_in_halo": 4203,
+              "halo_overlap_fraction": 0.4291841110997651
+            },
+            "6bcf9de850471535816e1a798983a329b4408d39cfa91d4c17511e7fe0158a38": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "703ea58b0e49479d57acb9293d748d861b07eba80898aa6bc0ed07595bc1dc91": {
+              "allowance": 6659,
+              "placed_in_halo": 3977,
+              "halo_overlap_fraction": 0.40610640253242114
+            },
+            "70c4ccd5dd51c6cbf1c0b8019738885a357dde7be64c17b4fb278a12f073e1e4": {
+              "allowance": 6659,
+              "placed_in_halo": 6659,
+              "halo_overlap_fraction": 0.6799754926988666
+            },
+            "73a8dcb305609def44f4c2cc421f6c4a3c4d5c45a9fe8ef64078a58706908fb4": {
+              "allowance": 6659,
+              "placed_in_halo": 4129,
+              "halo_overlap_fraction": 0.4216276932502808
+            },
+            "741f781734cbbf7145c2f7c93112d2272e62213205f15283babad65433a7fc28": {
+              "allowance": 6659,
+              "placed_in_halo": 4636,
+              "halo_overlap_fraction": 0.47339936689472073
+            },
+            "749fdffc1b9a6d5b610513e9ab8f68576feb102f419f234647180eb04d30f9d6": {
+              "allowance": 6659,
+              "placed_in_halo": 3711,
+              "halo_overlap_fraction": 0.37894414377616664
+            },
+            "756af6ee74b3fd456eeb30bbcaaa41de51d3cdc17222b04166d8280ba7c18c3e": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58": {
+              "allowance": 6659,
+              "placed_in_halo": 5601,
+              "halo_overlap_fraction": 0.5719391402021853
+            },
+            "7810719248d2aa17b4aefdc838bf7ea5ad90a08ae0882c7f96f158bf01696302": {
+              "allowance": 6659,
+              "placed_in_halo": 4873,
+              "halo_overlap_fraction": 0.4976003267640151
+            },
+            "7884f24bcb0eff0e9d3b196a07560ee5aff39b7fce83a96b6bcf90b006ef5b45": {
+              "allowance": 6659,
+              "placed_in_halo": 4168,
+              "halo_overlap_fraction": 0.4256101296844685
+            },
+            "789dd56c4287cd50c8d2d5e3f063828a8d25a275d82bd8418a4cf971d908b8a6": {
+              "allowance": 6659,
+              "placed_in_halo": 6521,
+              "halo_overlap_fraction": 0.6658837945471255
+            },
+            "78a916d09ba6af7f6d88fa9e8ff2e9f79696297cab2e11786a472dbed21c24e9": {
+              "allowance": 6659,
+              "placed_in_halo": 4515,
+              "halo_overlap_fraction": 0.4610436025732666
+            },
+            "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3": {
+              "allowance": 6659,
+              "placed_in_halo": 6064,
+              "halo_overlap_fraction": 0.6192178086388237
+            },
+            "7cacff894c4444997e2ee8896582cda82ad34a43cf039cfb960befa20577d005": {
+              "allowance": 6659,
+              "placed_in_halo": 5570,
+              "halo_overlap_fraction": 0.5687736138057796
+            },
+            "7f00890a62878d612fb5eef67a9a364a2df819433dde74b6762ce4fc0fc4fe15": {
+              "allowance": 6659,
+              "placed_in_halo": 4873,
+              "halo_overlap_fraction": 0.4976003267640151
+            },
+            "7f0fbe2fcec056f2a06f927f011a2010c95608ea610bcf56db62cb2bae4b8806": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "7f71739a2804bf2fa7199d30d512e0a267e4cfa2fdd0d32304b962db65b98662": {
+              "allowance": 6659,
+              "placed_in_halo": 3772,
+              "halo_overlap_fraction": 0.3851730828142551
+            },
+            "82359f80280062072a4fdd8723d637a9bed0b77223386c319ab35bac990d8f23": {
+              "allowance": 6659,
+              "placed_in_halo": 4841,
+              "halo_overlap_fraction": 0.49433268661288676
+            },
+            "861c880e7a56203d197182075765480efaf224ad6cfde342fab511f5f908fa4c": {
+              "allowance": 6659,
+              "placed_in_halo": 3935,
+              "halo_overlap_fraction": 0.40181762483406513
+            },
+            "8624c5a58c681f57a6d26cab0652cfe654bcd46dc8ba68a7d5a4c0feaa29bc89": {
+              "allowance": 6659,
+              "placed_in_halo": 6659,
+              "halo_overlap_fraction": 0.6799754926988666
+            },
+            "8721329b55c72635803cca27414f3d0ffe4705f48285de0dc7c29d6fd3eb90d3": {
+              "allowance": 6659,
+              "placed_in_halo": 5988,
+              "halo_overlap_fraction": 0.6114571632798939
+            },
+            "87eda0c871f8f2ff03482452674010083486aad534e6a7f75dc3124177a34db1": {
+              "allowance": 6659,
+              "placed_in_halo": 4737,
+              "halo_overlap_fraction": 0.4837128561217196
+            },
+            "883d93f2801987481f8ffb761eeae8f7a39520ad3b670e09129bdaaf7983e2c7": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "886e470530d8b23a4967a7f8d9f55df5fb39441ff7b544490cab457d076731f7": {
+              "allowance": 6659,
+              "placed_in_halo": 4835,
+              "halo_overlap_fraction": 0.4937200040845502
+            },
+            "88976dc5b2504838b193d41b718df95eb1e237b870b94a6443dc3bee65e98e06": {
+              "allowance": 6659,
+              "placed_in_halo": 6347,
+              "halo_overlap_fraction": 0.6481160012253651
+            },
+            "8a59bc5ea68df8c64f2467fd5e8b3652a324fa3d5e364b9e974d993401c2ec1f": {
+              "allowance": 6659,
+              "placed_in_halo": 5021,
+              "halo_overlap_fraction": 0.5127131624629838
+            },
+            "8a85485ed0877d240ece6b07883641d04fa64cdf8d3687ff767a068346350313": {
+              "allowance": 6659,
+              "placed_in_halo": 4737,
+              "halo_overlap_fraction": 0.4837128561217196
+            },
+            "92904a5bfd84c8bd1141683fc5d29817aa4de71574d8caff5b40f7ed0072a5b8": {
+              "allowance": 6659,
+              "placed_in_halo": 3977,
+              "halo_overlap_fraction": 0.40610640253242114
+            },
+            "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981": {
+              "allowance": 6659,
+              "placed_in_halo": 4487,
+              "halo_overlap_fraction": 0.4581844174410293
+            },
+            "93d1a77e8d90e4a60dd68e2785b4a1b5cf8b34bfad80109c79354cae74c61c06": {
+              "allowance": 6659,
+              "placed_in_halo": 4648,
+              "halo_overlap_fraction": 0.4746247319513939
+            },
+            "9606cef20d34046e9b5f6d506df642847ffae1deafe97fc9e75a07c0094a94f5": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "96737553f2c6322bdf9870759b0e14c4bedd55f11eb4ce8e0f1ffb3e5288dd28": {
+              "allowance": 6659,
+              "placed_in_halo": 4958,
+              "halo_overlap_fraction": 0.5062799959154498
+            },
+            "9a5f5433cbfed4a1a8ac2587678aaa930c8ed93e948b9e94874c8febc549fd57": {
+              "allowance": 6659,
+              "placed_in_halo": 3882,
+              "halo_overlap_fraction": 0.3964055958337588
+            },
+            "9b4a7b83fd7bb58bed86692059f112ffc9418b8bd6f0704100dabef1f98c7682": {
+              "allowance": 6659,
+              "placed_in_halo": 3699,
+              "halo_overlap_fraction": 0.3777187787194935
+            },
+            "9b4cf4450bbc6c13b307e5ec89f0dd2d2f0a54245b1757287541079098fba0de": {
+              "allowance": 6659,
+              "placed_in_halo": 3118,
+              "halo_overlap_fraction": 0.3183906872255693
+            },
+            "9bd1e50d86114daa7c944d0c6d4f9f7cba6ba5070ae98ba5e45a965d78650777": {
+              "allowance": 6659,
+              "placed_in_halo": 3230,
+              "halo_overlap_fraction": 0.3298274277545185
+            },
+            "9f36769d415ff85e7ed62a610092fffb94cda970949c0087a29a38b71456d8c1": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "a0e4b3f31cb84270b10d19fff8399412a0850f3cffeb77d59b553c7ff0475d67": {
+              "allowance": 6659,
+              "placed_in_halo": 3239,
+              "halo_overlap_fraction": 0.33074645154702337
+            },
+            "a0eaa98c3294a7686d26753348bca9eaf143f089a9d39d827ee19ddb7e55ffac": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "a1a26570f336e84a743e5acb451df16ede8734613f1f9a4b1d515ff69d369ba3": {
+              "allowance": 6659,
+              "placed_in_halo": 4977,
+              "halo_overlap_fraction": 0.5082201572551823
+            },
+            "a26e5e46acc00ddd867f0b2910e638b25e4e81108ebe05c0abcc7c9b04372247": {
+              "allowance": 6659,
+              "placed_in_halo": 4412,
+              "halo_overlap_fraction": 0.45052588583682224
+            },
+            "a9f99d5cbc5b616fd5b0535ace4d43246fc31a3f865277f26f4acc8495cc9817": {
+              "allowance": 6659,
+              "placed_in_halo": 3822,
+              "halo_overlap_fraction": 0.3902787705503931
+            },
+            "aac8aa8a021ee309c91c5084f17ff2d64623163faa382cfd76ca781352d945b8": {
+              "allowance": 6659,
+              "placed_in_halo": 3198,
+              "halo_overlap_fraction": 0.32655978760339016
+            },
+            "aac907db6aadc3d07a4eeb2531a0be200ee0143599ab304921e4f4f742fbc02a": {
+              "allowance": 6659,
+              "placed_in_halo": 5899,
+              "halo_overlap_fraction": 0.6023690391095681
+            },
+            "ab9076de63bd76fd8857b0dba81f6c19be4a95377cb52802f71ccf177cf9b9ce": {
+              "allowance": 6659,
+              "placed_in_halo": 4859,
+              "halo_overlap_fraction": 0.4961707341978965
+            },
+            "abb0cb1349c9745a27156ebd95b435dec6086d38d9be3ec637400001d9fa33a0": {
+              "allowance": 6659,
+              "placed_in_halo": 4389,
+              "halo_overlap_fraction": 0.4481772694781987
+            },
+            "ac4ebc913a172f3415f14a3b47b169af03798cff3a643ffd0a89451b869259be": {
+              "allowance": 6659,
+              "placed_in_halo": 5036,
+              "halo_overlap_fraction": 0.5142448687838251
+            },
+            "ad9750be86acf6b8c253dcd8f1ee6487c2ea8327a582a8c9e6a765d16037d319": {
+              "allowance": 6659,
+              "placed_in_halo": 6240,
+              "halo_overlap_fraction": 0.6371898294700297
+            },
+            "ae5c5aafce85a395af73944ab10f3fc2cad7bcc1244d49a52d53443bd0f5c3c2": {
+              "allowance": 6659,
+              "placed_in_halo": 5872,
+              "halo_overlap_fraction": 0.5996119677320535
+            },
+            "aeaa9a46236a658d91a05be48d54f14b44804c967d590314caeb2c0a82511f60": {
+              "allowance": 6659,
+              "placed_in_halo": 5515,
+              "halo_overlap_fraction": 0.5631573572960278
+            },
+            "b0afa9ecc6ff5dbc9ee55cd4e32a818113411aad911e2dae7c87b72d2715530f": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "b2f89a83ffb1080c512bb46c6feae3a6211207cd619e0291bd2d767c002be87f": {
+              "allowance": 6659,
+              "placed_in_halo": 5004,
+              "halo_overlap_fraction": 0.5109772286326968
+            },
+            "b33684ae033512a1a1c7d2cfccd128955fedfdff2a8fed6c7585a755b1b58b3c": {
+              "allowance": 6659,
+              "placed_in_halo": 4453,
+              "halo_overlap_fraction": 0.45471254978045544
+            },
+            "b6d91ba6f6a703c45bbd71dca43209f95521be52dfa4d9ae96fc8270c392740c": {
+              "allowance": 6659,
+              "placed_in_halo": 4792,
+              "halo_overlap_fraction": 0.48932911263147144
+            },
+            "b748e0f97738a5e3b0feaf35dab340ff1dcedd6b8d2124f2b54b5f1b0f14d7d3": {
+              "allowance": 6659,
+              "placed_in_halo": 4958,
+              "halo_overlap_fraction": 0.5062799959154498
+            },
+            "b7e39108f9718021edaac2920680ee49d3ffdcacab93e38822081556407d6010": {
+              "allowance": 6659,
+              "placed_in_halo": 5012,
+              "halo_overlap_fraction": 0.511794138670479
+            },
+            "b7ea86e8893434e3ea6616cdba07ac3e55e3b8bd0bc42add68bdf5d4084efc22": {
+              "allowance": 6659,
+              "placed_in_halo": 4052,
+              "halo_overlap_fraction": 0.4137649341366282
+            },
+            "b83ea0e7074882ceee31de89695281c00ade51f26a0a7048f628f60058755356": {
+              "allowance": 6659,
+              "placed_in_halo": 3996,
+              "halo_overlap_fraction": 0.4080465638721536
+            },
+            "b9530b70065da1f5e9da82caf4f5aaba3d7175dbbbfb2851e4b2ab2dd13aa4f1": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "b9ca8c093d3b0812112f2c62b06e2047a48156e71136c735962ececfb20372bf": {
+              "allowance": 6659,
+              "placed_in_halo": 5036,
+              "halo_overlap_fraction": 0.5142448687838251
+            },
+            "ba1ef907a699a879135062235eae5acd43c2adc9b616653e1e609a9b59134398": {
+              "allowance": 6659,
+              "placed_in_halo": 4005,
+              "halo_overlap_fraction": 0.4089655876646584
+            },
+            "bb1f328dbf12395254305bd74094a22e1582cd5110576c01ddb02daca45bffa0": {
+              "allowance": 6659,
+              "placed_in_halo": 3155,
+              "halo_overlap_fraction": 0.32216889615031147
+            },
+            "bb517a03bbce13900d8bc973365ffbea077a580a706edb5fc8587fba1a659847": {
+              "allowance": 6659,
+              "placed_in_halo": 4636,
+              "halo_overlap_fraction": 0.47339936689472073
+            },
+            "bd1e3d056e83e792aed8c77b3249f833d119320779b94d2eb7c5b65ac5161428": {
+              "allowance": 6659,
+              "placed_in_halo": 6659,
+              "halo_overlap_fraction": 0.6799754926988666
+            },
+            "bdc045934e4a2e33a90093ef07e4968f9fffb016ce3ff3e780bbe7fa5c32977a": {
+              "allowance": 6659,
+              "placed_in_halo": 6659,
+              "halo_overlap_fraction": 0.6799754926988666
+            },
+            "be9dfc8f3643b8a70748ab6d018aeed055792f2bf36a3ae96f46568a85158229": {
+              "allowance": 6659,
+              "placed_in_halo": 3898,
+              "halo_overlap_fraction": 0.398039415909323
+            },
+            "c02930644a5c3b1051a57c5f2092bb1c942d6adb07d6ca76be205ad8e0d46ab9": {
+              "allowance": 6659,
+              "placed_in_halo": 4135,
+              "halo_overlap_fraction": 0.4222403757786174
+            },
+            "c36696693639749791286bcd58e48a78ff79d4651b63fc33d273aab8191df0d4": {
+              "allowance": 6659,
+              "placed_in_halo": 5952,
+              "halo_overlap_fraction": 0.6077810681098744
+            },
+            "c3bf15a0471c5f00d3a436f2328ef443564a955f44a32776485e706344529839": {
+              "allowance": 6659,
+              "placed_in_halo": 4134,
+              "halo_overlap_fraction": 0.4221382620238946
+            },
+            "c5ea501eba0ab840d26f0c017d01074c4bd9040ec5e2c5ac19bde8655d150e64": {
+              "allowance": 6659,
+              "placed_in_halo": 4873,
+              "halo_overlap_fraction": 0.4976003267640151
+            },
+            "c9a83c6c8f230ae85b829933a127b65b3832b03b5eaccd8a687ce8bbf1858d5b": {
+              "allowance": 6659,
+              "placed_in_halo": 5848,
+              "halo_overlap_fraction": 0.5971612376187072
+            },
+            "cb755e0b91642a085c74bb70eeeb6d89018287226aea93e02d45e9e779df3341": {
+              "allowance": 6659,
+              "placed_in_halo": 5041,
+              "halo_overlap_fraction": 0.514755437557439
+            },
+            "ce3f70fa2e1e7bbea60c8c62a2f805c22d15b8a8905ebec757259617ceb02fbc": {
+              "allowance": 6659,
+              "placed_in_halo": 6234,
+              "halo_overlap_fraction": 0.6365771469416931
+            },
+            "ce749a992baec603460dfeddd068758855cb8b12978268e6ef94f6e23ffd9ee7": {
+              "allowance": 6659,
+              "placed_in_halo": 5895,
+              "halo_overlap_fraction": 0.601960584090677
+            },
+            "cf59ad8290e4f883b6c9d0fd19871a003a4e32bede578860b56ff5815966db40": {
+              "allowance": 6659,
+              "placed_in_halo": 4869,
+              "halo_overlap_fraction": 0.4971918717451241
+            },
+            "d07cbb6f69076e76f1a8a4806ddc5639421bc9a59b10d80a09b9fb423bb99427": {
+              "allowance": 6659,
+              "placed_in_halo": 4855,
+              "halo_overlap_fraction": 0.4957622791790054
+            },
+            "d0c5fd6825b544eb08672303c11292eb99d6105e42a41eac0e5a211a3fdc69e5": {
+              "allowance": 6659,
+              "placed_in_halo": 6521,
+              "halo_overlap_fraction": 0.6658837945471255
+            },
+            "d1e87159a8908f0051352c091d9343e8e5128e2c8eea0debdd17589a02692dad": {
+              "allowance": 6659,
+              "placed_in_halo": 3959,
+              "halo_overlap_fraction": 0.4042683549474114
+            },
+            "d34ad9224ccbd7c7c2bad4382272c80afc2f1850daf46ae7b1f9c6edcf1939f4": {
+              "allowance": 6659,
+              "placed_in_halo": 4859,
+              "halo_overlap_fraction": 0.4961707341978965
+            },
+            "d4a5de924057eec12c4e4ee9bdb5de361754b7bc9ace8691f86cb1ace51e57e2": {
+              "allowance": 6659,
+              "placed_in_halo": 5168,
+              "halo_overlap_fraction": 0.5277238844072296
+            },
+            "d7977d7b93287f17fbf3cb85f10fdbee4acc5c8453a7faa451e760363433a286": {
+              "allowance": 6659,
+              "placed_in_halo": 4432,
+              "halo_overlap_fraction": 0.45256816093127744
+            },
+            "d7fc78a036f325ddb80f94fdda1864b4af0889eb58b0291356945fb1b44e1da0": {
+              "allowance": 6659,
+              "placed_in_halo": 5961,
+              "halo_overlap_fraction": 0.6087000919023793
+            },
+            "db0dd67da44b83bc47f05289c05e2e917118d04b03e4958076f64661b726fb6b": {
+              "allowance": 6659,
+              "placed_in_halo": 4216,
+              "halo_overlap_fraction": 0.430511589911161
+            },
+            "dc6a7a597a511152551dcf202ecee280429cf13e977e849058b449cf5ce36fd9": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "e050b1ec627e8207c1fe5f7530f015d0cf2feb6bb98c5bce225e5db806afb0e3": {
+              "allowance": 6659,
+              "placed_in_halo": 6347,
+              "halo_overlap_fraction": 0.6481160012253651
+            },
+            "e13394d96baf6867f3a6851d9243de74f8d37c581ff003dbdf3e7497f58dab38": {
+              "allowance": 6659,
+              "placed_in_halo": 3650,
+              "halo_overlap_fraction": 0.37271520473807823
+            },
+            "e15f2d96c585bf2446dead518f1916f7307490b2ed2f6d72ee8c5788dfed2f63": {
+              "allowance": 6659,
+              "placed_in_halo": 4541,
+              "halo_overlap_fraction": 0.46369856019605843
+            },
+            "e1b943c37103db06c96884492a9a5519c89234e8a83fc9b1674f7f436f9cdf45": {
+              "allowance": 6659,
+              "placed_in_halo": 3650,
+              "halo_overlap_fraction": 0.37271520473807823
+            },
+            "e29e8f04e048a4aa210edbc1128dc39703e9271a11c02a5a391c7753339b0125": {
+              "allowance": 6659,
+              "placed_in_halo": 5899,
+              "halo_overlap_fraction": 0.6023690391095681
+            },
+            "e3ce40ccdf285f8fffccc1c55a8c7b48452a921f59d312ded90f7f70f3b52cde": {
+              "allowance": 6659,
+              "placed_in_halo": 3706,
+              "halo_overlap_fraction": 0.37843357500255287
+            },
+            "e4c718f450130e2e07e14ef506f051ea974c53382740974e758858519e866fe4": {
+              "allowance": 6659,
+              "placed_in_halo": 3715,
+              "halo_overlap_fraction": 0.37935259879505767
+            },
+            "e5711e098797ccd5f4dd471290ff3a758d24fe21c29072138bdf770f8ecfd120": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "e5f3684e9b49e8f11019f87e047017c5ab8a46294935bc0c7c80859ca7d2b1ce": {
+              "allowance": 6659,
+              "placed_in_halo": 5952,
+              "halo_overlap_fraction": 0.6077810681098744
+            },
+            "e6f82d42c751e77f93f79d0c62c6ac0574daf9e35c827b1566753fe26b0984ef": {
+              "allowance": 6659,
+              "placed_in_halo": 3118,
+              "halo_overlap_fraction": 0.3183906872255693
+            },
+            "e6f8d6ebbaa28fd758d7c744e4f9bc4928a70b18a0d06d3e51041ad1e3b52257": {
+              "allowance": 6659,
+              "placed_in_halo": 4954,
+              "halo_overlap_fraction": 0.5058715408965587
+            },
+            "e9bfb8fd27989c073fc57a04cf6f0f3eca9c49b7f82dfec5c9f10e424e703a91": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "ead50e13592a2facea8b01b9eceb292693a5b21c76319ab8cd9ae37a0e133f3b": {
+              "allowance": 6659,
+              "placed_in_halo": 3991,
+              "halo_overlap_fraction": 0.40753599509853977
+            },
+            "eaf1ed0cfe60922f96cb57929083e65b1b715acc9803f005a9e520cf1699006b": {
+              "allowance": 6659,
+              "placed_in_halo": 4168,
+              "halo_overlap_fraction": 0.4256101296844685
+            },
+            "ed1b767f75804048382fc8baf61ff1edad6e9fd7b5b214def715ba5a1e290f6d": {
+              "allowance": 6659,
+              "placed_in_halo": 3258,
+              "halo_overlap_fraction": 0.33268661288675583
+            },
+            "eefc2885990d5f5ae0c943ab152ef69de6de1c6c722420e1dbcd6e4af634ecac": {
+              "allowance": 6659,
+              "placed_in_halo": 4262,
+              "halo_overlap_fraction": 0.43520882262840804
+            },
+            "f06ada5aa834ceaf65e8700e36bbd46eddb96929b42c9041c72c8369c1022838": {
+              "allowance": 6659,
+              "placed_in_halo": 4203,
+              "halo_overlap_fraction": 0.4291841110997651
+            },
+            "f11c8684b152c2ccefc51c1f725491e31499bbef2091a0284b47cc35d785f93e": {
+              "allowance": 6659,
+              "placed_in_halo": 5052,
+              "halo_overlap_fraction": 0.5158786888593894
+            },
+            "f1d7b06a9a1e34861b57953829b96d4f405b6eecb7fa00766cca5407ce50225e": {
+              "allowance": 6659,
+              "placed_in_halo": 3822,
+              "halo_overlap_fraction": 0.3902787705503931
+            },
+            "f514ed677937c3efd3227427d5680a674a9e3ebe62dfe7ebf14270b829cf5258": {
+              "allowance": 6659,
+              "placed_in_halo": 4515,
+              "halo_overlap_fraction": 0.4610436025732666
+            },
+            "f614e72d999941b8ded1746ea11900ac0a653184a3c55226fdb9cc6f90b07d2a": {
+              "allowance": 6659,
+              "placed_in_halo": 5011,
+              "halo_overlap_fraction": 0.5116920249157562
+            },
+            "f68e590f8534d036872f18170819b52366c728e68619f17c648dce9629b0aaf2": {
+              "allowance": 6659,
+              "placed_in_halo": 4911,
+              "halo_overlap_fraction": 0.50148064944348
+            },
+            "f7e5645f10ffb9961ad3199ff83c67cd3bc9375d75af971cf656253dae1057c5": {
+              "allowance": 6659,
+              "placed_in_halo": 5012,
+              "halo_overlap_fraction": 0.511794138670479
+            },
+            "f87d3fc008230ec12a2b2ad260de643d15b8e474135d28020dafd2c784d2cbd5": {
+              "allowance": 6659,
+              "placed_in_halo": 3710,
+              "halo_overlap_fraction": 0.3788420300214439
+            },
+            "faaad2cf0841f6d27de61d7048b0f16999eea80dd9479f24fef2f6065ef8f82f": {
+              "allowance": 6659,
+              "placed_in_halo": 4262,
+              "halo_overlap_fraction": 0.43520882262840804
+            },
+            "faebf9e13f763ccedd2486df2209e6e7f37d1a5548495003e2401c5b03d538c8": {
+              "allowance": 6659,
+              "placed_in_halo": 5197,
+              "halo_overlap_fraction": 0.5306851832941897
+            },
+            "fb2d0d2d74bad2b52c6fcd48db5d8e2855c938fd222798e03fc01a96dbdc6d0e": {
+              "allowance": 6659,
+              "placed_in_halo": 3710,
+              "halo_overlap_fraction": 0.3788420300214439
+            },
+            "fc96a096abcb5972af2ae0404807c9275975e881dd5b3fc28c38b2071d44890b": {
+              "allowance": 6659,
+              "placed_in_halo": 5236,
+              "halo_overlap_fraction": 0.5346676197283774
+            },
+            "fe7eb41038baea535c5404adace8b062b0758babda8e0d5213351614a02cfbe3": {
+              "allowance": 6659,
+              "placed_in_halo": 4993,
+              "halo_overlap_fraction": 0.5098539773307464
+            },
+            "fed5232e8efeefef00728ce9d5884f08e007c542f317cb11419452d14ff866da": {
+              "allowance": 6659,
+              "placed_in_halo": 4432,
+              "halo_overlap_fraction": 0.45256816093127744
+            },
+            "fffa7524b3f6e5a3b58f90b33aa9bc37982e214915ee3a16ca981feb2aa6cae3": {
+              "allowance": 6659,
+              "placed_in_halo": 4260,
+              "halo_overlap_fraction": 0.4350045951189625
+            }
+          }
+        },
+        "cover_uncapped_control": {
+          "requested": 9793,
+          "emitted": 9793,
+          "spacing_px": 3,
+          "exhausted": false,
+          "rule": "tile-cover-decimated-uncapped"
+        },
+        "topk_collar_control": {
+          "requested": 9793,
+          "emitted": 9793,
+          "spacing_px": 3,
+          "exhausted": false,
+          "eligible_positive_pixels": 1269069
+        },
+        "x1_topk_reproduction": {
+          "requested": 9793,
+          "emitted": 9793,
+          "spacing_px": 3,
+          "exhausted": false,
+          "eligible_positive_pixels": 1328809
+        }
+      },
+      "withheld_truth": 3805
+    },
+    {
+      "fold": "SE",
+      "budget": 7891,
+      "nested": [
+        {
+          "replicate": 0,
+          "hidden_pixels": 6886,
+          "positive_rows": 43037,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 1,
+          "hidden_pixels": 6881,
+          "positive_rows": 43199,
+          "negative_rows": 200000
+        },
+        {
+          "replicate": 2,
+          "hidden_pixels": 6892,
+          "positive_rows": 43598,
+          "negative_rows": 200000
+        }
+      ],
+      "placements": {
+        "candidate": {
+          "requested": 7891,
+          "emitted": 7891,
+          "spacing_px": 3,
+          "exhausted": false,
+          "rule": "tile-cover-decimated-capped",
+          "ceiling": 0.68,
+          "capped_rasters": 182,
+          "skipped_by_ceiling": 38050,
+          "per_raster": {
+            "04b75259720baa2c52b7e9c56a2b3bccc471e3500a6112e782d95422419ae67b": {
+              "allowance": 5365,
+              "placed_in_halo": 3429,
+              "halo_overlap_fraction": 0.4345456849575466
+            },
+            "052688eafbc7a55d90caab72252a50304fe5caa8ecf973f8e791b4ae910f0792": {
+              "allowance": 5365,
+              "placed_in_halo": 3180,
+              "halo_overlap_fraction": 0.40299074895450515
+            },
+            "055e9aac96b89b9a1d8fca8005778733039ed79f1165bb8cdd46dcfc51d6f53d": {
+              "allowance": 5365,
+              "placed_in_halo": 4828,
+              "halo_overlap_fraction": 0.6118362691674059
+            },
+            "088069aec07a9150d9473f94f259bd1f7e4c5212f4ff55c1866bf41b3d1fc8e6": {
+              "allowance": 5365,
+              "placed_in_halo": 4892,
+              "halo_overlap_fraction": 0.6199467748067419
+            },
+            "0ac095a7ed6c8a142cdd8f686e001dfdec765f9a0e21ee53ddc69ae4cc4cddbf": {
+              "allowance": 5365,
+              "placed_in_halo": 5365,
+              "halo_overlap_fraction": 0.6798884805474591
+            },
+            "0c7d00e879e7f54e3019de185b252e5faad2983c754c9030273ad333688acb69": {
+              "allowance": 5365,
+              "placed_in_halo": 4930,
+              "halo_overlap_fraction": 0.6247623875300976
+            },
+            "0c9199f14e625d7b2539a0a045803b74d6494ce568d185abecc193fe7e93c6f2": {
+              "allowance": 5365,
+              "placed_in_halo": 4753,
+              "halo_overlap_fraction": 0.6023317703713091
+            },
+            "10bf2c4d3885d06116664226705712c3656a7a21364ec8559b4ec8200efd1f5e": {
+              "allowance": 5365,
+              "placed_in_halo": 3260,
+              "halo_overlap_fraction": 0.41312888100367506
+            },
+            "111c7048be1bde71ffe586448fd493d4b522ab3b0e8bd5866888cc3b1c58f744": {
+              "allowance": 5365,
+              "placed_in_halo": 3716,
+              "halo_overlap_fraction": 0.47091623368394375
+            },
+            "132e23e10344013a23ffd18a21a3fdcdb59c7c7c84444708db1fb38072c119ef": {
+              "allowance": 5365,
+              "placed_in_halo": 3180,
+              "halo_overlap_fraction": 0.40299074895450515
+            },
+            "1381e784fb8b8340beffd0e735ac9eea89ad35d1a807f8a9bab5506e3fc8275e": {
+              "allowance": 5365,
+              "placed_in_halo": 4230,
+              "halo_overlap_fraction": 0.5360537320998606
+            },
+            "1580815184c647fd53e7d15e9c49639440c25e8cba74768b5fe695dc22e75f6c": {
+              "allowance": 5365,
+              "placed_in_halo": 3338,
+              "halo_overlap_fraction": 0.42301355975161575
+            },
+            "15c12778486e5a15f6cced0e9d61c6cf32f2c916128fb37f5ff2f09edd7bb144": {
+              "allowance": 5365,
+              "placed_in_halo": 3315,
+              "halo_overlap_fraction": 0.4200988467874794
+            },
+            "1aae84bb9a0cad39500053121c22c1a844f409c65830d50ed8f1ab5422cd488f": {
+              "allowance": 5365,
+              "placed_in_halo": 3222,
+              "halo_overlap_fraction": 0.40831326828031933
+            },
+            "1f7b5a4f18dbc62f31b14078545332238be9289dd388d57f550d75fb5a5fe95a": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "20be05cc671c85484e4cfc8ea40d2fced71d7ec70f20ab915f36fcc68fcc4851": {
+              "allowance": 5365,
+              "placed_in_halo": 3037,
+              "halo_overlap_fraction": 0.38486883791661386
+            },
+            "224be205fdd428260f9c3f5ff6978e4b0ddf09a7dfa7b7acde341c18151d6c65": {
+              "allowance": 5365,
+              "placed_in_halo": 3571,
+              "halo_overlap_fraction": 0.45254086934482324
+            },
+            "2269b714c78262a8d45dbd5eb02290a27ec9b99afe02340e343f5cb1ac7c58f3": {
+              "allowance": 5365,
+              "placed_in_halo": 3716,
+              "halo_overlap_fraction": 0.47091623368394375
+            },
+            "25b1c0449e8d94469db22bab4c390110b6f8a928dc01cf21a39b97efcf84d19e": {
+              "allowance": 5365,
+              "placed_in_halo": 4568,
+              "halo_overlap_fraction": 0.5788873400076036
+            },
+            "28adc53bcaca11329c807baa5659079c25f225c5908f7874762a034cf70cab05": {
+              "allowance": 5365,
+              "placed_in_halo": 5365,
+              "halo_overlap_fraction": 0.6798884805474591
+            },
+            "28f30b31c5d054764038144c2742364c5e4f1e2ca79f122281d04cb9d15cd5db": {
+              "allowance": 5365,
+              "placed_in_halo": 4347,
+              "halo_overlap_fraction": 0.5508807502217716
+            },
+            "2a0707537962757e9aa8f856fd6d3fdfdc8d0e387b0eef6639eacf18fe2ba7b2": {
+              "allowance": 5365,
+              "placed_in_halo": 3333,
+              "halo_overlap_fraction": 0.42237992649854267
+            },
+            "2b06d45c5b5726be60ed7f953accda58919999a99b442bb87410377e0c4c034a": {
+              "allowance": 5365,
+              "placed_in_halo": 4171,
+              "halo_overlap_fraction": 0.5285768597135978
+            },
+            "2b070e616f5494d09d39f4a35727adceb541e72a2a0471322f7b87cc1fb1dc86": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "2bff4b55cabe5a4eb7ab1aeff6b21e407a87a576d1d0c3c5f20ed3ddb1c279ba": {
+              "allowance": 5365,
+              "placed_in_halo": 3539,
+              "halo_overlap_fraction": 0.44848561652515523
+            },
+            "2f6e74e4d48ad47d07671cee4e73f08d012178e337a9045a9b57e51012b3613a": {
+              "allowance": 5365,
+              "placed_in_halo": 3245,
+              "halo_overlap_fraction": 0.4112279812444557
+            },
+            "318fdda4e26bcb1c673a1c8af866b4d9515a3ac73d88ee95c3ff52ed4e124f43": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "31bf5aef0539dc3c401662f0bc3b657287943049ad8d031d10026ba45d669c4b": {
+              "allowance": 5365,
+              "placed_in_halo": 2919,
+              "halo_overlap_fraction": 0.3699150931440882
+            },
+            "346d57f0eca0ff36f7648f8b5a3ba8764054ab9e42e1677873791b83f460f45e": {
+              "allowance": 5365,
+              "placed_in_halo": 3000,
+              "halo_overlap_fraction": 0.38017995184387277
+            },
+            "34f8dea50ff0b2eeac843e1f3f76e8d9a7bb63368aab2de339ba046009162744": {
+              "allowance": 5365,
+              "placed_in_halo": 3233,
+              "halo_overlap_fraction": 0.4097072614370802
+            },
+            "3537e9fc47a465036a8c1462b99a29b7f3449ee2e7bb94fd0a12d438a85b375d": {
+              "allowance": 5365,
+              "placed_in_halo": 3230,
+              "halo_overlap_fraction": 0.40932708148523633
+            },
+            "3543d0c430ca1ef145204b81ef44fa736794f1240d63745f9f31f1d0e1edee0e": {
+              "allowance": 5365,
+              "placed_in_halo": 3223,
+              "halo_overlap_fraction": 0.40843999493093397
+            },
+            "3589e89a1ad4f78f54e6f17f9b7cdb0edb563f66aedfcdabd632ef8774968c3a": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "35b648795818c96c444ee66d1d58fbf1146aa9ef70a4a2f69cab27784b210b86": {
+              "allowance": 5365,
+              "placed_in_halo": 3722,
+              "halo_overlap_fraction": 0.4716765935876315
+            },
+            "38539dc647d5ede0d8fa90123810d18130ee15e524097f55e83b6b8a57976ea9": {
+              "allowance": 5365,
+              "placed_in_halo": 4674,
+              "halo_overlap_fraction": 0.5923203649727538
+            },
+            "388b31312ab1dc53d839a5a584970a8c9cd2f7dca6a286c36945b89a5ef07be0": {
+              "allowance": 5365,
+              "placed_in_halo": 4385,
+              "halo_overlap_fraction": 0.5556963629451274
+            },
+            "3ccf68834ad2e3de331252cc14de72d5d30284a7da70aebe86445299c01adf26": {
+              "allowance": 5365,
+              "placed_in_halo": 3739,
+              "halo_overlap_fraction": 0.47383094664808006
+            },
+            "40524184b4cc88a0fa92c3fcc869b2d6ebb9a87c6c2019105fcf9716b419d8fb": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "41216d099db0e077dcdedb99c0fcda879c4d9406fafa42b45b78a968f6349c38": {
+              "allowance": 5365,
+              "placed_in_halo": 3571,
+              "halo_overlap_fraction": 0.45254086934482324
+            },
+            "42bffef1b5973973cdcb52c252067b33159e03fa721d1f58bec83f18ca779a21": {
+              "allowance": 5365,
+              "placed_in_halo": 4240,
+              "halo_overlap_fraction": 0.5373209986060068
+            },
+            "46a0f0fa2f63e6e6b4a5fe4520e999b925cf3ff954a01b10b36b735c1b0649c8": {
+              "allowance": 5365,
+              "placed_in_halo": 2863,
+              "halo_overlap_fraction": 0.36281840070966925
+            },
+            "47caaca53d2906f797459abf1194fb81ee1181e05cf5c9a6e74e6f57b0999b98": {
+              "allowance": 5365,
+              "placed_in_halo": 5365,
+              "halo_overlap_fraction": 0.6798884805474591
+            },
+            "4a931832d76040b51252649e525376a31b5b15b3bb8c2ffbda8758531211776b": {
+              "allowance": 5365,
+              "placed_in_halo": 2815,
+              "halo_overlap_fraction": 0.3567355214801673
+            },
+            "4aff087dee275bc4958c787308a6141965479856dc38915dba5a6cd81e24989f": {
+              "allowance": 5365,
+              "placed_in_halo": 3109,
+              "halo_overlap_fraction": 0.3939931567608668
+            },
+            "4c31411088a92d83589b1fd0557c00460069b1a7cfbbe18a0fb1ceaa1b38d420": {
+              "allowance": 5365,
+              "placed_in_halo": 3178,
+              "halo_overlap_fraction": 0.4027372956532759
+            },
+            "4d00b72c78fa21c258061079daad55c3a99b1bc91dc5d3e2516ad4c0e90ba334": {
+              "allowance": 5365,
+              "placed_in_halo": 3656,
+              "halo_overlap_fraction": 0.4633126346470663
+            },
+            "4d6548d4ec07a47a25b83d28ebc05d58b57448c1507b460aed52cec395bdb6b5": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "50041161e7a7922992f05c9e027092806f13b1537d1888fd10d461bbd4a8b6c2": {
+              "allowance": 5365,
+              "placed_in_halo": 3123,
+              "halo_overlap_fraction": 0.39576732986947155
+            },
+            "516661e70e3e9c923a4e162a8ece8c7c9ad21e9814a7a3db13c805bc06d9f39a": {
+              "allowance": 5365,
+              "placed_in_halo": 3172,
+              "halo_overlap_fraction": 0.40197693574958815
+            },
+            "542eaf30766ba57b122cc85fb239e407294a282e1259dcceae0c55575ee19f95": {
+              "allowance": 5365,
+              "placed_in_halo": 3222,
+              "halo_overlap_fraction": 0.40831326828031933
+            },
+            "54dfe8bd79f767370558bebc1c23366cb43e5e5a4b26c7d9d14131c8b58bdc0c": {
+              "allowance": 5365,
+              "placed_in_halo": 3276,
+              "halo_overlap_fraction": 0.41515650741350907
+            },
+            "566bfd0a4fe4486d7fae3fec0f3ac52329b1da98d409984e2c0187f557bfe8d4": {
+              "allowance": 5365,
+              "placed_in_halo": 3330,
+              "halo_overlap_fraction": 0.42199974654669875
+            },
+            "5823def4fab491ac6bd667cedb467c0540fd1bbce1351992289f4a609e7b775e": {
+              "allowance": 5365,
+              "placed_in_halo": 3326,
+              "halo_overlap_fraction": 0.42149283994424025
+            },
+            "5b59e106b6e448038b96fb340c5bae39094d4558c239c437aea28b6020d5d32f": {
+              "allowance": 5365,
+              "placed_in_halo": 3276,
+              "halo_overlap_fraction": 0.41515650741350907
+            },
+            "5c5c1784c615c807423479d497a3ca1faa1607dbc11aa413b05b96801629c427": {
+              "allowance": 5365,
+              "placed_in_halo": 3259,
+              "halo_overlap_fraction": 0.4130021543530604
+            },
+            "5db55c064eb0b920beb84cd4d6de426a347206b7b8a2c9adc8cfb343084a570b": {
+              "allowance": 5365,
+              "placed_in_halo": 3128,
+              "halo_overlap_fraction": 0.3964009631225447
+            },
+            "609af5bce51d916fbba1fd383615323803591814823ac794d04b9a3374975b3f": {
+              "allowance": 5365,
+              "placed_in_halo": 3429,
+              "halo_overlap_fraction": 0.4345456849575466
+            },
+            "60a7930a5ac229bb8a3a81656de49c1e228eab8398e0b26316972d516a2951f5": {
+              "allowance": 5365,
+              "placed_in_halo": 3817,
+              "halo_overlap_fraction": 0.4837156253960208
+            },
+            "612412b48e45704e40a00718589da6a04f12e0b23d55954094de7c4ebc85a44f": {
+              "allowance": 5365,
+              "placed_in_halo": 3276,
+              "halo_overlap_fraction": 0.41515650741350907
+            },
+            "61f9b53de42786e6d48afa50fd453a87c57d5d7b9b626c7dcf28c2dfbd20f411": {
+              "allowance": 5365,
+              "placed_in_halo": 3817,
+              "halo_overlap_fraction": 0.4837156253960208
+            },
+            "6292a7916c83d371fc650b0f0c6a090702b9890eaa6e6546d50f104eea2fadc3": {
+              "allowance": 5365,
+              "placed_in_halo": 3519,
+              "halo_overlap_fraction": 0.4459510835128628
+            },
+            "629800b15ca54906b1bfcbde8811273a47b90d112038b86aea6701460070e1ed": {
+              "allowance": 5365,
+              "placed_in_halo": 3215,
+              "halo_overlap_fraction": 0.40742618172601697
+            },
+            "641cc910f2be240a2a9d298926fec5a337542cdfd0010c39f18baad66fb8fe88": {
+              "allowance": 5365,
+              "placed_in_halo": 3271,
+              "halo_overlap_fraction": 0.41452287416043593
+            },
+            "64faebf44c5a5e03ef596efdc7ba4123ef0343b223988118a7e8dcd09dc51490": {
+              "allowance": 5365,
+              "placed_in_halo": 3553,
+              "halo_overlap_fraction": 0.45025978963375995
+            },
+            "6733bbde40e61bc16309d351b0c3f92c17f30aab023eaf07db80795198867096": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "699d9c7f6d136818af48ed65d357bcd6eca828e530c73c4d80c3a6cca4214b81": {
+              "allowance": 5365,
+              "placed_in_halo": 4711,
+              "halo_overlap_fraction": 0.5970092510454948
+            },
+            "69d7cdbb1337b07278dd73f4e605cd35c185e8f9cfef18614d4c9c071800a8cf": {
+              "allowance": 5365,
+              "placed_in_halo": 3128,
+              "halo_overlap_fraction": 0.3964009631225447
+            },
+            "6bcf9de850471535816e1a798983a329b4408d39cfa91d4c17511e7fe0158a38": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "703ea58b0e49479d57acb9293d748d861b07eba80898aa6bc0ed07595bc1dc91": {
+              "allowance": 5365,
+              "placed_in_halo": 2802,
+              "halo_overlap_fraction": 0.35508807502217715
+            },
+            "70c4ccd5dd51c6cbf1c0b8019738885a357dde7be64c17b4fb278a12f073e1e4": {
+              "allowance": 5365,
+              "placed_in_halo": 5365,
+              "halo_overlap_fraction": 0.6798884805474591
+            },
+            "73a8dcb305609def44f4c2cc421f6c4a3c4d5c45a9fe8ef64078a58706908fb4": {
+              "allowance": 5365,
+              "placed_in_halo": 3274,
+              "halo_overlap_fraction": 0.4149030541122798
+            },
+            "741f781734cbbf7145c2f7c93112d2272e62213205f15283babad65433a7fc28": {
+              "allowance": 5365,
+              "placed_in_halo": 3402,
+              "halo_overlap_fraction": 0.4311240653909517
+            },
+            "749fdffc1b9a6d5b610513e9ab8f68576feb102f419f234647180eb04d30f9d6": {
+              "allowance": 5365,
+              "placed_in_halo": 3201,
+              "halo_overlap_fraction": 0.40565200861741224
+            },
+            "756af6ee74b3fd456eeb30bbcaaa41de51d3cdc17222b04166d8280ba7c18c3e": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "7637b72d4c6c3e10226bf46bd72a20272d62ccbe29743062632d10b158b49c58": {
+              "allowance": 5365,
+              "placed_in_halo": 4120,
+              "halo_overlap_fraction": 0.522113800532252
+            },
+            "7810719248d2aa17b4aefdc838bf7ea5ad90a08ae0882c7f96f158bf01696302": {
+              "allowance": 5365,
+              "placed_in_halo": 2884,
+              "halo_overlap_fraction": 0.36547966037257634
+            },
+            "7884f24bcb0eff0e9d3b196a07560ee5aff39b7fce83a96b6bcf90b006ef5b45": {
+              "allowance": 5365,
+              "placed_in_halo": 4253,
+              "halo_overlap_fraction": 0.538968445063997
+            },
+            "789dd56c4287cd50c8d2d5e3f063828a8d25a275d82bd8418a4cf971d908b8a6": {
+              "allowance": 5365,
+              "placed_in_halo": 5163,
+              "halo_overlap_fraction": 0.654289697123305
+            },
+            "78a916d09ba6af7f6d88fa9e8ff2e9f79696297cab2e11786a472dbed21c24e9": {
+              "allowance": 5365,
+              "placed_in_halo": 3555,
+              "halo_overlap_fraction": 0.45051324293498923
+            },
+            "7b6010637ae341b56f7d211eaf892b239822b0668d3f5556af0eecb505a228d3": {
+              "allowance": 5365,
+              "placed_in_halo": 5274,
+              "halo_overlap_fraction": 0.6683563553415284
+            },
+            "7cacff894c4444997e2ee8896582cda82ad34a43cf039cfb960befa20577d005": {
+              "allowance": 5365,
+              "placed_in_halo": 4259,
+              "halo_overlap_fraction": 0.5397288049676847
+            },
+            "7f00890a62878d612fb5eef67a9a364a2df819433dde74b6762ce4fc0fc4fe15": {
+              "allowance": 5365,
+              "placed_in_halo": 2884,
+              "halo_overlap_fraction": 0.36547966037257634
+            },
+            "7f0fbe2fcec056f2a06f927f011a2010c95608ea610bcf56db62cb2bae4b8806": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "7f71739a2804bf2fa7199d30d512e0a267e4cfa2fdd0d32304b962db65b98662": {
+              "allowance": 5365,
+              "placed_in_halo": 3346,
+              "halo_overlap_fraction": 0.42402737295653276
+            },
+            "82359f80280062072a4fdd8723d637a9bed0b77223386c319ab35bac990d8f23": {
+              "allowance": 5365,
+              "placed_in_halo": 3369,
+              "halo_overlap_fraction": 0.4269420859206691
+            },
+            "861c880e7a56203d197182075765480efaf224ad6cfde342fab511f5f908fa4c": {
+              "allowance": 5365,
+              "placed_in_halo": 3422,
+              "halo_overlap_fraction": 0.4336585984032442
+            },
+            "8624c5a58c681f57a6d26cab0652cfe654bcd46dc8ba68a7d5a4c0feaa29bc89": {
+              "allowance": 5365,
+              "placed_in_halo": 5365,
+              "halo_overlap_fraction": 0.6798884805474591
+            },
+            "8721329b55c72635803cca27414f3d0ffe4705f48285de0dc7c29d6fd3eb90d3": {
+              "allowance": 5365,
+              "placed_in_halo": 4711,
+              "halo_overlap_fraction": 0.5970092510454948
+            },
+            "87eda0c871f8f2ff03482452674010083486aad534e6a7f75dc3124177a34db1": {
+              "allowance": 5365,
+              "placed_in_halo": 4172,
+              "halo_overlap_fraction": 0.5287035863642124
+            },
+            "883d93f2801987481f8ffb761eeae8f7a39520ad3b670e09129bdaaf7983e2c7": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "886e470530d8b23a4967a7f8d9f55df5fb39441ff7b544490cab457d076731f7": {
+              "allowance": 5365,
+              "placed_in_halo": 2863,
+              "halo_overlap_fraction": 0.36281840070966925
+            },
+            "88976dc5b2504838b193d41b718df95eb1e237b870b94a6443dc3bee65e98e06": {
+              "allowance": 5365,
+              "placed_in_halo": 5177,
+              "halo_overlap_fraction": 0.6560638702319098
+            },
+            "8a59bc5ea68df8c64f2467fd5e8b3652a324fa3d5e364b9e974d993401c2ec1f": {
+              "allowance": 5365,
+              "placed_in_halo": 3656,
+              "halo_overlap_fraction": 0.4633126346470663
+            },
+            "8a85485ed0877d240ece6b07883641d04fa64cdf8d3687ff767a068346350313": {
+              "allowance": 5365,
+              "placed_in_halo": 4172,
+              "halo_overlap_fraction": 0.5287035863642124
+            },
+            "92904a5bfd84c8bd1141683fc5d29817aa4de71574d8caff5b40f7ed0072a5b8": {
+              "allowance": 5365,
+              "placed_in_halo": 2802,
+              "halo_overlap_fraction": 0.35508807502217715
+            },
+            "92d5062aeaf17a9a397bb595e14e0b91887e4a358da4e53cbc417a56d9967981": {
+              "allowance": 5365,
+              "placed_in_halo": 3648,
+              "halo_overlap_fraction": 0.4622988214421493
+            },
+            "93d1a77e8d90e4a60dd68e2785b4a1b5cf8b34bfad80109c79354cae74c61c06": {
+              "allowance": 5365,
+              "placed_in_halo": 3338,
+              "halo_overlap_fraction": 0.42301355975161575
+            },
+            "9606cef20d34046e9b5f6d506df642847ffae1deafe97fc9e75a07c0094a94f5": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "96737553f2c6322bdf9870759b0e14c4bedd55f11eb4ce8e0f1ffb3e5288dd28": {
+              "allowance": 5365,
+              "placed_in_halo": 3429,
+              "halo_overlap_fraction": 0.4345456849575466
+            },
+            "9a5f5433cbfed4a1a8ac2587678aaa930c8ed93e948b9e94874c8febc549fd57": {
+              "allowance": 5365,
+              "placed_in_halo": 3297,
+              "halo_overlap_fraction": 0.41781776707641616
+            },
+            "9b4a7b83fd7bb58bed86692059f112ffc9418b8bd6f0704100dabef1f98c7682": {
+              "allowance": 5365,
+              "placed_in_halo": 3178,
+              "halo_overlap_fraction": 0.4027372956532759
+            },
+            "9b4cf4450bbc6c13b307e5ec89f0dd2d2f0a54245b1757287541079098fba0de": {
+              "allowance": 5365,
+              "placed_in_halo": 2983,
+              "halo_overlap_fraction": 0.3780255987834242
+            },
+            "9bd1e50d86114daa7c944d0c6d4f9f7cba6ba5070ae98ba5e45a965d78650777": {
+              "allowance": 5365,
+              "placed_in_halo": 3096,
+              "halo_overlap_fraction": 0.3923457103028767
+            },
+            "9f36769d415ff85e7ed62a610092fffb94cda970949c0087a29a38b71456d8c1": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "a0e4b3f31cb84270b10d19fff8399412a0850f3cffeb77d59b553c7ff0475d67": {
+              "allowance": 5365,
+              "placed_in_halo": 2702,
+              "halo_overlap_fraction": 0.34241540996071473
+            },
+            "a0eaa98c3294a7686d26753348bca9eaf143f089a9d39d827ee19ddb7e55ffac": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "a1a26570f336e84a743e5acb451df16ede8734613f1f9a4b1d515ff69d369ba3": {
+              "allowance": 5365,
+              "placed_in_halo": 3424,
+              "halo_overlap_fraction": 0.43391205170447344
+            },
+            "a26e5e46acc00ddd867f0b2910e638b25e4e81108ebe05c0abcc7c9b04372247": {
+              "allowance": 5365,
+              "placed_in_halo": 3569,
+              "halo_overlap_fraction": 0.45228741604359396
+            },
+            "a9f99d5cbc5b616fd5b0535ace4d43246fc31a3f865277f26f4acc8495cc9817": {
+              "allowance": 5365,
+              "placed_in_halo": 3222,
+              "halo_overlap_fraction": 0.40831326828031933
+            },
+            "aac8aa8a021ee309c91c5084f17ff2d64623163faa382cfd76ca781352d945b8": {
+              "allowance": 5365,
+              "placed_in_halo": 2969,
+              "halo_overlap_fraction": 0.3762514256748194
+            },
+            "aac907db6aadc3d07a4eeb2531a0be200ee0143599ab304921e4f4f742fbc02a": {
+              "allowance": 5365,
+              "placed_in_halo": 4339,
+              "halo_overlap_fraction": 0.5498669370168546
+            },
+            "ab9076de63bd76fd8857b0dba81f6c19be4a95377cb52802f71ccf177cf9b9ce": {
+              "allowance": 5365,
+              "placed_in_halo": 3943,
+              "halo_overlap_fraction": 0.49968318337346346
+            },
+            "abb0cb1349c9745a27156ebd95b435dec6086d38d9be3ec637400001d9fa33a0": {
+              "allowance": 5365,
+              "placed_in_halo": 3355,
+              "halo_overlap_fraction": 0.4251679128120644
+            },
+            "ac4ebc913a172f3415f14a3b47b169af03798cff3a643ffd0a89451b869259be": {
+              "allowance": 5365,
+              "placed_in_halo": 3884,
+              "halo_overlap_fraction": 0.49220631098720063
+            },
+            "ad9750be86acf6b8c253dcd8f1ee6487c2ea8327a582a8c9e6a765d16037d319": {
+              "allowance": 5365,
+              "placed_in_halo": 4930,
+              "halo_overlap_fraction": 0.6247623875300976
+            },
+            "ae5c5aafce85a395af73944ab10f3fc2cad7bcc1244d49a52d53443bd0f5c3c2": {
+              "allowance": 5365,
+              "placed_in_halo": 4347,
+              "halo_overlap_fraction": 0.5508807502217716
+            },
+            "aeaa9a46236a658d91a05be48d54f14b44804c967d590314caeb2c0a82511f60": {
+              "allowance": 5365,
+              "placed_in_halo": 4337,
+              "halo_overlap_fraction": 0.5496134837156254
+            },
+            "b0afa9ecc6ff5dbc9ee55cd4e32a818113411aad911e2dae7c87b72d2715530f": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "b2f89a83ffb1080c512bb46c6feae3a6211207cd619e0291bd2d767c002be87f": {
+              "allowance": 5365,
+              "placed_in_halo": 3370,
+              "halo_overlap_fraction": 0.42706881257128376
+            },
+            "b33684ae033512a1a1c7d2cfccd128955fedfdff2a8fed6c7585a755b1b58b3c": {
+              "allowance": 5365,
+              "placed_in_halo": 3541,
+              "halo_overlap_fraction": 0.4487390698263845
+            },
+            "b6d91ba6f6a703c45bbd71dca43209f95521be52dfa4d9ae96fc8270c392740c": {
+              "allowance": 5365,
+              "placed_in_halo": 4385,
+              "halo_overlap_fraction": 0.5556963629451274
+            },
+            "b748e0f97738a5e3b0feaf35dab340ff1dcedd6b8d2124f2b54b5f1b0f14d7d3": {
+              "allowance": 5365,
+              "placed_in_halo": 3429,
+              "halo_overlap_fraction": 0.4345456849575466
+            },
+            "b7e39108f9718021edaac2920680ee49d3ffdcacab93e38822081556407d6010": {
+              "allowance": 5365,
+              "placed_in_halo": 3456,
+              "halo_overlap_fraction": 0.43796730452414145
+            },
+            "b7ea86e8893434e3ea6616cdba07ac3e55e3b8bd0bc42add68bdf5d4084efc22": {
+              "allowance": 5365,
+              "placed_in_halo": 3137,
+              "halo_overlap_fraction": 0.3975415029780763
+            },
+            "b83ea0e7074882ceee31de89695281c00ade51f26a0a7048f628f60058755356": {
+              "allowance": 5365,
+              "placed_in_halo": 4064,
+              "halo_overlap_fraction": 0.515017108097833
+            },
+            "b9530b70065da1f5e9da82caf4f5aaba3d7175dbbbfb2851e4b2ab2dd13aa4f1": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "b9ca8c093d3b0812112f2c62b06e2047a48156e71136c735962ececfb20372bf": {
+              "allowance": 5365,
+              "placed_in_halo": 3884,
+              "halo_overlap_fraction": 0.49220631098720063
+            },
+            "ba1ef907a699a879135062235eae5acd43c2adc9b616653e1e609a9b59134398": {
+              "allowance": 5365,
+              "placed_in_halo": 3411,
+              "halo_overlap_fraction": 0.43226460524648336
+            },
+            "bb1f328dbf12395254305bd74094a22e1582cd5110576c01ddb02daca45bffa0": {
+              "allowance": 5365,
+              "placed_in_halo": 2837,
+              "halo_overlap_fraction": 0.359523507793689
+            },
+            "bb517a03bbce13900d8bc973365ffbea077a580a706edb5fc8587fba1a659847": {
+              "allowance": 5365,
+              "placed_in_halo": 3402,
+              "halo_overlap_fraction": 0.4311240653909517
+            },
+            "bd1e3d056e83e792aed8c77b3249f833d119320779b94d2eb7c5b65ac5161428": {
+              "allowance": 5365,
+              "placed_in_halo": 5365,
+              "halo_overlap_fraction": 0.6798884805474591
+            },
+            "bdc045934e4a2e33a90093ef07e4968f9fffb016ce3ff3e780bbe7fa5c32977a": {
+              "allowance": 5365,
+              "placed_in_halo": 4931,
+              "halo_overlap_fraction": 0.6248891141807122
+            },
+            "be9dfc8f3643b8a70748ab6d018aeed055792f2bf36a3ae96f46568a85158229": {
+              "allowance": 5365,
+              "placed_in_halo": 2919,
+              "halo_overlap_fraction": 0.3699150931440882
+            },
+            "c02930644a5c3b1051a57c5f2092bb1c942d6adb07d6ca76be205ad8e0d46ab9": {
+              "allowance": 5365,
+              "placed_in_halo": 3109,
+              "halo_overlap_fraction": 0.3939931567608668
+            },
+            "c36696693639749791286bcd58e48a78ff79d4651b63fc33d273aab8191df0d4": {
+              "allowance": 5365,
+              "placed_in_halo": 4592,
+              "halo_overlap_fraction": 0.5819287796223546
+            },
+            "c3bf15a0471c5f00d3a436f2328ef443564a955f44a32776485e706344529839": {
+              "allowance": 5365,
+              "placed_in_halo": 3123,
+              "halo_overlap_fraction": 0.39576732986947155
+            },
+            "c5ea501eba0ab840d26f0c017d01074c4bd9040ec5e2c5ac19bde8655d150e64": {
+              "allowance": 5365,
+              "placed_in_halo": 2884,
+              "halo_overlap_fraction": 0.36547966037257634
+            },
+            "c9a83c6c8f230ae85b829933a127b65b3832b03b5eaccd8a687ce8bbf1858d5b": {
+              "allowance": 5365,
+              "placed_in_halo": 4448,
+              "halo_overlap_fraction": 0.5636801419338486
+            },
+            "cb755e0b91642a085c74bb70eeeb6d89018287226aea93e02d45e9e779df3341": {
+              "allowance": 5365,
+              "placed_in_halo": 3224,
+              "halo_overlap_fraction": 0.4085667215815486
+            },
+            "ce3f70fa2e1e7bbea60c8c62a2f805c22d15b8a8905ebec757259617ceb02fbc": {
+              "allowance": 5365,
+              "placed_in_halo": 4753,
+              "halo_overlap_fraction": 0.6023317703713091
+            },
+            "ce749a992baec603460dfeddd068758855cb8b12978268e6ef94f6e23ffd9ee7": {
+              "allowance": 5365,
+              "placed_in_halo": 4585,
+              "halo_overlap_fraction": 0.5810416930680522
+            },
+            "cf59ad8290e4f883b6c9d0fd19871a003a4e32bede578860b56ff5815966db40": {
+              "allowance": 5365,
+              "placed_in_halo": 3276,
+              "halo_overlap_fraction": 0.41515650741350907
+            },
+            "d07cbb6f69076e76f1a8a4806ddc5639421bc9a59b10d80a09b9fb423bb99427": {
+              "allowance": 5365,
+              "placed_in_halo": 4674,
+              "halo_overlap_fraction": 0.5923203649727538
+            },
+            "d0c5fd6825b544eb08672303c11292eb99d6105e42a41eac0e5a211a3fdc69e5": {
+              "allowance": 5365,
+              "placed_in_halo": 5163,
+              "halo_overlap_fraction": 0.654289697123305
+            },
+            "d1e87159a8908f0051352c091d9343e8e5128e2c8eea0debdd17589a02692dad": {
+              "allowance": 5365,
+              "placed_in_halo": 3271,
+              "halo_overlap_fraction": 0.41452287416043593
+            },
+            "d34ad9224ccbd7c7c2bad4382272c80afc2f1850daf46ae7b1f9c6edcf1939f4": {
+              "allowance": 5365,
+              "placed_in_halo": 3943,
+              "halo_overlap_fraction": 0.49968318337346346
+            },
+            "d4a5de924057eec12c4e4ee9bdb5de361754b7bc9ace8691f86cb1ace51e57e2": {
+              "allowance": 5365,
+              "placed_in_halo": 3377,
+              "halo_overlap_fraction": 0.4279558991255861
+            },
+            "d7977d7b93287f17fbf3cb85f10fdbee4acc5c8453a7faa451e760363433a286": {
+              "allowance": 5365,
+              "placed_in_halo": 4582,
+              "halo_overlap_fraction": 0.5806615131162083
+            },
+            "d7fc78a036f325ddb80f94fdda1864b4af0889eb58b0291356945fb1b44e1da0": {
+              "allowance": 5365,
+              "placed_in_halo": 4828,
+              "halo_overlap_fraction": 0.6118362691674059
+            },
+            "db0dd67da44b83bc47f05289c05e2e917118d04b03e4958076f64661b726fb6b": {
+              "allowance": 5365,
+              "placed_in_halo": 3172,
+              "halo_overlap_fraction": 0.40197693574958815
+            },
+            "dc6a7a597a511152551dcf202ecee280429cf13e977e849058b449cf5ce36fd9": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "e050b1ec627e8207c1fe5f7530f015d0cf2feb6bb98c5bce225e5db806afb0e3": {
+              "allowance": 5365,
+              "placed_in_halo": 5177,
+              "halo_overlap_fraction": 0.6560638702319098
+            },
+            "e13394d96baf6867f3a6851d9243de74f8d37c581ff003dbdf3e7497f58dab38": {
+              "allowance": 5365,
+              "placed_in_halo": 2970,
+              "halo_overlap_fraction": 0.37637815232543403
+            },
+            "e15f2d96c585bf2446dead518f1916f7307490b2ed2f6d72ee8c5788dfed2f63": {
+              "allowance": 5365,
+              "placed_in_halo": 3259,
+              "halo_overlap_fraction": 0.4130021543530604
+            },
+            "e1b943c37103db06c96884492a9a5519c89234e8a83fc9b1674f7f436f9cdf45": {
+              "allowance": 5365,
+              "placed_in_halo": 2970,
+              "halo_overlap_fraction": 0.37637815232543403
+            },
+            "e29e8f04e048a4aa210edbc1128dc39703e9271a11c02a5a391c7753339b0125": {
+              "allowance": 5365,
+              "placed_in_halo": 4339,
+              "halo_overlap_fraction": 0.5498669370168546
+            },
+            "e3ce40ccdf285f8fffccc1c55a8c7b48452a921f59d312ded90f7f70f3b52cde": {
+              "allowance": 5365,
+              "placed_in_halo": 3316,
+              "halo_overlap_fraction": 0.420225573438094
+            },
+            "e4c718f450130e2e07e14ef506f051ea974c53382740974e758858519e866fe4": {
+              "allowance": 5365,
+              "placed_in_halo": 2518,
+              "halo_overlap_fraction": 0.3190977062476239
+            },
+            "e5711e098797ccd5f4dd471290ff3a758d24fe21c29072138bdf770f8ecfd120": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "e5f3684e9b49e8f11019f87e047017c5ab8a46294935bc0c7c80859ca7d2b1ce": {
+              "allowance": 5365,
+              "placed_in_halo": 4592,
+              "halo_overlap_fraction": 0.5819287796223546
+            },
+            "e6f82d42c751e77f93f79d0c62c6ac0574daf9e35c827b1566753fe26b0984ef": {
+              "allowance": 5365,
+              "placed_in_halo": 2983,
+              "halo_overlap_fraction": 0.3780255987834242
+            },
+            "e6f8d6ebbaa28fd758d7c744e4f9bc4928a70b18a0d06d3e51041ad1e3b52257": {
+              "allowance": 5365,
+              "placed_in_halo": 3218,
+              "halo_overlap_fraction": 0.40780636167786083
+            },
+            "e9bfb8fd27989c073fc57a04cf6f0f3eca9c49b7f82dfec5c9f10e424e703a91": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "ead50e13592a2facea8b01b9eceb292693a5b21c76319ab8cd9ae37a0e133f3b": {
+              "allowance": 5365,
+              "placed_in_halo": 3000,
+              "halo_overlap_fraction": 0.38017995184387277
+            },
+            "eaf1ed0cfe60922f96cb57929083e65b1b715acc9803f005a9e520cf1699006b": {
+              "allowance": 5365,
+              "placed_in_halo": 4253,
+              "halo_overlap_fraction": 0.538968445063997
+            },
+            "ed1b767f75804048382fc8baf61ff1edad6e9fd7b5b214def715ba5a1e290f6d": {
+              "allowance": 5365,
+              "placed_in_halo": 2758,
+              "halo_overlap_fraction": 0.3495121023951337
+            },
+            "eefc2885990d5f5ae0c943ab152ef69de6de1c6c722420e1dbcd6e4af634ecac": {
+              "allowance": 5365,
+              "placed_in_halo": 3090,
+              "halo_overlap_fraction": 0.39158535039918896
+            },
+            "f06ada5aa834ceaf65e8700e36bbd46eddb96929b42c9041c72c8369c1022838": {
+              "allowance": 5365,
+              "placed_in_halo": 3313,
+              "halo_overlap_fraction": 0.41984539348625016
+            },
+            "f11c8684b152c2ccefc51c1f725491e31499bbef2091a0284b47cc35d785f93e": {
+              "allowance": 5365,
+              "placed_in_halo": 3200,
+              "halo_overlap_fraction": 0.4055252819667976
+            },
+            "f1d7b06a9a1e34861b57953829b96d4f405b6eecb7fa00766cca5407ce50225e": {
+              "allowance": 5365,
+              "placed_in_halo": 3222,
+              "halo_overlap_fraction": 0.40831326828031933
+            },
+            "f514ed677937c3efd3227427d5680a674a9e3ebe62dfe7ebf14270b829cf5258": {
+              "allowance": 5365,
+              "placed_in_halo": 3555,
+              "halo_overlap_fraction": 0.45051324293498923
+            },
+            "f614e72d999941b8ded1746ea11900ac0a653184a3c55226fdb9cc6f90b07d2a": {
+              "allowance": 5365,
+              "placed_in_halo": 3455,
+              "halo_overlap_fraction": 0.4378405778735268
+            },
+            "f68e590f8534d036872f18170819b52366c728e68619f17c648dce9629b0aaf2": {
+              "allowance": 5365,
+              "placed_in_halo": 2916,
+              "halo_overlap_fraction": 0.36953491319224435
+            },
+            "f7e5645f10ffb9961ad3199ff83c67cd3bc9375d75af971cf656253dae1057c5": {
+              "allowance": 5365,
+              "placed_in_halo": 3456,
+              "halo_overlap_fraction": 0.43796730452414145
+            },
+            "f87d3fc008230ec12a2b2ad260de643d15b8e474135d28020dafd2c784d2cbd5": {
+              "allowance": 5365,
+              "placed_in_halo": 4197,
+              "halo_overlap_fraction": 0.531871752629578
+            },
+            "faaad2cf0841f6d27de61d7048b0f16999eea80dd9479f24fef2f6065ef8f82f": {
+              "allowance": 5365,
+              "placed_in_halo": 3090,
+              "halo_overlap_fraction": 0.39158535039918896
+            },
+            "faebf9e13f763ccedd2486df2209e6e7f37d1a5548495003e2401c5b03d538c8": {
+              "allowance": 5365,
+              "placed_in_halo": 3189,
+              "halo_overlap_fraction": 0.40413128881003674
+            },
+            "fb2d0d2d74bad2b52c6fcd48db5d8e2855c938fd222798e03fc01a96dbdc6d0e": {
+              "allowance": 5365,
+              "placed_in_halo": 4197,
+              "halo_overlap_fraction": 0.531871752629578
+            },
+            "fc96a096abcb5972af2ae0404807c9275975e881dd5b3fc28c38b2071d44890b": {
+              "allowance": 5365,
+              "placed_in_halo": 3330,
+              "halo_overlap_fraction": 0.42199974654669875
+            },
+            "fe7eb41038baea535c5404adace8b062b0758babda8e0d5213351614a02cfbe3": {
+              "allowance": 5365,
+              "placed_in_halo": 3480,
+              "halo_overlap_fraction": 0.4410087441388924
+            },
+            "fed5232e8efeefef00728ce9d5884f08e007c542f317cb11419452d14ff866da": {
+              "allowance": 5365,
+              "placed_in_halo": 4582,
+              "halo_overlap_fraction": 0.5806615131162083
+            },
+            "fffa7524b3f6e5a3b58f90b33aa9bc37982e214915ee3a16ca981feb2aa6cae3": {
+              "allowance": 5365,
+              "placed_in_halo": 3436,
+              "halo_overlap_fraction": 0.43543277151184895
+            }
+          }
+        },
+        "cover_uncapped_control": {
+          "requested": 7891,
+          "emitted": 7891,
+          "spacing_px": 3,
+          "exhausted": false,
+          "rule": "tile-cover-decimated-uncapped"
+        },
+        "topk_collar_control": {
+          "requested": 7891,
+          "emitted": 7891,
+          "spacing_px": 3,
+          "exhausted": false,
+          "eligible_positive_pixels": 1021681
+        },
+        "x1_topk_reproduction": {
+          "requested": 7891,
+          "emitted": 7891,
+          "spacing_px": 3,
+          "exhausted": false,
+          "eligible_positive_pixels": 1069958
+        }
+      },
+      "withheld_truth": 3262
+    }
+  ],
+  "h33_control_source": {
+    "repo": "GEMSDOE68",
+    "path": "registry/rasters/rasters/GEMSDOE25__dotted-h19-5-d2-8.tif",
+    "blob": "bfb7e86d046dd178c3d6ab60522861b5464dd420",
+    "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30"
+  },
+  "feature_names": [
+    "tf_mag_anom",
+    "tf_rtp",
+    "rtp_gradmag_s2",
+    "rtp_log_s2",
+    "rtp_gradmag_s5",
+    "rtp_log_s5",
+    "tf_tmi_hg",
+    "tf_geod_2ndinv",
+    "tf_iso_grav_anom_slope",
+    "tf_tc",
+    "tf_geod_shearrate",
+    "tf_geod_dilaterate",
+    "tf_tmi_vg",
+    "tf_deq_n100a15",
+    "tf_iso_grav_anom_vg",
+    "tf_det_elev",
+    "det_elev_gradmag_s1",
+    "det_elev_log_s1",
+    "det_elev_gradmag_s3",
+    "det_elev_log_s3",
+    "tf_iso_grav_anom",
+    "iso_grav_anom_gradmag_s2",
+    "iso_grav_anom_log_s2",
+    "iso_grav_anom_gradmag_s5",
+    "iso_grav_anom_log_s5",
+    "tf_tmi",
+    "tf_depth_to_base_surf",
+    "tf_ieq_n100a15",
+    "tf_cond_surf",
+    "tf_iso_grav_anom_hg",
+    "tf_det_elev_slope",
+    "ex_max",
+    "ex_max_max5",
+    "ex_mean",
+    "step_max",
+    "step_max_max5",
+    "lapneg_max",
+    "lappos_max",
+    "downface_max",
+    "downface_max_max5",
+    "upface_max",
+    "cross_max",
+    "relief",
+    "coh100",
+    "K",
+    "Th",
+    "U",
+    "TC",
+    "ThK",
+    "UK",
+    "UTh",
+    "TMI_up150",
+    "log_dist_visible",
+    "visible_density_s5",
+    "visible_density_s20",
+    "log_dist_visible_tip",
+    "lidar_strike_alignment",
+    "strike_field_coherence"
+  ],
+  "static_stack_inputs": {
+    "training_features.tif": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "lidar_scarp_features_u8.tif": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+    "geodawn_rad_u8.tif": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682",
+    "geodawn_extensions_u8.tif": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b"
+  },
+  "arms": [
+    "candidate",
+    "cover_uncapped_control",
+    "topk_collar_control",
+    "x1_topk_reproduction",
+    "uniform_control",
+    "h33_foldfair_control"
+  ]
+}

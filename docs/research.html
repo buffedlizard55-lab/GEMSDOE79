@@ -6,7 +6,156 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 31f55b3a (H79-DCE lane)</h2>
+<p>Written before any H79-DCE holdout result existed (preregistration:
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_dce.json"><code>registry/preregistration_dce.json</code></a>,
+pinned <code>evidence/preregistration_dce_sha256.txt</code>).
+Ranks are qualitative judgements of expected DTI improvement, uniqueness
+survival and cost, <strong>not scores</strong>. Only hypothesis 1 was executed this session.</p>
+<p>"Untried" was checked against <code>src/</code>, <code>scripts/</code>, <code>vendor/gems57/</code> and the
+archived lanes (<code>archive/</code>); the wider GEMSDOE family's attempts are noted
+where the score ledger records them. The objective novelty arbiter remains the
+shared registry duplicate gate (992 rasters, 986 comparable after IR-79-58).</p>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Hypothesis, exact layers</th>
+<th>Physical signature / transform</th>
+<th>Why it should catch a fault <em>missing</em> from the USGS/INGENIOUS catalogue</th>
+<th>Difference from anything in this repo</th>
+<th>Expected gain / cost</th>
+<th>Named non-fault mimic</th>
+<th>Data viability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 (executed)</strong></td>
+<td><strong>H79-DCE decorrelated cover emission.</strong> Surface: the existing 58-feature nested hide-to-recover stack (19 supplied bands, multiscale derivatives, 10 lidar scarp bands, 8 radiometric bands, 6 visible-catalogue geometry inputs), rebuilt byte-identically to H79-NHR X1. Emission: 200 m catalogue collar + 3 px tile-cover decimation on <code>E[k] = p (*) k</code> (shared <code>gems57.emit.emit_decimated</code>) + per-raster 0.68 collision ceiling during placement</td>
+<td>Not a new detector: a metric-native emission. The metric's TP is a per-truth-cell max over the 300 m kernel while FP is a per-dot sum, so after one dot covers a crest's kernel neighbourhood, neighbouring crest pixels are pure FP; tile-cover converts the same predicted credit into non-redundant 300 m cover, and the ceiling displaces excess registry overlap to unoccupied tiles instead of deleting dots</td>
+<td>The surface already ranks discovery habitat best-in-repo (X1 HOLDOUT-DTI 0.1431/0.1522 vs H33 control 0.0961/0.0989); what failed was the <em>emission</em> (26 registry dot fields at 0.73–0.91 overlap). Recovering that credit with a decorrelated dot set is the only path to a promotable artifact from the best measured surface</td>
+<td>No lane here has used tile-cover decimation, a placement-time ceiling, or the collar together. X1 used top-k Poisson; G79B-SDPT's amendment deleted already-placed dots (cost −0.0176/−0.0203); a placement-time allowance displaces instead</td>
+<td>Highest expected P(all gates pass) / low (surface code reused; ~1 h compute)</td>
+<td>Same as X1 (Lahontan shorelines, channel banks, mine benches); displacement can move dots onto mimics outside registry halos</td>
+<td>All inputs restored and SHA-256 verified; surface rebuild hash-matched the frozen X1 receipt</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Geodetic-strain / seismicity corridor gating.</strong> <code>geod_shearrate</code>, <code>geod_dilaterate</code>, <code>geod_2ndinv</code>, <code>deq_n100a15</code>, <code>ieq_n100a15</code> intersected with potential-field edges (<code>iso_grav_anom_hg</code>, <code>rtp</code>, <code>tc</code>)</td>
+<td>Corridors where modern GPS/InSAR strain localizes across gravity-defined basement block boundaries</td>
+<td>Young active strands with subtle Quaternary scarps concentrate where strain concentrates, independent of mapping effort/bias; compilations under-map them because scarps are sub-10 m</td>
+<td>Strain bands were only 6 of 58 X1 inputs, never a gating surface; GEMSDOE74 (triregime-radon, 0.0669 user-reported) and GEMSDOE36 (anderson-pinn, 0.2750) are siblings' related takes</td>
+<td>Medium / medium</td>
+<td>Magmatic/tectonic strain around volcanic centers; GPS/InSAR processing artifacts</td>
+<td>Inputs present</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Antislope-scarp asymmetry</strong> (untried #2 from <code>hypotheses_nhr.md</code>). Lidar <code>upface_max</code> vs <code>downface_max</code>, <code>coh100</code>, strike; <code>iso_grav_anom_hg</code></td>
+<td>Ratio of uphill-facing to downhill-facing band-passed step gradient, coherent along strike</td>
+<td>Uphill-facing (antithetic) intrabasin scarps are under-represented in regional compilations; shorelines, channel banks and fan toes face downslope, so the ratio suppresses the main mimics</td>
+<td><code>upface_max</code> is only one of 58 inputs; no surface uses the asymmetry itself</td>
+<td>Medium / low</td>
+<td>Ridge-top sackung and landslide head scarps (also uphill-facing)</td>
+<td>Inputs present; high collision risk with the 12GEMSDOE r7 scarp family</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Nested-target distance-band reweighting</strong> (README next-step 3). Same X1 machinery with the kernel-credit target reweighted toward far-field (&gt; 1 km) training pixels</td>
+<td>Learned far-field conditional ranking</td>
+<td>Expert faults may sit farther from mapped traces than withheld catalogue faults do; a far-field-tilted target hedges that shift</td>
+<td>Target reweighting not implemented anywhere here</td>
+<td>Low–medium on the real test, <strong>negative on the holdout</strong> (which rewards catalogue proximity) / medium</td>
+<td>Far-field lineaments of non-fault origin (shorelines, joints)</td>
+<td>Inputs present</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Lahontan shoreline suppression via absolute elevation</strong> (untried #3 from <code>hypotheses_nhr.md</code>). Lidar <code>step_max</code>/<code>downface_max</code> + strike + absolute elevation</td>
+<td>Down-weight steps that are contour-parallel within ±15 m of pluvial shoreline altitudes (highstand ≈1330 m, <a href="https://pubs.usgs.gov/publication/70015223">USGS Benson &amp; Thompson 1987</a>)</td>
+<td>Removes the dominant false-positive population, freeing budget for real faults</td>
+<td>Not implemented here</td>
+<td>Medium / medium</td>
+<td>Real faults paralleling a shoreline get suppressed</td>
+<td><strong>Needs absolute 3DEP elevation</strong> — not in the sandbox allowlist; free official source: <a href="https://www.usgs.gov/3d-elevation-program">USGS 3DEP / The National Map</a>. Not viable this session</td>
+</tr>
+</tbody>
+</table>
+<h3>Why hypothesis 1 was chosen</h3>
+<p>The user's requirement is a <em>unique, submittable</em> artifact. Three of the four
+systemic blockers measured so far — 26 ordinary dot fields, the emission's
+crest concentration, and the collar FP — are emission problems, not detector
+problems, and the repo already owns the best measured detector surface. The
+fourth and fifth blockers (30 space-filling rasters, 6 not-comparable files)
+are registry-side and are resolved once in the shared tool (IR-79-57/58).
+Hypotheses 2–5 all start new detectors whose holdout power is unproven; under
+the protocol's own gate ("do not spend a submission slot on an idea that has
+not beaten the current holdout best") they carry more risk for the same slot.</p>
+<h3>Result (2026-10-22, recorded after the holdout, before final packaging)</h3>
+<p>Executed as preregistered (<code>registry/preregistration_dce.json</code>, hash-pinned before any result).
+The surface rebuilt byte-identically to the frozen X1 receipt (SHA-256 match), the at-risk scan
+froze 182 capped rasters (uncapped overlap &gt; 0.50; worst uncapped 0.926 vs 0.612 chance), and the
+capped emission placed exactly 37,654 dots with every capped raster at or below 0.67998.</p>
+<p>HOLDOUT-DTI (<code>gems57-pooled-hide-v2</code>, 4 folds, seeds 20/30, n = 11,321 / 11,342):</p>
+<table>
+<thead>
+<tr>
+<th>arm</th>
+<th>seed 20</th>
+<th>seed 30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>candidate (capped cover)</strong></td>
+<td><strong>0.1019</strong> [0.0888, 0.1153]</td>
+<td><strong>0.1048</strong> [0.0887, 0.1217]</td>
+</tr>
+<tr>
+<td>cover, uncapped (cap-free control)</td>
+<td>0.1210 [0.1071, 0.1358]</td>
+<td>0.1229 [0.1060, 0.1405]</td>
+</tr>
+<tr>
+<td>top-k + collar (no tile-cover)</td>
+<td>0.1463</td>
+<td>0.1524</td>
+</tr>
+<tr>
+<td>X1 recipe reproduction (context)</td>
+<td>0.1462</td>
+<td>0.1522</td>
+</tr>
+<tr>
+<td>H33 fold-fair control</td>
+<td>0.0961</td>
+<td>0.0989</td>
+</tr>
+<tr>
+<td>uniform random control</td>
+<td>0.0151</td>
+<td>0.0151</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Paired Δ vs H33 control: <strong>+0.0058 [−0.0100, +0.0214]</strong> and <strong>+0.0059 [−0.0102, +0.0215]</strong> —
+  the 95 % CIs include zero on both seeds, so gate g3 (beat with CI lower bound &gt; 0 on both
+  seeds) <strong>fails</strong>. Verdict: <strong>negative</strong>; no weekly slot spent.</li>
+<li>Paired Δ vs uniform: +0.0868 [+0.0742, +0.1000] and +0.0897 [+0.0739, +0.1056] (g4 passes).</li>
+<li>Measured cap cost (uncapped cover − candidate): <strong>0.0191 / 0.0181</strong>; the tile-cover decimation
+  itself costs a further 0.0253 / 0.0295 versus top-k + collar. Together they consume the entire
+  X1-class gain (+0.0501 / +0.0533), which is exactly the pre-stated limitation below.</li>
+<li>Leakage canaries pass on both seeds (max single-feature AUC 0.8514 / 0.8589, worst
+  <code>geom_log_dist_visible_tip</code>); the X1 recipe reproduction arm lands within 0.004 of the frozen
+  X1 holdout numbers on both seeds, confirming the shared fold machinery.</li>
+</ul>
+<h3>Known limitation, stated before results</h3>
+<p>Capping displaces dots off proven habitat onto lower-credit tiles; the measured
+cap cost (paired <code>cover_uncapped_control</code> arm) is the honest price of
+uniqueness. If that price drops the candidate below the H33 fold-fair control
+on either seed, the verdict is negative and no slot is spent.</p></div></section><section class="section"><h2>Previous lane: H79-NHR (session 337ac1e9, negative, archived)</h2><p>The same surface beat the holdout best but its emission duplicated earlier family submissions (IR-79-55); it is archived byte-for-byte in <code>archive/g79_nhr_337ac1e9/</code>. Its hypothesis ranking and stop analysis follow.</p><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
 <p>Written before any H79-NHR holdout result existed (preregistration:
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_nhr.json"><code>registry/preregistration_nhr.json</code></a>).
 Ranks are qualitative judgements of expected DTI improvement and cost, <strong>not

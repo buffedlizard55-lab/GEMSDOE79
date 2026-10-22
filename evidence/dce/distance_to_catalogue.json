@@ -1,0 +1,55 @@
+{
+  "evidence_class": "RASTER-MEASUREMENT",
+  "pixel_m": 100,
+  "lane": "H79-DCE",
+  "dce_dots_sha256": "06421eadaa55f4f37dded9d8742dc19f6cd52dc2d1d26de78905d2918ae5f15f",
+  "dce": {
+    "dots": 37654,
+    "median_px": 6.082762530298219,
+    "mean_px": 10.097997367215063,
+    "fraction_le_5px": 0.35677484463801984,
+    "fraction_gt_10px": 0.28594571625856485,
+    "histogram": {
+      "[0,2] px": 0,
+      "(2,3] px": 655,
+      "(3,5] px": 9407,
+      "(5,10] px": 16615,
+      "(10,20] px": 6110,
+      "(20,50] px": 4689,
+      "(50,1000000] px": 178
+    }
+  },
+  "h33": {
+    "dots": 37654,
+    "median_px": 19.6468827043885,
+    "mean_px": 28.996593932371773,
+    "fraction_le_5px": 0.14970521060179529,
+    "fraction_gt_10px": 0.698305624900409,
+    "histogram": {
+      "[0,2] px": 0,
+      "(2,3] px": 1611,
+      "(3,5] px": 3237,
+      "(5,10] px": 6292,
+      "(10,20] px": 7908,
+      "(20,50] px": 11077,
+      "(50,1000000] px": 7529
+    }
+  },
+  "footprint": {
+    "dots": 5106385,
+    "median_px": 23.53720459187964,
+    "mean_px": 31.19266370853101,
+    "fraction_le_5px": 0.12787715771529173,
+    "fraction_gt_10px": 0.7555668050881397,
+    "histogram": {
+      "[0,2] px": 176003,
+      "(2,3] px": 169333,
+      "(3,5] px": 240798,
+      "(5,10] px": 637102,
+      "(10,20] px": 1022690,
+      "(20,50] px": 1790643,
+      "(50,1000000] px": 1069816
+    }
+  },
+  "note": "Distances to the nearest mapped catalogue pixel (EDT, pixels of 100 m). Not a score."
+}
