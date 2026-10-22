@@ -19,7 +19,7 @@ def check_site():
     site_manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     pages = {name: BeautifulSoup((site / name).read_text(), 'html.parser') for name in site_manifest['pages']}
     aliases = site_manifest.get('compatibility_redirects', {})
-    assert {p.name for p in site.glob('*.html')} == set(pages) | set(aliases)
+    assert {p.name for p in site.glob('*.html')} == set(pages) | set(aliases) | {'tipstep-submission.html'}
     for alias, target in aliases.items():
         document = BeautifulSoup((site / alias).read_text(), 'html.parser')
         assert document.find('meta', attrs={'http-equiv': 'refresh'})['content'] == '0;url=' + target
@@ -114,21 +114,29 @@ def check_site():
                 'all_manifest_inputs_ready', 'files'):
         assert runtime[key] == observed_now[key], f'Runtime data feed drift: {key}'
     assert site_manifest['runtime_data_status_sha256'] == hashlib.sha256(runtime_path.read_bytes()).hexdigest()
-    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_a92a0164.json').read_bytes()).hexdigest()
-    assert site_manifest['latest_review_card_sha256'] == hashlib.sha256((site / 'evidence/run_card_a92a0164.json').read_bytes()).hexdigest()
-    assert site_manifest['latest_source_review_sha256'] == hashlib.sha256((site / 'evidence/source_review_a92a0164.json').read_bytes()).hexdigest()
-    assert json.loads((site / 'evidence/preflight_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/preflight_a92a0164.json').read_text())
-    assert json.loads((site / 'evidence/run_card_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/run_card_a92a0164.json').read_text())
-    assert json.loads((site / 'evidence/source_review_a92a0164.json').read_text()) == json.loads((ROOT / 'evidence/source_review_a92a0164.json').read_text())
+    assert site_manifest['latest_preflight_sha256'] == hashlib.sha256((site / 'evidence/preflight_6475bc80.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_review_card_sha256'] == hashlib.sha256((site / 'evidence/run_card_6475bc80.json').read_bytes()).hexdigest()
+    assert site_manifest['latest_review_sha256'] == hashlib.sha256((site / 'evidence/session_review_6475bc80.md').read_bytes()).hexdigest()
+    assert site_manifest['latest_hypotheses_sha256'] == hashlib.sha256((site / 'evidence/hypotheses_6475bc80.md').read_bytes()).hexdigest()
+    assert json.loads((site / 'evidence/preflight_6475bc80.json').read_text()) == json.loads((ROOT / 'evidence/preflight_6475bc80.json').read_text())
+    assert json.loads((site / 'evidence/run_card_6475bc80.json').read_text()) == json.loads((ROOT / 'evidence/run_card_6475bc80.json').read_text())
+    assert (site / 'evidence/session_review_6475bc80.md').read_text() == (ROOT / 'reports/session_review_6475bc80.md').read_text()
+    assert (site / 'evidence/hypotheses_6475bc80.md').read_text() == (ROOT / 'research/hypotheses_6475bc80.md').read_text()
     source_text = pages['sources.html'].get_text(' ', strip=True)
     assert 'Runtime input availability at this build' in source_text
     assert f"{runtime['verified_count']}/{runtime['expected_count']}" in source_text
     for filename in ('index.html', 'executive-summary.html'):
         current_text = pages[filename].get_text(' ', strip=True)
-        assert 'Parallel review' in current_text and 'no new candidate GeoTIFF' in current_text
+        assert 'Current review' in current_text and 'no new TIFF' in current_text
+        assert '6475bc80' in current_text and 'Five conditional hypotheses' in current_text
     assert '@import' not in (site / 'assets/site.css').read_text()
     assert (ROOT / '.nojekyll').exists() and (site / '.nojekyll').exists()
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()
+    tipstep_archive = site / 'tipstep-submission.html'
+    assert tipstep_archive.is_file(), 'Historical TIPSTEP page must survive site rebuilds'
+    tipstep_text = tipstep_archive.read_text()
+    assert 'not cleared as protocol-unique' in tipstep_text and 'official-text check separately fails R6' in tipstep_text
+    assert 'That portal error is caused by NaN/out-of-range cells' not in tipstep_text
     import re
     md_ir_ids = [
         m.group(1)

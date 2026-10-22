@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "session": "6475bc80",
+  "session_branch": "arena/6475bc80-gemsdoe79",
+  "generated_utc": "2026-10-22T21:02:12Z",
+  "hypothesis": "Rank-1 conditional proposal: multi-scale Hessian saddle persistence in detrended elevation (band 12; slope band 19) crossed by an independent isostatic-gravity horizontal-gradient axis (bands 13 and 18) may identify low-relief transfer faults omitted from the mapped catalogue.",
+  "mechanism": "Not executed. Proposed to calculate multi-scale Hessian eigenvalue/shape-index saddle persistence, test a crossing relation with the gravity-gradient axis, then compare single-layer and conjunction surfaces using visible-only catalogue features in the shared buffered whole-component holdout. The experiment is prohibited until the literal novelty gate is prospectively resolved and an assigned method is recorded.",
+  "named_non_fault_process_that_could_mimic_it": "Drainage divides, erosional saddles, and resistant-bedrock passes unrelated to faulting.",
+  "holdout_dti": null,
+  "holdout_dti_status": "NOT MEASURED. Evaluator version to use if authorized: gems57-pooled-hide-v2; withheld-positive count: not applicable because no fold was run; 95% CI: not available. This is not a score or a zero.",
+  "correlation_overlap_vs_registry": {
+    "candidate_surface_rank_correlation": null,
+    "candidate_surface_3px_overlap": null,
+    "candidate_final_dot_rank_correlation": null,
+    "candidate_final_dot_3px_overlap": null,
+    "preflight": {
+      "start_new_lane": false,
+      "state": "impossible_under_literal_gate",
+      "witness_sha256": "ab0a0a62eecf066a82713b09dd49f0f638a91fa3dd81f54cc34ae89afa3872be",
+      "covered_allowed_fraction": 1.0,
+      "literal_forward_overlap_for_any_nonempty_candidate": 1.0,
+      "limit": 0.7,
+      "evidence": "evidence/preflight_6475bc80.json"
+    },
+    "candidate_measurements": "NOT RUN: stop is before surface construction, holdout, and placement."
+  },
+  "raster_sha256": null,
+  "validator_output": {
+    "new_candidate": "NOT APPLICABLE; no new TIFF generated.",
+    "inherited_research_tif": {
+      "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+      "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+      "inside_footprint_nan": false,
+      "inside_footprint_values_in_0_1": true,
+      "crs_shape_transform_match_sample": true,
+      "official_R6_outside_null_nan": "FAIL; 7,111,787 non-NaN exterior cells (zeros)",
+      "official_validator": "FAIL R6; not approved for submission"
+    },
+    "official_template": "PASS R1-R8: data/reference/sample_submission.tif"
+  },
+  "submission_name": null,
+  "submission_note": null,
+  "verdict": "negative",
+  "new_tif_generated": false,
+  "ok_to_download": false,
+  "ok_to_submit": false,
+  "slots_used": 0,
+  "experiments_used": 0,
+  "runtime_input_status": "RUNTIME-LOCAL-AVAILABILITY: 0/13 pinned raw inputs currently present under data/raw; historical restore receipt is not proof of current availability.",
+  "scope_note": "A prospective candidate cannot be generated honestly under the supplied literal 70%-within-3px gate. Existing inherited research TIF remains downloadable only as research, and it fails official R6 as well as the literal novelty gate. No ORGANIZER-CONFIRMED score exists in this card."
+}

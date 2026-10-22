@@ -1,5 +1,14 @@
 # GEMSDOE79 — fault-discovery research, with an explicit stop
 
+## Current repository review — session `6475bc80` (2026-10-22)
+
+**No new unique TIF was generated and no competition slot was used.** The supplied literal novelty gate is mathematically impossible for any nonempty candidate: a freshly verified registry raster covers 100% of allowed cells, forcing forward 3-px overlap 1.0 > 0.70. The assigned method paragraph is absent, and this checkout currently has **0/13** pinned raw inputs in `data/raw`. The inherited G79-THVC artifact remains **OK TO DOWNLOAD: YES (research only); OK TO SUBMIT: NO** and independently fails official R6 (zero rather than null/NaN outside the footprint). No prior upload's range error is diagnosed without its bytes and receipt.
+
+- [Three-pass repository review and H33 evidence assessment](reports/session_review_6475bc80.md)
+- [Five deduplicated conditional geological hypotheses](research/hypotheses_6475bc80.md) — proposals only; no score projection
+- [Negative run card](evidence/run_card_6475bc80.json) · [fresh preflight certificate](evidence/preflight_6475bc80.json)
+- No experiment, holdout, placement, new TIFF, upload, or weekly slot was used. Promotion remains a separate selector decision.
+
 ## Latest session — G79-TIPSTEP (2026-10-22, this branch)
 
 **A new unique GeoTIFF was generated this session:** `gems79-tipstep-20261022` (29,259 dots,
@@ -9,9 +18,9 @@ in [0,1], EPSG:32611 3730×3292 matching sample), locally novel vs 40 sparse arc
 (max 3-px overlap 0.4765 < 0.70, max |rho| 0.056 < 0.90), HOLDOUT-DTI (gems57-pooled-hide-v2)
 0.0927 [0.0795,0.1049] (seed 20, n=11,321) / 0.0928 [0.0777,0.1079] (seed 30, n=11,342), +0.091 vs
 uniform — but **below the THVC/CSKD holdout incumbents**, so no slot is spent. Full registry
-(1,108-row) scan not completed offline; flagged, not hidden. See
-[`docs/tipstep-submission.html`](docs/tipstep-submission.html), `run_card_tipstep.json`,
-`research/hypotheses_tipstep.md`. The canonical THVC decision below is unchanged.
+(1,108-row) scan not completed offline; flagged, not hidden. See the historical
+[`G79-TIPSTEP research page`](docs/tipstep-submission.html), [`run card`](run_card_tipstep.json),
+and [`hypothesis note`](research/hypotheses_tipstep.md). The canonical THVC decision below is unchanged.
 
 ## Latest review — 2026-10-22, session `1f9d2dc9`
 ## Current review — session `a26add66` (2026-10-22)

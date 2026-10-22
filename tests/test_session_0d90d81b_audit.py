@@ -103,10 +103,10 @@ def test_untried_hypotheses_sources_and_irregularities_177():
     for hid in ("G79-SFGC", "G79-UGBP", "G79-MDSC", "G79-PSDC", "G79-MCST"):
         assert hid in hyp_text
     site_research = (ROOT / "docs" / "research.html").read_text(encoding="utf-8")
-    assert "Current ranked geological backlog" in site_research
+    assert "Terrain saddle persistence" in site_research
     assert "speculative score projections" in site_research
-    assert "blob/main/research/hypotheses_0d90d81b.md" in site_research
-    # Old idea files are available as provenance links, not rendered as current ranked advice.
+    assert "6475bc80" in site_research
+    # Superseded ideas remain provenance links, not current ranked advice.
     assert "G79-SFGC" not in site_research
 
     sources = _load_strict(ROOT / "knowledge" / "official_sources.json")

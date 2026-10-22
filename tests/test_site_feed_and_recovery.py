@@ -55,16 +55,17 @@ def test_parser_records_public_top50_floor_and_participant():
 
 
 def test_current_session_remains_fail_closed_and_has_no_candidate():
-    preflight = json.loads((ROOT / 'evidence/preflight_a92a0164.json').read_text())
-    card = json.loads((ROOT / 'evidence/run_card_a92a0164.json').read_text())
+    preflight = json.loads((ROOT / 'evidence/preflight_6475bc80.json').read_text())
+    card = json.loads((ROOT / 'evidence/run_card_6475bc80.json').read_text())
     assert preflight['start_new_lane'] is False
     assert preflight['state'] == 'impossible_under_literal_gate'
     assert preflight['covered_allowed_fraction'] == 1.0
-    assert card['verdict'] == 'blocked_no_candidate'
-    assert card['raster_path'] is card['raster_sha256'] is None
-    assert card['validator_output']['status'].startswith('NOT RUN')
-    assert card['download_submit_decision']['ok_to_submit'] is False
-    assert card['download_submit_decision']['submission_slots_used'] == 0
+    assert card['verdict'] == 'negative'
+    assert card['new_tif_generated'] is False
+    assert card['raster_sha256'] is None
+    assert card['validator_output']['new_candidate'].startswith('NOT APPLICABLE')
+    assert card['ok_to_submit'] is False
+    assert card['slots_used'] == card['experiments_used'] == 0
 
 
 def test_probe_network_failure_is_not_verified(monkeypatch):

@@ -2,11 +2,11 @@
 <title>G79-TIPSTEP — unique research GeoTIFF · GEMSDOE79</title><link rel="stylesheet" href="assets/site.css"></head>
 <body><main class="wrap" id="main">
 <p><a href="index.html">← GEMSDOE79 home</a> · <a href="executive-summary.html">Decision / executive summary</a></p>
-<h1>G79-TIPSTEP — new unique GeoTIFF (this session)</h1>
-<div class="download-warning"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong><br>
-Machine-validated, unique research artifact. It does <strong>not</strong> beat the current holdout
-incumbent, so no weekly competition slot is approved. No human inspector is needed for this
-decision — it is computed from the gates below.</div>
+<h1>G79-TIPSTEP — archived historical research GeoTIFF</h1>
+<div class="download-warning"><strong>OK TO DOWNLOAD: YES (research only). OK TO SUBMIT: NO.</strong><br>
+This artifact is byte-distinct but <strong>not cleared as protocol-unique</strong>; its partial local
+comparison is not a full registry pass. It also does <strong>not</strong> beat the current holdout
+incumbent. No competition slot is approved. The decision is machine-derived from available gates.</div>
 <p>
 <a class="button" href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.tif">↓ Download GeoTIFF (127 KB)</a>
 <a class="button secondary" href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/tipstep/gems79-tipstep-20261022-29259dots-zeros.zip">↓ ZIP (same TIFF)</a>
@@ -15,21 +15,21 @@ decision — it is computed from the gates below.</div>
 <div class="code-label">Submission name</div><div class="code-box">gems79-tipstep-20261022</div>
 <div class="code-label">Note (96/140 characters)</div><div class="code-box">G79-TIPSTEP catalogue tip-extension + collinear stepover bridges, dotted 3px, &gt;2px off catalogue</div>
 <div class="code-label">GeoTIFF SHA-256</div><div class="code-box">4c36113dab6062fbcfc1ae142c8e33e01b81261f127aab545b76f8789ee55b4a</div>
-<h2>Why this file will NOT trigger “Predicted values must be in range [0, 1]”</h2>
-<p>That portal error is caused by NaN/out-of-range cells. The sample grid carries NaN outside the
-footprint; NaN-outside exports fail the range check. This file uses <strong>zeros outside the
-footprint</strong>: single float32 band, 12,279,160 finite cells, min 0.0, max 1.0, no NaN/Inf,
-EPSG:32611, 3730×3292, transform matching the sample submission — verified by
-<code>scripts/validate_submission.py</code> (format PASS; format PASS alone never approves a slot).</p>
+<h2>The earlier portal range error is not diagnosed</h2>
+<p>The rejected upload bytes and submission-page receipt are unavailable, so this page cannot
+establish what caused “Predicted values must be in range [0, 1]” or guarantee portal acceptance.
+The historical local check recorded one float32 band with finite values in [0,1], EPSG:32611,
+3730×3292 and a matching transform. That is not a substitute for the official-format validator;
+this historical artifact is research-only and must not be submitted.</p>
 <h2>Gates (all labelled, no projections)</h2>
 <ul>
-<li><strong>Format/range:</strong> PASS (above).</li>
+<li><strong>Historical local range/grid:</strong> finite values in [0,1] and matching grid were recorded; the official-text check separately fails R6 because exterior cells are zero, not null/NaN. Do not treat this as submission-format PASS.</li>
 <li><strong>HOLDOUT-DTI</strong> (evaluator gems57-pooled-hide-v2, α=0.2, β=0.8, 300 m kernel):
 seed 20 = 0.0927 [0.0795, 0.1049], n=11,321 withheld px; seed 30 = 0.0928 [0.0777, 0.1079],
 n=11,342. Paired vs uniform control: +0.091 [0.078, 0.103]. Leakage canaries: max symmetric
 AUC 0.806 &lt; 0.90 (tipstep surface alone 0.51).</li>
 <li><strong>Incumbent gate: FAIL.</strong> Below G79-THVC holdout 0.1905/0.1944 and G79-CSKD 0.2145 (seed 30). Protocol: do not spend a slot.</li>
-<li><strong>Novelty (local scope):</strong> vs 40 sparse dot rasters archived in this repo: max 3-px forward overlap 0.4765 &lt; 0.70, max |Spearman| 0.056 &lt; 0.90, zero duplicates. Full 1,108-row cross-repo registry not scanned offline; 4 dense continuous rasters flagged (universal-witness obstruction) — see run card. Hence uniqueness is <em>locally measured</em>, not registry-certified.</li>
+<li><strong>Novelty:</strong> the limited local sparse-raster comparison (40 rasters) is diagnostic only. The literal registry gate is blocked by a pinned full-coverage witness: any nonempty candidate has 1.0 forward 3-px overlap, above 0.70. This artifact is therefore not protocol-unique or approved; see the current [preflight certificate](evidence/preflight_6475bc80.json).</li>
 <li><strong>Organiser score:</strong> none. No ORGANIZER-CONFIRMED receipt exists for this file. Historical H33 0.2778 is unverified; leaderboard 0.4413 belongs to another entrant.</li>
 </ul>
 <h2>How to submit a (future, approved) file — executive summary</h2>
