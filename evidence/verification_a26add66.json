@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "session": "a26add66",
-  "checked_utc": "2026-10-22T20:12:57.892423+00:00",
+  "checked_utc": "2026-10-22T20:15:17.812841+00:00",
   "state": "completed",
-  "all_expected_outcomes": false,
+  "all_expected_outcomes": true,
   "dependency_freeze_matches_lock": true,
   "checks": [
     {
@@ -15,21 +15,19 @@
         "-q"
       ],
       "expected_exit": 0,
-      "actual_exit": 1,
-      "passed": false,
+      "actual_exit": 0,
+      "passed": true,
       "stdout_tail": [
-        "        agents_irs = sorted(set(re.findall(r\"\\bIR-79-\\d+\\b\", agents_text)))",
-        "        missing_irs = [i for i in agents_irs if i not in ir_ids]",
-        ">       assert not missing_irs, f\"Missing IR IDs in AGENTS.md: {missing_irs}\"",
-        "E       AssertionError: Missing IR IDs in AGENTS.md: ['IR-79-223']",
-        "E       assert not ['IR-79-223']",
-        "",
-        "tests/test_session_b80aa866_audit.py:46: AssertionError",
-        "=========================== short test summary info ============================",
-        "FAILED tests/test_publication_contract.py::test_irregularity_ids_unique_and_sequential",
-        "FAILED tests/test_session_0d90d81b_audit.py::test_untried_hypotheses_sources_and_irregularities_177",
-        "FAILED tests/test_session_b80aa866_audit.py::test_agents_md_paths_and_ir_references_resolve",
-        "3 failed, 618 passed in 93.27s (0:01:33)"
+        "........................................................................ [ 11%]",
+        "........................................................................ [ 23%]",
+        "........................................................................ [ 34%]",
+        "........................................................................ [ 46%]",
+        "........................................................................ [ 57%]",
+        "........................................................................ [ 69%]",
+        "........................................................................ [ 81%]",
+        "........................................................................ [ 92%]",
+        ".............................................                            [100%]",
+        "621 passed in 92.90s (0:01:32)"
       ],
       "stderr_tail": []
     },
@@ -93,7 +91,7 @@
       "actual_exit": 0,
       "passed": true,
       "stdout_tail": [
-        "  duration_ms: 0.143248",
+        "  duration_ms: 0.170032",
         "  type: 'test'",
         "  ...",
         "1..12",
@@ -104,7 +102,7 @@
         "# cancelled 0",
         "# skipped 0",
         "# todo 0",
-        "# duration_ms 70.830675"
+        "# duration_ms 75.611774"
       ],
       "stderr_tail": []
     },
@@ -196,5 +194,5 @@
   "competition_slots_used": 0,
   "submission_approved": false,
   "scope": "Software and inherited-file verification; not candidate validation or organizer acceptance.",
-  "concurrent_main_reconciled": "a824282 (includes shared validator, official-format selector gate, and privacy corrections)"
+  "concurrent_main_reconciled": "a824282 (shared validator, official-format selector gate, private-path redaction; ledger gaps repaired)"
 }

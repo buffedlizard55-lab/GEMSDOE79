@@ -84,7 +84,8 @@ An initial final sweep caught links to this not-yet-created report; the report w
 created before the final rerun rather than suppressing link validation. Final
 command outcomes are recorded in
 [`verification_a26add66.json`](../evidence/verification_a26add66.json).
-After synchronizing concurrent main work, **613 Python tests and 12 JavaScript tests passed**.
+After the first synchronization, **613 Python tests and 12 JavaScript tests passed**.
+After final validator/selector reconciliation and ledger repairs, **621 Python tests and 12 JavaScript tests passed**.
 Checks include the full Python suite, project verifier, site links/evidence,
 JavaScript downloaded-file identity tests, expected blocked submission status,
 strict format refusal and whitespace diff checks. The installed package freeze
