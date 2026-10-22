@@ -1,0 +1,73 @@
+{
+  "lane_id": "H79-PFSD",
+  "lane_title": "Province-Normalized Flank-Decontaminated Subsurface-Surface Strike Concordance, Upward Probe Heat-Flux & Dual-Expert Equilibrated Allocator",
+  "session_branch": "arena/9574eb05-gemsdoe79",
+  "preregistered_utc": "2026-10-22T14:40:00Z",
+  "preregistered_before_holdout_execution": true,
+  "hypotheses_document": "research/hypotheses_9574eb05.md",
+  "prior_lanes_kept_stopped_and_archived": [
+    "G79-THVC (canonical research baseline, 0.1905 / 0.1944 HOLDOUT-DTI, negative due to non-sparse/sibling registry overlap)",
+    "H79-FNHR (archived a57e2a7f, 0.1292 / 0.1431 HOLDOUT-DTI, 0.0906 / 0.0966 pure-physics head, negative)",
+    "H79-MRND (archived 800321e2, 0.1044 / 0.1236 HOLDOUT-DTI, surface-stopped negative)",
+    "G79-BER (archived 4f80e0d0, 0.0788 / 0.0882 HOLDOUT-DTI, negative)",
+    "H79-NHR (archived, 0.1431 / 0.1522 HOLDOUT-DTI, duplicate negative)",
+    "H79-STEP, H79-DILSTEP, H79-COV, H79-FF, H79-FF1, H79-FFAS, H79-BQA, H79-ASYM, H79-ML-STRAIN-RELAY, G79-STEPCO, G79B-SDPT, H79-FGR, G79-MAG, G79-FABRIC-OFFSET (all stopped negative)"
+  ],
+  "budget": {
+    "max_experiments": 3,
+    "max_wall_clock_minutes": 120,
+    "experiment_ids": [
+      "EXP-PFSD-1",
+      "EXP-PFSD-2",
+      "EXP-PFSD-3"
+    ]
+  },
+  "shared_modules": {
+    "evaluator": "vendor/gems57/evaluate_holdout.py (gems57-pooled-hide-v2, alpha=0.2, beta=0.8, 300m triangular kernel)",
+    "holdout_split": "vendor/gems57/holdout.py::buffered_component_draw (seeds 20 and 30, buffer_px=3, boundary_px=12, hide_frac=0.20)",
+    "submission_writer": "vendor/gems57/submission_writer.py::write_submission",
+    "uniqueness": "vendor/gems57/uniqueness.py (byte-identical to registry/template_pin.json; literal, budget-matched-v3, informative-halo-v4, D-2 chance-corrected, and sparse <=50k diagnostics reported side by side)"
+  },
+  "anti_leakage_contract": {
+    "excluded_files": [
+      "data/raw/external/derived_sgmc_faults_100m_u8.tif",
+      "data/raw/external/gdr_qfaults_traces.csv"
+    ],
+    "excluded_columns": [
+      "gdr_wellspring_in_footprint.csv:dist_known_fault_px",
+      "gdr_volcanic_vents_in_footprint.csv:dist_known_fault_px"
+    ],
+    "registry_access_during_training_scoring_placement": "FORBIDDEN",
+    "post_hoc_overlap_capping_or_jitter": "FORBIDDEN",
+    "max_allowed_single_feature_symmetric_auc": 0.90
+  },
+  "model_architecture": {
+    "static_physics_stack": "92 static zero-catalogue channels combining 19 competition bands, exact FFT upward-continued RTP/gravity tilt & dip-shift, physically dequantized 2 m 3DEP LiDAR antislope & strike (band 11), all 13 sub-100m 10 m 3DEP vectors (dem10_onesided3 road-deconfounded via TIGER), 3-level subsurface-to-surface axial strike concordance cos(2*(theta_scarp - theta_grav/bdepth/rtp)), DOE GDR-1391 upward 1.5m-to-2m probe conductive gradient (T2m - T15m, T2m - T1m) + F2mDAB, cation-silica upflow disequilibrium (geothermcat_c vs geothermchalc_c/geothermquartz_c), mafic-vs-silicic volcanic vent alignment, and 50-km tectonic-province-normalized strain/geophysical localization.",
+    "pure_physics_expert": "Uncorrupted out-of-quadrant dual-head physical ensemble (LightGBM + ExtraTrees-LGBM + HistGBDT) fitted on 100% of visible faults in the 3 training quadrants with 1<=d<3px flanks excluded from negatives (zero 78% positive-as-negative simulated-hide label corruption; zero catalogue features at inference).",
+    "flank_decontaminated_mechanical_expert": "2-stage C(4,2) nested out-of-fold ensemble over static physics + 14 strictly fold-visible elastic crack-tip/wing-crack/relay-ramp channels, with 1<=d(x, sim_known)<=3.0 px excluded from BOTH Stage-1 negative pools AND Stage-2 8x-weighted hard-negative mining (fixing G79-THVC flank poisoning), enriched with out-of-fold pure-physics corroboration posteriors and province-equilibrated marginal calibration.",
+    "equilibrated_charnes_cooper_allocator": "Exact 300-m triangular-kernel submodular Charnes-Cooper allocator maximizing marginal expected TP minus lambda * expected FP with spatial quadrant marginal equilibration so high-strain SW Walker Lane cannot starve low-strain NE/NW Basin-and-Range fault systems; hyperparameters selected strictly on inner simulated draw 0 (zero outer-fold access)."
+  },
+  "experiments": {
+    "EXP-PFSD-1": {
+      "label": "Uncorrupted Pure Zero-Catalogue Physics, Strike-Concordance, Upward Probe Flux & 10m 3DEP Detector",
+      "uses_catalogue_geometry_at_inference": false,
+      "placement": "Uniform 2.8 px Poisson-disk NMS, B = 37,654 dots, d_vis > 2.0 px"
+    },
+    "EXP-PFSD-2": {
+      "label": "Full H79-PFSD Dual-Expert Flank-Decontaminated & Province-Calibrated Surface under Fixed H33 Spacing",
+      "uses_catalogue_geometry_at_inference": true,
+      "placement": "Uniform 2.8 px Poisson-disk NMS, B = 37,654 dots, d_vis > 2.0 px"
+    },
+    "EXP-PFSD-3": {
+      "label": "Full H79-PFSD Dual-Expert Posterior + Quadrant-Equilibrated Charnes-Cooper Submodular Kernel Allocator",
+      "uses_catalogue_geometry_at_inference": true,
+      "placement": "Inner-draw-selected equilibrated Charnes-Cooper submodular kernel emitter, d_vis > 2.0 px"
+    }
+  },
+  "automatic_gate_and_selection_protocol": {
+    "step_1_leakage_canary": "Require single-feature symmetric holdout AUC <= 0.90 across every individual static and mechanical feature on both seed 20 and seed 30.",
+    "step_2_pre_placement_surface_uniqueness": "Audit continuous full-catalogue posterior surface before dot placement against all 992 frozen registry rasters + all accessible post-freeze sibling delta rasters (209+) + all local GEMSDOE79 lanes; stop immediately as duplicate if max |Spearman rho| > 0.90.",
+    "step_3_post_placement_dot_uniqueness": "Audit emitted binary GeoTIFF ([0, 1], float32, EPSG:32611, 3730x3292, 0 NaN) against all 1,201+ family rasters + local GEMSDOE79 lanes under unmodified vendor/gems57/uniqueness.py (literal, budget-matched-v3, informative-halo-v4, D-2 chance-corrected, and sparse <=50k).",
+    "step_4_fail_closed_promotion_and_canonical_governance": "Per AGENTS.md Rules 3 & 6 and IR-79-120: only scripts/select_submission.py may set ok_to_submit=true if unmodified uniqueness.py and holdout dominance pass completely. If unmodified uniqueness.py blocks on dense/corridor registry priors (or if HOLDOUT-DTI does not strictly exceed canonical G79-THVC 0.190523 / 0.194379 on both seeds while clearing sparse <=50k overlap <= 0.70 against G79-THVC, GEMSDOE83, GEMSDOE78, and H33), verdict is recorded honestly as 'negative' (ok_to_submit=false, 0 weekly slots spent), canonical G79-THVC remains untouched in docs/downloads/, and H79-PFSD's validated GeoTIFF + ZIP + run_card_pfsd.json are archived byte-for-byte under archive/h79_pfsd_9574eb05/."
+  }
+}

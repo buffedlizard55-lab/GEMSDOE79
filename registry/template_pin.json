@@ -108,7 +108,7 @@
       "sha256": "1c7f4d7c6fb3db69c27fd6fe4dccc3578e1be13a09484d29f822b7236456609a",
       "previous_sha256": "41220185ac2823fe5358603d38f2a915ea3e5f1ab1f94f0b237295b38b4a2565",
       "previous_git_blob": "5a04a2b0d5d4137f0aad39d862889ef1b92198ea",
-      "version_note": "Shared submission writer v2 (session 778c4a96, IR-79-209): chmod atomically staged TIFF, ZIP and JSON receipt to 0644 before os.replace. This fixes mkstemp 0600 download permissions only; validated bytes, hashes, archive contents, gates and scientific outputs are unchanged."
+      "version_note": "Shared submission writer v2 (session 778c4a96, IR-79-216): chmod atomically staged TIFF, ZIP and JSON receipt to 0644 before os.replace. This fixes mkstemp 0600 download permissions only; validated bytes, hashes, archive contents, gates and scientific outputs are unchanged."
     },
     {
       "path": "vendor/gems57/uniqueness.py",

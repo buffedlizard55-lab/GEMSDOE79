@@ -13,6 +13,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
+from gems79.portal_spec import validate_portal_file
 from gems79.status import submission_decision
 from validate_submission import validate_path
 
@@ -405,8 +406,13 @@ def swer_evidence_checks(root):
     }
     novelty = strict_loads_bytes((root / 'evidence/swer/novelty_stop.json').read_bytes())
     boundary = strict_loads_bytes((root / 'evidence/swer/boundary_diagnostic.json').read_bytes())
+    portal_reports = strict_loads_bytes((root / 'evidence/swer/portal_spec.json').read_bytes())
+    if len(portal_reports) != 1:
+        raise ValueError('G79-SWER official-format receipt must contain exactly one report')
+    portal_report = portal_reports[0]
     preflight = strict_loads_bytes((root / 'evidence/preflight_778c4a96.json').read_bytes())
     reopened = validate_path(tif)
+    live_portal_report = validate_portal_file(tif)
     registry = strict_loads_bytes((root / 'registry/registry_receipt.json').read_bytes())
 
     with zipfile.ZipFile(zip_path) as archive:
@@ -464,6 +470,17 @@ def swer_evidence_checks(root):
             and card['validator_output']['template_report'] == receipt['template_report']
             and receipt['validator']['all_checks_passed'] is True
             and all(receipt['validator']['checks'].values())),
+        'swer_official_format_r6_failure_bound_and_blocking': (
+            portal_report == live_portal_report
+            and card['post_run_official_format_audit']['evidence'] == 'evidence/swer/portal_spec.json'
+            and card['post_run_official_format_audit']['validator_exit_code'] == 2
+            and card['post_run_official_format_audit']['output'] == portal_report
+            and portal_report['sha256'] == actual_sha
+            and portal_report['failed_rules'] == ['R6']
+            and portal_report['ok'] is False
+            and portal_report['cells']['outside_non_nan'] == portal_report['cells']['outside_cells']
+            and 'additional automatic blocker' in
+                card['post_run_official_format_audit']['decision_effect']),
         'swer_zip_exactly_identical_tiff': zip_ok and sha(zip_path) == receipt['zip_sha256'],
         'swer_name_note_and_permissions_valid': (
             0 < len(card['submission_name']) <= 140

@@ -139,7 +139,7 @@ Therefore G79-SWER is **not demonstrated to beat H33**. It loses even to the fol
 
 ## 6. New TIFF and automatic validation
 
-The shared `vendor/gems57/submission_writer.py` wrote and round-tripped a TIFF, a ZIP containing exactly that TIFF, and a JSON receipt. The TIFF has:
+The shared `vendor/gems57/submission_writer.py` wrote and round-tripped a TIFF, a ZIP containing exactly that TIFF, and a JSON receipt. Its generation-time project validator passed. A later official R1–R8 audit introduced on `main` was then run against the exact frozen SHA-256 and failed R6; both results are retained rather than conflated. The TIFF has:
 
 - one float32 band;
 - EPSG:32611;
@@ -149,7 +149,8 @@ The shared `vendor/gems57/submission_writer.py` wrote and round-tripped a TIFF, 
 - min `0.0`, max `1.0`;
 - zero positive values outside the footprint and on mapped catalogue pixels;
 - `340,574` positive pixels;
-- SHA-256 `e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa`.
+- SHA-256 `e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa`;
+- official format rules R1–R5, R7 and R8 pass, while **R6 fails** because all `7,111,787` exterior cells are finite zero rather than null/NaN ([complete receipt](../evidence/swer/portal_spec.json)).
 
 The SHA-256 does not match any hash in the pinned registry receipt. This proves byte distinction within that indexed inventory, not scientific novelty. The exact file's first pinned witness comparison is:
 
@@ -176,26 +177,27 @@ The first duplicate ends the registry scan under the user rule. No partial scan 
 - Re-ran the independent submission validator and ZIP byte round-trip.
 - Found a shared operational defect: `mkstemp` left writer outputs at mode `0600`. The shared writer now applies `0644` before atomic commit; bytes and hashes are unchanged. The vendor pin and version note record this one prospective shared fix.
 - Found the lane-specific boundary-gradient enrichment (`2.91x` sentinel-halo, `2.24x` footprint-edge). Because discovery occurred after the frozen negative run, it is documented as an additional rejection reason rather than silently repaired and rerun.
+- Integrated the later official-rule validator and recorded its exact R6 failure for G79-SWER as another automatic blocker; no artifact was regenerated and no historical portal error was retroactively diagnosed.
 - Preserved the Band-10 metadata conflict, hand-entered preregistration timestamp limitation, and preflight/run ordering conflict as irregularities rather than smoothing them over.
 
 ### Pass 3 — full requirements recheck
 
-- README and generated site put **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO** before historical material.
+- README and generated site put **OK TO DOWNLOAD: YES / OK TO SUBMIT: NO** before historical material and explicitly distinguish legacy grid/range PASS from official R6 FAIL.
 - One JSON run card contains hypothesis, mechanism, named mimics, DTI/CI/n/evaluator, registry correlation/overlap, raster SHA-256, full validator output, name/note, and `verdict: negative`.
 - H33's report, public leaderboard observation, local holdout, and absent organizer receipt remain separate evidence classes.
 - Five hypotheses retain exact layers, missing-fault rationales, distinctions, expected leverage, costs, mimics, and official/free availability.
 - Runtime was 58.2 seconds; two planned experiments were represented by canary/control evaluation and fixed candidate evaluation; the three-experiment/two-hour ceiling was not exceeded.
 - Zero weekly slots were selected or used.
-- Final software verification: `566 passed`; `verify_project.py` PASS including 14 SWER-specific bindings; static site 12 pages / 287 local links PASS; download-check tests 12/12 PASS; rendered browser review 36 cases PASS; canonical `submission_status.py` retains expected exit 2 / blocked.
+- Final post-integration software verification: `590 passed`; `verify_project.py` PASS including 15 SWER-specific bindings; static site 14 pages / 328 local links PASS; download-check tests 12/12 PASS; rendered browser review 42 cases PASS; canonical `submission_status.py` retains expected exit 2 / blocked. Incoming PFSD, MDSC, TDW and official-format-audit records were preserved.
 
 ## 8. Limitations and next work
 
 1. Do **not** tune or resubmit G79-SWER. The fixed hypothesis is negative and the lane is closed.
-2. Do **not** upload the TIFF simply because local format passes. Literal overlap and holdout both fail.
+2. Do **not** upload the TIFF: the legacy grid/range check passes, but official R6, literal overlap, and holdout all fail.
 3. Resolve the globally impossible literal overlap rule prospectively before another lane. Do not invent a candidate-specific exception.
 4. Reconcile Band 10's embedded description against the authoritative source package before another dependent/independent seismicity hypothesis.
 5. Correct invalid-boundary treatment prospectively—extend the normalized field through masked cells before gradients or exclude a declared halo—and test it before any new result. Do not retrofit G79-SWER.
 6. Prefer much sparser, independently localized traces; broad seismicity/strain priors should modulate sharp evidence rather than define 340k positive cells.
-7. Any future eligible lane must beat the current holdout incumbent on both declared seeds, pass both novelty criteria, and receive separate selector approval before account-side slot checks.
+7. Any future eligible lane must beat the current holdout incumbent on both declared seeds, pass official R1–R8 format validation and both novelty criteria, and receive separate selector approval before account-side slot checks.
 
 **Final outcome:** negative result delivered; new research TIFF available; submission prohibited.

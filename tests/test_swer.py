@@ -79,4 +79,10 @@ def test_swer_run_card_and_artifact_when_present():
     assert card["protocol_unique"] is False
     assert card["correlation_overlap_vs_registry"]["final_prediction_support"]["forward_overlap_3px"] == 1.0
     assert card["post_run_implementation_diagnostic"]["invalid_8px_halo_enrichment"] > 1.0
+    official = card["post_run_official_format_audit"]
+    assert official["validator_exit_code"] == 2
+    assert official["output"]["sha256"] == card["raster_sha256"]
+    assert official["output"]["failed_rules"] == ["R6"]
+    assert official["output"]["ok"] is False
+    assert official["output"]["cells"]["outside_non_nan"] == official["output"]["cells"]["outside_cells"]
     assert card["submission_note_chars"] <= 140

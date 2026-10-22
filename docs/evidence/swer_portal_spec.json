@@ -1,0 +1,76 @@
+[
+  {
+    "file": "artifacts/swer/g79-swer-swarmridge-340574px-20261022T191501Z-36bdfde7-DO-NOT-SUBMIT.tif",
+    "sha256": "e20be7471e3dab75a53bc75bd2e2b1618434903ea4c6dd273a59619f466c49aa",
+    "bytes": 1515441,
+    "template": "data/reference/sample_submission.tif",
+    "template_sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "official_source": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+    "rules": [
+      {
+        "rule": "R1",
+        "text": "single GeoTIFF layer (ZIP: exactly one .tif member)",
+        "pass": true,
+        "detail": "1 band(s)"
+      },
+      {
+        "rule": "R2",
+        "text": "datatype float32",
+        "pass": true,
+        "detail": "dtype float32"
+      },
+      {
+        "rule": "R3",
+        "text": "CRS EPSG:32611",
+        "pass": true,
+        "detail": "CRS EPSG:32611"
+      },
+      {
+        "rule": "R4",
+        "text": "shape, transform, 100 m resolution and bounds equal the template",
+        "pass": true,
+        "detail": "shape (3730, 3292) vs (3730, 3292); transform match True; res (100.0, 100.0); bounds match True"
+      },
+      {
+        "rule": "R5",
+        "text": "nodata absent or NaN",
+        "pass": true,
+        "detail": "nodata None"
+      },
+      {
+        "rule": "R6",
+        "text": "data outside the bounds is null or NaN",
+        "pass": false,
+        "detail": "7111787 non-NaN cell(s) outside the template bounds (of 7111787)"
+      },
+      {
+        "rule": "R7",
+        "text": "every in-bounds cell is finite (no NaN, no inf)",
+        "pass": true,
+        "detail": "0 NaN/inf cell(s) inside the bounds"
+      },
+      {
+        "rule": "R8",
+        "text": "every in-bounds value is between 0 and 1 inclusive",
+        "pass": true,
+        "detail": "0 value(s) outside [0,1] inside bounds; min 0.0, max 1.0"
+      }
+    ],
+    "cells": {
+      "compared": true,
+      "inside_cells": 5167373,
+      "outside_cells": 7111787,
+      "outside_non_nan": 7111787,
+      "inside_nonfinite": 0,
+      "inside_out_of_range": 0,
+      "inside_min": 0.0,
+      "inside_max": 1.0,
+      "inside_positive": 340574,
+      "inside_mass": 102517.19906156138
+    },
+    "failed_rules": [
+      "R6"
+    ],
+    "ok": false
+  }
+]

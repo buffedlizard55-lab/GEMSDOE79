@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Generate a *new unique* GEMS submission GeoTIFF from available data only.
+"""Archived G79-DZD generator. Current lane is CLOSED: do not submit its output.
+
+--help is available without reopening the lane. A new filename would not prove
+scientific novelty. The historical implementation below is preserved for audit;
+its output was never cleared by full-registry novelty or holdout evaluation.
 
 Method (lane G79-DZD: damage-zone distance decay, NOT the stopped G79-THVC lane):
   Target geothermal permeability in fault *damage zones* -- the fractured rock
@@ -13,10 +17,11 @@ Method (lane G79-DZD: damage-zone distance decay, NOT the stopped G79-THVC lane)
     1. Load the pinned grid (footprint from sample_submission, catalogue from
        existing_faults).
     2. Euclidean distance transform from catalogue fault cells.
-    3. Fault-strike orientation from the catalogue gradient (structure tensor).
-    4. Anisotropic damage-zone score: Gaussian in cross-fault distance centred
-       at an optimal damage-zone width, decaying along-strike away from fault
-       segments.  Zero on catalogue pixels; zero outside the footprint.
+    3. Catalogue-gradient activity proxy (no fitted structure tensor).
+    4. Isotropic Euclidean-distance Gaussian, multiplied by smoothed gradient
+       magnitude. The computed strike and along-strike lambda are unused;
+       this does NOT implement anisotropic along-strike transport or establish
+       a physically optimal width. Zero on catalogue and outside footprint.
     5. Normalise to [0,1], keep the top-k sparse dots, zero elsewhere.
     6. Write through the shared submission_writer (format-validated, no repair).
     7. Run the shared format validator and (where registry rasters are
@@ -151,7 +156,8 @@ def build_damage_zone_prediction(grid, k=TOP_K_DOTS):
 
 
 def main() -> int:
-    enforce_open_lane(ROOT, "G79-DZD", reason="generate_unique_submission.py")
+    # Help is read-only and must remain available for an archived lane. Parse
+    # before the guard, but never load inputs or create output directories first.
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("name", help="Submission name (1..140 chars, unique identity)")
     ap.add_argument("note", help="Submission note (1..140 chars)")
@@ -168,6 +174,7 @@ def main() -> int:
         help="Sparse dot budget (positive pixels kept)",
     )
     args = ap.parse_args()
+    enforce_open_lane(ROOT, "G79-DZD", reason="generate_unique_submission.py")
 
     if not isinstance(args.name, str) or not args.name.strip() or len(args.name) > NAME_MAX:
         raise ValueError("name must be 1..140 non-whitespace characters")
