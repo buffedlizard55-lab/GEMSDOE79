@@ -214,6 +214,13 @@ Those changes were merged into this branch without changing scientific evidence.
   No file meeting all submission gates was generated this session.
 - Review and next-session blockers: [three-pass report](reports/session_review_2203b2cc.md).
 
+## Maintenance review — session `e846fc02` (2026-10-22, no new experiment)
+
+- **Decision unchanged:** `OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.` — the canonical research GeoTIFF (`abbf5314…`, 37,654 dots, single band float32 EPSG:32611, values exactly 0/1, no NaN anywhere) remains locally format-valid (`Predicted values must be in range [0,1]` PASS) but duplicate-blocked (26 informative dot fields >70%, worst 0.913 vs 0.610 chance; surface also fails; universal whole-footprint witness still covers 100% of allowed cells, `preflight_new_lane.py` exits 2). No retraining, no dot placement, no weekly slot was used.
+- **Fixes:** collapsed duplicate `scikit-image` constraints in `requirements.txt` to `>=0.25,<1` (lock pins 0.26.0; `pip install -r requirements.lock` verified); rebuilt the static site with the new backlog included (`build_site.py` now embeds `research/hypotheses_e846fc02.md`); `verify_project.py` 29/29 PASS, `check_site.py` 7 pages / 120 links PASS, `pytest` 230 PASS, `submission_status.py` exit 2.
+- **New research inputs for a future preregistered lane:** five newly ranked, not-yet-tested hypotheses (`research/hypotheses_e846fc02.md`) — tip-pair stepover linkage, drainage-deflection scarps, antislope polarity, persistent basement-edge worms, radiometric alteration lineament — each with layers, transform, why it targets *uncatalogued* faults, difference from repo, cost/mimic/viability; ranked so a future lane can pick one, preregister, and validate on the spatially blocked HOLDOUT-DTI before touching a slot. A separate geothermal-vent synthesis (`knowledge/geothermal_vent_discovery.md`) consolidates all official sources line-by-line for reuse.
+- **No protocol exemption was added.** The universal literal witness and its implications (IR-79-53) still require an explicit prospective decision before any nonempty map can pass the 0.70 gate; the site's `research.html` now surfaces this with the new backlog.
+- Three-pass review: [`reports/session_review_e846fc02.md`](reports/session_review_e846fc02.md).
 
 Earlier README status sections (E1 G79-FABRIC-OFFSET, which stopped negative, and the concurrent-lane audits) are
 preserved verbatim in [`reports/readme_history_through_8ed5d89a.md`](reports/readme_history_through_8ed5d89a.md).
