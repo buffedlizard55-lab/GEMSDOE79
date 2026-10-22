@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "lane": "H80-PILOTS-842c8c7c",
+  "session_branch": "arena/842c8c7c-gemsdoe79",
+  "generated_by": "scripts/build_h80_run_card.py (reads evidence/*.json; no hand-typed numbers)",
+  "experiments_run": 2,
+  "experiment_budget": 3,
+  "holdout_evaluations_performed": 12,
+  "final_dot_placements_performed": "2 pilots x 2 arms x 2 seeds + C0 random x 2 seeds (scoring-only; no raster written)",
+  "hypothesis": "A physics-derived, zero-catalogue score surface from GeoDAWN magnetics (E-W flight-line notch) or radiometrics (thorium-normalised potassium residual) can localise holdout fault pixels better than fixed-budget random placement at 300 m separation, without any fault catalogue input.",
+  "hypotheses_tested": {
+    "H80-DRAPE-DECONV (pilot of notch + tilt-edge)": "registry/preregistration_h80_drape_pilot.json",
+    "H80-RADIO-KD (pilot of Th-normalised K residual)": "registry/preregistration_h80_radio_pilot.json"
+  },
+  "mechanism": "Magnetic tilt-edge zero contours mark lateral source edges; a notch on E-W flight-line bands removes contractor line artifacts before the edge transform. Potassium enrichment minus a thorium-predicted background marks K-metasomatised fault conduits.",
+  "named_non_fault_process": "Residual micro-leveling / tie-line artifacts (magnetics) and lithology-driven or playa/evaporite potassium (radiometrics). Neither was removed by the pilots.",
+  "holdout_results": {
+    "drape": {
+      "lane": "H80-DRAPE-PILOT",
+      "seeds": {
+        "20": {
+          "withheld_positive_pixels": 11321,
+          "receipt_withheld_positive_pixels": 11321,
+          "candidate": {
+            "holdout_dti": 0.0504,
+            "ci95": [
+              0.0424,
+              0.0584
+            ],
+            "withheld_positive_pixels": 11321,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "control": {
+            "holdout_dti": 0.0506,
+            "ci95": [
+              0.0425,
+              0.0588
+            ],
+            "withheld_positive_pixels": 11321,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "random_C0": {
+            "holdout_dti": 0.0492,
+            "ci95": [
+              0.0436,
+              0.0548
+            ],
+            "withheld_positive_pixels": 11321,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "paired_candidate_minus_control": {
+            "B_control_no_notch": -0.0002,
+            "ci95": [
+              -0.0024,
+              0.002
+            ]
+          },
+          "paired_candidate_minus_random": {
+            "delta": 0.0013,
+            "ci95": [
+              -0.0086,
+              0.0096
+            ]
+          },
+          "leakage_canary_auc_single_score": {
+            "A_notch": 0.5316,
+            "B_control_no_notch": 0.5299
+          },
+          "emitted_dots": {
+            "A_notch": 37654,
+            "B_control_no_notch": 37654,
+            "C0_random": 37654
+          }
+        },
+        "30": {
+          "withheld_positive_pixels": 11342,
+          "receipt_withheld_positive_pixels": 11342,
+          "candidate": {
+            "holdout_dti": 0.0459,
+            "ci95": [
+              0.0388,
+              0.0529
+            ],
+            "withheld_positive_pixels": 11342,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "control": {
+            "holdout_dti": 0.0477,
+            "ci95": [
+              0.0403,
+              0.055
+            ],
+            "withheld_positive_pixels": 11342,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "random_C0": {
+            "holdout_dti": 0.049,
+            "ci95": [
+              0.0438,
+              0.0541
+            ],
+            "withheld_positive_pixels": 11342,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "paired_candidate_minus_control": {
+            "B_control_no_notch": -0.0018,
+            "ci95": [
+              -0.0038,
+              -0.0
+            ]
+          },
+          "paired_candidate_minus_random": {
+            "delta": -0.0032,
+            "ci95": [
+              -0.0107,
+              0.005
+            ]
+          },
+          "leakage_canary_auc_single_score": {
+            "A_notch": 0.5082,
+            "B_control_no_notch": 0.5071
+          },
+          "emitted_dots": {
+            "A_notch": 37654,
+            "B_control_no_notch": 37654,
+            "C0_random": 37654
+          }
+        }
+      }
+    },
+    "radio": {
+      "lane": "H80-RADIO-PILOT",
+      "seeds": {
+        "20": {
+          "withheld_positive_pixels": 11321,
+          "receipt_withheld_positive_pixels": 11321,
+          "candidate": {
+            "holdout_dti": 0.0206,
+            "ci95": [
+              0.0106,
+              0.0303
+            ],
+            "withheld_positive_pixels": 11321,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "control": {
+            "holdout_dti": 0.0274,
+            "ci95": [
+              0.0146,
+              0.0402
+            ],
+            "withheld_positive_pixels": 11321,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "random_C0": {
+            "holdout_dti": 0.0457,
+            "ci95": [
+              0.0398,
+              0.0517
+            ],
+            "withheld_positive_pixels": 11321,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "paired_candidate_minus_control": {
+            "B_control_raw_K": -0.0068,
+            "ci95": [
+              -0.0156,
+              0.0028
+            ]
+          },
+          "paired_candidate_minus_random": {
+            "delta": -0.025,
+            "ci95": [
+              -0.0362,
+              -0.014
+            ]
+          },
+          "leakage_canary_auc_single_score": {
+            "A_th_normalised_K": 0.4705,
+            "B_control_raw_K": 0.4644
+          },
+          "emitted_dots": {
+            "A_th_normalised_K": 37654,
+            "B_control_raw_K": 37654,
+            "C0_random": 37654
+          }
+        },
+        "30": {
+          "withheld_positive_pixels": 11342,
+          "receipt_withheld_positive_pixels": 11342,
+          "candidate": {
+            "holdout_dti": 0.0318,
+            "ci95": [
+              0.0199,
+              0.044
+            ],
+            "withheld_positive_pixels": 11342,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "control": {
+            "holdout_dti": 0.0294,
+            "ci95": [
+              0.018,
+              0.0418
+            ],
+            "withheld_positive_pixels": 11342,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "random_C0": {
+            "holdout_dti": 0.0459,
+            "ci95": [
+              0.0411,
+              0.0506
+            ],
+            "withheld_positive_pixels": 11342,
+            "evidence_class": "HOLDOUT-DTI",
+            "evaluator_version": "gems57-pooled-hide-v2"
+          },
+          "paired_candidate_minus_control": {
+            "B_control_raw_K": 0.0024,
+            "ci95": [
+              -0.0089,
+              0.014
+            ]
+          },
+          "paired_candidate_minus_random": {
+            "delta": -0.0141,
+            "ci95": [
+              -0.0256,
+              -0.001
+            ]
+          },
+          "leakage_canary_auc_single_score": {
+            "A_th_normalised_K": 0.4939,
+            "B_control_raw_K": 0.4612
+          },
+          "emitted_dots": {
+            "A_th_normalised_K": 37654,
+            "B_control_raw_K": 37654,
+            "C0_random": 37654
+          }
+        }
+      }
+    }
+  },
+  "bar_to_spend_a_slot": {
+    "seed20": 0.1905,
+    "seed30": 0.1944,
+    "source": "G79-THVC run_card.json, HOLDOUT-DTI, not ORGANIZER-CONFIRMED"
+  },
+  "best_pilot_candidate_vs_bar": {
+    "pilot": "H80-DRAPE-PILOT candidate",
+    "seed20": 0.0504,
+    "seed30": 0.0459,
+    "beats_bar_both_seeds": false
+  },
+  "leakage_canary": {
+    "rule": "single-feature AUC <= 0.90",
+    "max_auc": 0.5316,
+    "result": "PASS"
+  },
+  "correlation_overlap_vs_registry": {
+    "20": {
+      "DRAPE_A_notch": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.195,
+          "D2.8_GEMSDOE25": 0.2028,
+          "G79-THVC_canonical": 0.1352
+        },
+        "spearman": {
+          "H33_GEMSDOE32": 0.0011,
+          "D2.8_GEMSDOE25": 0.0011,
+          "G79-THVC_canonical": 0.0039
+        }
+      },
+      "DRAPE_B_control": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.1949,
+          "D2.8_GEMSDOE25": 0.2034,
+          "G79-THVC_canonical": 0.1357
+        },
+        "spearman": {
+          "H33_GEMSDOE32": 0.0013,
+          "D2.8_GEMSDOE25": 0.0013,
+          "G79-THVC_canonical": 0.0041
+        }
+      },
+      "RADIO_A_th_normalised_K": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.0261,
+          "D2.8_GEMSDOE25": 0.0275,
+          "G79-THVC_canonical": 0.0985
+        },
+        "spearman": {
+          "H33_GEMSDOE32": -0.035,
+          "D2.8_GEMSDOE25": -0.0403,
+          "G79-THVC_canonical": -0.0108
+        }
+      },
+      "RADIO_B_raw_K": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.0398,
+          "D2.8_GEMSDOE25": 0.0421,
+          "G79-THVC_canonical": 0.085
+        },
+        "spearman": {
+          "H33_GEMSDOE32": -0.04,
+          "D2.8_GEMSDOE25": -0.045,
+          "G79-THVC_canonical": -0.0152
+        }
+      }
+    },
+    "30": {
+      "DRAPE_A_notch": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.1953,
+          "D2.8_GEMSDOE25": 0.2035,
+          "G79-THVC_canonical": 0.1355
+        },
+        "spearman": {
+          "H33_GEMSDOE32": 0.0011,
+          "D2.8_GEMSDOE25": 0.0011,
+          "G79-THVC_canonical": 0.0039
+        }
+      },
+      "DRAPE_B_control": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.1951,
+          "D2.8_GEMSDOE25": 0.2038,
+          "G79-THVC_canonical": 0.136
+        },
+        "spearman": {
+          "H33_GEMSDOE32": 0.0013,
+          "D2.8_GEMSDOE25": 0.0013,
+          "G79-THVC_canonical": 0.0041
+        }
+      },
+      "RADIO_A_th_normalised_K": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.026,
+          "D2.8_GEMSDOE25": 0.0279,
+          "G79-THVC_canonical": 0.0979
+        },
+        "spearman": {
+          "H33_GEMSDOE32": -0.035,
+          "D2.8_GEMSDOE25": -0.0403,
+          "G79-THVC_canonical": -0.0108
+        }
+      },
+      "RADIO_B_raw_K": {
+        "dots": 37654,
+        "within_3px": {
+          "H33_GEMSDOE32": 0.0395,
+          "D2.8_GEMSDOE25": 0.0422,
+          "G79-THVC_canonical": 0.0847
+        },
+        "spearman": {
+          "H33_GEMSDOE32": -0.04,
+          "D2.8_GEMSDOE25": -0.045,
+          "G79-THVC_canonical": -0.0152
+        }
+      }
+    }
+  },
+  "correlation_overlap_rule": "duplicate if rank corr > 0.90 or > 70 pct of dots within 3 px of one registry raster",
+  "correlation_overlap_result": "NOT DUPLICATES (max within-3px overlap 0.2038 vs the 0.70 rule; max abs Spearman 0.045 vs the 0.90 rule)",
+  "raster_sha256": null,
+  "raster_sha256_reason": "No candidate raster was written: the pilots are scoring-only and the holdout bar was not met, so the protocol stops before placement for a submission.",
+  "reference_canonical_raster_sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+  "validator_output": "NOT RUN for a new raster (none emitted). Canonical G79-THVC validator output is in run_card.json (15/15 checks PASS).",
+  "submission_name": null,
+  "submission_note": null,
+  "submission_name_note_status": "none: no candidate passed the holdout gate",
+  "verdict": "negative",
+  "ok_to_download_new_file": false,
+  "ok_to_submit_new_file": false,
+  "submission_slots_used": 0,
+  "named_limits": [
+    "Holdout proxy only (HOLDOUT-DTI, gems57-pooled-hide-v2); public or private DrivenData scores are not produced here.",
+    "Training features are restored from owner GitHub mirrors, not organizer-authenticated.",
+    "Silica/ASTER normalisation for H80-RADIO-KD not restored; GeoDAWN radiometric units not stated in the restored metadata.",
+    "Full H80-MT-PHASE hypothesis is invalid as specified: the official USGS MT product is conductance (2-200 km), see IR-79-144."
+  ]
+}
