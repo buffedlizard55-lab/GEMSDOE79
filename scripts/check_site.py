@@ -103,6 +103,18 @@ def check_site():
     assert '@import' not in (site / 'assets/site.css').read_text()
     assert (ROOT / '.nojekyll').exists() and (site / '.nojekyll').exists()
     assert 'docs/index.html' in (ROOT / 'index.html').read_text()
+    import re
+    md_ir_ids = [
+        m.group(1)
+        for line_txt in (ROOT / 'reports/irregularities.md').read_text().splitlines()
+        if (m := re.match(r'^\|\s*(IR-79-\d+)\s*\|', line_txt))
+    ]
+    html_ir_ids = [
+        tr.find('td').get_text(strip=True)
+        for tr in pages['irregularities.html'].find_all('tr')
+        if tr.find('td') and re.match(r'^IR-79-\d+$', tr.find('td').get_text(strip=True))
+    ]
+    assert html_ir_ids == md_ir_ids, 'Irregularities HTML table out of sync with reports/irregularities.md; run scripts/build_site.py'
     return {'passed': True, 'pages': len(pages), 'local_links_checked': local_links,
             'all_pages_reachable_from_home': True, 'compatibility_redirects': len(aliases), 'external_assets': 0,
             'scientific_tables_and_full_gates_match_receipts': True, 'source_health_is_not_claimed_as_receipt': True, 'submit': card['ok_to_submit']}

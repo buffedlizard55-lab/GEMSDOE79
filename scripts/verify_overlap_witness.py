@@ -65,8 +65,13 @@ def verify_witness(root=ROOT, *, restore=False):
     grid = load_grid(root / 'data/reference')
     measured = saturation_certificate(path, grid.footprint, grid.catalogue,
                                     expected_grid=(grid.shape, grid.crs, grid.transform))
+    try:
+        measured['witness_file'] = path.resolve().relative_to(root.resolve()).as_posix()
+    except ValueError:
+        measured['witness_file'] = str(path)
     original = json.loads((root / 'evidence/universal_overlap_certificate.json').read_text())
-    # Path serialization differs by checkout; compare every other measured field.
+    # Path serialization differs when fixtures write absolute witness_file paths;
+    # compare every other measured field identically.
     keys = set(measured) - {'witness_file'}
     checks = {key: measured[key] == original.get(key) for key in sorted(keys)}
     return {'reviewed_utc': datetime.now(timezone.utc).isoformat(),
@@ -86,6 +91,7 @@ def main():
     report = verify_witness(restore=args.restore)
     text = json.dumps(report, indent=2, allow_nan=False) + '\n'
     if args.report:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
         with args.report.open('x') as stream:
             stream.write(text)
     print(text, end='')
