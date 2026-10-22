@@ -1,0 +1,2339 @@
+{
+  "passed": true,
+  "threshold": 0.9,
+  "rows": [
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "det_elev_step",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6821125273010921,
+      "symmetric_auc": 0.6821125273010921,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "det_elev_grad1",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6666895787831513,
+      "symmetric_auc": 0.6666895787831513,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "det_elev_grad3",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6835616172646906,
+      "symmetric_auc": 0.6835616172646906,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "det_elev_abslap2",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.630415626625065,
+      "symmetric_auc": 0.630415626625065,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "iso_grav_anom_step",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5233694721788872,
+      "symmetric_auc": 0.5233694721788872,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "iso_grav_anom_grad1",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5231767810712429,
+      "symmetric_auc": 0.5231767810712429,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "iso_grav_anom_grad3",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5225420436817473,
+      "symmetric_auc": 0.5225420436817473,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "iso_grav_anom_abslap2",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4817584659386376,
+      "symmetric_auc": 0.5182415340613624,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "log_depth_step",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5500377561102445,
+      "symmetric_auc": 0.5500377561102445,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "log_depth_grad1",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5502987155486219,
+      "symmetric_auc": 0.5502987155486219,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "log_depth_grad3",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.549369383775351,
+      "symmetric_auc": 0.549369383775351,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "log_depth_abslap2",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5114864170566823,
+      "symmetric_auc": 0.5114864170566823,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rtp_step",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5677040041601664,
+      "symmetric_auc": 0.5677040041601664,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rtp_grad1",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5627702990119605,
+      "symmetric_auc": 0.5627702990119605,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rtp_grad3",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5709399401976079,
+      "symmetric_auc": 0.5709399401976079,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rtp_abslap2",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5493744877795111,
+      "symmetric_auc": 0.5493744877795111,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "cond_surf_step",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5004551586063443,
+      "symmetric_auc": 0.5004551586063443,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "cond_surf_grad1",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5010091107644306,
+      "symmetric_auc": 0.5010091107644306,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "cond_surf_grad3",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5010154212168487,
+      "symmetric_auc": 0.5010154212168487,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "cond_surf_abslap2",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5402545891835674,
+      "symmetric_auc": 0.5402545891835674,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "mag_anom",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5136343057722309,
+      "symmetric_auc": 0.5136343057722309,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "tmi_hg",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5592854108164327,
+      "symmetric_auc": 0.5592854108164327,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "geod_2ndinv",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5284638455538222,
+      "symmetric_auc": 0.5284638455538222,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "iso_grav_anom_slope",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5151805382215289,
+      "symmetric_auc": 0.5151805382215289,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "tc",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.50768620124805,
+      "symmetric_auc": 0.50768620124805,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "geod_shearrate",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5352444799791991,
+      "symmetric_auc": 0.5352444799791991,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "geod_dilaterate",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5242465002600103,
+      "symmetric_auc": 0.5242465002600103,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "tmi_vg",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4601477457098284,
+      "symmetric_auc": 0.5398522542901716,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "log_deq",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47604197607904314,
+      "symmetric_auc": 0.5239580239209569,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "iso_grav_anom_vg",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5102108788351534,
+      "symmetric_auc": 0.5102108788351534,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "det_elev",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6374250078003121,
+      "symmetric_auc": 0.6374250078003121,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "iso_grav_anom",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49682173166926674,
+      "symmetric_auc": 0.5031782683307333,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "tmi",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5039377899115964,
+      "symmetric_auc": 0.5039377899115964,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "log_depth",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5033023660946437,
+      "symmetric_auc": 0.5033023660946437,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "log_ieq",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47499919136765467,
+      "symmetric_auc": 0.5250008086323453,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "cond_surf",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5693743135725429,
+      "symmetric_auc": 0.5693743135725429,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "iso_grav_anom_hg",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47554135725429014,
+      "symmetric_auc": 0.5244586427457099,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "det_elev_slope",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.64684494799792,
+      "symmetric_auc": 0.64684494799792,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rtp",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5324438247529901,
+      "symmetric_auc": 0.5324438247529901,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_ex_max",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6374591549661986,
+      "symmetric_auc": 0.6374591549661986,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_ex_mean",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6317226365054602,
+      "symmetric_auc": 0.6317226365054602,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_step_max",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6479848673946959,
+      "symmetric_auc": 0.6479848673946959,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_lapneg_max",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6536716276651066,
+      "symmetric_auc": 0.6536716276651066,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_lappos_max",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6552746723868954,
+      "symmetric_auc": 0.6552746723868954,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_downface_max",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.655627550702028,
+      "symmetric_auc": 0.655627550702028,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_upface_max",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6612121970878835,
+      "symmetric_auc": 0.6612121970878835,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_cross_max",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6609846307852314,
+      "symmetric_auc": 0.6609846307852314,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_relief",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.6763407410296413,
+      "symmetric_auc": 0.6763407410296413,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_coh100",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.546478107124285,
+      "symmetric_auc": 0.546478107124285,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "lidar_valid",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5638175663026521,
+      "symmetric_auc": 0.5638175663026521,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rad_K",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4787057748309932,
+      "symmetric_auc": 0.5212942251690068,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rad_Th",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5265366250650027,
+      "symmetric_auc": 0.5265366250650027,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rad_U",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5215921216848673,
+      "symmetric_auc": 0.5215921216848673,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rad_TC",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5076908762350494,
+      "symmetric_auc": 0.5076908762350494,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rad_ThK",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5782108814352573,
+      "symmetric_auc": 0.5782108814352573,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rad_UK",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5179560582423297,
+      "symmetric_auc": 0.5179560582423297,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rad_UTh",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.472154412376495,
+      "symmetric_auc": 0.527845587623505,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NW",
+      "feature": "rad_TMI_up150",
+      "positive_pixels": 1923,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.50387378575143,
+      "symmetric_auc": 0.50387378575143,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "det_elev_step",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5459810012674271,
+      "symmetric_auc": 0.5459810012674271,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "det_elev_grad1",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5309017490494297,
+      "symmetric_auc": 0.5309017490494297,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "det_elev_grad3",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5553131368821292,
+      "symmetric_auc": 0.5553131368821292,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "det_elev_abslap2",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4807520637938319,
+      "symmetric_auc": 0.5192479362061682,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "iso_grav_anom_step",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.532947205323194,
+      "symmetric_auc": 0.532947205323194,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "iso_grav_anom_grad1",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5339192881284326,
+      "symmetric_auc": 0.5339192881284326,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "iso_grav_anom_grad3",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.53406872834812,
+      "symmetric_auc": 0.53406872834812,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "iso_grav_anom_abslap2",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5253852682720743,
+      "symmetric_auc": 0.5253852682720743,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "log_depth_step",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5051837389100127,
+      "symmetric_auc": 0.5051837389100127,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "log_depth_grad1",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5055292395437263,
+      "symmetric_auc": 0.5055292395437263,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "log_depth_grad3",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5051123891001268,
+      "symmetric_auc": 0.5051123891001268,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "log_depth_abslap2",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49232040557667933,
+      "symmetric_auc": 0.5076795944233207,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rtp_step",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4755919792986903,
+      "symmetric_auc": 0.5244080207013098,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rtp_grad1",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47928927756653994,
+      "symmetric_auc": 0.5207107224334601,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rtp_grad3",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4772260350654838,
+      "symmetric_auc": 0.5227739649345162,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rtp_abslap2",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4786492057456696,
+      "symmetric_auc": 0.5213507942543304,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "cond_surf_step",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5023454330376004,
+      "symmetric_auc": 0.5023454330376004,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "cond_surf_grad1",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49998926700464735,
+      "symmetric_auc": 0.5000107329953527,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "cond_surf_grad3",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5037686924376849,
+      "symmetric_auc": 0.5037686924376849,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "cond_surf_abslap2",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4723691867342628,
+      "symmetric_auc": 0.5276308132657372,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "mag_anom",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4831383924799324,
+      "symmetric_auc": 0.5168616075200676,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "tmi_hg",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4712034706379383,
+      "symmetric_auc": 0.5287965293620617,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "geod_2ndinv",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5228899957752429,
+      "symmetric_auc": 0.5228899957752429,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "iso_grav_anom_slope",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5281628326996198,
+      "symmetric_auc": 0.5281628326996198,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "tc",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.43496751584283905,
+      "symmetric_auc": 0.565032484157161,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "geod_shearrate",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.46893541402619343,
+      "symmetric_auc": 0.5310645859738066,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "geod_dilaterate",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5222396324461344,
+      "symmetric_auc": 0.5222396324461344,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "tmi_vg",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4905871461765949,
+      "symmetric_auc": 0.5094128538234051,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "log_deq",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5437428833967047,
+      "symmetric_auc": 0.5437428833967047,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "iso_grav_anom_vg",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5115925095057035,
+      "symmetric_auc": 0.5115925095057035,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "det_elev",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.45435559357836924,
+      "symmetric_auc": 0.5456444064216308,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "iso_grav_anom",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4821481178707224,
+      "symmetric_auc": 0.5178518821292776,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "tmi",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4846879636670891,
+      "symmetric_auc": 0.5153120363329109,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "log_depth",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5170583417828475,
+      "symmetric_auc": 0.5170583417828475,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "log_ieq",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5030539501478666,
+      "symmetric_auc": 0.5030539501478666,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "cond_surf",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4421927038445289,
+      "symmetric_auc": 0.5578072961554711,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "iso_grav_anom_hg",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5376359357836925,
+      "symmetric_auc": 0.5376359357836925,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "det_elev_slope",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5103321144909168,
+      "symmetric_auc": 0.5103321144909168,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rtp",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4980587177862273,
+      "symmetric_auc": 0.5019412822137728,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_ex_max",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5533993768483312,
+      "symmetric_auc": 0.5533993768483312,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_ex_mean",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5507370616814533,
+      "symmetric_auc": 0.5507370616814533,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_step_max",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5570624841571609,
+      "symmetric_auc": 0.5570624841571609,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_lapneg_max",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5575657245458386,
+      "symmetric_auc": 0.5575657245458386,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_lappos_max",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5638900781580058,
+      "symmetric_auc": 0.5638900781580058,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_downface_max",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5714123489649345,
+      "symmetric_auc": 0.5714123489649345,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_upface_max",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5781351204055767,
+      "symmetric_auc": 0.5781351204055767,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_cross_max",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5695622982678497,
+      "symmetric_auc": 0.5695622982678497,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_relief",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5454500781580058,
+      "symmetric_auc": 0.5454500781580058,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_coh100",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5328830333755809,
+      "symmetric_auc": 0.5328830333755809,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "lidar_valid",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5369373151668779,
+      "symmetric_auc": 0.5369373151668779,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rad_K",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.42419733840304175,
+      "symmetric_auc": 0.5758026615969583,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rad_Th",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4400617448246726,
+      "symmetric_auc": 0.5599382551753274,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rad_U",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.45368852555978034,
+      "symmetric_auc": 0.5463114744402197,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rad_TC",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.43500038445289396,
+      "symmetric_auc": 0.564999615547106,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rad_ThK",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4808888677651034,
+      "symmetric_auc": 0.5191111322348966,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rad_UK",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5369911343472751,
+      "symmetric_auc": 0.5369911343472751,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rad_UTh",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5404050697084919,
+      "symmetric_auc": 0.5404050697084919,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "NE",
+      "feature": "rad_TMI_up150",
+      "positive_pixels": 2367,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.484548151668779,
+      "symmetric_auc": 0.5154518483312209,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "det_elev_step",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5803176950542184,
+      "symmetric_auc": 0.5803176950542184,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "det_elev_grad1",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5778912576038086,
+      "symmetric_auc": 0.5778912576038086,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "det_elev_grad3",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5792563911663581,
+      "symmetric_auc": 0.5792563911663581,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "det_elev_abslap2",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5655168341708543,
+      "symmetric_auc": 0.5655168341708543,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "iso_grav_anom_step",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49804159613858767,
+      "symmetric_auc": 0.5019584038614123,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "iso_grav_anom_grad1",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4987044591377942,
+      "symmetric_auc": 0.5012955408622057,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "iso_grav_anom_grad3",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49847888786035444,
+      "symmetric_auc": 0.5015211121396456,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "iso_grav_anom_abslap2",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.48784138190954773,
+      "symmetric_auc": 0.5121586180904523,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "log_depth_step",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5080585916424226,
+      "symmetric_auc": 0.5080585916424226,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "log_depth_grad1",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5072872480825178,
+      "symmetric_auc": 0.5072872480825178,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "log_depth_grad3",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5087183112933087,
+      "symmetric_auc": 0.5087183112933087,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "log_depth_abslap2",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.507096682094684,
+      "symmetric_auc": 0.507096682094684,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rtp_step",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5364162906638456,
+      "symmetric_auc": 0.5364162906638456,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rtp_grad1",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5341787701666225,
+      "symmetric_auc": 0.5341787701666225,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rtp_grad3",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5365742541655647,
+      "symmetric_auc": 0.5365742541655647,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rtp_abslap2",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5217229000264479,
+      "symmetric_auc": 0.5217229000264479,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "cond_surf_step",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5417307365776249,
+      "symmetric_auc": 0.5417307365776249,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "cond_surf_grad1",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5343600423168474,
+      "symmetric_auc": 0.5343600423168474,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "cond_surf_grad3",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5441159666754827,
+      "symmetric_auc": 0.5441159666754827,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "cond_surf_abslap2",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49914972626289345,
+      "symmetric_auc": 0.5008502737371066,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "mag_anom",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47952633165829145,
+      "symmetric_auc": 0.5204736683417086,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "tmi_hg",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.53242737503306,
+      "symmetric_auc": 0.53242737503306,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "geod_2ndinv",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5531876130653267,
+      "symmetric_auc": 0.5531876130653267,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "iso_grav_anom_slope",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49642673366834167,
+      "symmetric_auc": 0.5035732663316583,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "tc",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4519851229833377,
+      "symmetric_auc": 0.5480148770166623,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "geod_shearrate",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5585651216609363,
+      "symmetric_auc": 0.5585651216609363,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "geod_dilaterate",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5336596574980164,
+      "symmetric_auc": 0.5336596574980164,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "tmi_vg",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4978786075112404,
+      "symmetric_auc": 0.5021213924887595,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "log_deq",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5215194617825972,
+      "symmetric_auc": 0.5215194617825972,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "iso_grav_anom_vg",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5108380891298598,
+      "symmetric_auc": 0.5108380891298598,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "det_elev",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5635530243321873,
+      "symmetric_auc": 0.5635530243321873,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "iso_grav_anom",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47862301507537686,
+      "symmetric_auc": 0.5213769849246231,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "tmi",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49907891695318696,
+      "symmetric_auc": 0.500921083046813,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "log_depth",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47855225733932827,
+      "symmetric_auc": 0.5214477426606717,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "log_ieq",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5170455620206295,
+      "symmetric_auc": 0.5170455620206295,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "cond_surf",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.47426878735784184,
+      "symmetric_auc": 0.5257312126421582,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "iso_grav_anom_hg",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.46457105395398046,
+      "symmetric_auc": 0.5354289460460195,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "det_elev_slope",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5733007061623909,
+      "symmetric_auc": 0.5733007061623909,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rtp",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5263886458608834,
+      "symmetric_auc": 0.5263886458608834,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_ex_max",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5397225614916689,
+      "symmetric_auc": 0.5397225614916689,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_ex_mean",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5347501692673896,
+      "symmetric_auc": 0.5347501692673896,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_step_max",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5502342092039144,
+      "symmetric_auc": 0.5502342092039144,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_lapneg_max",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5452919994710395,
+      "symmetric_auc": 0.5452919994710395,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_lappos_max",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5512672137000794,
+      "symmetric_auc": 0.5512672137000794,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_downface_max",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.574284510711452,
+      "symmetric_auc": 0.574284510711452,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_upface_max",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5748468077228246,
+      "symmetric_auc": 0.5748468077228246,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_cross_max",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5774743864057128,
+      "symmetric_auc": 0.5774743864057128,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_relief",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5642428841576302,
+      "symmetric_auc": 0.5642428841576302,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_coh100",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5104321475800053,
+      "symmetric_auc": 0.5104321475800053,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "lidar_valid",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4942254628405184,
+      "symmetric_auc": 0.5057745371594816,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rad_K",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4230603372123777,
+      "symmetric_auc": 0.5769396627876223,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rad_Th",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.48070526315789475,
+      "symmetric_auc": 0.5192947368421053,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rad_U",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.48933063871991533,
+      "symmetric_auc": 0.5106693612800847,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rad_TC",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.45197564665432427,
+      "symmetric_auc": 0.5480243533456757,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rad_ThK",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5246167032531076,
+      "symmetric_auc": 0.5246167032531076,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rad_UK",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5572018183020365,
+      "symmetric_auc": 0.5572018183020365,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rad_UTh",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.511716778629992,
+      "symmetric_auc": 0.511716778629992,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SW",
+      "feature": "rad_TMI_up150",
+      "positive_pixels": 3781,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.49915299656175616,
+      "symmetric_auc": 0.5008470034382438,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "det_elev_step",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5620474476923077,
+      "symmetric_auc": 0.5620474476923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "det_elev_grad1",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5603019507692308,
+      "symmetric_auc": 0.5603019507692308,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "det_elev_grad3",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5638832369230768,
+      "symmetric_auc": 0.5638832369230768,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "det_elev_abslap2",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5113853892307693,
+      "symmetric_auc": 0.5113853892307693,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "iso_grav_anom_step",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5685442507692309,
+      "symmetric_auc": 0.5685442507692309,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "iso_grav_anom_grad1",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5678808753846154,
+      "symmetric_auc": 0.5678808753846154,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "iso_grav_anom_grad3",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5688914369230769,
+      "symmetric_auc": 0.5688914369230769,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "iso_grav_anom_abslap2",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5105727753846154,
+      "symmetric_auc": 0.5105727753846154,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "log_depth_step",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.534294256923077,
+      "symmetric_auc": 0.534294256923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "log_depth_grad1",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5323427430769231,
+      "symmetric_auc": 0.5323427430769231,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "log_depth_grad3",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5359130907692308,
+      "symmetric_auc": 0.5359130907692308,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "log_depth_abslap2",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4897224092307692,
+      "symmetric_auc": 0.5102775907692307,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rtp_step",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5096896830769231,
+      "symmetric_auc": 0.5096896830769231,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rtp_grad1",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5094560753846153,
+      "symmetric_auc": 0.5094560753846153,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rtp_grad3",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5126444061538461,
+      "symmetric_auc": 0.5126444061538461,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rtp_abslap2",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4828662153846154,
+      "symmetric_auc": 0.5171337846153846,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "cond_surf_step",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5328485292307692,
+      "symmetric_auc": 0.5328485292307692,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "cond_surf_grad1",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5360088984615384,
+      "symmetric_auc": 0.5360088984615384,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "cond_surf_grad3",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5295915107692308,
+      "symmetric_auc": 0.5295915107692308,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "cond_surf_abslap2",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5232509769230769,
+      "symmetric_auc": 0.5232509769230769,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "mag_anom",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5459482076923077,
+      "symmetric_auc": 0.5459482076923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "tmi_hg",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4944169569230769,
+      "symmetric_auc": 0.505583043076923,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "geod_2ndinv",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5058930938461539,
+      "symmetric_auc": 0.5058930938461539,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "iso_grav_anom_slope",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5681949830769231,
+      "symmetric_auc": 0.5681949830769231,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "tc",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4373395015384616,
+      "symmetric_auc": 0.5626604984615384,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "geod_shearrate",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5182120476923077,
+      "symmetric_auc": 0.5182120476923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "geod_dilaterate",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5103978046153846,
+      "symmetric_auc": 0.5103978046153846,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "tmi_vg",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.48988843538461535,
+      "symmetric_auc": 0.5101115646153846,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "log_deq",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.42048721230769226,
+      "symmetric_auc": 0.5795127876923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "iso_grav_anom_vg",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5313726153846154,
+      "symmetric_auc": 0.5313726153846154,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "det_elev",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4678593753846154,
+      "symmetric_auc": 0.5321406246153846,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "iso_grav_anom",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4783197676923077,
+      "symmetric_auc": 0.5216802323076923,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "tmi",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5351864461538461,
+      "symmetric_auc": 0.5351864461538461,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "log_depth",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5634626692307693,
+      "symmetric_auc": 0.5634626692307693,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "log_ieq",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5070986723076923,
+      "symmetric_auc": 0.5070986723076923,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "cond_surf",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4718081923076923,
+      "symmetric_auc": 0.5281918076923078,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "iso_grav_anom_hg",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4944267138461539,
+      "symmetric_auc": 0.5055732861538461,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "det_elev_slope",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.55267146,
+      "symmetric_auc": 0.55267146,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rtp",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5316682123076923,
+      "symmetric_auc": 0.5316682123076923,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_ex_max",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5869511,
+      "symmetric_auc": 0.5869511,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_ex_mean",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5721116723076923,
+      "symmetric_auc": 0.5721116723076923,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_step_max",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5726950076923076,
+      "symmetric_auc": 0.5726950076923076,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_lapneg_max",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5800636707692306,
+      "symmetric_auc": 0.5800636707692306,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_lappos_max",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5809198076923077,
+      "symmetric_auc": 0.5809198076923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_downface_max",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5802132492307692,
+      "symmetric_auc": 0.5802132492307692,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_upface_max",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5845815846153847,
+      "symmetric_auc": 0.5845815846153847,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_cross_max",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5730583630769231,
+      "symmetric_auc": 0.5730583630769231,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_relief",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5479557107692308,
+      "symmetric_auc": 0.5479557107692308,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_coh100",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4706355876923077,
+      "symmetric_auc": 0.5293644123076924,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "lidar_valid",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5004703846153846,
+      "symmetric_auc": 0.5004703846153846,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rad_K",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4408166107692308,
+      "symmetric_auc": 0.5591833892307692,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rad_Th",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.4363769707692307,
+      "symmetric_auc": 0.5636230292307693,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rad_U",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.436079643076923,
+      "symmetric_auc": 0.5639203569230771,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rad_TC",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.43747847692307695,
+      "symmetric_auc": 0.562521523076923,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rad_ThK",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.44922043230769226,
+      "symmetric_auc": 0.5507795676923077,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rad_UK",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5188907415384616,
+      "symmetric_auc": 0.5188907415384616,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rad_UTh",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5464930092307694,
+      "symmetric_auc": 0.5464930092307694,
+      "suspicious": false
+    },
+    {
+      "seed": 20,
+      "fold": "SE",
+      "feature": "rad_TMI_up150",
+      "positive_pixels": 3250,
+      "unlabeled_negative_proxies": 100000,
+      "auc": 0.5234307369230768,
+      "symmetric_auc": 0.5234307369230768,
+      "suspicious": false
+    }
+  ],
+  "evidence_class": "LEAKAGE-CANARY",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "max_symmetric_auc": 0.6835616172646906,
+  "worst": {
+    "seed": 20,
+    "fold": "NW",
+    "feature": "det_elev_grad3",
+    "positive_pixels": 1923,
+    "unlabeled_negative_proxies": 100000,
+    "auc": 0.6835616172646906,
+    "symmetric_auc": 0.6835616172646906,
+    "suspicious": false
+  }
+}

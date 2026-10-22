@@ -6,7 +6,7 @@
   - **`OK TO DOWNLOAD: YES` (`ok_to_download: true`)**
   - **`OK TO SUBMIT: NO` (`ok_to_submit: false`, `verdict: "negative"`, exit code `2`)**
 - **Canonical downloadable research GeoTIFF:**
-  - Path: [`docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif`](../docs/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif)
+  - Path: [`archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif`](../archive/g79_fabric_offset_e1/downloads/g79-fabric-offset-surface-E1-20261021-89cab569-DO-NOT-SUBMIT.tif)
   - SHA-256: `8f8c2cd17b8484a8ab61fbc7b370e3dde6ed4cedeb2d1ee362e9d9c214bb64ca` (`19,531,598` bytes)
   - Single-TIFF ZIP SHA-256: `51e27e9d484fbb45b75cfb4cbd9c2d1d0dfde0717584668ff4f140a70c623c2c` (`18,125,085` bytes)
   - Format validation (`vendor/gems57/validate.py` + `scripts/validate_submission.py`): **PASS locally** (`float32`, single band, `EPSG:32611`, `3730 x 3292` at `100 m`, exact sample geotransform/bounds, all `12,279,160` cells finite and within `[0, 1]`, `0` positive cells outside the `5,167,373`-pixel footprint, `0` positive cells on `60,988` `existing_faults.tif` catalogue pixels). Local format validity is not organizer portal acceptance.
