@@ -11,19 +11,22 @@
    - `H79-NHR` (`0.1431 / 0.1522`, `archive/h79_nhr/` & `archive/h79_nhr_337ac1e9/`)
    - `H79-FNHR` (`0.1292 / 0.1431` `F3`, `0.0906 / 0.0966` pure zero-catalogue physics, `archive/h79_fnhr_a57e2a7f/` & `run_card_fnhr.json`, `IR-79-140`..`IR-79-142`)
    - `H79-MRND` (`0.1044 / 0.1236`, session `800321e2`, `run_card_mrnd.json` & `evidence/mrnd/`) — multi-regime nested discovery (`77` features, `max AUC = 0.8589 <= 0.90`); beats `H33` control on both seeds (`+0.0247`, 95% CI `[+0.0095, +0.0389]` on Seed 30) and clears all `982` informative comparable priors on chance-corrected overlap (`worst = 0.5486 <= 0.70`, `0` normal-budget `<=167k` flags), stopped pre-placement under literal one-sided overlap (`IR-79-132`); do not retune quotas or re-place dots
-   - `G79-ETP` / `G79-ETP-v2` (`0.0968 / 0.1061` fold-fair `gems57-pooled-hide-v2`, `0.0000` static full-catalogue, `archive/g79_etp_incoming_45998a01/` & `run_card_etp.json`, `IR-79-147` / `IR-79-151`)
-   - `H79-STEP` (`0.0949 / 0.1087`, `archive/h79_step_21642326/`)
-   - `H79-DILSTEP` (`0.0721 / 0.0689`, `archive/h79_dilstep_6444be2d/`)
-   - `G79-CFSKD` (`0.0654 / 0.0678`, `archive/g79_cfskd_bda00cff/` & `run_card_cfskd.json`, `IR-79-152`)
-   - `H79-COV` (`0.0610 / 0.0581`, `archive/h79_cov_e23d5371/`)
-   - `H79-FF` (`0.0510 / 0.0488`, `archive/h79_ff/` & `archive/h79_ff_1de1617f/`)
+   - `H80-PILOTS` (`H80-DRAPE-PILOT` `0.1190 / 0.1235`, `H80-RADIO-PILOT` `0.0085 / 0.0097`, `run_card_h80_pilots.json`, `evidence/h80_drape_pilot/` & `evidence/h80_radio_pilot/`, `IR-79-149`..`IR-79-151`)
+   - `G79-ETP` / `G79-ETP-v2` (`0.0968 / 0.1061` fold-fair `gems57-pooled-hide-v2`, `0.0000` static full-catalogue, `archive/g79_etp_incoming_45998a01/run_card_etp_root.json` & `archive/g79_etp_incoming_45998a01/evidence/run_card_etp.json`, `IR-79-147` / `IR-79-158`)
+   - `H79-STEP` (`0.0949 / 0.1087`, `archive/h79_step_21642326/` & `archive/h79_step_21642326/run_card_step.json`)
+   - `H79-DILSTEP` (`0.0721 / 0.0689`, `archive/h79_dilstep_6444be2d/` & `run_card_dilstep.json`)
+   - `G79-CFSKD` (`0.0654 / 0.0678`, `archive/g79_cfskd_bda00cff/` & `run_card_cfskd.json`, `IR-79-155` / `IR-79-162`)
+   - `H79-FF1` (`0.0641 / 0.0631`, `archive/g79_ff1/` & `run_card_ff1.json`, `IR-79-125`)
+   - `H79-BQA` (`0.0616 / 0.0604`, `archive/h79_bqa/` & `run_card_bqa.json`, `IR-79-126`)
+   - `H79-COV` (`0.0610 / 0.0581`, `archive/h79_cov_e23d5371/` & `run_card_cov.json`)
+   - `H79-FF` (`0.0510 / 0.0488`, `archive/h79_ff_1de1617f/` & `evidence/ff/`)
    - `H79-ML-STRAIN-RELAY` (`0.0472 / 0.0442`, `archive/concurrent_2026-10-22_5d14587/`)
-   - `G79-STEPCO` (`0.0468 / 0.0422`, `archive/g79_stepco_s1/` & `archive/g79_stepco_s2/`)
-   - `H79-FFAS` (`0.0422 / 0.0367`, `archive/h79_ffas_c04e5e27/`)
-   - `G79-BER` (`0.0788 / 0.0882`, `archive/g79_ber_4f80e0d0/`) — session 4f80e0d0, merged after the 17-lane snapshot; terminal `run_card_ber.json`, not unique under amendment D-2 (IR-79-128); do not retune its band quotas or re-place its dots
-   - `G79B-SDPT` (`0.0297 / 0.0290`, `archive/g79b_sdpt_a3/`)
-   - `H79-FGR` (`0.0058 / 0.0056`, `archive/fgr_cb54ff09/`)
-   - `G79-MAG` (`0.0045 / 0.0067`, `archive/g79_mag_730d5ee7/`)
+   - `G79-STEPCO` (`0.0468 / 0.0422`, `archive/g79_stepco_s1/`, `archive/g79_stepco_s2/` & `run_card_stepco.json`)
+   - `H79-FFAS` (`0.0422 / 0.0367`, `archive/h79_ffas_c04e5e27/` & `evidence/ffas/`)
+   - `G79-BER` (`0.0788 / 0.0882`, `archive/g79_ber_4f80e0d0/` & `run_card_ber.json`) — session 4f80e0d0, merged after the 17-lane snapshot; terminal `run_card_ber.json`, not unique under amendment D-2 (IR-79-128); do not retune its band quotas or re-place its dots
+   - `G79B-SDPT` (`0.0297 / 0.0290`, `archive/g79b_sdpt_67557396/` & `run_card_g79b.json`)
+   - `H79-FGR` (`0.0058 / 0.0056`, `archive/fgr_cb54ff09/` & `evidence/fgr/`)
+   - `G79-MAG` (`0.0045 / 0.0067`, `archive/g79_mag_730d5ee7/` & `archive/g79_mag_730d5ee7/run_card_g79_mag.json`)
    - Surface-stopped / quarantined: `G79-FABRIC-OFFSET`, `H79-ASYM`, `H79-MCT`, `H79-CSPT`, `G79B-SCARP-DIPOLE-GEOAND`.
    - `G79-CJX` (`0.1041 / 0.1063` tip-steered, Exps 1-2 below random, `run_card_cjx.json`, `evidence/cjx/`, TIF in `artifacts/cjx/`) — unique TIF generated 2026-10-22, verdict **negative**: G3 holdout failed vs THVC incumbent, G4 literal failed vs the 100%-footprint diagnostics witness; do not re-place its dots or rename it as a submission.
    Do not restart stopped lanes, retune on holdout, add overlap caps/jitter, or exempt dense priors locally. `scripts/preflight_new_lane.py --restore` exits `2` under the literal reading.
