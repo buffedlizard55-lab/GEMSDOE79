@@ -32,11 +32,22 @@ REQUIRED_GATES = frozenset({
 })
 
 
+LANE_GATES = {
+    "H79-NHR": "evidence/nhr/x1_gates.json",
+    "H79-ARC": "evidence/arc/x1_gates.json",
+}
+LANE_SELECTOR_OUT = {
+    "H79-NHR": "evidence/nhr/selector_decision.json",
+    "H79-ARC": "evidence/arc/selector_decision.json",
+}
+
+
 def selection_evidence(root, card, gates, actual):
     """Reconcile frozen measurements, not just a self-reported all_passed flag.
 
-    This is specific to the canonical NHR lane. A future lane must supply its
-    own reviewed evidence adapter; it must not reuse this receipt schema blindly.
+    Lane-specific evidence reconciliation lives in
+    `verify_project.evidence_checks`, which dispatches on the card's lane
+    (H79-NHR: literal-gate adapter; H79-ARC: Amendments D-1+D-2 adapter).
     Missing or malformed evidence is a refusal, never an approval.
     """
     try:
@@ -60,7 +71,11 @@ def main() -> int:
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
-    gates = json.loads((ROOT / "evidence/nhr/x1_gates.json").read_text())
+    lane = card.get("lane")
+    if lane not in LANE_GATES:
+        print(json.dumps({"selected": False, "reason": f"unknown lane {lane!r}; no gates adapter"}, indent=2))
+        return 2
+    gates = json.loads((ROOT / LANE_GATES[lane]).read_text())
     trial = dict(card)
     trial["selector_receipt"] = {"raster_sha256": actual, "selector": "scripts/select_submission.py",
                                  "all_automated_gates_passed": True, "source_url": "pending",
@@ -77,7 +92,7 @@ def main() -> int:
                    "raster_sha256": actual, "observed_utc": datetime.now(timezone.utc).isoformat(),
                    "blockers": decision["blockers"], "failed_gates": sorted(k for k, v in gates["gates"].items() if not v),
                    "card_left_unchanged": True, "evidence_checks": measured_checks}
-        (ROOT / "evidence/nhr/selector_decision.json").write_text(json.dumps(refusal, indent=2) + "\n")
+        (ROOT / LANE_SELECTOR_OUT[lane]).write_text(json.dumps(refusal, indent=2) + "\n")
         print(json.dumps(refusal, indent=2))
         return 2
     card["selector_receipt"] = {

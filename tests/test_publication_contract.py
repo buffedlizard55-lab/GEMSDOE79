@@ -288,16 +288,20 @@ def test_concurrent_5d14587_archive_and_four_lane_audit():
         assert entry['canonical_literal_uniqueness']['worst_forward_overlap_3px'] == 1.0
         assert entry['canonical_readiness_decision']['ok_to_submit'] is False
     card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
-    assert audit['active_deliverable_unchanged']['lane'] == card['lane']
-    assert audit['active_deliverable_unchanged']['submission_file'] == card['submission_file']
-    assert audit['active_deliverable_unchanged']['raster_sha256'] == card['raster_sha256']
+    # Historical audit: at its writing the active deliverable was H79-NHR
+    # (now archived byte-for-byte; canonical lane is H79-ARC).
+    assert audit['active_deliverable_unchanged']['lane'] == 'H79-NHR'
+    archived = json.loads((ROOT / 'archive/h79_nhr_337ac1e9/run_card.json').read_text(encoding='utf-8'))
+    assert archived['raster_sha256'] == audit['active_deliverable_unchanged']['raster_sha256']
+    assert audit['active_deliverable_unchanged']['submission_file'] == archived['submission_file']
+    assert audit['active_deliverable_unchanged']['raster_sha256'] == archived['raster_sha256']
 
 
 def test_reproduce_artifact_recovers_canonical_nhr_bytes():
     import reproduce_artifact
     card = json.loads((ROOT / 'run_card.json').read_text(encoding='utf-8'))
-    rep = reproduce_artifact.reproduce_nhr(ROOT)
-    assert rep['lane'] == card['lane'] == 'H79-NHR'
+    rep = reproduce_artifact.reproduce_arc(ROOT)
+    assert rep['lane'] == card['lane'] == 'H79-ARC'
     assert rep['exact_tiff_recovery'] is True
     assert rep['exact_single_tiff_zip_recovery'] is True
     assert rep['exact_decoded_dots_recovery'] is True

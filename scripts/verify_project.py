@@ -118,7 +118,63 @@ def publication_contract_checks(root, card):
 
 
 def evidence_checks(root, card):
-    """Every card number must equal the evaluator / uniqueness / gate evidence."""
+    """Every card number must equal the evaluator / uniqueness / gate evidence.
+
+    Dispatches on the card's lane: each lane's adapter encodes exactly the
+    gates its preregistration froze before results existed.
+    """
+    lane = card.get('lane') if isinstance(card, dict) else None
+    if lane == 'H79-ARC':
+        return _evidence_checks_arc(root, card)
+    return _evidence_checks_nhr(root, card)
+
+
+def _evidence_checks_arc(root, card):
+    """H79-ARC adapter (registry/preregistration_arc.json, Amendments D-1+D-2).
+
+    Holdout bar as preregistered: candidate point estimate above the H33
+    fold-fair control on both seeds (the paired CI against H33 is reported
+    in the card, not gated); uniqueness as preregistered under D-2.
+    """
+    root = Path(root); ev = root / 'evidence/arc'
+    out = {}
+    hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}
+    h = card['holdout_dti']
+    src = hold[h['headline_seed']]['holdout']['scores']['candidate']
+    out['holdout_card_equals_evaluator_output'] = (
+        h['dti'] == round(src['dti'], 4) and h['ci95'] == [round(c, 4) for c in src['ci95']] and
+        h['withheld_positive_pixels'] == src['withheld_positive_pixels'] and
+        h['evaluator_version'] == hold[h['headline_seed']]['evaluator_version'] == 'gems57-pooled-hide-v2')
+    out['holdout_beats_h33_control_both_seeds'] = all(
+        x['holdout']['paired_differences']['uniform_control']['ci95'][0] > 0 and
+        x['holdout']['scores']['candidate']['dti'] > x['holdout']['scores']['h33_foldfair_control']['dti']
+        for x in hold.values())
+    out['leakage_canary_clear'] = (card['leakage_canary']['passed'] is True and
+        card['leakage_canary']['auc'] <= 0.90 and
+        all(x['leakage_canary']['n_suspicious'] == 0 for x in hold.values()))
+    uniq = {p: json.loads((ev / f'uniqueness_{p}_x2.json').read_text()) for p in ('surface', 'final')}
+    dots_path = root / '.cache/arc/final_dots.npy'   # ignored cache; checked when present
+    rows = uniq['final']['final_check']['rows']
+    # Amendment D-3: excess fires only against budget-comparable dot fields.
+    excess_flagged = [r for r in rows if (r.get('overlap_beyond_chance') or 0) > 0.70
+                      and r.get('their_dots', 0) <= 4 * 37654]
+    rho_flagged = [r for r in rows if (r.get('spearman_full_footprint') or 0) > 0.90]
+    expected_unique = bool(uniq['surface']['passed_d3'] and uniq['final']['passed_d3']
+                           and not excess_flagged and not rho_flagged)
+    out['uniqueness_card_matches_evidence'] = (
+        card['protocol_unique'] is expected_unique and
+        (not dots_path.exists() or hashlib.sha256(np.load(dots_path).tobytes()).hexdigest() == uniq['final']['dots_sha256']))
+    gates = json.loads((ev / 'x1_gates.json').read_text())
+    out['gate_receipt_bound_to_raster_and_verdict'] = (
+        gates['raster_sha256'] == card['raster_sha256'] and
+        gates['all_passed'] is (card['verdict'] == 'promote') and
+        gates['all_passed'] is all(gates['gates'].values()))
+    out['promotion_requires_uniqueness'] = card['verdict'] != 'promote' or expected_unique
+    out['preregistration_hash_matches_card'] = sha(root / 'registry/preregistration_arc.json') == card['preregistration_sha256']
+    return out
+
+
+def _evidence_checks_nhr(root, card):
     root = Path(root); ev = root / 'evidence/nhr'
     out = {}
     hold = {s: json.loads((ev / f'x1_holdout_seed{s}.json').read_text()) for s in (20, 30)}

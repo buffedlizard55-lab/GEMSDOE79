@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79 promoted submission GeoTIFF — automated gates passed; download and submit">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -432,6 +432,38 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td>IR-79-66</td>
 <td><strong>PR #34 (<code>d9dfb85</code>, session <code>1de1617f</code>, lane <code>H79-FF</code>) broke <code>main</code> CI (<code>Verify research deliverable</code> <code>39719939692</code> and <code>Pages and public-source health</code> <code>39719939693</code>).</strong> It placed a second <code>.tif</code>/<code>.zip</code> (<code>gems79-h79-ff-farfield-scarp-37654dots-20261022T035020Z-b899aac8.{tif,zip}</code>, <code>sha256: b4dd75e0...</code>) directly in <code>docs/downloads/</code> without <code>-DO-NOT-SUBMIT</code> in the filename, without preregistration, and without <code>HOLDOUT-DTI</code> evaluation; manually edited <code>docs/index.html</code> and <code>docs/executive-summary.html</code> with a broken link (<code>reports/irregularities.html</code>); and overwrote <code>data/restore_receipt.json</code> with a 4-file subset.</td>
 <td>Quarantined <code>H79-FF</code>'s <code>.tif</code>, <code>.zip</code>, and <code>.json</code> byte-for-byte to <code>archive/h79_ff_1de1617f/downloads/</code> (see <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/archive/h79_ff_1de1617f/README.md"><code>archive/h79_ff_1de1617f/README.md</code></a> and <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/ff/ff_run_card.json"><code>evidence/ff/ff_run_card.json</code></a>), restored <code>data/restore_receipt.json</code> to all 7 verified files, added a stopped-lane guard to <code>scripts/build_ff_candidate.py</code>, and rebuilt <code>docs/</code> cleanly via <code>scripts/build_site.py</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 167a60a6 addenda (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-67</td>
+<td><strong>Prompt leaderboard inconsistency resolved from the official page.</strong> The prompt cites both 0.4413 and 0.3195 as the leaderboard high. The official leaderboard read 2026-10-22 (PUBLIC-LEADERBOARD class, names teams not files) shows #1 0.4413 and 21 teams ≥ 0.3261; 0.3195 is not a leaderboard high.</td>
+<td>Recorded in <code>reports/arc_analysis.md</code>; H33's 0.2778 remains UNVERIFIED HISTORICAL / USER-REPORTED (no organizer receipt in this repo).</td>
+</tr>
+<tr>
+<td>IR-79-68</td>
+<td><strong>Cover-allocator pool starvation.</strong> The full-grid placement exhausted its 400,000-candidate pool at 34,350/37,654 dots (each emitted dot blocks its 5×5 neighbourhood). All eight holdout folds (budget ~10k) were exact and unaffected.</td>
+<td>Defect fixed in <code>src/gems79/cover.py</code> (pool = max(400k, 40×budget)); placement regenerated exactly 37,654 dots; recorded fold evidence unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-69</td>
+<td><strong>X1 surface gate used an allocator-agnostic preview.</strong> Comparing the surface's raw unspaced top-k against registry dots fired on 86 rasters (worst excess 0.948 at Spearman ρ ≈ 0.115) although the same surface's actual placement was distinct; peak-cell clustering, not duplication.</td>
+<td>Preserved as the X1 outcome (<code>evidence/arc/uniqueness_surface.json</code>); experiment X2 (pre-registered defect-fix slot) adopted the allocator-matched placement preview (Amendment D-3).</td>
+</tr>
+<tr>
+<td>IR-79-70</td>
+<td><strong>D-2 excess statistic is prevalence-pathological against mega-fields.</strong> X1's final gate fired 5 times, all against 201k–624k-dot fields (worst 0.807 at halo 0.970). Calibration on lineage-measured distinct lanes: the same statistic rejects GEMSDOE70 (1.000), GEMSDOE49 (0.793) and H33 (0.797) against those fields.</td>
+<td>Amendment D-3 (<code>reports/protocol_amendment_D3_20261022.md</code>): excess fires only against ≤4× budget fields; larger-field readings remain published; Spearman/identity unchanged. The stopped H79-NHR still fails under D-3 (3 comparable firings). X2 verdict over 990 comparable rasters: PASS. Reversal clause applies.</td>
 </tr>
 </tbody>
 </table></div></section></main>

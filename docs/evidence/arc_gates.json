@@ -1,0 +1,18 @@
+{
+  "gates": {
+    "canaries_all_le_0_90_both_seeds": true,
+    "beats_current_holdout_best_both_seeds": true,
+    "paired_ci_vs_uniform_excludes_zero_both_seeds": true,
+    "evaluator_version_pinned": true,
+    "surface_rank_correlation_le_0_90": true,
+    "final_rank_correlation_le_0_90": true,
+    "surface_uniqueness_passed": true,
+    "final_dot_uniqueness_passed": true,
+    "final_dots_match_audited_bytes": true,
+    "exact_budget": true
+  },
+  "all_passed": true,
+  "name": "gems79-h79-arc-ridgecover-37654dots-20261022T062431Z-d2f5eafa-zeros",
+  "note": "H79-ARC ridge-concordance credit model, max-cover 37654 dots; HOLDOUT-DTI 0.102/0.101 vs H33 0.096/0.099",
+  "raster_sha256": "92e95f84dbe83c916025809dab9ab8b10190c6179721b497cbbd6d289154d667"
+}

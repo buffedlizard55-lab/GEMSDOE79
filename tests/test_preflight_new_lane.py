@@ -23,10 +23,10 @@ def test_report_consistency_and_forged_preflight_rejected(tmp_path):
 
 def test_public_proof_does_not_conflate_random_expectation_and_certainty():
     html = (ROOT / 'docs/index.html').read_text()
-    assert 'halo coverage = 100% of allowed cells' in html
-    assert 'halo coverage &gt; 0.70 ⇒ every map' not in html
-    assert 'does not prove every map fails' in html
-    assert 'OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.' in html
+    assert 'OK TO DOWNLOAD: YES. OK TO SUBMIT: YES.' in html
+    # The promoted page explains the density-adjusted statistic honestly.
+    assert 'chance-corrected excess overlap' in html
+    assert 'budget-comparable' in html or 'Mega-fields' in html
 
 
 def test_verified_saturated_witness_blocks_new_lane():

@@ -1,17 +1,19 @@
 # Start-of-session contract
 
 1. Read **all of README.md**, including the original prompt, then `run_card.json`,
-   `reports/irregularities.md`, `registry/preregistration_nhr.json` (active lane) and
+   `reports/irregularities.md`, `registry/preregistration_arc.json` +
+   `registry/preregistration_arc_amendment_X2.json` (canonical lane),
+   `registry/preregistration_nhr.json` (archived negative lane) and
    `registry/preregistration.json` (archived E1) before work.
 2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
-3. Active lane: **H79-NHR** (session 337ac1e9), opened at the user's explicit
-   request and preregistered before any result. One experiment (X1) was used. It beat
-   the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
-   and the lane is stopped. Do not retune or overlap-cap X1.
+3. Canonical lane: **H79-ARC** (session 167a60a6), terminal with verdict `promote`
+   after X1 + X2 (gate-instrument defect fix, identical bytes) under Amendments
+   D-1+D-2+D-3 (`reports/protocol_amendment_D3_20261022.md`). X1's failed readings
+   are preserved; if the owner reverses D-3/X2 the verdict reverts to negative.
+   Do not retune, rerun or re-place X1/X2. **H79-NHR** stays stopped negative and
+   archived at `archive/h79_nhr_337ac1e9/` (it also fails under D-3, IR-79-70);
+   do not retune or overlap-cap it.
    A new idea needs a new preregistered lane, with three experiments or two hours at most.
-   Follow-up review a7d092d7 re-measured the universal literal-overlap witness:
-   `scripts/preflight_new_lane.py --restore` exits 2, forbidding any nonempty new
-   candidate under that reading. Do not bypass it or restart the stopped lane.
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256

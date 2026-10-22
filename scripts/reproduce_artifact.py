@@ -30,11 +30,8 @@ ARCHIVED_E1_REPRODUCTION = {
 }
 
 
-def reproduce_nhr(root: Path = ROOT) -> dict:
-    card = json.loads((root / 'run_card.json').read_text())
-    build = json.loads((root / 'evidence/nhr/x1_final_build.json').read_text())
-    if card['verdict'] != 'negative' or card['ok_to_submit']:
-        raise ValueError('This command only recovers the existing stopped negative artifact')
+def _reproduce_lane(root: Path, card: dict, evidence_rel: str, cache_rel: str) -> dict:
+    build = json.loads((root / evidence_rel).read_text())
     original = root / card['submission_file']
     original_receipt = json.loads(original.with_suffix('.json').read_text())
     grid = load_grid(root / 'data/reference')
@@ -43,11 +40,11 @@ def reproduce_nhr(root: Path = ROOT) -> dict:
     dots = (decoded > 0) & grid.footprint & (~grid.catalogue)
     dots_sha256 = hashlib.sha256(dots.tobytes()).hexdigest()
     if dots_sha256 != build['dots_sha256']:
-        raise ValueError('Decoded dots_sha256 does not match evidence/nhr/x1_final_build.json')
-    cache_dots = root / '.cache/nhr/final_dots.npy'
+        raise ValueError(f'Decoded dots_sha256 does not match {evidence_rel}')
+    cache_dots = root / cache_rel
     if cache_dots.exists():
         if hashlib.sha256(np.load(cache_dots).tobytes()).hexdigest() != dots_sha256:
-            raise ValueError('Cached .cache/nhr/final_dots.npy does not match decoded dots_sha256')
+            raise ValueError(f'Cached {cache_rel} does not match decoded dots_sha256')
     prediction = np.where(dots, np.float32(1.0), np.float32(0.0))
     with tempfile.TemporaryDirectory(prefix='g79-nhr-byte-recovery-') as tmp:
         receipt = write_submission(
@@ -79,10 +76,25 @@ def reproduce_nhr(root: Path = ROOT) -> dict:
         'original_artifacts_and_run_card_not_overwritten': True,
         'archived_e1_reproduction': ARCHIVED_E1_REPRODUCTION,
         'scope': (
-            'Private deterministic reserialization of the canonical stopped H79-NHR field '
+            f"Private deterministic reserialization of the {card['lane']} field "
             '(with archived E1 reserialization preserved); not a new candidate or scientific evaluation.'
         ),
     }
+
+
+def reproduce_nhr(root: Path = ROOT) -> dict:
+    card = json.loads((root / 'archive/h79_nhr_337ac1e9/run_card.json').read_text())
+    if card['verdict'] != 'negative' or card['ok_to_submit']:
+        raise ValueError('This command only recovers the archived stopped negative artifact')
+    card = dict(card, submission_file='archive/h79_nhr_337ac1e9/' + card['submission_file'])
+    return _reproduce_lane(root, card, 'evidence/nhr/x1_final_build.json', '.cache/nhr/final_dots.npy')
+
+
+def reproduce_arc(root: Path = ROOT) -> dict:
+    card = json.loads((root / 'run_card.json').read_text())
+    if card['lane'] != 'H79-ARC':
+        raise ValueError('Canonical lane is not H79-ARC')
+    return _reproduce_lane(root, card, 'evidence/arc/x1_final_build.json', '.cache/arc/final_dots.npy')
 
 
 def reproduce_e1(root: Path = ROOT) -> dict:
@@ -136,9 +148,9 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         '--lane',
-        choices=('nhr', 'e1'),
-        default='nhr',
-        help='Which stopped artifact to reserialize in a temporary directory (default: nhr).',
+        choices=('arc', 'nhr', 'e1'),
+        default='arc',
+        help='Which artifact to reserialize in a temporary directory (default: arc = canonical).',
     )
     parser.add_argument(
         '--no-write-evidence',
@@ -146,9 +158,9 @@ def main(argv: list[str] | None = None) -> int:
         help='Print verification JSON without updating evidence/artifact_reproduction.json.',
     )
     args = parser.parse_args(argv)
-    report = reproduce_nhr(ROOT) if args.lane == 'nhr' else reproduce_e1(ROOT)
-    if args.lane == 'nhr' and not args.no_write_evidence:
-        (ROOT / 'evidence/artifact_reproduction.json').write_text(json.dumps(report, indent=2) + '\n')
+    report = {'arc': reproduce_arc, 'nhr': reproduce_nhr, 'e1': reproduce_e1}[args.lane](ROOT)
+    if args.lane == 'arc' and not args.no_write_evidence:
+        (ROOT / 'evidence/arc/artifact_reproduction.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
     return 0
 

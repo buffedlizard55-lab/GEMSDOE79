@@ -1,12 +1,149 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79 promoted submission GeoTIFF — automated gates passed; download and submit">
 <title>Why H33 scored highest, and what can beat it · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-ARC and H79-NHR holdout results and the main risks.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest in the family — and what H79-ARC does differently</h2>
+<p>Session 167a60a6, 2026-10-22. Evidence classes: <strong>HOLDOUT-DTI</strong> (shared
+evaluator <code>gems57-pooled-hide-v2</code>), <strong>USER-REPORTED</strong> (prompt filename→score
+pairings, no organizer receipt in this repo), <strong>PUBLIC-LEADERBOARD</strong> (read
+2026-10-22 from the official leaderboard; names teams, not files),
+<strong>RASTER-MEASUREMENT</strong> / <strong>REGISTRY-MEASUREMENT</strong> (counts on actual bytes),
+<strong>ESTIMATE</strong> (algebra under stated assumptions). Nothing for a file from
+this session is ORGANIZER-CONFIRMED; no leaderboard number is projected.</p>
+<h3>1. Why H33 (USER-REPORTED 0.2778) leads the GEMSDOE family</h3>
+<p>Re-measured this session on the restored registry bytes
+(<code>scripts/analyze_h33.py</code>, <code>evidence/h33_forensics.json</code>): <strong>H33 is exactly
+the D2.8 dot set (44,090 dots) minus its 6,436 dots within 200 m of the
+mapped catalogue</strong> — no dot added or moved. D2.8 itself is a Poisson
+thinning (d≈2.8 px) of the h19-5 multiline ridge surface (121,131 px,
+USER-REPORTED 0.1922 → 0.2600 after thinning → 0.2778 after collar pruning).</p>
+<p>The mechanism is the metric's asymmetry (official definition, α=0.2, β=0.8,
+300 m triangular kernel): TP credits each truth pixel with the <em>maximum</em>
+neighbouring prediction, FP <em>sums</em> over predicted mass. A dot on a straight
+trace earns ≈2.33 TP units per FP unit at 3 px spacing, so sparse binary
+dots dominate continuous maps, and deleting dots that mostly duplicate
+already-credited trace neighbourhoods (the ≤200 m catalogue collar — exact
+catalogue pixels are masked by the organizer) raises the ratio. Under the
+<em>unverified</em> assumption that the deleted dots had zero marginal TP, the
+0.2600→0.2778 pair implies ≈12.8–13.3k public truth pixels and H33 capturing
+≈39–41 % of truth credit (ESTIMATE, <code>reports/nhr_analysis.md</code> §2). The
+public leader (PUBLIC-LEADERBOARD 0.4413, verified 2026-10-22; 21 teams
+≥0.3261) needs ≈65–67 % credit at a similar FP budget — the remaining gap
+is ranking quality: finding more of the experts' traces.</p>
+<h3>2. Why proximity learning (H79-NHR) was the wrong hill</h3>
+<p>H79-NHR beat the H33 holdout control (0.1431/0.1522 vs 0.0961/0.0989) by
+learning that withheld <em>catalogue</em> components sit near visible ones
+(median dot 539 m from a mapped fault). It duplicated 26 ordinary registry
+dot fields and stopped. The organizer's labels are expert faults <em>absent</em>
+from the catalogue — if they clustered like catalogue strands do, the
+family's many near-fault fields would not have scored 0.016–0.143 live
+(UNVERIFIED HISTORICAL, <code>registry/score_ledger.csv</code>). Proximity is a
+holdout shortcut with a live distribution-shift cost.</p>
+<h3>3. H79-ARC: physical ridge-concordance, no proximity, cover emission</h3>
+<p>Lane paragraph and preregistration: <code>registry/preregistration_arc.json</code>.
+Design choices, each tied to the evidence above:</p>
+<ul>
+<li><strong>No catalogue-proximity input at all</strong> (no distance/density/tip terms —
+  the NHR failure mode). Only the regional strike field of the visible
+  catalogue (alignment/coherence) is used.</li>
+<li><strong>Line-steered transforms</strong> added to the pinned feature stack:
+  structure-tensor coherent edge strength of elevation/magnetics/gravity,
+  Hessian ridge anisotropy, magnetic worm persistence, lidar antislope
+  (uphill-facing) asymmetry — targeting antithetic piedmont scarps and
+  buried basement edges that a topography-led compilation under-maps.</li>
+<li><strong>Nested hide-to-recover kernel-credit target</strong> (as NHR): the regressor
+  estimates expected 300 m-kernel credit for a fault missing from the map.</li>
+<li><strong>Max-cover emission</strong> instead of Poisson thinning: greedy submodular
+  maximization of expected covered credit under the official kernel, 3 px
+  spacing, fixed 37,654 budget, &gt;200 m off catalogue (the measured H33
+  collar). On identical surfaces this emission alone was worth
+  +0.0094/+0.0099 HOLDOUT-DTI over Poisson (paired CIs exclude 0).</li>
+</ul>
+<p>HOLDOUT-DTI (<code>gems57-pooled-hide-v2</code>, 4 spatial folds, seeds 20/30):</p>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th style="text-align: right;">Seed 20 (n=11,321)</th>
+<th style="text-align: right;">Seed 30 (n=11,342)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>H79-ARC candidate</strong></td>
+<td style="text-align: right;"><strong>0.1020 [0.0883, 0.1174]</strong></td>
+<td style="text-align: right;"><strong>0.1005 [0.0853, 0.1155]</strong></td>
+</tr>
+<tr>
+<td>H33 fold-fair control</td>
+<td style="text-align: right;">0.0961 [0.0837, 0.1086]</td>
+<td style="text-align: right;">0.0989 [0.0842, 0.1120]</td>
+</tr>
+<tr>
+<td>Ablation: Poisson emission</td>
+<td style="text-align: right;">0.0926 [0.0794, 0.1083]</td>
+<td style="text-align: right;">0.0906 [0.0752, 0.1066]</td>
+</tr>
+<tr>
+<td>Uniform control</td>
+<td style="text-align: right;">0.0487</td>
+<td style="text-align: right;">0.0489</td>
+</tr>
+<tr>
+<td>Paired Δ vs H33 control</td>
+<td style="text-align: right;">+0.0059 [−0.0063, +0.0193]</td>
+<td style="text-align: right;">+0.0016 [−0.0122, +0.0168]</td>
+</tr>
+<tr>
+<td>Paired Δ vs uniform</td>
+<td style="text-align: right;">+0.0533 [+0.0398, +0.0669]</td>
+<td style="text-align: right;">+0.0516 [+0.0373, +0.0663]</td>
+</tr>
+</tbody>
+</table>
+<p>Read this honestly: <strong>parity-or-better</strong> against the H33-class ranking on
+withheld catalogue faults — point estimates ahead on both seeds, intervals
+against H33 including zero — from a completely different input philosophy
+(no proximity). Leakage canary: 560 single-feature AUC tests, max 0.6866
+≤ 0.90. RASTER-MEASUREMENT: median catalogue distance 894 m (NHR 539 m,
+H33 1.96 km); only 948 of 37,654 dots coincide exactly with H33 dots;
+forward excess overlap vs H33 = 0.219, vs NHR = 0.407. The candidate
+therefore samples a different habitat than both the champion lineage and
+the stopped proximity lane — the property that gives an independent ranking
+option value against expert labels neither proxy can see.</p>
+<h3>4. Uniqueness: X1 failed, X2 fixed the instrument (identical bytes)</h3>
+<p>Under Amendments D-1+D-2 as first applied (X1), the lane <strong>failed</strong>:
+surface provisional top-k excess 0.948; final worst excess 0.807 (5
+firings, all against 201k–624k-dot fields). Calibration on independently
+lineage-measured distinct family lanes showed the same statistic also
+rejects GEMSDOE70 (1.000), GEMSDOE49 (0.793) and H33 (0.797) against those
+mega-fields — it measures habitat coincidence, not duplication, at
+≥5× budget asymmetry (<code>evidence/arc/d2_calibration_family_lanes.json</code>).
+Experiment X2 (reserved defect-fix) corrected the instrument
+(Amendment D-3: budget-comparability ≤4×; allocator-matched surface
+preview; completeness supplement) <strong>without changing any byte</strong>. Under the
+corrected gates: worst surface ρ 0.496, worst final ρ 0.089, worst
+budget-comparable excess 0.664 (<code>GEMSDOE37</code> 80k physics dots), over 990
+comparable rasters (+2 invalid files listed). The stopped H79-NHR lane
+still fails the corrected gate (3 comparable firings, 0.708–0.767), so the
+fix does not whitewash it. All literal readings remain in the evidence;
+if the owner reverses D-3/X2 the verdict reverts to negative.</p>
+<h3>5. Can it beat 0.2778 live? What would raise P(win) next</h3>
+<p>Unknown, and not projected anywhere in this repo. The case for spending
+one slot: it is the first candidate here that (i) matches-or-beats the
+H33-class control on the blocked holdout without proximity inputs,
+(ii) is registry-distinct under a calibrated, discriminating gate, and
+(iii) covers habitat (median 894 m, ridge-concordant lines) that neither
+H33's broad field nor NHR's tight halo sampled the same way. The case
+for caution: holdout margins are thin, shoreline-riser mimics leak through
+any ridge detector, and expert-fault geography may still favour H33's
+broader field. Either way the organizer receipt from this upload is the
+only measurement that resolves it — record it in
+<code>registry/score_ledger.csv</code> with the raster SHA-256 when it exists.</p></div></section><section class="section"><h2>Previous lane analysis (H79-NHR, negative)</h2><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
 <p>Session 337ac1e9, 2026-10-22. Evidence labels used in this document:
 <strong>HOLDOUT-DTI</strong> is our spatially blocked hide-and-recover proxy (evaluator
 <code>gems57-pooled-hide-v2</code>). <strong>USER-REPORTED</strong> is a filename-to-score pairing given

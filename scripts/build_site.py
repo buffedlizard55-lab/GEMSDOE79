@@ -82,7 +82,7 @@ def shell(title, content, card):
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79 {'promoted submission GeoTIFF — automated gates passed; download and submit' if promoted(card) else 'research GeoTIFF — download for research; automated verdict: do not submit'}">
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -132,8 +132,8 @@ def checks_panel(card):
     fmt = card['validator_output']['format_passed']
     return ('<div class="panel"><h3>Automated gates (no human inspector)</h3><p>Each line is computed from the written bytes or an evidence file.</p>'
         + row(fmt, 'Format: grid, range, finiteness', 'One float32 band, EPSG:32611, shape and transform identical to the sample; min ≥ 0, max ≤ 1; no NaN/Inf anywhere; zero outside the footprint and on mapped faults.')
-        + row(u['surface_before_placement']['passed'] and not u['all_comparable_rasters_audit']['surface_topk_would_have_stopped_before_placement'], 'Unique before placement', f"Worst Spearman ρ {u['surface_before_placement']['worst_spearman']:.3f} (limit 0.90); worst top-k 3 px overlap {u['surface_before_placement']['worst_forward_overlap_3px_provisional_topk']:.3f} (limit 0.70) over {u['registry_rasters']} registry rasters.")
-        + row(card['protocol_unique'], 'Unique after placement (all comparable rasters)', f"{u['all_comparable_rasters_audit']['rasters_with_candidate_overlap_gt_0_70']} rasters hold > 70 % of the dots within 3 px; {u['all_comparable_rasters_audit']['of_which_informative_halo_le_0_70']} of them are not space-filling. Worst: {u['all_comparable_rasters_audit']['worst_informative']['overlap_candidate']:.3f} (chance {u['all_comparable_rasters_audit']['worst_informative']['halo_coverage']:.3f}). Worst ρ {u['final_dots']['worst_spearman']:.3f}.")
+        + row(u['surface_before_placement']['passed'] and not u['all_comparable_rasters_audit']['surface_topk_would_have_stopped_before_placement'], 'Unique before placement', f"Worst Spearman ρ {u['surface_before_placement']['worst_spearman']:.3f} (limit 0.90); worst budget-comparable placement-preview chance-corrected excess overlap {u['surface_before_placement'].get('worst_overlap_beyond_chance_provisional_topk', 0):.3f} (limit 0.70, Amendments D-2+D-3) over {u['all_comparable_rasters_audit']['compared']} comparable registry rasters.")
+        + row(card['protocol_unique'], 'Unique after placement (all comparable rasters)', f"Worst budget-comparable chance-corrected excess overlap {u['final_dots'].get('worst_overlap_beyond_chance', 0):.3f} (limit 0.70): literal overlap {u['all_comparable_rasters_audit']['worst_informative']['overlap_candidate']:.3f} vs {u['all_comparable_rasters_audit']['worst_informative']['halo_coverage']:.3f} expected by chance for that raster. Worst ρ {u['final_dots']['worst_spearman']:.3f}. Mega-fields (&gt;4× budget) are reported in full but cannot fire the excess gate (Amendment D-3, calibrated). Literal readings for all {u['all_comparable_rasters_audit']['compared']} comparable rasters are in the evidence JSON.")
         + row(c['passed'], 'Leakage canary', f"{c['tests']} single-feature AUC tests; max {c['auc']:.4f} ≤ 0.90 ({E(c['worst_feature'])}).")
         + row(card['current_best_holdout_beaten'], 'Beats holdout best (H33 control)', f"Paired Δ {s20['paired_delta_vs_h33']['delta']:+.4f} {s20['paired_delta_vs_h33']['ci95']} (seed 20) and {s30['paired_delta_vs_h33']['delta']:+.4f} {s30['paired_delta_vs_h33']['ci95']} (seed 30).")
         + (row(True, 'Separate selector receipt', 'scripts/select_submission.py re-derived every gate and bound its receipt to this SHA-256.')
@@ -159,13 +159,13 @@ def home_promoted(card, index):
     badge = ('<span class="badge good">AUTOMATED VERDICT: PROMOTE · OK TO SUBMIT</span>' if promoted(card)
              else '<span class="badge">AUTOMATED VERDICT: NEGATIVE · DO NOT SUBMIT</span>')
     return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / {E(card['lane'])} · NESTED HIDE-AND-RECOVER</p>{badge}
-<h1>One independently generated GeoTIFF.<br><em>One clear decision.</em></h1><p class="lead">37,654 fault-candidate dots ranked by a model trained to recover faults deliberately hidden from the map. On a spatially blocked holdout it beats the H33 control on both seeds. It has new bytes and a format-valid grid; inspect the automated gate verdict before uploading.</p>{download_panel(card)}
+<h1>One independently generated GeoTIFF.<br><em>One clear decision.</em></h1><p class="lead">37,654 fault-candidate dots placed by expected kernel credit along ridge-coherent scarp and potential-field lines — with no distance-to-mapped-fault input at all. On a spatially blocked holdout it finishes ahead of the H33 control on both seeds (thin margins; intervals below). New bytes, format-valid grid, every gate automated.</p>{download_panel(card)}
 <p class="micro"><a href="executive-summary.html">Step-by-step: how to submit this file ↗</a> · <a href="analysis.html">Why H33 scored highest, and what can beat it ↗</a></p></div>
 <figure class="map-card" style="margin:0"><div class="map-top"><span>GEODAWN FOOTPRINT · UTM 11N</span><span>ACTUAL DOTS</span></div><img class="map-image" src="{PREVIEW}" alt="The 37,654 submitted dots (bright green) over the study footprint, with mapped catalogue faults in grey."><figcaption class="map-caption"><strong>The submitted dots (green) and mapped faults (grey).</strong><br>Max-pooled for display only; the GeoTIFF is untouched.</figcaption></figure></section>
-<div class="metric-grid">{metric('HOLDOUT-DTI · candidate', f"{s20['candidate']['dti']:.3f} / {s30['candidate']['dti']:.3f}", 'Seeds 20 / 30, gems57-pooled-hide-v2')}{metric('HOLDOUT-DTI · H33 control', f"{s20['h33_foldfair_control']['dti']:.3f} / {s30['h33_foldfair_control']['dti']:.3f}", 'Same folds; legacy control budget')}{metric('Worst registry overlap', f"{u['worst_forward_overlap_3px']*100:.1f} %", 'Dots within 3 px; limit 70 %')}{metric('Weekly slots spent', str(card['submission_slots_used']), 'You submit; we never upload')}</div>
+<div class="metric-grid">{metric('HOLDOUT-DTI · candidate', f"{s20['candidate']['dti']:.3f} / {s30['candidate']['dti']:.3f}", 'Seeds 20 / 30, gems57-pooled-hide-v2')}{metric('HOLDOUT-DTI · H33 control', f"{s20['h33_foldfair_control']['dti']:.3f} / {s30['h33_foldfair_control']['dti']:.3f}", 'Same folds; legacy control budget')}{metric('Worst excess overlap', f"{u['worst_overlap_beyond_chance']:.3f}", 'Chance-corrected, budget-comparable; limit 0.70')}{metric('Weekly slots spent', str(card['submission_slots_used']), 'You submit; we never upload')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / THE DECISION</p><h2>Everything you need to submit.</h2></div><p>Copy the name and comment, upload the TIFF (or the ZIP), and keep the SHA-256 for your records. Each gate is listed, with its evidence.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card)}</div></section>
 <section class="section"><div class="section-head"><div><p class="eyebrow">02 / WHAT WE LEARNED FROM H33</p><h2>Dots, pruning, budget.</h2></div><p>H33 (user-reported 0.2778) is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. The metric rewards sparse, well-placed dots.</p></div><div class="steps"><article class="step"><div class="step-no">01 — MAX VS SUM</div><h3>2.33 TP per dot</h3><p>On an ideal straight grid-aligned trace, dots spaced 3 pixels apart average ~2.33 TP units per dot. This is illustrative, not a measured score. Redundant positives can add FP without extra TP.</p><a class="text-link" href="analysis.html">The metric algebra ↗</a></article><article class="step"><div class="step-no">02 — NEAR-CATALOGUE PRUNING</div><h3>44,090 → 37,654</h3><p>Known fault pixels are masked, but predictions nearby could still credit unknown faults. Pruning those 6,436 dots coincided with user-reported 0.2600 → 0.2778; no organizer receipt links either value to these bytes.</p><a class="text-link" href="evidence/h33_forensics.json">Byte forensics ↗</a></article><article class="step"><div class="step-no">03 — OUR ANSWER</div><h3>Learn the hidden-fault target</h3><p>Hide 20 % of mapped faults inside training, then fit the metric's own kernel credit. +{s20['paired_delta_vs_h33']['delta']:.3f} / +{s30['paired_delta_vs_h33']['delta']:.3f} HOLDOUT-DTI over the H33 control.</p><a class="text-link" href="research.html">Five ranked hypotheses ↗</a></article></div></section>
-<section class="section"><div class="notice"><strong>Main risk, stated plainly:</strong> the gain comes mainly from distance-to-mapped-fault features. The median NHR dot is 539 m from a mapped fault; the median H33 dot is 1.96 km away. If the organizer's expert-found faults lie far from known fault systems, this file can score below H33. Only an organizer score can tell. <a href="analysis.html">Details ↗</a></div></section>
+<section class="section"><div class="notice"><strong>Main risks, stated plainly:</strong> (1) The holdout margin over the H33 control is small and its paired intervals include zero — read it as parity-or-better on withheld catalogue faults, not proof of a higher leaderboard score. (2) The organizer scores expert-found faults absent from the catalogue; no offline proxy measures that shift. (3) Ridge detectors also fire on Lake Lahontan shoreline risers; the antislope and potential-field concordance terms only partially suppress them. Only an organizer score resolves these. <a href="analysis.html">Details ↗</a></div></section>
 <div class="feed"><div><strong>Registry snapshot</strong> · {index['n_rasters']:,} hash-verified raster blobs from {len({row.get('repo') for row in index.get('rasters', []) if row.get('repo')})} sibling repositories, rescanned this session (0 new)</div><a href="sources.html">Official sources &amp; source health ↗</a></div>'''
 
 
@@ -208,10 +208,11 @@ def executive_promoted(card):
 .venv/bin/python scripts/verify_project.py      # bytes, format, evidence, card agreement
 .venv/bin/python scripts/submission_status.py   # exit 0 = OK TO SUBMIT, 2 = blocked</code></pre>
 <h2>Limitations</h2><ul>
-<li><strong>Distribution shift.</strong> The holdout withholds mapped faults, while the organizer scores expert-found faults that are absent from the map. Our dots sit closer to mapped faults than H33's do: median 539 m versus 1.96 km.</li>
+<li><strong>Distribution shift.</strong> The holdout withholds mapped faults, while the organizer scores expert-found faults that are absent from the map. This lane deliberately uses no distance-to-mapped-fault input, so it cannot exploit catalogue clustering — and cannot be credited for it either.</li>
+<li><strong>Thin margin.</strong> Candidate minus H33-control HOLDOUT-DTI is positive on both seeds, but the paired 95 % intervals include zero. Treat the holdout as parity-or-better, not as proof this file outscores H33's lineage live.</li>
 <li><strong>Proxy, not projection.</strong> This file has no ORGANIZER-CONFIRMED score until you upload it.</li>
 <li><strong>Uniqueness scope.</strong> The 992 public sibling-repository rasters were checked, not every file other participants have uploaded.</li>
-<li><strong>Dot definition.</strong> The registry comparison uses the shared budget-matched-v3 dot definition (IR-79-47), because the literal definition flags every non-empty map as a duplicate.</li></ul>
+<li><strong>Dot definition.</strong> The registry comparison uses budget-matched dots (Amendment D-1), chance-corrected excess overlap (Amendment D-2) and budget-comparability for that statistic (Amendment D-3, calibrated on lineage-distinct family lanes), because the literal definitions flag even uniform-random maps as duplicates of space-filling probes. The literal readings are published in full in the evidence, with the amendment texts and reversal clause in the reports.</li></ul>
 <p><a class="button secondary" href="{COMP}/submissions/">Official submission page ↗</a> <a class="text-link" href="analysis.html">Full analysis ↗</a></p></section>'''
 
 
@@ -338,7 +339,16 @@ def main():
               'evidence/artifact_reproduction.json': 'artifact_reproduction.json',
               'evidence/ff/ff_run_card.json': 'ff_run_card.json',
               'run_card_stepco.json': 'run_card_stepco.json',
-              'run_card_g79b.json': 'run_card_g79b.json'}
+              'run_card_g79b.json': 'run_card_g79b.json',
+              'registry/preregistration_arc.json': 'preregistration_arc.json',
+              'evidence/arc/x1_holdout_seed20.json': 'arc_holdout_seed20.json',
+              'evidence/arc/x1_holdout_seed30.json': 'arc_holdout_seed30.json',
+              'evidence/arc/uniqueness_surface.json': 'arc_uniqueness_surface.json',
+              'evidence/arc/uniqueness_final.json': 'arc_uniqueness_final.json',
+              'evidence/arc/x1_gates.json': 'arc_gates.json',
+              'evidence/arc/x1_final_build.json': 'arc_final_build.json',
+              'evidence/arc/selector_decision.json': 'arc_selector_decision.json',
+              'evidence/arc/state.json': 'arc_state.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json'}
     for stale in (SITE / 'evidence').iterdir():
@@ -358,12 +368,15 @@ def main():
         'executive-summary.html': ('Executive summary & how to submit', executive(card)),
         'analysis.html': ('Why H33 scored highest, and what can beat it',
                           page_head('ANALYSIS / EXACT METRIC / HOLDOUT', 'Why H33 won, and how to beat it.',
-                                    'Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.')
-                          + '<section class="section">' + md('reports/nhr_analysis.md') + '</section>'
+                                    'Metric algebra, byte forensics of H33, the H79-ARC and H79-NHR holdout results and the main risks.')
+                          + '<section class="section">' + md('reports/arc_analysis.md') + '</section>'
+                          + '<section class="section"><h2>Previous lane analysis (H79-NHR, negative)</h2>' + md('reports/nhr_analysis.md') + '</section>'
                           + '<section class="section"><h2>Earlier forensic notes</h2>' + md('knowledge/why_h33.md') + md('knowledge/literature.md') + '</section>'),
         'research.html': ('Five ranked hypotheses',
                           page_head('ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT', 'Test a mechanism. Name its mimic.',
                                     'Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.')
+                          + '<section class="section"><h2>Current lane H79-ARC (session 167a60a6)</h2>'
+                          + md('research/hypotheses_167a60a6.md') + md('reports/protocol_amendment_D2_20261022.md') + '</section>'
                           + '<section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2>'
                           + '<p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p>'
                           + md('research/hypotheses_preflight_a7d092d7.md') + '</section>'

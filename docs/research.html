@@ -1,12 +1,190 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<meta name="description" content="GEMSDOE79 promoted submission GeoTIFF — automated gates passed; download and submit">
 <title>Five ranked hypotheses · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>Current lane H79-ARC (session 167a60a6)</h2><div class="prose table-scroll"><h2>Candidate hypotheses — session 167a60a6 (written before any new holdout result)</h2>
+<p>Scope checked against <code>src/</code>, <code>scripts/</code>, <code>vendor/gems57/</code>, <code>archive/</code> and the
+measured registry lineage in <code>knowledge/why_h33.md</code>. "Untried" means not
+implemented as a lane in <strong>this</strong> repo; family-wide first-ever claims are not
+made — the objective arbiter is the registry duplicate gate (992 rasters,
+Amendment D-2). Ranks are qualitative expected-DTI/cost judgements, not scores.</p>
+<h3>What the measured evidence already establishes (inputs to ranking)</h3>
+<ul>
+<li><strong>H33 = D2.8 minus its 6,436 dots within 200 m of the catalogue</strong>
+  (RASTER-MEASUREMENT, <code>evidence/h33_forensics.json</code>): 44,090 → 37,654 binary
+  dots, median catalogue distance 1.96 km. USER-REPORTED 0.2600 → 0.2778.
+  Sparse binary emission + near-catalogue collar pruning is therefore a
+  <em>measured</em> component of the family best, not a hypothesis.</li>
+<li><strong>The metric</strong> (official, alpha 0.2 / beta 0.8, 300 m triangular kernel):
+  TP is a per-truth-pixel <strong>max</strong>, FP is a <strong>sum</strong> over predicted mass. A dot
+  on a straight trace earns ≈2.33 TP units per FP unit at 3 px spacing;
+  break-even on-trace probability ≈2.5 % at score 0.28, ≈4.1 % at 0.44
+  (ESTIMATE, <code>reports/nhr_analysis.md</code> §1). Score 0.2778 needs ≥23.6 % of
+  truth credit; the verified public leader 0.4413 needs ≥38.4 % (rigorous
+  bound) and ≈65–67 % at H33-like FP (ESTIMATE). The gap is ranking quality,
+  not format.</li>
+<li><strong>H79-NHR</strong> (HOLDOUT-DTI 0.1431/0.1522 vs H33 control 0.0961/0.0989) shows
+  nested-hide kernel-credit learning works on the proxy, but its gain is
+  driven by catalogue-proximity inputs (no-geometry ablation 0.0739/0.0751),
+  its median dot is 539 m from a mapped fault, it duplicates 26 ordinary
+  registry dot fields, and earlier near-fault fields scored only
+  0.016–0.143 live (UNVERIFIED HISTORICAL). Conclusion used below:
+  <strong>proximity is a holdout shortcut and a live/distribution-shift and
+  duplication risk; the next lane must rank by physical evidence, not by
+  nearness to the map.</strong></li>
+<li>Genuinely non-duplicate family lanes exist and score: GEMSDOE70 dual-OOF
+  supervised + 300 m submodular cover 0.2478 (4.8 % exact overlap with H33),
+  GEMSDOE49 orthogonal-gated 0.2376, GEMSDOE73 Blakely worms 0.1917
+  (RASTER-MEASUREMENT + UNVERIFIED HISTORICAL scores, <code>knowledge/why_h33.md</code>).
+  Two partially independent rankings each capture substantial truth credit —
+  better physical ranking has headroom above 0.2778 in principle. No
+  projection is made for this session's candidate.</li>
+</ul>
+<h3>Ranked hypotheses</h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Hypothesis, exact layers</th>
+<th>Physical signature / transform</th>
+<th>Why it should catch a fault <em>missing</em> from USGS/INGENIOUS</th>
+<th>Difference from this repo</th>
+<th>Expected gain / cost</th>
+<th>Named non-fault mimic</th>
+<th>Data viability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 (chosen, lane H79-ARC)</strong></td>
+<td><strong>Ridge-concordance credit learning without proximity.</strong> 19 <code>training_features</code> bands; 10 lidar scarp bands + strike/coherence; 8 radiometric/extension bands; new transforms of <code>det_elev</code>, <code>rtp</code>, <code>iso_grav_anom</code>, <code>tmi_hg</code>, lidar <code>step_max/upface/downface</code></td>
+<td>Structure-tensor line-coherent edge strength (gradient magnitude × tensor coherence) at σ∈{1,2,4}; magnetic worm persistence (HG local-max across scales); Hessian ridge anisotropy of detrended elevation; antislope asymmetry <code>upface−downface</code> and ratio; nested-hide kernel-credit target; <strong>submodular max-cover emission</strong> (expected-TP greedy) at fixed budget, &gt;200 m off catalogue</td>
+<td>Expert-only faults must be <em>mappable from evidence</em> — a scarp, a basement edge, an alteration line — or experts could not have drawn them. Antithetic (uphill-facing) piedmont scarps and buried basement edges are systematically under-represented in regional compilations that privilege main range-front traces. Line-coherent transforms respond to <em>traces</em>, which is what the max-kernel metric rewards, instead of per-pixel anomaly blobs</td>
+<td>NHR used per-pixel features + proximity geometry + Poisson thinning; E1 was a hand-built magnetic-lag rule; STEPCO a fixed step-concordance rule. No lane here combines ridge-steered features, a no-proximity credit learner and max-cover emission</td>
+<td>Highest / medium (reuses cached NHR stack; CPU)</td>
+<td>Pluvial Lake Lahontan shoreline/terrace risers (contour-parallel ridges; predominantly downslope-facing, so antislope terms + magnetic concordance are the learned suppressors); incised channel banks; roads/mine benches</td>
+<td>All inputs already restored &amp; SHA-256-verified this session (<code>registry/data_manifest.json</code>)</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>DEM10 one-sided step + shoreline suppression.</strong> 13 USGS 3DEP 1/3-arc-second DEM derivative vectors (<code>onesided</code>, <code>onesided3</code>, <code>hgm20/50/200</code>, <code>curv_absmax</code>, …) mirrored at <code>GEMSDOE10</code> tag <code>ext/dem10-36343078537</code></td>
+<td>One-sided elevation step across a candidate trace (fault throw) vs two-sided ridge (shoreline/terrace)</td>
+<td>A normal-fault scarp is a <em>one-sided</em> step; the dominant mimic (shoreline riser) is a two-sided ridgelet on a contour. The sign structure separates them where amplitude cannot</td>
+<td>DEM10 vectors are not inputs to any lane here (restore script exists, unused by NHR/STEPCO/E1)</td>
+<td>Medium / medium (≈640 MB restore via <code>gh api</code>; source free &amp; official: USGS 3DEP via ScienceBase item <code>4f70aa9fe4b058caae3f8de5</code>, named in <code>scripts/restore_dem10.py</code>; obtainable — checked against the tag manifest design, hashes pinned there)</td>
+<td>Fluvial terrace edges are also one-sided steps</td>
+<td>Viable, deferred: rank 1 extracts related signal from already-pinned lidar bands without a new 640 MB dependency</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Strike-propagated tip continuation cones.</strong> Visible-catalogue tips + local strike; lidar step bands</td>
+<td>±15° along-strike search cone past each mapped tip, scored by lidar step evidence inside the cone only</td>
+<td>Compilation traces are truncated at cover/map boundaries; continuations under thin cover are expert-mappable</td>
+<td>Only a scalar <code>log_dist_visible_tip</code> input exists (NHR); no cone search</td>
+<td>Low–medium / low — but <strong>high duplication risk</strong>: tip halos are exactly where earlier near-fault fields concentrated (IR-79-55), so P(win) after the duplicate gate is poor</td>
+<td>Bedding strike ridges, linear drainages</td>
+<td>Inputs present; not chosen on duplication grounds</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Radiometric alteration worms.</strong> GeoDAWN <code>K, Th, U, TC</code> + ratios <code>ThK, UK, UTh</code> + <code>iso_grav_anom_hg</code></td>
+<td>Ratio-gradient ridge lines coincident with gravity HG edges (permeable fault → hydrothermal K/U mobility)</td>
+<td>Alteration can trace a <em>covered, scarp-less</em> fault that topography and magnetics miss — precisely the class absent from a topography-led compilation</td>
+<td>Radiometrics were only minor per-pixel inputs in NHR; no ratio-worm transform exists here</td>
+<td>Low–medium / low. Standalone family evidence is weak: 15GEMSDOE alteration conjunction 0.0782 live (UNVERIFIED HISTORICAL)</td>
+<td>Lithologic contacts, playa evaporite margins, felsic intrusions</td>
+<td>Inputs present</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Geodetic strain-localization ridges.</strong> <code>geod_2ndinv</code>, <code>geod_shearrate</code>, <code>geod_dilaterate</code></td>
+<td>Ridge maxima of strain-rate invariants (active localization hosts unmapped active faults)</td>
+<td>An actively straining, unmapped structure is a geothermal-relevant target compilations can miss</td>
+<td>Only raw per-pixel inputs in NHR</td>
+<td>Low / low: geodetic fields are smoothed at ≫100 m, so trace-level precision (which the 300 m kernel demands) is implausible</td>
+<td>Regional strain gradients, volcanic deformation</td>
+<td>Inputs present</td>
+</tr>
+</tbody>
+</table>
+<h3>Decision</h3>
+<p>Execute rank 1 only, as preregistered in
+<code>registry/preregistration_arc.json</code>, under protocol Amendment D-2
+(<code>reports/protocol_amendment_D2_20261022.md</code>). Validate on the shared
+spatially-blocked holdout (<code>gems57-pooled-hide-v2</code>, seeds 20/30) against the
+H33 fold-fair control before any submission decision; spend no slot unless
+every preregistered gate passes and the separate selector re-derives them.</p></div><div class="prose table-scroll"><h2>Protocol amendment D-2 — chance-corrected dot overlap for space-filling priors</h2>
+<p><strong>Date:</strong> 2026-10-22 · <strong>Session:</strong> <code>arena/167a60a6-gemsdoe79</code> · <strong>Status:</strong>
+adopted prospectively for lane <code>H79-ARC</code> only, before any H79-ARC result
+existed. No historical verdict is rewritten: H79-NHR, STEPCO, G79B-SDPT,
+H79-FF and E1 remain negative (H79-NHR also fails this amendment's test —
+see "does not whitewash" below).</p>
+<h3>The defect (measured, not assumed)</h3>
+<p>Amendment D-1 (<code>reports/protocol_amendment_D1_20261022.md</code>) fixed the noun
+"dots" for <em>continuous</em> registry surfaces (budget-matched top-k,
+<code>budget-matched-v3</code>, IR-79-47). A second, independent vacuity remains for
+<em>dot fields</em> whose dot count is 5–25× any plausible candidate budget:</p>
+<ul>
+<li>The protocol statistic is <code>ov = fraction of my dots within 3 px of theirs</code>.</li>
+<li>For a registry raster whose 3 px halo already covers a fraction <code>h</code> of the
+  allowed domain, a <strong>uniformly random</strong> candidate has <code>E[ov] = h</code>. Measured
+  (<code>evidence/nhr/overlap_chance.json</code>, shared helpers, 990 comparable
+  rasters): <strong>30 registry rasters have <code>h &gt; 0.70</code></strong> — including a spacing-5
+  lattice probe and plateau "unassigned-mass" surfaces — and a seeded
+  uniform-random 37,654-dot map is flagged by all 30. For those rasters the
+  raw 0.70 test fires on randomness itself; it carries (almost) no
+  information about duplication.</li>
+<li>This is the exact obstacle IR-79-53 named ("one option is overlap beyond
+  chance for halo coverage above 0.70") and left for an explicit decision.</li>
+</ul>
+<h3>Authorisation and scope</h3>
+<p>The current task instruction requires: generate a unique submission; make
+download/submit status obvious <strong>without human inspection</strong>; "work on your
+own to complete tasks", "no manual input". A gate that rejects random maps
+cannot certify uniqueness automatically, so the ambiguity must be resolved
+inside the project, prospectively and in writing — the same basis as D-1.
+Post-hoc exemptions, overlap capping after a duplicate fires, and coordinate
+jitter remain forbidden and are not used here.</p>
+<h3>Amendment (fixed before scoring lane H79-ARC)</h3>
+<p>For every registry raster, with dots defined exactly as in D-1/v3
+(budget-matched top-k for continuous surfaces, literal positive support for
+dot fields), compute with the shared helpers:</p>
+<ul>
+<li><code>ov</code>  — forward 3 px overlap (the inherited statistic, always reported);</li>
+<li><code>h</code>   — halo coverage: share of allowed cells (footprint minus catalogue)
+  within 3 px of the registry raster's dots;</li>
+<li><code>excess = (ov − h) / (1 − h)</code> — kappa-style overlap beyond chance
+  (0 = chance, 1 = every dot on theirs).</li>
+</ul>
+<p><strong>Duplicate iff</strong> Spearman ρ &gt; 0.90 (any raster, surface and final), <strong>or</strong>
+<code>excess &gt; 0.70</code>, <strong>or</strong> byte/decoded-pixel identity. If <code>h ≥ 0.999999</code> the
+raster's dot set is positionally non-informative (its budget-matched top-k
+saturates the domain through ties); overlap cannot fire for it, while ρ and
+identity still apply. Thresholds 0.90 / 0.70 are unchanged; only the
+statistic they bind to is chance-corrected. The literal <code>ov</code> and its firing
+count are always printed next to the D-2 reading, and a promoted candidate
+is described as <em>unique under Amendments D-1+D-2</em>, never as literal-unique.</p>
+<p>Implementation is a shared-tool change, not a lane-local fork:
+<code>vendor/gems57/uniqueness.py</code> gains <code>halo_coverage_allowed</code> and
+<code>overlap_beyond_chance</code> row fields in <code>compare_array_to_registry</code>
+(v4 version note + pin update in <code>registry/template_pin.json</code>, patch
+exported to <code>reports/upstream_patch_uniqueness_v4.diff</code>), following the
+IR-79-47 precedent.</p>
+<h3>Why this does not whitewash duplication (measured on the stopped lane)</h3>
+<p>Recomputing <code>excess</code> for the already-stopped H79-NHR dots from
+<code>evidence/nhr/overlap_chance.json</code>: the worst excess is <strong>0.777</strong>
+(<code>GEMSDOE3:coverage-v3-wide</code>, ov 0.913 vs h 0.610) and <strong>4 rasters exceed
+0.70</strong> (0.777, 0.767, 0.732, 0.708). H79-NHR therefore <em>still fails</em> under
+D-2 and stays negative without retuning. A copied or near-copied sparse
+prior has small <code>h</code>, so <code>excess ≈ ov</code> and fires as before; a copied dense
+ranking fires ρ and its budget-matched excess. What D-2 removes is only the
+firing that occurs for an independent — even random — map. If the protocol
+owner reverses D-2, the correct verdict for any H79-ARC candidate reverts
+to <code>negative</code> and its file must not be submitted.</p></div></section><section class="section"><h2>New-lane preflight: STOP under the literal overlap rule</h2><p>Re-measured a SHA-256-pinned registry witness: its positive-support halo covers every allowed pixel. This prevents any nonempty dot set from passing the literal overlap gate. No new candidate was tested, and zero slots were spent. <a href="evidence/new_lane_preflight_a7d092d7.json">Machine decision</a> · <a href="evidence/witness_review_20261022_a7d092d7.json">Re-measurement</a>.</p><div class="prose table-scroll"><h2>Next-lane research backlog — 2026-10-22 (not executed)</h2>
 <p><strong>Pre-experiment shortlist, not measured performance.</strong> The current request does not
 contain a delimited single-method lane paragraph. No new scientific lane was
 implicitly assigned. The inherited H79-NHR lane already stopped as a duplicate;

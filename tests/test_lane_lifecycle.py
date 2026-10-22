@@ -68,10 +68,23 @@ def test_current_scientific_commands_refuse_before_writing(script, args):
     result = subprocess.run([sys.executable, str(ROOT / 'scripts' / script), *args],
                             capture_output=True, text=True, timeout=30)
     assert result.returncode == 2, result.stderr
-    assert 'lane is closed (negative)' in result.stderr
-    assert 'No files changed.' in result.stderr
+    # Canonical card is now H79-ARC, so the NHR runner refuses as mismatched;
+    # either refusal proves the stopped lane cannot be restarted.
+    assert ('lane is closed (negative)' in result.stderr
+            or 'canonical lane missing or mismatched' in result.stderr)
+    assert 'No files changed.' in result.stderr or 'no files changed' in result.stderr
     assert all(p.read_bytes() == data for p, data in frozen.items())
     assert (set(cache.rglob('*')) if cache.exists() else set()) == before
+
+
+@pytest.mark.parametrize('args', [['holdout', '--seed', '20'], ['final']])
+def test_arc_terminal_lane_refuses_to_rerun(args):
+    state = json.loads((ROOT / 'evidence/arc/state.json').read_text())
+    assert state['status'] == 'terminal'
+    result = subprocess.run([sys.executable, str(ROOT / 'scripts/run_arc.py'), *args],
+                            capture_output=True, text=True, timeout=60)
+    assert result.returncode != 0
+    assert 'terminal' in result.stderr
 
 
 def test_site_description_does_not_claim_failed_artifact_is_unique():
