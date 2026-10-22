@@ -2,6 +2,8 @@
 
 ## Download & Automated Submission Status — Start Here
 
+**Current review (2026-10-22, session `45998a01`):** [Three-pass review and next steps](reports/session_review_45998a01.md). No new TIFF was generated: the frozen literal novelty gate blocks every nonempty candidate, and no single-method lane was supplied. The download below is the existing research artifact, **not a newly unique or submission-approved file**. Historical holdout results do not prove a higher private leaderboard score.
+
 > **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(Automated fail-closed machine gate: format/CRS/`[0,1]`/canary/holdout gates ALL PASS with #1 `GEMSDOE79` two-seed `HOLDOUT-DTI = 0.1905 / 0.1944`; automatic submission remains `NO` so zero weekly slots are spent automatically.)*
 
 | Gate / Decision | Automated Result | Verified Machine Evidence |
@@ -13,7 +15,7 @@
 | **`REGISTRY UNIQUENESS (`1,108` rasters / `93` repos)`** | **✅ SPARSE PASS (`0.6844 <= 0.70`) / ⚠️ BLANKETS FAIL-CLOSED** | Pre-placement surface `max |Spearman| = 0.7712 <= 0.90` (`1,082` rasters); post-placement `max |Spearman| = 0.1210 <= 0.90`, `max Jaccard = 0.0417 <= 0.55`; **comparable `<= 50k`-dot sparse overlap = `0.6844 <= 0.70` across all `718` sparse maps (`0.3427` vs `H33`)**; literal unchanged `uniqueness.py` flags space-filling/`80k` blankets (`17GEMSDOE = 1.0000`, `13GEMSDOE = 0.9985`, `59GEMSDOE = 0.8224` where **Oracle ground truth `truth20 = 0.8682 > 0.70`**) |
 | **`OK TO SUBMIT AUTOMATICALLY?`** | **⛔ NO (`ok_to_submit: false`, exit code `2`)** | Held strictly fail-closed (`0 / 3` weekly slots used) pending **cross-repo selector comparison** across parallel lanes (`GEMSDOE79` vs `GEMSDOE73`, etc.) and DrivenData weekly capacity verification. See [**Executive Summary & Submission Guide**](docs/executive-summary.html). |
 
-- **Unique Submission Name (`43 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
+- **Unique Submission Name (`55 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
 - **Short Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
 
 ![Dual-Seed Holdout Progression](docs/figures/fig1_holdout_progression.png)
