@@ -1,29 +1,30 @@
 {
   "schema_version": "gems79-run-card-v2",
-  "generated_utc": "2026-10-22T02:29:17.079500+00:00",
-  "branch": "arena/337ac1e9-gemsdoe79",
-  "lane": "H79-NHR",
-  "hypothesis": "The conditional distribution of an unmapped fault given the mapped network and terrain/geophysics differs from the marginal distribution of mapped fault pixels; a model trained on simulated discoveries ranks unmapped-fault kernel credit better than hand-built single-transform surfaces.",
-  "mechanism": "Basin-and-Range normal-fault systems are multi-strand: subsidiary synthetic/antithetic strands, step-overs and along-strike continuations lie within ~0.3-3 km of mapped traces and share their strike; where they offset Quaternary surfaces they leave lidar-resolvable scarps (slope excess, 10-50 m step, crest convexity/base concavity).",
-  "named_non_fault_process": "Pluvial Lake Lahontan shoreline/terrace risers and incised channel banks produce contour-parallel steps of similar 2-10 m scale near range fronts; roads and mine benches also create steps.",
+  "generated_utc": "2026-10-22T04:38:40.924045+00:00",
+  "branch": "arena/c04e5e27-gemsdoe79",
+  "lane": "H79-FFAS",
+  "hypothesis": "Expert-added faults missing from USGS/INGENIOUS are enriched in antithetic (uphill-facing) and isolated interior scarps farther from already-drawn traces than the subsidiary near-fault strands that nested hide-and-recover learns; a polarity-aware lidar score with a logistic far-field weight therefore ranks unmapped-fault kernel credit in a different spatial band than H33/h19-5 range-front packing and than NHR's 300 m-2 km halo.",
+  "mechanism": "Basin-and-Range normal-fault systems are multi-strand: synthetic range-front scarps face downslope and dominate regional maps; antithetic hanging-wall and intra-horst scarps face upslope, are shorter, and are often omitted. Where they offset Quaternary surfaces they still leave lidar-resolvable slope excess, a 10-50 m step, crest convexity and along-strike coherence. A 2 px collar around visible traces removes catalogue-echo false positives under the organiser's exact-pixel known-fault mask.",
+  "named_non_fault_process": "Ridge-top sackung and landslide headscarps are also uphill-facing; irrigation ditches, mine benches and contour-parallel pluvial terrace risers produce coherent steps of similar 2-10 m scale.",
+  "method_label": "FAR-FIELD ANTISLOPE SCARP",
   "holdout_dti": {
     "evidence_class": "HOLDOUT-DTI",
     "evaluator_version": "gems57-pooled-hide-v2",
-    "headline_seed": 20,
-    "dti": 0.1431,
+    "headline_seed": 30,
+    "dti": 0.0367,
     "ci95": [
-      0.1281,
-      0.1574
+      0.0279,
+      0.0452
     ],
-    "withheld_positive_pixels": 11321,
+    "withheld_positive_pixels": 11342,
     "per_seed": {
       "seed_20": {
         "withheld_positive_pixels": 11321,
         "candidate": {
-          "dti": 0.1431,
+          "dti": 0.0422,
           "ci95": [
-            0.1281,
-            0.1574
+            0.0288,
+            0.0558
           ]
         },
         "h33_foldfair_control": {
@@ -34,41 +35,48 @@
           ]
         },
         "uniform_control": {
-          "dti": 0.0484,
+          "dti": 0.05,
           "ci95": [
-            0.0432,
-            0.0537
+            0.0448,
+            0.0552
           ]
         },
-        "ablation_no_geometry": {
-          "dti": 0.0739,
+        "ablation_no_farfield": {
+          "dti": 0.0579,
           "ci95": [
-            0.0617,
-            0.0863
+            0.0438,
+            0.0731
+          ]
+        },
+        "ablation_equal_polarity": {
+          "dti": 0.0408,
+          "ci95": [
+            0.0275,
+            0.0543
           ]
         },
         "paired_delta_vs_h33": {
-          "delta": 0.047,
+          "delta": -0.0539,
           "ci95": [
-            0.0321,
-            0.0621
+            -0.072,
+            -0.0362
           ]
         },
         "paired_delta_vs_uniform": {
-          "delta": 0.0947,
+          "delta": -0.0078,
           "ci95": [
-            0.0811,
-            0.1077
+            -0.0204,
+            0.0047
           ]
         }
       },
       "seed_30": {
         "withheld_positive_pixels": 11342,
         "candidate": {
-          "dti": 0.1522,
+          "dti": 0.0367,
           "ci95": [
-            0.1335,
-            0.1696
+            0.0279,
+            0.0452
           ]
         },
         "h33_foldfair_control": {
@@ -79,66 +87,74 @@
           ]
         },
         "uniform_control": {
-          "dti": 0.0482,
+          "dti": 0.0498,
           "ci95": [
-            0.0433,
-            0.0522
+            0.0449,
+            0.0541
           ]
         },
-        "ablation_no_geometry": {
-          "dti": 0.0751,
+        "ablation_no_farfield": {
+          "dti": 0.0507,
           "ci95": [
-            0.0612,
-            0.0898
+            0.0404,
+            0.0607
+          ]
+        },
+        "ablation_equal_polarity": {
+          "dti": 0.0363,
+          "ci95": [
+            0.0275,
+            0.0449
           ]
         },
         "paired_delta_vs_h33": {
-          "delta": 0.0533,
+          "delta": -0.0622,
           "ci95": [
-            0.0369,
-            0.0704
+            -0.0758,
+            -0.0479
           ]
         },
         "paired_delta_vs_uniform": {
-          "delta": 0.1039,
+          "delta": -0.013,
           "ci95": [
-            0.0865,
-            0.1218
+            -0.0227,
+            -0.0029
           ]
         }
       }
     },
     "caveat": "Hide-and-recover of withheld catalogue components; not a leaderboard score or projection."
   },
-  "current_best_holdout_beaten": true,
-  "current_best_holdout_reference": "h33_foldfair_control (legacy D2.8 dots, >2 px from the fold's visible faults) - best previously recorded HOLDOUT-DTI in this repo (evidence/post_stop_diagnostic.json)",
+  "current_best_holdout_beaten": false,
+  "current_best_holdout_reference": "h33_foldfair_control (legacy D2.8 dots, >2 px from the fold's visible faults) - promotion bar for this lane; NHR 0.143/0.152 remains a stopped duplicate, not a target to copy",
   "leakage_canary": {
     "evidence_class": "LEAKAGE-CANARY",
     "passed": true,
-    "auc": 0.8589,
+    "auc": 0.8481,
     "required_threshold": 0.9,
-    "features_cleared": 58,
-    "tests_per_seed": 232,
-    "tests": 464,
-    "worst_feature": "geom_log_dist_visible_tip"
+    "features_cleared": 9,
+    "tests_per_seed": 36,
+    "tests": 72,
+    "worst_feature": "logistic_farfield"
   },
   "correlation_overlap_vs_registry": {
     "shared_tool": "gems57.uniqueness.compare_array_to_registry",
     "dot_definition": "budget-matched-v3",
+    "overlap_mode": "informative-halo-v4",
     "registry_rasters": 992,
     "surface_before_placement": {
-      "worst_spearman": 0.6329547042505124,
+      "worst_spearman": 0.36742481994863424,
       "worst_forward_overlap_3px_provisional_topk": 1.0,
       "passed": false
     },
     "final_dots": {
-      "worst_spearman": 0.11169031336669985,
+      "worst_spearman": 0.30934792298112623,
       "worst_forward_overlap_3px": 1.0,
       "worst_overlap_submission": "GEMSDOE48:docs/downloads/gemsdoe48-ds-unassigned-mass-20261006T201749Z-95897e3f8125.tif",
       "passed": false
     },
     "all_comparable_rasters_audit": {
-      "source": "evidence/nhr/overlap_chance.json",
+      "source": "evidence/ffas/overlap_chance.json",
       "compared": 990,
       "not_comparable_invalid_files": [
         {
@@ -150,24 +166,18 @@
           "reason": "shape (32, 48) / bands 1 differ from the competition grid"
         }
       ],
-      "rasters_with_candidate_overlap_gt_0_70": 56,
+      "rasters_with_candidate_overlap_gt_0_70": 61,
       "of_which_space_filling_halo_gt_0_70": 30,
-      "of_which_informative_halo_le_0_70": 26,
+      "of_which_informative_halo_le_0_70": 31,
       "uniform_random_control_flagged_by": 30,
       "worst_informative": {
-        "submission": "GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif",
-        "overlap_candidate": 0.9129707335210071,
-        "halo_coverage": 0.6096677003398686,
-        "overlap_beyond_chance": 0.7770380095247801,
-        "spearman": 0.026707799282682864
+        "submission": "62GEMSDOE:docs/downloads/gems62-h62i-scarpcrosscut-hardcore-zeros.tif",
+        "overlap_candidate": 0.9858447973654857,
+        "halo_coverage": 0.2312209126417221,
+        "overlap_beyond_chance": 0.981587424960849,
+        "spearman": 0.3093479229811299
       },
-      "surface_topk_would_have_stopped_before_placement": true,
-      "worst_surface_topk_vs_informative": {
-        "submission": "GEMSDOE53:docs/submissions/gems53-h1-thin_bin_q0p1-20261008-aefc7582.tif",
-        "provisional_topk_overlap": 0.9620491846815743,
-        "final_dot_overlap": 0.8143092367344771,
-        "halo_coverage": 0.2041410900274852
-      }
+      "surface_topk_would_have_stopped_before_placement": true
     },
     "limits": {
       "rho": 0.9,
@@ -175,15 +185,15 @@
     }
   },
   "protocol_unique": false,
-  "raster_sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+  "raster_sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
   "validator_output": {
     "format_passed": true,
     "no_nan_inside_footprint": true,
     "crs_shape_transform_match": true,
     "summary": {
-      "file": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-      "bytes": 136481,
-      "sha256": "abbf5314b7941569216a907849278c0dad0c67c130a6b9269cf2e6e1d50ee7a2",
+      "file": "docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif",
+      "bytes": 137784,
+      "sha256": "13ba929b7249a31844775aaa87141657f7ab7f145a2b01f36d721a5ffd566227",
       "meta": {
         "crs": "EPSG:32611",
         "shape": [
@@ -237,25 +247,31 @@
       "footprint_fraction": 0.007286874781441169
     }
   },
-  "submission_name": "gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT",
-  "submission_note": "H79-NHR research only; HOLDOUT-DTI 0.143/0.152 vs H33 0.096/0.099; DUPLICATE: 0.91 of dots within 3px of a registry raster",
-  "submission_file": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.tif",
-  "zip_file": "docs/downloads/gems79-h79-nhr-research-37654dots-20261022T022519Z-2a7ef64e-DO-NOT-SUBMIT.zip",
-  "zip_sha256": "b882f55d38a0020d1b4773a5f2db8d7eddc401fb38b5d58a98758c19b99a6bc7",
-  "artifact_kind": "binary dot map (1.0 at 37,654 placed cells, 0.0 elsewhere, all finite) from the H79-NHR surface",
+  "submission_name": "gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT",
+  "submission_note": "H79-FFAS research only; HOLDOUT-DTI 0.042/0.037; FAIL beats_current_holdout_best_both_seeds,paired_ci_vs_uniform_e",
+  "submission_file": "docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.tif",
+  "zip_file": "docs/downloads/gems79-h79-ffas-research-37654dots-20261022T043832Z-2483e26e-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "bd4c51dd3b72a7cd8e989a314af07fe9dfa588f651d1641c54fdfd1b5f8a738b",
+  "artifact_kind": "binary dot map (1.0 at 37,654 placed cells, 0.0 elsewhere, all finite) from the H79-FFAS surface",
   "positive_pixels": 37654,
   "experiment_count": 1,
   "max_experiments": 3,
   "max_hours": 2,
+  "median_catalogue_distance_px": 27.073972741361768,
   "source_provenance_verified": true,
   "source_provenance_definition": "Every input byte matches the SHA-256 pins in registry/data_manifest.json and the grid equals sample_submission.tif. Mirrors are owner GitHub copies; organizer-origin authentication is not possible without a DrivenData login.",
-  "source_feature_stack_sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
-  "preregistration_sha256": "b20f5e9a6d86855e729337778fbf4aef90b90b3b0a8ee51853a1070578cb9866",
+  "source_feature_stack_sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568",
+  "preregistration_sha256": "928e31ca2776264fa18d7d63c47a1b0035c0c6d32a79adb5f89eae0ce466c4b0",
+  "site_headline": "Far-field antislope lost the holdout.",
+  "site_subhead": "Do not submit this file.",
+  "site_lead": "DUPLICATE under informative-halo-v4: 31 non-space-filling registry rasters each contain > 70 % of the final dots within 3 px (worst 0.986, 62GEMSDOE:docs/downloads/gems62-h62i-scarpcrosscut-hardcore-zeros.tif; chance level 0.231). Lane stopped; no retuning or overlap capping.",
   "verdict": "negative",
   "promoted": false,
-  "stop_reason": "DUPLICATE under the protocol's literal rule: 26 non-space-filling registry dot fields each contain > 70 % of the final dots within 3 px (worst 0.913, GEMSDOE3:docs/downloads/coverage-v3-wide-20260925T054019Z-0ac095a7ed.tif; chance level 0.610). The surface top-k check fails the same way before placement. Lane stopped; no retuning or overlap capping.",
+  "stop_reason": "DUPLICATE under informative-halo-v4: 31 non-space-filling registry rasters each contain > 70 % of the final dots within 3 px (worst 0.986, 62GEMSDOE:docs/downloads/gems62-h62i-scarpcrosscut-hardcore-zeros.tif; chance level 0.231). Lane stopped; no retuning or overlap capping.",
   "failed_gates": [
+    "beats_current_holdout_best_both_seeds",
     "final_dot_uniqueness_passed",
+    "paired_ci_vs_uniform_excludes_zero_both_seeds",
     "surface_uniqueness_passed"
   ],
   "ok_to_download": true,
@@ -265,5 +281,9 @@
   "human_intervention_needed_for_this_verdict": false,
   "submission_slots_used": 0,
   "organizer_submission_receipt": null,
-  "leaderboard_claim": "None. HOLDOUT-DTI is a proxy; no organizer score exists for this file until it is uploaded."
+  "leaderboard_claim": "None. HOLDOUT-DTI is a proxy; no organizer score exists for this file until it is uploaded.",
+  "account_side_conditions": [
+    "A free weekly slot must be shown on your DrivenData submission page (the official rules allow up to three submissions per week).",
+    "You must be a registered, eligible participant who accepted the competition rules."
+  ]
 }

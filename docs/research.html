@@ -6,7 +6,160 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 of this lane was run.</p></section><section class="section"><div class="prose table-scroll"><h2>Candidate hypotheses — session c04e5e27 (H79-FFAS lane)</h2>
+<p>Written <strong>before</strong> any H79-FFAS holdout result existed (preregistration:
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_ffas.json"><code>registry/preregistration_ffas.json</code></a>).
+Ranks are qualitative judgements of expected DTI improvement and cost, <strong>not
+scores</strong>. Only hypothesis 1 is executed in this session (budget: 3 experiments
+or 2 hours). Hypotheses 2–5 remain untested unless hypothesis 1 has a shared-tool
+defect.</p>
+<p><strong>Not implemented in this repo</strong> was checked against <code>src/</code>, <code>scripts/</code>,
+<code>vendor/gems57/</code> and archived lanes in <code>archive/</code>. A claim that nobody in the
+wider GEMSDOE family ever tried something similar is <strong>not</strong> made; the
+objective novelty arbiter is the shared registry duplicate gate.</p>
+<p>Prior lanes in this repo and why they are not restarted:</p>
+<table>
+<thead>
+<tr>
+<th>Lane</th>
+<th>What it did</th>
+<th>Why not this session</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G79-FABRIC-OFFSET (E1)</td>
+<td>Magnetic-marker lag across a gravity edge</td>
+<td>HOLDOUT-DTI ~0.047, below uniform; stopped</td>
+</tr>
+<tr>
+<td>H79-NHR</td>
+<td>Nested hide-to-recover HGB on 58 inputs</td>
+<td>Beat H33 control (0.143/0.152 vs 0.096/0.099) but <strong>duplicate</strong> vs 26 near-fault family fields (worst 0.913 vs chance 0.610)</td>
+</tr>
+<tr>
+<td>G79-STEPCO</td>
+<td>Multi-field step dipoles</td>
+<td>Tied H33 control; uniqueness also fired</td>
+</tr>
+<tr>
+<td>G79B-SDPT</td>
+<td>Scarp dipole-persistence + traces</td>
+<td>Unconstrained beat control; uniqueness cap then fell below control</td>
+</tr>
+<tr>
+<td>H79-MCT / H79-CSPT</td>
+<td>Archived concurrent; dense-prior exemptions <strong>not adopted</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>H33 forensics (this repo, <code>knowledge/why_h33.md</code>): the named file is exactly
+D2.8 minus 6,436 dots within 200 m of the catalogue. Public scores above 0.2478
+in the family table are the same root surface (<code>19GEMSDOE</code> h19-5) under different
+emission rules. Genuinely non-duplicate family landmarks max out near 0.2478
+(GEMSDOE70). NHR's dots sit at median 539 m from the catalogue; H33's at 1.96 km.
+The holdout withholds <em>catalogue</em> segments, so near-field methods win the proxy
+and lose uniqueness; far-field methods are the remaining unoccupied band.</p>
+<h3>Ranked candidates</h3>
+<table>
+<thead>
+<tr>
+<th>Rank</th>
+<th>Hypothesis, exact layers</th>
+<th>Physical signature / transform</th>
+<th>Why it should catch a fault <em>missing</em> from the USGS/INGENIOUS catalogue</th>
+<th>Difference from what this repo already implements</th>
+<th>Expected gain / cost</th>
+<th>Named non-fault mimic</th>
+<th>Data viability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1 (execute)</strong></td>
+<td><strong>H79-FFAS far-field polarity-aware antislope scarp.</strong> USGS 3DEP lidar <code>upface_max</code>, <code>downface_max</code>, <code>step_max</code>, <code>ex_max</code>, <code>coh100</code>, <code>cross_max</code> (hash-pinned <code>lidar_scarp_features_u8.tif</code>); distance to the <strong>visible</strong> catalogue only</td>
+<td>Fixed formula (not learned): <code>score = (down + 2·up) · step · coh · cross · ex · logistic(d; d0=8 px, s=3 px)</code>, then footprint mid-ranks. Dots: 37,654, 3 px Poisson, pixel-exact catalogue mask plus a preregistered 2 px visible-echo collar</td>
+<td>Regional compilations map the obvious <strong>downslope range-front</strong> synthetic scarps. Antithetic (uphill-facing) and intra-basin scarps, and scarps more than ~1 km from drawn traces, are the structures expert mappers add later. The logistic far-field weight is the opposite of NHR's near-fault geometry prior</td>
+<td>NHR used <code>upface_max</code> as 1 of 58 learned inputs with catalogue density/tip features; it did <strong>not</strong> emit the antislope ratio or a far-field weight. G79B used crest–base dipoles without a far-field prior. E1 used magnetics. No module here multiplies polarity by a logistic of visible-catalogue distance</td>
+<td>Highest expected uniqueness / low (CPU seconds per seed; no HGB)</td>
+<td>Ridge-top sackung and landslide headscarps (also uphill-facing); irrigation ditches; contour-parallel terrace risers</td>
+<td>Lidar u8 product is in <code>registry/data_manifest.json</code> (sha256 <code>d580bb8b…</code>). Absolute elevation is <strong>not</strong> required</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Strike-propagated tip continuation.</strong> Visible-catalogue endpoints + local strike; lidar <code>step_max</code>, <code>coh100</code></td>
+<td>Search cone ±15° along strike past each mapped tip, scored by lidar step</td>
+<td>Traces in compilations are often truncated at map-sheet or cover boundaries</td>
+<td>NHR had <code>log_dist_visible_tip</code> as an input, not an exclusive cone. Untested as a lane</td>
+<td>Medium uniqueness, medium holdout / low</td>
+<td>Bedding-parallel strike ridges, linear drainage</td>
+<td>Inputs present</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Radiometric Th/K lineament with lidar corroboration.</strong> GeoDAWN <code>K</code>,<code>Th</code> u8; lidar <code>coh100</code></td>
+<td>Horizontal-gradient ridges of Th/K, kept where lidar coherence is high</td>
+<td>Hydrothermal fluid along unmapped faults can alter surface K relative to immobile Th even under thin cover</td>
+<td>Not a primary surface in this repo. Family GEMSDOE15/46 tried related alteration fusions (unverified historical scores 0.078–0.159)</td>
+<td>Medium uniqueness, uncertain holdout / low</td>
+<td>Lithologic contacts, provenance changes in fans, survey seams</td>
+<td>u8 radiometrics restored in the manifest; <strong>units are not calibrated USGS concentrations</strong> (IR-79-17)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Lahontan shoreline suppression.</strong> Lidar step + strike + <strong>absolute elevation</strong></td>
+<td>Down-weight contour-parallel steps within ±15 m of pluvial shoreline altitudes (~1330–1335 m; <a href="https://pubs.usgs.gov/publication/70015223">USGS Benson &amp; Thompson 1987</a>; <a href="https://pubs.usgs.gov/circ/2004/1267/">USGS Circular 1267</a>)</td>
+<td>Removes the dominant scarp false-positive in the Lahontan basin</td>
+<td>Not implemented here. <code>det_elev</code> is detrended; lidar u8 stores relief, not altitude</td>
+<td>Medium / medium</td>
+<td>Real faults that parallel a shoreline would be suppressed</td>
+<td><strong>Needs absolute elevation.</strong> Free official source: USGS 3DEP via The National Map. Not on this sandbox allowlist. <strong>Not viable this session.</strong></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Drainage knickpoint / valley-floor offset alignment.</strong> Flow accumulation + knickpoints</td>
+<td>Along-stream slope breaks that align across neighbouring catchments</td>
+<td>Youthful faults offset streams before a continuous scarp is compiled</td>
+<td>Not implemented here</td>
+<td>Uncertain / high</td>
+<td>Lithologic nickpoints, fan-head trenching</td>
+<td>Needs a hydrologically correct DEM (absolute). <code>det_elev</code> is detrended, so drainage is distorted. <strong>Not viable this session.</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>Why hypothesis 1 is executed first</h3>
+<ol>
+<li><strong>Uniqueness is the binding constraint.</strong> NHR, STEPCO and G79B all found that
+   <em>good scarp terrain within 2 km of the catalogue is already dotted</em>. A new
+   near-field detector is a duplicate by construction. H33's own dots are 70 %
+   farther than 1 km from the catalogue; that band is the remaining spatial
+   vacancy, but only if the <em>ranking</em> inside it is not h19-5. Antislope
+   (uphill-facing) is the opposite polarity of a typical range-front detector.</li>
+<li><strong>Metric.</strong> TP is a max over a 300 m kernel; FP is a sum. Sparse far-field
+   dots that land on unmapped traces pay almost no catalogue-echo FP (the
+   organiser masks exact known-fault pixels:
+   <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff clarification</a>).</li>
+<li><strong>Cost.</strong> No nested HGB, so two seeds fit in minutes, leaving budget for the
+   registry uniqueness scan.</li>
+<li><strong>IR-79-53.</strong> The duplicate gate is currently vacuous against 30 space-filling
+   rasters (a uniform-random map fails them). This session fixes that <strong>once</strong> in
+   the shared tool (<code>informative-halo-v4</code>) rather than inventing a private fork.
+   Sparse family fields (halo ≤ 0.70) still fire at 0.70, so NHR-style copies
+   still stop.</li>
+</ol>
+<h3>Known limitation, stated before results</h3>
+<p>Withheld <em>catalogue</em> components are not the organiser's <em>expert</em> faults. A
+far-field method may <strong>lose</strong> the catalogue-holdout to NHR (0.143) even if it
+would do better on expert labels. Promotion still requires beating the H33
+fold-fair control on both seeds <strong>and</strong> uniqueness. Failure on either gate is a
+negative deliverable; no weekly slot is used.</p>
+<p>Official problem statement (fault mapping, not vents):
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/</a>.
+Lidar morphometry origin: USGS 3DEP
+<a href="https://www.usgs.gov/3d-elevation-program">https://www.usgs.gov/3d-elevation-program</a>.
+GeoDAWN (not used in hypothesis 1):
+<a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and</a>.</p></div></section><section class="section"><h2>Prior lane H79-NHR (session 337ac1e9, negative, archived)</h2><div class="prose table-scroll"><h2>Candidate hypotheses — session 337ac1e9 (H79-NHR lane)</h2>
 <p>Written before any H79-NHR holdout result existed (preregistration:
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/registry/preregistration_nhr.json"><code>registry/preregistration_nhr.json</code></a>).
 Ranks are qualitative judgements of expected DTI improvement and cost, <strong>not

@@ -6,7 +6,108 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-NHR holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ANALYSIS / EXACT METRIC / HOLDOUT</p><h1>Why H33 won, and how to beat it.</h1><p class="lead">Metric algebra, byte forensics of H33, the H79-FFAS holdout results and the main risk.</p></section><section class="section"><div class="prose table-scroll"><h2>Why H33 scored highest, and what H79-FFAS measured</h2>
+<p>Session <code>c04e5e27</code>, 2026-10-22. Evidence labels: <strong>HOLDOUT-DTI</strong> is the
+spatially blocked hide-and-recover proxy (evaluator <code>gems57-pooled-hide-v2</code>).
+<strong>USER-REPORTED</strong> is a filename-to-score pairing from the prompt with no
+organizer receipt. <strong>PUBLIC-LEADERBOARD</strong> is a team score, not a file hash.
+Nothing here is ORGANIZER-CONFIRMED for a file produced by this repo.</p>
+<h3>1. Why the named H33 file sits at the top of the family table</h3>
+<p>Byte forensics (<code>knowledge/why_h33.md</code>, <code>evidence/h33_forensics.json</code>):</p>
+<ul>
+<li>H33 is <strong>exactly</strong> D2.8 with every dot within 200 m (2 px) of the catalogue
+  deleted: 44,090 → 37,654, zero H33 dots outside D2.8.</li>
+<li>The metric's TP is a <strong>max</strong> over a 300 m triangular kernel; FP is a <strong>sum</strong>.
+  Sparse dots therefore dominate probability maps. One well-placed unit dot
+  can credit ~2.33 truth pixels and pays at most 1 FP.</li>
+<li>Known-fault pixels are masked
+  (<a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516/2">staff clarification</a>),
+  so catalogue-hugging dots are pure FP. Removing them is the 0.2600 → 0.2778
+  USER-REPORTED step.</li>
+<li>Every USER-REPORTED score above 0.2478 in the family table is the same
+  h19-5 root surface under different emission rules, not nine independent
+  detectors. Genuinely non-duplicate landmarks max out near 0.2478 (GEMSDOE70).</li>
+</ul>
+<p>A public score of 0.2778 needs at least ~23.6 % of truth credit; 0.4413 needs
+~38.4 % (<code>reports/nhr_analysis.md</code>). Closing that gap is a better detector of
+<em>expert-unmapped</em> faults, not another packing of the same range-front ridges.</p>
+<h3>2. Why a new near-field detector cannot be submitted</h3>
+<p>H79-NHR learned nested hide-and-recover and <strong>beat</strong> the H33 holdout control
+(0.1431 / 0.1522 vs 0.0961 / 0.0989) with a clean canary. It still failed the
+duplicate gate: 26 ordinary registry dot fields each contain &gt; 70 % of its
+dots within 3 px (worst 0.913 vs chance 0.610). Those fields occupy the
+300 m–2 km halo around mapped faults — exactly where withheld catalogue
+segments live. STEPCO and G79B hit the same wall.</p>
+<p>The remaining spatial vacancy is <strong>far-field</strong> (H33's own median is 1.96 km
+from the catalogue; 70 % of its dots are &gt; 1 km away) <em>and/or</em> a polarity
+the range-front detectors do not rank first (uphill-facing / antithetic).</p>
+<h3>3. H79-FFAS: the test</h3>
+<p>Preregistered closed-form lidar score, no learner:</p>
+<pre><code>raw = (downface_max + 2·upface_max) · step_max · coh100 · cross_max · ex_max
+      · logistic(EDT(visible); d0=8 px, s=3 px)
+</code></pre>
+<p>then footprint mid-ranks, a 2 px visible-echo collar, 37,654 dots at 3 px
+spacing. Inputs: the pinned USGS 3DEP lidar u8 stack only.</p>
+<p>Leakage canaries (HOLDOUT, both seeds): max symmetric AUC <strong>0.8387 / 0.8481</strong>
+on <code>logistic_farfield</code> (limit 0.90) — <strong>PASS</strong>.</p>
+<p>HOLDOUT-DTI (<code>gems57-pooled-hide-v2</code>, 4 spatial folds):</p>
+<table>
+<thead>
+<tr>
+<th>Arm</th>
+<th>Seed 20</th>
+<th>Seed 30</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>candidate (boosted antislope × far-field)</td>
+<td><strong>0.0422</strong> [0.0288, 0.0558] n=11,321</td>
+<td><strong>0.0367</strong> [0.0279, 0.0452] n=11,342</td>
+</tr>
+<tr>
+<td>ablation: no far-field weight</td>
+<td>0.0579 [0.0438, 0.0731]</td>
+<td>0.0507 [0.0404, 0.0607]</td>
+</tr>
+<tr>
+<td>ablation: equal polarity (boost=1)</td>
+<td>0.0408 [0.0275, 0.0543]</td>
+<td>0.0363 [0.0275, 0.0449]</td>
+</tr>
+<tr>
+<td>uniform control</td>
+<td>0.0500 [0.0448, 0.0552]</td>
+<td>0.0498 [0.0449, 0.0541]</td>
+</tr>
+<tr>
+<td>H33 fold-fair control</td>
+<td>0.0961 [0.0837, 0.1086]</td>
+<td>0.0989 [0.0842, 0.112]</td>
+</tr>
+</tbody>
+</table>
+<p>The candidate is <strong>below</strong> both the H33 control and the uniform control on both
+seeds. The far-field logistic is the main cause: dropping it raises DTI by
+about +0.016 / +0.014, still far below H33. Upface boosting vs equal polarity
+is a wash (~0.001).</p>
+<p>This is the distribution-shift predicted in <code>research/hypotheses_ffas.md</code>
+before the run: the holdout's truth <em>is</em> withheld catalogue, which sits near
+the remaining visible traces. A method that down-weights that band must lose
+the proxy even if it would be the right prior for expert-unmapped faults.</p>
+<p>X2/X3 were reserved for defect fixes, not holdout tuning. No second experiment.</p>
+<h3>4. Can we beat 0.2778?</h3>
+<p>Not with this artifact, and not by copying H33. A better public score needs a
+detector that (a) is spatially unlike the 26 near-fault family fields <strong>and</strong>
+(b) still covers the expert-unmapped traces the organiser scores. The
+catalogue-holdout cannot certify (b). Only an ORGANIZER-CONFIRMED receipt can.
+No weekly slot is used for a file that lost its holdout control.</p>
+<h3>5. IR-79-53</h3>
+<p>The 30 space-filling registry rasters are no longer a universal blocker for
+this lane: the shared tool's <code>informative-halo-v4</code> overlap test fires only
+when the prior's own 3 px halo covers ≤ 70 % of the allowed domain (IR-79-57).
+Spearman, byte identity and decoded identity still apply to every raster.
+Copies of H33 or of the 26 near-fault fields still fail.</p></div></section><section class="section"><h2>Prior lane (H79-NHR)</h2><div class="prose table-scroll"><h2>Why H33 scored highest, and whether H79-NHR can beat it</h2>
 <p>Session 337ac1e9, 2026-10-22. Evidence labels used in this document:
 <strong>HOLDOUT-DTI</strong> is our spatially blocked hide-and-recover proxy (evaluator
 <code>gems57-pooled-hide-v2</code>). <strong>USER-REPORTED</strong> is a filename-to-score pairing given

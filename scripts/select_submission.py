@@ -27,7 +27,9 @@ def main() -> int:
     path = ROOT / card["submission_file"]
     actual = hashlib.sha256(path.read_bytes()).hexdigest()
     fmt = validate_path(path)["format_passed"]
-    gates = json.loads((ROOT / "evidence/nhr/x1_gates.json").read_text())
+    lane = card.get("lane")
+    ev = ROOT / ("evidence/ffas" if lane == "H79-FFAS" else "evidence/nhr")
+    gates = json.loads((ev / "x1_gates.json").read_text())
     trial = dict(card)
     trial["selector_receipt"] = {"raster_sha256": actual, "selector": "scripts/select_submission.py",
                                  "all_automated_gates_passed": True, "source_url": "pending",
@@ -43,7 +45,7 @@ def main() -> int:
                    "raster_sha256": actual, "observed_utc": datetime.now(timezone.utc).isoformat(),
                    "blockers": decision["blockers"], "failed_gates": sorted(k for k, v in gates["gates"].items() if not v),
                    "card_left_unchanged": True}
-        (ROOT / "evidence/nhr/selector_decision.json").write_text(json.dumps(refusal, indent=2) + "\n")
+        (ev / "selector_decision.json").write_text(json.dumps(refusal, indent=2) + "\n")
         print(json.dumps(refusal, indent=2))
         return 2
     card["selector_receipt"] = {
