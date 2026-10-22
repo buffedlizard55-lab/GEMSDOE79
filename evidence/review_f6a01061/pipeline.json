@@ -1,0 +1,56 @@
+{
+  "reviewed_utc": "2026-10-22T15:33:18.476493+00:00",
+  "checks": [
+    {
+      "name": "integrity",
+      "command": [
+        ".venv/bin/python",
+        "scripts/verify_project.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "status",
+      "command": [
+        ".venv/bin/python",
+        "scripts/submission_status.py"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "passed": true
+    },
+    {
+      "name": "selector",
+      "command": [
+        ".venv/bin/python",
+        "scripts/select_submission.py"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "passed": true
+    },
+    {
+      "name": "build",
+      "command": [
+        ".venv/bin/python",
+        "scripts/build_site.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true
+    },
+    {
+      "name": "links",
+      "command": [
+        ".venv/bin/python",
+        "scripts/check_site.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "passed": true
+    }
+  ],
+  "all_expected": true
+}

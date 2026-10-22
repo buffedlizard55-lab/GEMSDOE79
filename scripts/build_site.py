@@ -81,16 +81,18 @@ def promoted(card):
 
 def shell(title, content, card):
     snap = card['generated_utc'][:10]
+    check_script = ('<script src="assets/download-check.js" defer></script>'
+                    if 'data-download-manifest=' in content else '')
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
 <meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
-<title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="cjx-submission.html">CJX candidate</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_e4a4422d.md">Three-pass review</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 
 
 def decision_box(card):
@@ -113,6 +115,31 @@ def download_panel(card):
     return f'''{decision_box(card)}
 <div class="actions"><a class="button" href="downloads/{E(file)}" download>↓ Research GeoTIFF <span>{size_kib:.0f} KiB</span></a><a class="button secondary" href="downloads/{E(zipname)}" download>↓ ZIP <span>{zsize:.0f} KiB</span></a></div>
 <p class="micro">{meta['count']} band · {E(meta['dtype'])} · {E(meta['crs'])} · {meta['transform'][0]:.0f} m · {meta['shape'][0]} × {meta['shape'][1]} · finite binary 0/1 · unchanged research artifact</p>'''
+
+
+def download_check_panel(card):
+    """Bind a privacy-preserving identity check to build-verified artifact bytes.
+
+    main() first runs verify(); this UI never decodes an arbitrary raster or
+    overrides the canonical submission decision. No external JS dependency.
+    """
+    manifest = []
+    for kind, field, digest_field in (
+            ('TIFF', 'submission_file', 'raster_sha256'),
+            ('ZIP', 'zip_file', 'zip_sha256')):
+        path = ROOT / card[field]
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        if digest != card[digest_field]:
+            raise ValueError('Download checker identity disagrees with canonical card')
+        manifest.append({'kind': kind, 'bytes': path.stat().st_size, 'sha256': digest})
+    attr = E(json.dumps(manifest, separators=(',', ':'), allow_nan=False), quote=True)
+    return f'''<section id="check-download" class="section"><div class="panel" data-download-manifest="{attr}" aria-busy="false">
+<h2>Check your downloaded file privately</h2><p class="micro"><a href="{REPO}/blob/main/reports/session_review_3ca6c6a6.md">Implementation review, evidence and remaining blockers ↗</a></p><p>Choose your downloaded TIFF or ZIP to compare its exact bytes with this site's format-checked research file. No upload, account access, raster decoding or submission slot is involved. A match is <strong>not permission to submit</strong>.</p>
+<label for="download-file"><strong>Downloaded TIFF or ZIP</strong></label><p><input id="download-file" type="file" accept=".tif,.tiff,.zip" aria-describedby="download-check-help download-check-result"></p>
+<p id="download-check-help" class="micro">SHA-256 + byte-size identity only, using your browser. Renaming does not change bytes. Repacked ZIPs and other rasters remain unknown, not necessarily invalid. If unknown, use <code>scripts/validate_submission.py</code> for a local format diagnosis. HTTPS is required for browser hashing.</p>
+<p id="download-check-result" data-download-result role="status" aria-live="polite" aria-atomic="true">Choose a file. No identity or submission approval has been granted.</p>
+<noscript>JavaScript is disabled; identity was not checked. Use the project CLI. No submission approval.</noscript>
+</div></section>'''
 
 
 def identity_panel(card):
@@ -197,7 +224,7 @@ def novelty_explanation(summary, preflight):
 def home(card, summary, preflight, h33):
     dots = card['positive_pixels']
     c = summary['canaries']
-    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>No new unique TIFF was produced in this review.</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div>
+    return f'''<section id="download" class="hero"><div><p class="eyebrow">GEMSDOE79 / VERIFIED RESEARCH ARTIFACT</p><span class="badge">NEGATIVE · DO NOT SUBMIT</span><h1>Download the evidence.<br><em>Not a submission.</em></h1><p class="lead">An inherited {dots:,}-pixel fault-candidate map. Its bytes pass local format checks, but its full novelty gate fails. <strong>No new unique TIFF was produced in this review.</strong></p>{download_panel(card)}<p class="micro"><a href="executive-summary.html">Read the decision &amp; submission prerequisites ↗</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a> · <a href="#holdout">See the holdout evidence ↗</a></p></div>
 <figure class="map-card" style="margin:0"><div class="map-top"><span>STUDY FOOTPRINT · UTM 11N</span><span>{dots:,} PIXELS</span></div><img class="map-image" src="{PREVIEW}" alt="Inherited research predictions in green, mapped catalogue faults in grey; not an approved submission."><figcaption class="map-caption"><strong>The actual research map, not a newly generated candidate.</strong><br>Max-pooled for display only. The downloadable GeoTIFF is unchanged.</figcaption></figure></section>
 <div class="metric-grid">{metric('Local format', 'PASS', 'Finite [0, 1] · matching sample grid')}{metric('Full novelty', 'BLOCKED', f"{summary['dots']['max_forward_overlap_3px']:.4f} overlap; limit 0.70", stop=True)}{metric('Feature canaries', f"{c['feature_seed_tests']} tests", f"{c['feature_count']} features × 2 seeds; max AUC {c['max_symmetric_auc']:.5f}")}{metric('This review', '0 experiments', '0 new placements · 0 slots spent')}</div>
 <section class="section"><div class="section-head"><div><p class="eyebrow">01 / CLEAR PERMISSION BOUNDARIES</p><h2>Downloadable does not mean submittable.</h2></div><p>Automated local verification binds the card to the exact bytes. Scientific gates, organizer acceptance and weekly slot capacity are separate checks.</p></div><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
@@ -209,7 +236,7 @@ def home(card, summary, preflight, h33):
 
 def executive(card, summary):
     return f'''{page_head('EXECUTIVE SUMMARY / NO UPLOAD AUTHORIZED', 'Download for research. Do not submit.', 'This review improves evidence consistency and reporting. It does not deliver a newly unique candidate or establish a leaderboard gain.')}
-<section class="section">{download_panel(card)}</section><section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
+<section class="section">{download_panel(card)}</section>{download_check_panel(card)}<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 <section class="section prose"><h2>The decision in plain language</h2><ul><li><strong>Research download: yes.</strong> The single-band raster is finite and in [0, 1], with sample-matching CRS, shape and transform. ZIP and TIFF hashes are checked.</li><li><strong>Competition submission: no.</strong> Both frozen novelty stages fail. The separate selector has not approved a slot. A person must not bypass these failures by uploading manually.</li><li><strong>Scientific evidence: limited.</strong> Historical buffered HOLDOUT-DTI exceeds its H33 control, but this is not a new experiment beating the incumbent and not an organizer score.</li><li><strong>New deliverable requested: not achieved.</strong> A universal-overlap witness made any nonempty new candidate impossible under the stipulated literal rule. We stopped rather than disguise an inherited map as new.</li></ul>
 <h2>What happened to the “values must be in [0, 1]” error?</h2><p>The rejected artifact and its submission-page receipt are unavailable, so its cause cannot be diagnosed. Local checks for this file find no NaN, infinity, sentinel or out-of-range pixel. That is evidence about <em>these bytes</em>, not a claim to have repaired or tested the earlier upload.</p><p>Outside-footprint convention (IR-79-69): the official problem page says outside-footprint data is “null or nan”. This inherited file has finite zero fill. The reference notebook's export cell does not explicitly apply an exterior NaN mask; that is not an organizer acceptance receipt. The convention must be resolved against the current official contract before any future eligible upload; no replacement TIFF was made here.</p>
 <p>The <a href="evidence/post_index_sibling_audit_20261022.json">later sibling collision audit (IR-79-122)</a> is a further reason not to treat the frozen sparse-only diagnostic as clearance.</p>
@@ -250,6 +277,37 @@ def history_page():
     rows.sort(key=lambda r:float(r['reported_public_dti']),reverse=True)
     table=''.join(f'<tr data-search-row><td>{E(r["site_repo"])}</td><td style="overflow-wrap:anywhere;max-width:460px">{E(r["submission_name"])}</td><td>{float(r["reported_public_dti"]):.4f}</td><td>Unverified historical report</td></tr>' for r in rows)
     return f'''<section class="page-head"><p class="eyebrow">HISTORICAL REPORTS / NOT RECEIPTS</p><h1>The family results, with caveats.</h1><p class="lead">{len(rows)} inherited filename-to-score reports. They are a research starting point, not organizer-confirmed artifact scores or independent experiments.</p></section><div class="notice">No submission-page receipt authenticates these file/score pairings. Similar scores can reflect shared surfaces and copied dot sets. This table does not rank new hypotheses or select a slot.</div><input class="search" id="history-search" type="search" placeholder="Filter by repository or submission name" aria-label="Filter historical reports"><div class="table-scroll"><table><thead><tr><th>Repository</th><th>Reported submission</th><th>Reported public DTI</th><th>Evidence class</th></tr></thead><tbody>{table}</tbody></table></div><p class="footnote"><a href="evidence/score_ledger.csv">Download the complete labelled CSV ↗</a> · <a href="analysis.html">What the actual H33 raster bytes show ↗</a></p>'''
+
+
+def cjx_page():
+    """G79-CJX unique-TIF page, generated solely from run_card_cjx.json."""
+    cjx_path = ROOT / 'run_card_cjx.json'
+    if not cjx_path.exists():
+        return page_head('G79-CJX', 'No CJX candidate built.', 'Run scripts/build_cjx_submission.py and scripts/cjx_gate.py.')
+    c = json.loads(cjx_path.read_text())
+    meta = json.loads((ROOT / 'evidence/cjx/final_build.json').read_text())
+    g = c['gates']; h = g['G3_holdout']['seeds']; nov = g['G4_novelty']
+    rows = ''.join(
+        f"<tr><td>{s}</td><td>{d['dti']:.4f} [{d['ci95'][0]:.4f}, {d['ci95'][1]:.4f}]</td>"
+        f"<td>{d['withheld_positive_pixels']}</td><td>{d['h33_foldfair_control_frozen']:.4f}</td>"
+        f"<td>{d['incumbent_g79_thvc_frozen']:.4f}</td><td>{'PASS' if d['beats_both'] else 'FAIL'}</td></tr>"
+        for s, d in h.items())
+    sparse = nov.get('sparse_diagnostic', {})
+    return f'''{page_head('G79-CJX / UNIQUE TIF / AUTOMATED GATE', 'A new unique TIF. The gate says no.', 'Generated this session, validated with no human inspection. Downloading for research is fine; submitting is not approved.')}
+<section class="section"><div class="notice"><strong>OK TO DOWNLOAD (research artifact): YES. OK TO SUBMIT: NO \u2014 DO NOT SUBMIT.</strong><br>
+Produced by scripts/cjx_gate.py. A format PASS alone never approves submission.</div>
+<h2>Download</h2><p><a href="{REPO}/blob/main/artifacts/cjx/{meta['tif']}">{meta['tif']}</a> (ZIP with identical TIFF beside it) \u00b7 SHA-256 <code>{c['raster_sha256']}</code> \u00b7 {c['dots']} dots</p>
+<p><strong>Submission name:</strong> <code>{c['submission_name']}</code><br><strong>Note (\u2264140 chars):</strong> {meta['note']}</p>
+<h2>Automated gates</h2><table><thead><tr><th>Gate</th><th>Result</th></tr></thead><tbody>
+<tr><td>G1 format (shared validator)</td><td>{'PASS' if g['G1_format']['passed'] else 'FAIL'}</td></tr>
+<tr><td>G2 leakage canary \u2264 0.90</td><td>{'PASS' if g['G2_canary']['passed'] else 'FAIL'} \u2014 max {g['G2_canary']['max_symmetric_auc']:.4f}</td></tr>
+<tr><td>G3 holdout beats H33 control AND THVC incumbent</td><td>{'PASS' if g['G3_holdout']['passed'] else 'FAIL'}</td></tr>
+<tr><td>G4 literal novelty vs {nov['registry_rasters_checked']} registry rasters</td><td>{'PASS' if nov['passed'] else 'FAIL'} \u2014 worst literal overlap {nov['worst_literal_overlap_dots_exact'][0]:.4f} (100%-footprint diagnostics raster, the documented universal blocker); sparse diagnostic worst {sparse.get('worst_overlap', 0):.4f} vs {sparse.get('worst_submission', '')}, diagnostic only and not a bypass</td></tr>
+</tbody></table>
+<h2>Holdout \u2014 HOLDOUT-DTI (gems57-pooled-hide-v2, \u03b1=0.2 \u03b2=0.8, 300 m)</h2>
+<table><thead><tr><th>Seed</th><th>CJX v3 tip [95% CI]</th><th>Withheld</th><th>H33 control (frozen)</th><th>THVC incumbent (frozen)</th><th>Gate</th></tr></thead><tbody>{rows}</tbody></table>
+<p>Exp 1\u20132 (catalogue-free coincident edges/junctions) scored below random; Exp 3 (tip-steered) is above. No organizer-confirmed score exists for this artifact; historical reports 0.2778 / 0.4413 are not receipts and are not claimed. Full record: research/cjx_hypotheses.md and evidence/cjx/.</p>
+<h2>If a future banner ever says YES</h2><ol><li>Download the .tif or the .zip containing exactly it.</li><li>Choose it on the DrivenData submission page, paste the name/note above, submit. The \u201cPredicted values must be in range [0, 1]\u201d error cannot come from this writer: zeros mode rejects non-finite/out-of-range values at build time and G1 re-verifies the bytes.</li></ol></section>'''
 
 
 def main():
@@ -368,7 +426,11 @@ def main():
               'evidence/dilstep/uniqueness_surface.json': 'dilstep_uniqueness_surface.json',
               'evidence/dilstep/e1_gates.json': 'dilstep_gates.json',
               'registry/preregistration_h79_dilstep.json': 'preregistration_h79_dilstep.json',
-              'registry/preregistration_g79_thvc.json': 'preregistration_g79_thvc.json'}
+              'registry/preregistration_g79_thvc.json': 'preregistration_g79_thvc.json',
+              'evidence/session_0d90d81b_audit.json': 'session_0d90d81b_audit.json',
+              'evidence/session_0d90d81b_run_card.json': 'session_0d90d81b_run_card.json',
+              'evidence/halo_saturation_13GEMSDOE_1db538e6.json': 'halo_saturation_13GEMSDOE_1db538e6.json',
+              'evidence/halo_saturation_17GEMSDOE_Eproba_1db538e6.json': 'halo_saturation_17GEMSDOE_Eproba_1db538e6.json'}
     copies = {k: v for k, v in copies.items() if (ROOT / k).is_file()}
     keep = set(copies.values()) | {'source_health.json', 'site_manifest.json', 'evidence_summary.json'}
     for stale in (SITE / 'evidence').iterdir():
@@ -392,6 +454,7 @@ def main():
         if stale.name != Path(PREVIEW).name:
             stale.unlink()
     (SITE / 'evidence/evidence_summary.json').write_text(json.dumps(summary, indent=2, allow_nan=False) + '\n')
+
     pages = {
         'index.html': ('Research download & automated decision', home(card, summary, preflight, h33)),
         'executive-summary.html': ('Decision guide & future submission prerequisites', executive(card, summary)),
@@ -400,13 +463,15 @@ def main():
                                     'Geometry is measurable. Causal leaderboard gains require an artifact-linked organizer receipt.')
                           + '<section class="section">' + md('knowledge/h33_review_e4a4422d.md') + '</section>'
                           + holdout_table(summary) + archive_links()),
-        'research.html': ('Four deferred geological hypotheses',
-                          page_head('FOUR HYPOTHESES / ZERO NEW EXPERIMENTS', 'Test a mechanism. Name its mimic.',
+        'research.html': ('Deferred geological hypotheses',
+                          page_head('DEFERRED HYPOTHESES / ZERO NEW EXPERIMENTS', 'Test a mechanism. Name its mimic.',
                                     'Source-grounded ideas, qualitative ranking and explicit data gates. None is an approved or executed new lane.')
+                          + '<section class="section">' + md('research/hypotheses_0d90d81b.md') + '</section>'
                           + '<section class="section">' + md('research/hypotheses_e4a4422d.md') + '</section>'
                           + novelty_explanation(summary, preflight) + archive_links()),
         'sources.html': ('Official sources, availability & source health', sources_page(sources)),
         'history.html': ('Historical reports, not receipts', history_page()),
+        'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
         'irregularities.html': ('Irregularities & stop reasons',
                                 page_head('OWN THE OUTCOME', 'Failures are part of the record.')
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),

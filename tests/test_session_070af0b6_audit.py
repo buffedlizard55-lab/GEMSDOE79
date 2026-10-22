@@ -15,6 +15,12 @@ def test_requirements_txt_declares_lightgbm_and_matplotlib():
     req_lock = (ROOT / "requirements.lock").read_text()
     assert "lightgbm" in req_txt and "lightgbm==" in req_lock
     assert "matplotlib" in req_txt and "matplotlib==" in req_lock
+    pkgs = [
+        re.split(r"[><=!~]", ln.strip())[0].strip().lower()
+        for ln in req_txt.splitlines()
+        if ln.strip() and not ln.strip().startswith("#")
+    ]
+    assert len(pkgs) == len(set(pkgs)), f"Duplicate packages in requirements.txt: {pkgs}"
 
 
 def test_run_card_paths_are_repo_relative_across_all_copies():

@@ -23,7 +23,7 @@ def check_site():
         document = BeautifulSoup((site / alias).read_text(), 'html.parser')
         assert document.find('meta', attrs={'http-equiv': 'refresh'})['content'] == '0;url=' + target
         assert document.find('a')['href'] == target and target in pages
-    assert len(pages) == 7, 'Expected seven project pages'
+    assert len(pages) == 8, 'Expected eight project pages'
     graph = {}
     local_links = 0
     for filename, soup in pages.items():
@@ -54,7 +54,8 @@ def check_site():
                     if parsed.fragment:
                         assert pages[path.name].find(id=unquote(parsed.fragment)), (filename, value)
         for script in soup.find_all('script'):
-            assert script.get('src') == 'assets/site.js' and not script.string
+            assert script.get('src') in {'assets/site.js', 'assets/download-check.js'} and not script.string
+            assert script.has_attr('defer')
         assert 'localhost' not in str(soup) and '127.0.0.1' not in str(soup)
     reachable = {'index.html'}
     while True:

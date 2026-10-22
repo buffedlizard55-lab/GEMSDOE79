@@ -1,0 +1,41 @@
+{
+  "session_id": "7fdf94b3",
+  "session_branch": "arena/7fdf94b3-gemsdoe79",
+  "reviewed_utc": "2026-10-22T15:42:00Z",
+  "canonical_lane": "G79-THVC",
+  "canonical_artifact": {
+    "path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif",
+    "sha256": "d3db2e959df96f71936c019bb5e4f1599f4591dbcfbf78d2a3f78332a5ecfee2",
+    "bytes": 137299,
+    "zip_path": "docs/downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif.zip",
+    "zip_sha256": "dfee2552d9ba94bbb778f6da8e35b42ea7e5c55ff580dc5e9f9c809964b788f9",
+    "zip_bytes": 102628,
+    "emitted_positive_pixels": 35093,
+    "verdict": "negative",
+    "ok_to_download": true,
+    "ok_to_submit": false
+  },
+  "experiments_run_this_session": 0,
+  "submission_slots_used_this_session": 0,
+  "new_lane_opened": false,
+  "new_lane_refusal_reasons": [
+    "No single method paragraph was provided in the prompt (bracketed placeholders [0.90], [70%], [3] remain in the template).",
+    "scripts/preflight_new_lane.py --restore exits with code 2 (impossible_under_literal_gate): 17GEMSDOE E-proba-multiscale covers 5,167,373 / 5,167,373 footprint cells (1.0 > 0.70).",
+    "Even under budget-matched-v3 (Decision D-1 top-k), Tier-2 continuous plateaus (5GEMSDOE:gems-density-probe and 3 GEMSDOE48 surfaces) leave 0 uncovered cells, and Tier-3 sparse binary dot_field 13GEMSDOE:r13-lattice-s5 (206,895 dots = 4.00% < 0.20 dense threshold) leaves only 6,514 uncovered off-catalogue cells out of 5,106,385, forcing >= 0.8270 overlap at 37,654 dots and >= 0.8144 at 35,093 dots."
+  ],
+  "remediated_irregularities": [
+    "IR-79-175: Normalized paths inside ROOT in scripts/measure_registry_halo.py, added exact off-catalogue (5,167,373 - 60,988 = 5,106,385; 6,649 - 135 = 6,514) accounting, regenerated evidence/halo_saturation_*_1db538e6.json without /home/user/GEMSDOE79/ paths, and added unit + publication-contract tests.",
+    "IR-79-176: Added fail-closed enforce_open_lane (exit 2, 'No files changed.') guards to scripts/run_experiment.py, scripts/finalize_negative.py, and scripts/build_site_g79b.py, updated stale (H79-NHR) comments to (G79-THVC), and registered all 3 scripts in tests/test_lane_lifecycle.py (79 lifecycle tests passing).",
+    "IR-79-177: Deduplicated scikit-image in requirements.txt (with regression check in tests/test_session_070af0b6_audit.py), verified all 13/13 SHA-256-pinned data inputs live via scripts/restore_data.py --preserve-receipt, and documented the complete 3-tier Pigeonhole obstruction."
+  ],
+  "verification_summary": {
+    "pytest_passed": 499,
+    "verify_project_all_checks_passed": true,
+    "check_site_passed": true,
+    "restore_data_verified_inputs": 13,
+    "preflight_new_lane_exit_code": 2,
+    "submission_status_exit_code": 2,
+    "select_submission_exit_code": 2,
+    "validate_submission_exit_code": 0
+  }
+}
