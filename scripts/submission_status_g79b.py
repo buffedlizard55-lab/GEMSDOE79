@@ -36,7 +36,9 @@ def decide(root=ROOT):
                 "human_inspection_required": False, "organizer_acceptance_established": False}
 
     name = card.get("submission_name", "")
-    tif = root / "docs" / "downloads" / f"{name}.tif"
+    # Lane archived under the concurrent-lane quarantine layout on merge;
+    # the canonical docs/downloads artifact belongs to G79-STEPCO.
+    tif = root / "archive" / "g79b_sdpt_67557396" / "downloads" / f"{name}.tif"
     zf = tif.with_suffix(".zip")
     sha_ok = fmt_ok = zip_ok = False
     vr = None
@@ -85,7 +87,8 @@ def decide(root=ROOT):
     submit = not blockers
     return {
         "lane": "G79B-SDPT",
-        "file": f"docs/downloads/{name}.tif", "zip": f"docs/downloads/{name}.zip",
+        "file": f"archive/g79b_sdpt_67557396/downloads/{name}.tif",
+        "zip": f"archive/g79b_sdpt_67557396/downloads/{name}.zip",
         "sha256": card.get("raster_sha256"), "sha_matches_disk": sha_ok,
         "submission_name": name, "note": card.get("note"), "note_chars": card.get("note_chars"),
         "ok_to_download": bool(sha_ok and fmt_ok), "ok_to_submit": submit,

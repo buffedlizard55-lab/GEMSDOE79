@@ -30,6 +30,41 @@ values are in `evidence/h33_forensics.json`.
 | H33 median catalogue distance | 19.6469 px, approximately 1.965 km |
 | H33 positives farther than 1 km from the catalogue | approximately 69.83% |
 
+### Cross-repository lineage across 16 scored landmarks and 5 post-snapshot siblings (`evidence/family_lineage_forensics.json`)
+
+Reproduce from actual immutable Git blobs with `scripts/analyze_family_lineage.py`
+([`evidence/family_lineage_forensics.json`](../evidence/family_lineage_forensics.json)).
+Measuring bidirectional 3-px overlap (`forward_3px_overlap_with_h33` = fraction
+of candidate positives within 300 m of `H33`; `reverse_3px_overlap_from_h33` =
+fraction of `H33`'s 37,654 positives within 300 m of the candidate) and exact
+catalogue-distance histograms reveals why the historical leaderboard stratified
+into four distinct regimes:
+
+| Repo | Submission artifact | Positive px | Exact shared w/ `H33` | Fwd 3-px vs `H33` | Rev 3-px from `H33` | `0 < d_cat <= 200 m` | Reported public DTI (unverified report) | Structural lineage class |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| `19GEMSDOE` | `h19-5-powerlaw-budget-multiline-corroborated…` | 121,131 | **37,654 (100%)** | 0.8925 | **1.0000** | **17,326** | 0.1922 | Contiguous ridge ancestor (`3.22x` over-emission penalizes `0.2 * FP`) |
+| `GEMSDOE25` | `dotted-h19-5-d2-8…` (`D2.8`) | 44,090 | **37,654 (100%)** | 0.8817 | **1.0000** | **6,436** | 0.2600 | `d ≈ 2.8 px` Poisson pin thinning (`-77,041` redundant ridge pixels -> `+0.0678`) |
+| `GEMSDOE33` | `h33d-analog-tip-stepover-r30…` | 41,865 | 31,614 | 0.9264 | **0.9998** | **3,894** | 0.2632 | Partial near-catalogue halo prune of `D2.8` (`ov_d28 = 0.9970`) |
+| `GEMSDOE31` | `h27-4-solo-d28…` | 40,199 | **37,654 (100%)** | 0.9539 | **1.0000** | **2,545** | 0.2708 | Exact intermediate subset `H33 ⊂ h27-4 ⊂ D2.8` (`-3,891` near-catalogue pins -> `+0.0108`) |
+| `GEMSDOE28` | `h36-1-rung30-blind-r1…` | 37,660 | 26,248 | 0.9547 | **0.9988** | **2,353** | 0.2710 | `D2.8` clone (`ov_d28 = 1.0000`) with `2,353` near-catalogue pins |
+| **`GEMSDOE32`** | **`h33-h33-2-b2…-zeros` (`H33`)** | **37,654** | **37,654 (100%)** | **1.0000** | **1.0000** | **0** | **0.2778** | **Complete `d_cat <= 200 m` prune of `D2.8` (`2,171` pins retained in `200 < d_cat <= 300 m`)** |
+| `GEMSDOE36` | `anderson-geothermal-pinn-38854…-zeros` | 38,854 | **37,654 (100%)** | 0.9740 | **1.0000** | 0 | 0.2750 | **Exact superset of `H33` (`H33 + 1,200` extra dots -> `-0.0028` dilution)** |
+| `GEMSDOE63` | `cvarlw-thin-s3p17-54864…-zeros` | 54,864 | 14,600 | 0.5504 | **0.9589** | 0 | 0.2303 | Superset-halo covering `95.89%` of `H33` within 3 px plus `17,210` extra pins |
+| `GEMSDOE48` | `h59-cover-ds-belief-b2xh33d…` | 37,723 | 2,706 | 0.9150 | **0.9998** | 2,870 | 0.2296 | Re-weighted/jittered `D2.8`/`H33` derivative (`ov_d28 = 0.9885`) |
+| **`GEMSDOE70`** | **`gems70-p5-dual-submod300-oof38k…`** | **37,654** | **1,797 (4.8%)** | **0.5484** | **0.4432** | **0** | **0.2478** | **#1 genuinely non-duplicate lane: dual OOF supervised ML + 300 m submodular cover + `200 m` prune** |
+| **`GEMSDOE49`** | **`gate_ortho_w0.25-40k…-nan`** | **40,000** | **1,174 (3.1%)** | **0.4339** | **0.4239** | **0** | **0.2376** | **#2 genuinely non-duplicate lane: orthogonal gated supervised model + `300 m` prune** |
+| **`GEMSDOE73`** | **`gems73-h73-mcsc-seamfree-blakely-37654dots…`** | **37,654** | **1,743 (4.6%)** | **0.4860** | **0.4633** | **0** | **0.1917** | **#1 pure unsupervised geophysical derivative: seam-free multi-scale Blakely potential ridges** |
+| `GEMSDOE75` | `gems75-trlt-radon-loco-ridge…-zeros` | 36,800 | 1,739 (4.6%) | 0.4561 | 0.4729 | 0 | 0.1627 | Independent LOCO localized Radon ridge detector |
+| `GEMSDOE76` | `gems76_h76_3_geotherm_tilt_axial_submod…` | 37,654 | 1,503 (4.0%) | 0.5220 | 0.3880 | 0 | 0.1555 | Independent tilt-angle axial worm + submodular 300 m cover |
+| `GEMSDOE77` | `gems85-h85-edti-collar35-skel-r33…-zeros` | 201,260 | 3,012 (8.0%) | 0.2108 | 0.7861 | 0 | 0.0964 | Over-emitted (`201,260` positives) + over-pruned (`0` dots at `d_cat <= 300 m`) |
+| `GEMSDOE74` | `gemsdoe74-triregime-radon-piedmont-37654…` | 37,654 | 695 (1.8%) | 0.2450 | 0.3194 | 0 | 0.0669 | Domain-restricted piedmont Radon subset loses range-interior / basin recall |
+
+Three structural findings follow directly from these byte measurements:
+
+1. **Every reported score above `0.2478` (`0.2600` to `0.2778`) comes from a single root surface (`19GEMSDOE` `h19-5`), not nine independent breakthroughs.** In particular, `GEMSDOE36` (`0.2750`) contains all `37,654` exact pixels of `H33` plus `1,200` additional pixels, and across `D2.8` → `h33d` → `h27-4` → `h36-1` → `H33`, near-catalogue dot counts at `0 < d_cat <= 200 m` drop monotonically (`6,436 → 3,894 → 2,545 → 2,353 → 0`) while reported public DTI rises monotonically (`0.2600 → 0.2632 → 0.2708 → 0.2710 → 0.2778`). Retain-band dots in `200 < d_cat <= 300 m` (`2,171` in `H33`; `2,227` in `GEMSDOE70`) preserve step-over/splay linkages, whereas widening the exclusion zone to `>= 300 m` (`GEMSDOE77` `0.0964`) erases fault-tip junction credit.
+2. **Among genuinely non-duplicate models (`forward_3px <= 0.55` and `reverse_3px <= 0.48` vs `H33`), out-of-fold multi-modal learning + submodular 300 m cover (`GEMSDOE70` `0.2478`, `GEMSDOE49` `0.2376`) beats single-operator geophysical filters (`GEMSDOE73` `0.1917`, `GEMSDOE75` `0.1627`, `GEMSDOE76` `0.1555`) by `+0.05` to `+0.09` DTI — yet still trails the public leaderboard leader (`xiaofanhu: 0.4413`) by `-0.1935`.** Closing the `0.2778 → 0.4413` gap requires moving from pixel-local tabular features to multi-scale 2D spatial encoder-decoder architectures (`U-Net` / `ConvNeXt-UNet`, as in the official organizer baseline `drivendataorg/gems-prize-reference-solution`) trained end-to-end with pooled soft-kernel Distance-Weighted Tversky Loss (`alpha=0.2, beta=0.8, R=300 m`) on multi-kilometre 2D patches + 1 m LiDAR scarp rasters + positive-unlabeled prior calibration, followed by submodular 300 m cover selection and `200 m` catalogue pruning.
+3. **Post-snapshot sibling audit (`GEMSDOE78`, `GEMSDOE80`..`GEMSDOE83`) reinforces why Decision D-1 must be resolved first:** `GEMSDOE82` published a second dense continuous surface (`surface_h82.tif`, `4,862,825` positive footprint cells out of `5,167,373`), confirming that under the literal `finite > 0` support convention multiple sibling repositories create universal overlap blockers unless the protocol owner explicitly authorizes `top-K` or thresholded support (`Decision D-1`).
+
 The source website calls the file a high-ranked primary, but explicitly says it
 has no organizer score receipt and also includes projected/live-mirror numbers.
 We do not convert those projections into scores. The prompt's **0.2778 is an
@@ -102,8 +137,26 @@ writer. It is byte-distinct from the 992 restored registry files. The literal
 pre-placement shared gate nevertheless reports 100% support overlap with a
 verified dense prior. **Scientific work stopped before canaries, hide-and-recover
 or dot placement**. The downloadable TIFF is negative-result evidence, not a
-validated detector. We explicitly do not invent a HOLDOUT-DTI or CI, and do not
-claim this lane is better or worse scientifically than the incumbent.
+validated detector. We explicitly do not invent a HOLDOUT-DTI or CI in
+`run_card.json`, and do not claim this lane is better or worse scientifically
+than the incumbent on the official run card.
+
+In a separate **post-stop offline diagnostic** (`evidence/post_stop_diagnostic.json`,
+which does not alter `run_card.json` or `evidence/experiment_state.json`),
+evaluating E1 under hypothetical Decision D-1 Option B (`top-37,654` overlap
+`0.0119` vs E-proba) or Option C (`p >= 0.5` overlap `0.3046` vs E-proba) showed
+that while E1 passes all 72 feature-fold leakage canaries (`max_symmetric_auc =
+0.5872` on seed 20, `0.6162` on seed 30, both `<= 0.90`), its pooled `HOLDOUT-DTI`
+(`gems57-pooled-hide-v2`) is `0.0474 [0.0390, 0.0552]` on seed 20 and `0.0466
+[0.0388, 0.0543]` on seed 30—failing to beat its matched zero-lag edge control,
+underperforming uniform random placement (`0.0504` / `0.0496`), and trailing the
+fold-fair H33 control (`0.0961` / `0.0989`). Likewise, independent canonical
+audits (`evidence/concurrent_lanes_audit.json`) of the two archived concurrent
+lanes (`H79-MCT` in `archive/h79_mct_c26efec/` and `H79-CSPT` in
+`archive/h79_cspt_3d386a3/`) confirm that both failed the literal `0.70` overlap
+gate (`1.0000` overlap against `17GEMSDOE_E-proba-multiscale`) and relied on
+unauthorized local dense-prior exemptions and post-duplicate constrained overlap
+capping (`0.6800` and `0.6900`).
 
 ## Next decision, not another submission gamble
 

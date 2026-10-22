@@ -213,7 +213,8 @@ def disposition_errors(candidate, rows):
         rho = U.surface_rho(cand, theirs, fp)
         rec.update({
             "disposition": "wrong_transform_measured_as_if_pixel_aligned",
-            "spearman_full_footprint_asif": rho["spearman_full_footprint"],
+            "spearman_full_footprint_asif": (rho["spearman_full_footprint"]
+                                              if np.isfinite(rho["spearman_full_footprint"]) else None),
             "forward_overlap_3px_asif": U.dot_overlap(cand, theirs),
             "their_dots": int((theirs > 0).sum()),
             "representation": U.representation_class(int((theirs > 0).sum()), int(fp.sum()))["kind"],

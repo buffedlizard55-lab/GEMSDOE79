@@ -1,30 +1,13 @@
 {
-  "lane": "G79B-SDPT",
-  "file": "docs/downloads/gems79b-sdpt-a3-37654dots-20261022T022252Z-0b639b8d-DO-NOT-SUBMIT.tif",
-  "zip": "docs/downloads/gems79b-sdpt-a3-37654dots-20261022T022252Z-0b639b8d-DO-NOT-SUBMIT.zip",
-  "sha256": "7f88b358f8d0bbdcb529a3d69d23abfb824473c9ba41c1398f6f0b963527ba03",
-  "sha_matches_disk": true,
-  "submission_name": "gems79b-sdpt-a3-37654dots-20261022T022252Z-0b639b8d-DO-NOT-SUBMIT",
-  "note": "G79B-SDPT dipole-persistence+trace scarp detector; 37654 dots 2.8px, >2px off catalogue; holdout-gated, registry-unique; zeros outside",
-  "note_chars": 134,
   "ok_to_download": true,
   "ok_to_submit": false,
   "verdict": "negative",
-  "blockers": [
-    "capped_emission_below_control_E2",
-    "card_verdict_not_promote",
-    "card_ok_to_submit_not_true"
-  ],
-  "gates": {
-    "G1_canary_le_0.90": true,
-    "G2_beats_random_CI": true,
-    "G3_beats_current_holdout_best_both_seeds_unconstrained": true,
-    "G4_registry_uniqueness_surface_and_final": true,
-    "G5_format_validator": true,
-    "E2_capped_emission_still_beats_control_both_seeds": false
-  },
-  "zip_ok": true,
-  "human_inspection_required": false,
-  "organizer_acceptance_established": false,
-  "scope": "Project gates only (format + leakage canary + hide-and-recover holdout + 992-raster registry uniqueness). Weekly slot capacity and portal acceptance are visible only on the signed-in DrivenData submission page."
+  "file": "downloads/gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT.tif",
+  "zip": "downloads/gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT.zip",
+  "sha256": "6ae07fbf14dfe2d169aa9f926c54ee5e74215d7c569ffcc325cb91da297e510a",
+  "name": "gems79-stepco-s1-37654dots-20261022T020857Z-7e676fe2-DO-NOT-SUBMIT",
+  "note": "GEMSDOE79 STEPCO s1: multi-field step-dipole HGB, 37654 dots s3, cat>2px; holdout-gated 20261022T020857Z",
+  "artifact_kind": "newly computed binary dot GeoTIFF from an independently fitted surface; not a copy of any registry raster; not cleared for competition submission",
+  "stop_reason": "holdout_tie_with_incumbent_and_uniqueness_not_certified",
+  "scope": "Current G79-STEPCO S1 canonical artifact. E1 and S2 are archived negatives; archived concurrent approvals are not adopted."
 }

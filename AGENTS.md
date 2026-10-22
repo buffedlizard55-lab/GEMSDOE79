@@ -2,7 +2,7 @@
 
 1. Read **all of README.md**, including the original prompt, then `run_card.json`,
    `reports/irregularities.md` and `registry/preregistration.json` before work.
-2. Work only on the Arena-assigned session branch reported in the current session metadata (`arena/70519113-gemsdoe79`). Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
+2. Work only on the Arena-assigned active session branch reported in the current session metadata. Do not hardcode a previous session's branch here. Never rename or switch branches. Historical branch names in immutable cards, reports or prior prompts are provenance, not instructions for a new session.
 3. Current run is **stopped negative** by a shared, literal pre-placement duplicate
    gate. Do not restart, retune, add jitter, exempt dense priors or silently open
    a new scientific lane. Maximum three experiments/two hours; this run used one
@@ -24,3 +24,9 @@
   reactivate its dense-prior exemptions, placement amendments or positive flags.
   Current E1 is stopped, all active status aliases are negative, and any protocol
   clarification requires explicit authorization, not an agent-created bypass.
+
+- PR #12 H79-CSPT is also historical/non-authoritative under
+  `archive/h79_cspt_3d386a3/`. It excluded space-filling priors and changed the
+  shared novelty module; neither promotion nor the local fork is adopted.
+  Before publishing run `scripts/verify_project.py`: its publication contract
+  rejects a conflicting README, extra upload artifacts or a replaced inventory.

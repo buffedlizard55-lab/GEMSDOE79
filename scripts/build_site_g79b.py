@@ -56,7 +56,12 @@ def make_preview():
 
 
 def main():
-    card = json.loads((ROOT / "run_card_g79b.json").read_text())
+    raise SystemExit(
+        "SUPERSEDED: lane G79B-SDPT was archived under archive/g79b_sdpt_67557396/ "
+        "on merge (concurrent-lane quarantine). The canonical site is built by "
+        "scripts/build_site.py (G79-STEPCO). This builder is kept for provenance "
+        "only and must not overwrite docs/.")
+    card = json.loads((ROOT / "run_card_g79b.json").read_text())  # noqa: F841
     status = decide()
     (DOCS / "status.json").write_text(json.dumps(status, indent=2) + "\n")
     shutil.copyfile(ROOT / "run_card_g79b.json", DOCS / "run-card-g79b.json")

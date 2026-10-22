@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "lane": "G79-STEPCO",
+  "session_branch": "arena/220dabc8-gemsdoe79",
+  "registered_utc": "2026-10-22T01:26:39Z",
+  "assignment_irregularity": "The request again contains no delimited single method paragraph (same defect as IR-79-02). This lane is explicitly self-declared before any scoring in this session. The closed G79-FABRIC-OFFSET E1 lane and its negative run card remain untouched as historical evidence; this is a new parallel-run session with its own <=3 experiment / <=2 hour scientific budget.",
+  "method_paragraph": "G79-STEPCO: a fault is an antisymmetric step (dipole) across a linear trace, corroborated in independent fields. For each of detrended elevation, isostatic gravity, log depth-to-basement, reduced-to-pole magnetics and surface conductivity, compute fixed step-dipole, gradient-magnitude (sigma 1 and 3 px) and absolute Laplacian transforms, and combine them with the provided derivative bands, strain/earthquake bands, 1 m-derived lidar scarp channels and GeoDAWN radiometric channels in a single fixed-hyperparameter HistGradientBoosting classifier. The classifier is fit only on visible catalogue faults under each buffered whole-component hide-and-recover draw (and on the full catalogue only for the final map). Emission is the shared fixed allocator: binary dots, Euclidean spacing >= 3 px, fixed budget 37,654, catalogue excluded to >2 px (fold-fair against visible faults in holdout). No prior submission raster, dot set or ranking enters the candidate surface; prior rasters are used only as holdout controls and uniqueness witnesses.",
+  "hypothesis": "Short, subtle piedmont and basin-margin normal faults missing from the regional USGS/INGENIOUS catalogue still offset topography, basement depth and density across their trace. A step that is co-located in at least two independent fields (topography/lidar plus gravity or depth-to-basement) is specific to a through-going structure, whereas a single-field edge is usually a lithologic contact, fan boundary or survey seam.",
+  "mechanism": "Step-dipole response = max over 8 trace normals of |smoothed field sampled +3 px across the trace minus smoothed field sampled -3 px|; combined by a histogram gradient-boosting model whose only catalogue use is visible-fault training labels under hide-and-recover. Independent-field corroboration is learned as feature interaction, not imposed by copying any prior surface.",
+  "named_non_fault_mimic": "An unfaulted sedimentary facies pinch-out or paleochannel margin steps depth-to-basement and gravity together, and an alluvial-fan lobe boundary steps topography; either can mimic a buried fault step. Airborne survey levelling seams can step magnetic and radiometric fields along flight lines.",
+  "inputs": [
+    "SHA-256-pinned training_features.tif (19 bands, 418,912,844 bytes, sha256 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5) restored via registry/data_manifest.json",
+    "SHA-256-pinned external/lidar_scarp_features_u8.tif (12 uint8 bands) and its JSON quantisation record",
+    "SHA-256-pinned external/geodawn_rad_u8.tif (K,Th,U,TC) and external/geodawn_extensions_u8.tif (ThK,UK,UTh,TMI_up150); uint8 derivatives used as spatial patterns only, never as calibrated concentrations",
+    "data/reference/sample_submission.tif for footprint/grid only; data/reference/existing_faults.tif as catalogue labels/masks only"
+  ],
+  "fixed_features": {
+    "base_bands_used": "all 19 training bands are read; transforms are computed from det_elev(12), iso_grav_anom(13), log1p(depth_to_base_surf(15) clipped at 0), rtp(2), cond_surf(17)",
+    "per_field_transforms": ["step dipole (8 normals, offset 3 px, base smoothing sigma 1.5 px)", "gradient magnitude sigma 1 px", "gradient magnitude sigma 3 px", "absolute Laplacian sigma 2 px"],
+    "provided_derivatives_raw": ["tmi_hg(3)", "iso_grav_anom_slope(5)", "tc(6)", "tmi_vg(9)", "iso_grav_anom_vg(11)", "iso_grav_anom_hg(18)", "det_elev_slope(19)"],
+    "context_raw": ["geod_2ndinv(4)", "geod_shearrate(7)", "geod_dilaterate(8)", "log1p(deq_n100a15(10))", "log1p(ieq_n100a15(16))"],
+    "raw_fields": ["mag_anom(1)", "det_elev(12)", "iso_grav_anom(13)", "tmi(14)", "cond_surf(17)", "log depth-to-base"],
+    "lidar": "bands 1-10 as float patterns; cells with valid band (12) == 0 set to 0 with an explicit lidar_valid indicator; strike band excluded (circular)",
+    "radiometrics": "K,Th,U,TC and ThK,UK,UTh,TMI_up150 as float patterns",
+    "invalid_policy": "training_features nodata sentinel (-3.4028235e38) and non-finite cells are invalid; filters run on footprint-median-filled copies but a support mask (all base bands valid in the 9x9 neighbourhood and inside footprint) gates training sampling and dot placement. Radiometric/lidar 0 = no-data handled by indicators as above.",
+    "catalogue_derived_features": "NONE in the model matrix. Distance-to-catalogue is used only in the fixed emission mask (>2 px) and in negative sampling (>3 px from visible faults), both recomputed from visible faults inside each holdout draw."
+  },
+  "fixed_model": {
+    "class": "sklearn.ensemble.HistGradientBoostingClassifier",
+    "hyperparameters": {"max_iter": 250, "learning_rate": 0.06, "max_leaf_nodes": 63, "min_samples_leaf": 40, "l2_regularization": 1.0, "random_state": 79},
+    "training_rows_per_fit": "all supported visible-catalogue positives + 240,000 seeded negatives sampled from supported footprint cells >3 px from visible faults and not visible positives; balanced sample weights (total positive weight = total negative weight)",
+    "pu_caveat": "Negatives are catalogue-zero proxies, not certified fault absence; withheld positives can contaminate them at the sub-percent level inside holdout draws. This is disclosed, not hidden."
+  },
+  "holdout": {
+    "split": "shared gems57 holdout.buffered_component_draw, seeds 20 and 30, buffer_px=3, boundary_px=12 (identical instrument to the E1 post-stop diagnostic)",
+    "refit_rule": "One model per draw, fit only on that draw's visible catalogue; the same fitted surface is scored in all four quadrant folds of the draw",
+    "placement": "src/gems79/placement.place, spacing 3 px, budget 37,654 scaled per fold by region/footprint area; allowed = support & region & distance-to-visible > 2 px",
+    "controls": [
+      "uniform_control: seeded uniform surface, same allocator/budget/allowed mask",
+      "dem_step_only_control: detrended-elevation step-dipole feature alone, same allocator/budget/allowed mask",
+      "h33_foldfair_control: restored D2.8 dot raster restricted to region & distance-to-visible > 2 px, byte-identical construction to evidence/post_stop_diagnostic.json (incumbent; emitted count reported, not budget-forced)"
+    ],
+    "evaluator": "gems57-pooled-hide-v2 (vendor/gems57/evaluate_holdout.py, unmodified)",
+    "metric": "pool TP/FP/FN first; alpha=0.2, beta=0.8, 300 m triangular kernel",
+    "ci": "shared paired physical 20 km spatial-cluster percentile bootstrap, 1000 draws",
+    "promotion_gate": "candidate must (a) pass every single-feature leakage canary (symmetric AUC <= 0.90), (b) beat uniform and dem_step_only controls, and (c) beat h33_foldfair_control with paired 95% CI above 0 on BOTH seeds. Any failure => verdict negative, file marked DO NOT SUBMIT, no slot."
+  },
+  "leakage_canary": "Every model-matrix feature alone, per fold, held-out positives vs fixed >3 px proxy negatives (subsample 100k, seeded), symmetric AUC = max(AUC, 1-AUC); any value > 0.90 stops the run before scores are trusted. The fitted surface AUC is also reported as a diagnostic.",
+  "uniqueness": {
+    "surface_phase": "Before placement: Spearman rank correlation of the final-model surface vs every restored, hash-verified registry raster; |rho| is reported, rho > 0.90 stops as duplicate.",
+    "final_phase": "Final binary dots vs every restored registry raster: forward 3 px overlap, reverse overlap, Jaccard, Spearman; shared two-phase summary (vendor gems57.uniqueness.two_phase_summary) reports the literal positive-support reading and the like-for-like dot-field reading side by side.",
+    "amendment_D1": "Decision D-1 is resolved as documented in reports/protocol_amendment_D1_20261022.md: the 70%/3 px dot-overlap test applies to dot fields; continuous registry surfaces (positive support > 20% of footprint, the shared tool's own DENSE_SUPPORT_FRACTION) are compared by rank correlation on the surface and by a matched-budget (37,654) top-cell dot extraction. The literal reading is always printed and never hidden. Rationale: under the literal reading one restored prior is positive on all 5,167,373 footprint cells, so every nonempty candidate overlaps it by 1.0 and no submission by any method could ever pass; a gate that fires on the empty set of alternatives carries no information about duplication.",
+    "registry_scope": "All registry rasters whose bytes are restored and SHA-256/Git-blob verified in this session, enumerated in the run card (targeted clone restore + API restore if rate limit allows). Byte-distinctness is additionally checked against all 992 pinned registry SHA-256 values, including unrestored files. Unrestored rasters are a stated scope limitation, never a claim of absence.",
+    "stop_rule": "rho > 0.90 against any checked raster, or forward overlap > 0.70 against any dot-field raster (or matched-budget extraction of a continuous raster), on surface or final dots => log duplicate and stop."
+  },
+  "experiments": [
+    "S1: the fixed STEPCO surface/model/emission above; canaries, two-seed holdout vs three controls, pre-placement and final uniqueness, one new GeoTIFF written only through the shared submission_writer",
+    "S2 (only if a canary fires): identical run with the offending feature family removed; no other change",
+    "S3: reserved; no budget, spacing, hyperparameter or weight tuning on holdout outcomes"
+  ],
+  "budget": {"max_experiments": 3, "max_hours": 2, "scientific_clock_start_utc": "2026-10-22T01:26:39Z"},
+  "score_policy": "Only outputs of gems57-pooled-hide-v2 in this run are HOLDOUT-DTI (with evaluator version, withheld-positive count, 95% CI). ORGANIZER-CONFIRMED requires a submission-page receipt; none exists. All leaderboard and sibling-site numbers are UNVERIFIED HISTORICAL REPORTS unless tied to a receipt. No projected leaderboard score is computed or claimed.",
+  "submission_policy": "Even if every scientific gate passes, this pipeline does not upload and does not know the account's remaining weekly slots (rules allow up to 3/week, subject to the live submission page). A passing file is labelled ready-to-submit pending that one account-state check; a failing file is labelled DO NOT SUBMIT. Both decisions are made by the automated gates, with no human inspection step."
+}

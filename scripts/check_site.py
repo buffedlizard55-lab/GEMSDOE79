@@ -66,17 +66,9 @@ def check_site():
     card = json.loads((site / 'evidence/run_card.json').read_text())
     assert card == json.loads((ROOT / 'run_card.json').read_text())
     assert card == json.loads((site / 'run-card.json').read_text())
-    # Active lane G79B-SDPT: status.json and the site are bound to its card;
-    # the closed E1 lane's card triple above stays byte-identical as history.
-    card_b = json.loads((ROOT / 'run_card_g79b.json').read_text())
-    assert card_b == json.loads((site / 'run-card-g79b.json').read_text())
-    assert card_b == json.loads((site / 'evidence/run_card_g79b.json').read_text())
     status = json.loads((site / 'status.json').read_text())
-    assert status['ok_to_submit'] is False and status['sha256'] == card_b['raster_sha256']
-    assert status['ok_to_submit'] == card_b['ok_to_submit']
-    tifs = {p.name for p in (site / 'downloads').glob('*.tif')}
-    assert tifs == {Path(card['submission_file']).name, card_b['submission_name'] + '.tif'}
-    assert all('DO-NOT-SUBMIT' in t for t in tifs), 'no submittable TIF may be published'
+    assert status['ok_to_submit'] is False and status['sha256'] == card['raster_sha256']
+    assert {p.name for p in (site / 'downloads').glob('*.tif')} == {Path(card['submission_file']).name}
     manifest = json.loads((site / 'evidence/site_manifest.json').read_text())
     assert not manifest['ok_to_submit'] and manifest['ok_to_download']
     assert manifest['raster_sha256'] == card['raster_sha256']

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a newly generated, validated research GeoTIFF with an explicit automated DO NOT SUBMIT verdict and auditable evidence.">
+<meta name="description" content="GEMSDOE79 G79-STEPCO: a newly generated 37,654-dot GeoTIFF with measured holdout evidence, full-registry uniqueness accounting and an explicit automated DO NOT SUBMIT verdict.">
 <title>What H33 changed, and what remains unknown · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -64,6 +64,213 @@ values are in <code>evidence/h33_forensics.json</code>.</p>
 </tr>
 </tbody>
 </table>
+<h4>Cross-repository lineage across 16 scored landmarks and 5 post-snapshot siblings (<code>evidence/family_lineage_forensics.json</code>)</h4>
+<p>Reproduce from actual immutable Git blobs with <code>scripts/analyze_family_lineage.py</code>
+(<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/family_lineage_forensics.json"><code>evidence/family_lineage_forensics.json</code></a>).
+Measuring bidirectional 3-px overlap (<code>forward_3px_overlap_with_h33</code> = fraction
+of candidate positives within 300 m of <code>H33</code>; <code>reverse_3px_overlap_from_h33</code> =
+fraction of <code>H33</code>'s 37,654 positives within 300 m of the candidate) and exact
+catalogue-distance histograms reveals why the historical leaderboard stratified
+into four distinct regimes:</p>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>Submission artifact</th>
+<th style="text-align: right;">Positive px</th>
+<th style="text-align: right;">Exact shared w/ <code>H33</code></th>
+<th style="text-align: right;">Fwd 3-px vs <code>H33</code></th>
+<th style="text-align: right;">Rev 3-px from <code>H33</code></th>
+<th style="text-align: right;"><code>0 &lt; d_cat &lt;= 200 m</code></th>
+<th style="text-align: right;">Reported public DTI (unverified report)</th>
+<th>Structural lineage class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>19GEMSDOE</code></td>
+<td><code>h19-5-powerlaw-budget-multiline-corroborated…</code></td>
+<td style="text-align: right;">121,131</td>
+<td style="text-align: right;"><strong>37,654 (100%)</strong></td>
+<td style="text-align: right;">0.8925</td>
+<td style="text-align: right;"><strong>1.0000</strong></td>
+<td style="text-align: right;"><strong>17,326</strong></td>
+<td style="text-align: right;">0.1922</td>
+<td>Contiguous ridge ancestor (<code>3.22x</code> over-emission penalizes <code>0.2 * FP</code>)</td>
+</tr>
+<tr>
+<td><code>GEMSDOE25</code></td>
+<td><code>dotted-h19-5-d2-8…</code> (<code>D2.8</code>)</td>
+<td style="text-align: right;">44,090</td>
+<td style="text-align: right;"><strong>37,654 (100%)</strong></td>
+<td style="text-align: right;">0.8817</td>
+<td style="text-align: right;"><strong>1.0000</strong></td>
+<td style="text-align: right;"><strong>6,436</strong></td>
+<td style="text-align: right;">0.2600</td>
+<td><code>d ≈ 2.8 px</code> Poisson pin thinning (<code>-77,041</code> redundant ridge pixels -&gt; <code>+0.0678</code>)</td>
+</tr>
+<tr>
+<td><code>GEMSDOE33</code></td>
+<td><code>h33d-analog-tip-stepover-r30…</code></td>
+<td style="text-align: right;">41,865</td>
+<td style="text-align: right;">31,614</td>
+<td style="text-align: right;">0.9264</td>
+<td style="text-align: right;"><strong>0.9998</strong></td>
+<td style="text-align: right;"><strong>3,894</strong></td>
+<td style="text-align: right;">0.2632</td>
+<td>Partial near-catalogue halo prune of <code>D2.8</code> (<code>ov_d28 = 0.9970</code>)</td>
+</tr>
+<tr>
+<td><code>GEMSDOE31</code></td>
+<td><code>h27-4-solo-d28…</code></td>
+<td style="text-align: right;">40,199</td>
+<td style="text-align: right;"><strong>37,654 (100%)</strong></td>
+<td style="text-align: right;">0.9539</td>
+<td style="text-align: right;"><strong>1.0000</strong></td>
+<td style="text-align: right;"><strong>2,545</strong></td>
+<td style="text-align: right;">0.2708</td>
+<td>Exact intermediate subset <code>H33 ⊂ h27-4 ⊂ D2.8</code> (<code>-3,891</code> near-catalogue pins -&gt; <code>+0.0108</code>)</td>
+</tr>
+<tr>
+<td><code>GEMSDOE28</code></td>
+<td><code>h36-1-rung30-blind-r1…</code></td>
+<td style="text-align: right;">37,660</td>
+<td style="text-align: right;">26,248</td>
+<td style="text-align: right;">0.9547</td>
+<td style="text-align: right;"><strong>0.9988</strong></td>
+<td style="text-align: right;"><strong>2,353</strong></td>
+<td style="text-align: right;">0.2710</td>
+<td><code>D2.8</code> clone (<code>ov_d28 = 1.0000</code>) with <code>2,353</code> near-catalogue pins</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE32</code></strong></td>
+<td><strong><code>h33-h33-2-b2…-zeros</code> (<code>H33</code>)</strong></td>
+<td style="text-align: right;"><strong>37,654</strong></td>
+<td style="text-align: right;"><strong>37,654 (100%)</strong></td>
+<td style="text-align: right;"><strong>1.0000</strong></td>
+<td style="text-align: right;"><strong>1.0000</strong></td>
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: right;"><strong>0.2778</strong></td>
+<td><strong>Complete <code>d_cat &lt;= 200 m</code> prune of <code>D2.8</code> (<code>2,171</code> pins retained in <code>200 &lt; d_cat &lt;= 300 m</code>)</strong></td>
+</tr>
+<tr>
+<td><code>GEMSDOE36</code></td>
+<td><code>anderson-geothermal-pinn-38854…-zeros</code></td>
+<td style="text-align: right;">38,854</td>
+<td style="text-align: right;"><strong>37,654 (100%)</strong></td>
+<td style="text-align: right;">0.9740</td>
+<td style="text-align: right;"><strong>1.0000</strong></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.2750</td>
+<td><strong>Exact superset of <code>H33</code> (<code>H33 + 1,200</code> extra dots -&gt; <code>-0.0028</code> dilution)</strong></td>
+</tr>
+<tr>
+<td><code>GEMSDOE63</code></td>
+<td><code>cvarlw-thin-s3p17-54864…-zeros</code></td>
+<td style="text-align: right;">54,864</td>
+<td style="text-align: right;">14,600</td>
+<td style="text-align: right;">0.5504</td>
+<td style="text-align: right;"><strong>0.9589</strong></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.2303</td>
+<td>Superset-halo covering <code>95.89%</code> of <code>H33</code> within 3 px plus <code>17,210</code> extra pins</td>
+</tr>
+<tr>
+<td><code>GEMSDOE48</code></td>
+<td><code>h59-cover-ds-belief-b2xh33d…</code></td>
+<td style="text-align: right;">37,723</td>
+<td style="text-align: right;">2,706</td>
+<td style="text-align: right;">0.9150</td>
+<td style="text-align: right;"><strong>0.9998</strong></td>
+<td style="text-align: right;">2,870</td>
+<td style="text-align: right;">0.2296</td>
+<td>Re-weighted/jittered <code>D2.8</code>/<code>H33</code> derivative (<code>ov_d28 = 0.9885</code>)</td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE70</code></strong></td>
+<td><strong><code>gems70-p5-dual-submod300-oof38k…</code></strong></td>
+<td style="text-align: right;"><strong>37,654</strong></td>
+<td style="text-align: right;"><strong>1,797 (4.8%)</strong></td>
+<td style="text-align: right;"><strong>0.5484</strong></td>
+<td style="text-align: right;"><strong>0.4432</strong></td>
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: right;"><strong>0.2478</strong></td>
+<td><strong>#1 genuinely non-duplicate lane: dual OOF supervised ML + 300 m submodular cover + <code>200 m</code> prune</strong></td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE49</code></strong></td>
+<td><strong><code>gate_ortho_w0.25-40k…-nan</code></strong></td>
+<td style="text-align: right;"><strong>40,000</strong></td>
+<td style="text-align: right;"><strong>1,174 (3.1%)</strong></td>
+<td style="text-align: right;"><strong>0.4339</strong></td>
+<td style="text-align: right;"><strong>0.4239</strong></td>
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: right;"><strong>0.2376</strong></td>
+<td><strong>#2 genuinely non-duplicate lane: orthogonal gated supervised model + <code>300 m</code> prune</strong></td>
+</tr>
+<tr>
+<td><strong><code>GEMSDOE73</code></strong></td>
+<td><strong><code>gems73-h73-mcsc-seamfree-blakely-37654dots…</code></strong></td>
+<td style="text-align: right;"><strong>37,654</strong></td>
+<td style="text-align: right;"><strong>1,743 (4.6%)</strong></td>
+<td style="text-align: right;"><strong>0.4860</strong></td>
+<td style="text-align: right;"><strong>0.4633</strong></td>
+<td style="text-align: right;"><strong>0</strong></td>
+<td style="text-align: right;"><strong>0.1917</strong></td>
+<td><strong>#1 pure unsupervised geophysical derivative: seam-free multi-scale Blakely potential ridges</strong></td>
+</tr>
+<tr>
+<td><code>GEMSDOE75</code></td>
+<td><code>gems75-trlt-radon-loco-ridge…-zeros</code></td>
+<td style="text-align: right;">36,800</td>
+<td style="text-align: right;">1,739 (4.6%)</td>
+<td style="text-align: right;">0.4561</td>
+<td style="text-align: right;">0.4729</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.1627</td>
+<td>Independent LOCO localized Radon ridge detector</td>
+</tr>
+<tr>
+<td><code>GEMSDOE76</code></td>
+<td><code>gems76_h76_3_geotherm_tilt_axial_submod…</code></td>
+<td style="text-align: right;">37,654</td>
+<td style="text-align: right;">1,503 (4.0%)</td>
+<td style="text-align: right;">0.5220</td>
+<td style="text-align: right;">0.3880</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.1555</td>
+<td>Independent tilt-angle axial worm + submodular 300 m cover</td>
+</tr>
+<tr>
+<td><code>GEMSDOE77</code></td>
+<td><code>gems85-h85-edti-collar35-skel-r33…-zeros</code></td>
+<td style="text-align: right;">201,260</td>
+<td style="text-align: right;">3,012 (8.0%)</td>
+<td style="text-align: right;">0.2108</td>
+<td style="text-align: right;">0.7861</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0964</td>
+<td>Over-emitted (<code>201,260</code> positives) + over-pruned (<code>0</code> dots at <code>d_cat &lt;= 300 m</code>)</td>
+</tr>
+<tr>
+<td><code>GEMSDOE74</code></td>
+<td><code>gemsdoe74-triregime-radon-piedmont-37654…</code></td>
+<td style="text-align: right;">37,654</td>
+<td style="text-align: right;">695 (1.8%)</td>
+<td style="text-align: right;">0.2450</td>
+<td style="text-align: right;">0.3194</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0.0669</td>
+<td>Domain-restricted piedmont Radon subset loses range-interior / basin recall</td>
+</tr>
+</tbody>
+</table>
+<p>Three structural findings follow directly from these byte measurements:</p>
+<ol>
+<li><strong>Every reported score above <code>0.2478</code> (<code>0.2600</code> to <code>0.2778</code>) comes from a single root surface (<code>19GEMSDOE</code> <code>h19-5</code>), not nine independent breakthroughs.</strong> In particular, <code>GEMSDOE36</code> (<code>0.2750</code>) contains all <code>37,654</code> exact pixels of <code>H33</code> plus <code>1,200</code> additional pixels, and across <code>D2.8</code> → <code>h33d</code> → <code>h27-4</code> → <code>h36-1</code> → <code>H33</code>, near-catalogue dot counts at <code>0 &lt; d_cat &lt;= 200 m</code> drop monotonically (<code>6,436 → 3,894 → 2,545 → 2,353 → 0</code>) while reported public DTI rises monotonically (<code>0.2600 → 0.2632 → 0.2708 → 0.2710 → 0.2778</code>). Retain-band dots in <code>200 &lt; d_cat &lt;= 300 m</code> (<code>2,171</code> in <code>H33</code>; <code>2,227</code> in <code>GEMSDOE70</code>) preserve step-over/splay linkages, whereas widening the exclusion zone to <code>&gt;= 300 m</code> (<code>GEMSDOE77</code> <code>0.0964</code>) erases fault-tip junction credit.</li>
+<li><strong>Among genuinely non-duplicate models (<code>forward_3px &lt;= 0.55</code> and <code>reverse_3px &lt;= 0.48</code> vs <code>H33</code>), out-of-fold multi-modal learning + submodular 300 m cover (<code>GEMSDOE70</code> <code>0.2478</code>, <code>GEMSDOE49</code> <code>0.2376</code>) beats single-operator geophysical filters (<code>GEMSDOE73</code> <code>0.1917</code>, <code>GEMSDOE75</code> <code>0.1627</code>, <code>GEMSDOE76</code> <code>0.1555</code>) by <code>+0.05</code> to <code>+0.09</code> DTI — yet still trails the public leaderboard leader (<code>xiaofanhu: 0.4413</code>) by <code>-0.1935</code>.</strong> Closing the <code>0.2778 → 0.4413</code> gap requires moving from pixel-local tabular features to multi-scale 2D spatial encoder-decoder architectures (<code>U-Net</code> / <code>ConvNeXt-UNet</code>, as in the official organizer baseline <code>drivendataorg/gems-prize-reference-solution</code>) trained end-to-end with pooled soft-kernel Distance-Weighted Tversky Loss (<code>alpha=0.2, beta=0.8, R=300 m</code>) on multi-kilometre 2D patches + 1 m LiDAR scarp rasters + positive-unlabeled prior calibration, followed by submodular 300 m cover selection and <code>200 m</code> catalogue pruning.</li>
+<li><strong>Post-snapshot sibling audit (<code>GEMSDOE78</code>, <code>GEMSDOE80</code>..<code>GEMSDOE83</code>) reinforces why Decision D-1 must be resolved first:</strong> <code>GEMSDOE82</code> published a second dense continuous surface (<code>surface_h82.tif</code>, <code>4,862,825</code> positive footprint cells out of <code>5,167,373</code>), confirming that under the literal <code>finite &gt; 0</code> support convention multiple sibling repositories create universal overlap blockers unless the protocol owner explicitly authorizes <code>top-K</code> or thresholded support (<code>Decision D-1</code>).</li>
+</ol>
 <p>The source website calls the file a high-ranked primary, but explicitly says it
 has no organizer score receipt and also includes projected/live-mirror numbers.
 We do not convert those projections into scores. The prompt's <strong>0.2778 is an
@@ -127,8 +334,25 @@ writer. It is byte-distinct from the 992 restored registry files. The literal
 pre-placement shared gate nevertheless reports 100% support overlap with a
 verified dense prior. <strong>Scientific work stopped before canaries, hide-and-recover
 or dot placement</strong>. The downloadable TIFF is negative-result evidence, not a
-validated detector. We explicitly do not invent a HOLDOUT-DTI or CI, and do not
-claim this lane is better or worse scientifically than the incumbent.</p>
+validated detector. We explicitly do not invent a HOLDOUT-DTI or CI in
+<code>run_card.json</code>, and do not claim this lane is better or worse scientifically
+than the incumbent on the official run card.</p>
+<p>In a separate <strong>post-stop offline diagnostic</strong> (<code>evidence/post_stop_diagnostic.json</code>,
+which does not alter <code>run_card.json</code> or <code>evidence/experiment_state.json</code>),
+evaluating E1 under hypothetical Decision D-1 Option B (<code>top-37,654</code> overlap
+<code>0.0119</code> vs E-proba) or Option C (<code>p &gt;= 0.5</code> overlap <code>0.3046</code> vs E-proba) showed
+that while E1 passes all 72 feature-fold leakage canaries (<code>max_symmetric_auc =
+0.5872</code> on seed 20, <code>0.6162</code> on seed 30, both <code>&lt;= 0.90</code>), its pooled <code>HOLDOUT-DTI</code>
+(<code>gems57-pooled-hide-v2</code>) is <code>0.0474 [0.0390, 0.0552]</code> on seed 20 and <code>0.0466
+[0.0388, 0.0543]</code> on seed 30—failing to beat its matched zero-lag edge control,
+underperforming uniform random placement (<code>0.0504</code> / <code>0.0496</code>), and trailing the
+fold-fair H33 control (<code>0.0961</code> / <code>0.0989</code>). Likewise, independent canonical
+audits (<code>evidence/concurrent_lanes_audit.json</code>) of the two archived concurrent
+lanes (<code>H79-MCT</code> in <code>archive/h79_mct_c26efec/</code> and <code>H79-CSPT</code> in
+<code>archive/h79_cspt_3d386a3/</code>) confirm that both failed the literal <code>0.70</code> overlap
+gate (<code>1.0000</code> overlap against <code>17GEMSDOE_E-proba-multiscale</code>) and relied on
+unauthorized local dense-prior exemptions and post-duplicate constrained overlap
+capping (<code>0.6800</code> and <code>0.6900</code>).</p>
 <h3>Next decision, not another submission gamble</h3>
 <p>Resolve the protocol/registry ambiguity through an explicit authorization
 before any new scientific experiment. Then require whole-component buffered
