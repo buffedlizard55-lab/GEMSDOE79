@@ -29,6 +29,19 @@ writer/validator revision must support NaN exterior without permitting NaN insid
 this session did not rewrite any historically scored or pinned scientific bytes. See the
 [executive summary](docs/executive-summary.html) and the original prompt below.
 
+## Review 148fa8f5 — validator fixed; no new submission approved
+
+**OK TO DOWNLOAD inherited research artifact: YES. OK TO SUBMIT: NO.**
+[Three-pass review](reports/session_review_148fa8f5.md) ·
+[ranked deferred hypotheses](research/hypotheses_148fa8f5.md) ·
+[JSON run card](evidence/run_card_148fa8f5.json).
+Fresh preflight proves the unchanged literal novelty rule blocks every nonempty
+candidate; no new TIFF or score was generated and no slot used. Fixed a real
+ZIP validator bug that discarded the inner TIFF's multi-band failure. The
+strict R1–R8 format check still rejects the inherited artifact's zero exterior
+(R6), despite its finite [0,1] interior; it is research-only. Full regression
+suite: **603 passed**. The full original project prompt remains below.
+
 ## Current session review — `e1bfa000` (2026-10-22)
 
 **OK TO DOWNLOAD: YES (inherited research file). OK TO SUBMIT: NO.**
