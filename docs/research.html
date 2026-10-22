@@ -6,7 +6,161 @@
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
 <nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a class="nav-cta" href="executive-summary.html">How to submit ↗</a></nav></div></header>
-<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>Session 070af0b6 — five untried post-G79-THVC geological hypotheses (not executed, 2026-10-22)</h2><p>Audited all 11 GEMSDOE79 lanes and all 93 family repositories through GEMSDOE88 to specify five genuinely untried subsurface/tectonic mechanisms targeting the &gt;1.5–8 km non-LiDAR and blind-basin gap without spending any weekly slot. <a href="evidence/post_index_sibling_audit_20261022.json">Post-index GEMSDOE76–88 audit JSON</a> · <a href="evidence/run_card_step.json">Archived H79-STEP card</a>.</p><div class="prose table-scroll"><h2>Five Genuinely Untried Post-<code>G79-THVC</code> Geological Hypotheses (<code>2026-10-22</code>)</h2>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">ONE LANE / FIVE HYPOTHESES / ONE EXPERIMENT</p><h1>Test a mechanism. Name its mimic.</h1><p class="lead">Qualitative ranking by expected DTI gain and cost; only hypothesis 1 was run.</p></section><section class="section"><h2>Session 6da2620c — five untried geological hypotheses &amp; executed lane G79-CSKD (2026-10-22)</h2><p>Preregistered and executed top-ranked Hypothesis 1 (<code>G79-CSKD</code>: Coulomb stress-drop shadow + Lahontan/BLM scarp deconfounding + GeoDAWN FFT flight-line notch + potassic adularia residual <code>Kd</code> + counterfactual Charnes-Cooper submodular allocation), achieving the all-time <code>GEMSDOE79</code> Seed-30 <code>HOLDOUT-DTI = 0.2145</code> and 2-seed mean <code>0.1963</code> while de-colliding <code>GEMSDOE83</code> (<code>0.6137 &le; 0.70</code>). <a href="evidence/run_card_cskd.json">G79-CSKD run card</a> · <a href="evidence/preregistration_g79_cskd.json">preregistration</a> · <a href="analysis.html">full scientific report</a>.</p><div class="prose table-scroll"><h2>Pre-Implementation Ranked Geological Hypotheses (<code>arena/6da2620c-gemsdoe79</code>, <code>2026-10-22</code>)</h2>
+<blockquote>
+<p><strong>Protocol &amp; Ordering Receipt:</strong> Authored and committed prior to restoring bulk feature stacks or running any holdout/canary computation on branch <code>arena/6da2620c-gemsdoe79</code>. All <code>20</code> prior <code>GEMSDOE79</code> lanes (<code>G79-THVC</code>, <code>H79-NHR</code>, <code>H79-FNHR</code>, <code>H79-BQA</code>, <code>H79-MRND</code>, <code>H79-STEP</code>, <code>H79-FF1</code>, <code>G79-BER</code>, <code>H79-DILSTEP</code>, <code>H79-COV</code>, <code>H79-FF</code>, <code>H79-ML-STRAIN-RELAY</code>, <code>G79-STEPCO</code>, <code>H79-FFAS</code>, <code>G79B-SDPT</code>, <code>H79-FGR</code>, <code>G79-MAG</code>, <code>E1 G79-FABRIC-OFFSET</code>, <code>H79-ASYM</code>/<code>H79-MCT</code>/<code>H79-CSPT</code>/<code>G79B-GEOAND</code>) and sibling lanes (<code>GEMSDOE32</code> <code>H33</code>, <code>GEMSDOE80</code> <code>H80G</code>, <code>GEMSDOE83</code> <code>H83-GVCD</code>) were audited before drafting these five untried hypotheses.</p>
+</blockquote>
+<hr />
+<h3>Executive Diagnosis of What All 20 Prior <code>GEMSDOE79</code> Lanes Missed</h3>
+<ol>
+<li><strong>Absolute Elevation $Z(x)$ Was Missing From Every Feature Matrix (<code>det_elev</code> Only):</strong>
+   <code>training_features.tif</code> provides only <em>detrended</em> elevation (<code>det_elev</code>, band 12) and <em>detrended</em> slope (<code>det_elev_slope</code>, band 19). Consequently, despite every <code>GEMSDOE79</code> Run Card naming <strong>Pleistocene pluvial Lake Lahontan (<code>~1,330–1,340 m</code> ASL Sehoo highstand) and recessional wave-cut shoreline benches (<code>1,190–1,350 m</code> ASL)</strong> as the #1 non-fault physical mimic of Quaternary scarps, <strong>zero prior lanes ever loaded absolute elevation $Z(x)$</strong> (<code>geodawn_dem_a2_100m.tif</code> = USGS GeoDAWN <code>22103_dem_a2.tif</code>, <code>doi:10.5066/P93LGLVQ</code>, <code>100%</code> footprint coverage including the <code>24.99%</code> Nevada 1-m LiDAR gap) to test whether a scarp is a horizontal lacustrine equipotential contour ($\hat{t}<em>{\text{scarp}} \cdot \nabla Z \approx 0$) vs. a contour-transgressive bajada fault scarp ($|\hat{t}</em>{\text{scarp}} \cdot \nabla Z| &gt; 0$).</li>
+<li><strong>Anthropogenic Open-Pit Mining Benches &amp; Potassic Tailings Were Unmodeled:</strong>
+   Western and central Nevada host hundreds of open-pit gold/epithermal mines, waste-rock dumps, heap-leach pads, and exploration trenches whose <code>10–30 m</code> haul-road benches mimic fault scarps on LiDAR/3DEP and whose exposed argillic/potassic pits mimic radiometric <code>K/Th</code> alteration. Official US Bureau of Land Management mining-claim geometry (<code>blm_closed_claim_distance_m.tif</code>, derived from <code>https://gis.blm.gov/nlsdb/rest/services/Mining_Claims/MiningClaims/MapServer/2</code>) was never ingested in <code>GEMSDOE79</code>.</li>
+<li><strong>Training-Shard Flank Contamination (<code>IR-79-140</code>) + <code>2.0 &lt; d &lt;= 3.0 px</code> Dead-Zone Collar Emission:</strong>
+   In <code>gems57-pooled-hide-v2</code> (<code>holdout.buffered_component_draw</code>, <code>buffer_px = 3</code>), <code>visible = cat &amp; ~(EDT(~hidden) &lt;= 3.0)</code>, so <code>EDT(~visible)[hidden].min() = 3.1623 px &gt; 3.0 px</code>. Yet <code>G79-THVC</code>:
+   - Sampled tens of thousands of <code>1.0 &lt;= d(x, sim_vis) &lt;= 3.0 px</code> unhidden fault-scarp flank pixels as <code>y = 0</code> negatives in Stage 1 and Stage 2, simultaneously attenuating physical scarp weights and creating an artificial <code>y = 0</code> cliff at <code>d_vis &lt;= 3.0 px</code>; and
+   - Emitted dots down to <code>d_cat &gt; 2.0 px</code>, wasting dot budget in the <code>2.0 &lt; d &lt;= 3.0 px</code> dead collar where <code>gems57-pooled-hide-v2</code> contains <strong>zero</strong> withheld positives and where live submissions sit inside the <code>300 m</code> mapping halo of already-mapped faults.</li>
+<li><strong>Catalogue-Perimeter Collapse (<code>97.58%</code> of <code>G79-THVC</code> Dots <code>&lt; 2 km</code> From Catalogue -&gt; <code>0.7139 &gt; 0.70</code> Collision With <code>GEMSDOE83</code>):</strong>
+   <code>G79-THVC</code> placed <code>52.8%</code> of Stage-1 tree gain on isotropic distance to <code>visible</code> (<code>net_exp_d18</code>, <code>net_log_d_vis</code>, <code>net_exp_d6</code>, <code>net_exp_d45</code>), lacked an elastic <strong>Coulomb stress-drop shadow ($\Delta\text{CFS} &lt; 0$)</strong> on broadside fault flanks, and discarded its zero-catalogue pure-physics posterior (<code>p_zero_2d</code>) before Charnes-Cooper allocation.</li>
+</ol>
+<hr />
+<h3>Five Untried Candidate Geological Hypotheses</h3>
+<h4>Hypothesis 1 (<code>H81-LAHMINE</code>): Pluvial Shoreline Equipotential Isohypse Veto &amp; BLM Open-Pit Deconfounded Scarp-Transgression Mechanics</h4>
+<ul>
+<li><strong>Specific Layers &amp; Transform:</strong></li>
+<li>Official USGS GeoDAWN 100-m Airborne Radar/GPS Digital Elevation Model <code>geodawn_dem_a2_100m.tif</code> (<code>22103_dem_a2.tif</code>, <code>doi:10.5066/P93LGLVQ</code>, <code>100%</code> footprint coverage), 1-m LiDAR scarp stack (<code>lidar_scarp_features_u8.tif</code>), 10-m USGS 3DEP stack (<code>topo_10m_derived_100m_u8.tif</code>), US BLM Mining Claims distance (<code>blm_closed_claim_distance_m.tif</code>), and US Census TIGER roads (<code>tiger_road_distance_m.tif</code>).</li>
+<li>Computes dominant local scarp strike unit tangent $\hat{t}<em>{\text{scarp}}(x)$ across 8 azimuths, evaluates the <strong>along-scarp absolute-elevation climb rate</strong> $C</em>{\parallel}(x) = |\hat{t}<em>{\text{scarp}}(x) \cdot \nabla Z</em>{300\text{m}}(x)|$ and <strong>isohypse contour parallelism</strong> $I_{\text{iso}}(x) = 1 - \frac{|\hat{t}<em>{\text{scarp}}(x) \cdot \nabla Z|}{|\nabla Z| + \epsilon}$ gated by the Pleistocene Lake Lahontan shoreline elevation envelope $\exp!\left(-\frac{(Z - 1332\text{ m})^2}{2\,(48\text{ m})^2}\right) + 0.7\exp!\left(-\frac{(Z - 1245\text{ m})^2}{2\,(45\text{ m})^2}\right)$ (Adams &amp; Wesnousky 1998; Reheis et al. 2014), plus anthropogenic open-pit/haul-road attenuation $\exp(-d</em>{\text{BLM}} / 350\text{ m})$ and $\exp(-d_{\text{road}} / 150\text{ m})$.</li>
+<li><strong>Why It Catches Unmapped Faults Rather Than Mapped Ones:</strong>
+  Subtle Holocene–late Pleistocene piedmont fault scarps (<code>0.5–3 m</code> throw) cutting obliquely across coalescing alluvial bajada fans in Carson Sink, Dixie Valley, Winnemucca Lake, and Walker Basin were systematically omitted by photo-interpreters who could not separate them from dense flights of Lake Lahontan wave-cut shorelines at <code>1,200–1,340 m</code> ASL. Because lacustrine shorelines are gravitational equipotentials ($\hat{t} \cdot \nabla Z = 0$) whereas piedmont normal faults climb <code>20–150 m</code> across fan apexes ($|\hat{t} \cdot \nabla Z| &gt; 0$), $C_{\parallel}$ recovers genuine bajada-cutting scarps while suppressing thousands of shoreline and open-pit false positives (<code>FP_w</code>).</li>
+<li><strong>How It Differs From All Prior Implementations in <code>GEMSDOE79</code>:</strong>
+  No prior lane in <code>GEMSDOE79</code> ever loaded absolute elevation $Z(x)$ (<code>geodawn_dem_a2_100m.tif</code>) or BLM mining-claim distance (<code>blm_closed_claim_distance_m.tif</code>), and no prior lane computed the inner product between scarp strike $\hat{t}_{\text{scarp}}$ and $\nabla Z$.</li>
+<li><strong>Named Non-Fault Mimic:</strong>
+  Incised alluvial-fan channel margins / debris-flow levees that climb radially upslope (mitigated by cross-strike one-sided terrace step asymmetry vs symmetric channel banks and subsurface gravity/magnetic step co-support).</li>
+<li><strong>Obtainable Official Free External Sources:</strong>
+  USGS GeoDAWN <code>doi:10.5066/P93LGLVQ</code> (<code>geodawn_dem_a2_100m.tif</code>, SHA-256 <code>b574...</code> verified on fetch from <code>60GEMSDOE</code> @ <code>b99591eede63c6d45c8a896255b8cd34824fa00b</code>) and US BLM Nationalrid Mining Claims REST service (<code>https://gis.blm.gov/nlsdb/rest/services/Mining_Claims/MiningClaims/MapServer/2</code>, <code>blm_closed_claim_distance_m.tif</code> verified from <code>GEMSDOE24</code> @ <code>07345ea0604953d7efb858d9cfbc21e20c7aca0b</code>).</li>
+</ul>
+<hr />
+<h4>Hypothesis 2 (<code>H81-COULOMB-SLIP</code>): Elastic Coulomb Stress-Shadow ($\Delta\text{CFS} &lt; 0$), Conjugate Relay Lobe &amp; Along-Range Footwall Slip-Deficit Mechanics</h4>
+<ul>
+<li><strong>Specific Layers &amp; Transform:</strong></li>
+<li>Fold-visible fault network (<code>visible_mask</code>), <code>geodawn_dem_a2_100m.tif</code> ($Z$), <code>iso_grav_anom</code> (band 6), <code>depth_to_base_surf</code> (band 11), <code>geod_dilaterate</code> (band 13), and <code>geod_shearrate</code> (band 14).</li>
+<li>Decomposes every connected <code>visible_mask</code> strand of length $L \ge 15\text{ px}$ into oriented dislocation elements with unit strike $\hat{t}$ and normal $\hat{n}$; evaluates:<ol>
+<li><strong>Broadside Normal-Fault Elastic Stress-Drop Shadow</strong> $S_{\text{CFS}}^-(x)$ ($|\hat{n} \cdot \hat{u}| &gt; 0.72$, $3 &lt; d_{\text{vis}} &lt; 18\text{ px}$, weighted by strand length $\min(L/40, 1.5)$), capturing the classic Crider &amp; Pollard (1998) / Hodgkinson et al. (1996) extensional stress-relief zone perpendicular to major range-front faults;</li>
+<li><strong>Oblique Relay &amp; Dilatational Step-Over Stress Concentration</strong> $S_{\text{CFS}}^+(x)$ at overlapping/underlapping strand tips and $\pm 22^\circ\text{–}38^\circ$ conjugate fault bends; and</li>
+<li><strong>Along-Range Structural Slip-Deficit</strong> $D_{\text{slip}}(x) = \text{Quantile}(\Delta Z_{2\text{km}} \cdot |\nabla g_{\text{iso}}|) \cdot \exp(-G_{2.5\text{km}}(\text{visible}) / \tau_0)$, firing where cumulative footwall-to-basin structural relief is large (<code>&gt; 250 m</code> + steep Bouguer/isostatic basin-margin gradient) yet mapped fault density within <code>2.5 km</code> vanishes.</li>
+</ol>
+</li>
+<li><strong>Why It Catches Unmapped Faults Rather Than Mapped Ones:</strong>
+  Displacement conservation along Basin-and-Range normal fault systems requires cumulative throw to transfer across seeming "gaps" in surface mapping (where Holocene landslide aprons, talus cones, or young fan lobes bury the range-front trace, or where throw partitions onto an unmapped outboard piedmont fault). Simultaneously, $\Delta\text{CFS} &lt; 0$ prevents the allocator from wasting dots on mechanically unloaded parallel flanks of already-mapped master faults.</li>
+<li><strong>How It Differs From All Prior Implementations in <code>GEMSDOE79</code>:</strong>
+  <code>G79-THVC</code> computed only <em>positive</em> tip cones (<code>net_tip_fwd_1500m</code>, <code>net_tip_fwd_3500m</code>, <code>net_tip_wing_28deg</code>, <code>net_colinear_gap</code>, <code>net_relay_overlap</code>) and isotropic distance decays (<code>net_exp_d6/18/45</code>). It had <strong>zero</strong> broadside stress-shadow inhibition ($S_{\text{CFS}}^-$) and <strong>zero</strong> footwall-relief minus mapped-trace slip-deficit conservation ($D_{\text{slip}}$).</li>
+<li><strong>Named Non-Fault Mimic:</strong>
+  Erosional non-tectonic Miocene volcanic escarpments or granitic pluton contacts with steep gravity gradients and no Quaternary slip (mitigated by requiring geodetic strain-rate / 1m-10m scarp or hydrothermal co-support).</li>
+<li><strong>Obtainable Official Free External Sources:</strong>
+  Uses competition <code>training_features.tif</code> + <code>existing_faults.tif</code> (fold-visible only) + USGS GeoDAWN <code>geodawn_dem_a2_100m.tif</code>.</li>
+</ul>
+<hr />
+<h4>Hypothesis 3 (<code>H81-RADIO-KD</code>): Quadrant-Cross-Fitted Lithology-Normalized Potassic Adularia-Illite Residual $K_d(x)$ &amp; Magnetite-Destruction Conduit Index</h4>
+<ul>
+<li><strong>Specific Layers &amp; Transform:</strong></li>
+<li>All 4 verified channels of <code>geodawn_rad_u8.tif</code> (<code>["K", "Th", "U", "TC"]</code> = <code>%K</code>, <code>ppm eTh</code>, <code>ppm eU</code>, and <code>TC</code> Corrected Total Count <code>nGy/hr</code>, <code>doi:10.5066/P93LGLVQ</code>) + <code>geodawn_extensions_u8.tif</code> (<code>["ThK", "UK", "UTh", "TMI_up150"]</code>) + upward-continued <code>rtp</code> demagnetization trough + <code>cond_surf</code> + <code>blm_closed_claim_distance_m.tif</code> + <code>geodawn_dem_a2_100m.tif</code>.</li>
+<li>Regresses mobile potassium $K$ against immobile lithologic thorium $\text{Th}$ and total radiometric activity $\text{TC}$ via a smooth quadratic ridge regression $\hat{K}(\text{Th}, \text{TC})$ (cross-fitted so lithologic felsic tuff/granite background cancels out), forming the <strong>potassic hydrothermal metasomatism residual</strong> $K_d(x) = \max(K - \hat{K}(\text{Th}, \text{TC}), 0)$ (Galbraith &amp; Saunders 1983; Dickson &amp; Scott 1997), then attenuates closed alkali-playa sinks (local basin-floor minima of $Z$) and <code>&lt; 400 m</code> BLM mine tailings, and couples $K_d(x)$ with magnetite-destructive <code>rtp</code> demagnetization troughs and 2-m temperature probe / paleo-sinter anomalies.</li>
+<li><strong>Why It Catches Unmapped Faults Rather Than Mapped Ones:</strong>
+  Blind epithermal and geothermal upflow zones (<code>150–260 °C</code>) boil and precipitate adularia + illite/sericite while altering host-rock magnetite to pyrite/hematite along permeable damage zones whose surface scarps are completely beveled or buried beneath thin eolian/alluvial veneer — leaving zero topographic scarp for USGS/NBMG mappers, but a crisp <code>K_d + demagnetization + 2m-probe</code> ribbon.</li>
+<li><strong>How It Differs From All Prior Implementations in <code>GEMSDOE79</code>:</strong>
+  <code>G79-THVC</code> used only a raw heuristic ratio <code>rad_k / (rad_th + 0.08)</code>, never loaded Band 4 (<code>TC</code> Corrected Total Count, whose identity was previously unresolved in <code>IR-79-13</code> until verified from official <code>geodawn_rad.json</code>), never cross-regressed $K$ on $(\text{Th}, \text{TC})$, and never deconfounded BLM mine tailings or closed-basin playas using absolute $Z$.</li>
+<li><strong>Named Non-Fault Mimic:</strong>
+  Unaltered high-silica potassic ash-flow tuffs, potassic mine waste/tailings piles, and evaporative illite/K-feldspar playa muds (explicitly removed by $(\text{Th}, \text{TC})$ regression, <code>blm_closed_claim_distance_m.tif</code>, and basin-floor $Z$ closure).</li>
+<li><strong>Obtainable Official Free External Sources:</strong>
+  USGS GeoDAWN <code>doi:10.5066/P93LGLVQ</code> (<code>geodawn_rad_u8.tif</code>, <code>geodawn_extensions_u8.tif</code>, <code>geodawn_dem_a2_100m.tif</code>) + BLM <code>blm_closed_claim_distance_m.tif</code> + DOE GDR-1391 (<code>2m_temperature_probe</code>, <code>paleo_geothermal_regional</code>).</li>
+</ul>
+<hr />
+<h4>Hypothesis 4 (<code>H81-DRAPE-NOTCH</code>): GeoDAWN Survey-Block Flight-Line Fourier Notch &amp; Local-Wavenumber Magnetic Contact Sharpness</h4>
+<ul>
+<li><strong>Specific Layers &amp; Transform:</strong></li>
+<li><code>rtp</code> (band 2), <code>tmi_hg</code> (band 3), <code>geodawn_extensions_u8.tif</code> band 4 (<code>TMI_up150</code>), <code>geodawn_dem_a2_100m.tif</code>, and official USGS GeoDAWN <code>acquisition_block_id_100m.tif</code> (<code>Area 1</code> <code>50 m</code> grid / <code>200 m</code> E–W flight lines vs <code>Area 2</code> <code>100 m</code> grid / <code>400 m</code> E–W flight lines across Winnemucca, Fallon, Hawthorne, and Tonopah blocks).</li>
+<li>Applies a 2D FFT narrow directional stop-band notch along the N–S wavenumber axis ($|k_y| \in [0.65\,k_{\text{fl}}, \pi/\Delta y]$, $|k_x| &lt; 0.18\,|k_y|$) to strip E–W airborne survey tie/flight-line micro-leveling corrugations without blurring NNE–NNW or ENE Humboldt-zone faults, then computes <strong>Thurston &amp; Smith (1997) local wavenumber</strong> $k_{\text{loc}}(x) = |\nabla \theta_{\text{tilt}}(x)|$ (which equals $1 / z_{\text{top}}$ over a vertical magnetic fault contact!) conditioned on <code>acquisition_block_id_100m.tif</code> resolution (<code>Area 1</code> vs <code>Area 2</code>).</li>
+<li><strong>Why It Catches Unmapped Faults Rather Than Mapped Ones:</strong>
+  Sub-alluvial Quaternary faults offsetting buried Tertiary volcanic layers beneath <code>20–150 m</code> of basin fill have zero surface scarp, AND E–W / ENE transfer and accommodation faults (e.g., Humboldt structural zone, Walker Lane sinistral domain) were historically under-detected in raw GeoDAWN <code>tmi_hg</code> because <code>400 m</code> E–W flight-line leveling corrugations contaminated E–W horizontal gradients.</li>
+<li><strong>How It Differs From All Prior Implementations in <code>GEMSDOE79</code>:</strong>
+  <code>G79-THVC</code> applied isotropic upward continuation (<code>z = 200, 600, 800 m</code>) with zero directional flight-line notch, never ingested <code>acquisition_block_id_100m.tif</code>, and never calibrated for the <code>2x</code> spatial-resolution jump between <code>Area 1</code> (<code>50 m</code>) and <code>Area 2</code> (<code>100 m</code>).</li>
+<li><strong>Named Non-Fault Mimic:</strong>
+  Buried paleochannels filled with vesicular Quaternary basalt flows or shallow plutonic dike swarms (mitigated by requiring gravity-step / geodetic dilation or scarp/thermal co-support).</li>
+<li><strong>Obtainable Official Free External Sources:</strong>
+  USGS GeoDAWN <code>doi:10.5066/P93LGLVQ</code> (<code>acquisition_block_id_100m.tif</code>, SHA-256 <code>2c0785c4b3ec46c734d1be7a7aedbb3e816201100ab358033a3af074418c894a</code>, verified from <code>GEMSDOE24</code>).</li>
+</ul>
+<hr />
+<h4>Hypothesis 5 (<code>H81-MT-PHASE</code>): 3-D Magnetotelluric Multi-Depth Conductance Ratio ($\nabla \log(\sigma_{\text{mid}} / \sigma_{\text{surf}})$) Across Electrically Screened Conductive Playas</h4>
+<ul>
+<li><strong>Specific Layers &amp; Transform:</strong></li>
+<li><code>cond_surf</code> (band 16) and external 3-D MT depth slices (<code>1–3 km</code> brittle hydrothermal reservoir vs <code>0–200 m</code> hypersaline playa clay cap) from USGS ScienceBase / DOE GDR GREAT BASIN MT models.</li>
+<li>Targets deep vertical sub-playa feeder faults whose shallow electrical signature is shorted out by <code>&lt; 2 Ω·m</code> saline evaporite pans.</li>
+<li><strong>Why Deferred Relative to Coupled Top Choice:</strong>
+  In <code>training_features.tif</code>, only <code>cond_surf</code> (shallow surface conductance) is gridded at <code>100 m</code>, whereas regional 3-D MT inversions have <code>5–15 km</code> station spacing (<code>&gt; 50x</code> coarser than the competition's <code>300 m</code> triangular kernel), limiting standalone localization precision inside the <code>300 m</code> DTI halo compared to <code>100 m</code> GeoDAWN DEM + LiDAR/3DEP + radiometrics + flight-notched magnetics + elastic Coulomb/slip-deficit mechanics.</li>
+</ul>
+<hr />
+<h3>Quantitative Pre-Implementation Ranking</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Rank</th>
+<th>Hypothesis ID</th>
+<th>Physical / Structural Mechanism</th>
+<th>Expected <code>HOLDOUT-DTI</code> Gain Over <code>G79-THVC</code> (<code>0.1905 / 0.1944</code>)</th>
+<th>Expected Cross-Repo Portfolio Overlap Benefit (vs <code>GEMSDOE83</code> <code>0.7139</code>)</th>
+<th>Implementation &amp; Compute Cost</th>
+<th>Selection Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;"><strong>1 (Selected Coupled Lane <code>G79-CSKD</code>)</strong></td>
+<td><strong><code>H81-COULOMB-SLIP</code> + <code>H81-LAHMINE</code> + <code>H81-RADIO-KD</code> + <code>H81-DRAPE-NOTCH</code> + Decontaminated <code>d &gt; 3 px</code> Counterfactual Charnes-Cooper</strong></td>
+<td>Unifies decontaminated <code>d_vis &gt; 3.0 px</code> training/placement, Lahontan isohypse + BLM mine deconfounding (<code>Z</code>, <code>d_BLM</code>), flight-notched <code>k_loc</code> magnetics (<code>acquisition_block_id</code>), $(\text{Th},\text{TC})$-regressed potassic adularia $K_d$, broadside Coulomb stress shadow ($\Delta\text{CFS} &lt; 0$) + along-range slip deficit, and counterfactual zero-catalogue + full-mechanics OOF fusion into Charnes-Cooper submodular kernel allocation</td>
+<td><strong><code>+0.008</code> to <code>+0.025</code> DTI</strong> (eliminates <code>2 &lt; d &lt;= 3 px</code> dead-collar waste, removes <code>4:1</code> unhidden-flank false negatives, suppresses Lahontan/mine <code>FP_w</code>, and recovers intra-basin blind hydrothermal/piedmont strands)</td>
+<td><strong>High — directly reduces <code>&lt; 2 km</code> isotropic collar crowding (<code>97.58%</code> in <code>G79-THVC</code>) to pull 3-px dot overlap with <code>GEMSDOE83</code> below <code>0.70</code></strong></td>
+<td><strong>Low–Moderate</strong> (<code>~14 min</code> end-to-end on 2 vCPUs, <code>&lt; 1.35 GB</code> RSS; 100% SHA-verified official files)</td>
+<td><strong>IMPLEMENT &amp; VALIDATE (<code>G79-CSKD</code>)</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td><code>H81-LAHMINE</code> (standalone)</td>
+<td>Lahontan <code>1,200–1,345 m</code> equipotential isohypse veto + BLM open-pit/haul-road deconfounder on 1m LiDAR + 10m 3DEP scarps</td>
+<td><code>+0.004</code> to <code>+0.011</code> DTI</td>
+<td>Moderate</td>
+<td>Low (<code>~4 min</code>)</td>
+<td>Integrated into <code>G79-CSKD</code> Group A/C</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td><code>H81-COULOMB-SLIP</code> (standalone)</td>
+<td>Broadside normal-fault elastic stress shadow ($\Delta\text{CFS} &lt; 0$) + along-range footwall relief slip-deficit</td>
+<td><code>+0.004</code> to <code>+0.010</code> DTI</td>
+<td>High (suppresses redundant broadside flank dots)</td>
+<td>Low (<code>~5 min</code>)</td>
+<td>Integrated into <code>G79-CSKD</code> Group D</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td><code>H81-RADIO-KD</code> (standalone)</td>
+<td>Cross-regressed <code>K</code> on <code>(Th, TC)</code> potassic adularia-illite residual + demagnetization trough</td>
+<td><code>+0.002</code> to <code>+0.006</code> DTI</td>
+<td>Moderate (adds intra-basin epithermal conduits)</td>
+<td>Low (<code>~3 min</code>)</td>
+<td>Integrated into <code>G79-CSKD</code> Group B</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td><code>H81-MT-PHASE</code></td>
+<td>Deep-to-shallow 3-D MT conductance gradient across conductive playas</td>
+<td><code>+0.0005</code> to <code>+0.002</code> DTI (<code>5–15 km</code> MT station spacing limits <code>300 m</code> localization)</td>
+<td>Low</td>
+<td>High (external 3-D MT regridding)</td>
+<td>Deferred to post-<code>G79-CSKD</code> backlog</td>
+</tr>
+</tbody>
+</table></div></section><section class="section"><h2>Session 070af0b6 — five untried post-G79-THVC geological hypotheses (not executed, 2026-10-22)</h2><p>Audited all 11 GEMSDOE79 lanes and all 93 family repositories through GEMSDOE88 to specify five genuinely untried subsurface/tectonic mechanisms targeting the &gt;1.5–8 km non-LiDAR and blind-basin gap without spending any weekly slot. <a href="evidence/post_index_sibling_audit_20261022.json">Post-index GEMSDOE76–88 audit JSON</a> · <a href="evidence/run_card_step.json">Archived H79-STEP card</a>.</p><div class="prose table-scroll"><h2>Five Genuinely Untried Post-<code>G79-THVC</code> Geological Hypotheses (<code>2026-10-22</code>)</h2>
 <blockquote>
 <p><strong>Protocol &amp; Budget Status:</strong> Zero experiments were executed on this branch (<code>arena/070af0b6-gemsdoe79</code>). Under <code>AGENTS.md</code> Rule #3 and <code>scripts/preflight_new_lane.py --restore</code> (<code>exit 2</code>, <code>IR-79-04</code> / <code>IR-79-90</code>), no new candidate may be generated or promoted without a fresh preregistered lane AND an explicit protocol-owner ruling on space-filling/lattice registry priors (<code>17GEMSDOE</code> <code>halo = 1.0000</code>, <code>GEMSDOE48</code> plateaus <code>halo = 1.0000</code>, and <code>13GEMSDOE r13-lattice-s5</code> <code>halo = 0.998724</code>, which forces $\text{ov}_{3\text{px}} \ge 0.8144 &gt; 0.70$ for every $\ge 35{,}093$-dot map in Nevada by the Pigeonhole Principle).</p>
 </blockquote>

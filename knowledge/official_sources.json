@@ -252,6 +252,18 @@
       "verified_claims": [
         "Confirms published H33 file h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif (SHA-256 c55bafc470054e82...) is self-labelled UNSCORED on GEMSDOE32's own public page without an uploaded portal receipt."
       ]
+    },
+    {
+      "id": "BLM-MINING-CLAIMS",
+      "authority": "U.S. Bureau of Land Management (BLM) National Mining Claims ArcGIS MapServer Layer 2",
+      "url": "https://gis.blm.gov/nlsdb/rest/services/Mining_Claims/MiningClaims/MapServer/2",
+      "access": "SHA-256-verified GeoDAWN-grid distance compilation via buffedlizard55-lab/GEMSDOE24 (commit 07345ea0604953d7efb858d9cfbc21e20c7aca0b)",
+      "verified_claims": [
+        "Public federal mineral-estate mining claim records across Nevada/Great Basin; used in G79-CSKD strictly as a non-fault anthropogenic surface-disturbance deconfounder (open-pit benches, haul roads, and potassic tailings piles)."
+      ],
+      "limits": [
+        "Mirrored Euclidean distance grid verified via SHA-256 (92c2762b1c205221...); proximity to closed claims does not preclude genuine fault-hosted mineralization."
+      ]
     }
   ]
 }
