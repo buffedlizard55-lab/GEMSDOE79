@@ -232,7 +232,9 @@ def latest_review_notice(preflight, runtime_data):
     verified = int(runtime_data['verified_count'])
     expected = int(runtime_data['expected_count'])
     checked = E(runtime_data['checked_utc'])
-    return f'''<section class="section"><div class="notice"><strong>Parallel review · session a92a0164: no new candidate GeoTIFF.</strong>
+    return f'''<section class="section"><div class="notice"><strong>Validator review · 148fa8f5: no new TIFF; OK TO SUBMIT: NO.</strong>
+The ZIP validator now rejects multi-band TIFFs instead of discarding the inner band-count failure. Numeric range validity alone is insufficient: the inherited TIFF fails strict rule R6 (zero exterior rather than template NaN). No new candidate was generated and no slot was used.
+<a href="{REPO}/blob/main/reports/session_review_148fa8f5.md">Three-pass audit ↗</a> · <a href="{REPO}/blob/main/evidence/run_card_148fa8f5.json">Review run card ↗</a></div></section><section class="section"><div class="notice"><strong>Parallel review · session a92a0164: no new candidate GeoTIFF.</strong>
 The pinned witness covers {coverage:.0%} of allowed cells against the literal {limit:.0%} overlap limit, so this review stopped before candidate testing. It produced no experiment, holdout evaluation, dot placement, selector action, upload, or slot use. The runtime-data check for this build found <strong>{verified}/{expected}</strong> manifest inputs present and SHA-256 verified under <code>data/raw</code> (checked {checked} UTC); this is distinct from the a92 source-audit snapshot. Other archived lanes and their results are separate work.
 <a href="evidence/preflight_a92a0164.json">a92 preflight ↗</a> · <a href="evidence/run_card_a92a0164.json">a92 run card ↗</a> · <a href="evidence/source_review_a92a0164.json">a92 source review ↗</a> · <a href="{REPO}/blob/main/reports/session_review_a92a0164.md">Three-pass review ↗</a> · <a href="research.html">Four ranked hypotheses ↗</a> · <a href="evidence/runtime_data_status.json">Current build-time data status ↗</a></div></section>'''
 
