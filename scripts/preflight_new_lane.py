@@ -10,6 +10,7 @@ exit 2 means duplicate is mathematically unavoidable, exit 3 means unverified.
 from __future__ import annotations
 import argparse
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -17,11 +18,19 @@ from verify_overlap_witness import verify_witness
 
 
 def decision(review: dict) -> dict:
+    # Evidence can be malformed: return a machine-readable refusal, not a
+    # traceback or a certificate based on truthy strings / Python bool==1.
+    review = review if isinstance(review, dict) else {}
     measured = review.get('measured_certificate', {})
+    measured = measured if isinstance(measured, dict) else {}
     certified = review.get('all_checks_passed') is True
     limit = measured.get('overlap_limit')
     fraction = measured.get('covered_allowed_fraction')
-    if not certified or limit != 0.70 or fraction != 1.0 or not measured.get('universal_overlap_blocker'):
+    digest = measured.get('witness_sha256')
+    valid_digest = isinstance(digest, str) and re.fullmatch(r'[0-9a-f]{64}', digest) is not None
+    if (not certified or type(limit) not in (int, float) or limit != 0.70
+            or type(fraction) not in (int, float) or fraction != 1.0
+            or measured.get('universal_overlap_blocker') is not True or not valid_digest):
         return {'start_new_lane': False, 'state': 'unverified', 'exit_code': 3,
                 'reason': 'Frozen witness cannot be established. Fail closed; no permission to run or upload.'}
     return {'start_new_lane': False, 'state': 'impossible_under_literal_gate', 'exit_code': 2,
