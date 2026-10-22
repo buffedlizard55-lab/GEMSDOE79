@@ -153,8 +153,40 @@ def evidence_checks(root, card):
     return out
 
 
+def witness_report_checks(root):
+    """Bind the displayed literal-gate proof to the pinned original witness.
+
+    These are evidence-consistency checks, not a substitute for remeasuring
+    the historical TIFF. Re-measure via verify_overlap_witness.py --restore.
+    """
+    root = Path(root)
+    original = strict_loads_bytes((root / 'evidence/universal_overlap_certificate.json').read_bytes())
+    review = strict_loads_bytes((root / 'evidence/witness_review_20261022_a7d092d7.json').read_bytes())
+    preflight = strict_loads_bytes((root / 'evidence/new_lane_preflight_a7d092d7.json').read_bytes())
+    measured = review.get('measured_certificate', {})
+    return {
+        'witness_review_matches_frozen_certificate': (
+            review.get('all_checks_passed') is True and
+            bool(review.get('checks')) and all(v is True for v in review['checks'].values()) and
+            all(measured.get(k) == v for k, v in original.items() if k not in ('witness_file', 'witness_source')) and
+            measured.get('witness_sha256') == original.get('witness_sha256') and
+            measured.get('allowed_pixels') == 5106385 and
+            measured.get('uncovered_allowed_pixels') == 0 and
+            measured.get('covered_allowed_fraction') == 1.0 and
+            measured.get('overlap_limit') == .70),
+        'new_lane_preflight_stops_on_exact_witness': (
+            preflight.get('start_new_lane') is False and
+            preflight.get('state') == 'impossible_under_literal_gate' and
+            preflight.get('exit_code') == 2 and
+            preflight.get('witness_sha256') == measured.get('witness_sha256') and
+            preflight.get('covered_allowed_fraction') == 1.0 and
+            preflight.get('limit') == .70),
+    }
+
+
 def verify(refresh_timestamp: bool = False):
     checks = {}
+    checks.update(witness_report_checks(ROOT))
     pin = json.loads((ROOT / 'registry/template_pin.json').read_text())
     checks['all_shared_template_bytes_match_pins'] = all(sha(ROOT / r['path']) == r['sha256'] for r in pin['files'])
     expected_prereg = (ROOT / 'evidence/preregistration_sha256.txt').read_text().strip()

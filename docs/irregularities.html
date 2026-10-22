@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="GEMSDOE79: a validated, unique GeoTIFF for the DOE GEMS fault-mapping challenge with an automated submit decision and auditable evidence.">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
@@ -352,7 +352,7 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 </tr>
 <tr>
 <td>IR-79-53</td>
-<td><strong>The duplicate gate still rejects every possible map, even with v3</strong> (<code>evidence/nhr/overlap_chance.json</code>). 30 registry rasters have 3 px halos covering more than 70 % of the allowed area. They include plateau "unassigned-mass" surfaces, whose top-k with ties spans the footprint, and the 13GEMSDOE spacing-5 lattice. A seeded uniform-random 37,654-dot map is flagged by all 30.</td>
+<td><strong>The duplicate gate still rejects every possible map, under the literal reading</strong> (<code>evidence/universal_overlap_certificate.json</code>): one registry raster covers 100 % of allowed cells, so every nonempty candidate has overlap 1.0. Separately, even with v3, 30 registry rasters have 3 px halos covering more than 70 % of the allowed area (<code>evidence/nhr/overlap_chance.json</code>); &gt;70 % coverage alone does not prove universal failure. They include plateau "unassigned-mass" surfaces, whose top-k with ties spans the footprint, and the 13GEMSDOE spacing-5 lattice. A seeded uniform-random 37,654-dot map is flagged by all 30.</td>
 <td><strong>Not resolved by an agent.</strong> This needs an explicit user decision; one option is overlap beyond chance for halo coverage above 0.70. H79-NHR's negative verdict does not depend on this issue: it is also flagged by 26 non-space-filling dot fields, the worst at 0.913 against a chance level of 0.610.</td>
 </tr>
 <tr>
@@ -370,13 +370,9 @@ IR-79-48 and IR-79-49 describe the same conflict-marker and REST-quota problems 
 <td><strong>Concurrent-lane merge.</strong> PR #26 (G79-STEPCO, session 220dabc8) reached <code>main</code> while H79-NHR was running. Both lanes are negative. STEPCO S1 tied the H33 control (0.0946 / 0.0948 vs 0.0961 / 0.0989). NHR beat it (0.1431 / 0.1522) but is a duplicate.</td>
 <td>When merging, H79-NHR became the canonical card because its holdout evidence is stronger. The STEPCO S1 TIFF, ZIP and receipt were moved byte-for-byte to <code>archive/g79_stepco_s1/downloads/</code>. <code>run_card_stepco.json</code>, <code>evidence/stepco/</code> and amendment D-1 are unchanged, and the site links to them. The E1 archive is unified at <code>archive/g79_fabric_offset_e1/</code>. Both lanes reached the same space-filling-registry blocker independently (IR-79-42/43 and IR-79-53), which strengthens the case for a user decision.</td>
 </tr>
-<tr>
-<td>## Review addendum — session 0c9f6bad (2026-10-22)</td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table>
+<h3>Review addendum — session 0c9f6bad (2026-10-22)</h3>
 <ul>
 <li><strong>IR-79-57:</strong> Pinned clean install could not collect <code>test_g79b.py</code>: <code>skimage</code>
   was imported by the archived lane's retained tests but absent from requirements.

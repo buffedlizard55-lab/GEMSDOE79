@@ -9,6 +9,9 @@
    the holdout best but **failed the duplicate gate** (IR-79-55), so the verdict is `negative`
    and the lane is stopped. Do not retune or overlap-cap X1.
    A new idea needs a new preregistered lane, with three experiments or two hours at most.
+   Follow-up review a7d092d7 re-measured the universal literal-overlap witness:
+   `scripts/preflight_new_lane.py --restore` exits 2, forbidding any nonempty new
+   candidate under that reading. Do not bypass it or restart the stopped lane.
    E1 (G79-FABRIC-OFFSET) stays **stopped negative** and archived; do not restart
    it, add jitter to it, or exempt dense priors for it.
 4. `vendor/gems57` is shared code, not a private fork. Check its SHA-256

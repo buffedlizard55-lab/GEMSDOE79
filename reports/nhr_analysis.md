@@ -53,18 +53,19 @@ H33 is **exactly** the D2.8 dot set (44,090 dots) minus the 6,436 dots within 20
 
 USER-REPORTED: D2.8 0.2600 and H33 0.2778.
 
-Under the assumption that the 6,436 removed dots had zero TP (they sat beside masked
-catalogue pixels), only FP changed. Then the ESTIMATE is
+In the counterfactual **assumption** that the 6,436 removed dots had zero TP
+(which does not follow from proximity to masked catalogue pixels), only FP changed. Then the ESTIMATE is
 `TP·(1/0.2600 − 1/0.2778) = 0.2·6,436`. That gives TP ≈ 5.2 k truth-pixel units in the public set and
 `N_truth ≈ 12.8–13.3 k`. H33 therefore captures **c ≈ 39–41 %** of public truth
 credit with ≈35–37 k FP units.
 
 H33 led the family for three reasons, ranked by our confidence:
 
-1. **It deleted pure false positives.** Mapped pixels are masked, and an expert
-   is unlikely to digitise a "new" fault within 200 m of a mapped one. So dots
-   in that collar pay FP and earn almost no TP. Removing 14.6 % of the dots raised the score by 6.8 %.
-   This is the only change between D2.8 and H33, so it is the best-supported explanation.
+1. **It pruned a near-catalogue collar.** The 6,436 removed dots could pay FP,
+   but they might also credit a new fault within 300 m: a pixel-exact mask does not
+   mask nearby unknown truth. Pruning 14.6 % of D2.8 dots coincides with a 6.8 %
+   user-reported score increase; it is an efficiency hypothesis, not a causal
+   conclusion or a verified file-to-receipt mapping.
 2. **Its dots are already sparse and roughly at budget.** About 37.7 k dots puts the
    marginal dot near the break-even probability above. Adding more dots dilutes the
    score, and removing more starts to lose coverage.

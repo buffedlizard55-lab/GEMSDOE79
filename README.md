@@ -28,17 +28,51 @@ Website: [https://buffedlizard55-lab.github.io/GEMSDOE79/](https://buffedlizard5
 submission guide](https://buffedlizard55-lab.github.io/GEMSDOE79/executive-summary.html) and the [analysis](https://buffedlizard55-lab.github.io/GEMSDOE79/analysis.html).
 The canonical card is [`run_card.json`](run_card.json); every number above is copied from it.
 
-Latest software review: [three-pass review, session `0c9f6bad`](reports/session_review_0c9f6bad.md).
-This session adds a separate [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md), records a clean-install dependency fix and confirms that no scientific experiment or submission slot was used.
+## Follow-up preflight (2026-10-22, branch `arena/a7d092d7-gemsdoe79`)
 
-## What this session found (2026-10-22, session `337ac1e9`)
+Concurrent [repository and hypotheses review](reports/repository_review_2026-10-22_session-6302cccd.md)
+confirmed no additional scientific experiment or submission slot was used.
+
+**Automated decision is still OK TO DOWNLOAD: YES / OK TO SUBMIT: NO.**
+The canonical GeoTIFF above is independently generated and locally format-valid,
+but it is *not* protocol-unique. No extra GeoTIFF was issued with a misleading
+"ready" label, and no weekly submission slot was spent.
+
+A re-download and independent measurement of the pinned [17GEMSDOE registry
+witness](evidence/witness_review_20261022_a7d092d7.json) confirmed that all
+5,106,385 allowed cells are covered by the witness's positive support. With the
+literal dot definition (any finite positive value), **every nonempty candidate
+has forward 3 px overlap 1.0 > 0.70**. The automated
+[new-lane preflight](evidence/new_lane_preflight_a7d092d7.json) returns exit 2
+and forbids experiments under that rule. This is a mathematical impossibility
+for a new *submittable* TIFF under the current literal protocol, not a missing
+human inspection step. A byte-distinct file or a format PASS is not a solution.
+The current NHR file fails even the more informative ordinary-dot comparison
+(26 non-space-filling registry rasters); waiving the universal witness alone
+would not promote it.
+
+Four untested [ranked hypotheses](research/hypotheses_preflight_a7d092d7.md)
+are documented for a *future, separately preregistered* lane. None received a
+holdout score in this review; no score is projected. The obstacle must be
+resolved *prospectively* by an explicit protocol definition of what constitutes
+"dots" in continuous prior rasters; silently changing the rule would violate
+the user's stop instruction. The [executive summary](docs/executive-summary.html)
+and [automated status command](scripts/submission_status.py) continue to make
+submission safety explicit. This review also fixed a clean-install test failure
+(missing pinned `scikit-image`) and corrected overconfident wording about
+near-catalogue false positives and the 70% halo proof.
+
+Latest concurrent software review: [session `0c9f6bad`](reports/session_review_0c9f6bad.md).
+It independently hardened selector evidence and fixed clean-install dependencies; no scientific slot was used.
+
+## What the previous session found (2026-10-22, session `337ac1e9`)
 
 1. **Why H33 scored highest.** The metric's TP is a max over a 300 m kernel, while its FP is a per-pixel sum.
    So sparse dots win: one dot on a trace earns up to about 2.33 truth units of TP and pays at most 1 unit of FP.
    H33 is exactly the D2.8 dot set minus 6,436 dots within 200 m of mapped faults. Mapped pixels are
-   masked; nearby dots can still earn credit for hidden traces, so their removal is not
-   proved to remove only false positives. The corresponding user-reported scores are 0.2600
-   and 0.2778; these are not artifact-bound organizer receipts or a causal demonstration. The algebra shows a public score of 0.2778 needs at least 23.6 % of truth credit, and
+   masked; nearby dots can still credit hidden traces, so the pruning is not proved to remove only
+   false positives. The reported 0.2600 and 0.2778 values have no artifact-bound organizer receipts or
+   causal demonstration. Algebra shows 0.2778 needs at least 23.6 % of truth credit, and
    0.4413 (the public leader) needs at least 38.4 %. Full derivation: [`reports/nhr_analysis.md`](reports/nhr_analysis.md).
 2. **Can we beat it?** Five untried hypotheses were ranked in
    [`research/hypotheses_nhr.md`](research/hypotheses_nhr.md); the top one, nested hide-and-recover
