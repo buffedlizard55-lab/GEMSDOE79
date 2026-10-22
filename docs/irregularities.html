@@ -1024,6 +1024,55 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
+<h3>Session <code>5fb439d3</code> addendum (2026-10-22) — three-pass review, no new lane</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-143</td>
+<td><strong>Submission-name length misstated as 43/140.</strong> <code>len("g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT") = 55</code>, not 43, in <code>README.md</code> and <code>reports/g79_thvc_scientific_report.md</code> (note 98/140 verified correct).</td>
+<td>Fixed to <code>55/140</code> in both sources; site rebuilt. No raster/card/verdict change. Full review: <code>reports/session_review_5fb439d3.md</code>. Canonical artifact stays G79-THVC, OK TO DOWNLOAD YES / OK TO SUBMIT NO, 0 slots used.</td>
+</tr>
+</tbody>
+</table>
+<h3>Session 45998a01 — review-only validator hardening (2026-10-22)</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Verified finding</th>
+<th>Resolution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-144</td>
+<td><code>validate_submission.py</code> raised on corrupt/missing TIFF/ZIP and printed a format PASS before failing to write an existing report.</td>
+<td>JSON rejection at the CLI inspection boundary, nonzero exit, no exception-detail leak, and exclusive evidence creation retained. Added adversarial software tests; shared validator/evaluator/writer pins unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-145</td>
+<td>The prompt supplies no single-method lane; restored frozen witness still blocks any nonempty candidate under the literal overlap rule.</td>
+<td><code>evidence/preflight_45998a01.json</code> records refusal. No experiments or new TIFFs; canonical negative artifact unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-146</td>
+<td>Inherited <code>knowledge/why_h33.md</code> said “Yes, decisively” in answer to whether a higher organizer score was proven, although only local holdout comparisons exist. README also understated the submission-name length.</td>
+<td>Clarified scope to historical HOLDOUT-DTI; corrected length and added an explicit no-new-artifact notice to README, home and guide. Inherited scalar vs per-seed CI discrepancy is flagged, not silently rewritten (<code>reports/session_review_45998a01.md</code>).</td>
+</tr>
+<tr>
+<td>IR-79-147</td>
+<td>Merge reconciliation found incoming ETP TIFF/ZIP files published alongside canonical THVC, violating the existing publication boundary. The ETP card uses an approximate evaluator, a patterned preregistration digest and a one-raster novelty comparison.</td>
+<td>Preserved incoming bytes, scripts and publication evidence under <code>archive/g79_etp_incoming_45998a01/</code>; did not validate those scientific claims or promote them. Canonical card and shared tools unchanged.</td>
+</tr>
+</tbody>
+</table>
 <h3>Session <code>842c8c7c</code> addendum (2026-10-22) — H80 pilots (DRAPE and RADIO), official-rules verification, leaderboard reconciliation (<code>arena/842c8c7c-gemsdoe79</code>)</h3>
 <p>Full review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_842c8c7c.md"><code>reports/session_review_842c8c7c.md</code></a>. Run card: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_h80_pilots.json"><code>run_card_h80_pilots.json</code></a>. Overlap check: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/evidence/h80_pilot_overlap_check.json"><code>evidence/h80_pilot_overlap_check.json</code></a>. Official rules: <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">NLR PDF, Sept 2026</a> (linked from <a href="https://www.herox.com/GEMSPrize/resource/2274">HeroX resource 2274</a>).</p>
 <table>
@@ -1036,47 +1085,47 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-143</td>
+<td>IR-79-148</td>
 <td><strong>Preregistration timestamps were hand-typed, and the pilots ran before any commit.</strong> <code>registry/preregistration_h80_drape_pilot.json</code> carried <code>2026-10-22T14:25:00Z</code> and the RADIO file carried <code>2026-10-22T14:40:00Z</code>. Neither came from a clock read. The RADIO value was later than the clock at correction (<code>14:26:36Z</code>), so it cannot be a real reading. The protocol required the commit before the runs.</td>
 <td>Both values are withdrawn (<code>preregistered_utc: null</code>, status recorded, clock read <code>2026-10-22T14:26:36Z</code>). The git commit timestamp is the authoritative record. Both pilots are negative, so no outcome was chosen after the fact. Protocol breach disclosed.</td>
 </tr>
 <tr>
-<td>IR-79-144</td>
+<td>IR-79-149</td>
 <td><strong>Backlog hypothesis H80-MT-PHASE is invalid as specified.</strong> The backlog cites 500 m, 1.5 km, and 3 km resistivity slices. The GDR 1391 MT product (<a href="https://doi.org/10.5066/P9TWT2LU">doi:10.5066/P9TWT2LU</a>, ScienceBase <code>62979746d34ec53d276c113b</code>) contains conductance layers at 2–12, 12–20, 20–50, 50–90, and 90–200 km, with no resistivity slices.</td>
 <td>Lane not run. Re-scope to conductance layers only (see <code>research/hypotheses_842c8c7c_ranked.md</code>). Not validated.</td>
 </tr>
 <tr>
-<td>IR-79-145</td>
+<td>IR-79-150</td>
 <td><strong>H80-DRAPE-PILOT is negative.</strong> Notch minus control: seed 20 <code>-0.0002 [-0.0024, +0.0020]</code>; seed 30 <code>-0.0018 [-0.0038, -0.00002]</code> (significantly worse). Single-feature canary AUC <code>0.5316 / 0.5082</code> (control <code>0.5299 / 0.5071</code>). The notch on abs(f_x) &lt;= 0.02 may also attenuate E-W faults and micro-leveled corrugations.</td>
 <td>Stopped negative. <code>0</code> slots used. Documented in <code>registry/preregistration_h80_drape_pilot.json</code> and <code>evidence/h80_drape_pilot/summary.json</code>.</td>
 </tr>
 <tr>
-<td>IR-79-146</td>
+<td>IR-79-151</td>
 <td><strong>H80-RADIO-PILOT is negative.</strong> Thorium-normalised K residual: seed 20 <code>0.0206 [0.0106, 0.0303]</code>, below random (<code>A-C0 = -0.0250 [-0.0362, -0.0140]</code>); seed 30 <code>0.0318</code>. Raw-K control: <code>0.0274</code> / <code>0.0294</code>. Paired candidate-minus-control <code>-0.0068 [-0.0156, +0.0028]</code> and <code>+0.0024 [-0.0089, +0.0140]</code>, neither significant. Canary AUC <code>0.4705 / 0.4939</code>.</td>
 <td>Stopped negative. ASTER silica normalisation was not restored, and GeoDAWN K/Th have no stated units (<code>uint8</code>, scale 1.0). <code>0</code> slots used.</td>
 </tr>
 <tr>
-<td>IR-79-147</td>
+<td>IR-79-152</td>
 <td><strong>Random-comparator (C0) scatter across RNG streams.</strong> Within this session, C0 scores were <code>0.0490 / 0.0492</code> (DRAPE) and <code>0.0457 / 0.0459</code> (RADIO), because the RNG streams differ. The recorded receipt C0 is <code>0.0497 [0.0433, 0.0561]</code> at seed 20 and <code>0.0422 [0.0378, 0.0465]</code> at seed 30 (<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/README.md">README §4 table</a>). The pilot's seed-30 C0 (<code>0.0490</code>) lies outside the receipt interval.</td>
 <td>Paired differences are used for all decisions. The seed-30 receipt gap is unexplained and is not a claim about the receipt itself. Open limitation for any future comparison against the receipt.</td>
 </tr>
 <tr>
-<td>IR-79-148</td>
+<td>IR-79-153</td>
 <td><strong>Finite nodata sentinel in all 19 training-feature bands.</strong> <code>training_features.tif</code> uses <code>-3.4028234663852886e+38</code>, which is finite and not NaN. It covers <code>7,113,308</code> cells per band (<code>135,152,864</code> across 19 bands), of which <code>3,061</code> fall inside the footprint in the smoke test. A NaN-only check passed it through and produced a NaN tilt score on the first run.</td>
 <td>Both pilot scripts mask <code>&lt;= -1e30</code> (DRAPE) and <code>&gt; 0</code> for uint8 (RADIO). Shared feature code masks <code>&gt; -1e38</code>. Regression tests added in <code>tests/test_h80_pilots.py</code>. No shared-code change this session.</td>
 </tr>
 <tr>
-<td>IR-79-149</td>
+<td>IR-79-154</td>
 <td><strong>User-reported leaderboard values are not reproduced.</strong> The live public board (fetched 2026-10-22, pages 0–2, top 50) confirms <code>#1 xiaofanhu 0.4413</code> and <code>#2 cfld__ 0.3904</code>. It does not contain <code>0.2778</code> (H33, cited as <code>extradr19</code> at #48) or <code>0.3195</code>. The current <code>#48</code> is <code>moongrega 0.2818</code>, and <code>#50</code> is <code>sam35 0.2804</code>.</td>
-<td>Both user-reported values stay labelled USER-REPORTED and unverified. Nothing in this repo cites them as public scores. Public-board values are not organizer-confirmed (see IR-79-150).</td>
+<td>Both user-reported values stay labelled USER-REPORTED and unverified. Nothing in this repo cites them as public scores. Public-board values are not organizer-confirmed (see IR-79-155).</td>
 </tr>
 <tr>
-<td>IR-79-150</td>
+<td>IR-79-155</td>
 <td><strong>Official rules verified against the NLR PDF (Sept 2026).</strong> §3.2 and §3.4: up to three automated feedback submissions per week, and exactly one final submission per entity selected before the deadline. §3.5 and §3.2: finalists must provide complete code assets and documentation that reproduce results. §3.6.4: a DOE judge makes the final determination, so automated scoring does not decide awards. §3.2: generative-AI use must be disclosed in the narrative. §1.1: one entry per participant. §1.3: eligibility requirements (U.S. citizen or permanent resident, or an eligible entity; exclusions for DOE, DrivenData staff, and others) cannot be verified from this sandbox.</td>
 <td>The owner must confirm eligibility and the AI disclosure before any submission. The DrivenData page remains the scoring authority, and this repo does not claim organizer-confirmed scores.</td>
 </tr>
 <tr>
-<td>IR-79-151</td>
+<td>IR-79-156</td>
 <td><strong>Restored inputs are not organizer-authenticated, and two label files are byte-identical.</strong> Training inputs come from owner GitHub mirrors via <code>scripts/restore_data.py</code> (13 entries verified, receipt preserved). <code>labels.tif</code> and <code>existing_faults.tif</code> share SHA-256 prefix <code>7ba308ccdc4418b3</code> (60,988 positive pixels each). Rules §3.3 states the labels come from the INGENIOUS compilation, which is consistent with this.</td>
 <td>Flagged, not a defect. Byte equality is recorded here. Raw-data hash checks against organizer-published checksums remain unverified.</td>
 </tr>

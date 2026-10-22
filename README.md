@@ -2,7 +2,11 @@
 
 ## Download & Automated Submission Status — Start Here
 
-> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(Automated fail-closed machine gate: format/CRS/`[0,1]`/canary/holdout gates ALL PASS with #1 `GEMSDOE79` two-seed `HOLDOUT-DTI = 0.1905 / 0.1944`; automatic submission remains `NO` so zero weekly slots are spent automatically.)*
+**Current review (2026-10-22, session `45998a01`):** [Three-pass review and next steps](reports/session_review_45998a01.md). No new TIFF was generated: the frozen literal novelty gate blocks every nonempty candidate, and no single-method lane was supplied. The download below is the existing research artifact, **not a newly unique or submission-approved file**. Historical holdout results do not prove a higher private leaderboard score.
+
+> **OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** *(The existing research TIFF passes local format/CRS/`[0,1]`, leakage-canary, and spatial-holdout checks, but **fails the literal registry-overlap gate**; it is not cleared for submission. The holdout results are not organizer scores. No weekly slot has been used.)*
+>
+> **Current review (2026-10-22):** no new TIFF or holdout experiment was made. The fail-closed preflight proves a literal 3-pixel overlap of `1.0` for any nonempty candidate against a pinned full-footprint registry raster; see [the session review](reports/repository_review_2026-10-22_arena-63e67511.md) and [the machine preflight result](evidence/new_lane_preflight_b79882e0.json).
 
 | Gate / Decision | Automated Result | Verified Machine Evidence |
 |---|---|---|
@@ -13,7 +17,7 @@
 | **`REGISTRY UNIQUENESS (`1,108` rasters / `93` repos)`** | **✅ SPARSE PASS (`0.6844 <= 0.70`) / ⚠️ BLANKETS FAIL-CLOSED** | Pre-placement surface `max |Spearman| = 0.7712 <= 0.90` (`1,082` rasters); post-placement `max |Spearman| = 0.1210 <= 0.90`, `max Jaccard = 0.0417 <= 0.55`; **comparable `<= 50k`-dot sparse overlap = `0.6844 <= 0.70` across all `718` sparse maps (`0.3427` vs `H33`)**; literal unchanged `uniqueness.py` flags space-filling/`80k` blankets (`17GEMSDOE = 1.0000`, `13GEMSDOE = 0.9985`, `59GEMSDOE = 0.8224` where **Oracle ground truth `truth20 = 0.8682 > 0.70`**) |
 | **`OK TO SUBMIT AUTOMATICALLY?`** | **⛔ NO (`ok_to_submit: false`, exit code `2`)** | Held strictly fail-closed (`0 / 3` weekly slots used) pending **cross-repo selector comparison** across parallel lanes (`GEMSDOE79` vs `GEMSDOE73`, etc.) and DrivenData weekly capacity verification. See [**Executive Summary & Submission Guide**](docs/executive-summary.html). |
 
-- **Unique Submission Name (`43 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
+- **Unique Submission Name (`55 / 140` chars):** `g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT`
 - **Short Submission Note (`98 / 140` chars):** `GEMSDOE79 G79-THVC: 2m-probe+sinter+geophys+scarp 2-stage ensemble + Charnes-Cooper DTI (35093 px)`
 
 ![Dual-Seed Holdout Progression](docs/figures/fig1_holdout_progression.png)
@@ -25,7 +29,7 @@
 Full byte-level proofs and derivations are documented in [`knowledge/why_h33.md`](knowledge/why_h33.md) and [`evidence/h33_forensics.json`](evidence/h33_forensics.json):
 
 1. **What `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` (`GEMSDOE32`) actually is:** Exact pixel comparison proves `H33` (`37,654` binary `1.0` pixels) is **not** a newly trained model — it is `D2.8` (`44,090` binary `1.0` pixels) with the **`6,436` pixels at Euclidean distance `<= 200 m` (`2.0 px`) from `existing_faults.tif` zeroed out** (`0` pixels outside `D2.8`). Because the official Distance-Weighted Tversky Index (`DTI`, `alpha=0.2, beta=0.8, r=300 m`) takes a point-wise `max` over predictions for `TP_w` but a linear `sum` for `FP_w`, converting dense probability maps (`0.06–0.12` historical report) into spaced binary `1.0` impulses (`D2.8 = 0.2768`) removes massive false-positive halo mass, and pruning the `200 m` flank around masked known faults (`H33 = 0.2778`) removes redundant flank echoes.
-2. **Leaderboard Reconciliation:** `0.2778` is an unverified historical filename-to-score report from the prompt ledger; `0.3195` is a stale snapshot inside one prompt paragraph; **`0.4413` (`xiaofanhu`, Rank #1)** is the verified public leaderboard observation read directly from DrivenData on `2026-10-22` ([`knowledge/official_sources.json`](knowledge/official_sources.json)). **Zero scores here are labeled `ORGANIZER-CONFIRMED`**, and all experimental results below carry strict **`HOLDOUT-DTI` (`gems57-pooled-hide-v2`)** receipts.
+2. **Leaderboard Reconciliation:** `0.2778` is an unverified historical filename-to-score report from the prompt ledger; `0.3195` is a stale snapshot inside one prompt paragraph; **`0.4413` (`xiaofanhu`, Rank #1)** is the verified public leaderboard observation read directly from DrivenData on `2026-10-22` ([`knowledge/official_sources.json`](knowledge/official_sources.json)). **No score for a repository artifact is `ORGANIZER-CONFIRMED`** because no bound submission-page receipt is present; experimental results below are **`HOLDOUT-DTI` (`gems57-pooled-hide-v2`)** measurements, not organizer scores.
 3. **Why `H33` stalled — and the 4 bottlenecks solved by `G79-THVC`:**
    - **24.99% Nevada 1-m LiDAR Blind Gap (`3.29×` regime gain: `0.0145 -> 0.0477`):** `1,291,341 / 5,167,373` footprint pixels lack 1-m 3DEP LiDAR (`dem_100m.tif = NaN`). Domain-adaptive conditioning (`lidar_present`) + non-LiDAR topographic/geophysical/hydrothermal channels prevent blind-gap collapse.
    - **Covered Basin & Geothermal Conduit Physics (`2.49×–2.60×` regime gain):** Integrates official DOE GDR 1391 (`DOI: 10.15121/1881483`) **2-m shallow temperature probes (`temp_2m_probes.csv`), Quaternary sinter/travertine/tufa mounds (`paleogeothermal.geojson`), geothermometry spring temperatures (`geochem_springs.csv`), volcanic vents (`volcanic_vents.geojson`), magnetic demagnetization + Smectite clay alteration lows, and gravity basement-depth steps (`grav_bdepth`)** ([`evidence/official_ingenious_receipt.json`](evidence/official_ingenious_receipt.json)).
@@ -52,6 +56,7 @@ Full byte-level proofs and derivations are documented in [`knowledge/why_h33.md`
 ## 3. Repository Navigation & Reproducible Verification Commands
 
 - **Scientific Reports & Preregistrations:** [`research/hypotheses.md`](research/hypotheses.md) · [`registry/preregistration_g79_thvc.json`](registry/preregistration_g79_thvc.json) · [`reports/g79_thvc_scientific_report.md`](reports/g79_thvc_scientific_report.md) · [`reports/irregularities.md`](reports/irregularities.md) · [`reports/verification_passes.md`](reports/verification_passes.md) · [`knowledge/ai_disclosure.md`](knowledge/ai_disclosure.md)
+- **Latest active-branch audit:** [`reports/repository_review_2026-10-22_session-2c72eff9.md`](reports/repository_review_2026-10-22_session-2c72eff9.md) (negative/no new experiment; current assigned branch only).
 - **Archived Historical Lanes (preserved intact, non-executable):** [`archive/g79_fabric_offset_f61b17a2/`](archive/g79_fabric_offset_f61b17a2/run_card_f61b17a2.json) · [`archive/h79_mct_c26efec/`](archive/h79_mct_c26efec/README.md) · [`knowledge/prior_work/`](knowledge/prior_work/README.md)
 - **Self-Contained Website (`docs/`):** [`docs/index.html`](docs/index.html) · [`docs/executive-summary.html`](docs/executive-summary.html)
 
@@ -143,7 +148,7 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 
 ## Session `842c8c7c` (2026-10-22) — H80 pilots, official-rules verification, and blocked-holdout run card (`arena/842c8c7c-gemsdoe79`)
 
-**Decision: no new file is submitted.** The gate at the top of this README is unchanged: the canonical file is G79-THVC, and the automated gate says OK TO SUBMIT: NO. This session used **0** slots and **2 of 3** experiments. Full review: [`reports/session_review_842c8c7c.md`](reports/session_review_842c8c7c.md). Run card: [`run_card_h80_pilots.json`](run_card_h80_pilots.json). Irregularities: [`IR-79-143`..`IR-79-151`](reports/irregularities.md).
+**Decision: no new file is submitted.** The gate at the top of this README is unchanged: the canonical file is G79-THVC, and the automated gate says OK TO SUBMIT: NO. This session used **0** slots and **2 of 3** experiments. Full review: [`reports/session_review_842c8c7c.md`](reports/session_review_842c8c7c.md). Run card: [`run_card_h80_pilots.json`](run_card_h80_pilots.json). Irregularities: [`IR-79-148`..`IR-79-156`](reports/irregularities.md).
 
 | Item | Verified result (all `HOLDOUT-DTI`, not organizer-confirmed) |
 |---|---|
@@ -151,9 +156,9 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 | `H80-RADIO-PILOT` (thorium-normalised K residual) | **Negative.** Candidate `0.0206` / `0.0318`, raw-K control `0.0274` / `0.0294`. Below random on seed 20 (`-0.0250 [-0.0362, -0.0140]`). Canary AUC `0.47` / `0.49`. ASTER silica was not restored. |
 | Protocol step 1: overlap vs registry ([`evidence/h80_pilot_overlap_check.json`](evidence/h80_pilot_overlap_check.json)) | **Not duplicates.** Within-3 px dot overlap is at most `0.2038` (rule: `> 0.70`), and Spearman `|rho| <= 0.045` (rule: `> 0.90`). |
 | Official rules ([NLR PDF, Sept 2026](https://docs.nlr.gov/docs/fy26osti/96647.pdf), via [HeroX 2274](https://www.herox.com/GEMSPrize/resource/2274)) | Three automated feedback submissions per week and one final submission per entity (§3.2, §3.4). Finalists must submit code and documentation (§3.5). A DOE judge makes the final award decision (§3.6.4). Generative-AI use must be disclosed in the narrative (§3.2). Eligibility (§1.3) is an owner confirmation, not a sandbox check. |
-| Leaderboard reconciliation ([live board](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)) | `#1 xiaofanhu 0.4413` and `#2 cfld__ 0.3904` confirmed. `0.2778` (H33) and `0.3195` do **not** appear in the top 50 (`IR-79-149`). They stay USER-REPORTED. |
+| Leaderboard reconciliation ([live board](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/)) | `#1 xiaofanhu 0.4413` and `#2 cfld__ 0.3904` confirmed. `0.2778` (H33) and `0.3195` do **not** appear in the top 50 (`IR-79-154`). They stay USER-REPORTED. |
 | Ranked untried hypotheses ([`research/hypotheses_842c8c7c_ranked.md`](research/hypotheses_842c8c7c_ranked.md)) | 4 hypotheses. Top: **H-A**, the FNHR zero-catalogue physics head placed by the G79-THVC Charnes-Cooper placer. It is **not validated**, and **no slot is used**. Gains listed there are estimates. |
-| Preregistration timestamps | Hand-typed values withdrawn; pilots ran before the commit (`IR-79-143`, a protocol breach). |
+| Preregistration timestamps | Hand-typed values withdrawn; pilots ran before the commit (`IR-79-148`, a protocol breach). |
 
 **Official links for manual review:** [DrivenData problem and metric (page 967)](https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/) · [Leaderboard](https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/) · [Official rules PDF](https://docs.nlr.gov/docs/fy26osti/96647.pdf) · [GeoDAWN (USGS, doi:10.5066/P93LGLVQ)](https://doi.org/10.5066/P93LGLVQ) · [GDR 1391 / MT conductance (doi:10.5066/P9TWT2LU)](https://doi.org/10.5066/P9TWT2LU) · [ScienceBase 62979746d34ec53d276c113b](https://www.sciencebase.gov/catalog/item/62979746d34ec53d276c113b) · [INGENIOUS labels (doi:10.15121/1881483)](https://doi.org/10.15121/1881483)
 
@@ -165,6 +170,25 @@ All **19** concurrent `GEMSDOE79` lanes through `PR #62` (`0f9b09e`, including `
 | Record zero-catalogue pure-physics `HOLDOUT-DTI` | **`0.0906`** `[0.0772, 0.1041]` (`seed 20`) / **`0.0966`** `[0.0815, 0.1118]` (`seed 30`) — decontaminating `1 <= d < 3 px` false-negative scarp flanks (`IR-79-140`) + fusing `27,092` DOE INGENIOUS GDR-1391 thermal wells/springs & geothermometers, Quaternary volcanic vents, dequantized 2 m 3DEP LiDAR antislope polarity, and 10 m 3DEP step persistence surpasses `G79-THVC`'s pure zero-catalogue ablation (`0.0784`). |
 | Full 3-arm `HOLDOUT-DTI` (`gems57-pooled-hide-v2`, `600` canary tests `max AUC = 0.8262 <= 0.90`) | **`F3` (`52% > 1 km`):** **`0.1292`** `[0.1139, 0.1462]` / **`0.1431`** `[0.1242, 0.1610]` (`paired Δ = +0.0331 / +0.0442` vs `H33` `0.0961 / 0.0989`) · **`F2` (`60% > 1 km`):** **`0.1207 / 0.1332`** · **`F1` (`70% > 1 km`, H33-matched):** **`0.1078 / 0.1173`** (all 3 arms beat `H33` on both seeds with paired 95% CIs strictly `> 0`; ranks #3 blind placed-dot `HOLDOUT-DTI` behind `G79-THVC` and `H79-NHR`). |
 | `0 / 934` sparse competition uniqueness proof (`1,210` total rasters across `93` repos) | **`0 / 934` duplicates across ALL comparable sparse dot fields (`<= 75,308` dots, max overlap `0.6726 <= 0.70`, `0.4814` vs `H33`, `0.4405` vs `G79-THVC`)** + **`0 / 32` space-filling false positives (`chance-calibrated-v4`, `IR-79-139`)**; stopped cleanly with zero post-hoc capping on `25` un-budget-matched wide sweeps (`80,000–985,492` dots, where `H33` itself overlaps **`0.9295`**; `IR-79-142`, [`reports/fnhr_analysis.md`](reports/fnhr_analysis.md), [`reports/session_review_a57e2a7f.md`](reports/session_review_a57e2a7f.md)). |
+
+---
+
+## Session `bda00cff` — `G79-CFSKD` (negative, DO NOT SUBMIT)
+
+> **OK TO DOWNLOAD: YES (research/inspection). OK TO SUBMIT: NO.** New unique raster
+> [`g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif`](archive/g79_cfskd_bda00cff/g79-cfskd-exp3-20261022-bda00cff-zeros-DO-NOT-SUBMIT.tif)
+> (37,654 dots, SHA-256 `418d1292e9d27314e94597185e8858ff4697ec161f7aa66864a078091a7bbe85`) passes all
+> automated format/[0,1]/CRS/footprint checks ([`evidence/cfskd/validator.json`](evidence/cfskd/validator.json),
+> 0 human inspection) and local-archive uniqueness (max 3-px overlap 0.5240 ≤ 0.70, max Spearman 0.0573 ≤ 0.90),
+> but **HOLDOUT-DTI (gems57-pooled-hide-v2) = 0.0654 (seed 20, n=11,321) / 0.0678 (seed 30, n=11,342)** —
+> below EXP1 physics-only (0.0825/0.0843), the H33 fold-fair control (0.0961/0.0989) and G79-THVC
+> (0.1905/0.1944). The K_d potassic residual and Coulomb flank-shadow veto are falsified on both seeds.
+> Verdict **negative**, 0 weekly slots used. Card: [`run_card_cfskd.json`](run_card_cfskd.json) ·
+> Summary: [`reports/cfskd_summary.html`](reports/cfskd_summary.html) · Analysis: [`reports/cfskd_analysis.md`](reports/cfskd_analysis.md).
+> Canonical artifact remains G79-THVC above. Limitations: full 1,108-raster registry uniqueness was not
+> re-restored this session (local 4-raster scope only); H80-MT-PHASE/H80-DRAPE-DECONV blocked (data not in pinned inputs).
+
+---
 
 ## Original project prompt` (`IR-79-81`).
 - Re-verified the frozen universal overlap witness (`evidence/preflight_4b4b1214.json`, exit 2).
@@ -979,3 +1003,4 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
+

@@ -102,7 +102,7 @@ def main():
             "Holdout proxy only (HOLDOUT-DTI, gems57-pooled-hide-v2); public or private DrivenData scores are not produced here.",
             "Training features are restored from owner GitHub mirrors, not organizer-authenticated.",
             "Silica/ASTER normalisation for H80-RADIO-KD not restored; GeoDAWN radiometric units not stated in the restored metadata.",
-            "Full H80-MT-PHASE hypothesis is invalid as specified: the official USGS MT product is conductance (2-200 km), see IR-79-144.",
+            "Full H80-MT-PHASE hypothesis is invalid as specified: the official USGS MT product is conductance (2-200 km), see IR-79-149.",
         ],
     }
     (ROOT / "run_card_h80_pilots.json").write_text(json.dumps(card, indent=2, allow_nan=False) + "\n")

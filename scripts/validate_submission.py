@@ -45,7 +45,6 @@ def main():
     ap.add_argument('--registry', action='append', type=Path, default=[], help='Diagnostic only: path lists cannot prove full inventory')
     ap.add_argument('--report', type=Path, help='Write a new JSON report; never overwrite an existing file')
     args = ap.parse_args()
-    path = Path(args.path) if args.path else ROOT / json.loads((ROOT / 'run_card.json').read_text())['submission_file']
 
     def inspect(tif):
         if args.template:
@@ -59,24 +58,50 @@ def main():
             result['registry_inventory_complete'] = False
         return result
 
-    if path.suffix.lower() == '.zip':
-        import tempfile
-        with zipfile.ZipFile(path) as archive:
-            members = archive.namelist()
-            if len(members) != 1 or not members[0].lower().endswith(('.tif', '.tiff')) or Path(members[0]).name != members[0]:
-                raise ValueError('ZIP must contain exactly one root-level TIFF')
-            with tempfile.TemporaryDirectory() as tmp:
-                tif = Path(tmp) / members[0]
-                tif.write_bytes(archive.read(members[0]))
-                result = inspect(tif)
-    else:
-        result = inspect(path)
-    rendered = json.dumps(result, indent=2, allow_nan=False)
+    stage = 'resolve_artifact'
+    try:
+        path = Path(args.path) if args.path else ROOT / json.loads(
+            (ROOT / 'run_card.json').read_text())['submission_file']
+        stage = 'inspect_artifact'
+        if path.suffix.lower() == '.zip':
+            import tempfile
+            with zipfile.ZipFile(path) as archive:
+                members = archive.namelist()
+                if (len(members) != 1
+                        or not members[0].lower().endswith(('.tif', '.tiff'))
+                        or '/' in members[0] or '\\' in members[0]
+                        or Path(members[0]).name != members[0]):
+                    raise ValueError('ZIP must contain exactly one root-level TIFF')
+                with tempfile.TemporaryDirectory() as tmp:
+                    tif = Path(tmp) / members[0]
+                    tif.write_bytes(archive.read(members[0]))
+                    result = inspect(tif)
+        else:
+            result = inspect(path)
+        # Validate serialization before writing or printing any apparent PASS.
+        rendered = json.dumps(result, indent=2, allow_nan=False)
+        if args.report:
+            stage = 'write_report'
+            args.report.parent.mkdir(parents=True, exist_ok=True)
+            with args.report.open('x') as out:
+                out.write(rendered + '\n')
+    except Exception as exc:
+        # CLI inspection boundary only; preserve shared validators unchanged.
+        # Do not leak paths / exception strings or reuse an old successful report.
+        result = {'format_passed': False, 'does_not_approve_submission': True,
+                  'inspection_error': {'stage': stage, 'type': type(exc).__name__},
+                  'message': 'Validation could not complete. Do not submit.'}
+        rendered = json.dumps(result, indent=2, allow_nan=False)
+        # Persist rejection evidence when requested; never replace an old report.
+        if args.report and stage != 'write_report':
+            try:
+                args.report.parent.mkdir(parents=True, exist_ok=True)
+                with args.report.open('x') as out:
+                    out.write(rendered + '\n')
+            except OSError as report_exc:
+                result['report_error'] = {'type': type(report_exc).__name__}
+                rendered = json.dumps(result, indent=2, allow_nan=False)
     print(rendered)
-    if args.report:
-        args.report.parent.mkdir(parents=True, exist_ok=True)
-        with args.report.open('x') as out:
-            out.write(rendered + '\n')
     # A supplied legacy path-list comparison can reject, never certify uniqueness.
     return 0 if result['format_passed'] and not args.registry else 1
 
