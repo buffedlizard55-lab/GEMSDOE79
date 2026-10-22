@@ -1411,5 +1411,33 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 <td>Added <code>G79-CJX_archived</code> to <code>LOCAL_GEMS79_LANE_SPECS</code> in <code>scripts/audit_post_snapshot_siblings.py</code>, synchronized <code>evidence/post_snapshot_sibling_audit.json</code> and <code>docs/evidence/post_snapshot_sibling_audit.json</code>, and recorded the complete reconciliation in <code>evidence/review_b80aa866/halo_domain_reconciliation.json</code>.</td>
 </tr>
 </tbody>
+</table>
+<h3>Session <code>efdbc11f</code> addendum (2026-10-22) — Multi-band/sentinel raster-scanner hardening, fail-closed catalogue &amp; <code>G79-CJX</code> novelty bounds, and five untried hypotheses (<code>arena/efdbc11f-gemsdoe79</code>)</h3>
+<p>Full three-pass review: <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_efdbc11f.md"><code>reports/session_review_efdbc11f.md</code></a>.</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding and evidence</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-191</td>
+<td><strong>Single-band-only read, missing float32 sentinel/all-NaN flags, and silent file overwrite in <code>scripts/scan_tracked_rasters.py</code>.</strong> <code>scan_one()</code> called <code>s.read(1)</code> (silently ignoring out-of-<code>[0, 1]</code> or NaN values on bands <code>2..N</code>), did not count explicit float32 nodata sentinels (<code>-3.4028235e+38</code>, <code>-9999</code>, <code>-999</code>, <code>9999</code>, <code>1e30</code> — the exact sentinel class documented on <code>GEMSDOE32</code> behind DrivenData <code>"Predicted values must be in range [0, 1]"</code> rejections) or flag all-NaN rasters (<code>n_finite == 0</code>), and overwrote <code>--out</code> unconditionally.</td>
+<td>Updated <code>scripts/scan_tracked_rasters.py</code> to scan all bands (<code>s.read()</code>) while preserving <code>role</code>, <code>single_band</code>, and <code>nodata_is_nan</code>, report <code>bands_checked</code>, <code>n_sentinel</code>, and <code>non_single_band_float32</code>, flag <code>n_finite == 0</code>, normalize paths inside <code>ROOT</code>, and refuse overwriting existing <code>--out</code> files unless <code>--force</code> is passed; added unit tests in <code>tests/test_scan_tracked_rasters.py</code> and saved <code>evidence/review_efdbc11f/tracked_raster_scan.json</code> (<code>37</code> tracked rasters, <code>0</code> candidate sentinels).</td>
+</tr>
+<tr>
+<td>IR-79-192</td>
+<td><strong>Fail-open explicit <code>catalogue_path</code> handling and negative <code>radius_px</code> crash in <code>scripts/measure_registry_halo.py</code>.</strong> When an explicit <code>catalogue_path</code> was missing or mismatched the footprint grid (<code>shape</code>/<code>transform</code>/<code>crs</code>), <code>measure()</code> silently skipped off-catalogue calculation instead of raising <code>FileNotFoundError</code> / <code>ValueError</code>, negative <code>radius_px</code> produced an empty kernel error, and <code>--catalogue</code> was not exposed on the CLI.</td>
+<td>Enforced fail-closed <code>FileNotFoundError</code> on missing explicit <code>catalogue_path</code> and <code>ValueError</code> on catalogue grid mismatch or <code>radius_px &lt; 0</code>, exposed <code>--catalogue</code>, enforced <code>allow_nan=False</code> + parent directory creation on <code>--json</code>, and added regression tests in <code>tests/test_measure_registry_halo.py</code>.</td>
+</tr>
+<tr>
+<td>IR-79-193</td>
+<td><strong>Fail-open partial-registry novelty bounds in <code>scripts/cjx_gate.py</code>, missing clean-checkout <code>--verify-readonly</code> mode, and <code>0.4413</code> evidence-class mislabelling in <code>README.md</code> / <code>scripts/build_site.py</code>.</strong> Inside <code>scripts/cjx_gate.py</code>, <code>G4_novelty</code> evaluated <code>lit_ok = True</code> whenever <code>.cache/registry/</code> was empty or incomplete (<code>n_checked &lt; len(rows)</code>), lacked a read-only clean-checkout verifier (<code>--verify-readonly</code>), and <code>README.md</code> + <code>scripts/build_site.py</code> mislabelled <code>0.4413</code> as an <code>"unverified historical report"</code> rather than a verified <code>PUBLIC-OBSERVATION</code> (<code>#1 xiaofanhu</code>).</td>
+<td>Added fail-closed <code>evaluate_novelty_bounds()</code> requiring <code>n_checked == n_expected &gt; 0</code>, added <code>--verify-readonly</code> (<code>exit 2</code>, zero file mutations, live byte/SHA-256/ZIP/format/holdout/novelty check) tested in <code>tests/test_cjx.py</code>, corrected <code>0.4413</code> labelling in <code>README.md</code> and <code>scripts/build_site.py</code>, and published <code>evidence/review_efdbc11f/</code> + <code>research/hypotheses_efdbc11f.md</code> (<code>G79-EF1</code>..<code>G79-EF5</code>).</td>
+</tr>
+</tbody>
 </table></div></section></main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

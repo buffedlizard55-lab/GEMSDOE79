@@ -104,3 +104,15 @@ def test_off_catalogue_accounting_and_repo_relative_paths(tmp_path):
         assert doc["footprint_path"] == "data/reference/sample_submission.tif"
         assert doc["allowed_cells_finite_footprint"] - doc["catalogue_positive_cells_in_footprint"] == doc["off_catalogue_allowed_cells"] == 5106385
         assert doc["uncovered_allowed_cells"] - doc["uncovered_cells_on_catalogue"] == doc["off_catalogue_uncovered_cells"]
+
+
+def test_explicit_missing_or_mismatched_catalogue_fails_closed(tmp_path):
+    _write(tmp_path / "fp.tif", np.ones((6, 6), dtype="float32"))
+    _write(tmp_path / "reg.tif", np.zeros((6, 6), dtype="float32"))
+    _write(tmp_path / "bad_cat.tif", np.zeros((5, 5), dtype="float32"))
+    with pytest.raises(FileNotFoundError):
+        mod.measure(tmp_path / "reg.tif", tmp_path / "fp.tif", catalogue_path=tmp_path / "missing.tif")
+    with pytest.raises(ValueError, match="catalogue raster grid"):
+        mod.measure(tmp_path / "reg.tif", tmp_path / "fp.tif", catalogue_path=tmp_path / "bad_cat.tif")
+    with pytest.raises(ValueError, match="radius_px"):
+        mod.measure(tmp_path / "reg.tif", tmp_path / "fp.tif", radius_px=-1)
