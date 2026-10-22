@@ -993,3 +993,11 @@ Do not stop after the first pass. Each pass must build on the previous one. Befo
 Go ahead and create a pull request and then merge the pull request onto the main. Make suggestions for what work still needs to be done and any limitations that is in the way of a successful project.  It should be worked on in this next session or the next session.  Work line by line verify everything no hallucinations.
 
 </details>
+
+## Latest software-only review (session 566bec0c, 2026-10-22)
+
+[Three-pass review and limitations](reports/session_review_566bec0c.md): pinned
+witness reproduced; no new experiments or slots used. Preflight now rejects
+malformed certificate types and hashes explicitly. **OK TO DOWNLOAD: YES. OK TO
+SUBMIT: NO.** The literal novelty blocker remains unresolved; no new TIFF is
+presented as protocol-unique.
