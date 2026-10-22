@@ -1,62 +1,10 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>G79-UGBP — unique research GeoTIFF · GEMSDOE79</title><link rel="stylesheet" href="assets/site.css"></head>
-<body><a class="skip" href="#main">Skip to content</a><main class="wrap" id="main">
-<p><a href="index.html">← GEMSDOE79 home</a> · <a href="executive-summary.html">Decision / executive summary</a> · <a href="tipstep-submission.html">G79-TIPSTEP</a></p>
-<h1>G79-UGBP — new unique GeoTIFF (this session, 2026-10-22)</h1>
-<div class="download-warning"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong><br>
-Machine-validated, locally unique research artifact. It does <strong>not</strong> beat the current
-holdout incumbent, so no weekly competition slot is approved. No human inspector is needed for
-this decision — it is computed from the gates below (project validators, not manual review).</div>
-<p>
-<a class="button" href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/ugbp/gems79-ugbp-20261022-37654dots-zeros.tif">↓ Download GeoTIFF (135 KB)</a>
-<a class="button secondary" href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/artifacts/ugbp/gems79-ugbp-20261022-37654dots-zeros.zip">↓ ZIP (same single TIFF)</a>
-</p>
-<h2>Submission identity (for your records — do not upload this one)</h2>
-<div class="code-label">Submission name</div><div class="code-box">gems79-ugbp-20261022</div>
-<div class="code-label">Note (93/140 characters)</div><div class="code-box">G79-UGBP disequilibrium up-gradient conduits x gravity step gate, dotted 2.8px learner fusion</div>
-<div class="code-label">GeoTIFF SHA-256</div><div class="code-box">1bf7a15622e0077f78ffd9b4939e1ea475c6566bd3ad170e9084146a7115a35a</div>
-<h2>Local range checks and the unresolved portal error</h2>
-<p>That portal error is consistent with NaN/out-of-range cells. This file uses
-<strong>zeros outside the footprint</strong>: single float32 band, 12,279,160 finite cells,
-0 NaN/Inf, min 0.0, max 1.0, 0 positive pixels on the mapped catalogue, EPSG:32611,
-3730×3292, transform matching the sample submission — verified by
-<code>scripts/validate_submission.py</code> (local format PASS; a local PASS alone never
-approves a slot). One disclosed discrepancy remains: the official text requires null/NaN
-outside the bounds (rule R6 in <code>src/gems79/portal_spec.py</code>, which this zeros file
-fails, as do all shipped repo files — IR-79-224). The prior rejected upload still cannot be
-diagnosed without its bytes and receipt.</p>
-<h2>Gates (all labelled, no projections)</h2>
-<ul>
-<li><strong>Format/range (local):</strong> PASS. Official-text portal spec: R1–R5, R7, R8 PASS; R6 FAIL (above).</li>
-<li><strong>HOLDOUT-DTI</strong> (evaluator gems57-pooled-hide-v2, α=0.2, β=0.8, 300 m kernel):
-candidate (Exp2) seed 20 = 0.1465 [0.1298, 0.1615], n=11,321 withheld px; seed 30 = 0.1477
-[0.1289, 0.1661], n=11,342. Paired vs uniform: +0.102 [+0.087, +0.118] / +0.098 [+0.079, +0.116].
-Leakage canaries (46 tests): max symmetric AUC 0.806 &lt; 0.90 (visible-distance feature);
-all four UGBP chemistry features at chance (0.500–0.512); the leakage column
-<code>dist_known_fault_px</code> was never read.</li>
-<li><strong>Mechanism check: NOT SUPPORTED on this instrument.</strong> Pure UGBP surface
-(Exp1) = 0.0148 / 0.0100, below uniform; learner without UGBP (Exp3) = 0.1458 / 0.1468, so the
-UGBP increment is +0.0007 / +0.0009 with overlapping intervals. Blind-geothermal value is
-untested by a catalogue holdout — stated, not used to excuse promotion.</li>
-<li><strong>Incumbent gate: FAIL.</strong> Below G79-THVC holdout 0.1905 / 0.1944. Protocol: do not spend a slot.</li>
-<li><strong>Novelty (local scope):</strong> surface before placement vs submission rasters:
-max |Spearman| 0.119 &lt; 0.90. Final dots vs 47 local GeoTIFFs: sparse (≤60k-dot) max 3-px
-forward overlap 0.663 &lt; 0.70 (worst: CSKD archive); literal all-files max 0.892 is a dense
-continuous surface (1.88M positive cells), the documented halo-saturation obstruction.
-Full 1,108-row cross-repo registry not scanned offline — novelty is locally measured,
-not registry-certified.</li>
-<li><strong>Organiser score:</strong> none. No ORGANIZER-CONFIRMED receipt exists for this file.
-Historical H33 0.2778 is unverified; leaderboard 0.4413 belongs to another entrant. No score
-above 0.2778 is promised or implied.</li>
-</ul>
-<h2>How to submit a (future, approved) file — executive summary</h2>
-<ol>
-<li>Only upload a file whose page states “OK TO SUBMIT: YES” from the selector; this one states NO.</li>
-<li>On DrivenData: New submission → choose the single-band .tif (or a .zip containing exactly one .tif).</li>
-<li>Paste the submission name and the ≤140-character note shown on that file's page.</li>
-<li>Confirm the page reports a free weekly slot on your account before spending it.</li>
-</ol>
-<p>Full evidence: <code>run_card_ugbp.json</code>, <code>evidence/ugbp_holdout.json</code>,
-<code>evidence/ugbp_run.log</code>, <code>registry/preregistration_g79_ugbp.json</code>,
-<code>research/hypotheses_ugbp.md</code> (five ranked hypotheses, top candidate validated here).</p>
-</main></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<title>UGBP historical negative research · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
+<a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (NO)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a href="thvc-nanfix.html">NANFIX (NO)</a><a href="ugbp-submission.html">UGBP (NO)</a><a href="gem-submission.html">GEM (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">CONCURRENT ARCHIVE</p><h1>UGBP: no submission approved.</h1></section><section class="section"><p>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. This is a concurrent historical result, not an experiment from review 3d53e182. Full protocol novelty is not established; local zero-exterior format does not pass official R6.</p><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_ugbp.json">Historical card and artifact paths</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/tree/main/artifacts/ugbp">Research downloads — DO NOT SUBMIT</a></p></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_aa2b12b5.md">Current review · aa2b12b5</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

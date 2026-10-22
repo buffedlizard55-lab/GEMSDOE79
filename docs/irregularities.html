@@ -5,7 +5,7 @@
 <title>Irregularities &amp; stop reasons · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="gem-submission.html">GEM (NO)</a><a href="ugbp-submission.html">UGBP (NO)</a><a href="thvc-nanfix.html">NANFIX</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (0.1982 #1)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (NO)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a href="thvc-nanfix.html">NANFIX (NO)</a><a href="ugbp-submission.html">UGBP (NO)</a><a href="gem-submission.html">GEM (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap"><section class="page-head"><p class="eyebrow">OWN THE OUTCOME</p><h1>Failures are part of the record.</h1></section><section class="section"><div class="prose table-scroll"><h2>Irregularities and disposition</h2>
 <p>Entries retain their original dates and are ordered by review sequence. No entry authorizes a threshold exemption.</p>
 <table>
@@ -1857,6 +1857,28 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </tr>
 </tbody>
 </table>
+<h3>Session <code>3d53e182</code> — prospective shared format repair</h3>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Finding</th>
+<th>Resolution / remaining limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IR-79-242</td>
+<td>IR-79-224 remained unresolved: the shared writer rejected NaN exterior although the separate R6 check requires it.</td>
+<td>Added explicit <code>exterior="nan"</code> mode in the shared writer and validators; exact template-mask check, finite real [0,1] model input, NaN exterior encoding, strict JSON receipt, TIFF/ZIP roundtrip tests. Legacy mode and historical bytes unchanged. No new scientific raster or promotion.</td>
+</tr>
+<tr>
+<td>IR-79-243</td>
+<td>TIPSTEP page was absent from the site generator/manifest and claimed zero exterior fixes the portal error; the historical card makes the same unsupported causal claim.</td>
+<td>Generate an explicit historical negative page with official R6 failure and no full-registry novelty claim. Preserve historical card as evidence, mark its error diagnosis superseded. No rejected-file bytes or organizer receipt exist to establish that diagnosis.</td>
+</tr>
+</tbody>
+</table>
 <h3>Session <code>aa2b12b5</code> — current preflight, TIPSTEP publication audit and closed-lane hardening (2026-10-22)</h3>
 <table>
 <thead>
@@ -1868,34 +1890,39 @@ measurement already recorded at IR-79-74 (32 informative dot fields above 0.70,
 </thead>
 <tbody>
 <tr>
-<td>IR-79-242</td>
+<td>IR-79-244</td>
 <td>This fresh checkout had 0/13 runtime inputs, and the literal novelty preflight again returned exit 2 because a hash-verified registry witness covers every allowed cell. The requested new unique nonempty submission is therefore impossible under the prompt's unchanged rule.</td>
 <td>Restored and SHA-256 verified 13/13 owner-mirrored inputs (<code>evidence/runtime_data_status_aa2b12b5.json</code>) and preserved a fresh stop receipt (<code>evidence/preflight_aa2b12b5.json</code>). No surface, holdout, placement, new TIFF, selector action or slot. Mirror integrity is not organizer authentication; a prospective shared protocol decision remains necessary.</td>
 </tr>
 <tr>
-<td>IR-79-243</td>
+<td>IR-79-245</td>
 <td>The inherited TIPSTEP page existed in <code>docs/</code> but not in <code>scripts/build_site.py</code>'s page manifest. A clean build would delete it, while <code>check_site.py</code> failed the current checkout; baseline tests had two failures (632 passed).</td>
 <td>Added a receipt-driven TIPSTEP renderer, navigation, raw-byte research download links and the manifest-driven page contract to builder/checker (17 pages after concurrent-main reconciliation). The page now distinguishes local range/grid PASS from official R6 FAIL and local sparse diagnostics from full-registry novelty.</td>
 </tr>
 <tr>
-<td>IR-79-244</td>
+<td>IR-79-246</td>
 <td>TIPSTEP's page claimed its zero-exterior file "will NOT trigger" the portal range error and that NaN-outside exports cause it, without the rejected bytes/receipt; official R6 actually fails on this file. Its historical UNIFORM control also excludes a &gt;2 px full-catalogue collar while TIPSTEP uses the visible catalogue, making their contrast non-comparable.</td>
 <td>Corrected <code>run_card_tipstep.json</code> and the generated page: earlier portal cause is undiagnosed, R6 fails, and the uniform contrast is not promotion evidence. Historical scores remain labelled HOLDOUT-DTI and below the incumbent; no rescore or raster rewrite.</td>
 </tr>
 <tr>
-<td>IR-79-245</td>
+<td>IR-79-247</td>
 <td>Seven mutating scripts for stopped TIPSTEP/TDW/MDSC/VENTPROX lanes lacked fail-closed lifecycle guards; TIPSTEP's runner could delete and regenerate outputs, and VENTPROX created directories at import time.</td>
 <td>Added <code>enforce_open_lane</code> before bulk reads/writes to <code>run_tipstep.py</code>, <code>novelty_tipstep.py</code>, <code>run_tdw.py</code>, <code>tdw_novelty.py</code>, <code>run_mdsc.py</code>, <code>finalize_mdsc.py</code>, and <code>generate_ventprox_submission.py</code>; registered them and their artifacts/evidence in lifecycle regression tests. No closed lane was rerun.</td>
 </tr>
 <tr>
-<td>IR-79-246</td>
+<td>IR-79-248</td>
 <td>Concurrent CSHD/NANFIX text merged into this review claimed the NaN-exterior artifact "eliminates" or "will not trigger" the portal range error. Local R1–R8 evidence cannot prove portal acceptance or diagnose a different rejected upload.</td>
 <td>Corrected active README, <code>run_card_thvc_nanfix.json</code>, and <code>docs/thvc-nanfix.html</code> to state local R1–R8 PASS with portal acceptance/cause unverified. No scientific raster, score or negative novelty verdict changed.</td>
 </tr>
 <tr>
-<td>IR-79-247</td>
+<td>IR-79-249</td>
 <td>Concurrent GEM/UGBP static pages were added without registration in the site builder, so a clean build would delete them; GEM evidence links were broken and UGBP repeated an unsupported portal-cause heading.</td>
-<td>Registered both pages in the manifest/navigation, repaired source links, added the official R6 limitation, and changed the heading to local range checks with the earlier rejection undiagnosed. All lane rasters and negative decisions remain unchanged.</td>
+<td>Registered both pages in the manifest/navigation. The final shared-main historical page templates preserve negative decisions and official R6 limitations without a portal-cause claim; all lane rasters remain unchanged.</td>
+</tr>
+<tr>
+<td>IR-79-250</td>
+<td>The incoming TILT-RING-100K lane placed three identical copies of a 49 MB raster (root, <code>docs/downloads</code>, <code>artifacts</code>) and marked <code>ok_to_submit:true</code> / <code>verdict:promote</code> without registry-novelty clearance. Independent R1–R8 validation also fails R6 on 7,111,787 zero exterior cells.</td>
+<td>Preserved the artifact and HOLDOUT-DTI receipt in <code>artifacts/tilt_ring_100k/</code>, removed only duplicate root/public copies, and changed its card/receipt to research-only <code>negative</code>, <code>ok_to_submit:false</code>, with missing canary/novelty evidence, failed R6, no selector receipt and no organizer score. No prediction pixels or HOLDOUT-DTI values were changed.</td>
 </tr>
 </tbody>
 </table></div></section></main>

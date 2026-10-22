@@ -18,6 +18,27 @@ lacked fail-closed guards. The rebuilt page now reports official **R6 FAIL**, li
 novelty diagnostic, and documents the non-comparable historical uniform-control mask. No closed lane
 was rerun and no historical TIFF bytes changed.
 
+## Current review — session `3d53e182`, 2026-10-22
+
+**OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.** Download permission is for the inherited
+research archive only. **No new unique submission TIFF was generated.** Fresh
+preflight proves every nonempty candidate fails the literal overlap rule; no
+experiment or slot was used. Historical “latest session” sections below are archives,
+not this session's work or full-protocol uniqueness claims.
+
+Completed the next shared engineering task: explicit `exterior="nan"` support in
+`vendor/gems57/submission_writer.py` and its validators. Synthetic roundtrip tests
+pass the separate R1–R8 validator without altering historical TIFFs. Legacy zero
+exterior is not official R6 compliance, and no output is promoted automatically.
+Restored all thirteen pinned owner-mirror inputs and reproduced the cached features.
+
+[Three-pass review](reports/session_review_3d53e182.md) ·
+[Conditional hypotheses](research/hypotheses_3d53e182.md) ·
+[Source-access ledger](evidence/source_review_3d53e182.json) ·
+[Negative run card](evidence/run_card_3d53e182.json).
+The original prompt is preserved below, including Core Values and Own the Outcome;
+the validation-gates addendum above remains part of the project contract.
+
 ## Latest review — 2026-10-22, session `arena/1f1c75eb-gemsdoe79`
 
 **A new unique research GeoTIFF was generated, validated locally, and published with an explicit download/submit decision.**

@@ -1,0 +1,31 @@
+{
+  "date_utc": "2026-10-22",
+  "session": "3d53e182",
+  "fresh_checks": [
+    {
+      "url": "https://github.com/buffedlizard55-lab/GEMSDOE32/blob/main/docs/index.html",
+      "transport": "GitHub contents API",
+      "sha256": "4743b95e19539eb1b11bff7ce5cfb1989cdbf0e92d6bd5e7b07c8c51b6173887",
+      "finding": "Source contains UNSCORED and a 0.2747 projection; does not contain 0.2778. Neither is an organizer receipt."
+    },
+    {
+      "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+      "transport": "GitHub contents API",
+      "readme_sha256": "cfa4d55559c9128313beb9417eae7e0a94c31677132afb1120f9e86222804239",
+      "finding": "Official reference repository and README accessible; not competition account access."
+    }
+  ],
+  "not_live_reverified": [
+    "DrivenData leaderboard, rules and submission account",
+    "USGS releases",
+    "GDR resource binaries",
+    "NLR rules PDF"
+  ],
+  "limitation": "Outbound access limited to GitHub and package registries. Existing source ledgers are historical evidence, not freshly fetched official pages.",
+  "score_classes": {
+    "0.2778": "USER-REPORTED; no submission-page receipt",
+    "0.4413": "USER-REPORTED in prompt; historical public observation in repo, not reverified this session",
+    "0.3195": "conflicting older USER-REPORTED value"
+  },
+  "new_organizer_confirmed_scores": []
+}

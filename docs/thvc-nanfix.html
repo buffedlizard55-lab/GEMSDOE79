@@ -1,97 +1,10 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-<meta name="description" content="G79-THVC-NANFIX: same 35,093 dots as THVC, NaN exterior; local R1-R8 PASS. Portal acceptance unverified.">
-<title>G79-THVC-NANFIX · NaN-exterior format variant · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script><script src="assets/download-check.js" defer></script></head>
+<meta name="description" content="GEMSDOE79: a locally format-valid research GeoTIFF, rejected by the duplicate gate; download for research, do not submit.">
+<title>THVC NaN-exterior historical companion — not unique · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script></head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cskd.html">CSKD</a><a href="cjx-submission.html">CJX</a><a href="thvc-nanfix.html" aria-current="page">NANFIX ★</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
-<main id="main" class="wrap">
-
-<section class="page-head">
-<p class="eyebrow">G79-THVC-NANFIX · 2026-10-22 · FORMAT VARIANT</p>
-<h1>Same 35,093 dots. NaN exterior.</h1>
-<p class="lead">Byte-distinct from THVC-zeros, dot-identical. <strong>R1–R8 ALL PASS</strong> via <code>scripts/validate_portal_spec.py</code> — including <strong>R6 NaN exterior</strong>. Local R1–R8 validation passes while the inherited HOLDOUT-DTI remains 0.1905 / 0.1944; portal acceptance is untested. Like THVC, it is still blocked by the literal novelty gate (max overlap 1.0 > 0.70) — so it remains <strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong></p>
-</section>
-
-<section class="section">
-<div class="download-warning"><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong><br>
-Format-validated research artifact. Portal R1–R8 PASS (R6 NaN exterior). Holdout DTI 0.1905 / 0.1944 inherited from byte-identical dot set. Literal novelty still BLOCKED — no slot is approved; manual upload does not override it.
-</div>
-<div class="actions"><a class="button" href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.tif">↓ THVC-NANFIX GeoTIFF (GitHub) <span>1.5 MiB</span></a><a class="button secondary" href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.zip">↓ ZIP (GitHub) <span>275 KiB</span></a></div>
-<p class="micro">1 band · float32 · EPSG:32611 · 100 m · 3730×3292 · 35,093 binary dots · nodata=NaN · exterior NaN · interior [0,1] · CRS/shape/transform match official sample</p>
-<p class="micro">Also available: <a href="downloads/g79-thvc-ccsubmod-20261021-b262e265-zeros-DO-NOT-SUBMIT.tif">Original THVC-zeros (R6 FAIL, history only)</a> · <a href="executive-summary.html#check-download">Check downloaded file identity</a></p>
-</section>
-
-<section class="section" id="check-download">
-<div class="panel" data-download-manifest="[{&quot;kind&quot;:&quot;TIFF&quot;,&quot;bytes&quot;:1586230,&quot;sha256&quot;:&quot;a141df568274df43be4a903c5adb87b9d18fb60c8f18ec12d3a5d8379e0f1f52&quot;},{&quot;kind&quot;:&quot;ZIP&quot;,&quot;bytes&quot;:281477,&quot;sha256&quot;:&quot;02f2dd8bc4e946f4984c8b621266736e62318e6c6937e250f6e428bd87060953&quot;}]" aria-busy="false">
-<h2>Check your downloaded file privately</h2>
-<p>Choose your downloaded TIFF or ZIP to compare SHA-256 + byte size with this page’s file. No upload or slot involved. A match is <strong>not permission to submit</strong>.</p>
-<label for="download-file"><strong>Downloaded TIFF or ZIP</strong></label><p><input id="download-file" type="file" accept=".tif,.tiff,.zip" aria-describedby="download-check-help download-check-result"></p>
-<p id="download-check-help" class="micro">Browser-only check. Renaming doesn’t change bytes. If unknown, run <code>.venv/bin/python scripts/validate_portal_spec.py YOUR_FILE.tif</code>.</p>
-<p id="download-check-result" data-download-result role="status" aria-live="polite" aria-atomic="true">Choose a file. No approval granted.</p>
-<noscript>JS disabled; use CLI. No approval.</noscript>
-</div>
-</section>
-
-<section class="section"><div class="two-col"><div class="panel">
-<h3>What changed vs THVC-zeros</h3>
-<table>
-<thead><tr><th>Property</th><th>THVC-zeros (original)</th><th>THVC-NANFIX (this file)</th></tr></thead>
-<tbody>
-<tr><td>Dots</td><td>35,093</td><td><strong>35,093 — identical positions</strong></td></tr>
-<tr><td>Interior values</td><td>0 or 1</td><td>0 or 1 — identical</td></tr>
-<tr><td>Exterior (outside footprint)</td><td>0 (finite, R6 FAIL)</td><td><strong>NaN (null, R6 PASS)</strong></td></tr>
-<tr><td>nodata tag</td><td>None</td><td><strong>NaN</strong></td></tr>
-<tr><td>R1–R8</td><td>FAIL (R6 only)</td><td><strong>PASS — all 8</strong></td></tr>
-<tr><td>Holdout DTI (inherited)</td><td>0.1905 / 0.1944</td><td>0.1905 / 0.1944 — identical dots</td></tr>
-<tr><td>SHA-256</td><td>d3db2e959…</td><td>a141df568… — byte-distinct</td></tr>
-<tr><td>Bytes</td><td>137 KiB</td><td>1,586 KiB</td></tr>
-<tr><td>Portal outcome</td><td>R6 FAIL; earlier rejection cause unknown</td><td><strong>Local R1–R8 PASS; acceptance unverified</strong></td></tr>
-<tr><td>Novelty (literal)</td><td>BLOCKED 1.0</td><td>BLOCKED 1.0 — same dots</td></tr>
-</tbody>
-</table>
-<p class="micro">Generated: <code>gems57.grid.write_submission(mode='nan')</code> with <code>arr[footprint]=thvc[footprint]</code>, <code>arr[~footprint]=NaN</code>. Verified via <code>scripts/validate_portal_spec.py</code> exit 0 (all rules pass). Official sample also uses NaN exterior.</p>
-</div><div class="panel">
-<h3>Why H33 scored 0.2778 — and how this lane compares</h3>
-<p><strong>H33 (unverified 0.2778):</strong> D2.8’s 44,090 Poisson 300-m off-catalogue dots minus 6,436 within 2 px of the catalogue = 37,654 dots. The metric is <code>DTI = T / (0.2T+0.2F+0.8G)</code> with max-cover credit per truth cell and summed FP cost per dot. Deleting redundant near-catalogue dots removes FP cost without losing much T — but only if those dots covered truth already seen. Organizer truth decides; thinning is not always beneficial.</p>
-<p><strong>CSKD (best holdout 0.2145):</strong> 84-channel ensemble + Lahontan veto + BLM mining deconfound + Kd + Coulomb shadow + counterfactual Charnes-Cooper. Decontaminating <code>d_vis ≤ 3px</code> shifted gain from 52.8% isotropic distance to 9.7%, proving directional physics generalizes.</p>
-<p><strong>THVC-NANFIX (this file):</strong> Same 0.1905/0.1944 HOLDOUT-DTI as THVC. It does not establish a score above H33’s reported 0.2778 or today’s #1 0.4413. Its local R1–R8 PASS does not establish portal acceptance or override the failed novelty gate.</p>
-<p class="micro"><a href="analysis.html">Full H33 analysis ↗</a> · <a href="g79-cskd.html">CSKD page ↗</a> · <a href="evidence/g79_thvc_results.json">THVC results ↗</a></p>
-</div></div></section>
-
-<section class="section"><div class="panel">
-<h3>Submission name & note (≤140 chars each) — copy for the portal form</h3>
-<div class="copy-line"><div class="code-label">Submission name</div><button class="copy" data-copy="submission-name">Copy name</button></div>
-<div class="code-box" id="submission-name">g79-thvc-nanfix-35093dots-20261022-b262e265-nan</div>
-<div class="copy-line"><div class="code-label">Comment · 80/140</div><button class="copy" data-copy="submission-note">Copy note</button></div>
-<div class="code-box" id="submission-note">G79-THVC-NANFIX: same 35,093 dots, NaN exterior; local R1-R8 PASS; DO NOT SUBMIT</div>
-<div class="code-label">GeoTIFF SHA-256</div><div class="code-box">a141df568274df43be4a903c5adb87b9d18fb60c8f18ec12d3a5d8379e0f1f52</div>
-<div class="code-label">ZIP SHA-256</div><div class="code-box">02f2dd8bc4e946f4984c8b621266736e62318e6c6937e250f6e428bd87060953</div>
-<p class="micro">The portal form has a “Note” field for short comments (≤140 chars). A note is not a score; it just helps you tell submissions apart.</p>
-</div></section>
-
-<section class="section"><div class="panel">
-<h3>Validation gates — every check is automated, no human inspector</h3>
-<div class="check-row" data-passed="true"><div class="check-icon">✓</div><div><strong>PASS · Portal R1–R8 (official spec)</strong><span>Single float32 band · EPSG:32611 · 3730×3292 · NaN exterior · finite [0,1] interior — exit 0 from <code>scripts/validate_portal_spec.py</code>.</span></div></div>
-<div class="check-row" data-passed="true"><div class="check-icon">✓</div><div><strong>PASS · Preflight (local policy)</strong><span>All cells finite inside, null outside, values in [0,1]. Passes <code>gems79.preflight.validate</code>.</span></div></div>
-<div class="check-row" data-passed="true"><div class="check-icon">✓</div><div><strong>PASS · Holdout vs H33</strong><span>0.1905 [0.1741,0.2069] / 0.1944 [0.1774,0.2126] vs H33 0.0961/0.0989 — paired Δ 0.0944 [0.0784,0.1098] / 0.0955 [0.0778,0.1133].</span></div></div>
-<div class="check-row" data-passed="true"><div class="check-icon">✓</div><div><strong>PASS · Leakage canary</strong><span>84 feats × 2 seeds =168 tests, max sym AUC 0.80360 ≤0.90.</span></div></div>
-<div class="check-row" data-passed="false"><div class="check-icon" style="color:var(--red)">×</div><div><strong>BLOCKED · Literal novelty</strong><span>Same dots as THVC: max overlap 1.0 >0.70 vs 17GEMSDOE/13GEMSDOE witnesses. Sparse-subset diagnostic (718 ≤50k) max 0.6844 not clearance. Requires protocol decision.</span></div></div>
-<div class="check-row" data-passed="false"><div class="check-icon" style="color:var(--red)">×</div><div><strong>BLOCKED · Selector / slot</strong><span>No organizer receipt; weekly slots checked on signed-in submissions page. One final entry per entity (rules §3.4). Generative-AI disclosure required.</span></div></div>
-<p class="micro"><a href="evidence/run_card_thvc_nanfix.json">Run card (JSON) ↗</a> · <a href="evidence/run_card.json">Original THVC card ↗</a> · <a href="evidence/verification.json">Verification ↗</a></p>
-</div></section>
-
-<section class="section prose">
-<h2>How to submit — and why you shouldn’t yet</h2>
-<ol>
-<li><strong>Download</strong> the TIF above (or ZIP). Use the browser check on this page to confirm SHA-256 + bytes match.</li>
-<li><strong>Validate locally:</strong> <code>.venv/bin/python scripts/validate_portal_spec.py artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.tif</code> — must say PASS all 8 rules (exit 0).</li>
-<li><strong>Do not submit yet.</strong> This file is dot-identical to THVC, so it shares THVC’s literal novelty failure. The selector has not approved a slot, and a manual upload cannot override that gate. Weekly slots are checked on your <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/submissions/">signed-in DrivenData submissions page</a>.</li>
-<li>When a genuinely new candidate clears all gates (format + holdout incumbent + full novelty) and the selector approves, only then copy its exact name/note, keep the submission-page receipt, and log it here as <code>ORGANIZER-CONFIRMED</code>.</li>
-</ol>
-<p>Official reference: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">Problem &amp; metric</a> · <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Leaderboard</a> · <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">Rules §§3.2–3.4</a>. Public leaderboard #1 is 0.4413 (observed 2026-10-22), not this file’s score.</p>
-</section>
-
-</main>
-<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not geothermal-resource certification. HOLDOUT-DTI is an offline proxy, not a leaderboard score.</p><div><a href="index.html">Home</a> · <a href="executive-summary.html">Decision guide</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (NO)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a href="thvc-nanfix.html">NANFIX (NO)</a><a href="ugbp-submission.html">UGBP (NO)</a><a href="gem-submission.html">GEM (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<main id="main" class="wrap"><section class="page-head"><p class="eyebrow">CONCURRENT HISTORICAL COMPANION</p><h1>Same predictions. Not a new discovery.</h1></section><section class="section"><p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> A parallel session re-encoded the historical THVC exterior as NaN. Independent local R1–R8 format checks pass, but the predicted dots are unchanged. This is not a unique model, a new holdout result, proof of a portal-error fix, or organizer acceptance. The literal novelty gate still fails.</p><p><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.tif" download>Download historical format companion — DO NOT SUBMIT</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.zip" download>Single-TIFF ZIP</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_thvc_nanfix.json">Historical card (portal-error claims unverified)</a></p><p>The canonical decision and original-file identity checker still refer to THVC-zeros. Do not treat a byte difference as scientific uniqueness or a passed selection gate.</p></section></main>
+<footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_aa2b12b5.md">Current review · aa2b12b5</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE79">Source code ↗</a><br>Scientific snapshot: 2026-10-22 · Slots used by this project: 0</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>

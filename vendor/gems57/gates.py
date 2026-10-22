@@ -34,7 +34,11 @@ def read_raster(path):
         return src.read(1)
 
 
-def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
+def format_report(path, sample, epsg=32611, cell=100.0, footprint=None, *, exterior="zeros"):
+    if exterior not in {"zeros", "nan"}:
+        raise ValueError("exterior must be zeros or nan")
+    if exterior == "nan" and footprint is None:
+        raise ValueError("NaN-exterior validation requires footprint")
     path, sample = Path(path), Path(sample)
     out = dict(path=str(path), bytes=path.stat().st_size, sha256=sha256(path))
     problems = []
@@ -68,7 +72,7 @@ def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
                 problems.append(f"resolution {src.res} != {(cell, cell)}")
         finite = np.isfinite(a)
         out.update(nan_pixels=int(np.isnan(a).sum()), infinity_pixels=int(np.isinf(a).sum()), n_nan=int((~finite).sum()))
-        if not finite.all():
+        if exterior == "zeros" and not finite.all():
             problems.append(f"{out['n_nan']} NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)")
         if finite.any():
             lo, hi = float(a[finite].min()), float(a[finite].max())
@@ -77,13 +81,21 @@ def format_report(path, sample, epsg=32611, cell=100.0, footprint=None):
                 problems.append(f"values outside [0,1]: min {lo}, max {hi}")
         else:
             problems.append("every pixel is NaN/infinite")
-        if src.nodata is not None and (not np.isfinite(src.nodata) or not 0 <= src.nodata <= 1):
+        if exterior == "zeros" and src.nodata is not None and (not np.isfinite(src.nodata) or not 0 <= src.nodata <= 1):
             problems.append("nodata tag outside all-finite [0,1] export policy")
         if footprint is not None:
             fp = np.asarray(footprint, bool)
             if fp.shape != a.shape:
                 problems.append(f"footprint shape {fp.shape} != raster shape {a.shape}")
             else:
+                if exterior == "nan":
+                    ref_values = ref.read(1)
+                    if not np.array_equal(fp, np.isfinite(ref_values)) or np.isinf(ref_values).any():
+                        problems.append("footprint differs from finite template support")
+                    if not fp.any() or not finite[fp].all() or not np.isnan(a[~fp]).all():
+                        problems.append("require finite interior and exclusively NaN exterior")
+                    if src.nodata is not None and not np.isnan(src.nodata):
+                        problems.append("nodata must be absent or NaN")
                 out["mass_outside_footprint"] = int(((a > 0) & ~fp).sum())
                 if out["mass_outside_footprint"]:
                     problems.append(f"{out['mass_outside_footprint']} emitted pixels outside the valid footprint")

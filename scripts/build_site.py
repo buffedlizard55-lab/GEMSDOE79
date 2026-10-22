@@ -93,7 +93,7 @@ def shell(title, content, card):
 <title>{E(title)} · GEMSDOE79</title><link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="assets/site.css"><script src="assets/site.js" defer></script>{check_script}</head>
 <body><a class="skip" href="#main">Skip to content</a><header><div class="wrap nav">
 <a class="brand" href="index.html" aria-label="GEMSDOE79 home"><svg viewBox="0 0 34 34" aria-hidden="true"><rect width="34" height="34" rx="8" fill="#173b35"/><path d="M7 23 14 10l4 8 3-5 6 10M7 27h20" fill="none" stroke="#d4f580" stroke-width="1.5" stroke-linejoin="round"/></svg>GEMS<span style="font-weight:400">79</span><small>FAULT DISCOVERY LAB</small></a>
-<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="gem-submission.html">GEM (NO)</a><a href="ugbp-submission.html">UGBP (NO)</a><a href="thvc-nanfix.html">NANFIX</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (0.1982 #1)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
+<nav aria-label="Main navigation"><a href="index.html#download">Download</a><a href="analysis.html">Why H33</a><a href="research.html">Research</a><a href="sources.html">Sources</a><a href="g79-cshd.html">CSHD (NO)</a><a href="g79-cskd.html">CSKD (0.2145 S30)</a><a href="cjx-submission.html">CJX</a><a href="dzd-submission.html">DZD</a><a href="mdsc-submission.html">MDSC</a><a href="tdw-submission.html">TDW (NO)</a><a href="g79-opc.html">OPC (NO)</a><a href="tipstep-submission.html">TIPSTEP (NO)</a><a href="thvc-nanfix.html">NANFIX (NO)</a><a href="ugbp-submission.html">UGBP (NO)</a><a href="gem-submission.html">GEM (NO)</a><a class="nav-cta" href="executive-summary.html">Decision guide ↗</a></nav></div></header>
 <main id="main" class="wrap">{content}</main>
 <footer><div class="wrap footer-content"><p><strong>Maximize P(Win). Own the outcome.</strong><br>Fault-mapping research, not proof of geothermal resources. HOLDOUT-DTI is an offline proxy, not a leaderboard score. Format PASS alone is never permission to submit.</p><div><a href="g79-cjxdir.html">G79-CJX-DIR (new TIFF, negative)</a> · <a href="history.html">History</a> · <a href="irregularities.html">Irregularities</a> · <a href="{REPO}/blob/main/reports/session_review_aa2b12b5.md">Current review · aa2b12b5</a> · <a href="{REPO}/blob/main/reports/session_review_9eb122ea.md">Prior review · 9eb122ea</a> · <a href="{REPO}/blob/main/reports/session_review_c273c7a3.md">Session review · c273c7a3</a> · <a href="{REPO}/blob/main/reports/session_review_0d90d81b.md">Review · 0d90d81b</a> · <a href="evidence/session_0d90d81b_audit.json">Forensic audit</a> · <a href="evidence/run_card.json">Run card</a> · <a href="{REPO}">Source code ↗</a><br>Scientific snapshot: {E(snap)} · Slots used by this project: {card['submission_slots_used']}</div></div></footer><div id="toast" role="status" aria-live="polite"></div></body></html>'''
 def decision_box(card):
@@ -334,6 +334,9 @@ def executive(card, summary, latest_preflight, runtime_data):
 {latest_review_notice(latest_preflight, runtime_data)}
 <section class="section">{download_panel(card)}</section>{opc_summary_box()}{download_check_panel(card)}<section class="section"><div class="two-col">{identity_panel(card)}{checks_panel(card, summary)}</div></section>
 {portal_rules_panel()}
+<section class="section prose" id="nan-exterior-writer"><h2>Shared writer repair · review 3d53e182</h2>
+<p>The shared writer now supports explicit <code>exterior="nan"</code>: finite real model values in [0,1], exact template footprint, and NaN only outside. Independent TIFF and ZIP format tests pass. This is a software capability, not a new geological candidate. Historical download bytes remain unchanged and blocked.</p>
+<p>All thirteen pinned mirror inputs and the historical cache were restored in this review's workspace. The literal preflight still stops every nonempty candidate; no experiment or slot was used. <a href="{REPO}/blob/main/reports/session_review_3d53e182.md">Review and next steps</a> · <a href="{REPO}/blob/main/evidence/run_card_3d53e182.json">Negative run card</a>.</p></section>
 <section class="section prose" id="validator-hardening"><h2>Automated ZIP checks hardened · review a26add66</h2>
 <p>A ZIP must pass <em>both</em> the single-member archive check and the inner GeoTIFF single-band check. The validator now preserves failures from the inner TIFF, checks the actual GDAL driver, and returns a complete failed-rule report for missing files or unreadable archives instead of crashing. A local PASS still never approves a competition submission.</p>
 <p>This review restored all thirteen hash-pinned mirror inputs in its workspace, but stopped before experiments because the literal novelty witness covers every allowed cell. No new candidate TIFF, holdout score or slot was created. The software fix does not repair or repackage any stopped artifact.</p>
@@ -1023,25 +1026,41 @@ def main():
                           + novelty_explanation(summary, preflight) + archive_links()),
         'sources.html': ('Official sources, availability & source health', sources_page(sources, runtime_data)),
         'history.html': ('Historical reports, not receipts', history_page()),
+        'ugbp-submission.html': ('UGBP historical negative research',
+            page_head('CONCURRENT ARCHIVE', 'UGBP: no submission approved.')
+            + f'<section class="section"><p>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. This is a concurrent historical result, not an experiment from review 3d53e182. Full protocol novelty is not established; local zero-exterior format does not pass official R6.</p><p><a href="{REPO}/blob/main/run_card_ugbp.json">Historical card and artifact paths</a> · <a href="{REPO}/tree/main/artifacts/ugbp">Research downloads — DO NOT SUBMIT</a></p></section>'),
+        'gem-submission.html': ('GEM historical negative research',
+            page_head('CONCURRENT ARCHIVE', 'GEM: no submission approved.')
+            + f'<section class="section"><p>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO. This concurrent historical candidate failed holdout and novelty gates. It is not a result from review 3d53e182. No organizer score is claimed.</p><p><a href="{REPO}/blob/main/run_card_gem_conduit.json">Historical card</a> · <a href="{REPO}/tree/main/artifacts/gem_submission">Research downloads — DO NOT SUBMIT</a></p></section>'),
         'g79-cshd.html': ('G79-CSHD unique TIF — #1 2-seed holdout record (0.1982), R1–R8 8/8 PASS & honest stop', cshd_page()),
         'g79-cskd.html': ('G79-CSKD unique TIF — Seed-30 record (0.2145) & automated gate verdict', cskd_page()),
         'cjx-submission.html': ('G79-CJX unique TIF \u2014 automated gate verdict', cjx_page()),
         'tdw-submission.html': ('G79-TDW new unique TIF \u2014 automated gate verdict', tdw_page()),
         'dzd-submission.html': ('G79-DZD unique TIF \u2014 automated gate verdict', dzd_page()),
+        'thvc-nanfix.html': ('THVC NaN-exterior historical companion — not unique',
+            page_head('CONCURRENT HISTORICAL COMPANION', 'Same predictions. Not a new discovery.')
+            + '<section class="section"><p><strong>OK TO DOWNLOAD: YES. OK TO SUBMIT: NO.</strong> '
+              'A parallel session re-encoded the historical THVC exterior as NaN. Independent local R1–R8 format checks pass, '
+              'but the predicted dots are unchanged. This is not a unique model, a new holdout result, '
+              'proof of a portal-error fix, or organizer acceptance. The literal novelty gate still fails.</p>'
+              '<p><a href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.tif" download>Download historical format companion — DO NOT SUBMIT</a> · '
+              '<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/raw/main/artifacts/thvc_nanfix/g79-thvc-nanfix-35093dots-20261022-b262e265-nan.zip" download>Single-TIFF ZIP</a> · '
+              '<a href="https://github.com/buffedlizard55-lab/GEMSDOE79/blob/main/run_card_thvc_nanfix.json">Historical card (portal-error claims unverified)</a></p>'
+              '<p>The canonical decision and original-file identity checker still refer to THVC-zeros. '
+              'Do not treat a byte difference as scientific uniqueness or a passed selection gate.</p></section>'),
+        'tipstep-submission.html': ('G79-TIPSTEP — closed negative research artifact', tipstep_page()),
         'mdsc-submission.html': ('G79-MDSC unique TIF \u2014 automated gate verdict', mdsc_page()),
         'irregularities.html': ('Irregularities & stop reasons',
                                 page_head('OWN THE OUTCOME', 'Failures are part of the record.')
                                 + '<section class="section">' + md('reports/irregularities.md') + '</section>'),
         'g79-opc.html': ('G79-OPC new TIF \u2014 oriented pair-correlation lane, automated gate verdict', opc_page()),
         'g79-cjxdir.html': ('G79-CJX-DIR — new unique research GeoTIFF (do not submit)', cjxdir_page()),
-        'tipstep-submission.html': ('G79-TIPSTEP — unique research GeoTIFF (do not submit)', tipstep_page()),
     }
     for filename, (title, content) in pages.items():
         (SITE / filename).write_text(shell(title, content, card))
-    extra_pages = [name for name in ('thvc-nanfix.html', 'gem-submission.html', 'ugbp-submission.html') if (SITE / name).is_file()]
     if (ROOT / 'run_card_thvc_nanfix.json').is_file():
         shutil.copyfile(ROOT / 'run_card_thvc_nanfix.json', SITE / 'evidence/run_card_thvc_nanfix.json')
-    all_page_names = list(pages) + extra_pages
+    all_page_names = list(pages)
     aliases = {'EXECUTIVE_SUMMARY.html': 'executive-summary.html', 'PROJECT_BRIEF.html': 'research.html'}
     for stale_html in SITE.glob('*.html'):
         if stale_html.name not in set(all_page_names) | set(aliases):

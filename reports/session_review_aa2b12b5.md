@@ -48,7 +48,7 @@ The historical TIPSTEP runner constructs the candidate's allowed domain from the
 
 Added fail-closed `enforce_open_lane` protection before bulk reads/writes in seven mutating scripts: `run_tipstep.py`, `novelty_tipstep.py`, `run_tdw.py`, `tdw_novelty.py`, `run_mdsc.py`, `finalize_mdsc.py`, and `generate_ventprox_submission.py`. Registered the commands and their artifacts/evidence in lifecycle tests. One import-path defect found by the new MDSC test was also corrected. No closed runner was allowed to replace historical bytes.
 
-All findings are logged as IR-79-242 through IR-79-247 in [the irregularity register](irregularities.md).
+All findings are logged as IR-79-244 through IR-79-249 in [the irregularity register](irregularities.md).
 
 ## Pass 3 — final requirements and verification
 
@@ -59,14 +59,14 @@ The final verification covered code compilation, the 19-page site build after co
 - `python scripts/verify_project.py` → PASS; this is integrity verification, not submission approval.
 - `python scripts/submission_status.py` → expected **exit 2**, automated BLOCKED decision; no human inspector required.
 - Targeted TIPSTEP/lifecycle/site tests → initial run found an MDSC import-path error and the then-missing review link; both were corrected and are included in the final full-suite rerun.
-- Full Python suite → **648 passed, 0 failed**.
+- Full Python suite → **658 passed, 0 failed**.
 - Download-identity Node suite → **12 passed, 0 failed**.
 - Real Chromium QA → **57/57 rendered cases passed** (19 pages × 1440/390/320 px), exact TIFF SHA-256 download, clipboard, two redirects, private TIFF/ZIP identity checks and altered-byte refusal; zero network requests during local hashing and zero browser errors ([receipt](../evidence/browser_review_aa2b12b5.json)).
 - Machine-readable final summary: [`evidence/verification_aa2b12b5.json`](../evidence/verification_aa2b12b5.json).
 
 ## Concurrent-main reconciliation (required before PR merge)
 
-PR #150 initially conflicted because `main` advanced through `d71ec32` with G79-CSHD, THVC-NANFIX, G79-GEM and G79-UGBP. I merged those revisions into the assigned session branch, preserved both concurrent lanes and their evidence, kept the canonical G79-THVC decision negative, renumbered this session's irregularities to IR-79-242..247, and rebuilt the combined 19-page site. The final full suite is **648 passed**, Node identity suite **12 passed**, and real-browser suite **57/57 passed** with **557** local links checked. Active CSHD/NANFIX prose that claimed to eliminate or prevent the portal range error was corrected to local R1–R8 PASS with portal acceptance unverified; no raster or scientific score was changed (IR-79-246). Newly arrived GEM/UGBP static pages were registered in the same reproducible build, with broken evidence links and the unsupported portal heading corrected (IR-79-247).
+PR #150 initially conflicted because `main` advanced through `0352e5e` with G79-CSHD, THVC-NANFIX, G79-GEM, G79-UGBP, the shared NaN writer and TILT-RING-100K. I merged those revisions into the assigned session branch, preserved both concurrent lanes and their evidence, kept the canonical G79-THVC decision negative, renumbered this session's irregularities to IR-79-244..249, and rebuilt the combined 19-page site. The final full suite is **658 passed**, Node identity suite **12 passed**, and real-browser suite **57/57 passed** with **591** local links checked. Active CSHD/NANFIX prose that claimed to eliminate or prevent the portal range error was corrected to local R1–R8 PASS with portal acceptance unverified; no raster or scientific score was changed (IR-79-248). Newly arrived GEM/UGBP static pages were registered in the same reproducible build, with broken evidence links and the unsupported portal heading corrected (IR-79-249). TILT-RING duplicate public copies were removed while its bytes were preserved and its unsupported promotion changed to negative for R6 failure and missing registry clearance (IR-79-250).
 
 ## Negative run card
 
@@ -75,7 +75,7 @@ PR #150 initially conflicted because `main` advanced through `d71ec32` with G79-
 ## Limitations and next work
 
 1. **Protocol decision required:** the owner must prospectively define how continuous, plateau and lattice registry rasters count as “dots,” applied uniformly to all future lanes. The current literal rule is unsatisfiable for any nonempty candidate; no local amendment is justified.
-2. **Writer/format reconciliation required before any eligible candidate:** the older shared writer requires all-finite zeros while official R6 requires NaN outside the sample footprint. A future shared update must permit NaN **only outside**, keep finite [0,1] values inside, update pins/tests, and still avoid claiming that this diagnoses the old portal error.
+2. **Shared writer repair merged and must remain verified:** concurrent `main` now provides explicit `exterior="nan"` support and validators, with legacy zero-exterior mode and historical bytes preserved. Keep finite [0,1] interior, NaN-only exterior and R1–R8 roundtrip tests in CI. This format capability still does not diagnose the old portal rejection or authorize upload.
 3. **Validation independence:** the existing holdout has been reused heavily and hides catalogue faults, whereas organizer truth is expert-identified faults absent from that catalogue. Reserve a genuinely untouched spatial partition; do not equate hide-and-recover improvement with leaderboard improvement.
 4. **External data for conditional hypotheses:** acquire and hash the official GDR Quaternary Faults v2 archive or GeoDAWN Area 1/Area 2 products only if a future protocol permits the corresponding preregistered lane. Check geometry, schema, licensing, co-registration and footprint coverage first.
 5. **Account-side requirements unavailable:** DrivenData authentication, participant eligibility, remaining weekly capacity and artifact-linked submission receipts cannot be inspected here. No upload was attempted. Only a submission-page receipt can support ORGANIZER-CONFIRMED.

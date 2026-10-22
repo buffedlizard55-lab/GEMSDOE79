@@ -26,3 +26,21 @@ conceal it. Exact numerical metric tests use a literal brute-force oracle.
 The shared writer fixes ZIP-member time to 2026-10-08 for deterministic bytes.
 That archive timestamp is **not** the scientific experiment/export time; the
 original run card contains that provenance.
+
+## Shared writer v2 — explicit NaN exterior (IR-79-242)
+
+`write_submission(..., exterior="nan")` accepts only finite, real model arrays in
+[0,1], zero outside the exact template footprint, and zero on supplied catalogue
+pixels. It explicitly serializes that exterior as NaN; it does not fill or clip
+bad model predictions. Both shared on-disk validators support this opt-in mode.
+The default remains `zeros` for historical reproducibility, **not official R6
+compliance**. The current canonical file is unchanged and still blocked.
+
+Pins retain the previous digests; historical default-policy audit receipts remain
+historical, not rerun results. The evaluator and novelty rules are unchanged.
+Tests reopen TIFF and ZIP using the independent project R1–R8 validator, check
+interior identity, reject malformed inputs, and ensure no approval is granted.
+The patch is exported in `reports/upstream_patch_nan_exterior_v2.diff` for template
+maintainers; it has not been merged into the external template repository.
+Future selector integration must explicitly choose the new format mode and still
+rederive every scientific and account-side gate. This repair authorizes no lane.

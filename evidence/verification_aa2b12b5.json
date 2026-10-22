@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "session": "aa2b12b5",
-  "verified_utc": "2026-10-22T21:28:18Z",
+  "verified_utc": "2026-10-22T21:34:33Z",
   "scientific_result": {
     "new_tif_generated": false,
     "new_holdout_dti": null,
@@ -22,7 +22,7 @@
   "software": {
     "python_full_suite": {
       "command": "OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 .venv/bin/python -m pytest -q",
-      "passed": 648,
+      "passed": 658,
       "failed": 0
     },
     "node_download_identity_suite": {
@@ -52,7 +52,7 @@
     },
     "site_check": {
       "command": ".venv/bin/python scripts/check_site.py",
-      "local_links_checked": 557,
+      "local_links_checked": 591,
       "all_pages_reachable": true,
       "passed": true
     },
@@ -85,17 +85,20 @@
     "No claim is made that a future proposal would beat 0.2778 or 0.4413."
   ],
   "concurrent_main_reconciliation": {
-    "merged_origin_main": "d71ec323429086cff0d245e66318cb68d6edd687",
-    "preserved": "G79-CSHD, THVC-NANFIX, G79-GEM and G79-UGBP artifacts, evidence and pages; canonical negative G79-THVC decision unchanged",
+    "merged_origin_main": "0352e5ef356c1a26578df71dde3801a34f386922",
+    "preserved": "G79-CSHD, THVC-NANFIX, G79-GEM, G79-UGBP, shared NaN writer and TILT-RING-100K research bytes; canonical negative G79-THVC decision unchanged",
     "irregularity_ids_renumbered_for_this_session": [
-      242,
-      243,
       244,
       245,
       246,
-      247
+      247,
+      248,
+      249,
+      250
     ],
     "portal_claim_review": "Active CSHD/NANFIX text now says local R1-R8 PASS, not guaranteed portal acceptance or a diagnosed earlier error",
-    "static_page_integration": "Registered GEM/UGBP in the reproducible 19-page build, repaired evidence links and portal wording"
+    "static_page_integration": "Registered GEM/UGBP in the reproducible 19-page build, repaired evidence links and portal wording",
+    "shared_writer": "Merged explicit exterior=\"nan\" support and validators; legacy zero mode and historical bytes unchanged",
+    "tilt_ring": "Removed duplicate public/root copies only; preserved artifact bytes and marked negative for R6 failure and unestablished registry novelty"
   }
 }
